@@ -28,7 +28,7 @@ public enum AssetFilterType
 	ALL("All"),
 	PROGRAM("Program"),
 	FUND("Fund"),
-	SIGNAL("Signal");
+	FOLLOW("Follow");
 
 	public static AssetFilterType fromValue(String text) {
 		for (AssetFilterType b : AssetFilterType.values()) {

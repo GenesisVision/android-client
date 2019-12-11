@@ -193,6 +193,7 @@ public class InvestProgramPresenter extends MvpPresenter<InvestProgramView> impl
 	void onContinueClicked() {
 		programRequest.setAmount(amount);
 		programRequest.setWalletCurrency(selectedWalletFrom.getCurrency().getValue());
+		programRequest.setWalletId(selectedWalletFrom.getId());
 		programRequest.setAmountTopText(getAmountToInvestString());
 		programRequest.setInfoMiddleText(getFeesAndCommissionsString());
 		programRequest.setAmountBottomText(getInvestmentAmountString());

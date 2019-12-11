@@ -60,6 +60,9 @@ public class ProgramSettingsFragment extends BaseFragment implements ProgramSett
 	@BindView(R.id.period_length)
 	public TextView periodLength;
 
+	@BindView(R.id.group_period)
+	public ViewGroup periodGroup;
+
 	@BindView(R.id.investment_limit_switch)
 	public SwitchCompat investmentLimitSwitch;
 
@@ -71,6 +74,9 @@ public class ProgramSettingsFragment extends BaseFragment implements ProgramSett
 
 	@BindView(R.id.investment_limit_currency)
 	public TextView investmentLimitCurrency;
+
+	@BindView(R.id.trades_delay)
+	public TextView tradesDelay;
 
 	@BindView(R.id.stop_out)
 	public EditText stopOut;
@@ -105,12 +111,26 @@ public class ProgramSettingsFragment extends BaseFragment implements ProgramSett
 
 	private Integer selectedPeriodLengthPosition = -1;
 
+	private ArrayList<String> tradesDelayOptions;
+
+	private Integer selectedTradesDelayPosition = -1;
+
 	@OnClick(R.id.group_period_length)
 	public void onPeriodLengthClicked() {
 		if (getActivity() != null && periodLengthOptions != null && periodLengthOptions.size() > 1) {
 			SelectOptionBottomSheetFragment fragment = SelectOptionBottomSheetFragment.with(
 					getString(R.string.period_length), periodLengthOptions, selectedPeriodLengthPosition);
 			fragment.setListener((position, text) -> presenter.onPeriodLengthOptionSelected(position, text));
+			fragment.show(getActivity().getSupportFragmentManager(), fragment.getTag());
+		}
+	}
+
+	@OnClick(R.id.group_trades_delay)
+	public void onTradesDelayClicked() {
+		if (getActivity() != null && tradesDelayOptions != null && tradesDelayOptions.size() > 1) {
+			SelectOptionBottomSheetFragment fragment = SelectOptionBottomSheetFragment.with(
+					getString(R.string.trades_delay), tradesDelayOptions, selectedTradesDelayPosition);
+			fragment.setListener((position, text) -> presenter.onTradesDelayOptionSelected(position, text));
 			fragment.show(getActivity().getSupportFragmentManager(), fragment.getTag());
 		}
 	}
@@ -182,6 +202,9 @@ public class ProgramSettingsFragment extends BaseFragment implements ProgramSett
 		stepGroup.setVisibility(model.isNeedStep() ? View.VISIBLE : View.GONE);
 		stepNumber.setText(model.getStepNumber());
 		stepTitle.setText(model.getStepTitle());
+
+		periodGroup.setVisibility(model.isNew() ? View.VISIBLE : View.GONE);
+
 		investmentLimitCurrency.setText(model.getCurrency());
 
 		confirmButton.setText(model.getButtonText());
@@ -230,14 +253,26 @@ public class ProgramSettingsFragment extends BaseFragment implements ProgramSett
 
 	@Override
 	public void setInvestmentLimit(Double investmentLimit) {
-		String investmentLimitText = StringFormatUtil.formatAmount(investmentLimit, 0, 4);
+		investmentLimitSwitch.setChecked(investmentLimit != null);
 		if (investmentLimit == 0) {
 			this.investmentLimit.setText("");
 		}
 		else {
+			String investmentLimitText = StringFormatUtil.formatAmount(investmentLimit, 0, 4);
 			this.investmentLimit.setText(investmentLimitText);
 			this.investmentLimit.setSelection(investmentLimitText.length(), investmentLimitText.length());
 		}
+	}
+
+	@Override
+	public void setTradesDelayOptions(ArrayList<String> tradesDelayOptions) {
+		this.tradesDelayOptions = tradesDelayOptions;
+	}
+
+	@Override
+	public void setTradesDelay(String tradesDelay, Integer position) {
+		this.tradesDelay.setText(tradesDelay);
+		this.selectedTradesDelayPosition = position;
 	}
 
 	@Override

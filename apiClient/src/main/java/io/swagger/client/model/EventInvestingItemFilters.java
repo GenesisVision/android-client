@@ -41,103 +41,103 @@ public class EventInvestingItemFilters implements Parcelable
 		}
 	};
 
-	@SerializedName("allAssets")
-	private List<FilterItemInfo> allAssets = null;
+	@SerializedName("all")
+	private List<FilterItemInfo> all = null;
 
-	@SerializedName("programDetails")
-	private List<FilterItemInfo> programDetails = null;
+	@SerializedName("program")
+	private List<FilterItemInfo> program = null;
 
-	@SerializedName("fundDetails")
-	private List<FilterItemInfo> fundDetails = null;
+	@SerializedName("fund")
+	private List<FilterItemInfo> fund = null;
 
 	public EventInvestingItemFilters() {
 	}
 
 	EventInvestingItemFilters(Parcel in) {
-		allAssets = (List<FilterItemInfo>) in.readValue(FilterItemInfo.class.getClassLoader());
-		programDetails = (List<FilterItemInfo>) in.readValue(FilterItemInfo.class.getClassLoader());
-		fundDetails = (List<FilterItemInfo>) in.readValue(FilterItemInfo.class.getClassLoader());
+		all = (List<FilterItemInfo>) in.readValue(FilterItemInfo.class.getClassLoader());
+		program = (List<FilterItemInfo>) in.readValue(FilterItemInfo.class.getClassLoader());
+		fund = (List<FilterItemInfo>) in.readValue(FilterItemInfo.class.getClassLoader());
 	}
 
-	public EventInvestingItemFilters allAssets(List<FilterItemInfo> allAssets) {
-		this.allAssets = allAssets;
+	public EventInvestingItemFilters all(List<FilterItemInfo> all) {
+		this.all = all;
 		return this;
 	}
 
-	public EventInvestingItemFilters addAllAssetsItem(FilterItemInfo allAssetsItem) {
-		if (this.allAssets == null) {
-			this.allAssets = new ArrayList<FilterItemInfo>();
+	public EventInvestingItemFilters addAllItem(FilterItemInfo allItem) {
+		if (this.all == null) {
+			this.all = new ArrayList<FilterItemInfo>();
 		}
-		this.allAssets.add(allAssetsItem);
+		this.all.add(allItem);
 		return this;
 	}
 
 	/**
-	 * Get allAssets
+	 * Get all
 	 *
-	 * @return allAssets
+	 * @return all
 	 **/
 	@Schema(description = "")
-	public List<FilterItemInfo> getAllAssets() {
-		return allAssets;
+	public List<FilterItemInfo> getAll() {
+		return all;
 	}
 
-	public void setAllAssets(List<FilterItemInfo> allAssets) {
-		this.allAssets = allAssets;
+	public void setAll(List<FilterItemInfo> all) {
+		this.all = all;
 	}
 
-	public EventInvestingItemFilters programDetails(List<FilterItemInfo> programDetails) {
-		this.programDetails = programDetails;
+	public EventInvestingItemFilters program(List<FilterItemInfo> program) {
+		this.program = program;
 		return this;
 	}
 
-	public EventInvestingItemFilters addProgramDetailsItem(FilterItemInfo programDetailsItem) {
-		if (this.programDetails == null) {
-			this.programDetails = new ArrayList<FilterItemInfo>();
+	public EventInvestingItemFilters addProgramItem(FilterItemInfo programItem) {
+		if (this.program == null) {
+			this.program = new ArrayList<FilterItemInfo>();
 		}
-		this.programDetails.add(programDetailsItem);
+		this.program.add(programItem);
 		return this;
 	}
 
 	/**
-	 * Get programDetails
+	 * Get program
 	 *
-	 * @return programDetails
+	 * @return program
 	 **/
 	@Schema(description = "")
-	public List<FilterItemInfo> getProgramDetails() {
-		return programDetails;
+	public List<FilterItemInfo> getProgram() {
+		return program;
 	}
 
-	public void setProgramDetails(List<FilterItemInfo> programDetails) {
-		this.programDetails = programDetails;
+	public void setProgram(List<FilterItemInfo> program) {
+		this.program = program;
 	}
 
-	public EventInvestingItemFilters fundDetails(List<FilterItemInfo> fundDetails) {
-		this.fundDetails = fundDetails;
+	public EventInvestingItemFilters fund(List<FilterItemInfo> fund) {
+		this.fund = fund;
 		return this;
 	}
 
-	public EventInvestingItemFilters addFundDetailsItem(FilterItemInfo fundDetailsItem) {
-		if (this.fundDetails == null) {
-			this.fundDetails = new ArrayList<FilterItemInfo>();
+	public EventInvestingItemFilters addFundItem(FilterItemInfo fundItem) {
+		if (this.fund == null) {
+			this.fund = new ArrayList<FilterItemInfo>();
 		}
-		this.fundDetails.add(fundDetailsItem);
+		this.fund.add(fundItem);
 		return this;
 	}
 
 	/**
-	 * Get fundDetails
+	 * Get fund
 	 *
-	 * @return fundDetails
+	 * @return fund
 	 **/
 	@Schema(description = "")
-	public List<FilterItemInfo> getFundDetails() {
-		return fundDetails;
+	public List<FilterItemInfo> getFund() {
+		return fund;
 	}
 
-	public void setFundDetails(List<FilterItemInfo> fundDetails) {
-		this.fundDetails = fundDetails;
+	public void setFund(List<FilterItemInfo> fund) {
+		this.fund = fund;
 	}
 
 	@Override
@@ -149,14 +149,14 @@ public class EventInvestingItemFilters implements Parcelable
 			return false;
 		}
 		EventInvestingItemFilters eventInvestingItemFilters = (EventInvestingItemFilters) o;
-		return Objects.equals(this.allAssets, eventInvestingItemFilters.allAssets) &&
-				Objects.equals(this.programDetails, eventInvestingItemFilters.programDetails) &&
-				Objects.equals(this.fundDetails, eventInvestingItemFilters.fundDetails);
+		return Objects.equals(this.all, eventInvestingItemFilters.all) &&
+				Objects.equals(this.program, eventInvestingItemFilters.program) &&
+				Objects.equals(this.fund, eventInvestingItemFilters.fund);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(allAssets, programDetails, fundDetails);
+		return Objects.hash(all, program, fund);
 	}
 
 	@Override
@@ -164,9 +164,9 @@ public class EventInvestingItemFilters implements Parcelable
 		StringBuilder sb = new StringBuilder();
 		sb.append("class EventInvestingItemFilters {\n");
 
-		sb.append("    allAssets: ").append(toIndentedString(allAssets)).append("\n");
-		sb.append("    programDetails: ").append(toIndentedString(programDetails)).append("\n");
-		sb.append("    fundDetails: ").append(toIndentedString(fundDetails)).append("\n");
+		sb.append("    all: ").append(toIndentedString(all)).append("\n");
+		sb.append("    program: ").append(toIndentedString(program)).append("\n");
+		sb.append("    fund: ").append(toIndentedString(fund)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}
@@ -183,9 +183,9 @@ public class EventInvestingItemFilters implements Parcelable
 	}
 
 	public void writeToParcel(Parcel out, int flags) {
-		out.writeValue(allAssets);
-		out.writeValue(programDetails);
-		out.writeValue(fundDetails);
+		out.writeValue(all);
+		out.writeValue(program);
+		out.writeValue(fund);
 	}
 
 	public int describeContents() {

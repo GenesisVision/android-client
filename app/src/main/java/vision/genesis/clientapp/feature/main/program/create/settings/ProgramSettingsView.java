@@ -17,6 +17,10 @@ interface ProgramSettingsView extends MvpView
 
 	void setInvestmentLimit(Double investmentLimit);
 
+	void setTradesDelayOptions(ArrayList<String> tradesDelayOptions);
+
+	void setTradesDelay(String tradesDelay, Integer position);
+
 	void setStopOutLevel(Double stopOutLevel);
 
 	void setEntryFee(Double entryFeeValue);

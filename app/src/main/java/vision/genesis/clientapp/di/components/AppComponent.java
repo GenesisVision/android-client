@@ -73,6 +73,7 @@ import vision.genesis.clientapp.feature.main.portfolio_events.PortfolioEventsPre
 import vision.genesis.clientapp.feature.main.profile.ProfilePresenter;
 import vision.genesis.clientapp.feature.main.program.ProgramDetailsPresenter;
 import vision.genesis.clientapp.feature.main.program.balance.ProgramBalancePresenter;
+import vision.genesis.clientapp.feature.main.program.change_settings.ChangeProgramSettingsPresenter;
 import vision.genesis.clientapp.feature.main.program.create.CreateProgramPresenter;
 import vision.genesis.clientapp.feature.main.program.create.deposit.CreateProgramDepositPresenter;
 import vision.genesis.clientapp.feature.main.program.create.settings.ProgramSettingsPresenter;
@@ -83,6 +84,7 @@ import vision.genesis.clientapp.feature.main.program.info.program.ProgramInfoPre
 import vision.genesis.clientapp.feature.main.program.invest.InvestProgramPresenter;
 import vision.genesis.clientapp.feature.main.program.invest.confirm.ConfirmProgramInvestBottomSheetFragment;
 import vision.genesis.clientapp.feature.main.program.level.ProgramLevelBottomSheetDialog;
+import vision.genesis.clientapp.feature.main.program.manage.ManageProgramPresenter;
 import vision.genesis.clientapp.feature.main.program.open_positions.OpenPositionsPresenter;
 import vision.genesis.clientapp.feature.main.program.period_history.PeriodHistoryPresenter;
 import vision.genesis.clientapp.feature.main.program.profit.ProgramProfitPresenter;
@@ -374,4 +376,8 @@ public interface AppComponent
 	void inject(ChangeBrokerPresenter changeBrokerPresenter);
 
 	void inject(ChangeTradingAccountPasswordPresenter changeTradingAccountPasswordPresenter);
+
+	void inject(ManageProgramPresenter manageProgramPresenter);
+
+	void inject(ChangeProgramSettingsPresenter changeProgramSettingsPresenter);
 }

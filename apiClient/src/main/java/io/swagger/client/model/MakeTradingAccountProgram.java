@@ -40,8 +40,8 @@ public class MakeTradingAccountProgram implements Parcelable
 		}
 	};
 
-	@SerializedName("tradingAccountId")
-	private UUID tradingAccountId = null;
+	@SerializedName("id")
+	private UUID id = null;
 
 	@SerializedName("periodLength")
 	private Integer periodLength = null;
@@ -74,7 +74,7 @@ public class MakeTradingAccountProgram implements Parcelable
 	}
 
 	MakeTradingAccountProgram(Parcel in) {
-		tradingAccountId = (UUID) in.readValue(UUID.class.getClassLoader());
+		id = (UUID) in.readValue(UUID.class.getClassLoader());
 		periodLength = (Integer) in.readValue(null);
 		stopOutLevel = (Double) in.readValue(null);
 		investmentLimit = (Double) in.readValue(null);
@@ -86,23 +86,23 @@ public class MakeTradingAccountProgram implements Parcelable
 		logo = (String) in.readValue(null);
 	}
 
-	public MakeTradingAccountProgram tradingAccountId(UUID tradingAccountId) {
-		this.tradingAccountId = tradingAccountId;
+	public MakeTradingAccountProgram id(UUID id) {
+		this.id = id;
 		return this;
 	}
 
 	/**
-	 * Get tradingAccountId
+	 * Get id
 	 *
-	 * @return tradingAccountId
+	 * @return id
 	 **/
 	@Schema(description = "")
-	public UUID getTradingAccountId() {
-		return tradingAccountId;
+	public UUID getId() {
+		return id;
 	}
 
-	public void setTradingAccountId(UUID tradingAccountId) {
-		this.tradingAccountId = tradingAccountId;
+	public void setId(UUID id) {
+		this.id = id;
 	}
 
 	public MakeTradingAccountProgram periodLength(Integer periodLength) {
@@ -285,7 +285,7 @@ public class MakeTradingAccountProgram implements Parcelable
 			return false;
 		}
 		MakeTradingAccountProgram makeTradingAccountProgram = (MakeTradingAccountProgram) o;
-		return Objects.equals(this.tradingAccountId, makeTradingAccountProgram.tradingAccountId) &&
+		return Objects.equals(this.id, makeTradingAccountProgram.id) &&
 				Objects.equals(this.periodLength, makeTradingAccountProgram.periodLength) &&
 				Objects.equals(this.stopOutLevel, makeTradingAccountProgram.stopOutLevel) &&
 				Objects.equals(this.investmentLimit, makeTradingAccountProgram.investmentLimit) &&
@@ -299,7 +299,7 @@ public class MakeTradingAccountProgram implements Parcelable
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(tradingAccountId, periodLength, stopOutLevel, investmentLimit, tradesDelay, entryFee, successFee, title, description, logo);
+		return Objects.hash(id, periodLength, stopOutLevel, investmentLimit, tradesDelay, entryFee, successFee, title, description, logo);
 	}
 
 	@Override
@@ -307,7 +307,7 @@ public class MakeTradingAccountProgram implements Parcelable
 		StringBuilder sb = new StringBuilder();
 		sb.append("class MakeTradingAccountProgram {\n");
 
-		sb.append("    tradingAccountId: ").append(toIndentedString(tradingAccountId)).append("\n");
+		sb.append("    id: ").append(toIndentedString(id)).append("\n");
 		sb.append("    periodLength: ").append(toIndentedString(periodLength)).append("\n");
 		sb.append("    stopOutLevel: ").append(toIndentedString(stopOutLevel)).append("\n");
 		sb.append("    investmentLimit: ").append(toIndentedString(investmentLimit)).append("\n");
@@ -333,7 +333,7 @@ public class MakeTradingAccountProgram implements Parcelable
 	}
 
 	public void writeToParcel(Parcel out, int flags) {
-		out.writeValue(tradingAccountId);
+		out.writeValue(id);
 		out.writeValue(periodLength);
 		out.writeValue(stopOutLevel);
 		out.writeValue(investmentLimit);

@@ -45,8 +45,8 @@ public class SearchViewModel implements Parcelable
 	@SerializedName("funds")
 	private ItemsViewModelFundDetailsList funds = null;
 
-	@SerializedName("follow")
-	private ItemsViewModelFollowDetailsList follow = null;
+	@SerializedName("follows")
+	private ItemsViewModelFollowDetailsList follows = null;
 
 	@SerializedName("managers")
 	private ItemsViewModelPublicProfile managers = null;
@@ -57,7 +57,7 @@ public class SearchViewModel implements Parcelable
 	SearchViewModel(Parcel in) {
 		programs = (ItemsViewModelProgramDetailsList) in.readValue(ItemsViewModelProgramDetailsList.class.getClassLoader());
 		funds = (ItemsViewModelFundDetailsList) in.readValue(ItemsViewModelFundDetailsList.class.getClassLoader());
-		follow = (ItemsViewModelFollowDetailsList) in.readValue(ItemsViewModelFollowDetailsList.class.getClassLoader());
+		follows = (ItemsViewModelFollowDetailsList) in.readValue(ItemsViewModelFollowDetailsList.class.getClassLoader());
 		managers = (ItemsViewModelPublicProfile) in.readValue(ItemsViewModelPublicProfile.class.getClassLoader());
 	}
 
@@ -99,23 +99,23 @@ public class SearchViewModel implements Parcelable
 		this.funds = funds;
 	}
 
-	public SearchViewModel follow(ItemsViewModelFollowDetailsList follow) {
-		this.follow = follow;
+	public SearchViewModel follows(ItemsViewModelFollowDetailsList follows) {
+		this.follows = follows;
 		return this;
 	}
 
 	/**
-	 * Get follow
+	 * Get follows
 	 *
-	 * @return follow
+	 * @return follows
 	 **/
 	@Schema(description = "")
-	public ItemsViewModelFollowDetailsList getFollow() {
-		return follow;
+	public ItemsViewModelFollowDetailsList getFollows() {
+		return follows;
 	}
 
-	public void setFollow(ItemsViewModelFollowDetailsList follow) {
-		this.follow = follow;
+	public void setFollows(ItemsViewModelFollowDetailsList follows) {
+		this.follows = follows;
 	}
 
 	public SearchViewModel managers(ItemsViewModelPublicProfile managers) {
@@ -148,13 +148,13 @@ public class SearchViewModel implements Parcelable
 		SearchViewModel searchViewModel = (SearchViewModel) o;
 		return Objects.equals(this.programs, searchViewModel.programs) &&
 				Objects.equals(this.funds, searchViewModel.funds) &&
-				Objects.equals(this.follow, searchViewModel.follow) &&
+				Objects.equals(this.follows, searchViewModel.follows) &&
 				Objects.equals(this.managers, searchViewModel.managers);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(programs, funds, follow, managers);
+		return Objects.hash(programs, funds, follows, managers);
 	}
 
 	@Override
@@ -164,7 +164,7 @@ public class SearchViewModel implements Parcelable
 
 		sb.append("    programs: ").append(toIndentedString(programs)).append("\n");
 		sb.append("    funds: ").append(toIndentedString(funds)).append("\n");
-		sb.append("    follow: ").append(toIndentedString(follow)).append("\n");
+		sb.append("    follows: ").append(toIndentedString(follows)).append("\n");
 		sb.append("    managers: ").append(toIndentedString(managers)).append("\n");
 		sb.append("}");
 		return sb.toString();
@@ -184,7 +184,7 @@ public class SearchViewModel implements Parcelable
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(programs);
 		out.writeValue(funds);
-		out.writeValue(follow);
+		out.writeValue(follows);
 		out.writeValue(managers);
 	}
 

@@ -14,6 +14,7 @@ Name | Type | Description | Notes
 **showTwoFactorButton** | **Boolean** |  |  [optional]
 **value** | **Double** |  |  [optional]
 **profit** | **Double** |  |  [optional]
+**profitPercent** | **Double** |  |  [optional]
 **invested** | **Double** |  |  [optional]
 **pendingInput** | **Double** |  |  [optional]
 **pendingOutput** | **Double** |  |  [optional]
@@ -21,3 +22,4 @@ Name | Type | Description | Notes
 **status** | [**AssetInvestmentStatus**](AssetInvestmentStatus.md) |  |  [optional]
 **successFeePersonal** | **Double** |  |  [optional]
 **migration** | [**MigrationRequest**](MigrationRequest.md) |  |  [optional]
+**subscribedAccounts** | **Integer** |  |  [optional]

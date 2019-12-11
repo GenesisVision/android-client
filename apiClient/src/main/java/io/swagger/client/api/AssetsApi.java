@@ -114,6 +114,18 @@ public interface AssetsApi
 	);
 
 	/**
+	 * Close trading account
+	 *
+	 * @param id            (required)
+	 * @param authorization JWT access token (required)
+	 * @return Call&lt;Void&gt;
+	 */
+	@POST("v2.0/assets/tradingaccounts/{id}/close")
+	Observable<Void> closeTradingAccount(
+			@retrofit2.http.Path("id") UUID id, @retrofit2.http.Header("Authorization") String authorization
+	);
+
+	/**
 	 * Confirm 2FA for program if required (for brokers like Huobi)
 	 *
 	 * @param authorization JWT access token (required)

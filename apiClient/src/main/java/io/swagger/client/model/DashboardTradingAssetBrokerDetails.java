@@ -18,6 +18,7 @@ import android.os.Parcelable;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.Objects;
+import java.util.UUID;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 
@@ -39,6 +40,9 @@ public class DashboardTradingAssetBrokerDetails implements Parcelable
 		}
 	};
 
+	@SerializedName("id")
+	private UUID id = null;
+
 	@SerializedName("logo")
 	private String logo = null;
 
@@ -52,9 +56,29 @@ public class DashboardTradingAssetBrokerDetails implements Parcelable
 	}
 
 	DashboardTradingAssetBrokerDetails(Parcel in) {
+		id = (UUID) in.readValue(UUID.class.getClassLoader());
 		logo = (String) in.readValue(null);
 		name = (String) in.readValue(null);
 		type = (BrokerTradeServerType) in.readValue(BrokerTradeServerType.class.getClassLoader());
+	}
+
+	public DashboardTradingAssetBrokerDetails id(UUID id) {
+		this.id = id;
+		return this;
+	}
+
+	/**
+	 * Get id
+	 *
+	 * @return id
+	 **/
+	@Schema(description = "")
+	public UUID getId() {
+		return id;
+	}
+
+	public void setId(UUID id) {
+		this.id = id;
 	}
 
 	public DashboardTradingAssetBrokerDetails logo(String logo) {
@@ -123,14 +147,15 @@ public class DashboardTradingAssetBrokerDetails implements Parcelable
 			return false;
 		}
 		DashboardTradingAssetBrokerDetails dashboardTradingAssetBrokerDetails = (DashboardTradingAssetBrokerDetails) o;
-		return Objects.equals(this.logo, dashboardTradingAssetBrokerDetails.logo) &&
+		return Objects.equals(this.id, dashboardTradingAssetBrokerDetails.id) &&
+				Objects.equals(this.logo, dashboardTradingAssetBrokerDetails.logo) &&
 				Objects.equals(this.name, dashboardTradingAssetBrokerDetails.name) &&
 				Objects.equals(this.type, dashboardTradingAssetBrokerDetails.type);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(logo, name, type);
+		return Objects.hash(id, logo, name, type);
 	}
 
 	@Override
@@ -138,6 +163,7 @@ public class DashboardTradingAssetBrokerDetails implements Parcelable
 		StringBuilder sb = new StringBuilder();
 		sb.append("class DashboardTradingAssetBrokerDetails {\n");
 
+		sb.append("    id: ").append(toIndentedString(id)).append("\n");
 		sb.append("    logo: ").append(toIndentedString(logo)).append("\n");
 		sb.append("    name: ").append(toIndentedString(name)).append("\n");
 		sb.append("    type: ").append(toIndentedString(type)).append("\n");
@@ -157,6 +183,7 @@ public class DashboardTradingAssetBrokerDetails implements Parcelable
 	}
 
 	public void writeToParcel(Parcel out, int flags) {
+		out.writeValue(id);
 		out.writeValue(logo);
 		out.writeValue(name);
 		out.writeValue(type);

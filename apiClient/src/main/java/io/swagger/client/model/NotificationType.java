@@ -34,6 +34,7 @@ public enum NotificationType
 	PROFILE2FA("Profile2FA"),
 	PROFILESECURITY("ProfileSecurity"),
 	TRADINGACCOUNTPWDUPDATED("TradingAccountPwdUpdated"),
+	TRADINGACCOUNTUPDATED("TradingAccountUpdated"),
 	PROGRAMNEWSANDUPDATES("ProgramNewsAndUpdates"),
 	PROGRAMENDOFPERIOD("ProgramEndOfPeriod"),
 	PROGRAMCONDITION("ProgramCondition"),

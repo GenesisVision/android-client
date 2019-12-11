@@ -40,8 +40,8 @@ public class MakeTradingAccountSignalProvider implements Parcelable
 		}
 	};
 
-	@SerializedName("tradingAccountId")
-	private UUID tradingAccountId = null;
+	@SerializedName("id")
+	private UUID id = null;
 
 	@SerializedName("volumeFee")
 	private Double volumeFee = null;
@@ -62,7 +62,7 @@ public class MakeTradingAccountSignalProvider implements Parcelable
 	}
 
 	MakeTradingAccountSignalProvider(Parcel in) {
-		tradingAccountId = (UUID) in.readValue(UUID.class.getClassLoader());
+		id = (UUID) in.readValue(UUID.class.getClassLoader());
 		volumeFee = (Double) in.readValue(null);
 		successFee = (Double) in.readValue(null);
 		title = (String) in.readValue(null);
@@ -70,23 +70,23 @@ public class MakeTradingAccountSignalProvider implements Parcelable
 		logo = (String) in.readValue(null);
 	}
 
-	public MakeTradingAccountSignalProvider tradingAccountId(UUID tradingAccountId) {
-		this.tradingAccountId = tradingAccountId;
+	public MakeTradingAccountSignalProvider id(UUID id) {
+		this.id = id;
 		return this;
 	}
 
 	/**
-	 * Get tradingAccountId
+	 * Get id
 	 *
-	 * @return tradingAccountId
+	 * @return id
 	 **/
 	@Schema(description = "")
-	public UUID getTradingAccountId() {
-		return tradingAccountId;
+	public UUID getId() {
+		return id;
 	}
 
-	public void setTradingAccountId(UUID tradingAccountId) {
-		this.tradingAccountId = tradingAccountId;
+	public void setId(UUID id) {
+		this.id = id;
 	}
 
 	public MakeTradingAccountSignalProvider volumeFee(Double volumeFee) {
@@ -193,7 +193,7 @@ public class MakeTradingAccountSignalProvider implements Parcelable
 			return false;
 		}
 		MakeTradingAccountSignalProvider makeTradingAccountSignalProvider = (MakeTradingAccountSignalProvider) o;
-		return Objects.equals(this.tradingAccountId, makeTradingAccountSignalProvider.tradingAccountId) &&
+		return Objects.equals(this.id, makeTradingAccountSignalProvider.id) &&
 				Objects.equals(this.volumeFee, makeTradingAccountSignalProvider.volumeFee) &&
 				Objects.equals(this.successFee, makeTradingAccountSignalProvider.successFee) &&
 				Objects.equals(this.title, makeTradingAccountSignalProvider.title) &&
@@ -203,7 +203,7 @@ public class MakeTradingAccountSignalProvider implements Parcelable
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(tradingAccountId, volumeFee, successFee, title, description, logo);
+		return Objects.hash(id, volumeFee, successFee, title, description, logo);
 	}
 
 	@Override
@@ -211,7 +211,7 @@ public class MakeTradingAccountSignalProvider implements Parcelable
 		StringBuilder sb = new StringBuilder();
 		sb.append("class MakeTradingAccountSignalProvider {\n");
 
-		sb.append("    tradingAccountId: ").append(toIndentedString(tradingAccountId)).append("\n");
+		sb.append("    id: ").append(toIndentedString(id)).append("\n");
 		sb.append("    volumeFee: ").append(toIndentedString(volumeFee)).append("\n");
 		sb.append("    successFee: ").append(toIndentedString(successFee)).append("\n");
 		sb.append("    title: ").append(toIndentedString(title)).append("\n");
@@ -233,7 +233,7 @@ public class MakeTradingAccountSignalProvider implements Parcelable
 	}
 
 	public void writeToParcel(Parcel out, int flags) {
-		out.writeValue(tradingAccountId);
+		out.writeValue(id);
 		out.writeValue(volumeFee);
 		out.writeValue(successFee);
 		out.writeValue(title);

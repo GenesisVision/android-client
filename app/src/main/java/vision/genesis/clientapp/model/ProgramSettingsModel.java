@@ -3,6 +3,8 @@ package vision.genesis.clientapp.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import io.swagger.client.model.ProgramUpdate;
+
 /**
  * GenesisVisionAndroid
  * Created by Vitaly on 28/11/2019.
@@ -45,6 +47,10 @@ public class ProgramSettingsModel implements Parcelable
 
 	private Double successFee;
 
+	private Boolean isNew;
+
+	private ProgramUpdate.TradesDelayEnum tradesDelay;
+
 	public ProgramSettingsModel() {
 
 	}
@@ -52,7 +58,8 @@ public class ProgramSettingsModel implements Parcelable
 	public ProgramSettingsModel(Boolean needStep, String stepNumber, String stepTitle,
 	                            Boolean needWarningInfo, String buttonText, String currency,
 	                            Integer periodLength, Double stopOutLevel, Double investmentLimit,
-	                            Double entryFee, Double successFee) {
+	                            Double entryFee, Double successFee, ProgramUpdate.TradesDelayEnum tradesDelay,
+	                            Boolean isNew) {
 		this.needStep = needStep;
 		this.stepNumber = stepNumber;
 		this.stepTitle = stepTitle;
@@ -64,6 +71,8 @@ public class ProgramSettingsModel implements Parcelable
 		this.investmentLimit = investmentLimit;
 		this.entryFee = entryFee;
 		this.successFee = successFee;
+		this.tradesDelay = tradesDelay;
+		this.isNew = isNew;
 	}
 
 	protected ProgramSettingsModel(Parcel in) {
@@ -105,6 +114,9 @@ public class ProgramSettingsModel implements Parcelable
 		else {
 			successFee = in.readDouble();
 		}
+		tradesDelay = (ProgramUpdate.TradesDelayEnum) in.readSerializable();
+		byte tmpIsNew = in.readByte();
+		isNew = tmpIsNew == 0 ? null : tmpIsNew == 1;
 	}
 
 	public Boolean isNeedStep() {
@@ -155,6 +167,14 @@ public class ProgramSettingsModel implements Parcelable
 		this.investmentLimit = investmentLimit;
 	}
 
+	public ProgramUpdate.TradesDelayEnum getTradesDelay() {
+		return tradesDelay;
+	}
+
+	public void setTradesDelay(ProgramUpdate.TradesDelayEnum tradesDelay) {
+		this.tradesDelay = tradesDelay;
+	}
+
 	public Double getEntryFee() {
 		return entryFee;
 	}
@@ -169,6 +189,10 @@ public class ProgramSettingsModel implements Parcelable
 
 	public void setSuccessFee(Double successFee) {
 		this.successFee = successFee;
+	}
+
+	public Boolean isNew() {
+		return isNew;
 	}
 
 	@Override
@@ -219,5 +243,7 @@ public class ProgramSettingsModel implements Parcelable
 			parcel.writeByte((byte) 1);
 			parcel.writeDouble(successFee);
 		}
+		parcel.writeSerializable(tradesDelay);
+		parcel.writeByte((byte) (isNew == null ? 0 : isNew ? 1 : 2));
 	}
 }

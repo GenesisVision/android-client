@@ -11,3 +11,4 @@ Name | Type | Description | Notes
 **hasNotifications** | **Boolean** |  |  [optional]
 **balance** | **Double** |  |  [optional]
 **leverage** | **Integer** |  |  [optional]
+**subscribedAccounts** | **Integer** |  |  [optional]

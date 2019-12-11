@@ -5,6 +5,7 @@ import android.util.AttributeSet;
 import android.util.TypedValue;
 
 import androidx.appcompat.content.res.AppCompatResources;
+
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.utils.ThemeUtil;
 import vision.genesis.clientapp.utils.TypefaceUtil;
@@ -50,5 +51,9 @@ public class PrimaryButton extends androidx.appcompat.widget.AppCompatButton
 		setTextColor(ThemeUtil.getColorByAttrId(getContext(), R.attr.colorTextPrimary));
 		setTypeface(TypefaceUtil.semibold());
 		setTextSize(TypedValue.COMPLEX_UNIT_SP, 14);
+	}
+
+	public void setRed() {
+		setBackground(AppCompatResources.getDrawable(getContext(), R.drawable.button_primary_red));
 	}
 }

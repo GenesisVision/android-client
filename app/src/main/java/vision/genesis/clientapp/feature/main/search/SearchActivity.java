@@ -248,7 +248,7 @@ public class SearchActivity extends MvpAppCompatActivity implements SearchView
 			pagerAdapter.sendSearchResults(results);
 			((CustomTabView) programsTab.getCustomView()).setCount(results.getPrograms().getTotal());
 			((CustomTabView) fundsTab.getCustomView()).setCount(results.getFunds().getTotal());
-			((CustomTabView) followsTab.getCustomView()).setCount(results.getFollow().getTotal());
+			((CustomTabView) followsTab.getCustomView()).setCount(results.getFollows().getTotal());
 			((CustomTabView) managersTab.getCustomView()).setCount(results.getManagers().getTotal());
 		}
 	}

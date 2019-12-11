@@ -15,6 +15,8 @@ import javax.inject.Inject;
 
 import io.swagger.client.model.PlatformInfo;
 import io.swagger.client.model.ProgramCreateAssetPlatformInfo;
+import io.swagger.client.model.ProgramUpdate;
+import io.swagger.client.model.TradesDelay;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -66,6 +68,8 @@ public class ProgramSettingsPresenter extends MvpPresenter<ProgramSettingsView>
 
 	private boolean isInvestmentLimitEnabled;
 
+	private TradesDelay tradesDelay;
+
 	@Override
 	protected void onFirstViewAttach() {
 		super.onFirstViewAttach();
@@ -86,20 +90,7 @@ public class ProgramSettingsPresenter extends MvpPresenter<ProgramSettingsView>
 
 	void setModel(ProgramSettingsModel model) {
 		this.model = model;
-		this.maxStopOutLevel = model.getStopOutLevel() == null ? 100 : model.getStopOutLevel();
 
-		if (model.getStopOutLevel() != null) {
-			getViewState().setStopOutLevel(model.getStopOutLevel());
-		}
-		if (model.getInvestmentLimit() != null) {
-			getViewState().setInvestmentLimit(model.getInvestmentLimit());
-		}
-		if (model.getEntryFee() != null) {
-			getViewState().setEntryFee(model.getEntryFee());
-		}
-		if (model.getSuccessFee() != null) {
-			getViewState().setSuccessFee(model.getSuccessFee());
-		}
 		getPlatformInfo();
 	}
 
@@ -174,10 +165,11 @@ public class ProgramSettingsPresenter extends MvpPresenter<ProgramSettingsView>
 	void onConfirmClicked() {
 		ProgramSettingsModel newModel = new ProgramSettingsModel();
 		newModel.setPeriodLength(periodLength);
-		newModel.setInvestmentLimit(isInvestmentLimitEnabled ? null : investmentLimit);
+		newModel.setInvestmentLimit(!isInvestmentLimitEnabled ? null : investmentLimit);
 		newModel.setStopOutLevel(stopOut);
 		newModel.setEntryFee(entryFee);
 		newModel.setSuccessFee(successFee);
+		newModel.setTradesDelay(ProgramUpdate.TradesDelayEnum.fromValue(tradesDelay.getValue()));
 		EventBus.getDefault().post(new OnProgramSettingsConfirmEvent(newModel));
 	}
 
@@ -203,6 +195,37 @@ public class ProgramSettingsPresenter extends MvpPresenter<ProgramSettingsView>
 		getViewState().updateEntryFeeDescription(maxEntryFee);
 		getViewState().updateSuccessFeeDescription(maxSuccessFee);
 
+		this.maxStopOutLevel = model.getStopOutLevel() == null ? 100 : model.getStopOutLevel();
+
+		if (model.getInvestmentLimit() != null) {
+			getViewState().setInvestmentLimit(model.getInvestmentLimit());
+		}
+
+		getViewState().setTradesDelayOptions(StringFormatUtil.getTradesDelayOptions());
+		int tradesDelayPos = 0;
+		if (model.getTradesDelay() != null) {
+			for (TradesDelay value : TradesDelay.values()) {
+				if (value.getValue().equals(model.getTradesDelay().getValue())) {
+					this.tradesDelay = value;
+
+					break;
+				}
+				tradesDelayPos++;
+			}
+		}
+		onTradesDelayOptionSelected(tradesDelayPos, StringFormatUtil.getTradesDelayString(TradesDelay.values()[tradesDelayPos]));
+
+
+		if (model.getStopOutLevel() != null) {
+			getViewState().setStopOutLevel(model.getStopOutLevel());
+		}
+		if (model.getEntryFee() != null) {
+			getViewState().setEntryFee(model.getEntryFee());
+		}
+		if (model.getSuccessFee() != null) {
+			getViewState().setSuccessFee(model.getSuccessFee());
+		}
+
 		periods = platformInfo.getAssetInfo().getProgramInfo().getPeriods();
 
 		ArrayList<String> periodLengthOptions = new ArrayList<>();
@@ -211,11 +234,12 @@ public class ProgramSettingsPresenter extends MvpPresenter<ProgramSettingsView>
 		}
 		getViewState().setPeriodLengthOptions(periodLengthOptions);
 
-		int pos = 0;
+		int periodPos = 0;
 		if (model.getPeriodLength() != null) {
-			pos = periods.indexOf(model.getPeriodLength());
+			periodPos = periods.indexOf(model.getPeriodLength());
 		}
-		onPeriodLengthOptionSelected(pos, periodLengthOptions.get(pos));
+		onPeriodLengthOptionSelected(periodPos, periodLengthOptions.get(periodPos));
+
 	}
 
 	private void handleGetPlatformInfoError(Throwable throwable) {
@@ -227,6 +251,13 @@ public class ProgramSettingsPresenter extends MvpPresenter<ProgramSettingsView>
 	void onPeriodLengthOptionSelected(Integer position, String text) {
 		this.periodLength = periods.get(position);
 		getViewState().setPeriodLength(text, position);
+
+		updateConfirmButtonAvailability();
+	}
+
+	void onTradesDelayOptionSelected(Integer position, String text) {
+		this.tradesDelay = TradesDelay.values()[position];
+		getViewState().setTradesDelay(text, position);
 
 		updateConfirmButtonAvailability();
 	}

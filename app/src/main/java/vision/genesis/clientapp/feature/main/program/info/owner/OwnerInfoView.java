@@ -54,5 +54,7 @@ interface OwnerInfoView extends MvpView
 
 	void showManageAccountActivity(TradingAccountDetailsModel model);
 
+	void showManageProgramActivity(ProgramDetailsFull programDetails);
+
 	void showEditFollowSettingsActivity(CreateSignalProvider model);
 }

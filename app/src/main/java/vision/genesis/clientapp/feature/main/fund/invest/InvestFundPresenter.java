@@ -188,6 +188,7 @@ public class InvestFundPresenter extends MvpPresenter<InvestFundView> implements
 	void onContinueClicked() {
 		fundRequest.setAmount(amount);
 		fundRequest.setWalletCurrency(selectedWalletFrom.getCurrency().getValue());
+		fundRequest.setWalletId(selectedWalletFrom.getId());
 		fundRequest.setAmountTopText(getAmountToInvestString());
 		fundRequest.setInfoMiddleText(getFeesAndCommissionsString());
 		fundRequest.setAmountBottomText(getInvestmentAmountString());

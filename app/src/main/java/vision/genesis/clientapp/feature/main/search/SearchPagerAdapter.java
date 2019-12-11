@@ -69,7 +69,7 @@ public class SearchPagerAdapter extends FragmentStatePagerAdapter
 	public void sendSearchResults(SearchViewModel model) {
 		programsFragment.showSearchResults(model.getPrograms());
 		fundsFragment.showSearchResults(model.getFunds());
-		followsFragment.showSearchResults(model.getFollow());
+		followsFragment.showSearchResults(model.getFollows());
 		managersFragment.showSearchResults(model.getManagers());
 	}
 }

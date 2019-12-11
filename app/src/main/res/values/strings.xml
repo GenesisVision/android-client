@@ -192,6 +192,12 @@
         <item quantity="other">hours</item>
     </plurals>
 
+    <plurals name="minutes">
+        <item quantity="one">minute</item>
+        <item quantity="two">minutes</item>
+        <item quantity="other">minutes</item>
+    </plurals>
+
     <plurals name="mins">
         <item quantity="one">min</item>
         <item quantity="two">mins</item>
@@ -524,8 +530,8 @@
     <string name="fund_notifications">Fund notifications</string>
     <string name="fund_news_and_updates">Fund news and updates</string>
     <string name="fund_structure_changing">Fund structure changing</string>
-    <string name="template_program_invest_convert">After tapping the "Confirm" button, the invested %s will be immediately converted to %s. </string>
-    <string name="template_program_invest_accrual">%sAccrual of %s to the account manager will only occur at the end of the reporting period.</string>
+    <string name="template_program_invest_convert">After tapping the "Confirm" button, the invested %s will be immediately converted to %s.</string>
+    <string name="template_program_invest_accrual">%s Accrual of %s to the account manager will only occur at the end of the reporting period.</string>
     <string name="program_withdraw_warning">Your request will be processed at the end of the reporting period. The requested amount will be converted to GVT and transferred to your wallet.</string>
     <string name="other">Other</string>
     <string name="start">Start</string>
@@ -754,6 +760,19 @@
     <string name="cancel_migration">Cancel migration</string>
     <string name="change_broker">Change broker</string>
     <string name="broker_change_info">A broker change in the program will occur automatically within 24 hours after the end of the reporting period. You will receive a message confirming the successful change of the broker and you will receive a new login and password from the trading account. The invested funds in the program will be transferred to the new broker. All trading history and statistics will be saved on the program page.</string>
+    <string name="manage_program">Manage program</string>
+    <string name="trades_delay">Trades delay</string>
+    <string name="change_settings">Change settings</string>
+    <string name="close_period">Close period</string>
+    <string name="danger_zone">Danger zone</string>
+    <string name="close_period_info">The current period of the program will end in one hour.</string>
+    <string name="close_program_info">The investment program will be closed after this reporting period. Current investment requests will be cancelled, and new requests won’t be accepted. Profit and funds from the trading account will be distributed between investors and manager according to their shares within the aforementioned program.</string>
+    <string name="close_program">Close program</string>
+    <string name="no_limit">no limit</string>
+    <string name="no_delay">no delay</string>
+    <string name="program_settings_trades_delay_description">Managers have the ability to delay the public display of their trades and open positions to protect their strategy.</string>
+    <string name="close_period_alert_message">Do you really want to restart current period?</string>
+    <string name="close_program_alert_message">Investment program will be closed after this reporting period. Current investment requests will be cancelled, and new requests won’t be accepted. Profit and funds from the trading account will be deposited to investors and manager according to their shares.\n\nWARNING: This action cannot be undone! Are you sure?</string>
 
     <plurals name="assets">
         <item quantity="one">asset</item>

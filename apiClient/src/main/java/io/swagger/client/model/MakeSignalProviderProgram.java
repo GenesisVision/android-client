@@ -40,8 +40,8 @@ public class MakeSignalProviderProgram implements Parcelable
 		}
 	};
 
-	@SerializedName("assetId")
-	private UUID assetId = null;
+	@SerializedName("id")
+	private UUID id = null;
 
 	@SerializedName("periodLength")
 	private Integer periodLength = null;
@@ -62,7 +62,7 @@ public class MakeSignalProviderProgram implements Parcelable
 	}
 
 	MakeSignalProviderProgram(Parcel in) {
-		assetId = (UUID) in.readValue(UUID.class.getClassLoader());
+		id = (UUID) in.readValue(UUID.class.getClassLoader());
 		periodLength = (Integer) in.readValue(null);
 		stopOutLevel = (Double) in.readValue(null);
 		investmentLimit = (Double) in.readValue(null);
@@ -70,23 +70,23 @@ public class MakeSignalProviderProgram implements Parcelable
 		successFee = (Double) in.readValue(null);
 	}
 
-	public MakeSignalProviderProgram assetId(UUID assetId) {
-		this.assetId = assetId;
+	public MakeSignalProviderProgram id(UUID id) {
+		this.id = id;
 		return this;
 	}
 
 	/**
-	 * Get assetId
+	 * Get id
 	 *
-	 * @return assetId
+	 * @return id
 	 **/
 	@Schema(description = "")
-	public UUID getAssetId() {
-		return assetId;
+	public UUID getId() {
+		return id;
 	}
 
-	public void setAssetId(UUID assetId) {
-		this.assetId = assetId;
+	public void setId(UUID id) {
+		this.id = id;
 	}
 
 	public MakeSignalProviderProgram periodLength(Integer periodLength) {
@@ -193,7 +193,7 @@ public class MakeSignalProviderProgram implements Parcelable
 			return false;
 		}
 		MakeSignalProviderProgram makeSignalProviderProgram = (MakeSignalProviderProgram) o;
-		return Objects.equals(this.assetId, makeSignalProviderProgram.assetId) &&
+		return Objects.equals(this.id, makeSignalProviderProgram.id) &&
 				Objects.equals(this.periodLength, makeSignalProviderProgram.periodLength) &&
 				Objects.equals(this.stopOutLevel, makeSignalProviderProgram.stopOutLevel) &&
 				Objects.equals(this.investmentLimit, makeSignalProviderProgram.investmentLimit) &&
@@ -203,7 +203,7 @@ public class MakeSignalProviderProgram implements Parcelable
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(assetId, periodLength, stopOutLevel, investmentLimit, entryFee, successFee);
+		return Objects.hash(id, periodLength, stopOutLevel, investmentLimit, entryFee, successFee);
 	}
 
 	@Override
@@ -211,7 +211,7 @@ public class MakeSignalProviderProgram implements Parcelable
 		StringBuilder sb = new StringBuilder();
 		sb.append("class MakeSignalProviderProgram {\n");
 
-		sb.append("    assetId: ").append(toIndentedString(assetId)).append("\n");
+		sb.append("    id: ").append(toIndentedString(id)).append("\n");
 		sb.append("    periodLength: ").append(toIndentedString(periodLength)).append("\n");
 		sb.append("    stopOutLevel: ").append(toIndentedString(stopOutLevel)).append("\n");
 		sb.append("    investmentLimit: ").append(toIndentedString(investmentLimit)).append("\n");
@@ -233,7 +233,7 @@ public class MakeSignalProviderProgram implements Parcelable
 	}
 
 	public void writeToParcel(Parcel out, int flags) {
-		out.writeValue(assetId);
+		out.writeValue(id);
 		out.writeValue(periodLength);
 		out.writeValue(stopOutLevel);
 		out.writeValue(investmentLimit);

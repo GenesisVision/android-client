@@ -147,7 +147,7 @@ public class CreateProgramPresenter extends MvpPresenter<CreateProgramView>
 		if (model.getAssetType().equals(AssetType.NONE)) {
 			MakeTradingAccountProgram accountRequest = new MakeTradingAccountProgram();
 
-			accountRequest.setTradingAccountId(model.getAssetId());
+			accountRequest.setId(model.getAssetId());
 			accountRequest.setTitle(this.title);
 			accountRequest.setDescription(this.description);
 			accountRequest.setLogo(this.logo);
@@ -163,7 +163,7 @@ public class CreateProgramPresenter extends MvpPresenter<CreateProgramView>
 		else if (model.getAssetType().equals(AssetType.FOLLOW)) {
 			MakeSignalProviderProgram followRequest = new MakeSignalProviderProgram();
 
-			followRequest.setAssetId(model.getAssetId());
+			followRequest.setId(model.getAssetId());
 
 			followRequest.setPeriodLength(periodLength);
 			followRequest.setStopOutLevel(stopOutLevel);

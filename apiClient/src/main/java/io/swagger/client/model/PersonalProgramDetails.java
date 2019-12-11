@@ -72,6 +72,9 @@ public class PersonalProgramDetails implements Parcelable
 	@SerializedName("profit")
 	private Double profit = null;
 
+	@SerializedName("profitPercent")
+	private Double profitPercent = null;
+
 	@SerializedName("invested")
 	private Double invested = null;
 
@@ -93,6 +96,9 @@ public class PersonalProgramDetails implements Parcelable
 	@SerializedName("migration")
 	private MigrationRequest migration = null;
 
+	@SerializedName("subscribedAccounts")
+	private Integer subscribedAccounts = null;
+
 	public PersonalProgramDetails() {
 	}
 
@@ -108,6 +114,7 @@ public class PersonalProgramDetails implements Parcelable
 		showTwoFactorButton = (Boolean) in.readValue(null);
 		value = (Double) in.readValue(null);
 		profit = (Double) in.readValue(null);
+		profitPercent = (Double) in.readValue(null);
 		invested = (Double) in.readValue(null);
 		pendingInput = (Double) in.readValue(null);
 		pendingOutput = (Double) in.readValue(null);
@@ -115,6 +122,7 @@ public class PersonalProgramDetails implements Parcelable
 		status = (AssetInvestmentStatus) in.readValue(AssetInvestmentStatus.class.getClassLoader());
 		successFeePersonal = (Double) in.readValue(null);
 		migration = (MigrationRequest) in.readValue(MigrationRequest.class.getClassLoader());
+		subscribedAccounts = (Integer) in.readValue(null);
 	}
 
 	public PersonalProgramDetails isOwnAsset(Boolean isOwnAsset) {
@@ -326,6 +334,25 @@ public class PersonalProgramDetails implements Parcelable
 		this.profit = profit;
 	}
 
+	public PersonalProgramDetails profitPercent(Double profitPercent) {
+		this.profitPercent = profitPercent;
+		return this;
+	}
+
+	/**
+	 * Get profitPercent
+	 *
+	 * @return profitPercent
+	 **/
+	@Schema(description = "")
+	public Double getProfitPercent() {
+		return profitPercent;
+	}
+
+	public void setProfitPercent(Double profitPercent) {
+		this.profitPercent = profitPercent;
+	}
+
 	public PersonalProgramDetails invested(Double invested) {
 		this.invested = invested;
 		return this;
@@ -459,6 +486,25 @@ public class PersonalProgramDetails implements Parcelable
 		this.migration = migration;
 	}
 
+	public PersonalProgramDetails subscribedAccounts(Integer subscribedAccounts) {
+		this.subscribedAccounts = subscribedAccounts;
+		return this;
+	}
+
+	/**
+	 * Get subscribedAccounts
+	 *
+	 * @return subscribedAccounts
+	 **/
+	@Schema(description = "")
+	public Integer getSubscribedAccounts() {
+		return subscribedAccounts;
+	}
+
+	public void setSubscribedAccounts(Integer subscribedAccounts) {
+		this.subscribedAccounts = subscribedAccounts;
+	}
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -479,18 +525,20 @@ public class PersonalProgramDetails implements Parcelable
 				Objects.equals(this.showTwoFactorButton, personalProgramDetails.showTwoFactorButton) &&
 				Objects.equals(this.value, personalProgramDetails.value) &&
 				Objects.equals(this.profit, personalProgramDetails.profit) &&
+				Objects.equals(this.profitPercent, personalProgramDetails.profitPercent) &&
 				Objects.equals(this.invested, personalProgramDetails.invested) &&
 				Objects.equals(this.pendingInput, personalProgramDetails.pendingInput) &&
 				Objects.equals(this.pendingOutput, personalProgramDetails.pendingOutput) &&
 				Objects.equals(this.pendingOutputIsWithdrawAll, personalProgramDetails.pendingOutputIsWithdrawAll) &&
 				Objects.equals(this.status, personalProgramDetails.status) &&
 				Objects.equals(this.successFeePersonal, personalProgramDetails.successFeePersonal) &&
-				Objects.equals(this.migration, personalProgramDetails.migration);
+				Objects.equals(this.migration, personalProgramDetails.migration) &&
+				Objects.equals(this.subscribedAccounts, personalProgramDetails.subscribedAccounts);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(isOwnAsset, isFavorite, isReinvest, isInvested, canInvest, canWithdraw, ownerActions, hasNotifications, showTwoFactorButton, value, profit, invested, pendingInput, pendingOutput, pendingOutputIsWithdrawAll, status, successFeePersonal, migration);
+		return Objects.hash(isOwnAsset, isFavorite, isReinvest, isInvested, canInvest, canWithdraw, ownerActions, hasNotifications, showTwoFactorButton, value, profit, profitPercent, invested, pendingInput, pendingOutput, pendingOutputIsWithdrawAll, status, successFeePersonal, migration, subscribedAccounts);
 	}
 
 	@Override
@@ -509,6 +557,7 @@ public class PersonalProgramDetails implements Parcelable
 		sb.append("    showTwoFactorButton: ").append(toIndentedString(showTwoFactorButton)).append("\n");
 		sb.append("    value: ").append(toIndentedString(value)).append("\n");
 		sb.append("    profit: ").append(toIndentedString(profit)).append("\n");
+		sb.append("    profitPercent: ").append(toIndentedString(profitPercent)).append("\n");
 		sb.append("    invested: ").append(toIndentedString(invested)).append("\n");
 		sb.append("    pendingInput: ").append(toIndentedString(pendingInput)).append("\n");
 		sb.append("    pendingOutput: ").append(toIndentedString(pendingOutput)).append("\n");
@@ -516,6 +565,7 @@ public class PersonalProgramDetails implements Parcelable
 		sb.append("    status: ").append(toIndentedString(status)).append("\n");
 		sb.append("    successFeePersonal: ").append(toIndentedString(successFeePersonal)).append("\n");
 		sb.append("    migration: ").append(toIndentedString(migration)).append("\n");
+		sb.append("    subscribedAccounts: ").append(toIndentedString(subscribedAccounts)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}
@@ -543,6 +593,7 @@ public class PersonalProgramDetails implements Parcelable
 		out.writeValue(showTwoFactorButton);
 		out.writeValue(value);
 		out.writeValue(profit);
+		out.writeValue(profitPercent);
 		out.writeValue(invested);
 		out.writeValue(pendingInput);
 		out.writeValue(pendingOutput);
@@ -550,6 +601,7 @@ public class PersonalProgramDetails implements Parcelable
 		out.writeValue(status);
 		out.writeValue(successFeePersonal);
 		out.writeValue(migration);
+		out.writeValue(subscribedAccounts);
 	}
 
 	public int describeContents() {

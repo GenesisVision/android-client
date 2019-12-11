@@ -2,16 +2,16 @@
 
 ## Enum
 
-* `GVPROGRAMSUCCESSSUM` (value: `"GvProgramSuccessSum"`)
-* `MANAGERPROGRAMSUCCESSSUM` (value: `"ManagerProgramSuccessSum"`)
 * `UNDEFINED` (value: `"Undefined"`)
 * `GVPROGRAMENTRY` (value: `"GvProgramEntry"`)
 * `GVPROGRAMSUCCESS` (value: `"GvProgramSuccess"`)
+* `GVPROGRAMSUCCESSSUM` (value: `"GvProgramSuccessSum"`)
 * `GVFUNDENTRY` (value: `"GvFundEntry"`)
 * `GVGMGVTHOLDERFEE` (value: `"GvGmGvtHolderFee"`)
 * `GVGMREGULARFEE` (value: `"GvGmRegularFee"`)
 * `MANAGERPROGRAMENTRY` (value: `"ManagerProgramEntry"`)
 * `MANAGERPROGRAMSUCCESS` (value: `"ManagerProgramSuccess"`)
+* `MANAGERPROGRAMSUCCESSSUM` (value: `"ManagerProgramSuccessSum"`)
 * `MANAGERFUNDENTRY` (value: `"ManagerFundEntry"`)
 * `MANAGERFUNDEXIT` (value: `"ManagerFundExit"`)
 * `GVWITHDRAWAL` (value: `"GvWithdrawal"`)

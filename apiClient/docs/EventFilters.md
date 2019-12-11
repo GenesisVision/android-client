@@ -3,5 +3,5 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**investingHistory** | [**EventInvestingItemFilters**](EventInvestingItemFilters.md) |  |  [optional]
+**investmentHistory** | [**EventInvestingItemFilters**](EventInvestingItemFilters.md) |  |  [optional]
 **tradingHistory** | [**EventTradingItemFilters**](EventTradingItemFilters.md) |  |  [optional]

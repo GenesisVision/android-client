@@ -39,8 +39,8 @@ public class EventFilters implements Parcelable
 		}
 	};
 
-	@SerializedName("investingHistory")
-	private EventInvestingItemFilters investingHistory = null;
+	@SerializedName("investmentHistory")
+	private EventInvestingItemFilters investmentHistory = null;
 
 	@SerializedName("tradingHistory")
 	private EventTradingItemFilters tradingHistory = null;
@@ -49,27 +49,27 @@ public class EventFilters implements Parcelable
 	}
 
 	EventFilters(Parcel in) {
-		investingHistory = (EventInvestingItemFilters) in.readValue(EventInvestingItemFilters.class.getClassLoader());
+		investmentHistory = (EventInvestingItemFilters) in.readValue(EventInvestingItemFilters.class.getClassLoader());
 		tradingHistory = (EventTradingItemFilters) in.readValue(EventTradingItemFilters.class.getClassLoader());
 	}
 
-	public EventFilters investingHistory(EventInvestingItemFilters investingHistory) {
-		this.investingHistory = investingHistory;
+	public EventFilters investmentHistory(EventInvestingItemFilters investmentHistory) {
+		this.investmentHistory = investmentHistory;
 		return this;
 	}
 
 	/**
-	 * Get investingHistory
+	 * Get investmentHistory
 	 *
-	 * @return investingHistory
+	 * @return investmentHistory
 	 **/
 	@Schema(description = "")
-	public EventInvestingItemFilters getInvestingHistory() {
-		return investingHistory;
+	public EventInvestingItemFilters getInvestmentHistory() {
+		return investmentHistory;
 	}
 
-	public void setInvestingHistory(EventInvestingItemFilters investingHistory) {
-		this.investingHistory = investingHistory;
+	public void setInvestmentHistory(EventInvestingItemFilters investmentHistory) {
+		this.investmentHistory = investmentHistory;
 	}
 
 	public EventFilters tradingHistory(EventTradingItemFilters tradingHistory) {
@@ -100,13 +100,13 @@ public class EventFilters implements Parcelable
 			return false;
 		}
 		EventFilters eventFilters = (EventFilters) o;
-		return Objects.equals(this.investingHistory, eventFilters.investingHistory) &&
+		return Objects.equals(this.investmentHistory, eventFilters.investmentHistory) &&
 				Objects.equals(this.tradingHistory, eventFilters.tradingHistory);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(investingHistory, tradingHistory);
+		return Objects.hash(investmentHistory, tradingHistory);
 	}
 
 	@Override
@@ -114,7 +114,7 @@ public class EventFilters implements Parcelable
 		StringBuilder sb = new StringBuilder();
 		sb.append("class EventFilters {\n");
 
-		sb.append("    investingHistory: ").append(toIndentedString(investingHistory)).append("\n");
+		sb.append("    investmentHistory: ").append(toIndentedString(investmentHistory)).append("\n");
 		sb.append("    tradingHistory: ").append(toIndentedString(tradingHistory)).append("\n");
 		sb.append("}");
 		return sb.toString();
@@ -132,7 +132,7 @@ public class EventFilters implements Parcelable
 	}
 
 	public void writeToParcel(Parcel out, int flags) {
-		out.writeValue(investingHistory);
+		out.writeValue(investmentHistory);
 		out.writeValue(tradingHistory);
 	}
 

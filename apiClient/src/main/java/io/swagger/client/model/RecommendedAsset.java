@@ -15,8 +15,13 @@ package io.swagger.client.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.google.gson.TypeAdapter;
+import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
 
+import java.io.IOException;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -41,13 +46,22 @@ public class RecommendedAsset implements Parcelable
 	};
 
 	@SerializedName("currency")
-	private Currency currency = null;
+	private CurrencyEnum currency = null;
 
 	@SerializedName("statistic")
 	private ProfitChart statistic = null;
 
+	@SerializedName("leverage")
+	private Integer leverage = null;
+
 	@SerializedName("broker")
 	private DashboardTradingAssetBrokerDetails broker = null;
+
+	@SerializedName("isExternal")
+	private Boolean isExternal = null;
+
+	@SerializedName("hasSignalAccount")
+	private Boolean hasSignalAccount = null;
 
 	@SerializedName("id")
 	private UUID id = null;
@@ -74,9 +88,12 @@ public class RecommendedAsset implements Parcelable
 	}
 
 	RecommendedAsset(Parcel in) {
-		currency = (Currency) in.readValue(Currency.class.getClassLoader());
+		currency = (CurrencyEnum) in.readValue(null);
 		statistic = (ProfitChart) in.readValue(ProfitChart.class.getClassLoader());
+		leverage = (Integer) in.readValue(null);
 		broker = (DashboardTradingAssetBrokerDetails) in.readValue(DashboardTradingAssetBrokerDetails.class.getClassLoader());
+		isExternal = (Boolean) in.readValue(null);
+		hasSignalAccount = (Boolean) in.readValue(null);
 		id = (UUID) in.readValue(UUID.class.getClassLoader());
 		logo = (String) in.readValue(null);
 		color = (String) in.readValue(null);
@@ -86,7 +103,7 @@ public class RecommendedAsset implements Parcelable
 		programDetails = (ProgramAssetDetails) in.readValue(ProgramAssetDetails.class.getClassLoader());
 	}
 
-	public RecommendedAsset currency(Currency currency) {
+	public RecommendedAsset currency(CurrencyEnum currency) {
 		this.currency = currency;
 		return this;
 	}
@@ -97,11 +114,11 @@ public class RecommendedAsset implements Parcelable
 	 * @return currency
 	 **/
 	@Schema(description = "")
-	public Currency getCurrency() {
+	public CurrencyEnum getCurrency() {
 		return currency;
 	}
 
-	public void setCurrency(Currency currency) {
+	public void setCurrency(CurrencyEnum currency) {
 		this.currency = currency;
 	}
 
@@ -124,6 +141,25 @@ public class RecommendedAsset implements Parcelable
 		this.statistic = statistic;
 	}
 
+	public RecommendedAsset leverage(Integer leverage) {
+		this.leverage = leverage;
+		return this;
+	}
+
+	/**
+	 * Get leverage
+	 *
+	 * @return leverage
+	 **/
+	@Schema(description = "")
+	public Integer getLeverage() {
+		return leverage;
+	}
+
+	public void setLeverage(Integer leverage) {
+		this.leverage = leverage;
+	}
+
 	public RecommendedAsset broker(DashboardTradingAssetBrokerDetails broker) {
 		this.broker = broker;
 		return this;
@@ -141,6 +177,44 @@ public class RecommendedAsset implements Parcelable
 
 	public void setBroker(DashboardTradingAssetBrokerDetails broker) {
 		this.broker = broker;
+	}
+
+	public RecommendedAsset isExternal(Boolean isExternal) {
+		this.isExternal = isExternal;
+		return this;
+	}
+
+	/**
+	 * Get isExternal
+	 *
+	 * @return isExternal
+	 **/
+	@Schema(description = "")
+	public Boolean isIsExternal() {
+		return isExternal;
+	}
+
+	public void setIsExternal(Boolean isExternal) {
+		this.isExternal = isExternal;
+	}
+
+	public RecommendedAsset hasSignalAccount(Boolean hasSignalAccount) {
+		this.hasSignalAccount = hasSignalAccount;
+		return this;
+	}
+
+	/**
+	 * Get hasSignalAccount
+	 *
+	 * @return hasSignalAccount
+	 **/
+	@Schema(description = "")
+	public Boolean isHasSignalAccount() {
+		return hasSignalAccount;
+	}
+
+	public void setHasSignalAccount(Boolean hasSignalAccount) {
+		this.hasSignalAccount = hasSignalAccount;
 	}
 
 	public RecommendedAsset id(UUID id) {
@@ -287,7 +361,10 @@ public class RecommendedAsset implements Parcelable
 		RecommendedAsset recommendedAsset = (RecommendedAsset) o;
 		return Objects.equals(this.currency, recommendedAsset.currency) &&
 				Objects.equals(this.statistic, recommendedAsset.statistic) &&
+				Objects.equals(this.leverage, recommendedAsset.leverage) &&
 				Objects.equals(this.broker, recommendedAsset.broker) &&
+				Objects.equals(this.isExternal, recommendedAsset.isExternal) &&
+				Objects.equals(this.hasSignalAccount, recommendedAsset.hasSignalAccount) &&
 				Objects.equals(this.id, recommendedAsset.id) &&
 				Objects.equals(this.logo, recommendedAsset.logo) &&
 				Objects.equals(this.color, recommendedAsset.color) &&
@@ -299,7 +376,7 @@ public class RecommendedAsset implements Parcelable
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(currency, statistic, broker, id, logo, color, title, url, assetType, programDetails);
+		return Objects.hash(currency, statistic, leverage, broker, isExternal, hasSignalAccount, id, logo, color, title, url, assetType, programDetails);
 	}
 
 	@Override
@@ -309,7 +386,10 @@ public class RecommendedAsset implements Parcelable
 
 		sb.append("    currency: ").append(toIndentedString(currency)).append("\n");
 		sb.append("    statistic: ").append(toIndentedString(statistic)).append("\n");
+		sb.append("    leverage: ").append(toIndentedString(leverage)).append("\n");
 		sb.append("    broker: ").append(toIndentedString(broker)).append("\n");
+		sb.append("    isExternal: ").append(toIndentedString(isExternal)).append("\n");
+		sb.append("    hasSignalAccount: ").append(toIndentedString(hasSignalAccount)).append("\n");
 		sb.append("    id: ").append(toIndentedString(id)).append("\n");
 		sb.append("    logo: ").append(toIndentedString(logo)).append("\n");
 		sb.append("    color: ").append(toIndentedString(color)).append("\n");
@@ -335,7 +415,10 @@ public class RecommendedAsset implements Parcelable
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(currency);
 		out.writeValue(statistic);
+		out.writeValue(leverage);
 		out.writeValue(broker);
+		out.writeValue(isExternal);
+		out.writeValue(hasSignalAccount);
 		out.writeValue(id);
 		out.writeValue(logo);
 		out.writeValue(color);
@@ -347,5 +430,64 @@ public class RecommendedAsset implements Parcelable
 
 	public int describeContents() {
 		return 0;
+	}
+
+	/**
+	 * Gets or Sets currency
+	 */
+	@JsonAdapter(CurrencyEnum.Adapter.class)
+	public enum CurrencyEnum
+	{
+		USD("USD"),
+		BTC("BTC"),
+		ETH("ETH"),
+		USDT("USDT"),
+		GVT("GVT"),
+		UNDEFINED("Undefined"),
+		ADA("ADA"),
+		XRP("XRP"),
+		BCH("BCH"),
+		LTC("LTC"),
+		DOGE("DOGE"),
+		BNB("BNB"),
+		EUR("EUR");
+
+		public static CurrencyEnum fromValue(String text) {
+			for (CurrencyEnum b : CurrencyEnum.values()) {
+				if (String.valueOf(b.value).equals(text)) {
+					return b;
+				}
+			}
+			return null;
+		}
+
+		private String value;
+
+		CurrencyEnum(String value) {
+			this.value = value;
+		}
+
+		public String getValue() {
+			return value;
+		}
+
+		@Override
+		public String toString() {
+			return String.valueOf(value);
+		}
+
+		public static class Adapter extends TypeAdapter<CurrencyEnum>
+		{
+			@Override
+			public void write(final JsonWriter jsonWriter, final CurrencyEnum enumeration) throws IOException {
+				jsonWriter.value(enumeration.getValue());
+			}
+
+			@Override
+			public CurrencyEnum read(final JsonReader jsonReader) throws IOException {
+				String value = jsonReader.nextString();
+				return CurrencyEnum.fromValue(String.valueOf(value));
+			}
+		}
 	}
 }

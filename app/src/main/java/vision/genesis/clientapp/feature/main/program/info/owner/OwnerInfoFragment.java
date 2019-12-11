@@ -45,6 +45,7 @@ import vision.genesis.clientapp.feature.main.message.MessageBottomSheetDialog;
 import vision.genesis.clientapp.feature.main.program.ProgramDetailsPagerAdapter;
 import vision.genesis.clientapp.feature.main.program.create.CreateProgramActivity;
 import vision.genesis.clientapp.feature.main.program.invest.InvestProgramActivity;
+import vision.genesis.clientapp.feature.main.program.manage.ManageProgramActivity;
 import vision.genesis.clientapp.feature.main.program.withdraw.WithdrawProgramActivity;
 import vision.genesis.clientapp.feature.main.trading_account.manage.ManageTradingAccountActivity;
 import vision.genesis.clientapp.model.CreateProgramModel;
@@ -619,6 +620,13 @@ public class OwnerInfoFragment extends BaseFragment implements OwnerInfoView, Pr
 	public void showManageAccountActivity(TradingAccountDetailsModel model) {
 		if (getActivity() != null) {
 			ManageTradingAccountActivity.startFrom(getActivity(), model);
+		}
+	}
+
+	@Override
+	public void showManageProgramActivity(ProgramDetailsFull programDetails) {
+		if (getActivity() != null) {
+			ManageProgramActivity.startFrom(getActivity(), programDetails);
 		}
 	}
 

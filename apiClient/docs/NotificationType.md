@@ -11,6 +11,7 @@
 * `PROFILE2FA` (value: `"Profile2FA"`)
 * `PROFILESECURITY` (value: `"ProfileSecurity"`)
 * `TRADINGACCOUNTPWDUPDATED` (value: `"TradingAccountPwdUpdated"`)
+* `TRADINGACCOUNTUPDATED` (value: `"TradingAccountUpdated"`)
 * `PROGRAMNEWSANDUPDATES` (value: `"ProgramNewsAndUpdates"`)
 * `PROGRAMENDOFPERIOD` (value: `"ProgramEndOfPeriod"`)
 * `PROGRAMCONDITION` (value: `"ProgramCondition"`)

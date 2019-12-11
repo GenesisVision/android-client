@@ -50,6 +50,9 @@ public class FilterInfo implements Parcelable
 	@SerializedName("events")
 	private EventFilters events = null;
 
+	@SerializedName("assets")
+	private List<FilterItemInfo> assets = null;
+
 	public FilterInfo() {
 	}
 
@@ -57,6 +60,7 @@ public class FilterInfo implements Parcelable
 		walletTransactions = (List<FilterItemInfo>) in.readValue(FilterItemInfo.class.getClassLoader());
 		walletExternalTransactions = (List<FilterItemInfo>) in.readValue(FilterItemInfo.class.getClassLoader());
 		events = (EventFilters) in.readValue(EventFilters.class.getClassLoader());
+		assets = (List<FilterItemInfo>) in.readValue(FilterItemInfo.class.getClassLoader());
 	}
 
 	public FilterInfo walletTransactions(List<FilterItemInfo> walletTransactions) {
@@ -132,6 +136,33 @@ public class FilterInfo implements Parcelable
 		this.events = events;
 	}
 
+	public FilterInfo assets(List<FilterItemInfo> assets) {
+		this.assets = assets;
+		return this;
+	}
+
+	public FilterInfo addAssetsItem(FilterItemInfo assetsItem) {
+		if (this.assets == null) {
+			this.assets = new ArrayList<FilterItemInfo>();
+		}
+		this.assets.add(assetsItem);
+		return this;
+	}
+
+	/**
+	 * Get assets
+	 *
+	 * @return assets
+	 **/
+	@Schema(description = "")
+	public List<FilterItemInfo> getAssets() {
+		return assets;
+	}
+
+	public void setAssets(List<FilterItemInfo> assets) {
+		this.assets = assets;
+	}
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -143,12 +174,13 @@ public class FilterInfo implements Parcelable
 		FilterInfo filterInfo = (FilterInfo) o;
 		return Objects.equals(this.walletTransactions, filterInfo.walletTransactions) &&
 				Objects.equals(this.walletExternalTransactions, filterInfo.walletExternalTransactions) &&
-				Objects.equals(this.events, filterInfo.events);
+				Objects.equals(this.events, filterInfo.events) &&
+				Objects.equals(this.assets, filterInfo.assets);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(walletTransactions, walletExternalTransactions, events);
+		return Objects.hash(walletTransactions, walletExternalTransactions, events, assets);
 	}
 
 	@Override
@@ -159,6 +191,7 @@ public class FilterInfo implements Parcelable
 		sb.append("    walletTransactions: ").append(toIndentedString(walletTransactions)).append("\n");
 		sb.append("    walletExternalTransactions: ").append(toIndentedString(walletExternalTransactions)).append("\n");
 		sb.append("    events: ").append(toIndentedString(events)).append("\n");
+		sb.append("    assets: ").append(toIndentedString(assets)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}
@@ -178,6 +211,7 @@ public class FilterInfo implements Parcelable
 		out.writeValue(walletTransactions);
 		out.writeValue(walletExternalTransactions);
 		out.writeValue(events);
+		out.writeValue(assets);
 	}
 
 	public int describeContents() {

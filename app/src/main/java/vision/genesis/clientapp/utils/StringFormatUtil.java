@@ -19,9 +19,11 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
+import java.util.ArrayList;
 import java.util.Locale;
 
 import io.swagger.client.model.Currency;
+import io.swagger.client.model.TradesDelay;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.model.CurrencyEnum;
@@ -186,5 +188,32 @@ public class StringFormatUtil
 				Spannable.SPAN_INCLUSIVE_EXCLUSIVE);
 		textView.setText(spannable);
 		textView.setMovementMethod(LinkMovementMethod.getInstance());
+	}
+
+	public static String getTradesDelayString(TradesDelay tradesDelay) {
+		switch (tradesDelay) {
+			case FIVEMINUTES:
+				return String.format(Locale.getDefault(), "%d %s", 5, GenesisVisionApplication.INSTANCE.getResources().getQuantityString(R.plurals.minutes, 5));
+			case FIFTEENMINUTES:
+				return String.format(Locale.getDefault(), "%d %s", 15, GenesisVisionApplication.INSTANCE.getResources().getQuantityString(R.plurals.minutes, 15));
+			case THIRTYMINUTES:
+				return String.format(Locale.getDefault(), "%d %s", 30, GenesisVisionApplication.INSTANCE.getResources().getQuantityString(R.plurals.minutes, 30));
+			case ONEHOUR:
+				return String.format(Locale.getDefault(), "%d %s", 1, GenesisVisionApplication.INSTANCE.getResources().getQuantityString(R.plurals.hours, 1));
+			case SIXHOURS:
+				return String.format(Locale.getDefault(), "%d %s", 6, GenesisVisionApplication.INSTANCE.getResources().getQuantityString(R.plurals.hours, 6));
+			default:
+			case NONE:
+				return GenesisVisionApplication.INSTANCE.getString(R.string.no_delay);
+		}
+	}
+
+	public static ArrayList<String> getTradesDelayOptions() {
+		ArrayList<String> options = new ArrayList<>();
+		for (TradesDelay value : TradesDelay.values()) {
+			options.add(getTradesDelayString(value));
+		}
+
+		return options;
 	}
 }

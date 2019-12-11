@@ -26,6 +26,7 @@ Name | Type | Description | Notes
 **genesisRatio** | **Double** |  |  [optional]
 **investmentScale** | **Double** |  |  [optional]
 **volumeScale** | **Double** |  |  [optional]
+**hasTrades** | **Boolean** |  |  [optional]
 **entryFeeSelected** | **Double** |  |  [optional]
 **entryFeeCurrent** | **Double** |  |  [optional]
 **successFeeSelected** | **Double** |  |  [optional]

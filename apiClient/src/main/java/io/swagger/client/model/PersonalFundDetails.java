@@ -15,10 +15,15 @@ package io.swagger.client.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.google.gson.TypeAdapter;
+import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
 
 import org.joda.time.DateTime;
 
+import java.io.IOException;
 import java.util.Objects;
 
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -74,6 +79,9 @@ public class PersonalFundDetails implements Parcelable
 	@SerializedName("pendingOutput")
 	private Double pendingOutput = null;
 
+	@SerializedName("pendingInOutCurrency")
+	private PendingInOutCurrencyEnum pendingInOutCurrency = null;
+
 	@SerializedName("withdrawPercent")
 	private Double withdrawPercent = null;
 
@@ -101,6 +109,7 @@ public class PersonalFundDetails implements Parcelable
 		status = (AssetInvestmentStatus) in.readValue(AssetInvestmentStatus.class.getClassLoader());
 		pendingInput = (Double) in.readValue(null);
 		pendingOutput = (Double) in.readValue(null);
+		pendingInOutCurrency = (PendingInOutCurrencyEnum) in.readValue(null);
 		withdrawPercent = (Double) in.readValue(null);
 		availableReallocationPercents = (Integer) in.readValue(null);
 		nextReallocationPercents = (DateTime) in.readValue(DateTime.class.getClassLoader());
@@ -316,6 +325,25 @@ public class PersonalFundDetails implements Parcelable
 		this.pendingOutput = pendingOutput;
 	}
 
+	public PersonalFundDetails pendingInOutCurrency(PendingInOutCurrencyEnum pendingInOutCurrency) {
+		this.pendingInOutCurrency = pendingInOutCurrency;
+		return this;
+	}
+
+	/**
+	 * Get pendingInOutCurrency
+	 *
+	 * @return pendingInOutCurrency
+	 **/
+	@Schema(description = "")
+	public PendingInOutCurrencyEnum getPendingInOutCurrency() {
+		return pendingInOutCurrency;
+	}
+
+	public void setPendingInOutCurrency(PendingInOutCurrencyEnum pendingInOutCurrency) {
+		this.pendingInOutCurrency = pendingInOutCurrency;
+	}
+
 	public PersonalFundDetails withdrawPercent(Double withdrawPercent) {
 		this.withdrawPercent = withdrawPercent;
 		return this;
@@ -412,6 +440,7 @@ public class PersonalFundDetails implements Parcelable
 				Objects.equals(this.status, personalFundDetails.status) &&
 				Objects.equals(this.pendingInput, personalFundDetails.pendingInput) &&
 				Objects.equals(this.pendingOutput, personalFundDetails.pendingOutput) &&
+				Objects.equals(this.pendingInOutCurrency, personalFundDetails.pendingInOutCurrency) &&
 				Objects.equals(this.withdrawPercent, personalFundDetails.withdrawPercent) &&
 				Objects.equals(this.availableReallocationPercents, personalFundDetails.availableReallocationPercents) &&
 				Objects.equals(this.nextReallocationPercents, personalFundDetails.nextReallocationPercents) &&
@@ -420,7 +449,7 @@ public class PersonalFundDetails implements Parcelable
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(isOwnAsset, isFavorite, isInvested, canInvest, canWithdraw, ownerActions, hasNotifications, value, status, pendingInput, pendingOutput, withdrawPercent, availableReallocationPercents, nextReallocationPercents, exitFeePersonal);
+		return Objects.hash(isOwnAsset, isFavorite, isInvested, canInvest, canWithdraw, ownerActions, hasNotifications, value, status, pendingInput, pendingOutput, pendingInOutCurrency, withdrawPercent, availableReallocationPercents, nextReallocationPercents, exitFeePersonal);
 	}
 
 	@Override
@@ -439,6 +468,7 @@ public class PersonalFundDetails implements Parcelable
 		sb.append("    status: ").append(toIndentedString(status)).append("\n");
 		sb.append("    pendingInput: ").append(toIndentedString(pendingInput)).append("\n");
 		sb.append("    pendingOutput: ").append(toIndentedString(pendingOutput)).append("\n");
+		sb.append("    pendingInOutCurrency: ").append(toIndentedString(pendingInOutCurrency)).append("\n");
 		sb.append("    withdrawPercent: ").append(toIndentedString(withdrawPercent)).append("\n");
 		sb.append("    availableReallocationPercents: ").append(toIndentedString(availableReallocationPercents)).append("\n");
 		sb.append("    nextReallocationPercents: ").append(toIndentedString(nextReallocationPercents)).append("\n");
@@ -470,6 +500,7 @@ public class PersonalFundDetails implements Parcelable
 		out.writeValue(status);
 		out.writeValue(pendingInput);
 		out.writeValue(pendingOutput);
+		out.writeValue(pendingInOutCurrency);
 		out.writeValue(withdrawPercent);
 		out.writeValue(availableReallocationPercents);
 		out.writeValue(nextReallocationPercents);
@@ -478,5 +509,64 @@ public class PersonalFundDetails implements Parcelable
 
 	public int describeContents() {
 		return 0;
+	}
+
+	/**
+	 * Gets or Sets pendingInOutCurrency
+	 */
+	@JsonAdapter(PendingInOutCurrencyEnum.Adapter.class)
+	public enum PendingInOutCurrencyEnum
+	{
+		USD("USD"),
+		BTC("BTC"),
+		ETH("ETH"),
+		USDT("USDT"),
+		GVT("GVT"),
+		UNDEFINED("Undefined"),
+		ADA("ADA"),
+		XRP("XRP"),
+		BCH("BCH"),
+		LTC("LTC"),
+		DOGE("DOGE"),
+		BNB("BNB"),
+		EUR("EUR");
+
+		public static PendingInOutCurrencyEnum fromValue(String text) {
+			for (PendingInOutCurrencyEnum b : PendingInOutCurrencyEnum.values()) {
+				if (String.valueOf(b.value).equals(text)) {
+					return b;
+				}
+			}
+			return null;
+		}
+
+		private String value;
+
+		PendingInOutCurrencyEnum(String value) {
+			this.value = value;
+		}
+
+		public String getValue() {
+			return value;
+		}
+
+		@Override
+		public String toString() {
+			return String.valueOf(value);
+		}
+
+		public static class Adapter extends TypeAdapter<PendingInOutCurrencyEnum>
+		{
+			@Override
+			public void write(final JsonWriter jsonWriter, final PendingInOutCurrencyEnum enumeration) throws IOException {
+				jsonWriter.value(enumeration.getValue());
+			}
+
+			@Override
+			public PendingInOutCurrencyEnum read(final JsonReader jsonReader) throws IOException {
+				String value = jsonReader.nextString();
+				return PendingInOutCurrencyEnum.fromValue(String.valueOf(value));
+			}
+		}
 	}
 }

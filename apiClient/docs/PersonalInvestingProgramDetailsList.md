@@ -11,5 +11,6 @@ Name | Type | Description | Notes
 **share** | **Double** |  |  [optional]
 **value** | **Double** |  |  [optional]
 **profit** | **Double** |  |  [optional]
+**profitPercent** | **Double** |  |  [optional]
 **invested** | **Double** |  |  [optional]
 **status** | [**AssetInvestmentStatus**](AssetInvestmentStatus.md) |  |  [optional]

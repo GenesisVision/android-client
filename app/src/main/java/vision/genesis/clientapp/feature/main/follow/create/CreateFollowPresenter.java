@@ -91,7 +91,7 @@ public class CreateFollowPresenter extends MvpPresenter<CreateFollowView>
 		if (model.getAssetType().equals(AssetType.NONE)) {
 			MakeTradingAccountSignalProvider accountRequest = new MakeTradingAccountSignalProvider();
 
-			accountRequest.setTradingAccountId(model.getAssetId());
+			accountRequest.setId(model.getAssetId());
 			accountRequest.setTitle(this.title);
 			accountRequest.setDescription(this.description);
 			accountRequest.setLogo(this.logo);

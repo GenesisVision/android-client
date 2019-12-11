@@ -63,6 +63,9 @@ public class PersonalFollowDetailsFull implements Parcelable
 	@SerializedName("leverage")
 	private Integer leverage = null;
 
+	@SerializedName("subscribedAccounts")
+	private Integer subscribedAccounts = null;
+
 	public PersonalFollowDetailsFull() {
 	}
 
@@ -75,6 +78,7 @@ public class PersonalFollowDetailsFull implements Parcelable
 		hasNotifications = (Boolean) in.readValue(null);
 		balance = (Double) in.readValue(null);
 		leverage = (Integer) in.readValue(null);
+		subscribedAccounts = (Integer) in.readValue(null);
 	}
 
 	public PersonalFollowDetailsFull isOwnAsset(Boolean isOwnAsset) {
@@ -229,6 +233,25 @@ public class PersonalFollowDetailsFull implements Parcelable
 		this.leverage = leverage;
 	}
 
+	public PersonalFollowDetailsFull subscribedAccounts(Integer subscribedAccounts) {
+		this.subscribedAccounts = subscribedAccounts;
+		return this;
+	}
+
+	/**
+	 * Get subscribedAccounts
+	 *
+	 * @return subscribedAccounts
+	 **/
+	@Schema(description = "")
+	public Integer getSubscribedAccounts() {
+		return subscribedAccounts;
+	}
+
+	public void setSubscribedAccounts(Integer subscribedAccounts) {
+		this.subscribedAccounts = subscribedAccounts;
+	}
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -245,12 +268,13 @@ public class PersonalFollowDetailsFull implements Parcelable
 				Objects.equals(this.guestActions, personalFollowDetailsFull.guestActions) &&
 				Objects.equals(this.hasNotifications, personalFollowDetailsFull.hasNotifications) &&
 				Objects.equals(this.balance, personalFollowDetailsFull.balance) &&
-				Objects.equals(this.leverage, personalFollowDetailsFull.leverage);
+				Objects.equals(this.leverage, personalFollowDetailsFull.leverage) &&
+				Objects.equals(this.subscribedAccounts, personalFollowDetailsFull.subscribedAccounts);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(isOwnAsset, isFavorite, isProgram, ownerActions, guestActions, hasNotifications, balance, leverage);
+		return Objects.hash(isOwnAsset, isFavorite, isProgram, ownerActions, guestActions, hasNotifications, balance, leverage, subscribedAccounts);
 	}
 
 	@Override
@@ -266,6 +290,7 @@ public class PersonalFollowDetailsFull implements Parcelable
 		sb.append("    hasNotifications: ").append(toIndentedString(hasNotifications)).append("\n");
 		sb.append("    balance: ").append(toIndentedString(balance)).append("\n");
 		sb.append("    leverage: ").append(toIndentedString(leverage)).append("\n");
+		sb.append("    subscribedAccounts: ").append(toIndentedString(subscribedAccounts)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}
@@ -290,6 +315,7 @@ public class PersonalFollowDetailsFull implements Parcelable
 		out.writeValue(hasNotifications);
 		out.writeValue(balance);
 		out.writeValue(leverage);
+		out.writeValue(subscribedAccounts);
 	}
 
 	public int describeContents() {

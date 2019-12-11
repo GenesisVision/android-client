@@ -125,7 +125,7 @@ public class OwnerInfoPresenter extends MvpPresenter<OwnerInfoView>
 	}
 
 	void onManageProgramClicked() {
-
+		getViewState().showManageProgramActivity(programDetails);
 	}
 
 	void onManageFollowClicked() {

@@ -113,6 +113,9 @@ public class ProgramDetailsFull implements Parcelable
 	@SerializedName("volumeScale")
 	private Double volumeScale = null;
 
+	@SerializedName("hasTrades")
+	private Boolean hasTrades = null;
+
 	@SerializedName("entryFeeSelected")
 	private Double entryFeeSelected = null;
 
@@ -185,6 +188,7 @@ public class ProgramDetailsFull implements Parcelable
 		genesisRatio = (Double) in.readValue(null);
 		investmentScale = (Double) in.readValue(null);
 		volumeScale = (Double) in.readValue(null);
+		hasTrades = (Boolean) in.readValue(null);
 		entryFeeSelected = (Double) in.readValue(null);
 		entryFeeCurrent = (Double) in.readValue(null);
 		successFeeSelected = (Double) in.readValue(null);
@@ -639,6 +643,25 @@ public class ProgramDetailsFull implements Parcelable
 		this.volumeScale = volumeScale;
 	}
 
+	public ProgramDetailsFull hasTrades(Boolean hasTrades) {
+		this.hasTrades = hasTrades;
+		return this;
+	}
+
+	/**
+	 * Get hasTrades
+	 *
+	 * @return hasTrades
+	 **/
+	@Schema(description = "")
+	public Boolean isHasTrades() {
+		return hasTrades;
+	}
+
+	public void setHasTrades(Boolean hasTrades) {
+		this.hasTrades = hasTrades;
+	}
+
 	public ProgramDetailsFull entryFeeSelected(Double entryFeeSelected) {
 		this.entryFeeSelected = entryFeeSelected;
 		return this;
@@ -964,6 +987,7 @@ public class ProgramDetailsFull implements Parcelable
 				Objects.equals(this.genesisRatio, programDetailsFull.genesisRatio) &&
 				Objects.equals(this.investmentScale, programDetailsFull.investmentScale) &&
 				Objects.equals(this.volumeScale, programDetailsFull.volumeScale) &&
+				Objects.equals(this.hasTrades, programDetailsFull.hasTrades) &&
 				Objects.equals(this.entryFeeSelected, programDetailsFull.entryFeeSelected) &&
 				Objects.equals(this.entryFeeCurrent, programDetailsFull.entryFeeCurrent) &&
 				Objects.equals(this.successFeeSelected, programDetailsFull.successFeeSelected) &&
@@ -983,7 +1007,7 @@ public class ProgramDetailsFull implements Parcelable
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, tradingAccountId, logo, url, color, title, description, creationDate, currency, level, levelProgress, periodDuration, periodStarts, periodEnds, tradesDelay, status, login, ageDays, leverageMin, leverageMax, genesisRatio, investmentScale, volumeScale, entryFeeSelected, entryFeeCurrent, successFeeSelected, successFeeCurrent, stopOutLevelSelected, stopOutLevelCurrent, availableInvestmentBase, availableInvestmentLimit, totalAvailableInvestment, owner, brokerDetails, personalDetails, signalSettings, subscribersCount, tags);
+		return Objects.hash(id, tradingAccountId, logo, url, color, title, description, creationDate, currency, level, levelProgress, periodDuration, periodStarts, periodEnds, tradesDelay, status, login, ageDays, leverageMin, leverageMax, genesisRatio, investmentScale, volumeScale, hasTrades, entryFeeSelected, entryFeeCurrent, successFeeSelected, successFeeCurrent, stopOutLevelSelected, stopOutLevelCurrent, availableInvestmentBase, availableInvestmentLimit, totalAvailableInvestment, owner, brokerDetails, personalDetails, signalSettings, subscribersCount, tags);
 	}
 
 	@Override
@@ -1014,6 +1038,7 @@ public class ProgramDetailsFull implements Parcelable
 		sb.append("    genesisRatio: ").append(toIndentedString(genesisRatio)).append("\n");
 		sb.append("    investmentScale: ").append(toIndentedString(investmentScale)).append("\n");
 		sb.append("    volumeScale: ").append(toIndentedString(volumeScale)).append("\n");
+		sb.append("    hasTrades: ").append(toIndentedString(hasTrades)).append("\n");
 		sb.append("    entryFeeSelected: ").append(toIndentedString(entryFeeSelected)).append("\n");
 		sb.append("    entryFeeCurrent: ").append(toIndentedString(entryFeeCurrent)).append("\n");
 		sb.append("    successFeeSelected: ").append(toIndentedString(successFeeSelected)).append("\n");
@@ -1068,6 +1093,7 @@ public class ProgramDetailsFull implements Parcelable
 		out.writeValue(genesisRatio);
 		out.writeValue(investmentScale);
 		out.writeValue(volumeScale);
+		out.writeValue(hasTrades);
 		out.writeValue(entryFeeSelected);
 		out.writeValue(entryFeeCurrent);
 		out.writeValue(successFeeSelected);

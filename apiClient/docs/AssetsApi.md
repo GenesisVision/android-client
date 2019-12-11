@@ -10,6 +10,7 @@ Method | HTTP request | Description
 [**closeCurrentPeriod**](AssetsApi.md#closeCurrentPeriod) | **POST** v2.0/assets/programs/{id}/period/close | Close current period
 [**closeFund**](AssetsApi.md#closeFund) | **POST** v2.0/assets/funds/{id}/close | Close existing fund
 [**closeInvestmentProgram**](AssetsApi.md#closeInvestmentProgram) | **POST** v2.0/assets/programs/{id}/close | Close existing investment program
+[**closeTradingAccount**](AssetsApi.md#closeTradingAccount) | **POST** v2.0/assets/tradingaccounts/{id}/close | Close trading account
 [**confirmProgram2FA**](AssetsApi.md#confirmProgram2FA) | **POST** v2.0/assets/programs/{id}/2fa/confirm | Confirm 2FA for program if required (for brokers like Huobi)
 [**createExternalTradingAccount**](AssetsApi.md#createExternalTradingAccount) | **POST** v2.0/assets/tradingaccounts/external/create | Create external trading account
 [**createFund**](AssetsApi.md#createFund) | **POST** v2.0/assets/funds/create | Create fund
@@ -302,6 +303,51 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: application/json-patch+json, application/json, text/json, application/_*+json
+ - **Accept**: text/plain, application/json, text/json
+
+<a name="closeTradingAccount"></a>
+# **closeTradingAccount**
+> Void closeTradingAccount(id, authorization)
+
+Close trading account
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiException;
+//import io.swagger.client.api.AssetsApi;
+
+
+AssetsApi apiInstance = new AssetsApi();
+UUID id = new UUID(); // UUID | 
+String authorization = "authorization_example"; // String | JWT access token
+try {
+    Void result = apiInstance.closeTradingAccount(id, authorization);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling AssetsApi#closeTradingAccount");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | [**UUID**](.md)|  |
+ **authorization** | **String**| JWT access token |
+
+### Return type
+
+[**Void**](.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
  - **Accept**: text/plain, application/json, text/json
 
 <a name="confirmProgram2FA"></a>

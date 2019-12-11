@@ -51,7 +51,7 @@ Name | Type | Description  | Notes
  **from** | **DateTime**|  | [optional]
  **to** | **DateTime**|  | [optional]
  **eventType** | **String**|  | [optional] [enum: All, AssetFinished, AssetPeriodStarted, AssetPeriodEnded, AssetPeriodEndedDueToStopOut, AssetBrokerChanged, AssetEnterInvestment, AssetInvestByInvestor, AssetWithdrawalByInvestor, AssetReallocation, AssetStarted, AssetPeriodProcessed, AssetInvestByManager, AssetWithdrawalByManager, AssetSubscribeByInvestor, AssetUnsubscribeByInvestor, AssetTradeOpen, AssetTradeClosed, AssetSubscriptionEdit]
- **assetType** | **String**|  | [optional] [enum: All, Program, Fund, Signal]
+ **assetType** | **String**|  | [optional] [enum: All, Program, Fund, Follow]
  **assetsIds** | [**List&lt;UUID&gt;**](UUID.md)|  | [optional]
  **forceFilterByIds** | **Boolean**|  | [optional]
  **eventGroup** | **String**|  | [optional] [enum: InvestmentHistory, TradingHistory]

@@ -44,19 +44,19 @@ public class FundAssetsState implements Parcelable
 	@SerializedName("date")
 	private Long date = null;
 
+	@SerializedName("value")
+	private Double value = null;
+
 	@SerializedName("assets")
 	private List<FundAssetPartWithIcon> assets = null;
-
-	@SerializedName("otherPercent")
-	private Double otherPercent = null;
 
 	public FundAssetsState() {
 	}
 
 	FundAssetsState(Parcel in) {
 		date = (Long) in.readValue(null);
+		value = (Double) in.readValue(null);
 		assets = (List<FundAssetPartWithIcon>) in.readValue(FundAssetPartWithIcon.class.getClassLoader());
-		otherPercent = (Double) in.readValue(null);
 	}
 
 	public FundAssetsState date(Long date) {
@@ -76,6 +76,25 @@ public class FundAssetsState implements Parcelable
 
 	public void setDate(Long date) {
 		this.date = date;
+	}
+
+	public FundAssetsState value(Double value) {
+		this.value = value;
+		return this;
+	}
+
+	/**
+	 * Get value
+	 *
+	 * @return value
+	 **/
+	@Schema(description = "")
+	public Double getValue() {
+		return value;
+	}
+
+	public void setValue(Double value) {
+		this.value = value;
 	}
 
 	public FundAssetsState assets(List<FundAssetPartWithIcon> assets) {
@@ -105,25 +124,6 @@ public class FundAssetsState implements Parcelable
 		this.assets = assets;
 	}
 
-	public FundAssetsState otherPercent(Double otherPercent) {
-		this.otherPercent = otherPercent;
-		return this;
-	}
-
-	/**
-	 * Get otherPercent
-	 *
-	 * @return otherPercent
-	 **/
-	@Schema(description = "")
-	public Double getOtherPercent() {
-		return otherPercent;
-	}
-
-	public void setOtherPercent(Double otherPercent) {
-		this.otherPercent = otherPercent;
-	}
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -134,13 +134,13 @@ public class FundAssetsState implements Parcelable
 		}
 		FundAssetsState fundAssetsState = (FundAssetsState) o;
 		return Objects.equals(this.date, fundAssetsState.date) &&
-				Objects.equals(this.assets, fundAssetsState.assets) &&
-				Objects.equals(this.otherPercent, fundAssetsState.otherPercent);
+				Objects.equals(this.value, fundAssetsState.value) &&
+				Objects.equals(this.assets, fundAssetsState.assets);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(date, assets, otherPercent);
+		return Objects.hash(date, value, assets);
 	}
 
 	@Override
@@ -149,8 +149,8 @@ public class FundAssetsState implements Parcelable
 		sb.append("class FundAssetsState {\n");
 
 		sb.append("    date: ").append(toIndentedString(date)).append("\n");
+		sb.append("    value: ").append(toIndentedString(value)).append("\n");
 		sb.append("    assets: ").append(toIndentedString(assets)).append("\n");
-		sb.append("    otherPercent: ").append(toIndentedString(otherPercent)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}
@@ -168,8 +168,8 @@ public class FundAssetsState implements Parcelable
 
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(date);
+		out.writeValue(value);
 		out.writeValue(assets);
-		out.writeValue(otherPercent);
 	}
 
 	public int describeContents() {

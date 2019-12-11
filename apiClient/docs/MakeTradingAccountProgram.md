@@ -3,7 +3,7 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**tradingAccountId** | [**UUID**](UUID.md) |  |  [optional]
+**id** | [**UUID**](UUID.md) |  |  [optional]
 **periodLength** | **Integer** |  |  [optional]
 **stopOutLevel** | **Double** |  |  [optional]
 **investmentLimit** | **Double** |  |  [optional]

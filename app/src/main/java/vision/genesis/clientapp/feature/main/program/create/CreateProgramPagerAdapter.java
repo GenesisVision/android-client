@@ -67,7 +67,7 @@ public class CreateProgramPagerAdapter extends FragmentStatePagerAdapter
 		programSettingsFragment = ProgramSettingsFragment.with(new ProgramSettingsModel(stepsCount > 1, needPublicInfo ? "02" : "01",
 				GenesisVisionApplication.INSTANCE.getString(R.string.main_settings), false,
 				programSettingsButtonText, model.getCurrency(),
-				null, null, null, null, null));
+				null, null, null, null, null, null, true));
 		fragments.add(programSettingsFragment);
 
 		if (needDeposit) {
