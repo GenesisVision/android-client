@@ -12,6 +12,7 @@
 
         <LinearLayout
             android:layout_width="wrap_content"
+            android:id="@+id/group_step"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
@@ -149,10 +150,10 @@
     </LinearLayout>
 
     <vision.genesis.clientapp.ui.PrimaryButton
-        android:id="@+id/button_next"
+        android:id="@+id/button_confirm"
         android:layout_width="match_parent"
         android:layout_height="@dimen/button_height"
         android:layout_alignParentBottom="true"
-        android:text="@string/next"/>
+        android:text="@string/confirm"/>
 
 </RelativeLayout>

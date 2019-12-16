@@ -44,6 +44,9 @@ public class FollowAssetPlatformInfo implements Parcelable
 	@SerializedName("facets")
 	private List<AssetFacet> facets = null;
 
+	@SerializedName("tags")
+	private List<Tag> tags = null;
+
 	@SerializedName("createFollowInfo")
 	private FollowCreateAssetPlatformInfo createFollowInfo = null;
 
@@ -52,6 +55,7 @@ public class FollowAssetPlatformInfo implements Parcelable
 
 	FollowAssetPlatformInfo(Parcel in) {
 		facets = (List<AssetFacet>) in.readValue(AssetFacet.class.getClassLoader());
+		tags = (List<Tag>) in.readValue(Tag.class.getClassLoader());
 		createFollowInfo = (FollowCreateAssetPlatformInfo) in.readValue(FollowCreateAssetPlatformInfo.class.getClassLoader());
 	}
 
@@ -80,6 +84,33 @@ public class FollowAssetPlatformInfo implements Parcelable
 
 	public void setFacets(List<AssetFacet> facets) {
 		this.facets = facets;
+	}
+
+	public FollowAssetPlatformInfo tags(List<Tag> tags) {
+		this.tags = tags;
+		return this;
+	}
+
+	public FollowAssetPlatformInfo addTagsItem(Tag tagsItem) {
+		if (this.tags == null) {
+			this.tags = new ArrayList<Tag>();
+		}
+		this.tags.add(tagsItem);
+		return this;
+	}
+
+	/**
+	 * Get tags
+	 *
+	 * @return tags
+	 **/
+	@Schema(description = "")
+	public List<Tag> getTags() {
+		return tags;
+	}
+
+	public void setTags(List<Tag> tags) {
+		this.tags = tags;
 	}
 
 	public FollowAssetPlatformInfo createFollowInfo(FollowCreateAssetPlatformInfo createFollowInfo) {
@@ -111,12 +142,13 @@ public class FollowAssetPlatformInfo implements Parcelable
 		}
 		FollowAssetPlatformInfo followAssetPlatformInfo = (FollowAssetPlatformInfo) o;
 		return Objects.equals(this.facets, followAssetPlatformInfo.facets) &&
+				Objects.equals(this.tags, followAssetPlatformInfo.tags) &&
 				Objects.equals(this.createFollowInfo, followAssetPlatformInfo.createFollowInfo);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(facets, createFollowInfo);
+		return Objects.hash(facets, tags, createFollowInfo);
 	}
 
 	@Override
@@ -125,6 +157,7 @@ public class FollowAssetPlatformInfo implements Parcelable
 		sb.append("class FollowAssetPlatformInfo {\n");
 
 		sb.append("    facets: ").append(toIndentedString(facets)).append("\n");
+		sb.append("    tags: ").append(toIndentedString(tags)).append("\n");
 		sb.append("    createFollowInfo: ").append(toIndentedString(createFollowInfo)).append("\n");
 		sb.append("}");
 		return sb.toString();
@@ -143,6 +176,7 @@ public class FollowAssetPlatformInfo implements Parcelable
 
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(facets);
+		out.writeValue(tags);
 		out.writeValue(createFollowInfo);
 	}
 

@@ -80,6 +80,8 @@ public interface MainView extends MvpView
 
 	void showFundFacet(AssetFacet facet);
 
+	void showFollowFacet(AssetFacet facet);
+
 	void showOpenTradeDetails(OpenTradeModel model);
 
 	void showEventDetails(InvestmentEventViewModel event);

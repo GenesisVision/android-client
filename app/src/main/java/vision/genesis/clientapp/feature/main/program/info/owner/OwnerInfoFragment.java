@@ -32,6 +32,7 @@ import io.swagger.client.model.FollowDetailsFull;
 import io.swagger.client.model.PersonalFollowDetailsFull;
 import io.swagger.client.model.PersonalProgramDetails;
 import io.swagger.client.model.ProgramDetailsFull;
+import io.swagger.client.model.ProgramFollowDetailsFull;
 import io.swagger.client.model.ProgramUpdate;
 import timber.log.Timber;
 import vision.genesis.clientapp.R;
@@ -68,15 +69,12 @@ import vision.genesis.clientapp.utils.TypefaceUtil;
 
 public class OwnerInfoFragment extends BaseFragment implements OwnerInfoView, ProgramDetailsPagerAdapter.OnPageVisibilityChanged
 {
-	private static String EXTRA_PROGRAM_DETAILS = "extra_program_details";
+	private static String EXTRA_DETAILS = "extra_details";
 
-	private static String EXTRA_FOLLOW_DETAILS = "extra_follow_details";
-
-	public static OwnerInfoFragment with(ProgramDetailsFull programDetails, FollowDetailsFull followDetails) {
+	public static OwnerInfoFragment with(ProgramFollowDetailsFull details) {
 		OwnerInfoFragment ownerInfoFragment = new OwnerInfoFragment();
-		Bundle arguments = new Bundle(2);
-		arguments.putParcelable(EXTRA_PROGRAM_DETAILS, programDetails);
-		arguments.putParcelable(EXTRA_FOLLOW_DETAILS, followDetails);
+		Bundle arguments = new Bundle(1);
+		arguments.putParcelable(EXTRA_DETAILS, details);
 		ownerInfoFragment.setArguments(arguments);
 		return ownerInfoFragment;
 	}
@@ -220,11 +218,7 @@ public class OwnerInfoFragment extends BaseFragment implements OwnerInfoView, Pr
 	@BindDimen(R.dimen.program_info_strategy_max_height)
 	public int strategyMaxHeight;
 
-	private UUID programId;
-
-	private ProgramDetailsFull programDetails;
-
-	private FollowDetailsFull followDetails;
+	private ProgramFollowDetailsFull details;
 
 	private Unbinder unbinder;
 
@@ -250,7 +244,7 @@ public class OwnerInfoFragment extends BaseFragment implements OwnerInfoView, Pr
 
 	@OnClick(R.id.group_entry_fee)
 	public void onEntryFeeClicked() {
-		if (programDetails != null && programDetails.getLevel() < Constants.MIN_PROGRAM_LEVEL_ENTRY_FEE && getActivity() != null) {
+		if (details != null && details.getProgramDetails() != null && details.getProgramDetails().getLevel() < Constants.MIN_PROGRAM_LEVEL_ENTRY_FEE && getActivity() != null) {
 			MessageBottomSheetDialog dialog = new MessageBottomSheetDialog();
 			dialog.show(getActivity().getSupportFragmentManager(), dialog.getTag());
 			dialog.setData(R.drawable.icon_info, getString(R.string.entry_fee_disabled_title), getString(R.string.entry_fee_disabled_message), false, null);
@@ -330,9 +324,8 @@ public class OwnerInfoFragment extends BaseFragment implements OwnerInfoView, Pr
 		unbinder = ButterKnife.bind(this, view);
 
 		if (getArguments() != null) {
-			programDetails = getArguments().getParcelable(EXTRA_PROGRAM_DETAILS);
-			followDetails = getArguments().getParcelable(EXTRA_FOLLOW_DETAILS);
-			if (programDetails != null || followDetails != null) {
+			details = getArguments().getParcelable(EXTRA_DETAILS);
+			if (details != null) {
 				updateAll();
 
 				setFonts();
@@ -347,9 +340,8 @@ public class OwnerInfoFragment extends BaseFragment implements OwnerInfoView, Pr
 	}
 
 	private void updateAll() {
-		presenter.setDetails(programDetails, followDetails);
-		setProgramDetails(programDetails);
-		setFollowDetails(followDetails);
+		presenter.setDetails(details);
+		setDetails(details);
 	}
 
 	@Override
@@ -397,47 +389,42 @@ public class OwnerInfoFragment extends BaseFragment implements OwnerInfoView, Pr
 	}
 
 	@Override
-	public void setProgramDetails(ProgramDetailsFull programDetails) {
-		this.programDetails = programDetails;
+	public void setDetails(ProgramFollowDetailsFull details) {
+		this.details = details;
 
-		if (programDetails != null) {
-
+		if (details != null) {
 			scrollView.setVisibility(View.VISIBLE);
 
-			updatePublicInfo(programDetails.getDescription());
-			updateAccountInfo(programDetails.getBrokerDetails().getLogo(),
-					programDetails.getCurrency().getValue(), programDetails.getLeverageMax(),
-					programDetails.getCreationDate());
-			updateYourDeposit(programDetails.getPersonalDetails());
+			updatePublicInfo(details.getPublicInfo().getDescription());
+			updateAccountInfo(details.getBrokerDetails().getLogo(),
+					details.getTradingAccountInfo().getCurrency().getValue(), details.getTradingAccountInfo().getLeverageMax(),
+					details.getPublicInfo().getCreationDate());
 
-			programInfoGroup.setVisibility(View.VISIBLE);
-			manageProgramButton.setVisibility(View.VISIBLE);
-			createProgramGroup.setVisibility(View.GONE);
+			ProgramDetailsFull programDetails = details.getProgramDetails();
+			if (programDetails != null) {
+				updateYourDeposit(programDetails.getPersonalDetails());
+				updateProgramDetails(programDetails);
+			}
+			else {
+				programInfoGroup.setVisibility(View.GONE);
+				manageProgramButton.setVisibility(View.GONE);
+				createProgramGroup.setVisibility(View.VISIBLE);
+			}
 
-			PersonalProgramDetails personalDetails = programDetails.getPersonalDetails();
-
-			availableToInvest.setText(String.format(Locale.getDefault(), "%s %s",
-					StringFormatUtil.getShortenedAmount(programDetails.getAvailableInvestmentBase()).toString(),
-					programDetails.getCurrency().getValue()));
-
-			updateCurrentSelectedField(stopOut, programDetails.getStopOutLevelCurrent(), programDetails.getStopOutLevelSelected());
-			updateCurrentSelectedField(entryFee, programDetails.getEntryFeeCurrent(), programDetails.getEntryFeeSelected());
-			updateCurrentSelectedField(successFee, programDetails.getSuccessFeeCurrent(), programDetails.getSuccessFeeSelected());
-
-			periodView.setData(programDetails.getPeriodDuration(), programDetails.getPeriodStarts(), programDetails.getPeriodEnds(), true, true);
-
-			depositButton.setEnabled(programDetails.getAvailableInvestmentBase() > 0);
-
-			if (personalDetails != null) {
-				depositButton.setEnabled(programDetails.getAvailableInvestmentBase() > 0 && personalDetails.isCanInvest());
-				withdrawButton.setEnabled(personalDetails.isCanWithdraw());
+			FollowDetailsFull followDetails = details.getFollowDetails();
+			if (followDetails != null) {
+				updateFollowDetails(followDetails);
 			}
 		}
-		else {
-			programInfoGroup.setVisibility(View.GONE);
-			manageProgramButton.setVisibility(View.GONE);
-			createProgramGroup.setVisibility(View.VISIBLE);
-		}
+	}
+
+	private void updatePublicInfo(String description) {
+		this.strategy.setText(description);
+		new Handler().postDelayed(() -> {
+			if (strategyShadow != null && strategy != null) {
+				strategyShadow.setVisibility(strategy.getHeight() < strategyMaxHeight ? View.INVISIBLE : View.VISIBLE);
+			}
+		}, 300);
 	}
 
 	private void updateAccountInfo(String brokerLogo, String currency, Integer leverage, DateTime creationDate) {
@@ -447,23 +434,33 @@ public class OwnerInfoFragment extends BaseFragment implements OwnerInfoView, Pr
 		this.age.setCreationDate(creationDate);
 	}
 
-	@Override
-	public void setFollowDetails(FollowDetailsFull followDetails) {
-		this.followDetails = followDetails;
+	private void updateProgramDetails(ProgramDetailsFull details) {
+		programInfoGroup.setVisibility(View.VISIBLE);
+		manageProgramButton.setVisibility(View.VISIBLE);
+		createProgramGroup.setVisibility(View.GONE);
 
+		PersonalProgramDetails personalDetails = details.getPersonalDetails();
+
+		availableToInvest.setText(String.format(Locale.getDefault(), "%s %s",
+				StringFormatUtil.getShortenedAmount(details.getAvailableInvestmentBase()).toString(),
+				this.details.getTradingAccountInfo().getCurrency().getValue()));
+
+		updateCurrentSelectedField(stopOut, details.getStopOutLevelCurrent(), details.getStopOutLevelSelected());
+		updateCurrentSelectedField(entryFee, details.getEntryFeeCurrent(), details.getEntryFeeSelected());
+		updateCurrentSelectedField(successFee, details.getSuccessFeeCurrent(), details.getSuccessFeeSelected());
+
+		periodView.setData(details.getPeriodDuration(), details.getPeriodStarts(), details.getPeriodEnds(), true, true);
+
+		depositButton.setEnabled(details.getAvailableInvestmentBase() > 0);
+
+		if (personalDetails != null) {
+			depositButton.setEnabled(details.getAvailableInvestmentBase() > 0 && personalDetails.isCanInvest());
+			withdrawButton.setEnabled(personalDetails.isCanWithdraw());
+		}
+	}
+
+	private void updateFollowDetails(FollowDetailsFull followDetails) {
 		if (followDetails != null && followDetails.getSignalSettings() != null) {
-
-			scrollView.setVisibility(View.VISIBLE);
-
-			if (programDetails == null) {
-				updatePublicInfo(followDetails.getDescription());
-				updateAccountInfo(followDetails.getBrokerDetails().getLogo(),
-						followDetails.getCurrency().getValue(), 1,
-						followDetails.getCreationDate());
-				updateYourDeposit(followDetails.getPersonalDetails());
-
-			}
-
 			followInfoGroup.setVisibility(View.VISIBLE);
 			manageFollowButton.setVisibility(View.VISIBLE);
 			createFollowGroup.setVisibility(View.GONE);
@@ -478,15 +475,6 @@ public class OwnerInfoFragment extends BaseFragment implements OwnerInfoView, Pr
 			manageFollowButton.setVisibility(View.GONE);
 			createFollowGroup.setVisibility(View.VISIBLE);
 		}
-	}
-
-	private void updatePublicInfo(String description) {
-		strategy.setText(description);
-		new Handler().postDelayed(() -> {
-			if (strategyShadow != null && strategy != null) {
-				strategyShadow.setVisibility(strategy.getHeight() < strategyMaxHeight ? View.INVISIBLE : View.VISIBLE);
-			}
-		}, 300);
 	}
 
 	private void updateCurrentSelectedField(TextView textView, Double current, Double selected) {
@@ -504,10 +492,11 @@ public class OwnerInfoFragment extends BaseFragment implements OwnerInfoView, Pr
 			status.setStatus(personalDetails.getStatus().getValue());
 			value.setText(String.format(Locale.getDefault(), "%s %s",
 					StringFormatUtil.formatAmount(personalDetails.getValue(), 0,
-							StringFormatUtil.getCurrencyMaxFraction(this.programDetails.getCurrency().getValue())),
-					this.programDetails.getCurrency().getValue()));
+							StringFormatUtil.getCurrencyMaxFraction(this.details.getTradingAccountInfo().getCurrency().getValue())),
+					this.details.getTradingAccountInfo().getCurrency().getValue()));
 			profit.setVisibility(View.VISIBLE);
-			profit.setText(String.format(Locale.getDefault(), "%s%%", StringFormatUtil.formatAmount(getProfitPercent(), 0, 4)));
+			profit.setText(String.format(Locale.getDefault(), "%s%%",
+					StringFormatUtil.formatAmount(getProfitPercent(personalDetails.getInvested(), personalDetails.getValue()), 0, 4)));
 			profit.setTextColor(ThemeUtil.getColorByAttrId(getContext(),
 					personalDetails.getValue() < personalDetails.getInvested()
 							? R.attr.colorRed
@@ -533,9 +522,7 @@ public class OwnerInfoFragment extends BaseFragment implements OwnerInfoView, Pr
 		}
 	}
 
-	private Double getProfitPercent() {
-		Double invested = programDetails.getPersonalDetails().getInvested();
-		Double value = programDetails.getPersonalDetails().getValue();
+	private Double getProfitPercent(Double invested, Double value) {
 		return Math.abs(invested != 0 ? 100 / invested * (invested - value) : 0);
 	}
 
@@ -579,7 +566,7 @@ public class OwnerInfoFragment extends BaseFragment implements OwnerInfoView, Pr
 		if (getActivity() != null) {
 			RequestsBottomSheetFragment bottomSheetDialog = new RequestsBottomSheetFragment();
 			bottomSheetDialog.show(getActivity().getSupportFragmentManager(), bottomSheetDialog.getTag());
-			bottomSheetDialog.setAssetId(programId);
+			bottomSheetDialog.setAssetId(details.getId());
 		}
 	}
 
@@ -624,9 +611,9 @@ public class OwnerInfoFragment extends BaseFragment implements OwnerInfoView, Pr
 	}
 
 	@Override
-	public void showManageProgramActivity(ProgramDetailsFull programDetails) {
+	public void showManageProgramActivity(ProgramFollowDetailsFull details) {
 		if (getActivity() != null) {
-			ManageProgramActivity.startFrom(getActivity(), programDetails);
+			ManageProgramActivity.startFrom(getActivity(), details);
 		}
 	}
 
@@ -637,9 +624,8 @@ public class OwnerInfoFragment extends BaseFragment implements OwnerInfoView, Pr
 		}
 	}
 
-	public void updateInfo(ProgramDetailsFull programDetails, FollowDetailsFull followDetails) {
-		this.programDetails = programDetails;
-		this.followDetails = followDetails;
+	public void updateInfo(ProgramFollowDetailsFull details) {
+		this.details = details;
 		updateAll();
 	}
 }

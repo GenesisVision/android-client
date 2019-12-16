@@ -81,4 +81,12 @@ public class AssetsManager
 	public Observable<Void> closeProgram(UUID programId, TwoFactorCodeModel model) {
 		return assetsApi.closeInvestmentProgram(AuthManager.token.getValue(), programId, model);
 	}
+
+	public Observable<Void> updateFundSettings(UUID assetId, ProgramUpdate request) {
+		return assetsApi.updateAsset(AuthManager.token.getValue(), assetId, request);
+	}
+
+	public Observable<Void> closeFund(UUID fundId, TwoFactorCodeModel model) {
+		return assetsApi.closeFund(AuthManager.token.getValue(), fundId, model);
+	}
 }

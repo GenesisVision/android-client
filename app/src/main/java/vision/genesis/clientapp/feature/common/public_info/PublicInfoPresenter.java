@@ -83,6 +83,7 @@ public class PublicInfoPresenter extends MvpPresenter<PublicInfoView>
 			getViewState().setDescription(model.getDescription());
 		}
 		if (model.getLogo() != null) {
+			this.logo = model.getLogo();
 			getViewState().showLogoProgress(false);
 			getViewState().updateLogo(model.getLogo());
 		}

@@ -29,8 +29,8 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 import io.swagger.client.model.AssetFacet;
-import io.swagger.client.model.FollowDetailsList;
-import io.swagger.client.model.ItemsViewModelFollowDetailsList;
+import io.swagger.client.model.FollowDetailsListItem;
+import io.swagger.client.model.ItemsViewModelFollowDetailsListItem;
 import timber.log.Timber;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
@@ -282,13 +282,13 @@ public class FollowsListFragment extends BaseFragment implements FollowsListView
 	}
 
 	@Override
-	public void setFollows(List<FollowDetailsList> follows) {
+	public void setFollows(List<FollowDetailsListItem> follows) {
 		followsListAdapter.setFollows(follows);
 		recyclerView.scrollToPosition(0);
 	}
 
 	@Override
-	public void addFollows(List<FollowDetailsList> follows) {
+	public void addFollows(List<FollowDetailsListItem> follows) {
 		followsListAdapter.addFollows(follows);
 	}
 
@@ -353,7 +353,7 @@ public class FollowsListFragment extends BaseFragment implements FollowsListView
 		}
 	}
 
-	public void showSearchResults(ItemsViewModelFollowDetailsList result) {
+	public void showSearchResults(ItemsViewModelFollowDetailsListItem result) {
 		if (followsListPresenter != null) {
 			followsListPresenter.showSearchResults(result);
 		}

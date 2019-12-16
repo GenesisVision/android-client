@@ -3,7 +3,7 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**externalKeyId** | [**UUID**](UUID.md) |  |  [optional]
+**tradingAccountId** | [**UUID**](UUID.md) |  |  [optional]
 **mode** | [**SubscriptionMode**](SubscriptionMode.md) |  |  [optional]
 **percent** | **Double** |  |  [optional]
 **openTolerancePercent** | **Double** |  |  [optional]

@@ -15,19 +15,9 @@ package io.swagger.client.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.google.gson.TypeAdapter;
-import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonWriter;
 
-import org.joda.time.DateTime;
-
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
-import java.util.UUID;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 
@@ -49,41 +39,8 @@ public class FollowDetailsFull implements Parcelable
 		}
 	};
 
-	@SerializedName("id")
-	private UUID id = null;
-
-	@SerializedName("tradingAccountId")
-	private UUID tradingAccountId = null;
-
-	@SerializedName("title")
-	private String title = null;
-
-	@SerializedName("description")
-	private String description = null;
-
-	@SerializedName("logo")
-	private String logo = null;
-
-	@SerializedName("creationDate")
-	private DateTime creationDate = null;
-
-	@SerializedName("currency")
-	private CurrencyEnum currency = null;
-
 	@SerializedName("tradesCount")
 	private Integer tradesCount = null;
-
-	@SerializedName("status")
-	private String status = null;
-
-	@SerializedName("url")
-	private String url = null;
-
-	@SerializedName("color")
-	private String color = null;
-
-	@SerializedName("leverage")
-	private Integer leverage = null;
 
 	@SerializedName("signalSettings")
 	private AssetSignalSettings signalSettings = null;
@@ -91,173 +48,17 @@ public class FollowDetailsFull implements Parcelable
 	@SerializedName("subscribersCount")
 	private Integer subscribersCount = null;
 
-	@SerializedName("brokerDetails")
-	private BrokerDetails brokerDetails = null;
-
-	@SerializedName("owner")
-	private ProfilePublic owner = null;
-
 	@SerializedName("personalDetails")
 	private PersonalFollowDetailsFull personalDetails = null;
-
-	@SerializedName("tags")
-	private List<Tag> tags = null;
 
 	public FollowDetailsFull() {
 	}
 
 	FollowDetailsFull(Parcel in) {
-		id = (UUID) in.readValue(UUID.class.getClassLoader());
-		tradingAccountId = (UUID) in.readValue(UUID.class.getClassLoader());
-		title = (String) in.readValue(null);
-		description = (String) in.readValue(null);
-		logo = (String) in.readValue(null);
-		creationDate = (DateTime) in.readValue(DateTime.class.getClassLoader());
-		currency = (CurrencyEnum) in.readValue(null);
 		tradesCount = (Integer) in.readValue(null);
-		status = (String) in.readValue(null);
-		url = (String) in.readValue(null);
-		color = (String) in.readValue(null);
-		leverage = (Integer) in.readValue(null);
 		signalSettings = (AssetSignalSettings) in.readValue(AssetSignalSettings.class.getClassLoader());
 		subscribersCount = (Integer) in.readValue(null);
-		brokerDetails = (BrokerDetails) in.readValue(BrokerDetails.class.getClassLoader());
-		owner = (ProfilePublic) in.readValue(ProfilePublic.class.getClassLoader());
 		personalDetails = (PersonalFollowDetailsFull) in.readValue(PersonalFollowDetailsFull.class.getClassLoader());
-		tags = (List<Tag>) in.readValue(Tag.class.getClassLoader());
-	}
-
-	public FollowDetailsFull id(UUID id) {
-		this.id = id;
-		return this;
-	}
-
-	/**
-	 * Get id
-	 *
-	 * @return id
-	 **/
-	@Schema(description = "")
-	public UUID getId() {
-		return id;
-	}
-
-	public void setId(UUID id) {
-		this.id = id;
-	}
-
-	public FollowDetailsFull tradingAccountId(UUID tradingAccountId) {
-		this.tradingAccountId = tradingAccountId;
-		return this;
-	}
-
-	/**
-	 * Get tradingAccountId
-	 *
-	 * @return tradingAccountId
-	 **/
-	@Schema(description = "")
-	public UUID getTradingAccountId() {
-		return tradingAccountId;
-	}
-
-	public void setTradingAccountId(UUID tradingAccountId) {
-		this.tradingAccountId = tradingAccountId;
-	}
-
-	public FollowDetailsFull title(String title) {
-		this.title = title;
-		return this;
-	}
-
-	/**
-	 * Get title
-	 *
-	 * @return title
-	 **/
-	@Schema(description = "")
-	public String getTitle() {
-		return title;
-	}
-
-	public void setTitle(String title) {
-		this.title = title;
-	}
-
-	public FollowDetailsFull description(String description) {
-		this.description = description;
-		return this;
-	}
-
-	/**
-	 * Get description
-	 *
-	 * @return description
-	 **/
-	@Schema(description = "")
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
-	public FollowDetailsFull logo(String logo) {
-		this.logo = logo;
-		return this;
-	}
-
-	/**
-	 * Get logo
-	 *
-	 * @return logo
-	 **/
-	@Schema(description = "")
-	public String getLogo() {
-		return logo;
-	}
-
-	public void setLogo(String logo) {
-		this.logo = logo;
-	}
-
-	public FollowDetailsFull creationDate(DateTime creationDate) {
-		this.creationDate = creationDate;
-		return this;
-	}
-
-	/**
-	 * Get creationDate
-	 *
-	 * @return creationDate
-	 **/
-	@Schema(description = "")
-	public DateTime getCreationDate() {
-		return creationDate;
-	}
-
-	public void setCreationDate(DateTime creationDate) {
-		this.creationDate = creationDate;
-	}
-
-	public FollowDetailsFull currency(CurrencyEnum currency) {
-		this.currency = currency;
-		return this;
-	}
-
-	/**
-	 * Get currency
-	 *
-	 * @return currency
-	 **/
-	@Schema(description = "")
-	public CurrencyEnum getCurrency() {
-		return currency;
-	}
-
-	public void setCurrency(CurrencyEnum currency) {
-		this.currency = currency;
 	}
 
 	public FollowDetailsFull tradesCount(Integer tradesCount) {
@@ -277,82 +78,6 @@ public class FollowDetailsFull implements Parcelable
 
 	public void setTradesCount(Integer tradesCount) {
 		this.tradesCount = tradesCount;
-	}
-
-	public FollowDetailsFull status(String status) {
-		this.status = status;
-		return this;
-	}
-
-	/**
-	 * Get status
-	 *
-	 * @return status
-	 **/
-	@Schema(description = "")
-	public String getStatus() {
-		return status;
-	}
-
-	public void setStatus(String status) {
-		this.status = status;
-	}
-
-	public FollowDetailsFull url(String url) {
-		this.url = url;
-		return this;
-	}
-
-	/**
-	 * Get url
-	 *
-	 * @return url
-	 **/
-	@Schema(description = "")
-	public String getUrl() {
-		return url;
-	}
-
-	public void setUrl(String url) {
-		this.url = url;
-	}
-
-	public FollowDetailsFull color(String color) {
-		this.color = color;
-		return this;
-	}
-
-	/**
-	 * Get color
-	 *
-	 * @return color
-	 **/
-	@Schema(description = "")
-	public String getColor() {
-		return color;
-	}
-
-	public void setColor(String color) {
-		this.color = color;
-	}
-
-	public FollowDetailsFull leverage(Integer leverage) {
-		this.leverage = leverage;
-		return this;
-	}
-
-	/**
-	 * Get leverage
-	 *
-	 * @return leverage
-	 **/
-	@Schema(description = "")
-	public Integer getLeverage() {
-		return leverage;
-	}
-
-	public void setLeverage(Integer leverage) {
-		this.leverage = leverage;
 	}
 
 	public FollowDetailsFull signalSettings(AssetSignalSettings signalSettings) {
@@ -393,44 +118,6 @@ public class FollowDetailsFull implements Parcelable
 		this.subscribersCount = subscribersCount;
 	}
 
-	public FollowDetailsFull brokerDetails(BrokerDetails brokerDetails) {
-		this.brokerDetails = brokerDetails;
-		return this;
-	}
-
-	/**
-	 * Get brokerDetails
-	 *
-	 * @return brokerDetails
-	 **/
-	@Schema(description = "")
-	public BrokerDetails getBrokerDetails() {
-		return brokerDetails;
-	}
-
-	public void setBrokerDetails(BrokerDetails brokerDetails) {
-		this.brokerDetails = brokerDetails;
-	}
-
-	public FollowDetailsFull owner(ProfilePublic owner) {
-		this.owner = owner;
-		return this;
-	}
-
-	/**
-	 * Get owner
-	 *
-	 * @return owner
-	 **/
-	@Schema(description = "")
-	public ProfilePublic getOwner() {
-		return owner;
-	}
-
-	public void setOwner(ProfilePublic owner) {
-		this.owner = owner;
-	}
-
 	public FollowDetailsFull personalDetails(PersonalFollowDetailsFull personalDetails) {
 		this.personalDetails = personalDetails;
 		return this;
@@ -450,33 +137,6 @@ public class FollowDetailsFull implements Parcelable
 		this.personalDetails = personalDetails;
 	}
 
-	public FollowDetailsFull tags(List<Tag> tags) {
-		this.tags = tags;
-		return this;
-	}
-
-	public FollowDetailsFull addTagsItem(Tag tagsItem) {
-		if (this.tags == null) {
-			this.tags = new ArrayList<Tag>();
-		}
-		this.tags.add(tagsItem);
-		return this;
-	}
-
-	/**
-	 * Get tags
-	 *
-	 * @return tags
-	 **/
-	@Schema(description = "")
-	public List<Tag> getTags() {
-		return tags;
-	}
-
-	public void setTags(List<Tag> tags) {
-		this.tags = tags;
-	}
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -486,29 +146,15 @@ public class FollowDetailsFull implements Parcelable
 			return false;
 		}
 		FollowDetailsFull followDetailsFull = (FollowDetailsFull) o;
-		return Objects.equals(this.id, followDetailsFull.id) &&
-				Objects.equals(this.tradingAccountId, followDetailsFull.tradingAccountId) &&
-				Objects.equals(this.title, followDetailsFull.title) &&
-				Objects.equals(this.description, followDetailsFull.description) &&
-				Objects.equals(this.logo, followDetailsFull.logo) &&
-				Objects.equals(this.creationDate, followDetailsFull.creationDate) &&
-				Objects.equals(this.currency, followDetailsFull.currency) &&
-				Objects.equals(this.tradesCount, followDetailsFull.tradesCount) &&
-				Objects.equals(this.status, followDetailsFull.status) &&
-				Objects.equals(this.url, followDetailsFull.url) &&
-				Objects.equals(this.color, followDetailsFull.color) &&
-				Objects.equals(this.leverage, followDetailsFull.leverage) &&
+		return Objects.equals(this.tradesCount, followDetailsFull.tradesCount) &&
 				Objects.equals(this.signalSettings, followDetailsFull.signalSettings) &&
 				Objects.equals(this.subscribersCount, followDetailsFull.subscribersCount) &&
-				Objects.equals(this.brokerDetails, followDetailsFull.brokerDetails) &&
-				Objects.equals(this.owner, followDetailsFull.owner) &&
-				Objects.equals(this.personalDetails, followDetailsFull.personalDetails) &&
-				Objects.equals(this.tags, followDetailsFull.tags);
+				Objects.equals(this.personalDetails, followDetailsFull.personalDetails);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, tradingAccountId, title, description, logo, creationDate, currency, tradesCount, status, url, color, leverage, signalSettings, subscribersCount, brokerDetails, owner, personalDetails, tags);
+		return Objects.hash(tradesCount, signalSettings, subscribersCount, personalDetails);
 	}
 
 	@Override
@@ -516,24 +162,10 @@ public class FollowDetailsFull implements Parcelable
 		StringBuilder sb = new StringBuilder();
 		sb.append("class FollowDetailsFull {\n");
 
-		sb.append("    id: ").append(toIndentedString(id)).append("\n");
-		sb.append("    tradingAccountId: ").append(toIndentedString(tradingAccountId)).append("\n");
-		sb.append("    title: ").append(toIndentedString(title)).append("\n");
-		sb.append("    description: ").append(toIndentedString(description)).append("\n");
-		sb.append("    logo: ").append(toIndentedString(logo)).append("\n");
-		sb.append("    creationDate: ").append(toIndentedString(creationDate)).append("\n");
-		sb.append("    currency: ").append(toIndentedString(currency)).append("\n");
 		sb.append("    tradesCount: ").append(toIndentedString(tradesCount)).append("\n");
-		sb.append("    status: ").append(toIndentedString(status)).append("\n");
-		sb.append("    url: ").append(toIndentedString(url)).append("\n");
-		sb.append("    color: ").append(toIndentedString(color)).append("\n");
-		sb.append("    leverage: ").append(toIndentedString(leverage)).append("\n");
 		sb.append("    signalSettings: ").append(toIndentedString(signalSettings)).append("\n");
 		sb.append("    subscribersCount: ").append(toIndentedString(subscribersCount)).append("\n");
-		sb.append("    brokerDetails: ").append(toIndentedString(brokerDetails)).append("\n");
-		sb.append("    owner: ").append(toIndentedString(owner)).append("\n");
 		sb.append("    personalDetails: ").append(toIndentedString(personalDetails)).append("\n");
-		sb.append("    tags: ").append(toIndentedString(tags)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}
@@ -550,86 +182,13 @@ public class FollowDetailsFull implements Parcelable
 	}
 
 	public void writeToParcel(Parcel out, int flags) {
-		out.writeValue(id);
-		out.writeValue(tradingAccountId);
-		out.writeValue(title);
-		out.writeValue(description);
-		out.writeValue(logo);
-		out.writeValue(creationDate);
-		out.writeValue(currency);
 		out.writeValue(tradesCount);
-		out.writeValue(status);
-		out.writeValue(url);
-		out.writeValue(color);
-		out.writeValue(leverage);
 		out.writeValue(signalSettings);
 		out.writeValue(subscribersCount);
-		out.writeValue(brokerDetails);
-		out.writeValue(owner);
 		out.writeValue(personalDetails);
-		out.writeValue(tags);
 	}
 
 	public int describeContents() {
 		return 0;
-	}
-
-	/**
-	 * Gets or Sets currency
-	 */
-	@JsonAdapter(CurrencyEnum.Adapter.class)
-	public enum CurrencyEnum
-	{
-		USD("USD"),
-		BTC("BTC"),
-		ETH("ETH"),
-		USDT("USDT"),
-		GVT("GVT"),
-		UNDEFINED("Undefined"),
-		ADA("ADA"),
-		XRP("XRP"),
-		BCH("BCH"),
-		LTC("LTC"),
-		DOGE("DOGE"),
-		BNB("BNB"),
-		EUR("EUR");
-
-		public static CurrencyEnum fromValue(String text) {
-			for (CurrencyEnum b : CurrencyEnum.values()) {
-				if (String.valueOf(b.value).equals(text)) {
-					return b;
-				}
-			}
-			return null;
-		}
-
-		private String value;
-
-		CurrencyEnum(String value) {
-			this.value = value;
-		}
-
-		public String getValue() {
-			return value;
-		}
-
-		@Override
-		public String toString() {
-			return String.valueOf(value);
-		}
-
-		public static class Adapter extends TypeAdapter<CurrencyEnum>
-		{
-			@Override
-			public void write(final JsonWriter jsonWriter, final CurrencyEnum enumeration) throws IOException {
-				jsonWriter.value(enumeration.getValue());
-			}
-
-			@Override
-			public CurrencyEnum read(final JsonReader jsonReader) throws IOException {
-				String value = jsonReader.nextString();
-				return CurrencyEnum.fromValue(String.valueOf(value));
-			}
-		}
 	}
 }

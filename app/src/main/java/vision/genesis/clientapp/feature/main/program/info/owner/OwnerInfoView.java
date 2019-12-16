@@ -8,8 +8,7 @@ import com.arellomobile.mvp.viewstate.strategy.StateStrategyType;
 import java.util.UUID;
 
 import io.swagger.client.model.CreateSignalProvider;
-import io.swagger.client.model.FollowDetailsFull;
-import io.swagger.client.model.ProgramDetailsFull;
+import io.swagger.client.model.ProgramFollowDetailsFull;
 import io.swagger.client.model.ProgramUpdate;
 import vision.genesis.clientapp.model.CreateProgramModel;
 import vision.genesis.clientapp.model.ProgramRequest;
@@ -23,10 +22,7 @@ import vision.genesis.clientapp.model.TradingAccountDetailsModel;
 interface OwnerInfoView extends MvpView
 {
 	@StateStrategyType(AddToEndSingleStrategy.class)
-	void setProgramDetails(ProgramDetailsFull programDetails);
-
-	@StateStrategyType(AddToEndSingleStrategy.class)
-	void setFollowDetails(FollowDetailsFull followDetails);
+	void setDetails(ProgramFollowDetailsFull details);
 
 	@StateStrategyType(AddToEndSingleStrategy.class)
 	void showInvestWithdrawButtons();
@@ -54,7 +50,7 @@ interface OwnerInfoView extends MvpView
 
 	void showManageAccountActivity(TradingAccountDetailsModel model);
 
-	void showManageProgramActivity(ProgramDetailsFull programDetails);
+	void showManageProgramActivity(ProgramFollowDetailsFull details);
 
 	void showEditFollowSettingsActivity(CreateSignalProvider model);
 }

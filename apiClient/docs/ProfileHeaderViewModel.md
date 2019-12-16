@@ -15,3 +15,4 @@ Name | Type | Description | Notes
 **isTwoFactorEnabled** | **Boolean** |  |  [optional]
 **isNewUser** | **Boolean** |  |  [optional]
 **isPublicInvestor** | **Boolean** |  |  [optional]
+**isUserNameFilled** | **Boolean** |  |  [optional]

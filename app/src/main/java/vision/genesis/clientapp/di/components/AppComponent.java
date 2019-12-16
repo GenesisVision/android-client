@@ -49,14 +49,16 @@ import vision.genesis.clientapp.feature.main.follows_list.FollowsListPresenter;
 import vision.genesis.clientapp.feature.main.fund.FundDetailsPresenter;
 import vision.genesis.clientapp.feature.main.fund.add_asset.AddAssetPresenter;
 import vision.genesis.clientapp.feature.main.fund.balance.FundBalancePresenter;
+import vision.genesis.clientapp.feature.main.fund.change_settings.ChangeFundSettingsPresenter;
 import vision.genesis.clientapp.feature.main.fund.create.CreateFundPresenter;
 import vision.genesis.clientapp.feature.main.fund.create.assets.CreateFundAssetsPresenter;
 import vision.genesis.clientapp.feature.main.fund.create.deposit.CreateFundDepositPresenter;
-import vision.genesis.clientapp.feature.main.fund.create.fees.CreateFundFeesPresenter;
+import vision.genesis.clientapp.feature.main.fund.create.fees.FundFeesPresenter;
 import vision.genesis.clientapp.feature.main.fund.info.FundInfoPresenter;
 import vision.genesis.clientapp.feature.main.fund.info.owner.FundOwnerInfoPresenter;
 import vision.genesis.clientapp.feature.main.fund.invest.InvestFundPresenter;
 import vision.genesis.clientapp.feature.main.fund.invest.confirm.ConfirmFundInvestBottomSheetFragment;
+import vision.genesis.clientapp.feature.main.fund.manage.ManageFundPresenter;
 import vision.genesis.clientapp.feature.main.fund.profit.FundProfitPresenter;
 import vision.genesis.clientapp.feature.main.fund.reallocate_history.ReallocateHistoryPresenter;
 import vision.genesis.clientapp.feature.main.fund.withdraw.WithdrawFundPresenter;
@@ -320,7 +322,7 @@ public interface AppComponent
 
 	void inject(AddAssetPresenter addAssetPresenter);
 
-	void inject(CreateFundFeesPresenter createFundFeesPresenter);
+	void inject(FundFeesPresenter fundFeesPresenter);
 
 	void inject(DashboardInvestmentsView dashboardInvestmentsView);
 
@@ -383,4 +385,8 @@ public interface AppComponent
 	void inject(ChangeProgramSettingsPresenter changeProgramSettingsPresenter);
 
 	void inject(FundOwnerInfoPresenter fundOwnerInfoPresenter);
+
+	void inject(ManageFundPresenter manageFundPresenter);
+
+	void inject(ChangeFundSettingsPresenter changeFundSettingsPresenter);
 }

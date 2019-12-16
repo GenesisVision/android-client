@@ -104,7 +104,7 @@ public class CreateFollowPresenter extends MvpPresenter<CreateFollowView>
 		else if (model.getAssetType().equals(AssetType.FOLLOW) || model.getAssetType().equals(AssetType.PROGRAM)) {
 			CreateSignalProvider programRequest = new CreateSignalProvider();
 
-			programRequest.setAssetId(model.getAssetId());
+			programRequest.setId(model.getAssetId());
 
 			programRequest.setVolumeFee(this.volumeFee);
 			programRequest.setSuccessFee(this.successFee);

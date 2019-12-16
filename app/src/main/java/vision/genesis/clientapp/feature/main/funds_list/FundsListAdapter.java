@@ -24,7 +24,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.swagger.client.model.AssetFacet;
 import io.swagger.client.model.FundAssetPercent;
-import io.swagger.client.model.FundDetailsList;
+import io.swagger.client.model.FundDetailsListItem;
 import timber.log.Timber;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
@@ -50,7 +50,7 @@ public class FundsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
 	private static final int TYPE_CARD = 1;
 
-	private List<FundDetailsList> funds = new ArrayList<FundDetailsList>();
+	private List<FundDetailsListItem> funds = new ArrayList<FundDetailsListItem>();
 
 	private List<AssetFacet> facets = new ArrayList<>();
 
@@ -98,19 +98,19 @@ public class FundsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 		notifyDataSetChanged();
 	}
 
-	public void setFunds(List<FundDetailsList> funds) {
+	public void setFunds(List<FundDetailsListItem> funds) {
 		this.funds.clear();
 		this.funds.addAll(funds);
 		notifyDataSetChanged();
 	}
 
-	public void addFunds(List<FundDetailsList> funds) {
+	public void addFunds(List<FundDetailsListItem> funds) {
 		this.funds.addAll(funds);
 		notifyDataSetChanged();
 	}
 
 	public void setFundFavorite(UUID fundId, Boolean favorite) {
-		for (FundDetailsList fund : funds) {
+		for (FundDetailsListItem fund : funds) {
 			if (fund.getId().equals(fundId)) {
 				if (fund.getPersonalDetails() != null && !fund.getPersonalDetails().isIsFavorite().equals(favorite)) {
 					fund.getPersonalDetails().setIsFavorite(favorite);
@@ -230,7 +230,7 @@ public class FundsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 		@BindView(R.id.text_assets_left)
 		public TextView assetsLeft;
 
-		private FundDetailsList fund;
+		private FundDetailsListItem fund;
 
 		FundViewHolder(View itemView) {
 			super(itemView);
@@ -288,7 +288,7 @@ public class FundsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 			assetsLeft.setTypeface(TypefaceUtil.semibold());
 		}
 
-		void setFund(FundDetailsList fund) {
+		void setFund(FundDetailsListItem fund) {
 			this.fund = fund;
 			updateData();
 		}

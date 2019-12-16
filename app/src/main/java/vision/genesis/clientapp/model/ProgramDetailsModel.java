@@ -6,8 +6,8 @@ import android.os.Parcelable;
 import java.util.UUID;
 
 import io.swagger.client.model.AssetType;
-import io.swagger.client.model.FollowDetailsFull;
 import io.swagger.client.model.ProgramDetailsFull;
+import io.swagger.client.model.ProgramFollowDetailsFull;
 
 /**
  * GenesisVisionAndroid
@@ -145,38 +145,38 @@ public class ProgramDetailsModel implements Parcelable
 	}
 
 	public void update(ProgramDetailsFull programDetails) {
-		this.programId = programDetails.getId();
-		this.avatar = programDetails.getLogo();
-		this.programColor = programDetails.getColor();
-		this.level = programDetails.getLevel();
-		this.levelProgress = programDetails.getLevelProgress();
-		this.programName = programDetails.getTitle();
-		this.managerName = programDetails.getOwner().getUsername();
-		this.currency = programDetails.getCurrency().getValue();
-		this.favorite = programDetails.getPersonalDetails() != null
-				? programDetails.getPersonalDetails().isIsFavorite()
-				: false;
-		this.hasNotifications = programDetails.getPersonalDetails() != null
-				? programDetails.getPersonalDetails().isHasNotifications()
-				: false;
-		this.assetType = AssetType.PROGRAM;
+//		this.programId = programDetails.getId();
+//		this.avatar = programDetails.getLogo();
+//		this.programColor = programDetails.getColor();
+//		this.level = programDetails.getLevel();
+//		this.levelProgress = programDetails.getLevelProgress();
+//		this.programName = programDetails.getTitle();
+//		this.managerName = programDetails.getOwner().getUsername();
+//		this.currency = programDetails.getCurrency().getValue();
+//		this.favorite = programDetails.getPersonalDetails() != null
+//				? programDetails.getPersonalDetails().isIsFavorite()
+//				: false;
+//		this.hasNotifications = programDetails.getPersonalDetails() != null
+//				? programDetails.getPersonalDetails().isHasNotifications()
+//				: false;
+//		this.assetType = AssetType.PROGRAM;
 	}
 
-	public void update(FollowDetailsFull followDetails) {
-		this.programId = followDetails.getId();
-		this.avatar = followDetails.getLogo();
-		this.programColor = followDetails.getColor();
+	public void update(ProgramFollowDetailsFull details) {
+		this.programId = details.getId();
+		this.avatar = details.getPublicInfo().getLogo();
+		this.programColor = details.getPublicInfo().getColor();
 		this.level = 0;
 		this.levelProgress = 0.0;
-		this.programName = followDetails.getTitle();
-		this.managerName = followDetails.getOwner().getUsername();
-		this.currency = followDetails.getCurrency().getValue();
-		this.favorite = followDetails.getPersonalDetails() != null
-				? followDetails.getPersonalDetails().isIsFavorite()
-				: false;
-		this.hasNotifications = followDetails.getPersonalDetails() != null
-				? followDetails.getPersonalDetails().isHasNotifications()
-				: false;
+		this.programName = details.getPublicInfo().getTitle();
+		this.managerName = details.getOwner().getUsername();
+		this.currency = details.getTradingAccountInfo().getCurrency().getValue();
+//		this.favorite = details.getPersonalDetails() != null
+//				? details.getPersonalDetails().isIsFavorite()
+//				: false;
+//		this.hasNotifications = details.getPersonalDetails() != null
+//				? details.getPersonalDetails().isHasNotifications()
+//				: false;
 		this.assetType = AssetType.FOLLOW;
 	}
 }

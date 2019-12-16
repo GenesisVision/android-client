@@ -264,7 +264,7 @@ No authorization required
 
 <a name="getFunds"></a>
 # **getFunds**
-> ItemsViewModelFundDetailsList getFunds(authorization, sorting, showIn, assets, dateFrom, dateTo, chartPointsCount, facetId, mask, ownerId, showFavorites, skip, take)
+> ItemsViewModelFundDetailsListItem getFunds(authorization, sorting, showIn, assets, dateFrom, dateTo, chartPointsCount, facetId, mask, ownerId, showFavorites, skip, take)
 
 Funds list
 
@@ -290,7 +290,7 @@ Boolean showFavorites = true; // Boolean |
 Integer skip = 56; // Integer | 
 Integer take = 56; // Integer | 
 try {
-    ItemsViewModelFundDetailsList result = apiInstance.getFunds(authorization, sorting, showIn, assets, dateFrom, dateTo, chartPointsCount, facetId, mask, ownerId, showFavorites, skip, take);
+    ItemsViewModelFundDetailsListItem result = apiInstance.getFunds(authorization, sorting, showIn, assets, dateFrom, dateTo, chartPointsCount, facetId, mask, ownerId, showFavorites, skip, take);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling FundsApi#getFunds");
@@ -318,7 +318,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ItemsViewModelFundDetailsList**](ItemsViewModelFundDetailsList.md)
+[**ItemsViewModelFundDetailsListItem**](ItemsViewModelFundDetailsListItem.md)
 
 ### Authorization
 

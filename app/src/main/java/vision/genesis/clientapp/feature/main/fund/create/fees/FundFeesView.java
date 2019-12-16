@@ -7,17 +7,17 @@ import com.arellomobile.mvp.MvpView;
  * Created by Vitaly on 14/10/2019.
  */
 
-interface CreateFundFeesView extends MvpView
+interface FundFeesView extends MvpView
 {
 	void updateEntryFeeDescription(Double managerMaxEntryFee);
 
 	void updateExitFeeDescription(Double managerMaxExitFee);
 
-	void setEntryFeeText(Double entryFeeValue);
+	void setEntryFee(Double entryFeeValue);
 
-	void setExitFeeText(Double exitFeeValue);
+	void setExitFee(Double exitFeeValue);
 
 	void showSnackbarMessage(String message);
 
-	void setNextButtonEnabled(boolean enabled);
+	void setConfirmButtonEnabled(boolean enabled);
 }

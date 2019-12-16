@@ -7,7 +7,7 @@ import com.arellomobile.mvp.viewstate.strategy.StateStrategyType;
 import java.util.List;
 import java.util.UUID;
 
-import io.swagger.client.model.ProgramDetailsList;
+import io.swagger.client.model.ProgramDetailsListItem;
 
 /**
  * GenesisVisionAndroid
@@ -16,9 +16,7 @@ import io.swagger.client.model.ProgramDetailsList;
 
 interface FavoritesView extends MvpView
 {
-	void setInvestmentPrograms(List<ProgramDetailsList> programs);
-
-//	void setTournamentPrograms(List<InvestmentProgramExtended> programs);
+	void setInvestmentPrograms(List<ProgramDetailsListItem> programs);
 
 	void setRefreshing(boolean refreshing);
 

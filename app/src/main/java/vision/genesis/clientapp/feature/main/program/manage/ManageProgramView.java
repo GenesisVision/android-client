@@ -16,7 +16,7 @@ import io.swagger.client.model.ProgramUpdate;
 
 interface ManageProgramView extends MvpView
 {
-	void updateView(ProgramDetailsFull model);
+	void updateView(ProgramDetailsFull programDetails);
 
 	void showChangeSettingsActivity(UUID programId, String currency, ProgramUpdate model);
 

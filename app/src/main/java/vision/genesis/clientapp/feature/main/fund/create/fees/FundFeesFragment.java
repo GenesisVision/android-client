@@ -14,18 +14,16 @@ import androidx.annotation.Nullable;
 import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.jakewharton.rxbinding.widget.RxTextView;
 
-import org.greenrobot.eventbus.EventBus;
-
 import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
-import io.swagger.client.model.NewFundRequest;
+import timber.log.Timber;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
-import vision.genesis.clientapp.model.events.OnCreateFundNextButtonClickedEvent;
+import vision.genesis.clientapp.model.FundSettingsModel;
 import vision.genesis.clientapp.ui.PrimaryButton;
 import vision.genesis.clientapp.utils.StringFormatUtil;
 import vision.genesis.clientapp.utils.TypefaceUtil;
@@ -35,8 +33,21 @@ import vision.genesis.clientapp.utils.TypefaceUtil;
  * Created by Vitaly on 14/10/2019.
  */
 
-public class CreateFundFeesFragment extends BaseFragment implements CreateFundFeesView
+public class FundFeesFragment extends BaseFragment implements FundFeesView
 {
+	private static String EXTRA_MODEL = "extra_model";
+
+	public static FundFeesFragment with(FundSettingsModel model) {
+		FundFeesFragment fragment = new FundFeesFragment();
+		Bundle arguments = new Bundle(1);
+		arguments.putParcelable(EXTRA_MODEL, model);
+		fragment.setArguments(arguments);
+		return fragment;
+	}
+
+	@BindView(R.id.group_step)
+	public ViewGroup stepGroup;
+
 	@BindView(R.id.step_number)
 	public TextView stepNumber;
 
@@ -55,15 +66,13 @@ public class CreateFundFeesFragment extends BaseFragment implements CreateFundFe
 	@BindView(R.id.exit_fee_description)
 	public TextView exitFeeDescription;
 
-	@BindView(R.id.button_next)
-	public PrimaryButton nextButton;
+	@BindView(R.id.button_confirm)
+	public PrimaryButton confirmButton;
 
 	@InjectPresenter
-	public CreateFundFeesPresenter presenter;
+	public FundFeesPresenter presenter;
 
 	private Unbinder unbinder;
-
-	private NewFundRequest request;
 
 	@OnClick(R.id.group_entry_fee)
 	public void onEntryFeeClicked() {
@@ -75,10 +84,10 @@ public class CreateFundFeesFragment extends BaseFragment implements CreateFundFe
 		showSoftKeyboard(exitFee);
 	}
 
-	@OnClick(R.id.button_next)
-	public void onNextClicked() {
+	@OnClick(R.id.button_confirm)
+	public void onConfirmClicked() {
 		hideSoftKeyboard();
-		EventBus.getDefault().post(new OnCreateFundNextButtonClickedEvent());
+		presenter.onConfirmClicked();
 	}
 
 	@Nullable
@@ -95,13 +104,19 @@ public class CreateFundFeesFragment extends BaseFragment implements CreateFundFe
 
 		setFonts();
 
-		nextButton.setText(String.format(Locale.getDefault(), "%s (3/4)", getString(R.string.next)));
 
-		setTextListeners();
+		if (getArguments() != null) {
+			FundSettingsModel model = getArguments().getParcelable(EXTRA_MODEL);
+			if (model != null) {
+				updateView(model);
 
-		if (request != null) {
-			presenter.setRequest(request);
+				setTextListeners();
+				presenter.setModel(model);
+				return;
+			}
 		}
+		Timber.e("Passed empty arguments to %s", getClass().getSimpleName());
+		onBackPressed();
 	}
 
 	@Override
@@ -114,6 +129,15 @@ public class CreateFundFeesFragment extends BaseFragment implements CreateFundFe
 		super.onDestroyView();
 	}
 
+	private void updateView(FundSettingsModel model) {
+		stepGroup.setVisibility(model.isNeedStep() ? View.VISIBLE : View.GONE);
+		stepNumber.setText(model.getStepNumber());
+		stepTitle.setText(model.getStepTitle());
+
+		confirmButton.setText(model.getButtonText());
+		confirmButton.setEnabled(false);
+	}
+
 	private void setTextListeners() {
 		RxTextView.textChanges(entryFee)
 				.subscribe(charSequence -> presenter.onEntryFeeChanged(charSequence.toString()));
@@ -124,13 +148,6 @@ public class CreateFundFeesFragment extends BaseFragment implements CreateFundFe
 	private void setFonts() {
 		stepNumber.setTypeface(TypefaceUtil.semibold());
 		stepTitle.setTypeface(TypefaceUtil.semibold());
-	}
-
-	public void setRequest(NewFundRequest request) {
-		this.request = request;
-		if (presenter != null) {
-			presenter.setRequest(request);
-		}
 	}
 
 	@Override
@@ -148,7 +165,7 @@ public class CreateFundFeesFragment extends BaseFragment implements CreateFundFe
 	}
 
 	@Override
-	public void setEntryFeeText(Double entryFeeValue) {
+	public void setEntryFee(Double entryFeeValue) {
 		String entryFeeText = StringFormatUtil.formatAmount(entryFeeValue, 0, 4);
 		if (entryFeeValue == 0) {
 			this.entryFee.setText("");
@@ -160,7 +177,7 @@ public class CreateFundFeesFragment extends BaseFragment implements CreateFundFe
 	}
 
 	@Override
-	public void setExitFeeText(Double exitFeeValue) {
+	public void setExitFee(Double exitFeeValue) {
 		String exitFeeText = StringFormatUtil.formatAmount(exitFeeValue, 0, 4);
 		if (exitFeeValue == 0) {
 			this.exitFee.setText("");
@@ -177,8 +194,8 @@ public class CreateFundFeesFragment extends BaseFragment implements CreateFundFe
 	}
 
 	@Override
-	public void setNextButtonEnabled(boolean enabled) {
-		nextButton.setEnabled(enabled);
+	public void setConfirmButtonEnabled(boolean enabled) {
+		confirmButton.setEnabled(enabled);
 	}
 
 	private void showSoftKeyboard(View view) {

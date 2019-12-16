@@ -343,7 +343,7 @@ No authorization required
 
 <a name="getProgramDetails"></a>
 # **getProgramDetails**
-> ProgramDetailsFull getProgramDetails(id, authorization)
+> ProgramFollowDetailsFull getProgramDetails(id, authorization)
 
 Program details
 
@@ -358,7 +358,7 @@ ProgramsApi apiInstance = new ProgramsApi();
 String id = "id_example"; // String | 
 String authorization = "authorization_example"; // String | 
 try {
-    ProgramDetailsFull result = apiInstance.getProgramDetails(id, authorization);
+    ProgramFollowDetailsFull result = apiInstance.getProgramDetails(id, authorization);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling ProgramsApi#getProgramDetails");
@@ -375,7 +375,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ProgramDetailsFull**](ProgramDetailsFull.md)
+[**ProgramFollowDetailsFull**](ProgramFollowDetailsFull.md)
 
 ### Authorization
 
@@ -665,7 +665,7 @@ No authorization required
 
 <a name="getPrograms"></a>
 # **getPrograms**
-> ItemsViewModelProgramDetailsList getPrograms(authorization, sorting, showIn, tags, programCurrency, levelMin, levelMax, levelsSet, dateFrom, dateTo, chartPointsCount, facetId, mask, ownerId, showFavorites, skip, take)
+> ItemsViewModelProgramDetailsListItem getPrograms(authorization, sorting, showIn, tags, programCurrency, levelMin, levelMax, levelsSet, dateFrom, dateTo, chartPointsCount, facetId, mask, ownerId, showFavorites, skip, take)
 
 Programs list
 
@@ -695,7 +695,7 @@ Boolean showFavorites = true; // Boolean |
 Integer skip = 56; // Integer | 
 Integer take = 56; // Integer | 
 try {
-    ItemsViewModelProgramDetailsList result = apiInstance.getPrograms(authorization, sorting, showIn, tags, programCurrency, levelMin, levelMax, levelsSet, dateFrom, dateTo, chartPointsCount, facetId, mask, ownerId, showFavorites, skip, take);
+    ItemsViewModelProgramDetailsListItem result = apiInstance.getPrograms(authorization, sorting, showIn, tags, programCurrency, levelMin, levelMax, levelsSet, dateFrom, dateTo, chartPointsCount, facetId, mask, ownerId, showFavorites, skip, take);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling ProgramsApi#getPrograms");
@@ -727,7 +727,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ItemsViewModelProgramDetailsList**](ItemsViewModelProgramDetailsList.md)
+[**ItemsViewModelProgramDetailsListItem**](ItemsViewModelProgramDetailsListItem.md)
 
 ### Authorization
 

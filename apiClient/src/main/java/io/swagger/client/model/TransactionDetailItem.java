@@ -45,6 +45,9 @@ public class TransactionDetailItem implements Parcelable
 	@SerializedName("url")
 	private String url = null;
 
+	@SerializedName("canCopy")
+	private Boolean canCopy = null;
+
 	@SerializedName("title")
 	private String title = null;
 
@@ -54,6 +57,7 @@ public class TransactionDetailItem implements Parcelable
 	TransactionDetailItem(Parcel in) {
 		details = (String) in.readValue(null);
 		url = (String) in.readValue(null);
+		canCopy = (Boolean) in.readValue(null);
 		title = (String) in.readValue(null);
 	}
 
@@ -95,6 +99,25 @@ public class TransactionDetailItem implements Parcelable
 		this.url = url;
 	}
 
+	public TransactionDetailItem canCopy(Boolean canCopy) {
+		this.canCopy = canCopy;
+		return this;
+	}
+
+	/**
+	 * Get canCopy
+	 *
+	 * @return canCopy
+	 **/
+	@Schema(description = "")
+	public Boolean isCanCopy() {
+		return canCopy;
+	}
+
+	public void setCanCopy(Boolean canCopy) {
+		this.canCopy = canCopy;
+	}
+
 	public TransactionDetailItem title(String title) {
 		this.title = title;
 		return this;
@@ -125,12 +148,13 @@ public class TransactionDetailItem implements Parcelable
 		TransactionDetailItem transactionDetailItem = (TransactionDetailItem) o;
 		return Objects.equals(this.details, transactionDetailItem.details) &&
 				Objects.equals(this.url, transactionDetailItem.url) &&
+				Objects.equals(this.canCopy, transactionDetailItem.canCopy) &&
 				Objects.equals(this.title, transactionDetailItem.title);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(details, url, title);
+		return Objects.hash(details, url, canCopy, title);
 	}
 
 	@Override
@@ -140,6 +164,7 @@ public class TransactionDetailItem implements Parcelable
 
 		sb.append("    details: ").append(toIndentedString(details)).append("\n");
 		sb.append("    url: ").append(toIndentedString(url)).append("\n");
+		sb.append("    canCopy: ").append(toIndentedString(canCopy)).append("\n");
 		sb.append("    title: ").append(toIndentedString(title)).append("\n");
 		sb.append("}");
 		return sb.toString();
@@ -159,6 +184,7 @@ public class TransactionDetailItem implements Parcelable
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(details);
 		out.writeValue(url);
+		out.writeValue(canCopy);
 		out.writeValue(title);
 	}
 

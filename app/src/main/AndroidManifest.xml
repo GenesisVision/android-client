@@ -268,6 +268,12 @@
             android:windowSoftInputMode="stateAlwaysHidden|adjustResize"/>
 
         <activity
+            android:name=".feature.main.facet.follows.FollowsFacetActivity"
+            android:launchMode="singleTop"
+            android:theme="@style/SwipeBackActivityTheme"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize"/>
+
+        <activity
             android:name=".feature.main.rating.ProgramsRatingActivity"
             android:launchMode="singleTop"
             android:theme="@style/SwipeBackActivityTheme"
@@ -400,6 +406,18 @@
 
         <activity
             android:name=".feature.main.program.change_settings.ChangeProgramSettingsActivity"
+            android:launchMode="singleTop"
+            android:theme="@style/SwipeBackActivityTheme"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustPan"/>
+
+        <activity
+            android:name=".feature.main.fund.manage.ManageFundActivity"
+            android:launchMode="singleTop"
+            android:theme="@style/SwipeBackActivityTheme"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustPan"/>
+
+        <activity
+            android:name=".feature.main.fund.change_settings.ChangeFundSettingsActivity"
             android:launchMode="singleTop"
             android:theme="@style/SwipeBackActivityTheme"
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan"/>

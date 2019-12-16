@@ -15,15 +15,8 @@ package io.swagger.client.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.google.gson.TypeAdapter;
-import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonWriter;
 
-import org.joda.time.DateTime;
-
-import java.io.IOException;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -50,32 +43,11 @@ public class PrivateTradingAccountFull implements Parcelable
 	@SerializedName("id")
 	private UUID id = null;
 
-	@SerializedName("title")
-	private String title = null;
+	@SerializedName("publicInfo")
+	private PrivateTradingAccountFullPublicDetails publicInfo = null;
 
-	@SerializedName("creationDate")
-	private DateTime creationDate = null;
-
-	@SerializedName("currency")
-	private CurrencyEnum currency = null;
-
-	@SerializedName("leverage")
-	private Integer leverage = null;
-
-	@SerializedName("apiKey")
-	private String apiKey = null;
-
-	@SerializedName("login")
-	private String login = null;
-
-	@SerializedName("balance")
-	private Double balance = null;
-
-	@SerializedName("type")
-	private PrivateTradingAccountType type = null;
-
-	@SerializedName("status")
-	private DashboardTradingAssetStatus status = null;
+	@SerializedName("tradingAccountInfo")
+	private PrivateTradingAccountFullTradingAccountDetails tradingAccountInfo = null;
 
 	@SerializedName("brokerDetails")
 	private BrokerDetails brokerDetails = null;
@@ -88,15 +60,8 @@ public class PrivateTradingAccountFull implements Parcelable
 
 	PrivateTradingAccountFull(Parcel in) {
 		id = (UUID) in.readValue(UUID.class.getClassLoader());
-		title = (String) in.readValue(null);
-		creationDate = (DateTime) in.readValue(DateTime.class.getClassLoader());
-		currency = (CurrencyEnum) in.readValue(null);
-		leverage = (Integer) in.readValue(null);
-		apiKey = (String) in.readValue(null);
-		login = (String) in.readValue(null);
-		balance = (Double) in.readValue(null);
-		type = (PrivateTradingAccountType) in.readValue(PrivateTradingAccountType.class.getClassLoader());
-		status = (DashboardTradingAssetStatus) in.readValue(DashboardTradingAssetStatus.class.getClassLoader());
+		publicInfo = (PrivateTradingAccountFullPublicDetails) in.readValue(PrivateTradingAccountFullPublicDetails.class.getClassLoader());
+		tradingAccountInfo = (PrivateTradingAccountFullTradingAccountDetails) in.readValue(PrivateTradingAccountFullTradingAccountDetails.class.getClassLoader());
 		brokerDetails = (BrokerDetails) in.readValue(BrokerDetails.class.getClassLoader());
 		ownerActions = (PrivateTradingAccountOwnerActions) in.readValue(PrivateTradingAccountOwnerActions.class.getClassLoader());
 	}
@@ -120,175 +85,42 @@ public class PrivateTradingAccountFull implements Parcelable
 		this.id = id;
 	}
 
-	public PrivateTradingAccountFull title(String title) {
-		this.title = title;
+	public PrivateTradingAccountFull publicInfo(PrivateTradingAccountFullPublicDetails publicInfo) {
+		this.publicInfo = publicInfo;
 		return this;
 	}
 
 	/**
-	 * Get title
+	 * Get publicInfo
 	 *
-	 * @return title
+	 * @return publicInfo
 	 **/
 	@Schema(description = "")
-	public String getTitle() {
-		return title;
+	public PrivateTradingAccountFullPublicDetails getPublicInfo() {
+		return publicInfo;
 	}
 
-	public void setTitle(String title) {
-		this.title = title;
+	public void setPublicInfo(PrivateTradingAccountFullPublicDetails publicInfo) {
+		this.publicInfo = publicInfo;
 	}
 
-	public PrivateTradingAccountFull creationDate(DateTime creationDate) {
-		this.creationDate = creationDate;
+	public PrivateTradingAccountFull tradingAccountInfo(PrivateTradingAccountFullTradingAccountDetails tradingAccountInfo) {
+		this.tradingAccountInfo = tradingAccountInfo;
 		return this;
 	}
 
 	/**
-	 * Get creationDate
+	 * Get tradingAccountInfo
 	 *
-	 * @return creationDate
+	 * @return tradingAccountInfo
 	 **/
 	@Schema(description = "")
-	public DateTime getCreationDate() {
-		return creationDate;
+	public PrivateTradingAccountFullTradingAccountDetails getTradingAccountInfo() {
+		return tradingAccountInfo;
 	}
 
-	public void setCreationDate(DateTime creationDate) {
-		this.creationDate = creationDate;
-	}
-
-	public PrivateTradingAccountFull currency(CurrencyEnum currency) {
-		this.currency = currency;
-		return this;
-	}
-
-	/**
-	 * Get currency
-	 *
-	 * @return currency
-	 **/
-	@Schema(description = "")
-	public CurrencyEnum getCurrency() {
-		return currency;
-	}
-
-	public void setCurrency(CurrencyEnum currency) {
-		this.currency = currency;
-	}
-
-	public PrivateTradingAccountFull leverage(Integer leverage) {
-		this.leverage = leverage;
-		return this;
-	}
-
-	/**
-	 * Get leverage
-	 *
-	 * @return leverage
-	 **/
-	@Schema(description = "")
-	public Integer getLeverage() {
-		return leverage;
-	}
-
-	public void setLeverage(Integer leverage) {
-		this.leverage = leverage;
-	}
-
-	public PrivateTradingAccountFull apiKey(String apiKey) {
-		this.apiKey = apiKey;
-		return this;
-	}
-
-	/**
-	 * Get apiKey
-	 *
-	 * @return apiKey
-	 **/
-	@Schema(description = "")
-	public String getApiKey() {
-		return apiKey;
-	}
-
-	public void setApiKey(String apiKey) {
-		this.apiKey = apiKey;
-	}
-
-	public PrivateTradingAccountFull login(String login) {
-		this.login = login;
-		return this;
-	}
-
-	/**
-	 * Get login
-	 *
-	 * @return login
-	 **/
-	@Schema(description = "")
-	public String getLogin() {
-		return login;
-	}
-
-	public void setLogin(String login) {
-		this.login = login;
-	}
-
-	public PrivateTradingAccountFull balance(Double balance) {
-		this.balance = balance;
-		return this;
-	}
-
-	/**
-	 * Get balance
-	 *
-	 * @return balance
-	 **/
-	@Schema(description = "")
-	public Double getBalance() {
-		return balance;
-	}
-
-	public void setBalance(Double balance) {
-		this.balance = balance;
-	}
-
-	public PrivateTradingAccountFull type(PrivateTradingAccountType type) {
-		this.type = type;
-		return this;
-	}
-
-	/**
-	 * Get type
-	 *
-	 * @return type
-	 **/
-	@Schema(description = "")
-	public PrivateTradingAccountType getType() {
-		return type;
-	}
-
-	public void setType(PrivateTradingAccountType type) {
-		this.type = type;
-	}
-
-	public PrivateTradingAccountFull status(DashboardTradingAssetStatus status) {
-		this.status = status;
-		return this;
-	}
-
-	/**
-	 * Get status
-	 *
-	 * @return status
-	 **/
-	@Schema(description = "")
-	public DashboardTradingAssetStatus getStatus() {
-		return status;
-	}
-
-	public void setStatus(DashboardTradingAssetStatus status) {
-		this.status = status;
+	public void setTradingAccountInfo(PrivateTradingAccountFullTradingAccountDetails tradingAccountInfo) {
+		this.tradingAccountInfo = tradingAccountInfo;
 	}
 
 	public PrivateTradingAccountFull brokerDetails(BrokerDetails brokerDetails) {
@@ -339,22 +171,15 @@ public class PrivateTradingAccountFull implements Parcelable
 		}
 		PrivateTradingAccountFull privateTradingAccountFull = (PrivateTradingAccountFull) o;
 		return Objects.equals(this.id, privateTradingAccountFull.id) &&
-				Objects.equals(this.title, privateTradingAccountFull.title) &&
-				Objects.equals(this.creationDate, privateTradingAccountFull.creationDate) &&
-				Objects.equals(this.currency, privateTradingAccountFull.currency) &&
-				Objects.equals(this.leverage, privateTradingAccountFull.leverage) &&
-				Objects.equals(this.apiKey, privateTradingAccountFull.apiKey) &&
-				Objects.equals(this.login, privateTradingAccountFull.login) &&
-				Objects.equals(this.balance, privateTradingAccountFull.balance) &&
-				Objects.equals(this.type, privateTradingAccountFull.type) &&
-				Objects.equals(this.status, privateTradingAccountFull.status) &&
+				Objects.equals(this.publicInfo, privateTradingAccountFull.publicInfo) &&
+				Objects.equals(this.tradingAccountInfo, privateTradingAccountFull.tradingAccountInfo) &&
 				Objects.equals(this.brokerDetails, privateTradingAccountFull.brokerDetails) &&
 				Objects.equals(this.ownerActions, privateTradingAccountFull.ownerActions);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, title, creationDate, currency, leverage, apiKey, login, balance, type, status, brokerDetails, ownerActions);
+		return Objects.hash(id, publicInfo, tradingAccountInfo, brokerDetails, ownerActions);
 	}
 
 	@Override
@@ -363,15 +188,8 @@ public class PrivateTradingAccountFull implements Parcelable
 		sb.append("class PrivateTradingAccountFull {\n");
 
 		sb.append("    id: ").append(toIndentedString(id)).append("\n");
-		sb.append("    title: ").append(toIndentedString(title)).append("\n");
-		sb.append("    creationDate: ").append(toIndentedString(creationDate)).append("\n");
-		sb.append("    currency: ").append(toIndentedString(currency)).append("\n");
-		sb.append("    leverage: ").append(toIndentedString(leverage)).append("\n");
-		sb.append("    apiKey: ").append(toIndentedString(apiKey)).append("\n");
-		sb.append("    login: ").append(toIndentedString(login)).append("\n");
-		sb.append("    balance: ").append(toIndentedString(balance)).append("\n");
-		sb.append("    type: ").append(toIndentedString(type)).append("\n");
-		sb.append("    status: ").append(toIndentedString(status)).append("\n");
+		sb.append("    publicInfo: ").append(toIndentedString(publicInfo)).append("\n");
+		sb.append("    tradingAccountInfo: ").append(toIndentedString(tradingAccountInfo)).append("\n");
 		sb.append("    brokerDetails: ").append(toIndentedString(brokerDetails)).append("\n");
 		sb.append("    ownerActions: ").append(toIndentedString(ownerActions)).append("\n");
 		sb.append("}");
@@ -391,79 +209,13 @@ public class PrivateTradingAccountFull implements Parcelable
 
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(id);
-		out.writeValue(title);
-		out.writeValue(creationDate);
-		out.writeValue(currency);
-		out.writeValue(leverage);
-		out.writeValue(apiKey);
-		out.writeValue(login);
-		out.writeValue(balance);
-		out.writeValue(type);
-		out.writeValue(status);
+		out.writeValue(publicInfo);
+		out.writeValue(tradingAccountInfo);
 		out.writeValue(brokerDetails);
 		out.writeValue(ownerActions);
 	}
 
 	public int describeContents() {
 		return 0;
-	}
-
-	/**
-	 * Gets or Sets currency
-	 */
-	@JsonAdapter(CurrencyEnum.Adapter.class)
-	public enum CurrencyEnum
-	{
-		USD("USD"),
-		BTC("BTC"),
-		ETH("ETH"),
-		USDT("USDT"),
-		GVT("GVT"),
-		UNDEFINED("Undefined"),
-		ADA("ADA"),
-		XRP("XRP"),
-		BCH("BCH"),
-		LTC("LTC"),
-		DOGE("DOGE"),
-		BNB("BNB"),
-		EUR("EUR");
-
-		public static CurrencyEnum fromValue(String text) {
-			for (CurrencyEnum b : CurrencyEnum.values()) {
-				if (String.valueOf(b.value).equals(text)) {
-					return b;
-				}
-			}
-			return null;
-		}
-
-		private String value;
-
-		CurrencyEnum(String value) {
-			this.value = value;
-		}
-
-		public String getValue() {
-			return value;
-		}
-
-		@Override
-		public String toString() {
-			return String.valueOf(value);
-		}
-
-		public static class Adapter extends TypeAdapter<CurrencyEnum>
-		{
-			@Override
-			public void write(final JsonWriter jsonWriter, final CurrencyEnum enumeration) throws IOException {
-				jsonWriter.value(enumeration.getValue());
-			}
-
-			@Override
-			public CurrencyEnum read(final JsonReader jsonReader) throws IOException {
-				String value = jsonReader.nextString();
-				return CurrencyEnum.fromValue(String.valueOf(value));
-			}
-		}
 	}
 }

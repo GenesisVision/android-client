@@ -29,8 +29,8 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 import io.swagger.client.model.AssetFacet;
-import io.swagger.client.model.ItemsViewModelProgramDetailsList;
-import io.swagger.client.model.ProgramDetailsList;
+import io.swagger.client.model.ItemsViewModelProgramDetailsListItem;
+import io.swagger.client.model.ProgramDetailsListItem;
 import timber.log.Timber;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
@@ -282,13 +282,13 @@ public class ProgramsListFragment extends BaseFragment implements ProgramsListVi
 	}
 
 	@Override
-	public void setInvestmentPrograms(List<ProgramDetailsList> programs) {
+	public void setInvestmentPrograms(List<ProgramDetailsListItem> programs) {
 		programsListAdapter.setInvestmentPrograms(programs);
 		recyclerView.scrollToPosition(0);
 	}
 
 	@Override
-	public void addInvestmentPrograms(List<ProgramDetailsList> programs) {
+	public void addInvestmentPrograms(List<ProgramDetailsListItem> programs) {
 		programsListAdapter.addInvestmentPrograms(programs);
 	}
 
@@ -353,7 +353,7 @@ public class ProgramsListFragment extends BaseFragment implements ProgramsListVi
 		}
 	}
 
-	public void showSearchResults(ItemsViewModelProgramDetailsList result) {
+	public void showSearchResults(ItemsViewModelProgramDetailsListItem result) {
 		if (programsListPresenter != null) {
 			programsListPresenter.showSearchResults(result);
 		}

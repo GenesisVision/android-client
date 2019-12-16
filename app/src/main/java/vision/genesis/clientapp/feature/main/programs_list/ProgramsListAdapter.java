@@ -22,7 +22,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.swagger.client.model.AssetFacet;
 import io.swagger.client.model.AssetType;
-import io.swagger.client.model.ProgramDetailsList;
+import io.swagger.client.model.ProgramDetailsListItem;
 import io.swagger.client.model.Tag;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
@@ -50,7 +50,7 @@ public class ProgramsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
 	private static final int TYPE_CARD = 1;
 
-	private List<ProgramDetailsList> investmentPrograms = new ArrayList<ProgramDetailsList>();
+	private List<ProgramDetailsListItem> investmentPrograms = new ArrayList<ProgramDetailsListItem>();
 
 	private List<AssetFacet> facets = new ArrayList<>();
 
@@ -98,19 +98,19 @@ public class ProgramsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 		notifyDataSetChanged();
 	}
 
-	public void setInvestmentPrograms(List<ProgramDetailsList> investmentPrograms) {
+	public void setInvestmentPrograms(List<ProgramDetailsListItem> investmentPrograms) {
 		this.investmentPrograms.clear();
 		this.investmentPrograms.addAll(investmentPrograms);
 		notifyDataSetChanged();
 	}
 
-	public void addInvestmentPrograms(List<ProgramDetailsList> investmentPrograms) {
+	public void addInvestmentPrograms(List<ProgramDetailsListItem> investmentPrograms) {
 		this.investmentPrograms.addAll(investmentPrograms);
 		notifyDataSetChanged();
 	}
 
 	public void changeProgramIsFavorite(UUID programId, boolean isFavorite) {
-		for (ProgramDetailsList program : investmentPrograms) {
+		for (ProgramDetailsListItem program : investmentPrograms) {
 			if (program.getId().equals(programId)) {
 				if (program.getPersonalDetails() != null && !program.getPersonalDetails().isIsFavorite().equals(isFavorite)) {
 					program.getPersonalDetails().setIsFavorite(isFavorite);
@@ -212,7 +212,7 @@ public class ProgramsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 		@BindView(R.id.tags_left)
 		public TagView tagsLeft;
 
-		private ProgramDetailsList program;
+		private ProgramDetailsListItem program;
 
 		InvestmentProgramViewHolder(View itemView) {
 			super(itemView);
@@ -268,7 +268,7 @@ public class ProgramsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 			periodLabel.setText(periodLabel.getText().toString().toLowerCase());
 		}
 
-		void setProgram(ProgramDetailsList program) {
+		void setProgram(ProgramDetailsListItem program) {
 			this.program = program;
 			updateData();
 		}

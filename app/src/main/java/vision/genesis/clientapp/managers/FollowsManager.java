@@ -5,9 +5,9 @@ import java.util.UUID;
 import io.swagger.client.api.FollowApi;
 import io.swagger.client.api.SignalApi;
 import io.swagger.client.model.DetachFromSignalProvider;
-import io.swagger.client.model.FollowDetailsFull;
-import io.swagger.client.model.ItemsViewModelFollowDetailsList;
+import io.swagger.client.model.ItemsViewModelFollowDetailsListItem;
 import io.swagger.client.model.ItemsViewModelSignalTradingEvent;
+import io.swagger.client.model.ProgramFollowDetailsFull;
 import io.swagger.client.model.SignalDetachMode;
 import io.swagger.client.model.TradesSignalViewModel;
 import rx.Observable;
@@ -31,7 +31,7 @@ public class FollowsManager
 		this.followApi = followApi;
 	}
 
-	public Observable<ItemsViewModelFollowDetailsList> getFollows(ProgramsFilter filter) {
+	public Observable<ItemsViewModelFollowDetailsListItem> getFollows(ProgramsFilter filter) {
 		return followApi.getFollowAssets(AuthManager.token.getValue(),
 				null, null,
 				filter.getTags(),
@@ -41,7 +41,7 @@ public class FollowsManager
 				filter.getSkip(), filter.getTake());
 	}
 
-	public Observable<FollowDetailsFull> getFollowDetails(String followId) {
+	public Observable<ProgramFollowDetailsFull> getFollowDetails(String followId) {
 		return followApi.getFollowAssetDetails(followId, AuthManager.token.getValue());
 	}
 

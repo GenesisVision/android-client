@@ -14,8 +14,8 @@ import java.util.UUID;
 
 import javax.inject.Inject;
 
-import io.swagger.client.model.FollowDetailsList;
-import io.swagger.client.model.ItemsViewModelFollowDetailsList;
+import io.swagger.client.model.FollowDetailsListItem;
+import io.swagger.client.model.ItemsViewModelFollowDetailsListItem;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -56,13 +56,13 @@ public class FollowsListPresenter extends MvpPresenter<FollowsListView>
 
 	private Subscription favoriteSubscription;
 
-	private List<FollowDetailsList> followsList = new ArrayList<FollowDetailsList>();
+	private List<FollowDetailsListItem> followsList = new ArrayList<FollowDetailsListItem>();
 
 	private int skip = 0;
 
 	private ProgramsFilter filter;
 
-	private List<FollowDetailsList> followsToAdd = new ArrayList<>();
+	private List<FollowDetailsListItem> followsToAdd = new ArrayList<>();
 
 	private Boolean isDataSet = false;
 
@@ -114,7 +114,7 @@ public class FollowsListPresenter extends MvpPresenter<FollowsListView>
 		}
 	}
 
-	void showSearchResults(ItemsViewModelFollowDetailsList result) {
+	void showSearchResults(ItemsViewModelFollowDetailsListItem result) {
 		skip = 0;
 		handleGetFollowsList(result);
 	}
@@ -190,7 +190,7 @@ public class FollowsListPresenter extends MvpPresenter<FollowsListView>
 //		return model;
 //	}
 
-	private void handleGetFollowsList(ItemsViewModelFollowDetailsList response) {
+	private void handleGetFollowsList(ItemsViewModelFollowDetailsListItem response) {
 		getViewState().setRefreshing(false);
 		getViewState().showProgressBar(false);
 		getViewState().showNoInternet(false);

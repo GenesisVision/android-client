@@ -774,6 +774,10 @@
     <string name="program_settings_trades_delay_description">Managers have the ability to delay the public display of their trades and open positions to protect their strategy.</string>
     <string name="close_period_alert_message">Do you really want to restart current period?</string>
     <string name="close_program_alert_message">Investment program will be closed after this reporting period. Current investment requests will be cancelled, and new requests won’t be accepted. Profit and funds from the trading account will be deposited to investors and manager according to their shares.\n\nWARNING: This action cannot be undone! Are you sure?</string>
+    <string name="close_fund">Close fund</string>
+    <string name="manage_fund">Manage fund</string>
+    <string name="close_fund_info">The fund will be closed after pressing the button.</string>
+    <string name="close_fund_alert_message">The fund will be closed after pressing the button. Are you sure?</string>
 
     <plurals name="assets">
         <item quantity="one">asset</item>

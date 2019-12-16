@@ -1,7 +1,7 @@
 package vision.genesis.clientapp.managers;
 
 import io.swagger.client.api.SearchApi;
-import io.swagger.client.model.SearchViewModel;
+import io.swagger.client.model.CommonPublicAssetsViewModel;
 import rx.Observable;
 
 /**
@@ -17,7 +17,7 @@ public class SearchManager
 		this.searchApi = searchApi;
 	}
 
-	public Observable<SearchViewModel> search(String mask, Integer take) {
+	public Observable<CommonPublicAssetsViewModel> search(String mask, Integer take) {
 		return searchApi.search(AuthManager.token.getValue(), mask, take);
 	}
 }

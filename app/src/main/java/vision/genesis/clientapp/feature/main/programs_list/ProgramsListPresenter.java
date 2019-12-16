@@ -14,8 +14,8 @@ import java.util.UUID;
 
 import javax.inject.Inject;
 
-import io.swagger.client.model.ItemsViewModelProgramDetailsList;
-import io.swagger.client.model.ProgramDetailsList;
+import io.swagger.client.model.ItemsViewModelProgramDetailsListItem;
+import io.swagger.client.model.ProgramDetailsListItem;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -58,13 +58,13 @@ public class ProgramsListPresenter extends MvpPresenter<ProgramsListView>
 
 	private Subscription favoriteSubscription;
 
-	private List<ProgramDetailsList> investmentProgramsList = new ArrayList<ProgramDetailsList>();
+	private List<ProgramDetailsListItem> investmentProgramsList = new ArrayList<ProgramDetailsListItem>();
 
 	private int skip = 0;
 
 	private ProgramsFilter filter;
 
-	private List<ProgramDetailsList> programsToAdd = new ArrayList<>();
+	private List<ProgramDetailsListItem> programsToAdd = new ArrayList<>();
 
 	private Boolean isDataSet = false;
 
@@ -116,7 +116,7 @@ public class ProgramsListPresenter extends MvpPresenter<ProgramsListView>
 		}
 	}
 
-	void showSearchResults(ItemsViewModelProgramDetailsList result) {
+	void showSearchResults(ItemsViewModelProgramDetailsListItem result) {
 		skip = 0;
 		handleGetProgramsList(result);
 	}
@@ -192,7 +192,7 @@ public class ProgramsListPresenter extends MvpPresenter<ProgramsListView>
 //		return model;
 //	}
 
-	private void handleGetProgramsList(ItemsViewModelProgramDetailsList response) {
+	private void handleGetProgramsList(ItemsViewModelProgramDetailsListItem response) {
 		getViewState().setRefreshing(false);
 		getViewState().showProgressBar(false);
 		getViewState().showNoInternet(false);

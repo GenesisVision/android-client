@@ -39,29 +39,14 @@ public class PersonalFollowDetailsFull implements Parcelable
 		}
 	};
 
-	@SerializedName("isOwnAsset")
-	private Boolean isOwnAsset = null;
-
 	@SerializedName("isFavorite")
 	private Boolean isFavorite = null;
-
-	@SerializedName("isProgram")
-	private Boolean isProgram = null;
-
-	@SerializedName("ownerActions")
-	private FollowOwnerActions ownerActions = null;
 
 	@SerializedName("guestActions")
 	private AssetGuestActions guestActions = null;
 
 	@SerializedName("hasNotifications")
 	private Boolean hasNotifications = null;
-
-	@SerializedName("balance")
-	private Double balance = null;
-
-	@SerializedName("leverage")
-	private Integer leverage = null;
 
 	@SerializedName("subscribedAccounts")
 	private Integer subscribedAccounts = null;
@@ -70,34 +55,10 @@ public class PersonalFollowDetailsFull implements Parcelable
 	}
 
 	PersonalFollowDetailsFull(Parcel in) {
-		isOwnAsset = (Boolean) in.readValue(null);
 		isFavorite = (Boolean) in.readValue(null);
-		isProgram = (Boolean) in.readValue(null);
-		ownerActions = (FollowOwnerActions) in.readValue(FollowOwnerActions.class.getClassLoader());
 		guestActions = (AssetGuestActions) in.readValue(AssetGuestActions.class.getClassLoader());
 		hasNotifications = (Boolean) in.readValue(null);
-		balance = (Double) in.readValue(null);
-		leverage = (Integer) in.readValue(null);
 		subscribedAccounts = (Integer) in.readValue(null);
-	}
-
-	public PersonalFollowDetailsFull isOwnAsset(Boolean isOwnAsset) {
-		this.isOwnAsset = isOwnAsset;
-		return this;
-	}
-
-	/**
-	 * Get isOwnAsset
-	 *
-	 * @return isOwnAsset
-	 **/
-	@Schema(description = "")
-	public Boolean isIsOwnAsset() {
-		return isOwnAsset;
-	}
-
-	public void setIsOwnAsset(Boolean isOwnAsset) {
-		this.isOwnAsset = isOwnAsset;
 	}
 
 	public PersonalFollowDetailsFull isFavorite(Boolean isFavorite) {
@@ -117,44 +78,6 @@ public class PersonalFollowDetailsFull implements Parcelable
 
 	public void setIsFavorite(Boolean isFavorite) {
 		this.isFavorite = isFavorite;
-	}
-
-	public PersonalFollowDetailsFull isProgram(Boolean isProgram) {
-		this.isProgram = isProgram;
-		return this;
-	}
-
-	/**
-	 * Get isProgram
-	 *
-	 * @return isProgram
-	 **/
-	@Schema(description = "")
-	public Boolean isIsProgram() {
-		return isProgram;
-	}
-
-	public void setIsProgram(Boolean isProgram) {
-		this.isProgram = isProgram;
-	}
-
-	public PersonalFollowDetailsFull ownerActions(FollowOwnerActions ownerActions) {
-		this.ownerActions = ownerActions;
-		return this;
-	}
-
-	/**
-	 * Get ownerActions
-	 *
-	 * @return ownerActions
-	 **/
-	@Schema(description = "")
-	public FollowOwnerActions getOwnerActions() {
-		return ownerActions;
-	}
-
-	public void setOwnerActions(FollowOwnerActions ownerActions) {
-		this.ownerActions = ownerActions;
 	}
 
 	public PersonalFollowDetailsFull guestActions(AssetGuestActions guestActions) {
@@ -195,44 +118,6 @@ public class PersonalFollowDetailsFull implements Parcelable
 		this.hasNotifications = hasNotifications;
 	}
 
-	public PersonalFollowDetailsFull balance(Double balance) {
-		this.balance = balance;
-		return this;
-	}
-
-	/**
-	 * Get balance
-	 *
-	 * @return balance
-	 **/
-	@Schema(description = "")
-	public Double getBalance() {
-		return balance;
-	}
-
-	public void setBalance(Double balance) {
-		this.balance = balance;
-	}
-
-	public PersonalFollowDetailsFull leverage(Integer leverage) {
-		this.leverage = leverage;
-		return this;
-	}
-
-	/**
-	 * Get leverage
-	 *
-	 * @return leverage
-	 **/
-	@Schema(description = "")
-	public Integer getLeverage() {
-		return leverage;
-	}
-
-	public void setLeverage(Integer leverage) {
-		this.leverage = leverage;
-	}
-
 	public PersonalFollowDetailsFull subscribedAccounts(Integer subscribedAccounts) {
 		this.subscribedAccounts = subscribedAccounts;
 		return this;
@@ -261,20 +146,15 @@ public class PersonalFollowDetailsFull implements Parcelable
 			return false;
 		}
 		PersonalFollowDetailsFull personalFollowDetailsFull = (PersonalFollowDetailsFull) o;
-		return Objects.equals(this.isOwnAsset, personalFollowDetailsFull.isOwnAsset) &&
-				Objects.equals(this.isFavorite, personalFollowDetailsFull.isFavorite) &&
-				Objects.equals(this.isProgram, personalFollowDetailsFull.isProgram) &&
-				Objects.equals(this.ownerActions, personalFollowDetailsFull.ownerActions) &&
+		return Objects.equals(this.isFavorite, personalFollowDetailsFull.isFavorite) &&
 				Objects.equals(this.guestActions, personalFollowDetailsFull.guestActions) &&
 				Objects.equals(this.hasNotifications, personalFollowDetailsFull.hasNotifications) &&
-				Objects.equals(this.balance, personalFollowDetailsFull.balance) &&
-				Objects.equals(this.leverage, personalFollowDetailsFull.leverage) &&
 				Objects.equals(this.subscribedAccounts, personalFollowDetailsFull.subscribedAccounts);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(isOwnAsset, isFavorite, isProgram, ownerActions, guestActions, hasNotifications, balance, leverage, subscribedAccounts);
+		return Objects.hash(isFavorite, guestActions, hasNotifications, subscribedAccounts);
 	}
 
 	@Override
@@ -282,14 +162,9 @@ public class PersonalFollowDetailsFull implements Parcelable
 		StringBuilder sb = new StringBuilder();
 		sb.append("class PersonalFollowDetailsFull {\n");
 
-		sb.append("    isOwnAsset: ").append(toIndentedString(isOwnAsset)).append("\n");
 		sb.append("    isFavorite: ").append(toIndentedString(isFavorite)).append("\n");
-		sb.append("    isProgram: ").append(toIndentedString(isProgram)).append("\n");
-		sb.append("    ownerActions: ").append(toIndentedString(ownerActions)).append("\n");
 		sb.append("    guestActions: ").append(toIndentedString(guestActions)).append("\n");
 		sb.append("    hasNotifications: ").append(toIndentedString(hasNotifications)).append("\n");
-		sb.append("    balance: ").append(toIndentedString(balance)).append("\n");
-		sb.append("    leverage: ").append(toIndentedString(leverage)).append("\n");
 		sb.append("    subscribedAccounts: ").append(toIndentedString(subscribedAccounts)).append("\n");
 		sb.append("}");
 		return sb.toString();
@@ -307,14 +182,9 @@ public class PersonalFollowDetailsFull implements Parcelable
 	}
 
 	public void writeToParcel(Parcel out, int flags) {
-		out.writeValue(isOwnAsset);
 		out.writeValue(isFavorite);
-		out.writeValue(isProgram);
-		out.writeValue(ownerActions);
 		out.writeValue(guestActions);
 		out.writeValue(hasNotifications);
-		out.writeValue(balance);
-		out.writeValue(leverage);
 		out.writeValue(subscribedAccounts);
 	}
 

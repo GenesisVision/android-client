@@ -160,7 +160,8 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:orientation="vertical">
+                        android:orientation="vertical"
+                        android:visibility="invisible">
 
                         <TextView
                             android:id="@+id/profit"
@@ -206,7 +207,7 @@
                         android:alpha="0.3"
                         android:gravity="center"
                         android:lineSpacingMultiplier="1.2"
-                        android:text="@string/program_info_withdraw_info"
+                        android:text="@string/fund_invest_withdraw_disclaimer"
                         android:textColor="?attr/colorTextPrimary"
                         android:textSize="12sp"/>
 

@@ -27,8 +27,8 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 import io.swagger.client.model.AssetFacet;
-import io.swagger.client.model.FundDetailsList;
-import io.swagger.client.model.ItemsViewModelFundDetailsList;
+import io.swagger.client.model.FundDetailsListItem;
+import io.swagger.client.model.ItemsViewModelFundDetailsListItem;
 import timber.log.Timber;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
@@ -238,13 +238,13 @@ public class FundsListFragment extends BaseFragment implements FundsListView
 	}
 
 	@Override
-	public void setFunds(List<FundDetailsList> funds) {
+	public void setFunds(List<FundDetailsListItem> funds) {
 		fundsListAdapter.setFunds(funds);
 		recyclerView.scrollToPosition(0);
 	}
 
 	@Override
-	public void addFunds(List<FundDetailsList> funds) {
+	public void addFunds(List<FundDetailsListItem> funds) {
 		fundsListAdapter.addFunds(funds);
 	}
 
@@ -309,7 +309,7 @@ public class FundsListFragment extends BaseFragment implements FundsListView
 		}
 	}
 
-	public void showSearchResults(ItemsViewModelFundDetailsList result) {
+	public void showSearchResults(ItemsViewModelFundDetailsListItem result) {
 		if (fundsListPresenter != null) {
 			fundsListPresenter.showSearchResults(result);
 		}

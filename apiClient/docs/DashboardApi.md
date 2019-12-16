@@ -550,7 +550,7 @@ No authorization required
 
 <a name="getRecommendations"></a>
 # **getRecommendations**
-> DashboardRecommendations getRecommendations(authorization, currency)
+> CommonPublicAssetsViewModel getRecommendations(authorization, currency, take)
 
 Recommended assets to invest (programs, funds and signals). Funds in passed currency
 
@@ -564,8 +564,9 @@ Recommended assets to invest (programs, funds and signals). Funds in passed curr
 DashboardApi apiInstance = new DashboardApi();
 String authorization = "authorization_example"; // String | JWT access token
 String currency = "currency_example"; // String | 
+Integer take = 56; // Integer | 
 try {
-    DashboardRecommendations result = apiInstance.getRecommendations(authorization, currency);
+    CommonPublicAssetsViewModel result = apiInstance.getRecommendations(authorization, currency, take);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling DashboardApi#getRecommendations");
@@ -579,10 +580,11 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **authorization** | **String**| JWT access token |
  **currency** | **String**|  | [optional] [enum: USD, BTC, ETH, USDT, GVT, Undefined, ADA, XRP, BCH, LTC, DOGE, BNB, EUR]
+ **take** | **Integer**|  | [optional]
 
 ### Return type
 
-[**DashboardRecommendations**](DashboardRecommendations.md)
+[**CommonPublicAssetsViewModel**](CommonPublicAssetsViewModel.md)
 
 ### Authorization
 

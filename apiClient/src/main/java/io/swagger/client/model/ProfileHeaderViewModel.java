@@ -76,6 +76,9 @@ public class ProfileHeaderViewModel implements Parcelable
 	@SerializedName("isPublicInvestor")
 	private Boolean isPublicInvestor = null;
 
+	@SerializedName("isUserNameFilled")
+	private Boolean isUserNameFilled = null;
+
 	public ProfileHeaderViewModel() {
 	}
 
@@ -92,6 +95,7 @@ public class ProfileHeaderViewModel implements Parcelable
 		isTwoFactorEnabled = (Boolean) in.readValue(null);
 		isNewUser = (Boolean) in.readValue(null);
 		isPublicInvestor = (Boolean) in.readValue(null);
+		isUserNameFilled = (Boolean) in.readValue(null);
 	}
 
 	public ProfileHeaderViewModel id(UUID id) {
@@ -322,6 +326,25 @@ public class ProfileHeaderViewModel implements Parcelable
 		this.isPublicInvestor = isPublicInvestor;
 	}
 
+	public ProfileHeaderViewModel isUserNameFilled(Boolean isUserNameFilled) {
+		this.isUserNameFilled = isUserNameFilled;
+		return this;
+	}
+
+	/**
+	 * Get isUserNameFilled
+	 *
+	 * @return isUserNameFilled
+	 **/
+	@Schema(description = "")
+	public Boolean isIsUserNameFilled() {
+		return isUserNameFilled;
+	}
+
+	public void setIsUserNameFilled(Boolean isUserNameFilled) {
+		this.isUserNameFilled = isUserNameFilled;
+	}
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -342,12 +365,13 @@ public class ProfileHeaderViewModel implements Parcelable
 				Objects.equals(this.isForexAllowed, profileHeaderViewModel.isForexAllowed) &&
 				Objects.equals(this.isTwoFactorEnabled, profileHeaderViewModel.isTwoFactorEnabled) &&
 				Objects.equals(this.isNewUser, profileHeaderViewModel.isNewUser) &&
-				Objects.equals(this.isPublicInvestor, profileHeaderViewModel.isPublicInvestor);
+				Objects.equals(this.isPublicInvestor, profileHeaderViewModel.isPublicInvestor) &&
+				Objects.equals(this.isUserNameFilled, profileHeaderViewModel.isUserNameFilled);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, name, email, url, avatar, countryCode, notificationsCount, isKycConfirmed, isForexAllowed, isTwoFactorEnabled, isNewUser, isPublicInvestor);
+		return Objects.hash(id, name, email, url, avatar, countryCode, notificationsCount, isKycConfirmed, isForexAllowed, isTwoFactorEnabled, isNewUser, isPublicInvestor, isUserNameFilled);
 	}
 
 	@Override
@@ -367,6 +391,7 @@ public class ProfileHeaderViewModel implements Parcelable
 		sb.append("    isTwoFactorEnabled: ").append(toIndentedString(isTwoFactorEnabled)).append("\n");
 		sb.append("    isNewUser: ").append(toIndentedString(isNewUser)).append("\n");
 		sb.append("    isPublicInvestor: ").append(toIndentedString(isPublicInvestor)).append("\n");
+		sb.append("    isUserNameFilled: ").append(toIndentedString(isUserNameFilled)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}
@@ -395,6 +420,7 @@ public class ProfileHeaderViewModel implements Parcelable
 		out.writeValue(isTwoFactorEnabled);
 		out.writeValue(isNewUser);
 		out.writeValue(isPublicInvestor);
+		out.writeValue(isUserNameFilled);
 	}
 
 	public int describeContents() {

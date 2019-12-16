@@ -29,7 +29,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.OnEditorAction;
 import butterknife.OnFocusChange;
-import io.swagger.client.model.SearchViewModel;
+import io.swagger.client.model.CommonPublicAssetsViewModel;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.ui.CustomTabView;
 import vision.genesis.clientapp.utils.TabLayoutUtil;
@@ -242,7 +242,7 @@ public class SearchActivity extends MvpAppCompatActivity implements SearchView
 	}
 
 	@Override
-	public void sendSearchResults(SearchViewModel results) {
+	public void sendSearchResults(CommonPublicAssetsViewModel results) {
 		resultsGroup.setVisibility(View.VISIBLE);
 		if (pagerAdapter != null) {
 			pagerAdapter.sendSearchResults(results);

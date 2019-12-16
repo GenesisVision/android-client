@@ -7,7 +7,7 @@ import com.arellomobile.mvp.viewstate.strategy.StateStrategyType;
 import java.util.List;
 import java.util.UUID;
 
-import io.swagger.client.model.ProgramDetailsList;
+import io.swagger.client.model.ProgramDetailsListItem;
 import vision.genesis.clientapp.model.filter.ProgramsFilter;
 
 /**
@@ -17,9 +17,9 @@ import vision.genesis.clientapp.model.filter.ProgramsFilter;
 
 interface ProgramsListView extends MvpView
 {
-	void setInvestmentPrograms(List<ProgramDetailsList> programs);
+	void setInvestmentPrograms(List<ProgramDetailsListItem> programs);
 
-	void addInvestmentPrograms(List<ProgramDetailsList> programs);
+	void addInvestmentPrograms(List<ProgramDetailsListItem> programs);
 
 	void setRefreshing(boolean refreshing);
 

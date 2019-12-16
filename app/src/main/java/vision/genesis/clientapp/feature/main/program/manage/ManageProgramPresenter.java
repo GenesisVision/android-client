@@ -10,7 +10,7 @@ import org.greenrobot.eventbus.Subscribe;
 
 import javax.inject.Inject;
 
-import io.swagger.client.model.ProgramDetailsFull;
+import io.swagger.client.model.ProgramFollowDetailsFull;
 import io.swagger.client.model.ProgramUpdate;
 import io.swagger.client.model.TradesDelay;
 import io.swagger.client.model.TwoFactorCodeModel;
@@ -40,7 +40,7 @@ public class ManageProgramPresenter extends MvpPresenter<ManageProgramView>
 
 	private Subscription closeProgramSubscription;
 
-	private ProgramDetailsFull details;
+	private ProgramFollowDetailsFull details;
 
 	@Override
 	protected void onFirstViewAttach() {
@@ -65,22 +65,22 @@ public class ManageProgramPresenter extends MvpPresenter<ManageProgramView>
 		super.onDestroy();
 	}
 
-	void setData(ProgramDetailsFull details) {
+	void setData(ProgramFollowDetailsFull details) {
 		this.details = details;
 	}
 
 	void onChangeSettingsClicked() {
 		ProgramUpdate model = new ProgramUpdate();
-		model.setTitle(details.getTitle());
-		model.setDescription(details.getDescription());
-		model.setLogo(details.getLogo());
-		model.setEntryFee(details.getEntryFeeCurrent());
-		model.setSuccessFee(details.getSuccessFeeCurrent());
-		model.setInvestmentLimit(details.getAvailableInvestmentLimit());
-		model.setStopOutLevel(details.getStopOutLevelCurrent());
-		model.setTradesDelay(ProgramUpdate.TradesDelayEnum.fromValue(details.getTradesDelay().getValue()));
+		model.setTitle(details.getPublicInfo().getTitle());
+		model.setDescription(details.getPublicInfo().getDescription());
+		model.setLogo(details.getPublicInfo().getLogo());
+		model.setEntryFee(details.getProgramDetails().getEntryFeeSelected());
+		model.setSuccessFee(details.getProgramDetails().getSuccessFeeSelected());
+		model.setInvestmentLimit(details.getProgramDetails().getAvailableInvestmentLimit());
+		model.setStopOutLevel(details.getProgramDetails().getStopOutLevelSelected());
+		model.setTradesDelay(ProgramUpdate.TradesDelayEnum.fromValue(details.getProgramDetails().getTradesDelay().getValue()));
 
-		getViewState().showChangeSettingsActivity(details.getId(), details.getCurrency().getValue(), model);
+		getViewState().showChangeSettingsActivity(details.getId(), details.getTradingAccountInfo().getCurrency().getValue(), model);
 	}
 
 	void onClosePeriodClicked() {
@@ -140,11 +140,11 @@ public class ManageProgramPresenter extends MvpPresenter<ManageProgramView>
 
 	@Subscribe
 	public void onEventMainThread(OnProgramSettingsChangedEvent event) {
-		details.setAvailableInvestmentLimit(event.getModel().getInvestmentLimit());
-		details.setTradesDelay(TradesDelay.fromValue(event.getModel().getTradesDelay().getValue()));
-		details.setStopOutLevelCurrent(event.getModel().getStopOutLevel());
-		details.setEntryFeeCurrent(event.getModel().getEntryFee());
-		details.setSuccessFeeCurrent(event.getModel().getSuccessFee());
-		getViewState().updateView(details);
+		details.getProgramDetails().setAvailableInvestmentLimit(event.getModel().getInvestmentLimit());
+		details.getProgramDetails().setTradesDelay(TradesDelay.fromValue(event.getModel().getTradesDelay().getValue()));
+		details.getProgramDetails().setStopOutLevelSelected(event.getModel().getStopOutLevel());
+		details.getProgramDetails().setEntryFeeSelected(event.getModel().getEntryFee());
+		details.getProgramDetails().setSuccessFeeSelected(event.getModel().getSuccessFee());
+		getViewState().updateView(details.getProgramDetails());
 	}
 }

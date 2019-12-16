@@ -6,7 +6,7 @@ import com.arellomobile.mvp.viewstate.strategy.StateStrategyType;
 
 import java.util.UUID;
 
-import io.swagger.client.model.FollowDetailsFull;
+import io.swagger.client.model.ProgramFollowDetailsFull;
 import vision.genesis.clientapp.model.SubscriptionSettingsModel;
 
 /**
@@ -17,7 +17,7 @@ import vision.genesis.clientapp.model.SubscriptionSettingsModel;
 interface FollowInfoView extends MvpView
 {
 	@StateStrategyType(AddToEndSingleStrategy.class)
-	void setFollowDetails(FollowDetailsFull followDetails);
+	void setDetails(ProgramFollowDetailsFull followDetails);
 
 	@StateStrategyType(AddToEndSingleStrategy.class)
 	void showProgress(boolean show);

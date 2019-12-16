@@ -1,6 +1,6 @@
 package io.swagger.client.api;
 
-import io.swagger.client.model.SearchViewModel;
+import io.swagger.client.model.CommonPublicAssetsViewModel;
 import retrofit2.http.GET;
 import rx.Observable;
 
@@ -12,10 +12,10 @@ public interface SearchApi
 	 * @param authorization (optional)
 	 * @param mask          (optional)
 	 * @param take          (optional)
-	 * @return Call&lt;SearchViewModel&gt;
+	 * @return Call&lt;CommonPublicAssetsViewModel&gt;
 	 */
 	@GET("v2.0/search")
-	Observable<SearchViewModel> search(
+	Observable<CommonPublicAssetsViewModel> search(
 			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("mask") String mask, @retrofit2.http.Query("take") Integer take
 	);
 

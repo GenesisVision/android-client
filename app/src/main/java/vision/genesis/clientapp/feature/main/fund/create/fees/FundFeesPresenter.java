@@ -3,16 +3,19 @@ package vision.genesis.clientapp.feature.main.fund.create.fees;
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 
+import org.greenrobot.eventbus.EventBus;
+
 import javax.inject.Inject;
 
 import io.swagger.client.model.FundCreateAssetPlatformInfo;
-import io.swagger.client.model.NewFundRequest;
 import io.swagger.client.model.PlatformInfo;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.managers.SettingsManager;
+import vision.genesis.clientapp.model.FundSettingsModel;
+import vision.genesis.clientapp.model.events.OnFundFeesConfirmEvent;
 import vision.genesis.clientapp.net.ApiErrorResolver;
 
 /**
@@ -21,14 +24,12 @@ import vision.genesis.clientapp.net.ApiErrorResolver;
  */
 
 @InjectViewState
-public class CreateFundFeesPresenter extends MvpPresenter<CreateFundFeesView>
+public class FundFeesPresenter extends MvpPresenter<FundFeesView>
 {
 	@Inject
 	public SettingsManager settingsManager;
 
 	private Subscription platformInfoSubscription;
-
-	private NewFundRequest request;
 
 	private double entryFee = 0;
 
@@ -37,6 +38,8 @@ public class CreateFundFeesPresenter extends MvpPresenter<CreateFundFeesView>
 	private double maxEntryFee = 0;
 
 	private double maxExitFee = 0;
+
+	private FundSettingsModel model;
 
 	@Override
 	protected void onFirstViewAttach() {
@@ -56,8 +59,10 @@ public class CreateFundFeesPresenter extends MvpPresenter<CreateFundFeesView>
 		super.onDestroy();
 	}
 
-	void setRequest(NewFundRequest request) {
-		this.request = request;
+	void setModel(FundSettingsModel model) {
+		this.model = model;
+
+		getPlatformInfo();
 	}
 
 	void onEntryFeeChanged(String entryFeeString) {
@@ -67,15 +72,11 @@ public class CreateFundFeesPresenter extends MvpPresenter<CreateFundFeesView>
 			entryFee = 0;
 		}
 		if (entryFee > maxEntryFee) {
-			getViewState().setEntryFeeText(maxEntryFee);
+			getViewState().setEntryFee(maxEntryFee);
 			return;
 		}
 
-		if (this.request != null) {
-			this.request.setEntryFee(entryFee);
-		}
-
-		updateNextButtonAvailability();
+		updateConfirmButtonAvailability();
 	}
 
 	void onExitFeeChanged(String exitFeeString) {
@@ -85,23 +86,26 @@ public class CreateFundFeesPresenter extends MvpPresenter<CreateFundFeesView>
 			exitFee = 0;
 		}
 		if (exitFee > maxExitFee) {
-			getViewState().setExitFeeText(maxExitFee);
+			getViewState().setExitFee(maxExitFee);
 			return;
 		}
 
-		if (this.request != null) {
-			this.request.setExitFee(exitFee);
-		}
-
-		updateNextButtonAvailability();
+		updateConfirmButtonAvailability();
 	}
 
-	private void updateNextButtonAvailability() {
-		getViewState().setNextButtonEnabled(entryFee <= maxEntryFee && exitFee <= maxExitFee);
+	void onConfirmClicked() {
+		FundSettingsModel newModel = new FundSettingsModel();
+		newModel.setEntryFee(entryFee);
+		newModel.setExitFee(exitFee);
+		EventBus.getDefault().post(new OnFundFeesConfirmEvent(newModel));
+	}
+
+	private void updateConfirmButtonAvailability() {
+		getViewState().setConfirmButtonEnabled(entryFee <= maxEntryFee && exitFee <= maxExitFee);
 	}
 
 	private void getPlatformInfo() {
-		if (settingsManager != null) {
+		if (settingsManager != null && model != null) {
 			platformInfoSubscription = settingsManager.getPlatformInfo()
 					.observeOn(AndroidSchedulers.mainThread())
 					.subscribeOn(Schedulers.newThread())
@@ -117,6 +121,13 @@ public class CreateFundFeesPresenter extends MvpPresenter<CreateFundFeesView>
 		maxExitFee = info.getMaxExitFee();
 		getViewState().updateEntryFeeDescription(maxEntryFee);
 		getViewState().updateExitFeeDescription(maxExitFee);
+
+		if (model.getEntryFee() != null) {
+			getViewState().setEntryFee(model.getEntryFee());
+		}
+		if (model.getExitFee() != null) {
+			getViewState().setExitFee(model.getExitFee());
+		}
 	}
 
 	private void handleGetPlatformInfoError(Throwable throwable) {

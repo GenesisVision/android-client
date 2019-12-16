@@ -45,6 +45,9 @@ public class DashboardTradingDetails implements Parcelable
 	@SerializedName("assetsUnderManagement")
 	private Double assetsUnderManagement = null;
 
+	@SerializedName("total")
+	private Double total = null;
+
 	@SerializedName("profits")
 	private DashboardProfits profits = null;
 
@@ -57,6 +60,7 @@ public class DashboardTradingDetails implements Parcelable
 	DashboardTradingDetails(Parcel in) {
 		equity = (Double) in.readValue(null);
 		assetsUnderManagement = (Double) in.readValue(null);
+		total = (Double) in.readValue(null);
 		profits = (DashboardProfits) in.readValue(DashboardProfits.class.getClassLoader());
 		events = (ItemsViewModelInvestmentEventViewModel) in.readValue(ItemsViewModelInvestmentEventViewModel.class.getClassLoader());
 	}
@@ -97,6 +101,16 @@ public class DashboardTradingDetails implements Parcelable
 
 	public void setAssetsUnderManagement(Double assetsUnderManagement) {
 		this.assetsUnderManagement = assetsUnderManagement;
+	}
+
+	/**
+	 * Get total
+	 *
+	 * @return total
+	 **/
+	@Schema(description = "")
+	public Double getTotal() {
+		return total;
 	}
 
 	public DashboardTradingDetails profits(DashboardProfits profits) {
@@ -148,13 +162,14 @@ public class DashboardTradingDetails implements Parcelable
 		DashboardTradingDetails dashboardTradingDetails = (DashboardTradingDetails) o;
 		return Objects.equals(this.equity, dashboardTradingDetails.equity) &&
 				Objects.equals(this.assetsUnderManagement, dashboardTradingDetails.assetsUnderManagement) &&
+				Objects.equals(this.total, dashboardTradingDetails.total) &&
 				Objects.equals(this.profits, dashboardTradingDetails.profits) &&
 				Objects.equals(this.events, dashboardTradingDetails.events);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(equity, assetsUnderManagement, profits, events);
+		return Objects.hash(equity, assetsUnderManagement, total, profits, events);
 	}
 
 	@Override
@@ -164,6 +179,7 @@ public class DashboardTradingDetails implements Parcelable
 
 		sb.append("    equity: ").append(toIndentedString(equity)).append("\n");
 		sb.append("    assetsUnderManagement: ").append(toIndentedString(assetsUnderManagement)).append("\n");
+		sb.append("    total: ").append(toIndentedString(total)).append("\n");
 		sb.append("    profits: ").append(toIndentedString(profits)).append("\n");
 		sb.append("    events: ").append(toIndentedString(events)).append("\n");
 		sb.append("}");
@@ -184,6 +200,7 @@ public class DashboardTradingDetails implements Parcelable
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(equity);
 		out.writeValue(assetsUnderManagement);
+		out.writeValue(total);
 		out.writeValue(profits);
 		out.writeValue(events);
 	}

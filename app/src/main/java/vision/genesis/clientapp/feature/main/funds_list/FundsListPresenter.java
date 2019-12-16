@@ -14,8 +14,8 @@ import java.util.UUID;
 
 import javax.inject.Inject;
 
-import io.swagger.client.model.FundDetailsList;
-import io.swagger.client.model.ItemsViewModelFundDetailsList;
+import io.swagger.client.model.FundDetailsListItem;
+import io.swagger.client.model.ItemsViewModelFundDetailsListItem;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -58,13 +58,13 @@ public class FundsListPresenter extends MvpPresenter<FundsListView>
 
 	private Subscription favoriteSubscription;
 
-	private List<FundDetailsList> fundsList = new ArrayList<FundDetailsList>();
+	private List<FundDetailsListItem> fundsList = new ArrayList<FundDetailsListItem>();
 
 	private int skip = 0;
 
 	private ProgramsFilter filter;
 
-	private List<FundDetailsList> fundsToAdd = new ArrayList<>();
+	private List<FundDetailsListItem> fundsToAdd = new ArrayList<>();
 
 	private UUID managerId;
 
@@ -113,7 +113,7 @@ public class FundsListPresenter extends MvpPresenter<FundsListView>
 		}
 	}
 
-	void showSearchResults(ItemsViewModelFundDetailsList result) {
+	void showSearchResults(ItemsViewModelFundDetailsListItem result) {
 		skip = 0;
 		handleGetFundsList(result);
 	}
@@ -189,7 +189,7 @@ public class FundsListPresenter extends MvpPresenter<FundsListView>
 //		return model;
 //	}
 
-	private void handleGetFundsList(ItemsViewModelFundDetailsList response) {
+	private void handleGetFundsList(ItemsViewModelFundDetailsListItem response) {
 		getViewState().setRefreshing(false);
 		getViewState().showProgressBar(false);
 		getViewState().showNoInternet(false);

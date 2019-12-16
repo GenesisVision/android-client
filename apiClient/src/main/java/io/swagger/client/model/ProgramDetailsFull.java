@@ -19,10 +19,7 @@ import com.google.gson.annotations.SerializedName;
 
 import org.joda.time.DateTime;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
-import java.util.UUID;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 
@@ -44,33 +41,6 @@ public class ProgramDetailsFull implements Parcelable
 		}
 	};
 
-	@SerializedName("id")
-	private UUID id = null;
-
-	@SerializedName("tradingAccountId")
-	private UUID tradingAccountId = null;
-
-	@SerializedName("logo")
-	private String logo = null;
-
-	@SerializedName("url")
-	private String url = null;
-
-	@SerializedName("color")
-	private String color = null;
-
-	@SerializedName("title")
-	private String title = null;
-
-	@SerializedName("description")
-	private String description = null;
-
-	@SerializedName("creationDate")
-	private DateTime creationDate = null;
-
-	@SerializedName("currency")
-	private Currency currency = null;
-
 	@SerializedName("level")
 	private Integer level = null;
 
@@ -89,20 +59,8 @@ public class ProgramDetailsFull implements Parcelable
 	@SerializedName("tradesDelay")
 	private TradesDelay tradesDelay = null;
 
-	@SerializedName("status")
-	private String status = null;
-
-	@SerializedName("login")
-	private String login = null;
-
 	@SerializedName("ageDays")
 	private Double ageDays = null;
-
-	@SerializedName("leverageMin")
-	private Integer leverageMin = null;
-
-	@SerializedName("leverageMax")
-	private Integer leverageMax = null;
 
 	@SerializedName("genesisRatio")
 	private Double genesisRatio = null;
@@ -112,9 +70,6 @@ public class ProgramDetailsFull implements Parcelable
 
 	@SerializedName("volumeScale")
 	private Double volumeScale = null;
-
-	@SerializedName("hasTrades")
-	private Boolean hasTrades = null;
 
 	@SerializedName("entryFeeSelected")
 	private Double entryFeeSelected = null;
@@ -143,52 +98,23 @@ public class ProgramDetailsFull implements Parcelable
 	@SerializedName("totalAvailableInvestment")
 	private Double totalAvailableInvestment = null;
 
-	@SerializedName("owner")
-	private ProfilePublic owner = null;
-
-	@SerializedName("brokerDetails")
-	private BrokerDetails brokerDetails = null;
-
 	@SerializedName("personalDetails")
 	private PersonalProgramDetails personalDetails = null;
-
-	@SerializedName("signalSettings")
-	private AssetSignalSettings signalSettings = null;
-
-	@SerializedName("subscribersCount")
-	private Integer subscribersCount = null;
-
-	@SerializedName("tags")
-	private List<Tag> tags = null;
 
 	public ProgramDetailsFull() {
 	}
 
 	ProgramDetailsFull(Parcel in) {
-		id = (UUID) in.readValue(UUID.class.getClassLoader());
-		tradingAccountId = (UUID) in.readValue(UUID.class.getClassLoader());
-		logo = (String) in.readValue(null);
-		url = (String) in.readValue(null);
-		color = (String) in.readValue(null);
-		title = (String) in.readValue(null);
-		description = (String) in.readValue(null);
-		creationDate = (DateTime) in.readValue(DateTime.class.getClassLoader());
-		currency = (Currency) in.readValue(Currency.class.getClassLoader());
 		level = (Integer) in.readValue(null);
 		levelProgress = (Double) in.readValue(null);
 		periodDuration = (Integer) in.readValue(null);
 		periodStarts = (DateTime) in.readValue(DateTime.class.getClassLoader());
 		periodEnds = (DateTime) in.readValue(DateTime.class.getClassLoader());
 		tradesDelay = (TradesDelay) in.readValue(TradesDelay.class.getClassLoader());
-		status = (String) in.readValue(null);
-		login = (String) in.readValue(null);
 		ageDays = (Double) in.readValue(null);
-		leverageMin = (Integer) in.readValue(null);
-		leverageMax = (Integer) in.readValue(null);
 		genesisRatio = (Double) in.readValue(null);
 		investmentScale = (Double) in.readValue(null);
 		volumeScale = (Double) in.readValue(null);
-		hasTrades = (Boolean) in.readValue(null);
 		entryFeeSelected = (Double) in.readValue(null);
 		entryFeeCurrent = (Double) in.readValue(null);
 		successFeeSelected = (Double) in.readValue(null);
@@ -198,183 +124,7 @@ public class ProgramDetailsFull implements Parcelable
 		availableInvestmentBase = (Double) in.readValue(null);
 		availableInvestmentLimit = (Double) in.readValue(null);
 		totalAvailableInvestment = (Double) in.readValue(null);
-		owner = (ProfilePublic) in.readValue(ProfilePublic.class.getClassLoader());
-		brokerDetails = (BrokerDetails) in.readValue(BrokerDetails.class.getClassLoader());
 		personalDetails = (PersonalProgramDetails) in.readValue(PersonalProgramDetails.class.getClassLoader());
-		signalSettings = (AssetSignalSettings) in.readValue(AssetSignalSettings.class.getClassLoader());
-		subscribersCount = (Integer) in.readValue(null);
-		tags = (List<Tag>) in.readValue(Tag.class.getClassLoader());
-	}
-
-	public ProgramDetailsFull id(UUID id) {
-		this.id = id;
-		return this;
-	}
-
-	/**
-	 * Get id
-	 *
-	 * @return id
-	 **/
-	@Schema(description = "")
-	public UUID getId() {
-		return id;
-	}
-
-	public void setId(UUID id) {
-		this.id = id;
-	}
-
-	public ProgramDetailsFull tradingAccountId(UUID tradingAccountId) {
-		this.tradingAccountId = tradingAccountId;
-		return this;
-	}
-
-	/**
-	 * Get tradingAccountId
-	 *
-	 * @return tradingAccountId
-	 **/
-	@Schema(description = "")
-	public UUID getTradingAccountId() {
-		return tradingAccountId;
-	}
-
-	public void setTradingAccountId(UUID tradingAccountId) {
-		this.tradingAccountId = tradingAccountId;
-	}
-
-	public ProgramDetailsFull logo(String logo) {
-		this.logo = logo;
-		return this;
-	}
-
-	/**
-	 * Get logo
-	 *
-	 * @return logo
-	 **/
-	@Schema(description = "")
-	public String getLogo() {
-		return logo;
-	}
-
-	public void setLogo(String logo) {
-		this.logo = logo;
-	}
-
-	public ProgramDetailsFull url(String url) {
-		this.url = url;
-		return this;
-	}
-
-	/**
-	 * Get url
-	 *
-	 * @return url
-	 **/
-	@Schema(description = "")
-	public String getUrl() {
-		return url;
-	}
-
-	public void setUrl(String url) {
-		this.url = url;
-	}
-
-	public ProgramDetailsFull color(String color) {
-		this.color = color;
-		return this;
-	}
-
-	/**
-	 * Get color
-	 *
-	 * @return color
-	 **/
-	@Schema(description = "")
-	public String getColor() {
-		return color;
-	}
-
-	public void setColor(String color) {
-		this.color = color;
-	}
-
-	public ProgramDetailsFull title(String title) {
-		this.title = title;
-		return this;
-	}
-
-	/**
-	 * Get title
-	 *
-	 * @return title
-	 **/
-	@Schema(description = "")
-	public String getTitle() {
-		return title;
-	}
-
-	public void setTitle(String title) {
-		this.title = title;
-	}
-
-	public ProgramDetailsFull description(String description) {
-		this.description = description;
-		return this;
-	}
-
-	/**
-	 * Get description
-	 *
-	 * @return description
-	 **/
-	@Schema(description = "")
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
-	public ProgramDetailsFull creationDate(DateTime creationDate) {
-		this.creationDate = creationDate;
-		return this;
-	}
-
-	/**
-	 * Get creationDate
-	 *
-	 * @return creationDate
-	 **/
-	@Schema(description = "")
-	public DateTime getCreationDate() {
-		return creationDate;
-	}
-
-	public void setCreationDate(DateTime creationDate) {
-		this.creationDate = creationDate;
-	}
-
-	public ProgramDetailsFull currency(Currency currency) {
-		this.currency = currency;
-		return this;
-	}
-
-	/**
-	 * Get currency
-	 *
-	 * @return currency
-	 **/
-	@Schema(description = "")
-	public Currency getCurrency() {
-		return currency;
-	}
-
-	public void setCurrency(Currency currency) {
-		this.currency = currency;
 	}
 
 	public ProgramDetailsFull level(Integer level) {
@@ -491,44 +241,6 @@ public class ProgramDetailsFull implements Parcelable
 		this.tradesDelay = tradesDelay;
 	}
 
-	public ProgramDetailsFull status(String status) {
-		this.status = status;
-		return this;
-	}
-
-	/**
-	 * Get status
-	 *
-	 * @return status
-	 **/
-	@Schema(description = "")
-	public String getStatus() {
-		return status;
-	}
-
-	public void setStatus(String status) {
-		this.status = status;
-	}
-
-	public ProgramDetailsFull login(String login) {
-		this.login = login;
-		return this;
-	}
-
-	/**
-	 * Get login
-	 *
-	 * @return login
-	 **/
-	@Schema(description = "")
-	public String getLogin() {
-		return login;
-	}
-
-	public void setLogin(String login) {
-		this.login = login;
-	}
-
 	public ProgramDetailsFull ageDays(Double ageDays) {
 		this.ageDays = ageDays;
 		return this;
@@ -546,44 +258,6 @@ public class ProgramDetailsFull implements Parcelable
 
 	public void setAgeDays(Double ageDays) {
 		this.ageDays = ageDays;
-	}
-
-	public ProgramDetailsFull leverageMin(Integer leverageMin) {
-		this.leverageMin = leverageMin;
-		return this;
-	}
-
-	/**
-	 * Get leverageMin
-	 *
-	 * @return leverageMin
-	 **/
-	@Schema(description = "")
-	public Integer getLeverageMin() {
-		return leverageMin;
-	}
-
-	public void setLeverageMin(Integer leverageMin) {
-		this.leverageMin = leverageMin;
-	}
-
-	public ProgramDetailsFull leverageMax(Integer leverageMax) {
-		this.leverageMax = leverageMax;
-		return this;
-	}
-
-	/**
-	 * Get leverageMax
-	 *
-	 * @return leverageMax
-	 **/
-	@Schema(description = "")
-	public Integer getLeverageMax() {
-		return leverageMax;
-	}
-
-	public void setLeverageMax(Integer leverageMax) {
-		this.leverageMax = leverageMax;
 	}
 
 	public ProgramDetailsFull genesisRatio(Double genesisRatio) {
@@ -641,25 +315,6 @@ public class ProgramDetailsFull implements Parcelable
 
 	public void setVolumeScale(Double volumeScale) {
 		this.volumeScale = volumeScale;
-	}
-
-	public ProgramDetailsFull hasTrades(Boolean hasTrades) {
-		this.hasTrades = hasTrades;
-		return this;
-	}
-
-	/**
-	 * Get hasTrades
-	 *
-	 * @return hasTrades
-	 **/
-	@Schema(description = "")
-	public Boolean isHasTrades() {
-		return hasTrades;
-	}
-
-	public void setHasTrades(Boolean hasTrades) {
-		this.hasTrades = hasTrades;
 	}
 
 	public ProgramDetailsFull entryFeeSelected(Double entryFeeSelected) {
@@ -833,44 +488,6 @@ public class ProgramDetailsFull implements Parcelable
 		this.totalAvailableInvestment = totalAvailableInvestment;
 	}
 
-	public ProgramDetailsFull owner(ProfilePublic owner) {
-		this.owner = owner;
-		return this;
-	}
-
-	/**
-	 * Get owner
-	 *
-	 * @return owner
-	 **/
-	@Schema(description = "")
-	public ProfilePublic getOwner() {
-		return owner;
-	}
-
-	public void setOwner(ProfilePublic owner) {
-		this.owner = owner;
-	}
-
-	public ProgramDetailsFull brokerDetails(BrokerDetails brokerDetails) {
-		this.brokerDetails = brokerDetails;
-		return this;
-	}
-
-	/**
-	 * Get brokerDetails
-	 *
-	 * @return brokerDetails
-	 **/
-	@Schema(description = "")
-	public BrokerDetails getBrokerDetails() {
-		return brokerDetails;
-	}
-
-	public void setBrokerDetails(BrokerDetails brokerDetails) {
-		this.brokerDetails = brokerDetails;
-	}
-
 	public ProgramDetailsFull personalDetails(PersonalProgramDetails personalDetails) {
 		this.personalDetails = personalDetails;
 		return this;
@@ -890,71 +507,6 @@ public class ProgramDetailsFull implements Parcelable
 		this.personalDetails = personalDetails;
 	}
 
-	public ProgramDetailsFull signalSettings(AssetSignalSettings signalSettings) {
-		this.signalSettings = signalSettings;
-		return this;
-	}
-
-	/**
-	 * Get signalSettings
-	 *
-	 * @return signalSettings
-	 **/
-	@Schema(description = "")
-	public AssetSignalSettings getSignalSettings() {
-		return signalSettings;
-	}
-
-	public void setSignalSettings(AssetSignalSettings signalSettings) {
-		this.signalSettings = signalSettings;
-	}
-
-	public ProgramDetailsFull subscribersCount(Integer subscribersCount) {
-		this.subscribersCount = subscribersCount;
-		return this;
-	}
-
-	/**
-	 * Get subscribersCount
-	 *
-	 * @return subscribersCount
-	 **/
-	@Schema(description = "")
-	public Integer getSubscribersCount() {
-		return subscribersCount;
-	}
-
-	public void setSubscribersCount(Integer subscribersCount) {
-		this.subscribersCount = subscribersCount;
-	}
-
-	public ProgramDetailsFull tags(List<Tag> tags) {
-		this.tags = tags;
-		return this;
-	}
-
-	public ProgramDetailsFull addTagsItem(Tag tagsItem) {
-		if (this.tags == null) {
-			this.tags = new ArrayList<Tag>();
-		}
-		this.tags.add(tagsItem);
-		return this;
-	}
-
-	/**
-	 * Get tags
-	 *
-	 * @return tags
-	 **/
-	@Schema(description = "")
-	public List<Tag> getTags() {
-		return tags;
-	}
-
-	public void setTags(List<Tag> tags) {
-		this.tags = tags;
-	}
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -964,30 +516,16 @@ public class ProgramDetailsFull implements Parcelable
 			return false;
 		}
 		ProgramDetailsFull programDetailsFull = (ProgramDetailsFull) o;
-		return Objects.equals(this.id, programDetailsFull.id) &&
-				Objects.equals(this.tradingAccountId, programDetailsFull.tradingAccountId) &&
-				Objects.equals(this.logo, programDetailsFull.logo) &&
-				Objects.equals(this.url, programDetailsFull.url) &&
-				Objects.equals(this.color, programDetailsFull.color) &&
-				Objects.equals(this.title, programDetailsFull.title) &&
-				Objects.equals(this.description, programDetailsFull.description) &&
-				Objects.equals(this.creationDate, programDetailsFull.creationDate) &&
-				Objects.equals(this.currency, programDetailsFull.currency) &&
-				Objects.equals(this.level, programDetailsFull.level) &&
+		return Objects.equals(this.level, programDetailsFull.level) &&
 				Objects.equals(this.levelProgress, programDetailsFull.levelProgress) &&
 				Objects.equals(this.periodDuration, programDetailsFull.periodDuration) &&
 				Objects.equals(this.periodStarts, programDetailsFull.periodStarts) &&
 				Objects.equals(this.periodEnds, programDetailsFull.periodEnds) &&
 				Objects.equals(this.tradesDelay, programDetailsFull.tradesDelay) &&
-				Objects.equals(this.status, programDetailsFull.status) &&
-				Objects.equals(this.login, programDetailsFull.login) &&
 				Objects.equals(this.ageDays, programDetailsFull.ageDays) &&
-				Objects.equals(this.leverageMin, programDetailsFull.leverageMin) &&
-				Objects.equals(this.leverageMax, programDetailsFull.leverageMax) &&
 				Objects.equals(this.genesisRatio, programDetailsFull.genesisRatio) &&
 				Objects.equals(this.investmentScale, programDetailsFull.investmentScale) &&
 				Objects.equals(this.volumeScale, programDetailsFull.volumeScale) &&
-				Objects.equals(this.hasTrades, programDetailsFull.hasTrades) &&
 				Objects.equals(this.entryFeeSelected, programDetailsFull.entryFeeSelected) &&
 				Objects.equals(this.entryFeeCurrent, programDetailsFull.entryFeeCurrent) &&
 				Objects.equals(this.successFeeSelected, programDetailsFull.successFeeSelected) &&
@@ -997,17 +535,12 @@ public class ProgramDetailsFull implements Parcelable
 				Objects.equals(this.availableInvestmentBase, programDetailsFull.availableInvestmentBase) &&
 				Objects.equals(this.availableInvestmentLimit, programDetailsFull.availableInvestmentLimit) &&
 				Objects.equals(this.totalAvailableInvestment, programDetailsFull.totalAvailableInvestment) &&
-				Objects.equals(this.owner, programDetailsFull.owner) &&
-				Objects.equals(this.brokerDetails, programDetailsFull.brokerDetails) &&
-				Objects.equals(this.personalDetails, programDetailsFull.personalDetails) &&
-				Objects.equals(this.signalSettings, programDetailsFull.signalSettings) &&
-				Objects.equals(this.subscribersCount, programDetailsFull.subscribersCount) &&
-				Objects.equals(this.tags, programDetailsFull.tags);
+				Objects.equals(this.personalDetails, programDetailsFull.personalDetails);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, tradingAccountId, logo, url, color, title, description, creationDate, currency, level, levelProgress, periodDuration, periodStarts, periodEnds, tradesDelay, status, login, ageDays, leverageMin, leverageMax, genesisRatio, investmentScale, volumeScale, hasTrades, entryFeeSelected, entryFeeCurrent, successFeeSelected, successFeeCurrent, stopOutLevelSelected, stopOutLevelCurrent, availableInvestmentBase, availableInvestmentLimit, totalAvailableInvestment, owner, brokerDetails, personalDetails, signalSettings, subscribersCount, tags);
+		return Objects.hash(level, levelProgress, periodDuration, periodStarts, periodEnds, tradesDelay, ageDays, genesisRatio, investmentScale, volumeScale, entryFeeSelected, entryFeeCurrent, successFeeSelected, successFeeCurrent, stopOutLevelSelected, stopOutLevelCurrent, availableInvestmentBase, availableInvestmentLimit, totalAvailableInvestment, personalDetails);
 	}
 
 	@Override
@@ -1015,30 +548,16 @@ public class ProgramDetailsFull implements Parcelable
 		StringBuilder sb = new StringBuilder();
 		sb.append("class ProgramDetailsFull {\n");
 
-		sb.append("    id: ").append(toIndentedString(id)).append("\n");
-		sb.append("    tradingAccountId: ").append(toIndentedString(tradingAccountId)).append("\n");
-		sb.append("    logo: ").append(toIndentedString(logo)).append("\n");
-		sb.append("    url: ").append(toIndentedString(url)).append("\n");
-		sb.append("    color: ").append(toIndentedString(color)).append("\n");
-		sb.append("    title: ").append(toIndentedString(title)).append("\n");
-		sb.append("    description: ").append(toIndentedString(description)).append("\n");
-		sb.append("    creationDate: ").append(toIndentedString(creationDate)).append("\n");
-		sb.append("    currency: ").append(toIndentedString(currency)).append("\n");
 		sb.append("    level: ").append(toIndentedString(level)).append("\n");
 		sb.append("    levelProgress: ").append(toIndentedString(levelProgress)).append("\n");
 		sb.append("    periodDuration: ").append(toIndentedString(periodDuration)).append("\n");
 		sb.append("    periodStarts: ").append(toIndentedString(periodStarts)).append("\n");
 		sb.append("    periodEnds: ").append(toIndentedString(periodEnds)).append("\n");
 		sb.append("    tradesDelay: ").append(toIndentedString(tradesDelay)).append("\n");
-		sb.append("    status: ").append(toIndentedString(status)).append("\n");
-		sb.append("    login: ").append(toIndentedString(login)).append("\n");
 		sb.append("    ageDays: ").append(toIndentedString(ageDays)).append("\n");
-		sb.append("    leverageMin: ").append(toIndentedString(leverageMin)).append("\n");
-		sb.append("    leverageMax: ").append(toIndentedString(leverageMax)).append("\n");
 		sb.append("    genesisRatio: ").append(toIndentedString(genesisRatio)).append("\n");
 		sb.append("    investmentScale: ").append(toIndentedString(investmentScale)).append("\n");
 		sb.append("    volumeScale: ").append(toIndentedString(volumeScale)).append("\n");
-		sb.append("    hasTrades: ").append(toIndentedString(hasTrades)).append("\n");
 		sb.append("    entryFeeSelected: ").append(toIndentedString(entryFeeSelected)).append("\n");
 		sb.append("    entryFeeCurrent: ").append(toIndentedString(entryFeeCurrent)).append("\n");
 		sb.append("    successFeeSelected: ").append(toIndentedString(successFeeSelected)).append("\n");
@@ -1048,12 +567,7 @@ public class ProgramDetailsFull implements Parcelable
 		sb.append("    availableInvestmentBase: ").append(toIndentedString(availableInvestmentBase)).append("\n");
 		sb.append("    availableInvestmentLimit: ").append(toIndentedString(availableInvestmentLimit)).append("\n");
 		sb.append("    totalAvailableInvestment: ").append(toIndentedString(totalAvailableInvestment)).append("\n");
-		sb.append("    owner: ").append(toIndentedString(owner)).append("\n");
-		sb.append("    brokerDetails: ").append(toIndentedString(brokerDetails)).append("\n");
 		sb.append("    personalDetails: ").append(toIndentedString(personalDetails)).append("\n");
-		sb.append("    signalSettings: ").append(toIndentedString(signalSettings)).append("\n");
-		sb.append("    subscribersCount: ").append(toIndentedString(subscribersCount)).append("\n");
-		sb.append("    tags: ").append(toIndentedString(tags)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}
@@ -1070,30 +584,16 @@ public class ProgramDetailsFull implements Parcelable
 	}
 
 	public void writeToParcel(Parcel out, int flags) {
-		out.writeValue(id);
-		out.writeValue(tradingAccountId);
-		out.writeValue(logo);
-		out.writeValue(url);
-		out.writeValue(color);
-		out.writeValue(title);
-		out.writeValue(description);
-		out.writeValue(creationDate);
-		out.writeValue(currency);
 		out.writeValue(level);
 		out.writeValue(levelProgress);
 		out.writeValue(periodDuration);
 		out.writeValue(periodStarts);
 		out.writeValue(periodEnds);
 		out.writeValue(tradesDelay);
-		out.writeValue(status);
-		out.writeValue(login);
 		out.writeValue(ageDays);
-		out.writeValue(leverageMin);
-		out.writeValue(leverageMax);
 		out.writeValue(genesisRatio);
 		out.writeValue(investmentScale);
 		out.writeValue(volumeScale);
-		out.writeValue(hasTrades);
 		out.writeValue(entryFeeSelected);
 		out.writeValue(entryFeeCurrent);
 		out.writeValue(successFeeSelected);
@@ -1103,12 +603,7 @@ public class ProgramDetailsFull implements Parcelable
 		out.writeValue(availableInvestmentBase);
 		out.writeValue(availableInvestmentLimit);
 		out.writeValue(totalAvailableInvestment);
-		out.writeValue(owner);
-		out.writeValue(brokerDetails);
 		out.writeValue(personalDetails);
-		out.writeValue(signalSettings);
-		out.writeValue(subscribersCount);
-		out.writeValue(tags);
 	}
 
 	public int describeContents() {

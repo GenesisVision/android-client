@@ -5,7 +5,7 @@ import com.arellomobile.mvp.viewstate.strategy.AddToEndSingleStrategy;
 import com.arellomobile.mvp.viewstate.strategy.OneExecutionStateStrategy;
 import com.arellomobile.mvp.viewstate.strategy.StateStrategyType;
 
-import io.swagger.client.model.ProgramDetailsFull;
+import io.swagger.client.model.ProgramFollowDetailsFull;
 import vision.genesis.clientapp.model.ProgramRequest;
 
 /**
@@ -16,7 +16,7 @@ import vision.genesis.clientapp.model.ProgramRequest;
 interface ProgramInfoView extends MvpView
 {
 	@StateStrategyType(AddToEndSingleStrategy.class)
-	void setProgramDetails(ProgramDetailsFull programDetails);
+	void setDetails(ProgramFollowDetailsFull details);
 
 	@StateStrategyType(AddToEndSingleStrategy.class)
 	void showInvestWithdrawButtons();

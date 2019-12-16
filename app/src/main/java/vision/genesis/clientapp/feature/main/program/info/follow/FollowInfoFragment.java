@@ -25,6 +25,7 @@ import butterknife.OnClick;
 import butterknife.Unbinder;
 import io.swagger.client.model.FollowDetailsFull;
 import io.swagger.client.model.ProfilePublic;
+import io.swagger.client.model.ProgramFollowDetailsFull;
 import timber.log.Timber;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
@@ -52,7 +53,7 @@ public class FollowInfoFragment extends BaseFragment implements FollowInfoView, 
 {
 	private static String EXTRA_DETAILS = "extra_details";
 
-	public static FollowInfoFragment with(FollowDetailsFull details) {
+	public static FollowInfoFragment with(ProgramFollowDetailsFull details) {
 		FollowInfoFragment followInfoFragment = new FollowInfoFragment();
 		Bundle arguments = new Bundle(1);
 		arguments.putParcelable(EXTRA_DETAILS, details);
@@ -120,16 +121,14 @@ public class FollowInfoFragment extends BaseFragment implements FollowInfoView, 
 	@BindDimen(R.dimen.program_info_strategy_max_height)
 	public int strategyMaxHeight;
 
-	private UUID programId;
-
-	private FollowDetailsFull followDetails;
+	private ProgramFollowDetailsFull details;
 
 	private Unbinder unbinder;
 
 	@OnClick(R.id.group_manager)
 	public void onManagerClicked() {
 		if (getActivity() != null) {
-			ProfilePublic manager = followDetails.getOwner();
+			ProfilePublic manager = details.getOwner();
 			ManagerDetailsModel model = new ManagerDetailsModel(
 					manager.getId(),
 					manager.getAvatar(),
@@ -202,10 +201,10 @@ public class FollowInfoFragment extends BaseFragment implements FollowInfoView, 
 		unbinder = ButterKnife.bind(this, view);
 
 		if (getArguments() != null) {
-			followDetails = getArguments().getParcelable(EXTRA_DETAILS);
-			if (followDetails != null) {
-				presenter.setFollowDetails(followDetails);
-				setFollowDetails(followDetails);
+			details = getArguments().getParcelable(EXTRA_DETAILS);
+			if (details != null) {
+				presenter.setDetails(details);
+				setDetails(details);
 
 				setFonts();
 
@@ -233,23 +232,23 @@ public class FollowInfoFragment extends BaseFragment implements FollowInfoView, 
 	}
 
 	@Override
-	public void setFollowDetails(FollowDetailsFull followDetails) {
-		this.followDetails = followDetails;
+	public void setDetails(ProgramFollowDetailsFull details) {
+		this.details = details;
 
 		scrollView.setVisibility(View.VISIBLE);
 
-		updateFollowInfo(followDetails);
-		updateSubscription(followDetails);
+		updateFollowInfo(details);
+		updateSubscription(details.getFollowDetails());
 	}
 
-	private void updateFollowInfo(FollowDetailsFull programDetails) {
-		managerAvatar.setImage(programDetails.getOwner().getAvatar(), 100, 100);
-		managerName.setText(programDetails.getOwner().getUsername());
-		managerDate.setText(DateTimeUtil.formatShortDate(programDetails.getOwner().getRegistrationDate()));
+	private void updateFollowInfo(ProgramFollowDetailsFull details) {
+		managerAvatar.setImage(details.getOwner().getAvatar(), 100, 100);
+		managerName.setText(details.getOwner().getUsername());
+		managerDate.setText(DateTimeUtil.formatShortDate(details.getOwner().getRegistrationDate()));
 
-		socialLinks.setData(programDetails.getOwner().getSocialLinks());
+		socialLinks.setData(details.getOwner().getSocialLinks());
 
-		strategy.setText(programDetails.getDescription());
+		strategy.setText(details.getPublicInfo().getDescription());
 		new Handler().postDelayed(() -> {
 			if (strategyShadow != null && strategy != null) {
 				strategyShadow.setVisibility(strategy.getHeight() < strategyMaxHeight ? View.INVISIBLE : View.VISIBLE);

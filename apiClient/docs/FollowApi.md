@@ -163,7 +163,7 @@ No authorization required
 
 <a name="getFollowAssetDetails"></a>
 # **getFollowAssetDetails**
-> FollowDetailsFull getFollowAssetDetails(id, authorization)
+> ProgramFollowDetailsFull getFollowAssetDetails(id, authorization)
 
 Follow asset details
 
@@ -178,7 +178,7 @@ FollowApi apiInstance = new FollowApi();
 String id = "id_example"; // String | 
 String authorization = "authorization_example"; // String | 
 try {
-    FollowDetailsFull result = apiInstance.getFollowAssetDetails(id, authorization);
+    ProgramFollowDetailsFull result = apiInstance.getFollowAssetDetails(id, authorization);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling FollowApi#getFollowAssetDetails");
@@ -195,7 +195,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**FollowDetailsFull**](FollowDetailsFull.md)
+[**ProgramFollowDetailsFull**](ProgramFollowDetailsFull.md)
 
 ### Authorization
 
@@ -208,7 +208,7 @@ No authorization required
 
 <a name="getFollowAssets"></a>
 # **getFollowAssets**
-> ItemsViewModelFollowDetailsList getFollowAssets(authorization, sorting, showIn, tags, dateFrom, dateTo, chartPointsCount, facetId, mask, ownerId, showFavorites, skip, take)
+> ItemsViewModelFollowDetailsListItem getFollowAssets(authorization, sorting, showIn, tags, dateFrom, dateTo, chartPointsCount, facetId, mask, ownerId, showFavorites, skip, take)
 
 Follow assets
 
@@ -234,7 +234,7 @@ Boolean showFavorites = true; // Boolean |
 Integer skip = 56; // Integer | 
 Integer take = 56; // Integer | 
 try {
-    ItemsViewModelFollowDetailsList result = apiInstance.getFollowAssets(authorization, sorting, showIn, tags, dateFrom, dateTo, chartPointsCount, facetId, mask, ownerId, showFavorites, skip, take);
+    ItemsViewModelFollowDetailsListItem result = apiInstance.getFollowAssets(authorization, sorting, showIn, tags, dateFrom, dateTo, chartPointsCount, facetId, mask, ownerId, showFavorites, skip, take);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling FollowApi#getFollowAssets");
@@ -262,7 +262,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ItemsViewModelFollowDetailsList**](ItemsViewModelFollowDetailsList.md)
+[**ItemsViewModelFollowDetailsListItem**](ItemsViewModelFollowDetailsListItem.md)
 
 ### Authorization
 

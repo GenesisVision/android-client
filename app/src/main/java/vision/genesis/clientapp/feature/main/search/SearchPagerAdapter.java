@@ -6,7 +6,7 @@ import androidx.fragment.app.FragmentStatePagerAdapter;
 
 import com.google.android.material.tabs.TabLayout;
 
-import io.swagger.client.model.SearchViewModel;
+import io.swagger.client.model.CommonPublicAssetsViewModel;
 import vision.genesis.clientapp.feature.main.follows_list.FollowsListFragment;
 import vision.genesis.clientapp.feature.main.funds_list.FundsListFragment;
 import vision.genesis.clientapp.feature.main.managers_list.ManagersListFragment;
@@ -66,7 +66,7 @@ public class SearchPagerAdapter extends FragmentStatePagerAdapter
 		return tabLayout.getTabCount();
 	}
 
-	public void sendSearchResults(SearchViewModel model) {
+	public void sendSearchResults(CommonPublicAssetsViewModel model) {
 		programsFragment.showSearchResults(model.getPrograms());
 		fundsFragment.showSearchResults(model.getFunds());
 		followsFragment.showSearchResults(model.getFollows());

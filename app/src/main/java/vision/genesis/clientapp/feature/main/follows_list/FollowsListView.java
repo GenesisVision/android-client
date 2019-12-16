@@ -7,7 +7,7 @@ import com.arellomobile.mvp.viewstate.strategy.StateStrategyType;
 import java.util.List;
 import java.util.UUID;
 
-import io.swagger.client.model.FollowDetailsList;
+import io.swagger.client.model.FollowDetailsListItem;
 import vision.genesis.clientapp.model.filter.ProgramsFilter;
 
 /**
@@ -17,9 +17,9 @@ import vision.genesis.clientapp.model.filter.ProgramsFilter;
 
 interface FollowsListView extends MvpView
 {
-	void setFollows(List<FollowDetailsList> follows);
+	void setFollows(List<FollowDetailsListItem> follows);
 
-	void addFollows(List<FollowDetailsList> follows);
+	void addFollows(List<FollowDetailsListItem> follows);
 
 	void setRefreshing(boolean refreshing);
 

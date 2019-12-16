@@ -5,12 +5,12 @@ import org.joda.time.DateTime;
 import java.util.List;
 import java.util.UUID;
 
+import io.swagger.client.model.CommonPublicAssetsViewModel;
 import io.swagger.client.model.DashboardAssets;
 import io.swagger.client.model.DashboardChart;
 import io.swagger.client.model.DashboardChartAssets;
 import io.swagger.client.model.DashboardInvestingDetails;
 import io.swagger.client.model.DashboardPortfolio;
-import io.swagger.client.model.DashboardRecommendations;
 import io.swagger.client.model.DashboardSummary;
 import io.swagger.client.model.DashboardTradingDetails;
 import io.swagger.client.model.ItemsViewModelDashboardTradingAsset;
@@ -170,11 +170,12 @@ public interface DashboardApi
 	 *
 	 * @param authorization JWT access token (required)
 	 * @param currency      (optional)
-	 * @return Call&lt;DashboardRecommendations&gt;
+	 * @param take          (optional)
+	 * @return Call&lt;CommonPublicAssetsViewModel&gt;
 	 */
 	@GET("v2.0/dashboard/recommendations")
-	Observable<DashboardRecommendations> getRecommendations(
-			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("currency") String currency
+	Observable<CommonPublicAssetsViewModel> getRecommendations(
+			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("currency") String currency, @retrofit2.http.Query("take") Integer take
 	);
 
 	/**

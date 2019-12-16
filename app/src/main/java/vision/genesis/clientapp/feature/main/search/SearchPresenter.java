@@ -7,7 +7,7 @@ import com.arellomobile.mvp.MvpPresenter;
 
 import javax.inject.Inject;
 
-import io.swagger.client.model.SearchViewModel;
+import io.swagger.client.model.CommonPublicAssetsViewModel;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -76,7 +76,7 @@ public class SearchPresenter extends MvpPresenter<SearchView>
 						this::handleSearchError);
 	}
 
-	private void handleSearchSuccess(SearchViewModel result) {
+	private void handleSearchSuccess(CommonPublicAssetsViewModel result) {
 		searchSubscription.unsubscribe();
 		getViewState().showProgressBar(false);
 

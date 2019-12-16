@@ -35,7 +35,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.swagger.client.model.FollowDetailsFull;
 import io.swagger.client.model.InvestmentEventViewModel;
-import io.swagger.client.model.ProgramDetailsFull;
+import io.swagger.client.model.ProgramFollowDetailsFull;
 import io.swagger.client.model.Tag;
 import timber.log.Timber;
 import vision.genesis.clientapp.GenesisVisionApplication;
@@ -142,7 +142,7 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 	@InjectPresenter
 	ProgramDetailsPresenter programDetailsPresenter;
 
-	private ProgramDetailsFull programDetails;
+	private ProgramFollowDetailsFull details;
 
 	private FollowDetailsFull followDetails;
 
@@ -188,13 +188,13 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 
 	@OnClick(R.id.level)
 	public void onLevelClicked() {
-		if (programDetails != null) {
+		if (details != null && details.getProgramDetails() != null) {
 			ProgramLevelBottomSheetDialog dialog = new ProgramLevelBottomSheetDialog();
 			dialog.show(getSupportFragmentManager(), dialog.getTag());
-			dialog.setData(programDetails.getLevel(),
+			dialog.setData(details.getProgramDetails().getLevel(),
 					false,
-					programDetails.getCurrency().getValue(),
-					programDetails.getTotalAvailableInvestment());
+					details.getTradingAccountInfo().getCurrency().getValue(),
+					details.getProgramDetails().getTotalAvailableInvestment());
 		}
 	}
 
@@ -205,10 +205,10 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 
 	@OnClick(R.id.button_favorite)
 	public void onFavoriteClicked() {
-		if (programDetails != null) {
-			programDetails.getPersonalDetails().setIsFavorite(!programDetails.getPersonalDetails().isIsFavorite());
-			setFavoriteButtonImage(programDetails.getPersonalDetails().isIsFavorite());
-			programDetailsPresenter.onFavoriteButtonClicked(programDetails.getPersonalDetails().isIsFavorite());
+		if (details != null && details.getProgramDetails() != null) {
+			details.getProgramDetails().getPersonalDetails().setIsFavorite(!details.getProgramDetails().getPersonalDetails().isIsFavorite());
+			setFavoriteButtonImage(details.getProgramDetails().getPersonalDetails().isIsFavorite());
+			programDetailsPresenter.onFavoriteButtonClicked(details.getProgramDetails().getPersonalDetails().isIsFavorite());
 		}
 	}
 
@@ -363,9 +363,9 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 	}
 
 	private void setTags() {
-		if (programDetails != null && tagsGroup != null) {
+		if (details != null && tagsGroup != null) {
 			tagsGroup.removeAllViews();
-			for (Tag tag : programDetails.getTags()) {
+			for (Tag tag : details.getTags()) {
 				addTag(createTagView(tag), tagsGroup);
 			}
 		}
@@ -447,8 +447,8 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 		}
 	}
 
-	private void initViewPager(ProgramDetailsFull programDetails, FollowDetailsFull followDetails) {
-		pagerAdapter = new ProgramDetailsPagerAdapter(getSupportFragmentManager(), tabLayout, programDetails, followDetails);
+	private void initViewPager(ProgramFollowDetailsFull details) {
+		pagerAdapter = new ProgramDetailsPagerAdapter(getSupportFragmentManager(), tabLayout, details);
 		viewPager.setAdapter(pagerAdapter);
 		viewPager.setOffscreenPageLimit(10);
 
@@ -463,8 +463,8 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 	}
 
 	@Override
-	public void showProgram(ProgramDetailsFull programDetails) {
-		this.programDetails = programDetails;
+	public void showProgram(ProgramFollowDetailsFull details) {
+		this.details = details;
 
 		if (pagerAdapter == null) {
 			addPage(programInfoTab, true);
@@ -479,8 +479,8 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 	}
 
 	@Override
-	public void showFollow(FollowDetailsFull followDetails) {
-		this.followDetails = followDetails;
+	public void showFollow(ProgramFollowDetailsFull details) {
+		this.details = details;
 
 		if (pagerAdapter == null) {
 			addPage(followInfoTab, true);
@@ -494,16 +494,15 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 	}
 
 	@Override
-	public void showOwner(ProgramDetailsFull programDetails, FollowDetailsFull followDetails) {
-		this.programDetails = programDetails;
-		this.followDetails = followDetails;
+	public void showOwner(ProgramFollowDetailsFull details) {
+		this.details = details;
 
 		addPage(ownerInfoTab, true);
 		addPage(profitTab, false);
 		addPage(equityTab, false);
 		addPage(openPositionsTab, false);
 		addPage(tradesTab, false);
-		if (programDetails != null) {
+		if (this.details != null) {
 			addPage(periodHistoryTab, false);
 		}
 
@@ -511,21 +510,19 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 	}
 
 	private void finishInit() {
-		if (programDetails != null && programDetails.getPersonalDetails() != null && programDetails.getPersonalDetails().isIsInvested()) {
+		if (details != null && (details.getPublicInfo().isIsOwnAsset() ||
+				details.getProgramDetails() != null && details.getProgramDetails().getPersonalDetails().isIsInvested())) {
 			addPage(eventsTab, false);
 		}
 		if (pagerAdapter == null) {
-			initViewPager(programDetails, followDetails);
+			initViewPager(details);
 		}
 		else {
-			pagerAdapter.updateOwnerInfo(programDetails, followDetails);
+			pagerAdapter.updateOwnerInfo(details);
 		}
 
-		if (programDetails != null) {
-			model.update(programDetails);
-		}
-		else if (followDetails != null) {
-			model.update(followDetails);
+		if (details != null) {
+			model.update(details);
 		}
 
 		updateHeader();

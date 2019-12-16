@@ -5,7 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TextView;
 
-import com.arellomobile.mvp.presenter.InjectPresenter;
+import com.arellomobile.mvp.MvpView;
 
 import java.util.Objects;
 
@@ -29,7 +29,7 @@ import vision.genesis.clientapp.utils.TypefaceUtil;
  * Created by Vitaly on 11/04/2019.
  */
 
-public class ProgramsFacetActivity extends BaseSwipeBackActivity implements ProgramsFacetView
+public class ProgramsFacetActivity extends BaseSwipeBackActivity implements MvpView
 {
 	private static final String EXTRA_MODEL = "extra_model";
 
@@ -44,9 +44,6 @@ public class ProgramsFacetActivity extends BaseSwipeBackActivity implements Prog
 	@BindView(R.id.title)
 	public TextView title;
 
-	@InjectPresenter
-	ProgramsFacetPresenter programsFacetPresenter;
-
 	@OnClick(R.id.button_back)
 	public void onBackClicked() {
 		finishActivity();
@@ -57,7 +54,7 @@ public class ProgramsFacetActivity extends BaseSwipeBackActivity implements Prog
 		setTheme(ThemeUtil.getCurrentThemeResource());
 		super.onCreate(savedInstanceState);
 
-		setContentView(R.layout.activity_program_facet);
+		setContentView(R.layout.activity_facet);
 
 		ButterKnife.bind(this);
 
@@ -84,7 +81,7 @@ public class ProgramsFacetActivity extends BaseSwipeBackActivity implements Prog
 			}
 		}
 		else {
-			Timber.e("Passed empty model to ProgramsFacetActivity");
+			Timber.e("Passed empty model to %s", getClass().getSimpleName());
 			onBackPressed();
 		}
 	}

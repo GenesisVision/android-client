@@ -9,7 +9,7 @@ import io.swagger.client.model.AbsoluteProfitChart;
 import io.swagger.client.model.FundBalanceChart;
 import io.swagger.client.model.FundDetailsFull;
 import io.swagger.client.model.FundProfitPercentCharts;
-import io.swagger.client.model.ItemsViewModelFundDetailsList;
+import io.swagger.client.model.ItemsViewModelFundDetailsListItem;
 import io.swagger.client.model.ItemsViewModelReallocationModel;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
@@ -105,10 +105,10 @@ public interface FundsApi
 	 * @param showFavorites    (optional)
 	 * @param skip             (optional)
 	 * @param take             (optional)
-	 * @return Call&lt;ItemsViewModelFundDetailsList&gt;
+	 * @return Call&lt;ItemsViewModelFundDetailsListItem&gt;
 	 */
 	@GET("v2.0/funds")
-	Observable<ItemsViewModelFundDetailsList> getFunds(
+	Observable<ItemsViewModelFundDetailsListItem> getFunds(
 			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("Sorting") String sorting, @retrofit2.http.Query("ShowIn") String showIn, @retrofit2.http.Query("Assets") List<String> assets, @retrofit2.http.Query("DateFrom") DateTime dateFrom, @retrofit2.http.Query("DateTo") DateTime dateTo, @retrofit2.http.Query("ChartPointsCount") Integer chartPointsCount, @retrofit2.http.Query("FacetId") String facetId, @retrofit2.http.Query("Mask") String mask, @retrofit2.http.Query("OwnerId") UUID ownerId, @retrofit2.http.Query("ShowFavorites") Boolean showFavorites, @retrofit2.http.Query("Skip") Integer skip, @retrofit2.http.Query("Take") Integer take
 	);
 

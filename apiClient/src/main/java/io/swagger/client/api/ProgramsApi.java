@@ -6,9 +6,9 @@ import java.util.List;
 import java.util.UUID;
 
 import io.swagger.client.model.AbsoluteProfitChart;
-import io.swagger.client.model.ItemsViewModelProgramDetailsList;
+import io.swagger.client.model.ItemsViewModelProgramDetailsListItem;
 import io.swagger.client.model.ProgramBalanceChart;
-import io.swagger.client.model.ProgramDetailsFull;
+import io.swagger.client.model.ProgramFollowDetailsFull;
 import io.swagger.client.model.ProgramPeriodsViewModel;
 import io.swagger.client.model.ProgramProfitPercentCharts;
 import io.swagger.client.model.SignalProviderSubscribers;
@@ -122,10 +122,10 @@ public interface ProgramsApi
 	 *
 	 * @param id            (required)
 	 * @param authorization (optional)
-	 * @return Call&lt;ProgramDetailsFull&gt;
+	 * @return Call&lt;ProgramFollowDetailsFull&gt;
 	 */
 	@GET("v2.0/programs/{id}")
-	Observable<ProgramDetailsFull> getProgramDetails(
+	Observable<ProgramFollowDetailsFull> getProgramDetails(
 			@retrofit2.http.Path("id") String id, @retrofit2.http.Header("Authorization") String authorization
 	);
 
@@ -235,10 +235,10 @@ public interface ProgramsApi
 	 * @param showFavorites    (optional)
 	 * @param skip             (optional)
 	 * @param take             (optional)
-	 * @return Call&lt;ItemsViewModelProgramDetailsList&gt;
+	 * @return Call&lt;ItemsViewModelProgramDetailsListItem&gt;
 	 */
 	@GET("v2.0/programs")
-	Observable<ItemsViewModelProgramDetailsList> getPrograms(
+	Observable<ItemsViewModelProgramDetailsListItem> getPrograms(
 			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("Sorting") String sorting, @retrofit2.http.Query("ShowIn") String showIn, @retrofit2.http.Query("Tags") List<String> tags, @retrofit2.http.Query("ProgramCurrency") String programCurrency, @retrofit2.http.Query("LevelMin") Integer levelMin, @retrofit2.http.Query("LevelMax") Integer levelMax, @retrofit2.http.Query("LevelsSet") List<Integer> levelsSet, @retrofit2.http.Query("DateFrom") DateTime dateFrom, @retrofit2.http.Query("DateTo") DateTime dateTo, @retrofit2.http.Query("ChartPointsCount") Integer chartPointsCount, @retrofit2.http.Query("FacetId") String facetId, @retrofit2.http.Query("Mask") String mask, @retrofit2.http.Query("OwnerId") UUID ownerId, @retrofit2.http.Query("ShowFavorites") Boolean showFavorites, @retrofit2.http.Query("Skip") Integer skip, @retrofit2.http.Query("Take") Integer take
 	);
 

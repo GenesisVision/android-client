@@ -34,8 +34,8 @@ public class TransferFundsModel implements Parcelable
 	}
 
 	public static TransferFundsModel createFrom(PrivateTradingAccountFull account) {
-		return new TransferFundsModel(account.getId(), account.getBrokerDetails().getLogo(), account.getTitle(),
-				account.getCurrency().getValue(), account.getBalance());
+		return new TransferFundsModel(account.getId(), account.getBrokerDetails().getLogo(), account.getPublicInfo().getTitle(),
+				account.getTradingAccountInfo().getCurrency().getValue(), account.getTradingAccountInfo().getBalance());
 	}
 
 	private UUID id;

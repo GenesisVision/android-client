@@ -35,6 +35,7 @@ import vision.genesis.clientapp.feature.common.public_info.edit.EditPublicInfoAc
 import vision.genesis.clientapp.feature.common.requests.RequestsBottomSheetFragment;
 import vision.genesis.clientapp.feature.main.fund.FundDetailsPagerAdapter;
 import vision.genesis.clientapp.feature.main.fund.invest.InvestFundActivity;
+import vision.genesis.clientapp.feature.main.fund.manage.ManageFundActivity;
 import vision.genesis.clientapp.feature.main.fund.withdraw.WithdrawFundActivity;
 import vision.genesis.clientapp.model.FundRequest;
 import vision.genesis.clientapp.ui.InvestmentStatusView;
@@ -377,7 +378,7 @@ public class FundOwnerInfoFragment extends BaseFragment implements FundOwnerInfo
 	@Override
 	public void showManageFundActivity(FundDetailsFull fundDetails) {
 		if (getActivity() != null) {
-//			ManageFundActivity.startFrom(getActivity(), fundDetails);
+			ManageFundActivity.startFrom(getActivity(), fundDetails);
 		}
 	}
 

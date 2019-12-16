@@ -53,6 +53,18 @@ public interface WalletApi
 	);
 
 	/**
+	 * Accounts available
+	 *
+	 * @param currency      (required)
+	 * @param authorization JWT access token (required)
+	 * @return Call&lt;WalletMultiAvailable&gt;
+	 */
+	@GET("v2.0/wallet/accounts/{currency}/available")
+	Observable<WalletMultiAvailable> getAccountsAvailable(
+			@retrofit2.http.Path("currency") String currency, @retrofit2.http.Header("Authorization") String authorization
+	);
+
+	/**
 	 * GenesisMarkets commission data
 	 *
 	 * @param authorization JWT access token (required)

@@ -3,6 +3,6 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**assetId** | [**UUID**](UUID.md) |  |  [optional]
+**id** | [**UUID**](UUID.md) | AssetId |  [optional]
 **volumeFee** | **Double** |  |  [optional]
 **successFee** | **Double** |  |  [optional]

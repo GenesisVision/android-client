@@ -40,8 +40,8 @@ public class CreateSignalProvider implements Parcelable
 		}
 	};
 
-	@SerializedName("assetId")
-	private UUID assetId = null;
+	@SerializedName("id")
+	private UUID id = null;
 
 	@SerializedName("volumeFee")
 	private Double volumeFee = null;
@@ -53,28 +53,28 @@ public class CreateSignalProvider implements Parcelable
 	}
 
 	CreateSignalProvider(Parcel in) {
-		assetId = (UUID) in.readValue(UUID.class.getClassLoader());
+		id = (UUID) in.readValue(UUID.class.getClassLoader());
 		volumeFee = (Double) in.readValue(null);
 		successFee = (Double) in.readValue(null);
 	}
 
-	public CreateSignalProvider assetId(UUID assetId) {
-		this.assetId = assetId;
+	public CreateSignalProvider id(UUID id) {
+		this.id = id;
 		return this;
 	}
 
 	/**
-	 * Get assetId
+	 * AssetId
 	 *
-	 * @return assetId
+	 * @return id
 	 **/
-	@Schema(description = "")
-	public UUID getAssetId() {
-		return assetId;
+	@Schema(description = "AssetId")
+	public UUID getId() {
+		return id;
 	}
 
-	public void setAssetId(UUID assetId) {
-		this.assetId = assetId;
+	public void setId(UUID id) {
+		this.id = id;
 	}
 
 	public CreateSignalProvider volumeFee(Double volumeFee) {
@@ -124,14 +124,14 @@ public class CreateSignalProvider implements Parcelable
 			return false;
 		}
 		CreateSignalProvider createSignalProvider = (CreateSignalProvider) o;
-		return Objects.equals(this.assetId, createSignalProvider.assetId) &&
+		return Objects.equals(this.id, createSignalProvider.id) &&
 				Objects.equals(this.volumeFee, createSignalProvider.volumeFee) &&
 				Objects.equals(this.successFee, createSignalProvider.successFee);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(assetId, volumeFee, successFee);
+		return Objects.hash(id, volumeFee, successFee);
 	}
 
 	@Override
@@ -139,7 +139,7 @@ public class CreateSignalProvider implements Parcelable
 		StringBuilder sb = new StringBuilder();
 		sb.append("class CreateSignalProvider {\n");
 
-		sb.append("    assetId: ").append(toIndentedString(assetId)).append("\n");
+		sb.append("    id: ").append(toIndentedString(id)).append("\n");
 		sb.append("    volumeFee: ").append(toIndentedString(volumeFee)).append("\n");
 		sb.append("    successFee: ").append(toIndentedString(successFee)).append("\n");
 		sb.append("}");
@@ -158,7 +158,7 @@ public class CreateSignalProvider implements Parcelable
 	}
 
 	public void writeToParcel(Parcel out, int flags) {
-		out.writeValue(assetId);
+		out.writeValue(id);
 		out.writeValue(volumeFee);
 		out.writeValue(successFee);
 	}

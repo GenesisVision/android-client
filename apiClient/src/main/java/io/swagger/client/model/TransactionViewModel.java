@@ -50,14 +50,14 @@ public class TransactionViewModel implements Parcelable
 	@SerializedName("date")
 	private DateTime date = null;
 
-	@SerializedName("status")
-	private MultiWalletTransactionStatus status = null;
-
 	@SerializedName("description")
 	private String description = null;
 
 	@SerializedName("amount")
 	private AmountRowCell amount = null;
+
+	@SerializedName("detailsTitle")
+	private String detailsTitle = null;
 
 	@SerializedName("asset")
 	private TransactionAssetDetails asset = null;
@@ -68,18 +68,22 @@ public class TransactionViewModel implements Parcelable
 	@SerializedName("actions")
 	private TransactionDetailsActions actions = null;
 
+	@SerializedName("status")
+	private MultiWalletTransactionStatus status = null;
+
 	public TransactionViewModel() {
 	}
 
 	TransactionViewModel(Parcel in) {
 		id = (UUID) in.readValue(UUID.class.getClassLoader());
 		date = (DateTime) in.readValue(DateTime.class.getClassLoader());
-		status = (MultiWalletTransactionStatus) in.readValue(MultiWalletTransactionStatus.class.getClassLoader());
 		description = (String) in.readValue(null);
 		amount = (AmountRowCell) in.readValue(AmountRowCell.class.getClassLoader());
+		detailsTitle = (String) in.readValue(null);
 		asset = (TransactionAssetDetails) in.readValue(TransactionAssetDetails.class.getClassLoader());
 		details = (List<TransactionDetailItem>) in.readValue(TransactionDetailItem.class.getClassLoader());
 		actions = (TransactionDetailsActions) in.readValue(TransactionDetailsActions.class.getClassLoader());
+		status = (MultiWalletTransactionStatus) in.readValue(MultiWalletTransactionStatus.class.getClassLoader());
 	}
 
 	public TransactionViewModel id(UUID id) {
@@ -120,25 +124,6 @@ public class TransactionViewModel implements Parcelable
 		this.date = date;
 	}
 
-	public TransactionViewModel status(MultiWalletTransactionStatus status) {
-		this.status = status;
-		return this;
-	}
-
-	/**
-	 * Get status
-	 *
-	 * @return status
-	 **/
-	@Schema(description = "")
-	public MultiWalletTransactionStatus getStatus() {
-		return status;
-	}
-
-	public void setStatus(MultiWalletTransactionStatus status) {
-		this.status = status;
-	}
-
 	public TransactionViewModel description(String description) {
 		this.description = description;
 		return this;
@@ -175,6 +160,25 @@ public class TransactionViewModel implements Parcelable
 
 	public void setAmount(AmountRowCell amount) {
 		this.amount = amount;
+	}
+
+	public TransactionViewModel detailsTitle(String detailsTitle) {
+		this.detailsTitle = detailsTitle;
+		return this;
+	}
+
+	/**
+	 * Get detailsTitle
+	 *
+	 * @return detailsTitle
+	 **/
+	@Schema(description = "")
+	public String getDetailsTitle() {
+		return detailsTitle;
+	}
+
+	public void setDetailsTitle(String detailsTitle) {
+		this.detailsTitle = detailsTitle;
 	}
 
 	public TransactionViewModel asset(TransactionAssetDetails asset) {
@@ -242,6 +246,25 @@ public class TransactionViewModel implements Parcelable
 		this.actions = actions;
 	}
 
+	public TransactionViewModel status(MultiWalletTransactionStatus status) {
+		this.status = status;
+		return this;
+	}
+
+	/**
+	 * Get status
+	 *
+	 * @return status
+	 **/
+	@Schema(description = "")
+	public MultiWalletTransactionStatus getStatus() {
+		return status;
+	}
+
+	public void setStatus(MultiWalletTransactionStatus status) {
+		this.status = status;
+	}
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -253,17 +276,18 @@ public class TransactionViewModel implements Parcelable
 		TransactionViewModel transactionViewModel = (TransactionViewModel) o;
 		return Objects.equals(this.id, transactionViewModel.id) &&
 				Objects.equals(this.date, transactionViewModel.date) &&
-				Objects.equals(this.status, transactionViewModel.status) &&
 				Objects.equals(this.description, transactionViewModel.description) &&
 				Objects.equals(this.amount, transactionViewModel.amount) &&
+				Objects.equals(this.detailsTitle, transactionViewModel.detailsTitle) &&
 				Objects.equals(this.asset, transactionViewModel.asset) &&
 				Objects.equals(this.details, transactionViewModel.details) &&
-				Objects.equals(this.actions, transactionViewModel.actions);
+				Objects.equals(this.actions, transactionViewModel.actions) &&
+				Objects.equals(this.status, transactionViewModel.status);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, date, status, description, amount, asset, details, actions);
+		return Objects.hash(id, date, description, amount, detailsTitle, asset, details, actions, status);
 	}
 
 	@Override
@@ -273,12 +297,13 @@ public class TransactionViewModel implements Parcelable
 
 		sb.append("    id: ").append(toIndentedString(id)).append("\n");
 		sb.append("    date: ").append(toIndentedString(date)).append("\n");
-		sb.append("    status: ").append(toIndentedString(status)).append("\n");
 		sb.append("    description: ").append(toIndentedString(description)).append("\n");
 		sb.append("    amount: ").append(toIndentedString(amount)).append("\n");
+		sb.append("    detailsTitle: ").append(toIndentedString(detailsTitle)).append("\n");
 		sb.append("    asset: ").append(toIndentedString(asset)).append("\n");
 		sb.append("    details: ").append(toIndentedString(details)).append("\n");
 		sb.append("    actions: ").append(toIndentedString(actions)).append("\n");
+		sb.append("    status: ").append(toIndentedString(status)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}
@@ -297,12 +322,13 @@ public class TransactionViewModel implements Parcelable
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(id);
 		out.writeValue(date);
-		out.writeValue(status);
 		out.writeValue(description);
 		out.writeValue(amount);
+		out.writeValue(detailsTitle);
 		out.writeValue(asset);
 		out.writeValue(details);
 		out.writeValue(actions);
+		out.writeValue(status);
 	}
 
 	public int describeContents() {

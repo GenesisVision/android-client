@@ -8,7 +8,7 @@ Method | HTTP request | Description
 
 <a name="search"></a>
 # **search**
-> SearchViewModel search(authorization, mask, take)
+> CommonPublicAssetsViewModel search(authorization, mask, take)
 
 Program / fund / manager search
 
@@ -24,7 +24,7 @@ String authorization = "authorization_example"; // String |
 String mask = "mask_example"; // String | 
 Integer take = 56; // Integer | 
 try {
-    SearchViewModel result = apiInstance.search(authorization, mask, take);
+    CommonPublicAssetsViewModel result = apiInstance.search(authorization, mask, take);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling SearchApi#search");
@@ -42,7 +42,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**SearchViewModel**](SearchViewModel.md)
+[**CommonPublicAssetsViewModel**](CommonPublicAssetsViewModel.md)
 
 ### Authorization
 

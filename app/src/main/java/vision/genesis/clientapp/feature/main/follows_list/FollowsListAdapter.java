@@ -22,10 +22,11 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.swagger.client.model.AssetFacet;
 import io.swagger.client.model.AssetType;
-import io.swagger.client.model.FollowDetailsList;
+import io.swagger.client.model.FollowDetailsListItem;
 import io.swagger.client.model.Tag;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
+import vision.genesis.clientapp.feature.common.facet.FollowFacetView;
 import vision.genesis.clientapp.feature.common.facet.ProgramFacetView;
 import vision.genesis.clientapp.model.ProgramDetailsModel;
 import vision.genesis.clientapp.model.events.OnListFollowFavoriteClickedEvent;
@@ -48,7 +49,7 @@ public class FollowsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
 	private static final int TYPE_CARD = 1;
 
-	private List<FollowDetailsList> follows = new ArrayList<>();
+	private List<FollowDetailsListItem> follows = new ArrayList<>();
 
 	private List<AssetFacet> facets = new ArrayList<>();
 
@@ -91,24 +92,24 @@ public class FollowsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 		return follows.size() + 1;
 	}
 
-	public void setFacets(List<AssetFacet> facets) {
+	void setFacets(List<AssetFacet> facets) {
 		this.facets = facets;
 		notifyDataSetChanged();
 	}
 
-	public void setFollows(List<FollowDetailsList> follows) {
+	void setFollows(List<FollowDetailsListItem> follows) {
 		this.follows.clear();
 		this.follows.addAll(follows);
 		notifyDataSetChanged();
 	}
 
-	public void addFollows(List<FollowDetailsList> follows) {
+	void addFollows(List<FollowDetailsListItem> follows) {
 		this.follows.addAll(follows);
 		notifyDataSetChanged();
 	}
 
-	public void changeFollowIsFavorite(UUID programId, boolean isFavorite) {
-		for (FollowDetailsList follow : follows) {
+	void changeFollowIsFavorite(UUID programId, boolean isFavorite) {
+		for (FollowDetailsListItem follow : follows) {
 			if (follow.getId().equals(programId)) {
 				if (follow.getPersonalDetails() != null && !follow.getPersonalDetails().isIsFavorite().equals(isFavorite)) {
 					follow.getPersonalDetails().setIsFavorite(isFavorite);
@@ -150,7 +151,7 @@ public class FollowsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 		private void updateView() {
 			facetsGroup.removeAllViews();
 			for (AssetFacet facet : facets) {
-				ProgramFacetView view = new ProgramFacetView(itemView.getContext());
+				FollowFacetView view = new FollowFacetView(itemView.getContext());
 				view.setData(facet);
 				facetsGroup.addView(view);
 			}
@@ -204,7 +205,7 @@ public class FollowsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 		@BindView(R.id.tags_left)
 		public TagView tagsLeft;
 
-		private FollowDetailsList follow;
+		private FollowDetailsListItem follow;
 
 		FollowViewHolder(View itemView) {
 			super(itemView);
@@ -261,7 +262,7 @@ public class FollowsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 			drawdownLabel.setText(drawdownLabel.getText().toString().toLowerCase());
 		}
 
-		void setFollow(FollowDetailsList follow) {
+		void setFollow(FollowDetailsListItem follow) {
 			this.follow = follow;
 			updateData();
 		}

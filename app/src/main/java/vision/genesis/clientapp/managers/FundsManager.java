@@ -11,7 +11,7 @@ import io.swagger.client.model.FundDetailsFull;
 import io.swagger.client.model.FundWithdrawInfo;
 import io.swagger.client.model.InvestmentEventLocation;
 import io.swagger.client.model.InvestmentEventViewModels;
-import io.swagger.client.model.ItemsViewModelFundDetailsList;
+import io.swagger.client.model.ItemsViewModelFundDetailsListItem;
 import io.swagger.client.model.ItemsViewModelReallocationModel;
 import rx.Observable;
 import vision.genesis.clientapp.model.CurrencyEnum;
@@ -41,7 +41,7 @@ public class FundsManager
 		this.eventsApi = eventsApi;
 	}
 
-	public Observable<ItemsViewModelFundDetailsList> getFundsList(ProgramsFilter filter) {
+	public Observable<ItemsViewModelFundDetailsListItem> getFundsList(ProgramsFilter filter) {
 		return fundsApi.getFunds(AuthManager.token.getValue(),
 				null, null, null,
 				null, null,

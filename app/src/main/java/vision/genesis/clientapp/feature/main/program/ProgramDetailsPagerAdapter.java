@@ -10,6 +10,7 @@ import java.util.UUID;
 
 import io.swagger.client.model.FollowDetailsFull;
 import io.swagger.client.model.ProgramDetailsFull;
+import io.swagger.client.model.ProgramFollowDetailsFull;
 import vision.genesis.clientapp.feature.main.program.balance.ProgramBalanceFragment;
 import vision.genesis.clientapp.feature.main.program.events.ProgramEventsFragment;
 import vision.genesis.clientapp.feature.main.program.info.follow.FollowInfoFragment;
@@ -54,38 +55,36 @@ public class ProgramDetailsPagerAdapter extends FragmentStatePagerAdapter
 
 	private TabLayout tabLayout;
 
-	ProgramDetailsPagerAdapter(FragmentManager fm, TabLayout tabLayout, ProgramDetailsFull programDetails, FollowDetailsFull followDetails) {
+	ProgramDetailsPagerAdapter(FragmentManager fm, TabLayout tabLayout, ProgramFollowDetailsFull details) {
 		super(fm);
 		this.tabLayout = tabLayout;
 
-		UUID assetId;
+		UUID assetId = details.getId();
+		ProgramDetailsFull programDetails = details.getProgramDetails();
+		FollowDetailsFull followDetails = details.getFollowDetails();
 
-		if (programDetails != null && programDetails.getPersonalDetails() != null && programDetails.getPersonalDetails().isIsOwnAsset()
-				|| followDetails != null && followDetails.getPersonalDetails() != null && followDetails.getPersonalDetails().isIsOwnAsset()) {
-			assetId = programDetails != null ? programDetails.getId() : followDetails.getId();
-			ownerInfoFragment = OwnerInfoFragment.with(programDetails, followDetails);
+		if (details.getPublicInfo().isIsOwnAsset()) {
+			ownerInfoFragment = OwnerInfoFragment.with(details);
 			openPositionsFragment = OpenPositionsFragment.with(assetId);
 			programProfitFragment = ProgramProfitFragment.with(assetId);
 			programEquityFragment = ProgramBalanceFragment.with(assetId);
 			programTradesFragment = ProgramTradesFragment.with(assetId);
 			if (programDetails != null) {
-				periodHistoryFragment = PeriodHistoryFragment.with(assetId, programDetails.getCurrency().getValue(), programDetails.getPeriodDuration());
+				periodHistoryFragment = PeriodHistoryFragment.with(assetId, details.getTradingAccountInfo().getCurrency().getValue(), programDetails.getPeriodDuration());
 			}
 			programEventsFragment = ProgramEventsFragment.with(ProgramEventsFragment.LOCATION_PROGRAM, assetId);
 		}
 		else if (programDetails != null) {
-			assetId = programDetails.getId();
-			programInfoFragment = ProgramInfoFragment.with(programDetails);
+			programInfoFragment = ProgramInfoFragment.with(details);
 			openPositionsFragment = OpenPositionsFragment.with(assetId);
 			programProfitFragment = ProgramProfitFragment.with(assetId);
 			programEquityFragment = ProgramBalanceFragment.with(assetId);
 			programTradesFragment = ProgramTradesFragment.with(assetId);
-			periodHistoryFragment = PeriodHistoryFragment.with(assetId, programDetails.getCurrency().getValue(), programDetails.getPeriodDuration());
+			periodHistoryFragment = PeriodHistoryFragment.with(assetId, details.getTradingAccountInfo().getCurrency().getValue(), programDetails.getPeriodDuration());
 			programEventsFragment = ProgramEventsFragment.with(ProgramEventsFragment.LOCATION_PROGRAM, assetId);
 		}
 		else if (followDetails != null) {
-			assetId = followDetails.getId();
-			followInfoFragment = FollowInfoFragment.with(followDetails);
+			followInfoFragment = FollowInfoFragment.with(details);
 			openPositionsFragment = OpenPositionsFragment.with(assetId);
 			programProfitFragment = ProgramProfitFragment.with(assetId);
 			programEquityFragment = ProgramBalanceFragment.with(assetId);
@@ -191,9 +190,9 @@ public class ProgramDetailsPagerAdapter extends FragmentStatePagerAdapter
 		}
 	}
 
-	void updateOwnerInfo(ProgramDetailsFull programDetails, FollowDetailsFull followDetails) {
+	void updateOwnerInfo(ProgramFollowDetailsFull details) {
 		if (ownerInfoFragment != null) {
-			ownerInfoFragment.updateInfo(programDetails, followDetails);
+			ownerInfoFragment.updateInfo(details);
 		}
 	}
 }

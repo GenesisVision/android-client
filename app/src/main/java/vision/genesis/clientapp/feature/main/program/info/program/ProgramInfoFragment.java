@@ -27,6 +27,7 @@ import io.swagger.client.model.AssetInvestmentStatus;
 import io.swagger.client.model.PersonalProgramDetails;
 import io.swagger.client.model.ProfilePublic;
 import io.swagger.client.model.ProgramDetailsFull;
+import io.swagger.client.model.ProgramFollowDetailsFull;
 import timber.log.Timber;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
@@ -59,7 +60,7 @@ public class ProgramInfoFragment extends BaseFragment implements ProgramInfoView
 {
 	private static String EXTRA_DETAILS = "extra_details";
 
-	public static ProgramInfoFragment with(ProgramDetailsFull details) {
+	public static ProgramInfoFragment with(ProgramFollowDetailsFull details) {
 		ProgramInfoFragment programInfoFragment = new ProgramInfoFragment();
 		Bundle arguments = new Bundle(1);
 		arguments.putParcelable(EXTRA_DETAILS, details);
@@ -157,14 +158,16 @@ public class ProgramInfoFragment extends BaseFragment implements ProgramInfoView
 	@BindDimen(R.dimen.program_info_strategy_max_height)
 	public int strategyMaxHeight;
 
-	private ProgramDetailsFull programDetails;
+	private ProgramFollowDetailsFull details;
 
 	private Unbinder unbinder;
+
+	private String currency;
 
 	@OnClick(R.id.group_manager)
 	public void onManagerClicked() {
 		if (getActivity() != null) {
-			ProfilePublic manager = programDetails.getOwner();
+			ProfilePublic manager = details.getOwner();
 			ManagerDetailsModel model = new ManagerDetailsModel(
 					manager.getId(),
 					manager.getAvatar(),
@@ -186,7 +189,7 @@ public class ProgramInfoFragment extends BaseFragment implements ProgramInfoView
 
 	@OnClick(R.id.group_entry_fee)
 	public void onEntryFeeClicked() {
-		if (programDetails != null && programDetails.getLevel() < Constants.MIN_PROGRAM_LEVEL_ENTRY_FEE && getActivity() != null) {
+		if (details != null && details.getProgramDetails() != null && details.getProgramDetails().getLevel() < Constants.MIN_PROGRAM_LEVEL_ENTRY_FEE && getActivity() != null) {
 			MessageBottomSheetDialog dialog = new MessageBottomSheetDialog();
 			dialog.show(getActivity().getSupportFragmentManager(), dialog.getTag());
 			dialog.setData(R.drawable.icon_info, getString(R.string.entry_fee_disabled_title), getString(R.string.entry_fee_disabled_message), false, null);
@@ -251,10 +254,11 @@ public class ProgramInfoFragment extends BaseFragment implements ProgramInfoView
 		unbinder = ButterKnife.bind(this, view);
 
 		if (getArguments() != null) {
-			programDetails = getArguments().getParcelable(EXTRA_DETAILS);
-			if (programDetails != null) {
-				presenter.setProgramDetails(programDetails);
-				setProgramDetails(programDetails);
+			details = getArguments().getParcelable(EXTRA_DETAILS);
+			if (details != null) {
+				currency = details.getTradingAccountInfo().getCurrency().getValue();
+				presenter.setDetails(details);
+				setDetails(details);
 
 				setFonts();
 
@@ -296,30 +300,32 @@ public class ProgramInfoFragment extends BaseFragment implements ProgramInfoView
 	}
 
 	@Override
-	public void setProgramDetails(ProgramDetailsFull programDetails) {
-		this.programDetails = programDetails;
+	public void setDetails(ProgramFollowDetailsFull details) {
+		this.details = details;
+		this.currency = details.getTradingAccountInfo().getCurrency().getValue();
 
 		scrollView.setVisibility(View.VISIBLE);
 
-		updateProgramInfo(programDetails);
-		updateYourInvestment(programDetails);
-		updateInvestNow(programDetails);
+		updateProgramInfo(details);
+		updateYourInvestment(details.getProgramDetails().getPersonalDetails());
+		updateInvestNow(details.getProgramDetails());
 	}
 
-	private void updateProgramInfo(ProgramDetailsFull programDetails) {
-		managerAvatar.setImage(programDetails.getOwner().getAvatar(), 100, 100);
-		managerName.setText(programDetails.getOwner().getUsername());
-		managerDate.setText(DateTimeUtil.formatShortDate(programDetails.getOwner().getRegistrationDate()));
+	private void updateProgramInfo(ProgramFollowDetailsFull details) {
+		managerAvatar.setImage(details.getOwner().getAvatar(), 100, 100);
+		managerName.setText(details.getOwner().getUsername());
+		managerDate.setText(DateTimeUtil.formatShortDate(details.getOwner().getRegistrationDate()));
 
-		socialLinks.setData(programDetails.getOwner().getSocialLinks());
+		socialLinks.setData(details.getOwner().getSocialLinks());
 
-		strategy.setText(programDetails.getDescription());
+		strategy.setText(details.getPublicInfo().getDescription());
 		new Handler().postDelayed(() -> {
 			if (strategyShadow != null && strategy != null) {
 				strategyShadow.setVisibility(strategy.getHeight() < strategyMaxHeight ? View.INVISIBLE : View.VISIBLE);
 			}
 		}, 300);
 
+		ProgramDetailsFull programDetails = details.getProgramDetails();
 		periodView.setData(programDetails.getPeriodDuration(), programDetails.getPeriodStarts(), programDetails.getPeriodEnds(), true, true);
 
 	}
@@ -329,7 +335,7 @@ public class ProgramInfoFragment extends BaseFragment implements ProgramInfoView
 
 		availableToInvest.setText(String.format(Locale.getDefault(), "%s %s",
 				StringFormatUtil.getShortenedAmount(programDetails.getAvailableInvestmentBase()).toString(),
-				programDetails.getCurrency().getValue()));
+				currency));
 
 		updateCurrentSelectedField(stopOut, programDetails.getStopOutLevelCurrent(), programDetails.getStopOutLevelSelected());
 		updateCurrentSelectedField(entryFee, programDetails.getEntryFeeCurrent(), programDetails.getEntryFeeSelected());
@@ -353,21 +359,20 @@ public class ProgramInfoFragment extends BaseFragment implements ProgramInfoView
 		}
 	}
 
-	private void updateYourInvestment(ProgramDetailsFull programDetails) {
-		PersonalProgramDetails personalDetails = programDetails.getPersonalDetails();
+	private void updateYourInvestment(PersonalProgramDetails personalDetails) {
 
 		if (personalDetails != null && personalDetails.isIsInvested() && !personalDetails.getStatus().equals(AssetInvestmentStatus.ENDED)) {
 			yourInvestmentGroup.setVisibility(View.VISIBLE);
 			status.setStatus(personalDetails.getStatus().getValue());
 			invested.setText(String.format(Locale.getDefault(), "%s %s",
 					StringFormatUtil.formatAmount(personalDetails.getInvested(), 0,
-							StringFormatUtil.getCurrencyMaxFraction(this.programDetails.getCurrency().getValue())),
-					this.programDetails.getCurrency().getValue()));
+							StringFormatUtil.getCurrencyMaxFraction(currency)),
+					currency));
 			value.setText(String.format(Locale.getDefault(), "%s %s",
 					StringFormatUtil.formatAmount(personalDetails.getValue(), 0,
-							StringFormatUtil.getCurrencyMaxFraction(this.programDetails.getCurrency().getValue())),
-					this.programDetails.getCurrency().getValue()));
-			profit.setText(String.format(Locale.getDefault(), "%s%%", StringFormatUtil.formatAmount(getProfitPercent(), 0, 4)));
+							StringFormatUtil.getCurrencyMaxFraction(currency)),
+					currency));
+			profit.setText(String.format(Locale.getDefault(), "%s%%", StringFormatUtil.formatAmount(getProfitPercent(personalDetails), 0, 4)));
 			profit.setTextColor(ThemeUtil.getColorByAttrId(getContext(),
 					personalDetails.getValue() < personalDetails.getInvested()
 							? R.attr.colorRed
@@ -380,9 +385,9 @@ public class ProgramInfoFragment extends BaseFragment implements ProgramInfoView
 		}
 	}
 
-	private Double getProfitPercent() {
-		Double invested = programDetails.getPersonalDetails().getInvested();
-		Double value = programDetails.getPersonalDetails().getValue();
+	private Double getProfitPercent(PersonalProgramDetails personalDetails) {
+		Double invested = personalDetails.getInvested();
+		Double value = personalDetails.getValue();
 		return Math.abs(invested != 0 ? 100 / invested * (invested - value) : 0);
 	}
 
@@ -431,7 +436,7 @@ public class ProgramInfoFragment extends BaseFragment implements ProgramInfoView
 		if (getActivity() != null) {
 			RequestsBottomSheetFragment bottomSheetDialog = new RequestsBottomSheetFragment();
 			bottomSheetDialog.show(getActivity().getSupportFragmentManager(), bottomSheetDialog.getTag());
-			bottomSheetDialog.setAssetId(programDetails.getId());
+			bottomSheetDialog.setAssetId(details.getId());
 		}
 	}
 

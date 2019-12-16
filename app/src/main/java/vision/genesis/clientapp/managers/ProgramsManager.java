@@ -7,9 +7,10 @@ import io.swagger.client.api.InvestmentsApi;
 import io.swagger.client.api.ProgramsApi;
 import io.swagger.client.model.InvestmentEventLocation;
 import io.swagger.client.model.InvestmentEventViewModels;
-import io.swagger.client.model.ItemsViewModelProgramDetailsList;
+import io.swagger.client.model.ItemsViewModelProgramDetailsListItem;
 import io.swagger.client.model.ProgramBalanceChart;
 import io.swagger.client.model.ProgramDetailsFull;
+import io.swagger.client.model.ProgramFollowDetailsFull;
 import io.swagger.client.model.ProgramPeriodsViewModel;
 import io.swagger.client.model.ProgramWithdrawInfo;
 import io.swagger.client.model.TradesViewModel;
@@ -37,7 +38,7 @@ public class ProgramsManager
 		this.eventsApi = eventsApi;
 	}
 
-	public Observable<ItemsViewModelProgramDetailsList> getProgramsList(ProgramsFilter filter) {
+	public Observable<ItemsViewModelProgramDetailsListItem> getProgramsList(ProgramsFilter filter) {
 		return programsApi.getPrograms(AuthManager.token.getValue(),
 				null, null,
 				filter.getTags(), filter.getCurrency() == null ? null : filter.getCurrency().getValue(),
@@ -61,7 +62,7 @@ public class ProgramsManager
 		return programsApi.removeFromFavorites(programId, AuthManager.token.getValue());
 	}
 
-	public Observable<ProgramDetailsFull> getProgramDetails(UUID programId) {
+	public Observable<ProgramFollowDetailsFull> getProgramDetails(UUID programId) {
 		return programsApi.getProgramDetails(programId.toString(), AuthManager.token.getValue());
 	}
 

@@ -19,6 +19,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.swagger.client.model.ProgramDetailsFull;
+import io.swagger.client.model.ProgramFollowDetailsFull;
 import io.swagger.client.model.ProgramUpdate;
 import io.swagger.client.model.TradesDelay;
 import timber.log.Timber;
@@ -40,7 +41,7 @@ public class ManageProgramActivity extends BaseSwipeBackActivity implements Mana
 {
 	private static String EXTRA_DETAILS = "extra_details";
 
-	public static void startFrom(Activity activity, ProgramDetailsFull programDetails) {
+	public static void startFrom(Activity activity, ProgramFollowDetailsFull programDetails) {
 		Intent intent = new Intent(activity.getApplicationContext(), ManageProgramActivity.class);
 		intent.putExtra(EXTRA_DETAILS, programDetails);
 		intent.addFlags(Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT);
@@ -113,7 +114,9 @@ public class ManageProgramActivity extends BaseSwipeBackActivity implements Mana
 	@InjectPresenter
 	ManageProgramPresenter presenter;
 
-	private ProgramDetailsFull programDetails;
+	private ProgramFollowDetailsFull details;
+
+	private String currency;
 
 	@OnClick(R.id.button_back)
 	public void onBackClicked() {
@@ -167,11 +170,12 @@ public class ManageProgramActivity extends BaseSwipeBackActivity implements Mana
 		closeProgramButton.setRed();
 
 		if (getIntent().getExtras() != null && !getIntent().getExtras().isEmpty()) {
-			programDetails = getIntent().getExtras().getParcelable(EXTRA_DETAILS);
-			if (programDetails != null) {
+			details = getIntent().getExtras().getParcelable(EXTRA_DETAILS);
+			if (details != null) {
+				currency = details.getTradingAccountInfo().getCurrency().getValue();
 				setListener();
-				updateView(programDetails);
-				presenter.setData(programDetails);
+				updateView(details.getProgramDetails());
+				presenter.setData(details);
 				return;
 			}
 		}
@@ -208,18 +212,18 @@ public class ManageProgramActivity extends BaseSwipeBackActivity implements Mana
 	public void updateView(ProgramDetailsFull programDetails) {
 		investmentLimit.setText(programDetails.getAvailableInvestmentLimit() == null
 				? getString(R.string.no_limit)
-				: StringFormatUtil.getValueString(programDetails.getAvailableInvestmentLimit(), programDetails.getCurrency().getValue()));
+				: StringFormatUtil.getValueString(programDetails.getAvailableInvestmentLimit(), currency));
 		tradesDelay.setText(programDetails.getTradesDelay() == null || programDetails.getTradesDelay().equals(TradesDelay.NONE)
 				? getString(R.string.no_delay)
 				: StringFormatUtil.getTradesDelayString(programDetails.getTradesDelay()));
 
-		stopOut.setText(String.format(Locale.getDefault(), "%s%%", StringFormatUtil.formatAmount(programDetails.getStopOutLevelCurrent(), 0, 4)));
-		entryFee.setText(String.format(Locale.getDefault(), "%s%%", StringFormatUtil.formatAmount(programDetails.getEntryFeeCurrent(), 0, 4)));
-		successFee.setText(String.format(Locale.getDefault(), "%s%%", StringFormatUtil.formatAmount(programDetails.getSuccessFeeCurrent(), 0, 4)));
+		stopOut.setText(String.format(Locale.getDefault(), "%s%%", StringFormatUtil.formatAmount(programDetails.getStopOutLevelSelected(), 0, 4)));
+		entryFee.setText(String.format(Locale.getDefault(), "%s%%", StringFormatUtil.formatAmount(programDetails.getEntryFeeSelected(), 0, 4)));
+		successFee.setText(String.format(Locale.getDefault(), "%s%%", StringFormatUtil.formatAmount(programDetails.getSuccessFeeSelected(), 0, 4)));
 
 		availableToInvest.setText(String.format(Locale.getDefault(), "%s %s",
 				StringFormatUtil.getShortenedAmount(programDetails.getAvailableInvestmentBase()).toString(),
-				programDetails.getCurrency().getValue()));
+				currency));
 		periodView.setData(programDetails.getPeriodDuration(), programDetails.getPeriodStarts(), programDetails.getPeriodEnds(), true, true);
 
 	}

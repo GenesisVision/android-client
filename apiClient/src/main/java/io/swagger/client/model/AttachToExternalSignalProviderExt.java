@@ -45,8 +45,8 @@ public class AttachToExternalSignalProviderExt implements Parcelable
 		}
 	};
 
-	@SerializedName("externalKeyId")
-	private UUID externalKeyId = null;
+	@SerializedName("tradingAccountId")
+	private UUID tradingAccountId = null;
 
 	@SerializedName("mode")
 	private SubscriptionMode mode = null;
@@ -67,7 +67,7 @@ public class AttachToExternalSignalProviderExt implements Parcelable
 	}
 
 	AttachToExternalSignalProviderExt(Parcel in) {
-		externalKeyId = (UUID) in.readValue(UUID.class.getClassLoader());
+		tradingAccountId = (UUID) in.readValue(UUID.class.getClassLoader());
 		mode = (SubscriptionMode) in.readValue(SubscriptionMode.class.getClassLoader());
 		percent = (Double) in.readValue(null);
 		openTolerancePercent = (Double) in.readValue(null);
@@ -75,23 +75,23 @@ public class AttachToExternalSignalProviderExt implements Parcelable
 		fixedCurrency = (FixedCurrencyEnum) in.readValue(null);
 	}
 
-	public AttachToExternalSignalProviderExt externalKeyId(UUID externalKeyId) {
-		this.externalKeyId = externalKeyId;
+	public AttachToExternalSignalProviderExt tradingAccountId(UUID tradingAccountId) {
+		this.tradingAccountId = tradingAccountId;
 		return this;
 	}
 
 	/**
-	 * Get externalKeyId
+	 * Get tradingAccountId
 	 *
-	 * @return externalKeyId
+	 * @return tradingAccountId
 	 **/
 	@Schema(description = "")
-	public UUID getExternalKeyId() {
-		return externalKeyId;
+	public UUID getTradingAccountId() {
+		return tradingAccountId;
 	}
 
-	public void setExternalKeyId(UUID externalKeyId) {
-		this.externalKeyId = externalKeyId;
+	public void setTradingAccountId(UUID tradingAccountId) {
+		this.tradingAccountId = tradingAccountId;
 	}
 
 	public AttachToExternalSignalProviderExt mode(SubscriptionMode mode) {
@@ -198,7 +198,7 @@ public class AttachToExternalSignalProviderExt implements Parcelable
 			return false;
 		}
 		AttachToExternalSignalProviderExt attachToExternalSignalProviderExt = (AttachToExternalSignalProviderExt) o;
-		return Objects.equals(this.externalKeyId, attachToExternalSignalProviderExt.externalKeyId) &&
+		return Objects.equals(this.tradingAccountId, attachToExternalSignalProviderExt.tradingAccountId) &&
 				Objects.equals(this.mode, attachToExternalSignalProviderExt.mode) &&
 				Objects.equals(this.percent, attachToExternalSignalProviderExt.percent) &&
 				Objects.equals(this.openTolerancePercent, attachToExternalSignalProviderExt.openTolerancePercent) &&
@@ -208,7 +208,7 @@ public class AttachToExternalSignalProviderExt implements Parcelable
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(externalKeyId, mode, percent, openTolerancePercent, fixedVolume, fixedCurrency);
+		return Objects.hash(tradingAccountId, mode, percent, openTolerancePercent, fixedVolume, fixedCurrency);
 	}
 
 	@Override
@@ -216,7 +216,7 @@ public class AttachToExternalSignalProviderExt implements Parcelable
 		StringBuilder sb = new StringBuilder();
 		sb.append("class AttachToExternalSignalProviderExt {\n");
 
-		sb.append("    externalKeyId: ").append(toIndentedString(externalKeyId)).append("\n");
+		sb.append("    tradingAccountId: ").append(toIndentedString(tradingAccountId)).append("\n");
 		sb.append("    mode: ").append(toIndentedString(mode)).append("\n");
 		sb.append("    percent: ").append(toIndentedString(percent)).append("\n");
 		sb.append("    openTolerancePercent: ").append(toIndentedString(openTolerancePercent)).append("\n");
@@ -238,7 +238,7 @@ public class AttachToExternalSignalProviderExt implements Parcelable
 	}
 
 	public void writeToParcel(Parcel out, int flags) {
-		out.writeValue(externalKeyId);
+		out.writeValue(tradingAccountId);
 		out.writeValue(mode);
 		out.writeValue(percent);
 		out.writeValue(openTolerancePercent);

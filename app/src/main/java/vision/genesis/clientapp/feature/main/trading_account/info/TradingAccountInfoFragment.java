@@ -220,13 +220,13 @@ public class TradingAccountInfoFragment extends BaseFragment implements TradingA
 			scrollView.setVisibility(View.VISIBLE);
 
 			updateAccountInfo(accountDetails.getBrokerDetails().getLogo(),
-					accountDetails.getCurrency().getValue(), accountDetails.getLeverage(),
-					accountDetails.getCreationDate());
+					accountDetails.getTradingAccountInfo().getCurrency().getValue(), accountDetails.getTradingAccountInfo().getLeverage(),
+					accountDetails.getPublicInfo().getCreationDate());
 
 			value.setText(String.format(Locale.getDefault(), "%s %s",
-					StringFormatUtil.formatAmount(accountDetails.getBalance(), 0,
-							StringFormatUtil.getCurrencyMaxFraction(this.accountDetails.getCurrency().getValue())),
-					this.accountDetails.getCurrency().getValue()));
+					StringFormatUtil.formatAmount(accountDetails.getTradingAccountInfo().getBalance(), 0,
+							StringFormatUtil.getCurrencyMaxFraction(this.accountDetails.getTradingAccountInfo().getCurrency().getValue())),
+					this.accountDetails.getTradingAccountInfo().getCurrency().getValue()));
 
 			if (accountDetails.getOwnerActions() != null) {
 				withdrawButton.setEnabled(accountDetails.getOwnerActions().isCanTransferMoney());

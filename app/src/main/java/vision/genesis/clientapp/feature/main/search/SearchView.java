@@ -4,7 +4,7 @@ import com.arellomobile.mvp.MvpView;
 import com.arellomobile.mvp.viewstate.strategy.OneExecutionStateStrategy;
 import com.arellomobile.mvp.viewstate.strategy.StateStrategyType;
 
-import io.swagger.client.model.SearchViewModel;
+import io.swagger.client.model.CommonPublicAssetsViewModel;
 
 /**
  * GenesisVisionAndroid
@@ -13,7 +13,7 @@ import io.swagger.client.model.SearchViewModel;
 
 interface SearchView extends MvpView
 {
-	void sendSearchResults(SearchViewModel results);
+	void sendSearchResults(CommonPublicAssetsViewModel results);
 
 	@StateStrategyType(OneExecutionStateStrategy.class)
 	void showSnackbarMessage(String message);

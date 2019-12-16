@@ -39,9 +39,6 @@ public class PersonalProgramDetails implements Parcelable
 		}
 	};
 
-	@SerializedName("isOwnAsset")
-	private Boolean isOwnAsset = null;
-
 	@SerializedName("isFavorite")
 	private Boolean isFavorite = null;
 
@@ -56,9 +53,6 @@ public class PersonalProgramDetails implements Parcelable
 
 	@SerializedName("canWithdraw")
 	private Boolean canWithdraw = null;
-
-	@SerializedName("ownerActions")
-	private ProgramOwnerActions ownerActions = null;
 
 	@SerializedName("hasNotifications")
 	private Boolean hasNotifications = null;
@@ -103,13 +97,11 @@ public class PersonalProgramDetails implements Parcelable
 	}
 
 	PersonalProgramDetails(Parcel in) {
-		isOwnAsset = (Boolean) in.readValue(null);
 		isFavorite = (Boolean) in.readValue(null);
 		isReinvest = (Boolean) in.readValue(null);
 		isInvested = (Boolean) in.readValue(null);
 		canInvest = (Boolean) in.readValue(null);
 		canWithdraw = (Boolean) in.readValue(null);
-		ownerActions = (ProgramOwnerActions) in.readValue(ProgramOwnerActions.class.getClassLoader());
 		hasNotifications = (Boolean) in.readValue(null);
 		showTwoFactorButton = (Boolean) in.readValue(null);
 		value = (Double) in.readValue(null);
@@ -123,25 +115,6 @@ public class PersonalProgramDetails implements Parcelable
 		successFeePersonal = (Double) in.readValue(null);
 		migration = (MigrationRequest) in.readValue(MigrationRequest.class.getClassLoader());
 		subscribedAccounts = (Integer) in.readValue(null);
-	}
-
-	public PersonalProgramDetails isOwnAsset(Boolean isOwnAsset) {
-		this.isOwnAsset = isOwnAsset;
-		return this;
-	}
-
-	/**
-	 * Get isOwnAsset
-	 *
-	 * @return isOwnAsset
-	 **/
-	@Schema(description = "")
-	public Boolean isIsOwnAsset() {
-		return isOwnAsset;
-	}
-
-	public void setIsOwnAsset(Boolean isOwnAsset) {
-		this.isOwnAsset = isOwnAsset;
 	}
 
 	public PersonalProgramDetails isFavorite(Boolean isFavorite) {
@@ -237,25 +210,6 @@ public class PersonalProgramDetails implements Parcelable
 
 	public void setCanWithdraw(Boolean canWithdraw) {
 		this.canWithdraw = canWithdraw;
-	}
-
-	public PersonalProgramDetails ownerActions(ProgramOwnerActions ownerActions) {
-		this.ownerActions = ownerActions;
-		return this;
-	}
-
-	/**
-	 * Get ownerActions
-	 *
-	 * @return ownerActions
-	 **/
-	@Schema(description = "")
-	public ProgramOwnerActions getOwnerActions() {
-		return ownerActions;
-	}
-
-	public void setOwnerActions(ProgramOwnerActions ownerActions) {
-		this.ownerActions = ownerActions;
 	}
 
 	public PersonalProgramDetails hasNotifications(Boolean hasNotifications) {
@@ -514,13 +468,11 @@ public class PersonalProgramDetails implements Parcelable
 			return false;
 		}
 		PersonalProgramDetails personalProgramDetails = (PersonalProgramDetails) o;
-		return Objects.equals(this.isOwnAsset, personalProgramDetails.isOwnAsset) &&
-				Objects.equals(this.isFavorite, personalProgramDetails.isFavorite) &&
+		return Objects.equals(this.isFavorite, personalProgramDetails.isFavorite) &&
 				Objects.equals(this.isReinvest, personalProgramDetails.isReinvest) &&
 				Objects.equals(this.isInvested, personalProgramDetails.isInvested) &&
 				Objects.equals(this.canInvest, personalProgramDetails.canInvest) &&
 				Objects.equals(this.canWithdraw, personalProgramDetails.canWithdraw) &&
-				Objects.equals(this.ownerActions, personalProgramDetails.ownerActions) &&
 				Objects.equals(this.hasNotifications, personalProgramDetails.hasNotifications) &&
 				Objects.equals(this.showTwoFactorButton, personalProgramDetails.showTwoFactorButton) &&
 				Objects.equals(this.value, personalProgramDetails.value) &&
@@ -538,7 +490,7 @@ public class PersonalProgramDetails implements Parcelable
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(isOwnAsset, isFavorite, isReinvest, isInvested, canInvest, canWithdraw, ownerActions, hasNotifications, showTwoFactorButton, value, profit, profitPercent, invested, pendingInput, pendingOutput, pendingOutputIsWithdrawAll, status, successFeePersonal, migration, subscribedAccounts);
+		return Objects.hash(isFavorite, isReinvest, isInvested, canInvest, canWithdraw, hasNotifications, showTwoFactorButton, value, profit, profitPercent, invested, pendingInput, pendingOutput, pendingOutputIsWithdrawAll, status, successFeePersonal, migration, subscribedAccounts);
 	}
 
 	@Override
@@ -546,13 +498,11 @@ public class PersonalProgramDetails implements Parcelable
 		StringBuilder sb = new StringBuilder();
 		sb.append("class PersonalProgramDetails {\n");
 
-		sb.append("    isOwnAsset: ").append(toIndentedString(isOwnAsset)).append("\n");
 		sb.append("    isFavorite: ").append(toIndentedString(isFavorite)).append("\n");
 		sb.append("    isReinvest: ").append(toIndentedString(isReinvest)).append("\n");
 		sb.append("    isInvested: ").append(toIndentedString(isInvested)).append("\n");
 		sb.append("    canInvest: ").append(toIndentedString(canInvest)).append("\n");
 		sb.append("    canWithdraw: ").append(toIndentedString(canWithdraw)).append("\n");
-		sb.append("    ownerActions: ").append(toIndentedString(ownerActions)).append("\n");
 		sb.append("    hasNotifications: ").append(toIndentedString(hasNotifications)).append("\n");
 		sb.append("    showTwoFactorButton: ").append(toIndentedString(showTwoFactorButton)).append("\n");
 		sb.append("    value: ").append(toIndentedString(value)).append("\n");
@@ -582,13 +532,11 @@ public class PersonalProgramDetails implements Parcelable
 	}
 
 	public void writeToParcel(Parcel out, int flags) {
-		out.writeValue(isOwnAsset);
 		out.writeValue(isFavorite);
 		out.writeValue(isReinvest);
 		out.writeValue(isInvested);
 		out.writeValue(canInvest);
 		out.writeValue(canWithdraw);
-		out.writeValue(ownerActions);
 		out.writeValue(hasNotifications);
 		out.writeValue(showTwoFactorButton);
 		out.writeValue(value);

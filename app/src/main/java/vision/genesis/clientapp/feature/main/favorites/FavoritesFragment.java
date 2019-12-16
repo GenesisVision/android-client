@@ -21,7 +21,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
-import io.swagger.client.model.ProgramDetailsList;
+import io.swagger.client.model.ProgramDetailsListItem;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
@@ -136,7 +136,7 @@ public class FavoritesFragment extends BaseFragment implements FavoritesView
 	}
 
 	@Override
-	public void setInvestmentPrograms(List<ProgramDetailsList> programs) {
+	public void setInvestmentPrograms(List<ProgramDetailsListItem> programs) {
 //		programsText.setVisibility(!programs.isEmpty() ? View.VISIBLE : View.GONE);
 		programsAdapter.setInvestmentPrograms(programs);
 	}

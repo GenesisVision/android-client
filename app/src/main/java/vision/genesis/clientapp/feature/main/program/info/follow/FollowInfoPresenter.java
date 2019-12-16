@@ -8,7 +8,7 @@ import java.util.UUID;
 import javax.inject.Inject;
 
 import io.swagger.client.model.AttachToSignalProviderInfo;
-import io.swagger.client.model.FollowDetailsFull;
+import io.swagger.client.model.ProgramFollowDetailsFull;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -42,7 +42,7 @@ public class FollowInfoPresenter extends MvpPresenter<FollowInfoView>
 
 	private Boolean userLoggedOn;
 
-	private FollowDetailsFull followDetails;
+	private ProgramFollowDetailsFull details;
 
 	private AttachToSignalProviderInfo signalsInfo;
 
@@ -74,9 +74,9 @@ public class FollowInfoPresenter extends MvpPresenter<FollowInfoView>
 		super.onDestroy();
 	}
 
-	void setFollowDetails(FollowDetailsFull followDetails) {
+	void setDetails(ProgramFollowDetailsFull followDetails) {
 		this.followId = followDetails.getId();
-		this.followDetails = followDetails;
+		this.details = followDetails;
 	}
 
 	void onShow() {
@@ -89,7 +89,7 @@ public class FollowInfoPresenter extends MvpPresenter<FollowInfoView>
 			return;
 		}
 
-		if (followDetails != null) {
+		if (details != null) {
 			SubscriptionSettingsModel model = new SubscriptionSettingsModel();
 
 //			SignalSubscription signalSubscription = followDetails.getPersonalDetails().getSignalSubscriptions().get(0);
@@ -128,7 +128,7 @@ public class FollowInfoPresenter extends MvpPresenter<FollowInfoView>
 	}
 
 	void onUnfollowTradesClicked() {
-		getViewState().showUnfollowTradesActivity(followId, followDetails.getTitle());
+		getViewState().showUnfollowTradesActivity(followId, details.getPublicInfo().getTitle());
 	}
 
 	private void getFollowDetails() {
@@ -144,13 +144,13 @@ public class FollowInfoPresenter extends MvpPresenter<FollowInfoView>
 		}
 	}
 
-	private void handleFollowDetailsSuccess(FollowDetailsFull followDetails) {
+	private void handleFollowDetailsSuccess(ProgramFollowDetailsFull followDetails) {
 		followDetailsSubscription.unsubscribe();
 		getViewState().showProgress(false);
 
-		this.followDetails = followDetails;
+		this.details = followDetails;
 
-		getViewState().setFollowDetails(followDetails);
+		getViewState().setDetails(followDetails);
 	}
 
 	private void handleFollowDetailsError(Throwable throwable) {

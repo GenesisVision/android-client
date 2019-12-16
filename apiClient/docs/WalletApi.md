@@ -7,6 +7,7 @@ Method | HTTP request | Description
 [**cancelWithdrawalRequest**](WalletApi.md#cancelWithdrawalRequest) | **POST** v2.0/wallet/withdraw/request/cancel/{txId} | 
 [**confirmWithdrawalRequestByCode**](WalletApi.md#confirmWithdrawalRequestByCode) | **POST** v2.0/wallet/withdraw/request/confirm | 
 [**createWithdrawalRequest**](WalletApi.md#createWithdrawalRequest) | **POST** v2.0/wallet/withdraw/request/new | 
+[**getAccountsAvailable**](WalletApi.md#getAccountsAvailable) | **GET** v2.0/wallet/accounts/{currency}/available | Accounts available
 [**getGMCommissionData**](WalletApi.md#getGMCommissionData) | **GET** v2.0/wallet/fee/gvtholding | GenesisMarkets commission data
 [**getTransactionsExternal**](WalletApi.md#getTransactionsExternal) | **GET** v2.0/wallet/transactions/external | External transactions
 [**getTransactionsInternal**](WalletApi.md#getTransactionsInternal) | **GET** v2.0/wallet/transactions/internal | Internal transactions
@@ -152,6 +153,51 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: application/json-patch+json, application/json, text/json, application/_*+json
+ - **Accept**: text/plain, application/json, text/json
+
+<a name="getAccountsAvailable"></a>
+# **getAccountsAvailable**
+> WalletMultiAvailable getAccountsAvailable(currency, authorization)
+
+Accounts available
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiException;
+//import io.swagger.client.api.WalletApi;
+
+
+WalletApi apiInstance = new WalletApi();
+String currency = "currency_example"; // String | 
+String authorization = "authorization_example"; // String | JWT access token
+try {
+    WalletMultiAvailable result = apiInstance.getAccountsAvailable(currency, authorization);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling WalletApi#getAccountsAvailable");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **currency** | **String**|  | [enum: USD, BTC, ETH, USDT, GVT, Undefined, ADA, XRP, BCH, LTC, DOGE, BNB, EUR]
+ **authorization** | **String**| JWT access token |
+
+### Return type
+
+[**WalletMultiAvailable**](WalletMultiAvailable.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
  - **Accept**: text/plain, application/json, text/json
 
 <a name="getGMCommissionData"></a>

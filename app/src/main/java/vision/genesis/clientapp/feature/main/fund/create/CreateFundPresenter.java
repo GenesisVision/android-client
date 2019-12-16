@@ -22,6 +22,7 @@ import vision.genesis.clientapp.managers.AssetsManager;
 import vision.genesis.clientapp.managers.SettingsManager;
 import vision.genesis.clientapp.model.events.OnCreateFundCreateButtonClickedEvent;
 import vision.genesis.clientapp.model.events.OnCreateFundNextButtonClickedEvent;
+import vision.genesis.clientapp.model.events.OnFundFeesConfirmEvent;
 import vision.genesis.clientapp.model.events.OnPublicInfoConfirmButtonClickedEvent;
 import vision.genesis.clientapp.net.ApiErrorResolver;
 
@@ -128,6 +129,13 @@ public class CreateFundPresenter extends MvpPresenter<CreateFundView>
 
 	@Subscribe
 	public void onEventMainThread(OnCreateFundNextButtonClickedEvent event) {
+		getViewState().showNextStep();
+	}
+
+	@Subscribe
+	public void onEventMainThread(OnFundFeesConfirmEvent event) {
+		request.setEntryFee(event.getModel().getEntryFee());
+		request.setExitFee(event.getModel().getExitFee());
 		getViewState().showNextStep();
 	}
 
