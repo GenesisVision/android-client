@@ -4,7 +4,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | [**UUID**](UUID.md) |  |  [optional]
-**publicInfo** | [**ProgramFollowDetailsFullPublicDetails**](ProgramFollowDetailsFullPublicDetails.md) |  |  [optional]
+**publicInfo** | [**AssetPublicDetails**](AssetPublicDetails.md) |  |  [optional]
 **tradingAccountInfo** | [**ProgramFollowDetailsFullTradingAccountDetails**](ProgramFollowDetailsFullTradingAccountDetails.md) |  |  [optional]
 **owner** | [**ProfilePublic**](ProfilePublic.md) |  |  [optional]
 **brokerDetails** | [**BrokerDetails**](BrokerDetails.md) |  |  [optional]

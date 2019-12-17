@@ -10,6 +10,7 @@ Name | Type | Description | Notes
 **title** | **String** |  |  [optional]
 **creationDate** | [**DateTime**](DateTime.md) |  |  [optional]
 **currency** | [**Currency**](Currency.md) |  |  [optional]
+**availableToInvest** | **Double** |  |  [optional]
 **level** | **Integer** |  |  [optional]
 **levelProgress** | **Double** |  |  [optional]
 **periodDuration** | **Integer** |  |  [optional]

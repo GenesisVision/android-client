@@ -51,7 +51,7 @@ import vision.genesis.clientapp.feature.main.fund.add_asset.AddAssetPresenter;
 import vision.genesis.clientapp.feature.main.fund.balance.FundBalancePresenter;
 import vision.genesis.clientapp.feature.main.fund.change_settings.ChangeFundSettingsPresenter;
 import vision.genesis.clientapp.feature.main.fund.create.CreateFundPresenter;
-import vision.genesis.clientapp.feature.main.fund.create.assets.CreateFundAssetsPresenter;
+import vision.genesis.clientapp.feature.main.fund.create.assets.FundAssetsPresenter;
 import vision.genesis.clientapp.feature.main.fund.create.deposit.CreateFundDepositPresenter;
 import vision.genesis.clientapp.feature.main.fund.create.fees.FundFeesPresenter;
 import vision.genesis.clientapp.feature.main.fund.info.FundInfoPresenter;
@@ -60,6 +60,7 @@ import vision.genesis.clientapp.feature.main.fund.invest.InvestFundPresenter;
 import vision.genesis.clientapp.feature.main.fund.invest.confirm.ConfirmFundInvestBottomSheetFragment;
 import vision.genesis.clientapp.feature.main.fund.manage.ManageFundPresenter;
 import vision.genesis.clientapp.feature.main.fund.profit.FundProfitPresenter;
+import vision.genesis.clientapp.feature.main.fund.reallocate.ReallocateFundPresenter;
 import vision.genesis.clientapp.feature.main.fund.reallocate_history.ReallocateHistoryPresenter;
 import vision.genesis.clientapp.feature.main.fund.withdraw.WithdrawFundPresenter;
 import vision.genesis.clientapp.feature.main.fund.withdraw.confirm.ConfirmFundWithdrawBottomSheetFragment;
@@ -316,7 +317,7 @@ public interface AppComponent
 
 	void inject(PublicInfoPresenter publicInfoPresenter);
 
-	void inject(CreateFundAssetsPresenter createFundAssetsPresenter);
+	void inject(FundAssetsPresenter fundAssetsPresenter);
 
 	void inject(CreateFundDepositPresenter createFundDepositPresenter);
 
@@ -389,4 +390,6 @@ public interface AppComponent
 	void inject(ManageFundPresenter manageFundPresenter);
 
 	void inject(ChangeFundSettingsPresenter changeFundSettingsPresenter);
+
+	void inject(ReallocateFundPresenter reallocateFundPresenter);
 }

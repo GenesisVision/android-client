@@ -133,7 +133,7 @@ public class FundDetailsPresenter extends MvpPresenter<FundDetailsView>
 		getViewState().setRefreshing(false);
 
 		this.fundDetails = fundDetails;
-		if (fundDetails.getPersonalDetails() != null && fundDetails.getPersonalDetails().isIsOwnAsset()) {
+		if (fundDetails.getPersonalDetails() != null && fundDetails.getPublicInfo().isIsOwnAsset()) {
 			getViewState().showOwner(fundDetails);
 		}
 		else {

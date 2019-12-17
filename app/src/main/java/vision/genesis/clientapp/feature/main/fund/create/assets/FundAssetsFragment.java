@@ -19,8 +19,6 @@ import androidx.annotation.Nullable;
 import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.google.android.flexbox.FlexboxLayout;
 
-import org.greenrobot.eventbus.EventBus;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -29,13 +27,13 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
-import io.swagger.client.model.NewFundRequest;
 import io.swagger.client.model.PlatformAsset;
+import timber.log.Timber;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
 import vision.genesis.clientapp.feature.main.fund.add_asset.AddAssetActivity;
 import vision.genesis.clientapp.feature.main.fund.create.assets.share.AssetShareDialogFragment;
-import vision.genesis.clientapp.model.events.OnCreateFundNextButtonClickedEvent;
+import vision.genesis.clientapp.model.FundAssetsModel;
 import vision.genesis.clientapp.ui.CreateFundAssetView;
 import vision.genesis.clientapp.ui.PrimaryButton;
 import vision.genesis.clientapp.utils.StringFormatUtil;
@@ -47,8 +45,21 @@ import vision.genesis.clientapp.utils.TypefaceUtil;
  * Created by Vitaly on 14/10/2019.
  */
 
-public class CreateFundAssetsFragment extends BaseFragment implements CreateFundAssetsView
+public class FundAssetsFragment extends BaseFragment implements FundAssetsView
 {
+	private static String EXTRA_MODEL = "extra_model";
+
+	public static FundAssetsFragment with(FundAssetsModel model) {
+		FundAssetsFragment fragment = new FundAssetsFragment();
+		Bundle arguments = new Bundle(1);
+		arguments.putParcelable(EXTRA_MODEL, model);
+		fragment.setArguments(arguments);
+		return fragment;
+	}
+
+	@BindView(R.id.group_step)
+	public ViewGroup stepGroup;
+
 	@BindView(R.id.step_number)
 	public TextView stepNumber;
 
@@ -82,17 +93,15 @@ public class CreateFundAssetsFragment extends BaseFragment implements CreateFund
 	@BindView(R.id.button_add_asset)
 	public PrimaryButton addAssetButton;
 
-	@BindView(R.id.button_next)
-	public PrimaryButton nextButton;
+	@BindView(R.id.button_confirm)
+	public PrimaryButton confirmButton;
 
 	@InjectPresenter
-	public CreateFundAssetsPresenter presenter;
+	public FundAssetsPresenter presenter;
 
 	double previousRemainingShare = 100f;
 
 	private Unbinder unbinder;
-
-	private NewFundRequest request;
 
 	private List<View> lineViews = new ArrayList<>();
 
@@ -109,15 +118,15 @@ public class CreateFundAssetsFragment extends BaseFragment implements CreateFund
 		}
 	}
 
-	@OnClick(R.id.button_next)
-	public void onNextClicked() {
-		EventBus.getDefault().post(new OnCreateFundNextButtonClickedEvent());
+	@OnClick(R.id.button_confirm)
+	public void onConfirmClicked() {
+		presenter.onConfirmClicked();
 	}
 
 	@Nullable
 	@Override
 	public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-		return inflater.inflate(R.layout.fragment_create_fund_assets, container, false);
+		return inflater.inflate(R.layout.fragment_fund_assets, container, false);
 	}
 
 	@Override
@@ -129,12 +138,28 @@ public class CreateFundAssetsFragment extends BaseFragment implements CreateFund
 		setFonts();
 
 		addAssetButton.setEmpty();
-		nextButton.setText(String.format(Locale.getDefault(), "%s (2/4)", getString(R.string.next)));
-		nextButton.setEnabled(false);
 
-		if (request != null) {
-			presenter.setRequest(request);
+		if (getArguments() != null) {
+			FundAssetsModel model = getArguments().getParcelable(EXTRA_MODEL);
+			if (model != null) {
+				updateView(model);
+				presenter.setModel(model);
+				return;
+			}
 		}
+		Timber.e("Passed empty arguments to %s", getClass().getSimpleName());
+		onBackPressed();
+	}
+
+	private void updateView(FundAssetsModel model) {
+		stepGroup.setVisibility(model.isNeedStep() ? View.VISIBLE : View.GONE);
+		stepNumber.setText(model.getStepNumber());
+		stepTitle.setText(model.getStepTitle());
+
+		assetsNotification.setText(assetsNotification.getText().toString().concat("\n").concat(model.getReallocationinfo()));
+
+		confirmButton.setText(model.getButtonText());
+		confirmButton.setEnabled(false);
 	}
 
 	@Override
@@ -395,14 +420,7 @@ public class CreateFundAssetsFragment extends BaseFragment implements CreateFund
 	}
 
 	@Override
-	public void setNextButtonEnabled(boolean enabled) {
-		nextButton.setEnabled(enabled);
-	}
-
-	public void setRequest(NewFundRequest request) {
-		this.request = request;
-		if (presenter != null) {
-			presenter.setRequest(request);
-		}
+	public void setConfirmButtonEnabled(boolean enabled) {
+		confirmButton.setEnabled(enabled);
 	}
 }

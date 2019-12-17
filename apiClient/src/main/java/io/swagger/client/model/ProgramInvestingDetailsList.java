@@ -65,6 +65,9 @@ public class ProgramInvestingDetailsList implements Parcelable
 	@SerializedName("currency")
 	private Currency currency = null;
 
+	@SerializedName("availableToInvest")
+	private Double availableToInvest = null;
+
 	@SerializedName("level")
 	private Integer level = null;
 
@@ -112,6 +115,7 @@ public class ProgramInvestingDetailsList implements Parcelable
 		title = (String) in.readValue(null);
 		creationDate = (DateTime) in.readValue(DateTime.class.getClassLoader());
 		currency = (Currency) in.readValue(Currency.class.getClassLoader());
+		availableToInvest = (Double) in.readValue(null);
 		level = (Integer) in.readValue(null);
 		levelProgress = (Double) in.readValue(null);
 		periodDuration = (Integer) in.readValue(null);
@@ -257,6 +261,25 @@ public class ProgramInvestingDetailsList implements Parcelable
 
 	public void setCurrency(Currency currency) {
 		this.currency = currency;
+	}
+
+	public ProgramInvestingDetailsList availableToInvest(Double availableToInvest) {
+		this.availableToInvest = availableToInvest;
+		return this;
+	}
+
+	/**
+	 * Get availableToInvest
+	 *
+	 * @return availableToInvest
+	 **/
+	@Schema(description = "")
+	public Double getAvailableToInvest() {
+		return availableToInvest;
+	}
+
+	public void setAvailableToInvest(Double availableToInvest) {
+		this.availableToInvest = availableToInvest;
 	}
 
 	public ProgramInvestingDetailsList level(Integer level) {
@@ -511,6 +534,7 @@ public class ProgramInvestingDetailsList implements Parcelable
 				Objects.equals(this.title, programInvestingDetailsList.title) &&
 				Objects.equals(this.creationDate, programInvestingDetailsList.creationDate) &&
 				Objects.equals(this.currency, programInvestingDetailsList.currency) &&
+				Objects.equals(this.availableToInvest, programInvestingDetailsList.availableToInvest) &&
 				Objects.equals(this.level, programInvestingDetailsList.level) &&
 				Objects.equals(this.levelProgress, programInvestingDetailsList.levelProgress) &&
 				Objects.equals(this.periodDuration, programInvestingDetailsList.periodDuration) &&
@@ -527,7 +551,7 @@ public class ProgramInvestingDetailsList implements Parcelable
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, logo, url, color, title, creationDate, currency, level, levelProgress, periodDuration, investorsCount, periodStarts, periodEnds, owner, brokerDetails, personalDetails, tags, statistic, balance);
+		return Objects.hash(id, logo, url, color, title, creationDate, currency, availableToInvest, level, levelProgress, periodDuration, investorsCount, periodStarts, periodEnds, owner, brokerDetails, personalDetails, tags, statistic, balance);
 	}
 
 	@Override
@@ -542,6 +566,7 @@ public class ProgramInvestingDetailsList implements Parcelable
 		sb.append("    title: ").append(toIndentedString(title)).append("\n");
 		sb.append("    creationDate: ").append(toIndentedString(creationDate)).append("\n");
 		sb.append("    currency: ").append(toIndentedString(currency)).append("\n");
+		sb.append("    availableToInvest: ").append(toIndentedString(availableToInvest)).append("\n");
 		sb.append("    level: ").append(toIndentedString(level)).append("\n");
 		sb.append("    levelProgress: ").append(toIndentedString(levelProgress)).append("\n");
 		sb.append("    periodDuration: ").append(toIndentedString(periodDuration)).append("\n");
@@ -577,6 +602,7 @@ public class ProgramInvestingDetailsList implements Parcelable
 		out.writeValue(title);
 		out.writeValue(creationDate);
 		out.writeValue(currency);
+		out.writeValue(availableToInvest);
 		out.writeValue(level);
 		out.writeValue(levelProgress);
 		out.writeValue(periodDuration);

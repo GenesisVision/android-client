@@ -4,13 +4,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | [**UUID**](UUID.md) |  |  [optional]
-**logo** | **String** |  |  [optional]
-**url** | **String** |  |  [optional]
-**color** | **String** |  |  [optional]
-**title** | **String** |  |  [optional]
-**description** | **String** |  |  [optional]
-**creationDate** | [**DateTime**](DateTime.md) |  |  [optional]
-**status** | **String** |  |  [optional]
+**publicInfo** | [**AssetPublicDetails**](AssetPublicDetails.md) |  |  [optional]
 **entryFeeSelected** | **Double** |  |  [optional]
 **entryFeeCurrent** | **Double** |  |  [optional]
 **exitFeeSelected** | **Double** |  |  [optional]

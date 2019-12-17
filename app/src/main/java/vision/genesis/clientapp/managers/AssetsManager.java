@@ -1,11 +1,13 @@
 package vision.genesis.clientapp.managers;
 
 
+import java.util.List;
 import java.util.UUID;
 
 import io.swagger.client.api.AssetsApi;
 import io.swagger.client.model.ChangeBrokerProgramRequest;
 import io.swagger.client.model.CreateSignalProvider;
+import io.swagger.client.model.FundAssetPart;
 import io.swagger.client.model.MakeSignalProviderProgram;
 import io.swagger.client.model.MakeTradingAccountProgram;
 import io.swagger.client.model.MakeTradingAccountSignalProvider;
@@ -84,6 +86,10 @@ public class AssetsManager
 
 	public Observable<Void> updateFundSettings(UUID assetId, ProgramUpdate request) {
 		return assetsApi.updateAsset(AuthManager.token.getValue(), assetId, request);
+	}
+
+	public Observable<Void> updateFundAssets(UUID fundId, List<FundAssetPart> assets) {
+		return assetsApi.updateFundAssets(AuthManager.token.getValue(), fundId, assets);
 	}
 
 	public Observable<Void> closeFund(UUID fundId, TwoFactorCodeModel model) {

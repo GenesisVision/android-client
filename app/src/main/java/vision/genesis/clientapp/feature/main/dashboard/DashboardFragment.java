@@ -306,9 +306,9 @@ public class DashboardFragment extends BaseFragment implements DashboardView
 
 			timeframeProfit.setData(summary.getProfits());
 
-			investmentsView.setShare((int) (summary.getInvested() / summary.getTotal() * 100));
-			tradingView.setShare((int) (summary.getTrading() / summary.getTotal() * 100));
-			walletView.setShare((int) (summary.getWallets() / summary.getTotal() * 100));
+			investmentsView.setShare((int) Math.round(summary.getInvested() / summary.getTotal() * 100));
+			tradingView.setShare((int) Math.round(summary.getTrading() / summary.getTotal() * 100));
+			walletView.setShare((int) Math.round(summary.getWallets() / summary.getTotal() * 100));
 		}
 	}
 

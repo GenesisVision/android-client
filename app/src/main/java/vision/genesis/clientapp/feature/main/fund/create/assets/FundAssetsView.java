@@ -13,7 +13,7 @@ import io.swagger.client.model.PlatformAsset;
  * Created by Vitaly on 14/10/2019.
  */
 
-interface CreateFundAssetsView extends MvpView
+interface FundAssetsView extends MvpView
 {
 	void updateNotification(List<PlatformAsset> mandatoryAssets);
 
@@ -36,5 +36,5 @@ interface CreateFundAssetsView extends MvpView
 
 	void setAddAssetButtonEnabled(boolean enabled);
 
-	void setNextButtonEnabled(boolean enabled);
+	void setConfirmButtonEnabled(boolean enabled);
 }

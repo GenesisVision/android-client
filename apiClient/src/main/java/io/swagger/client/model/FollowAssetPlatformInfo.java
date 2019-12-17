@@ -50,6 +50,9 @@ public class FollowAssetPlatformInfo implements Parcelable
 	@SerializedName("createFollowInfo")
 	private FollowCreateAssetPlatformInfo createFollowInfo = null;
 
+	@SerializedName("subscribeFixedCurrencies")
+	private List<String> subscribeFixedCurrencies = null;
+
 	public FollowAssetPlatformInfo() {
 	}
 
@@ -57,6 +60,7 @@ public class FollowAssetPlatformInfo implements Parcelable
 		facets = (List<AssetFacet>) in.readValue(AssetFacet.class.getClassLoader());
 		tags = (List<Tag>) in.readValue(Tag.class.getClassLoader());
 		createFollowInfo = (FollowCreateAssetPlatformInfo) in.readValue(FollowCreateAssetPlatformInfo.class.getClassLoader());
+		subscribeFixedCurrencies = (List<String>) in.readValue(null);
 	}
 
 	public FollowAssetPlatformInfo facets(List<AssetFacet> facets) {
@@ -132,6 +136,33 @@ public class FollowAssetPlatformInfo implements Parcelable
 		this.createFollowInfo = createFollowInfo;
 	}
 
+	public FollowAssetPlatformInfo subscribeFixedCurrencies(List<String> subscribeFixedCurrencies) {
+		this.subscribeFixedCurrencies = subscribeFixedCurrencies;
+		return this;
+	}
+
+	public FollowAssetPlatformInfo addSubscribeFixedCurrenciesItem(String subscribeFixedCurrenciesItem) {
+		if (this.subscribeFixedCurrencies == null) {
+			this.subscribeFixedCurrencies = new ArrayList<String>();
+		}
+		this.subscribeFixedCurrencies.add(subscribeFixedCurrenciesItem);
+		return this;
+	}
+
+	/**
+	 * Get subscribeFixedCurrencies
+	 *
+	 * @return subscribeFixedCurrencies
+	 **/
+	@Schema(description = "")
+	public List<String> getSubscribeFixedCurrencies() {
+		return subscribeFixedCurrencies;
+	}
+
+	public void setSubscribeFixedCurrencies(List<String> subscribeFixedCurrencies) {
+		this.subscribeFixedCurrencies = subscribeFixedCurrencies;
+	}
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -143,12 +174,13 @@ public class FollowAssetPlatformInfo implements Parcelable
 		FollowAssetPlatformInfo followAssetPlatformInfo = (FollowAssetPlatformInfo) o;
 		return Objects.equals(this.facets, followAssetPlatformInfo.facets) &&
 				Objects.equals(this.tags, followAssetPlatformInfo.tags) &&
-				Objects.equals(this.createFollowInfo, followAssetPlatformInfo.createFollowInfo);
+				Objects.equals(this.createFollowInfo, followAssetPlatformInfo.createFollowInfo) &&
+				Objects.equals(this.subscribeFixedCurrencies, followAssetPlatformInfo.subscribeFixedCurrencies);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(facets, tags, createFollowInfo);
+		return Objects.hash(facets, tags, createFollowInfo, subscribeFixedCurrencies);
 	}
 
 	@Override
@@ -159,6 +191,7 @@ public class FollowAssetPlatformInfo implements Parcelable
 		sb.append("    facets: ").append(toIndentedString(facets)).append("\n");
 		sb.append("    tags: ").append(toIndentedString(tags)).append("\n");
 		sb.append("    createFollowInfo: ").append(toIndentedString(createFollowInfo)).append("\n");
+		sb.append("    subscribeFixedCurrencies: ").append(toIndentedString(subscribeFixedCurrencies)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}
@@ -178,6 +211,7 @@ public class FollowAssetPlatformInfo implements Parcelable
 		out.writeValue(facets);
 		out.writeValue(tags);
 		out.writeValue(createFollowInfo);
+		out.writeValue(subscribeFixedCurrencies);
 	}
 
 	public int describeContents() {

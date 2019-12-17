@@ -125,7 +125,7 @@ public class ProgramDashboardShortView extends RelativeLayout
 //		double change = Math.random() * 100000 - 50000;
 		double change = program.getPersonalDetails().getProfit();
 
-		this.value.setText(StringFormatUtil.getValueString(value, program.getCurrency().getValue()));
+		this.value.setText(StringFormatUtil.getValueString(value, baseCurrency));
 		if (value != 0) {
 			updateChangeText(value, change);
 		}

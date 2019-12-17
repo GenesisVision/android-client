@@ -79,9 +79,9 @@ public class FundOwnerInfoPresenter extends MvpPresenter<FundOwnerInfoView>
 
 	void onEditPublicInfoClicked() {
 		ProgramUpdate model = new ProgramUpdate();
-		model.setTitle(fundDetails.getTitle());
-		model.setDescription(fundDetails.getDescription());
-		model.setLogo(fundDetails.getLogo());
+		model.setTitle(fundDetails.getPublicInfo().getTitle());
+		model.setDescription(fundDetails.getPublicInfo().getDescription());
+		model.setLogo(fundDetails.getPublicInfo().getLogo());
 		model.setEntryFee(fundDetails.getEntryFeeCurrent());
 		model.setExitFee(fundDetails.getExitFeeCurrent());
 		getViewState().showEditPublicInfoActivity(fundId, model);
@@ -113,9 +113,9 @@ public class FundOwnerInfoPresenter extends MvpPresenter<FundOwnerInfoView>
 		FundRequest request = new FundRequest();
 
 		request.setFundId(fundDetails.getId());
-		request.setFundLogo(fundDetails.getLogo());
-		request.setFundColor(fundDetails.getColor());
-		request.setFundName(fundDetails.getTitle());
+		request.setFundLogo(fundDetails.getPublicInfo().getLogo());
+		request.setFundColor(fundDetails.getPublicInfo().getColor());
+		request.setFundName(fundDetails.getPublicInfo().getTitle());
 		request.setManagerName(fundDetails.getOwner().getUsername());
 
 		getViewState().showInvestFundActivity(request);
@@ -134,9 +134,9 @@ public class FundOwnerInfoPresenter extends MvpPresenter<FundOwnerInfoView>
 		FundRequest request = new FundRequest();
 
 		request.setFundId(fundDetails.getId());
-		request.setFundLogo(fundDetails.getLogo());
-		request.setFundColor(fundDetails.getColor());
-		request.setFundName(fundDetails.getTitle());
+		request.setFundLogo(fundDetails.getPublicInfo().getLogo());
+		request.setFundColor(fundDetails.getPublicInfo().getColor());
+		request.setFundName(fundDetails.getPublicInfo().getTitle());
 		request.setManagerName(fundDetails.getOwner().getUsername());
 
 		getViewState().showWithdrawFundActivity(request);

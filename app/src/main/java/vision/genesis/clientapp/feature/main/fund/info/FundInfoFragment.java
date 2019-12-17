@@ -259,7 +259,7 @@ public class FundInfoFragment extends BaseFragment implements FundInfoView, Fund
 		managerName.setText(fundDetails.getOwner().getUsername());
 		managerDate.setText(DateTimeUtil.formatShortDate(fundDetails.getOwner().getRegistrationDate()));
 
-		strategy.setText(fundDetails.getDescription());
+		strategy.setText(fundDetails.getPublicInfo().getDescription());
 		new Handler().postDelayed(() -> {
 			if (strategyShadow != null && strategy != null) {
 				strategyShadow.setVisibility(strategy.getHeight() < strategyMaxHeight ? View.INVISIBLE : View.VISIBLE);

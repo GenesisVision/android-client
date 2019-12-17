@@ -94,6 +94,9 @@ public class FollowDetailsListItem implements Parcelable
 	@SerializedName("brokerId")
 	private UUID brokerId = null;
 
+	@SerializedName("brokerType")
+	private BrokerTradeServerType brokerType = null;
+
 	@SerializedName("owner")
 	private ProfilePublicShort owner = null;
 
@@ -125,6 +128,7 @@ public class FollowDetailsListItem implements Parcelable
 		leverageMin = (Integer) in.readValue(null);
 		leverageMax = (Integer) in.readValue(null);
 		brokerId = (UUID) in.readValue(UUID.class.getClassLoader());
+		brokerType = (BrokerTradeServerType) in.readValue(BrokerTradeServerType.class.getClassLoader());
 		owner = (ProfilePublicShort) in.readValue(ProfilePublicShort.class.getClassLoader());
 		statistic = (ProfitChart) in.readValue(ProfitChart.class.getClassLoader());
 		personalDetails = (PersonalFollowDetailsList) in.readValue(PersonalFollowDetailsList.class.getClassLoader());
@@ -416,6 +420,25 @@ public class FollowDetailsListItem implements Parcelable
 		this.brokerId = brokerId;
 	}
 
+	public FollowDetailsListItem brokerType(BrokerTradeServerType brokerType) {
+		this.brokerType = brokerType;
+		return this;
+	}
+
+	/**
+	 * Get brokerType
+	 *
+	 * @return brokerType
+	 **/
+	@Schema(description = "")
+	public BrokerTradeServerType getBrokerType() {
+		return brokerType;
+	}
+
+	public void setBrokerType(BrokerTradeServerType brokerType) {
+		this.brokerType = brokerType;
+	}
+
 	public FollowDetailsListItem owner(ProfilePublicShort owner) {
 		this.owner = owner;
 		return this;
@@ -524,6 +547,7 @@ public class FollowDetailsListItem implements Parcelable
 				Objects.equals(this.leverageMin, followDetailsListItem.leverageMin) &&
 				Objects.equals(this.leverageMax, followDetailsListItem.leverageMax) &&
 				Objects.equals(this.brokerId, followDetailsListItem.brokerId) &&
+				Objects.equals(this.brokerType, followDetailsListItem.brokerType) &&
 				Objects.equals(this.owner, followDetailsListItem.owner) &&
 				Objects.equals(this.statistic, followDetailsListItem.statistic) &&
 				Objects.equals(this.personalDetails, followDetailsListItem.personalDetails) &&
@@ -532,7 +556,7 @@ public class FollowDetailsListItem implements Parcelable
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, title, description, logo, creationDate, currency, subscribersCount, tradesCount, status, url, color, isExternal, leverageMin, leverageMax, brokerId, owner, statistic, personalDetails, tags);
+		return Objects.hash(id, title, description, logo, creationDate, currency, subscribersCount, tradesCount, status, url, color, isExternal, leverageMin, leverageMax, brokerId, brokerType, owner, statistic, personalDetails, tags);
 	}
 
 	@Override
@@ -555,6 +579,7 @@ public class FollowDetailsListItem implements Parcelable
 		sb.append("    leverageMin: ").append(toIndentedString(leverageMin)).append("\n");
 		sb.append("    leverageMax: ").append(toIndentedString(leverageMax)).append("\n");
 		sb.append("    brokerId: ").append(toIndentedString(brokerId)).append("\n");
+		sb.append("    brokerType: ").append(toIndentedString(brokerType)).append("\n");
 		sb.append("    owner: ").append(toIndentedString(owner)).append("\n");
 		sb.append("    statistic: ").append(toIndentedString(statistic)).append("\n");
 		sb.append("    personalDetails: ").append(toIndentedString(personalDetails)).append("\n");
@@ -590,6 +615,7 @@ public class FollowDetailsListItem implements Parcelable
 		out.writeValue(leverageMin);
 		out.writeValue(leverageMax);
 		out.writeValue(brokerId);
+		out.writeValue(brokerType);
 		out.writeValue(owner);
 		out.writeValue(statistic);
 		out.writeValue(personalDetails);

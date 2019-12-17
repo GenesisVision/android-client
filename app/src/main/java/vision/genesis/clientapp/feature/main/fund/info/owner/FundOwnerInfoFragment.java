@@ -265,7 +265,7 @@ public class FundOwnerInfoFragment extends BaseFragment implements FundOwnerInfo
 
 			scrollView.setVisibility(View.VISIBLE);
 
-			updatePublicInfo(fundDetails.getDescription());
+			updatePublicInfo(fundDetails.getPublicInfo().getDescription());
 			updateYourDeposit(fundDetails.getPersonalDetails());
 
 			PersonalFundDetails personalDetails = fundDetails.getPersonalDetails();

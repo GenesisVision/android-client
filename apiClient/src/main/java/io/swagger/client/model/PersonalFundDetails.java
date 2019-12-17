@@ -46,9 +46,6 @@ public class PersonalFundDetails implements Parcelable
 		}
 	};
 
-	@SerializedName("isOwnAsset")
-	private Boolean isOwnAsset = null;
-
 	@SerializedName("isFavorite")
 	private Boolean isFavorite = null;
 
@@ -98,7 +95,6 @@ public class PersonalFundDetails implements Parcelable
 	}
 
 	PersonalFundDetails(Parcel in) {
-		isOwnAsset = (Boolean) in.readValue(null);
 		isFavorite = (Boolean) in.readValue(null);
 		isInvested = (Boolean) in.readValue(null);
 		canInvest = (Boolean) in.readValue(null);
@@ -114,25 +110,6 @@ public class PersonalFundDetails implements Parcelable
 		availableReallocationPercents = (Integer) in.readValue(null);
 		nextReallocationPercents = (DateTime) in.readValue(DateTime.class.getClassLoader());
 		exitFeePersonal = (Double) in.readValue(null);
-	}
-
-	public PersonalFundDetails isOwnAsset(Boolean isOwnAsset) {
-		this.isOwnAsset = isOwnAsset;
-		return this;
-	}
-
-	/**
-	 * Get isOwnAsset
-	 *
-	 * @return isOwnAsset
-	 **/
-	@Schema(description = "")
-	public Boolean isIsOwnAsset() {
-		return isOwnAsset;
-	}
-
-	public void setIsOwnAsset(Boolean isOwnAsset) {
-		this.isOwnAsset = isOwnAsset;
 	}
 
 	public PersonalFundDetails isFavorite(Boolean isFavorite) {
@@ -429,8 +406,7 @@ public class PersonalFundDetails implements Parcelable
 			return false;
 		}
 		PersonalFundDetails personalFundDetails = (PersonalFundDetails) o;
-		return Objects.equals(this.isOwnAsset, personalFundDetails.isOwnAsset) &&
-				Objects.equals(this.isFavorite, personalFundDetails.isFavorite) &&
+		return Objects.equals(this.isFavorite, personalFundDetails.isFavorite) &&
 				Objects.equals(this.isInvested, personalFundDetails.isInvested) &&
 				Objects.equals(this.canInvest, personalFundDetails.canInvest) &&
 				Objects.equals(this.canWithdraw, personalFundDetails.canWithdraw) &&
@@ -449,7 +425,7 @@ public class PersonalFundDetails implements Parcelable
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(isOwnAsset, isFavorite, isInvested, canInvest, canWithdraw, ownerActions, hasNotifications, value, status, pendingInput, pendingOutput, pendingInOutCurrency, withdrawPercent, availableReallocationPercents, nextReallocationPercents, exitFeePersonal);
+		return Objects.hash(isFavorite, isInvested, canInvest, canWithdraw, ownerActions, hasNotifications, value, status, pendingInput, pendingOutput, pendingInOutCurrency, withdrawPercent, availableReallocationPercents, nextReallocationPercents, exitFeePersonal);
 	}
 
 	@Override
@@ -457,7 +433,6 @@ public class PersonalFundDetails implements Parcelable
 		StringBuilder sb = new StringBuilder();
 		sb.append("class PersonalFundDetails {\n");
 
-		sb.append("    isOwnAsset: ").append(toIndentedString(isOwnAsset)).append("\n");
 		sb.append("    isFavorite: ").append(toIndentedString(isFavorite)).append("\n");
 		sb.append("    isInvested: ").append(toIndentedString(isInvested)).append("\n");
 		sb.append("    canInvest: ").append(toIndentedString(canInvest)).append("\n");
@@ -489,7 +464,6 @@ public class PersonalFundDetails implements Parcelable
 	}
 
 	public void writeToParcel(Parcel out, int flags) {
-		out.writeValue(isOwnAsset);
 		out.writeValue(isFavorite);
 		out.writeValue(isInvested);
 		out.writeValue(canInvest);

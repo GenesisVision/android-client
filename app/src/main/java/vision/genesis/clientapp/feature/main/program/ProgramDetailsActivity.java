@@ -511,7 +511,9 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 
 	private void finishInit() {
 		if (details != null && (details.getPublicInfo().isIsOwnAsset() ||
-				details.getProgramDetails() != null && details.getProgramDetails().getPersonalDetails().isIsInvested())) {
+				(details.getProgramDetails() != null
+						&& details.getProgramDetails().getPersonalDetails() != null
+						&& details.getProgramDetails().getPersonalDetails().isIsInvested()))) {
 			addPage(eventsTab, false);
 		}
 		if (pagerAdapter == null) {

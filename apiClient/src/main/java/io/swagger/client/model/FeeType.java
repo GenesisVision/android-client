@@ -25,14 +25,14 @@ import java.io.IOException;
 @JsonAdapter(FeeType.Adapter.class)
 public enum FeeType
 {
-	UNDEFINED("Undefined"),
 	GVPROGRAMENTRY("GvProgramEntry"),
+	MANAGERPROGRAMENTRY("ManagerProgramEntry"),
+	UNDEFINED("Undefined"),
 	GVPROGRAMSUCCESS("GvProgramSuccess"),
 	GVPROGRAMSUCCESSSUM("GvProgramSuccessSum"),
 	GVFUNDENTRY("GvFundEntry"),
 	GVGMGVTHOLDERFEE("GvGmGvtHolderFee"),
 	GVGMREGULARFEE("GvGmRegularFee"),
-	MANAGERPROGRAMENTRY("ManagerProgramEntry"),
 	MANAGERPROGRAMSUCCESS("ManagerProgramSuccess"),
 	MANAGERPROGRAMSUCCESSSUM("ManagerProgramSuccessSum"),
 	MANAGERFUNDENTRY("ManagerFundEntry"),

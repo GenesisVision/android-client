@@ -21,6 +21,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+import io.swagger.client.model.FundAssetInfo;
 import io.swagger.client.model.PlatformAsset;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.utils.ImageUtils;
@@ -111,14 +112,37 @@ public class CreateFundAssetView extends RelativeLayout
 		});
 
 		background.setOnLongClickListener(view -> {
-			VibrationUtil.vibrateShort(getContext());
-			listener.onAssetLongClicked(asset, share);
-			return true;
+			if (listener != null && asset != null) {
+				VibrationUtil.vibrateShort(getContext());
+				listener.onAssetLongClicked(asset, share);
+				return true;
+			}
+			else {
+				return false;
+			}
 		});
 	}
 
 	public PlatformAsset getAsset() {
 		return asset;
+	}
+
+	public void setAsset(FundAssetInfo asset) {
+		this.icon.setImageURI(ImageUtils.getImageUri(asset.getIcon()));
+		this.name.setText(asset.getSymbol());
+		this.removeButton.setVisibility(View.GONE);
+
+		updateShare(asset.getTarget());
+	}
+
+	public void setAsset(PlatformAsset asset, double share) {
+		this.asset = asset;
+
+		this.icon.setImageURI(ImageUtils.getImageUri(asset.getIcon()));
+		this.name.setText(asset.getAsset());
+		this.removeButton.setVisibility(share > asset.getMandatoryFundPercent() ? View.VISIBLE : View.GONE);
+
+		updateShare(share);
 	}
 
 	public double getShare() {
@@ -129,19 +153,12 @@ public class CreateFundAssetView extends RelativeLayout
 		this.listener = listener;
 	}
 
-	public void setAsset(PlatformAsset asset, double share) {
-		this.asset = asset;
-
-		this.icon.setImageURI(ImageUtils.getImageUri(asset.getIcon()));
-		this.name.setText(asset.getAsset());
-		this.removeButton.setVisibility(asset.getMandatoryFundPercent() > 0 ? View.GONE : View.VISIBLE);
-
-		updateShare(share);
-	}
-
 	private void updateShare(double share) {
 		this.share = share;
 		this.percent.setText(String.format(Locale.getDefault(), "%s%%", StringFormatUtil.formatAmount(share, 0, 0)));
+		if (asset != null) {
+			this.removeButton.setVisibility(share > asset.getMandatoryFundPercent() ? View.VISIBLE : View.GONE);
+		}
 	}
 
 	public void select(boolean selected) {

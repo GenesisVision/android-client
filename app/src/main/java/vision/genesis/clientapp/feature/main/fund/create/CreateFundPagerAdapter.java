@@ -10,9 +10,10 @@ import io.swagger.client.model.NewFundRequest;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.common.public_info.PublicInfoFragment;
-import vision.genesis.clientapp.feature.main.fund.create.assets.CreateFundAssetsFragment;
+import vision.genesis.clientapp.feature.main.fund.create.assets.FundAssetsFragment;
 import vision.genesis.clientapp.feature.main.fund.create.deposit.CreateFundDepositFragment;
 import vision.genesis.clientapp.feature.main.fund.create.fees.FundFeesFragment;
+import vision.genesis.clientapp.model.FundAssetsModel;
 import vision.genesis.clientapp.model.FundSettingsModel;
 import vision.genesis.clientapp.model.PublicInfoModel;
 
@@ -32,7 +33,7 @@ public class CreateFundPagerAdapter extends FragmentStatePagerAdapter
 
 	private PublicInfoFragment publicInfoFragment;
 
-	private CreateFundAssetsFragment assetsFragment;
+	private FundAssetsFragment assetsFragment;
 
 	private FundFeesFragment feesFragment;
 
@@ -45,7 +46,10 @@ public class CreateFundPagerAdapter extends FragmentStatePagerAdapter
 				GenesisVisionApplication.INSTANCE.getString(R.string.public_info), true,
 				String.format(Locale.getDefault(), "%s (1/4)", GenesisVisionApplication.INSTANCE.getString(R.string.next)),
 				null, null, null));
-		assetsFragment = new CreateFundAssetsFragment();
+		assetsFragment = FundAssetsFragment.with(new FundAssetsModel(true, "02",
+				GenesisVisionApplication.INSTANCE.getString(R.string.assets_selection), "",
+				String.format(Locale.getDefault(), "%s (2/4)", GenesisVisionApplication.INSTANCE.getString(R.string.next)),
+				null, true));
 		feesFragment = FundFeesFragment.with(new FundSettingsModel(true, "03", GenesisVisionApplication.INSTANCE.getString(R.string.fees_settings),
 				String.format(Locale.getDefault(), "%s (3/4)", GenesisVisionApplication.INSTANCE.getString(R.string.next)), null, null, false));
 		depositFragment = new CreateFundDepositFragment();
@@ -72,7 +76,6 @@ public class CreateFundPagerAdapter extends FragmentStatePagerAdapter
 	}
 
 	void setRequest(NewFundRequest request) {
-		assetsFragment.setRequest(request);
 		depositFragment.setRequest(request);
 	}
 

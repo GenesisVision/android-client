@@ -46,7 +46,7 @@ public class ProgramFollowDetailsFull implements Parcelable
 	private UUID id = null;
 
 	@SerializedName("publicInfo")
-	private ProgramFollowDetailsFullPublicDetails publicInfo = null;
+	private AssetPublicDetails publicInfo = null;
 
 	@SerializedName("tradingAccountInfo")
 	private ProgramFollowDetailsFullTradingAccountDetails tradingAccountInfo = null;
@@ -74,7 +74,7 @@ public class ProgramFollowDetailsFull implements Parcelable
 
 	ProgramFollowDetailsFull(Parcel in) {
 		id = (UUID) in.readValue(UUID.class.getClassLoader());
-		publicInfo = (ProgramFollowDetailsFullPublicDetails) in.readValue(ProgramFollowDetailsFullPublicDetails.class.getClassLoader());
+		publicInfo = (AssetPublicDetails) in.readValue(AssetPublicDetails.class.getClassLoader());
 		tradingAccountInfo = (ProgramFollowDetailsFullTradingAccountDetails) in.readValue(ProgramFollowDetailsFullTradingAccountDetails.class.getClassLoader());
 		owner = (ProfilePublic) in.readValue(ProfilePublic.class.getClassLoader());
 		brokerDetails = (BrokerDetails) in.readValue(BrokerDetails.class.getClassLoader());
@@ -103,7 +103,7 @@ public class ProgramFollowDetailsFull implements Parcelable
 		this.id = id;
 	}
 
-	public ProgramFollowDetailsFull publicInfo(ProgramFollowDetailsFullPublicDetails publicInfo) {
+	public ProgramFollowDetailsFull publicInfo(AssetPublicDetails publicInfo) {
 		this.publicInfo = publicInfo;
 		return this;
 	}
@@ -114,11 +114,11 @@ public class ProgramFollowDetailsFull implements Parcelable
 	 * @return publicInfo
 	 **/
 	@Schema(description = "")
-	public ProgramFollowDetailsFullPublicDetails getPublicInfo() {
+	public AssetPublicDetails getPublicInfo() {
 		return publicInfo;
 	}
 
-	public void setPublicInfo(ProgramFollowDetailsFullPublicDetails publicInfo) {
+	public void setPublicInfo(AssetPublicDetails publicInfo) {
 		this.publicInfo = publicInfo;
 	}
 

@@ -18,6 +18,7 @@ Name | Type | Description | Notes
 **leverageMin** | **Integer** |  |  [optional]
 **leverageMax** | **Integer** |  |  [optional]
 **brokerId** | [**UUID**](UUID.md) |  |  [optional]
+**brokerType** | [**BrokerTradeServerType**](BrokerTradeServerType.md) |  |  [optional]
 **owner** | [**ProfilePublicShort**](ProfilePublicShort.md) |  |  [optional]
 **statistic** | [**ProfitChart**](ProfitChart.md) |  |  [optional]
 **personalDetails** | [**PersonalFollowDetailsList**](PersonalFollowDetailsList.md) |  |  [optional]

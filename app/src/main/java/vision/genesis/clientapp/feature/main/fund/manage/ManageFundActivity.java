@@ -11,22 +11,29 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.SwitchCompat;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
+import com.google.android.flexbox.FlexboxLayout;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 import java.util.UUID;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.swagger.client.model.FundAssetInfo;
 import io.swagger.client.model.FundDetailsFull;
 import io.swagger.client.model.ProgramUpdate;
 import timber.log.Timber;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseSwipeBackActivity;
 import vision.genesis.clientapp.feature.main.fund.change_settings.ChangeFundSettingsActivity;
+import vision.genesis.clientapp.feature.main.fund.reallocate.ReallocateFundActivity;
+import vision.genesis.clientapp.ui.CreateFundAssetView;
 import vision.genesis.clientapp.ui.PrimaryButton;
 import vision.genesis.clientapp.utils.StringFormatUtil;
 import vision.genesis.clientapp.utils.ThemeUtil;
+import vision.genesis.clientapp.utils.TypedValueFormatter;
 import vision.genesis.clientapp.utils.TypefaceUtil;
 
 /**
@@ -61,6 +68,15 @@ public class ManageFundActivity extends BaseSwipeBackActivity implements ManageF
 	@BindView(R.id.exit_fee)
 	public TextView exitFee;
 
+	@BindView(R.id.label_assets)
+	public TextView labelAssets;
+
+	@BindView(R.id.button_change_assets)
+	public TextView buttonChangeAssets;
+
+	@BindView(R.id.assets_flex_box)
+	public FlexboxLayout assetsFlexBox;
+
 	@BindView(R.id.label_danger_zone)
 	public TextView labelDangerZone;
 
@@ -91,6 +107,12 @@ public class ManageFundActivity extends BaseSwipeBackActivity implements ManageF
 	@OnClick(R.id.button_change_settings)
 	public void onChangeSettingsClicked() {
 		presenter.onChangeSettingsClicked();
+	}
+
+
+	@OnClick(R.id.button_change_assets)
+	public void onChangeAssetsClicked() {
+		presenter.onChangeAssetsClicked();
 	}
 
 	@OnClick(R.id.button_close_fund)
@@ -144,6 +166,9 @@ public class ManageFundActivity extends BaseSwipeBackActivity implements ManageF
 
 		entryFee.setTypeface(TypefaceUtil.semibold());
 		exitFee.setTypeface(TypefaceUtil.semibold());
+
+		labelAssets.setTypeface(TypefaceUtil.semibold());
+		buttonChangeAssets.setTypeface(TypefaceUtil.semibold());
 		labelDangerZone.setTypeface(TypefaceUtil.semibold());
 
 		labelEntryFee.setText(labelEntryFee.getText().toString().toLowerCase());
@@ -154,11 +179,31 @@ public class ManageFundActivity extends BaseSwipeBackActivity implements ManageF
 	public void updateView(FundDetailsFull details) {
 		entryFee.setText(String.format(Locale.getDefault(), "%s%%", StringFormatUtil.formatAmount(details.getEntryFeeSelected(), 0, 4)));
 		exitFee.setText(String.format(Locale.getDefault(), "%s%%", StringFormatUtil.formatAmount(details.getExitFeeSelected(), 0, 4)));
+
+		buttonChangeAssets.setEnabled(details.getPersonalDetails().getOwnerActions().isCanReallocate());
+		buttonChangeAssets.setTextColor(ThemeUtil.getColorByAttrId(this, details.getPersonalDetails().getOwnerActions().isCanReallocate()
+				? R.attr.colorAccent
+				: R.attr.colorTextSecondary));
+
+		assetsFlexBox.removeAllViews();
+		for (FundAssetInfo asset : details.getAssetsStructure()) {
+			CreateFundAssetView view = new CreateFundAssetView(this);
+			view.setAsset(asset);
+			assetsFlexBox.addView(view);
+			FlexboxLayout.LayoutParams lp = (FlexboxLayout.LayoutParams) view.getLayoutParams();
+			lp.setMargins(0, 0, 0, TypedValueFormatter.toDp(20));
+			view.setLayoutParams(lp);
+		}
 	}
 
 	@Override
 	public void showChangeSettingsActivity(UUID fundId, ProgramUpdate model) {
 		ChangeFundSettingsActivity.startFrom(this, fundId, model);
+	}
+
+	@Override
+	public void showReallocateFundActivity(UUID fundId, String reallocationInfo, List<FundAssetInfo> assets) {
+		ReallocateFundActivity.startFrom(this, fundId, reallocationInfo, new ArrayList<>(assets));
 	}
 
 	@Override

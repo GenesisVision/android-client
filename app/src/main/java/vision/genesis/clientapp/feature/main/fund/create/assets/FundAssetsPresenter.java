@@ -11,8 +11,8 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import io.swagger.client.model.FundAssetInfo;
 import io.swagger.client.model.FundAssetPart;
-import io.swagger.client.model.NewFundRequest;
 import io.swagger.client.model.PlatformAsset;
 import io.swagger.client.model.PlatformInfo;
 import rx.Subscription;
@@ -22,8 +22,10 @@ import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.feature.main.fund.create.assets.share.AssetShareDialogFragment;
 import vision.genesis.clientapp.managers.FundsManager;
 import vision.genesis.clientapp.managers.SettingsManager;
+import vision.genesis.clientapp.model.FundAssetsModel;
 import vision.genesis.clientapp.model.events.OnAddAssetAssetSelectedEvent;
 import vision.genesis.clientapp.model.events.OnFinishAddAssetActivityEvent;
+import vision.genesis.clientapp.model.events.OnFundAssetsConfirmClickedEvent;
 import vision.genesis.clientapp.net.ApiErrorResolver;
 import vision.genesis.clientapp.ui.CreateFundAssetView;
 
@@ -33,7 +35,7 @@ import vision.genesis.clientapp.ui.CreateFundAssetView;
  */
 
 @InjectViewState
-public class CreateFundAssetsPresenter extends MvpPresenter<CreateFundAssetsView>
+public class FundAssetsPresenter extends MvpPresenter<FundAssetsView>
 		implements CreateFundAssetView.Listener, AssetShareDialogFragment.Listener
 {
 	@Inject
@@ -44,13 +46,13 @@ public class CreateFundAssetsPresenter extends MvpPresenter<CreateFundAssetsView
 
 	private Subscription platformInfoSubscription;
 
-	private NewFundRequest request;
-
-	private List<PlatformAsset> assets = new ArrayList<>();
+	private List<FundAssetPart> requestAssets = new ArrayList<>();
 
 	private PlatformAsset selectedAsset;
 
 	private double remainingShare = 100;
+
+	private FundAssetsModel model;
 
 	@Override
 	protected void onFirstViewAttach() {
@@ -74,27 +76,44 @@ public class CreateFundAssetsPresenter extends MvpPresenter<CreateFundAssetsView
 		super.onDestroy();
 	}
 
-	void setRequest(NewFundRequest request) {
-		this.request = request;
+	void setModel(FundAssetsModel model) {
+		this.model = model;
+		getPlatformInfo();
+	}
+
+	void onConfirmClicked() {
+		EventBus.getDefault().post(new OnFundAssetsConfirmClickedEvent(requestAssets));
 	}
 
 	private void getPlatformInfo() {
-		platformInfoSubscription = settingsManager.getPlatformInfo()
-				.observeOn(AndroidSchedulers.mainThread())
-				.subscribeOn(Schedulers.newThread())
-				.subscribe(this::handleGetPlatformInfoSuccess,
-						this::handleGetPlatformInfoError);
+		if (settingsManager != null && model != null) {
+			platformInfoSubscription = settingsManager.getPlatformInfo()
+					.observeOn(AndroidSchedulers.mainThread())
+					.subscribeOn(Schedulers.newThread())
+					.subscribe(this::handleGetPlatformInfoSuccess,
+							this::handleGetPlatformInfoError);
+		}
 	}
 
 	private void handleGetPlatformInfoSuccess(PlatformInfo platformInfo) {
 		platformInfoSubscription.unsubscribe();
-		assets = platformInfo.getAssetInfo().getFundInfo().getAssets();
+		List<PlatformAsset> platformAssets = platformInfo.getAssetInfo().getFundInfo().getAssets();
 
 		List<PlatformAsset> mandatoryAssets = new ArrayList<>();
-		for (PlatformAsset asset : assets) {
-			if (asset.getMandatoryFundPercent() > 0) {
-				mandatoryAssets.add(asset);
-				updateRequestWithAsset(asset, asset.getMandatoryFundPercent());
+		for (PlatformAsset platformAsset : platformAssets) {
+			if (model.getAssets() != null) {
+				for (FundAssetInfo modelAsset : model.getAssets()) {
+					if (modelAsset.getSymbol().equals(platformAsset.getAsset())) {
+						updateRequestWithAsset(platformAsset, modelAsset.getTarget());
+						break;
+					}
+				}
+			}
+			if (platformAsset.getMandatoryFundPercent() > 0) {
+				mandatoryAssets.add(platformAsset);
+				if (model.getAssets() == null || model.getAssets().isEmpty()) {
+					updateRequestWithAsset(platformAsset, platformAsset.getMandatoryFundPercent());
+				}
 			}
 		}
 		getViewState().updateNotification(mandatoryAssets);
@@ -104,7 +123,7 @@ public class CreateFundAssetsPresenter extends MvpPresenter<CreateFundAssetsView
 	private void updateRequestWithAsset(PlatformAsset asset, Double newShare) {
 		FundAssetPart requestAsset = null;
 		int index = 0;
-		for (FundAssetPart ra : request.getAssets()) {
+		for (FundAssetPart ra : requestAssets) {
 			if (asset.getId().equals(ra.getId())) {
 				requestAsset = ra;
 				break;
@@ -115,7 +134,7 @@ public class CreateFundAssetsPresenter extends MvpPresenter<CreateFundAssetsView
 			FundAssetPart assetToAdd = new FundAssetPart();
 			assetToAdd.setId(asset.getId());
 			assetToAdd.setPercent(newShare);
-			request.getAssets().add(assetToAdd);
+			requestAssets.add(assetToAdd);
 			getViewState().addAsset(asset, newShare);
 		}
 		else if (newShare == 0) {
@@ -130,15 +149,13 @@ public class CreateFundAssetsPresenter extends MvpPresenter<CreateFundAssetsView
 
 	private void updateRemainingShare() {
 		double addedShares = 0.0;
-		if (request != null && request.getAssets() != null) {
-			for (FundAssetPart asset : request.getAssets()) {
-				addedShares += asset.getPercent();
-			}
+		for (FundAssetPart asset : requestAssets) {
+			addedShares += asset.getPercent();
 		}
 		remainingShare = 100 - addedShares;
 		getViewState().updateRemainingShare(remainingShare);
 		getViewState().setAddAssetButtonEnabled(remainingShare > 0);
-		getViewState().setNextButtonEnabled(addedShares == 100);
+		getViewState().setConfirmButtonEnabled(addedShares == 100 && requestAssets.size() >= 2);
 	}
 
 	private void handleGetPlatformInfoError(Throwable throwable) {
@@ -166,28 +183,31 @@ public class CreateFundAssetsPresenter extends MvpPresenter<CreateFundAssetsView
 
 	@Override
 	public void onRemoveAssetClicked(PlatformAsset asset) {
-		if (request != null) {
-			int index = 0;
-			for (FundAssetPart requestAsset : request.getAssets()) {
-				if (requestAsset.getId().equals(asset.getId())) {
+		int index = 0;
+		for (FundAssetPart requestAsset : requestAssets) {
+			if (requestAsset.getId().equals(asset.getId())) {
+				if (asset.getMandatoryFundPercent() > 0) {
+					updateRequestWithAsset(asset, asset.getMandatoryFundPercent());
+				}
+				else {
 					if (selectedAsset != null && selectedAsset.equals(asset)) {
 						getViewState().deselectAssets();
 						selectedAsset = null;
 					}
-					request.getAssets().remove(requestAsset);
+					requestAssets.remove(requestAsset);
 					getViewState().removeAsset(index);
-					updateRemainingShare();
-					break;
 				}
-				index++;
+				updateRemainingShare();
+				break;
 			}
+			index++;
 		}
 	}
 
 	@Subscribe
 	public void onEventMainThread(OnAddAssetAssetSelectedEvent event) {
 		double share = 0.0;
-		for (FundAssetPart ra : request.getAssets()) {
+		for (FundAssetPart ra : requestAssets) {
 			if (event.getAsset().getId().equals(ra.getId())) {
 				share = ra.getPercent();
 				break;

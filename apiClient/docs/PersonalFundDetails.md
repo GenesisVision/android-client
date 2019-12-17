@@ -3,7 +3,6 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**isOwnAsset** | **Boolean** |  |  [optional]
 **isFavorite** | **Boolean** |  |  [optional]
 **isInvested** | **Boolean** |  |  [optional]
 **canInvest** | **Boolean** |  |  [optional]

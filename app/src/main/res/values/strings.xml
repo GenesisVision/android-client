@@ -698,7 +698,7 @@
     <string name="template_minimum_symbols">Minimum %d symbols</string>
     <string name="template_create_fund_deposit_first_notification">Please note that in order to create a fund you must deposit the equivalent of %s GVT at the end of the creation process.</string>
     <string name="template_create_fund_deposit_second_notification">You must deposit at least the equivalent of %s GVT to create a fund.</string>
-    <string name="create_fund_assets_notification">The total share of all assets should be equal to 100%.</string>
+    <string name="create_fund_assets_notification">The total share of all assets should be equal to 100%.\nAt least 2 assets must be in the fund.</string>
     <string name="template_create_fund_asset_mandatory">There is a mandatory %s%% %s allocation per Fund.</string>
     <string name="plus_add_asset">+ Add asset</string>
     <string name="add_asset">Add asset</string>
@@ -778,6 +778,8 @@
     <string name="manage_fund">Manage fund</string>
     <string name="close_fund_info">The fund will be closed after pressing the button.</string>
     <string name="close_fund_alert_message">The fund will be closed after pressing the button. Are you sure?</string>
+    <string name="reallocate">Reallocate</string>
+    <string name="template_reallocation_info">Reallocation available — %d%%\nYou are able to reallocate 3%% of the Fund per day (cumulative). Example: you will be able to change 30%% of the Fund’s allocation after 10 days.</string>
 
     <plurals name="assets">
         <item quantity="one">asset</item>

@@ -55,7 +55,7 @@ public class FundDetailsPagerAdapter extends FragmentStatePagerAdapter
 
 		UUID fundId = fundDetails.getId();
 
-		if (fundDetails.getPersonalDetails() != null && fundDetails.getPersonalDetails().isIsOwnAsset()) {
+		if (fundDetails.getPersonalDetails() != null && fundDetails.getPublicInfo().isIsOwnAsset()) {
 			fundOwnerInfoFragment = FundOwnerInfoFragment.with(fundDetails);
 		}
 		else {

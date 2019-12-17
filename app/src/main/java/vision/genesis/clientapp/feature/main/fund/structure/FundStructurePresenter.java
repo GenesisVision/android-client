@@ -21,5 +21,6 @@ public class FundStructurePresenter extends MvpPresenter<FundStructureView>
 		Collections.sort(assets, new FundAssetsComparator());
 		Collections.reverse(assets);
 		getViewState().setAssetsToAdapter(assets);
+		getViewState().showProgress(false);
 	}
 }

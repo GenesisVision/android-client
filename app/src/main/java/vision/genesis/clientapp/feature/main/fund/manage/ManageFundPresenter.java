@@ -8,6 +8,8 @@ import com.arellomobile.mvp.MvpPresenter;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
+import java.util.Locale;
+
 import javax.inject.Inject;
 
 import io.swagger.client.model.FundDetailsFull;
@@ -17,7 +19,9 @@ import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
+import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.managers.AssetsManager;
+import vision.genesis.clientapp.model.events.OnFundAssetsChangedEvent;
 import vision.genesis.clientapp.model.events.OnFundSettingsChangedEvent;
 import vision.genesis.clientapp.net.ApiErrorResolver;
 
@@ -35,8 +39,6 @@ public class ManageFundPresenter extends MvpPresenter<ManageFundView>
 	@Inject
 	public AssetsManager assetsManager;
 
-	private Subscription closePeriodSubscription;
-
 	private Subscription closeFundSubscription;
 
 	private FundDetailsFull details;
@@ -52,9 +54,6 @@ public class ManageFundPresenter extends MvpPresenter<ManageFundView>
 
 	@Override
 	public void onDestroy() {
-		if (closePeriodSubscription != null) {
-			closePeriodSubscription.unsubscribe();
-		}
 		if (closeFundSubscription != null) {
 			closeFundSubscription.unsubscribe();
 		}
@@ -70,13 +69,18 @@ public class ManageFundPresenter extends MvpPresenter<ManageFundView>
 
 	void onChangeSettingsClicked() {
 		ProgramUpdate model = new ProgramUpdate();
-		model.setTitle(details.getTitle());
-		model.setDescription(details.getDescription());
-		model.setLogo(details.getLogo());
+		model.setTitle(details.getPublicInfo().getTitle());
+		model.setDescription(details.getPublicInfo().getDescription());
+		model.setLogo(details.getPublicInfo().getLogo());
 		model.setEntryFee(details.getEntryFeeSelected());
 		model.setExitFee(details.getExitFeeSelected());
 
 		getViewState().showChangeSettingsActivity(details.getId(), model);
+	}
+
+	void onChangeAssetsClicked() {
+		String reallocationInfo = String.format(Locale.getDefault(), context.getString(R.string.template_reallocation_info), details.getPersonalDetails().getAvailableReallocationPercents());
+		getViewState().showReallocateFundActivity(details.getId(), reallocationInfo, details.getAssetsStructure());
 	}
 
 	void onCloseFundClicked() {
@@ -111,6 +115,13 @@ public class ManageFundPresenter extends MvpPresenter<ManageFundView>
 	public void onEventMainThread(OnFundSettingsChangedEvent event) {
 		details.setEntryFeeSelected(event.getModel().getEntryFee());
 		details.setExitFeeSelected(event.getModel().getExitFee());
+		getViewState().updateView(details);
+	}
+
+	@Subscribe
+	public void onEventMainThread(OnFundAssetsChangedEvent event) {
+//		details.setAssetsStructure(event.getNewAssets());
+		details.getPersonalDetails().getOwnerActions().setCanReallocate(false);
 		getViewState().updateView(details);
 	}
 }
