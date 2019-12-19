@@ -780,6 +780,11 @@
     <string name="close_fund_alert_message">The fund will be closed after pressing the button. Are you sure?</string>
     <string name="reallocate">Reallocate</string>
     <string name="template_reallocation_info">Reallocation available — %d%%\nYou are able to reallocate 3%% of the Fund per day (cumulative). Example: you will be able to change 30%% of the Fund’s allocation after 10 days.</string>
+    <string name="unfollow">Unfollow</string>
+    <string name="tolerance">Tolerance</string>
+    <string name="select_account">Select account</string>
+    <string name="select_subscription_account_info">First, you need to select the trading account to which you want to copy trades.</string>
+    <string name="select_subscription_no_account">Unfortunately, you do not have suitable trading accounts with which you can subscribe to this Follow. You should create it first.</string>
 
     <plurals name="assets">
         <item quantity="one">asset</item>

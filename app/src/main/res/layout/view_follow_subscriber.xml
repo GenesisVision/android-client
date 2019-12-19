@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?attr/selectableItemBackground">
+
+    <RelativeLayout
+        android:id="@+id/group_top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/padding"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="@dimen/padding">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:alpha="0.9"
+                android:ellipsize="end"
+                android:lines="1"
+                android:textColor="?attr/colorTextPrimary"
+                android:textSize="16sp"
+                tools:text="12345 | USDT"/>
+
+        </LinearLayout>
+
+        <vision.genesis.clientapp.ui.PrimaryButton
+            android:id="@+id/button_unfollow"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="4dp"
+            android:text="@string/unfollow"/>
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/group_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/group_top"
+        android:layout_marginStart="@dimen/padding"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="@dimen/padding"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/type"
+                style="@style/program_info_invest_value"
+                tools:text="By balance"/>
+
+            <TextView
+                android:id="@+id/label_type"
+                style="@style/program_info_invest_label"
+                android:text="@string/type"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/group_equivalent"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/equivalent"
+                style="@style/program_info_invest_value"
+                tools:text="100 $"/>
+
+            <TextView
+                android:id="@+id/label_equivalent"
+                style="@style/program_info_invest_label"
+                android:text="@string/equivalent"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/group_volume"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/volume"
+                style="@style/program_info_invest_value"
+                tools:text="0.5%"/>
+
+            <TextView
+                android:id="@+id/label_volume"
+                style="@style/program_info_invest_label"
+                android:text="@string/volume"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/group_tolerance"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tolerance"
+                style="@style/program_info_invest_value"
+                tools:text="1%"/>
+
+            <TextView
+                android:id="@+id/label_tolerance"
+                style="@style/program_info_invest_label"
+                android:text="@string/tolerance"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <View
+        android:id="@+id/delimiter"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/group_info"
+        android:layout_marginStart="80dp"
+        android:layout_marginTop="16dp"
+        android:alpha="0.05"
+        android:background="?attr/colorTextPrimary"/>
+
+</RelativeLayout>

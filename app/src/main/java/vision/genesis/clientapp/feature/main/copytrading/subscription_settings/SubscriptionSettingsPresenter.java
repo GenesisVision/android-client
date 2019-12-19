@@ -11,18 +11,13 @@ import java.util.ArrayList;
 
 import javax.inject.Inject;
 
+import io.swagger.client.model.Currency;
 import io.swagger.client.model.SubscriptionMode;
-import rx.Observable;
-import rx.Subscription;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.common.option.SelectOptionBottomSheetFragment;
-import vision.genesis.clientapp.managers.FollowsManager;
 import vision.genesis.clientapp.model.SubscriptionSettingsModel;
-import vision.genesis.clientapp.model.events.OnSubscribedToProgramEvent;
-import vision.genesis.clientapp.net.ApiErrorResolver;
+import vision.genesis.clientapp.model.events.OnSubscriptionSettingsConfirmEvent;
 import vision.genesis.clientapp.utils.StringFormatUtil;
 
 /**
@@ -37,50 +32,33 @@ public class SubscriptionSettingsPresenter extends MvpPresenter<SubscriptionSett
 	@Inject
 	public Context context;
 
-	@Inject
-	public FollowsManager followsManager;
-
-	private Subscription signalSubscription;
-
 	private SubscriptionSettingsModel model;
-
-	private boolean isEdit;
 
 	private ArrayList<String> typeOptions;
 
 	@Override
 	protected void onFirstViewAttach() {
 		super.onFirstViewAttach();
-	}
-
-	@Override
-	public void onDestroy() {
-		if (signalSubscription != null) {
-			signalSubscription.unsubscribe();
-		}
-
-		super.onDestroy();
-	}
-
-	private void initTypeOptions() {
-		typeOptions = new ArrayList<>();
-		typeOptions.add(context.getString(R.string.by_balance));
-		typeOptions.add(context.getString(R.string.percentage));
-		typeOptions.add(context.getString(R.string.fixed));
-		getViewState().setTypeOptions(typeOptions);
-	}
-
-	void setData(SubscriptionSettingsModel model, boolean isEdit) {
-		this.model = model;
-		this.isEdit = isEdit;
 
 		GenesisVisionApplication.getComponent().inject(this);
 
-		initTypeOptions();
+		updateData();
+	}
+
+	void setModel(SubscriptionSettingsModel model) {
+		this.model = model;
+
 		updateData();
 	}
 
 	private void updateData() {
+		if (typeOptions == null && context != null) {
+			typeOptions = new ArrayList<>();
+			typeOptions.add(context.getString(R.string.by_balance));
+			typeOptions.add(context.getString(R.string.percentage));
+			typeOptions.add(context.getString(R.string.fixed));
+			getViewState().setTypeOptions(typeOptions);
+		}
 		if (model != null && typeOptions != null) {
 			SubscriptionMode[] modes = SubscriptionMode.values();
 			int selectedOptionPosition = 0;
@@ -92,46 +70,39 @@ public class SubscriptionSettingsPresenter extends MvpPresenter<SubscriptionSett
 			}
 			onOptionSelected(selectedOptionPosition, typeOptions.get(selectedOptionPosition));
 
-//			for (String typeOption : typeOptions) {
-//				if (typeOption.equals(model.getMode())) {
-//					onOptionSelected(typeOptions.indexOf(typeOption), typeOption);
-//					break;
-//				}
-//			}
-
 			getViewState().setVolumePercentage(StringFormatUtil.formatAmount(model.getPercent(), 0, 2));
 			getViewState().setEquivalent(StringFormatUtil.formatAmountWithoutGrouping(model.getFixedVolume()));
-			getViewState().setTolerancePercentage(StringFormatUtil.formatAmount(model.getOpenTolerancePercent(), 0, 2));
+			getViewState().setTolerancePercentage(StringFormatUtil.formatAmount(model.getTolerancePercent(), 0, 2));
 
-			updateButtonEnabled();
+			updateConfirmButtonEnabled();
 		}
 	}
 
-	public void onLabelVolumePercentageClicked() {
+	void onLabelVolumePercentageClicked() {
 		getViewState().setVolumePercentage(StringFormatUtil.formatAmount(SubscriptionSettingsModel.VOLUME_PERCENTAGE_MIN, 0, 2));
 	}
 
-	public void onLabelEquivalentClicked() {
+	void onLabelEquivalentClicked() {
 		getViewState().setEquivalent(StringFormatUtil.formatAmountWithoutGrouping(SubscriptionSettingsModel.EQUIVALENT_MIN));
 	}
 
-	public void onLabelTolerancePercentageClicked() {
+	void onLabelTolerancePercentageClicked() {
 		getViewState().setTolerancePercentage(StringFormatUtil.formatAmount(SubscriptionSettingsModel.TOLERANCE_PERCENTAGE_MIN, 0, 2));
 	}
 
-	public void onVolumePercentageMaxClicked() {
+	void onVolumePercentageMaxClicked() {
 		getViewState().setVolumePercentage(StringFormatUtil.formatAmount(SubscriptionSettingsModel.VOLUME_PERCENTAGE_MAX, 0, 2));
 	}
 
-	public void onEquivalentMaxClicked() {
+	void onEquivalentMaxClicked() {
 		getViewState().setEquivalent(StringFormatUtil.formatAmountWithoutGrouping(SubscriptionSettingsModel.EQUIVALENT_MAX));
 	}
 
-	public void onTolerancePercentageMaxClicked() {
+	void onTolerancePercentageMaxClicked() {
 		getViewState().setTolerancePercentage(StringFormatUtil.formatAmount(SubscriptionSettingsModel.TOLERANCE_PERCENTAGE_MAX, 0, 2));
 	}
 
-	public void onVolumePercentageChanged(String newValueString) {
+	void onVolumePercentageChanged(String newValueString) {
 		Double newValue;
 		try {
 			newValue = Double.parseDouble(newValueString);
@@ -146,10 +117,10 @@ public class SubscriptionSettingsPresenter extends MvpPresenter<SubscriptionSett
 		}
 
 		model.setPercent(newValue);
-		updateButtonEnabled();
+		updateConfirmButtonEnabled();
 	}
 
-	public void onEquivalentChanged(String newValueString) {
+	void onEquivalentChanged(String newValueString) {
 		Double newValue;
 		try {
 			newValue = Double.parseDouble(newValueString);
@@ -163,10 +134,11 @@ public class SubscriptionSettingsPresenter extends MvpPresenter<SubscriptionSett
 		}
 
 		model.setFixedVolume(newValue);
-		updateButtonEnabled();
+		model.setFixedCurrency(Currency.USD.getValue());
+		updateConfirmButtonEnabled();
 	}
 
-	public void onTolerancePercentageChanged(String newValueString) {
+	void onTolerancePercentageChanged(String newValueString) {
 		Double newValue;
 		try {
 			newValue = Double.parseDouble(newValueString);
@@ -180,11 +152,14 @@ public class SubscriptionSettingsPresenter extends MvpPresenter<SubscriptionSett
 			return;
 		}
 
-		model.setOpenTolerancePercent(newValue);
-		updateButtonEnabled();
+		model.setTolerancePercent(newValue);
+		updateConfirmButtonEnabled();
 	}
 
 	private boolean isDataOk() {
+		if (model == null || model.getMode() == null) {
+			return false;
+		}
 		if (model.getMode().equals(SubscriptionMode.PERCENT.getValue())) {
 			if (!(model.getPercent() >= SubscriptionSettingsModel.VOLUME_PERCENTAGE_MIN
 					&& model.getPercent() <= SubscriptionSettingsModel.VOLUME_PERCENTAGE_MAX)) {
@@ -197,59 +172,19 @@ public class SubscriptionSettingsPresenter extends MvpPresenter<SubscriptionSett
 				return false;
 			}
 		}
-		return model.getOpenTolerancePercent() >= SubscriptionSettingsModel.TOLERANCE_PERCENTAGE_MIN
-				&& model.getOpenTolerancePercent() <= SubscriptionSettingsModel.TOLERANCE_PERCENTAGE_MAX;
+		return model.getTolerancePercent() >= SubscriptionSettingsModel.TOLERANCE_PERCENTAGE_MIN
+				&& model.getTolerancePercent() <= SubscriptionSettingsModel.TOLERANCE_PERCENTAGE_MAX;
 	}
 
-	private void updateButtonEnabled() {
-		getViewState().setButtonEnabled(isDataOk());
+	private void updateConfirmButtonEnabled() {
+		getViewState().setConfirmButtonEnabled(isDataOk());
 	}
 
-	void onButtonClicked() {
-		if (isEdit) {
-			updateSubscription();
-		}
-		else {
-			subscribeToSignals();
+	void onConfirmButtonClicked() {
+		if (model != null) {
+			EventBus.getDefault().post(new OnSubscriptionSettingsConfirmEvent(model.getApiModel()));
 		}
 	}
-
-	private void updateSubscription() {
-		performRequest(followsManager.updateSubscription(model));
-	}
-
-	private void subscribeToSignals() {
-		performRequest(followsManager.subscribeToProgram(model));
-	}
-
-	private void performRequest(Observable<Void> request) {
-		if (followsManager != null && model != null) {
-			if (signalSubscription != null) {
-				signalSubscription.unsubscribe();
-			}
-			getViewState().showProgress(true);
-			signalSubscription = request
-					.observeOn(AndroidSchedulers.mainThread())
-					.subscribeOn(Schedulers.io())
-					.subscribe(this::handleSubscriptionSuccess,
-							this::handleSubscriptionError);
-		}
-	}
-
-	private void handleSubscriptionSuccess(Void response) {
-		signalSubscription.unsubscribe();
-		EventBus.getDefault().post(new OnSubscribedToProgramEvent());
-		getViewState().finishActivity();
-	}
-
-	private void handleSubscriptionError(Throwable throwable) {
-		signalSubscription.unsubscribe();
-		getViewState().showProgress(false);
-
-		ApiErrorResolver.resolveErrors(throwable,
-				message -> getViewState().showSnackbarMessage(message));
-	}
-
 
 	@Override
 	public void onOptionSelected(Integer position, String text) {
@@ -273,6 +208,6 @@ public class SubscriptionSettingsPresenter extends MvpPresenter<SubscriptionSett
 		}
 		getViewState().setType(text, position);
 		getViewState().setTypeDescription(typeDescription);
-		updateButtonEnabled();
+		updateConfirmButtonEnabled();
 	}
 }

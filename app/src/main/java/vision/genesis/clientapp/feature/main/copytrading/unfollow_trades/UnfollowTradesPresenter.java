@@ -10,6 +10,7 @@ import java.util.UUID;
 
 import javax.inject.Inject;
 
+import io.swagger.client.model.DetachFromSignalProvider;
 import io.swagger.client.model.SignalDetachMode;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
@@ -37,7 +38,9 @@ public class UnfollowTradesPresenter extends MvpPresenter<UnfollowTradesView> im
 
 	private Subscription signalSubscription;
 
-	private UUID programId;
+	private UUID followId;
+
+	private UUID tradingAccountId;
 
 	private SignalDetachMode unsubscribeType = SignalDetachMode.NONE;
 
@@ -52,8 +55,9 @@ public class UnfollowTradesPresenter extends MvpPresenter<UnfollowTradesView> im
 
 	@Override
 	public void onDestroy() {
-		if (signalSubscription != null)
+		if (signalSubscription != null) {
 			signalSubscription.unsubscribe();
+		}
 
 		super.onDestroy();
 	}
@@ -67,8 +71,9 @@ public class UnfollowTradesPresenter extends MvpPresenter<UnfollowTradesView> im
 		onOptionSelected(0, typeOptions.get(0));
 	}
 
-	void setProgramId(UUID programId) {
-		this.programId = programId;
+	void setDataId(UUID followId, UUID tradingAccountId) {
+		this.followId = followId;
+		this.tradingAccountId = tradingAccountId;
 	}
 
 	void onButtonClicked() {
@@ -76,11 +81,15 @@ public class UnfollowTradesPresenter extends MvpPresenter<UnfollowTradesView> im
 	}
 
 	private void performRequest() {
-		if (followsManager != null && programId != null) {
-			if (signalSubscription != null)
+		if (followsManager != null && followId != null) {
+			if (signalSubscription != null) {
 				signalSubscription.unsubscribe();
+			}
 			getViewState().showProgress(true);
-			signalSubscription = followsManager.unsubscribeFromProgram(programId, unsubscribeType)
+			DetachFromSignalProvider model = new DetachFromSignalProvider();
+			model.setMode(unsubscribeType);
+			model.setTradingAccountId(tradingAccountId);
+			signalSubscription = followsManager.unsubscribeFromFollow(followId, model)
 					.observeOn(AndroidSchedulers.mainThread())
 					.subscribeOn(Schedulers.io())
 					.subscribe(this::handleSubscriptionSuccess,

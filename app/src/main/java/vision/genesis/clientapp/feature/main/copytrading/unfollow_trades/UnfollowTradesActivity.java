@@ -31,14 +31,17 @@ import vision.genesis.clientapp.utils.TypefaceUtil;
 
 public class UnfollowTradesActivity extends BaseSwipeBackActivity implements UnfollowTradesView
 {
-	private static final String EXTRA_PROGRAM_ID = "extra_program_id";
+	private static final String EXTRA_FOLLOW_ID = "extra_follow_id";
 
-	private static final String EXTRA_PROGRAM_NAME = "extra_program_name";
+	private static final String EXTRA_TRADING_ACCOUNT_ID = "extra_trading_account_id";
 
-	public static void startWith(Activity activity, UUID programId, String programName) {
+	private static final String EXTRA_FOLLOW_NAME = "extra_follow_name";
+
+	public static void startWith(Activity activity, UUID followId, UUID tradingAccountId, String followName) {
 		Intent intent = new Intent(activity.getApplicationContext(), UnfollowTradesActivity.class);
-		intent.putExtra(EXTRA_PROGRAM_ID, programId);
-		intent.putExtra(EXTRA_PROGRAM_NAME, programName);
+		intent.putExtra(EXTRA_FOLLOW_ID, followId);
+		intent.putExtra(EXTRA_TRADING_ACCOUNT_ID, tradingAccountId);
+		intent.putExtra(EXTRA_FOLLOW_NAME, followName);
 		activity.startActivity(intent);
 		activity.overridePendingTransition(R.anim.slide_from_bottom, R.anim.hold);
 	}
@@ -46,8 +49,8 @@ public class UnfollowTradesActivity extends BaseSwipeBackActivity implements Unf
 	@BindView(R.id.title)
 	public TextView title;
 
-	@BindView(R.id.program_name)
-	public TextView programName;
+	@BindView(R.id.follow_name)
+	public TextView followName;
 
 	@BindView(R.id.content)
 	public ViewGroup content;
@@ -99,23 +102,24 @@ public class UnfollowTradesActivity extends BaseSwipeBackActivity implements Unf
 		ButterKnife.bind(this);
 
 		if (getIntent().getExtras() != null) {
-			UUID programId = (UUID) getIntent().getExtras().getSerializable(EXTRA_PROGRAM_ID);
-			String programName = getIntent().getExtras().getString(EXTRA_PROGRAM_NAME);
-			if (programId != null) {
-				unfollowTradesPresenter.setProgramId(programId);
+			UUID followId = (UUID) getIntent().getExtras().getSerializable(EXTRA_FOLLOW_ID);
+			UUID tradingAccountId = (UUID) getIntent().getExtras().getSerializable(EXTRA_TRADING_ACCOUNT_ID);
+			String followName = getIntent().getExtras().getString(EXTRA_FOLLOW_NAME);
+			if (followId != null) {
+				unfollowTradesPresenter.setDataId(followId, tradingAccountId);
 
-				setProgramName(programName);
+				setFollowName(followName);
 				setFonts();
 
 				return;
 			}
 		}
-		Timber.e("Passed empty programId to %s", getClass().getSimpleName());
+		Timber.e("Passed empty data to %s", getClass().getSimpleName());
 		onBackPressed();
 	}
 
-	private void setProgramName(String accountCurrency) {
-		this.programName.setText(accountCurrency);
+	private void setFollowName(String accountCurrency) {
+		this.followName.setText(accountCurrency);
 	}
 
 	private void setFonts() {

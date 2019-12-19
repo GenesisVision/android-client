@@ -26,7 +26,6 @@ import timber.log.Timber;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseSwipeBackActivity;
 import vision.genesis.clientapp.feature.common.select_wallet.SelectWalletBottomSheetFragment;
-import vision.genesis.clientapp.feature.main.copytrading.subscription_settings.SubscriptionSettingsActivity;
 import vision.genesis.clientapp.model.SubscriptionSettingsModel;
 import vision.genesis.clientapp.ui.PrimaryButton;
 import vision.genesis.clientapp.utils.ImageUtils;
@@ -217,7 +216,7 @@ public class CreateCopytradingAccountActivity extends BaseSwipeBackActivity impl
 
 	@Override
 	public void showSubscriptionSettings(SubscriptionSettingsModel model) {
-		SubscriptionSettingsActivity.startWith(this, model, false);
+//		SubscriptionSettingsFragment.startWith(this, model, false);
 	}
 
 	@Override

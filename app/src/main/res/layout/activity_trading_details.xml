@@ -295,7 +295,8 @@
                         android:orientation="vertical"
                         android:paddingStart="20dp"
                         android:paddingEnd="20dp"
-                        android:paddingBottom="20dp">
+                        android:paddingBottom="20dp"
+                        android:visibility="gone">
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -436,7 +437,8 @@
                         android:orientation="vertical"
                         android:paddingStart="20dp"
                         android:paddingEnd="20dp"
-                        android:paddingBottom="20dp">
+                        android:paddingBottom="20dp"
+                        android:visibility="gone">
 
                         <TextView
                             android:layout_width="wrap_content"

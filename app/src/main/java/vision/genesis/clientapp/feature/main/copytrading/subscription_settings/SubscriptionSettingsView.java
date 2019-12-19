@@ -17,8 +17,6 @@ interface SubscriptionSettingsView extends MvpView
 
 	void setTypeDescription(String typeDescription);
 
-	void setMinDepositAmount(Double minDepositAmount, String currency);
-
 	void setVolumePercentage(String value);
 
 	void setEquivalent(String value);
@@ -31,11 +29,7 @@ interface SubscriptionSettingsView extends MvpView
 
 	void showFixedFields();
 
-	void setButtonEnabled(boolean enabled);
-
-	void showProgress(boolean show);
+	void setConfirmButtonEnabled(boolean enabled);
 
 	void showSnackbarMessage(String message);
-
-	void finishActivity();
 }

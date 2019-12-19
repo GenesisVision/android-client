@@ -3,8 +3,6 @@ package vision.genesis.clientapp.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import java.util.UUID;
-
 import io.swagger.client.model.AttachToSignalProvider;
 import io.swagger.client.model.Currency;
 import io.swagger.client.model.SubscriptionMode;
@@ -42,11 +40,19 @@ public class SubscriptionSettingsModel implements Parcelable
 		}
 	};
 
+	private Boolean needStep;
+
+	private String stepNumber;
+
+	private String stepTitle;
+
+	private String buttonText;
+
 	private String mode = SubscriptionMode.BYBALANCE.getValue();
 
 	private Double percent = 0.0;
 
-	private Double openTolerancePercent = 0.0;
+	private Double tolerancePercent = 0.0;
 
 	private Double fixedVolume = 0.0;
 
@@ -56,10 +62,6 @@ public class SubscriptionSettingsModel implements Parcelable
 
 	private Double initialDepositAmount = 0.0;
 
-	private String programName;
-
-	private UUID programId;
-
 	private String minDepositCurrency = Currency.GVT.getValue();
 
 	private Double minDeposit = 0.0;
@@ -68,7 +70,26 @@ public class SubscriptionSettingsModel implements Parcelable
 
 	}
 
+	public SubscriptionSettingsModel(Boolean needStep, String stepNumber, String stepTitle, String buttonText,
+	                                 String mode, Double percent, Double tolerancePercent, Double fixedVolume, String fixedCurrency) {
+		this.needStep = needStep;
+		this.stepNumber = stepNumber;
+		this.stepTitle = stepTitle;
+		this.buttonText = buttonText;
+
+		this.mode = mode;
+		this.percent = percent;
+		this.tolerancePercent = tolerancePercent;
+		this.fixedVolume = fixedVolume;
+		this.fixedCurrency = fixedCurrency;
+	}
+
 	protected SubscriptionSettingsModel(Parcel in) {
+		needStep = in.readByte() != 0;
+		stepNumber = in.readString();
+		stepTitle = in.readString();
+		buttonText = in.readString();
+
 		mode = in.readString();
 		if (in.readByte() == 0) {
 			percent = null;
@@ -77,10 +98,10 @@ public class SubscriptionSettingsModel implements Parcelable
 			percent = in.readDouble();
 		}
 		if (in.readByte() == 0) {
-			openTolerancePercent = null;
+			tolerancePercent = null;
 		}
 		else {
-			openTolerancePercent = in.readDouble();
+			tolerancePercent = in.readDouble();
 		}
 		if (in.readByte() == 0) {
 			fixedVolume = null;
@@ -96,8 +117,6 @@ public class SubscriptionSettingsModel implements Parcelable
 		else {
 			initialDepositAmount = in.readDouble();
 		}
-		programName = in.readString();
-		programId = (UUID) in.readSerializable();
 		minDepositCurrency = in.readString();
 		if (in.readByte() == 0) {
 			minDeposit = null;
@@ -106,6 +125,23 @@ public class SubscriptionSettingsModel implements Parcelable
 			minDeposit = in.readDouble();
 		}
 	}
+
+	public boolean isNeedStep() {
+		return needStep;
+	}
+
+	public String getStepNumber() {
+		return stepNumber;
+	}
+
+	public String getStepTitle() {
+		return stepTitle;
+	}
+
+	public String getButtonText() {
+		return buttonText;
+	}
+
 
 	public String getMode() {
 		return mode;
@@ -123,12 +159,12 @@ public class SubscriptionSettingsModel implements Parcelable
 		this.percent = percent;
 	}
 
-	public Double getOpenTolerancePercent() {
-		return openTolerancePercent;
+	public Double getTolerancePercent() {
+		return tolerancePercent;
 	}
 
-	public void setOpenTolerancePercent(Double openTolerancePercent) {
-		this.openTolerancePercent = openTolerancePercent;
+	public void setTolerancePercent(Double tolerancePercent) {
+		this.tolerancePercent = tolerancePercent;
 	}
 
 	public Double getFixedVolume() {
@@ -163,22 +199,6 @@ public class SubscriptionSettingsModel implements Parcelable
 		this.initialDepositAmount = initialDepositAmount;
 	}
 
-	public String getProgramName() {
-		return programName;
-	}
-
-	public void setProgramName(String programName) {
-		this.programName = programName;
-	}
-
-	public UUID getProgramId() {
-		return programId;
-	}
-
-	public void setProgramId(UUID programId) {
-		this.programId = programId;
-	}
-
 	public String getMinDepositCurrency() {
 		return minDepositCurrency;
 	}
@@ -202,6 +222,11 @@ public class SubscriptionSettingsModel implements Parcelable
 
 	@Override
 	public void writeToParcel(Parcel parcel, int i) {
+		parcel.writeByte((byte) (needStep ? 1 : 0));
+		parcel.writeString(stepNumber);
+		parcel.writeString(stepTitle);
+		parcel.writeString(buttonText);
+
 		parcel.writeString(mode);
 		if (percent == null) {
 			parcel.writeByte((byte) 0);
@@ -210,12 +235,12 @@ public class SubscriptionSettingsModel implements Parcelable
 			parcel.writeByte((byte) 1);
 			parcel.writeDouble(percent);
 		}
-		if (openTolerancePercent == null) {
+		if (tolerancePercent == null) {
 			parcel.writeByte((byte) 0);
 		}
 		else {
 			parcel.writeByte((byte) 1);
-			parcel.writeDouble(openTolerancePercent);
+			parcel.writeDouble(tolerancePercent);
 		}
 		if (fixedVolume == null) {
 			parcel.writeByte((byte) 0);
@@ -233,8 +258,6 @@ public class SubscriptionSettingsModel implements Parcelable
 			parcel.writeByte((byte) 1);
 			parcel.writeDouble(initialDepositAmount);
 		}
-		parcel.writeString(programName);
-		parcel.writeSerializable(programId);
 		parcel.writeString(minDepositCurrency);
 		if (minDeposit == null) {
 			parcel.writeByte((byte) 0);
@@ -249,12 +272,9 @@ public class SubscriptionSettingsModel implements Parcelable
 		AttachToSignalProvider model = new AttachToSignalProvider();
 		model.setMode(SubscriptionMode.fromValue(getMode()));
 		model.setPercent(getPercent());
-		model.setOpenTolerancePercent(getOpenTolerancePercent());
+		model.setOpenTolerancePercent(getTolerancePercent());
 		model.setFixedVolume(getFixedVolume());
 		model.setFixedCurrency(AttachToSignalProvider.FixedCurrencyEnum.fromValue(getFixedCurrency()));
-//		model.setInitialDepositCurrency(AttachToSignalProvider.InitialDepositCurrencyEnum.fromValue(getInitialDepositCurrency()));
-//		model.setInitialDepositAmount(getInitialDepositAmount());
 		return model;
 	}
-
 }

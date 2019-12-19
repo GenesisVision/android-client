@@ -4,10 +4,11 @@ import com.arellomobile.mvp.MvpView;
 import com.arellomobile.mvp.viewstate.strategy.AddToEndSingleStrategy;
 import com.arellomobile.mvp.viewstate.strategy.StateStrategyType;
 
+import java.util.List;
 import java.util.UUID;
 
 import io.swagger.client.model.ProgramFollowDetailsFull;
-import vision.genesis.clientapp.model.SubscriptionSettingsModel;
+import io.swagger.client.model.SignalSubscription;
 
 /**
  * GenesisVisionAndroid
@@ -19,6 +20,8 @@ interface FollowInfoView extends MvpView
 	@StateStrategyType(AddToEndSingleStrategy.class)
 	void setDetails(ProgramFollowDetailsFull followDetails);
 
+	void setSubscriptions(List<SignalSubscription> subscriptions);
+
 	@StateStrategyType(AddToEndSingleStrategy.class)
 	void showProgress(boolean show);
 
@@ -28,9 +31,7 @@ interface FollowInfoView extends MvpView
 
 	void showLoginActivity();
 
-	void showCreateCopytradingAccountActivity(SubscriptionSettingsModel model);
+	void showFollowTradesActivity(UUID followId);
 
-	void showSubscriptionSettings(SubscriptionSettingsModel model, boolean isEdit);
-
-	void showUnfollowTradesActivity(UUID programId, String programName);
+	void showUnfollowTradesActivity(UUID followId, UUID tradingAccountId, String followName);
 }

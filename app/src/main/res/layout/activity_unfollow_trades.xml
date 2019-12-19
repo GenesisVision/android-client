@@ -37,7 +37,7 @@
                 android:textSize="18sp"/>
 
             <TextView
-                android:id="@+id/program_name"
+                android:id="@+id/follow_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:alpha="0.3"
@@ -45,7 +45,7 @@
                 android:lines="1"
                 android:textColor="?attr/colorTextPrimary"
                 android:textSize="14sp"
-                tools:text="Super program"/>
+                tools:text="Super follow"/>
 
         </LinearLayout>
 
@@ -109,8 +109,8 @@
             android:id="@+id/type_description"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
             android:layout_marginTop="8dp"
+            android:layout_marginBottom="16dp"
             android:alpha="0.4"
             android:textColor="?attr/colorTextPrimary"
             android:textSize="12sp"

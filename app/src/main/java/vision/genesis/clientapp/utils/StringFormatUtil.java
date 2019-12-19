@@ -134,6 +134,10 @@ public class StringFormatUtil
 		return String.format(Locale.getDefault(), "%s %s", StringFormatUtil.formatCurrencyAmount(baseValue, currency), currency);
 	}
 
+	public static String getPercentString(Double percent) {
+		return String.format(Locale.getDefault(), "%s%%", StringFormatUtil.formatAmount(percent), 0, 2);
+	}
+
 	public static String getChangePercentString(Double first, Double last) {
 		return first == 0 ? "" : String.format(Locale.getDefault(), "%s%%",
 				StringFormatUtil.formatAmount(Math.abs(first != 0 ? 100 / first * (first - last) : 0), 0, 2));

@@ -1,7 +1,5 @@
 package vision.genesis.clientapp.feature.main.follow.create;
 
-import android.content.Context;
-
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 
@@ -19,7 +17,6 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.managers.AssetsManager;
-import vision.genesis.clientapp.managers.SettingsManager;
 import vision.genesis.clientapp.model.CreateProgramModel;
 import vision.genesis.clientapp.model.events.OnCreateProgramSuccessEvent;
 import vision.genesis.clientapp.model.events.OnFollowSettingsConfirmEvent;
@@ -34,12 +31,6 @@ import vision.genesis.clientapp.net.ApiErrorResolver;
 @InjectViewState
 public class CreateFollowPresenter extends MvpPresenter<CreateFollowView>
 {
-	@Inject
-	public Context context;
-
-	@Inject
-	public SettingsManager settingsManager;
-
 	@Inject
 	public AssetsManager assetsManager;
 

@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AccelerateDecelerateInterpolator;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -15,6 +16,7 @@ import androidx.core.widget.NestedScrollView;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
 
+import java.util.List;
 import java.util.Locale;
 import java.util.UUID;
 
@@ -26,18 +28,18 @@ import butterknife.Unbinder;
 import io.swagger.client.model.FollowDetailsFull;
 import io.swagger.client.model.ProfilePublic;
 import io.swagger.client.model.ProgramFollowDetailsFull;
+import io.swagger.client.model.SignalSubscription;
 import timber.log.Timber;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
 import vision.genesis.clientapp.feature.auth.login.LoginActivity;
-import vision.genesis.clientapp.feature.main.copytrading.create_account.CreateCopytradingAccountActivity;
-import vision.genesis.clientapp.feature.main.copytrading.subscription_settings.SubscriptionSettingsActivity;
+import vision.genesis.clientapp.feature.main.copytrading.follow_trades.FollowTradesActivity;
 import vision.genesis.clientapp.feature.main.copytrading.unfollow_trades.UnfollowTradesActivity;
 import vision.genesis.clientapp.feature.main.manager.ManagerDetailsActivity;
 import vision.genesis.clientapp.feature.main.program.ProgramDetailsPagerAdapter;
 import vision.genesis.clientapp.model.ManagerDetailsModel;
-import vision.genesis.clientapp.model.SubscriptionSettingsModel;
 import vision.genesis.clientapp.ui.AvatarView;
+import vision.genesis.clientapp.ui.FollowSubscriberView;
 import vision.genesis.clientapp.ui.PrimaryButton;
 import vision.genesis.clientapp.ui.SocialLinksView;
 import vision.genesis.clientapp.utils.DateTimeUtil;
@@ -106,14 +108,11 @@ public class FollowInfoFragment extends BaseFragment implements FollowInfoView, 
 	@BindView(R.id.label_subscription_volume_fee)
 	public TextView subscriptionVolumeFeeLabel;
 
+	@BindView(R.id.group_my_subscriptions)
+	public LinearLayout groupMySubscriptions;
+
 	@BindView(R.id.button_follow_trades)
 	public PrimaryButton followTradesButton;
-
-	@BindView(R.id.button_edit_subscription)
-	public PrimaryButton editSubscriptionButton;
-
-	@BindView(R.id.button_unfollow_trades)
-	public PrimaryButton unfollowTradesButton;
 
 	@InjectPresenter
 	public FollowInfoPresenter presenter;
@@ -178,15 +177,15 @@ public class FollowInfoFragment extends BaseFragment implements FollowInfoView, 
 		presenter.onShowSubscriptionSettingsClicked(false);
 	}
 
-	@OnClick(R.id.button_edit_subscription)
-	public void onEditSubscriptionClicked() {
-		presenter.onShowSubscriptionSettingsClicked(true);
-	}
-
-	@OnClick(R.id.button_unfollow_trades)
-	public void onUnfollowTradesClicked() {
-		presenter.onUnfollowTradesClicked();
-	}
+//	@OnClick(R.id.button_edit_subscription)
+//	public void onEditSubscriptionClicked() {
+//		presenter.onShowSubscriptionSettingsClicked(true);
+//	}
+//
+//	@OnClick(R.id.button_unfollow_trades)
+//	public void onUnfollowTradesClicked() {
+//		presenter.onUnfollowTradesClicked();
+//	}
 
 	@Nullable
 	@Override
@@ -239,6 +238,22 @@ public class FollowInfoFragment extends BaseFragment implements FollowInfoView, 
 
 		updateFollowInfo(details);
 		updateSubscription(details.getFollowDetails());
+	}
+
+	@Override
+	public void setSubscriptions(List<SignalSubscription> subscriptions) {
+		groupMySubscriptions.removeAllViews();
+		int index = 0;
+		for (SignalSubscription subscription : subscriptions) {
+			FollowSubscriberView subscriptionView = new FollowSubscriberView(getContext());
+			subscriptionView.setData(subscription);
+			groupMySubscriptions.addView(subscriptionView);
+			if (index == subscriptions.size() - 1) {
+				subscriptionView.removeDelimiter();
+			}
+			index++;
+		}
+		groupMySubscriptions.setVisibility(subscriptions.size() > 0 ? View.VISIBLE : View.GONE);
 	}
 
 	private void updateFollowInfo(ProgramFollowDetailsFull details) {
@@ -314,23 +329,16 @@ public class FollowInfoFragment extends BaseFragment implements FollowInfoView, 
 	}
 
 	@Override
-	public void showCreateCopytradingAccountActivity(SubscriptionSettingsModel model) {
+	public void showFollowTradesActivity(UUID followId) {
 		if (getActivity() != null) {
-			CreateCopytradingAccountActivity.startWith(getActivity(), model);
+			FollowTradesActivity.startFrom(getActivity(), followId);
 		}
 	}
 
 	@Override
-	public void showSubscriptionSettings(SubscriptionSettingsModel model, boolean isEdit) {
+	public void showUnfollowTradesActivity(UUID followId, UUID tradingAccountId, String followName) {
 		if (getActivity() != null) {
-			SubscriptionSettingsActivity.startWith(getActivity(), model, isEdit);
-		}
-	}
-
-	@Override
-	public void showUnfollowTradesActivity(UUID programId, String programName) {
-		if (getActivity() != null) {
-			UnfollowTradesActivity.startWith(getActivity(), programId, programName);
+			UnfollowTradesActivity.startWith(getActivity(), followId, tradingAccountId, followName);
 		}
 	}
 }

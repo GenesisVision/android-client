@@ -3,61 +3,39 @@
                 xmlns:app="http://schemas.android.com/apk/res-auto"
                 xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:padding="@dimen/padding">
 
-    <RelativeLayout
-        android:id="@+id/toolbar"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/toolbar_height">
-
-        <ImageView
-            android:id="@+id/button_close"
-            android:layout_width="50dp"
-            android:layout_height="@dimen/toolbar_height"
-            android:layout_centerVertical="true"
-            android:layout_marginStart="8dp"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:padding="10dp"
-            android:tint="?attr/colorTextPrimary"
-            app:srcCompat="@drawable/ic_close_black_24dp"/>
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
         <LinearLayout
+            android:id="@+id/group_step"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:gravity="center"
-            android:orientation="vertical">
+            android:layout_marginBottom="24dp"
+            android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/title"
+                android:id="@+id/step_number"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/subscription_settings"
+                android:text="02"
                 android:textColor="?attr/colorTextPrimary"
                 android:textSize="18sp"/>
 
             <TextView
-                android:id="@+id/program_name"
+                android:id="@+id/step_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:alpha="0.3"
-                android:ellipsize="end"
-                android:lines="1"
+                android:layout_marginStart="12dp"
+                android:text="@string/subscription_settings"
                 android:textColor="?attr/colorTextPrimary"
-                android:textSize="14sp"
-                tools:text="Super program"/>
+                android:textSize="18sp"/>
 
         </LinearLayout>
-
-    </RelativeLayout>
-
-    <LinearLayout
-        android:id="@+id/content"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/toolbar"
-        android:orientation="vertical"
-        android:padding="@dimen/invest_padding">
 
         <TextView
             android:layout_width="wrap_content"
@@ -109,8 +87,8 @@
             android:id="@+id/type_description"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
             android:layout_marginTop="8dp"
+            android:layout_marginBottom="16dp"
             android:alpha="0.4"
             android:textColor="?attr/colorTextPrimary"
             android:textSize="12sp"
@@ -314,27 +292,11 @@
 
     </LinearLayout>
 
-    <RelativeLayout
+    <vision.genesis.clientapp.ui.PrimaryButton
+        android:id="@+id/button_confirm"
         android:layout_width="match_parent"
         android:layout_height="@dimen/button_height"
         android:layout_alignParentBottom="true"
-        android:layout_margin="@dimen/invest_padding">
-
-        <vision.genesis.clientapp.ui.PrimaryButton
-            android:id="@+id/button"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/button_height"
-            android:text="@string/subscribe"/>
-
-        <ProgressBar
-            android:id="@+id/progress_bar"
-            style="?android:attr/progressBarStyleLarge"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:visibility="gone"
-            tools:visibility="visible"/>
-
-    </RelativeLayout>
+        android:text="@string/confirm"/>
 
 </RelativeLayout>

@@ -153,6 +153,6 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/button_height"
         android:layout_alignParentBottom="true"
-        android:text="@string/create_follow"/>
+        android:text="@string/confirm"/>
 
 </RelativeLayout>

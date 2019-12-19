@@ -3,20 +3,26 @@ package vision.genesis.clientapp.feature.main.program.info.follow;
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 import javax.inject.Inject;
 
-import io.swagger.client.model.AttachToSignalProviderInfo;
+import io.swagger.client.model.ItemsViewModelSignalSubscription;
 import io.swagger.client.model.ProgramFollowDetailsFull;
+import io.swagger.client.model.SignalSubscription;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.managers.AuthManager;
 import vision.genesis.clientapp.managers.FollowsManager;
-import vision.genesis.clientapp.model.SubscriptionSettingsModel;
 import vision.genesis.clientapp.model.User;
+import vision.genesis.clientapp.model.events.ShowUnfollowTradesEvent;
 
 /**
  * GenesisVisionAndroid
@@ -36,7 +42,7 @@ public class FollowInfoPresenter extends MvpPresenter<FollowInfoView>
 
 	private Subscription followDetailsSubscription;
 
-	private Subscription signalsInfoSubscription;
+	private Subscription subscriptionsSubscription;
 
 	private UUID followId;
 
@@ -44,13 +50,15 @@ public class FollowInfoPresenter extends MvpPresenter<FollowInfoView>
 
 	private ProgramFollowDetailsFull details;
 
-	private AttachToSignalProviderInfo signalsInfo;
+	private List<SignalSubscription> subscriptions = new ArrayList<>();
 
 	@Override
 	protected void onFirstViewAttach() {
 		super.onFirstViewAttach();
 
 		GenesisVisionApplication.getComponent().inject(this);
+
+		EventBus.getDefault().register(this);
 
 		subscribeToUser();
 		getViewState().showProgress(true);
@@ -67,9 +75,11 @@ public class FollowInfoPresenter extends MvpPresenter<FollowInfoView>
 			followDetailsSubscription.unsubscribe();
 		}
 
-		if (signalsInfoSubscription != null) {
-			signalsInfoSubscription.unsubscribe();
+		if (subscriptionsSubscription != null) {
+			subscriptionsSubscription.unsubscribe();
 		}
+
+		EventBus.getDefault().unregister(this);
 
 		super.onDestroy();
 	}
@@ -81,6 +91,7 @@ public class FollowInfoPresenter extends MvpPresenter<FollowInfoView>
 
 	void onShow() {
 		getFollowDetails();
+		getSubscriptions();
 	}
 
 	void onShowSubscriptionSettingsClicked(boolean isEdit) {
@@ -89,8 +100,8 @@ public class FollowInfoPresenter extends MvpPresenter<FollowInfoView>
 			return;
 		}
 
-		if (details != null) {
-			SubscriptionSettingsModel model = new SubscriptionSettingsModel();
+		if (followId != null) {
+//			SubscriptionSettingsModel model = new SubscriptionSettingsModel();
 
 //			SignalSubscription signalSubscription = followDetails.getPersonalDetails().getSignalSubscriptions().get(0);
 //			try {
@@ -122,14 +133,12 @@ public class FollowInfoPresenter extends MvpPresenter<FollowInfoView>
 //				getViewState().showCreateCopytradingAccountActivity(model);
 //			}
 //			else {
-			getViewState().showSubscriptionSettings(model, isEdit);
+//			getViewState().showSubscriptionSettings(model, isEdit);
 //			}
+			getViewState().showFollowTradesActivity(followId);
 		}
 	}
 
-	void onUnfollowTradesClicked() {
-		getViewState().showUnfollowTradesActivity(followId, details.getPublicInfo().getTitle());
-	}
 
 	private void getFollowDetails() {
 		if (followId != null && followsManager != null) {
@@ -158,6 +167,32 @@ public class FollowInfoPresenter extends MvpPresenter<FollowInfoView>
 		getViewState().showProgress(false);
 	}
 
+	private void getSubscriptions() {
+		if (followId != null && followsManager != null && userLoggedOn) {
+			if (subscriptionsSubscription != null) {
+				subscriptionsSubscription.unsubscribe();
+			}
+			subscriptionsSubscription = followsManager.getSubscriptions(followId)
+					.observeOn(AndroidSchedulers.mainThread())
+					.subscribeOn(Schedulers.io())
+					.subscribe(this::handleSubscriptionsSuccess,
+							this::handleSubscriptionsError);
+		}
+	}
+
+	private void handleSubscriptionsSuccess(ItemsViewModelSignalSubscription response) {
+		subscriptionsSubscription.unsubscribe();
+
+		this.subscriptions = response.getItems();
+
+		getViewState().setSubscriptions(subscriptions);
+	}
+
+	private void handleSubscriptionsError(Throwable throwable) {
+		subscriptionsSubscription.unsubscribe();
+		getViewState().showProgress(false);
+	}
+
 	private void subscribeToUser() {
 		userSubscription = authManager.userSubject
 				.observeOn(AndroidSchedulers.mainThread())
@@ -177,6 +212,7 @@ public class FollowInfoPresenter extends MvpPresenter<FollowInfoView>
 	private void userLoggedOn() {
 		userLoggedOn = true;
 		getViewState().showSubscriptionButtons(true);
+		getSubscriptions();
 	}
 
 	private void userLoggedOff() {
@@ -186,5 +222,10 @@ public class FollowInfoPresenter extends MvpPresenter<FollowInfoView>
 
 	private void handleUserError(Throwable throwable) {
 		userLoggedOff();
+	}
+
+	@Subscribe
+	public void onEventMainThread(ShowUnfollowTradesEvent event) {
+		getViewState().showUnfollowTradesActivity(event.getFollowId(), event.getTradingAccountId(), event.getFollowName());
 	}
 }

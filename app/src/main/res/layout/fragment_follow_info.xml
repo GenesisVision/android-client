@@ -137,16 +137,16 @@
                 android:layout_marginBottom="24dp"
                 android:background="?attr/colorBackground"
                 android:orientation="vertical"
-                android:paddingLeft="@dimen/program_details_padding"
                 android:paddingTop="24dp"
-                android:paddingRight="@dimen/program_details_padding"
                 android:paddingBottom="24dp">
 
                 <TextView
                     android:id="@+id/label_subscription"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/program_details_padding"
                     android:layout_marginTop="8dp"
+                    android:layout_marginEnd="@dimen/program_details_padding"
                     android:text="@string/subscription"
                     android:textColor="?attr/colorTextPrimary"
                     android:textSize="20sp"/>
@@ -154,7 +154,9 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/program_details_padding"
                     android:layout_marginTop="32dp"
+                    android:layout_marginEnd="@dimen/program_details_padding"
                     android:orientation="horizontal">
 
                     <LinearLayout
@@ -197,10 +199,20 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/group_subscription_buttons"
+                    android:id="@+id/group_my_subscriptions"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="32dp"
+                    android:orientation="vertical"
+                    android:visibility="gone"/>
+
+                <LinearLayout
+                    android:id="@+id/group_subscription_buttons"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/program_details_padding"
+                    android:layout_marginTop="32dp"
+                    android:layout_marginEnd="@dimen/program_details_padding"
                     android:orientation="vertical"
                     android:visibility="gone"
                     tools:visibility="visible">
@@ -212,23 +224,6 @@
                         android:layout_marginBottom="16dp"
                         android:text="@string/follow_trades"
                         android:visibility="visible"
-                        tools:visibility="visible"/>
-
-                    <vision.genesis.clientapp.ui.PrimaryButton
-                        android:id="@+id/button_edit_subscription"
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/button_height"
-                        android:layout_marginBottom="16dp"
-                        android:text="@string/edit_subscription"
-                        android:visibility="gone"
-                        tools:visibility="visible"/>
-
-                    <vision.genesis.clientapp.ui.PrimaryButton
-                        android:id="@+id/button_unfollow_trades"
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/button_height"
-                        android:text="@string/unfollow_trades"
-                        android:visibility="gone"
                         tools:visibility="visible"/>
 
                 </LinearLayout>

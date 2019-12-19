@@ -4,11 +4,13 @@ import java.util.UUID;
 
 import io.swagger.client.api.FollowApi;
 import io.swagger.client.api.SignalApi;
+import io.swagger.client.model.AttachToSignalProvider;
 import io.swagger.client.model.DetachFromSignalProvider;
 import io.swagger.client.model.ItemsViewModelFollowDetailsListItem;
+import io.swagger.client.model.ItemsViewModelSignalSubscription;
 import io.swagger.client.model.ItemsViewModelSignalTradingEvent;
+import io.swagger.client.model.ItemsViewModelTradingAccountDetails;
 import io.swagger.client.model.ProgramFollowDetailsFull;
-import io.swagger.client.model.SignalDetachMode;
 import io.swagger.client.model.TradesSignalViewModel;
 import rx.Observable;
 import vision.genesis.clientapp.model.DateRange;
@@ -45,23 +47,21 @@ public class FollowsManager
 		return followApi.getFollowAssetDetails(followId, AuthManager.token.getValue());
 	}
 
-	public Observable<Void> subscribeToProgram(SubscriptionSettingsModel model) {
-		return signalApi.attachSlaveToMasterInternal(AuthManager.token.getValue(), model.getProgramId(), model.getApiModel());
+	public Observable<ItemsViewModelSignalSubscription> getSubscriptions(UUID followId) {
+		return followApi.getFollowSubscriptionsForAsset(followId, AuthManager.token.getValue());
 	}
 
-	public Observable<Void> updateSubscription(SubscriptionSettingsModel model) {
-		return signalApi.updateSubscriptionSettings(AuthManager.token.getValue(), model.getProgramId(), model.getApiModel());
+	public Observable<Void> subscribeToFollow(UUID followId, AttachToSignalProvider model) {
+		return signalApi.attachSlaveToMasterInternal(AuthManager.token.getValue(), followId, model);
 	}
 
-	public Observable<Void> unsubscribeFromProgram(UUID programId, SignalDetachMode unsubscriptionType) {
-		DetachFromSignalProvider model = new DetachFromSignalProvider();
-		model.setMode(unsubscriptionType);
-		return signalApi.detachSlaveFromMasterInternal(AuthManager.token.getValue(), programId, model);
+	public Observable<Void> updateSubscription(UUID followId, SubscriptionSettingsModel model) {
+		return signalApi.updateSubscriptionSettings(AuthManager.token.getValue(), followId, model.getApiModel());
 	}
 
-//	public Observable<CopyTradingAccountsList> getAccounts() {
-//		return copytradingApi.getSignalAssets(AuthManager.token.getValue());
-//	}
+	public Observable<Void> unsubscribeFromFollow(UUID followId, DetachFromSignalProvider model) {
+		return signalApi.detachSlaveFromMasterInternal(AuthManager.token.getValue(), followId, model);
+	}
 
 	public Observable<TradesSignalViewModel> getOpenTrades(String sorting, String symbol, UUID accountId, String accountCurrency, Integer skip, Integer take) {
 		return signalApi.getOpenSignalTrades(AuthManager.token.getValue(), sorting, symbol, accountId, accountCurrency, skip, take);
@@ -77,5 +77,9 @@ public class FollowsManager
 
 	public Observable<ItemsViewModelSignalTradingEvent> getTradingLog(String accountCurrency, Integer skip, Integer take) {
 		return signalApi.getSignalTradingLog(AuthManager.token.getValue(), null, accountCurrency, skip, take);
+	}
+
+	public Observable<ItemsViewModelTradingAccountDetails> getSubscriberAccounts(UUID followId) {
+		return signalApi.getSubscriberAccountsForAsset(followId, AuthManager.token.getValue());
 	}
 }
