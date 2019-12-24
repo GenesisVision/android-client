@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -15,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.arellomobile.mvp.presenter.InjectPresenter;
 
 import java.util.List;
+import java.util.UUID;
 
 import butterknife.BindDimen;
 import butterknife.BindView;
@@ -37,19 +37,12 @@ import vision.genesis.clientapp.ui.common.SimpleSectionedRecyclerViewAdapter;
 
 public class TradingLogFragment extends BaseFragment implements TradingLogView, DashboardPagerAdapter.OnPageVisibilityChanged
 {
-	public static final String LOCATION_COPYTRADING_ACCOUNT = "location_copytrading_account";
+	private static final String EXTRA_ACCOUNT_ID = "extra_account_id";
 
-	public static final String LOCATION_DASHBOARD = "location_dashboard";
-
-	private static final String EXTRA_LOCATION = "extra_location";
-
-	private static final String EXTRA_ACCOUNT_CURRENCY = "extra_account_currency";
-
-	public static TradingLogFragment with(@NonNull String location, @Nullable String accountCurrency) {
+	public static TradingLogFragment with(UUID accountId) {
 		TradingLogFragment tradingLogFragment = new TradingLogFragment();
-		Bundle arguments = new Bundle(2);
-		arguments.putString(EXTRA_LOCATION, location);
-		arguments.putString(EXTRA_ACCOUNT_CURRENCY, accountCurrency);
+		Bundle arguments = new Bundle(1);
+		arguments.putSerializable(EXTRA_ACCOUNT_ID, accountId);
 		tradingLogFragment.setArguments(arguments);
 		return tradingLogFragment;
 	}
@@ -114,11 +107,12 @@ public class TradingLogFragment extends BaseFragment implements TradingLogView, 
 		}
 
 		if (getArguments() != null) {
-			String location = getArguments().getString(EXTRA_LOCATION);
-			String accountCurrency = getArguments().getString(EXTRA_ACCOUNT_CURRENCY);
-			tradingLogPresenter.setData(location, accountCurrency);
+			UUID accountId = (UUID) getArguments().getSerializable(EXTRA_ACCOUNT_ID);
+			if (accountId != null) {
+				tradingLogPresenter.setData(accountId);
 
-			initRecyclerView();
+				initRecyclerView();
+			}
 		}
 		else {
 			Timber.e("Passed empty arguments to %s", getClass().getSimpleName());
@@ -207,8 +201,9 @@ public class TradingLogFragment extends BaseFragment implements TradingLogView, 
 	}
 
 	public void onSwipeRefresh() {
-		if (tradingLogPresenter != null)
+		if (tradingLogPresenter != null) {
 			tradingLogPresenter.onSwipeRefresh();
+		}
 	}
 
 	public void onOffsetChanged(int verticalOffset) {
@@ -220,8 +215,9 @@ public class TradingLogFragment extends BaseFragment implements TradingLogView, 
 	public void onDashboardOffsetChanged(int verticalOffset) {
 		if (dateRangeView != null) {
 			float newY = root.getHeight() - verticalOffset - dateRangeView.getHeight() - filtersMarginBottom;
-			if (newY < filtersMarginTop)
+			if (newY < filtersMarginTop) {
 				newY = filtersMarginTop;
+			}
 			dateRangeView.setY(newY);
 		}
 	}

@@ -46,7 +46,7 @@ public class AmountItem implements Parcelable
 	private Currency currency = null;
 
 	@SerializedName("color")
-	private String color = null;
+	private Color color = null;
 
 	@SerializedName("logo")
 	private String logo = null;
@@ -57,7 +57,7 @@ public class AmountItem implements Parcelable
 	AmountItem(Parcel in) {
 		amount = (Double) in.readValue(null);
 		currency = (Currency) in.readValue(Currency.class.getClassLoader());
-		color = (String) in.readValue(null);
+		color = (Color) in.readValue(Color.class.getClassLoader());
 		logo = (String) in.readValue(null);
 	}
 
@@ -99,7 +99,7 @@ public class AmountItem implements Parcelable
 		this.currency = currency;
 	}
 
-	public AmountItem color(String color) {
+	public AmountItem color(Color color) {
 		this.color = color;
 		return this;
 	}
@@ -110,11 +110,11 @@ public class AmountItem implements Parcelable
 	 * @return color
 	 **/
 	@Schema(description = "")
-	public String getColor() {
+	public Color getColor() {
 		return color;
 	}
 
-	public void setColor(String color) {
+	public void setColor(Color color) {
 		this.color = color;
 	}
 

@@ -16,6 +16,8 @@ import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.google.android.material.tabs.TabLayout;
 
+import java.util.UUID;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -23,6 +25,7 @@ import io.swagger.client.model.PrivateTradingAccountFull;
 import timber.log.Timber;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseSwipeBackActivity;
+import vision.genesis.clientapp.feature.main.copytrading.unfollow_trades.UnfollowTradesActivity;
 import vision.genesis.clientapp.model.TradingAccountDetailsModel;
 import vision.genesis.clientapp.ui.common.DetailsTabView;
 import vision.genesis.clientapp.utils.ImageUtils;
@@ -78,7 +81,7 @@ public class TradingAccountDetailsActivity extends BaseSwipeBackActivity impleme
 	public View tryAgainButton;
 
 	@InjectPresenter
-	TradingAccountPresenter presenter;
+	TradingAccountDetailsPresenter presenter;
 
 	private PrivateTradingAccountFull accountDetails;
 
@@ -96,7 +99,7 @@ public class TradingAccountDetailsActivity extends BaseSwipeBackActivity impleme
 
 	private TabLayout.Tab tradesTab;
 
-	private TradingAccountPagerAdapter pagerAdapter;
+	private TradingAccountDetailsPagerAdapter pagerAdapter;
 
 	private TradingAccountDetailsModel model;
 
@@ -257,7 +260,7 @@ public class TradingAccountDetailsActivity extends BaseSwipeBackActivity impleme
 	}
 
 	private void initViewPager(PrivateTradingAccountFull accountDetails) {
-		pagerAdapter = new TradingAccountPagerAdapter(getSupportFragmentManager(), tabLayout, accountDetails);
+		pagerAdapter = new TradingAccountDetailsPagerAdapter(getSupportFragmentManager(), tabLayout, accountDetails);
 		viewPager.setAdapter(pagerAdapter);
 		viewPager.setOffscreenPageLimit(5);
 
@@ -362,5 +365,10 @@ public class TradingAccountDetailsActivity extends BaseSwipeBackActivity impleme
 	@Override
 	public void setTradesCount(Integer tradesCount) {
 		((DetailsTabView) tradesTab.getCustomView()).setCount(tradesCount);
+	}
+
+	@Override
+	public void showUnfollowTradesActivity(UUID followId, UUID tradingAccountId, String followName) {
+		UnfollowTradesActivity.startWith(this, followId, tradingAccountId, followName);
 	}
 }

@@ -169,6 +169,7 @@ public interface ProgramsApi
 	 * Program profit percent charts
 	 *
 	 * @param id            (required)
+	 * @param authorization (optional)
 	 * @param dateFrom      (optional)
 	 * @param dateTo        (optional)
 	 * @param maxPointCount (optional)
@@ -178,7 +179,7 @@ public interface ProgramsApi
 	 */
 	@GET("v2.0/programs/{id}/charts/profit/percent")
 	Observable<ProgramProfitPercentCharts> getProgramProfitPercentCharts(
-			@retrofit2.http.Path("id") UUID id, @retrofit2.http.Query("DateFrom") DateTime dateFrom, @retrofit2.http.Query("DateTo") DateTime dateTo, @retrofit2.http.Query("MaxPointCount") Integer maxPointCount, @retrofit2.http.Query("Currency") String currency, @retrofit2.http.Query("currencies") List<Object> currencies
+			@retrofit2.http.Path("id") UUID id, @retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("DateFrom") DateTime dateFrom, @retrofit2.http.Query("DateTo") DateTime dateTo, @retrofit2.http.Query("MaxPointCount") Integer maxPointCount, @retrofit2.http.Query("Currency") String currency, @retrofit2.http.Query("currencies") List<Object> currencies
 	);
 
 	/**

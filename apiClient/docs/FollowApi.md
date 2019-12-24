@@ -275,7 +275,7 @@ No authorization required
 
 <a name="getFollowSubscriptionsForAsset"></a>
 # **getFollowSubscriptionsForAsset**
-> ItemsViewModelSignalSubscription getFollowSubscriptionsForAsset(id, authorization)
+> ItemsViewModelSignalSubscription getFollowSubscriptionsForAsset(id, authorization, onlyActive)
 
 Get subscriptions to current asset
 
@@ -289,8 +289,9 @@ Get subscriptions to current asset
 FollowApi apiInstance = new FollowApi();
 UUID id = new UUID(); // UUID | 
 String authorization = "authorization_example"; // String | JWT access token
+Boolean onlyActive = true; // Boolean | 
 try {
-    ItemsViewModelSignalSubscription result = apiInstance.getFollowSubscriptionsForAsset(id, authorization);
+    ItemsViewModelSignalSubscription result = apiInstance.getFollowSubscriptionsForAsset(id, authorization, onlyActive);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling FollowApi#getFollowSubscriptionsForAsset");
@@ -304,6 +305,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | [**UUID**](.md)|  |
  **authorization** | **String**| JWT access token |
+ **onlyActive** | **Boolean**|  | [optional]
 
 ### Return type
 
@@ -320,7 +322,7 @@ No authorization required
 
 <a name="getFollowSubscriptionsForOwnAccount"></a>
 # **getFollowSubscriptionsForOwnAccount**
-> ItemsViewModelSignalSubscription getFollowSubscriptionsForOwnAccount(id, authorization)
+> ItemsViewModelSignalSubscription getFollowSubscriptionsForOwnAccount(id, authorization, onlyActive)
 
 Get subscriptions for my trading account
 
@@ -334,8 +336,9 @@ Get subscriptions for my trading account
 FollowApi apiInstance = new FollowApi();
 UUID id = new UUID(); // UUID | 
 String authorization = "authorization_example"; // String | JWT access token
+Boolean onlyActive = true; // Boolean | 
 try {
-    ItemsViewModelSignalSubscription result = apiInstance.getFollowSubscriptionsForOwnAccount(id, authorization);
+    ItemsViewModelSignalSubscription result = apiInstance.getFollowSubscriptionsForOwnAccount(id, authorization, onlyActive);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling FollowApi#getFollowSubscriptionsForOwnAccount");
@@ -349,6 +352,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | [**UUID**](.md)|  |
  **authorization** | **String**| JWT access token |
+ **onlyActive** | **Boolean**|  | [optional]
 
 ### Return type
 
@@ -365,7 +369,7 @@ No authorization required
 
 <a name="getProfitPercentCharts"></a>
 # **getProfitPercentCharts**
-> FollowProfitPercentCharts getProfitPercentCharts(id, dateFrom, dateTo, maxPointCount, currency, currencies)
+> ProgramProfitPercentCharts getProfitPercentCharts(id, authorization, dateFrom, dateTo, maxPointCount, currency, currencies)
 
 Follow profit percent charts
 
@@ -378,13 +382,14 @@ Follow profit percent charts
 
 FollowApi apiInstance = new FollowApi();
 UUID id = new UUID(); // UUID | 
+String authorization = "authorization_example"; // String | 
 DateTime dateFrom = new DateTime(); // DateTime | 
 DateTime dateTo = new DateTime(); // DateTime | 
 Integer maxPointCount = 56; // Integer | 
 String currency = "currency_example"; // String | 
 List<Object> currencies = null; // List<Object> | 
 try {
-    FollowProfitPercentCharts result = apiInstance.getProfitPercentCharts(id, dateFrom, dateTo, maxPointCount, currency, currencies);
+    ProgramProfitPercentCharts result = apiInstance.getProfitPercentCharts(id, authorization, dateFrom, dateTo, maxPointCount, currency, currencies);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling FollowApi#getProfitPercentCharts");
@@ -397,6 +402,7 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | [**UUID**](.md)|  |
+ **authorization** | **String**|  | [optional]
  **dateFrom** | **DateTime**|  | [optional]
  **dateTo** | **DateTime**|  | [optional]
  **maxPointCount** | **Integer**|  | [optional]
@@ -405,7 +411,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**FollowProfitPercentCharts**](FollowProfitPercentCharts.md)
+[**ProgramProfitPercentCharts**](ProgramProfitPercentCharts.md)
 
 ### Authorization
 

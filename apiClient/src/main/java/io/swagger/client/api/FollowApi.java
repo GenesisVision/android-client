@@ -7,10 +7,10 @@ import java.util.UUID;
 
 import io.swagger.client.model.AbsoluteProfitChart;
 import io.swagger.client.model.AccountBalanceChart;
-import io.swagger.client.model.FollowProfitPercentCharts;
 import io.swagger.client.model.ItemsViewModelFollowDetailsListItem;
 import io.swagger.client.model.ItemsViewModelSignalSubscription;
 import io.swagger.client.model.ProgramFollowDetailsFull;
+import io.swagger.client.model.ProgramProfitPercentCharts;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import rx.Observable;
@@ -99,11 +99,12 @@ public interface FollowApi
 	 *
 	 * @param id            (required)
 	 * @param authorization JWT access token (required)
+	 * @param onlyActive    (optional)
 	 * @return Call&lt;ItemsViewModelSignalSubscription&gt;
 	 */
 	@POST("v2.0/follow/{id}/subscriptions")
 	Observable<ItemsViewModelSignalSubscription> getFollowSubscriptionsForAsset(
-			@retrofit2.http.Path("id") UUID id, @retrofit2.http.Header("Authorization") String authorization
+			@retrofit2.http.Path("id") UUID id, @retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("onlyActive") Boolean onlyActive
 	);
 
 	/**
@@ -111,27 +112,29 @@ public interface FollowApi
 	 *
 	 * @param id            (required)
 	 * @param authorization JWT access token (required)
+	 * @param onlyActive    (optional)
 	 * @return Call&lt;ItemsViewModelSignalSubscription&gt;
 	 */
 	@POST("v2.0/follow/account/own/{id}/subscriptions")
 	Observable<ItemsViewModelSignalSubscription> getFollowSubscriptionsForOwnAccount(
-			@retrofit2.http.Path("id") UUID id, @retrofit2.http.Header("Authorization") String authorization
+			@retrofit2.http.Path("id") UUID id, @retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("onlyActive") Boolean onlyActive
 	);
 
 	/**
 	 * Follow profit percent charts
 	 *
 	 * @param id            (required)
+	 * @param authorization (optional)
 	 * @param dateFrom      (optional)
 	 * @param dateTo        (optional)
 	 * @param maxPointCount (optional)
 	 * @param currency      (optional)
 	 * @param currencies    (optional)
-	 * @return Call&lt;FollowProfitPercentCharts&gt;
+	 * @return Call&lt;ProgramProfitPercentCharts&gt;
 	 */
 	@GET("v2.0/follow/{id}/charts/profit/percent")
-	Observable<FollowProfitPercentCharts> getProfitPercentCharts(
-			@retrofit2.http.Path("id") UUID id, @retrofit2.http.Query("DateFrom") DateTime dateFrom, @retrofit2.http.Query("DateTo") DateTime dateTo, @retrofit2.http.Query("MaxPointCount") Integer maxPointCount, @retrofit2.http.Query("Currency") String currency, @retrofit2.http.Query("currencies") List<Object> currencies
+	Observable<ProgramProfitPercentCharts> getProfitPercentCharts(
+			@retrofit2.http.Path("id") UUID id, @retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("DateFrom") DateTime dateFrom, @retrofit2.http.Query("DateTo") DateTime dateTo, @retrofit2.http.Query("MaxPointCount") Integer maxPointCount, @retrofit2.http.Query("Currency") String currency, @retrofit2.http.Query("currencies") List<Object> currencies
 	);
 
 	/**

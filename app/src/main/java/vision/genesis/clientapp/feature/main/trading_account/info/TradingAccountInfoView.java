@@ -4,8 +4,12 @@ import com.arellomobile.mvp.MvpView;
 import com.arellomobile.mvp.viewstate.strategy.AddToEndSingleStrategy;
 import com.arellomobile.mvp.viewstate.strategy.StateStrategyType;
 
+import java.util.List;
+
 import io.swagger.client.model.PrivateTradingAccountFull;
+import io.swagger.client.model.SignalSubscription;
 import vision.genesis.clientapp.model.CreateProgramModel;
+import vision.genesis.clientapp.model.TradingAccountDetailsModel;
 import vision.genesis.clientapp.model.TransferFundsModel;
 
 /**
@@ -17,6 +21,8 @@ interface TradingAccountInfoView extends MvpView
 {
 	@StateStrategyType(AddToEndSingleStrategy.class)
 	void setAccountDetails(PrivateTradingAccountFull accountDetails);
+
+	void showCopytrading(List<SignalSubscription> masters);
 
 	@StateStrategyType(AddToEndSingleStrategy.class)
 	void showProgress(boolean show);
@@ -30,4 +36,6 @@ interface TradingAccountInfoView extends MvpView
 	void showLoginActivity();
 
 	void showTransferFundsActivity(TransferFundsModel model);
+
+	void showCopytradingDetailsActivity(TradingAccountDetailsModel model);
 }

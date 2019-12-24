@@ -66,6 +66,9 @@ public class PrivateTradingAccountOwnerActions implements Parcelable
 	@SerializedName("canEditSignalProviderSettings")
 	private Boolean canEditSignalProviderSettings = null;
 
+	@SerializedName("isEnoughMoneyToCreateProgram")
+	private Boolean isEnoughMoneyToCreateProgram = null;
+
 	public PrivateTradingAccountOwnerActions() {
 	}
 
@@ -79,6 +82,7 @@ public class PrivateTradingAccountOwnerActions implements Parcelable
 		canMakeProgramFromSignalProvider = (Boolean) in.readValue(null);
 		canMakeSignalProviderFromProgram = (Boolean) in.readValue(null);
 		canEditSignalProviderSettings = (Boolean) in.readValue(null);
+		isEnoughMoneyToCreateProgram = (Boolean) in.readValue(null);
 	}
 
 	public PrivateTradingAccountOwnerActions canClose(Boolean canClose) {
@@ -252,6 +256,25 @@ public class PrivateTradingAccountOwnerActions implements Parcelable
 		this.canEditSignalProviderSettings = canEditSignalProviderSettings;
 	}
 
+	public PrivateTradingAccountOwnerActions isEnoughMoneyToCreateProgram(Boolean isEnoughMoneyToCreateProgram) {
+		this.isEnoughMoneyToCreateProgram = isEnoughMoneyToCreateProgram;
+		return this;
+	}
+
+	/**
+	 * Get isEnoughMoneyToCreateProgram
+	 *
+	 * @return isEnoughMoneyToCreateProgram
+	 **/
+	@Schema(description = "")
+	public Boolean isIsEnoughMoneyToCreateProgram() {
+		return isEnoughMoneyToCreateProgram;
+	}
+
+	public void setIsEnoughMoneyToCreateProgram(Boolean isEnoughMoneyToCreateProgram) {
+		this.isEnoughMoneyToCreateProgram = isEnoughMoneyToCreateProgram;
+	}
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -269,12 +292,13 @@ public class PrivateTradingAccountOwnerActions implements Parcelable
 				Objects.equals(this.canMakeSignalProviderFromPrivateExternalTradingAccount, privateTradingAccountOwnerActions.canMakeSignalProviderFromPrivateExternalTradingAccount) &&
 				Objects.equals(this.canMakeProgramFromSignalProvider, privateTradingAccountOwnerActions.canMakeProgramFromSignalProvider) &&
 				Objects.equals(this.canMakeSignalProviderFromProgram, privateTradingAccountOwnerActions.canMakeSignalProviderFromProgram) &&
-				Objects.equals(this.canEditSignalProviderSettings, privateTradingAccountOwnerActions.canEditSignalProviderSettings);
+				Objects.equals(this.canEditSignalProviderSettings, privateTradingAccountOwnerActions.canEditSignalProviderSettings) &&
+				Objects.equals(this.isEnoughMoneyToCreateProgram, privateTradingAccountOwnerActions.isEnoughMoneyToCreateProgram);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(canClose, canChangePassword, canTransferMoney, canMakeProgramFromPrivateTradingAccount, canMakeSignalProviderFromPrivateTradingAccount, canMakeSignalProviderFromPrivateExternalTradingAccount, canMakeProgramFromSignalProvider, canMakeSignalProviderFromProgram, canEditSignalProviderSettings);
+		return Objects.hash(canClose, canChangePassword, canTransferMoney, canMakeProgramFromPrivateTradingAccount, canMakeSignalProviderFromPrivateTradingAccount, canMakeSignalProviderFromPrivateExternalTradingAccount, canMakeProgramFromSignalProvider, canMakeSignalProviderFromProgram, canEditSignalProviderSettings, isEnoughMoneyToCreateProgram);
 	}
 
 	@Override
@@ -291,6 +315,7 @@ public class PrivateTradingAccountOwnerActions implements Parcelable
 		sb.append("    canMakeProgramFromSignalProvider: ").append(toIndentedString(canMakeProgramFromSignalProvider)).append("\n");
 		sb.append("    canMakeSignalProviderFromProgram: ").append(toIndentedString(canMakeSignalProviderFromProgram)).append("\n");
 		sb.append("    canEditSignalProviderSettings: ").append(toIndentedString(canEditSignalProviderSettings)).append("\n");
+		sb.append("    isEnoughMoneyToCreateProgram: ").append(toIndentedString(isEnoughMoneyToCreateProgram)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}
@@ -316,6 +341,7 @@ public class PrivateTradingAccountOwnerActions implements Parcelable
 		out.writeValue(canMakeProgramFromSignalProvider);
 		out.writeValue(canMakeSignalProviderFromProgram);
 		out.writeValue(canEditSignalProviderSettings);
+		out.writeValue(isEnoughMoneyToCreateProgram);
 	}
 
 	public int describeContents() {

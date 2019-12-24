@@ -13,3 +13,4 @@ Name | Type | Description | Notes
 **canMakeProgramFromSignalProvider** | **Boolean** |  |  [optional]
 **canMakeSignalProviderFromProgram** | **Boolean** |  |  [optional]
 **canEditSignalProviderSettings** | **Boolean** |  |  [optional]
+**isEnoughMoneyToCreateProgram** | **Boolean** |  |  [optional]

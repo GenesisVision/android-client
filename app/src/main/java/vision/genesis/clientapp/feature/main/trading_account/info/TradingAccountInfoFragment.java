@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -15,6 +16,7 @@ import com.facebook.drawee.view.SimpleDraweeView;
 
 import org.joda.time.DateTime;
 
+import java.util.List;
 import java.util.Locale;
 
 import butterknife.BindDimen;
@@ -23,18 +25,22 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 import io.swagger.client.model.PrivateTradingAccountFull;
+import io.swagger.client.model.SignalSubscription;
 import timber.log.Timber;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
 import vision.genesis.clientapp.feature.auth.login.LoginActivity;
+import vision.genesis.clientapp.feature.main.copytrading.details.CopytradingDetailsActivity;
 import vision.genesis.clientapp.feature.main.follow.create.CreateFollowActivity;
 import vision.genesis.clientapp.feature.main.program.create.CreateProgramActivity;
-import vision.genesis.clientapp.feature.main.trading_account.TradingAccountPagerAdapter;
+import vision.genesis.clientapp.feature.main.trading_account.TradingAccountDetailsPagerAdapter;
 import vision.genesis.clientapp.feature.main.wallet.transfer_funds.TransferFundsActivity;
 import vision.genesis.clientapp.model.CreateProgramModel;
+import vision.genesis.clientapp.model.TradingAccountDetailsModel;
 import vision.genesis.clientapp.model.TransferFundsModel;
 import vision.genesis.clientapp.ui.AccountAgeView;
 import vision.genesis.clientapp.ui.PrimaryButton;
+import vision.genesis.clientapp.ui.SignalProviderView;
 import vision.genesis.clientapp.utils.ImageUtils;
 import vision.genesis.clientapp.utils.StringFormatUtil;
 import vision.genesis.clientapp.utils.TypefaceUtil;
@@ -44,7 +50,7 @@ import vision.genesis.clientapp.utils.TypefaceUtil;
  * Created by Vitaly on 28/11/2019.
  */
 
-public class TradingAccountInfoFragment extends BaseFragment implements TradingAccountInfoView, TradingAccountPagerAdapter.OnPageVisibilityChanged
+public class TradingAccountInfoFragment extends BaseFragment implements TradingAccountInfoView, TradingAccountDetailsPagerAdapter.OnPageVisibilityChanged
 {
 	private static String EXTRA_ACCOUNT_DETAILS = "extra_account_details";
 
@@ -121,6 +127,25 @@ public class TradingAccountInfoFragment extends BaseFragment implements TradingA
 	public PrimaryButton createFollowButton;
 
 
+	@BindView(R.id.group_subscriptions)
+	public ViewGroup subscriptionsGroup;
+
+	@BindView(R.id.label_subscriptions)
+	public TextView labelSubscriptions;
+
+	@BindView(R.id.button_subscriptions_details)
+	public TextView subscriptionsDetailsButton;
+
+	@BindView(R.id.subscriptions_info_active)
+	public TextView subscriptionsInfoActive;
+
+	@BindView(R.id.subscriptions_info_inactive)
+	public TextView subscriptionsInfoInactive;
+
+	@BindView(R.id.group_my_subscriptions)
+	public LinearLayout mySubscriptionsGroup;
+
+
 	@InjectPresenter
 	public TradingAccountInfoPresenter presenter;
 
@@ -156,6 +181,11 @@ public class TradingAccountInfoFragment extends BaseFragment implements TradingA
 		presenter.onCreateFollowClicked();
 	}
 
+	@OnClick(R.id.button_subscriptions_details)
+	public void onSubscriptionsDetailsClicked() {
+		presenter.onSubscriptionsDetailsClicked();
+	}
+
 	@Nullable
 	@Override
 	public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -167,6 +197,8 @@ public class TradingAccountInfoFragment extends BaseFragment implements TradingA
 		super.onViewCreated(view, savedInstanceState);
 
 		unbinder = ButterKnife.bind(this, view);
+
+		withdrawButton.setEmpty();
 
 		if (getArguments() != null) {
 			accountDetails = getArguments().getParcelable(EXTRA_ACCOUNT_DETAILS);
@@ -206,6 +238,9 @@ public class TradingAccountInfoFragment extends BaseFragment implements TradingA
 
 		labelFollow.setTypeface(TypefaceUtil.semibold());
 
+		labelSubscriptions.setTypeface(TypefaceUtil.semibold());
+		subscriptionsDetailsButton.setTypeface(TypefaceUtil.semibold());
+
 		labelLeverage.setText(labelLeverage.getText().toString().toLowerCase());
 		labelCurrency.setText(labelCurrency.getText().toString().toLowerCase());
 		labelAge.setText(labelAge.getText().toString().toLowerCase());
@@ -242,6 +277,42 @@ public class TradingAccountInfoFragment extends BaseFragment implements TradingA
 		this.currency.setText(currency);
 		this.leverage.setText(String.format(Locale.getDefault(), "1:%d", leverage));
 		this.age.setCreationDate(creationDate);
+	}
+
+	@Override
+	public void showCopytrading(List<SignalSubscription> masters) {
+		subscriptionsGroup.setVisibility(View.VISIBLE);
+		mySubscriptionsGroup.removeAllViews();
+
+		int index = 0;
+		int active = 0;
+		int inactive = 0;
+		for (SignalSubscription master : masters) {
+			if (master.getStatus().toLowerCase().equals("active")) {
+				active++;
+				SignalProviderView subscriptionView = new SignalProviderView(getContext());
+				subscriptionView.setData(master);
+				mySubscriptionsGroup.addView(subscriptionView);
+				if (index == masters.size() - 1) {
+					subscriptionView.removeDelimiter();
+				}
+				index++;
+			}
+			else {
+				inactive++;
+			}
+		}
+		mySubscriptionsGroup.setVisibility(active > 0 ? View.VISIBLE : View.GONE);
+
+		subscriptionsInfoActive.setText(String.format(Locale.getDefault(), getString(R.string.template_subscriptions_info_active),
+				active,
+				getResources().getQuantityString(R.plurals.follows, active)));
+		subscriptionsInfoActive.setVisibility(active > 0 ? View.VISIBLE : View.GONE);
+
+		subscriptionsInfoInactive.setText(String.format(Locale.getDefault(), getString(R.string.template_subscriptions_info_inactive),
+				inactive,
+				getResources().getQuantityString(R.plurals.follows, inactive)));
+		subscriptionsInfoInactive.setVisibility(inactive > 0 ? View.VISIBLE : View.GONE);
 	}
 
 	@Override
@@ -290,6 +361,13 @@ public class TradingAccountInfoFragment extends BaseFragment implements TradingA
 	public void showTransferFundsActivity(TransferFundsModel model) {
 		if (getActivity() != null) {
 			TransferFundsActivity.startWith(getActivity(), model);
+		}
+	}
+
+	@Override
+	public void showCopytradingDetailsActivity(TradingAccountDetailsModel model) {
+		if (getActivity() != null) {
+			CopytradingDetailsActivity.startWith(getActivity(), model);
 		}
 	}
 }

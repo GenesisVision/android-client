@@ -21,6 +21,8 @@ import com.google.gson.annotations.SerializedName;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 
+import org.joda.time.DateTime;
+
 import java.io.IOException;
 import java.util.Objects;
 
@@ -50,14 +52,29 @@ public class SignalSubscription implements Parcelable
 	@SerializedName("asset")
 	private AssetDetails asset = null;
 
+	@SerializedName("status")
+	private String status = null;
+
+	@SerializedName("subscriptionDate")
+	private DateTime subscriptionDate = null;
+
+	@SerializedName("unsubscriptionDate")
+	private DateTime unsubscriptionDate = null;
+
 	@SerializedName("hasSignalAccount")
 	private Boolean hasSignalAccount = null;
 
 	@SerializedName("hasActiveSubscription")
 	private Boolean hasActiveSubscription = null;
 
+	@SerializedName("isExternal")
+	private Boolean isExternal = null;
+
 	@SerializedName("mode")
 	private SubscriptionMode mode = null;
+
+	@SerializedName("detachMode")
+	private DetachModeEnum detachMode = null;
 
 	@SerializedName("percent")
 	private Double percent = null;
@@ -83,9 +100,14 @@ public class SignalSubscription implements Parcelable
 	SignalSubscription(Parcel in) {
 		subscriberInfo = (SignalSubscriberInfo) in.readValue(SignalSubscriberInfo.class.getClassLoader());
 		asset = (AssetDetails) in.readValue(AssetDetails.class.getClassLoader());
+		status = (String) in.readValue(null);
+		subscriptionDate = (DateTime) in.readValue(DateTime.class.getClassLoader());
+		unsubscriptionDate = (DateTime) in.readValue(DateTime.class.getClassLoader());
 		hasSignalAccount = (Boolean) in.readValue(null);
 		hasActiveSubscription = (Boolean) in.readValue(null);
+		isExternal = (Boolean) in.readValue(null);
 		mode = (SubscriptionMode) in.readValue(SubscriptionMode.class.getClassLoader());
+		detachMode = (DetachModeEnum) in.readValue(null);
 		percent = (Double) in.readValue(null);
 		openTolerancePercent = (Double) in.readValue(null);
 		fixedVolume = (Double) in.readValue(null);
@@ -132,6 +154,63 @@ public class SignalSubscription implements Parcelable
 		this.asset = asset;
 	}
 
+	public SignalSubscription status(String status) {
+		this.status = status;
+		return this;
+	}
+
+	/**
+	 * Get status
+	 *
+	 * @return status
+	 **/
+	@Schema(description = "")
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public SignalSubscription subscriptionDate(DateTime subscriptionDate) {
+		this.subscriptionDate = subscriptionDate;
+		return this;
+	}
+
+	/**
+	 * Get subscriptionDate
+	 *
+	 * @return subscriptionDate
+	 **/
+	@Schema(description = "")
+	public DateTime getSubscriptionDate() {
+		return subscriptionDate;
+	}
+
+	public void setSubscriptionDate(DateTime subscriptionDate) {
+		this.subscriptionDate = subscriptionDate;
+	}
+
+	public SignalSubscription unsubscriptionDate(DateTime unsubscriptionDate) {
+		this.unsubscriptionDate = unsubscriptionDate;
+		return this;
+	}
+
+	/**
+	 * Get unsubscriptionDate
+	 *
+	 * @return unsubscriptionDate
+	 **/
+	@Schema(description = "")
+	public DateTime getUnsubscriptionDate() {
+		return unsubscriptionDate;
+	}
+
+	public void setUnsubscriptionDate(DateTime unsubscriptionDate) {
+		this.unsubscriptionDate = unsubscriptionDate;
+	}
+
 	public SignalSubscription hasSignalAccount(Boolean hasSignalAccount) {
 		this.hasSignalAccount = hasSignalAccount;
 		return this;
@@ -170,6 +249,25 @@ public class SignalSubscription implements Parcelable
 		this.hasActiveSubscription = hasActiveSubscription;
 	}
 
+	public SignalSubscription isExternal(Boolean isExternal) {
+		this.isExternal = isExternal;
+		return this;
+	}
+
+	/**
+	 * Get isExternal
+	 *
+	 * @return isExternal
+	 **/
+	@Schema(description = "")
+	public Boolean isIsExternal() {
+		return isExternal;
+	}
+
+	public void setIsExternal(Boolean isExternal) {
+		this.isExternal = isExternal;
+	}
+
 	public SignalSubscription mode(SubscriptionMode mode) {
 		this.mode = mode;
 		return this;
@@ -187,6 +285,25 @@ public class SignalSubscription implements Parcelable
 
 	public void setMode(SubscriptionMode mode) {
 		this.mode = mode;
+	}
+
+	public SignalSubscription detachMode(DetachModeEnum detachMode) {
+		this.detachMode = detachMode;
+		return this;
+	}
+
+	/**
+	 * Get detachMode
+	 *
+	 * @return detachMode
+	 **/
+	@Schema(description = "")
+	public DetachModeEnum getDetachMode() {
+		return detachMode;
+	}
+
+	public void setDetachMode(DetachModeEnum detachMode) {
+		this.detachMode = detachMode;
 	}
 
 	public SignalSubscription percent(Double percent) {
@@ -303,6 +420,7 @@ public class SignalSubscription implements Parcelable
 		this.totalVolume = totalVolume;
 	}
 
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -314,9 +432,14 @@ public class SignalSubscription implements Parcelable
 		SignalSubscription signalSubscription = (SignalSubscription) o;
 		return Objects.equals(this.subscriberInfo, signalSubscription.subscriberInfo) &&
 				Objects.equals(this.asset, signalSubscription.asset) &&
+				Objects.equals(this.status, signalSubscription.status) &&
+				Objects.equals(this.subscriptionDate, signalSubscription.subscriptionDate) &&
+				Objects.equals(this.unsubscriptionDate, signalSubscription.unsubscriptionDate) &&
 				Objects.equals(this.hasSignalAccount, signalSubscription.hasSignalAccount) &&
 				Objects.equals(this.hasActiveSubscription, signalSubscription.hasActiveSubscription) &&
+				Objects.equals(this.isExternal, signalSubscription.isExternal) &&
 				Objects.equals(this.mode, signalSubscription.mode) &&
+				Objects.equals(this.detachMode, signalSubscription.detachMode) &&
 				Objects.equals(this.percent, signalSubscription.percent) &&
 				Objects.equals(this.openTolerancePercent, signalSubscription.openTolerancePercent) &&
 				Objects.equals(this.fixedVolume, signalSubscription.fixedVolume) &&
@@ -327,8 +450,9 @@ public class SignalSubscription implements Parcelable
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(subscriberInfo, asset, hasSignalAccount, hasActiveSubscription, mode, percent, openTolerancePercent, fixedVolume, fixedCurrency, totalProfit, totalVolume);
+		return Objects.hash(subscriberInfo, asset, status, subscriptionDate, unsubscriptionDate, hasSignalAccount, hasActiveSubscription, isExternal, mode, detachMode, percent, openTolerancePercent, fixedVolume, fixedCurrency, totalProfit, totalVolume);
 	}
+
 
 	@Override
 	public String toString() {
@@ -337,9 +461,14 @@ public class SignalSubscription implements Parcelable
 
 		sb.append("    subscriberInfo: ").append(toIndentedString(subscriberInfo)).append("\n");
 		sb.append("    asset: ").append(toIndentedString(asset)).append("\n");
+		sb.append("    status: ").append(toIndentedString(status)).append("\n");
+		sb.append("    subscriptionDate: ").append(toIndentedString(subscriptionDate)).append("\n");
+		sb.append("    unsubscriptionDate: ").append(toIndentedString(unsubscriptionDate)).append("\n");
 		sb.append("    hasSignalAccount: ").append(toIndentedString(hasSignalAccount)).append("\n");
 		sb.append("    hasActiveSubscription: ").append(toIndentedString(hasActiveSubscription)).append("\n");
+		sb.append("    isExternal: ").append(toIndentedString(isExternal)).append("\n");
 		sb.append("    mode: ").append(toIndentedString(mode)).append("\n");
+		sb.append("    detachMode: ").append(toIndentedString(detachMode)).append("\n");
 		sb.append("    percent: ").append(toIndentedString(percent)).append("\n");
 		sb.append("    openTolerancePercent: ").append(toIndentedString(openTolerancePercent)).append("\n");
 		sb.append("    fixedVolume: ").append(toIndentedString(fixedVolume)).append("\n");
@@ -361,12 +490,18 @@ public class SignalSubscription implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
+
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(subscriberInfo);
 		out.writeValue(asset);
+		out.writeValue(status);
+		out.writeValue(subscriptionDate);
+		out.writeValue(unsubscriptionDate);
 		out.writeValue(hasSignalAccount);
 		out.writeValue(hasActiveSubscription);
+		out.writeValue(isExternal);
 		out.writeValue(mode);
+		out.writeValue(detachMode);
 		out.writeValue(percent);
 		out.writeValue(openTolerancePercent);
 		out.writeValue(fixedVolume);
@@ -377,6 +512,55 @@ public class SignalSubscription implements Parcelable
 
 	public int describeContents() {
 		return 0;
+	}
+
+	/**
+	 * Gets or Sets detachMode
+	 */
+	@JsonAdapter(DetachModeEnum.Adapter.class)
+	public enum DetachModeEnum
+	{
+		NONE("None"),
+		PROVIDERCLOSEONLY("ProviderCloseOnly"),
+		CLOSEALLIMMEDIATELY("CloseAllImmediately");
+
+		public static DetachModeEnum fromValue(String text) {
+			for (DetachModeEnum b : DetachModeEnum.values()) {
+				if (String.valueOf(b.value).equals(text)) {
+					return b;
+				}
+			}
+			return null;
+		}
+
+		private String value;
+
+		DetachModeEnum(String value) {
+			this.value = value;
+		}
+
+		public String getValue() {
+			return value;
+		}
+
+		@Override
+		public String toString() {
+			return String.valueOf(value);
+		}
+
+		public static class Adapter extends TypeAdapter<DetachModeEnum>
+		{
+			@Override
+			public void write(final JsonWriter jsonWriter, final DetachModeEnum enumeration) throws IOException {
+				jsonWriter.value(enumeration.getValue());
+			}
+
+			@Override
+			public DetachModeEnum read(final JsonReader jsonReader) throws IOException {
+				String value = jsonReader.nextString();
+				return DetachModeEnum.fromValue(String.valueOf(value));
+			}
+		}
 	}
 
 	/**

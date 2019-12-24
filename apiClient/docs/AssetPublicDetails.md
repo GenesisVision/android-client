@@ -11,3 +11,4 @@ Name | Type | Description | Notes
 **creationDate** | [**DateTime**](DateTime.md) |  |  [optional]
 **status** | **String** |  |  [optional]
 **isOwnAsset** | **Boolean** |  |  [optional]
+**typeExt** | [**AssetTypeExt**](AssetTypeExt.md) |  |  [optional]

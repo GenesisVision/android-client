@@ -24,7 +24,7 @@ import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
 import vision.genesis.clientapp.feature.main.program.open_positions.OpenPositionDetailsDialog;
 import vision.genesis.clientapp.feature.main.program.open_positions.OpenPositionsListAdapter;
-import vision.genesis.clientapp.feature.main.trading_account.TradingAccountPagerAdapter;
+import vision.genesis.clientapp.feature.main.trading_account.TradingAccountDetailsPagerAdapter;
 import vision.genesis.clientapp.ui.common.SimpleSectionedRecyclerViewAdapter;
 
 /**
@@ -32,7 +32,7 @@ import vision.genesis.clientapp.ui.common.SimpleSectionedRecyclerViewAdapter;
  * Created by Vitaly on 28/11/2019.
  */
 
-public class TradingAccountOpenPositionsFragment extends BaseFragment implements TradingAccountOpenPositionsView, TradingAccountPagerAdapter.OnPageVisibilityChanged
+public class TradingAccountOpenPositionsFragment extends BaseFragment implements TradingAccountOpenPositionsView, TradingAccountDetailsPagerAdapter.OnPageVisibilityChanged
 {
 	private static final String EXTRA_ACCOUNT_ID = "extra_account_id";
 

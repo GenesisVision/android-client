@@ -54,6 +54,9 @@ public class DashboardTradingAssetPublicDetails implements Parcelable
 	@SerializedName("programDetails")
 	private ProgramAssetDetails programDetails = null;
 
+	@SerializedName("fundDetails")
+	private FundAssetDetails fundDetails = null;
+
 	public DashboardTradingAssetPublicDetails() {
 	}
 
@@ -63,6 +66,7 @@ public class DashboardTradingAssetPublicDetails implements Parcelable
 		title = (String) in.readValue(null);
 		url = (String) in.readValue(null);
 		programDetails = (ProgramAssetDetails) in.readValue(ProgramAssetDetails.class.getClassLoader());
+		fundDetails = (FundAssetDetails) in.readValue(FundAssetDetails.class.getClassLoader());
 	}
 
 	public DashboardTradingAssetPublicDetails logo(String logo) {
@@ -160,6 +164,25 @@ public class DashboardTradingAssetPublicDetails implements Parcelable
 		this.programDetails = programDetails;
 	}
 
+	public DashboardTradingAssetPublicDetails fundDetails(FundAssetDetails fundDetails) {
+		this.fundDetails = fundDetails;
+		return this;
+	}
+
+	/**
+	 * Get fundDetails
+	 *
+	 * @return fundDetails
+	 **/
+	@Schema(description = "")
+	public FundAssetDetails getFundDetails() {
+		return fundDetails;
+	}
+
+	public void setFundDetails(FundAssetDetails fundDetails) {
+		this.fundDetails = fundDetails;
+	}
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -173,12 +196,13 @@ public class DashboardTradingAssetPublicDetails implements Parcelable
 				Objects.equals(this.color, dashboardTradingAssetPublicDetails.color) &&
 				Objects.equals(this.title, dashboardTradingAssetPublicDetails.title) &&
 				Objects.equals(this.url, dashboardTradingAssetPublicDetails.url) &&
-				Objects.equals(this.programDetails, dashboardTradingAssetPublicDetails.programDetails);
+				Objects.equals(this.programDetails, dashboardTradingAssetPublicDetails.programDetails) &&
+				Objects.equals(this.fundDetails, dashboardTradingAssetPublicDetails.fundDetails);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(logo, color, title, url, programDetails);
+		return Objects.hash(logo, color, title, url, programDetails, fundDetails);
 	}
 
 	@Override
@@ -191,6 +215,7 @@ public class DashboardTradingAssetPublicDetails implements Parcelable
 		sb.append("    title: ").append(toIndentedString(title)).append("\n");
 		sb.append("    url: ").append(toIndentedString(url)).append("\n");
 		sb.append("    programDetails: ").append(toIndentedString(programDetails)).append("\n");
+		sb.append("    fundDetails: ").append(toIndentedString(fundDetails)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}
@@ -212,6 +237,7 @@ public class DashboardTradingAssetPublicDetails implements Parcelable
 		out.writeValue(title);
 		out.writeValue(url);
 		out.writeValue(programDetails);
+		out.writeValue(fundDetails);
 	}
 
 	public int describeContents() {

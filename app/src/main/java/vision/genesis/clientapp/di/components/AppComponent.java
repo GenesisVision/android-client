@@ -25,11 +25,13 @@ import vision.genesis.clientapp.feature.main.about_levels.AboutLevelsPresenter;
 import vision.genesis.clientapp.feature.main.app_update.AppUpdateDialog;
 import vision.genesis.clientapp.feature.main.assets.AssetsPresenter;
 import vision.genesis.clientapp.feature.main.copytrading.create_account.CreateCopytradingAccountPresenter;
+import vision.genesis.clientapp.feature.main.copytrading.details.CopytradingDetailsPresenter;
 import vision.genesis.clientapp.feature.main.copytrading.follow_trades.FollowTradesPresenter;
 import vision.genesis.clientapp.feature.main.copytrading.open_trade_details.OpenTradeDetailsPresenter;
 import vision.genesis.clientapp.feature.main.copytrading.open_trades.CopytradingOpenTradesPresenter;
 import vision.genesis.clientapp.feature.main.copytrading.select_account.SelectSubscriptionAccountPresenter;
 import vision.genesis.clientapp.feature.main.copytrading.subscription_settings.SubscriptionSettingsPresenter;
+import vision.genesis.clientapp.feature.main.copytrading.subscriptions.CopytradingSubscriptionsPresenter;
 import vision.genesis.clientapp.feature.main.copytrading.trades_history.CopytradingTradesHistoryPresenter;
 import vision.genesis.clientapp.feature.main.copytrading.trading_log.TradingLogPresenter;
 import vision.genesis.clientapp.feature.main.copytrading.unfollow_trades.UnfollowTradesPresenter;
@@ -103,7 +105,7 @@ import vision.genesis.clientapp.feature.main.search.SearchPresenter;
 import vision.genesis.clientapp.feature.main.settings.SettingsPresenter;
 import vision.genesis.clientapp.feature.main.settings.security.SecurityPresenter;
 import vision.genesis.clientapp.feature.main.settings.security.change_password.ChangePasswordPresenter;
-import vision.genesis.clientapp.feature.main.trading_account.TradingAccountPresenter;
+import vision.genesis.clientapp.feature.main.trading_account.TradingAccountDetailsPresenter;
 import vision.genesis.clientapp.feature.main.trading_account.balance.TradingAccountBalancePresenter;
 import vision.genesis.clientapp.feature.main.trading_account.change_broker.ChangeBrokerPresenter;
 import vision.genesis.clientapp.feature.main.trading_account.change_password.ChangeTradingAccountPasswordPresenter;
@@ -351,7 +353,7 @@ public interface AppComponent
 
 	void inject(OwnerInfoPresenter ownerInfoPresenter);
 
-	void inject(TradingAccountPresenter tradingAccountPresenter);
+	void inject(TradingAccountDetailsPresenter tradingAccountDetailsPresenter);
 
 	void inject(TradingAccountInfoPresenter tradingAccountInfoPresenter);
 
@@ -398,4 +400,8 @@ public interface AppComponent
 	void inject(FollowTradesPresenter followTradesPresenter);
 
 	void inject(SelectSubscriptionAccountPresenter selectSubscriptionAccountPresenter);
+
+	void inject(CopytradingDetailsPresenter copytradingDetailsPresenter);
+
+	void inject(CopytradingSubscriptionsPresenter copytradingSubscriptionsPresenter);
 }

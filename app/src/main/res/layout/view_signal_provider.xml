@@ -17,13 +17,13 @@
             android:id="@+id/logo"
             android:layout_width="70dp"
             android:layout_height="45dp"
-            android:layout_centerVertical="true"/>
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="10dp"/>
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginStart="10dp"
             android:layout_toStartOf="@+id/button_unfollow"
             android:layout_toEndOf="@+id/logo"
             android:orientation="vertical">
@@ -37,7 +37,7 @@
                 android:lines="1"
                 android:textColor="?attr/colorTextPrimary"
                 android:textSize="14sp"
-                tools:text="Janus Capital Group"/>
+                tools:text="Super program"/>
 
         </LinearLayout>
 
@@ -58,7 +58,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/group_top"
         android:layout_marginStart="@dimen/padding"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="@dimen/padding"
         android:orientation="horizontal">
 
@@ -139,12 +139,61 @@
 
     </LinearLayout>
 
+
+    <LinearLayout
+        android:id="@+id/group_total"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/group_info"
+        android:layout_marginStart="@dimen/padding"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="@dimen/padding"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/total_volume"
+                style="@style/program_info_invest_value"
+                tools:text="0.91526636 BTC"/>
+
+            <TextView
+                android:id="@+id/label_total_volume"
+                style="@style/program_info_invest_label"
+                android:text="@string/total_volume"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/total_profit"
+                style="@style/program_info_invest_value"
+                tools:text="0.91526636 BTC"/>
+
+            <TextView
+                android:id="@+id/label_total_profit"
+                style="@style/program_info_invest_label"
+                android:text="@string/total_profit"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
     <View
         android:id="@+id/delimiter"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_below="@+id/group_info"
-        android:layout_marginStart="80dp"
+        android:layout_below="@+id/group_total"
+        android:layout_marginStart="@dimen/padding"
         android:layout_marginTop="16dp"
         android:alpha="0.05"
         android:background="?attr/colorTextPrimary"/>

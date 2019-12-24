@@ -62,6 +62,12 @@ public class PrivateTradingAccountFullTradingAccountDetails implements Parcelabl
 	@SerializedName("type")
 	private PrivateTradingAccountType type = null;
 
+	@SerializedName("subscriptions")
+	private Integer subscriptions = null;
+
+	@SerializedName("isExternal")
+	private Boolean isExternal = null;
+
 	public PrivateTradingAccountFullTradingAccountDetails() {
 	}
 
@@ -72,6 +78,8 @@ public class PrivateTradingAccountFullTradingAccountDetails implements Parcelabl
 		login = (String) in.readValue(null);
 		balance = (Double) in.readValue(null);
 		type = (PrivateTradingAccountType) in.readValue(PrivateTradingAccountType.class.getClassLoader());
+		subscriptions = (Integer) in.readValue(null);
+		isExternal = (Boolean) in.readValue(null);
 	}
 
 	public PrivateTradingAccountFullTradingAccountDetails currency(CurrencyEnum currency) {
@@ -188,6 +196,44 @@ public class PrivateTradingAccountFullTradingAccountDetails implements Parcelabl
 		this.type = type;
 	}
 
+	public PrivateTradingAccountFullTradingAccountDetails subscriptions(Integer subscriptions) {
+		this.subscriptions = subscriptions;
+		return this;
+	}
+
+	/**
+	 * Get subscriptions
+	 *
+	 * @return subscriptions
+	 **/
+	@Schema(description = "")
+	public Integer getSubscriptions() {
+		return subscriptions;
+	}
+
+	public void setSubscriptions(Integer subscriptions) {
+		this.subscriptions = subscriptions;
+	}
+
+	public PrivateTradingAccountFullTradingAccountDetails isExternal(Boolean isExternal) {
+		this.isExternal = isExternal;
+		return this;
+	}
+
+	/**
+	 * Get isExternal
+	 *
+	 * @return isExternal
+	 **/
+	@Schema(description = "")
+	public Boolean isIsExternal() {
+		return isExternal;
+	}
+
+	public void setIsExternal(Boolean isExternal) {
+		this.isExternal = isExternal;
+	}
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -202,12 +248,14 @@ public class PrivateTradingAccountFullTradingAccountDetails implements Parcelabl
 				Objects.equals(this.apiKey, privateTradingAccountFullTradingAccountDetails.apiKey) &&
 				Objects.equals(this.login, privateTradingAccountFullTradingAccountDetails.login) &&
 				Objects.equals(this.balance, privateTradingAccountFullTradingAccountDetails.balance) &&
-				Objects.equals(this.type, privateTradingAccountFullTradingAccountDetails.type);
+				Objects.equals(this.type, privateTradingAccountFullTradingAccountDetails.type) &&
+				Objects.equals(this.subscriptions, privateTradingAccountFullTradingAccountDetails.subscriptions) &&
+				Objects.equals(this.isExternal, privateTradingAccountFullTradingAccountDetails.isExternal);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(currency, leverage, apiKey, login, balance, type);
+		return Objects.hash(currency, leverage, apiKey, login, balance, type, subscriptions, isExternal);
 	}
 
 	@Override
@@ -221,6 +269,8 @@ public class PrivateTradingAccountFullTradingAccountDetails implements Parcelabl
 		sb.append("    login: ").append(toIndentedString(login)).append("\n");
 		sb.append("    balance: ").append(toIndentedString(balance)).append("\n");
 		sb.append("    type: ").append(toIndentedString(type)).append("\n");
+		sb.append("    subscriptions: ").append(toIndentedString(subscriptions)).append("\n");
+		sb.append("    isExternal: ").append(toIndentedString(isExternal)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}
@@ -243,6 +293,8 @@ public class PrivateTradingAccountFullTradingAccountDetails implements Parcelabl
 		out.writeValue(login);
 		out.writeValue(balance);
 		out.writeValue(type);
+		out.writeValue(subscriptions);
+		out.writeValue(isExternal);
 	}
 
 	public int describeContents() {

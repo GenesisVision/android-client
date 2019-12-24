@@ -33,12 +33,14 @@ public class TradingAccountManager
 				0, 1000);
 	}
 
-	public Observable<AccountProfitPercentCharts> getProfitChart(UUID programId, DateRange dateRange, Integer maxPointCount) {
-		return tradingAccountApi.getProfitPercentCharts(programId, dateRange.getFrom(), dateRange.getTo(), maxPointCount, null, null);
+	public Observable<AccountProfitPercentCharts> getProfitChart(UUID accountId, DateRange dateRange, Integer maxPointCount) {
+		return tradingAccountApi.getProfitPercentCharts(accountId, AuthManager.token.getValue(),
+				dateRange.getFrom(), dateRange.getTo(), maxPointCount, null, null);
 	}
 
 	public Observable<AccountBalanceChart> getBalanceChart(UUID accountId, DateRange dateRange, Integer maxPointCount) {
-		return tradingAccountApi.getBalanceChart(accountId, dateRange.getFrom(), dateRange.getTo(), maxPointCount, null);
+		return tradingAccountApi.getBalanceChart(accountId, AuthManager.token.getValue(),
+				dateRange.getFrom(), dateRange.getTo(), maxPointCount, null);
 	}
 
 	public Observable<TradesViewModel> getProgramTrades(UUID accountId, DateRange dateRange, Integer skip, Integer take) {

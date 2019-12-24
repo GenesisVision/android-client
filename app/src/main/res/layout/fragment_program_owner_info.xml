@@ -646,6 +646,78 @@
 
             </LinearLayout>
 
+            <LinearLayout
+                android:id="@+id/group_subscriptions"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="24dp"
+                android:background="?attr/colorBackground"
+                android:orientation="vertical"
+                android:paddingBottom="32dp"
+                android:visibility="gone"
+                tools:visibility="visible">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp">
+
+                    <TextView
+                        android:id="@+id/label_subscriptions"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="20dp"
+                        android:text="@string/subscriptions"
+                        android:textColor="?attr/colorTextPrimary"
+                        android:textSize="20sp"/>
+
+                    <TextView
+                        android:id="@+id/button_subscriptions_details"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:gravity="center"
+                        android:paddingStart="20dp"
+                        android:paddingEnd="20dp"
+                        android:text="@string/details"
+                        android:textColor="?attr/colorAccent"
+                        android:textSize="14sp"/>
+
+                </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/subscriptions_info_active"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/padding"
+                    android:layout_marginEnd="@dimen/padding"
+                    android:text="@string/template_subscriptions_info_active"
+                    android:textColor="?attr/colorTextSecondary"
+                    android:textSize="14sp"/>
+
+                <LinearLayout
+                    android:id="@+id/group_my_subscriptions"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="32dp"
+                    android:orientation="vertical"
+                    android:visibility="gone"/>
+
+                <TextView
+                    android:id="@+id/subscriptions_info_inactive"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/padding"
+                    android:layout_marginEnd="@dimen/padding"
+                    android:text="@string/template_subscriptions_info_inactive"
+                    android:textColor="?attr/colorTextSecondary"
+                    android:textSize="14sp"/>
+
+            </LinearLayout>
+
         </LinearLayout>
 
     </androidx.core.widget.NestedScrollView>

@@ -9,6 +9,8 @@ Name | Type | Description | Notes
 **login** | **String** |  |  [optional]
 **balance** | **Double** |  |  [optional]
 **type** | [**PrivateTradingAccountType**](PrivateTradingAccountType.md) |  |  [optional]
+**subscriptions** | **Integer** |  |  [optional]
+**isExternal** | **Boolean** |  |  [optional]
 
 <a name="CurrencyEnum"></a>
 ## Enum: CurrencyEnum

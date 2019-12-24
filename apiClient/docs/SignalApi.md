@@ -14,6 +14,7 @@ Method | HTTP request | Description
 [**getSignalTrades**](SignalApi.md#getSignalTrades) | **GET** v2.0/signal/trades | Get investors signals trades history
 [**getSignalTradingLog**](SignalApi.md#getSignalTradingLog) | **GET** v2.0/signal/trades/log | Get investors signals trading log
 [**getSubscriberAccountsForAsset**](SignalApi.md#getSubscriberAccountsForAsset) | **GET** v2.0/signal/attach/{id}/accounts | Get subscriber accounts for subscribe to signal provider (common method for all signals)
+[**updateExternalSubscriptionSettings**](SignalApi.md#updateExternalSubscriptionSettings) | **POST** v2.0/signal/external/{id}/update | Update signal subscription settings
 [**updateSubscriptionSettings**](SignalApi.md#updateSubscriptionSettings) | **POST** v2.0/signal/{id}/update | Update signal subscription settings
 
 <a name="attachSlaveToMasterExternalCommonAccount"></a>
@@ -508,6 +509,53 @@ No authorization required
  - **Content-Type**: Not defined
  - **Accept**: text/plain, application/json, text/json
 
+<a name="updateExternalSubscriptionSettings"></a>
+# **updateExternalSubscriptionSettings**
+> Void updateExternalSubscriptionSettings(authorization, id, body)
+
+Update signal subscription settings
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiException;
+//import io.swagger.client.api.SignalApi;
+
+
+SignalApi apiInstance = new SignalApi();
+String authorization = "authorization_example"; // String | JWT access token
+UUID id = new UUID(); // UUID | 
+AttachToExternalSignalProviderExt body = new AttachToExternalSignalProviderExt(); // AttachToExternalSignalProviderExt | 
+try {
+    Void result = apiInstance.updateExternalSubscriptionSettings(authorization, id, body);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling SignalApi#updateExternalSubscriptionSettings");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **authorization** | **String**| JWT access token |
+ **id** | [**UUID**](.md)|  |
+ **body** | [**AttachToExternalSignalProviderExt**](AttachToExternalSignalProviderExt.md)|  | [optional]
+
+### Return type
+
+[**Void**](.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json-patch+json, application/json, text/json, application/_*+json
+ - **Accept**: text/plain, application/json, text/json
+
 <a name="updateSubscriptionSettings"></a>
 # **updateSubscriptionSettings**
 > Void updateSubscriptionSettings(authorization, id, body)
@@ -523,8 +571,8 @@ Update signal subscription settings
 
 SignalApi apiInstance = new SignalApi();
 String authorization = "authorization_example"; // String | JWT access token
-UUID id = new UUID(); // UUID | Asset id
-AttachToSignalProvider body = new AttachToSignalProvider(); // AttachToSignalProvider | Subscription settings
+UUID id = new UUID(); // UUID | 
+AttachToSignalProvider body = new AttachToSignalProvider(); // AttachToSignalProvider | 
 try {
     Void result = apiInstance.updateSubscriptionSettings(authorization, id, body);
     System.out.println(result);
@@ -539,8 +587,8 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **authorization** | **String**| JWT access token |
- **id** | [**UUID**](.md)| Asset id |
- **body** | [**AttachToSignalProvider**](AttachToSignalProvider.md)| Subscription settings | [optional]
+ **id** | [**UUID**](.md)|  |
+ **body** | [**AttachToSignalProvider**](AttachToSignalProvider.md)|  | [optional]
 
 ### Return type
 

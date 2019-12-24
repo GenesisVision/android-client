@@ -82,6 +82,9 @@ public class WalletData implements Parcelable
 	@SerializedName("depositAddress")
 	private String depositAddress = null;
 
+	@SerializedName("depositUrlCoindirect")
+	private String depositUrlCoindirect = null;
+
 	@SerializedName("currency")
 	private Currency currency = null;
 
@@ -112,6 +115,7 @@ public class WalletData implements Parcelable
 		isWithdrawalEnabled = (Boolean) in.readValue(null);
 		withdrawalCommission = (Double) in.readValue(null);
 		depositAddress = (String) in.readValue(null);
+		depositUrlCoindirect = (String) in.readValue(null);
 		currency = (Currency) in.readValue(Currency.class.getClassLoader());
 		available = (Double) in.readValue(null);
 		invested = (Double) in.readValue(null);
@@ -366,6 +370,25 @@ public class WalletData implements Parcelable
 		this.depositAddress = depositAddress;
 	}
 
+	public WalletData depositUrlCoindirect(String depositUrlCoindirect) {
+		this.depositUrlCoindirect = depositUrlCoindirect;
+		return this;
+	}
+
+	/**
+	 * Get depositUrlCoindirect
+	 *
+	 * @return depositUrlCoindirect
+	 **/
+	@Schema(description = "")
+	public String getDepositUrlCoindirect() {
+		return depositUrlCoindirect;
+	}
+
+	public void setDepositUrlCoindirect(String depositUrlCoindirect) {
+		this.depositUrlCoindirect = depositUrlCoindirect;
+	}
+
 	public WalletData currency(Currency currency) {
 		this.currency = currency;
 		return this;
@@ -465,6 +488,7 @@ public class WalletData implements Parcelable
 				Objects.equals(this.isWithdrawalEnabled, walletData.isWithdrawalEnabled) &&
 				Objects.equals(this.withdrawalCommission, walletData.withdrawalCommission) &&
 				Objects.equals(this.depositAddress, walletData.depositAddress) &&
+				Objects.equals(this.depositUrlCoindirect, walletData.depositUrlCoindirect) &&
 				Objects.equals(this.currency, walletData.currency) &&
 				Objects.equals(this.available, walletData.available) &&
 				Objects.equals(this.invested, walletData.invested) &&
@@ -473,7 +497,7 @@ public class WalletData implements Parcelable
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(pending, total, availableCcy, investedCcy, tradingCcy, pendingCcy, totalCcy, id, title, logo, isDepositEnabled, isWithdrawalEnabled, withdrawalCommission, depositAddress, currency, available, invested, trading);
+		return Objects.hash(pending, total, availableCcy, investedCcy, tradingCcy, pendingCcy, totalCcy, id, title, logo, isDepositEnabled, isWithdrawalEnabled, withdrawalCommission, depositAddress, depositUrlCoindirect, currency, available, invested, trading);
 	}
 
 	@Override
@@ -495,6 +519,7 @@ public class WalletData implements Parcelable
 		sb.append("    isWithdrawalEnabled: ").append(toIndentedString(isWithdrawalEnabled)).append("\n");
 		sb.append("    withdrawalCommission: ").append(toIndentedString(withdrawalCommission)).append("\n");
 		sb.append("    depositAddress: ").append(toIndentedString(depositAddress)).append("\n");
+		sb.append("    depositUrlCoindirect: ").append(toIndentedString(depositUrlCoindirect)).append("\n");
 		sb.append("    currency: ").append(toIndentedString(currency)).append("\n");
 		sb.append("    available: ").append(toIndentedString(available)).append("\n");
 		sb.append("    invested: ").append(toIndentedString(invested)).append("\n");
@@ -529,6 +554,7 @@ public class WalletData implements Parcelable
 		out.writeValue(isWithdrawalEnabled);
 		out.writeValue(withdrawalCommission);
 		out.writeValue(depositAddress);
+		out.writeValue(depositUrlCoindirect);
 		out.writeValue(currency);
 		out.writeValue(available);
 		out.writeValue(invested);

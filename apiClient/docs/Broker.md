@@ -11,5 +11,6 @@ Name | Type | Description | Notes
 **fee** | **Double** |  |  [optional]
 **leverageMin** | **Integer** |  |  [optional]
 **leverageMax** | **Integer** |  |  [optional]
+**isKycRequired** | **Boolean** |  |  [optional]
 **accountTypes** | [**List&lt;BrokerAccountType&gt;**](BrokerAccountType.md) |  |  [optional]
 **tags** | [**List&lt;Tag&gt;**](Tag.md) |  |  [optional]

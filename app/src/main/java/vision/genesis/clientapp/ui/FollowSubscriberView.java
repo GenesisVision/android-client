@@ -15,8 +15,6 @@ import butterknife.OnClick;
 import butterknife.Unbinder;
 import io.swagger.client.model.SignalSubscription;
 import vision.genesis.clientapp.R;
-import vision.genesis.clientapp.model.TradingAccountDetailsModel;
-import vision.genesis.clientapp.model.events.ShowTradingAccountDetailsEvent;
 import vision.genesis.clientapp.model.events.ShowUnfollowTradesEvent;
 import vision.genesis.clientapp.utils.StringFormatUtil;
 import vision.genesis.clientapp.utils.TypefaceUtil;
@@ -28,6 +26,9 @@ import vision.genesis.clientapp.utils.TypefaceUtil;
 
 public class FollowSubscriberView extends RelativeLayout
 {
+	@BindView(R.id.logo)
+	public ProgramLogoView logo;
+
 	@BindView(R.id.name)
 	public TextView name;
 
@@ -106,13 +107,30 @@ public class FollowSubscriberView extends RelativeLayout
 
 		setFonts();
 
-		setOnClickListener(v -> {
-			if (data != null) {
-				TradingAccountDetailsModel tradingAccountDetailsModel = new TradingAccountDetailsModel(
-						data.getSubscriberInfo().getTradingAccountId(), null, null);
-				EventBus.getDefault().post(new ShowTradingAccountDetailsEvent(tradingAccountDetailsModel));
-			}
-		});
+//		setOnClickListener(v -> {
+//			if (data != null) {
+//				AssetDetails assetDetails = data.getAsset();
+//				if (assetDetails != null) {
+//					ProgramDetailsModel programDetailsModel = new ProgramDetailsModel(assetDetails.getId(),
+//							assetDetails.getLogo(),
+//							assetDetails.getColor(),
+//							assetDetails.getProgramDetails() != null ? assetDetails.getProgramDetails().getLevel() : 0,
+//							assetDetails.getProgramDetails() != null ? assetDetails.getProgramDetails().getLevelProgress() : 0.0,
+//							assetDetails.getTitle(),
+//							"",
+//							"",
+//							false,
+//							false,
+//							assetDetails.getAssetType());
+//					EventBus.getDefault().post(new ShowProgramDetailsEvent(programDetailsModel));
+//				}
+//				else {
+//					TradingAccountDetailsModel tradingAccountDetailsModel = new TradingAccountDetailsModel(
+//							data.getSubscriberInfo().getTradingAccountId(), null, null);
+//					EventBus.getDefault().post(new ShowTradingAccountDetailsEvent(tradingAccountDetailsModel));
+//				}
+//			}
+//		});
 	}
 
 	private void setFonts() {
@@ -135,7 +153,21 @@ public class FollowSubscriberView extends RelativeLayout
 	public void setData(SignalSubscription data) {
 		this.data = data;
 
+//		if (data.getAsset() != null) {
+//			this.logo.setImage(data.getAsset().getLogo(), data.getAsset().getColor(), 50, 50);
+//			if (data.getAsset().getProgramDetails() != null) {
+//				this.logo.setLevel(data.getAsset().getProgramDetails().getLevel(), data.getAsset().getProgramDetails().getLevelProgress());
+//			}
+//			else {
+//				this.logo.hideLevel();
+//			}
+//
+//			this.name.setText(data.getAsset().getTitle());
+//		}
+//		else {
+		this.logo.setVisibility(View.GONE);
 		this.name.setText(data.getSubscriberInfo().getTradingAccountLogin());
+//		}
 
 		switch (data.getMode()) {
 			case BYBALANCE:

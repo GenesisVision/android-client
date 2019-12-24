@@ -11,6 +11,7 @@ Name | Type | Description | Notes
 **showSwaps** | **Boolean** |  |  [optional]
 **showTickets** | **Boolean** |  |  [optional]
 **showCommissionRebate** | **Boolean** |  |  [optional]
+**isSignalsAvailable** | **Boolean** |  |  [optional]
 **isKycRequiredSometime** | **Boolean** |  |  [optional]
 **showSwapsSometime** | **Boolean** |  |  [optional]
 **showTicketsSometime** | **Boolean** |  |  [optional]

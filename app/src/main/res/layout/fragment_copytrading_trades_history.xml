@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout android:id="@+id/root"
+                xmlns:android="http://schemas.android.com/apk/res/android"
                 xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -24,11 +25,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="32dp"
-            android:layout_marginLeft="32dp"
-            android:layout_marginRight="32dp"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="64dp"
+            android:padding="32dp"
             android:gravity="center"
             android:orientation="vertical">
 
@@ -38,13 +35,24 @@
                 android:layout_height="wrap_content"
                 android:alpha="0.4"
                 android:gravity="center"
-                android:text="@string/dashboard_open_trades_empty"
+                android:layout_margin="8dp"
+                android:text="@string/dashboard_trades_history_empty"
                 android:textColor="?attr/colorTextPrimary"
                 android:textSize="16sp"/>
 
         </LinearLayout>
 
     </ScrollView>
+
+    <vision.genesis.clientapp.ui.DateRangeView
+        android:id="@+id/date_range"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="10dp"
+        android:visibility="gone"
+        tools:visibility="visible"/>
 
     <ProgressBar
         android:id="@+id/progress_bar"

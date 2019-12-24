@@ -14,7 +14,7 @@ Method | HTTP request | Description
 [**getPortfolio**](DashboardApi.md#getPortfolio) | **GET** v2.0/dashboard/portfolio | Money distribution in percents. Empty list if no money at all
 [**getPrivateTradingAssets**](DashboardApi.md#getPrivateTradingAssets) | **GET** v2.0/dashboard/trading/private | 
 [**getPublicTradingAssets**](DashboardApi.md#getPublicTradingAssets) | **GET** v2.0/dashboard/trading/public | 
-[**getRecommendations**](DashboardApi.md#getRecommendations) | **GET** v2.0/dashboard/recommendations | Recommended assets to invest (programs, funds and signals). Funds in passed currency
+[**getRecommendations**](DashboardApi.md#getRecommendations) | **GET** v2.0/dashboard/recommendations | Recommended assets to invest (programs, funds and follows). Funds in passed currency
 [**getSummary**](DashboardApi.md#getSummary) | **GET** v2.0/dashboard/summary | 
 [**getTradingDetails**](DashboardApi.md#getTradingDetails) | **GET** v2.0/dashboard/trading | 
 
@@ -550,9 +550,9 @@ No authorization required
 
 <a name="getRecommendations"></a>
 # **getRecommendations**
-> CommonPublicAssetsViewModel getRecommendations(authorization, currency, take)
+> CommonPublicAssetsViewModel getRecommendations(authorization, currency, take, onlyFollows)
 
-Recommended assets to invest (programs, funds and signals). Funds in passed currency
+Recommended assets to invest (programs, funds and follows). Funds in passed currency
 
 ### Example
 ```java
@@ -565,8 +565,9 @@ DashboardApi apiInstance = new DashboardApi();
 String authorization = "authorization_example"; // String | JWT access token
 String currency = "currency_example"; // String | 
 Integer take = 56; // Integer | 
+Boolean onlyFollows = true; // Boolean | 
 try {
-    CommonPublicAssetsViewModel result = apiInstance.getRecommendations(authorization, currency, take);
+    CommonPublicAssetsViewModel result = apiInstance.getRecommendations(authorization, currency, take, onlyFollows);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling DashboardApi#getRecommendations");
@@ -581,6 +582,7 @@ Name | Type | Description  | Notes
  **authorization** | **String**| JWT access token |
  **currency** | **String**|  | [optional] [enum: USD, BTC, ETH, USDT, GVT, Undefined, ADA, XRP, BCH, LTC, DOGE, BNB, EUR]
  **take** | **Integer**|  | [optional]
+ **onlyFollows** | **Boolean**|  | [optional]
 
 ### Return type
 

@@ -4,6 +4,7 @@ All URIs are relative to */api*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**exportTrades**](TradingaccountApi.md#exportTrades) | **GET** v2.0/tradingaccount/{id}/trades/export | Export trade history
 [**getAbsoluteProfitChart**](TradingaccountApi.md#getAbsoluteProfitChart) | **GET** v2.0/tradingaccount/{id}/charts/profit/absolute | Trading account absolute profit chart
 [**getBalanceChart**](TradingaccountApi.md#getBalanceChart) | **GET** v2.0/tradingaccount/{id}/charts/balance | Trading account balance chart
 [**getOpenTrades**](TradingaccountApi.md#getOpenTrades) | **GET** v2.0/tradingaccount/{id}/trades/open | Trading account open positions
@@ -11,9 +12,70 @@ Method | HTTP request | Description
 [**getTrades**](TradingaccountApi.md#getTrades) | **GET** v2.0/tradingaccount/{id}/trades | Trading account trades
 [**getTradingAccountDetails**](TradingaccountApi.md#getTradingAccountDetails) | **GET** v2.0/tradingaccount/{id} | Trading account details
 
+<a name="exportTrades"></a>
+# **exportTrades**
+> String exportTrades(id, authorization, dateFrom, dateTo, symbol, sorting, accountId, accountCurrency, skip, take)
+
+Export trade history
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiException;
+//import io.swagger.client.api.TradingaccountApi;
+
+
+TradingaccountApi apiInstance = new TradingaccountApi();
+UUID id = new UUID(); // UUID | 
+String authorization = "authorization_example"; // String | JWT access token
+DateTime dateFrom = new DateTime(); // DateTime | 
+DateTime dateTo = new DateTime(); // DateTime | 
+String symbol = "symbol_example"; // String | 
+String sorting = "sorting_example"; // String | 
+UUID accountId = new UUID(); // UUID | 
+String accountCurrency = "accountCurrency_example"; // String | 
+Integer skip = 56; // Integer | 
+Integer take = 56; // Integer | 
+try {
+    String result = apiInstance.exportTrades(id, authorization, dateFrom, dateTo, symbol, sorting, accountId, accountCurrency, skip, take);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling TradingaccountApi#exportTrades");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | [**UUID**](.md)|  |
+ **authorization** | **String**| JWT access token |
+ **dateFrom** | **DateTime**|  | [optional]
+ **dateTo** | **DateTime**|  | [optional]
+ **symbol** | **String**|  | [optional]
+ **sorting** | **String**|  | [optional] [enum: ByDateAsc, ByDateDesc, ByTicketAsc, ByTicketDesc, BySymbolAsc, BySymbolDesc, ByDirectionAsc, ByDirectionDesc, ByVolumeAsc, ByVolumeDesc, ByPriceAsc, ByPriceDesc, ByPriceCurrentAsc, ByPriceCurrentDesc, ByProfitAsc, ByProfitDesc, ByCommissionAsc, ByCommissionDesc, BySwapAsc, BySwapDesc]
+ **accountId** | [**UUID**](.md)|  | [optional]
+ **accountCurrency** | **String**|  | [optional] [enum: USD, BTC, ETH, USDT, GVT, Undefined, ADA, XRP, BCH, LTC, DOGE, BNB, EUR]
+ **skip** | **Integer**|  | [optional]
+ **take** | **Integer**|  | [optional]
+
+### Return type
+
+**String**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
+
 <a name="getAbsoluteProfitChart"></a>
 # **getAbsoluteProfitChart**
-> AbsoluteProfitChart getAbsoluteProfitChart(id, dateFrom, dateTo, maxPointCount, currency)
+> AbsoluteProfitChart getAbsoluteProfitChart(id, authorization, dateFrom, dateTo, maxPointCount, currency)
 
 Trading account absolute profit chart
 
@@ -26,12 +88,13 @@ Trading account absolute profit chart
 
 TradingaccountApi apiInstance = new TradingaccountApi();
 UUID id = new UUID(); // UUID | 
+String authorization = "authorization_example"; // String | JWT access token
 DateTime dateFrom = new DateTime(); // DateTime | 
 DateTime dateTo = new DateTime(); // DateTime | 
 Integer maxPointCount = 56; // Integer | 
 String currency = "currency_example"; // String | 
 try {
-    AbsoluteProfitChart result = apiInstance.getAbsoluteProfitChart(id, dateFrom, dateTo, maxPointCount, currency);
+    AbsoluteProfitChart result = apiInstance.getAbsoluteProfitChart(id, authorization, dateFrom, dateTo, maxPointCount, currency);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling TradingaccountApi#getAbsoluteProfitChart");
@@ -44,6 +107,7 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | [**UUID**](.md)|  |
+ **authorization** | **String**| JWT access token |
  **dateFrom** | **DateTime**|  | [optional]
  **dateTo** | **DateTime**|  | [optional]
  **maxPointCount** | **Integer**|  | [optional]
@@ -64,7 +128,7 @@ No authorization required
 
 <a name="getBalanceChart"></a>
 # **getBalanceChart**
-> AccountBalanceChart getBalanceChart(id, dateFrom, dateTo, maxPointCount, currency)
+> AccountBalanceChart getBalanceChart(id, authorization, dateFrom, dateTo, maxPointCount, currency)
 
 Trading account balance chart
 
@@ -77,12 +141,13 @@ Trading account balance chart
 
 TradingaccountApi apiInstance = new TradingaccountApi();
 UUID id = new UUID(); // UUID | 
+String authorization = "authorization_example"; // String | JWT access token
 DateTime dateFrom = new DateTime(); // DateTime | 
 DateTime dateTo = new DateTime(); // DateTime | 
 Integer maxPointCount = 56; // Integer | 
 String currency = "currency_example"; // String | 
 try {
-    AccountBalanceChart result = apiInstance.getBalanceChart(id, dateFrom, dateTo, maxPointCount, currency);
+    AccountBalanceChart result = apiInstance.getBalanceChart(id, authorization, dateFrom, dateTo, maxPointCount, currency);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling TradingaccountApi#getBalanceChart");
@@ -95,6 +160,7 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | [**UUID**](.md)|  |
+ **authorization** | **String**| JWT access token |
  **dateFrom** | **DateTime**|  | [optional]
  **dateTo** | **DateTime**|  | [optional]
  **maxPointCount** | **Integer**|  | [optional]
@@ -172,7 +238,7 @@ No authorization required
 
 <a name="getProfitPercentCharts"></a>
 # **getProfitPercentCharts**
-> AccountProfitPercentCharts getProfitPercentCharts(id, dateFrom, dateTo, maxPointCount, currency, currencies)
+> AccountProfitPercentCharts getProfitPercentCharts(id, authorization, dateFrom, dateTo, maxPointCount, currency, currencies)
 
 Trading account profit percent charts
 
@@ -185,13 +251,14 @@ Trading account profit percent charts
 
 TradingaccountApi apiInstance = new TradingaccountApi();
 UUID id = new UUID(); // UUID | 
+String authorization = "authorization_example"; // String | JWT access token
 DateTime dateFrom = new DateTime(); // DateTime | 
 DateTime dateTo = new DateTime(); // DateTime | 
 Integer maxPointCount = 56; // Integer | 
 String currency = "currency_example"; // String | 
 List<Object> currencies = null; // List<Object> | 
 try {
-    AccountProfitPercentCharts result = apiInstance.getProfitPercentCharts(id, dateFrom, dateTo, maxPointCount, currency, currencies);
+    AccountProfitPercentCharts result = apiInstance.getProfitPercentCharts(id, authorization, dateFrom, dateTo, maxPointCount, currency, currencies);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling TradingaccountApi#getProfitPercentCharts");
@@ -204,6 +271,7 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | [**UUID**](.md)|  |
+ **authorization** | **String**| JWT access token |
  **dateFrom** | **DateTime**|  | [optional]
  **dateTo** | **DateTime**|  | [optional]
  **maxPointCount** | **Integer**|  | [optional]

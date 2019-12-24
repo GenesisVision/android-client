@@ -166,16 +166,17 @@ public interface DashboardApi
 	);
 
 	/**
-	 * Recommended assets to invest (programs, funds and signals). Funds in passed currency
+	 * Recommended assets to invest (programs, funds and follows). Funds in passed currency
 	 *
 	 * @param authorization JWT access token (required)
 	 * @param currency      (optional)
 	 * @param take          (optional)
+	 * @param onlyFollows   (optional)
 	 * @return Call&lt;CommonPublicAssetsViewModel&gt;
 	 */
 	@GET("v2.0/dashboard/recommendations")
 	Observable<CommonPublicAssetsViewModel> getRecommendations(
-			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("currency") String currency, @retrofit2.http.Query("take") Integer take
+			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("currency") String currency, @retrofit2.http.Query("take") Integer take, @retrofit2.http.Query("onlyFollows") Boolean onlyFollows
 	);
 
 	/**

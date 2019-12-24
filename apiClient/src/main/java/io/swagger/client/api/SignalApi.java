@@ -177,8 +177,24 @@ public interface SignalApi
 	 * Update signal subscription settings
 	 *
 	 * @param authorization JWT access token (required)
-	 * @param id            Asset id (required)
-	 * @param body          Subscription settings (optional)
+	 * @param id            (required)
+	 * @param body          (optional)
+	 * @return Call&lt;Void&gt;
+	 */
+	@Headers({
+			"Content-Type:application/json"
+	})
+	@POST("v2.0/signal/external/{id}/update")
+	Observable<Void> updateExternalSubscriptionSettings(
+			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Path("id") UUID id, @retrofit2.http.Body AttachToExternalSignalProviderExt body
+	);
+
+	/**
+	 * Update signal subscription settings
+	 *
+	 * @param authorization JWT access token (required)
+	 * @param id            (required)
+	 * @param body          (optional)
 	 * @return Call&lt;Void&gt;
 	 */
 	@Headers({

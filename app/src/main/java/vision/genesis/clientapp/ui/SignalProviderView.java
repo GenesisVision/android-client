@@ -7,11 +7,19 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import org.greenrobot.eventbus.EventBus;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
+import io.swagger.client.model.AssetDetails;
+import io.swagger.client.model.AssetType;
 import io.swagger.client.model.SignalSubscription;
 import vision.genesis.clientapp.R;
+import vision.genesis.clientapp.model.ProgramDetailsModel;
+import vision.genesis.clientapp.model.events.ShowProgramDetailsEvent;
+import vision.genesis.clientapp.model.events.ShowUnfollowTradesEvent;
 import vision.genesis.clientapp.utils.StringFormatUtil;
 import vision.genesis.clientapp.utils.TypefaceUtil;
 
@@ -52,11 +60,26 @@ public class SignalProviderView extends RelativeLayout
 	@BindView(R.id.label_tolerance)
 	public TextView labelTolerance;
 
+	@BindView(R.id.total_volume)
+	public TextView totalVolume;
+
+	@BindView(R.id.label_total_volume)
+	public TextView labelTotalVolume;
+
+	@BindView(R.id.total_profit)
+	public TextView totalProfit;
+
+	@BindView(R.id.label_total_profit)
+	public TextView labelTotalProfit;
+
 	@BindView(R.id.group_equivalent)
 	public ViewGroup groupEquivalent;
 
 	@BindView(R.id.group_volume)
 	public ViewGroup groupVolume;
+
+	@BindView(R.id.button_unfollow)
+	public PrimaryButton buttonUnfollow;
 
 	@BindView(R.id.delimiter)
 	public View delimiter;
@@ -80,6 +103,15 @@ public class SignalProviderView extends RelativeLayout
 		initView();
 	}
 
+	@OnClick(R.id.button_unfollow)
+	public void onUnfollowClicked() {
+		if (data != null) {
+			EventBus.getDefault().post(new ShowUnfollowTradesEvent(data.getAsset().getId(),
+					data.getSubscriberInfo().getTradingAccountId(),
+					data.getAsset().getTitle()));
+		}
+	}
+
 	public void onDestroy() {
 		if (unbinder != null) {
 			unbinder.unbind();
@@ -92,30 +124,42 @@ public class SignalProviderView extends RelativeLayout
 
 		unbinder = ButterKnife.bind(this);
 
-		name.setTypeface(TypefaceUtil.semibold());
+		setFonts();
 
 		setOnClickListener(v -> {
-			if (data != null) {
-//				ProgramDetailsModel programDetailsModel = new ProgramDetailsModel(program.getId(),
-//						program.getLogo(),
-//						program.getColor(),
-//						program.getLevel(),
-//						program.getLevelProgress(),
-//						program.getTitle(),
-//						program.getOwner().getUsername(),
-//						program.getCurrency().getValue(),
-//						program.getPersonalDetails() != null ?
-//								program.getPersonalDetails().isIsFavorite()
-//								: false,
-////TODO:
-////							program.getPersonalDetails() != null ?
-////									program.getPersonalDetails().isHasNotifications()
-////									: false);
-//						false,
-//						AssetType.PROGRAM);
-//				EventBus.getDefault().post(new ShowProgramDetailsEvent(programDetailsModel));
+			if (data != null && data.getAsset() != null) {
+				AssetDetails assetDetails = data.getAsset();
+				ProgramDetailsModel programDetailsModel = new ProgramDetailsModel(assetDetails.getId(),
+						assetDetails.getLogo(),
+						assetDetails.getColor(),
+						assetDetails.getProgramDetails() != null ? assetDetails.getProgramDetails().getLevel() : 0,
+						assetDetails.getProgramDetails() != null ? assetDetails.getProgramDetails().getLevelProgress() : 0.0,
+						assetDetails.getTitle(),
+						"",
+						"",
+						false,
+						false,
+						AssetType.FOLLOW);
+				EventBus.getDefault().post(new ShowProgramDetailsEvent(programDetailsModel));
 			}
 		});
+	}
+
+	private void setFonts() {
+		name.setTypeface(TypefaceUtil.semibold());
+		type.setTypeface(TypefaceUtil.semibold());
+		equivalent.setTypeface(TypefaceUtil.semibold());
+		volume.setTypeface(TypefaceUtil.semibold());
+		tolerance.setTypeface(TypefaceUtil.semibold());
+		totalVolume.setTypeface(TypefaceUtil.semibold());
+		totalProfit.setTypeface(TypefaceUtil.semibold());
+
+		labelType.setText(labelType.getText().toString().toLowerCase());
+		labelEquivalent.setText(labelEquivalent.getText().toString().toLowerCase());
+		labelVolume.setText(labelVolume.getText().toString().toLowerCase());
+		labelTolerance.setText(labelTolerance.getText().toString().toLowerCase());
+		labelTotalVolume.setText(labelTotalVolume.getText().toString().toLowerCase());
+		labelTotalProfit.setText(labelTotalProfit.getText().toString().toLowerCase());
 	}
 
 	public void removeDelimiter() {
@@ -125,14 +169,19 @@ public class SignalProviderView extends RelativeLayout
 	public void setData(SignalSubscription data) {
 		this.data = data;
 
-		this.logo.setImage(data.getAsset().getLogo(), data.getAsset().getColor(), 50, 50);
-		if (data.getAsset().getProgramDetails() != null) {
-			this.logo.setLevel(data.getAsset().getProgramDetails().getLevel(), data.getAsset().getProgramDetails().getLevelProgress());
+		if (data.getAsset() != null) {
+			this.logo.setImage(data.getAsset().getLogo(), data.getAsset().getColor(), 50, 50);
+			if (data.getAsset().getProgramDetails() != null) {
+				this.logo.setLevel(data.getAsset().getProgramDetails().getLevel(), data.getAsset().getProgramDetails().getLevelProgress());
+			}
+			else {
+				this.logo.hideLevel();
+			}
+
+			this.name.setText(data.getAsset().getTitle());
 		}
-		else {
-			this.logo.hideLevel();
-		}
-		this.name.setText(data.getSubscriberInfo().getTradingAccountLogin());
+
+		buttonUnfollow.setVisibility(data.getStatus().toLowerCase().equals("active") ? View.VISIBLE : View.GONE);
 
 		switch (data.getMode()) {
 			case BYBALANCE:
@@ -152,5 +201,8 @@ public class SignalProviderView extends RelativeLayout
 				break;
 		}
 		this.tolerance.setText(StringFormatUtil.getPercentString(data.getOpenTolerancePercent()));
+
+		this.totalVolume.setText(StringFormatUtil.formatAmount(data.getTotalVolume(), 2, 8));
+		this.totalProfit.setText(StringFormatUtil.formatAmount(data.getTotalProfit(), 2, 8));
 	}
 }

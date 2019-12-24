@@ -172,7 +172,7 @@ public class FollowInfoPresenter extends MvpPresenter<FollowInfoView>
 			if (subscriptionsSubscription != null) {
 				subscriptionsSubscription.unsubscribe();
 			}
-			subscriptionsSubscription = followsManager.getSubscriptions(followId)
+			subscriptionsSubscription = followsManager.getMySubscriptionsForFollow(followId, true)
 					.observeOn(AndroidSchedulers.mainThread())
 					.subscribeOn(Schedulers.io())
 					.subscribe(this::handleSubscriptionsSuccess,
@@ -183,7 +183,12 @@ public class FollowInfoPresenter extends MvpPresenter<FollowInfoView>
 	private void handleSubscriptionsSuccess(ItemsViewModelSignalSubscription response) {
 		subscriptionsSubscription.unsubscribe();
 
-		this.subscriptions = response.getItems();
+		this.subscriptions = new ArrayList<>();
+		for (SignalSubscription item : response.getItems()) {
+			if (item.getStatus().toLowerCase().equals("active")) {
+				subscriptions.add(item);
+			}
+		}
 
 		getViewState().setSubscriptions(subscriptions);
 	}

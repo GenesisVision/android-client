@@ -64,6 +64,9 @@ public class BrokerDetails implements Parcelable
 	@SerializedName("showCommissionRebate")
 	private Boolean showCommissionRebate = null;
 
+	@SerializedName("isSignalsAvailable")
+	private Boolean isSignalsAvailable = null;
+
 	@SerializedName("isKycRequiredSometime")
 	private Boolean isKycRequiredSometime = null;
 
@@ -88,6 +91,7 @@ public class BrokerDetails implements Parcelable
 		showSwaps = (Boolean) in.readValue(null);
 		showTickets = (Boolean) in.readValue(null);
 		showCommissionRebate = (Boolean) in.readValue(null);
+		isSignalsAvailable = (Boolean) in.readValue(null);
 		isKycRequiredSometime = (Boolean) in.readValue(null);
 		showSwapsSometime = (Boolean) in.readValue(null);
 		showTicketsSometime = (Boolean) in.readValue(null);
@@ -246,6 +250,25 @@ public class BrokerDetails implements Parcelable
 		this.showCommissionRebate = showCommissionRebate;
 	}
 
+	public BrokerDetails isSignalsAvailable(Boolean isSignalsAvailable) {
+		this.isSignalsAvailable = isSignalsAvailable;
+		return this;
+	}
+
+	/**
+	 * Get isSignalsAvailable
+	 *
+	 * @return isSignalsAvailable
+	 **/
+	@Schema(description = "")
+	public Boolean isIsSignalsAvailable() {
+		return isSignalsAvailable;
+	}
+
+	public void setIsSignalsAvailable(Boolean isSignalsAvailable) {
+		this.isSignalsAvailable = isSignalsAvailable;
+	}
+
 	public BrokerDetails isKycRequiredSometime(Boolean isKycRequiredSometime) {
 		this.isKycRequiredSometime = isKycRequiredSometime;
 		return this;
@@ -339,6 +362,7 @@ public class BrokerDetails implements Parcelable
 				Objects.equals(this.showSwaps, brokerDetails.showSwaps) &&
 				Objects.equals(this.showTickets, brokerDetails.showTickets) &&
 				Objects.equals(this.showCommissionRebate, brokerDetails.showCommissionRebate) &&
+				Objects.equals(this.isSignalsAvailable, brokerDetails.isSignalsAvailable) &&
 				Objects.equals(this.isKycRequiredSometime, brokerDetails.isKycRequiredSometime) &&
 				Objects.equals(this.showSwapsSometime, brokerDetails.showSwapsSometime) &&
 				Objects.equals(this.showTicketsSometime, brokerDetails.showTicketsSometime) &&
@@ -347,7 +371,7 @@ public class BrokerDetails implements Parcelable
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, logo, name, type, isKycRequired, showSwaps, showTickets, showCommissionRebate, isKycRequiredSometime, showSwapsSometime, showTicketsSometime, showCommissionRebateSometime);
+		return Objects.hash(id, logo, name, type, isKycRequired, showSwaps, showTickets, showCommissionRebate, isSignalsAvailable, isKycRequiredSometime, showSwapsSometime, showTicketsSometime, showCommissionRebateSometime);
 	}
 
 	@Override
@@ -363,6 +387,7 @@ public class BrokerDetails implements Parcelable
 		sb.append("    showSwaps: ").append(toIndentedString(showSwaps)).append("\n");
 		sb.append("    showTickets: ").append(toIndentedString(showTickets)).append("\n");
 		sb.append("    showCommissionRebate: ").append(toIndentedString(showCommissionRebate)).append("\n");
+		sb.append("    isSignalsAvailable: ").append(toIndentedString(isSignalsAvailable)).append("\n");
 		sb.append("    isKycRequiredSometime: ").append(toIndentedString(isKycRequiredSometime)).append("\n");
 		sb.append("    showSwapsSometime: ").append(toIndentedString(showSwapsSometime)).append("\n");
 		sb.append("    showTicketsSometime: ").append(toIndentedString(showTicketsSometime)).append("\n");
@@ -391,6 +416,7 @@ public class BrokerDetails implements Parcelable
 		out.writeValue(showSwaps);
 		out.writeValue(showTickets);
 		out.writeValue(showCommissionRebate);
+		out.writeValue(isSignalsAvailable);
 		out.writeValue(isKycRequiredSometime);
 		out.writeValue(showSwapsSometime);
 		out.writeValue(showTicketsSometime);

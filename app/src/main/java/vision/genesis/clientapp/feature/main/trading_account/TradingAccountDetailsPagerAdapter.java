@@ -20,7 +20,7 @@ import vision.genesis.clientapp.feature.main.trading_account.trades.TradingAccou
  * Created by Vitaly on 28/11/2019.
  */
 
-public class TradingAccountPagerAdapter extends FragmentStatePagerAdapter
+public class TradingAccountDetailsPagerAdapter extends FragmentStatePagerAdapter
 {
 	public interface OnPageVisibilityChanged
 	{
@@ -41,7 +41,7 @@ public class TradingAccountPagerAdapter extends FragmentStatePagerAdapter
 
 	private TabLayout tabLayout;
 
-	TradingAccountPagerAdapter(FragmentManager fm, TabLayout tabLayout, PrivateTradingAccountFull accountDetails) {
+	TradingAccountDetailsPagerAdapter(FragmentManager fm, TabLayout tabLayout, PrivateTradingAccountFull accountDetails) {
 		super(fm);
 		this.tabLayout = tabLayout;
 

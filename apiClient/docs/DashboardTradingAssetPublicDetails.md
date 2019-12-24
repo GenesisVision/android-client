@@ -8,3 +8,4 @@ Name | Type | Description | Notes
 **title** | **String** |  |  [optional]
 **url** | **String** |  |  [optional]
 **programDetails** | [**ProgramAssetDetails**](ProgramAssetDetails.md) |  |  [optional]
+**fundDetails** | [**FundAssetDetails**](FundAssetDetails.md) |  |  [optional]

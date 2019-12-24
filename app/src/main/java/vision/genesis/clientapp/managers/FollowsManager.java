@@ -47,8 +47,12 @@ public class FollowsManager
 		return followApi.getFollowAssetDetails(followId, AuthManager.token.getValue());
 	}
 
-	public Observable<ItemsViewModelSignalSubscription> getSubscriptions(UUID followId) {
-		return followApi.getFollowSubscriptionsForAsset(followId, AuthManager.token.getValue());
+	public Observable<ItemsViewModelSignalSubscription> getMySubscriptionsForFollow(UUID followId, Boolean onlyActive) {
+		return followApi.getFollowSubscriptionsForAsset(followId, AuthManager.token.getValue(), onlyActive);
+	}
+
+	public Observable<ItemsViewModelSignalSubscription> getMastersForMyAccount(UUID accountId, Boolean onlyActive) {
+		return followApi.getFollowSubscriptionsForOwnAccount(accountId, AuthManager.token.getValue(), onlyActive);
 	}
 
 	public Observable<Void> subscribeToFollow(UUID followId, AttachToSignalProvider model) {
@@ -75,8 +79,8 @@ public class FollowsManager
 		return signalApi.closeTradeInternal(tradeId, AuthManager.token.getValue(), programId);
 	}
 
-	public Observable<ItemsViewModelSignalTradingEvent> getTradingLog(String accountCurrency, Integer skip, Integer take) {
-		return signalApi.getSignalTradingLog(AuthManager.token.getValue(), null, accountCurrency, skip, take);
+	public Observable<ItemsViewModelSignalTradingEvent> getTradingLog(UUID accountId, Integer skip, Integer take) {
+		return signalApi.getSignalTradingLog(AuthManager.token.getValue(), accountId, null, skip, take);
 	}
 
 	public Observable<ItemsViewModelTradingAccountDetails> getSubscriberAccounts(UUID followId) {

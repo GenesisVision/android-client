@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AccelerateDecelerateInterpolator;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -18,6 +19,7 @@ import com.facebook.drawee.view.SimpleDraweeView;
 
 import org.joda.time.DateTime;
 
+import java.util.List;
 import java.util.Locale;
 import java.util.UUID;
 
@@ -34,12 +36,15 @@ import io.swagger.client.model.PersonalProgramDetails;
 import io.swagger.client.model.ProgramDetailsFull;
 import io.swagger.client.model.ProgramFollowDetailsFull;
 import io.swagger.client.model.ProgramUpdate;
+import io.swagger.client.model.SignalSubscription;
 import timber.log.Timber;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
 import vision.genesis.clientapp.feature.auth.login.LoginActivity;
 import vision.genesis.clientapp.feature.common.public_info.edit.EditPublicInfoActivity;
 import vision.genesis.clientapp.feature.common.requests.RequestsBottomSheetFragment;
+import vision.genesis.clientapp.feature.main.copytrading.details.CopytradingDetailsActivity;
+import vision.genesis.clientapp.feature.main.copytrading.unfollow_trades.UnfollowTradesActivity;
 import vision.genesis.clientapp.feature.main.follow.create.CreateFollowActivity;
 import vision.genesis.clientapp.feature.main.follow.edit.EditFollowSettingsActivity;
 import vision.genesis.clientapp.feature.main.message.MessageBottomSheetDialog;
@@ -56,6 +61,7 @@ import vision.genesis.clientapp.ui.AccountAgeView;
 import vision.genesis.clientapp.ui.InvestmentStatusView;
 import vision.genesis.clientapp.ui.PeriodLeftDetailsView;
 import vision.genesis.clientapp.ui.PrimaryButton;
+import vision.genesis.clientapp.ui.SignalProviderView;
 import vision.genesis.clientapp.utils.Constants;
 import vision.genesis.clientapp.utils.ImageUtils;
 import vision.genesis.clientapp.utils.StringFormatUtil;
@@ -212,6 +218,26 @@ public class OwnerInfoFragment extends BaseFragment implements OwnerInfoView, Pr
 	@BindView(R.id.label_subscription_volume_fee)
 	public TextView subscriptionVolumeFeeLabel;
 
+
+	@BindView(R.id.group_subscriptions)
+	public ViewGroup subscriptionsGroup;
+
+	@BindView(R.id.label_subscriptions)
+	public TextView labelSubscriptions;
+
+	@BindView(R.id.button_subscriptions_details)
+	public TextView subscriptionsDetailsButton;
+
+	@BindView(R.id.subscriptions_info_active)
+	public TextView subscriptionsInfoActive;
+
+	@BindView(R.id.subscriptions_info_inactive)
+	public TextView subscriptionsInfoInactive;
+
+	@BindView(R.id.group_my_subscriptions)
+	public LinearLayout mySubscriptionsGroup;
+
+
 	@InjectPresenter
 	public OwnerInfoPresenter presenter;
 
@@ -311,6 +337,11 @@ public class OwnerInfoFragment extends BaseFragment implements OwnerInfoView, Pr
 		presenter.onCreateFollowClicked();
 	}
 
+	@OnClick(R.id.button_subscriptions_details)
+	public void onSubscriptionsDetailsClicked() {
+		presenter.onSubscriptionsDetailsClicked();
+	}
+
 	@Nullable
 	@Override
 	public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -378,6 +409,9 @@ public class OwnerInfoFragment extends BaseFragment implements OwnerInfoView, Pr
 		manageFollowButton.setTypeface(TypefaceUtil.semibold());
 		subscriptionSuccessFee.setTypeface(TypefaceUtil.semibold());
 		subscriptionVolumeFee.setTypeface(TypefaceUtil.semibold());
+
+		labelSubscriptions.setTypeface(TypefaceUtil.semibold());
+		subscriptionsDetailsButton.setTypeface(TypefaceUtil.semibold());
 
 		labelLeverage.setText(labelLeverage.getText().toString().toLowerCase());
 		labelCurrency.setText(labelCurrency.getText().toString().toLowerCase());
@@ -532,6 +566,42 @@ public class OwnerInfoFragment extends BaseFragment implements OwnerInfoView, Pr
 	}
 
 	@Override
+	public void showCopytrading(List<SignalSubscription> masters) {
+		subscriptionsGroup.setVisibility(View.VISIBLE);
+		mySubscriptionsGroup.removeAllViews();
+
+		int index = 0;
+		int active = 0;
+		int inactive = 0;
+		for (SignalSubscription master : masters) {
+			if (master.getStatus().toLowerCase().equals("active")) {
+				active++;
+				SignalProviderView subscriptionView = new SignalProviderView(getContext());
+				subscriptionView.setData(master);
+				mySubscriptionsGroup.addView(subscriptionView);
+				if (index == masters.size() - 1) {
+					subscriptionView.removeDelimiter();
+				}
+				index++;
+			}
+			else {
+				inactive++;
+			}
+		}
+		mySubscriptionsGroup.setVisibility(active > 0 ? View.VISIBLE : View.GONE);
+
+		subscriptionsInfoActive.setText(String.format(Locale.getDefault(), getString(R.string.template_subscriptions_info_active),
+				active,
+				getResources().getQuantityString(R.plurals.follows, active)));
+		subscriptionsInfoActive.setVisibility(active > 0 ? View.VISIBLE : View.GONE);
+
+		subscriptionsInfoInactive.setText(String.format(Locale.getDefault(), getString(R.string.template_subscriptions_info_inactive),
+				inactive,
+				getResources().getQuantityString(R.plurals.follows, inactive)));
+		subscriptionsInfoInactive.setVisibility(inactive > 0 ? View.VISIBLE : View.GONE);
+	}
+
+	@Override
 	public void showProgress(boolean show) {
 		progressBar.setVisibility(show ? View.VISIBLE : View.GONE);
 	}
@@ -621,6 +691,20 @@ public class OwnerInfoFragment extends BaseFragment implements OwnerInfoView, Pr
 	public void showEditFollowSettingsActivity(CreateSignalProvider model) {
 		if (getActivity() != null) {
 			EditFollowSettingsActivity.startFrom(getActivity(), model);
+		}
+	}
+
+	@Override
+	public void showUnfollowTradesActivity(UUID followId, UUID tradingAccountId, String followName) {
+		if (getActivity() != null) {
+			UnfollowTradesActivity.startWith(getActivity(), followId, tradingAccountId, followName);
+		}
+	}
+
+	@Override
+	public void showCopytradingDetailsActivity(TradingAccountDetailsModel model) {
+		if (getActivity() != null) {
+			CopytradingDetailsActivity.startWith(getActivity(), model);
 		}
 	}
 

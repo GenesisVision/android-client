@@ -44,6 +44,15 @@ public class ProgramChartStatistic implements Parcelable
 	@SerializedName("investors")
 	private Integer investors = null;
 
+	@SerializedName("lastPeriodStarts")
+	private DateTime lastPeriodStarts = null;
+
+	@SerializedName("lastPeriodEnds")
+	private DateTime lastPeriodEnds = null;
+
+	@SerializedName("subscribers")
+	private Integer subscribers = null;
+
 	@SerializedName("tradingVolume")
 	private Double tradingVolume = null;
 
@@ -55,12 +64,6 @@ public class ProgramChartStatistic implements Parcelable
 
 	@SerializedName("profitFactor")
 	private Double profitFactor = null;
-
-	@SerializedName("lastPeriodStarts")
-	private DateTime lastPeriodStarts = null;
-
-	@SerializedName("lastPeriodEnds")
-	private DateTime lastPeriodEnds = null;
 
 	@SerializedName("balance")
 	private Double balance = null;
@@ -85,12 +88,13 @@ public class ProgramChartStatistic implements Parcelable
 
 	ProgramChartStatistic(Parcel in) {
 		investors = (Integer) in.readValue(null);
+		lastPeriodStarts = (DateTime) in.readValue(DateTime.class.getClassLoader());
+		lastPeriodEnds = (DateTime) in.readValue(DateTime.class.getClassLoader());
+		subscribers = (Integer) in.readValue(null);
 		tradingVolume = (Double) in.readValue(null);
 		trades = (Integer) in.readValue(null);
 		successTradesPercent = (Double) in.readValue(null);
 		profitFactor = (Double) in.readValue(null);
-		lastPeriodStarts = (DateTime) in.readValue(DateTime.class.getClassLoader());
-		lastPeriodEnds = (DateTime) in.readValue(DateTime.class.getClassLoader());
 		balance = (Double) in.readValue(null);
 		profitPercent = (Double) in.readValue(null);
 		sharpeRatio = (Double) in.readValue(null);
@@ -105,17 +109,74 @@ public class ProgramChartStatistic implements Parcelable
 	}
 
 	/**
-	 * Get investors
+	 * Always filled for program
 	 *
 	 * @return investors
 	 **/
-	@Schema(description = "")
+	@Schema(description = "Always filled for program")
 	public Integer getInvestors() {
 		return investors;
 	}
 
 	public void setInvestors(Integer investors) {
 		this.investors = investors;
+	}
+
+	public ProgramChartStatistic lastPeriodStarts(DateTime lastPeriodStarts) {
+		this.lastPeriodStarts = lastPeriodStarts;
+		return this;
+	}
+
+	/**
+	 * Get lastPeriodStarts
+	 *
+	 * @return lastPeriodStarts
+	 **/
+	@Schema(description = "")
+	public DateTime getLastPeriodStarts() {
+		return lastPeriodStarts;
+	}
+
+	public void setLastPeriodStarts(DateTime lastPeriodStarts) {
+		this.lastPeriodStarts = lastPeriodStarts;
+	}
+
+	public ProgramChartStatistic lastPeriodEnds(DateTime lastPeriodEnds) {
+		this.lastPeriodEnds = lastPeriodEnds;
+		return this;
+	}
+
+	/**
+	 * Get lastPeriodEnds
+	 *
+	 * @return lastPeriodEnds
+	 **/
+	@Schema(description = "")
+	public DateTime getLastPeriodEnds() {
+		return lastPeriodEnds;
+	}
+
+	public void setLastPeriodEnds(DateTime lastPeriodEnds) {
+		this.lastPeriodEnds = lastPeriodEnds;
+	}
+
+	public ProgramChartStatistic subscribers(Integer subscribers) {
+		this.subscribers = subscribers;
+		return this;
+	}
+
+	/**
+	 * Always filled for signal
+	 *
+	 * @return subscribers
+	 **/
+	@Schema(description = "Always filled for signal")
+	public Integer getSubscribers() {
+		return subscribers;
+	}
+
+	public void setSubscribers(Integer subscribers) {
+		this.subscribers = subscribers;
 	}
 
 	public ProgramChartStatistic tradingVolume(Double tradingVolume) {
@@ -192,44 +253,6 @@ public class ProgramChartStatistic implements Parcelable
 
 	public void setProfitFactor(Double profitFactor) {
 		this.profitFactor = profitFactor;
-	}
-
-	public ProgramChartStatistic lastPeriodStarts(DateTime lastPeriodStarts) {
-		this.lastPeriodStarts = lastPeriodStarts;
-		return this;
-	}
-
-	/**
-	 * Get lastPeriodStarts
-	 *
-	 * @return lastPeriodStarts
-	 **/
-	@Schema(description = "")
-	public DateTime getLastPeriodStarts() {
-		return lastPeriodStarts;
-	}
-
-	public void setLastPeriodStarts(DateTime lastPeriodStarts) {
-		this.lastPeriodStarts = lastPeriodStarts;
-	}
-
-	public ProgramChartStatistic lastPeriodEnds(DateTime lastPeriodEnds) {
-		this.lastPeriodEnds = lastPeriodEnds;
-		return this;
-	}
-
-	/**
-	 * Get lastPeriodEnds
-	 *
-	 * @return lastPeriodEnds
-	 **/
-	@Schema(description = "")
-	public DateTime getLastPeriodEnds() {
-		return lastPeriodEnds;
-	}
-
-	public void setLastPeriodEnds(DateTime lastPeriodEnds) {
-		this.lastPeriodEnds = lastPeriodEnds;
 	}
 
 	public ProgramChartStatistic balance(Double balance) {
@@ -356,12 +379,13 @@ public class ProgramChartStatistic implements Parcelable
 		}
 		ProgramChartStatistic programChartStatistic = (ProgramChartStatistic) o;
 		return Objects.equals(this.investors, programChartStatistic.investors) &&
+				Objects.equals(this.lastPeriodStarts, programChartStatistic.lastPeriodStarts) &&
+				Objects.equals(this.lastPeriodEnds, programChartStatistic.lastPeriodEnds) &&
+				Objects.equals(this.subscribers, programChartStatistic.subscribers) &&
 				Objects.equals(this.tradingVolume, programChartStatistic.tradingVolume) &&
 				Objects.equals(this.trades, programChartStatistic.trades) &&
 				Objects.equals(this.successTradesPercent, programChartStatistic.successTradesPercent) &&
 				Objects.equals(this.profitFactor, programChartStatistic.profitFactor) &&
-				Objects.equals(this.lastPeriodStarts, programChartStatistic.lastPeriodStarts) &&
-				Objects.equals(this.lastPeriodEnds, programChartStatistic.lastPeriodEnds) &&
 				Objects.equals(this.balance, programChartStatistic.balance) &&
 				Objects.equals(this.profitPercent, programChartStatistic.profitPercent) &&
 				Objects.equals(this.sharpeRatio, programChartStatistic.sharpeRatio) &&
@@ -372,7 +396,7 @@ public class ProgramChartStatistic implements Parcelable
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(investors, tradingVolume, trades, successTradesPercent, profitFactor, lastPeriodStarts, lastPeriodEnds, balance, profitPercent, sharpeRatio, sortinoRatio, calmarRatio, maxDrawdown);
+		return Objects.hash(investors, lastPeriodStarts, lastPeriodEnds, subscribers, tradingVolume, trades, successTradesPercent, profitFactor, balance, profitPercent, sharpeRatio, sortinoRatio, calmarRatio, maxDrawdown);
 	}
 
 	@Override
@@ -381,12 +405,13 @@ public class ProgramChartStatistic implements Parcelable
 		sb.append("class ProgramChartStatistic {\n");
 
 		sb.append("    investors: ").append(toIndentedString(investors)).append("\n");
+		sb.append("    lastPeriodStarts: ").append(toIndentedString(lastPeriodStarts)).append("\n");
+		sb.append("    lastPeriodEnds: ").append(toIndentedString(lastPeriodEnds)).append("\n");
+		sb.append("    subscribers: ").append(toIndentedString(subscribers)).append("\n");
 		sb.append("    tradingVolume: ").append(toIndentedString(tradingVolume)).append("\n");
 		sb.append("    trades: ").append(toIndentedString(trades)).append("\n");
 		sb.append("    successTradesPercent: ").append(toIndentedString(successTradesPercent)).append("\n");
 		sb.append("    profitFactor: ").append(toIndentedString(profitFactor)).append("\n");
-		sb.append("    lastPeriodStarts: ").append(toIndentedString(lastPeriodStarts)).append("\n");
-		sb.append("    lastPeriodEnds: ").append(toIndentedString(lastPeriodEnds)).append("\n");
 		sb.append("    balance: ").append(toIndentedString(balance)).append("\n");
 		sb.append("    profitPercent: ").append(toIndentedString(profitPercent)).append("\n");
 		sb.append("    sharpeRatio: ").append(toIndentedString(sharpeRatio)).append("\n");
@@ -410,12 +435,13 @@ public class ProgramChartStatistic implements Parcelable
 
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(investors);
+		out.writeValue(lastPeriodStarts);
+		out.writeValue(lastPeriodEnds);
+		out.writeValue(subscribers);
 		out.writeValue(tradingVolume);
 		out.writeValue(trades);
 		out.writeValue(successTradesPercent);
 		out.writeValue(profitFactor);
-		out.writeValue(lastPeriodStarts);
-		out.writeValue(lastPeriodEnds);
 		out.writeValue(balance);
 		out.writeValue(profitPercent);
 		out.writeValue(sharpeRatio);

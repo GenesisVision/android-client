@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -37,19 +36,12 @@ import vision.genesis.clientapp.utils.ThemeUtil;
 
 public class CopytradingOpenTradesFragment extends BaseFragment implements CopytradingOpenTradesView, DashboardPagerAdapter.OnPageVisibilityChanged
 {
-	public static final String LOCATION_COPYTRADING_ACCOUNT = "location_copytrading_account";
+	private static final String EXTRA_ACCOUNT_ID = "extra_account_id";
 
-	public static final String LOCATION_DASHBOARD = "location_dashboard";
-
-	private static final String EXTRA_LOCATION = "extra_location";
-
-	private static final String EXTRA_ACCOUNT_CURRENCY = "extra_account_currency";
-
-	public static CopytradingOpenTradesFragment with(@NonNull String location, @Nullable String accountCurrency) {
+	public static CopytradingOpenTradesFragment with(UUID accountId) {
 		CopytradingOpenTradesFragment copytradingOpenTradesFragment = new CopytradingOpenTradesFragment();
-		Bundle arguments = new Bundle(2);
-		arguments.putString(EXTRA_LOCATION, location);
-		arguments.putString(EXTRA_ACCOUNT_CURRENCY, accountCurrency);
+		Bundle arguments = new Bundle(1);
+		arguments.putSerializable(EXTRA_ACCOUNT_ID, accountId);
 		copytradingOpenTradesFragment.setArguments(arguments);
 		return copytradingOpenTradesFragment;
 	}
@@ -71,7 +63,7 @@ public class CopytradingOpenTradesFragment extends BaseFragment implements Copyt
 	@Nullable
 	@Override
 	public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-		return inflater.inflate(R.layout.fragment_dashboard_open_trades, container, false);
+		return inflater.inflate(R.layout.fragment_copytrading_open_trades, container, false);
 	}
 
 	@Override
@@ -85,16 +77,16 @@ public class CopytradingOpenTradesFragment extends BaseFragment implements Copyt
 		}
 
 		if (getArguments() != null) {
-			String location = getArguments().getString(EXTRA_LOCATION);
-			String accountCurrency = getArguments().getString(EXTRA_ACCOUNT_CURRENCY);
-			copytradingOpenTradesPresenter.setData(location, accountCurrency);
+			UUID accountId = (UUID) getArguments().getSerializable(EXTRA_ACCOUNT_ID);
+			if (accountId != null) {
+				copytradingOpenTradesPresenter.setData(accountId);
+				initRecyclerView();
+				return;
+			}
+		}
+		Timber.e("Passed empty arguments to %s", getClass().getSimpleName());
+		onBackPressed();
 
-			initRecyclerView();
-		}
-		else {
-			Timber.e("Passed empty arguments to %s", getClass().getSimpleName());
-			onBackPressed();
-		}
 	}
 
 	@Override
@@ -171,8 +163,9 @@ public class CopytradingOpenTradesFragment extends BaseFragment implements Copyt
 
 	@Override
 	public void pagerShow() {
-		if (copytradingOpenTradesPresenter != null)
+		if (copytradingOpenTradesPresenter != null) {
 			copytradingOpenTradesPresenter.onShow();
+		}
 	}
 
 	@Override

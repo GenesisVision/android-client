@@ -187,7 +187,7 @@ public class DashboardTradingView extends RelativeLayout
 		this.details = details;
 
 		equity.setText(StringFormatUtil.getValueString(details.getEquity(), baseCurrency.getValue()));
-		aum.setText(StringFormatUtil.getValueString(details.getAssetsUnderManagement(), baseCurrency.getValue()));
+		aum.setText(StringFormatUtil.getValueString(details.getAum(), baseCurrency.getValue()));
 		setEvents(details.getEvents().getItems());
 		setTimeframe(selectedTimeframe);
 

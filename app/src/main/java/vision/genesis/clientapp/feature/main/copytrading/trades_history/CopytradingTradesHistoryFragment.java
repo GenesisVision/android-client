@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -15,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.arellomobile.mvp.presenter.InjectPresenter;
 
 import java.util.List;
+import java.util.UUID;
 
 import butterknife.BindDimen;
 import butterknife.BindView;
@@ -37,19 +37,12 @@ import vision.genesis.clientapp.ui.DateRangeView;
 
 public class CopytradingTradesHistoryFragment extends BaseFragment implements CopytradingTradesHistoryView, DashboardPagerAdapter.OnPageVisibilityChanged
 {
-	public static final String LOCATION_COPYTRADING_ACCOUNT = "location_copytrading_account";
+	private static final String EXTRA_ACCOUNT_ID = "extra_account_id";
 
-	public static final String LOCATION_DASHBOARD = "location_dashboard";
-
-	private static final String EXTRA_LOCATION = "extra_location";
-
-	private static final String EXTRA_ACCOUNT_CURRENCY = "extra_account_currency";
-
-	public static CopytradingTradesHistoryFragment with(@NonNull String location, @Nullable String accountCurrency) {
+	public static CopytradingTradesHistoryFragment with(UUID accountId) {
 		CopytradingTradesHistoryFragment copytradingTradesHistoryFragment = new CopytradingTradesHistoryFragment();
-		Bundle arguments = new Bundle(2);
-		arguments.putString(EXTRA_LOCATION, location);
-		arguments.putString(EXTRA_ACCOUNT_CURRENCY, accountCurrency);
+		Bundle arguments = new Bundle(1);
+		arguments.putSerializable(EXTRA_ACCOUNT_ID, accountId);
 		copytradingTradesHistoryFragment.setArguments(arguments);
 		return copytradingTradesHistoryFragment;
 	}
@@ -79,7 +72,7 @@ public class CopytradingTradesHistoryFragment extends BaseFragment implements Co
 	public int filtersMarginTop;
 
 	@InjectPresenter
-	public CopytradingTradesHistoryPresenter copytradingTradesHistoryPresenter;
+	public CopytradingTradesHistoryPresenter presenter;
 
 	private DateRange dateRange = DateRange.createFromEnum(DateRange.DateRangeEnum.ALL_TIME);
 
@@ -91,14 +84,14 @@ public class CopytradingTradesHistoryFragment extends BaseFragment implements Co
 			DateRangeBottomSheetFragment bottomSheetDialog = new DateRangeBottomSheetFragment();
 			bottomSheetDialog.show(getActivity().getSupportFragmentManager(), bottomSheetDialog.getTag());
 			bottomSheetDialog.setDateRange(dateRange);
-			bottomSheetDialog.setListener(copytradingTradesHistoryPresenter);
+			bottomSheetDialog.setListener(presenter);
 		}
 	}
 
 	@Nullable
 	@Override
 	public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-		return inflater.inflate(R.layout.fragment_dashboard_trades_history, container, false);
+		return inflater.inflate(R.layout.fragment_copytrading_trades_history, container, false);
 	}
 
 	@Override
@@ -112,9 +105,8 @@ public class CopytradingTradesHistoryFragment extends BaseFragment implements Co
 		}
 
 		if (getArguments() != null) {
-			String location = getArguments().getString(EXTRA_LOCATION);
-			String accountCurrency = getArguments().getString(EXTRA_ACCOUNT_CURRENCY);
-			copytradingTradesHistoryPresenter.setData(location, accountCurrency);
+			UUID accountId = (UUID) getArguments().getSerializable(EXTRA_ACCOUNT_ID);
+			presenter.setData(accountId);
 
 			initRecyclerView();
 		}
@@ -127,13 +119,13 @@ public class CopytradingTradesHistoryFragment extends BaseFragment implements Co
 	@Override
 	public void onPause() {
 		super.onPause();
-		copytradingTradesHistoryPresenter.onHide();
+		presenter.onHide();
 	}
 
 	@Override
 	public void onResume() {
 		super.onResume();
-		copytradingTradesHistoryPresenter.onShow();
+		presenter.onShow();
 	}
 
 	private void initRecyclerView() {
@@ -154,7 +146,7 @@ public class CopytradingTradesHistoryFragment extends BaseFragment implements Co
 
 				boolean endHasBeenReached = lastVisible + 1 >= totalItemCount;
 				if (totalItemCount > 0 && endHasBeenReached) {
-					copytradingTradesHistoryPresenter.onLastListItemVisible();
+					presenter.onLastListItemVisible();
 				}
 			}
 		});
@@ -212,8 +204,9 @@ public class CopytradingTradesHistoryFragment extends BaseFragment implements Co
 
 	@Override
 	public void pagerShow() {
-		if (copytradingTradesHistoryPresenter != null)
-			copytradingTradesHistoryPresenter.onShow();
+		if (presenter != null) {
+			presenter.onShow();
+		}
 	}
 
 	@Override
@@ -221,8 +214,9 @@ public class CopytradingTradesHistoryFragment extends BaseFragment implements Co
 	}
 
 	public void onSwipeRefresh() {
-		if (copytradingTradesHistoryPresenter != null)
-			copytradingTradesHistoryPresenter.onSwipeRefresh();
+		if (presenter != null) {
+			presenter.onSwipeRefresh();
+		}
 	}
 
 	public void onOffsetChanged(int verticalOffset) {
@@ -234,8 +228,9 @@ public class CopytradingTradesHistoryFragment extends BaseFragment implements Co
 	public void onDashboardOffsetChanged(int verticalOffset) {
 		if (dateRangeView != null) {
 			float newY = root.getHeight() - verticalOffset - dateRangeView.getHeight() - filtersMarginBottom;
-			if (newY < filtersMarginTop)
+			if (newY < filtersMarginTop) {
 				newY = filtersMarginTop;
+			}
 			dateRangeView.setY(newY);
 		}
 	}

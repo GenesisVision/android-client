@@ -24,9 +24,9 @@ import java.util.Objects;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 /**
- * ProgramProfitPercentCharts
+ * For programs and follows
  */
-
+@Schema(description = "For programs and follows")
 
 public class ProgramProfitPercentCharts implements Parcelable
 {

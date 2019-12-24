@@ -502,7 +502,7 @@ No authorization required
 
 <a name="getProgramProfitPercentCharts"></a>
 # **getProgramProfitPercentCharts**
-> ProgramProfitPercentCharts getProgramProfitPercentCharts(id, dateFrom, dateTo, maxPointCount, currency, currencies)
+> ProgramProfitPercentCharts getProgramProfitPercentCharts(id, authorization, dateFrom, dateTo, maxPointCount, currency, currencies)
 
 Program profit percent charts
 
@@ -515,13 +515,14 @@ Program profit percent charts
 
 ProgramsApi apiInstance = new ProgramsApi();
 UUID id = new UUID(); // UUID | 
+String authorization = "authorization_example"; // String | 
 DateTime dateFrom = new DateTime(); // DateTime | 
 DateTime dateTo = new DateTime(); // DateTime | 
 Integer maxPointCount = 56; // Integer | 
 String currency = "currency_example"; // String | 
 List<Object> currencies = null; // List<Object> | 
 try {
-    ProgramProfitPercentCharts result = apiInstance.getProgramProfitPercentCharts(id, dateFrom, dateTo, maxPointCount, currency, currencies);
+    ProgramProfitPercentCharts result = apiInstance.getProgramProfitPercentCharts(id, authorization, dateFrom, dateTo, maxPointCount, currency, currencies);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling ProgramsApi#getProgramProfitPercentCharts");
@@ -534,6 +535,7 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | [**UUID**](.md)|  |
+ **authorization** | **String**|  | [optional]
  **dateFrom** | **DateTime**|  | [optional]
  **dateTo** | **DateTime**|  | [optional]
  **maxPointCount** | **Integer**|  | [optional]

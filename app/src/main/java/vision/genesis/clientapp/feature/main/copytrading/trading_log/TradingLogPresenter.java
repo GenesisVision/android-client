@@ -7,6 +7,7 @@ import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import javax.inject.Inject;
 
@@ -19,8 +20,7 @@ import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.feature.common.date_range.DateRangeBottomSheetFragment;
 import vision.genesis.clientapp.managers.FollowsManager;
 import vision.genesis.clientapp.model.DateRange;
-import vision.genesis.clientapp.model.events.SetCopytradingAccountTradingLogCountEvent;
-import vision.genesis.clientapp.model.events.SetDashboardTradingLogCountEvent;
+import vision.genesis.clientapp.model.events.SetCopytradingTradingLogCountEvent;
 import vision.genesis.clientapp.net.ApiErrorResolver;
 import vision.genesis.clientapp.ui.common.SimpleSectionedRecyclerViewAdapter;
 import vision.genesis.clientapp.utils.DateTimeUtil;
@@ -42,15 +42,13 @@ public class TradingLogPresenter extends MvpPresenter<TradingLogView> implements
 
 	private DateRange dateRange = DateRange.createFromEnum(DateRange.DateRangeEnum.ALL_TIME);
 
-	private int skip;
-
 	private List<SignalTradingEvent> events = new ArrayList<>();
 
 	private List<SimpleSectionedRecyclerViewAdapter.Section> sections = new ArrayList<>();
 
-	private String location;
+	private UUID accountId;
 
-	private String accountCurrency;
+	private int skip;
 
 	@Override
 	protected void onFirstViewAttach() {
@@ -73,9 +71,8 @@ public class TradingLogPresenter extends MvpPresenter<TradingLogView> implements
 		super.onDestroy();
 	}
 
-	void setData(String location, String accountCurrency) {
-		this.location = location;
-		this.accountCurrency = accountCurrency;
+	void setData(UUID accountId) {
+		this.accountId = accountId;
 
 		getTradingLog(true);
 	}
@@ -95,7 +92,7 @@ public class TradingLogPresenter extends MvpPresenter<TradingLogView> implements
 			if (forceUpdate) {
 				skip = 0;
 			}
-			getTradingLogSubscription = followsManager.getTradingLog(accountCurrency, skip, TAKE)
+			getTradingLogSubscription = followsManager.getTradingLog(accountId, skip, TAKE)
 					.subscribeOn(Schedulers.computation())
 					.observeOn(AndroidSchedulers.mainThread())
 					.subscribe(this::handleGetTradingLogSuccess,
@@ -111,12 +108,7 @@ public class TradingLogPresenter extends MvpPresenter<TradingLogView> implements
 			events.clear();
 		}
 
-		if (location.equals(TradingLogFragment.LOCATION_DASHBOARD)) {
-			EventBus.getDefault().post(new SetDashboardTradingLogCountEvent(response.getTotal()));
-		}
-		else if (location.equals(TradingLogFragment.LOCATION_COPYTRADING_ACCOUNT)) {
-			EventBus.getDefault().post(new SetCopytradingAccountTradingLogCountEvent(response.getTotal()));
-		}
+		EventBus.getDefault().post(new SetCopytradingTradingLogCountEvent(response.getTotal()));
 
 		List<SignalTradingEvent> newEvents = response.getItems();
 

@@ -65,6 +65,9 @@ public class Broker implements Parcelable
 	@SerializedName("leverageMax")
 	private Integer leverageMax = null;
 
+	@SerializedName("isKycRequired")
+	private Boolean isKycRequired = null;
+
 	@SerializedName("accountTypes")
 	private List<BrokerAccountType> accountTypes = null;
 
@@ -83,6 +86,7 @@ public class Broker implements Parcelable
 		fee = (Double) in.readValue(null);
 		leverageMin = (Integer) in.readValue(null);
 		leverageMax = (Integer) in.readValue(null);
+		isKycRequired = (Boolean) in.readValue(null);
 		accountTypes = (List<BrokerAccountType>) in.readValue(BrokerAccountType.class.getClassLoader());
 		tags = (List<Tag>) in.readValue(Tag.class.getClassLoader());
 	}
@@ -221,6 +225,16 @@ public class Broker implements Parcelable
 		return leverageMax;
 	}
 
+	/**
+	 * Get isKycRequired
+	 *
+	 * @return isKycRequired
+	 **/
+	@Schema(description = "")
+	public Boolean isIsKycRequired() {
+		return isKycRequired;
+	}
+
 	public Broker accountTypes(List<BrokerAccountType> accountTypes) {
 		this.accountTypes = accountTypes;
 		return this;
@@ -292,13 +306,14 @@ public class Broker implements Parcelable
 				Objects.equals(this.fee, broker.fee) &&
 				Objects.equals(this.leverageMin, broker.leverageMin) &&
 				Objects.equals(this.leverageMax, broker.leverageMax) &&
+				Objects.equals(this.isKycRequired, broker.isKycRequired) &&
 				Objects.equals(this.accountTypes, broker.accountTypes) &&
 				Objects.equals(this.tags, broker.tags);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(name, description, logo, terms, assets, fee, leverageMin, leverageMax, accountTypes, tags);
+		return Objects.hash(name, description, logo, terms, assets, fee, leverageMin, leverageMax, isKycRequired, accountTypes, tags);
 	}
 
 	@Override
@@ -314,6 +329,7 @@ public class Broker implements Parcelable
 		sb.append("    fee: ").append(toIndentedString(fee)).append("\n");
 		sb.append("    leverageMin: ").append(toIndentedString(leverageMin)).append("\n");
 		sb.append("    leverageMax: ").append(toIndentedString(leverageMax)).append("\n");
+		sb.append("    isKycRequired: ").append(toIndentedString(isKycRequired)).append("\n");
 		sb.append("    accountTypes: ").append(toIndentedString(accountTypes)).append("\n");
 		sb.append("    tags: ").append(toIndentedString(tags)).append("\n");
 		sb.append("}");
@@ -340,6 +356,7 @@ public class Broker implements Parcelable
 		out.writeValue(fee);
 		out.writeValue(leverageMin);
 		out.writeValue(leverageMax);
+		out.writeValue(isKycRequired);
 		out.writeValue(accountTypes);
 		out.writeValue(tags);
 	}

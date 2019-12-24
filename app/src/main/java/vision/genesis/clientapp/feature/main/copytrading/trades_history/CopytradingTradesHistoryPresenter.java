@@ -8,6 +8,7 @@ import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import javax.inject.Inject;
 
@@ -20,8 +21,7 @@ import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.feature.common.date_range.DateRangeBottomSheetFragment;
 import vision.genesis.clientapp.managers.FollowsManager;
 import vision.genesis.clientapp.model.DateRange;
-import vision.genesis.clientapp.model.events.SetCopytradingAccountTradesHistoryCountEvent;
-import vision.genesis.clientapp.model.events.SetDashboardTradesHistoryCountEvent;
+import vision.genesis.clientapp.model.events.SetCopytradingTradesHistoryCountEvent;
 import vision.genesis.clientapp.model.events.ShowCopytradingCommissionsEvent;
 import vision.genesis.clientapp.net.ApiErrorResolver;
 
@@ -46,11 +46,9 @@ public class CopytradingTradesHistoryPresenter extends MvpPresenter<CopytradingT
 
 	private List<OrderSignalModel> trades = new ArrayList<>();
 
-	private String location;
-
-	private String accountCurrency;
-
 	private boolean isFragmentActive;
+
+	private UUID accountId;
 
 	@Override
 	protected void onFirstViewAttach() {
@@ -77,9 +75,8 @@ public class CopytradingTradesHistoryPresenter extends MvpPresenter<CopytradingT
 		super.onDestroy();
 	}
 
-	void setData(String location, String accountCurrency) {
-		this.location = location;
-		this.accountCurrency = accountCurrency;
+	void setData(UUID accountId) {
+		this.accountId = accountId;
 
 		getTradesHistory(true);
 	}
@@ -107,7 +104,7 @@ public class CopytradingTradesHistoryPresenter extends MvpPresenter<CopytradingT
 			if (forceUpdate) {
 				skip = 0;
 			}
-			getTradesHistorySubscription = followsManager.getTradesHistory(dateRange, "", "", null, accountCurrency, skip, TAKE)
+			getTradesHistorySubscription = followsManager.getTradesHistory(dateRange, "", "", accountId, null, skip, TAKE)
 					.subscribeOn(Schedulers.computation())
 					.observeOn(AndroidSchedulers.mainThread())
 					.subscribe(this::handleGetTradesHistorySuccess,
@@ -123,12 +120,7 @@ public class CopytradingTradesHistoryPresenter extends MvpPresenter<CopytradingT
 			trades.clear();
 		}
 
-		if (location.equals(CopytradingTradesHistoryFragment.LOCATION_DASHBOARD)) {
-			EventBus.getDefault().post(new SetDashboardTradesHistoryCountEvent(response.getTotal()));
-		}
-		else if (location.equals(CopytradingTradesHistoryFragment.LOCATION_COPYTRADING_ACCOUNT)) {
-			EventBus.getDefault().post(new SetCopytradingAccountTradesHistoryCountEvent(response.getTotal()));
-		}
+		EventBus.getDefault().post(new SetCopytradingTradesHistoryCountEvent(response.getTotal()));
 
 		List<OrderSignalModel> newTrades = response.getItems();
 		trades.addAll(newTrades);

@@ -5,6 +5,8 @@ import com.arellomobile.mvp.viewstate.strategy.AddToEndSingleStrategy;
 import com.arellomobile.mvp.viewstate.strategy.OneExecutionStateStrategy;
 import com.arellomobile.mvp.viewstate.strategy.StateStrategyType;
 
+import java.util.UUID;
+
 import io.swagger.client.model.PrivateTradingAccountFull;
 
 /**
@@ -37,4 +39,6 @@ interface TradingAccountDetailsView extends MvpView
 	void setOpenPositionsCount(Integer openPositionsCount);
 
 	void setTradesCount(Integer tradesCount);
+
+	void showUnfollowTradesActivity(UUID followId, UUID tradingAccountId, String followName);
 }

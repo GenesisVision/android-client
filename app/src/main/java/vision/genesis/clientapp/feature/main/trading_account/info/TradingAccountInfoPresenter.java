@@ -3,20 +3,26 @@ package vision.genesis.clientapp.feature.main.trading_account.info;
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 import javax.inject.Inject;
 
 import io.swagger.client.model.AssetType;
 import io.swagger.client.model.InternalTransferRequestType;
+import io.swagger.client.model.ItemsViewModelSignalSubscription;
 import io.swagger.client.model.PrivateTradingAccountFull;
+import io.swagger.client.model.SignalSubscription;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.managers.AuthManager;
+import vision.genesis.clientapp.managers.FollowsManager;
 import vision.genesis.clientapp.managers.TradingAccountManager;
 import vision.genesis.clientapp.model.CreateProgramModel;
+import vision.genesis.clientapp.model.TradingAccountDetailsModel;
 import vision.genesis.clientapp.model.TransferFundsModel;
 import vision.genesis.clientapp.net.ApiErrorResolver;
 
@@ -34,11 +40,18 @@ public class TradingAccountInfoPresenter extends MvpPresenter<TradingAccountInfo
 	@Inject
 	public TradingAccountManager tradingAccountManager;
 
+	@Inject
+	public FollowsManager followsManager;
+
 	private Subscription accountDetailsSubscription;
+
+	private Subscription subscriptionsSubscription;
 
 	private UUID accountId;
 
 	private PrivateTradingAccountFull accountDetails;
+
+	private List<SignalSubscription> masters = new ArrayList<>();
 
 	@Override
 	protected void onFirstViewAttach() {
@@ -48,12 +61,16 @@ public class TradingAccountInfoPresenter extends MvpPresenter<TradingAccountInfo
 
 		getViewState().showProgress(true);
 		getAccountDetails();
+		getSubscriptions();
 	}
 
 	@Override
 	public void onDestroy() {
 		if (accountDetailsSubscription != null) {
 			accountDetailsSubscription.unsubscribe();
+		}
+		if (subscriptionsSubscription != null) {
+			subscriptionsSubscription.unsubscribe();
 		}
 
 		super.onDestroy();
@@ -66,8 +83,8 @@ public class TradingAccountInfoPresenter extends MvpPresenter<TradingAccountInfo
 
 	void onShow() {
 		getAccountDetails();
+		getSubscriptions();
 	}
-
 
 	void onManageAccountClicked() {
 //		TradingAccountDetailsModel model = new TradingAccountDetailsModel(
@@ -113,6 +130,15 @@ public class TradingAccountInfoPresenter extends MvpPresenter<TradingAccountInfo
 				accountDetails.getTradingAccountInfo().getCurrency().getValue()));
 	}
 
+	void onSubscriptionsDetailsClicked() {
+		TradingAccountDetailsModel model = new TradingAccountDetailsModel(
+				accountDetails.getId(),
+				accountDetails.getPublicInfo().getTitle(),
+				accountDetails.getBrokerDetails().getLogo());
+		getViewState().showCopytradingDetailsActivity(model);
+
+	}
+
 	private void getAccountDetails() {
 		if (accountId != null && tradingAccountManager != null) {
 			if (accountDetailsSubscription != null) {
@@ -140,5 +166,33 @@ public class TradingAccountInfoPresenter extends MvpPresenter<TradingAccountInfo
 		getViewState().showProgress(false);
 
 		ApiErrorResolver.resolveErrors(throwable, message -> getViewState().showSnackbarMessage(message));
+	}
+
+	private void getSubscriptions() {
+		if (accountId != null && followsManager != null) {
+			if (subscriptionsSubscription != null) {
+				subscriptionsSubscription.unsubscribe();
+			}
+			subscriptionsSubscription = followsManager.getMastersForMyAccount(accountId, false)
+					.observeOn(AndroidSchedulers.mainThread())
+					.subscribeOn(Schedulers.io())
+					.subscribe(this::handleSubscriptionsSuccess,
+							this::handleSubscriptionsError);
+		}
+	}
+
+	private void handleSubscriptionsSuccess(ItemsViewModelSignalSubscription response) {
+		subscriptionsSubscription.unsubscribe();
+
+		this.masters = response.getItems();
+
+		if (!masters.isEmpty()) {
+			getViewState().showCopytrading(masters);
+		}
+	}
+
+	private void handleSubscriptionsError(Throwable throwable) {
+		subscriptionsSubscription.unsubscribe();
+		getViewState().showProgress(false);
 	}
 }

@@ -24,7 +24,7 @@ import io.swagger.client.model.SimpleChartPoint;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
 import vision.genesis.clientapp.feature.common.date_range.DateRangeBottomSheetFragment;
-import vision.genesis.clientapp.feature.main.trading_account.TradingAccountPagerAdapter;
+import vision.genesis.clientapp.feature.main.trading_account.TradingAccountDetailsPagerAdapter;
 import vision.genesis.clientapp.model.DateRange;
 import vision.genesis.clientapp.ui.DateRangeView;
 import vision.genesis.clientapp.ui.chart.BalanceChartView;
@@ -36,7 +36,7 @@ import vision.genesis.clientapp.utils.TypefaceUtil;
  * Created by Vitaly on 28/11/2019.
  */
 
-public class TradingAccountBalanceFragment extends BaseFragment implements TradingAccountBalanceView, TradingAccountPagerAdapter.OnPageVisibilityChanged
+public class TradingAccountBalanceFragment extends BaseFragment implements TradingAccountBalanceView, TradingAccountDetailsPagerAdapter.OnPageVisibilityChanged
 {
 	private static String EXTRA_ACCOUNT_ID = "extra_account_id";
 

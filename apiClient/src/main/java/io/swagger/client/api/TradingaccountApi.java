@@ -16,9 +16,30 @@ import rx.Observable;
 public interface TradingaccountApi
 {
 	/**
+	 * Export trade history
+	 *
+	 * @param id              (required)
+	 * @param authorization   JWT access token (required)
+	 * @param dateFrom        (optional)
+	 * @param dateTo          (optional)
+	 * @param symbol          (optional)
+	 * @param sorting         (optional)
+	 * @param accountId       (optional)
+	 * @param accountCurrency (optional)
+	 * @param skip            (optional)
+	 * @param take            (optional)
+	 * @return Call&lt;String&gt;
+	 */
+	@GET("v2.0/tradingaccount/{id}/trades/export")
+	Observable<String> exportTrades(
+			@retrofit2.http.Path("id") UUID id, @retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("DateFrom") DateTime dateFrom, @retrofit2.http.Query("DateTo") DateTime dateTo, @retrofit2.http.Query("Symbol") String symbol, @retrofit2.http.Query("Sorting") String sorting, @retrofit2.http.Query("AccountId") UUID accountId, @retrofit2.http.Query("AccountCurrency") String accountCurrency, @retrofit2.http.Query("Skip") Integer skip, @retrofit2.http.Query("Take") Integer take
+	);
+
+	/**
 	 * Trading account absolute profit chart
 	 *
 	 * @param id            (required)
+	 * @param authorization JWT access token (required)
 	 * @param dateFrom      (optional)
 	 * @param dateTo        (optional)
 	 * @param maxPointCount (optional)
@@ -27,13 +48,14 @@ public interface TradingaccountApi
 	 */
 	@GET("v2.0/tradingaccount/{id}/charts/profit/absolute")
 	Observable<AbsoluteProfitChart> getAbsoluteProfitChart(
-			@retrofit2.http.Path("id") UUID id, @retrofit2.http.Query("DateFrom") DateTime dateFrom, @retrofit2.http.Query("DateTo") DateTime dateTo, @retrofit2.http.Query("MaxPointCount") Integer maxPointCount, @retrofit2.http.Query("Currency") String currency
+			@retrofit2.http.Path("id") UUID id, @retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("DateFrom") DateTime dateFrom, @retrofit2.http.Query("DateTo") DateTime dateTo, @retrofit2.http.Query("MaxPointCount") Integer maxPointCount, @retrofit2.http.Query("Currency") String currency
 	);
 
 	/**
 	 * Trading account balance chart
 	 *
 	 * @param id            (required)
+	 * @param authorization JWT access token (required)
 	 * @param dateFrom      (optional)
 	 * @param dateTo        (optional)
 	 * @param maxPointCount (optional)
@@ -42,7 +64,7 @@ public interface TradingaccountApi
 	 */
 	@GET("v2.0/tradingaccount/{id}/charts/balance")
 	Observable<AccountBalanceChart> getBalanceChart(
-			@retrofit2.http.Path("id") UUID id, @retrofit2.http.Query("DateFrom") DateTime dateFrom, @retrofit2.http.Query("DateTo") DateTime dateTo, @retrofit2.http.Query("MaxPointCount") Integer maxPointCount, @retrofit2.http.Query("Currency") String currency
+			@retrofit2.http.Path("id") UUID id, @retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("DateFrom") DateTime dateFrom, @retrofit2.http.Query("DateTo") DateTime dateTo, @retrofit2.http.Query("MaxPointCount") Integer maxPointCount, @retrofit2.http.Query("Currency") String currency
 	);
 
 	/**
@@ -67,6 +89,7 @@ public interface TradingaccountApi
 	 * Trading account profit percent charts
 	 *
 	 * @param id            (required)
+	 * @param authorization JWT access token (required)
 	 * @param dateFrom      (optional)
 	 * @param dateTo        (optional)
 	 * @param maxPointCount (optional)
@@ -76,7 +99,7 @@ public interface TradingaccountApi
 	 */
 	@GET("v2.0/tradingaccount/{id}/charts/profit/percent")
 	Observable<AccountProfitPercentCharts> getProfitPercentCharts(
-			@retrofit2.http.Path("id") UUID id, @retrofit2.http.Query("DateFrom") DateTime dateFrom, @retrofit2.http.Query("DateTo") DateTime dateTo, @retrofit2.http.Query("MaxPointCount") Integer maxPointCount, @retrofit2.http.Query("Currency") String currency, @retrofit2.http.Query("currencies") List<Object> currencies
+			@retrofit2.http.Path("id") UUID id, @retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("DateFrom") DateTime dateFrom, @retrofit2.http.Query("DateTo") DateTime dateTo, @retrofit2.http.Query("MaxPointCount") Integer maxPointCount, @retrofit2.http.Query("Currency") String currency, @retrofit2.http.Query("currencies") List<Object> currencies
 	);
 
 	/**

@@ -1,10 +1,11 @@
 package vision.genesis.clientapp.feature.main.wallet.copytrading_account_details;
 
-import com.google.android.material.tabs.TabLayout;
-
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
+
+import com.google.android.material.tabs.TabLayout;
+
 import vision.genesis.clientapp.feature.main.copytrading.open_trades.CopytradingOpenTradesFragment;
 import vision.genesis.clientapp.feature.main.copytrading.trades_history.CopytradingTradesHistoryFragment;
 import vision.genesis.clientapp.feature.main.copytrading.trading_log.TradingLogFragment;
@@ -34,9 +35,9 @@ public class CopytradingAccountDetailsPagerAdapter extends FragmentStatePagerAda
 	CopytradingAccountDetailsPagerAdapter(FragmentManager fm, TabLayout tabLayout, String accountCurrency) {
 		super(fm);
 		this.tabLayout = tabLayout;
-		openTradesFragment = CopytradingOpenTradesFragment.with(CopytradingOpenTradesFragment.LOCATION_COPYTRADING_ACCOUNT, accountCurrency);
-		tradesHistoryFragment = CopytradingTradesHistoryFragment.with(CopytradingTradesHistoryFragment.LOCATION_COPYTRADING_ACCOUNT, accountCurrency);
-		tradingLogFragment = TradingLogFragment.with(CopytradingTradesHistoryFragment.LOCATION_COPYTRADING_ACCOUNT, accountCurrency);
+//		openTradesFragment = CopytradingOpenTradesFragment.with(CopytradingOpenTradesFragment.LOCATION_COPYTRADING_ACCOUNT, accountCurrency);
+//		tradesHistoryFragment = CopytradingTradesHistoryFragment.with(CopytradingTradesHistoryFragment.LOCATION_COPYTRADING_ACCOUNT, accountCurrency);
+//		tradingLogFragment = TradingLogFragment.with(CopytradingTradesHistoryFragment.LOCATION_COPYTRADING_ACCOUNT, accountCurrency);
 	}
 
 	@Override

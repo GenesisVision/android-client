@@ -20,8 +20,7 @@ import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.managers.FollowsManager;
 import vision.genesis.clientapp.model.events.OnOpenTradeWholeCloseClickedEvent;
-import vision.genesis.clientapp.model.events.SetCopytradingAccountOpenTradesCountEvent;
-import vision.genesis.clientapp.model.events.SetDashboardOpenTradesCountEvent;
+import vision.genesis.clientapp.model.events.SetCopytradingOpenTradesCountEvent;
 import vision.genesis.clientapp.net.ApiErrorResolver;
 
 /**
@@ -39,15 +38,13 @@ public class CopytradingOpenTradesPresenter extends MvpPresenter<CopytradingOpen
 
 	private Subscription closeTradeSubscription;
 
-	private String location;
-
-	private String accountCurrency;
-
 	private List<OrderSignalModel> openTrades = new ArrayList<>();
 
 	private Integer totalTradesCount = 0;
 
 	private boolean isFragmentActive;
+
+	private UUID accountId;
 
 	@Override
 	protected void onFirstViewAttach() {
@@ -72,9 +69,8 @@ public class CopytradingOpenTradesPresenter extends MvpPresenter<CopytradingOpen
 		super.onDestroy();
 	}
 
-	void setData(String location, String accountCurrency) {
-		this.location = location;
-		this.accountCurrency = accountCurrency;
+	void setData(UUID accountId) {
+		this.accountId = accountId;
 
 		getOpenTrades();
 	}
@@ -89,8 +85,8 @@ public class CopytradingOpenTradesPresenter extends MvpPresenter<CopytradingOpen
 	}
 
 	private void getOpenTrades() {
-		if (followsManager != null && location != null) {
-			getOpenTradesSubscription = followsManager.getOpenTrades("", "", null, accountCurrency, 0, 1000)
+		if (followsManager != null && accountId != null) {
+			getOpenTradesSubscription = followsManager.getOpenTrades("", "", accountId, null, 0, 1000)
 					.subscribeOn(Schedulers.computation())
 					.observeOn(AndroidSchedulers.mainThread())
 					.subscribe(this::handleGetOpenTradesSuccess,
@@ -111,12 +107,7 @@ public class CopytradingOpenTradesPresenter extends MvpPresenter<CopytradingOpen
 	}
 
 	private void updateCounter() {
-		if (location.equals(CopytradingOpenTradesFragment.LOCATION_DASHBOARD)) {
-			EventBus.getDefault().post(new SetDashboardOpenTradesCountEvent(totalTradesCount));
-		}
-		else if (location.equals(CopytradingOpenTradesFragment.LOCATION_COPYTRADING_ACCOUNT)) {
-			EventBus.getDefault().post(new SetCopytradingAccountOpenTradesCountEvent(totalTradesCount));
-		}
+		EventBus.getDefault().post(new SetCopytradingOpenTradesCountEvent(totalTradesCount));
 	}
 
 	private void handleGetOpenTradesError(Throwable throwable) {
