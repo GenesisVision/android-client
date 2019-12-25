@@ -6,6 +6,7 @@ import io.swagger.client.api.TradingaccountApi;
 import io.swagger.client.model.AccountBalanceChart;
 import io.swagger.client.model.AccountProfitPercentCharts;
 import io.swagger.client.model.PrivateTradingAccountFull;
+import io.swagger.client.model.TradesSignalViewModel;
 import io.swagger.client.model.TradesViewModel;
 import rx.Observable;
 import vision.genesis.clientapp.model.DateRange;
@@ -43,7 +44,7 @@ public class TradingAccountManager
 				dateRange.getFrom(), dateRange.getTo(), maxPointCount, null);
 	}
 
-	public Observable<TradesViewModel> getProgramTrades(UUID accountId, DateRange dateRange, Integer skip, Integer take) {
+	public Observable<TradesSignalViewModel> getProgramTrades(UUID accountId, DateRange dateRange, Integer skip, Integer take) {
 		return tradingAccountApi.getTrades(accountId, AuthManager.token.getValue(),
 				dateRange.getFrom(), dateRange.getTo(),
 				null, null, null, null,

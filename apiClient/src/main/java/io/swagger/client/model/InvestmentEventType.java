@@ -26,24 +26,24 @@ import java.io.IOException;
 public enum InvestmentEventType
 {
 	ALL("All"),
+	ASSETSTARTED("AssetStarted"),
 	ASSETFINISHED("AssetFinished"),
 	ASSETPERIODSTARTED("AssetPeriodStarted"),
 	ASSETPERIODENDED("AssetPeriodEnded"),
 	ASSETPERIODENDEDDUETOSTOPOUT("AssetPeriodEndedDueToStopOut"),
 	ASSETBROKERCHANGED("AssetBrokerChanged"),
-	ASSETENTERINVESTMENT("AssetEnterInvestment"),
 	ASSETINVESTBYINVESTOR("AssetInvestByInvestor"),
 	ASSETWITHDRAWALBYINVESTOR("AssetWithdrawalByInvestor"),
-	ASSETREALLOCATION("AssetReallocation"),
-	ASSETSTARTED("AssetStarted"),
-	ASSETPERIODPROCESSED("AssetPeriodProcessed"),
 	ASSETINVESTBYMANAGER("AssetInvestByManager"),
 	ASSETWITHDRAWALBYMANAGER("AssetWithdrawalByManager"),
+	ASSETPERIODPROCESSED("AssetPeriodProcessed"),
+	ASSETREALLOCATION("AssetReallocation"),
 	ASSETSUBSCRIBEBYINVESTOR("AssetSubscribeByInvestor"),
 	ASSETUNSUBSCRIBEBYINVESTOR("AssetUnsubscribeByInvestor"),
 	ASSETTRADEOPEN("AssetTradeOpen"),
 	ASSETTRADECLOSED("AssetTradeClosed"),
-	ASSETSUBSCRIPTIONEDIT("AssetSubscriptionEdit");
+	ASSETSUBSCRIPTIONEDIT("AssetSubscriptionEdit"),
+	ASSETENTERINVESTMENT("AssetEnterInvestment");
 
 	public static InvestmentEventType fromValue(String text) {
 		for (InvestmentEventType b : InvestmentEventType.values()) {

@@ -7,6 +7,7 @@ import io.swagger.client.model.SocialLinksViewModel;
 import io.swagger.client.model.UpdatePersonalDetailViewModel;
 import io.swagger.client.model.UpdateProfileViewModel;
 import io.swagger.client.model.UpdateSocialLinkViewModel;
+import io.swagger.client.model.UpdateSocialLinksViewModel;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
@@ -100,6 +101,21 @@ public interface ProfileApi
 	@POST("v2.0/profile/investor/public/on")
 	Observable<Void> switchPublicInvestorOn(
 			@retrofit2.http.Header("Authorization") String authorization
+	);
+
+	/**
+	 * Add or update all social links
+	 *
+	 * @param authorization JWT access token (required)
+	 * @param body          (optional)
+	 * @return Call&lt;Void&gt;
+	 */
+	@Headers({
+			"Content-Type:application/json"
+	})
+	@POST("v2.0/profile/sociallinks/all/update")
+	Observable<Void> updateAllSocialLinks(
+			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Body UpdateSocialLinksViewModel body
 	);
 
 	/**

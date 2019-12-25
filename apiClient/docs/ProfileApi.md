@@ -12,6 +12,7 @@ Method | HTTP request | Description
 [**removeFcmToken**](ProfileApi.md#removeFcmToken) | **POST** v2.0/profile/push/token/remove | 
 [**switchPublicInvestorOff**](ProfileApi.md#switchPublicInvestorOff) | **POST** v2.0/profile/investor/public/off | Disable public investor profile
 [**switchPublicInvestorOn**](ProfileApi.md#switchPublicInvestorOn) | **POST** v2.0/profile/investor/public/on | Enable public investor profile
+[**updateAllSocialLinks**](ProfileApi.md#updateAllSocialLinks) | **POST** v2.0/profile/sociallinks/all/update | Add or update all social links
 [**updateAvatar**](ProfileApi.md#updateAvatar) | **POST** v2.0/profile/avatar/update/{fileId} | Update avatar
 [**updateFcmToken**](ProfileApi.md#updateFcmToken) | **POST** v2.0/profile/push/token | 
 [**updatePersonalDetails**](ProfileApi.md#updatePersonalDetails) | **POST** v2.0/profile/personal/update | Update user personal details
@@ -362,6 +363,51 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
+
+<a name="updateAllSocialLinks"></a>
+# **updateAllSocialLinks**
+> Void updateAllSocialLinks(authorization, body)
+
+Add or update all social links
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiException;
+//import io.swagger.client.api.ProfileApi;
+
+
+ProfileApi apiInstance = new ProfileApi();
+String authorization = "authorization_example"; // String | JWT access token
+UpdateSocialLinksViewModel body = new UpdateSocialLinksViewModel(); // UpdateSocialLinksViewModel | 
+try {
+    Void result = apiInstance.updateAllSocialLinks(authorization, body);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling ProfileApi#updateAllSocialLinks");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **authorization** | **String**| JWT access token |
+ **body** | [**UpdateSocialLinksViewModel**](UpdateSocialLinksViewModel.md)|  | [optional]
+
+### Return type
+
+[**Void**](.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json-patch+json, application/json, text/json, application/_*+json
  - **Accept**: text/plain, application/json, text/json
 
 <a name="updateAvatar"></a>

@@ -6,14 +6,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
+import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.arellomobile.mvp.presenter.InjectPresenter;
 
 import java.util.List;
 import java.util.UUID;
 
-import androidx.annotation.Nullable;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindDimen;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -203,8 +204,9 @@ public class ProgramTradesFragment extends BaseFragment implements ProgramTrades
 
 	@Override
 	public void pagerShow() {
-		if (programTradesPresenter != null)
+		if (programTradesPresenter != null) {
 			programTradesPresenter.onShow();
+		}
 	}
 
 	@Override
@@ -212,12 +214,14 @@ public class ProgramTradesFragment extends BaseFragment implements ProgramTrades
 	}
 
 	public void onSwipeRefresh() {
-		if (programTradesPresenter != null)
+		if (programTradesPresenter != null) {
 			programTradesPresenter.onSwipeRefresh();
+		}
 	}
 
 	public void onOffsetChanged(int verticalOffset) {
-		if (dateRangeView != null && root.getHeight() != 0)
+		if (dateRangeView != null && root.getHeight() != 0) {
 			dateRangeView.setY(root.getHeight() - verticalOffset - dateRangeView.getHeight() - dateRangeMarginBottom);
+		}
 	}
 }

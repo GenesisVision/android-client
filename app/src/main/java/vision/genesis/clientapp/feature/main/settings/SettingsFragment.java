@@ -31,6 +31,7 @@ import vision.genesis.clientapp.feature.common.currency.SelectCurrencyFragment;
 import vision.genesis.clientapp.feature.main.message.MessageBottomSheetDialog;
 import vision.genesis.clientapp.feature.main.settings.public_info.ProfilePublicInfoActivity;
 import vision.genesis.clientapp.feature.main.settings.security.SecurityActivity;
+import vision.genesis.clientapp.feature.main.settings.social_links.SocialLinksActivity;
 import vision.genesis.clientapp.model.CurrencyEnum;
 import vision.genesis.clientapp.ui.AvatarView;
 import vision.genesis.clientapp.utils.ThemeUtil;
@@ -90,6 +91,13 @@ public class SettingsFragment extends BaseFragment implements SettingsView
 	public void onPublicInfoClicked() {
 		if (getActivity() != null) {
 			ProfilePublicInfoActivity.startFrom(getActivity(), false);
+		}
+	}
+
+	@OnClick(R.id.social_links)
+	public void onSocialLinksClicked() {
+		if (getActivity() != null) {
+			SocialLinksActivity.startFrom(getActivity());
 		}
 	}
 

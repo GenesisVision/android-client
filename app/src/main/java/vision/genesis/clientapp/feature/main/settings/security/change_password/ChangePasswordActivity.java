@@ -5,9 +5,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputFilter;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
@@ -20,6 +20,7 @@ import butterknife.OnEditorAction;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseSwipeBackActivity;
 import vision.genesis.clientapp.feature.main.message.MessageBottomSheetDialog;
+import vision.genesis.clientapp.ui.PrimaryButton;
 import vision.genesis.clientapp.utils.ThemeUtil;
 import vision.genesis.clientapp.utils.TypefaceUtil;
 
@@ -58,10 +59,10 @@ public class ChangePasswordActivity extends BaseSwipeBackActivity implements Cha
 	public EditText repeatPassword;
 
 	@BindView(R.id.button_change_password)
-	public View changePasswordButton;
+	public PrimaryButton changePasswordButton;
 
-	@BindView(R.id.group_progressbar)
-	public ViewGroup progressBarGroup;
+	@BindView(R.id.progress_bar)
+	public ProgressBar progressBar;
 
 	@InjectPresenter
 	public ChangePasswordPresenter changePasswordPresenter;
@@ -128,7 +129,7 @@ public class ChangePasswordActivity extends BaseSwipeBackActivity implements Cha
 
 	@Override
 	public void showProgressBar(boolean show) {
-		progressBarGroup.setVisibility(show ? View.VISIBLE : View.GONE);
+		progressBar.setVisibility(show ? View.VISIBLE : View.GONE);
 		changePasswordButton.setVisibility(!show ? View.VISIBLE : View.GONE);
 	}
 

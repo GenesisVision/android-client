@@ -5,7 +5,9 @@ import org.greenrobot.eventbus.Subscribe;
 
 import io.swagger.client.api.ProfileApi;
 import io.swagger.client.model.ProfileFullViewModel;
+import io.swagger.client.model.SocialLinksViewModel;
 import io.swagger.client.model.UpdateProfileViewModel;
+import io.swagger.client.model.UpdateSocialLinksViewModel;
 import rx.Observable;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
@@ -108,5 +110,13 @@ public class ProfileManager
 		return on
 				? profileApi.switchPublicInvestorOn(AuthManager.token.getValue())
 				: profileApi.switchPublicInvestorOff(AuthManager.token.getValue());
+	}
+
+	public Observable<SocialLinksViewModel> getSocialLinks() {
+		return profileApi.getSocialLinks(AuthManager.token.getValue());
+	}
+
+	public Observable<Void> updateSocialLinks(UpdateSocialLinksViewModel model) {
+		return profileApi.updateAllSocialLinks(AuthManager.token.getValue(), model);
 	}
 }

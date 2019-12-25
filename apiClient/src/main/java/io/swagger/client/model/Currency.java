@@ -26,12 +26,12 @@ import java.io.IOException;
 public enum Currency
 {
 	USD("USD"),
-	BTC("BTC"),
-	ETH("ETH"),
-	USDT("USDT"),
-	GVT("GVT"),
 	UNDEFINED("Undefined"),
+	GVT("GVT"),
+	ETH("ETH"),
+	BTC("BTC"),
 	ADA("ADA"),
+	USDT("USDT"),
 	XRP("XRP"),
 	BCH("BCH"),
 	LTC("LTC"),

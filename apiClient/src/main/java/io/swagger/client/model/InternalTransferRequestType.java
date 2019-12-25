@@ -27,7 +27,9 @@ public enum InternalTransferRequestType
 {
 	UNDEFINED("Undefined"),
 	WALLET("Wallet"),
+	TRADINGACCOUNT("TradingAccount"),
 	PRIVATETRADINGACCOUNT("PrivateTradingAccount"),
+	SIGNALTRADINGACCOUNT("SignalTradingAccount"),
 	PUBLICTRADINGACCOUNT("PublicTradingAccount");
 
 	public static InternalTransferRequestType fromValue(String text) {

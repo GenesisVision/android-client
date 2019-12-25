@@ -9,6 +9,7 @@ import io.swagger.client.model.AbsoluteProfitChart;
 import io.swagger.client.model.AccountBalanceChart;
 import io.swagger.client.model.AccountProfitPercentCharts;
 import io.swagger.client.model.PrivateTradingAccountFull;
+import io.swagger.client.model.TradesSignalViewModel;
 import io.swagger.client.model.TradesViewModel;
 import retrofit2.http.GET;
 import rx.Observable;
@@ -115,10 +116,10 @@ public interface TradingaccountApi
 	 * @param accountCurrency (optional)
 	 * @param skip            (optional)
 	 * @param take            (optional)
-	 * @return Call&lt;TradesViewModel&gt;
+	 * @return Call&lt;TradesSignalViewModel&gt;
 	 */
 	@GET("v2.0/tradingaccount/{id}/trades")
-	Observable<TradesViewModel> getTrades(
+	Observable<TradesSignalViewModel> getTrades(
 			@retrofit2.http.Path("id") UUID id, @retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("DateFrom") DateTime dateFrom, @retrofit2.http.Query("DateTo") DateTime dateTo, @retrofit2.http.Query("Symbol") String symbol, @retrofit2.http.Query("Sorting") String sorting, @retrofit2.http.Query("AccountId") UUID accountId, @retrofit2.http.Query("AccountCurrency") String accountCurrency, @retrofit2.http.Query("Skip") Integer skip, @retrofit2.http.Query("Take") Integer take
 	);
 

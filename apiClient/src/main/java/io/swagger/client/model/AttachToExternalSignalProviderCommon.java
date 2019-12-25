@@ -285,12 +285,12 @@ public class AttachToExternalSignalProviderCommon implements Parcelable
 	public enum InitialDepositCurrencyEnum
 	{
 		USD("USD"),
-		BTC("BTC"),
-		ETH("ETH"),
-		USDT("USDT"),
-		GVT("GVT"),
 		UNDEFINED("Undefined"),
+		GVT("GVT"),
+		ETH("ETH"),
+		BTC("BTC"),
 		ADA("ADA"),
+		USDT("USDT"),
 		XRP("XRP"),
 		BCH("BCH"),
 		LTC("LTC"),
@@ -344,12 +344,12 @@ public class AttachToExternalSignalProviderCommon implements Parcelable
 	public enum FixedCurrencyEnum
 	{
 		USD("USD"),
-		BTC("BTC"),
-		ETH("ETH"),
-		USDT("USDT"),
-		GVT("GVT"),
 		UNDEFINED("Undefined"),
+		GVT("GVT"),
+		ETH("ETH"),
+		BTC("BTC"),
 		ADA("ADA"),
+		USDT("USDT"),
 		XRP("XRP"),
 		BCH("BCH"),
 		LTC("LTC"),

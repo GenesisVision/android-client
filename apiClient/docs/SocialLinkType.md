@@ -10,3 +10,5 @@
 * `YOUTUBE` (value: `"Youtube"`)
 * `WECHAT` (value: `"WeChat"`)
 * `EMAIL` (value: `"Email"`)
+* `WEBSITE` (value: `"Website"`)
+* `REDDIT` (value: `"Reddit"`)

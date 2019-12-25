@@ -172,6 +172,28 @@
 
             </RelativeLayout>
 
+            <RelativeLayout
+                android:id="@+id/social_links"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/settings_item_height"
+                android:background="?attr/selectableItemBackground"
+                android:paddingStart="64dp"
+                android:paddingEnd="@dimen/settings_padding">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:alpha="0.05"
+                    android:background="?attr/colorTextPrimary"/>
+
+                <TextView
+                    style="@style/settings_text"
+                    android:text="@string/social_links"/>
+
+                <ImageView style="@style/menu_item_arrow_right"/>
+
+            </RelativeLayout>
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"

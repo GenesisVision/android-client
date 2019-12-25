@@ -21,3 +21,4 @@ Name | Type | Description | Notes
 **swap** | **Double** |  |  [optional]
 **showOriginalCommission** | **Boolean** |  |  [optional]
 **signalData** | [**OrderModelSignalData**](OrderModelSignalData.md) |  |  [optional]
+**externalSignalAccountId** | [**UUID**](UUID.md) |  |  [optional]

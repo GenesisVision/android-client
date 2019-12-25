@@ -148,4 +148,5 @@
     <dimen name="broker_view_width">200dp</dimen>
     <dimen name="broker_view_height">150dp</dimen>
     <dimen name="item_list_follow_height">280dp</dimen>
+    <dimen name="social_link_height">70dp</dimen>
 </resources>

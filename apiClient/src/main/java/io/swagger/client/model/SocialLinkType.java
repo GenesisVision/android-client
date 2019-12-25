@@ -32,7 +32,9 @@ public enum SocialLinkType
 	LINKEDIN("LinkedIn"),
 	YOUTUBE("Youtube"),
 	WECHAT("WeChat"),
-	EMAIL("Email");
+	EMAIL("Email"),
+	WEBSITE("Website"),
+	REDDIT("Reddit");
 
 	public static SocialLinkType fromValue(String text) {
 		for (SocialLinkType b : SocialLinkType.values()) {

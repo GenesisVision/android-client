@@ -14,8 +14,8 @@ import java.util.UUID;
 
 import javax.inject.Inject;
 
-import io.swagger.client.model.OrderModel;
-import io.swagger.client.model.TradesViewModel;
+import io.swagger.client.model.OrderSignalModel;
+import io.swagger.client.model.TradesSignalViewModel;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -24,7 +24,7 @@ import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.common.date_range.DateRangeBottomSheetFragment;
 import vision.genesis.clientapp.managers.TradingAccountManager;
 import vision.genesis.clientapp.model.DateRange;
-import vision.genesis.clientapp.model.events.OnTradeClickedEvent;
+import vision.genesis.clientapp.model.events.OnTradeSignalClickedEvent;
 import vision.genesis.clientapp.model.events.SetTradingAccountDetailsTradesCountEvent;
 import vision.genesis.clientapp.net.ApiErrorResolver;
 import vision.genesis.clientapp.ui.common.SimpleSectionedRecyclerViewAdapter;
@@ -54,7 +54,7 @@ public class TradingAccountTradesPresenter extends MvpPresenter<TradingAccountTr
 
 	private DateRange dateRange = DateRange.createFromEnum(DateRange.DateRangeEnum.ALL_TIME);
 
-	private List<OrderModel> trades = new ArrayList<>();
+	private List<OrderSignalModel> trades = new ArrayList<OrderSignalModel>();
 
 	private List<SimpleSectionedRecyclerViewAdapter.Section> sections = new ArrayList<>();
 
@@ -127,7 +127,7 @@ public class TradingAccountTradesPresenter extends MvpPresenter<TradingAccountTr
 		}
 	}
 
-	private void handleGetTradesResponse(TradesViewModel model) {
+	private void handleGetTradesResponse(TradesSignalViewModel model) {
 		tradesSubscription.unsubscribe();
 		getViewState().showProgress(false);
 
@@ -141,10 +141,10 @@ public class TradingAccountTradesPresenter extends MvpPresenter<TradingAccountTr
 
 		EventBus.getDefault().post(new SetTradingAccountDetailsTradesCountEvent(model.getTotal()));
 
-		List<OrderModel> newTrades = model.getItems();
+		List<OrderSignalModel> newTrades = model.getItems();
 
 		int index = trades.size();
-		for (OrderModel newTrade : newTrades) {
+		for (OrderSignalModel newTrade : newTrades) {
 			String dateString = DateTimeUtil.formatShortDate(newTrade.getDate());
 			String lastSectionDate = sections.isEmpty() ? "" : sections.get(sections.size() - 1).getTitle().toString();
 			if (!lastSectionDate.equals(dateString)) {
@@ -183,7 +183,7 @@ public class TradingAccountTradesPresenter extends MvpPresenter<TradingAccountTr
 	}
 
 	@Subscribe
-	public void onEventMainThread(OnTradeClickedEvent event) {
+	public void onEventMainThread(OnTradeSignalClickedEvent event) {
 		getViewState().showTradeDetails(event.getTrade(), showSwaps, showTickets);
 	}
 }

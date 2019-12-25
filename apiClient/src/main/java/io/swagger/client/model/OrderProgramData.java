@@ -57,6 +57,9 @@ public class OrderProgramData implements Parcelable
 	@SerializedName("logo")
 	private String logo = null;
 
+	@SerializedName("type")
+	private AssetType type = null;
+
 	public OrderProgramData() {
 	}
 
@@ -67,6 +70,7 @@ public class OrderProgramData implements Parcelable
 		color = (String) in.readValue(null);
 		url = (String) in.readValue(null);
 		logo = (String) in.readValue(null);
+		type = (AssetType) in.readValue(AssetType.class.getClassLoader());
 	}
 
 	public OrderProgramData title(String title) {
@@ -183,6 +187,25 @@ public class OrderProgramData implements Parcelable
 		this.logo = logo;
 	}
 
+	public OrderProgramData type(AssetType type) {
+		this.type = type;
+		return this;
+	}
+
+	/**
+	 * Get type
+	 *
+	 * @return type
+	 **/
+	@Schema(description = "")
+	public AssetType getType() {
+		return type;
+	}
+
+	public void setType(AssetType type) {
+		this.type = type;
+	}
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -197,12 +220,13 @@ public class OrderProgramData implements Parcelable
 				Objects.equals(this.levelProgress, orderProgramData.levelProgress) &&
 				Objects.equals(this.color, orderProgramData.color) &&
 				Objects.equals(this.url, orderProgramData.url) &&
-				Objects.equals(this.logo, orderProgramData.logo);
+				Objects.equals(this.logo, orderProgramData.logo) &&
+				Objects.equals(this.type, orderProgramData.type);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(title, level, levelProgress, color, url, logo);
+		return Objects.hash(title, level, levelProgress, color, url, logo, type);
 	}
 
 	@Override
@@ -216,6 +240,7 @@ public class OrderProgramData implements Parcelable
 		sb.append("    color: ").append(toIndentedString(color)).append("\n");
 		sb.append("    url: ").append(toIndentedString(url)).append("\n");
 		sb.append("    logo: ").append(toIndentedString(logo)).append("\n");
+		sb.append("    type: ").append(toIndentedString(type)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}
@@ -238,6 +263,7 @@ public class OrderProgramData implements Parcelable
 		out.writeValue(color);
 		out.writeValue(url);
 		out.writeValue(logo);
+		out.writeValue(type);
 	}
 
 	public int describeContents() {
