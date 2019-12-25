@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="?attr/colorBackground"
+                android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/toolbar_height"
+        android:background="?attr/colorBackground">
+
+        <ImageView
+            android:id="@+id/button_back"
+            android:layout_width="50dp"
+            android:layout_height="@dimen/toolbar_height"
+            android:layout_centerVertical="true"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:padding="20dp"
+            android:tint="?attr/colorTextPrimary"
+            app:srcCompat="@drawable/icon_back"/>
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/public_info"
+            android:textColor="?attr/colorTextPrimary"
+            android:textSize="18sp"/>
+
+    </RelativeLayout>
+
+    <ScrollView
+        android:id="@+id/scrollview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/toolbar"
+        android:clickable="true"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:visibility="gone"
+        tools:visibility="visible">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/padding">
+
+            <RelativeLayout
+                android:id="@+id/group_warning_info"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="24dp"
+                android:visibility="gone"
+                tools:visibility="visible">
+
+                <TextView
+                    android:id="@+id/warning_info"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/need_fill_profile_public_info"
+                    android:textColor="?attr/colorTextSecondary"
+                    android:textSize="12sp"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/text_input_username"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="bottom"
+                    android:textColor="?attr/colorTextPrimary"
+                    android:textColorHint="?attr/colorTextSecondary"
+                    app:counterEnabled="true"
+                    app:counterMaxLength="20"
+                    app:counterOverflowTextAppearance="@style/TextLimitError"
+                    app:counterTextAppearance="@style/TextLimitStyle">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/username"
+                        style="@style/edittext"
+                        android:hint="@string/username"
+                        android:imeOptions="actionNext"
+                        android:inputType="text"/>
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <TextView
+                    android:id="@+id/username_minimum"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/text_input_username"
+                    android:layout_marginStart="4dp"
+                    android:textColor="?attr/colorTextSecondary"
+                    android:textSize="12sp"
+                    tools:text="Minimum 4 symbols"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/text_input_username"
+                    android:layout_marginStart="16dp"
+                    android:layout_toEndOf="@+id/username_minimum"
+                    android:text="@string/required"
+                    android:textColor="?attr/colorRed"
+                    android:textSize="12sp"/>
+
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/text_input_about"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:gravity="bottom"
+                    android:minHeight="@dimen/text_input_layout_height"
+                    android:textColor="?attr/colorTextPrimary"
+                    android:textColorHint="?attr/colorTextSecondary"
+                    app:counterEnabled="true"
+                    app:counterMaxLength="500"
+                    app:counterOverflowTextAppearance="@style/TextLimitError"
+                    app:counterTextAppearance="@style/TextLimitStyle">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/about"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/about"
+                        android:imeOptions="actionDone"
+                        android:inputType="textMultiLine"
+                        android:minHeight="60dp"
+                        android:textColor="?attr/colorTextPrimary"
+                        android:textSize="16sp"/>
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <TextView
+                    android:id="@+id/about_minimum"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/text_input_about"
+                    android:layout_marginStart="4dp"
+                    android:textColor="?attr/colorTextSecondary"
+                    android:textSize="12sp"
+                    tools:text="Minimum 20 symbols"/>
+
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/logo_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:text="@string/avatar"
+                android:textColor="?attr/colorTextPrimary"
+                android:textSize="18sp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:text="@string/fund_logo_requirements"
+                android:textColor="?attr/colorTextSecondary"
+                android:textSize="12sp"/>
+
+            <RelativeLayout
+                android:id="@+id/group_upload"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:visibility="gone"
+                tools:visibility="visible">
+
+                <RelativeLayout
+                    android:id="@+id/group_logo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp">
+
+                    <com.facebook.drawee.view.SimpleDraweeView
+                        android:id="@+id/logo"
+                        android:layout_width="@dimen/logo_upload_size"
+                        android:layout_height="@dimen/logo_upload_size"
+                        app:placeholderImage="?attr/colorCard"
+                        app:roundedCornerRadius="16dp"/>
+
+                    <ProgressBar
+                        android:id="@+id/logo_progress"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"/>
+
+                </RelativeLayout>
+
+                <ImageView
+                    android:id="@+id/button_remove_logo"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_marginStart="-12dp"
+                    android:layout_toEndOf="@+id/group_logo"
+                    android:background="@drawable/circle_white"
+                    android:backgroundTint="?attr/colorAccent"
+                    android:padding="4dp"
+                    app:srcCompat="@drawable/ic_close_black_24dp"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp">
+
+                <vision.genesis.clientapp.ui.PrimaryButton
+                    android:id="@+id/button_upload_avatar"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/button_height"
+                    android:text="@string/upload_avatar"/>
+
+                <vision.genesis.clientapp.ui.PrimaryButton
+                    android:id="@+id/button_confirm"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/button_height"
+                    android:layout_below="@+id/button_upload_avatar"
+                    android:layout_marginTop="32dp"
+                    android:text="@string/confirm"/>
+
+                <ProgressBar
+                    android:id="@+id/button_progress"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:visibility="gone"/>
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_below="@+id/toolbar"
+        android:indeterminate="true"
+        android:scaleY="4"
+        android:visibility="visible"/>
+
+</RelativeLayout>

@@ -6,22 +6,28 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.swagger.client.model.PlatformCurrencyInfo;
+import io.swagger.client.model.PlatformInfo;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.managers.RateManager;
+import vision.genesis.clientapp.managers.SettingsManager;
 import vision.genesis.clientapp.model.CurrencyEnum;
+import vision.genesis.clientapp.net.ApiErrorResolver;
 import vision.genesis.clientapp.utils.StringFormatUtil;
 
 /**
@@ -36,7 +42,7 @@ public class SelectCurrencyFragment extends BottomSheetDialogFragment
 		void onCurrencyChanged(CurrencyEnum currency);
 	}
 
-	public static final String EXTRA_SELECTED_CURRENCY = "extra_selected_currency";
+	private static final String EXTRA_SELECTED_CURRENCY = "extra_selected_currency";
 
 	public static SelectCurrencyFragment with(String selectedCurrency) {
 		SelectCurrencyFragment fragment = new SelectCurrencyFragment();
@@ -45,6 +51,9 @@ public class SelectCurrencyFragment extends BottomSheetDialogFragment
 		fragment.setArguments(arguments);
 		return fragment;
 	}
+
+	@Inject
+	public SettingsManager settingsManager;
 
 	@Inject
 	public RateManager rateManager;
@@ -61,7 +70,11 @@ public class SelectCurrencyFragment extends BottomSheetDialogFragment
 
 	private CurrencyOptionView selectedOption;
 
+	private Subscription platformInfoSubscription;
+
 	private Subscription ratesSubscription;
+
+	private ArrayList<String> platformCurrenciesList = new ArrayList<>();
 
 	@Override
 	public void setupDialog(Dialog dialog, int style) {
@@ -78,7 +91,7 @@ public class SelectCurrencyFragment extends BottomSheetDialogFragment
 
 		GenesisVisionApplication.getComponent().inject(this);
 
-		subscribeToRates();
+		getPlatformInfo();
 	}
 
 	@Override
@@ -93,8 +106,12 @@ public class SelectCurrencyFragment extends BottomSheetDialogFragment
 
 	@Override
 	public void onDestroyView() {
-		if (ratesSubscription != null)
+		if (platformInfoSubscription != null) {
+			platformInfoSubscription.unsubscribe();
+		}
+		if (ratesSubscription != null) {
 			ratesSubscription.unsubscribe();
+		}
 
 		super.onDestroyView();
 	}
@@ -103,21 +120,30 @@ public class SelectCurrencyFragment extends BottomSheetDialogFragment
 		this.listener = listener;
 	}
 
-	private void setData(HashMap<CurrencyEnum, Double> currenciesRatesMap) {
-		for (String currency : RateManager.baseCurrenciesList) {
-			CurrencyEnum currencyEnum = CurrencyEnum.fromValue(currency);
-			optionsGroup.addView(createCurrencyOptionView(currencyEnum, currenciesRatesMap.get(currencyEnum), currency.equals(selectedCurrency)));
+	private void getPlatformInfo() {
+		if (settingsManager != null) {
+			platformInfoSubscription = settingsManager.getPlatformInfo()
+					.observeOn(AndroidSchedulers.mainThread())
+					.subscribeOn(Schedulers.io())
+					.subscribe(this::handlePlatformInfoResponse,
+							this::handlePlatformInfoError);
 		}
 	}
 
-	private CurrencyOptionView createCurrencyOptionView(CurrencyEnum currency, Double rate, Boolean isSelected) {
-		CurrencyOptionView view = new CurrencyOptionView(getContext());
-		view.setData(currency, StringFormatUtil.formatAmount(rate));
-		view.setSelected(isSelected);
-		if (isSelected)
-			selectedOption = view;
-		view.setOnClickListener(v -> selectOption(view));
-		return view;
+	private void handlePlatformInfoResponse(PlatformInfo response) {
+		platformInfoSubscription.unsubscribe();
+
+		platformCurrenciesList = new ArrayList<>();
+		for (PlatformCurrencyInfo platformCurrency : response.getCommonInfo().getPlatformCurrencies()) {
+			platformCurrenciesList.add(platformCurrency.getName());
+		}
+		subscribeToRates();
+	}
+
+	private void handlePlatformInfoError(Throwable throwable) {
+		platformInfoSubscription.unsubscribe();
+
+		ApiErrorResolver.resolveErrors(throwable, this::showToast);
 	}
 
 	private void subscribeToRates() {
@@ -131,19 +157,40 @@ public class SelectCurrencyFragment extends BottomSheetDialogFragment
 	private void handleGetRatesSuccess(HashMap<CurrencyEnum, Double> response) {
 		ratesSubscription.unsubscribe();
 		progressBar.setVisibility(View.GONE);
-		setData(response);
+		for (String currency : platformCurrenciesList) {
+			CurrencyEnum currencyEnum = CurrencyEnum.fromValue(currency);
+			optionsGroup.addView(createCurrencyOptionView(currencyEnum, response.get(currencyEnum), currency.equals(selectedCurrency)));
+		}
 	}
 
 	private void handleGetRatesError(Throwable throwable) {
 		ratesSubscription.unsubscribe();
+
+		ApiErrorResolver.resolveErrors(throwable, this::showToast);
+	}
+
+	private CurrencyOptionView createCurrencyOptionView(CurrencyEnum currency, Double rate, Boolean isSelected) {
+		CurrencyOptionView view = new CurrencyOptionView(getContext());
+		view.setData(currency, StringFormatUtil.formatAmount(rate));
+		view.setSelected(isSelected);
+		if (isSelected) {
+			selectedOption = view;
+		}
+		view.setOnClickListener(v -> selectOption(view));
+		return view;
 	}
 
 	private void selectOption(CurrencyOptionView newOption) {
-		if (selectedOption != null)
+		if (selectedOption != null) {
 			selectedOption.setSelected(false);
+		}
 		newOption.setSelected(true);
 
 		listener.onCurrencyChanged(newOption.getCurrency());
 		this.dismiss();
+	}
+
+	private void showToast(String message) {
+		Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
 	}
 }

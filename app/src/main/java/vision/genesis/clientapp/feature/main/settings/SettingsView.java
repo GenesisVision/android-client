@@ -3,6 +3,7 @@ package vision.genesis.clientapp.feature.main.settings;
 import com.arellomobile.mvp.MvpView;
 
 import io.swagger.client.model.ProfileFullViewModel;
+import vision.genesis.clientapp.model.CurrencyEnum;
 
 /**
  * GenesisVisionAndroid
@@ -11,19 +12,13 @@ import io.swagger.client.model.ProfileFullViewModel;
 
 interface SettingsView extends MvpView
 {
-//	void showFingerprintOption();
-
 	void updateProfile(ProfileFullViewModel profile);
 
-//	void updateSettings(SettingsModel settingsModel);
-//
-//	void showDisablePin();
-//
-//	void showEnableFingerprint();
-//
-//	void showDisableFingerprint();
+	void setBaseCurrency(CurrencyEnum baseCurrency);
 
 	void showDialogMessage(String message);
 
-//	void changeThemeWithAnim(String newTheme);
+	void showProgress(boolean show);
+
+	void showSnackbarMessage(String message);
 }

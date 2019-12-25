@@ -3,6 +3,8 @@ package vision.genesis.clientapp.feature.main.trading_account.info;
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 
+import org.greenrobot.eventbus.Subscribe;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -13,6 +15,7 @@ import io.swagger.client.model.AssetType;
 import io.swagger.client.model.InternalTransferRequestType;
 import io.swagger.client.model.ItemsViewModelSignalSubscription;
 import io.swagger.client.model.PrivateTradingAccountFull;
+import io.swagger.client.model.ProfileFullViewModel;
 import io.swagger.client.model.SignalSubscription;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
@@ -20,10 +23,12 @@ import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.managers.AuthManager;
 import vision.genesis.clientapp.managers.FollowsManager;
+import vision.genesis.clientapp.managers.ProfileManager;
 import vision.genesis.clientapp.managers.TradingAccountManager;
 import vision.genesis.clientapp.model.CreateProgramModel;
 import vision.genesis.clientapp.model.TradingAccountDetailsModel;
 import vision.genesis.clientapp.model.TransferFundsModel;
+import vision.genesis.clientapp.model.events.OnProfilePublicInfoFilledEvent;
 import vision.genesis.clientapp.net.ApiErrorResolver;
 
 /**
@@ -43,6 +48,11 @@ public class TradingAccountInfoPresenter extends MvpPresenter<TradingAccountInfo
 	@Inject
 	public FollowsManager followsManager;
 
+	@Inject
+	public ProfileManager profileManager;
+
+	private Subscription profileSubscription;
+
 	private Subscription accountDetailsSubscription;
 
 	private Subscription subscriptionsSubscription;
@@ -53,6 +63,12 @@ public class TradingAccountInfoPresenter extends MvpPresenter<TradingAccountInfo
 
 	private List<SignalSubscription> masters = new ArrayList<>();
 
+	private boolean isUsernameFilled = false;
+
+	private boolean isWaitingFillProfileToCreateProgram = false;
+
+	private boolean isWaitingFillProfileToCreateFollow = false;
+
 	@Override
 	protected void onFirstViewAttach() {
 		super.onFirstViewAttach();
@@ -60,12 +76,16 @@ public class TradingAccountInfoPresenter extends MvpPresenter<TradingAccountInfo
 		GenesisVisionApplication.getComponent().inject(this);
 
 		getViewState().showProgress(true);
+		getProfile();
 		getAccountDetails();
 		getSubscriptions();
 	}
 
 	@Override
 	public void onDestroy() {
+		if (profileSubscription != null) {
+			profileSubscription.unsubscribe();
+		}
 		if (accountDetailsSubscription != null) {
 			accountDetailsSubscription.unsubscribe();
 		}
@@ -115,19 +135,23 @@ public class TradingAccountInfoPresenter extends MvpPresenter<TradingAccountInfo
 	}
 
 	void onCreateProgramClicked() {
-		getViewState().showCreateProgram(new CreateProgramModel(accountDetails.getId(),
-				AssetType.NONE,
-				accountDetails.getBrokerDetails().getType(),
-				accountDetails.getTradingAccountInfo().getBalance(),
-				accountDetails.getTradingAccountInfo().getCurrency().getValue()));
+		if (isUsernameFilled) {
+			showCreateProgram();
+		}
+		else {
+			isWaitingFillProfileToCreateProgram = true;
+			getViewState().showProfilePublicInfoActivity();
+		}
 	}
 
 	void onCreateFollowClicked() {
-		getViewState().showCreateFollow(new CreateProgramModel(accountDetails.getId(),
-				AssetType.NONE,
-				accountDetails.getBrokerDetails().getType(),
-				accountDetails.getTradingAccountInfo().getBalance(),
-				accountDetails.getTradingAccountInfo().getCurrency().getValue()));
+		if (isUsernameFilled) {
+			showCreateFollow();
+		}
+		else {
+			isWaitingFillProfileToCreateFollow = true;
+			getViewState().showProfilePublicInfoActivity();
+		}
 	}
 
 	void onSubscriptionsDetailsClicked() {
@@ -137,6 +161,34 @@ public class TradingAccountInfoPresenter extends MvpPresenter<TradingAccountInfo
 				accountDetails.getBrokerDetails().getLogo());
 		getViewState().showCopytradingDetailsActivity(model);
 
+	}
+
+	private void showCreateProgram() {
+		getViewState().showCreateProgram(new CreateProgramModel(accountDetails.getId(),
+				AssetType.NONE,
+				accountDetails.getBrokerDetails().getType(),
+				accountDetails.getTradingAccountInfo().getBalance(),
+				accountDetails.getTradingAccountInfo().getCurrency().getValue()));
+	}
+
+	private void showCreateFollow() {
+		getViewState().showCreateFollow(new CreateProgramModel(accountDetails.getId(),
+				AssetType.NONE,
+				accountDetails.getBrokerDetails().getType(),
+				accountDetails.getTradingAccountInfo().getBalance(),
+				accountDetails.getTradingAccountInfo().getCurrency().getValue()));
+	}
+
+	private void getProfile() {
+		profileSubscription = profileManager.getProfileFull(true)
+				.subscribeOn(Schedulers.io())
+				.observeOn(AndroidSchedulers.mainThread())
+				.subscribe(this::handleGetProfileSuccess);
+
+	}
+
+	private void handleGetProfileSuccess(ProfileFullViewModel profile) {
+		this.isUsernameFilled = profile.getUserName() != null && !profile.getUserName().isEmpty();
 	}
 
 	private void getAccountDetails() {
@@ -194,5 +246,17 @@ public class TradingAccountInfoPresenter extends MvpPresenter<TradingAccountInfo
 	private void handleSubscriptionsError(Throwable throwable) {
 		subscriptionsSubscription.unsubscribe();
 		getViewState().showProgress(false);
+	}
+
+	@Subscribe
+	public void onEventMainThread(OnProfilePublicInfoFilledEvent event) {
+		if (isWaitingFillProfileToCreateProgram) {
+			isWaitingFillProfileToCreateProgram = false;
+			showCreateProgram();
+		}
+		else if (isWaitingFillProfileToCreateFollow) {
+			isWaitingFillProfileToCreateFollow = false;
+			showCreateFollow();
+		}
 	}
 }

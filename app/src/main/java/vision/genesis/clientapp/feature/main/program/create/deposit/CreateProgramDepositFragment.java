@@ -29,7 +29,6 @@ import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
 import vision.genesis.clientapp.feature.common.select_wallet.SelectWalletBottomSheetFragment;
 import vision.genesis.clientapp.model.CreateProgramModel;
-import vision.genesis.clientapp.model.CurrencyEnum;
 import vision.genesis.clientapp.ui.PrimaryButton;
 import vision.genesis.clientapp.utils.ImageUtils;
 import vision.genesis.clientapp.utils.StringFormatUtil;
@@ -113,6 +112,8 @@ public class CreateProgramDepositFragment extends BaseFragment implements Create
 
 	private Unbinder unbinder;
 
+	private CreateProgramModel model;
+
 	@OnClick(R.id.group_wallet)
 	public void onWalletClicked() {
 		SelectWalletBottomSheetFragment fragment = new SelectWalletBottomSheetFragment();
@@ -158,7 +159,7 @@ public class CreateProgramDepositFragment extends BaseFragment implements Create
 		setFonts();
 
 		if (getArguments() != null) {
-			CreateProgramModel model = getArguments().getParcelable(EXTRA_MODEL);
+			model = getArguments().getParcelable(EXTRA_MODEL);
 			String stepNumber = getArguments().getString(EXTRA_STEP_NUMBER);
 			if (model != null) {
 				updateView(stepNumber, model);
@@ -230,7 +231,7 @@ public class CreateProgramDepositFragment extends BaseFragment implements Create
 				StringFormatUtil.getValueString(wallet.getAvailable(), wallet.getCurrency().getValue())));
 		this.amountCurrency.setText(wallet.getCurrency().getValue());
 		this.baseCurrencyAmount.setVisibility(
-				wallet.getCurrency().getValue().equals(CurrencyEnum.GVT.getValue())
+				wallet.getCurrency().getValue().equals(model.getCurrency())
 						? View.GONE
 						: View.VISIBLE);
 	}

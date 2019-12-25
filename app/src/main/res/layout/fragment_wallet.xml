@@ -322,33 +322,6 @@
         android:paddingLeft="@dimen/wallet_padding"
         android:paddingRight="@dimen/wallet_padding">
 
-        <RelativeLayout
-            android:id="@+id/group_currency"
-            android:layout_width="85dp"
-            android:layout_height="30dp"
-            android:layout_centerInParent="true"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:paddingLeft="4dp"
-            android:paddingRight="4dp">
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_centerInParent="true"
-                android:background="@drawable/background_select_currency_background"
-                android:tint="?attr/colorBackground"/>
-
-            <TextView
-                android:id="@+id/currency"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:text="@string/btc"
-                android:textColor="?attr/colorTextPrimary"
-                android:textSize="16sp"/>
-
-        </RelativeLayout>
-
     </RelativeLayout>
 
     <ProgressBar

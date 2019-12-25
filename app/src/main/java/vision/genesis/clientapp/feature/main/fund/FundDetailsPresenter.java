@@ -23,7 +23,6 @@ import vision.genesis.clientapp.managers.FundsManager;
 import vision.genesis.clientapp.model.CurrencyEnum;
 import vision.genesis.clientapp.model.FundDetailsModel;
 import vision.genesis.clientapp.model.User;
-import vision.genesis.clientapp.model.events.NewInvestmentSuccessEvent;
 import vision.genesis.clientapp.model.events.OnFundFavoriteChangedEvent;
 import vision.genesis.clientapp.model.events.SetFundDetailsEventsCountEvent;
 import vision.genesis.clientapp.model.events.SetFundDetailsReallocatesCountEvent;
@@ -205,11 +204,6 @@ public class FundDetailsPresenter extends MvpPresenter<FundDetailsView>
 
 	private void handleUserError(Throwable throwable) {
 		userLoggedOff();
-	}
-
-	@Subscribe
-	public void onEventMainThread(NewInvestmentSuccessEvent event) {
-		getViewState().finishActivity();
 	}
 
 	@Subscribe

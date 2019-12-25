@@ -23,6 +23,8 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.List;
 import java.util.Locale;
 
@@ -42,6 +44,8 @@ import vision.genesis.clientapp.feature.BaseSwipeBackActivity;
 import vision.genesis.clientapp.feature.common.requests.RequestsAdapter;
 import vision.genesis.clientapp.feature.common.timeframe_profit.TimeframeProfitView;
 import vision.genesis.clientapp.model.CurrencyEnum;
+import vision.genesis.clientapp.model.events.ShowFundsListEvent;
+import vision.genesis.clientapp.model.events.ShowProgramsListEvent;
 import vision.genesis.clientapp.ui.DividerItemDecoration;
 import vision.genesis.clientapp.ui.FundDashboardShortView;
 import vision.genesis.clientapp.ui.PortfolioEventDashboardView;
@@ -140,6 +144,9 @@ public class InvestmentsDetailsActivity extends BaseSwipeBackActivity implements
 	@BindView(R.id.programs)
 	public LinearLayout programs;
 
+	@BindView(R.id.group_programs_empty)
+	public LinearLayout programsEmptyGroup;
+
 
 	@BindView(R.id.label_funds)
 	public TextView fundsLabel;
@@ -158,6 +165,9 @@ public class InvestmentsDetailsActivity extends BaseSwipeBackActivity implements
 
 	@BindView(R.id.funds)
 	public LinearLayout funds;
+
+	@BindView(R.id.group_funds_empty)
+	public LinearLayout fundsEmptyGroup;
 
 	@BindDimen(R.dimen.toolbar_height)
 	public int toolbarHeight;
@@ -185,6 +195,18 @@ public class InvestmentsDetailsActivity extends BaseSwipeBackActivity implements
 	@OnClick(R.id.button_back)
 	public void onBackClicked() {
 		onBackPressed();
+	}
+
+	@OnClick(R.id.button_find_program)
+	public void onFindProgramClicked() {
+		EventBus.getDefault().post(new ShowProgramsListEvent());
+		finishActivity();
+	}
+
+	@OnClick(R.id.button_find_fund)
+	public void onFindFundClicked() {
+		EventBus.getDefault().post(new ShowFundsListEvent());
+		finishActivity();
 	}
 
 	@Override
@@ -459,8 +481,9 @@ public class InvestmentsDetailsActivity extends BaseSwipeBackActivity implements
 				}
 				index++;
 			}
-			programs.setVisibility(items.size() > 0 ? View.VISIBLE : View.GONE);
 			programsCount.setText(String.valueOf(items.size()));
+			programs.setVisibility(items.size() > 0 ? View.VISIBLE : View.GONE);
+			programsEmptyGroup.setVisibility(items.size() > 0 ? View.GONE : View.VISIBLE);
 		}
 	}
 
@@ -478,8 +501,9 @@ public class InvestmentsDetailsActivity extends BaseSwipeBackActivity implements
 				}
 				index++;
 			}
-			funds.setVisibility(items.size() > 0 ? View.VISIBLE : View.GONE);
 			fundsCount.setText(String.valueOf(items.size()));
+			funds.setVisibility(items.size() > 0 ? View.VISIBLE : View.GONE);
+			fundsEmptyGroup.setVisibility(items.size() > 0 ? View.GONE : View.VISIBLE);
 		}
 	}
 

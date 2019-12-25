@@ -32,12 +32,14 @@ public class ProfileManager
 		EventBus.getDefault().register(this);
 	}
 
-	public BehaviorSubject<ProfileFullViewModel> getProfileFull() {
-		getProfileSubscription = getProfileFullApiObservable()
-				.observeOn(AndroidSchedulers.mainThread())
-				.subscribeOn(Schedulers.io())
-				.subscribe(this::handleGetProfileSuccess,
-						this::handleGetProfileError);
+	public BehaviorSubject<ProfileFullViewModel> getProfileFull(boolean needUpdate) {
+		if (needUpdate) {
+			getProfileSubscription = profileApi.getProfileFull(AuthManager.token.getValue())
+					.observeOn(AndroidSchedulers.mainThread())
+					.subscribeOn(Schedulers.io())
+					.subscribe(this::handleGetProfileSuccess,
+							this::handleGetProfileError);
+		}
 		return profileBehaviorSubject;
 	}
 
@@ -50,6 +52,18 @@ public class ProfileManager
 		getProfileSubscription.unsubscribe();
 	}
 
+	public Observable<Void> updateProfile(UpdateProfileViewModel model) {
+		return profileApi.updateProfile(AuthManager.token.getValue(), model);
+	}
+
+	public Observable<Void> updateAvatar(String avatar) {
+		return profileApi.updateAvatar(avatar, AuthManager.token.getValue());
+	}
+
+	public Observable<Void> removeAvatar() {
+		return profileApi.removeAvatar(AuthManager.token.getValue());
+	}
+
 	public Observable<Void> updateProfile(ProfileFullViewModel newProfileModel) {
 		return Observable.unsafeCreate(subscriber -> getUpdateProfileApiObservable(newProfileModel)
 				.observeOn(Schedulers.newThread())
@@ -59,10 +73,6 @@ public class ProfileManager
 							subscriber.onNext(response);
 						},
 						subscriber::onError));
-	}
-
-	private Observable<ProfileFullViewModel> getProfileFullApiObservable() {
-		return profileApi.getProfileFull(AuthManager.token.getValue());
 	}
 
 	private Observable<Void> getUpdateProfileApiObservable(ProfileFullViewModel newProfileModel) {
@@ -92,5 +102,11 @@ public class ProfileManager
 	@Subscribe
 	public void onEventMainThread(OnUnauthorizedResponseGetEvent event) {
 		profileBehaviorSubject = BehaviorSubject.create();
+	}
+
+	public Observable<Void> setPublicInvestorProfile(boolean on) {
+		return on
+				? profileApi.switchPublicInvestorOn(AuthManager.token.getValue())
+				: profileApi.switchPublicInvestorOff(AuthManager.token.getValue());
 	}
 }

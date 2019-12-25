@@ -12,9 +12,12 @@ import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
+import vision.genesis.clientapp.feature.common.currency.SelectCurrencyFragment;
 import vision.genesis.clientapp.managers.AuthManager;
 import vision.genesis.clientapp.managers.ProfileManager;
 import vision.genesis.clientapp.managers.SettingsManager;
+import vision.genesis.clientapp.model.CurrencyEnum;
+import vision.genesis.clientapp.net.ApiErrorResolver;
 
 /**
  * GenesisVisionAndroid
@@ -22,7 +25,7 @@ import vision.genesis.clientapp.managers.SettingsManager;
  */
 
 @InjectViewState
-public class SettingsPresenter extends MvpPresenter<SettingsView>
+public class SettingsPresenter extends MvpPresenter<SettingsView> implements SelectCurrencyFragment.OnCurrencyChangedListener
 {
 	@Inject
 	public Context context;
@@ -38,6 +41,12 @@ public class SettingsPresenter extends MvpPresenter<SettingsView>
 
 	private Subscription profileSubscription;
 
+	private Subscription baseCurrencySubscription;
+
+	private Subscription publicProfileSubscription;
+
+	private CurrencyEnum baseCurrency;
+
 	@Override
 	protected void onFirstViewAttach() {
 		super.onFirstViewAttach();
@@ -45,12 +54,20 @@ public class SettingsPresenter extends MvpPresenter<SettingsView>
 		GenesisVisionApplication.getComponent().inject(this);
 
 		getProfileInfo();
+		subscribeToBaseCurrency();
 	}
 
 	@Override
 	public void onDestroy() {
-		if (profileSubscription != null)
+		if (profileSubscription != null) {
 			profileSubscription.unsubscribe();
+		}
+		if (baseCurrencySubscription != null) {
+			baseCurrencySubscription.unsubscribe();
+		}
+		if (publicProfileSubscription != null) {
+			publicProfileSubscription.unsubscribe();
+		}
 
 		super.onDestroy();
 	}
@@ -59,31 +76,68 @@ public class SettingsPresenter extends MvpPresenter<SettingsView>
 		getProfileInfo();
 	}
 
+	void onLogoutClicked() {
+		authManager.logout();
+	}
+
+	void onPublicInvestorProfileCheckedChanged(boolean checked) {
+		setPublicInvestorProfile(checked);
+	}
+
+	private void setPublicInvestorProfile(boolean on) {
+		if (profileManager != null) {
+			if (publicProfileSubscription != null) {
+				publicProfileSubscription.unsubscribe();
+			}
+			publicProfileSubscription = profileManager.setPublicInvestorProfile(on)
+					.subscribeOn(Schedulers.io())
+					.observeOn(AndroidSchedulers.mainThread())
+					.subscribe(this::handlePublicProfileSuccess,
+							this::handlePublicProfileError);
+		}
+	}
+
+	private void handlePublicProfileSuccess(Void response) {
+		publicProfileSubscription.unsubscribe();
+	}
+
+	private void handlePublicProfileError(Throwable throwable) {
+		publicProfileSubscription.unsubscribe();
+
+		ApiErrorResolver.resolveErrors(throwable, message -> getViewState().showSnackbarMessage(message));
+	}
+
 	private void getProfileInfo() {
-		profileSubscription = profileManager.getProfileFull()
+		profileSubscription = profileManager.getProfileFull(true)
 				.subscribeOn(Schedulers.io())
 				.observeOn(AndroidSchedulers.mainThread())
 				.subscribe(this::handleGetProfileSuccess,
 						this::handleGetProfileError);
-
 	}
 
 	private void handleGetProfileSuccess(ProfileFullViewModel profile) {
 		getViewState().updateProfile(profile);
+		getViewState().showProgress(false);
 	}
 
 	private void handleGetProfileError(Throwable throwable) {
-
+		ApiErrorResolver.resolveErrors(throwable, message -> getViewState().showSnackbarMessage(message));
 	}
 
-	public void onLogoutClicked() {
-		authManager.logout();
+	private void subscribeToBaseCurrency() {
+		baseCurrencySubscription = settingsManager.getBaseCurrency()
+				.subscribeOn(Schedulers.newThread())
+				.observeOn(AndroidSchedulers.mainThread())
+				.subscribe(this::baseCurrencyChangedHandler);
 	}
 
-//	public void onDarkThemeClicked(boolean checked) {
-//		String newTheme = checked ? ThemeUtil.THEME_LIGHT : ThemeUtil.THEME_DARK;
-//		settingsManager.setTheme(newTheme);
-//		EventBus.getDefault().post(new OnThemeChangedEvent());
-//		getViewState().changeThemeWithAnim(newTheme);
-//	}
+	private void baseCurrencyChangedHandler(CurrencyEnum baseCurrency) {
+		this.baseCurrency = baseCurrency;
+		getViewState().setBaseCurrency(baseCurrency);
+	}
+
+	@Override
+	public void onCurrencyChanged(CurrencyEnum currency) {
+		settingsManager.saveBaseCurrency(currency);
+	}
 }

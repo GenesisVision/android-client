@@ -5,12 +5,16 @@ import android.content.Context;
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+
 import java.util.ArrayList;
 
 import javax.inject.Inject;
 
 import io.swagger.client.model.DashboardTradingDetails;
 import io.swagger.client.model.ItemsViewModelDashboardTradingAsset;
+import io.swagger.client.model.ProfileFullViewModel;
 import io.swagger.client.model.Timeframe;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
@@ -20,10 +24,12 @@ import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.common.timeframe_profit.TimeframeProfitView;
 import vision.genesis.clientapp.managers.DashboardManager;
 import vision.genesis.clientapp.managers.FundsManager;
+import vision.genesis.clientapp.managers.ProfileManager;
 import vision.genesis.clientapp.managers.ProgramsManager;
 import vision.genesis.clientapp.managers.SettingsManager;
 import vision.genesis.clientapp.model.CurrencyEnum;
 import vision.genesis.clientapp.model.DateRange;
+import vision.genesis.clientapp.model.events.OnProfilePublicInfoFilledEvent;
 import vision.genesis.clientapp.net.ApiErrorResolver;
 
 /**
@@ -48,12 +54,17 @@ public class TradingDetailsPresenter extends MvpPresenter<TradingDetailsView> im
 	public SettingsManager settingsManager;
 
 	@Inject
+	public ProfileManager profileManager;
+
+	@Inject
 	public ProgramsManager programsManager;
 
 	@Inject
 	public FundsManager fundsManager;
 
 	private Subscription baseCurrencySubscription;
+
+	private Subscription profileSubscription;
 
 	private Subscription getTradingSubscription;
 
@@ -69,21 +80,31 @@ public class TradingDetailsPresenter extends MvpPresenter<TradingDetailsView> im
 
 	private Timeframe selectedTimeframe = Timeframe.DAY;
 
+	private boolean isUsernameFilled = false;
+
+	private boolean isWaitingFillProfileToCreateFund = false;
+
 	@Override
 	protected void onFirstViewAttach() {
 		super.onFirstViewAttach();
 
 		GenesisVisionApplication.getComponent().inject(this);
 
+		EventBus.getDefault().register(this);
+
 		initCreateOptions();
 		getViewState().showProgress(true);
 		subscribeToBaseCurrency();
+		getProfile();
 	}
 
 	@Override
 	public void onDestroy() {
 		if (baseCurrencySubscription != null) {
 			baseCurrencySubscription.unsubscribe();
+		}
+		if (profileSubscription != null) {
+			profileSubscription.unsubscribe();
 		}
 		if (getTradingSubscription != null) {
 			getTradingSubscription.unsubscribe();
@@ -94,6 +115,8 @@ public class TradingDetailsPresenter extends MvpPresenter<TradingDetailsView> im
 		if (publicSubscription != null) {
 			publicSubscription.unsubscribe();
 		}
+
+		EventBus.getDefault().unregister(this);
 
 		super.onDestroy();
 	}
@@ -121,8 +144,22 @@ public class TradingDetailsPresenter extends MvpPresenter<TradingDetailsView> im
 	void onCreatePublicOptionSelected(Integer position, String optionName) {
 		switch (position) {
 			case 0:
-				getViewState().showCreateFundActivity();
+				checkCreateFundAvailability();
 				break;
+		}
+	}
+
+	void onCreateFundClicked() {
+		checkCreateFundAvailability();
+	}
+
+	private void checkCreateFundAvailability() {
+		if (isUsernameFilled) {
+			getViewState().showCreateFundActivity();
+		}
+		else {
+			isWaitingFillProfileToCreateFund = true;
+			getViewState().showProfilePublicInfoActivity();
 		}
 	}
 
@@ -150,6 +187,18 @@ public class TradingDetailsPresenter extends MvpPresenter<TradingDetailsView> im
 		getViewState().setBaseCurrency(baseCurrency);
 		getViewState().showProgress(true);
 		updateAll();
+	}
+
+	private void getProfile() {
+		profileSubscription = profileManager.getProfileFull(true)
+				.subscribeOn(Schedulers.io())
+				.observeOn(AndroidSchedulers.mainThread())
+				.subscribe(this::handleGetProfileSuccess);
+
+	}
+
+	private void handleGetProfileSuccess(ProfileFullViewModel profile) {
+		this.isUsernameFilled = profile.getUserName() != null && !profile.getUserName().isEmpty();
 	}
 
 	private void updateAll() {
@@ -257,13 +306,11 @@ public class TradingDetailsPresenter extends MvpPresenter<TradingDetailsView> im
 		updateAll();
 	}
 
-//	@Subscribe
-//	public void onEventMainThread(ShowProgramDetailsEvent event) {
-//		getViewState().showProgramDetails(event.programDetailsModel);
-//	}
-
-//	@Subscribe
-//	public void onEventMainThread(ShowFundDetailsEvent event) {
-//		getViewState().showFundDetails(event.getFundDetailsModel());
-//	}
+	@Subscribe
+	public void onEventMainThread(OnProfilePublicInfoFilledEvent event) {
+		if (isWaitingFillProfileToCreateFund) {
+			isWaitingFillProfileToCreateFund = false;
+			getViewState().showCreateFundActivity();
+		}
+	}
 }

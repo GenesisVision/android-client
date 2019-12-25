@@ -80,12 +80,13 @@ public class ChangePasswordPresenter extends MvpPresenter<ChangePasswordView>
 		sendCodeSubscription = authManager.sendChangePassword(oldPassword, newPassword, confirmPassword)
 				.observeOn(AndroidSchedulers.mainThread())
 				.subscribeOn(Schedulers.io())
-				.subscribe(response -> handleChangePasswordResponse(),
+				.subscribe(this::handleChangePasswordResponse,
 						this::handleChangePasswordError);
 	}
 
-	private void handleChangePasswordResponse() {
+	private void handleChangePasswordResponse(String newToken) {
 		sendCodeSubscription.unsubscribe();
+		authManager.saveNewToken(newToken);
 		getViewState().showMessageDialog(R.drawable.image_ok,
 				context.getString(R.string.password_changed),
 				"",

@@ -791,6 +791,18 @@
     <string name="total_volume">Total volume</string>
     <string name="active_subscriptions_empty_text">This account does not follow any trades at the moment. You can find a new Follow to subscribe or you can resubscribe to one of the Follows from the History below.</string>
     <string name="archive_subscriptions_empty_text">All the Follows you will unsubscribe from can be found here.</string>
+    <string name="username">Username</string>
+    <string name="avatar">Avatar</string>
+    <string name="required">* Required</string>
+    <string name="upload_avatar">Upload avatar</string>
+    <string name="need_fill_profile_public_info">Please fill out public information about yourself first. This will help other users to identify you.</string>
+    <string name="dashboard_programs_empty_text">You have no investment in any program.</string>
+    <string name="dashboard_funds_empty_text">You have no investment in any fund.</string>
+    <string name="find_program">Find program</string>
+    <string name="find_fund">Find GV Fund</string>
+    <string name="platform_currency">Platform currency</string>
+    <string name="public_investors_profile">Public investor\'s profile</string>
+    <string name="tooltip_public_investors_profile">Other Genesis Vision users will be able to follow you and see your current and past investments as well as your portfolio performance. You will also be displayed in the Investors Rating.</string>
 
     <plurals name="assets">
         <item quantity="one">asset</item>

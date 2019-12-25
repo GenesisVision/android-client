@@ -103,6 +103,7 @@ import vision.genesis.clientapp.feature.main.programs_list.ProgramsListPresenter
 import vision.genesis.clientapp.feature.main.rating.ProgramsRatingPresenter;
 import vision.genesis.clientapp.feature.main.search.SearchPresenter;
 import vision.genesis.clientapp.feature.main.settings.SettingsPresenter;
+import vision.genesis.clientapp.feature.main.settings.public_info.ProfilePublicInfoPresenter;
 import vision.genesis.clientapp.feature.main.settings.security.SecurityPresenter;
 import vision.genesis.clientapp.feature.main.settings.security.change_password.ChangePasswordPresenter;
 import vision.genesis.clientapp.feature.main.trading_account.TradingAccountDetailsPresenter;
@@ -404,4 +405,6 @@ public interface AppComponent
 	void inject(CopytradingDetailsPresenter copytradingDetailsPresenter);
 
 	void inject(CopytradingSubscriptionsPresenter copytradingSubscriptionsPresenter);
+
+	void inject(ProfilePublicInfoPresenter profilePublicInfoPresenter);
 }

@@ -7,14 +7,18 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
+import android.widget.ScrollView;
 import android.widget.TextView;
+
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.widget.SwitchCompat;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
 
 import java.util.Locale;
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -23,7 +27,11 @@ import io.swagger.client.model.ProfileFullViewModel;
 import vision.genesis.clientapp.BuildConfig;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
+import vision.genesis.clientapp.feature.common.currency.SelectCurrencyFragment;
+import vision.genesis.clientapp.feature.main.message.MessageBottomSheetDialog;
+import vision.genesis.clientapp.feature.main.settings.public_info.ProfilePublicInfoActivity;
 import vision.genesis.clientapp.feature.main.settings.security.SecurityActivity;
+import vision.genesis.clientapp.model.CurrencyEnum;
 import vision.genesis.clientapp.ui.AvatarView;
 import vision.genesis.clientapp.utils.ThemeUtil;
 import vision.genesis.clientapp.utils.TypefaceUtil;
@@ -35,8 +43,14 @@ import vision.genesis.clientapp.utils.TypefaceUtil;
 
 public class SettingsFragment extends BaseFragment implements SettingsView
 {
+	@BindView(R.id.scrollview)
+	public ScrollView scrollview;
+
 	@BindView(R.id.avatar)
 	public AvatarView avatar;
+
+	@BindView(R.id.group_avatar_empty)
+	public ViewGroup groupAvatarEmpty;
 
 	@BindView(R.id.profile_name)
 	public TextView profileName;
@@ -50,18 +64,58 @@ public class SettingsFragment extends BaseFragment implements SettingsView
 	@BindView(R.id.verification_status_background)
 	public View verificationStatusBackground;
 
+	@BindView(R.id.public_investor)
+	public ViewGroup publicInvestor;
+
+	@BindView(R.id.switch_public_investor)
+	public SwitchCompat switchPublicInvestor;
+
+	@BindView(R.id.platform_currency_value)
+	public TextView platformCurrencyValue;
+
 	@BindView(R.id.version)
 	public TextView version;
 
+	@BindView(R.id.progress_bar)
+	public ProgressBar progressBar;
+
 	@InjectPresenter
-	SettingsPresenter settingsPresenter;
+	SettingsPresenter presenter;
 
 	private Unbinder unbinder;
 
+	private CurrencyEnum baseCurrency;
+
+	@OnClick(R.id.public_info)
+	public void onPublicInfoClicked() {
+		if (getActivity() != null) {
+			ProfilePublicInfoActivity.startFrom(getActivity(), false);
+		}
+	}
+
+	@OnClick(R.id.tooltip_public_investor)
+	public void onTooltipPublicInvestorClicked() {
+		if (getActivity() != null) {
+			MessageBottomSheetDialog dialog = new MessageBottomSheetDialog();
+			dialog.show(getActivity().getSupportFragmentManager(), dialog.getTag());
+			dialog.setData(R.drawable.icon_info, getString(R.string.public_investors_profile), getString(R.string.tooltip_public_investors_profile), false, null);
+		}
+	}
+
 	@OnClick(R.id.security)
 	public void onSecurityClicked() {
-		if (getActivity() != null)
+		if (getActivity() != null) {
 			SecurityActivity.startFrom(getActivity());
+		}
+	}
+
+	@OnClick(R.id.platform_currency)
+	public void onPlatformCurrencyClicked() {
+		if (getActivity() != null) {
+			SelectCurrencyFragment fragment = SelectCurrencyFragment.with(baseCurrency.getValue());
+			fragment.setListener(presenter);
+			fragment.show(getActivity().getSupportFragmentManager(), fragment.getTag());
+		}
 	}
 
 	@OnClick(R.id.terms_conditions)
@@ -98,20 +152,28 @@ public class SettingsFragment extends BaseFragment implements SettingsView
 
 		unbinder = ButterKnife.bind(this, view);
 
-		version.setText(String.format(Locale.getDefault(), "Version %s (%d)", BuildConfig.VERSION_NAME, BuildConfig.VERSION_CODE));
-
 		setFonts();
+		setListener();
+
+		version.setText(String.format(Locale.getDefault(), "Version %s (%d)", BuildConfig.VERSION_NAME, BuildConfig.VERSION_CODE));
+	}
+
+	private void setListener() {
+		switchPublicInvestor.setOnCheckedChangeListener((view, checked) -> {
+			presenter.onPublicInvestorProfileCheckedChanged(checked);
+		});
 	}
 
 	private void setFonts() {
 		profileName.setTypeface(TypefaceUtil.semibold());
+		platformCurrencyValue.setTypeface(TypefaceUtil.semibold());
 	}
 
 	@Override
 	public void onResume() {
 		super.onResume();
 
-		settingsPresenter.onResume();
+		presenter.onResume();
 	}
 
 	@Override
@@ -131,10 +193,12 @@ public class SettingsFragment extends BaseFragment implements SettingsView
 		builder.setCancelable(true);
 		builder.setTitle(getString(R.string.feedback_dialog_title));
 		builder.setItems(options, (dialog, optionId) -> {
-			if (optionId == 0)
+			if (optionId == 0) {
 				openFeedbackSite();
-			else
+			}
+			else {
 				sendFeedbackEmail();
+			}
 		});
 		builder.setNegativeButton(getString(R.string.cancel), (dialog, which) -> dialog.dismiss());
 		builder.show();
@@ -167,7 +231,7 @@ public class SettingsFragment extends BaseFragment implements SettingsView
 		builder.setCancelable(true);
 		builder.setTitle(getString(R.string.are_you_sure_logout));
 		builder.setPositiveButton(getString(R.string.log_out), (dialog, which) -> {
-			settingsPresenter.onLogoutClicked();
+			presenter.onLogoutClicked();
 			dialog.dismiss();
 		});
 		builder.setNegativeButton(getString(R.string.cancel), (dialog, which) -> dialog.dismiss());
@@ -176,20 +240,28 @@ public class SettingsFragment extends BaseFragment implements SettingsView
 
 	@Override
 	public void onShow() {
-		settingsPresenter.onResume();
+		presenter.onResume();
 	}
 
 	@Override
 	public void updateProfile(ProfileFullViewModel profile) {
 		avatar.setImage(profile.getAvatar(), 200, 200);
+		groupAvatarEmpty.setVisibility(profile.getAvatar() != null && !profile.getAvatar().isEmpty() ? View.GONE : View.VISIBLE);
 
 		if (profile.getUserName() != null && !profile.getUserName().isEmpty()) {
 			profileName.setText(profile.getUserName());
+			profileName.setVisibility(View.VISIBLE);
 		}
 		else if (profile.getFirstName() != null && !profile.getFirstName().isEmpty()
 				&& profile.getLastName() != null && !profile.getLastName().isEmpty()) {
 			profileName.setText(String.format(Locale.getDefault(), "%s %s", profile.getFirstName(), profile.getLastName()));
+			profileName.setVisibility(View.VISIBLE);
 		}
+		else {
+			profileName.setText("");
+			profileName.setVisibility(View.GONE);
+		}
+
 		profileEmail.setText(profile.getEmail());
 
 		switch (profile.getVerificationStatus()) {
@@ -217,56 +289,26 @@ public class SettingsFragment extends BaseFragment implements SettingsView
 	}
 
 	@Override
+	public void setBaseCurrency(CurrencyEnum baseCurrency) {
+		this.baseCurrency = baseCurrency;
+		platformCurrencyValue.setText(baseCurrency.getValue());
+	}
+
+	@Override
 	public void showDialogMessage(String message) {
 		showMessageDialog(message);
 	}
 
-//	@Override
-//	public void changeThemeWithAnim(String newTheme) {
-//		ValueAnimator backgroundColorAnimation = ThemeUtil.getColorAnimator(getActivity(), ((ColorDrawable) root.getBackground()).getColor(), R.attr.colorBackground);
-//		backgroundColorAnimation.addUpdateListener(animator -> root.setBackgroundColor((int) animator.getAnimatedValue()));
-//		backgroundColorAnimation.start();
-//
-//		ValueAnimator cardColorAnimation = ThemeUtil.getColorAnimator(getActivity(), profileCard.getCardBackgroundColor().getDefaultColor(), R.attr.colorCard);
-//		cardColorAnimation.addUpdateListener(animator -> {
-//			profileCard.setCardBackgroundColor((int) animator.getAnimatedValue());
-//			changePasswordCard.setCardBackgroundColor((int) animator.getAnimatedValue());
-//			securityCard.setCardBackgroundColor((int) animator.getAnimatedValue());
-//			darkThemeCard.setCardBackgroundColor((int) animator.getAnimatedValue());
-//			feedbackCard.setCardBackgroundColor((int) animator.getAnimatedValue());
-//			logoutCard.setCardBackgroundColor((int) animator.getAnimatedValue());
-//		});
-//		cardColorAnimation.start();
-//
-//		ValueAnimator primaryTextColorAnimation = ThemeUtil.getColorAnimator(getActivity(), profileName.getCurrentTextColor(), R.attr.colorTextPrimary);
-//		primaryTextColorAnimation.addUpdateListener(animator -> {
-//			profileName.setTextColor((int) animator.getAnimatedValue());
-//			profileArrow.setColorFilter((int) animator.getAnimatedValue());
-//
-//			changePasswordIcon.setColorFilter((int) animator.getAnimatedValue());
-//			changePasswordText.setTextColor((int) animator.getAnimatedValue());
-//			changePasswordArrow.setColorFilter((int) animator.getAnimatedValue());
-//
-//			twoFactor.setColor((int) animator.getAnimatedValue());
-//			pinCode.setColor((int) animator.getAnimatedValue());
-//			fingerprint.setColor((int) animator.getAnimatedValue());
-//			darkTheme.setColor((int) animator.getAnimatedValue());
-//
-//			feedbackIcon.setColorFilter((int) animator.getAnimatedValue());
-//			feedbackText.setTextColor((int) animator.getAnimatedValue());
-//		});
-//		primaryTextColorAnimation.start();
-//
-//		ValueAnimator delimiterColorAnimation = ThemeUtil.getColorAnimator(getActivity(), ((ColorDrawable) fingerprintDelimiter.getBackground()).getColor(), R.attr.colorDelimiter);
-//		delimiterColorAnimation.addUpdateListener(animator -> {
-//			pinCodeDelimiter.setBackgroundColor((int) animator.getAnimatedValue());
-//			fingerprintDelimiter.setBackgroundColor((int) animator.getAnimatedValue());
-//		});
-//		delimiterColorAnimation.start();
-//
-//		ValueAnimator secondaryTextColorAnimation = ThemeUtil.getColorAnimator(getActivity(), version.getCurrentTextColor(), R.attr.colorTextSecondary);
-//		secondaryTextColorAnimation.addUpdateListener(animator -> version.setTextColor((int) animator.getAnimatedValue()));
-//		secondaryTextColorAnimation.start();
-//	}
+	@Override
+	public void showProgress(boolean show) {
+		progressBar.setVisibility(show ? View.VISIBLE : View.GONE);
+		if (!show) {
+			scrollview.setVisibility(View.VISIBLE);
+		}
+	}
 
+	@Override
+	public void showSnackbarMessage(String message) {
+		showSnackbar(message, scrollview);
+	}
 }

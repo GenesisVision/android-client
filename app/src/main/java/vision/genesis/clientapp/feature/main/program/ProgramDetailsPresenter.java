@@ -25,7 +25,6 @@ import vision.genesis.clientapp.managers.FollowsManager;
 import vision.genesis.clientapp.managers.ProgramsManager;
 import vision.genesis.clientapp.model.ProgramDetailsModel;
 import vision.genesis.clientapp.model.User;
-import vision.genesis.clientapp.model.events.NewInvestmentSuccessEvent;
 import vision.genesis.clientapp.model.events.OnProgramFavoriteChangedEvent;
 import vision.genesis.clientapp.model.events.SetProgramDetailsEventsCountEvent;
 import vision.genesis.clientapp.model.events.SetProgramDetailsOpenPositionsCountEvent;
@@ -233,11 +232,6 @@ public class ProgramDetailsPresenter extends MvpPresenter<ProgramDetailsView>
 
 	private void handleUserError(Throwable throwable) {
 		userLoggedOff();
-	}
-
-	@Subscribe
-	public void onEventMainThread(NewInvestmentSuccessEvent event) {
-		getViewState().finishActivity();
 	}
 
 	@Subscribe

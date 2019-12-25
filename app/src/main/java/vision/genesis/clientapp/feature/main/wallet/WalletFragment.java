@@ -20,12 +20,10 @@ import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 import butterknife.Unbinder;
 import io.swagger.client.model.WalletSummary;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
-import vision.genesis.clientapp.feature.common.currency.SelectCurrencyFragment;
 import vision.genesis.clientapp.model.CurrencyEnum;
 import vision.genesis.clientapp.ui.common.DetailsTabView;
 import vision.genesis.clientapp.utils.StringFormatUtil;
@@ -54,9 +52,6 @@ public class WalletFragment extends BaseFragment implements WalletView, ViewPage
 
 	@BindView(R.id.view_pager_wallet)
 	public ViewPager viewPager;
-
-	@BindView(R.id.currency)
-	public TextView currency;
 
 	@BindView(R.id.label_balance)
 	public TextView balanceLabel;
@@ -117,15 +112,6 @@ public class WalletFragment extends BaseFragment implements WalletView, ViewPage
 
 	private boolean isPagerDragging;
 
-	@OnClick(R.id.group_currency)
-	public void onCurrencyClicked() {
-		if (getActivity() != null) {
-			SelectCurrencyFragment fragment = SelectCurrencyFragment.with(baseCurrency.getValue());
-			fragment.setListener(walletPresenter);
-			fragment.show(getActivity().getSupportFragmentManager(), fragment.getTag());
-		}
-	}
-
 	@Nullable
 	@Override
 	public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -184,8 +170,6 @@ public class WalletFragment extends BaseFragment implements WalletView, ViewPage
 	}
 
 	private void setFonts() {
-		currency.setTypeface(TypefaceUtil.semibold());
-
 		balanceLabel.setTypeface(TypefaceUtil.semibold());
 		balance.setTypeface(TypefaceUtil.semibold());
 
@@ -295,7 +279,6 @@ public class WalletFragment extends BaseFragment implements WalletView, ViewPage
 	@Override
 	public void setBaseCurrency(CurrencyEnum baseCurrency) {
 		this.baseCurrency = baseCurrency;
-		currency.setText(baseCurrency.getValue());
 	}
 
 	@Override

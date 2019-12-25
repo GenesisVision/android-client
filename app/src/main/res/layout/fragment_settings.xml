@@ -10,7 +10,9 @@
         android:id="@+id/scrollview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scrollbars="none">
+        android:scrollbars="none"
+        android:visibility="gone"
+        tools:visibility="visible">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -24,32 +26,34 @@
                 android:layout_height="wrap_content"
                 android:padding="@dimen/settings_padding">
 
-                <vision.genesis.clientapp.ui.AvatarView
-                    android:id="@+id/avatar"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"/>
-
                 <RelativeLayout
-                    android:id="@+id/avatar_add"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:layout_alignBottom="@+id/avatar"
-                    android:layout_alignEnd="@+id/avatar"
-                    android:visibility="invisible">
+                    android:id="@+id/group_avatar"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp">
 
-                    <ImageView
+                    <vision.genesis.clientapp.ui.AvatarView
+                        android:id="@+id/avatar"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"/>
+
+                    <RelativeLayout
+                        android:id="@+id/group_avatar_empty"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:src="@drawable/circle_white"
-                        android:tint="?attr/colorAccent"/>
+                        android:layout_height="match_parent">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerInParent="true"
-                        android:text="+"
-                        android:textColor="?attr/colorTextPrimary"
-                        android:textSize="18sp"/>
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:tint="?attr/colorDelimiterLight"
+                            app:srcCompat="@drawable/circle_white"/>
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_margin="32dp"
+                            app:srcCompat="@drawable/avatar_placeholder"/>
+
+                    </RelativeLayout>
 
                 </RelativeLayout>
 
@@ -58,7 +62,6 @@
                     android:layout_width="22dp"
                     android:layout_height="20dp"
                     android:layout_alignParentEnd="true"
-                    android:layout_alignParentRight="true"
                     android:tint="?attr/colorTextPrimary"
                     app:srcCompat="@drawable/icon_logout"/>
 
@@ -66,7 +69,7 @@
                     android:id="@+id/profile_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/avatar"
+                    android:layout_below="@+id/group_avatar"
                     android:layout_marginTop="20dp"
                     android:text="@string/profile"
                     android:textColor="?attr/colorTextPrimary"
@@ -101,7 +104,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:layout_marginLeft="@dimen/settings_padding"
                     android:layout_marginStart="@dimen/settings_padding"
                     android:textColor="?attr/colorRed"
                     android:textSize="14sp"
@@ -110,11 +112,80 @@
             </RelativeLayout>
 
             <RelativeLayout
+                android:id="@+id/public_info"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/settings_item_height"
+                android:background="?attr/selectableItemBackground"
+                android:paddingStart="@dimen/settings_padding"
+                android:paddingEnd="@dimen/settings_padding">
+
+                <ImageView
+                    android:id="@+id/icon_public_info"
+                    style="@style/settings_icon"
+                    android:padding="2dp"
+                    app:srcCompat="@drawable/icon_profile"/>
+
+                <TextView
+                    style="@style/settings_text"
+                    android:layout_toEndOf="@+id/icon_public_info"
+                    android:text="@string/public_info"/>
+
+                <ImageView style="@style/menu_item_arrow_right"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/public_investor"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/settings_item_height"
+                android:background="?attr/selectableItemBackground"
+                android:paddingStart="64dp"
+                android:paddingEnd="@dimen/settings_padding">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:alpha="0.05"
+                    android:background="?attr/colorTextPrimary"/>
+
+                <TextView
+                    android:id="@+id/public_investor_label"
+                    style="@style/settings_text"
+                    android:text="@string/public_investors_profile"/>
+
+                <ImageView
+                    android:id="@+id/tooltip_public_investor"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="4dp"
+                    android:layout_toEndOf="@id/public_investor_label"
+                    android:padding="8dp"
+                    app:srcCompat="@drawable/icon_tooltip_2"/>
+
+                <androidx.appcompat.widget.SwitchCompat
+                    android:id="@+id/switch_public_investor"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"/>
+
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginStart="@dimen/settings_padding"
+                android:alpha="0.05"
+                android:background="?attr/colorTextPrimary"/>
+
+            <RelativeLayout
                 android:id="@+id/security"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/settings_item_height"
                 android:background="?attr/selectableItemBackground"
-                android:paddingLeft="@dimen/settings_padding">
+                android:paddingStart="@dimen/settings_padding"
+                android:paddingEnd="@dimen/settings_padding">
 
                 <ImageView
                     android:id="@+id/icon_security"
@@ -125,87 +196,36 @@
                 <TextView
                     style="@style/settings_text"
                     android:layout_toEndOf="@+id/icon_security"
-                    android:layout_toRightOf="@+id/icon_security"
                     android:text="@string/security"/>
 
-                <ImageView
-                    style="@style/menu_item_arrow_right"
-                    android:layout_marginEnd="@dimen/settings_padding"
-                    android:layout_marginRight="@dimen/settings_padding"/>
+                <ImageView style="@style/menu_item_arrow_right"/>
 
             </RelativeLayout>
 
-            <!--<RelativeLayout-->
-            <!--android:id="@+id/change_password"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="match_parent"-->
-            <!--android:layout_below="@+id/header"-->
-            <!--android:background="?attr/selectableItemBackground"-->
-            <!--android:padding="16dp">-->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:background="?attr/colorBackgroundDark"/>
 
-            <!--<TextView-->
-            <!--android:id="@+id/text_change_password"-->
-            <!--style="@style/settings_text"-->
-            <!--android:text="@string/change_password"/>-->
+            <RelativeLayout
+                android:id="@+id/platform_currency"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/settings_item_height"
+                android:background="?attr/selectableItemBackground"
+                android:paddingStart="@dimen/settings_padding"
+                android:paddingEnd="@dimen/settings_padding">
 
-            <!--<ImageView-->
-            <!--android:id="@+id/arrow_change_password"-->
-            <!--style="@style/menu_item_arrow_right"/>-->
+                <TextView
+                    style="@style/settings_text"
+                    android:text="@string/platform_currency"/>
 
-            <!--</RelativeLayout>-->
+                <TextView
+                    android:id="@+id/platform_currency_value"
+                    style="@style/settings_text"
+                    android:layout_alignParentEnd="true"
+                    tools:text="BTC"/>
 
-            <!--<LinearLayout-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:orientation="vertical">-->
-
-            <!--<vision.genesis.clientapp.ui.SettingsSwitchButton-->
-            <!--android:id="@+id/two_factor"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"/>-->
-
-            <!--<View-->
-            <!--android:id="@+id/pin_code_delimiter"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="1dp"-->
-            <!--android:background="?attr/colorDelimiter"/>-->
-
-            <!--<vision.genesis.clientapp.ui.SettingsSwitchButton-->
-            <!--android:id="@+id/pin_code"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"/>-->
-
-            <!--<View-->
-            <!--android:id="@+id/fingerprint_delimiter"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="1dp"-->
-            <!--android:background="?attr/colorDelimiter"-->
-            <!--android:visibility="gone"/>-->
-
-            <!--<vision.genesis.clientapp.ui.SettingsSwitchButton-->
-            <!--android:id="@+id/fingerprint"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:visibility="gone"/>-->
-
-            <!--</LinearLayout>-->
-
-            <!--<android.support.v7.widget.CardView-->
-            <!--android:id="@+id/card_dark_theme"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_marginTop="24dp"-->
-            <!--app:cardBackgroundColor="?attr/colorBackground"-->
-            <!--app:cardCornerRadius="0dp"-->
-            <!--app:cardElevation="2dp"-->
-            <!--app:cardPreventCornerOverlap="true">-->
-
-            <!--<vision.genesis.clientapp.ui.SettingsSwitchButton-->
-            <!--android:id="@+id/dark_theme"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"/>-->
-
-            <!--</android.support.v7.widget.CardView>-->
+            </RelativeLayout>
 
             <View
                 android:layout_width="match_parent"
@@ -217,16 +237,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/settings_item_height"
                 android:background="?attr/selectableItemBackground"
-                android:paddingLeft="@dimen/settings_padding">
+                android:paddingStart="@dimen/settings_padding"
+                android:paddingEnd="@dimen/settings_padding">
 
                 <TextView
                     style="@style/settings_text"
                     android:text="@string/terms_and_conditions"/>
 
-                <ImageView
-                    style="@style/menu_item_arrow_right"
-                    android:layout_marginEnd="@dimen/settings_padding"
-                    android:layout_marginRight="@dimen/settings_padding"/>
+                <ImageView style="@style/menu_item_arrow_right"/>
 
                 <View
                     android:layout_width="match_parent"
@@ -242,16 +260,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/settings_item_height"
                 android:background="?attr/selectableItemBackground"
-                android:paddingLeft="@dimen/settings_padding">
+                android:paddingStart="@dimen/settings_padding"
+                android:paddingEnd="@dimen/settings_padding">
 
                 <TextView
                     style="@style/settings_text"
                     android:text="@string/privacy_policy"/>
 
-                <ImageView
-                    style="@style/menu_item_arrow_right"
-                    android:layout_marginEnd="@dimen/settings_padding"
-                    android:layout_marginRight="@dimen/settings_padding"/>
+                <ImageView style="@style/menu_item_arrow_right"/>
 
                 <View
                     android:layout_width="match_parent"
@@ -267,16 +283,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/settings_item_height"
                 android:background="?attr/selectableItemBackground"
-                android:paddingLeft="@dimen/settings_padding">
+                android:paddingStart="@dimen/settings_padding"
+                android:paddingEnd="@dimen/settings_padding">
 
                 <TextView
                     style="@style/settings_text"
                     android:text="@string/contact_us"/>
 
-                <ImageView
-                    style="@style/menu_item_arrow_right"
-                    android:layout_marginEnd="@dimen/settings_padding"
-                    android:layout_marginRight="@dimen/settings_padding"/>
+                <ImageView style="@style/menu_item_arrow_right"/>
 
             </RelativeLayout>
 
@@ -303,5 +317,12 @@
 
     </ScrollView>
 
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:visibility="visible"
+        tools:visibility="gone"/>
 
 </RelativeLayout>

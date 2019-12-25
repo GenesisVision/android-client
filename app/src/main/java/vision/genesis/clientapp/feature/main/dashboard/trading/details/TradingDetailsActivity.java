@@ -37,6 +37,7 @@ import vision.genesis.clientapp.feature.BaseSwipeBackActivity;
 import vision.genesis.clientapp.feature.common.option.SelectOptionBottomSheetFragment;
 import vision.genesis.clientapp.feature.common.timeframe_profit.TimeframeProfitView;
 import vision.genesis.clientapp.feature.main.fund.create.CreateFundActivity;
+import vision.genesis.clientapp.feature.main.settings.public_info.ProfilePublicInfoActivity;
 import vision.genesis.clientapp.feature.main.trading_account.create.CreateAccountActivity;
 import vision.genesis.clientapp.model.CurrencyEnum;
 import vision.genesis.clientapp.ui.PortfolioEventDashboardView;
@@ -183,7 +184,7 @@ public class TradingDetailsActivity extends BaseSwipeBackActivity implements Tra
 
 	@OnClick(R.id.button_create_fund)
 	public void onCreateFundClicked() {
-		showCreateFundActivity();
+		presenter.onCreateFundClicked();
 	}
 
 	@OnClick(R.id.button_create_private)
@@ -517,6 +518,11 @@ public class TradingDetailsActivity extends BaseSwipeBackActivity implements Tra
 	@Override
 	public void showCreateFundActivity() {
 		CreateFundActivity.startFrom(this);
+	}
+
+	@Override
+	public void showProfilePublicInfoActivity() {
+		ProfilePublicInfoActivity.startFrom(this, true);
 	}
 
 	@Override

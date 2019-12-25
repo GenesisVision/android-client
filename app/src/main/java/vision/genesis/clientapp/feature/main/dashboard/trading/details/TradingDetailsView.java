@@ -48,6 +48,8 @@ interface TradingDetailsView extends MvpView
 
 	void showCreateFundActivity();
 
+	void showProfilePublicInfoActivity();
+
 	@StateStrategyType(AddToEndSingleStrategy.class)
 	void showProgress(boolean show);
 

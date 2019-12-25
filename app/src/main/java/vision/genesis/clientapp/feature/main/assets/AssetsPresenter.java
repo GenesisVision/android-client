@@ -16,8 +16,8 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.managers.SettingsManager;
-import vision.genesis.clientapp.model.events.OnBrowseFundsClickedEvent;
-import vision.genesis.clientapp.model.events.OnBrowseProgramsClickedEvent;
+import vision.genesis.clientapp.model.events.ShowFundsListEvent;
+import vision.genesis.clientapp.model.events.ShowProgramsListEvent;
 
 /**
  * GenesisVisionAndroid
@@ -48,8 +48,9 @@ public class AssetsPresenter extends MvpPresenter<AssetsView>
 
 	@Override
 	public void onDestroy() {
-		if (platformStatusSubscription != null)
+		if (platformStatusSubscription != null) {
 			platformStatusSubscription.unsubscribe();
+		}
 
 		EventBus.getDefault().unregister(this);
 
@@ -74,12 +75,12 @@ public class AssetsPresenter extends MvpPresenter<AssetsView>
 	}
 
 	@Subscribe
-	public void onEventMainThread(OnBrowseProgramsClickedEvent event) {
+	public void onEventMainThread(ShowProgramsListEvent event) {
 		getViewState().showPrograms();
 	}
 
 	@Subscribe
-	public void onEventMainThread(OnBrowseFundsClickedEvent event) {
+	public void onEventMainThread(ShowFundsListEvent event) {
 		getViewState().showFunds();
 	}
 }

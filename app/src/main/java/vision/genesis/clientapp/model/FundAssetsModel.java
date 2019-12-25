@@ -65,14 +65,16 @@ public class FundAssetsModel implements Parcelable
 		stepTitle = in.readString();
 		reallocationInfo = in.readString();
 		buttonText = in.readString();
-		byte tmpIsNew = in.readByte();
-		Parcelable[] assetsParcelable = in.readParcelableArray(FundAssetInfo.class.getClassLoader());
-		assets = new ArrayList<>();
-		if (assetsParcelable != null) {
-			for (Parcelable parcelable : assetsParcelable) {
-				assets.add((FundAssetInfo) parcelable);
+		if (in.readByte() == 1) {
+			Parcelable[] assetsParcelable = in.readParcelableArray(FundAssetInfo.class.getClassLoader());
+			assets = new ArrayList<>();
+			if (assetsParcelable != null) {
+				for (Parcelable parcelable : assetsParcelable) {
+					assets.add((FundAssetInfo) parcelable);
+				}
 			}
 		}
+		byte tmpIsNew = in.readByte();
 		isNew = tmpIsNew == 0 ? null : tmpIsNew == 1;
 	}
 
@@ -116,7 +118,10 @@ public class FundAssetsModel implements Parcelable
 		parcel.writeString(stepTitle);
 		parcel.writeString(reallocationInfo);
 		parcel.writeString(buttonText);
-		parcel.writeParcelableArray(assets.toArray(new FundAssetInfo[0]), flags);
+		parcel.writeByte((byte) (assets == null ? 0 : 1));
+		if (assets != null) {
+			parcel.writeParcelableArray(assets.toArray(new FundAssetInfo[0]), flags);
+		}
 		parcel.writeByte((byte) (isNew == null ? 0 : isNew ? 1 : 2));
 	}
 }

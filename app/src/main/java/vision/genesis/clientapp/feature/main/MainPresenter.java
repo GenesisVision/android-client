@@ -27,9 +27,6 @@ import vision.genesis.clientapp.model.AppUpdateModel;
 import vision.genesis.clientapp.model.ProgramRequest;
 import vision.genesis.clientapp.model.User;
 import vision.genesis.clientapp.model.events.HideBottomNavigationEvent;
-import vision.genesis.clientapp.model.events.NewInvestmentSuccessEvent;
-import vision.genesis.clientapp.model.events.OnBrowseFundsClickedEvent;
-import vision.genesis.clientapp.model.events.OnBrowseProgramsClickedEvent;
 import vision.genesis.clientapp.model.events.OnFollowFacetClickedEvent;
 import vision.genesis.clientapp.model.events.OnFundFacetClickedEvent;
 import vision.genesis.clientapp.model.events.OnProgramFacetClickedEvent;
@@ -39,11 +36,13 @@ import vision.genesis.clientapp.model.events.ShowCopytradingAccountDetailsEvent;
 import vision.genesis.clientapp.model.events.ShowDisableTfaActivityEvent;
 import vision.genesis.clientapp.model.events.ShowEventDetailsEvent;
 import vision.genesis.clientapp.model.events.ShowFundDetailsEvent;
+import vision.genesis.clientapp.model.events.ShowFundsListEvent;
 import vision.genesis.clientapp.model.events.ShowLockScreenEvent;
 import vision.genesis.clientapp.model.events.ShowManagerDetailsEvent;
 import vision.genesis.clientapp.model.events.ShowMessageActivityEvent;
 import vision.genesis.clientapp.model.events.ShowOpenTradeDetailsEvent;
 import vision.genesis.clientapp.model.events.ShowProgramDetailsEvent;
+import vision.genesis.clientapp.model.events.ShowProgramsListEvent;
 import vision.genesis.clientapp.model.events.ShowSetupTfaActivityEvent;
 import vision.genesis.clientapp.model.events.ShowSpecificWalletEvent;
 import vision.genesis.clientapp.model.events.ShowTradingAccountDetailsEvent;
@@ -266,16 +265,6 @@ public class MainPresenter extends MvpPresenter<MainView>
 	}
 
 	@Subscribe
-	public void onEventMainThread(OnBrowseProgramsClickedEvent event) {
-		getViewState().setNavigationItemSelected(1);
-	}
-
-	@Subscribe
-	public void onEventMainThread(OnBrowseFundsClickedEvent event) {
-		getViewState().setNavigationItemSelected(1);
-	}
-
-	@Subscribe
 	public void onEventMainThread(ShowProgramDetailsEvent event) {
 		getViewState().showProgramDetails(event.programDetailsModel);
 	}
@@ -283,15 +272,7 @@ public class MainPresenter extends MvpPresenter<MainView>
 	@Subscribe
 	public void onEventMainThread(ShowWithdrawProgramEvent event) {
 		ProgramRequest withdrawalRequest = new ProgramRequest();
-//		withdrawalRequest.programId = event.programId;
-//		withdrawalRequest.programName = event.programName;
-//		withdrawalRequest.available = event.investedTokens;
 		getViewState().showWithdrawProgram(withdrawalRequest);
-	}
-
-	@Subscribe
-	public void onEventMainThread(NewInvestmentSuccessEvent event) {
-		getViewState().setNavigationItemSelected(0);
 	}
 
 	@Subscribe
@@ -387,5 +368,15 @@ public class MainPresenter extends MvpPresenter<MainView>
 	@Subscribe
 	public void onEventMainThread(ShowTradingAccountDetailsEvent event) {
 		getViewState().showTradingAccountDetails(event.getTradingAccountDetailsModel());
+	}
+
+	@Subscribe
+	public void onEventMainThread(ShowProgramsListEvent event) {
+		getViewState().setNavigationItemSelected(1);
+	}
+
+	@Subscribe
+	public void onEventMainThread(ShowFundsListEvent event) {
+		getViewState().setNavigationItemSelected(1);
 	}
 }

@@ -15,7 +15,6 @@ import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
-import vision.genesis.clientapp.feature.common.currency.SelectCurrencyFragment;
 import vision.genesis.clientapp.managers.SettingsManager;
 import vision.genesis.clientapp.managers.WalletManager;
 import vision.genesis.clientapp.model.CurrencyEnum;
@@ -29,7 +28,7 @@ import vision.genesis.clientapp.net.ApiErrorResolver;
  */
 
 @InjectViewState
-public class WalletPresenter extends MvpPresenter<WalletView> implements SelectCurrencyFragment.OnCurrencyChangedListener
+public class WalletPresenter extends MvpPresenter<WalletView>
 {
 	@Inject
 	public Context context;
@@ -61,10 +60,12 @@ public class WalletPresenter extends MvpPresenter<WalletView> implements SelectC
 
 	@Override
 	public void onDestroy() {
-		if (baseCurrencySubscription != null)
+		if (baseCurrencySubscription != null) {
 			baseCurrencySubscription.unsubscribe();
-		if (balanceSubscription != null)
+		}
+		if (balanceSubscription != null) {
 			balanceSubscription.unsubscribe();
+		}
 
 		EventBus.getDefault().unregister(this);
 
@@ -97,8 +98,9 @@ public class WalletPresenter extends MvpPresenter<WalletView> implements SelectC
 	private void updateBalance() {
 		if (baseCurrency != null) {
 			getViewState().showProgress(true);
-			if (balanceSubscription != null)
+			if (balanceSubscription != null) {
 				balanceSubscription.unsubscribe();
+			}
 			balanceSubscription = walletManager.getWallets(baseCurrency.getValue(), true)
 					.observeOn(AndroidSchedulers.mainThread())
 					.subscribeOn(Schedulers.io())
@@ -123,11 +125,6 @@ public class WalletPresenter extends MvpPresenter<WalletView> implements SelectC
 
 		ApiErrorResolver.resolveErrors(throwable,
 				message -> getViewState().showSnackbarMessage(message));
-	}
-
-	@Override
-	public void onCurrencyChanged(CurrencyEnum currency) {
-		settingsManager.saveBaseCurrency(currency);
 	}
 
 	@Subscribe

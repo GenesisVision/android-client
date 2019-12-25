@@ -38,4 +38,6 @@ interface TradingAccountInfoView extends MvpView
 	void showTransferFundsActivity(TransferFundsModel model);
 
 	void showCopytradingDetailsActivity(TradingAccountDetailsModel model);
+
+	void showProfilePublicInfoActivity();
 }

@@ -37,6 +37,14 @@ public class Constants
 
 	public static final double MIN_STOP_OUT_LEVEL = 10.0;
 
+	public static final int MIN_USER_NAME_LENGTH = 4;
+
+	public static final int MAX_USER_NAME_LENGTH = 20;
+
+	public static final int MIN_USER_ABOUT_LENGTH = 20;
+
+	public static final int MAX_USER_ABOUT_LENGTH = 500;
+
 	public static ArrayList<String> getCurrenciesForProgramsListFilter() {
 		return new ArrayList<>(Arrays.asList("All", "ETH", "BTC", "USDT", "USD"));
 	}

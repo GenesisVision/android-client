@@ -328,6 +328,35 @@
                         android:visibility="gone"
                         tools:visibility="visible"/>
 
+                    <LinearLayout
+                        android:id="@+id/group_programs_empty"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical"
+                        android:paddingStart="20dp"
+                        android:paddingEnd="20dp"
+                        android:paddingBottom="20dp"
+                        android:visibility="gone"
+                        tools:visibility="visible">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="@string/dashboard_programs_empty_text"
+                            android:textColor="?attr/colorTextSecondary"
+                            android:textSize="14sp"/>
+
+                        <vision.genesis.clientapp.ui.PrimaryButton
+                            android:id="@+id/button_find_program"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/button_height"
+                            android:layout_marginTop="20dp"
+                            android:text="@string/find_program"/>
+
+                    </LinearLayout>
+
                 </LinearLayout>
 
                 <LinearLayout
@@ -409,6 +438,35 @@
                         android:paddingBottom="10dp"
                         android:visibility="gone"
                         tools:visibility="visible"/>
+
+                    <LinearLayout
+                        android:id="@+id/group_funds_empty"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical"
+                        android:paddingStart="20dp"
+                        android:paddingEnd="20dp"
+                        android:paddingBottom="20dp"
+                        android:visibility="gone"
+                        tools:visibility="visible">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="@string/dashboard_funds_empty_text"
+                            android:textColor="?attr/colorTextSecondary"
+                            android:textSize="14sp"/>
+
+                        <vision.genesis.clientapp.ui.PrimaryButton
+                            android:id="@+id/button_find_fund"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/button_height"
+                            android:layout_marginTop="20dp"
+                            android:text="@string/find_fund"/>
+
+                    </LinearLayout>
 
                 </LinearLayout>
 

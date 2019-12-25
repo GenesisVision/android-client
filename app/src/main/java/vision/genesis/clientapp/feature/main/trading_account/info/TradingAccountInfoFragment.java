@@ -33,6 +33,7 @@ import vision.genesis.clientapp.feature.auth.login.LoginActivity;
 import vision.genesis.clientapp.feature.main.copytrading.details.CopytradingDetailsActivity;
 import vision.genesis.clientapp.feature.main.follow.create.CreateFollowActivity;
 import vision.genesis.clientapp.feature.main.program.create.CreateProgramActivity;
+import vision.genesis.clientapp.feature.main.settings.public_info.ProfilePublicInfoActivity;
 import vision.genesis.clientapp.feature.main.trading_account.TradingAccountDetailsPagerAdapter;
 import vision.genesis.clientapp.feature.main.wallet.transfer_funds.TransferFundsActivity;
 import vision.genesis.clientapp.model.CreateProgramModel;
@@ -368,6 +369,13 @@ public class TradingAccountInfoFragment extends BaseFragment implements TradingA
 	public void showCopytradingDetailsActivity(TradingAccountDetailsModel model) {
 		if (getActivity() != null) {
 			CopytradingDetailsActivity.startWith(getActivity(), model);
+		}
+	}
+
+	@Override
+	public void showProfilePublicInfoActivity() {
+		if (getActivity() != null) {
+			ProfilePublicInfoActivity.startFrom(getActivity(), true);
 		}
 	}
 }

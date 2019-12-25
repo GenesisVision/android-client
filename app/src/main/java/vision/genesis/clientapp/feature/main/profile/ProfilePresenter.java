@@ -184,7 +184,7 @@ public class ProfilePresenter extends MvpPresenter<ProfileView>
 	}
 
 	private void getProfile() {
-		profileSubscription = profileManager.getProfileFull()
+		profileSubscription = profileManager.getProfileFull(true)
 				.observeOn(AndroidSchedulers.mainThread())
 				.subscribeOn(Schedulers.io())
 				.subscribe(this::handleGetProfileSuccess,
