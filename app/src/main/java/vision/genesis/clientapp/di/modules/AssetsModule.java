@@ -22,6 +22,7 @@ import io.swagger.client.api.WalletApi;
 import vision.genesis.clientapp.managers.AssetsManager;
 import vision.genesis.clientapp.managers.BrokersManager;
 import vision.genesis.clientapp.managers.DashboardManager;
+import vision.genesis.clientapp.managers.EventsManager;
 import vision.genesis.clientapp.managers.FollowsManager;
 import vision.genesis.clientapp.managers.FundsManager;
 import vision.genesis.clientapp.managers.ProgramsManager;
@@ -61,6 +62,12 @@ public class AssetsModule
 	@Singleton
 	public FollowsManager provideFollowsManager(SignalApi signalApi, FollowApi followApi) {
 		return new FollowsManager(signalApi, followApi);
+	}
+
+	@Provides
+	@Singleton
+	public EventsManager provideEventsManager(EventsApi eventsApi) {
+		return new EventsManager(eventsApi);
 	}
 
 	@Provides

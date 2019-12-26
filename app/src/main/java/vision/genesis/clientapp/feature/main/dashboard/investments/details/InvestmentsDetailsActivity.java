@@ -43,6 +43,7 @@ import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseSwipeBackActivity;
 import vision.genesis.clientapp.feature.common.requests.RequestsAdapter;
 import vision.genesis.clientapp.feature.common.timeframe_profit.TimeframeProfitView;
+import vision.genesis.clientapp.feature.main.events.EventsActivity;
 import vision.genesis.clientapp.model.CurrencyEnum;
 import vision.genesis.clientapp.model.events.ShowFundsListEvent;
 import vision.genesis.clientapp.model.events.ShowProgramsListEvent;
@@ -195,6 +196,11 @@ public class InvestmentsDetailsActivity extends BaseSwipeBackActivity implements
 	@OnClick(R.id.button_back)
 	public void onBackClicked() {
 		onBackPressed();
+	}
+
+	@OnClick(R.id.group_events_header)
+	public void onEventsClicked() {
+		EventsActivity.startWith(this, EventsActivity.GROUP_INVESTMENT);
 	}
 
 	@OnClick(R.id.button_find_program)

@@ -15,6 +15,7 @@ import io.swagger.client.model.SignalSubscription;
 import vision.genesis.clientapp.model.CreateProgramModel;
 import vision.genesis.clientapp.model.ProgramRequest;
 import vision.genesis.clientapp.model.TradingAccountDetailsModel;
+import vision.genesis.clientapp.model.TransferFundsModel;
 
 /**
  * GenesisVisionAndroid
@@ -61,4 +62,6 @@ interface OwnerInfoView extends MvpView
 	void showUnfollowTradesActivity(UUID followId, UUID tradingAccountId, String followName);
 
 	void showCopytradingDetailsActivity(TradingAccountDetailsModel model);
+
+	void showTransferFundsActivity(TransferFundsModel model);
 }

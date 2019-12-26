@@ -29,6 +29,8 @@ public class TradingAccountDetailsModel implements Parcelable
 		}
 	};
 
+	private UUID assetId;
+
 	private UUID accountId;
 
 	private String accountName;
@@ -52,8 +54,9 @@ public class TradingAccountDetailsModel implements Parcelable
 		this.brokerLogo = brokerLogo;
 	}
 
-	public TradingAccountDetailsModel(UUID accountId, String accountName, String brokerName, String brokerLogo, DateTime creationDate,
+	public TradingAccountDetailsModel(UUID assetId, UUID accountId, String accountName, String brokerName, String brokerLogo, DateTime creationDate,
 	                                  Integer leverage, String currency, MigrationRequest migration) {
+		this.assetId = assetId;
 		this.accountId = accountId;
 		this.accountName = accountName;
 		this.brokerName = brokerName;
@@ -65,6 +68,7 @@ public class TradingAccountDetailsModel implements Parcelable
 	}
 
 	protected TradingAccountDetailsModel(Parcel in) {
+		assetId = (UUID) in.readSerializable();
 		accountId = (UUID) in.readSerializable();
 		accountName = in.readString();
 		brokerName = in.readString();
@@ -87,6 +91,7 @@ public class TradingAccountDetailsModel implements Parcelable
 
 	@Override
 	public void writeToParcel(Parcel parcel, int flags) {
+		parcel.writeSerializable(assetId);
 		parcel.writeSerializable(accountId);
 		parcel.writeString(accountName);
 		parcel.writeString(brokerName);
@@ -101,6 +106,10 @@ public class TradingAccountDetailsModel implements Parcelable
 		}
 		parcel.writeString(currency);
 		parcel.writeParcelable(migration, flags);
+	}
+
+	public UUID getAssetId() {
+		return assetId;
 	}
 
 	public UUID getAccountId() {

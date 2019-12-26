@@ -68,7 +68,7 @@ public class ChangeBrokerPresenter extends MvpPresenter<ChangeBrokerView>
 	private void sendChangeBrokerRequest() {
 		getViewState().showProgress(true);
 
-		changeBrokerSubscription = assetsManager.changeBroker(model.getAccountId(), request)
+		changeBrokerSubscription = assetsManager.changeBroker(model.getAssetId(), request)
 				.subscribeOn(Schedulers.io())
 				.observeOn(AndroidSchedulers.mainThread())
 				.subscribe(this::handleChangeBrokerSuccess,

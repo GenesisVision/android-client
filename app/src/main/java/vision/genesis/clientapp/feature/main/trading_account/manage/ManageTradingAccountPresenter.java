@@ -76,7 +76,7 @@ public class ManageTradingAccountPresenter extends MvpPresenter<ManageTradingAcc
 	private void cancelMigration() {
 		if (model != null && assetsManager != null) {
 			getViewState().showCancelProgress(true);
-			cancelMigrationSubscription = assetsManager.cancelBrokerChange(model.getAccountId())
+			cancelMigrationSubscription = assetsManager.cancelBrokerChange(model.getAssetId())
 					.observeOn(AndroidSchedulers.mainThread())
 					.subscribeOn(Schedulers.io())
 					.subscribe(this::handleCancelMigrationSuccess,

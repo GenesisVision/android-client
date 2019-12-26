@@ -1,4 +1,4 @@
-package vision.genesis.clientapp.feature.main.portfolio_events.details;
+package vision.genesis.clientapp.feature.main.events.details;
 
 import android.content.Context;
 import android.util.AttributeSet;

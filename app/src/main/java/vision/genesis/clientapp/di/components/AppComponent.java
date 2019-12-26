@@ -45,6 +45,7 @@ import vision.genesis.clientapp.feature.main.dashboard.old.investor.programs.Das
 import vision.genesis.clientapp.feature.main.dashboard.trading.DashboardTradingView;
 import vision.genesis.clientapp.feature.main.dashboard.trading.details.TradingDetailsPresenter;
 import vision.genesis.clientapp.feature.main.dashboard.wallet.DashboardWalletView;
+import vision.genesis.clientapp.feature.main.events.EventsPresenter;
 import vision.genesis.clientapp.feature.main.favorites.FavoritesPresenter;
 import vision.genesis.clientapp.feature.main.follow.create.CreateFollowPresenter;
 import vision.genesis.clientapp.feature.main.follow.create.settings.FollowSettingsPresenter;
@@ -77,7 +78,6 @@ import vision.genesis.clientapp.feature.main.notifications.create.CreateCustomNo
 import vision.genesis.clientapp.feature.main.notifications.fund.FundNotificationsSettingsPresenter;
 import vision.genesis.clientapp.feature.main.notifications.program.ProgramNotificationsSettingsPresenter;
 import vision.genesis.clientapp.feature.main.notifications.settings.NotificationsSettingsPresenter;
-import vision.genesis.clientapp.feature.main.portfolio_events.PortfolioEventsPresenter;
 import vision.genesis.clientapp.feature.main.profile.ProfilePresenter;
 import vision.genesis.clientapp.feature.main.program.ProgramDetailsPresenter;
 import vision.genesis.clientapp.feature.main.program.balance.ProgramBalancePresenter;
@@ -231,7 +231,7 @@ public interface AppComponent
 
 	void inject(ConfirmProgramWithdrawBottomSheetFragment confirmProgramWithdrawBottomSheetFragment);
 
-	void inject(PortfolioEventsPresenter PortfolioEventsPresenter);
+	void inject(EventsPresenter EventsPresenter);
 
 	void inject(SelectOptionBottomSheetFragment selectOptionBottomSheetFragment);
 

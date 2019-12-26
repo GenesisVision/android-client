@@ -51,10 +51,13 @@ public class SelectBrokerFragment extends BaseFragment implements SelectBrokerVi
 {
 	private static String EXTRA_ASSET_ID = "extra_asset_id";
 
-	public static SelectBrokerFragment with(UUID assetId) {
+	private static String EXTRA_BROKER_NAME = "extra_broker_name";
+
+	public static SelectBrokerFragment with(UUID assetId, String brokerName) {
 		SelectBrokerFragment fragment = new SelectBrokerFragment();
 		Bundle arguments = new Bundle(1);
 		arguments.putSerializable(EXTRA_ASSET_ID, assetId);
+		arguments.putSerializable(EXTRA_BROKER_NAME, brokerName);
 		fragment.setArguments(arguments);
 		return fragment;
 	}
@@ -82,6 +85,9 @@ public class SelectBrokerFragment extends BaseFragment implements SelectBrokerVi
 
 	@BindView(R.id.tags_flexbox)
 	public FlexboxLayout tagsFlexbox;
+
+	@BindView(R.id.warning_info)
+	public TextView warningInfo;
 
 	@BindView(R.id.about)
 	public TextView about;
@@ -115,6 +121,8 @@ public class SelectBrokerFragment extends BaseFragment implements SelectBrokerVi
 	private Broker selectedBroker;
 
 	private ArrayList<BrokerView> brokerViews = new ArrayList<>();
+
+	private String currentBrokerName;
 
 	@OnClick(R.id.read_terms)
 	public void onReadTermsClicked() {
@@ -150,6 +158,7 @@ public class SelectBrokerFragment extends BaseFragment implements SelectBrokerVi
 
 		if (getArguments() != null) {
 			UUID assetId = (UUID) getArguments().getSerializable(EXTRA_ASSET_ID);
+			currentBrokerName = getArguments().getString(EXTRA_BROKER_NAME, null);
 			presenter.setAssetId(assetId);
 			nextButton.setText(String.format(Locale.getDefault(), "%s (1/%d)", getString(R.string.next), assetId != null ? 2 : 3));
 			brokerChangeInfo.setVisibility(assetId != null ? View.VISIBLE : View.GONE);
@@ -212,6 +221,16 @@ public class SelectBrokerFragment extends BaseFragment implements SelectBrokerVi
 		this.brokerName.setText(broker.getName());
 		this.about.setText(broker.getDescription());
 		this.assets.setText(broker.getAssets());
+
+		if (currentBrokerName != null
+				&& currentBrokerName.toLowerCase().equals("genesis markets")
+				&& broker.getName().toLowerCase().equals("huobi")) {
+			warningInfo.setVisibility(View.VISIBLE);
+			warningInfo.setText(getString(R.string.warning_info_switch_gm_to_huobi));
+		}
+		else {
+			warningInfo.setVisibility(View.GONE);
+		}
 
 		setTags(broker.getTags());
 

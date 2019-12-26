@@ -26,7 +26,7 @@ import timber.log.Timber;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
 import vision.genesis.clientapp.feature.common.date_range.DateRangeBottomSheetFragment;
-import vision.genesis.clientapp.feature.main.portfolio_events.PortfolioEventsListAdapter;
+import vision.genesis.clientapp.feature.main.events.EventsListAdapter;
 import vision.genesis.clientapp.feature.main.program.ProgramDetailsPagerAdapter;
 import vision.genesis.clientapp.model.DateRange;
 import vision.genesis.clientapp.ui.DateRangeView;
@@ -77,7 +77,7 @@ public class ProgramEventsFragment extends BaseFragment implements ProgramEvents
 	@InjectPresenter
 	public ProgramEventsPresenter programEventsPresenter;
 
-	private PortfolioEventsListAdapter eventsListAdapter;
+	private EventsListAdapter eventsListAdapter;
 
 	private SimpleSectionedRecyclerViewAdapter sectionedAdapter;
 
@@ -138,7 +138,7 @@ public class ProgramEventsFragment extends BaseFragment implements ProgramEvents
 		LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
 		recyclerView.setLayoutManager(layoutManager);
 
-		eventsListAdapter = new PortfolioEventsListAdapter();
+		eventsListAdapter = new EventsListAdapter();
 		sectionedAdapter = new SimpleSectionedRecyclerViewAdapter(getContext(), R.layout.list_item_trades_date_section, R.id.text, eventsListAdapter);
 		recyclerView.setAdapter(sectionedAdapter);
 

@@ -31,7 +31,6 @@ import butterknife.Unbinder;
 import io.swagger.client.model.AssetInvestmentStatus;
 import io.swagger.client.model.CreateSignalProvider;
 import io.swagger.client.model.FollowDetailsFull;
-import io.swagger.client.model.PersonalFollowDetailsFull;
 import io.swagger.client.model.PersonalProgramDetails;
 import io.swagger.client.model.ProgramDetailsFull;
 import io.swagger.client.model.ProgramFollowDetailsFull;
@@ -54,9 +53,11 @@ import vision.genesis.clientapp.feature.main.program.invest.InvestProgramActivit
 import vision.genesis.clientapp.feature.main.program.manage.ManageProgramActivity;
 import vision.genesis.clientapp.feature.main.program.withdraw.WithdrawProgramActivity;
 import vision.genesis.clientapp.feature.main.trading_account.manage.ManageTradingAccountActivity;
+import vision.genesis.clientapp.feature.main.wallet.transfer_funds.TransferFundsActivity;
 import vision.genesis.clientapp.model.CreateProgramModel;
 import vision.genesis.clientapp.model.ProgramRequest;
 import vision.genesis.clientapp.model.TradingAccountDetailsModel;
+import vision.genesis.clientapp.model.TransferFundsModel;
 import vision.genesis.clientapp.ui.AccountAgeView;
 import vision.genesis.clientapp.ui.InvestmentStatusView;
 import vision.genesis.clientapp.ui.PeriodLeftDetailsView;
@@ -144,17 +145,32 @@ public class OwnerInfoFragment extends BaseFragment implements OwnerInfoView, Pr
 	@BindView(R.id.value)
 	public TextView value;
 
+	@BindView(R.id.group_profit)
+	public ViewGroup profitGroup;
+
 	@BindView(R.id.profit)
 	public TextView profit;
 
 	@BindView(R.id.profit_label)
 	public TextView profitLabel;
 
-	@BindView(R.id.button_deposit)
-	public PrimaryButton depositButton;
+	@BindView(R.id.button_deposit_program)
+	public PrimaryButton depositProgramButton;
+
+	@BindView(R.id.button_withdraw_program)
+	public PrimaryButton withdrawProgramButton;
+
+	@BindView(R.id.button_add_funds)
+	public PrimaryButton addFundsButton;
 
 	@BindView(R.id.button_withdraw)
 	public PrimaryButton withdrawButton;
+
+	@BindView(R.id.group_deposit_follow_buttons)
+	public ViewGroup depositFollowButtonsGroup;
+
+	@BindView(R.id.group_deposit_program_buttons)
+	public ViewGroup depositProgramButtonsGroup;
 
 
 	@BindView(R.id.group_program_info)
@@ -307,9 +323,19 @@ public class OwnerInfoFragment extends BaseFragment implements OwnerInfoView, Pr
 		presenter.onStatusClicked();
 	}
 
-	@OnClick(R.id.button_deposit)
-	public void onDepositClicked() {
-		presenter.onDepositClicked();
+	@OnClick(R.id.button_deposit_program)
+	public void onDepositProgramClicked() {
+		presenter.onDepositProgramClicked();
+	}
+
+	@OnClick(R.id.button_withdraw_program)
+	public void onWithdrawProgramClicked() {
+		presenter.onWithdrawProgramClicked();
+	}
+
+	@OnClick(R.id.button_add_funds)
+	public void oAddFundsClicked() {
+		presenter.onAddFundsClicked();
 	}
 
 	@OnClick(R.id.button_withdraw)
@@ -354,6 +380,8 @@ public class OwnerInfoFragment extends BaseFragment implements OwnerInfoView, Pr
 
 		unbinder = ButterKnife.bind(this, view);
 
+		withdrawButton.setEmpty();
+
 		if (getArguments() != null) {
 			details = getArguments().getParcelable(EXTRA_DETAILS);
 			if (details != null) {
@@ -361,7 +389,7 @@ public class OwnerInfoFragment extends BaseFragment implements OwnerInfoView, Pr
 
 				setFonts();
 
-				withdrawButton.setEmpty();
+				withdrawProgramButton.setEmpty();
 
 				return;
 			}
@@ -420,6 +448,7 @@ public class OwnerInfoFragment extends BaseFragment implements OwnerInfoView, Pr
 		stopOutLabel.setText(stopOutLabel.getText().toString().toLowerCase());
 		profitLabel.setText(profitLabel.getText().toString().toLowerCase());
 		entryFeeLabel.setText(entryFeeLabel.getText().toString().toLowerCase());
+		subscriptionVolumeFeeLabel.setText(subscriptionVolumeFeeLabel.getText().toString().toLowerCase());
 	}
 
 	@Override
@@ -434,21 +463,10 @@ public class OwnerInfoFragment extends BaseFragment implements OwnerInfoView, Pr
 					details.getTradingAccountInfo().getCurrency().getValue(), details.getTradingAccountInfo().getLeverageMax(),
 					details.getPublicInfo().getCreationDate());
 
-			ProgramDetailsFull programDetails = details.getProgramDetails();
-			if (programDetails != null) {
-				updateYourDeposit(programDetails.getPersonalDetails());
-				updateProgramDetails(programDetails);
-			}
-			else {
-				programInfoGroup.setVisibility(View.GONE);
-				manageProgramButton.setVisibility(View.GONE);
-				createProgramGroup.setVisibility(View.VISIBLE);
-			}
+			updateYourDeposit();
 
-			FollowDetailsFull followDetails = details.getFollowDetails();
-			if (followDetails != null) {
-				updateFollowDetails(followDetails);
-			}
+			updateProgramDetails(details.getProgramDetails());
+			updateFollowDetails(details.getFollowDetails());
 		}
 	}
 
@@ -468,28 +486,36 @@ public class OwnerInfoFragment extends BaseFragment implements OwnerInfoView, Pr
 		this.age.setCreationDate(creationDate);
 	}
 
-	private void updateProgramDetails(ProgramDetailsFull details) {
-		programInfoGroup.setVisibility(View.VISIBLE);
-		manageProgramButton.setVisibility(View.VISIBLE);
-		createProgramGroup.setVisibility(View.GONE);
+	private void updateProgramDetails(ProgramDetailsFull programDetails) {
+		if (programDetails != null) {
+			programInfoGroup.setVisibility(View.VISIBLE);
+			manageProgramButton.setVisibility(View.VISIBLE);
+			createProgramGroup.setVisibility(View.GONE);
 
-		PersonalProgramDetails personalDetails = details.getPersonalDetails();
+			PersonalProgramDetails personalDetails = programDetails.getPersonalDetails();
 
-		availableToInvest.setText(String.format(Locale.getDefault(), "%s %s",
-				StringFormatUtil.getShortenedAmount(details.getAvailableInvestmentBase()).toString(),
-				this.details.getTradingAccountInfo().getCurrency().getValue()));
+			availableToInvest.setText(String.format(Locale.getDefault(), "%s %s",
+					StringFormatUtil.getShortenedAmount(programDetails.getAvailableInvestmentBase()).toString(),
+					this.details.getTradingAccountInfo().getCurrency().getValue()));
 
-		updateCurrentSelectedField(stopOut, details.getStopOutLevelCurrent(), details.getStopOutLevelSelected());
-		updateCurrentSelectedField(entryFee, details.getEntryFeeCurrent(), details.getEntryFeeSelected());
-		updateCurrentSelectedField(successFee, details.getSuccessFeeCurrent(), details.getSuccessFeeSelected());
+			updateCurrentSelectedField(stopOut, programDetails.getStopOutLevelCurrent(), programDetails.getStopOutLevelSelected());
+			updateCurrentSelectedField(entryFee, programDetails.getEntryFeeCurrent(), programDetails.getEntryFeeSelected());
+			updateCurrentSelectedField(successFee, programDetails.getSuccessFeeCurrent(), programDetails.getSuccessFeeSelected());
 
-		periodView.setData(details.getPeriodDuration(), details.getPeriodStarts(), details.getPeriodEnds(), true, true);
+			periodView.setData(programDetails.getPeriodDuration(), programDetails.getPeriodStarts(), programDetails.getPeriodEnds(), true, true);
 
-		depositButton.setEnabled(details.getAvailableInvestmentBase() > 0);
+			depositProgramButton.setEnabled(programDetails.getAvailableInvestmentBase() > 0);
 
-		if (personalDetails != null) {
-			depositButton.setEnabled(details.getAvailableInvestmentBase() > 0 && personalDetails.isCanInvest());
-			withdrawButton.setEnabled(personalDetails.isCanWithdraw());
+			if (personalDetails != null) {
+				depositProgramButton.setEnabled(programDetails.getAvailableInvestmentBase() > 0 && personalDetails.isCanInvest());
+				withdrawProgramButton.setEnabled(personalDetails.isCanWithdraw());
+			}
+
+		}
+		else {
+			programInfoGroup.setVisibility(View.GONE);
+			manageProgramButton.setVisibility(View.GONE);
+			createProgramGroup.setVisibility(View.VISIBLE);
 		}
 	}
 
@@ -519,40 +545,36 @@ public class OwnerInfoFragment extends BaseFragment implements OwnerInfoView, Pr
 		}
 	}
 
-	private void updateYourDeposit(PersonalProgramDetails personalDetails) {
-		if (personalDetails != null && personalDetails.isIsInvested() && !personalDetails.getStatus().equals(AssetInvestmentStatus.ENDED)) {
-			yourDepositGroup.setVisibility(View.VISIBLE);
-			status.setVisibility(View.VISIBLE);
-			status.setStatus(personalDetails.getStatus().getValue());
-			value.setText(String.format(Locale.getDefault(), "%s %s",
-					StringFormatUtil.formatAmount(personalDetails.getValue(), 0,
-							StringFormatUtil.getCurrencyMaxFraction(this.details.getTradingAccountInfo().getCurrency().getValue())),
-					this.details.getTradingAccountInfo().getCurrency().getValue()));
-			profit.setVisibility(View.VISIBLE);
-			profit.setText(String.format(Locale.getDefault(), "%s%%",
-					StringFormatUtil.formatAmount(getProfitPercent(personalDetails.getInvested(), personalDetails.getValue()), 0, 4)));
-			profit.setTextColor(ThemeUtil.getColorByAttrId(getContext(),
-					personalDetails.getValue() < personalDetails.getInvested()
-							? R.attr.colorRed
-							: R.attr.colorGreen));
-		}
-		else {
-			yourDepositGroup.setVisibility(View.GONE);
-		}
-	}
+	private void updateYourDeposit() {
+		if (details.getProgramDetails() != null) {
+			PersonalProgramDetails personalDetails = details.getProgramDetails().getPersonalDetails();
+			if (personalDetails != null && personalDetails.isIsInvested() && !personalDetails.getStatus().equals(AssetInvestmentStatus.ENDED)) {
+				status.setVisibility(View.VISIBLE);
+				profitGroup.setVisibility(View.VISIBLE);
+				depositProgramButtonsGroup.setVisibility(View.VISIBLE);
+				depositFollowButtonsGroup.setVisibility(View.GONE);
 
-	private void updateYourDeposit(PersonalFollowDetailsFull personalDetails) {
-		if (personalDetails != null) {
-			yourDepositGroup.setVisibility(View.VISIBLE);
-			status.setVisibility(View.GONE);
-//			value.setText(String.format(Locale.getDefault(), "%s %s",
-//					StringFormatUtil.formatAmount(personalDetails.getValue(), 0,
-//							StringFormatUtil.getCurrencyMaxFraction(this.followDetails.getCurrency().getValue())),
-//					this.programDetails.getCurrency().getValue()));
-			profit.setVisibility(View.GONE);
+				status.setStatus(personalDetails.getStatus().getValue());
+
+				value.setText(StringFormatUtil.getValueString(personalDetails.getValue(),
+						details.getTradingAccountInfo().getCurrency().getValue()));
+
+				profit.setText(String.format(Locale.getDefault(), "%s%%",
+						StringFormatUtil.formatAmount(getProfitPercent(personalDetails.getInvested(), personalDetails.getValue()), 0, 4)));
+				profit.setTextColor(ThemeUtil.getColorByAttrId(getContext(),
+						personalDetails.getValue() < personalDetails.getInvested()
+								? R.attr.colorRed
+								: R.attr.colorGreen));
+			}
 		}
 		else {
-			yourDepositGroup.setVisibility(View.GONE);
+			status.setVisibility(View.GONE);
+			profitGroup.setVisibility(View.GONE);
+			depositProgramButtonsGroup.setVisibility(View.GONE);
+			depositFollowButtonsGroup.setVisibility(View.VISIBLE);
+
+			value.setText(StringFormatUtil.getValueString(details.getTradingAccountInfo().getBalance(),
+					details.getTradingAccountInfo().getCurrency().getValue()));
 		}
 	}
 
@@ -705,6 +727,13 @@ public class OwnerInfoFragment extends BaseFragment implements OwnerInfoView, Pr
 	public void showCopytradingDetailsActivity(TradingAccountDetailsModel model) {
 		if (getActivity() != null) {
 			CopytradingDetailsActivity.startWith(getActivity(), model);
+		}
+	}
+
+	@Override
+	public void showTransferFundsActivity(TransferFundsModel model) {
+		if (getActivity() != null) {
+			TransferFundsActivity.startWith(getActivity(), model);
 		}
 	}
 

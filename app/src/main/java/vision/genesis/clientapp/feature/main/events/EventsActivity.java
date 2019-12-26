@@ -1,4 +1,4 @@
-package vision.genesis.clientapp.feature.main.portfolio_events;
+package vision.genesis.clientapp.feature.main.events;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -20,10 +20,11 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.swagger.client.model.InvestmentEventViewModel;
+import timber.log.Timber;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseSwipeBackActivity;
 import vision.genesis.clientapp.feature.common.date_range.DateRangeBottomSheetFragment;
-import vision.genesis.clientapp.feature.main.portfolio_events.details.EventDetailsBottomSheetFragment;
+import vision.genesis.clientapp.feature.main.events.details.EventDetailsBottomSheetFragment;
 import vision.genesis.clientapp.model.DateRange;
 import vision.genesis.clientapp.ui.DateRangeView;
 import vision.genesis.clientapp.ui.common.SimpleSectionedRecyclerViewAdapter;
@@ -35,10 +36,17 @@ import vision.genesis.clientapp.utils.TypefaceUtil;
  * Created by Vitaly on 14/08/2018.
  */
 
-public class PortfolioEventsActivity extends BaseSwipeBackActivity implements PortfolioEventsView
+public class EventsActivity extends BaseSwipeBackActivity implements EventsView
 {
-	public static void startWith(Activity activity) {
-		Intent intent = new Intent(activity.getApplicationContext(), PortfolioEventsActivity.class);
+	public static final String GROUP_INVESTMENT = "InvestmentHistory";
+
+	public static final String GROUP_TRADING = "TradingHistory";
+
+	private static final String EXTRA_GROUP = "extra_group";
+
+	public static void startWith(Activity activity, String group) {
+		Intent intent = new Intent(activity.getApplicationContext(), EventsActivity.class);
+		intent.putExtra(EXTRA_GROUP, group);
 		activity.startActivity(intent);
 		activity.overridePendingTransition(R.anim.activity_slide_from_right, R.anim.hold);
 	}
@@ -62,9 +70,9 @@ public class PortfolioEventsActivity extends BaseSwipeBackActivity implements Po
 	public RecyclerView recyclerView;
 
 	@InjectPresenter
-	PortfolioEventsPresenter portfolioEventsPresenter;
+	EventsPresenter presenter;
 
-	private PortfolioEventsListAdapter eventsListAdapter;
+	private EventsListAdapter eventsListAdapter;
 
 	private SimpleSectionedRecyclerViewAdapter sectionedAdapter;
 
@@ -80,7 +88,7 @@ public class PortfolioEventsActivity extends BaseSwipeBackActivity implements Po
 		DateRangeBottomSheetFragment bottomSheetDialog = new DateRangeBottomSheetFragment();
 		bottomSheetDialog.show(getSupportFragmentManager(), bottomSheetDialog.getTag());
 		bottomSheetDialog.setDateRange(dateRange);
-		bottomSheetDialog.setListener(portfolioEventsPresenter);
+		bottomSheetDialog.setListener(presenter);
 	}
 
 	@Override
@@ -92,25 +100,43 @@ public class PortfolioEventsActivity extends BaseSwipeBackActivity implements Po
 
 		ButterKnife.bind(this);
 
+
 		setFonts();
 
-		initRefreshLayout();
-		initRecyclerView();
+		if (getIntent().getExtras() != null && !getIntent().getExtras().isEmpty()) {
+			String eventsGroup = getIntent().getExtras().getString(EXTRA_GROUP);
+			if (eventsGroup != null) {
+				presenter.setData(eventsGroup);
+
+				updateTitle(eventsGroup);
+
+				initRefreshLayout();
+				initRecyclerView();
+				return;
+			}
+		}
+		Timber.e("Passed empty data to %s", getClass().getSimpleName());
+		onBackPressed();
+	}
+
+	private void updateTitle(String eventsGroup) {
+		this.title.setText(getString(eventsGroup.equals(GROUP_INVESTMENT) ? R.string.investment_events
+				: eventsGroup.equals(GROUP_TRADING) ? R.string.trading_events : R.string.events));
 	}
 
 	@Override
 	protected void onResume() {
 		super.onResume();
-		if (portfolioEventsPresenter != null) {
-			portfolioEventsPresenter.onResume();
+		if (presenter != null) {
+			presenter.onResume();
 		}
 	}
 
 	@Override
 	protected void onPause() {
 		super.onPause();
-		if (portfolioEventsPresenter != null) {
-			portfolioEventsPresenter.onPause();
+		if (presenter != null) {
+			presenter.onPause();
 		}
 	}
 
@@ -129,7 +155,7 @@ public class PortfolioEventsActivity extends BaseSwipeBackActivity implements Po
 				ThemeUtil.getColorByAttrId(this, R.attr.colorTextPrimary),
 				ThemeUtil.getColorByAttrId(this, R.attr.colorTextSecondary));
 		refreshLayout.setOnRefreshListener(() -> {
-			portfolioEventsPresenter.onSwipeRefresh();
+			presenter.onSwipeRefresh();
 		});
 	}
 
@@ -137,7 +163,7 @@ public class PortfolioEventsActivity extends BaseSwipeBackActivity implements Po
 		LinearLayoutManager layoutManager = new LinearLayoutManager(this);
 		recyclerView.setLayoutManager(layoutManager);
 
-		eventsListAdapter = new PortfolioEventsListAdapter();
+		eventsListAdapter = new EventsListAdapter();
 		sectionedAdapter = new SimpleSectionedRecyclerViewAdapter(this, R.layout.list_item_trades_date_section, R.id.text, eventsListAdapter);
 		recyclerView.setAdapter(sectionedAdapter);
 
@@ -151,7 +177,7 @@ public class PortfolioEventsActivity extends BaseSwipeBackActivity implements Po
 
 				boolean endHasBeenReached = lastVisible + 1 >= totalItemCount;
 				if (totalItemCount > 0 && endHasBeenReached) {
-					portfolioEventsPresenter.onLastListItemVisible();
+					presenter.onLastListItemVisible();
 				}
 			}
 		});

@@ -77,6 +77,9 @@ public class OrderSignalModel implements Parcelable
 	@SerializedName("profit")
 	private Double profit = null;
 
+	@SerializedName("profitCurrency")
+	private String profitCurrency = null;
+
 	@SerializedName("direction")
 	private TradeDirectionType direction = null;
 
@@ -131,6 +134,7 @@ public class OrderSignalModel implements Parcelable
 		symbol = (String) in.readValue(null);
 		volume = (Double) in.readValue(null);
 		profit = (Double) in.readValue(null);
+		profitCurrency = (String) in.readValue(null);
 		direction = (TradeDirectionType) in.readValue(TradeDirectionType.class.getClassLoader());
 		date = (DateTime) in.readValue(DateTime.class.getClassLoader());
 		price = (Double) in.readValue(null);
@@ -369,6 +373,25 @@ public class OrderSignalModel implements Parcelable
 
 	public void setProfit(Double profit) {
 		this.profit = profit;
+	}
+
+	public OrderSignalModel profitCurrency(String profitCurrency) {
+		this.profitCurrency = profitCurrency;
+		return this;
+	}
+
+	/**
+	 * Get profitCurrency
+	 *
+	 * @return profitCurrency
+	 **/
+	@Schema(description = "")
+	public String getProfitCurrency() {
+		return profitCurrency;
+	}
+
+	public void setProfitCurrency(String profitCurrency) {
+		this.profitCurrency = profitCurrency;
 	}
 
 	public OrderSignalModel direction(TradeDirectionType direction) {
@@ -638,6 +661,7 @@ public class OrderSignalModel implements Parcelable
 				Objects.equals(this.symbol, orderSignalModel.symbol) &&
 				Objects.equals(this.volume, orderSignalModel.volume) &&
 				Objects.equals(this.profit, orderSignalModel.profit) &&
+				Objects.equals(this.profitCurrency, orderSignalModel.profitCurrency) &&
 				Objects.equals(this.direction, orderSignalModel.direction) &&
 				Objects.equals(this.date, orderSignalModel.date) &&
 				Objects.equals(this.price, orderSignalModel.price) &&
@@ -655,7 +679,7 @@ public class OrderSignalModel implements Parcelable
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(providers, totalCommission, totalCommissionByType, tradingAccountId, currency, id, login, ticket, symbol, volume, profit, direction, date, price, priceCurrent, entry, baseVolume, originalCommission, originalCommissionCurrency, commission, swap, showOriginalCommission, signalData, externalSignalAccountId);
+		return Objects.hash(providers, totalCommission, totalCommissionByType, tradingAccountId, currency, id, login, ticket, symbol, volume, profit, profitCurrency, direction, date, price, priceCurrent, entry, baseVolume, originalCommission, originalCommissionCurrency, commission, swap, showOriginalCommission, signalData, externalSignalAccountId);
 	}
 
 	@Override
@@ -674,6 +698,7 @@ public class OrderSignalModel implements Parcelable
 		sb.append("    symbol: ").append(toIndentedString(symbol)).append("\n");
 		sb.append("    volume: ").append(toIndentedString(volume)).append("\n");
 		sb.append("    profit: ").append(toIndentedString(profit)).append("\n");
+		sb.append("    profitCurrency: ").append(toIndentedString(profitCurrency)).append("\n");
 		sb.append("    direction: ").append(toIndentedString(direction)).append("\n");
 		sb.append("    date: ").append(toIndentedString(date)).append("\n");
 		sb.append("    price: ").append(toIndentedString(price)).append("\n");
@@ -714,6 +739,7 @@ public class OrderSignalModel implements Parcelable
 		out.writeValue(symbol);
 		out.writeValue(volume);
 		out.writeValue(profit);
+		out.writeValue(profitCurrency);
 		out.writeValue(direction);
 		out.writeValue(date);
 		out.writeValue(price);

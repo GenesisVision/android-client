@@ -161,7 +161,7 @@
             android:windowSoftInputMode="adjustResize|stateAlwaysHidden"/>
 
         <activity
-            android:name=".feature.main.portfolio_events.PortfolioEventsActivity"
+            android:name=".feature.main.events.EventsActivity"
             android:launchMode="singleTop"
             android:theme="@style/SwipeBackActivityTheme"
             android:windowSoftInputMode="adjustResize|stateAlwaysHidden"/>

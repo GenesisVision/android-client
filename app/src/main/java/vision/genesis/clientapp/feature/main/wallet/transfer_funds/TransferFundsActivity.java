@@ -29,6 +29,7 @@ import vision.genesis.clientapp.feature.BaseSwipeBackActivity;
 import vision.genesis.clientapp.feature.common.select_wallet.SelectWalletBottomSheetFragment;
 import vision.genesis.clientapp.model.TransferFundsModel;
 import vision.genesis.clientapp.ui.PrimaryButton;
+import vision.genesis.clientapp.ui.ProgramLogoView;
 import vision.genesis.clientapp.utils.ImageUtils;
 import vision.genesis.clientapp.utils.StringFormatUtil;
 import vision.genesis.clientapp.utils.ThemeUtil;
@@ -58,6 +59,9 @@ public class TransferFundsActivity extends BaseSwipeBackActivity implements Tran
 
 	@BindView(R.id.first_icon)
 	public SimpleDraweeView firstIcon;
+
+	@BindView(R.id.first_icon_logo)
+	public ProgramLogoView firstIconLogo;
 
 	@BindView(R.id.first_name)
 	public TextView firstName;
@@ -188,7 +192,17 @@ public class TransferFundsActivity extends BaseSwipeBackActivity implements Tran
 	}
 
 	private void updateView() {
-		this.firstIcon.setImageURI(ImageUtils.getImageUri(model.getLogo()));
+		if (model.getColor() != null) {
+			this.firstIconLogo.setImage(model.getLogo(), model.getColor(), 50, 50);
+			this.firstIconLogo.hideLevel();
+			this.firstIconLogo.setVisibility(View.VISIBLE);
+			this.firstIcon.setVisibility(View.GONE);
+		}
+		else {
+			this.firstIcon.setImageURI(ImageUtils.getImageUri(model.getLogo()));
+			this.firstIconLogo.setVisibility(View.GONE);
+			this.firstIcon.setVisibility(View.VISIBLE);
+		}
 		this.firstName.setText(model.getTitle());
 		this.firstBalance.setText(StringFormatUtil.getValueString(model.getAvailable(), model.getCurrency()));
 		this.arrowDown.setVisibility(model.getTransferDirection().equals(TransferFundsModel.TransferDirection.WITHDRAW) ? View.VISIBLE : View.GONE);

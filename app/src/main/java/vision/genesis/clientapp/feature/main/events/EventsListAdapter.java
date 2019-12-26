@@ -1,4 +1,4 @@
-package vision.genesis.clientapp.feature.main.portfolio_events;
+package vision.genesis.clientapp.feature.main.events;
 
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -35,7 +35,7 @@ import vision.genesis.clientapp.utils.TypefaceUtil;
  * Created by Vitaly on 1/25/18.
  */
 
-public class PortfolioEventsListAdapter extends RecyclerView.Adapter<PortfolioEventsListAdapter.PortfolioEventViewHolder>
+public class EventsListAdapter extends RecyclerView.Adapter<EventsListAdapter.PortfolioEventViewHolder>
 {
 	private List<InvestmentEventViewModel> events = new ArrayList<>();
 

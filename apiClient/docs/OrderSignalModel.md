@@ -14,6 +14,7 @@ Name | Type | Description | Notes
 **symbol** | **String** |  |  [optional]
 **volume** | **Double** |  |  [optional]
 **profit** | **Double** |  |  [optional]
+**profitCurrency** | **String** |  |  [optional]
 **direction** | [**TradeDirectionType**](TradeDirectionType.md) |  |  [optional]
 **date** | [**DateTime**](DateTime.md) |  |  [optional]
 **price** | **Double** |  |  [optional]

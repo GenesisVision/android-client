@@ -7,6 +7,7 @@ import java.util.UUID;
 
 import io.swagger.client.model.InternalTransferRequestType;
 import io.swagger.client.model.PrivateTradingAccountFull;
+import io.swagger.client.model.ProgramFollowDetailsFull;
 
 /**
  * GenesisVisionAndroid
@@ -38,9 +39,18 @@ public class TransferFundsModel implements Parcelable
 				account.getTradingAccountInfo().getCurrency().getValue(), account.getTradingAccountInfo().getBalance());
 	}
 
+	public static TransferFundsModel createFromFollow(ProgramFollowDetailsFull follow) {
+		TransferFundsModel model = new TransferFundsModel(follow.getId(), follow.getPublicInfo().getLogo(), follow.getPublicInfo().getTitle(),
+				follow.getTradingAccountInfo().getCurrency().getValue(), follow.getTradingAccountInfo().getBalance());
+		model.setColor(follow.getPublicInfo().getColor());
+		return model;
+	}
+
 	private UUID id;
 
 	private String logo;
+
+	private String color;
 
 	private String title;
 
@@ -55,6 +65,7 @@ public class TransferFundsModel implements Parcelable
 	private TransferFundsModel(Parcel in) {
 		id = (UUID) in.readSerializable();
 		logo = in.readString();
+		color = in.readString();
 		title = in.readString();
 		currency = in.readString();
 		available = in.readDouble();
@@ -84,6 +95,14 @@ public class TransferFundsModel implements Parcelable
 
 	public void setLogo(String logo) {
 		this.logo = logo;
+	}
+
+	public String getColor() {
+		return color;
+	}
+
+	public void setColor(String color) {
+		this.color = color;
 	}
 
 	public String getTitle() {
@@ -131,6 +150,7 @@ public class TransferFundsModel implements Parcelable
 	public void writeToParcel(Parcel parcel, int i) {
 		parcel.writeSerializable(id);
 		parcel.writeString(logo);
+		parcel.writeString(color);
 		parcel.writeString(title);
 		parcel.writeString(currency);
 		parcel.writeDouble(available);

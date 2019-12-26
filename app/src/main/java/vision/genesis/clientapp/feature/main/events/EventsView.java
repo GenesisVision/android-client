@@ -1,4 +1,4 @@
-package vision.genesis.clientapp.feature.main.portfolio_events;
+package vision.genesis.clientapp.feature.main.events;
 
 import com.arellomobile.mvp.MvpView;
 import com.arellomobile.mvp.viewstate.strategy.AddToEndSingleStrategy;
@@ -15,7 +15,7 @@ import vision.genesis.clientapp.ui.common.SimpleSectionedRecyclerViewAdapter;
  * Created by Vitaly on 14/08/2018.
  */
 
-interface PortfolioEventsView extends MvpView
+interface EventsView extends MvpView
 {
 	void setDateRange(DateRange dateRange);
 

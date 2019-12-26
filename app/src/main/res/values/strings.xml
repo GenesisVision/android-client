@@ -805,6 +805,9 @@
     <string name="tooltip_public_investors_profile">Other Genesis Vision users will be able to follow you and see your current and past investments as well as your portfolio performance. You will also be displayed in the Investors Rating.</string>
     <string name="social_links">Social links</string>
     <string name="save_changes">Save changes</string>
+    <string name="warning_info_switch_gm_to_huobi">Warning: all signal program subscriptions will be cancelled when switching from GM to Huobi (we do not currently offer copy trading on Huobi).</string>
+    <string name="investment_events">Investment events</string>
+    <string name="trading_events">Trading events</string>
 
     <plurals name="assets">
         <item quantity="one">asset</item>

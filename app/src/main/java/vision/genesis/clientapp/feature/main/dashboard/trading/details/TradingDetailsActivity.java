@@ -36,6 +36,7 @@ import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseSwipeBackActivity;
 import vision.genesis.clientapp.feature.common.option.SelectOptionBottomSheetFragment;
 import vision.genesis.clientapp.feature.common.timeframe_profit.TimeframeProfitView;
+import vision.genesis.clientapp.feature.main.events.EventsActivity;
 import vision.genesis.clientapp.feature.main.fund.create.CreateFundActivity;
 import vision.genesis.clientapp.feature.main.settings.public_info.ProfilePublicInfoActivity;
 import vision.genesis.clientapp.feature.main.trading_account.create.CreateAccountActivity;
@@ -170,6 +171,11 @@ public class TradingDetailsActivity extends BaseSwipeBackActivity implements Tra
 	@OnClick(R.id.button_back)
 	public void onBackClicked() {
 		onBackPressed();
+	}
+
+	@OnClick(R.id.group_events_header)
+	public void onEventsClicked() {
+		EventsActivity.startWith(this, EventsActivity.GROUP_TRADING);
 	}
 
 	@OnClick(R.id.button_create_trading_account)

@@ -337,7 +337,7 @@ Name | Type | Description  | Notes
  **sorting** | **String**|  | [optional] [enum: ByDateAsc, ByDateDesc, ByTicketAsc, ByTicketDesc, BySymbolAsc, BySymbolDesc, ByDirectionAsc, ByDirectionDesc, ByVolumeAsc, ByVolumeDesc, ByPriceAsc, ByPriceDesc, ByPriceCurrentAsc, ByPriceCurrentDesc, ByProfitAsc, ByProfitDesc, ByCommissionAsc, ByCommissionDesc, BySwapAsc, BySwapDesc]
  **symbol** | **String**|  | [optional]
  **accountId** | [**UUID**](.md)|  | [optional]
- **accountCurrency** | **String**|  | [optional] [enum: USD, Undefined, GVT, ETH, BTC, ADA, USDT, XRP, BCH, LTC, DOGE, BNB, EUR]
+ **accountCurrency** | **String**|  | [optional] [enum: USD, BTC, ETH, USDT, GVT, Undefined, ADA, XRP, BCH, LTC, DOGE, BNB, EUR]
  **skip** | **Integer**|  | [optional]
  **take** | **Integer**|  | [optional]
 
@@ -396,7 +396,7 @@ Name | Type | Description  | Notes
  **symbol** | **String**|  | [optional]
  **sorting** | **String**|  | [optional] [enum: ByDateAsc, ByDateDesc, ByTicketAsc, ByTicketDesc, BySymbolAsc, BySymbolDesc, ByDirectionAsc, ByDirectionDesc, ByVolumeAsc, ByVolumeDesc, ByPriceAsc, ByPriceDesc, ByPriceCurrentAsc, ByPriceCurrentDesc, ByProfitAsc, ByProfitDesc, ByCommissionAsc, ByCommissionDesc, BySwapAsc, BySwapDesc]
  **accountId** | [**UUID**](.md)|  | [optional]
- **accountCurrency** | **String**|  | [optional] [enum: USD, Undefined, GVT, ETH, BTC, ADA, USDT, XRP, BCH, LTC, DOGE, BNB, EUR]
+ **accountCurrency** | **String**|  | [optional] [enum: USD, BTC, ETH, USDT, GVT, Undefined, ADA, XRP, BCH, LTC, DOGE, BNB, EUR]
  **skip** | **Integer**|  | [optional]
  **take** | **Integer**|  | [optional]
 
@@ -447,7 +447,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **authorization** | **String**| JWT access token |
  **accountId** | [**UUID**](.md)|  | [optional]
- **accountCurrency** | **String**|  | [optional] [enum: USD, Undefined, GVT, ETH, BTC, ADA, USDT, XRP, BCH, LTC, DOGE, BNB, EUR]
+ **accountCurrency** | **String**|  | [optional] [enum: USD, BTC, ETH, USDT, GVT, Undefined, ADA, XRP, BCH, LTC, DOGE, BNB, EUR]
  **skip** | **Integer**|  | [optional]
  **take** | **Integer**|  | [optional]
 

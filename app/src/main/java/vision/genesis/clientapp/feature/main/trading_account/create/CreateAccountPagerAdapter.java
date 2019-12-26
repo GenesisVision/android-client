@@ -37,7 +37,7 @@ public class CreateAccountPagerAdapter extends FragmentStatePagerAdapter
 	}
 
 	private void createFragments() {
-		brokerFragment = SelectBrokerFragment.with(null);
+		brokerFragment = SelectBrokerFragment.with(null, null);
 		settingsFragment = BrokerSettingsFragment.with(null);
 		depositFragment = new CreateAccountDepositFragment();
 	}

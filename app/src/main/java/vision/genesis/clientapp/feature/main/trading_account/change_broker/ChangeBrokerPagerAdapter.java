@@ -5,11 +5,11 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 
 import java.util.ArrayList;
-import java.util.UUID;
 
 import io.swagger.client.model.Broker;
 import vision.genesis.clientapp.feature.main.trading_account.create.broker.SelectBrokerFragment;
 import vision.genesis.clientapp.feature.main.trading_account.create.settings.BrokerSettingsFragment;
+import vision.genesis.clientapp.model.TradingAccountDetailsModel;
 
 /**
  * GenesisVisionAndroid
@@ -32,15 +32,15 @@ public class ChangeBrokerPagerAdapter extends FragmentStatePagerAdapter
 
 	private ArrayList<Fragment> fragments;
 
-	ChangeBrokerPagerAdapter(FragmentManager fm, UUID accountId) {
+	ChangeBrokerPagerAdapter(FragmentManager fm, TradingAccountDetailsModel model) {
 		super(fm);
 
 		fragments = new ArrayList<>();
 
-		selectBrokerFragment = SelectBrokerFragment.with(accountId);
+		selectBrokerFragment = SelectBrokerFragment.with(model.getAssetId(), model.getBrokerName());
 		fragments.add(selectBrokerFragment);
 
-		settingsFragment = BrokerSettingsFragment.with(accountId);
+		settingsFragment = BrokerSettingsFragment.with(model.getAssetId());
 		fragments.add(settingsFragment);
 
 	}

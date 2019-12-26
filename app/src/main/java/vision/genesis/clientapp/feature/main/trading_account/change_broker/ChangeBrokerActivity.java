@@ -94,7 +94,7 @@ public class ChangeBrokerActivity extends BaseSwipeBackActivity implements Chang
 	}
 
 	private void initViewPager(TradingAccountDetailsModel model) {
-		this.adapter = new ChangeBrokerPagerAdapter(getSupportFragmentManager(), model.getAccountId());
+		this.adapter = new ChangeBrokerPagerAdapter(getSupportFragmentManager(), model);
 		viewPager.setAdapter(adapter);
 		viewPager.setEnabled(false);
 		viewPager.setOffscreenPageLimit(2);

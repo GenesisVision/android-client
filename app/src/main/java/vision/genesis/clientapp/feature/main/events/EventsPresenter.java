@@ -1,4 +1,4 @@
-package vision.genesis.clientapp.feature.main.portfolio_events;
+package vision.genesis.clientapp.feature.main.events;
 
 import android.content.Context;
 
@@ -16,9 +16,11 @@ import javax.inject.Inject;
 import io.swagger.client.model.InvestmentEventViewModel;
 import io.swagger.client.model.InvestmentEventViewModels;
 import rx.Subscription;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.feature.common.date_range.DateRangeBottomSheetFragment;
-import vision.genesis.clientapp.managers.DashboardManager;
+import vision.genesis.clientapp.managers.EventsManager;
 import vision.genesis.clientapp.model.DateRange;
 import vision.genesis.clientapp.model.events.ShowEventDetailsEvent;
 import vision.genesis.clientapp.net.ApiErrorResolver;
@@ -31,7 +33,7 @@ import vision.genesis.clientapp.utils.DateTimeUtil;
  */
 
 @InjectViewState
-public class PortfolioEventsPresenter extends MvpPresenter<PortfolioEventsView> implements DateRangeBottomSheetFragment.OnDateRangeChangedListener
+public class EventsPresenter extends MvpPresenter<EventsView> implements DateRangeBottomSheetFragment.OnDateRangeChangedListener
 {
 	private static final int TAKE = 20;
 
@@ -39,7 +41,7 @@ public class PortfolioEventsPresenter extends MvpPresenter<PortfolioEventsView> 
 	public Context context;
 
 	@Inject
-	public DashboardManager dashboardManager;
+	public EventsManager eventsManager;
 
 	private Subscription eventsSubscription;
 
@@ -54,6 +56,8 @@ public class PortfolioEventsPresenter extends MvpPresenter<PortfolioEventsView> 
 
 	private boolean isActive = false;
 
+	private String eventsGroup;
+
 	@Override
 	protected void onFirstViewAttach() {
 		super.onFirstViewAttach();
@@ -64,7 +68,6 @@ public class PortfolioEventsPresenter extends MvpPresenter<PortfolioEventsView> 
 
 		getViewState().showProgress(true);
 		getViewState().setDateRange(dateRange);
-
 		getEvents(true);
 	}
 
@@ -77,6 +80,11 @@ public class PortfolioEventsPresenter extends MvpPresenter<PortfolioEventsView> 
 		EventBus.getDefault().unregister(this);
 
 		super.onDestroy();
+	}
+
+	void setData(String eventsGroup) {
+		this.eventsGroup = eventsGroup;
+		getEvents(true);
 	}
 
 	void onResume() {
@@ -98,32 +106,21 @@ public class PortfolioEventsPresenter extends MvpPresenter<PortfolioEventsView> 
 	}
 
 	private void getEvents(boolean forceUpdate) {
-//		if (dateRange != null) {
-//			if (forceUpdate) {
-//				skip = 0;
-//			}
-//
-//			if (eventsSubscription != null) {
-//				eventsSubscription.unsubscribe();
-//			}
-//			eventsSubscription = dashboardManager.getEvents("EventsAll", null, dateRange, null, null, skip, TAKE)
-//					.observeOn(AndroidSchedulers.mainThread())
-//					.subscribeOn(Schedulers.io())
-////					.map(this::prepareData)
-//					.subscribe(this::handleGetEventsResponse,
-//							this::handleGetEventsError);
-//		}
-	}
+		if (eventsManager != null && dateRange != null && eventsGroup != null) {
+			if (forceUpdate) {
+				skip = 0;
+			}
 
-//	private DashboardPortfolioEvents prepareData(DashboardPortfolioEvents dashboardPortfolioEvents) {
-//		newPreparedEvents = new ArrayList<>();
-//
-//		for (DashboardPortfolioEvent event : dashboardPortfolioEvents.getEvents()) {
-//			newPreparedEvents.add(PortfolioEvent.createFrom(event));
-//		}
-//
-//		return dashboardPortfolioEvents;
-//	}
+			if (eventsSubscription != null) {
+				eventsSubscription.unsubscribe();
+			}
+			eventsSubscription = eventsManager.getEvents(eventsGroup, dateRange, skip, TAKE)
+					.observeOn(AndroidSchedulers.mainThread())
+					.subscribeOn(Schedulers.io())
+					.subscribe(this::handleGetEventsResponse,
+							this::handleGetEventsError);
+		}
+	}
 
 	private void handleGetEventsResponse(InvestmentEventViewModels response) {
 		eventsSubscription.unsubscribe();

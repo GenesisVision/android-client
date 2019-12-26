@@ -16,6 +16,7 @@ import io.swagger.client.model.AssetInvestmentStatus;
 import io.swagger.client.model.AssetType;
 import io.swagger.client.model.CreateSignalProvider;
 import io.swagger.client.model.FollowDetailsFull;
+import io.swagger.client.model.InternalTransferRequestType;
 import io.swagger.client.model.ItemsViewModelSignalSubscription;
 import io.swagger.client.model.ProgramDetailsFull;
 import io.swagger.client.model.ProgramFollowDetailsFull;
@@ -31,6 +32,7 @@ import vision.genesis.clientapp.managers.ProgramsManager;
 import vision.genesis.clientapp.model.CreateProgramModel;
 import vision.genesis.clientapp.model.ProgramRequest;
 import vision.genesis.clientapp.model.TradingAccountDetailsModel;
+import vision.genesis.clientapp.model.TransferFundsModel;
 import vision.genesis.clientapp.model.events.ShowUnfollowTradesEvent;
 import vision.genesis.clientapp.net.ApiErrorResolver;
 
@@ -117,6 +119,7 @@ public class OwnerInfoPresenter extends MvpPresenter<OwnerInfoView>
 	void onManageAccountClicked() {
 		TradingAccountDetailsModel model = new TradingAccountDetailsModel(
 				assetId,
+				details.getTradingAccountInfo().getId(),
 				details.getPublicInfo().getTitle(),
 				details.getBrokerDetails().getName(),
 				details.getBrokerDetails().getLogo(),
@@ -154,7 +157,7 @@ public class OwnerInfoPresenter extends MvpPresenter<OwnerInfoView>
 		}
 	}
 
-	void onDepositClicked() {
+	void onDepositProgramClicked() {
 		if (details == null) {
 			return;
 		}
@@ -182,7 +185,7 @@ public class OwnerInfoPresenter extends MvpPresenter<OwnerInfoView>
 		getViewState().showInvestProgramActivity(request);
 	}
 
-	void onWithdrawClicked() {
+	void onWithdrawProgramClicked() {
 		if (details == null || details.getProgramDetails() == null) {
 			return;
 		}
@@ -200,6 +203,20 @@ public class OwnerInfoPresenter extends MvpPresenter<OwnerInfoView>
 		request.setIsOwner(details.getPublicInfo().isIsOwnAsset());
 
 		getViewState().showWithdrawProgramActivity(request);
+	}
+
+	void onWithdrawClicked() {
+		TransferFundsModel model = TransferFundsModel.createFromFollow(details);
+		model.setAssetType(InternalTransferRequestType.PUBLICTRADINGACCOUNT);
+		model.setTransferDirection(TransferFundsModel.TransferDirection.WITHDRAW);
+		getViewState().showTransferFundsActivity(model);
+	}
+
+	void onAddFundsClicked() {
+		TransferFundsModel model = TransferFundsModel.createFromFollow(details);
+		model.setAssetType(InternalTransferRequestType.PUBLICTRADINGACCOUNT);
+		model.setTransferDirection(TransferFundsModel.TransferDirection.DEPOSIT);
+		getViewState().showTransferFundsActivity(model);
 	}
 
 	void onCreateProgramClicked() {

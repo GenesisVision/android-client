@@ -65,6 +65,12 @@
                         android:scaleType="centerInside"
                         app:actualImageScaleType="centerInside"/>
 
+                    <vision.genesis.clientapp.ui.ProgramLogoView
+                        android:id="@+id/first_icon_logo"
+                        android:layout_width="64dp"
+                        android:layout_height="64dp"
+                        android:visibility="gone"/>
+
                     <TextView
                         android:id="@+id/first_name"
                         android:layout_width="wrap_content"
@@ -281,10 +287,10 @@
                 </LinearLayout>
 
                 <TextView
+                    android:id="@+id/converting_info"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="16dp"
-                    android:id="@+id/converting_info"
                     android:alpha="0.4"
                     android:text="@string/transfer_disclaimer"
                     android:textColor="?attr/colorTextPrimary"

@@ -92,6 +92,9 @@ public class ManageTradingAccountActivity extends BaseSwipeBackActivity implemen
 	@BindView(R.id.migration_info)
 	public TextView migrationInfo;
 
+	@BindView(R.id.warning_info)
+	public TextView warningInfo;
+
 	@BindView(R.id.button_cancel_migration)
 	public PrimaryButton buttonCancelMigration;
 
@@ -196,12 +199,21 @@ public class ManageTradingAccountActivity extends BaseSwipeBackActivity implemen
 					model.getBrokerName(),
 					model.getMigration().getNewBroker().getName()));
 
+			if (model.getBrokerName().toLowerCase().equals("genesis markets")
+					&& model.getMigration().getNewBroker().getName().toLowerCase().equals("huobi")) {
+				warningInfo.setVisibility(View.VISIBLE);
+				warningInfo.setText(getString(R.string.warning_info_switch_gm_to_huobi));
+			}
+			else {
+				warningInfo.setVisibility(View.GONE);
+			}
+
 			groupNew.setVisibility(View.VISIBLE);
 			groupMigration.setVisibility(View.VISIBLE);
 			buttonChange.setVisibility(View.GONE);
 		}
 		else {
-			groupNew.setVisibility(View.INVISIBLE);
+			groupNew.setVisibility(View.GONE);
 			groupMigration.setVisibility(View.GONE);
 			buttonChange.setVisibility(View.VISIBLE);
 		}

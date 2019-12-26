@@ -41,8 +41,8 @@ import timber.log.Timber;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseSwipeBackActivity;
+import vision.genesis.clientapp.feature.main.events.details.EventDetailsBottomSheetFragment;
 import vision.genesis.clientapp.feature.main.notifications.program.ProgramNotificationsSettingsActivity;
-import vision.genesis.clientapp.feature.main.portfolio_events.details.EventDetailsBottomSheetFragment;
 import vision.genesis.clientapp.feature.main.program.level.ProgramLevelBottomSheetDialog;
 import vision.genesis.clientapp.model.ProgramDetailsModel;
 import vision.genesis.clientapp.ui.ProgramLogoView;
@@ -450,7 +450,7 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 	private void initViewPager(ProgramFollowDetailsFull details) {
 		pagerAdapter = new ProgramDetailsPagerAdapter(getSupportFragmentManager(), tabLayout, details);
 		viewPager.setAdapter(pagerAdapter);
-		viewPager.setOffscreenPageLimit(10);
+		viewPager.setOffscreenPageLimit(5);
 
 		tabLayoutOnPageChangeListener = new TabLayout.TabLayoutOnPageChangeListener(tabLayout);
 		viewPager.addOnPageChangeListener(tabLayoutOnPageChangeListener);
@@ -502,7 +502,7 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 		addPage(equityTab, false);
 		addPage(openPositionsTab, false);
 		addPage(tradesTab, false);
-		if (this.details != null) {
+		if (this.details != null && details.getProgramDetails() != null) {
 			addPage(periodHistoryTab, false);
 		}
 
