@@ -251,6 +251,30 @@
 
             <View
                 android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginStart="@dimen/settings_padding"
+                android:alpha="0.05"
+                android:background="?attr/colorTextPrimary"/>
+
+            <RelativeLayout
+                android:id="@+id/referral_program"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/settings_item_height"
+                android:background="?attr/selectableItemBackground"
+                android:paddingStart="@dimen/settings_padding"
+                android:paddingEnd="@dimen/settings_padding">
+
+                <TextView
+                    style="@style/settings_text"
+                    android:text="@string/referral_program"/>
+
+
+                <ImageView style="@style/menu_item_arrow_right"/>
+
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
                 android:layout_height="20dp"
                 android:background="?attr/colorBackgroundDark"/>
 

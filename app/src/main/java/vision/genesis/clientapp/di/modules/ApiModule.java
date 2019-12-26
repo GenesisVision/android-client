@@ -17,6 +17,7 @@ import io.swagger.client.api.FollowApi;
 import io.swagger.client.api.FundsApi;
 import io.swagger.client.api.InvestmentsApi;
 import io.swagger.client.api.NotificationsApi;
+import io.swagger.client.api.PartnershipApi;
 import io.swagger.client.api.PlatformApi;
 import io.swagger.client.api.ProfileApi;
 import io.swagger.client.api.ProgramsApi;
@@ -134,6 +135,12 @@ public class ApiModule
 	@Singleton
 	public NotificationsApi provideNotificationsApi(ApiClient apiClient) {
 		return apiClient.createService(NotificationsApi.class);
+	}
+
+	@Provides
+	@Singleton
+	public PartnershipApi providePartnershipApi(ApiClient apiClient) {
+		return apiClient.createService(PartnershipApi.class);
 	}
 
 	@Provides

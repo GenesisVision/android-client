@@ -103,6 +103,6 @@ public class DashboardPagerAdapter extends FragmentStatePagerAdapter
 		fundsFragment.onOffsetChanged(verticalOffset);
 		copytradingFragment.onOffsetChanged(verticalOffset);
 		tradesHistoryFragment.onDashboardOffsetChanged(verticalOffset);
-		tradingLogFragment.onDashboardOffsetChanged(verticalOffset);
+//		tradingLogFragment.onDashboardOffsetChanged(verticalOffset);
 	}
 }

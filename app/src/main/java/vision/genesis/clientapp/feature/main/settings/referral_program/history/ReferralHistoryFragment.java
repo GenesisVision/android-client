@@ -1,4 +1,4 @@
-package vision.genesis.clientapp.feature.main.copytrading.trading_log;
+package vision.genesis.clientapp.feature.main.settings.referral_program.history;
 
 import android.os.Build;
 import android.os.Bundle;
@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -14,41 +15,37 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.arellomobile.mvp.presenter.InjectPresenter;
 
 import java.util.List;
-import java.util.UUID;
 
-import butterknife.BindDimen;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import io.swagger.client.model.SignalTradingEvent;
-import timber.log.Timber;
+import io.swagger.client.model.RewardDetails;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
 import vision.genesis.clientapp.feature.common.date_range.DateRangeBottomSheetFragment;
 import vision.genesis.clientapp.feature.main.dashboard.old.investor.DashboardPagerAdapter;
 import vision.genesis.clientapp.model.DateRange;
 import vision.genesis.clientapp.ui.DateRangeView;
-import vision.genesis.clientapp.ui.common.SimpleSectionedRecyclerViewAdapter;
+import vision.genesis.clientapp.utils.TypefaceUtil;
 
 /**
  * GenesisVisionAndroid
- * Created by Vitaly on 20/08/2019.
+ * Created by Vitaly on 26/12/2019.
  */
 
-public class TradingLogFragment extends BaseFragment implements TradingLogView, DashboardPagerAdapter.OnPageVisibilityChanged
+public class ReferralHistoryFragment extends BaseFragment implements ReferralHistoryView, DashboardPagerAdapter.OnPageVisibilityChanged
 {
-	private static final String EXTRA_ACCOUNT_ID = "extra_account_id";
-
-	public static TradingLogFragment with(UUID accountId) {
-		TradingLogFragment tradingLogFragment = new TradingLogFragment();
-		Bundle arguments = new Bundle(1);
-		arguments.putSerializable(EXTRA_ACCOUNT_ID, accountId);
-		tradingLogFragment.setArguments(arguments);
-		return tradingLogFragment;
-	}
-
 	@BindView(R.id.root)
 	public ViewGroup root;
+
+	@BindView(R.id.group_table)
+	public ViewGroup groupTable;
+
+	@BindView(R.id.date)
+	public TextView date;
+
+	@BindView(R.id.amount)
+	public TextView amount;
 
 	@BindView(R.id.recycler_view)
 	public RecyclerView recyclerView;
@@ -62,23 +59,12 @@ public class TradingLogFragment extends BaseFragment implements TradingLogView, 
 	@BindView(R.id.group_empty)
 	public ViewGroup emptyGroup;
 
-	@BindDimen(R.dimen.date_range_margin_bottom)
-	public int dateRangeMarginBottom;
-
-	@BindDimen(R.dimen.filters_margin_bottom)
-	public int filtersMarginBottom;
-
-	@BindDimen(R.dimen.filters_margin_top)
-	public int filtersMarginTop;
-
 	@InjectPresenter
-	public TradingLogPresenter tradingLogPresenter;
+	public ReferralHistoryPresenter presenter;
 
 	private DateRange dateRange = DateRange.createFromEnum(DateRange.DateRangeEnum.ALL_TIME);
 
-	private TradingLogListAdapter tradingLogListAdapter;
-
-	private SimpleSectionedRecyclerViewAdapter sectionedAdapter;
+	private ReferralHistoryListAdapter adapter;
 
 	@OnClick(R.id.date_range)
 	public void onDateRangeClicked() {
@@ -86,14 +72,14 @@ public class TradingLogFragment extends BaseFragment implements TradingLogView, 
 			DateRangeBottomSheetFragment bottomSheetDialog = new DateRangeBottomSheetFragment();
 			bottomSheetDialog.show(getActivity().getSupportFragmentManager(), bottomSheetDialog.getTag());
 			bottomSheetDialog.setDateRange(dateRange);
-			bottomSheetDialog.setListener(tradingLogPresenter);
+			bottomSheetDialog.setListener(presenter);
 		}
 	}
 
 	@Nullable
 	@Override
 	public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-		return inflater.inflate(R.layout.fragment_trading_log, container, false);
+		return inflater.inflate(R.layout.fragment_referral_history, container, false);
 	}
 
 	@Override
@@ -102,30 +88,25 @@ public class TradingLogFragment extends BaseFragment implements TradingLogView, 
 
 		ButterKnife.bind(this, view);
 
+		setFonts();
+
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
 			emptyGroup.setNestedScrollingEnabled(true);
 		}
 
-		if (getArguments() != null) {
-			UUID accountId = (UUID) getArguments().getSerializable(EXTRA_ACCOUNT_ID);
-			if (accountId != null) {
-				tradingLogPresenter.setData(accountId);
+		initRecyclerView();
+	}
 
-				initRecyclerView();
-			}
-		}
-		else {
-			Timber.e("Passed empty arguments to %s", getClass().getSimpleName());
-			onBackPressed();
-		}
+	private void setFonts() {
+		date.setTypeface(TypefaceUtil.semibold());
+		amount.setTypeface(TypefaceUtil.semibold());
 	}
 
 	private void initRecyclerView() {
 		LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
 		recyclerView.setLayoutManager(layoutManager);
-		tradingLogListAdapter = new TradingLogListAdapter();
-		sectionedAdapter = new SimpleSectionedRecyclerViewAdapter(getContext(), R.layout.list_item_trades_date_section, R.id.text, tradingLogListAdapter);
-		recyclerView.setAdapter(sectionedAdapter);
+		adapter = new ReferralHistoryListAdapter();
+		recyclerView.setAdapter(adapter);
 
 		recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener()
 		{
@@ -137,30 +118,28 @@ public class TradingLogFragment extends BaseFragment implements TradingLogView, 
 
 				boolean endHasBeenReached = lastVisible + 1 >= totalItemCount;
 				if (totalItemCount > 0 && endHasBeenReached) {
-					tradingLogPresenter.onLastListItemVisible();
+					presenter.onLastListItemVisible();
 				}
 			}
 		});
 	}
 
 	@Override
-	public void setEvents(List<SignalTradingEvent> events, List<SimpleSectionedRecyclerViewAdapter.Section> sections) {
+	public void setEvents(List<RewardDetails> events) {
 		if (events.isEmpty()) {
 			emptyGroup.setVisibility(View.VISIBLE);
-			recyclerView.setVisibility(View.GONE);
+			groupTable.setVisibility(View.GONE);
 			return;
 		}
 
-		sectionedAdapter.setSections(sections);
-		tradingLogListAdapter.setEvents(events);
+		adapter.setEvents(events);
 		emptyGroup.setVisibility(View.GONE);
-		recyclerView.setVisibility(View.VISIBLE);
+		groupTable.setVisibility(View.VISIBLE);
 	}
 
 	@Override
-	public void addEvents(List<SignalTradingEvent> event, List<SimpleSectionedRecyclerViewAdapter.Section> sections) {
-		sectionedAdapter.setSections(sections);
-		tradingLogListAdapter.addEvents(event);
+	public void addEvents(List<RewardDetails> events) {
+		adapter.addEvents(events);
 	}
 
 	@Override
@@ -175,15 +154,14 @@ public class TradingLogFragment extends BaseFragment implements TradingLogView, 
 		if (progressBar != null) {
 			progressBar.setVisibility(show ? View.VISIBLE : View.GONE);
 			if (!show) {
-//				dateRangeView.setVisibility(View.VISIBLE);
-				recyclerView.setVisibility(View.VISIBLE);
+				groupTable.setVisibility(View.VISIBLE);
 			}
 		}
 	}
 
 	@Override
 	public void showSnackbarMessage(String message) {
-		showSnackbar(message, recyclerView);
+		showSnackbar(message, root);
 	}
 
 	@Override
@@ -201,14 +179,8 @@ public class TradingLogFragment extends BaseFragment implements TradingLogView, 
 	}
 
 	public void onSwipeRefresh() {
-		if (tradingLogPresenter != null) {
-			tradingLogPresenter.onSwipeRefresh();
-		}
-	}
-
-	public void onOffsetChanged(int verticalOffset) {
-		if (dateRangeView != null && root.getHeight() != 0) {
-			dateRangeView.setY(root.getHeight() - verticalOffset - dateRangeView.getHeight() - dateRangeMarginBottom);
+		if (presenter != null) {
+			presenter.onSwipeRefresh();
 		}
 	}
 }

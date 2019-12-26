@@ -12,6 +12,7 @@ import io.swagger.client.api.EventsApi;
 import io.swagger.client.api.FollowApi;
 import io.swagger.client.api.FundsApi;
 import io.swagger.client.api.InvestmentsApi;
+import io.swagger.client.api.PartnershipApi;
 import io.swagger.client.api.ProgramsApi;
 import io.swagger.client.api.RateApi;
 import io.swagger.client.api.SearchApi;
@@ -25,6 +26,7 @@ import vision.genesis.clientapp.managers.DashboardManager;
 import vision.genesis.clientapp.managers.EventsManager;
 import vision.genesis.clientapp.managers.FollowsManager;
 import vision.genesis.clientapp.managers.FundsManager;
+import vision.genesis.clientapp.managers.PartnershipManager;
 import vision.genesis.clientapp.managers.ProgramsManager;
 import vision.genesis.clientapp.managers.RateManager;
 import vision.genesis.clientapp.managers.SearchManager;
@@ -74,6 +76,12 @@ public class AssetsModule
 	@Singleton
 	public FundsManager provideFundsManager(FundsApi fundsApi, InvestmentsApi investmentsApi, AssetsApi assetsApi, EventsApi eventsApi) {
 		return new FundsManager(fundsApi, investmentsApi, assetsApi, eventsApi);
+	}
+
+	@Provides
+	@Singleton
+	public PartnershipManager providePartnershipManager(PartnershipApi partnershipApi) {
+		return new PartnershipManager(partnershipApi);
 	}
 
 	@Provides

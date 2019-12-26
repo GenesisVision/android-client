@@ -30,6 +30,7 @@ import vision.genesis.clientapp.feature.BaseFragment;
 import vision.genesis.clientapp.feature.common.currency.SelectCurrencyFragment;
 import vision.genesis.clientapp.feature.main.message.MessageBottomSheetDialog;
 import vision.genesis.clientapp.feature.main.settings.public_info.ProfilePublicInfoActivity;
+import vision.genesis.clientapp.feature.main.settings.referral_program.ReferralProgramActivity;
 import vision.genesis.clientapp.feature.main.settings.security.SecurityActivity;
 import vision.genesis.clientapp.feature.main.settings.social_links.SocialLinksActivity;
 import vision.genesis.clientapp.model.CurrencyEnum;
@@ -123,6 +124,13 @@ public class SettingsFragment extends BaseFragment implements SettingsView
 			SelectCurrencyFragment fragment = SelectCurrencyFragment.with(baseCurrency.getValue());
 			fragment.setListener(presenter);
 			fragment.show(getActivity().getSupportFragmentManager(), fragment.getTag());
+		}
+	}
+
+	@OnClick(R.id.referral_program)
+	public void onReferralProgramClicked() {
+		if (getActivity() != null) {
+			ReferralProgramActivity.startWith(getActivity());
 		}
 	}
 
