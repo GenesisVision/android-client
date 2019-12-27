@@ -49,8 +49,8 @@ public class TradingAccountDetailsPagerAdapter extends FragmentStatePagerAdapter
 
 		infoFragment = TradingAccountInfoFragment.with(accountDetails);
 		openPositionsFragment = TradingAccountOpenPositionsFragment.with(assetId);
-		profitFragment = TradingAccountProfitFragment.with(assetId);
-		equityFragment = TradingAccountBalanceFragment.with(assetId);
+		profitFragment = TradingAccountProfitFragment.with(accountDetails);
+		equityFragment = TradingAccountBalanceFragment.with(accountDetails);
 		tradesFragment = TradingAccountTradesFragment.with(assetId);
 	}
 

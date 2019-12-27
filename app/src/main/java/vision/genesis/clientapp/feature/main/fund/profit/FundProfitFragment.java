@@ -21,6 +21,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+import io.swagger.client.model.FundChartStatistic;
+import io.swagger.client.model.SimpleChart;
 import io.swagger.client.model.SimpleChartPoint;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
@@ -63,7 +65,7 @@ public class FundProfitFragment extends BaseFragment implements FundProfitView, 
 	public DateRangeView dateRangeView;
 
 	@BindView(R.id.profit_chart)
-	public ProfitChartView profitChart;
+	public ProfitChartView absChart;
 
 	@BindView(R.id.value_title)
 	public TextView valueTitle;
@@ -128,7 +130,7 @@ public class FundProfitFragment extends BaseFragment implements FundProfitView, 
 
 		setFonts();
 
-		profitChart.setTouchListener(fundProfitPresenter);
+		absChart.setTouchListener(fundProfitPresenter);
 	}
 
 	@Override
@@ -154,8 +156,21 @@ public class FundProfitFragment extends BaseFragment implements FundProfitView, 
 	}
 
 	@Override
-	public void setChartData(List<SimpleChartPoint> chart) {
-		profitChart.setChartData(chart, dateRange);
+	public void setAbsChart(List<SimpleChartPoint> chart) {
+		absChart.setChartData(chart, dateRange);
+	}
+
+	@Override
+	public void setPercentChart(List<SimpleChart> chart) {
+
+	}
+
+	@Override
+	public void updateStatistics(FundChartStatistic statistic) {
+		this.sharpeRatio.setText(StringFormatUtil.formatAmount(statistic.getSharpeRatio(), 0, 4));
+		this.sortinoRatio.setText(StringFormatUtil.formatAmount(statistic.getSortinoRatio(), 0, 4));
+		this.calmarRatio.setText(StringFormatUtil.formatAmount(statistic.getCalmarRatio(), 0, 4));
+		this.maxDrawdown.setText(String.format(Locale.getDefault(), "%s%%", StringFormatUtil.formatAmount(statistic.getMaxDrawdown(), 0, 4)));
 	}
 
 	@Override
@@ -179,14 +194,6 @@ public class FundProfitFragment extends BaseFragment implements FundProfitView, 
 	public void setDateRange(DateRange dateRange) {
 		this.dateRange = dateRange;
 		dateRangeView.setDateRange(dateRange);
-	}
-
-	@Override
-	public void setStatisticsData(Double sharpeRatio, Double sortinoRatio, Double calmarRatio, Double maxDrawdown) {
-		this.sharpeRatio.setText(StringFormatUtil.formatAmount(sharpeRatio, 0, 4));
-		this.sortinoRatio.setText(StringFormatUtil.formatAmount(sortinoRatio, 0, 4));
-		this.calmarRatio.setText(StringFormatUtil.formatAmount(calmarRatio, 0, 4));
-		this.maxDrawdown.setText(String.format(Locale.getDefault(), "%s%%", StringFormatUtil.formatAmount(maxDrawdown, 0, 4)));
 	}
 
 	@Override

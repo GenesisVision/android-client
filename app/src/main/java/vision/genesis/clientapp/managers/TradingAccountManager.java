@@ -1,8 +1,10 @@
 package vision.genesis.clientapp.managers;
 
+import java.util.List;
 import java.util.UUID;
 
 import io.swagger.client.api.TradingaccountApi;
+import io.swagger.client.model.AbsoluteProfitChart;
 import io.swagger.client.model.AccountBalanceChart;
 import io.swagger.client.model.AccountProfitPercentCharts;
 import io.swagger.client.model.PrivateTradingAccountFull;
@@ -34,14 +36,18 @@ public class TradingAccountManager
 				0, 1000);
 	}
 
-	public Observable<AccountProfitPercentCharts> getProfitChart(UUID accountId, DateRange dateRange, Integer maxPointCount) {
-		return tradingAccountApi.getProfitPercentCharts(accountId, AuthManager.token.getValue(),
-				dateRange.getFrom(), dateRange.getTo(), maxPointCount, null, null);
+	public Observable<AccountProfitPercentCharts> getProfitPercentChart(UUID accountId, DateRange dateRange, Integer maxPointCount, String currency, List<Object> currencies) {
+		return tradingAccountApi.getProfitPercentCharts(accountId, AuthManager.token.getValue(), dateRange.getFrom(), dateRange.getTo(), maxPointCount, currency, currencies);
 	}
 
-	public Observable<AccountBalanceChart> getBalanceChart(UUID accountId, DateRange dateRange, Integer maxPointCount) {
+	public Observable<AbsoluteProfitChart> getProfitAbsoluteChart(UUID accountId, DateRange dateRange, Integer maxPointCount, String currency) {
+		return tradingAccountApi.getAbsoluteProfitChart(accountId, AuthManager.token.getValue(), dateRange.getFrom(), dateRange.getTo(), maxPointCount, currency);
+	}
+
+
+	public Observable<AccountBalanceChart> getBalanceChart(UUID accountId, DateRange dateRange, Integer maxPointCount, String currency) {
 		return tradingAccountApi.getBalanceChart(accountId, AuthManager.token.getValue(),
-				dateRange.getFrom(), dateRange.getTo(), maxPointCount, null);
+				dateRange.getFrom(), dateRange.getTo(), maxPointCount, currency);
 	}
 
 	public Observable<TradesSignalViewModel> getProgramTrades(UUID accountId, DateRange dateRange, Integer skip, Integer take) {
@@ -50,4 +56,5 @@ public class TradingAccountManager
 				null, null, null, null,
 				skip, take);
 	}
+
 }

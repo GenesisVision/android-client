@@ -144,9 +144,8 @@ public class FundBalanceFragment extends BaseFragment implements FundBalanceView
 	}
 
 	@Override
-	public void setAmount(String gvtAmount, String baseAmount) {
-		amountValue.setText(gvtAmount);
-		amountValueSecondary.setText(baseAmount);
+	public void setAmount(String amount) {
+		this.amountValue.setText(amount);
 	}
 
 	@Override

@@ -18,7 +18,7 @@ interface TradingAccountBalanceView extends MvpView
 {
 	void setChartData(List<SimpleChartPoint> balanceChart);
 
-	void setAmount(String gvtAmount, String baseAmount);
+	void setAmount(String amount);
 
 	void setChange(Boolean isChangeNegative, String changePercent, String changeValue, String baseChangeValue);
 

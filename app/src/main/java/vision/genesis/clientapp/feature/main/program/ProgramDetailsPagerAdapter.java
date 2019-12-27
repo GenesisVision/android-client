@@ -66,7 +66,7 @@ public class ProgramDetailsPagerAdapter extends FragmentStatePagerAdapter
 		if (details.getPublicInfo().isIsOwnAsset()) {
 			ownerInfoFragment = OwnerInfoFragment.with(details);
 			openPositionsFragment = OpenPositionsFragment.with(assetId);
-			programProfitFragment = ProgramProfitFragment.with(assetId);
+			programProfitFragment = ProgramProfitFragment.with(details);
 			programEquityFragment = ProgramBalanceFragment.with(assetId);
 			programTradesFragment = ProgramTradesFragment.with(assetId);
 			if (programDetails != null) {
@@ -77,7 +77,7 @@ public class ProgramDetailsPagerAdapter extends FragmentStatePagerAdapter
 		else if (programDetails != null) {
 			programInfoFragment = ProgramInfoFragment.with(details);
 			openPositionsFragment = OpenPositionsFragment.with(assetId);
-			programProfitFragment = ProgramProfitFragment.with(assetId);
+			programProfitFragment = ProgramProfitFragment.with(details);
 			programEquityFragment = ProgramBalanceFragment.with(assetId);
 			programTradesFragment = ProgramTradesFragment.with(assetId);
 			periodHistoryFragment = PeriodHistoryFragment.with(assetId, details.getTradingAccountInfo().getCurrency().getValue(), programDetails.getPeriodDuration());
@@ -86,7 +86,7 @@ public class ProgramDetailsPagerAdapter extends FragmentStatePagerAdapter
 		else if (followDetails != null) {
 			followInfoFragment = FollowInfoFragment.with(details);
 			openPositionsFragment = OpenPositionsFragment.with(assetId);
-			programProfitFragment = ProgramProfitFragment.with(assetId);
+			programProfitFragment = ProgramProfitFragment.with(details);
 			programEquityFragment = ProgramBalanceFragment.with(assetId);
 			programTradesFragment = ProgramTradesFragment.with(assetId);
 			programEventsFragment = ProgramEventsFragment.with(ProgramEventsFragment.LOCATION_PROGRAM, assetId);

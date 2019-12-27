@@ -3,15 +3,19 @@ package vision.genesis.clientapp.feature.main.program.profit;
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
-import java.util.UUID;
 
 import javax.inject.Inject;
 
-import io.swagger.client.model.ProgramProfitCharts;
-import io.swagger.client.model.SimpleChart;
+import io.swagger.client.model.AbsoluteProfitChart;
+import io.swagger.client.model.ProgramFollowDetailsFull;
+import io.swagger.client.model.ProgramProfitPercentCharts;
+import io.swagger.client.model.SimpleChartPoint;
 import rx.Subscription;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.feature.common.date_range.DateRangeBottomSheetFragment;
 import vision.genesis.clientapp.managers.ProgramsManager;
@@ -34,17 +38,23 @@ public class ProgramProfitPresenter extends MvpPresenter<ProgramProfitView> impl
 	@Inject
 	public SettingsManager settingsManager;
 
-	private Subscription chartDataSubscription;
+	private Subscription absSubscription;
 
-	private UUID programId;
+	private Subscription percentSubscription;
 
 	private Double first;
 
 	private Double selected;
 
-	private ProgramProfitCharts chartData;
+	private AbsoluteProfitChart absChart;
+
+	private ProgramProfitPercentCharts percentChart;
 
 	private DateRange chartDateRange = DateRange.createFromEnum(DateRange.DateRangeEnum.MONTH);
+
+	private ProgramFollowDetailsFull details;
+
+	private List<Object> currencies = new ArrayList<>();
 
 	@Override
 	protected void onFirstViewAttach() {
@@ -54,70 +64,108 @@ public class ProgramProfitPresenter extends MvpPresenter<ProgramProfitView> impl
 
 		getViewState().setDateRange(chartDateRange);
 		getViewState().showProgress(true);
-		getChartData();
+		updateAll();
 	}
 
 	@Override
 	public void onDestroy() {
-		if (chartDataSubscription != null) {
-			chartDataSubscription.unsubscribe();
+		if (absSubscription != null) {
+			absSubscription.unsubscribe();
+		}
+		if (percentSubscription != null) {
+			percentSubscription.unsubscribe();
 		}
 
 		super.onDestroy();
 	}
 
-	void setProgramId(UUID programId) {
-		this.programId = programId;
-		getChartData();
+	void setData(ProgramFollowDetailsFull details) {
+		this.details = details;
+		updateAll();
 	}
 
 	void onShow() {
-		getChartData();
+		updateAll();
 	}
 
-	private void getChartData() {
-		if (programId != null && programsManager != null) {
-			if (chartDataSubscription != null) {
-				chartDataSubscription.unsubscribe();
+	private void updateAll() {
+		getProfitAbsolute();
+		getProfitPercent();
+	}
+
+	private void getProfitAbsolute() {
+		if (details != null && programsManager != null) {
+			if (absSubscription != null) {
+				absSubscription.unsubscribe();
 			}
-			//TODO: calculate maxPointCount
-//			chartDataSubscription = programsManager.getProfitChart(programId, chartDateRange, 100)
-//					.observeOn(AndroidSchedulers.mainThread())
-//					.subscribeOn(Schedulers.io())
-//					.subscribe(this::handleGetChartDataSuccess,
-//							this::handleGetChartDataError);
+
+			absSubscription = programsManager.getProfitAbsoluteChart(details.getId(), chartDateRange,
+					100, details.getTradingAccountInfo().getCurrency().getValue())
+					.observeOn(AndroidSchedulers.mainThread())
+					.subscribeOn(Schedulers.io())
+					.subscribe(this::handleGetAbsSuccess,
+							this::handleGetAbsDataError);
 		}
 	}
 
-	private void handleGetChartDataSuccess(ProgramProfitCharts response) {
-		chartDataSubscription.unsubscribe();
+	private void handleGetAbsSuccess(AbsoluteProfitChart response) {
+		absSubscription.unsubscribe();
 		getViewState().showProgress(false);
 
-		this.chartData = response;
+		this.absChart = response;
 
-		List<SimpleChart> charts = chartData.getCharts();
-		if (charts != null && !charts.isEmpty()) {
-			if (charts.get(0) != null) {
-				getViewState().setChartData(charts.get(0).getChart());
-				resetValuesSelection();
+		getViewState().setAbsChart(absChart.getChart());
+		resetValuesSelection();
+	}
+
+	private void handleGetAbsDataError(Throwable throwable) {
+		absSubscription.unsubscribe();
+		getViewState().showProgress(false);
+	}
+
+	private void getProfitPercent() {
+		if (details != null && programsManager != null) {
+			if (percentSubscription != null) {
+				percentSubscription.unsubscribe();
 			}
+
+			currencies = new ArrayList<>();
+			currencies.add(details.getTradingAccountInfo().getCurrency().getValue());
+
+			percentSubscription = programsManager.getProfitPercentChart(details.getId(), chartDateRange,
+					100, details.getTradingAccountInfo().getCurrency().getValue(), currencies)
+					.observeOn(AndroidSchedulers.mainThread())
+					.subscribeOn(Schedulers.io())
+					.subscribe(this::handleGetPercentSuccess,
+							this::handleGetPercentError);
 		}
 	}
 
-	private void handleGetChartDataError(Throwable throwable) {
-		chartDataSubscription.unsubscribe();
+	private void handleGetPercentSuccess(ProgramProfitPercentCharts response) {
+		percentSubscription.unsubscribe();
+		getViewState().showProgress(false);
+
+		this.percentChart = response;
+
+		getViewState().setPercentChart(percentChart.getCharts());
+		getViewState().updateStatistics(percentChart.getStatistic());
+//		resetValuesSelection();
+	}
+
+	private void handleGetPercentError(Throwable throwable) {
+		percentSubscription.unsubscribe();
 		getViewState().showProgress(false);
 	}
 
 	private void resetValuesSelection() {
 		first = 0.0;
 		selected = 0.0;
-		if (chartData != null && chartData.getCharts() != null) {
-			List<SimpleChart> charts = chartData.getCharts();
-			if (charts != null && !charts.isEmpty()) {
-				if (charts.get(0) != null) {
-					first = charts.get(0).getChart().get(0).getValue();
-					selected = charts.get(0).getChart().get(chartData.getCharts().size() - 1).getValue();
+		if (absChart != null && absChart.getChart() != null) {
+			List<SimpleChartPoint> chart = absChart.getChart();
+			if (chart != null && !chart.isEmpty()) {
+				if (chart.get(0) != null) {
+					first = chart.get(0).getValue();
+					selected = chart.get(absChart.getChart().size() - 1).getValue();
 				}
 			}
 		}
@@ -128,6 +176,8 @@ public class ProgramProfitPresenter extends MvpPresenter<ProgramProfitView> impl
 	private void updateValues() {
 		if (first == null || selected == null) {
 			getViewState().setChangeVisibility(false);
+			getViewState().setValue(absChart.getProfit() < 0, String.format(Locale.getDefault(), "%s",
+					StringFormatUtil.getValueString(absChart.getProfit(), details.getTradingAccountInfo().getCurrency().getValue())));
 			return;
 		}
 
@@ -144,13 +194,14 @@ public class ProgramProfitPresenter extends MvpPresenter<ProgramProfitView> impl
 //				StringFormatUtil.getChangeValueString(chartData.getTimeframeGvtProfit()),
 //				StringFormatUtil.getValueString(chartData.getTimeframeProgramCurrencyProfit(), chartData.getProgramCurrency().getValue()));
 
-		getViewState().setChange(changeValue < 0, String.format(Locale.getDefault(), "%s%%", StringFormatUtil.formatAmount(changeValue, 0, 4)));
+		getViewState().setValue(changeValue < 0, String.format(Locale.getDefault(), "%s",
+				StringFormatUtil.getValueString(changeValue, details.getTradingAccountInfo().getCurrency().getValue())));
 
-		if (chartData != null & chartData.getStatistic() != null) {
-			getViewState().setStatisticsData(chartData.getStatistic().getTrades(), chartData.getStatistic().getSuccessTradesPercent(),
-					chartData.getStatistic().getProfitFactor(), chartData.getStatistic().getSharpeRatio(), chartData.getStatistic().getSortinoRatio(),
-					chartData.getStatistic().getCalmarRatio(), chartData.getStatistic().getMaxDrawdown());
-		}
+//		if (absChart != null & absChart.getStatistic() != null) {
+//			getViewState().setStatisticsData(absChart.getStatistic().getTrades(), absChart.getStatistic().getSuccessTradesPercent(),
+//					absChart.getStatistic().getProfitFactor(), absChart.getStatistic().getSharpeRatio(), absChart.getStatistic().getSortinoRatio(),
+//					absChart.getStatistic().getCalmarRatio(), absChart.getStatistic().getMaxDrawdown());
+//		}
 	}
 
 	@Override
@@ -158,13 +209,13 @@ public class ProgramProfitPresenter extends MvpPresenter<ProgramProfitView> impl
 		this.chartDateRange = dateRange;
 		getViewState().setDateRange(dateRange);
 		getViewState().showProgress(true);
-		getChartData();
+		updateAll();
 	}
 
 	@Override
 	public void onTouch(float value) {
 		selected = (double) value;
-		getViewState().setChangeVisibility(true);
+//		getViewState().setChangeVisibility(true);
 		updateValues();
 	}
 

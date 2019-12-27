@@ -223,7 +223,7 @@ public class BalanceChartView extends RelativeLayout
 //				max = profitValue;
 //		}
 //
-//		setChartData(managerEntries, investorsEntries, profitEntries, min, max, dateRange);
+//		setAbsChart(managerEntries, investorsEntries, profitEntries, min, max, dateRange);
 //	}
 
 	public void setChart(List<BalanceChartPoint> balanceChart, DateRange dateRange) {
@@ -267,25 +267,22 @@ public class BalanceChartView extends RelativeLayout
 		float min = 0;
 		float max = 0;
 
-		List<Entry> managerEntries = new ArrayList<>();
-		List<Entry> investorsEntries = new ArrayList<>();
+		List<Entry> entries = new ArrayList<>();
 
 		for (SimpleChartPoint element : balanceChart) {
-			float managerValue = element.getValue().floatValue();
-			float investorsValue = 0f;
+			float value = element.getValue().floatValue();
 
-			managerEntries.add(new Entry(element.getDate() / 1000 / 60, managerValue));
-			investorsEntries.add(new Entry(element.getDate() / 1000 / 60, investorsValue));
+			entries.add(new Entry(element.getDate() / 1000 / 60, value));
 
-			if (min > investorsValue) {
-				min = investorsValue;
+			if (min > value) {
+				min = value;
 			}
-			if (max < investorsValue) {
-				max = investorsValue;
+			if (max < value) {
+				max = value;
 			}
 		}
 
-		setChartData(managerEntries, investorsEntries, min, max, dateRange);
+		setChartData(entries, null, min, max, dateRange);
 	}
 
 	private void setChartData(List<Entry> managerEntries, List<Entry> investorsEntries, float min, float max, DateRange dateRange) {
@@ -361,11 +358,15 @@ public class BalanceChartView extends RelativeLayout
 
 	private LineData getLineData(List<Entry> managerEntries, List<Entry> investorsEntries) {
 		Collections.sort(managerEntries, new EntryXComparator());
-		Collections.sort(investorsEntries, new EntryXComparator());
+		if (investorsEntries != null) {
+			Collections.sort(investorsEntries, new EntryXComparator());
+		}
 
 		LineData lineData = new LineData();
 
-		lineData.addDataSet(createLineDataSet(investorsEntries, investorsColor, false));
+		if (investorsEntries != null) {
+			lineData.addDataSet(createLineDataSet(investorsEntries, investorsColor, false));
+		}
 		lineData.addDataSet(createLineDataSet(managerEntries, managerColor, false));
 
 		return lineData;

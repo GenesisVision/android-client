@@ -20,7 +20,7 @@ import vision.genesis.clientapp.model.PortfolioAssetData;
 
 interface InvestorDashboardView extends MvpView
 {
-//	void setChartData(DashboardChartValue chart);
+//	void setAbsChart(DashboardChartValue chart);
 
 	void setPortfolioEvents(List<InvestmentEventViewModel> events);
 

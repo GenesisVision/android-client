@@ -123,7 +123,7 @@ public class DashboardPresenter extends MvpPresenter<DashboardView> implements T
 //		this.requests = response.getRequestsByAsset().getRequestsByAsset();
 //
 //		getViewState().setHaveNewNotifications(response.getProfileHeader().getNotificationsCount() > 0);
-//		getViewState().setChartData(response.getChart());
+//		getViewState().setAbsChart(response.getChart());
 //		getViewState().setInRequests(response.getRequestsByAsset().getTotalValue(), response.getChart().getRate());
 
 	}

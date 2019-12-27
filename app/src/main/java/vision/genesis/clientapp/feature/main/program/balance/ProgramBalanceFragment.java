@@ -144,9 +144,8 @@ public class ProgramBalanceFragment extends BaseFragment implements ProgramBalan
 	}
 
 	@Override
-	public void setAmount(String gvtAmount, String baseAmount) {
-		amountValue.setText(gvtAmount);
-		amountValueSecondary.setText(baseAmount);
+	public void setAmount(String amount) {
+		amountValue.setText(amount);
 	}
 
 	@Override

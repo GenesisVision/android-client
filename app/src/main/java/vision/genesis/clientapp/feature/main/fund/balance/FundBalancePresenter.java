@@ -35,6 +35,8 @@ public class FundBalancePresenter extends MvpPresenter<FundBalanceView> implemen
 	@Inject
 	public SettingsManager settingsManager;
 
+	private Subscription baseCurrencySubscription;
+
 	private Subscription chartDataSubscription;
 
 	private UUID fundId;
@@ -47,6 +49,8 @@ public class FundBalancePresenter extends MvpPresenter<FundBalanceView> implemen
 
 	private DateRange chartDateRange = DateRange.createFromEnum(DateRange.DateRangeEnum.MONTH);
 
+	private CurrencyEnum baseCurrency;
+
 	@Override
 	protected void onFirstViewAttach() {
 		super.onFirstViewAttach();
@@ -55,11 +59,14 @@ public class FundBalancePresenter extends MvpPresenter<FundBalanceView> implemen
 
 		getViewState().setDateRange(chartDateRange);
 		getViewState().showProgress(true);
-		getChartData();
+		subscribeToBaseCurrency();
 	}
 
 	@Override
 	public void onDestroy() {
+		if (baseCurrencySubscription != null) {
+			baseCurrencySubscription.unsubscribe();
+		}
 		if (chartDataSubscription != null) {
 			chartDataSubscription.unsubscribe();
 		}
@@ -76,13 +83,27 @@ public class FundBalancePresenter extends MvpPresenter<FundBalanceView> implemen
 		getChartData();
 	}
 
+	private void subscribeToBaseCurrency() {
+		if (settingsManager != null) {
+			baseCurrencySubscription = settingsManager.getBaseCurrency()
+					.subscribeOn(Schedulers.newThread())
+					.observeOn(AndroidSchedulers.mainThread())
+					.subscribe(this::baseCurrencyChangedHandler);
+		}
+	}
+
+	private void baseCurrencyChangedHandler(CurrencyEnum baseCurrency) {
+		this.baseCurrency = baseCurrency;
+		getChartData();
+	}
+
 	private void getChartData() {
-		if (fundId != null && fundsManager != null) {
+		if (fundsManager != null && fundId != null && baseCurrency != null) {
 			if (chartDataSubscription != null) {
 				chartDataSubscription.unsubscribe();
 			}
-			//TODO: calculate maxPointCount
-			chartDataSubscription = fundsManager.getBalanceChart(fundId, chartDateRange, 30)
+
+			chartDataSubscription = fundsManager.getBalanceChart(fundId, chartDateRange, 30, baseCurrency.getValue())
 					.observeOn(AndroidSchedulers.mainThread())
 					.subscribeOn(Schedulers.io())
 					.subscribe(this::handleGetChartDataSuccess,
@@ -95,7 +116,7 @@ public class FundBalancePresenter extends MvpPresenter<FundBalanceView> implemen
 		getViewState().showProgress(false);
 
 		this.chartData = response;
-
+		getViewState().setAmount(StringFormatUtil.getValueString(chartData.getBalance(), baseCurrency.getValue()));
 		getViewState().setChartData(chartData.getChart());
 
 		resetValuesSelection();
@@ -124,7 +145,7 @@ public class FundBalancePresenter extends MvpPresenter<FundBalanceView> implemen
 		}
 
 		//TODO: getValueString(selected * rate
-		getViewState().setAmount(StringFormatUtil.getGvtValueString(selected), StringFormatUtil.getValueString(selected, CurrencyEnum.USD.getValue()));
+//		getViewState().setAmount(StringFormatUtil.getGvtValueString(selected), StringFormatUtil.getValueString(selected, CurrencyEnum.USD.getValue()));
 
 		Double changeValue = selected - first;
 		//TODO: getValueString(changeValue * rate

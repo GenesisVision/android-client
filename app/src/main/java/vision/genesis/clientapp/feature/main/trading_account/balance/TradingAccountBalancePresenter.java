@@ -3,11 +3,10 @@ package vision.genesis.clientapp.feature.main.trading_account.balance;
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 
-import java.util.UUID;
-
 import javax.inject.Inject;
 
 import io.swagger.client.model.AccountBalanceChart;
+import io.swagger.client.model.PrivateTradingAccountFull;
 import io.swagger.client.model.SimpleChartPoint;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
@@ -18,6 +17,7 @@ import vision.genesis.clientapp.managers.SettingsManager;
 import vision.genesis.clientapp.managers.TradingAccountManager;
 import vision.genesis.clientapp.model.DateRange;
 import vision.genesis.clientapp.ui.chart.BalanceChartView;
+import vision.genesis.clientapp.utils.StringFormatUtil;
 
 /**
  * GenesisVisionAndroid
@@ -35,8 +35,6 @@ public class TradingAccountBalancePresenter extends MvpPresenter<TradingAccountB
 
 	private Subscription chartDataSubscription;
 
-	private UUID accountId;
-
 	private Double first;
 
 	private Double selected;
@@ -44,6 +42,8 @@ public class TradingAccountBalancePresenter extends MvpPresenter<TradingAccountB
 	private AccountBalanceChart chartData;
 
 	private DateRange chartDateRange = DateRange.createFromEnum(DateRange.DateRangeEnum.MONTH);
+
+	private PrivateTradingAccountFull details;
 
 	@Override
 	protected void onFirstViewAttach() {
@@ -65,8 +65,8 @@ public class TradingAccountBalancePresenter extends MvpPresenter<TradingAccountB
 		super.onDestroy();
 	}
 
-	void setAccountId(UUID accountId) {
-		this.accountId = accountId;
+	void setData(PrivateTradingAccountFull details) {
+		this.details = details;
 		getChartData();
 	}
 
@@ -75,12 +75,12 @@ public class TradingAccountBalancePresenter extends MvpPresenter<TradingAccountB
 	}
 
 	private void getChartData() {
-		if (accountId != null && tradingAccountManager != null) {
+		if (details != null && tradingAccountManager != null) {
 			if (chartDataSubscription != null) {
 				chartDataSubscription.unsubscribe();
 			}
-
-			chartDataSubscription = tradingAccountManager.getBalanceChart(accountId, chartDateRange, 30)
+			//TODO: calculate maxPointCount
+			chartDataSubscription = tradingAccountManager.getBalanceChart(details.getId(), chartDateRange, 30, details.getTradingAccountInfo().getCurrency().getValue())
 					.observeOn(AndroidSchedulers.mainThread())
 					.subscribeOn(Schedulers.io())
 					.subscribe(this::handleGetChartDataSuccess,
@@ -94,6 +94,7 @@ public class TradingAccountBalancePresenter extends MvpPresenter<TradingAccountB
 
 		this.chartData = response;
 
+		getViewState().setAmount(StringFormatUtil.getValueString(chartData.getBalance(), details.getTradingAccountInfo().getCurrency().getValue()));
 		getViewState().setChartData(chartData.getChart());
 
 		resetValuesSelection();

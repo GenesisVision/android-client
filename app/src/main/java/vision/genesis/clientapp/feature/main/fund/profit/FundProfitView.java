@@ -6,6 +6,8 @@ import com.arellomobile.mvp.viewstate.strategy.StateStrategyType;
 
 import java.util.List;
 
+import io.swagger.client.model.FundChartStatistic;
+import io.swagger.client.model.SimpleChart;
 import io.swagger.client.model.SimpleChartPoint;
 import vision.genesis.clientapp.model.DateRange;
 
@@ -16,7 +18,11 @@ import vision.genesis.clientapp.model.DateRange;
 
 interface FundProfitView extends MvpView
 {
-	void setChartData(List<SimpleChartPoint> chart);
+	void setAbsChart(List<SimpleChartPoint> chart);
+
+	void setPercentChart(List<SimpleChart> chart);
+
+	void updateStatistics(FundChartStatistic statistic);
 
 	void setValue(boolean isNegative, String value);
 
@@ -25,5 +31,4 @@ interface FundProfitView extends MvpView
 
 	void setDateRange(DateRange dateRange);
 
-	void setStatisticsData(Double sharpeRatio, Double sortinoRatio, Double calmarRatio, Double maxDrawdown);
 }

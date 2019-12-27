@@ -95,6 +95,7 @@ public class ProgramBalancePresenter extends MvpPresenter<ProgramBalanceView> im
 
 		this.chartData = response;
 
+		getViewState().setAmount(StringFormatUtil.getValueString(chartData.getBalance(), chartData.getProgramCurrency().getValue()));
 		getViewState().setChartData(chartData.getChart());
 
 		resetValuesSelection();

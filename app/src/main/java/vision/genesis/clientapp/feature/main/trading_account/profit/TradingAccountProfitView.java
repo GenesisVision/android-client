@@ -6,6 +6,8 @@ import com.arellomobile.mvp.viewstate.strategy.StateStrategyType;
 
 import java.util.List;
 
+import io.swagger.client.model.AccountChartStatistic;
+import io.swagger.client.model.SimpleChart;
 import io.swagger.client.model.SimpleChartPoint;
 import vision.genesis.clientapp.model.DateRange;
 
@@ -16,9 +18,13 @@ import vision.genesis.clientapp.model.DateRange;
 
 interface TradingAccountProfitView extends MvpView
 {
-	void setChartData(List<SimpleChartPoint> chart);
+	void setAbsChart(List<SimpleChartPoint> chart);
 
-	void setAmount(String gvtAmount, String baseAmount);
+	void setPercentChart(List<SimpleChart> chart);
+
+	void updateStatistics(AccountChartStatistic statistic);
+
+	void setValue(Boolean isNegative, String value);
 
 	void setChange(Boolean isChangeNegative, String changePercent);
 
@@ -28,6 +34,4 @@ interface TradingAccountProfitView extends MvpView
 	void showProgress(boolean show);
 
 	void setDateRange(DateRange dateRange);
-
-	void setStatisticsData(Integer trades, Double successTradesPercent, Double profitFactor, Double sharpeRatio, Double sortinoRatio, Double calmarRatio, Double maxDrawdown);
 }

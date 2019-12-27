@@ -1,13 +1,16 @@
 package vision.genesis.clientapp.managers;
 
+import java.util.List;
 import java.util.UUID;
 
 import io.swagger.client.api.AssetsApi;
 import io.swagger.client.api.EventsApi;
 import io.swagger.client.api.FundsApi;
 import io.swagger.client.api.InvestmentsApi;
+import io.swagger.client.model.AbsoluteProfitChart;
 import io.swagger.client.model.FundBalanceChart;
 import io.swagger.client.model.FundDetailsFull;
+import io.swagger.client.model.FundProfitPercentCharts;
 import io.swagger.client.model.FundWithdrawInfo;
 import io.swagger.client.model.InvestmentEventLocation;
 import io.swagger.client.model.InvestmentEventViewModels;
@@ -70,12 +73,19 @@ public class FundsManager
 //		return fundsApi.v10FundsByIdAssetsGet(fundId);
 //	}
 
-//	public Observable<FundProfitCharts> getProfitChart(UUID fundId, DateRange dateRange, Integer maxPointCount) {
-//		return fundsApi.getFundProfitChart(fundId, dateRange.getFrom(), dateRange.getTo(), maxPointCount, null, null, null);
-//	}
+	public Observable<FundProfitPercentCharts> getProfitPercentChart(UUID fundId, DateRange dateRange, Integer maxPointCount,
+	                                                                 String currency, List<Object> currencies, Integer chartAssetsCount) {
+		return fundsApi.getFundProfitPercentCharts(fundId, dateRange.getFrom(), dateRange.getTo(),
+				maxPointCount, currency, currencies, chartAssetsCount);
+	}
 
-	public Observable<FundBalanceChart> getBalanceChart(UUID fundId, DateRange dateRange, Integer maxPointCount) {
-		return fundsApi.getFundBalanceChart(fundId, dateRange.getFrom(), dateRange.getTo(), maxPointCount, null);
+	public Observable<AbsoluteProfitChart> getProfitAbsoluteChart(UUID fundId, DateRange dateRange,
+	                                                              Integer maxPointCount, String currency) {
+		return fundsApi.getFundAbsoluteProfitChart(fundId, dateRange.getFrom(), dateRange.getTo(), maxPointCount, currency);
+	}
+
+	public Observable<FundBalanceChart> getBalanceChart(UUID fundId, DateRange dateRange, Integer maxPointCount, String currency) {
+		return fundsApi.getFundBalanceChart(fundId, dateRange.getFrom(), dateRange.getTo(), maxPointCount, currency);
 	}
 
 	public Observable<InvestmentEventViewModels> getEvents(UUID fundId, DateRange dateRange, Integer skip, Integer take) {

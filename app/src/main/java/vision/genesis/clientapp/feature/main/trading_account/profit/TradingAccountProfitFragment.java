@@ -14,14 +14,17 @@ import com.arellomobile.mvp.presenter.InjectPresenter;
 
 import java.util.List;
 import java.util.Locale;
-import java.util.UUID;
 
 import butterknife.BindDimen;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+import io.swagger.client.model.AccountChartStatistic;
+import io.swagger.client.model.PrivateTradingAccountFull;
+import io.swagger.client.model.SimpleChart;
 import io.swagger.client.model.SimpleChartPoint;
+import timber.log.Timber;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
 import vision.genesis.clientapp.feature.common.date_range.DateRangeBottomSheetFragment;
@@ -40,12 +43,12 @@ import vision.genesis.clientapp.utils.TypefaceUtil;
 
 public class TradingAccountProfitFragment extends BaseFragment implements TradingAccountProfitView, TradingAccountDetailsPagerAdapter.OnPageVisibilityChanged
 {
-	private static String EXTRA_ACCOUNT_ID = "extra_account_id";
+	private static String EXTRA_ACCOUNT_DETAILS = "extra_account_details";
 
-	public static TradingAccountProfitFragment with(UUID accountId) {
+	public static TradingAccountProfitFragment with(PrivateTradingAccountFull details) {
 		TradingAccountProfitFragment tradingAccountProfitFragment = new TradingAccountProfitFragment();
 		Bundle arguments = new Bundle(1);
-		arguments.putSerializable(EXTRA_ACCOUNT_ID, accountId);
+		arguments.putParcelable(EXTRA_ACCOUNT_DETAILS, details);
 		tradingAccountProfitFragment.setArguments(arguments);
 		return tradingAccountProfitFragment;
 	}
@@ -63,7 +66,7 @@ public class TradingAccountProfitFragment extends BaseFragment implements Tradin
 	public DateRangeView dateRangeView;
 
 	@BindView(R.id.profit_chart)
-	public ProfitChartView profitChart;
+	public ProfitChartView absChart;
 
 	@BindView(R.id.amount_title)
 	public TextView amountTitle;
@@ -122,11 +125,11 @@ public class TradingAccountProfitFragment extends BaseFragment implements Tradin
 	@InjectPresenter
 	public TradingAccountProfitPresenter presenter;
 
-	private UUID accountId;
-
 	private Unbinder unbinder;
 
 	private DateRange dateRange = DateRange.createFromEnum(DateRange.DateRangeEnum.WEEK);
+
+	private PrivateTradingAccountFull details;
 
 	@OnClick(R.id.date_range)
 	public void onDateRangeClicked() {
@@ -150,12 +153,19 @@ public class TradingAccountProfitFragment extends BaseFragment implements Tradin
 
 		unbinder = ButterKnife.bind(this, view);
 
-		accountId = (UUID) getArguments().getSerializable(EXTRA_ACCOUNT_ID);
-		presenter.setAccountId(accountId);
-
 		setFonts();
 
-		profitChart.setTouchListener(presenter);
+		if (getArguments() != null) {
+			details = getArguments().getParcelable(EXTRA_ACCOUNT_DETAILS);
+			if (details != null) {
+				presenter.setData(details);
+
+				absChart.setTouchListener(presenter);
+				return;
+			}
+		}
+		Timber.e("Passed empty data to %s", getClass().getSimpleName());
+		onBackPressed();
 	}
 
 	@Override
@@ -189,14 +199,33 @@ public class TradingAccountProfitFragment extends BaseFragment implements Tradin
 	}
 
 	@Override
-	public void setChartData(List<SimpleChartPoint> chart) {
-		profitChart.setChartData(chart, dateRange);
+	public void setAbsChart(List<SimpleChartPoint> chart) {
+		absChart.setChartData(chart, dateRange);
 	}
 
 	@Override
-	public void setAmount(String gvtAmount, String baseAmount) {
-		amountValue.setText(gvtAmount);
-		amountValueSecondary.setText(baseAmount);
+	public void setPercentChart(List<SimpleChart> chart) {
+
+	}
+
+	@Override
+	public void updateStatistics(AccountChartStatistic statistic) {
+		this.trades.setText(String.valueOf(statistic.getTrades()));
+		this.successTrades.setText(String.format(Locale.getDefault(), "%s%%", StringFormatUtil.formatAmount(statistic.getSuccessTradesPercent(), 0, 4)));
+		this.profitFactor.setText(statistic.getProfitFactor() == null ? "∞" : StringFormatUtil.formatAmount(statistic.getProfitFactor(), 0, 4));
+		this.sharpeRatio.setText(StringFormatUtil.formatAmount(statistic.getSharpeRatio(), 0, 4));
+		this.sortinoRatio.setText(StringFormatUtil.formatAmount(statistic.getSortinoRatio(), 0, 4));
+		this.calmarRatio.setText(StringFormatUtil.formatAmount(statistic.getCalmarRatio(), 0, 4));
+		this.maxDrawdown.setText(String.format(Locale.getDefault(), "%s%%", StringFormatUtil.formatAmount(statistic.getMaxDrawdown(), 0, 4)));
+	}
+
+	@Override
+	public void setValue(Boolean isNegative, String value) {
+		this.amountValue.setTextColor(isNegative
+				? ThemeUtil.getColorByAttrId(getContext(), R.attr.colorRed)
+				: ThemeUtil.getColorByAttrId(getContext(), R.attr.colorGreen));
+
+		this.amountValue.setText(value);
 	}
 
 	@Override
@@ -226,17 +255,6 @@ public class TradingAccountProfitFragment extends BaseFragment implements Tradin
 	public void setDateRange(DateRange dateRange) {
 		this.dateRange = dateRange;
 		dateRangeView.setDateRange(dateRange);
-	}
-
-	@Override
-	public void setStatisticsData(Integer trades, Double successTradesPercent, Double profitFactor, Double sharpeRatio, Double sortinoRatio, Double calmarRatio, Double maxDrawdown) {
-		this.trades.setText(String.valueOf(trades));
-		this.successTrades.setText(String.format(Locale.getDefault(), "%s%%", StringFormatUtil.formatAmount(successTradesPercent, 0, 4)));
-		this.profitFactor.setText(profitFactor == null ? "∞" : StringFormatUtil.formatAmount(profitFactor, 0, 4));
-		this.sharpeRatio.setText(StringFormatUtil.formatAmount(sharpeRatio, 0, 4));
-		this.sortinoRatio.setText(StringFormatUtil.formatAmount(sortinoRatio, 0, 4));
-		this.calmarRatio.setText(StringFormatUtil.formatAmount(calmarRatio, 0, 4));
-		this.maxDrawdown.setText(String.format(Locale.getDefault(), "%s%%", StringFormatUtil.formatAmount(maxDrawdown, 0, 4)));
 	}
 
 	@Override

@@ -13,14 +13,15 @@ import androidx.core.widget.NestedScrollView;
 import com.arellomobile.mvp.presenter.InjectPresenter;
 
 import java.util.List;
-import java.util.UUID;
 
 import butterknife.BindDimen;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+import io.swagger.client.model.PrivateTradingAccountFull;
 import io.swagger.client.model.SimpleChartPoint;
+import timber.log.Timber;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
 import vision.genesis.clientapp.feature.common.date_range.DateRangeBottomSheetFragment;
@@ -38,12 +39,12 @@ import vision.genesis.clientapp.utils.TypefaceUtil;
 
 public class TradingAccountBalanceFragment extends BaseFragment implements TradingAccountBalanceView, TradingAccountDetailsPagerAdapter.OnPageVisibilityChanged
 {
-	private static String EXTRA_ACCOUNT_ID = "extra_account_id";
+	private static String EXTRA_ACCOUNT_DETAILS = "extra_account_details";
 
-	public static TradingAccountBalanceFragment with(UUID accountId) {
+	public static TradingAccountBalanceFragment with(PrivateTradingAccountFull details) {
 		TradingAccountBalanceFragment programProfitFragment = new TradingAccountBalanceFragment();
 		Bundle arguments = new Bundle(1);
-		arguments.putSerializable(EXTRA_ACCOUNT_ID, accountId);
+		arguments.putParcelable(EXTRA_ACCOUNT_DETAILS, details);
 		programProfitFragment.setArguments(arguments);
 		return programProfitFragment;
 	}
@@ -84,11 +85,11 @@ public class TradingAccountBalanceFragment extends BaseFragment implements Tradi
 	@InjectPresenter
 	public TradingAccountBalancePresenter presenter;
 
-	private UUID accountId;
-
 	private Unbinder unbinder;
 
 	private DateRange dateRange = DateRange.createFromEnum(DateRange.DateRangeEnum.WEEK);
+
+	private PrivateTradingAccountFull details;
 
 	@OnClick(R.id.date_range)
 	public void onDateRangeClicked() {
@@ -112,12 +113,19 @@ public class TradingAccountBalanceFragment extends BaseFragment implements Tradi
 
 		unbinder = ButterKnife.bind(this, view);
 
-		accountId = (UUID) getArguments().getSerializable(EXTRA_ACCOUNT_ID);
-		presenter.setAccountId(accountId);
-
 		setFonts();
 
-		balanceChart.setTouchListener(presenter);
+		if (getArguments() != null) {
+			details = getArguments().getParcelable(EXTRA_ACCOUNT_DETAILS);
+			if (details != null) {
+				presenter.setData(details);
+
+				balanceChart.setTouchListener(presenter);
+				return;
+			}
+		}
+		Timber.e("Passed empty data to %s", getClass().getSimpleName());
+		onBackPressed();
 	}
 
 	@Override
@@ -144,9 +152,8 @@ public class TradingAccountBalanceFragment extends BaseFragment implements Tradi
 	}
 
 	@Override
-	public void setAmount(String gvtAmount, String baseAmount) {
-		amountValue.setText(gvtAmount);
-		amountValueSecondary.setText(baseAmount);
+	public void setAmount(String amount) {
+		amountValue.setText(amount);
 	}
 
 	@Override

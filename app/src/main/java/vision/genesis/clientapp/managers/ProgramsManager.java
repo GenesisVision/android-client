@@ -1,17 +1,19 @@
 package vision.genesis.clientapp.managers;
 
+import java.util.List;
 import java.util.UUID;
 
 import io.swagger.client.api.EventsApi;
 import io.swagger.client.api.InvestmentsApi;
 import io.swagger.client.api.ProgramsApi;
+import io.swagger.client.model.AbsoluteProfitChart;
 import io.swagger.client.model.InvestmentEventLocation;
 import io.swagger.client.model.InvestmentEventViewModels;
 import io.swagger.client.model.ItemsViewModelProgramDetailsListItem;
 import io.swagger.client.model.ProgramBalanceChart;
-import io.swagger.client.model.ProgramDetailsFull;
 import io.swagger.client.model.ProgramFollowDetailsFull;
 import io.swagger.client.model.ProgramPeriodsViewModel;
+import io.swagger.client.model.ProgramProfitPercentCharts;
 import io.swagger.client.model.ProgramWithdrawInfo;
 import io.swagger.client.model.TradesViewModel;
 import rx.Observable;
@@ -70,9 +72,13 @@ public class ProgramsManager
 		return programsApi.getProgramOpenTrades(programId, "ByDateDesc", null, null, null, 0, 1000);
 	}
 
-//	public Observable<ProgramProfitCharts> getProfitChart(UUID programId, DateRange dateRange, Integer maxPointCount) {
-//		return programsApi.getProgramProfitChart(programId, dateRange.getFrom(), dateRange.getTo(), maxPointCount, null, null);
-//	}
+	public Observable<ProgramProfitPercentCharts> getProfitPercentChart(UUID programId, DateRange dateRange, Integer maxPointCount, String currency, List<Object> currencies) {
+		return programsApi.getProgramProfitPercentCharts(programId, AuthManager.token.getValue(), dateRange.getFrom(), dateRange.getTo(), maxPointCount, currency, currencies);
+	}
+
+	public Observable<AbsoluteProfitChart> getProfitAbsoluteChart(UUID programId, DateRange dateRange, Integer maxPointCount, String currency) {
+		return programsApi.getProgramAbsoluteProfitChart(programId, dateRange.getFrom(), dateRange.getTo(), maxPointCount, currency);
+	}
 
 	public Observable<ProgramBalanceChart> getBalanceChart(UUID programId, DateRange dateRange, Integer maxPointCount) {
 		return programsApi.getProgramBalanceChart(programId, dateRange.getFrom(), dateRange.getTo(), maxPointCount, null);
