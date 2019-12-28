@@ -10,6 +10,7 @@ import java.util.UUID;
 
 import javax.inject.Inject;
 
+import io.swagger.client.model.DetachFromExternalSignalProvider;
 import io.swagger.client.model.DetachFromSignalProvider;
 import io.swagger.client.model.SignalDetachMode;
 import rx.Subscription;
@@ -44,6 +45,8 @@ public class UnfollowTradesPresenter extends MvpPresenter<UnfollowTradesView> im
 
 	private SignalDetachMode unsubscribeType = SignalDetachMode.NONE;
 
+	private Boolean isExternal;
+
 	@Override
 	protected void onFirstViewAttach() {
 		super.onFirstViewAttach();
@@ -71,9 +74,10 @@ public class UnfollowTradesPresenter extends MvpPresenter<UnfollowTradesView> im
 		onOptionSelected(0, typeOptions.get(0));
 	}
 
-	void setDataId(UUID followId, UUID tradingAccountId) {
+	void setData(UUID followId, UUID tradingAccountId, Boolean isExternal) {
 		this.followId = followId;
 		this.tradingAccountId = tradingAccountId;
+		this.isExternal = isExternal;
 	}
 
 	void onButtonClicked() {
@@ -89,7 +93,13 @@ public class UnfollowTradesPresenter extends MvpPresenter<UnfollowTradesView> im
 			DetachFromSignalProvider model = new DetachFromSignalProvider();
 			model.setMode(unsubscribeType);
 			model.setTradingAccountId(tradingAccountId);
-			signalSubscription = followsManager.unsubscribeFromFollow(followId, model)
+
+			DetachFromExternalSignalProvider extModel = new DetachFromExternalSignalProvider();
+			extModel.setTradingAccountId(tradingAccountId);
+
+			signalSubscription = (isExternal
+					? followsManager.unsubscribeFromExternalFollow(followId, extModel)
+					: followsManager.unsubscribeFromFollow(followId, model))
 					.observeOn(AndroidSchedulers.mainThread())
 					.subscribeOn(Schedulers.io())
 					.subscribe(this::handleSubscriptionSuccess,

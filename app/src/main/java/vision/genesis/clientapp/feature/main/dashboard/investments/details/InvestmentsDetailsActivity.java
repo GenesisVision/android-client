@@ -425,14 +425,14 @@ public class InvestmentsDetailsActivity extends BaseSwipeBackActivity implements
 
 	private void showProgramsCountMaybe() {
 		if (details != null && details.getProgramsCount() > 0 && programsProgressBar.getVisibility() != View.VISIBLE) {
-			programsArrow.setVisibility(View.VISIBLE);
+//			programsArrow.setVisibility(View.VISIBLE);
 			programsCountBackground.setVisibility(View.VISIBLE);
 		}
 	}
 
 	private void showFundsCountMaybe() {
 		if (details != null && details.getFundsCount() > 0 && fundsProgressBar.getVisibility() != View.VISIBLE) {
-			fundsArrow.setVisibility(View.VISIBLE);
+//			fundsArrow.setVisibility(View.VISIBLE);
 			fundsCountBackground.setVisibility(View.VISIBLE);
 		}
 	}

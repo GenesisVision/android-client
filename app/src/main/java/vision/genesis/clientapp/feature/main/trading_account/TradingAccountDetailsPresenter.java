@@ -160,6 +160,6 @@ public class TradingAccountDetailsPresenter extends MvpPresenter<TradingAccountD
 
 	@Subscribe
 	public void onEventMainThread(ShowUnfollowTradesEvent event) {
-		getViewState().showUnfollowTradesActivity(event.getFollowId(), event.getTradingAccountId(), event.getFollowName());
+		getViewState().showUnfollowTradesActivity(event.getFollowId(), event.getTradingAccountId(), event.getFollowName(), event.isExternal());
 	}
 }

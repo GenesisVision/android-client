@@ -14,10 +14,13 @@ public class ShowUnfollowTradesEvent
 
 	private final String followName;
 
-	public ShowUnfollowTradesEvent(UUID followId, UUID tradingAccountId, String followName) {
+	private final Boolean isExternal;
+
+	public ShowUnfollowTradesEvent(UUID followId, UUID tradingAccountId, String followName, Boolean isExternal) {
 		this.followId = followId;
 		this.tradingAccountId = tradingAccountId;
 		this.followName = followName;
+		this.isExternal = isExternal;
 	}
 
 	public UUID getFollowId() {
@@ -30,5 +33,9 @@ public class ShowUnfollowTradesEvent
 
 	public String getFollowName() {
 		return followName;
+	}
+
+	public Boolean isExternal() {
+		return isExternal;
 	}
 }

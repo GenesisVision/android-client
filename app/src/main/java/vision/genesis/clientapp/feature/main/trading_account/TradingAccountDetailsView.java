@@ -40,5 +40,5 @@ interface TradingAccountDetailsView extends MvpView
 
 	void setTradesCount(Integer tradesCount);
 
-	void showUnfollowTradesActivity(UUID followId, UUID tradingAccountId, String followName);
+	void showUnfollowTradesActivity(UUID followId, UUID tradingAccountId, String followName, Boolean isExternal);
 }

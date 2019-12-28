@@ -31,7 +31,7 @@ interface FollowInfoView extends MvpView
 
 	void showLoginActivity();
 
-	void showFollowTradesActivity(UUID followId);
+	void showFollowTradesActivity(ProgramFollowDetailsFull details);
 
-	void showUnfollowTradesActivity(UUID followId, UUID tradingAccountId, String followName);
+	void showUnfollowTradesActivity(UUID followId, UUID tradingAccountId, String followName, Boolean isExternal);
 }

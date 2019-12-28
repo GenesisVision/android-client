@@ -329,16 +329,16 @@ public class FollowInfoFragment extends BaseFragment implements FollowInfoView, 
 	}
 
 	@Override
-	public void showFollowTradesActivity(UUID followId) {
+	public void showFollowTradesActivity(ProgramFollowDetailsFull details) {
 		if (getActivity() != null) {
-			FollowTradesActivity.startFrom(getActivity(), followId);
+			FollowTradesActivity.startFrom(getActivity(), details);
 		}
 	}
 
 	@Override
-	public void showUnfollowTradesActivity(UUID followId, UUID tradingAccountId, String followName) {
+	public void showUnfollowTradesActivity(UUID followId, UUID tradingAccountId, String followName, Boolean isExternal) {
 		if (getActivity() != null) {
-			UnfollowTradesActivity.startWith(getActivity(), followId, tradingAccountId, followName);
+			UnfollowTradesActivity.startWith(getActivity(), followId, tradingAccountId, followName, isExternal);
 		}
 	}
 }

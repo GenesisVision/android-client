@@ -59,62 +59,89 @@
         android:orientation="vertical"
         android:padding="@dimen/invest_padding">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:alpha="0.4"
-            android:text="@string/type"
-            android:textColor="?attr/colorTextPrimary"
-            android:textSize="12sp"/>
-
-        <RelativeLayout
-            android:id="@+id/group_type"
+        <LinearLayout
+            android:id="@+id/group_internal"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/text_input_height"
-            android:background="?attr/selectableItemBackground">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
             <TextView
-                android:id="@+id/type"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_toStartOf="@+id/arrow"
+                android:alpha="0.4"
+                android:text="@string/type"
                 android:textColor="?attr/colorTextPrimary"
-                android:textColorHint="?attr/colorTextPrimary"
-                android:textSize="16sp"
-                tools:text="Manual closing"/>
+                android:textSize="12sp"/>
 
-            <ImageView
-                android:id="@+id/arrow"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
-                android:layout_marginStart="8dp"
-                android:gravity="center_vertical|end"
-                android:textSize="18sp"
-                android:tint="?attr/colorTextPrimary"
-                app:srcCompat="@drawable/ic_keyboard_arrow_down_black_24dp"/>
-
-            <View
+            <RelativeLayout
+                android:id="@+id/group_type"
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_alignParentBottom="true"
-                android:alpha="0.2"
-                android:background="?attr/colorTextPrimary"/>
+                android:layout_height="@dimen/text_input_height"
+                android:background="?attr/selectableItemBackground">
 
-        </RelativeLayout>
+                <TextView
+                    android:id="@+id/type"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toStartOf="@+id/arrow"
+                    android:textColor="?attr/colorTextPrimary"
+                    android:textColorHint="?attr/colorTextPrimary"
+                    android:textSize="16sp"
+                    tools:text="Manual closing"/>
 
-        <TextView
-            android:id="@+id/type_description"
-            android:layout_width="wrap_content"
+                <ImageView
+                    android:id="@+id/arrow"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="8dp"
+                    android:gravity="center_vertical|end"
+                    android:textSize="18sp"
+                    android:tint="?attr/colorTextPrimary"
+                    app:srcCompat="@drawable/ic_keyboard_arrow_down_black_24dp"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_alignParentBottom="true"
+                    android:alpha="0.2"
+                    android:background="?attr/colorTextPrimary"/>
+
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/type_description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="16dp"
+                android:alpha="0.4"
+                android:textColor="?attr/colorTextPrimary"
+                android:textSize="12sp"
+                tools:text="@string/type_description_subscribe_by_balance"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/group_external"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="16dp"
-            android:alpha="0.4"
-            android:textColor="?attr/colorTextPrimary"
-            android:textSize="12sp"
-            tools:text="@string/type_description_subscribe_by_balance"/>
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="16dp"
+                android:alpha="0.4"
+                android:text="@string/dialog_unfollow_external"
+                android:textColor="?attr/colorTextPrimary"
+                android:textSize="12sp"/>
+
+        </LinearLayout>
 
     </LinearLayout>
 

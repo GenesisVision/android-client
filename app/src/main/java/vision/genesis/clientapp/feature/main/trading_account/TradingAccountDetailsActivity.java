@@ -368,7 +368,7 @@ public class TradingAccountDetailsActivity extends BaseSwipeBackActivity impleme
 	}
 
 	@Override
-	public void showUnfollowTradesActivity(UUID followId, UUID tradingAccountId, String followName) {
-		UnfollowTradesActivity.startWith(this, followId, tradingAccountId, followName);
+	public void showUnfollowTradesActivity(UUID followId, UUID tradingAccountId, String followName, Boolean isExternal) {
+		UnfollowTradesActivity.startWith(this, followId, tradingAccountId, followName, isExternal);
 	}
 }

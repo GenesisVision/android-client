@@ -15,10 +15,10 @@
 
         <vision.genesis.clientapp.ui.ProgramLogoView
             android:id="@+id/logo"
-            android:layout_width="70dp"
+            android:layout_width="45dp"
             android:layout_height="45dp"
             android:layout_centerVertical="true"
-            android:layout_marginEnd="10dp"/>
+            android:layout_marginEnd="16dp"/>
 
         <LinearLayout
             android:layout_width="wrap_content"

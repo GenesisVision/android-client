@@ -16,6 +16,7 @@ import java.util.UUID;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.swagger.client.model.ProgramFollowDetailsFull;
 import timber.log.Timber;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseSwipeBackActivity;
@@ -30,11 +31,11 @@ import vision.genesis.clientapp.utils.TypefaceUtil;
 
 public class FollowTradesActivity extends BaseSwipeBackActivity implements FollowTradesView
 {
-	private static final String EXTRA_FOLLOW_ID = "extra_follow_id";
+	private static final String EXTRA_FOLLOW_DETAILS = "extra_follow_details";
 
-	public static void startFrom(Activity activity, UUID followId) {
+	public static void startFrom(Activity activity, ProgramFollowDetailsFull details) {
 		Intent intent = new Intent(activity.getApplicationContext(), FollowTradesActivity.class);
-		intent.putExtra(EXTRA_FOLLOW_ID, followId);
+		intent.putExtra(EXTRA_FOLLOW_DETAILS, details);
 		activity.startActivity(intent);
 		activity.overridePendingTransition(R.anim.activity_slide_from_right, R.anim.hold);
 	}
@@ -70,8 +71,8 @@ public class FollowTradesActivity extends BaseSwipeBackActivity implements Follo
 		viewPager.setAllowSwipe(false);
 
 		if (getIntent().getExtras() != null && !getIntent().getExtras().isEmpty()) {
-			UUID followId = (UUID) getIntent().getExtras().getSerializable(EXTRA_FOLLOW_ID);
-			presenter.setData(followId);
+			ProgramFollowDetailsFull details = getIntent().getExtras().getParcelable(EXTRA_FOLLOW_DETAILS);
+			presenter.setData(details);
 			return;
 		}
 		Timber.e("Passed empty arguments to %s", getClass().getSimpleName());

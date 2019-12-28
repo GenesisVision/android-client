@@ -89,7 +89,8 @@ public class FollowSubscriberView extends RelativeLayout
 		if (data != null) {
 			EventBus.getDefault().post(new ShowUnfollowTradesEvent(data.getAsset().getId(),
 					data.getSubscriberInfo().getTradingAccountId(),
-					data.getAsset().getTitle()));
+					data.getAsset().getTitle(),
+					data.isIsExternal()));
 		}
 	}
 

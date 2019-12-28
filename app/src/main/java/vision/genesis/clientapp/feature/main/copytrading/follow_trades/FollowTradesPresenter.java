@@ -12,7 +12,10 @@ import java.util.UUID;
 
 import javax.inject.Inject;
 
+import io.swagger.client.model.AssetTypeExt;
+import io.swagger.client.model.AttachToExternalSignalProviderExt;
 import io.swagger.client.model.AttachToSignalProvider;
+import io.swagger.client.model.ProgramFollowDetailsFull;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -38,11 +41,13 @@ public class FollowTradesPresenter extends MvpPresenter<FollowTradesView>
 
 	private Subscription attachSubscription;
 
-	private UUID followId;
-
 	private AttachToSignalProvider model;
 
+	private AttachToExternalSignalProviderExt extModel;
+
 	private UUID tradingAccountId;
+
+	private ProgramFollowDetailsFull details;
 
 	@Override
 	protected void onFirstViewAttach() {
@@ -64,16 +69,18 @@ public class FollowTradesPresenter extends MvpPresenter<FollowTradesView>
 		super.onDestroy();
 	}
 
-	void setData(UUID followId) {
-		this.followId = followId;
-		getViewState().initViewPager(followId);
+	void setData(ProgramFollowDetailsFull details) {
+		this.details = details;
+		getViewState().initViewPager(details.getId());
 	}
 
 	private void attachToFollow() {
-		if (followsManager != null && followId != null && model != null) {
+		if (followsManager != null && details != null && model != null) {
 			getViewState().showProgress(true);
 
-			attachSubscription = followsManager.subscribeToFollow(followId, model)
+			attachSubscription = (details.getPublicInfo().getTypeExt().equals(AssetTypeExt.EXTERNALSIGNALTRADINGACCOUNT)
+					? followsManager.subscribeToExternalFollowWithPrivate(details.getId(), extModel)
+					: followsManager.subscribeToFollow(details.getId(), model))
 					.subscribeOn(Schedulers.io())
 					.observeOn(AndroidSchedulers.mainThread())
 					.subscribe(this::handleAttachSuccess,
@@ -103,6 +110,14 @@ public class FollowTradesPresenter extends MvpPresenter<FollowTradesView>
 	public void onEventMainThread(OnSubscriptionSettingsConfirmEvent event) {
 		this.model = event.getModel();
 		this.model.setTradingAccountId(tradingAccountId);
+
+		this.extModel = new AttachToExternalSignalProviderExt();
+		extModel.setFixedCurrency(AttachToExternalSignalProviderExt.FixedCurrencyEnum.fromValue(model.getFixedCurrency().getValue()));
+		extModel.setFixedVolume(model.getFixedVolume());
+		extModel.setMode(model.getMode());
+		extModel.setOpenTolerancePercent(model.getOpenTolerancePercent());
+		extModel.setPercent(model.getPercent());
+		extModel.setTradingAccountId(tradingAccountId);
 
 		attachToFollow();
 	}

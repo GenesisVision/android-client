@@ -274,6 +274,7 @@
                                 android:background="?attr/selectableItemBackgroundBorderless"
                                 android:padding="18dp"
                                 android:tint="?attr/colorTextPrimary"
+                                android:visibility="invisible"
                                 app:srcCompat="@drawable/ic_chevron_right_black_24dp"/>
 
                         </RelativeLayout>
@@ -416,6 +417,7 @@
                                 android:background="?attr/selectableItemBackgroundBorderless"
                                 android:padding="18dp"
                                 android:tint="?attr/colorTextPrimary"
+                                android:visibility="invisible"
                                 app:srcCompat="@drawable/ic_chevron_right_black_24dp"/>
 
                         </RelativeLayout>

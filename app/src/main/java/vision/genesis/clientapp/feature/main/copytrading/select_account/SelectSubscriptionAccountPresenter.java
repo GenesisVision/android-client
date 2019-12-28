@@ -97,7 +97,9 @@ public class SelectSubscriptionAccountPresenter extends MvpPresenter<SelectSubsc
 		this.accounts = response.getItems();
 		ArrayList<String> accountOptions = new ArrayList<>();
 		for (TradingAccountDetails account : accounts) {
-			accountOptions.add(String.format(Locale.getDefault(), "%s | %s", account.getLogin(), account.getCurrency().getValue()));
+			accountOptions.add(String.format(Locale.getDefault(), "%s | %s",
+					account.getAsset() != null ? account.getAsset().getTitle() : account.getLogin(),
+					account.getCurrency().getValue()));
 		}
 		getViewState().setAccountOptions(accountOptions);
 		onOptionSelected(0, accountOptions.get(0));

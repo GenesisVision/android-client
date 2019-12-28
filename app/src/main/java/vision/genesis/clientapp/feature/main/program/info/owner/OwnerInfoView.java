@@ -59,7 +59,7 @@ interface OwnerInfoView extends MvpView
 
 	void showEditFollowSettingsActivity(CreateSignalProvider model);
 
-	void showUnfollowTradesActivity(UUID followId, UUID tradingAccountId, String followName);
+	void showUnfollowTradesActivity(UUID followId, UUID tradingAccountId, String followName, Boolean isExternal);
 
 	void showCopytradingDetailsActivity(TradingAccountDetailsModel model);
 

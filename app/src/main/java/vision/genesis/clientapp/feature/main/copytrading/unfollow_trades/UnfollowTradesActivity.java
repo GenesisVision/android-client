@@ -37,11 +37,14 @@ public class UnfollowTradesActivity extends BaseSwipeBackActivity implements Unf
 
 	private static final String EXTRA_FOLLOW_NAME = "extra_follow_name";
 
-	public static void startWith(Activity activity, UUID followId, UUID tradingAccountId, String followName) {
+	private static final String EXTRA_IS_EXTERNAL = "extra_is_external";
+
+	public static void startWith(Activity activity, UUID followId, UUID tradingAccountId, String followName, Boolean isExternal) {
 		Intent intent = new Intent(activity.getApplicationContext(), UnfollowTradesActivity.class);
 		intent.putExtra(EXTRA_FOLLOW_ID, followId);
 		intent.putExtra(EXTRA_TRADING_ACCOUNT_ID, tradingAccountId);
 		intent.putExtra(EXTRA_FOLLOW_NAME, followName);
+		intent.putExtra(EXTRA_IS_EXTERNAL, isExternal);
 		activity.startActivity(intent);
 		activity.overridePendingTransition(R.anim.slide_from_bottom, R.anim.hold);
 	}
@@ -54,6 +57,12 @@ public class UnfollowTradesActivity extends BaseSwipeBackActivity implements Unf
 
 	@BindView(R.id.content)
 	public ViewGroup content;
+
+	@BindView(R.id.group_external)
+	public ViewGroup groupExternal;
+
+	@BindView(R.id.group_internal)
+	public ViewGroup groupInternal;
 
 	@BindView(R.id.type)
 	public TextView type;
@@ -105,10 +114,11 @@ public class UnfollowTradesActivity extends BaseSwipeBackActivity implements Unf
 			UUID followId = (UUID) getIntent().getExtras().getSerializable(EXTRA_FOLLOW_ID);
 			UUID tradingAccountId = (UUID) getIntent().getExtras().getSerializable(EXTRA_TRADING_ACCOUNT_ID);
 			String followName = getIntent().getExtras().getString(EXTRA_FOLLOW_NAME);
+			Boolean isExternal = getIntent().getExtras().getBoolean(EXTRA_IS_EXTERNAL);
 			if (followId != null) {
-				unfollowTradesPresenter.setDataId(followId, tradingAccountId);
+				unfollowTradesPresenter.setData(followId, tradingAccountId, isExternal);
 
-				setFollowName(followName);
+				updateView(followName, isExternal);
 				setFonts();
 
 				return;
@@ -118,8 +128,11 @@ public class UnfollowTradesActivity extends BaseSwipeBackActivity implements Unf
 		onBackPressed();
 	}
 
-	private void setFollowName(String accountCurrency) {
+	private void updateView(String accountCurrency, Boolean isExternal) {
 		this.followName.setText(accountCurrency);
+
+		groupInternal.setVisibility(!isExternal ? View.VISIBLE : View.GONE);
+		groupExternal.setVisibility(isExternal ? View.VISIBLE : View.GONE);
 	}
 
 	private void setFonts() {

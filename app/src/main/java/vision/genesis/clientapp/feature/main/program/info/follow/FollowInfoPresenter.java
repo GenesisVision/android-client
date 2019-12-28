@@ -70,11 +70,9 @@ public class FollowInfoPresenter extends MvpPresenter<FollowInfoView>
 		if (userSubscription != null) {
 			userSubscription.unsubscribe();
 		}
-
 		if (followDetailsSubscription != null) {
 			followDetailsSubscription.unsubscribe();
 		}
-
 		if (subscriptionsSubscription != null) {
 			subscriptionsSubscription.unsubscribe();
 		}
@@ -135,7 +133,7 @@ public class FollowInfoPresenter extends MvpPresenter<FollowInfoView>
 //			else {
 //			getViewState().showSubscriptionSettings(model, isEdit);
 //			}
-			getViewState().showFollowTradesActivity(followId);
+			getViewState().showFollowTradesActivity(details);
 		}
 	}
 
@@ -231,6 +229,6 @@ public class FollowInfoPresenter extends MvpPresenter<FollowInfoView>
 
 	@Subscribe
 	public void onEventMainThread(ShowUnfollowTradesEvent event) {
-		getViewState().showUnfollowTradesActivity(event.getFollowId(), event.getTradingAccountId(), event.getFollowName());
+		getViewState().showUnfollowTradesActivity(event.getFollowId(), event.getTradingAccountId(), event.getFollowName(), event.isExternal());
 	}
 }

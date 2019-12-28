@@ -744,9 +744,9 @@ public class OwnerInfoFragment extends BaseFragment implements OwnerInfoView, Pr
 	}
 
 	@Override
-	public void showUnfollowTradesActivity(UUID followId, UUID tradingAccountId, String followName) {
+	public void showUnfollowTradesActivity(UUID followId, UUID tradingAccountId, String followName, Boolean isExternal) {
 		if (getActivity() != null) {
-			UnfollowTradesActivity.startWith(getActivity(), followId, tradingAccountId, followName);
+			UnfollowTradesActivity.startWith(getActivity(), followId, tradingAccountId, followName, isExternal);
 		}
 	}
 

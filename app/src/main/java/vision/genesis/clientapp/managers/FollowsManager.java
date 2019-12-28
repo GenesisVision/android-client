@@ -7,7 +7,9 @@ import io.swagger.client.api.FollowApi;
 import io.swagger.client.api.SignalApi;
 import io.swagger.client.model.AbsoluteProfitChart;
 import io.swagger.client.model.AccountBalanceChart;
+import io.swagger.client.model.AttachToExternalSignalProviderExt;
 import io.swagger.client.model.AttachToSignalProvider;
+import io.swagger.client.model.DetachFromExternalSignalProvider;
 import io.swagger.client.model.DetachFromSignalProvider;
 import io.swagger.client.model.ItemsViewModelFollowDetailsListItem;
 import io.swagger.client.model.ItemsViewModelSignalSubscription;
@@ -67,12 +69,20 @@ public class FollowsManager
 		return signalApi.attachSlaveToMasterInternal(AuthManager.token.getValue(), followId, model);
 	}
 
+	public Observable<Void> subscribeToExternalFollowWithPrivate(UUID followId, AttachToExternalSignalProviderExt model) {
+		return signalApi.attachSlaveToMasterExternalPrivateAccount(AuthManager.token.getValue(), followId, model);
+	}
+
 	public Observable<Void> updateSubscription(UUID followId, SubscriptionSettingsModel model) {
 		return signalApi.updateSubscriptionSettings(AuthManager.token.getValue(), followId, model.getApiModel());
 	}
 
 	public Observable<Void> unsubscribeFromFollow(UUID followId, DetachFromSignalProvider model) {
 		return signalApi.detachSlaveFromMasterInternal(AuthManager.token.getValue(), followId, model);
+	}
+
+	public Observable<Void> unsubscribeFromExternalFollow(UUID followId, DetachFromExternalSignalProvider model) {
+		return signalApi.detachSlaveFromMasterExternal(AuthManager.token.getValue(), followId, model);
 	}
 
 	public Observable<TradesSignalViewModel> getOpenTrades(String sorting, String symbol, UUID accountId, String accountCurrency, Integer skip, Integer take) {
