@@ -41,7 +41,7 @@ public class FollowsManager
 
 	public Observable<ItemsViewModelFollowDetailsListItem> getFollows(ProgramsFilter filter) {
 		return followApi.getFollowAssets(AuthManager.token.getValue(),
-				null, null,
+				null, filter.getShowIn().getValue(),
 				filter.getTags(),
 				filter.getDateRange().getFrom(), filter.getDateRange().getTo(),
 				filter.getChartPointsCount(), filter.getFacetId() == null ? null : filter.getFacetId().toString(),
@@ -111,5 +111,17 @@ public class FollowsManager
 
 	public Observable<AccountBalanceChart> getBalanceChart(UUID programId, DateRange dateRange, Integer maxPointCount, String currency) {
 		return followApi.getBalanceChart(programId, dateRange.getFrom(), dateRange.getTo(), maxPointCount, currency);
+	}
+
+	public Observable<Void> setFollowFavorite(UUID programId, boolean isFavorite) {
+		return isFavorite ? followFavoritesAdd(programId) : followFavoritesRemove(programId);
+	}
+
+	private Observable<Void> followFavoritesAdd(UUID programId) {
+		return followApi.addToFavorites(programId, AuthManager.token.getValue());
+	}
+
+	private Observable<Void> followFavoritesRemove(UUID programId) {
+		return followApi.removeFromFavorites(programId, AuthManager.token.getValue());
 	}
 }

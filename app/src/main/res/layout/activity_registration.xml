@@ -150,8 +150,8 @@
                         android:id="@+id/privacy_policy"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:layout_marginLeft="4dp"
                         android:layout_marginStart="4dp"
+                        android:layout_marginLeft="4dp"
                         android:layout_toEndOf="@+id/checkbox_accept_privacy_policy"
                         android:gravity="center_vertical"
                         android:text="@string/privacy_policy"
@@ -183,21 +183,13 @@
 
                 </RelativeLayout>
 
-                <CheckBox
-                    android:id="@+id/checkbox_confirm_not_us"
-                    android:layout_width="wrap_content"
-                    android:layout_height="@dimen/login_field_height"
-                    android:gravity="center_vertical"
-                    android:text="@string/i_confirm_i_am_not_us_resident_or_citizen"
-                    android:textColor="?attr/colorTextPrimary"/>
-
                 <RelativeLayout
                     android:id="@+id/group_bottom"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:layout_marginBottom="20dp"
                     android:layout_marginTop="20dp"
+                    android:layout_marginBottom="20dp"
                     tools:visibility="visible">
 
                     <vision.genesis.clientapp.ui.PrimaryButton

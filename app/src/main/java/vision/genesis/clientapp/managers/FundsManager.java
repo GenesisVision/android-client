@@ -46,7 +46,7 @@ public class FundsManager
 
 	public Observable<ItemsViewModelFundDetailsListItem> getFundsList(ProgramsFilter filter) {
 		return fundsApi.getFunds(AuthManager.token.getValue(),
-				null, null, null,
+				null, filter.getShowIn().getValue(), null,
 				null, null,
 				filter.getChartPointsCount(), filter.getFacetId() == null ? null : filter.getFacetId().toString(),
 				filter.getMask(), filter.getManagerId(), filter.getIsFavorite(),

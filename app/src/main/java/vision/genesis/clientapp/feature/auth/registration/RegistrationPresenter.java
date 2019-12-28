@@ -45,8 +45,6 @@ public class RegistrationPresenter extends MvpPresenter<RegistrationView>
 
 	private boolean termsConditionsAccepted;
 
-	private boolean notUsResidentChecked;
-
 	private String email;
 
 	private String password;
@@ -84,13 +82,8 @@ public class RegistrationPresenter extends MvpPresenter<RegistrationView>
 		updateSignUpButtonEnabled();
 	}
 
-	void onConfirmNotUsCheckedChanged(boolean checked) {
-		notUsResidentChecked = checked;
-		updateSignUpButtonEnabled();
-	}
-
 	private void updateSignUpButtonEnabled() {
-		getViewState().setSignUpButtonEnabled(privacyPolicyAccepted && termsConditionsAccepted && notUsResidentChecked);
+		getViewState().setSignUpButtonEnabled(privacyPolicyAccepted && termsConditionsAccepted);
 	}
 
 	void onSignInClicked() {
@@ -99,7 +92,7 @@ public class RegistrationPresenter extends MvpPresenter<RegistrationView>
 
 	//	void onSignUpClicked(String userName, String email, String password, String confirmPassword) {
 	void onSignUpClicked(String email, String password, String confirmPassword) {
-		if (privacyPolicyAccepted && termsConditionsAccepted && notUsResidentChecked) {
+		if (privacyPolicyAccepted && termsConditionsAccepted) {
 			this.email = email.trim();
 			this.password = password;
 			this.confirmPassword = confirmPassword;

@@ -172,12 +172,7 @@ public class SignalProviderView extends RelativeLayout
 
 		if (data.getAsset() != null) {
 			this.logo.setImage(data.getAsset().getLogo(), data.getAsset().getColor(), 50, 50);
-			if (data.getAsset().getProgramDetails() != null) {
-				this.logo.setLevel(data.getAsset().getProgramDetails().getLevel(), data.getAsset().getProgramDetails().getLevelProgress());
-			}
-			else {
-				this.logo.hideLevel();
-			}
+			this.logo.hideLevel();
 
 			this.name.setText(data.getAsset().getTitle());
 		}

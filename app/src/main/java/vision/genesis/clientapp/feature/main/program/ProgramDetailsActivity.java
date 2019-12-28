@@ -33,7 +33,6 @@ import com.google.android.material.tabs.TabLayout;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import io.swagger.client.model.FollowDetailsFull;
 import io.swagger.client.model.InvestmentEventViewModel;
 import io.swagger.client.model.ProgramFollowDetailsFull;
 import io.swagger.client.model.Tag;
@@ -144,8 +143,6 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 
 	private ProgramFollowDetailsFull details;
 
-	private FollowDetailsFull followDetails;
-
 	private TabLayout.OnTabSelectedListener tabSelectedListener;
 
 	private TabLayout.TabLayoutOnPageChangeListener tabLayoutOnPageChangeListener;
@@ -209,6 +206,11 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 			details.getProgramDetails().getPersonalDetails().setIsFavorite(!details.getProgramDetails().getPersonalDetails().isIsFavorite());
 			setFavoriteButtonImage(details.getProgramDetails().getPersonalDetails().isIsFavorite());
 			programDetailsPresenter.onFavoriteButtonClicked(details.getProgramDetails().getPersonalDetails().isIsFavorite());
+		}
+		else if (details != null && details.getFollowDetails() != null) {
+			details.getFollowDetails().getPersonalDetails().setIsFavorite(!details.getFollowDetails().getPersonalDetails().isIsFavorite());
+			setFavoriteButtonImage(details.getFollowDetails().getPersonalDetails().isIsFavorite());
+			programDetailsPresenter.onFavoriteButtonClicked(details.getFollowDetails().getPersonalDetails().isIsFavorite());
 		}
 	}
 

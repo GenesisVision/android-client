@@ -43,7 +43,7 @@ public class ProgramsManager
 
 	public Observable<ItemsViewModelProgramDetailsListItem> getProgramsList(ProgramsFilter filter) {
 		return programsApi.getPrograms(AuthManager.token.getValue(),
-				null, null,
+				null, filter.getShowIn().getValue(),
 				filter.getTags(), filter.getCurrency() == null ? null : filter.getCurrency().getValue(),
 				filter.getLevelMin(), filter.getLevelMax(),
 				null,

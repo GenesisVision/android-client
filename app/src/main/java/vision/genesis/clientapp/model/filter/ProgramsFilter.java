@@ -54,6 +54,8 @@ public class ProgramsFilter implements Parcelable
 
 	private Boolean isEnabled;
 
+	private CurrencyEnum showIn;
+
 	private CurrencyEnum currency;
 
 	private Integer levelUpFrom;
@@ -87,6 +89,7 @@ public class ProgramsFilter implements Parcelable
 			this.facetId = filter.getFacetId();
 			this.isFavorite = filter.getIsFavorite();
 			this.isEnabled = filter.getIsEnabled();
+			this.showIn = filter.getShowIn();
 			this.currency = filter.getCurrency();
 			this.levelUpFrom = filter.getLevelUpFrom();
 			this.ids = filter.getIds();
@@ -134,6 +137,11 @@ public class ProgramsFilter implements Parcelable
 		isFavorite = tmpIsFavorite == 0 ? null : tmpIsFavorite == 1;
 		byte tmpIsEnabled = in.readByte();
 		isEnabled = tmpIsEnabled == 0 ? null : tmpIsEnabled == 1;
+		try {
+			showIn = CurrencyEnum.valueOf(in.readString());
+		} catch (IllegalArgumentException e) {
+			showIn = null;
+		}
 		try {
 			currency = CurrencyEnum.valueOf(in.readString());
 		} catch (IllegalArgumentException e) {
@@ -247,6 +255,14 @@ public class ProgramsFilter implements Parcelable
 
 	public void setIsEnabled(Boolean enabled) {
 		isEnabled = enabled;
+	}
+
+	public CurrencyEnum getShowIn() {
+		return showIn;
+	}
+
+	public void setShowIn(CurrencyEnum showIn) {
+		this.showIn = showIn;
 	}
 
 	public CurrencyEnum getCurrency() {
@@ -366,6 +382,12 @@ public class ProgramsFilter implements Parcelable
 		dest.writeString(mask);
 		dest.writeByte((byte) (isFavorite == null ? 0 : isFavorite ? 1 : 2));
 		dest.writeByte((byte) (isEnabled == null ? 0 : isEnabled ? 1 : 2));
+		if (showIn == null) {
+			dest.writeString("");
+		}
+		else {
+			dest.writeString(showIn.name());
+		}
 		if (currency == null) {
 			dest.writeString("");
 		}
@@ -425,6 +447,7 @@ public class ProgramsFilter implements Parcelable
 				Objects.equals(getFacetId(), filter.getFacetId()) &&
 				Objects.equals(getIsFavorite(), filter.getIsFavorite()) &&
 				Objects.equals(getIsEnabled(), filter.getIsEnabled()) &&
+				Objects.equals(getShowIn(), filter.getShowIn()) &&
 				Objects.equals(getCurrency(), filter.getCurrency()) &&
 				Objects.equals(getLevelUpFrom(), filter.getLevelUpFrom()) &&
 				Objects.equals(getIds(), filter.getIds()) &&

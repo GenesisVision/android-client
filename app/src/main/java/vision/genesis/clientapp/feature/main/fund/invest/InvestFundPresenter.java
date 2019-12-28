@@ -87,6 +87,8 @@ public class InvestFundPresenter extends MvpPresenter<InvestFundView> implements
 
 	private Double gvCommissionPercent = 0.0;
 
+	private List<AmountWithCurrency> minInvestmentAmountInfo;
+
 	@Override
 	protected void onFirstViewAttach() {
 		super.onFirstViewAttach();
@@ -141,7 +143,7 @@ public class InvestFundPresenter extends MvpPresenter<InvestFundView> implements
 			getViewState().setEntryFee(getEntryFeeString());
 			getViewState().setGvCommission(getGvCommissionString());
 			getViewState().setInvestmentAmount(getInvestmentAmountString());
-			getViewState().setContinueButtonEnabled(amount >= minInvestment && amount <= availableInWallet);
+			getViewState().setContinueButtonEnabled(amount >= minInvestment && amount > 0 && amount <= availableInWallet);
 		}
 	}
 
@@ -275,16 +277,8 @@ public class InvestFundPresenter extends MvpPresenter<InvestFundView> implements
 		info = response;
 		gvCommissionPercent = info.getCommonInfo().getPlatformCommission().getInvestment();
 
-		//TODO:
-		for (AmountWithCurrency amountWithCurrency : info.getAssetInfo().getFundInfo().getMinInvestAmountIntoFund()) {
-			if (amountWithCurrency.getCurrency().getValue().equals(baseCurrency.getValue())) {
-				minInvestment = amountWithCurrency.getAmount();
-				break;
-			}
-		}
-
-		getViewState().setMinInvestmentAmount(minInvestment);
-		getViewState().setAmount("");
+		minInvestmentAmountInfo = info.getAssetInfo().getFundInfo().getMinInvestAmountIntoFund();
+		updateMinInvestmentAmount();
 	}
 
 	private void handlePlatformInfoError(Throwable throwable) {
@@ -297,12 +291,28 @@ public class InvestFundPresenter extends MvpPresenter<InvestFundView> implements
 		getViewState().finishActivity();
 	}
 
+	private void updateMinInvestmentAmount() {
+		if (selectedWalletFrom != null && minInvestmentAmountInfo != null) {
+			for (AmountWithCurrency amountWithCurrency : minInvestmentAmountInfo) {
+				if (amountWithCurrency.getCurrency().getValue().equals(selectedWalletFrom.getCurrency().getValue())) {
+					minInvestment = amountWithCurrency.getAmount();
+					break;
+				}
+			}
+		}
+
+		getViewState().setMinInvestmentAmount(minInvestment);
+		getViewState().setAmount("");
+	}
+
 	@Override
 	public void onWalletSelected(WalletData wallet) {
 		this.selectedWalletFrom = wallet;
 		availableInWallet = selectedWalletFrom.getAvailable();
 		getViewState().setWalletFrom(selectedWalletFrom, baseCurrency);
 		updateRate();
+
+		updateMinInvestmentAmount();
 	}
 
 	@Override

@@ -23,6 +23,8 @@ import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.managers.AuthManager;
 import vision.genesis.clientapp.managers.FundsManager;
+import vision.genesis.clientapp.managers.SettingsManager;
+import vision.genesis.clientapp.model.CurrencyEnum;
 import vision.genesis.clientapp.model.DateRange;
 import vision.genesis.clientapp.model.events.OnFundFavoriteChangedEvent;
 import vision.genesis.clientapp.model.events.OnListFundFavoriteClickedEvent;
@@ -50,9 +52,14 @@ public class FundsListPresenter extends MvpPresenter<FundsListView>
 	public AuthManager authManager;
 
 	@Inject
+	public SettingsManager settingsManager;
+
+	@Inject
 	public FundsManager fundsManager;
 
 	private Subscription userSubscription;
+
+	private Subscription baseCurrencySubscription;
 
 	private Subscription getFundsSubscription;
 
@@ -74,6 +81,8 @@ public class FundsListPresenter extends MvpPresenter<FundsListView>
 
 	private DateRange dateRange = DateRange.createFromEnum(DateRange.DateRangeEnum.MONTH);
 
+	private CurrencyEnum baseCurrency;
+
 	@Override
 	protected void onFirstViewAttach() {
 		super.onFirstViewAttach();
@@ -83,6 +92,7 @@ public class FundsListPresenter extends MvpPresenter<FundsListView>
 		EventBus.getDefault().register(this);
 
 		subscribeToUser();
+		subscribeToBaseCurrency();
 		getViewState().setRefreshing(true);
 		getFundsList(true);
 	}
@@ -91,6 +101,9 @@ public class FundsListPresenter extends MvpPresenter<FundsListView>
 	public void onDestroy() {
 		if (userSubscription != null) {
 			userSubscription.unsubscribe();
+		}
+		if (baseCurrencySubscription != null) {
+			baseCurrencySubscription.unsubscribe();
 		}
 		if (getFundsSubscription != null) {
 			getFundsSubscription.unsubscribe();
@@ -148,6 +161,21 @@ public class FundsListPresenter extends MvpPresenter<FundsListView>
 		getFundsList(true);
 	}
 
+	private void subscribeToBaseCurrency() {
+		if (settingsManager != null) {
+			baseCurrencySubscription = settingsManager.getBaseCurrency()
+					.subscribeOn(Schedulers.newThread())
+					.observeOn(AndroidSchedulers.mainThread())
+					.subscribe(this::baseCurrencyChangedHandler);
+		}
+	}
+
+	private void baseCurrencyChangedHandler(CurrencyEnum baseCurrency) {
+		this.baseCurrency = baseCurrency;
+
+		getFundsList(true);
+	}
+
 	private void createFilter(ProgramsFilter filter) {
 		if (filter == null) {
 			filter = new ProgramsFilter();
@@ -166,11 +194,12 @@ public class FundsListPresenter extends MvpPresenter<FundsListView>
 	}
 
 	private void getFundsList(boolean forceUpdate) {
-		if (filter != null && fundsManager != null && isDataSet) {
+		if (filter != null && fundsManager != null && isDataSet && baseCurrency != null) {
 			if (forceUpdate) {
 				skip = 0;
 				filter.setSkip(skip);
 			}
+			filter.setShowIn(baseCurrency);
 
 			if (getFundsSubscription != null) {
 				getFundsSubscription.unsubscribe();

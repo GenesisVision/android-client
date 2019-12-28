@@ -76,7 +76,7 @@ public class DashboardManager
 	public Observable<ItemsViewModelProgramInvestingDetailsList> getPrograms(ProgramsFilter filter) {
 		return dashboardApi.getInvestingPrograms(AuthManager.token.getValue(),
 				filter.getSorting() != null ? filter.getSorting().getValue() : null,
-				filter.getCurrency() != null ? filter.getCurrency().getValue() : null,
+				filter.getShowIn() != null ? filter.getShowIn().getValue() : null,
 				filter.getStatus(),
 				filter.getDateRange().getFrom(), filter.getDateRange().getTo(),
 				filter.getChartPointsCount(),
@@ -88,7 +88,7 @@ public class DashboardManager
 	public Observable<ItemsViewModelFundInvestingDetailsList> getFunds(ProgramsFilter filter) {
 		return dashboardApi.getInvestingFunds(AuthManager.token.getValue(),
 				filter.getSorting() != null ? filter.getSorting().getValue() : null,
-				filter.getCurrency() != null ? filter.getCurrency().getValue() : null,
+				filter.getShowIn() != null ? filter.getShowIn().getValue() : null,
 				filter.getStatus(),
 				filter.getDateRange().getFrom(), filter.getDateRange().getTo(),
 				filter.getChartPointsCount(),

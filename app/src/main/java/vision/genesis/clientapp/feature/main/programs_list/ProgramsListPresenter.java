@@ -23,6 +23,8 @@ import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.managers.AuthManager;
 import vision.genesis.clientapp.managers.ProgramsManager;
+import vision.genesis.clientapp.managers.SettingsManager;
+import vision.genesis.clientapp.model.CurrencyEnum;
 import vision.genesis.clientapp.model.DateRange;
 import vision.genesis.clientapp.model.events.OnListProgramFavoriteClickedEvent;
 import vision.genesis.clientapp.model.events.OnProgramFavoriteChangedEvent;
@@ -50,9 +52,14 @@ public class ProgramsListPresenter extends MvpPresenter<ProgramsListView>
 	public AuthManager authManager;
 
 	@Inject
+	public SettingsManager settingsManager;
+
+	@Inject
 	public ProgramsManager programsManager;
 
 	private Subscription userSubscription;
+
+	private Subscription baseCurrencySubscription;
 
 	private Subscription getProgramsSubscription;
 
@@ -72,6 +79,8 @@ public class ProgramsListPresenter extends MvpPresenter<ProgramsListView>
 
 	private DateRange dateRange = DateRange.createFromEnum(DateRange.DateRangeEnum.MONTH);
 
+	private CurrencyEnum baseCurrency;
+
 	@Override
 	protected void onFirstViewAttach() {
 		super.onFirstViewAttach();
@@ -81,6 +90,7 @@ public class ProgramsListPresenter extends MvpPresenter<ProgramsListView>
 		EventBus.getDefault().register(this);
 
 		subscribeToUser();
+		subscribeToBaseCurrency();
 		getViewState().setRefreshing(true);
 		getProgramsList(true);
 	}
@@ -89,6 +99,9 @@ public class ProgramsListPresenter extends MvpPresenter<ProgramsListView>
 	public void onDestroy() {
 		if (userSubscription != null) {
 			userSubscription.unsubscribe();
+		}
+		if (baseCurrencySubscription != null) {
+			baseCurrencySubscription.unsubscribe();
 		}
 		if (getProgramsSubscription != null) {
 			getProgramsSubscription.unsubscribe();
@@ -168,12 +181,28 @@ public class ProgramsListPresenter extends MvpPresenter<ProgramsListView>
 		getProgramsList(true);
 	}
 
+	private void subscribeToBaseCurrency() {
+		if (settingsManager != null) {
+			baseCurrencySubscription = settingsManager.getBaseCurrency()
+					.subscribeOn(Schedulers.newThread())
+					.observeOn(AndroidSchedulers.mainThread())
+					.subscribe(this::baseCurrencyChangedHandler);
+		}
+	}
+
+	private void baseCurrencyChangedHandler(CurrencyEnum baseCurrency) {
+		this.baseCurrency = baseCurrency;
+
+		getProgramsList(true);
+	}
+
 	private void getProgramsList(boolean forceUpdate) {
-		if (filter != null && programsManager != null && isDataSet) {
+		if (filter != null && programsManager != null && isDataSet && baseCurrency != null) {
 			if (forceUpdate) {
 				skip = 0;
 				filter.setSkip(skip);
 			}
+			filter.setShowIn(baseCurrency);
 
 			if (getProgramsSubscription != null) {
 				getProgramsSubscription.unsubscribe();

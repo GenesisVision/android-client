@@ -137,6 +137,7 @@ public class InvestProgramPresenter extends MvpPresenter<InvestProgramView> impl
 			getViewState().setGvCommission(getGvCommissionString());
 			getViewState().setInvestmentAmount(getInvestmentAmountString());
 			getViewState().setContinueButtonEnabled(amount >= programCurrencyMinInvestment * rate
+					&& amount > 0
 					&& amount <= availableToInvest);
 		}
 	}

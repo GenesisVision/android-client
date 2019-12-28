@@ -25,6 +25,7 @@ import vision.genesis.clientapp.managers.FollowsManager;
 import vision.genesis.clientapp.managers.ProgramsManager;
 import vision.genesis.clientapp.model.ProgramDetailsModel;
 import vision.genesis.clientapp.model.User;
+import vision.genesis.clientapp.model.events.OnFollowFavoriteChangedEvent;
 import vision.genesis.clientapp.model.events.OnProgramFavoriteChangedEvent;
 import vision.genesis.clientapp.model.events.SetProgramDetailsEventsCountEvent;
 import vision.genesis.clientapp.model.events.SetProgramDetailsOpenPositionsCountEvent;
@@ -187,7 +188,9 @@ public class ProgramDetailsPresenter extends MvpPresenter<ProgramDetailsView>
 	}
 
 	private void setProgramFavorite(boolean isFavorite) {
-		setProgramFavoriteSubscription = programsManager.setProgramFavorite(model.getProgramId(), isFavorite)
+		setProgramFavoriteSubscription = (details.getProgramDetails() != null
+				? programsManager.setProgramFavorite(model.getProgramId(), isFavorite)
+				: followsManager.setFollowFavorite(model.getProgramId(), isFavorite))
 				.observeOn(AndroidSchedulers.mainThread())
 				.subscribeOn(Schedulers.io())
 				.subscribe(response -> handleSetProgramFavoriteSuccess(model.getProgramId(), isFavorite),
@@ -197,7 +200,12 @@ public class ProgramDetailsPresenter extends MvpPresenter<ProgramDetailsView>
 	private void handleSetProgramFavoriteSuccess(UUID programId, boolean isFavorite) {
 		setProgramFavoriteSubscription.unsubscribe();
 
-		EventBus.getDefault().post(new OnProgramFavoriteChangedEvent(programId, isFavorite));
+		if (details.getProgramDetails() != null) {
+			EventBus.getDefault().post(new OnProgramFavoriteChangedEvent(programId, isFavorite));
+		}
+		else if (details.getFollowDetails() != null) {
+			EventBus.getDefault().post(new OnFollowFavoriteChangedEvent(programId, isFavorite));
+		}
 	}
 
 	private void handleSetProgramFavoriteError(Throwable throwable) {

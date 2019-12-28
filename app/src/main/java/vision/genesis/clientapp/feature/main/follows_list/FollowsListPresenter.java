@@ -23,6 +23,8 @@ import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.managers.AuthManager;
 import vision.genesis.clientapp.managers.FollowsManager;
+import vision.genesis.clientapp.managers.SettingsManager;
+import vision.genesis.clientapp.model.CurrencyEnum;
 import vision.genesis.clientapp.model.DateRange;
 import vision.genesis.clientapp.model.events.OnFollowFavoriteChangedEvent;
 import vision.genesis.clientapp.model.events.OnListFollowFavoriteClickedEvent;
@@ -48,9 +50,14 @@ public class FollowsListPresenter extends MvpPresenter<FollowsListView>
 	public AuthManager authManager;
 
 	@Inject
+	public SettingsManager settingsManager;
+
+	@Inject
 	public FollowsManager followsManager;
 
 	private Subscription userSubscription;
+
+	private Subscription baseCurrencySubscription;
 
 	private Subscription getFollowsSubscription;
 
@@ -70,6 +77,8 @@ public class FollowsListPresenter extends MvpPresenter<FollowsListView>
 
 	private DateRange dateRange = DateRange.createFromEnum(DateRange.DateRangeEnum.MONTH);
 
+	private CurrencyEnum baseCurrency;
+
 	@Override
 	protected void onFirstViewAttach() {
 		super.onFirstViewAttach();
@@ -79,6 +88,7 @@ public class FollowsListPresenter extends MvpPresenter<FollowsListView>
 		EventBus.getDefault().register(this);
 
 		subscribeToUser();
+		subscribeToBaseCurrency();
 		getViewState().setRefreshing(true);
 		getFollowsList(true);
 	}
@@ -87,6 +97,9 @@ public class FollowsListPresenter extends MvpPresenter<FollowsListView>
 	public void onDestroy() {
 		if (userSubscription != null) {
 			userSubscription.unsubscribe();
+		}
+		if (baseCurrencySubscription != null) {
+			baseCurrencySubscription.unsubscribe();
 		}
 		if (getFollowsSubscription != null) {
 			getFollowsSubscription.unsubscribe();
@@ -166,12 +179,28 @@ public class FollowsListPresenter extends MvpPresenter<FollowsListView>
 		getFollowsList(true);
 	}
 
+	private void subscribeToBaseCurrency() {
+		if (settingsManager != null) {
+			baseCurrencySubscription = settingsManager.getBaseCurrency()
+					.subscribeOn(Schedulers.newThread())
+					.observeOn(AndroidSchedulers.mainThread())
+					.subscribe(this::baseCurrencyChangedHandler);
+		}
+	}
+
+	private void baseCurrencyChangedHandler(CurrencyEnum baseCurrency) {
+		this.baseCurrency = baseCurrency;
+
+		getFollowsList(true);
+	}
+
 	private void getFollowsList(boolean forceUpdate) {
-		if (filter != null && followsManager != null && isDataSet) {
+		if (filter != null && followsManager != null && isDataSet && baseCurrency != null) {
 			if (forceUpdate) {
 				skip = 0;
 				filter.setSkip(skip);
 			}
+			filter.setShowIn(baseCurrency);
 
 			if (getFollowsSubscription != null) {
 				getFollowsSubscription.unsubscribe();
@@ -247,11 +276,11 @@ public class FollowsListPresenter extends MvpPresenter<FollowsListView>
 			if (favoriteSubscription != null) {
 				favoriteSubscription.unsubscribe();
 			}
-//			favoriteSubscription = followsManager.setFollowFavorite(followId, favorite)
-//					.observeOn(AndroidSchedulers.mainThread())
-//					.subscribeOn(Schedulers.io())
-//					.subscribe(response -> handleFavoriteSuccess(followId, favorite),
-//							throwable -> handleFavoriteError(throwable, followId, favorite));
+			favoriteSubscription = followsManager.setFollowFavorite(followId, favorite)
+					.observeOn(AndroidSchedulers.mainThread())
+					.subscribeOn(Schedulers.io())
+					.subscribe(response -> handleFavoriteSuccess(followId, favorite),
+							throwable -> handleFavoriteError(throwable, followId, favorite));
 		}
 	}
 
@@ -265,7 +294,7 @@ public class FollowsListPresenter extends MvpPresenter<FollowsListView>
 		favoriteSubscription.unsubscribe();
 		getViewState().changeFollowIsFavorite(followId, favorite);
 
-//		ApiErrorResolver.resolveErrors(throwable, message -> getViewState().showSnackbarMessage(message));
+		ApiErrorResolver.resolveErrors(throwable, message -> getViewState().showSnackbarMessage(message));
 	}
 
 //	@Subscribe

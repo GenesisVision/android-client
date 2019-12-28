@@ -207,7 +207,7 @@ public class InvestmentsDetailsPresenter extends MvpPresenter<InvestmentsDetails
 			filter.setStatus("Active");
 			filter.setDateRange(dateRange);
 			filter.setChartPointsCount(10);
-			filter.setCurrency(CurrencyEnum.fromValue(baseCurrency.getValue()));
+			filter.setShowIn(CurrencyEnum.fromValue(baseCurrency.getValue()));
 			programsSubscription = dashboardManager.getPrograms(filter)
 					.observeOn(AndroidSchedulers.mainThread())
 					.subscribeOn(Schedulers.newThread())
@@ -243,7 +243,7 @@ public class InvestmentsDetailsPresenter extends MvpPresenter<InvestmentsDetails
 			filter.setStatus("Active");
 			filter.setDateRange(dateRange);
 			filter.setChartPointsCount(10);
-			filter.setCurrency(CurrencyEnum.fromValue(baseCurrency.getValue()));
+			filter.setShowIn(CurrencyEnum.fromValue(baseCurrency.getValue()));
 			fundsSubscription = dashboardManager.getFunds(filter)
 					.observeOn(AndroidSchedulers.mainThread())
 					.subscribeOn(Schedulers.newThread())
