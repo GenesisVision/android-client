@@ -90,7 +90,9 @@ public class CreateFollowPresenter extends MvpPresenter<CreateFollowView>
 			accountRequest.setVolumeFee(this.volumeFee);
 			accountRequest.setSuccessFee(this.successFee);
 
-			apiRequest = assetsManager.createFollowFromTradingAccount(accountRequest);
+			apiRequest = model.isExternal()
+					? assetsManager.createFollowFromExternalAccount(accountRequest)
+					: assetsManager.createFollowFromTradingAccount(accountRequest);
 		}
 		else if (model.getAssetType().equals(AssetType.FOLLOW) || model.getAssetType().equals(AssetType.PROGRAM)) {
 			CreateSignalProvider programRequest = new CreateSignalProvider();

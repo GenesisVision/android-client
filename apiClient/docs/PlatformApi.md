@@ -7,6 +7,7 @@ Method | HTTP request | Description
 [**getAllPlatformAssets**](PlatformApi.md#getAllPlatformAssets) | **GET** v2.0/platform/assets | Get all supported assets for funds
 [**getPlatformAssetInfo**](PlatformApi.md#getPlatformAssetInfo) | **GET** v2.0/platform/asset/{asset} | Get asset description
 [**getPlatformDate**](PlatformApi.md#getPlatformDate) | **POST** v2.0/platform/date | Server date
+[**getPlatformEvents**](PlatformApi.md#getPlatformEvents) | **GET** v2.0/platform/events | Get platform events
 [**getPlatformInfo**](PlatformApi.md#getPlatformInfo) | **GET** v2.0/platform/info | Platform info
 [**getProgramLevels**](PlatformApi.md#getProgramLevels) | **GET** v2.0/platform/levels | Investment programs levels
 [**getProgramLevelsParams**](PlatformApi.md#getProgramLevelsParams) | **GET** v2.0/platform/levels/parameters | Investment programs levels parameters
@@ -133,6 +134,49 @@ No authorization required
  - **Content-Type**: Not defined
  - **Accept**: text/plain, application/json, text/json
 
+<a name="getPlatformEvents"></a>
+# **getPlatformEvents**
+> PlatformEvents getPlatformEvents(take)
+
+Get platform events
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiException;
+//import io.swagger.client.api.PlatformApi;
+
+
+PlatformApi apiInstance = new PlatformApi();
+Integer take = 56; // Integer | 
+try {
+    PlatformEvents result = apiInstance.getPlatformEvents(take);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling PlatformApi#getPlatformEvents");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **take** | **Integer**|  | [optional]
+
+### Return type
+
+[**PlatformEvents**](PlatformEvents.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
+
 <a name="getPlatformInfo"></a>
 # **getPlatformInfo**
 > PlatformInfo getPlatformInfo()
@@ -200,7 +244,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **currency** | **String**|  | [optional] [enum: USD, BTC, ETH, USDT, GVT, Undefined, ADA, XRP, BCH, LTC, DOGE, BNB, EUR]
+ **currency** | **String**|  | [optional] [enum: BTC, ETH, USDT, USD, GVT, Undefined, ADA, XRP, BCH, LTC, DOGE, BNB, EUR]
 
 ### Return type
 
@@ -243,7 +287,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **currency** | **String**|  | [optional] [enum: USD, BTC, ETH, USDT, GVT, Undefined, ADA, XRP, BCH, LTC, DOGE, BNB, EUR]
+ **currency** | **String**|  | [optional] [enum: BTC, ETH, USDT, USD, GVT, Undefined, ADA, XRP, BCH, LTC, DOGE, BNB, EUR]
 
 ### Return type
 

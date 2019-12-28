@@ -408,10 +408,10 @@ public class InvestmentEventViewModel implements Parcelable
 	@JsonAdapter(CurrencyEnum.Adapter.class)
 	public enum CurrencyEnum
 	{
-		USD("USD"),
 		BTC("BTC"),
 		ETH("ETH"),
 		USDT("USDT"),
+		USD("USD"),
 		GVT("GVT"),
 		UNDEFINED("Undefined"),
 		ADA("ADA"),
@@ -467,10 +467,10 @@ public class InvestmentEventViewModel implements Parcelable
 	@JsonAdapter(TotalFeesCurrencyEnum.Adapter.class)
 	public enum TotalFeesCurrencyEnum
 	{
-		USD("USD"),
 		BTC("BTC"),
 		ETH("ETH"),
 		USDT("USDT"),
+		USD("USD"),
 		GVT("GVT"),
 		UNDEFINED("Undefined"),
 		ADA("ADA"),

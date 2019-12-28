@@ -253,7 +253,7 @@
                                         android:layout_height="wrap_content"
                                         android:alpha="0.4"
                                         android:lines="1"
-                                        android:text="@string/pending"
+                                        android:text="@string/trading"
                                         android:textColor="?attr/colorTextPrimary"
                                         android:textSize="12sp"/>
 

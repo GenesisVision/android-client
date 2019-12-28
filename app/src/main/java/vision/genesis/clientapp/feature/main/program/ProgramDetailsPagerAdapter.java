@@ -11,6 +11,7 @@ import java.util.UUID;
 import io.swagger.client.model.FollowDetailsFull;
 import io.swagger.client.model.ProgramDetailsFull;
 import io.swagger.client.model.ProgramFollowDetailsFull;
+import vision.genesis.clientapp.feature.main.follow.balance.FollowBalanceFragment;
 import vision.genesis.clientapp.feature.main.program.balance.ProgramBalanceFragment;
 import vision.genesis.clientapp.feature.main.program.events.ProgramEventsFragment;
 import vision.genesis.clientapp.feature.main.program.info.follow.FollowInfoFragment;
@@ -47,6 +48,8 @@ public class ProgramDetailsPagerAdapter extends FragmentStatePagerAdapter
 
 	private ProgramBalanceFragment programEquityFragment;
 
+	private FollowBalanceFragment followEquityFragment;
+
 	private ProgramTradesFragment programTradesFragment;
 
 	private PeriodHistoryFragment periodHistoryFragment;
@@ -67,10 +70,13 @@ public class ProgramDetailsPagerAdapter extends FragmentStatePagerAdapter
 			ownerInfoFragment = OwnerInfoFragment.with(details);
 			openPositionsFragment = OpenPositionsFragment.with(assetId);
 			programProfitFragment = ProgramProfitFragment.with(details);
-			programEquityFragment = ProgramBalanceFragment.with(assetId);
 			programTradesFragment = ProgramTradesFragment.with(assetId);
 			if (programDetails != null) {
+				programEquityFragment = ProgramBalanceFragment.with(details);
 				periodHistoryFragment = PeriodHistoryFragment.with(assetId, details.getTradingAccountInfo().getCurrency().getValue(), programDetails.getPeriodDuration());
+			}
+			else {
+				followEquityFragment = FollowBalanceFragment.with(details);
 			}
 			programEventsFragment = ProgramEventsFragment.with(ProgramEventsFragment.LOCATION_PROGRAM, assetId);
 		}
@@ -78,7 +84,7 @@ public class ProgramDetailsPagerAdapter extends FragmentStatePagerAdapter
 			programInfoFragment = ProgramInfoFragment.with(details);
 			openPositionsFragment = OpenPositionsFragment.with(assetId);
 			programProfitFragment = ProgramProfitFragment.with(details);
-			programEquityFragment = ProgramBalanceFragment.with(assetId);
+			programEquityFragment = ProgramBalanceFragment.with(details);
 			programTradesFragment = ProgramTradesFragment.with(assetId);
 			periodHistoryFragment = PeriodHistoryFragment.with(assetId, details.getTradingAccountInfo().getCurrency().getValue(), programDetails.getPeriodDuration());
 			programEventsFragment = ProgramEventsFragment.with(ProgramEventsFragment.LOCATION_PROGRAM, assetId);
@@ -87,7 +93,7 @@ public class ProgramDetailsPagerAdapter extends FragmentStatePagerAdapter
 			followInfoFragment = FollowInfoFragment.with(details);
 			openPositionsFragment = OpenPositionsFragment.with(assetId);
 			programProfitFragment = ProgramProfitFragment.with(details);
-			programEquityFragment = ProgramBalanceFragment.with(assetId);
+			followEquityFragment = FollowBalanceFragment.with(details);
 			programTradesFragment = ProgramTradesFragment.with(assetId);
 			programEventsFragment = ProgramEventsFragment.with(ProgramEventsFragment.LOCATION_PROGRAM, assetId);
 		}
@@ -107,7 +113,7 @@ public class ProgramDetailsPagerAdapter extends FragmentStatePagerAdapter
 			case "profit":
 				return programProfitFragment;
 			case "equity":
-				return programEquityFragment;
+				return programEquityFragment != null ? programEquityFragment : followEquityFragment;
 			case "trades":
 				return programTradesFragment;
 			case "period_history":
@@ -146,6 +152,9 @@ public class ProgramDetailsPagerAdapter extends FragmentStatePagerAdapter
 		if (programEquityFragment != null) {
 			programEquityFragment.pagerShow();
 		}
+		if (followEquityFragment != null) {
+			followEquityFragment.pagerShow();
+		}
 		if (programTradesFragment != null) {
 			programTradesFragment.pagerShow();
 		}
@@ -178,6 +187,9 @@ public class ProgramDetailsPagerAdapter extends FragmentStatePagerAdapter
 		}
 		if (programEquityFragment != null) {
 			programEquityFragment.onOffsetChanged(verticalOffset);
+		}
+		if (followEquityFragment != null) {
+			followEquityFragment.onOffsetChanged(verticalOffset);
 		}
 		if (programTradesFragment != null) {
 			programTradesFragment.onOffsetChanged(verticalOffset);

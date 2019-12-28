@@ -18,8 +18,10 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.feature.common.date_range.DateRangeBottomSheetFragment;
+import vision.genesis.clientapp.managers.FollowsManager;
 import vision.genesis.clientapp.managers.ProgramsManager;
 import vision.genesis.clientapp.managers.SettingsManager;
+import vision.genesis.clientapp.model.CurrencyEnum;
 import vision.genesis.clientapp.model.DateRange;
 import vision.genesis.clientapp.ui.chart.ProfitChartView;
 import vision.genesis.clientapp.utils.StringFormatUtil;
@@ -36,7 +38,12 @@ public class ProgramProfitPresenter extends MvpPresenter<ProgramProfitView> impl
 	public ProgramsManager programsManager;
 
 	@Inject
+	public FollowsManager followsManager;
+
+	@Inject
 	public SettingsManager settingsManager;
+
+	private Subscription baseCurrencySubscription;
 
 	private Subscription absSubscription;
 
@@ -56,6 +63,8 @@ public class ProgramProfitPresenter extends MvpPresenter<ProgramProfitView> impl
 
 	private List<Object> currencies = new ArrayList<>();
 
+	private CurrencyEnum baseCurrency;
+
 	@Override
 	protected void onFirstViewAttach() {
 		super.onFirstViewAttach();
@@ -64,11 +73,14 @@ public class ProgramProfitPresenter extends MvpPresenter<ProgramProfitView> impl
 
 		getViewState().setDateRange(chartDateRange);
 		getViewState().showProgress(true);
-		updateAll();
+		subscribeToBaseCurrency();
 	}
 
 	@Override
 	public void onDestroy() {
+		if (baseCurrencySubscription != null) {
+			baseCurrencySubscription.unsubscribe();
+		}
 		if (absSubscription != null) {
 			absSubscription.unsubscribe();
 		}
@@ -93,14 +105,29 @@ public class ProgramProfitPresenter extends MvpPresenter<ProgramProfitView> impl
 		getProfitPercent();
 	}
 
+	private void subscribeToBaseCurrency() {
+		if (settingsManager != null) {
+			baseCurrencySubscription = settingsManager.getBaseCurrency()
+					.subscribeOn(Schedulers.newThread())
+					.observeOn(AndroidSchedulers.mainThread())
+					.subscribe(this::baseCurrencyChangedHandler);
+		}
+	}
+
+	private void baseCurrencyChangedHandler(CurrencyEnum baseCurrency) {
+		this.baseCurrency = baseCurrency;
+		updateAll();
+	}
+
 	private void getProfitAbsolute() {
-		if (details != null && programsManager != null) {
+		if (baseCurrency != null && details != null && programsManager != null) {
 			if (absSubscription != null) {
 				absSubscription.unsubscribe();
 			}
 
-			absSubscription = programsManager.getProfitAbsoluteChart(details.getId(), chartDateRange,
-					100, details.getTradingAccountInfo().getCurrency().getValue())
+			absSubscription = (details.getProgramDetails() != null
+					? programsManager.getProfitAbsoluteChart(details.getId(), chartDateRange, 100, baseCurrency.getValue())
+					: followsManager.getProfitAbsoluteChart(details.getId(), chartDateRange, 100, baseCurrency.getValue()))
 					.observeOn(AndroidSchedulers.mainThread())
 					.subscribeOn(Schedulers.io())
 					.subscribe(this::handleGetAbsSuccess,
@@ -124,16 +151,17 @@ public class ProgramProfitPresenter extends MvpPresenter<ProgramProfitView> impl
 	}
 
 	private void getProfitPercent() {
-		if (details != null && programsManager != null) {
+		if (baseCurrency != null && details != null && programsManager != null) {
 			if (percentSubscription != null) {
 				percentSubscription.unsubscribe();
 			}
 
 			currencies = new ArrayList<>();
-			currencies.add(details.getTradingAccountInfo().getCurrency().getValue());
+			currencies.add(baseCurrency);
 
-			percentSubscription = programsManager.getProfitPercentChart(details.getId(), chartDateRange,
-					100, details.getTradingAccountInfo().getCurrency().getValue(), currencies)
+			percentSubscription = (details.getProgramDetails() != null
+					? programsManager.getProfitPercentChart(details.getId(), chartDateRange, 100, baseCurrency.getValue(), currencies)
+					: followsManager.getProfitPercentChart(details.getId(), chartDateRange, 100, baseCurrency.getValue(), currencies))
 					.observeOn(AndroidSchedulers.mainThread())
 					.subscribeOn(Schedulers.io())
 					.subscribe(this::handleGetPercentSuccess,
@@ -177,7 +205,7 @@ public class ProgramProfitPresenter extends MvpPresenter<ProgramProfitView> impl
 		if (first == null || selected == null) {
 			getViewState().setChangeVisibility(false);
 			getViewState().setValue(absChart.getProfit() < 0, String.format(Locale.getDefault(), "%s",
-					StringFormatUtil.getValueString(absChart.getProfit(), details.getTradingAccountInfo().getCurrency().getValue())));
+					StringFormatUtil.getValueString(absChart.getProfit(), baseCurrency.getValue())));
 			return;
 		}
 
@@ -195,7 +223,7 @@ public class ProgramProfitPresenter extends MvpPresenter<ProgramProfitView> impl
 //				StringFormatUtil.getValueString(chartData.getTimeframeProgramCurrencyProfit(), chartData.getProgramCurrency().getValue()));
 
 		getViewState().setValue(changeValue < 0, String.format(Locale.getDefault(), "%s",
-				StringFormatUtil.getValueString(changeValue, details.getTradingAccountInfo().getCurrency().getValue())));
+				StringFormatUtil.getValueString(changeValue, baseCurrency.getValue())));
 
 //		if (absChart != null & absChart.getStatistic() != null) {
 //			getViewState().setStatisticsData(absChart.getStatistic().getTrades(), absChart.getStatistic().getSuccessTradesPercent(),

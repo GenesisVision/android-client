@@ -1,7 +1,5 @@
 package io.swagger.client.api;
 
-import org.joda.time.DateTime;
-
 import java.util.UUID;
 
 import io.swagger.client.model.AttachToExternalSignalProviderCommon;
@@ -125,25 +123,6 @@ public interface SignalApi
 	@GET("v2.0/signal/trades/open")
 	Observable<TradesSignalViewModel> getOpenSignalTrades(
 			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("Sorting") String sorting, @retrofit2.http.Query("Symbol") String symbol, @retrofit2.http.Query("AccountId") UUID accountId, @retrofit2.http.Query("AccountCurrency") String accountCurrency, @retrofit2.http.Query("Skip") Integer skip, @retrofit2.http.Query("Take") Integer take
-	);
-
-	/**
-	 * Get investors signals trades history
-	 *
-	 * @param authorization   JWT access token (required)
-	 * @param dateFrom        (optional)
-	 * @param dateTo          (optional)
-	 * @param symbol          (optional)
-	 * @param sorting         (optional)
-	 * @param accountId       (optional)
-	 * @param accountCurrency (optional)
-	 * @param skip            (optional)
-	 * @param take            (optional)
-	 * @return Call&lt;TradesSignalViewModel&gt;
-	 */
-	@GET("v2.0/signal/trades")
-	Observable<TradesSignalViewModel> getSignalTrades(
-			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("DateFrom") DateTime dateFrom, @retrofit2.http.Query("DateTo") DateTime dateTo, @retrofit2.http.Query("Symbol") String symbol, @retrofit2.http.Query("Sorting") String sorting, @retrofit2.http.Query("AccountId") UUID accountId, @retrofit2.http.Query("AccountCurrency") String accountCurrency, @retrofit2.http.Query("Skip") Integer skip, @retrofit2.http.Query("Take") Integer take
 	);
 
 	/**

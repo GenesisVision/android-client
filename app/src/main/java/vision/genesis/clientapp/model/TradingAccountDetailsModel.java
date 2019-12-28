@@ -8,6 +8,7 @@ import org.joda.time.DateTime;
 import java.util.UUID;
 
 import io.swagger.client.model.MigrationRequest;
+import io.swagger.client.model.PrivateTradingAccountType;
 
 /**
  * GenesisVisionAndroid
@@ -47,6 +48,10 @@ public class TradingAccountDetailsModel implements Parcelable
 
 	private MigrationRequest migration;
 
+	private Boolean canChangeBroker = false;
+
+	private PrivateTradingAccountType type;
+
 
 	public TradingAccountDetailsModel(UUID accountId, String accountName, String brokerLogo) {
 		this.accountId = accountId;
@@ -54,8 +59,15 @@ public class TradingAccountDetailsModel implements Parcelable
 		this.brokerLogo = brokerLogo;
 	}
 
+	public TradingAccountDetailsModel(UUID accountId, String accountName, String brokerLogo, PrivateTradingAccountType type) {
+		this.accountId = accountId;
+		this.accountName = accountName;
+		this.brokerLogo = brokerLogo;
+		this.type = type;
+	}
+
 	public TradingAccountDetailsModel(UUID assetId, UUID accountId, String accountName, String brokerName, String brokerLogo, DateTime creationDate,
-	                                  Integer leverage, String currency, MigrationRequest migration) {
+	                                  Integer leverage, String currency, MigrationRequest migration, Boolean canChangeBroker) {
 		this.assetId = assetId;
 		this.accountId = accountId;
 		this.accountName = accountName;
@@ -65,6 +77,7 @@ public class TradingAccountDetailsModel implements Parcelable
 		this.leverage = leverage;
 		this.currency = currency;
 		this.migration = migration;
+		this.canChangeBroker = canChangeBroker;
 	}
 
 	protected TradingAccountDetailsModel(Parcel in) {
@@ -82,6 +95,13 @@ public class TradingAccountDetailsModel implements Parcelable
 		}
 		currency = in.readString();
 		migration = in.readParcelable(MigrationRequest.class.getClassLoader());
+		canChangeBroker = in.readByte() == 1;
+		if (in.readByte() == 0) {
+			type = null;
+		}
+		else {
+			type = (PrivateTradingAccountType) in.readSerializable();
+		}
 	}
 
 	@Override
@@ -106,6 +126,9 @@ public class TradingAccountDetailsModel implements Parcelable
 		}
 		parcel.writeString(currency);
 		parcel.writeParcelable(migration, flags);
+		parcel.writeByte(canChangeBroker ? (byte) 1 : (byte) 0);
+		parcel.writeByte(type != null ? (byte) 1 : (byte) 0);
+		parcel.writeSerializable(type);
 	}
 
 	public UUID getAssetId() {
@@ -146,5 +169,13 @@ public class TradingAccountDetailsModel implements Parcelable
 
 	public void setMigration(MigrationRequest migration) {
 		this.migration = migration;
+	}
+
+	public Boolean isCanChangeBroker() {
+		return canChangeBroker;
+	}
+
+	public PrivateTradingAccountType getType() {
+		return type;
 	}
 }

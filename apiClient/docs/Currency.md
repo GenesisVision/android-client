@@ -2,10 +2,10 @@
 
 ## Enum
 
-* `USD` (value: `"USD"`)
 * `BTC` (value: `"BTC"`)
 * `ETH` (value: `"ETH"`)
 * `USDT` (value: `"USDT"`)
+* `USD` (value: `"USD"`)
 * `GVT` (value: `"GVT"`)
 * `UNDEFINED` (value: `"Undefined"`)
 * `ADA` (value: `"ADA"`)

@@ -12,3 +12,4 @@
 * `EMAIL` (value: `"Email"`)
 * `WEBSITE` (value: `"Website"`)
 * `REDDIT` (value: `"Reddit"`)
+* `GITHUB` (value: `"GitHub"`)

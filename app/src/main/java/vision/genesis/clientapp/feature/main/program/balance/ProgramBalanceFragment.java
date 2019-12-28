@@ -13,7 +13,6 @@ import androidx.core.widget.NestedScrollView;
 import com.arellomobile.mvp.presenter.InjectPresenter;
 
 import java.util.List;
-import java.util.UUID;
 
 import butterknife.BindDimen;
 import butterknife.BindView;
@@ -21,6 +20,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 import io.swagger.client.model.BalanceChartPoint;
+import io.swagger.client.model.ProgramFollowDetailsFull;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
 import vision.genesis.clientapp.feature.common.date_range.DateRangeBottomSheetFragment;
@@ -38,12 +38,12 @@ import vision.genesis.clientapp.utils.TypefaceUtil;
 
 public class ProgramBalanceFragment extends BaseFragment implements ProgramBalanceView, ProgramDetailsPagerAdapter.OnPageVisibilityChanged
 {
-	private static String EXTRA_PROGRAM_ID = "extra_program_id";
+	private static String EXTRA_DETAILS = "extra_details";
 
-	public static ProgramBalanceFragment with(UUID programId) {
+	public static ProgramBalanceFragment with(ProgramFollowDetailsFull details) {
 		ProgramBalanceFragment programProfitFragment = new ProgramBalanceFragment();
 		Bundle arguments = new Bundle(1);
-		arguments.putSerializable(EXTRA_PROGRAM_ID, programId);
+		arguments.putParcelable(EXTRA_DETAILS, details);
 		programProfitFragment.setArguments(arguments);
 		return programProfitFragment;
 	}
@@ -84,7 +84,7 @@ public class ProgramBalanceFragment extends BaseFragment implements ProgramBalan
 	@InjectPresenter
 	public ProgramBalancePresenter programBalancePresenter;
 
-	private UUID programId;
+	private ProgramFollowDetailsFull details;
 
 	private Unbinder unbinder;
 
@@ -112,8 +112,8 @@ public class ProgramBalanceFragment extends BaseFragment implements ProgramBalan
 
 		unbinder = ButterKnife.bind(this, view);
 
-		programId = (UUID) getArguments().getSerializable(EXTRA_PROGRAM_ID);
-		programBalancePresenter.setProgramId(programId);
+		details = getArguments().getParcelable(EXTRA_DETAILS);
+		programBalancePresenter.setData(details);
 
 		setFonts();
 

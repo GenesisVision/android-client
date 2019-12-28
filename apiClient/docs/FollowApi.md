@@ -6,6 +6,7 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**addToFavorites**](FollowApi.md#addToFavorites) | **POST** v2.0/follow/{id}/favorite/add | Add to favorites
 [**getAbsoluteProfitChart**](FollowApi.md#getAbsoluteProfitChart) | **GET** v2.0/follow/{id}/charts/profit/absolute | Follow absolute profit chart
+[**getAssetTrades**](FollowApi.md#getAssetTrades) | **GET** v2.0/follow/{id}/trades | Trade history
 [**getBalanceChart**](FollowApi.md#getBalanceChart) | **GET** v2.0/follow/{id}/charts/balance | Follow balance chart
 [**getFollowAssetDetails**](FollowApi.md#getFollowAssetDetails) | **GET** v2.0/follow/{id} | Follow asset details
 [**getFollowAssets**](FollowApi.md#getFollowAssets) | **GET** v2.0/follow | Follow assets
@@ -95,11 +96,72 @@ Name | Type | Description  | Notes
  **dateFrom** | **DateTime**|  | [optional]
  **dateTo** | **DateTime**|  | [optional]
  **maxPointCount** | **Integer**|  | [optional]
- **currency** | **String**|  | [optional] [enum: USD, BTC, ETH, USDT, GVT, Undefined, ADA, XRP, BCH, LTC, DOGE, BNB, EUR]
+ **currency** | **String**|  | [optional] [enum: BTC, ETH, USDT, USD, GVT, Undefined, ADA, XRP, BCH, LTC, DOGE, BNB, EUR]
 
 ### Return type
 
 [**AbsoluteProfitChart**](AbsoluteProfitChart.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
+
+<a name="getAssetTrades"></a>
+# **getAssetTrades**
+> TradesSignalViewModel getAssetTrades(id, dateFrom, dateTo, symbol, sorting, accountId, accountCurrency, isFollow, skip, take)
+
+Trade history
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiException;
+//import io.swagger.client.api.FollowApi;
+
+
+FollowApi apiInstance = new FollowApi();
+UUID id = new UUID(); // UUID | 
+DateTime dateFrom = new DateTime(); // DateTime | 
+DateTime dateTo = new DateTime(); // DateTime | 
+String symbol = "symbol_example"; // String | 
+String sorting = "sorting_example"; // String | 
+UUID accountId = new UUID(); // UUID | 
+String accountCurrency = "accountCurrency_example"; // String | 
+Boolean isFollow = true; // Boolean | 
+Integer skip = 56; // Integer | 
+Integer take = 56; // Integer | 
+try {
+    TradesSignalViewModel result = apiInstance.getAssetTrades(id, dateFrom, dateTo, symbol, sorting, accountId, accountCurrency, isFollow, skip, take);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling FollowApi#getAssetTrades");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | [**UUID**](.md)|  |
+ **dateFrom** | **DateTime**|  | [optional]
+ **dateTo** | **DateTime**|  | [optional]
+ **symbol** | **String**|  | [optional]
+ **sorting** | **String**|  | [optional] [enum: ByDateAsc, ByDateDesc, ByTicketAsc, ByTicketDesc, BySymbolAsc, BySymbolDesc, ByDirectionAsc, ByDirectionDesc, ByVolumeAsc, ByVolumeDesc, ByPriceAsc, ByPriceDesc, ByPriceCurrentAsc, ByPriceCurrentDesc, ByProfitAsc, ByProfitDesc, ByCommissionAsc, ByCommissionDesc, BySwapAsc, BySwapDesc]
+ **accountId** | [**UUID**](.md)|  | [optional]
+ **accountCurrency** | **String**|  | [optional] [enum: BTC, ETH, USDT, USD, GVT, Undefined, ADA, XRP, BCH, LTC, DOGE, BNB, EUR]
+ **isFollow** | **Boolean**|  | [optional]
+ **skip** | **Integer**|  | [optional]
+ **take** | **Integer**|  | [optional]
+
+### Return type
+
+[**TradesSignalViewModel**](TradesSignalViewModel.md)
 
 ### Authorization
 
@@ -146,7 +208,7 @@ Name | Type | Description  | Notes
  **dateFrom** | **DateTime**|  | [optional]
  **dateTo** | **DateTime**|  | [optional]
  **maxPointCount** | **Integer**|  | [optional]
- **currency** | **String**|  | [optional] [enum: USD, BTC, ETH, USDT, GVT, Undefined, ADA, XRP, BCH, LTC, DOGE, BNB, EUR]
+ **currency** | **String**|  | [optional] [enum: BTC, ETH, USDT, USD, GVT, Undefined, ADA, XRP, BCH, LTC, DOGE, BNB, EUR]
 
 ### Return type
 
@@ -248,7 +310,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **authorization** | **String**|  | [optional]
  **sorting** | **String**|  | [optional] [enum: ByTitleAsc, ByTitleDesc, BySubscribersAsc, BySubscribersDesc, ByTradesAsc, ByTradesDesc, ByDrawdownAsc, ByDrawdownDesc, ByProfitAsc, ByProfitDesc, ByNewAsc, ByNewDesc]
- **showIn** | **String**|  | [optional] [enum: USD, BTC, ETH, USDT, GVT, Undefined, ADA, XRP, BCH, LTC, DOGE, BNB, EUR]
+ **showIn** | **String**|  | [optional] [enum: BTC, ETH, USDT, USD, GVT, Undefined, ADA, XRP, BCH, LTC, DOGE, BNB, EUR]
  **tags** | [**List&lt;String&gt;**](String.md)|  | [optional]
  **dateFrom** | **DateTime**|  | [optional]
  **dateTo** | **DateTime**|  | [optional]
@@ -406,7 +468,7 @@ Name | Type | Description  | Notes
  **dateFrom** | **DateTime**|  | [optional]
  **dateTo** | **DateTime**|  | [optional]
  **maxPointCount** | **Integer**|  | [optional]
- **currency** | **String**|  | [optional] [enum: USD, BTC, ETH, USDT, GVT, Undefined, ADA, XRP, BCH, LTC, DOGE, BNB, EUR]
+ **currency** | **String**|  | [optional] [enum: BTC, ETH, USDT, USD, GVT, Undefined, ADA, XRP, BCH, LTC, DOGE, BNB, EUR]
  **currencies** | [**List&lt;Object&gt;**](Object.md)|  | [optional]
 
 ### Return type

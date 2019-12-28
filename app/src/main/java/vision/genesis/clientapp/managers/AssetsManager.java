@@ -11,6 +11,7 @@ import io.swagger.client.model.FundAssetPart;
 import io.swagger.client.model.MakeSignalProviderProgram;
 import io.swagger.client.model.MakeTradingAccountProgram;
 import io.swagger.client.model.MakeTradingAccountSignalProvider;
+import io.swagger.client.model.NewExternalTradingAccountRequest;
 import io.swagger.client.model.NewFundRequest;
 import io.swagger.client.model.NewTradingAccountRequest;
 import io.swagger.client.model.ProgramUpdate;
@@ -40,6 +41,10 @@ public class AssetsManager
 		return assetsApi.createTradingAccount(AuthManager.token.getValue(), request);
 	}
 
+	public Observable<TradingAccountCreateResult> createExternalTradingAccount(NewExternalTradingAccountRequest request) {
+		return assetsApi.createExternalTradingAccount(AuthManager.token.getValue(), request);
+	}
+
 	public Observable<Void> createProgramFromTradingAccount(MakeTradingAccountProgram request) {
 		return assetsApi.makeAccountProgram(AuthManager.token.getValue(), request);
 	}
@@ -50,6 +55,10 @@ public class AssetsManager
 
 	public Observable<Void> createFollowFromTradingAccount(MakeTradingAccountSignalProvider request) {
 		return assetsApi.makeAccountSignalProvider(AuthManager.token.getValue(), request);
+	}
+
+	public Observable<Void> createFollowFromExternalAccount(MakeTradingAccountSignalProvider request) {
+		return assetsApi.makeExternalAccountSignalProvider(AuthManager.token.getValue(), request);
 	}
 
 	public Observable<Void> updateSignalProviderSettings(CreateSignalProvider request) {

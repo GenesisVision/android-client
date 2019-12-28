@@ -15,6 +15,7 @@ import io.swagger.client.model.ProgramFollowDetailsFull;
 import io.swagger.client.model.ProgramPeriodsViewModel;
 import io.swagger.client.model.ProgramProfitPercentCharts;
 import io.swagger.client.model.ProgramWithdrawInfo;
+import io.swagger.client.model.TradesSignalViewModel;
 import io.swagger.client.model.TradesViewModel;
 import rx.Observable;
 import vision.genesis.clientapp.model.DateRange;
@@ -80,12 +81,12 @@ public class ProgramsManager
 		return programsApi.getProgramAbsoluteProfitChart(programId, dateRange.getFrom(), dateRange.getTo(), maxPointCount, currency);
 	}
 
-	public Observable<ProgramBalanceChart> getBalanceChart(UUID programId, DateRange dateRange, Integer maxPointCount) {
-		return programsApi.getProgramBalanceChart(programId, dateRange.getFrom(), dateRange.getTo(), maxPointCount, null);
+	public Observable<ProgramBalanceChart> getBalanceChart(UUID programId, DateRange dateRange, Integer maxPointCount, String currency) {
+		return programsApi.getProgramBalanceChart(programId, dateRange.getFrom(), dateRange.getTo(), maxPointCount, currency);
 	}
 
-	public Observable<TradesViewModel> getProgramTrades(UUID programId, DateRange dateRange, Integer skip, Integer take) {
-		return programsApi.getProgramTrades(programId, dateRange.getFrom(), dateRange.getTo(), null, null, null, null, skip, take);
+	public Observable<TradesSignalViewModel> getProgramTrades(UUID programId, DateRange dateRange, Integer skip, Integer take) {
+		return programsApi.getAssetTrades(programId, dateRange.getFrom(), dateRange.getTo(), null, null, null, null, null, skip, take);
 	}
 
 	public Observable<InvestmentEventViewModels> getEvents(UUID programId, DateRange dateRange, Integer skip, Integer take) {

@@ -452,6 +452,12 @@
             android:theme="@style/SwipeBackActivityTheme"
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan"/>
 
+        <activity
+            android:name=".feature.main.external.attach.AttachExternalAccountActivity"
+            android:launchMode="singleTop"
+            android:theme="@style/SwipeBackActivityTheme"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustPan"/>
+
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="${applicationId}.provider"

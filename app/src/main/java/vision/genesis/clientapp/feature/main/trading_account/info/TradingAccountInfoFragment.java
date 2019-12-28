@@ -14,8 +14,6 @@ import androidx.core.widget.NestedScrollView;
 import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.facebook.drawee.view.SimpleDraweeView;
 
-import org.joda.time.DateTime;
-
 import java.util.List;
 import java.util.Locale;
 
@@ -79,11 +77,17 @@ public class TradingAccountInfoFragment extends BaseFragment implements TradingA
 	@BindView(R.id.broker_logo)
 	public SimpleDraweeView brokerLogo;
 
+	@BindView(R.id.group_currency)
+	public ViewGroup groupCurrency;
+
 	@BindView(R.id.currency)
 	public TextView currency;
 
 	@BindView(R.id.label_currency)
 	public TextView labelCurrency;
+
+	@BindView(R.id.group_leverage)
+	public ViewGroup groupLeverage;
 
 	@BindView(R.id.leverage)
 	public TextView leverage;
@@ -107,12 +111,18 @@ public class TradingAccountInfoFragment extends BaseFragment implements TradingA
 	@BindView(R.id.value)
 	public TextView value;
 
+	@BindView(R.id.group_deposit_buttons)
+	public ViewGroup depositButtonsGroup;
+
 	@BindView(R.id.button_withdraw)
 	public PrimaryButton withdrawButton;
 
 	@BindView(R.id.button_add_funds)
 	public PrimaryButton addFundsButton;
 
+
+	@BindView(R.id.group_program)
+	public ViewGroup groupProgram;
 
 	@BindView(R.id.label_program)
 	public TextView labelProgram;
@@ -255,12 +265,19 @@ public class TradingAccountInfoFragment extends BaseFragment implements TradingA
 
 			scrollView.setVisibility(View.VISIBLE);
 
-			updateAccountInfo(accountDetails.getBrokerDetails().getLogo(),
-					accountDetails.getTradingAccountInfo().getCurrency().getValue(), accountDetails.getTradingAccountInfo().getLeverage(),
-					accountDetails.getPublicInfo().getCreationDate());
+			updateAccountInfo(accountDetails);
 
-			value.setText(StringFormatUtil.getValueString(accountDetails.getTradingAccountInfo().getBalance(),
-					accountDetails.getTradingAccountInfo().getCurrency().getValue()));
+			if (accountDetails.getTradingAccountInfo().isIsExternal()) {
+				value.setText(StringFormatUtil.formatAmount(accountDetails.getTradingAccountInfo().getBalance()));
+				depositButtonsGroup.setVisibility(View.GONE);
+			}
+			else {
+				value.setText(StringFormatUtil.getValueString(accountDetails.getTradingAccountInfo().getBalance(),
+						accountDetails.getTradingAccountInfo().getCurrency().getValue()));
+				depositButtonsGroup.setVisibility(View.VISIBLE);
+			}
+
+			groupProgram.setVisibility(accountDetails.getTradingAccountInfo().isIsExternal() ? View.GONE : View.VISIBLE);
 
 			if (accountDetails.getOwnerActions() != null) {
 				withdrawButton.setEnabled(accountDetails.getOwnerActions().isCanTransferMoney());
@@ -271,11 +288,20 @@ public class TradingAccountInfoFragment extends BaseFragment implements TradingA
 		}
 	}
 
-	private void updateAccountInfo(String brokerLogo, String currency, Integer leverage, DateTime creationDate) {
-		this.brokerLogo.setImageURI(ImageUtils.getImageUri(brokerLogo));
-		this.currency.setText(currency);
-		this.leverage.setText(String.format(Locale.getDefault(), "1:%d", leverage));
-		this.age.setCreationDate(creationDate);
+	private void updateAccountInfo(PrivateTradingAccountFull details) {
+		this.brokerLogo.setImageURI(ImageUtils.getImageUri(details.getBrokerDetails().getLogo()));
+		this.age.setCreationDate(details.getPublicInfo().getCreationDate());
+		if (details.getTradingAccountInfo().isIsExternal()) {
+			groupCurrency.setVisibility(View.GONE);
+			groupLeverage.setVisibility(View.GONE);
+		}
+		else {
+			groupCurrency.setVisibility(View.VISIBLE);
+			groupLeverage.setVisibility(View.VISIBLE);
+
+			this.currency.setText(details.getTradingAccountInfo().getCurrency().getValue());
+			this.leverage.setText(String.format(Locale.getDefault(), "1:%d", details.getTradingAccountInfo().getLeverage()));
+		}
 	}
 
 	@Override

@@ -189,6 +189,7 @@ public class ManageTradingAccountActivity extends BaseSwipeBackActivity implemen
 		this.creationDate.setText(DateTimeUtil.formatEventDateTime(model.getCreationDate()));
 		this.agePeriod.setCreationDate(model.getCreationDate());
 
+
 		if (model.getMigration() != null) {
 			this.newBrokerLogo.setImageURI(ImageUtils.getImageUri(model.getMigration().getNewBroker().getLogo()));
 			this.newCurrency.setText(model.getCurrency());
@@ -215,7 +216,7 @@ public class ManageTradingAccountActivity extends BaseSwipeBackActivity implemen
 		else {
 			groupNew.setVisibility(View.GONE);
 			groupMigration.setVisibility(View.GONE);
-			buttonChange.setVisibility(View.VISIBLE);
+			buttonChange.setVisibility(model.isCanChangeBroker() ? View.VISIBLE : View.GONE);
 		}
 	}
 

@@ -128,7 +128,8 @@ public class OwnerInfoPresenter extends MvpPresenter<OwnerInfoView>
 				details.getTradingAccountInfo().getCurrency().getValue(),
 				details.getProgramDetails() != null
 						? details.getProgramDetails().getPersonalDetails().getMigration()
-						: null);
+						: null,
+				details.getProgramDetails() != null);
 		getViewState().showManageAccountActivity(model);
 	}
 
@@ -225,7 +226,8 @@ public class OwnerInfoPresenter extends MvpPresenter<OwnerInfoView>
 					AssetType.FOLLOW,
 					details.getBrokerDetails().getType(),
 					details.getTradingAccountInfo().getBalance(),
-					details.getTradingAccountInfo().getCurrency().getValue()));
+					details.getTradingAccountInfo().getCurrency().getValue(),
+					false));
 		}
 	}
 
@@ -235,7 +237,8 @@ public class OwnerInfoPresenter extends MvpPresenter<OwnerInfoView>
 					AssetType.PROGRAM,
 					details.getBrokerDetails().getType(),
 					details.getProgramDetails().getPersonalDetails().getInvested(),
-					details.getTradingAccountInfo().getCurrency().getValue()));
+					details.getTradingAccountInfo().getCurrency().getValue(),
+					false));
 		}
 	}
 

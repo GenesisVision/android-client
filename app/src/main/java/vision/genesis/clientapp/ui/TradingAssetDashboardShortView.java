@@ -112,8 +112,9 @@ public class TradingAssetDashboardShortView extends RelativeLayout
 					case NONE:
 						TradingAccountDetailsModel tradingAccountDetailsModel = new TradingAccountDetailsModel(
 								asset.getId(),
-								asset.getAccountInfo() != null ? asset.getAccountInfo().getLogin() : null,
-								asset.getBroker() != null ? asset.getBroker().getLogo() : null
+								asset.getAccountInfo() != null ? asset.getAccountInfo().getTitle() : null,
+								asset.getBroker() != null ? asset.getBroker().getLogo() : null,
+								asset.getAccountInfo() != null ? asset.getAccountInfo().getType() : null
 						);
 						EventBus.getDefault().post(new ShowTradingAccountDetailsEvent(tradingAccountDetailsModel));
 						break;
@@ -152,7 +153,9 @@ public class TradingAssetDashboardShortView extends RelativeLayout
 								0.0,
 								asset.getPublicInfo().getTitle(),
 								"",
-								asset.getAccountInfo().getCurrency().getValue(),
+								asset.getAccountInfo().getCurrency() != null
+										? asset.getAccountInfo().getCurrency().getValue()
+										: null,
 								false,
 								false,
 								AssetType.FOLLOW);
@@ -168,7 +171,9 @@ public class TradingAssetDashboardShortView extends RelativeLayout
 		this.baseCurrency = baseCurrency;
 
 
-		double value = asset.getAccountInfo().getBalance();
+		double value = asset.getAccountInfo().getBalance() != null
+				? asset.getAccountInfo().getBalance()
+				: 0;
 		double profitPercent = asset.getStatistic().getProfit();
 
 		if (asset.getAssetType().equals(AssetType.NONE)) {
@@ -176,8 +181,15 @@ public class TradingAssetDashboardShortView extends RelativeLayout
 			this.brokerLogo.setVisibility(View.VISIBLE);
 			this.brokerLogo.setImageURI(ImageUtils.getImageUri(asset.getBroker().getLogo()));
 
-			this.name.setText(asset.getAccountInfo().getLogin());
-			this.value.setText(StringFormatUtil.getValueString(asset.getAccountInfo().getBalance(), asset.getAccountInfo().getCurrency().getValue()));
+			this.name.setText(asset.getAccountInfo().getTitle());
+			if (asset.getAccountInfo().getBalance() != null) {
+				if (asset.getAccountInfo().getCurrency() != null) {
+					this.value.setText(StringFormatUtil.getValueString(asset.getAccountInfo().getBalance(), asset.getAccountInfo().getCurrency().getValue()));
+				}
+				else {
+					this.value.setText(StringFormatUtil.formatAmount(asset.getAccountInfo().getBalance()));
+				}
+			}
 
 			if ((asset.getAccountInfo().getStatus().equals(DashboardTradingAssetStatus.PENDING))) {
 				this.status.setText(getContext().getString(R.string.pending));
@@ -205,7 +217,12 @@ public class TradingAssetDashboardShortView extends RelativeLayout
 
 			if (asset.getAccountInfo().getStatus().equals(DashboardTradingAssetStatus.ACTIVE)) {
 				if (asset.getAccountInfo().getBalance() != null) {
-					this.value.setText(StringFormatUtil.getValueString(value, asset.getAccountInfo().getCurrency().getValue()));
+					if (asset.getAccountInfo().getCurrency() != null) {
+						this.value.setText(StringFormatUtil.getValueString(value, asset.getAccountInfo().getCurrency().getValue()));
+					}
+					else {
+						this.value.setText(StringFormatUtil.formatAmount(asset.getAccountInfo().getBalance()));
+					}
 					updateChangeText(value, profitPercent);
 				}
 				valueGroup.setVisibility(ViewGroup.VISIBLE);

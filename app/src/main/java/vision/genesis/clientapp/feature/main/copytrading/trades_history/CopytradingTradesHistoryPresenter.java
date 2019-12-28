@@ -8,19 +8,21 @@ import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 import javax.inject.Inject;
 
 import io.swagger.client.model.OrderSignalModel;
 import io.swagger.client.model.TradesSignalViewModel;
+import rx.Observable;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.feature.common.date_range.DateRangeBottomSheetFragment;
 import vision.genesis.clientapp.managers.FollowsManager;
+import vision.genesis.clientapp.managers.TradingAccountManager;
 import vision.genesis.clientapp.model.DateRange;
+import vision.genesis.clientapp.model.TradingAccountDetailsModel;
 import vision.genesis.clientapp.model.events.SetCopytradingTradesHistoryCountEvent;
 import vision.genesis.clientapp.model.events.ShowCopytradingCommissionsEvent;
 import vision.genesis.clientapp.net.ApiErrorResolver;
@@ -38,6 +40,9 @@ public class CopytradingTradesHistoryPresenter extends MvpPresenter<CopytradingT
 	@Inject
 	public FollowsManager followsManager;
 
+	@Inject
+	public TradingAccountManager tradingAccountManager;
+
 	private Subscription getTradesHistorySubscription;
 
 	private DateRange dateRange = DateRange.createFromEnum(DateRange.DateRangeEnum.ALL_TIME);
@@ -48,7 +53,7 @@ public class CopytradingTradesHistoryPresenter extends MvpPresenter<CopytradingT
 
 	private boolean isFragmentActive;
 
-	private UUID accountId;
+	private TradingAccountDetailsModel model;
 
 	@Override
 	protected void onFirstViewAttach() {
@@ -75,8 +80,8 @@ public class CopytradingTradesHistoryPresenter extends MvpPresenter<CopytradingT
 		super.onDestroy();
 	}
 
-	void setData(UUID accountId) {
-		this.accountId = accountId;
+	void setData(TradingAccountDetailsModel model) {
+		this.model = model;
 
 		getTradesHistory(true);
 	}
@@ -100,15 +105,24 @@ public class CopytradingTradesHistoryPresenter extends MvpPresenter<CopytradingT
 	}
 
 	private void getTradesHistory(boolean forceUpdate) {
-		if (dateRange != null && followsManager != null) {
+		if (model != null && dateRange != null && followsManager != null) {
 			if (forceUpdate) {
 				skip = 0;
 			}
-			getTradesHistorySubscription = followsManager.getTradesHistory(dateRange, "", "", accountId, null, skip, TAKE)
+			getTradesHistorySubscription = getApiObservable()
 					.subscribeOn(Schedulers.computation())
 					.observeOn(AndroidSchedulers.mainThread())
 					.subscribe(this::handleGetTradesHistorySuccess,
 							this::handleGetTradesHistoryError);
+		}
+	}
+
+	private Observable<TradesSignalViewModel> getApiObservable() {
+		if (model.getAssetId() != null) {
+			return followsManager.getTrades(model.getAssetId(), dateRange, true, skip, TAKE);
+		}
+		else {
+			return tradingAccountManager.getTrades(model.getAccountId(), dateRange, true, skip, TAKE);
 		}
 	}
 

@@ -818,6 +818,10 @@
     <string name="referral_friends_level_1">Referral friends Level 1</string>
     <string name="referral_friends_level_2">Referral friends Level 2</string>
     <string name="total_rewards">Total rewards</string>
+    <string name="api">API</string>
+    <string name="api_key">API key</string>
+    <string name="api_secret">API secret</string>
+    <string name="attach_external_description">Please provide us your API key and API secret, so that we can attach your external account to Genesis Vision. Usually, the API key and the API secret can be found in your profile or on a settings page of your exchange.</string>
 
     <plurals name="assets">
         <item quantity="one">asset</item>

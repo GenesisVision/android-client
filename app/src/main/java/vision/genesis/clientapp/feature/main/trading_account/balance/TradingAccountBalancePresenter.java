@@ -15,6 +15,7 @@ import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.feature.common.date_range.DateRangeBottomSheetFragment;
 import vision.genesis.clientapp.managers.SettingsManager;
 import vision.genesis.clientapp.managers.TradingAccountManager;
+import vision.genesis.clientapp.model.CurrencyEnum;
 import vision.genesis.clientapp.model.DateRange;
 import vision.genesis.clientapp.ui.chart.BalanceChartView;
 import vision.genesis.clientapp.utils.StringFormatUtil;
@@ -33,6 +34,8 @@ public class TradingAccountBalancePresenter extends MvpPresenter<TradingAccountB
 	@Inject
 	public SettingsManager settingsManager;
 
+	private Subscription baseCurrencySubscription;
+
 	private Subscription chartDataSubscription;
 
 	private Double first;
@@ -45,6 +48,8 @@ public class TradingAccountBalancePresenter extends MvpPresenter<TradingAccountB
 
 	private PrivateTradingAccountFull details;
 
+	private CurrencyEnum baseCurrency;
+
 	@Override
 	protected void onFirstViewAttach() {
 		super.onFirstViewAttach();
@@ -53,13 +58,16 @@ public class TradingAccountBalancePresenter extends MvpPresenter<TradingAccountB
 
 		getViewState().setDateRange(chartDateRange);
 		getViewState().showProgress(true);
-		getChartData();
+		subscribeToBaseCurrency();
 	}
 
 	@Override
 	public void onDestroy() {
 		if (chartDataSubscription != null) {
 			chartDataSubscription.unsubscribe();
+		}
+		if (baseCurrencySubscription != null) {
+			baseCurrencySubscription.unsubscribe();
 		}
 
 		super.onDestroy();
@@ -74,13 +82,27 @@ public class TradingAccountBalancePresenter extends MvpPresenter<TradingAccountB
 		getChartData();
 	}
 
+	private void subscribeToBaseCurrency() {
+		if (settingsManager != null) {
+			baseCurrencySubscription = settingsManager.getBaseCurrency()
+					.subscribeOn(Schedulers.newThread())
+					.observeOn(AndroidSchedulers.mainThread())
+					.subscribe(this::baseCurrencyChangedHandler);
+		}
+	}
+
+	private void baseCurrencyChangedHandler(CurrencyEnum baseCurrency) {
+		this.baseCurrency = baseCurrency;
+		getChartData();
+	}
+
 	private void getChartData() {
-		if (details != null && tradingAccountManager != null) {
+		if (baseCurrency != null && details != null && tradingAccountManager != null) {
 			if (chartDataSubscription != null) {
 				chartDataSubscription.unsubscribe();
 			}
 			//TODO: calculate maxPointCount
-			chartDataSubscription = tradingAccountManager.getBalanceChart(details.getId(), chartDateRange, 30, details.getTradingAccountInfo().getCurrency().getValue())
+			chartDataSubscription = tradingAccountManager.getBalanceChart(details.getId(), chartDateRange, 30, baseCurrency.getValue())
 					.observeOn(AndroidSchedulers.mainThread())
 					.subscribeOn(Schedulers.io())
 					.subscribe(this::handleGetChartDataSuccess,
@@ -94,7 +116,7 @@ public class TradingAccountBalancePresenter extends MvpPresenter<TradingAccountB
 
 		this.chartData = response;
 
-		getViewState().setAmount(StringFormatUtil.getValueString(chartData.getBalance(), details.getTradingAccountInfo().getCurrency().getValue()));
+		getViewState().setAmount(StringFormatUtil.getValueString(chartData.getBalance(), baseCurrency.getValue()));
 		getViewState().setChartData(chartData.getChart());
 
 		resetValuesSelection();

@@ -47,6 +47,8 @@ public class SelectBrokerPresenter extends MvpPresenter<SelectBrokerView>
 
 	private boolean isAssetIdSet = false;
 
+	private boolean isExternal;
+
 	@Override
 	protected void onFirstViewAttach() {
 		super.onFirstViewAttach();
@@ -65,8 +67,9 @@ public class SelectBrokerPresenter extends MvpPresenter<SelectBrokerView>
 		super.onDestroy();
 	}
 
-	void setAssetId(UUID assetId) {
+	void setData(UUID assetId, boolean isExternal) {
 		this.assetId = assetId;
+		this.isExternal = isExternal;
 		isAssetIdSet = true;
 	}
 
@@ -96,7 +99,25 @@ public class SelectBrokerPresenter extends MvpPresenter<SelectBrokerView>
 			getProgramBrokers();
 		}
 		else {
-			getAllBrokers();
+			if (isExternal) {
+				getExternalBrokers();
+			}
+			else {
+				getAllBrokers();
+			}
+		}
+	}
+
+	private void getExternalBrokers() {
+		if (brokersManager != null && isAssetIdSet) {
+			if (getBrokersSubscription != null) {
+				getBrokersSubscription.unsubscribe();
+			}
+			getBrokersSubscription = brokersManager.getExternalBrokers()
+					.observeOn(AndroidSchedulers.mainThread())
+					.subscribeOn(Schedulers.newThread())
+					.subscribe(this::handleGetBrokersSuccess,
+							this::handleGetBrokersError);
 		}
 	}
 
@@ -108,12 +129,12 @@ public class SelectBrokerPresenter extends MvpPresenter<SelectBrokerView>
 			getBrokersSubscription = brokersManager.getAllBrokers()
 					.observeOn(AndroidSchedulers.mainThread())
 					.subscribeOn(Schedulers.newThread())
-					.subscribe(this::handleGetBrokers,
+					.subscribe(this::handleGetBrokersSuccess,
 							this::handleGetBrokersError);
 		}
 	}
 
-	private void handleGetBrokers(BrokersInfo response) {
+	private void handleGetBrokersSuccess(BrokersInfo response) {
 		getBrokersSubscription.unsubscribe();
 		if (!response.getBrokers().isEmpty()) {
 			getViewState().showProgress(false);
@@ -132,12 +153,12 @@ public class SelectBrokerPresenter extends MvpPresenter<SelectBrokerView>
 			getBrokersSubscription = brokersManager.getBrokersForProgram(assetId)
 					.observeOn(AndroidSchedulers.mainThread())
 					.subscribeOn(Schedulers.newThread())
-					.subscribe(this::handleGetProgramBrokersBrokers,
+					.subscribe(this::handleGetProgramBrokersSuccess,
 							this::handleGetBrokersError);
 		}
 	}
 
-	private void handleGetProgramBrokersBrokers(BrokersProgramInfo response) {
+	private void handleGetProgramBrokersSuccess(BrokersProgramInfo response) {
 		getBrokersSubscription.unsubscribe();
 		if (!response.getBrokers().isEmpty()) {
 			getViewState().showProgress(false);

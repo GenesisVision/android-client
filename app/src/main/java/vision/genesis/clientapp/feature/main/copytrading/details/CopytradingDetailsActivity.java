@@ -14,8 +14,6 @@ import androidx.viewpager.widget.ViewPager;
 import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.google.android.material.tabs.TabLayout;
 
-import java.util.UUID;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -105,7 +103,7 @@ public class CopytradingDetailsActivity extends BaseSwipeBackActivity implements
 			if (model != null) {
 				initRefreshLayout();
 				initTabs();
-				initViewPager(model.getAccountId());
+				initViewPager(model);
 				updateHeader();
 
 				presenter.setData(model);
@@ -231,8 +229,8 @@ public class CopytradingDetailsActivity extends BaseSwipeBackActivity implements
 		}
 	}
 
-	private void initViewPager(UUID accountId) {
-		pagerAdapter = new CopytradingDetailsPagerAdapter(getSupportFragmentManager(), tabLayout, accountId);
+	private void initViewPager(TradingAccountDetailsModel accountId) {
+		pagerAdapter = new CopytradingDetailsPagerAdapter(getSupportFragmentManager(), tabLayout, model);
 		viewPager.setAdapter(pagerAdapter);
 		viewPager.setOffscreenPageLimit(5);
 

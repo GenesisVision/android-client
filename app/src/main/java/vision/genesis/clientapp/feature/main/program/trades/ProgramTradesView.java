@@ -6,7 +6,7 @@ import com.arellomobile.mvp.viewstate.strategy.StateStrategyType;
 
 import java.util.List;
 
-import io.swagger.client.model.OrderModel;
+import io.swagger.client.model.OrderSignalModel;
 import vision.genesis.clientapp.model.DateRange;
 import vision.genesis.clientapp.ui.common.SimpleSectionedRecyclerViewAdapter;
 
@@ -22,11 +22,11 @@ interface ProgramTradesView extends MvpView
 
 	void setDateRange(DateRange dateRange);
 
-	void setTrades(List<OrderModel> trades, List<SimpleSectionedRecyclerViewAdapter.Section> sections);
+	void setTrades(List<OrderSignalModel> trades, List<SimpleSectionedRecyclerViewAdapter.Section> sections);
 
-	void addTrades(List<OrderModel> trades, List<SimpleSectionedRecyclerViewAdapter.Section> sections);
+	void addTrades(List<OrderSignalModel> trades, List<SimpleSectionedRecyclerViewAdapter.Section> sections);
 
 	void showSnackbarMessage(String message);
 
-	void showTradeDetails(OrderModel trade, Boolean showSwaps, Boolean showTickets);
+	void showTradeDetails(OrderSignalModel trade, Boolean showSwaps, Boolean showTickets);
 }

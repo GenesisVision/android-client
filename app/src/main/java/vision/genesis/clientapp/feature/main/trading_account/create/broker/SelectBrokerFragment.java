@@ -53,11 +53,14 @@ public class SelectBrokerFragment extends BaseFragment implements SelectBrokerVi
 
 	private static String EXTRA_BROKER_NAME = "extra_broker_name";
 
-	public static SelectBrokerFragment with(UUID assetId, String brokerName) {
+	private static String EXTRA_IS_EXTERNAL = "extra_is_external";
+
+	public static SelectBrokerFragment with(UUID assetId, String brokerName, Boolean isExternal) {
 		SelectBrokerFragment fragment = new SelectBrokerFragment();
 		Bundle arguments = new Bundle(1);
 		arguments.putSerializable(EXTRA_ASSET_ID, assetId);
-		arguments.putSerializable(EXTRA_BROKER_NAME, brokerName);
+		arguments.putString(EXTRA_BROKER_NAME, brokerName);
+		arguments.putBoolean(EXTRA_IS_EXTERNAL, isExternal);
 		fragment.setArguments(arguments);
 		return fragment;
 	}
@@ -159,8 +162,11 @@ public class SelectBrokerFragment extends BaseFragment implements SelectBrokerVi
 		if (getArguments() != null) {
 			UUID assetId = (UUID) getArguments().getSerializable(EXTRA_ASSET_ID);
 			currentBrokerName = getArguments().getString(EXTRA_BROKER_NAME, null);
-			presenter.setAssetId(assetId);
-			nextButton.setText(String.format(Locale.getDefault(), "%s (1/%d)", getString(R.string.next), assetId != null ? 2 : 3));
+			boolean isExternal = getArguments().getBoolean(EXTRA_IS_EXTERNAL, false);
+
+			presenter.setData(assetId, isExternal);
+
+			nextButton.setText(String.format(Locale.getDefault(), "%s (1/%d)", getString(R.string.next), assetId != null || isExternal ? 2 : 3));
 			brokerChangeInfo.setVisibility(assetId != null ? View.VISIBLE : View.GONE);
 			return;
 		}

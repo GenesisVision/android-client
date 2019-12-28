@@ -14,7 +14,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.arellomobile.mvp.presenter.InjectPresenter;
 
 import java.util.List;
-import java.util.UUID;
 
 import butterknife.BindDimen;
 import butterknife.BindView;
@@ -28,6 +27,7 @@ import vision.genesis.clientapp.feature.common.date_range.DateRangeBottomSheetFr
 import vision.genesis.clientapp.feature.main.copytrading.commissions.CommissionsBottomSheetFragment;
 import vision.genesis.clientapp.feature.main.dashboard.old.investor.DashboardPagerAdapter;
 import vision.genesis.clientapp.model.DateRange;
+import vision.genesis.clientapp.model.TradingAccountDetailsModel;
 import vision.genesis.clientapp.ui.DateRangeView;
 
 /**
@@ -37,12 +37,12 @@ import vision.genesis.clientapp.ui.DateRangeView;
 
 public class CopytradingTradesHistoryFragment extends BaseFragment implements CopytradingTradesHistoryView, DashboardPagerAdapter.OnPageVisibilityChanged
 {
-	private static final String EXTRA_ACCOUNT_ID = "extra_account_id";
+	private static final String EXTRA_MODEL = "extra_model";
 
-	public static CopytradingTradesHistoryFragment with(UUID accountId) {
+	public static CopytradingTradesHistoryFragment with(TradingAccountDetailsModel model) {
 		CopytradingTradesHistoryFragment copytradingTradesHistoryFragment = new CopytradingTradesHistoryFragment();
 		Bundle arguments = new Bundle(1);
-		arguments.putSerializable(EXTRA_ACCOUNT_ID, accountId);
+		arguments.putParcelable(EXTRA_MODEL, model);
 		copytradingTradesHistoryFragment.setArguments(arguments);
 		return copytradingTradesHistoryFragment;
 	}
@@ -78,6 +78,8 @@ public class CopytradingTradesHistoryFragment extends BaseFragment implements Co
 
 	private CopytradingTradesHistoryAdapter copytradingTradesHistoryAdapter;
 
+	private TradingAccountDetailsModel model;
+
 	@OnClick(R.id.date_range)
 	public void onDateRangeClicked() {
 		if (getActivity() != null) {
@@ -105,8 +107,8 @@ public class CopytradingTradesHistoryFragment extends BaseFragment implements Co
 		}
 
 		if (getArguments() != null) {
-			UUID accountId = (UUID) getArguments().getSerializable(EXTRA_ACCOUNT_ID);
-			presenter.setData(accountId);
+			model = getArguments().getParcelable(EXTRA_MODEL);
+			presenter.setData(model);
 
 			initRecyclerView();
 		}

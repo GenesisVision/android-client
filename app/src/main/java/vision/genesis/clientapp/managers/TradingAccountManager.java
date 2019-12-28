@@ -50,10 +50,10 @@ public class TradingAccountManager
 				dateRange.getFrom(), dateRange.getTo(), maxPointCount, currency);
 	}
 
-	public Observable<TradesSignalViewModel> getProgramTrades(UUID accountId, DateRange dateRange, Integer skip, Integer take) {
+	public Observable<TradesSignalViewModel> getTrades(UUID accountId, DateRange dateRange, Boolean isFollow, Integer skip, Integer take) {
 		return tradingAccountApi.getTrades(accountId, AuthManager.token.getValue(),
 				dateRange.getFrom(), dateRange.getTo(),
-				null, null, null, null,
+				null, null, null, null, isFollow,
 				skip, take);
 	}
 

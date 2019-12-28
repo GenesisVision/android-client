@@ -256,10 +256,10 @@ public class AttachToExternalSignalProviderExt implements Parcelable
 	@JsonAdapter(FixedCurrencyEnum.Adapter.class)
 	public enum FixedCurrencyEnum
 	{
-		USD("USD"),
 		BTC("BTC"),
 		ETH("ETH"),
 		USDT("USDT"),
+		USD("USD"),
 		GVT("GVT"),
 		UNDEFINED("Undefined"),
 		ADA("ADA"),

@@ -4,6 +4,7 @@ import io.swagger.client.model.AssetInfo;
 import io.swagger.client.model.CaptchaDetails;
 import io.swagger.client.model.LevelsParamsInfo;
 import io.swagger.client.model.PlatformAssets;
+import io.swagger.client.model.PlatformEvents;
 import io.swagger.client.model.PlatformInfo;
 import io.swagger.client.model.ProgramsLevelsInfo;
 import retrofit2.http.GET;
@@ -40,6 +41,17 @@ public interface PlatformApi
 	@POST("v2.0/platform/date")
 	Observable<String> getPlatformDate();
 
+
+	/**
+	 * Get platform events
+	 *
+	 * @param take (optional)
+	 * @return Call&lt;PlatformEvents&gt;
+	 */
+	@GET("v2.0/platform/events")
+	Observable<PlatformEvents> getPlatformEvents(
+			@retrofit2.http.Query("take") Integer take
+	);
 
 	/**
 	 * Platform info

@@ -34,7 +34,8 @@ public enum SocialLinkType
 	WECHAT("WeChat"),
 	EMAIL("Email"),
 	WEBSITE("Website"),
-	REDDIT("Reddit");
+	REDDIT("Reddit"),
+	GITHUB("GitHub");
 
 	public static SocialLinkType fromValue(String text) {
 		for (SocialLinkType b : SocialLinkType.values()) {

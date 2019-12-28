@@ -119,7 +119,7 @@ public class TradingAccountTradesPresenter extends MvpPresenter<TradingAccountTr
 			if (tradesSubscription != null) {
 				tradesSubscription.unsubscribe();
 			}
-			tradesSubscription = tradingAccountManager.getProgramTrades(accountId, dateRange, skip, TAKE)
+			tradesSubscription = tradingAccountManager.getTrades(accountId, dateRange, false, skip, TAKE)
 					.observeOn(AndroidSchedulers.mainThread())
 					.subscribeOn(Schedulers.io())
 					.subscribe(this::handleGetTradesResponse,

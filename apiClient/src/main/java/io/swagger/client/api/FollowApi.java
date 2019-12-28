@@ -11,6 +11,7 @@ import io.swagger.client.model.ItemsViewModelFollowDetailsListItem;
 import io.swagger.client.model.ItemsViewModelSignalSubscription;
 import io.swagger.client.model.ProgramFollowDetailsFull;
 import io.swagger.client.model.ProgramProfitPercentCharts;
+import io.swagger.client.model.TradesSignalViewModel;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import rx.Observable;
@@ -42,6 +43,26 @@ public interface FollowApi
 	@GET("v2.0/follow/{id}/charts/profit/absolute")
 	Observable<AbsoluteProfitChart> getAbsoluteProfitChart(
 			@retrofit2.http.Path("id") UUID id, @retrofit2.http.Query("DateFrom") DateTime dateFrom, @retrofit2.http.Query("DateTo") DateTime dateTo, @retrofit2.http.Query("MaxPointCount") Integer maxPointCount, @retrofit2.http.Query("Currency") String currency
+	);
+
+	/**
+	 * Trade history
+	 *
+	 * @param id              (required)
+	 * @param dateFrom        (optional)
+	 * @param dateTo          (optional)
+	 * @param symbol          (optional)
+	 * @param sorting         (optional)
+	 * @param accountId       (optional)
+	 * @param accountCurrency (optional)
+	 * @param isFollow        (optional)
+	 * @param skip            (optional)
+	 * @param take            (optional)
+	 * @return Call&lt;TradesSignalViewModel&gt;
+	 */
+	@GET("v2.0/follow/{id}/trades")
+	Observable<TradesSignalViewModel> getAssetTrades(
+			@retrofit2.http.Path("id") UUID id, @retrofit2.http.Query("DateFrom") DateTime dateFrom, @retrofit2.http.Query("DateTo") DateTime dateTo, @retrofit2.http.Query("Symbol") String symbol, @retrofit2.http.Query("Sorting") String sorting, @retrofit2.http.Query("AccountId") UUID accountId, @retrofit2.http.Query("AccountCurrency") String accountCurrency, @retrofit2.http.Query("IsFollow") Boolean isFollow, @retrofit2.http.Query("Skip") Integer skip, @retrofit2.http.Query("Take") Integer take
 	);
 
 	/**

@@ -37,6 +37,7 @@ import vision.genesis.clientapp.feature.BaseSwipeBackActivity;
 import vision.genesis.clientapp.feature.common.option.SelectOptionBottomSheetFragment;
 import vision.genesis.clientapp.feature.common.timeframe_profit.TimeframeProfitView;
 import vision.genesis.clientapp.feature.main.events.EventsActivity;
+import vision.genesis.clientapp.feature.main.external.attach.AttachExternalAccountActivity;
 import vision.genesis.clientapp.feature.main.fund.create.CreateFundActivity;
 import vision.genesis.clientapp.feature.main.settings.public_info.ProfilePublicInfoActivity;
 import vision.genesis.clientapp.feature.main.trading_account.create.CreateAccountActivity;
@@ -518,7 +519,7 @@ public class TradingDetailsActivity extends BaseSwipeBackActivity implements Tra
 
 	@Override
 	public void showAttachAccountActivity() {
-
+		AttachExternalAccountActivity.startFrom(this);
 	}
 
 	@Override

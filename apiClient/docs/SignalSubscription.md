@@ -32,10 +32,10 @@ CLOSEALLIMMEDIATELY | &quot;CloseAllImmediately&quot;
 ## Enum: FixedCurrencyEnum
 Name | Value
 ---- | -----
-USD | &quot;USD&quot;
 BTC | &quot;BTC&quot;
 ETH | &quot;ETH&quot;
 USDT | &quot;USDT&quot;
+USD | &quot;USD&quot;
 GVT | &quot;GVT&quot;
 UNDEFINED | &quot;Undefined&quot;
 ADA | &quot;ADA&quot;

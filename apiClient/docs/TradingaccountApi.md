@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 <a name="exportTrades"></a>
 # **exportTrades**
-> String exportTrades(id, authorization, dateFrom, dateTo, symbol, sorting, accountId, accountCurrency, skip, take)
+> String exportTrades(id, authorization, dateFrom, dateTo, symbol, sorting, accountId, accountCurrency, isFollow, skip, take)
 
 Export trade history
 
@@ -34,10 +34,11 @@ String symbol = "symbol_example"; // String |
 String sorting = "sorting_example"; // String | 
 UUID accountId = new UUID(); // UUID | 
 String accountCurrency = "accountCurrency_example"; // String | 
+Boolean isFollow = true; // Boolean | 
 Integer skip = 56; // Integer | 
 Integer take = 56; // Integer | 
 try {
-    String result = apiInstance.exportTrades(id, authorization, dateFrom, dateTo, symbol, sorting, accountId, accountCurrency, skip, take);
+    String result = apiInstance.exportTrades(id, authorization, dateFrom, dateTo, symbol, sorting, accountId, accountCurrency, isFollow, skip, take);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling TradingaccountApi#exportTrades");
@@ -56,7 +57,8 @@ Name | Type | Description  | Notes
  **symbol** | **String**|  | [optional]
  **sorting** | **String**|  | [optional] [enum: ByDateAsc, ByDateDesc, ByTicketAsc, ByTicketDesc, BySymbolAsc, BySymbolDesc, ByDirectionAsc, ByDirectionDesc, ByVolumeAsc, ByVolumeDesc, ByPriceAsc, ByPriceDesc, ByPriceCurrentAsc, ByPriceCurrentDesc, ByProfitAsc, ByProfitDesc, ByCommissionAsc, ByCommissionDesc, BySwapAsc, BySwapDesc]
  **accountId** | [**UUID**](.md)|  | [optional]
- **accountCurrency** | **String**|  | [optional] [enum: USD, BTC, ETH, USDT, GVT, Undefined, ADA, XRP, BCH, LTC, DOGE, BNB, EUR]
+ **accountCurrency** | **String**|  | [optional] [enum: BTC, ETH, USDT, USD, GVT, Undefined, ADA, XRP, BCH, LTC, DOGE, BNB, EUR]
+ **isFollow** | **Boolean**|  | [optional]
  **skip** | **Integer**|  | [optional]
  **take** | **Integer**|  | [optional]
 
@@ -111,7 +113,7 @@ Name | Type | Description  | Notes
  **dateFrom** | **DateTime**|  | [optional]
  **dateTo** | **DateTime**|  | [optional]
  **maxPointCount** | **Integer**|  | [optional]
- **currency** | **String**|  | [optional] [enum: USD, BTC, ETH, USDT, GVT, Undefined, ADA, XRP, BCH, LTC, DOGE, BNB, EUR]
+ **currency** | **String**|  | [optional] [enum: BTC, ETH, USDT, USD, GVT, Undefined, ADA, XRP, BCH, LTC, DOGE, BNB, EUR]
 
 ### Return type
 
@@ -164,7 +166,7 @@ Name | Type | Description  | Notes
  **dateFrom** | **DateTime**|  | [optional]
  **dateTo** | **DateTime**|  | [optional]
  **maxPointCount** | **Integer**|  | [optional]
- **currency** | **String**|  | [optional] [enum: USD, BTC, ETH, USDT, GVT, Undefined, ADA, XRP, BCH, LTC, DOGE, BNB, EUR]
+ **currency** | **String**|  | [optional] [enum: BTC, ETH, USDT, USD, GVT, Undefined, ADA, XRP, BCH, LTC, DOGE, BNB, EUR]
 
 ### Return type
 
@@ -219,7 +221,7 @@ Name | Type | Description  | Notes
  **sorting** | **String**|  | [optional] [enum: ByDateAsc, ByDateDesc, ByTicketAsc, ByTicketDesc, BySymbolAsc, BySymbolDesc, ByDirectionAsc, ByDirectionDesc, ByVolumeAsc, ByVolumeDesc, ByPriceAsc, ByPriceDesc, ByPriceCurrentAsc, ByPriceCurrentDesc, ByProfitAsc, ByProfitDesc, ByCommissionAsc, ByCommissionDesc, BySwapAsc, BySwapDesc]
  **symbol** | **String**|  | [optional]
  **accountId** | [**UUID**](.md)|  | [optional]
- **accountCurrency** | **String**|  | [optional] [enum: USD, BTC, ETH, USDT, GVT, Undefined, ADA, XRP, BCH, LTC, DOGE, BNB, EUR]
+ **accountCurrency** | **String**|  | [optional] [enum: BTC, ETH, USDT, USD, GVT, Undefined, ADA, XRP, BCH, LTC, DOGE, BNB, EUR]
  **skip** | **Integer**|  | [optional]
  **take** | **Integer**|  | [optional]
 
@@ -275,7 +277,7 @@ Name | Type | Description  | Notes
  **dateFrom** | **DateTime**|  | [optional]
  **dateTo** | **DateTime**|  | [optional]
  **maxPointCount** | **Integer**|  | [optional]
- **currency** | **String**|  | [optional] [enum: USD, BTC, ETH, USDT, GVT, Undefined, ADA, XRP, BCH, LTC, DOGE, BNB, EUR]
+ **currency** | **String**|  | [optional] [enum: BTC, ETH, USDT, USD, GVT, Undefined, ADA, XRP, BCH, LTC, DOGE, BNB, EUR]
  **currencies** | [**List&lt;Object&gt;**](Object.md)|  | [optional]
 
 ### Return type
@@ -293,7 +295,7 @@ No authorization required
 
 <a name="getTrades"></a>
 # **getTrades**
-> TradesSignalViewModel getTrades(id, authorization, dateFrom, dateTo, symbol, sorting, accountId, accountCurrency, skip, take)
+> TradesSignalViewModel getTrades(id, authorization, dateFrom, dateTo, symbol, sorting, accountId, accountCurrency, isFollow, skip, take)
 
 Trading account trades
 
@@ -313,10 +315,11 @@ String symbol = "symbol_example"; // String |
 String sorting = "sorting_example"; // String | 
 UUID accountId = new UUID(); // UUID | 
 String accountCurrency = "accountCurrency_example"; // String | 
+Boolean isFollow = true; // Boolean | 
 Integer skip = 56; // Integer | 
 Integer take = 56; // Integer | 
 try {
-    TradesSignalViewModel result = apiInstance.getTrades(id, authorization, dateFrom, dateTo, symbol, sorting, accountId, accountCurrency, skip, take);
+    TradesSignalViewModel result = apiInstance.getTrades(id, authorization, dateFrom, dateTo, symbol, sorting, accountId, accountCurrency, isFollow, skip, take);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling TradingaccountApi#getTrades");
@@ -335,7 +338,8 @@ Name | Type | Description  | Notes
  **symbol** | **String**|  | [optional]
  **sorting** | **String**|  | [optional] [enum: ByDateAsc, ByDateDesc, ByTicketAsc, ByTicketDesc, BySymbolAsc, BySymbolDesc, ByDirectionAsc, ByDirectionDesc, ByVolumeAsc, ByVolumeDesc, ByPriceAsc, ByPriceDesc, ByPriceCurrentAsc, ByPriceCurrentDesc, ByProfitAsc, ByProfitDesc, ByCommissionAsc, ByCommissionDesc, BySwapAsc, BySwapDesc]
  **accountId** | [**UUID**](.md)|  | [optional]
- **accountCurrency** | **String**|  | [optional] [enum: USD, BTC, ETH, USDT, GVT, Undefined, ADA, XRP, BCH, LTC, DOGE, BNB, EUR]
+ **accountCurrency** | **String**|  | [optional] [enum: BTC, ETH, USDT, USD, GVT, Undefined, ADA, XRP, BCH, LTC, DOGE, BNB, EUR]
+ **isFollow** | **Boolean**|  | [optional]
  **skip** | **Integer**|  | [optional]
  **take** | **Integer**|  | [optional]
 

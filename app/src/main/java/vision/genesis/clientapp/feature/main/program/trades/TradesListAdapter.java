@@ -17,7 +17,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import io.swagger.client.model.OrderModel;
+import io.swagger.client.model.OrderSignalModel;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.model.events.OnTradeClickedEvent;
@@ -32,7 +32,7 @@ import vision.genesis.clientapp.utils.TypefaceUtil;
 
 public class TradesListAdapter extends RecyclerView.Adapter<TradesListAdapter.TradeViewHolder>
 {
-	public List<OrderModel> trades = new ArrayList<>();
+	public List<OrderSignalModel> trades = new ArrayList<>();
 
 	@NonNull
 	@Override
@@ -51,13 +51,13 @@ public class TradesListAdapter extends RecyclerView.Adapter<TradesListAdapter.Tr
 		return trades.size();
 	}
 
-	public void setTrades(List<OrderModel> trades) {
+	public void setTrades(List<OrderSignalModel> trades) {
 		this.trades.clear();
 		this.trades.addAll(trades);
 		notifyDataSetChanged();
 	}
 
-	public void addTrades(List<OrderModel> trades) {
+	public void addTrades(List<OrderSignalModel> trades) {
 		this.trades.addAll(trades);
 		notifyDataSetChanged();
 	}
@@ -85,7 +85,7 @@ public class TradesListAdapter extends RecyclerView.Adapter<TradesListAdapter.Tr
 		@BindView(R.id.date)
 		public TextView date;
 
-		private OrderModel trade;
+		private OrderSignalModel trade;
 
 		TradeViewHolder(View itemView) {
 			super(itemView);
@@ -107,7 +107,7 @@ public class TradesListAdapter extends RecyclerView.Adapter<TradesListAdapter.Tr
 			profit.setTypeface(TypefaceUtil.semibold());
 		}
 
-		void setTrade(OrderModel trade) {
+		void setTrade(OrderSignalModel trade) {
 			this.trade = trade;
 
 			int entryResId = R.drawable.icon_red_arrow_up;
@@ -132,7 +132,7 @@ public class TradesListAdapter extends RecyclerView.Adapter<TradesListAdapter.Tr
 			setProfit(trade);
 		}
 
-		private void setProfit(OrderModel trade) {
+		private void setProfit(OrderSignalModel trade) {
 			double profit = trade.getProfit();
 			this.profit.setText(StringFormatUtil.formatAmountWithoutGrouping(profit));
 			this.profit.setTextColor(ThemeUtil.getColorByAttrId(itemView.getContext(),

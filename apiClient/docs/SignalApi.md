@@ -11,7 +11,6 @@ Method | HTTP request | Description
 [**detachSlaveFromMasterExternal**](SignalApi.md#detachSlaveFromMasterExternal) | **POST** v2.0/signal/external/detach/{id} | 
 [**detachSlaveFromMasterInternal**](SignalApi.md#detachSlaveFromMasterInternal) | **POST** v2.0/signal/detach/{id} | Unsubscribe from signal provider
 [**getOpenSignalTrades**](SignalApi.md#getOpenSignalTrades) | **GET** v2.0/signal/trades/open | Get investors signals open trades
-[**getSignalTrades**](SignalApi.md#getSignalTrades) | **GET** v2.0/signal/trades | Get investors signals trades history
 [**getSignalTradingLog**](SignalApi.md#getSignalTradingLog) | **GET** v2.0/signal/trades/log | Get investors signals trading log
 [**getSubscriberAccountsForAsset**](SignalApi.md#getSubscriberAccountsForAsset) | **GET** v2.0/signal/attach/{id}/accounts | Get subscriber accounts for subscribe to signal provider (common method for all signals)
 [**updateExternalSubscriptionSettings**](SignalApi.md#updateExternalSubscriptionSettings) | **POST** v2.0/signal/external/{id}/update | Update signal subscription settings
@@ -337,66 +336,7 @@ Name | Type | Description  | Notes
  **sorting** | **String**|  | [optional] [enum: ByDateAsc, ByDateDesc, ByTicketAsc, ByTicketDesc, BySymbolAsc, BySymbolDesc, ByDirectionAsc, ByDirectionDesc, ByVolumeAsc, ByVolumeDesc, ByPriceAsc, ByPriceDesc, ByPriceCurrentAsc, ByPriceCurrentDesc, ByProfitAsc, ByProfitDesc, ByCommissionAsc, ByCommissionDesc, BySwapAsc, BySwapDesc]
  **symbol** | **String**|  | [optional]
  **accountId** | [**UUID**](.md)|  | [optional]
- **accountCurrency** | **String**|  | [optional] [enum: USD, BTC, ETH, USDT, GVT, Undefined, ADA, XRP, BCH, LTC, DOGE, BNB, EUR]
- **skip** | **Integer**|  | [optional]
- **take** | **Integer**|  | [optional]
-
-### Return type
-
-[**TradesSignalViewModel**](TradesSignalViewModel.md)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: text/plain, application/json, text/json
-
-<a name="getSignalTrades"></a>
-# **getSignalTrades**
-> TradesSignalViewModel getSignalTrades(authorization, dateFrom, dateTo, symbol, sorting, accountId, accountCurrency, skip, take)
-
-Get investors signals trades history
-
-### Example
-```java
-// Import classes:
-//import io.swagger.client.ApiException;
-//import io.swagger.client.api.SignalApi;
-
-
-SignalApi apiInstance = new SignalApi();
-String authorization = "authorization_example"; // String | JWT access token
-DateTime dateFrom = new DateTime(); // DateTime | 
-DateTime dateTo = new DateTime(); // DateTime | 
-String symbol = "symbol_example"; // String | 
-String sorting = "sorting_example"; // String | 
-UUID accountId = new UUID(); // UUID | 
-String accountCurrency = "accountCurrency_example"; // String | 
-Integer skip = 56; // Integer | 
-Integer take = 56; // Integer | 
-try {
-    TradesSignalViewModel result = apiInstance.getSignalTrades(authorization, dateFrom, dateTo, symbol, sorting, accountId, accountCurrency, skip, take);
-    System.out.println(result);
-} catch (ApiException e) {
-    System.err.println("Exception when calling SignalApi#getSignalTrades");
-    e.printStackTrace();
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **authorization** | **String**| JWT access token |
- **dateFrom** | **DateTime**|  | [optional]
- **dateTo** | **DateTime**|  | [optional]
- **symbol** | **String**|  | [optional]
- **sorting** | **String**|  | [optional] [enum: ByDateAsc, ByDateDesc, ByTicketAsc, ByTicketDesc, BySymbolAsc, BySymbolDesc, ByDirectionAsc, ByDirectionDesc, ByVolumeAsc, ByVolumeDesc, ByPriceAsc, ByPriceDesc, ByPriceCurrentAsc, ByPriceCurrentDesc, ByProfitAsc, ByProfitDesc, ByCommissionAsc, ByCommissionDesc, BySwapAsc, BySwapDesc]
- **accountId** | [**UUID**](.md)|  | [optional]
- **accountCurrency** | **String**|  | [optional] [enum: USD, BTC, ETH, USDT, GVT, Undefined, ADA, XRP, BCH, LTC, DOGE, BNB, EUR]
+ **accountCurrency** | **String**|  | [optional] [enum: BTC, ETH, USDT, USD, GVT, Undefined, ADA, XRP, BCH, LTC, DOGE, BNB, EUR]
  **skip** | **Integer**|  | [optional]
  **take** | **Integer**|  | [optional]
 
@@ -447,7 +387,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **authorization** | **String**| JWT access token |
  **accountId** | [**UUID**](.md)|  | [optional]
- **accountCurrency** | **String**|  | [optional] [enum: USD, BTC, ETH, USDT, GVT, Undefined, ADA, XRP, BCH, LTC, DOGE, BNB, EUR]
+ **accountCurrency** | **String**|  | [optional] [enum: BTC, ETH, USDT, USD, GVT, Undefined, ADA, XRP, BCH, LTC, DOGE, BNB, EUR]
  **skip** | **Integer**|  | [optional]
  **take** | **Integer**|  | [optional]
 

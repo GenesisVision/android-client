@@ -6,12 +6,11 @@ import androidx.fragment.app.FragmentStatePagerAdapter;
 
 import com.google.android.material.tabs.TabLayout;
 
-import java.util.UUID;
-
 import vision.genesis.clientapp.feature.main.copytrading.open_trades.CopytradingOpenTradesFragment;
 import vision.genesis.clientapp.feature.main.copytrading.subscriptions.CopytradingSubscriptionsFragment;
 import vision.genesis.clientapp.feature.main.copytrading.trades_history.CopytradingTradesHistoryFragment;
 import vision.genesis.clientapp.feature.main.copytrading.trading_log.TradingLogFragment;
+import vision.genesis.clientapp.model.TradingAccountDetailsModel;
 
 /**
  * GenesisVisionAndroid
@@ -38,14 +37,14 @@ public class CopytradingDetailsPagerAdapter extends FragmentStatePagerAdapter
 
 	private TabLayout tabLayout;
 
-	CopytradingDetailsPagerAdapter(FragmentManager fm, TabLayout tabLayout, UUID accountId) {
+	CopytradingDetailsPagerAdapter(FragmentManager fm, TabLayout tabLayout, TradingAccountDetailsModel model) {
 		super(fm);
 		this.tabLayout = tabLayout;
 
-		subscriptionsFragment = CopytradingSubscriptionsFragment.with(accountId);
-		openTradesFragment = CopytradingOpenTradesFragment.with(accountId);
-		tradesHistoryFragment = CopytradingTradesHistoryFragment.with(accountId);
-		tradingLogFragment = TradingLogFragment.with(accountId);
+		subscriptionsFragment = CopytradingSubscriptionsFragment.with(model.getAccountId());
+		openTradesFragment = CopytradingOpenTradesFragment.with(model.getAccountId());
+		tradesHistoryFragment = CopytradingTradesHistoryFragment.with(model);
+		tradingLogFragment = TradingLogFragment.with(model.getAccountId());
 	}
 
 	@Override

@@ -1,6 +1,6 @@
 package vision.genesis.clientapp.model.events;
 
-import io.swagger.client.model.OrderModel;
+import io.swagger.client.model.OrderSignalModel;
 
 /**
  * GenesisVisionAndroid
@@ -9,13 +9,13 @@ import io.swagger.client.model.OrderModel;
 
 public class OnTradeClickedEvent
 {
-	private OrderModel trade;
+	private OrderSignalModel trade;
 
-	public OnTradeClickedEvent(OrderModel trade) {
+	public OnTradeClickedEvent(OrderSignalModel trade) {
 		this.trade = trade;
 	}
 
-	public OrderModel getTrade() {
+	public OrderSignalModel getTrade() {
 		return trade;
 	}
 }

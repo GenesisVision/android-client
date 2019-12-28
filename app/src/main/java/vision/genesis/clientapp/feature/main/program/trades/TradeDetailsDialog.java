@@ -18,7 +18,7 @@ import java.util.Locale;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import io.swagger.client.model.OrderModel;
+import io.swagger.client.model.OrderSignalModel;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.utils.DateTimeUtil;
@@ -72,7 +72,7 @@ public class TradeDetailsDialog extends BottomSheetDialogFragment
 	@BindView(R.id.group_ticket)
 	public ViewGroup ticketGroup;
 
-	private OrderModel trade;
+	private OrderSignalModel trade;
 
 	private Boolean showSwaps = false;
 
@@ -112,7 +112,7 @@ public class TradeDetailsDialog extends BottomSheetDialogFragment
 		}
 	}
 
-	public void setData(OrderModel trade, Boolean showSwaps, Boolean showTickets) {
+	public void setData(OrderSignalModel trade, Boolean showSwaps, Boolean showTickets) {
 		this.trade = trade;
 		this.showSwaps = showSwaps;
 		this.showTickets = showTickets;
@@ -172,7 +172,7 @@ public class TradeDetailsDialog extends BottomSheetDialogFragment
 		}
 	}
 
-	private void setProfit(OrderModel trade) {
+	private void setProfit(OrderSignalModel trade) {
 		double profit = trade.getProfit();
 		this.profit.setText(StringFormatUtil.formatAmountWithoutGrouping(profit));
 		this.profit.setTextColor(ThemeUtil.getColorByAttrId(getDialog().getContext(),

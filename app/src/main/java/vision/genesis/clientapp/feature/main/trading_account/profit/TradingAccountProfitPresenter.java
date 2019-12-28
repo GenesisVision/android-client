@@ -20,6 +20,7 @@ import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.feature.common.date_range.DateRangeBottomSheetFragment;
 import vision.genesis.clientapp.managers.SettingsManager;
 import vision.genesis.clientapp.managers.TradingAccountManager;
+import vision.genesis.clientapp.model.CurrencyEnum;
 import vision.genesis.clientapp.model.DateRange;
 import vision.genesis.clientapp.ui.chart.ProfitChartView;
 import vision.genesis.clientapp.utils.StringFormatUtil;
@@ -37,6 +38,8 @@ public class TradingAccountProfitPresenter extends MvpPresenter<TradingAccountPr
 
 	@Inject
 	public SettingsManager settingsManager;
+
+	private Subscription baseCurrencySubscription;
 
 	private Subscription absSubscription;
 
@@ -56,6 +59,8 @@ public class TradingAccountProfitPresenter extends MvpPresenter<TradingAccountPr
 
 	private List<Object> currencies = new ArrayList<>();
 
+	private CurrencyEnum baseCurrency;
+
 	@Override
 	protected void onFirstViewAttach() {
 		super.onFirstViewAttach();
@@ -64,11 +69,14 @@ public class TradingAccountProfitPresenter extends MvpPresenter<TradingAccountPr
 
 		getViewState().setDateRange(chartDateRange);
 		getViewState().showProgress(true);
-		updateAll();
+		subscribeToBaseCurrency();
 	}
 
 	@Override
 	public void onDestroy() {
+		if (baseCurrencySubscription != null) {
+			baseCurrencySubscription.unsubscribe();
+		}
 		if (absSubscription != null) {
 			absSubscription.unsubscribe();
 		}
@@ -93,14 +101,28 @@ public class TradingAccountProfitPresenter extends MvpPresenter<TradingAccountPr
 		getProfitPercent();
 	}
 
+	private void subscribeToBaseCurrency() {
+		if (settingsManager != null) {
+			baseCurrencySubscription = settingsManager.getBaseCurrency()
+					.subscribeOn(Schedulers.newThread())
+					.observeOn(AndroidSchedulers.mainThread())
+					.subscribe(this::baseCurrencyChangedHandler);
+		}
+	}
+
+	private void baseCurrencyChangedHandler(CurrencyEnum baseCurrency) {
+		this.baseCurrency = baseCurrency;
+		updateAll();
+	}
+
 	private void getProfitAbsolute() {
-		if (details != null && tradingAccountManager != null) {
+		if (baseCurrency != null && details != null && tradingAccountManager != null) {
 			if (absSubscription != null) {
 				absSubscription.unsubscribe();
 			}
 
 			absSubscription = tradingAccountManager.getProfitAbsoluteChart(details.getId(), chartDateRange,
-					100, details.getTradingAccountInfo().getCurrency().getValue())
+					100, baseCurrency.getValue())
 					.observeOn(AndroidSchedulers.mainThread())
 					.subscribeOn(Schedulers.io())
 					.subscribe(this::handleGetAbsSuccess,
@@ -124,16 +146,16 @@ public class TradingAccountProfitPresenter extends MvpPresenter<TradingAccountPr
 	}
 
 	private void getProfitPercent() {
-		if (details != null && tradingAccountManager != null) {
+		if (baseCurrency != null && details != null && tradingAccountManager != null) {
 			if (percentSubscription != null) {
 				percentSubscription.unsubscribe();
 			}
 
 			currencies = new ArrayList<>();
-			currencies.add(details.getTradingAccountInfo().getCurrency().getValue());
+			currencies.add(baseCurrency.getValue());
 
 			percentSubscription = tradingAccountManager.getProfitPercentChart(details.getId(), chartDateRange,
-					100, details.getTradingAccountInfo().getCurrency().getValue(), currencies)
+					100, baseCurrency.getValue(), currencies)
 					.observeOn(AndroidSchedulers.mainThread())
 					.subscribeOn(Schedulers.io())
 					.subscribe(this::handleGetPercentSuccess,
@@ -177,7 +199,7 @@ public class TradingAccountProfitPresenter extends MvpPresenter<TradingAccountPr
 		if (first == null || selected == null) {
 			getViewState().setChangeVisibility(false);
 			getViewState().setValue(absChart.getProfit() < 0, String.format(Locale.getDefault(), "%s",
-					StringFormatUtil.getValueString(absChart.getProfit(), details.getTradingAccountInfo().getCurrency().getValue())));
+					StringFormatUtil.getValueString(absChart.getProfit(), baseCurrency.getValue())));
 			return;
 		}
 
@@ -195,7 +217,7 @@ public class TradingAccountProfitPresenter extends MvpPresenter<TradingAccountPr
 //				StringFormatUtil.getValueString(chartData.getTimeframeProgramCurrencyProfit(), chartData.getProgramCurrency().getValue()));
 
 		getViewState().setValue(changeValue < 0, String.format(Locale.getDefault(), "%s",
-				StringFormatUtil.getValueString(changeValue, details.getTradingAccountInfo().getCurrency().getValue())));
+				StringFormatUtil.getValueString(changeValue, baseCurrency.getValue())));
 
 //		if (absChart != null & absChart.getStatistic() != null) {
 //			getViewState().setStatisticsData(absChart.getStatistic().getTrades(), absChart.getStatistic().getSuccessTradesPercent(),

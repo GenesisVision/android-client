@@ -20,7 +20,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
-import io.swagger.client.model.OrderModel;
+import io.swagger.client.model.OrderSignalModel;
 import timber.log.Timber;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
@@ -169,7 +169,7 @@ public class ProgramTradesFragment extends BaseFragment implements ProgramTrades
 	}
 
 	@Override
-	public void setTrades(List<OrderModel> trades, List<SimpleSectionedRecyclerViewAdapter.Section> sections) {
+	public void setTrades(List<OrderSignalModel> trades, List<SimpleSectionedRecyclerViewAdapter.Section> sections) {
 		if (trades.isEmpty()) {
 			groupNoTransactions.setVisibility(View.VISIBLE);
 			recyclerView.setVisibility(View.GONE);
@@ -183,7 +183,7 @@ public class ProgramTradesFragment extends BaseFragment implements ProgramTrades
 	}
 
 	@Override
-	public void addTrades(List<OrderModel> trades, List<SimpleSectionedRecyclerViewAdapter.Section> sections) {
+	public void addTrades(List<OrderSignalModel> trades, List<SimpleSectionedRecyclerViewAdapter.Section> sections) {
 		sectionedAdapter.setSections(sections);
 		tradesListAdapter.addTrades(trades);
 	}
@@ -194,7 +194,7 @@ public class ProgramTradesFragment extends BaseFragment implements ProgramTrades
 	}
 
 	@Override
-	public void showTradeDetails(OrderModel trade, Boolean showSwaps, Boolean showTickets) {
+	public void showTradeDetails(OrderSignalModel trade, Boolean showSwaps, Boolean showTickets) {
 		if (getActivity() != null) {
 			TradeDetailsDialog dialog = new TradeDetailsDialog();
 			dialog.show(getActivity().getSupportFragmentManager(), dialog.getTag());

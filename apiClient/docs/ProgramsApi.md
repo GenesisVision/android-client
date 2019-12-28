@@ -8,6 +8,7 @@ Method | HTTP request | Description
 [**exportProgramPeriods**](ProgramsApi.md#exportProgramPeriods) | **GET** v2.0/programs/{id}/periods/export | Export periods
 [**exportProgramPeriodsFinStatistic**](ProgramsApi.md#exportProgramPeriodsFinStatistic) | **GET** v2.0/programs/{id}/periods/export/statistic | Export period financial statistic
 [**exportProgramTrades**](ProgramsApi.md#exportProgramTrades) | **GET** v2.0/programs/{id}/trades/export | Export trade history
+[**getAssetTrades**](ProgramsApi.md#getAssetTrades) | **GET** v2.0/programs/{id}/trades | Trade history
 [**getProgramAbsoluteProfitChart**](ProgramsApi.md#getProgramAbsoluteProfitChart) | **GET** v2.0/programs/{id}/charts/profit/absolute | Program absolute profit chart
 [**getProgramBalanceChart**](ProgramsApi.md#getProgramBalanceChart) | **GET** v2.0/programs/{id}/charts/balance | Program balance chart
 [**getProgramDetails**](ProgramsApi.md#getProgramDetails) | **GET** v2.0/programs/{id} | Program details
@@ -15,7 +16,6 @@ Method | HTTP request | Description
 [**getProgramPeriods**](ProgramsApi.md#getProgramPeriods) | **GET** v2.0/programs/{id}/periods | Program periods
 [**getProgramProfitPercentCharts**](ProgramsApi.md#getProgramProfitPercentCharts) | **GET** v2.0/programs/{id}/charts/profit/percent | Program profit percent charts
 [**getProgramSubscribers**](ProgramsApi.md#getProgramSubscribers) | **GET** v2.0/programs/{id}/subscribers | Signal subscribers
-[**getProgramTrades**](ProgramsApi.md#getProgramTrades) | **GET** v2.0/programs/{id}/trades | Trade history
 [**getPrograms**](ProgramsApi.md#getPrograms) | **GET** v2.0/programs | Programs list
 [**removeFromFavorites**](ProgramsApi.md#removeFromFavorites) | **POST** v2.0/programs/{id}/favorite/remove | Remove from favorites
 
@@ -182,7 +182,7 @@ No authorization required
 
 <a name="exportProgramTrades"></a>
 # **exportProgramTrades**
-> String exportProgramTrades(id, dateFrom, dateTo, symbol, sorting, accountId, accountCurrency, skip, take)
+> String exportProgramTrades(id, dateFrom, dateTo, symbol, sorting, accountId, accountCurrency, isFollow, skip, take)
 
 Export trade history
 
@@ -201,10 +201,11 @@ String symbol = "symbol_example"; // String |
 String sorting = "sorting_example"; // String | 
 UUID accountId = new UUID(); // UUID | 
 String accountCurrency = "accountCurrency_example"; // String | 
+Boolean isFollow = true; // Boolean | 
 Integer skip = 56; // Integer | 
 Integer take = 56; // Integer | 
 try {
-    String result = apiInstance.exportProgramTrades(id, dateFrom, dateTo, symbol, sorting, accountId, accountCurrency, skip, take);
+    String result = apiInstance.exportProgramTrades(id, dateFrom, dateTo, symbol, sorting, accountId, accountCurrency, isFollow, skip, take);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling ProgramsApi#exportProgramTrades");
@@ -222,13 +223,75 @@ Name | Type | Description  | Notes
  **symbol** | **String**|  | [optional]
  **sorting** | **String**|  | [optional] [enum: ByDateAsc, ByDateDesc, ByTicketAsc, ByTicketDesc, BySymbolAsc, BySymbolDesc, ByDirectionAsc, ByDirectionDesc, ByVolumeAsc, ByVolumeDesc, ByPriceAsc, ByPriceDesc, ByPriceCurrentAsc, ByPriceCurrentDesc, ByProfitAsc, ByProfitDesc, ByCommissionAsc, ByCommissionDesc, BySwapAsc, BySwapDesc]
  **accountId** | [**UUID**](.md)|  | [optional]
- **accountCurrency** | **String**|  | [optional] [enum: USD, BTC, ETH, USDT, GVT, Undefined, ADA, XRP, BCH, LTC, DOGE, BNB, EUR]
+ **accountCurrency** | **String**|  | [optional] [enum: BTC, ETH, USDT, USD, GVT, Undefined, ADA, XRP, BCH, LTC, DOGE, BNB, EUR]
+ **isFollow** | **Boolean**|  | [optional]
  **skip** | **Integer**|  | [optional]
  **take** | **Integer**|  | [optional]
 
 ### Return type
 
 **String**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
+
+<a name="getAssetTrades"></a>
+# **getAssetTrades**
+> TradesSignalViewModel getAssetTrades(id, dateFrom, dateTo, symbol, sorting, accountId, accountCurrency, isFollow, skip, take)
+
+Trade history
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiException;
+//import io.swagger.client.api.ProgramsApi;
+
+
+ProgramsApi apiInstance = new ProgramsApi();
+UUID id = new UUID(); // UUID | 
+DateTime dateFrom = new DateTime(); // DateTime | 
+DateTime dateTo = new DateTime(); // DateTime | 
+String symbol = "symbol_example"; // String | 
+String sorting = "sorting_example"; // String | 
+UUID accountId = new UUID(); // UUID | 
+String accountCurrency = "accountCurrency_example"; // String | 
+Boolean isFollow = true; // Boolean | 
+Integer skip = 56; // Integer | 
+Integer take = 56; // Integer | 
+try {
+    TradesSignalViewModel result = apiInstance.getAssetTrades(id, dateFrom, dateTo, symbol, sorting, accountId, accountCurrency, isFollow, skip, take);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling ProgramsApi#getAssetTrades");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | [**UUID**](.md)|  |
+ **dateFrom** | **DateTime**|  | [optional]
+ **dateTo** | **DateTime**|  | [optional]
+ **symbol** | **String**|  | [optional]
+ **sorting** | **String**|  | [optional] [enum: ByDateAsc, ByDateDesc, ByTicketAsc, ByTicketDesc, BySymbolAsc, BySymbolDesc, ByDirectionAsc, ByDirectionDesc, ByVolumeAsc, ByVolumeDesc, ByPriceAsc, ByPriceDesc, ByPriceCurrentAsc, ByPriceCurrentDesc, ByProfitAsc, ByProfitDesc, ByCommissionAsc, ByCommissionDesc, BySwapAsc, BySwapDesc]
+ **accountId** | [**UUID**](.md)|  | [optional]
+ **accountCurrency** | **String**|  | [optional] [enum: BTC, ETH, USDT, USD, GVT, Undefined, ADA, XRP, BCH, LTC, DOGE, BNB, EUR]
+ **isFollow** | **Boolean**|  | [optional]
+ **skip** | **Integer**|  | [optional]
+ **take** | **Integer**|  | [optional]
+
+### Return type
+
+[**TradesSignalViewModel**](TradesSignalViewModel.md)
 
 ### Authorization
 
@@ -275,7 +338,7 @@ Name | Type | Description  | Notes
  **dateFrom** | **DateTime**|  | [optional]
  **dateTo** | **DateTime**|  | [optional]
  **maxPointCount** | **Integer**|  | [optional]
- **currency** | **String**|  | [optional] [enum: USD, BTC, ETH, USDT, GVT, Undefined, ADA, XRP, BCH, LTC, DOGE, BNB, EUR]
+ **currency** | **String**|  | [optional] [enum: BTC, ETH, USDT, USD, GVT, Undefined, ADA, XRP, BCH, LTC, DOGE, BNB, EUR]
 
 ### Return type
 
@@ -326,7 +389,7 @@ Name | Type | Description  | Notes
  **dateFrom** | **DateTime**|  | [optional]
  **dateTo** | **DateTime**|  | [optional]
  **maxPointCount** | **Integer**|  | [optional]
- **currency** | **String**|  | [optional] [enum: USD, BTC, ETH, USDT, GVT, Undefined, ADA, XRP, BCH, LTC, DOGE, BNB, EUR]
+ **currency** | **String**|  | [optional] [enum: BTC, ETH, USDT, USD, GVT, Undefined, ADA, XRP, BCH, LTC, DOGE, BNB, EUR]
 
 ### Return type
 
@@ -424,7 +487,7 @@ Name | Type | Description  | Notes
  **sorting** | **String**|  | [optional] [enum: ByDateAsc, ByDateDesc, ByTicketAsc, ByTicketDesc, BySymbolAsc, BySymbolDesc, ByDirectionAsc, ByDirectionDesc, ByVolumeAsc, ByVolumeDesc, ByPriceAsc, ByPriceDesc, ByPriceCurrentAsc, ByPriceCurrentDesc, ByProfitAsc, ByProfitDesc, ByCommissionAsc, ByCommissionDesc, BySwapAsc, BySwapDesc]
  **symbol** | **String**|  | [optional]
  **accountId** | [**UUID**](.md)|  | [optional]
- **accountCurrency** | **String**|  | [optional] [enum: USD, BTC, ETH, USDT, GVT, Undefined, ADA, XRP, BCH, LTC, DOGE, BNB, EUR]
+ **accountCurrency** | **String**|  | [optional] [enum: BTC, ETH, USDT, USD, GVT, Undefined, ADA, XRP, BCH, LTC, DOGE, BNB, EUR]
  **skip** | **Integer**|  | [optional]
  **take** | **Integer**|  | [optional]
 
@@ -539,7 +602,7 @@ Name | Type | Description  | Notes
  **dateFrom** | **DateTime**|  | [optional]
  **dateTo** | **DateTime**|  | [optional]
  **maxPointCount** | **Integer**|  | [optional]
- **currency** | **String**|  | [optional] [enum: USD, BTC, ETH, USDT, GVT, Undefined, ADA, XRP, BCH, LTC, DOGE, BNB, EUR]
+ **currency** | **String**|  | [optional] [enum: BTC, ETH, USDT, USD, GVT, Undefined, ADA, XRP, BCH, LTC, DOGE, BNB, EUR]
  **currencies** | [**List&lt;Object&gt;**](Object.md)|  | [optional]
 
 ### Return type
@@ -606,65 +669,6 @@ No authorization required
  - **Content-Type**: Not defined
  - **Accept**: text/plain, application/json, text/json
 
-<a name="getProgramTrades"></a>
-# **getProgramTrades**
-> TradesViewModel getProgramTrades(id, dateFrom, dateTo, symbol, sorting, accountId, accountCurrency, skip, take)
-
-Trade history
-
-### Example
-```java
-// Import classes:
-//import io.swagger.client.ApiException;
-//import io.swagger.client.api.ProgramsApi;
-
-
-ProgramsApi apiInstance = new ProgramsApi();
-UUID id = new UUID(); // UUID | 
-DateTime dateFrom = new DateTime(); // DateTime | 
-DateTime dateTo = new DateTime(); // DateTime | 
-String symbol = "symbol_example"; // String | 
-String sorting = "sorting_example"; // String | 
-UUID accountId = new UUID(); // UUID | 
-String accountCurrency = "accountCurrency_example"; // String | 
-Integer skip = 56; // Integer | 
-Integer take = 56; // Integer | 
-try {
-    TradesViewModel result = apiInstance.getProgramTrades(id, dateFrom, dateTo, symbol, sorting, accountId, accountCurrency, skip, take);
-    System.out.println(result);
-} catch (ApiException e) {
-    System.err.println("Exception when calling ProgramsApi#getProgramTrades");
-    e.printStackTrace();
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **id** | [**UUID**](.md)|  |
- **dateFrom** | **DateTime**|  | [optional]
- **dateTo** | **DateTime**|  | [optional]
- **symbol** | **String**|  | [optional]
- **sorting** | **String**|  | [optional] [enum: ByDateAsc, ByDateDesc, ByTicketAsc, ByTicketDesc, BySymbolAsc, BySymbolDesc, ByDirectionAsc, ByDirectionDesc, ByVolumeAsc, ByVolumeDesc, ByPriceAsc, ByPriceDesc, ByPriceCurrentAsc, ByPriceCurrentDesc, ByProfitAsc, ByProfitDesc, ByCommissionAsc, ByCommissionDesc, BySwapAsc, BySwapDesc]
- **accountId** | [**UUID**](.md)|  | [optional]
- **accountCurrency** | **String**|  | [optional] [enum: USD, BTC, ETH, USDT, GVT, Undefined, ADA, XRP, BCH, LTC, DOGE, BNB, EUR]
- **skip** | **Integer**|  | [optional]
- **take** | **Integer**|  | [optional]
-
-### Return type
-
-[**TradesViewModel**](TradesViewModel.md)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: text/plain, application/json, text/json
-
 <a name="getPrograms"></a>
 # **getPrograms**
 > ItemsViewModelProgramDetailsListItem getPrograms(authorization, sorting, showIn, tags, programCurrency, levelMin, levelMax, levelsSet, dateFrom, dateTo, chartPointsCount, facetId, mask, ownerId, showFavorites, skip, take)
@@ -711,9 +715,9 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **authorization** | **String**|  | [optional]
  **sorting** | **String**|  | [optional] [enum: ByTitleAsc, ByTitleDesc, ByEquityAsc, ByEquityDesc, ByInvestorsAsc, ByInvestorsDesc, ByPeriodAsc, ByPeriodDesc, ByDrawdownAsc, ByDrawdownDesc, ByProfitAsc, ByProfitDesc, ByNewAsc, ByNewDesc, ByLevelProgressAsc, ByLevelProgressDesc, ByLevelAsc, ByLevelDesc, ByValueAsc, ByValueDesc]
- **showIn** | **String**|  | [optional] [enum: USD, BTC, ETH, USDT, GVT, Undefined, ADA, XRP, BCH, LTC, DOGE, BNB, EUR]
+ **showIn** | **String**|  | [optional] [enum: BTC, ETH, USDT, USD, GVT, Undefined, ADA, XRP, BCH, LTC, DOGE, BNB, EUR]
  **tags** | [**List&lt;String&gt;**](String.md)|  | [optional]
- **programCurrency** | **String**|  | [optional] [enum: USD, BTC, ETH, USDT, GVT, Undefined, ADA, XRP, BCH, LTC, DOGE, BNB, EUR]
+ **programCurrency** | **String**|  | [optional] [enum: BTC, ETH, USDT, USD, GVT, Undefined, ADA, XRP, BCH, LTC, DOGE, BNB, EUR]
  **levelMin** | **Integer**|  | [optional]
  **levelMax** | **Integer**|  | [optional]
  **levelsSet** | [**List&lt;Integer&gt;**](Integer.md)|  | [optional]

@@ -3,12 +3,11 @@ package vision.genesis.clientapp.feature.main.program.balance;
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 
-import java.util.UUID;
-
 import javax.inject.Inject;
 
 import io.swagger.client.model.BalanceChartPoint;
 import io.swagger.client.model.ProgramBalanceChart;
+import io.swagger.client.model.ProgramFollowDetailsFull;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -16,6 +15,7 @@ import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.feature.common.date_range.DateRangeBottomSheetFragment;
 import vision.genesis.clientapp.managers.ProgramsManager;
 import vision.genesis.clientapp.managers.SettingsManager;
+import vision.genesis.clientapp.model.CurrencyEnum;
 import vision.genesis.clientapp.model.DateRange;
 import vision.genesis.clientapp.ui.chart.BalanceChartView;
 import vision.genesis.clientapp.utils.StringFormatUtil;
@@ -34,9 +34,9 @@ public class ProgramBalancePresenter extends MvpPresenter<ProgramBalanceView> im
 	@Inject
 	public SettingsManager settingsManager;
 
-	private Subscription chartDataSubscription;
+	private Subscription baseCurrencySubscription;
 
-	private UUID programId;
+	private Subscription chartDataSubscription;
 
 	private Double first;
 
@@ -46,6 +46,10 @@ public class ProgramBalancePresenter extends MvpPresenter<ProgramBalanceView> im
 
 	private DateRange chartDateRange = DateRange.createFromEnum(DateRange.DateRangeEnum.MONTH);
 
+	private CurrencyEnum baseCurrency;
+
+	private ProgramFollowDetailsFull details;
+
 	@Override
 	protected void onFirstViewAttach() {
 		super.onFirstViewAttach();
@@ -54,11 +58,14 @@ public class ProgramBalancePresenter extends MvpPresenter<ProgramBalanceView> im
 
 		getViewState().setDateRange(chartDateRange);
 		getViewState().showProgress(true);
-		getChartData();
+		subscribeToBaseCurrency();
 	}
 
 	@Override
 	public void onDestroy() {
+		if (baseCurrencySubscription != null) {
+			baseCurrencySubscription.unsubscribe();
+		}
 		if (chartDataSubscription != null) {
 			chartDataSubscription.unsubscribe();
 		}
@@ -66,8 +73,8 @@ public class ProgramBalancePresenter extends MvpPresenter<ProgramBalanceView> im
 		super.onDestroy();
 	}
 
-	void setProgramId(UUID programId) {
-		this.programId = programId;
+	void setData(ProgramFollowDetailsFull details) {
+		this.details = details;
 		getChartData();
 	}
 
@@ -75,13 +82,27 @@ public class ProgramBalancePresenter extends MvpPresenter<ProgramBalanceView> im
 		getChartData();
 	}
 
+	private void subscribeToBaseCurrency() {
+		if (settingsManager != null) {
+			baseCurrencySubscription = settingsManager.getBaseCurrency()
+					.subscribeOn(Schedulers.newThread())
+					.observeOn(AndroidSchedulers.mainThread())
+					.subscribe(this::baseCurrencyChangedHandler);
+		}
+	}
+
+	private void baseCurrencyChangedHandler(CurrencyEnum baseCurrency) {
+		this.baseCurrency = baseCurrency;
+		getChartData();
+	}
+
 	private void getChartData() {
-		if (programId != null && programsManager != null) {
+		if (baseCurrency != null && details != null && programsManager != null) {
 			if (chartDataSubscription != null) {
 				chartDataSubscription.unsubscribe();
 			}
 			//TODO: calculate maxPointCount
-			chartDataSubscription = programsManager.getBalanceChart(programId, chartDateRange, 30)
+			chartDataSubscription = programsManager.getBalanceChart(details.getId(), chartDateRange, 30, baseCurrency.getValue())
 					.observeOn(AndroidSchedulers.mainThread())
 					.subscribeOn(Schedulers.io())
 					.subscribe(this::handleGetChartDataSuccess,

@@ -46,7 +46,9 @@ import vision.genesis.clientapp.feature.main.dashboard.trading.DashboardTradingV
 import vision.genesis.clientapp.feature.main.dashboard.trading.details.TradingDetailsPresenter;
 import vision.genesis.clientapp.feature.main.dashboard.wallet.DashboardWalletView;
 import vision.genesis.clientapp.feature.main.events.EventsPresenter;
+import vision.genesis.clientapp.feature.main.external.attach.AttachExternalAccountPresenter;
 import vision.genesis.clientapp.feature.main.favorites.FavoritesPresenter;
+import vision.genesis.clientapp.feature.main.follow.balance.FollowBalancePresenter;
 import vision.genesis.clientapp.feature.main.follow.create.CreateFollowPresenter;
 import vision.genesis.clientapp.feature.main.follow.create.settings.FollowSettingsPresenter;
 import vision.genesis.clientapp.feature.main.follow.edit.EditFollowSettingsPresenter;
@@ -419,4 +421,8 @@ public interface AppComponent
 	void inject(ReferralFriendsPresenter referralFriendsPresenter);
 
 	void inject(ReferralHistoryPresenter referralHistoryPresenter);
+
+	void inject(AttachExternalAccountPresenter attachExternalAccountPresenter);
+
+	void inject(FollowBalancePresenter followBalancePresenter);
 }

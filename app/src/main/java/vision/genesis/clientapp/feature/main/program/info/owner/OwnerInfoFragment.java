@@ -17,8 +17,6 @@ import androidx.core.widget.NestedScrollView;
 import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.facebook.drawee.view.SimpleDraweeView;
 
-import org.joda.time.DateTime;
-
 import java.util.List;
 import java.util.Locale;
 import java.util.UUID;
@@ -29,6 +27,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 import io.swagger.client.model.AssetInvestmentStatus;
+import io.swagger.client.model.AssetTypeExt;
 import io.swagger.client.model.CreateSignalProvider;
 import io.swagger.client.model.FollowDetailsFull;
 import io.swagger.client.model.PersonalProgramDetails;
@@ -114,11 +113,18 @@ public class OwnerInfoFragment extends BaseFragment implements OwnerInfoView, Pr
 	@BindView(R.id.broker_logo)
 	public SimpleDraweeView brokerLogo;
 
+	@BindView(R.id.group_currency)
+	public ViewGroup groupCurrency;
+
 	@BindView(R.id.currency)
 	public TextView currency;
 
 	@BindView(R.id.label_currency)
 	public TextView labelCurrency;
+
+	@BindView(R.id.group_leverage)
+	public ViewGroup groupLeverage;
+
 
 	@BindView(R.id.leverage)
 	public TextView leverage;
@@ -172,6 +178,9 @@ public class OwnerInfoFragment extends BaseFragment implements OwnerInfoView, Pr
 	@BindView(R.id.group_deposit_program_buttons)
 	public ViewGroup depositProgramButtonsGroup;
 
+
+	@BindView(R.id.group_program)
+	public ViewGroup programGroup;
 
 	@BindView(R.id.group_program_info)
 	public ViewGroup programInfoGroup;
@@ -459,9 +468,7 @@ public class OwnerInfoFragment extends BaseFragment implements OwnerInfoView, Pr
 			scrollView.setVisibility(View.VISIBLE);
 
 			updatePublicInfo(details.getPublicInfo().getDescription());
-			updateAccountInfo(details.getBrokerDetails().getLogo(),
-					details.getTradingAccountInfo().getCurrency().getValue(), details.getTradingAccountInfo().getLeverageMax(),
-					details.getPublicInfo().getCreationDate());
+			updateAccountInfo(details);
 
 			updateYourDeposit();
 
@@ -479,14 +486,28 @@ public class OwnerInfoFragment extends BaseFragment implements OwnerInfoView, Pr
 		}, 300);
 	}
 
-	private void updateAccountInfo(String brokerLogo, String currency, Integer leverage, DateTime creationDate) {
-		this.brokerLogo.setImageURI(ImageUtils.getImageUri(brokerLogo));
-		this.currency.setText(currency);
-		this.leverage.setText(String.format(Locale.getDefault(), "1:%d", leverage));
-		this.age.setCreationDate(creationDate);
+	private void updateAccountInfo(ProgramFollowDetailsFull details) {
+		this.brokerLogo.setImageURI(ImageUtils.getImageUri(details.getBrokerDetails().getLogo()));
+		this.age.setCreationDate(details.getPublicInfo().getCreationDate());
+		if (details.getPublicInfo().getTypeExt().equals(AssetTypeExt.EXTERNALSIGNALTRADINGACCOUNT)) {
+			groupCurrency.setVisibility(View.GONE);
+			groupLeverage.setVisibility(View.GONE);
+		}
+		else {
+			groupCurrency.setVisibility(View.VISIBLE);
+			groupLeverage.setVisibility(View.VISIBLE);
+
+			this.currency.setText(details.getTradingAccountInfo().getCurrency().getValue());
+			this.leverage.setText(String.format(Locale.getDefault(), "1:%d", details.getTradingAccountInfo().getLeverageMax()));
+		}
 	}
 
 	private void updateProgramDetails(ProgramDetailsFull programDetails) {
+		if (details.getPublicInfo().getTypeExt().equals(AssetTypeExt.EXTERNALSIGNALTRADINGACCOUNT)) {
+			programGroup.setVisibility(View.GONE);
+			return;
+		}
+
 		if (programDetails != null) {
 			programInfoGroup.setVisibility(View.VISIBLE);
 			manageProgramButton.setVisibility(View.VISIBLE);
@@ -571,10 +592,16 @@ public class OwnerInfoFragment extends BaseFragment implements OwnerInfoView, Pr
 			status.setVisibility(View.GONE);
 			profitGroup.setVisibility(View.GONE);
 			depositProgramButtonsGroup.setVisibility(View.GONE);
-			depositFollowButtonsGroup.setVisibility(View.VISIBLE);
 
-			value.setText(StringFormatUtil.getValueString(details.getTradingAccountInfo().getBalance(),
-					details.getTradingAccountInfo().getCurrency().getValue()));
+			if (details.getPublicInfo().getTypeExt().equals(AssetTypeExt.EXTERNALSIGNALTRADINGACCOUNT)) {
+				value.setText(StringFormatUtil.formatAmount(details.getTradingAccountInfo().getBalance()));
+				depositFollowButtonsGroup.setVisibility(View.GONE);
+			}
+			else {
+				value.setText(StringFormatUtil.getValueString(details.getTradingAccountInfo().getBalance(),
+						details.getTradingAccountInfo().getCurrency().getValue()));
+				depositFollowButtonsGroup.setVisibility(View.VISIBLE);
+			}
 		}
 	}
 
