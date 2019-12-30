@@ -107,6 +107,9 @@ public class SelectBrokerFragment extends BaseFragment implements SelectBrokerVi
 	@BindView(R.id.leverage)
 	public TextView leverage;
 
+	@BindView(R.id.read_terms)
+	public TextView readTerms;
+
 	@BindView(R.id.button_next)
 	public PrimaryButton nextButton;
 
@@ -268,6 +271,8 @@ public class SelectBrokerFragment extends BaseFragment implements SelectBrokerVi
 			this.leverage.setText(String.format(Locale.getDefault(), "1:%d - 1:%d",
 					broker.getLeverageMin(), broker.getLeverageMax()));
 		}
+
+		readTerms.setVisibility(selectedBroker.getTerms() == null ? View.GONE : View.VISIBLE);
 	}
 
 	private void setTags(List<Tag> tags) {
