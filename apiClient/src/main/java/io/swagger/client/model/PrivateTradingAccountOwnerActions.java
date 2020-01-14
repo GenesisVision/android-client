@@ -69,6 +69,9 @@ public class PrivateTradingAccountOwnerActions implements Parcelable
 	@SerializedName("isEnoughMoneyToCreateProgram")
 	private Boolean isEnoughMoneyToCreateProgram = null;
 
+	@SerializedName("canConfirm2FA")
+	private Boolean canConfirm2FA = null;
+
 	public PrivateTradingAccountOwnerActions() {
 	}
 
@@ -83,6 +86,7 @@ public class PrivateTradingAccountOwnerActions implements Parcelable
 		canMakeSignalProviderFromProgram = (Boolean) in.readValue(null);
 		canEditSignalProviderSettings = (Boolean) in.readValue(null);
 		isEnoughMoneyToCreateProgram = (Boolean) in.readValue(null);
+		canConfirm2FA = (Boolean) in.readValue(null);
 	}
 
 	public PrivateTradingAccountOwnerActions canClose(Boolean canClose) {
@@ -275,6 +279,25 @@ public class PrivateTradingAccountOwnerActions implements Parcelable
 		this.isEnoughMoneyToCreateProgram = isEnoughMoneyToCreateProgram;
 	}
 
+	public PrivateTradingAccountOwnerActions canConfirm2FA(Boolean canConfirm2FA) {
+		this.canConfirm2FA = canConfirm2FA;
+		return this;
+	}
+
+	/**
+	 * Get canConfirm2FA
+	 *
+	 * @return canConfirm2FA
+	 **/
+	@Schema(description = "")
+	public Boolean isCanConfirm2FA() {
+		return canConfirm2FA;
+	}
+
+	public void setCanConfirm2FA(Boolean canConfirm2FA) {
+		this.canConfirm2FA = canConfirm2FA;
+	}
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -293,12 +316,13 @@ public class PrivateTradingAccountOwnerActions implements Parcelable
 				Objects.equals(this.canMakeProgramFromSignalProvider, privateTradingAccountOwnerActions.canMakeProgramFromSignalProvider) &&
 				Objects.equals(this.canMakeSignalProviderFromProgram, privateTradingAccountOwnerActions.canMakeSignalProviderFromProgram) &&
 				Objects.equals(this.canEditSignalProviderSettings, privateTradingAccountOwnerActions.canEditSignalProviderSettings) &&
-				Objects.equals(this.isEnoughMoneyToCreateProgram, privateTradingAccountOwnerActions.isEnoughMoneyToCreateProgram);
+				Objects.equals(this.isEnoughMoneyToCreateProgram, privateTradingAccountOwnerActions.isEnoughMoneyToCreateProgram) &&
+				Objects.equals(this.canConfirm2FA, privateTradingAccountOwnerActions.canConfirm2FA);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(canClose, canChangePassword, canTransferMoney, canMakeProgramFromPrivateTradingAccount, canMakeSignalProviderFromPrivateTradingAccount, canMakeSignalProviderFromPrivateExternalTradingAccount, canMakeProgramFromSignalProvider, canMakeSignalProviderFromProgram, canEditSignalProviderSettings, isEnoughMoneyToCreateProgram);
+		return Objects.hash(canClose, canChangePassword, canTransferMoney, canMakeProgramFromPrivateTradingAccount, canMakeSignalProviderFromPrivateTradingAccount, canMakeSignalProviderFromPrivateExternalTradingAccount, canMakeProgramFromSignalProvider, canMakeSignalProviderFromProgram, canEditSignalProviderSettings, isEnoughMoneyToCreateProgram, canConfirm2FA);
 	}
 
 	@Override
@@ -316,6 +340,7 @@ public class PrivateTradingAccountOwnerActions implements Parcelable
 		sb.append("    canMakeSignalProviderFromProgram: ").append(toIndentedString(canMakeSignalProviderFromProgram)).append("\n");
 		sb.append("    canEditSignalProviderSettings: ").append(toIndentedString(canEditSignalProviderSettings)).append("\n");
 		sb.append("    isEnoughMoneyToCreateProgram: ").append(toIndentedString(isEnoughMoneyToCreateProgram)).append("\n");
+		sb.append("    canConfirm2FA: ").append(toIndentedString(canConfirm2FA)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}
@@ -342,6 +367,7 @@ public class PrivateTradingAccountOwnerActions implements Parcelable
 		out.writeValue(canMakeSignalProviderFromProgram);
 		out.writeValue(canEditSignalProviderSettings);
 		out.writeValue(isEnoughMoneyToCreateProgram);
+		out.writeValue(canConfirm2FA);
 	}
 
 	public int describeContents() {

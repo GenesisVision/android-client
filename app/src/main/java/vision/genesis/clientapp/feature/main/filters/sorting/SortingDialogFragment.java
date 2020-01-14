@@ -11,6 +11,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatDialogFragment;
 import androidx.appcompat.content.res.AppCompatResources;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -55,6 +56,15 @@ public class SortingDialogFragment extends AppCompatDialogFragment
 	@BindView(R.id.title)
 	public SortingOptionView title;
 
+	@BindView(R.id.subscribers)
+	public SortingOptionView subscribers;
+
+	@BindView(R.id.investors)
+	public SortingOptionView investors;
+
+	@BindView(R.id.drawdown)
+	public SortingOptionView drawdown;
+
 	@BindView(R.id.profit_delimiter)
 	public View profitDelimiter;
 
@@ -69,6 +79,15 @@ public class SortingDialogFragment extends AppCompatDialogFragment
 
 	@BindView(R.id.title_delimiter)
 	public View titleDelimiter;
+
+	@BindView(R.id.subscribers_delimiter)
+	public View subscribersDelimiter;
+
+	@BindView(R.id.investors_delimiter)
+	public View investorsDelimiter;
+
+	@BindView(R.id.drawdown_delimiter)
+	public View drawdownDelimiter;
 
 	@BindView(R.id.button_apply)
 	public TextView applyButton;
@@ -118,6 +137,21 @@ public class SortingDialogFragment extends AppCompatDialogFragment
 		selectOption(title);
 	}
 
+	@OnClick(R.id.subscribers)
+	public void onSubscribersClicked() {
+		selectOption(subscribers);
+	}
+
+	@OnClick(R.id.investors)
+	public void onInvestorsClicked() {
+		selectOption(investors);
+	}
+
+	@OnClick(R.id.drawdown)
+	public void onDrawdownClicked() {
+		selectOption(drawdown);
+	}
+
 	@OnClick(R.id.button_apply)
 	public void onApplyClicked() {
 		if (listener != null && selectedOption != null) {
@@ -159,8 +193,9 @@ public class SortingDialogFragment extends AppCompatDialogFragment
 		this.oldOption = oldOption.toLowerCase();
 		this.oldDirection = oldDirection.toLowerCase();
 
-		if (profit != null)
+		if (profit != null) {
 			updateSelections();
+		}
 	}
 
 	public void setAssetType(int type) {
@@ -181,6 +216,12 @@ public class SortingDialogFragment extends AppCompatDialogFragment
 				balanceDelimiter.setVisibility(View.VISIBLE);
 				title.setVisibility(View.VISIBLE);
 				titleDelimiter.setVisibility(View.VISIBLE);
+				subscribers.setVisibility(View.GONE);
+				subscribersDelimiter.setVisibility(View.GONE);
+				investors.setVisibility(View.GONE);
+				investorsDelimiter.setVisibility(View.GONE);
+				drawdown.setVisibility(View.GONE);
+				drawdownDelimiter.setVisibility(View.GONE);
 			}
 			else if (assetType == UserFilter.TYPE_FUNDS_LIST_FILTER) {
 				profit.setVisibility(View.VISIBLE);
@@ -191,8 +232,32 @@ public class SortingDialogFragment extends AppCompatDialogFragment
 				endOfPeriodDelimiter.setVisibility(View.GONE);
 				balance.setVisibility(View.VISIBLE);
 				balanceDelimiter.setVisibility(View.VISIBLE);
-				title.setVisibility(View.GONE);
-				titleDelimiter.setVisibility(View.GONE);
+				title.setVisibility(View.VISIBLE);
+				titleDelimiter.setVisibility(View.VISIBLE);
+				subscribers.setVisibility(View.GONE);
+				subscribersDelimiter.setVisibility(View.GONE);
+				investors.setVisibility(View.VISIBLE);
+				investorsDelimiter.setVisibility(View.VISIBLE);
+				drawdown.setVisibility(View.VISIBLE);
+				drawdownDelimiter.setVisibility(View.VISIBLE);
+			}
+			else if (assetType == UserFilter.TYPE_FOLLOWS_LIST_FILTER) {
+				profit.setVisibility(View.VISIBLE);
+				profitDelimiter.setVisibility(View.VISIBLE);
+				level.setVisibility(View.GONE);
+				levelDelimiter.setVisibility(View.GONE);
+				endOfPeriod.setVisibility(View.GONE);
+				endOfPeriodDelimiter.setVisibility(View.GONE);
+				balance.setVisibility(View.GONE);
+				balanceDelimiter.setVisibility(View.GONE);
+				title.setVisibility(View.VISIBLE);
+				titleDelimiter.setVisibility(View.VISIBLE);
+				subscribers.setVisibility(View.VISIBLE);
+				subscribersDelimiter.setVisibility(View.VISIBLE);
+				investors.setVisibility(View.GONE);
+				investorsDelimiter.setVisibility(View.GONE);
+				drawdown.setVisibility(View.VISIBLE);
+				drawdownDelimiter.setVisibility(View.VISIBLE);
 			}
 		}
 	}
@@ -214,6 +279,9 @@ public class SortingDialogFragment extends AppCompatDialogFragment
 		endOfPeriod.setText(getString(R.string.end_of_period));
 		balance.setText(getString(R.string.balance));
 		title.setText(getString(R.string.title));
+		subscribers.setText(getString(R.string.subscribers));
+		investors.setText(getString(R.string.investors));
+		drawdown.setText(getString(R.string.drawdown));
 	}
 
 	private void updateSelections() {
@@ -232,6 +300,15 @@ public class SortingDialogFragment extends AppCompatDialogFragment
 				break;
 			case "title":
 				selectOption(title);
+				break;
+			case "subscribers":
+				selectOption(subscribers);
+				break;
+			case "investors":
+				selectOption(investors);
+				break;
+			case "drawdown":
+				selectOption(drawdown);
 				break;
 			default:
 				break;
@@ -256,8 +333,9 @@ public class SortingDialogFragment extends AppCompatDialogFragment
 	}
 
 	private void deselectPreviousOption() {
-		if (selectedOption != null)
+		if (selectedOption != null) {
 			selectedOption.setSelected(false);
+		}
 	}
 
 	private void setDirection(String direction) {
@@ -276,9 +354,11 @@ public class SortingDialogFragment extends AppCompatDialogFragment
 	}
 
 	private void changeDirection() {
-		if (selectedDirection.equals("asc"))
+		if (selectedDirection.equals("asc")) {
 			setDirection("desc");
-		else
+		}
+		else {
 			setDirection("asc");
+		}
 	}
 }

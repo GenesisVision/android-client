@@ -46,8 +46,9 @@ public class FiltersActivity extends BaseSwipeBackActivity implements FiltersVie
 		Intent intent = new Intent(fragment.getContext(), FiltersActivity.class);
 		intent.putExtra(EXTRA_FILTER, filter);
 		fragment.startActivityForResult(intent, filter.getType());
-		if (fragment.getActivity() != null)
+		if (fragment.getActivity() != null) {
 			fragment.getActivity().overridePendingTransition(R.anim.slide_from_bottom, R.anim.hold);
+		}
 	}
 
 	@BindView(R.id.title)
@@ -184,8 +185,9 @@ public class FiltersActivity extends BaseSwipeBackActivity implements FiltersVie
 	}
 
 	private void updateSortingFromFilter() {
-		if (filter == null || filter.getSorting() == null)
+		if (filter == null || filter.getSorting() == null) {
 			return;
+		}
 
 		switch (filter.getSorting()) {
 			case BYPROFITASC:
@@ -228,6 +230,30 @@ public class FiltersActivity extends BaseSwipeBackActivity implements FiltersVie
 				currentSortingName = "title";
 				currentSortingDirection = "desc";
 				break;
+			case BYSUBSCRIBERSASC:
+				currentSortingName = "subscribers";
+				currentSortingDirection = "asc";
+				break;
+			case BYSUBSCRIBERSDESC:
+				currentSortingName = "subscribers";
+				currentSortingDirection = "desc";
+				break;
+			case BYINVESTORSASC:
+				currentSortingName = "investors";
+				currentSortingDirection = "asc";
+				break;
+			case BYINVESTORSDESC:
+				currentSortingName = "investors";
+				currentSortingDirection = "desc";
+				break;
+			case BYDRAWDOWNASC:
+				currentSortingName = "drawdown";
+				currentSortingDirection = "asc";
+				break;
+			case BYDRAWDOWNDESC:
+				currentSortingName = "drawdown";
+				currentSortingDirection = "desc";
+				break;
 			default:
 				currentSortingName = "profit";
 				currentSortingDirection = "desc";
@@ -245,8 +271,9 @@ public class FiltersActivity extends BaseSwipeBackActivity implements FiltersVie
 	@Override
 	public void setApplyButtonEnabled(boolean enabled) {
 		applyButton.setEnabled(enabled);
-		if (enabled)
+		if (enabled) {
 			Timber.d("stop");
+		}
 	}
 
 	@Override

@@ -59,6 +59,12 @@ public class PlatformEvent implements Parcelable
 	@SerializedName("value")
 	private String value = null;
 
+	@SerializedName("color")
+	private String color = null;
+
+	@SerializedName("assetType")
+	private AssetType assetType = null;
+
 	@SerializedName("date")
 	private DateTime date = null;
 
@@ -75,6 +81,8 @@ public class PlatformEvent implements Parcelable
 		assetUrl = (String) in.readValue(null);
 		userUrl = (String) in.readValue(null);
 		value = (String) in.readValue(null);
+		color = (String) in.readValue(null);
+		assetType = (AssetType) in.readValue(AssetType.class.getClassLoader());
 		date = (DateTime) in.readValue(DateTime.class.getClassLoader());
 		type = (PlatformEventType) in.readValue(PlatformEventType.class.getClassLoader());
 	}
@@ -193,6 +201,44 @@ public class PlatformEvent implements Parcelable
 		this.value = value;
 	}
 
+	public PlatformEvent color(String color) {
+		this.color = color;
+		return this;
+	}
+
+	/**
+	 * Get color
+	 *
+	 * @return color
+	 **/
+	@Schema(description = "")
+	public String getColor() {
+		return color;
+	}
+
+	public void setColor(String color) {
+		this.color = color;
+	}
+
+	public PlatformEvent assetType(AssetType assetType) {
+		this.assetType = assetType;
+		return this;
+	}
+
+	/**
+	 * Get assetType
+	 *
+	 * @return assetType
+	 **/
+	@Schema(description = "")
+	public AssetType getAssetType() {
+		return assetType;
+	}
+
+	public void setAssetType(AssetType assetType) {
+		this.assetType = assetType;
+	}
+
 	public PlatformEvent date(DateTime date) {
 		this.date = date;
 		return this;
@@ -246,13 +292,15 @@ public class PlatformEvent implements Parcelable
 				Objects.equals(this.assetUrl, platformEvent.assetUrl) &&
 				Objects.equals(this.userUrl, platformEvent.userUrl) &&
 				Objects.equals(this.value, platformEvent.value) &&
+				Objects.equals(this.color, platformEvent.color) &&
+				Objects.equals(this.assetType, platformEvent.assetType) &&
 				Objects.equals(this.date, platformEvent.date) &&
 				Objects.equals(this.type, platformEvent.type);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(title, text, icon, assetUrl, userUrl, value, date, type);
+		return Objects.hash(title, text, icon, assetUrl, userUrl, value, color, assetType, date, type);
 	}
 
 	@Override
@@ -266,6 +314,8 @@ public class PlatformEvent implements Parcelable
 		sb.append("    assetUrl: ").append(toIndentedString(assetUrl)).append("\n");
 		sb.append("    userUrl: ").append(toIndentedString(userUrl)).append("\n");
 		sb.append("    value: ").append(toIndentedString(value)).append("\n");
+		sb.append("    color: ").append(toIndentedString(color)).append("\n");
+		sb.append("    assetType: ").append(toIndentedString(assetType)).append("\n");
 		sb.append("    date: ").append(toIndentedString(date)).append("\n");
 		sb.append("    type: ").append(toIndentedString(type)).append("\n");
 		sb.append("}");
@@ -290,6 +340,8 @@ public class PlatformEvent implements Parcelable
 		out.writeValue(assetUrl);
 		out.writeValue(userUrl);
 		out.writeValue(value);
+		out.writeValue(color);
+		out.writeValue(assetType);
 		out.writeValue(date);
 		out.writeValue(type);
 	}

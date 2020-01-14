@@ -13,3 +13,4 @@ Name | Type | Description | Notes
 **canMakeSignalProviderFromProgram** | **Boolean** |  |  [optional]
 **canEditSignalProviderSettings** | **Boolean** |  |  [optional]
 **isEnoughMoneyToCreateProgram** | **Boolean** |  |  [optional]
+**canConfirm2FA** | **Boolean** |  |  [optional]

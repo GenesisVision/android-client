@@ -39,7 +39,7 @@ public class ImageUtils
 
 	public static final int CROP_REQUEST_CODE = 128;
 
-	public static final int AVATAR_WIDTH = 500;
+	private static final int AVATAR_WIDTH = 500;
 
 	public static String getImageUri(String imageId) {
 		return (BuildConfig.API_ADDRESS + "/v2.0/file/" + imageId);

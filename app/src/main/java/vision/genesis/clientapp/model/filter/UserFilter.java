@@ -21,11 +21,13 @@ public class UserFilter implements Parcelable
 
 	public static final int TYPE_FUNDS_LIST_FILTER = 101;
 
-	public static final int TYPE_DASHBOARD_PROGRAMS_FILTER = 102;
+	public static final int TYPE_FOLLOWS_LIST_FILTER = 102;
 
-	public static final int TYPE_DASHBOARD_FUNDS_FILTER = 103;
+	public static final int TYPE_DASHBOARD_PROGRAMS_FILTER = 103;
 
-	public static final int TYPE_DASHBOARD_SIGNALS_FILTER = 104;
+	public static final int TYPE_DASHBOARD_FUNDS_FILTER = 104;
+
+	public static final int TYPE_DASHBOARD_SIGNALS_FILTER = 105;
 
 	public static final Creator<UserFilter> CREATOR = new Creator<UserFilter>()
 	{

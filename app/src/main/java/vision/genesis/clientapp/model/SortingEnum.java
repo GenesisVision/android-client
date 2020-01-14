@@ -34,9 +34,9 @@ public enum SortingEnum
 
 	BYTRADESDESC("ByTradesDesc"),
 
-	BYTINVESTORSASC("ByInvestorsAsc"),
+	BYINVESTORSASC("ByInvestorsAsc"),
 
-	BYTINVESTORSDESC("ByInvestorsDesc"),
+	BYINVESTORSDESC("ByInvestorsDesc"),
 
 	BYENDOFPERIODASC("ByEndOfPeriodAsc"),
 
@@ -48,7 +48,11 @@ public enum SortingEnum
 
 	BYBALANCEASC("ByBalanceAsc"),
 
-	BYBALANCEDESC("ByBalanceDesc");
+	BYBALANCEDESC("ByBalanceDesc"),
+
+	BYSUBSCRIBERSASC("BySubscribersAsc"),
+
+	BYSUBSCRIBERSDESC("BySubscribersDesc");
 
 	public static SortingEnum fromValue(String text) {
 		for (SortingEnum b : SortingEnum.values()) {

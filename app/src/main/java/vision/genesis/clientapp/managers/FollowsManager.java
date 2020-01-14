@@ -41,7 +41,7 @@ public class FollowsManager
 
 	public Observable<ItemsViewModelFollowDetailsListItem> getFollows(ProgramsFilter filter) {
 		return followApi.getFollowAssets(AuthManager.token.getValue(),
-				null, filter.getShowIn().getValue(),
+				filter.getSorting().getValue(), filter.getShowIn().getValue(),
 				filter.getTags(),
 				filter.getDateRange().getFrom(), filter.getDateRange().getTo(),
 				filter.getChartPointsCount(), filter.getFacetId() == null ? null : filter.getFacetId().toString(),

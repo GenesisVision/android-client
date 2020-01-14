@@ -66,34 +66,68 @@ public class FiltersPresenter extends MvpPresenter<FiltersView> implements DateR
 		SortingEnum sortingEnum;
 		switch (option) {
 			case "profit":
-				if (direction.equals("asc"))
+				if (direction.equals("asc")) {
 					sortingEnum = SortingEnum.BYPROFITASC;
-				else
+				}
+				else {
 					sortingEnum = SortingEnum.BYPROFITDESC;
+				}
 				break;
 			case "level":
-				if (direction.equals("asc"))
+				if (direction.equals("asc")) {
 					sortingEnum = SortingEnum.BYLEVELASC;
-				else
+				}
+				else {
 					sortingEnum = SortingEnum.BYLEVELDESC;
+				}
 				break;
 			case "end of period":
-				if (direction.equals("asc"))
+				if (direction.equals("asc")) {
 					sortingEnum = SortingEnum.BYENDOFPERIODASC;
-				else
+				}
+				else {
 					sortingEnum = SortingEnum.BYENDOFPERIODDESC;
+				}
 				break;
 			case "balance":
-				if (direction.equals("asc"))
+				if (direction.equals("asc")) {
 					sortingEnum = SortingEnum.BYBALANCEASC;
-				else
+				}
+				else {
 					sortingEnum = SortingEnum.BYBALANCEDESC;
+				}
 				break;
 			case "title":
-				if (direction.equals("asc"))
+				if (direction.equals("asc")) {
 					sortingEnum = SortingEnum.BYTITLEASC;
-				else
+				}
+				else {
 					sortingEnum = SortingEnum.BYTITLEDESC;
+				}
+				break;
+			case "subscribers":
+				if (direction.equals("asc")) {
+					sortingEnum = SortingEnum.BYSUBSCRIBERSASC;
+				}
+				else {
+					sortingEnum = SortingEnum.BYSUBSCRIBERSDESC;
+				}
+				break;
+			case "investors":
+				if (direction.equals("asc")) {
+					sortingEnum = SortingEnum.BYINVESTORSASC;
+				}
+				else {
+					sortingEnum = SortingEnum.BYINVESTORSDESC;
+				}
+				break;
+			case "drawdown":
+				if (direction.equals("asc")) {
+					sortingEnum = SortingEnum.BYDRAWDOWNASC;
+				}
+				else {
+					sortingEnum = SortingEnum.BYDRAWDOWNDESC;
+				}
 				break;
 			default:
 				sortingEnum = SortingEnum.BYPROFITDESC;

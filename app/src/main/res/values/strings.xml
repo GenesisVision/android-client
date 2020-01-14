@@ -823,6 +823,7 @@
     <string name="api_secret">API secret</string>
     <string name="attach_external_description">Please provide us your API key and API secret, so that we can attach your external account to Genesis Vision. Usually, the API key and the API secret can be found in your profile or on a settings page of your exchange.</string>
     <string name="dialog_unfollow_external">Are you sure you want to stop following trades of this Follow?</string>
+    <string name="drawdown">Drawdown</string>
 
     <plurals name="assets">
         <item quantity="one">asset</item>

@@ -68,7 +68,7 @@
 
     <dimen name="searchbar_height">52dp</dimen>
     <dimen name="filters_sorting_buttons_height">45dp</dimen>
-    <dimen name="fragment_dialog_sorting_height">450dp</dimen>
+    <dimen name="fragment_dialog_sorting_height">500dp</dimen>
     <dimen name="fragment_dialog_sorting_width">300dp</dimen>
     <dimen name="fragment_bottomsheet_filters_height">330dp</dimen>
     <dimen name="dialog_update_app_width">350dp</dimen>

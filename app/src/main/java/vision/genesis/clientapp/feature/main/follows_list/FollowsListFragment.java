@@ -332,7 +332,7 @@ public class FollowsListFragment extends BaseFragment implements FollowsListView
 
 	@Override
 	public void showFiltersActivity(ProgramsFilter filter) {
-		FiltersActivity.startFromFragment(this, filter.getUserFilter(UserFilter.TYPE_PROGRAMS_LIST_FILTER));
+		FiltersActivity.startFromFragment(this, filter.getUserFilter(UserFilter.TYPE_FOLLOWS_LIST_FILTER));
 	}
 
 	@Override
@@ -342,7 +342,7 @@ public class FollowsListFragment extends BaseFragment implements FollowsListView
 
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
-		if (requestCode == UserFilter.TYPE_PROGRAMS_LIST_FILTER && resultCode == Activity.RESULT_OK) {
+		if (requestCode == UserFilter.TYPE_FOLLOWS_LIST_FILTER && resultCode == Activity.RESULT_OK) {
 			UserFilter userFilter = data.getParcelableExtra("filter");
 			if (userFilter != null) {
 				followsListPresenter.onFilterUpdated(userFilter);

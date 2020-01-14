@@ -7,6 +7,7 @@ Name | Type | Description | Notes
 **canAddRequestWithdraw** | **Boolean** |  |  [optional]
 **canTransferMoney** | **Boolean** |  |  [optional]
 **canChangePassword** | **Boolean** |  |  [optional]
+**canClose** | **Boolean** |  |  [optional]
 **canMakeProgramFromPrivateTradingAccount** | **Boolean** |  |  [optional]
 **canMakeSignalProviderFromPrivateTradingAccount** | **Boolean** |  |  [optional]
 **canMakeSignalProviderFromPrivateExternalTradingAccount** | **Boolean** |  |  [optional]
@@ -14,3 +15,4 @@ Name | Type | Description | Notes
 **canMakeSignalProviderFromProgram** | **Boolean** |  |  [optional]
 **canEditSignalProviderSettings** | **Boolean** |  |  [optional]
 **isEnoughMoneyToCreateProgram** | **Boolean** |  |  [optional]
+**canConfirm2FA** | **Boolean** |  |  [optional]

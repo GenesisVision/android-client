@@ -128,6 +128,42 @@
                     android:layout_marginStart="20dp"
                     android:background="?attr/colorDelimiterLight"/>
 
+                <vision.genesis.clientapp.feature.main.filters.sorting.SortingOptionView
+                    android:id="@+id/subscribers"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+                <View
+                    android:id="@+id/subscribers_delimiter"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginStart="20dp"
+                    android:background="?attr/colorDelimiterLight"/>
+
+                <vision.genesis.clientapp.feature.main.filters.sorting.SortingOptionView
+                    android:id="@+id/investors"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+                <View
+                    android:id="@+id/investors_delimiter"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginStart="20dp"
+                    android:background="?attr/colorDelimiterLight"/>
+
+                <vision.genesis.clientapp.feature.main.filters.sorting.SortingOptionView
+                    android:id="@+id/drawdown"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+                <View
+                    android:id="@+id/drawdown_delimiter"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginStart="20dp"
+                    android:background="?attr/colorDelimiterLight"/>
+
             </LinearLayout>
 
         </ScrollView>
@@ -136,8 +172,8 @@
             android:id="@+id/buttons_group"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/button_height"
-            android:layout_alignParentBottom="true"
             android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
             android:layout_marginBottom="16dp"
             android:orientation="horizontal">
 
@@ -147,8 +183,8 @@
                 android:layout_height="match_parent"
                 android:background="?attr/selectableItemBackground"
                 android:gravity="center"
-                android:paddingEnd="20dp"
                 android:paddingStart="20dp"
+                android:paddingEnd="20dp"
                 android:text="@string/cancel"
                 android:textColor="?attr/colorTextPrimary"
                 android:textSize="13sp"/>
@@ -159,8 +195,8 @@
                 android:layout_height="match_parent"
                 android:background="?attr/selectableItemBackground"
                 android:gravity="center"
-                android:paddingEnd="20dp"
                 android:paddingStart="20dp"
+                android:paddingEnd="20dp"
                 android:text="@string/apply"
                 android:textColor="?attr/colorAccent"
                 android:textSize="13sp"/>

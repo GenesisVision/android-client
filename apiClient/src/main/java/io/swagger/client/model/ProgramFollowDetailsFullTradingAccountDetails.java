@@ -256,13 +256,13 @@ public class ProgramFollowDetailsFullTradingAccountDetails implements Parcelable
 	@JsonAdapter(CurrencyEnum.Adapter.class)
 	public enum CurrencyEnum
 	{
-		BTC("BTC"),
-		ETH("ETH"),
-		USDT("USDT"),
 		USD("USD"),
-		GVT("GVT"),
 		UNDEFINED("Undefined"),
+		GVT("GVT"),
+		ETH("ETH"),
+		BTC("BTC"),
 		ADA("ADA"),
+		USDT("USDT"),
 		XRP("XRP"),
 		BCH("BCH"),
 		LTC("LTC"),

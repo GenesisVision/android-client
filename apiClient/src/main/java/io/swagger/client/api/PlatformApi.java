@@ -2,6 +2,7 @@ package io.swagger.client.api;
 
 import io.swagger.client.model.AssetInfo;
 import io.swagger.client.model.CaptchaDetails;
+import io.swagger.client.model.LandingInfo;
 import io.swagger.client.model.LevelsParamsInfo;
 import io.swagger.client.model.PlatformAssets;
 import io.swagger.client.model.PlatformEvents;
@@ -61,6 +62,20 @@ public interface PlatformApi
 	@GET("v2.0/platform/info")
 	Observable<PlatformInfo> getPlatformInfo();
 
+
+	/**
+	 * Platform landing info
+	 *
+	 * @param eventsTake   (optional)
+	 * @param followTake   (optional)
+	 * @param programsTake (optional)
+	 * @param fundsTake    (optional)
+	 * @return Call&lt;LandingInfo&gt;
+	 */
+	@GET("v2.0/platform/landing")
+	Observable<LandingInfo> getPlatformLandingInfo(
+			@retrofit2.http.Query("eventsTake") Integer eventsTake, @retrofit2.http.Query("followTake") Integer followTake, @retrofit2.http.Query("programsTake") Integer programsTake, @retrofit2.http.Query("fundsTake") Integer fundsTake
+	);
 
 	/**
 	 * Investment programs levels

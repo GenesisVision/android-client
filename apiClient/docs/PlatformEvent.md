@@ -9,5 +9,7 @@ Name | Type | Description | Notes
 **assetUrl** | **String** |  |  [optional]
 **userUrl** | **String** |  |  [optional]
 **value** | **String** |  |  [optional]
+**color** | **String** |  |  [optional]
+**assetType** | [**AssetType**](AssetType.md) |  |  [optional]
 **date** | [**DateTime**](DateTime.md) |  |  [optional]
 **type** | [**PlatformEventType**](PlatformEventType.md) |  |  [optional]

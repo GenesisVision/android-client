@@ -9,6 +9,7 @@ Method | HTTP request | Description
 [**getPlatformDate**](PlatformApi.md#getPlatformDate) | **POST** v2.0/platform/date | Server date
 [**getPlatformEvents**](PlatformApi.md#getPlatformEvents) | **GET** v2.0/platform/events | Get platform events
 [**getPlatformInfo**](PlatformApi.md#getPlatformInfo) | **GET** v2.0/platform/info | Platform info
+[**getPlatformLandingInfo**](PlatformApi.md#getPlatformLandingInfo) | **GET** v2.0/platform/landing | Platform landing info
 [**getProgramLevels**](PlatformApi.md#getProgramLevels) | **GET** v2.0/platform/levels | Investment programs levels
 [**getProgramLevelsParams**](PlatformApi.md#getProgramLevelsParams) | **GET** v2.0/platform/levels/parameters | Investment programs levels parameters
 [**getRiskControlInfo**](PlatformApi.md#getRiskControlInfo) | **GET** v2.0/platform/riskcontrol | Risk control
@@ -216,6 +217,55 @@ No authorization required
  - **Content-Type**: Not defined
  - **Accept**: text/plain, application/json, text/json
 
+<a name="getPlatformLandingInfo"></a>
+# **getPlatformLandingInfo**
+> LandingInfo getPlatformLandingInfo(eventsTake, followTake, programsTake, fundsTake)
+
+Platform landing info
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiException;
+//import io.swagger.client.api.PlatformApi;
+
+
+PlatformApi apiInstance = new PlatformApi();
+Integer eventsTake = 56; // Integer | 
+Integer followTake = 56; // Integer | 
+Integer programsTake = 56; // Integer | 
+Integer fundsTake = 56; // Integer | 
+try {
+    LandingInfo result = apiInstance.getPlatformLandingInfo(eventsTake, followTake, programsTake, fundsTake);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling PlatformApi#getPlatformLandingInfo");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **eventsTake** | **Integer**|  | [optional]
+ **followTake** | **Integer**|  | [optional]
+ **programsTake** | **Integer**|  | [optional]
+ **fundsTake** | **Integer**|  | [optional]
+
+### Return type
+
+[**LandingInfo**](LandingInfo.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
+
 <a name="getProgramLevels"></a>
 # **getProgramLevels**
 > ProgramsLevelsInfo getProgramLevels(currency)
@@ -244,7 +294,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **currency** | **String**|  | [optional] [enum: BTC, ETH, USDT, USD, GVT, Undefined, ADA, XRP, BCH, LTC, DOGE, BNB, EUR]
+ **currency** | **String**|  | [optional] [enum: USD, Undefined, GVT, ETH, BTC, ADA, USDT, XRP, BCH, LTC, DOGE, BNB, EUR]
 
 ### Return type
 
@@ -287,7 +337,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **currency** | **String**|  | [optional] [enum: BTC, ETH, USDT, USD, GVT, Undefined, ADA, XRP, BCH, LTC, DOGE, BNB, EUR]
+ **currency** | **String**|  | [optional] [enum: USD, Undefined, GVT, ETH, BTC, ADA, USDT, XRP, BCH, LTC, DOGE, BNB, EUR]
 
 ### Return type
 

@@ -569,13 +569,13 @@ public class SignalSubscription implements Parcelable
 	@JsonAdapter(FixedCurrencyEnum.Adapter.class)
 	public enum FixedCurrencyEnum
 	{
-		BTC("BTC"),
-		ETH("ETH"),
-		USDT("USDT"),
 		USD("USD"),
-		GVT("GVT"),
 		UNDEFINED("Undefined"),
+		GVT("GVT"),
+		ETH("ETH"),
+		BTC("BTC"),
 		ADA("ADA"),
+		USDT("USDT"),
 		XRP("XRP"),
 		BCH("BCH"),
 		LTC("LTC"),

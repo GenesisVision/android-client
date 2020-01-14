@@ -116,9 +116,6 @@ public class OrderSignalModel implements Parcelable
 	@SerializedName("signalData")
 	private OrderModelSignalData signalData = null;
 
-	@SerializedName("externalSignalAccountId")
-	private UUID externalSignalAccountId = null;
-
 	public OrderSignalModel() {
 	}
 
@@ -147,7 +144,6 @@ public class OrderSignalModel implements Parcelable
 		swap = (Double) in.readValue(null);
 		showOriginalCommission = (Boolean) in.readValue(null);
 		signalData = (OrderModelSignalData) in.readValue(OrderModelSignalData.class.getClassLoader());
-		externalSignalAccountId = (UUID) in.readValue(UUID.class.getClassLoader());
 	}
 
 	public OrderSignalModel providers(List<OrderSignalProgramInfo> providers) {
@@ -622,25 +618,6 @@ public class OrderSignalModel implements Parcelable
 		this.signalData = signalData;
 	}
 
-	public OrderSignalModel externalSignalAccountId(UUID externalSignalAccountId) {
-		this.externalSignalAccountId = externalSignalAccountId;
-		return this;
-	}
-
-	/**
-	 * Get externalSignalAccountId
-	 *
-	 * @return externalSignalAccountId
-	 **/
-	@Schema(description = "")
-	public UUID getExternalSignalAccountId() {
-		return externalSignalAccountId;
-	}
-
-	public void setExternalSignalAccountId(UUID externalSignalAccountId) {
-		this.externalSignalAccountId = externalSignalAccountId;
-	}
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -673,13 +650,12 @@ public class OrderSignalModel implements Parcelable
 				Objects.equals(this.commission, orderSignalModel.commission) &&
 				Objects.equals(this.swap, orderSignalModel.swap) &&
 				Objects.equals(this.showOriginalCommission, orderSignalModel.showOriginalCommission) &&
-				Objects.equals(this.signalData, orderSignalModel.signalData) &&
-				Objects.equals(this.externalSignalAccountId, orderSignalModel.externalSignalAccountId);
+				Objects.equals(this.signalData, orderSignalModel.signalData);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(providers, totalCommission, totalCommissionByType, tradingAccountId, currency, id, login, ticket, symbol, volume, profit, profitCurrency, direction, date, price, priceCurrent, entry, baseVolume, originalCommission, originalCommissionCurrency, commission, swap, showOriginalCommission, signalData, externalSignalAccountId);
+		return Objects.hash(providers, totalCommission, totalCommissionByType, tradingAccountId, currency, id, login, ticket, symbol, volume, profit, profitCurrency, direction, date, price, priceCurrent, entry, baseVolume, originalCommission, originalCommissionCurrency, commission, swap, showOriginalCommission, signalData);
 	}
 
 	@Override
@@ -711,7 +687,6 @@ public class OrderSignalModel implements Parcelable
 		sb.append("    swap: ").append(toIndentedString(swap)).append("\n");
 		sb.append("    showOriginalCommission: ").append(toIndentedString(showOriginalCommission)).append("\n");
 		sb.append("    signalData: ").append(toIndentedString(signalData)).append("\n");
-		sb.append("    externalSignalAccountId: ").append(toIndentedString(externalSignalAccountId)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}
@@ -752,7 +727,6 @@ public class OrderSignalModel implements Parcelable
 		out.writeValue(swap);
 		out.writeValue(showOriginalCommission);
 		out.writeValue(signalData);
-		out.writeValue(externalSignalAccountId);
 	}
 
 	public int describeContents() {
