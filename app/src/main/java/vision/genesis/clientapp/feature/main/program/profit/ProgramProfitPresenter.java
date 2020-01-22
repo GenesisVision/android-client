@@ -126,8 +126,8 @@ public class ProgramProfitPresenter extends MvpPresenter<ProgramProfitView> impl
 			}
 
 			absSubscription = (details.getProgramDetails() != null
-					? programsManager.getProfitAbsoluteChart(details.getId(), chartDateRange, 100, baseCurrency.getValue())
-					: followsManager.getProfitAbsoluteChart(details.getId(), chartDateRange, 100, baseCurrency.getValue()))
+					? programsManager.getProfitAbsoluteChart(details.getId(), chartDateRange, 100, details.getTradingAccountInfo().getCurrency().getValue())
+					: followsManager.getProfitAbsoluteChart(details.getId(), chartDateRange, 100, details.getTradingAccountInfo().getCurrency().getValue()))
 					.observeOn(AndroidSchedulers.mainThread())
 					.subscribeOn(Schedulers.io())
 					.subscribe(this::handleGetAbsSuccess,
@@ -204,8 +204,10 @@ public class ProgramProfitPresenter extends MvpPresenter<ProgramProfitView> impl
 	private void updateValues() {
 		if (first == null || selected == null) {
 			getViewState().setChangeVisibility(false);
-			getViewState().setValue(absChart.getProfit() < 0, String.format(Locale.getDefault(), "%s",
-					StringFormatUtil.getValueString(absChart.getProfit(), baseCurrency.getValue())));
+			if (details.getTradingAccountInfo() != null && details.getTradingAccountInfo().getCurrency() != null) {
+				getViewState().setValue(absChart.getProfit() < 0, String.format(Locale.getDefault(), "%s",
+						StringFormatUtil.getValueString(absChart.getProfit(), details.getTradingAccountInfo().getCurrency().getValue())));
+			}
 			return;
 		}
 
@@ -222,8 +224,10 @@ public class ProgramProfitPresenter extends MvpPresenter<ProgramProfitView> impl
 //				StringFormatUtil.getChangeValueString(chartData.getTimeframeGvtProfit()),
 //				StringFormatUtil.getValueString(chartData.getTimeframeProgramCurrencyProfit(), chartData.getProgramCurrency().getValue()));
 
-		getViewState().setValue(changeValue < 0, String.format(Locale.getDefault(), "%s",
-				StringFormatUtil.getValueString(changeValue, baseCurrency.getValue())));
+		if (details.getTradingAccountInfo() != null && details.getTradingAccountInfo().getCurrency() != null) {
+			getViewState().setValue(changeValue < 0, String.format(Locale.getDefault(), "%s",
+					StringFormatUtil.getValueString(changeValue, details.getTradingAccountInfo().getCurrency().getValue())));
+		}
 
 //		if (absChart != null & absChart.getStatistic() != null) {
 //			getViewState().setStatisticsData(absChart.getStatistic().getTrades(), absChart.getStatistic().getSuccessTradesPercent(),

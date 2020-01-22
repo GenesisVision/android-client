@@ -63,6 +63,8 @@ public class WithdrawFundPresenter extends MvpPresenter<WithdrawFundView> implem
 
 	private WalletData selectedWalletTo;
 
+	private Double rate = 0.0;
+
 	@Override
 	protected void onFirstViewAttach() {
 		super.onFirstViewAttach();
@@ -120,8 +122,8 @@ public class WithdrawFundPresenter extends MvpPresenter<WithdrawFundView> implem
 
 	private Double getEstimatedAmount() {
 		//TODO:
-//		return withdrawInfo.getAvailableToWithdraw() * withdrawInfo.getRate() * amount / 100;
-		return withdrawInfo.getAvailableToWithdraw() * 2 * amount / 100;
+		return withdrawInfo.getAvailableToWithdraw() / 100 * amount;
+//		return withdrawInfo.getAvailableToWithdraw() * 2 * amount / 100;
 	}
 
 	private Double getEstimatedExitFee() {
@@ -213,10 +215,9 @@ public class WithdrawFundPresenter extends MvpPresenter<WithdrawFundView> implem
 		getViewState().showAmountProgress(false);
 
 		withdrawInfo = response;
-//TODO:
-//		getViewState().setAvailableToWithdraw(StringFormatUtil.getValueString(
-//				withdrawInfo.getAvailableToWithdraw() * withdrawInfo.getRate(),
-//				selectedWalletTo.getCurrency().getValue()));
+		getViewState().setAvailableToWithdraw(StringFormatUtil.getValueString(
+				withdrawInfo.getAvailableToWithdraw(),
+				selectedWalletTo.getCurrency().getValue()));
 		updateAmounts();
 	}
 
@@ -232,7 +233,6 @@ public class WithdrawFundPresenter extends MvpPresenter<WithdrawFundView> implem
 	public void onWithdrawSucceeded() {
 		getViewState().finishActivity();
 	}
-
 
 	@Override
 	public void onWalletSelected(WalletData wallet) {

@@ -52,7 +52,11 @@ public enum SortingEnum
 
 	BYSUBSCRIBERSASC("BySubscribersAsc"),
 
-	BYSUBSCRIBERSDESC("BySubscribersDesc");
+	BYSUBSCRIBERSDESC("BySubscribersDesc"),
+
+	BYNEWASC("ByNewAsc"),
+
+	BYNEWDESC("ByNewDesc");
 
 	public static SortingEnum fromValue(String text) {
 		for (SortingEnum b : SortingEnum.values()) {

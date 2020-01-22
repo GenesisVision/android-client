@@ -274,9 +274,21 @@ public class TradingDetailsActivity extends BaseSwipeBackActivity implements Tra
 		ValueAnimator titleYAnim = ValueAnimator.ofFloat(title.getY(), titleInitialY - toolbarHeight);
 		ValueAnimator alphaAnim = ValueAnimator.ofFloat(headerBalanceGroup.getAlpha(), 1f);
 
-		balanceYAnim.addUpdateListener(animation -> headerBalanceGroup.setY((float) balanceYAnim.getAnimatedValue()));
-		titleYAnim.addUpdateListener(animation -> title.setY((float) titleYAnim.getAnimatedValue()));
-		alphaAnim.addUpdateListener(animation -> headerBalanceGroup.setAlpha((float) alphaAnim.getAnimatedValue()));
+		balanceYAnim.addUpdateListener(animation -> {
+			if (headerBalanceGroup != null) {
+				headerBalanceGroup.setY((float) balanceYAnim.getAnimatedValue());
+			}
+		});
+		titleYAnim.addUpdateListener(animation -> {
+			if (title != null) {
+				title.setY((float) titleYAnim.getAnimatedValue());
+			}
+		});
+		alphaAnim.addUpdateListener(animation -> {
+			if (headerBalanceGroup != null) {
+				headerBalanceGroup.setAlpha((float) alphaAnim.getAnimatedValue());
+			}
+		});
 
 		balanceYAnim.setDuration(headerBalanceGroupAnimationDuration);
 		titleYAnim.setDuration(headerBalanceGroupAnimationDuration);
@@ -315,9 +327,21 @@ public class TradingDetailsActivity extends BaseSwipeBackActivity implements Tra
 		ValueAnimator titleYAnim = ValueAnimator.ofFloat(title.getY(), titleInitialY);
 		ValueAnimator alphaAnim = ValueAnimator.ofFloat(headerBalanceGroup.getAlpha(), 0f);
 
-		balanceYAnim.addUpdateListener(animation -> headerBalanceGroup.setY((float) balanceYAnim.getAnimatedValue()));
-		titleYAnim.addUpdateListener(animation -> title.setY((float) titleYAnim.getAnimatedValue()));
-		alphaAnim.addUpdateListener(animation -> headerBalanceGroup.setAlpha((float) alphaAnim.getAnimatedValue()));
+		balanceYAnim.addUpdateListener(animation -> {
+			if (headerBalanceGroup != null) {
+				headerBalanceGroup.setY((float) balanceYAnim.getAnimatedValue());
+			}
+		});
+		titleYAnim.addUpdateListener(animation -> {
+			if (title != null) {
+				title.setY((float) titleYAnim.getAnimatedValue());
+			}
+		});
+		alphaAnim.addUpdateListener(animation -> {
+			if (headerBalanceGroup != null) {
+				headerBalanceGroup.setAlpha((float) alphaAnim.getAnimatedValue());
+			}
+		});
 
 		balanceYAnim.setDuration(headerBalanceGroupAnimationDuration);
 		titleYAnim.setDuration(headerBalanceGroupAnimationDuration);

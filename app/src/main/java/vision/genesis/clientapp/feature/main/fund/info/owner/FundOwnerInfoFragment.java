@@ -225,7 +225,9 @@ public class FundOwnerInfoFragment extends BaseFragment implements FundOwnerInfo
 	}
 
 	private void updateAll() {
-		presenter.setDetails(fundDetails);
+		if (presenter != null) {
+			presenter.setDetails(fundDetails);
+		}
 		setFundDetails(fundDetails);
 	}
 

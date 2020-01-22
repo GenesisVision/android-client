@@ -102,7 +102,7 @@ public class FundsManager
 //	}
 
 	public Observable<FundWithdrawInfo> getWithdrawInfo(UUID programId, String baseCurrency) {
-		return investmentsApi.getFundWithdrawInfo(programId, baseCurrency, AuthManager.token.getValue());
+		return investmentsApi.getFundWithdrawInfo(programId, AuthManager.token.getValue(), baseCurrency);
 	}
 
 	public Observable<Void> invest(FundRequest fundRequest) {

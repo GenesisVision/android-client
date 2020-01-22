@@ -170,7 +170,9 @@ public class ProgramDetailsModel implements Parcelable
 		this.levelProgress = 0.0;
 		this.programName = details.getPublicInfo().getTitle();
 		this.managerName = details.getOwner().getUsername();
-		this.currency = details.getTradingAccountInfo().getCurrency().getValue();
+		this.currency = details.getTradingAccountInfo().getCurrency() != null
+				? details.getTradingAccountInfo().getCurrency().getValue()
+				: null;
 //		this.favorite = details.getPersonalDetails() != null
 //				? details.getPersonalDetails().isIsFavorite()
 //				: false;

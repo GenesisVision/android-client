@@ -102,7 +102,7 @@ public class ProgramBalancePresenter extends MvpPresenter<ProgramBalanceView> im
 				chartDataSubscription.unsubscribe();
 			}
 			//TODO: calculate maxPointCount
-			chartDataSubscription = programsManager.getBalanceChart(details.getId(), chartDateRange, 30, baseCurrency.getValue())
+			chartDataSubscription = programsManager.getBalanceChart(details.getId(), chartDateRange, 30, null)
 					.observeOn(AndroidSchedulers.mainThread())
 					.subscribeOn(Schedulers.io())
 					.subscribe(this::handleGetChartDataSuccess,
@@ -141,7 +141,7 @@ public class ProgramBalancePresenter extends MvpPresenter<ProgramBalanceView> im
 	}
 
 	private void updateValues() {
-		if (first == null || selected == null) {
+		if (first == null || selected == null || baseCurrency == null) {
 			return;
 		}
 
@@ -161,7 +161,7 @@ public class ProgramBalancePresenter extends MvpPresenter<ProgramBalanceView> im
 		getViewState().setChange(changeValue < 0,
 				StringFormatUtil.getChangePercentString(first, selected),
 				StringFormatUtil.getChangeValueString(changeValue),
-				StringFormatUtil.getValueString(changeValue, chartData.getProgramCurrency().getValue()));
+				StringFormatUtil.getValueString(changeValue, baseCurrency.getValue()));
 	}
 
 	@Override

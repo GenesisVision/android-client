@@ -383,7 +383,9 @@ public class FundDetailsActivity extends BaseSwipeBackActivity implements FundDe
 	public void showGuest(FundDetailsFull fundDetails) {
 		this.fundDetails = fundDetails;
 
-		addPage(infoTab, true);
+		if (ownerInfoTab.getPosition() == TabLayout.Tab.INVALID_POSITION) {
+			addPage(infoTab, true);
+		}
 
 		finishInit();
 	}
@@ -392,7 +394,9 @@ public class FundDetailsActivity extends BaseSwipeBackActivity implements FundDe
 	public void showOwner(FundDetailsFull fundDetails) {
 		this.fundDetails = fundDetails;
 
-		addPage(ownerInfoTab, true);
+		if (infoTab.getPosition() == TabLayout.Tab.INVALID_POSITION) {
+			addPage(ownerInfoTab, true);
+		}
 
 		finishInit();
 	}

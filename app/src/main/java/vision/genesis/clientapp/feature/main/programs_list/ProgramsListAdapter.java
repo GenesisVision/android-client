@@ -313,8 +313,8 @@ public class ProgramsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
 			this.period.setData(program.getPeriodDuration(), program.getPeriodStarts(), program.getPeriodEnds(), true, false);
 
-			this.balance.setText(String.format(Locale.getDefault(), "%s GVT",
-					StringFormatUtil.getShortenedAmount(program.getBalance().getAmount())));
+			this.balance.setText(String.format(Locale.getDefault(), "%s %s",
+					StringFormatUtil.getShortenedAmount(program.getBalance().getAmount()), program.getCurrency().getValue()));
 
 			this.availableToInvest.setText(String.format(Locale.getDefault(), "%s %s",
 					StringFormatUtil.getShortenedAmount(program.getAvailableToInvest()),

@@ -316,7 +316,7 @@ public class ManagerDetailsActivity extends BaseSwipeBackActivity implements Man
 		}
 
 		tabLayout.addTab(tab, selected);
-		TabLayoutUtil.wrapTabIndicatorToTitle(tabLayout, 0, 10);
+		TabLayoutUtil.wrapTabIndicatorToTitle(tabLayout, 20, 10);
 		if (pagerAdapter != null) {
 			pagerAdapter.notifyDataSetChanged();
 		}

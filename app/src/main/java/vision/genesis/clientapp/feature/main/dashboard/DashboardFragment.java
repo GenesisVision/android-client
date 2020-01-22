@@ -227,8 +227,16 @@ public class DashboardFragment extends BaseFragment implements DashboardView
 		hideAnimInProcess = false;
 		ValueAnimator yAnim = ValueAnimator.ofFloat(headerBalanceGroup.getY(), headerBalanceGroupInitialY);
 		ValueAnimator alphaAnim = ValueAnimator.ofFloat(headerBalanceGroup.getAlpha(), 1f);
-		yAnim.addUpdateListener(animation -> headerBalanceGroup.setY((float) yAnim.getAnimatedValue()));
-		alphaAnim.addUpdateListener(animation -> headerBalanceGroup.setAlpha((float) alphaAnim.getAnimatedValue()));
+		yAnim.addUpdateListener(animation -> {
+			if (headerBalanceGroup != null) {
+				headerBalanceGroup.setY((float) yAnim.getAnimatedValue());
+			}
+		});
+		alphaAnim.addUpdateListener(animation -> {
+			if (headerBalanceGroup != null) {
+				headerBalanceGroup.setAlpha((float) alphaAnim.getAnimatedValue());
+			}
+		});
 		yAnim.setDuration(headerBalanceGroupAnimationDuration);
 		alphaAnim.setDuration(headerBalanceGroupAnimationDuration);
 		alphaAnim.addListener(new AnimatorListenerAdapter()
@@ -253,8 +261,16 @@ public class DashboardFragment extends BaseFragment implements DashboardView
 		}
 		ValueAnimator yAnim = ValueAnimator.ofFloat(headerBalanceGroup.getY(), headerBalanceGroupInitialY + toolbarHeight);
 		ValueAnimator alphaAnim = ValueAnimator.ofFloat(headerBalanceGroup.getAlpha(), 0f);
-		yAnim.addUpdateListener(animation -> headerBalanceGroup.setY((float) yAnim.getAnimatedValue()));
-		alphaAnim.addUpdateListener(animation -> headerBalanceGroup.setAlpha((float) alphaAnim.getAnimatedValue()));
+		yAnim.addUpdateListener(animation -> {
+			if (headerBalanceGroup != null) {
+				headerBalanceGroup.setY((float) yAnim.getAnimatedValue());
+			}
+		});
+		alphaAnim.addUpdateListener(animation -> {
+			if (headerBalanceGroup != null) {
+				headerBalanceGroup.setAlpha((float) alphaAnim.getAnimatedValue());
+			}
+		});
 		yAnim.setDuration(headerBalanceGroupAnimationDuration);
 		alphaAnim.setDuration(headerBalanceGroupAnimationDuration);
 		alphaAnim.addListener(new AnimatorListenerAdapter()

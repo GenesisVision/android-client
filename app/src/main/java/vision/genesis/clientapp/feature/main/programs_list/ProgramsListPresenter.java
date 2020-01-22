@@ -202,7 +202,7 @@ public class ProgramsListPresenter extends MvpPresenter<ProgramsListView>
 				skip = 0;
 				filter.setSkip(skip);
 			}
-			filter.setShowIn(baseCurrency);
+//			filter.setShowIn(baseCurrency);
 
 			if (getProgramsSubscription != null) {
 				getProgramsSubscription.unsubscribe();

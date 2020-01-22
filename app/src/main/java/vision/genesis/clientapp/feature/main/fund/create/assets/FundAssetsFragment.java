@@ -359,8 +359,12 @@ public class FundAssetsFragment extends BaseFragment implements FundAssetsView
 
 	private void updateRemainingShareValue(double remainingShare) {
 		ValueAnimator animator = ValueAnimator.ofFloat((float) previousRemainingShare, (float) remainingShare);
-		animator.addUpdateListener(animation -> remainingShareText.setText(String.format(Locale.getDefault(), "+%s%%",
-				StringFormatUtil.formatAmount((float) animator.getAnimatedValue(), 0, 0))));
+		animator.addUpdateListener(animation -> {
+			if (remainingShareText != null) {
+				remainingShareText.setText(String.format(Locale.getDefault(), "+%s%%",
+						StringFormatUtil.formatAmount((float) animator.getAnimatedValue(), 0, 0)));
+			}
+		});
 		animator.setDuration(removeAssetAnimationDuration);
 		animator.setInterpolator(new AccelerateDecelerateInterpolator());
 		animator.start();
@@ -377,7 +381,11 @@ public class FundAssetsFragment extends BaseFragment implements FundAssetsView
 		}
 
 		ValueAnimator animator = ValueAnimator.ofFloat(remainingShareGroup.getX(), x);
-		animator.addUpdateListener(animation -> remainingShareGroup.setX((float) animator.getAnimatedValue()));
+		animator.addUpdateListener(animation -> {
+			if (remainingShareText != null) {
+				remainingShareGroup.setX((float) animator.getAnimatedValue());
+			}
+		});
 		animator.setDuration(removeAssetAnimationDuration);
 		animator.setInterpolator(new AccelerateDecelerateInterpolator());
 		animator.start();
