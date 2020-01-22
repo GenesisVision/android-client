@@ -74,8 +74,8 @@
                             android:layout_below="@+id/group_balance"
                             android:layout_marginTop="20dp"
                             android:orientation="vertical"
-                            android:paddingEnd="20dp"
-                            android:paddingStart="20dp">
+                            android:paddingStart="20dp"
+                            android:paddingEnd="20dp">
 
                             <LinearLayout
                                 android:id="@+id/group_available"
@@ -272,6 +272,51 @@
                             </LinearLayout>
 
                         </LinearLayout>
+
+                        <RelativeLayout
+                            android:id="@+id/group_using_gvt"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/settings_item_height"
+                            android:layout_below="@+id/group_available_invested"
+                            android:layout_marginTop="20dp"
+                            android:background="?attr/selectableItemBackground"
+                            android:paddingStart="@dimen/padding"
+                            android:paddingEnd="@dimen/padding">
+
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="1dp"
+                                android:alpha="0.05"
+                                android:background="?attr/colorTextPrimary"/>
+
+                            <TextView
+                                android:id="@+id/label_using_gvt"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:fontFamily="@font/montserrat_medium"
+                                android:text="@string/using_gvt_to_pay_for_fees"
+                                android:textColor="?attr/colorTextPrimary"
+                                android:textSize="14sp"/>
+
+                            <ImageView
+                                android:id="@+id/tooltip_using_gvt"
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:layout_centerVertical="true"
+                                android:layout_marginEnd="4dp"
+                                android:layout_toEndOf="@id/label_using_gvt"
+                                android:padding="8dp"
+                                app:srcCompat="@drawable/icon_tooltip_2"/>
+
+                            <androidx.appcompat.widget.SwitchCompat
+                                android:id="@+id/switch_using_gvt"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentEnd="true"
+                                android:layout_centerVertical="true"/>
+
+                        </RelativeLayout>
 
                     </RelativeLayout>
 

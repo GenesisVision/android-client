@@ -48,6 +48,9 @@ public class TradingAssetDashboardShortView extends RelativeLayout
 	@BindView(R.id.name)
 	public TextView name;
 
+	@BindView(R.id.type)
+	public TextView type;
+
 	@BindView(R.id.value)
 	public TextView value;
 
@@ -170,11 +173,12 @@ public class TradingAssetDashboardShortView extends RelativeLayout
 		this.asset = asset;
 		this.baseCurrency = baseCurrency;
 
-
 		double value = asset.getAccountInfo().getBalance() != null
 				? asset.getAccountInfo().getBalance()
 				: 0;
 		double profitPercent = asset.getStatistic().getProfit();
+
+		setType();
 
 		if (asset.getAssetType().equals(AssetType.NONE)) {
 			this.logo.setVisibility(View.GONE);
@@ -200,7 +204,6 @@ public class TradingAssetDashboardShortView extends RelativeLayout
 				valueGroup.setVisibility(ViewGroup.GONE);
 			}
 			else {
-
 				valueGroup.setVisibility(ViewGroup.VISIBLE);
 				statusGroup.setVisibility(ViewGroup.GONE);
 			}
@@ -242,6 +245,34 @@ public class TradingAssetDashboardShortView extends RelativeLayout
 				statusGroup.setVisibility(ViewGroup.VISIBLE);
 				valueGroup.setVisibility(ViewGroup.GONE);
 			}
+		}
+	}
+
+	private void setType() {
+		int typeStringResId = 0;
+		switch (asset.getAssetTypeExt()) {
+			case NONE:
+				this.type.setVisibility(View.GONE);
+				break;
+			case PROGRAM:
+				typeStringResId = R.string.program;
+				break;
+			case SIGNALPROGRAM:
+				typeStringResId = R.string.signal_program;
+				break;
+			case FUND:
+				typeStringResId = R.string.fund;
+				break;
+			case SIGNALTRADINGACCOUNT:
+				typeStringResId = R.string.signal_trading_account;
+				break;
+			case EXTERNALSIGNALTRADINGACCOUNT:
+				typeStringResId = R.string.external_trading_account;
+				break;
+		}
+
+		if (typeStringResId != 0) {
+			this.type.setText(getContext().getString(typeStringResId));
 		}
 	}
 

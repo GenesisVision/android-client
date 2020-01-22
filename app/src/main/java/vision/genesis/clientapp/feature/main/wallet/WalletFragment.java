@@ -8,6 +8,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.SwitchCompat;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import androidx.viewpager.widget.ViewPager;
 
@@ -20,10 +21,12 @@ import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 import io.swagger.client.model.WalletSummary;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
+import vision.genesis.clientapp.feature.main.fees_and_discounts.FeesAndDiscountsActivity;
 import vision.genesis.clientapp.model.CurrencyEnum;
 import vision.genesis.clientapp.ui.common.DetailsTabView;
 import vision.genesis.clientapp.utils.StringFormatUtil;
@@ -86,11 +89,14 @@ public class WalletFragment extends BaseFragment implements WalletView, ViewPage
 	@BindView(R.id.pending)
 	public TextView pending;
 
+	@BindView(R.id.switch_using_gvt)
+	public SwitchCompat switchUsingGvt;
+
 	@BindView(R.id.progress_bar)
 	public ProgressBar progressBar;
 
 	@InjectPresenter
-	WalletPresenter walletPresenter;
+	WalletPresenter presenter;
 
 	private Unbinder unbinder;
 
@@ -112,6 +118,13 @@ public class WalletFragment extends BaseFragment implements WalletView, ViewPage
 
 	private boolean isPagerDragging;
 
+	@OnClick(R.id.tooltip_using_gvt)
+	public void onTooltipUsingGvtClicked() {
+		if (getActivity() != null) {
+			FeesAndDiscountsActivity.startFrom(getActivity());
+		}
+	}
+
 	@Nullable
 	@Override
 	public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -128,6 +141,7 @@ public class WalletFragment extends BaseFragment implements WalletView, ViewPage
 
 		initRefreshLayout();
 		setOffsetListener();
+		setSwitchListener();
 		initTabs();
 		initViewPager();
 	}
@@ -136,7 +150,7 @@ public class WalletFragment extends BaseFragment implements WalletView, ViewPage
 	public void onResume() {
 		super.onResume();
 
-		walletPresenter.onResume();
+		presenter.onResume();
 		if (pagerAdapter != null) {
 			pagerAdapter.sendUpdate();
 		}
@@ -188,7 +202,7 @@ public class WalletFragment extends BaseFragment implements WalletView, ViewPage
 				ThemeUtil.getColorByAttrId(getContext(), R.attr.colorTextPrimary),
 				ThemeUtil.getColorByAttrId(getContext(), R.attr.colorTextSecondary));
 		refreshLayout.setOnRefreshListener(() -> {
-			walletPresenter.onSwipeRefresh();
+			presenter.onSwipeRefresh();
 			if (pagerAdapter != null) {
 				pagerAdapter.sendSwipeRefresh();
 			}
@@ -205,6 +219,12 @@ public class WalletFragment extends BaseFragment implements WalletView, ViewPage
 
 	private void updateRefreshLayoutEnabled() {
 		refreshLayout.setEnabled(verticalOffset == 0 && !isPagerDragging);
+	}
+
+	private void setSwitchListener() {
+		switchUsingGvt.setOnCheckedChangeListener((view, checked) -> {
+			presenter.onUsingGvtCheckedChanged(checked);
+		});
 	}
 
 	private void initTabs() {
@@ -304,6 +324,8 @@ public class WalletFragment extends BaseFragment implements WalletView, ViewPage
 		this.pendingShare.setProgress(pendingPercent);
 		this.pendingPercent.setText(String.format(Locale.getDefault(), "%d%%", pendingPercent));
 		this.pending.setText(StringFormatUtil.getValueString(data.getGrandTotal().getTrading(), currency));
+
+		this.switchUsingGvt.setChecked(data.isPayFeesWithGvt());
 	}
 
 	@Override

@@ -166,8 +166,12 @@ public class ProgramDetailsModel implements Parcelable
 		this.programId = details.getId();
 		this.avatar = details.getPublicInfo().getLogo();
 		this.programColor = details.getPublicInfo().getColor();
-		this.level = 0;
-		this.levelProgress = 0.0;
+		this.level = details.getProgramDetails() != null
+				? details.getProgramDetails().getLevel()
+				: 0;
+		this.levelProgress = details.getProgramDetails() != null
+				? details.getProgramDetails().getLevelProgress()
+				: 0.0;
 		this.programName = details.getPublicInfo().getTitle();
 		this.managerName = details.getOwner().getUsername();
 		this.currency = details.getTradingAccountInfo().getCurrency() != null
@@ -179,6 +183,6 @@ public class ProgramDetailsModel implements Parcelable
 //		this.hasNotifications = details.getPersonalDetails() != null
 //				? details.getPersonalDetails().isHasNotifications()
 //				: false;
-		this.assetType = AssetType.FOLLOW;
+		this.assetType = details.getProgramDetails() != null ? AssetType.PROGRAM : AssetType.FOLLOW;
 	}
 }

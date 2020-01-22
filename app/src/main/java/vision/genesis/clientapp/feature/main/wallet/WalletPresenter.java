@@ -43,6 +43,8 @@ public class WalletPresenter extends MvpPresenter<WalletView>
 
 	private Subscription balanceSubscription;
 
+	private Subscription usingGvtSubscription;
+
 	private CurrencyEnum baseCurrency;
 
 	@Override
@@ -66,6 +68,9 @@ public class WalletPresenter extends MvpPresenter<WalletView>
 		if (balanceSubscription != null) {
 			balanceSubscription.unsubscribe();
 		}
+		if (usingGvtSubscription != null) {
+			usingGvtSubscription.unsubscribe();
+		}
 
 		EventBus.getDefault().unregister(this);
 
@@ -79,6 +84,10 @@ public class WalletPresenter extends MvpPresenter<WalletView>
 	void onSwipeRefresh() {
 		getViewState().setRefreshing(true);
 		updateBalance();
+	}
+
+	void onUsingGvtCheckedChanged(boolean checked) {
+		setUsingGvtToPayFees(checked);
 	}
 
 	private void subscribeToBaseCurrency() {
@@ -125,6 +134,30 @@ public class WalletPresenter extends MvpPresenter<WalletView>
 
 		ApiErrorResolver.resolveErrors(throwable,
 				message -> getViewState().showSnackbarMessage(message));
+	}
+
+	private void setUsingGvtToPayFees(boolean on) {
+		if (walletManager != null) {
+			if (usingGvtSubscription != null) {
+				usingGvtSubscription.unsubscribe();
+			}
+			usingGvtSubscription = walletManager.setUsingGvtToPayFees(on)
+					.subscribeOn(Schedulers.io())
+					.observeOn(AndroidSchedulers.mainThread())
+					.subscribe(this::handleUsingGvtSuccess,
+							this::handleUsingGvtError);
+		}
+	}
+
+	private void handleUsingGvtSuccess(Void response) {
+		usingGvtSubscription.unsubscribe();
+	}
+
+	private void handleUsingGvtError(Throwable throwable) {
+		usingGvtSubscription.unsubscribe();
+
+		ApiErrorResolver.resolveErrors(throwable, message ->
+				getViewState().showSnackbarMessage(message));
 	}
 
 	@Subscribe

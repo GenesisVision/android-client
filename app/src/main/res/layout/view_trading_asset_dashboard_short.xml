@@ -47,6 +47,16 @@
             android:textSize="14sp"
             tools:text="Janus Capital Group"/>
 
+        <TextView
+            android:id="@+id/type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:lines="1"
+            android:textColor="?attr/colorTextSecondary"
+            android:textSize="12sp"
+            tools:text="External trading account"/>
+
         <LinearLayout
             android:id="@+id/group_fund_assets"
             android:layout_width="wrap_content"

@@ -175,9 +175,8 @@ public class SettingsFragment extends BaseFragment implements SettingsView
 	}
 
 	private void setListener() {
-		switchPublicInvestor.setOnCheckedChangeListener((view, checked) -> {
-			presenter.onPublicInvestorProfileCheckedChanged(checked);
-		});
+		switchPublicInvestor.setOnCheckedChangeListener((view, checked) ->
+				presenter.onPublicInvestorProfileCheckedChanged(checked));
 	}
 
 	private void setFonts() {
@@ -302,6 +301,8 @@ public class SettingsFragment extends BaseFragment implements SettingsView
 				verificationStatusBackground.setBackgroundColor(ThemeUtil.getColorByAttrId(getContext(), R.attr.colorRed));
 				break;
 		}
+
+		switchPublicInvestor.setChecked(profile.isIsPublicInvestor());
 	}
 
 	@Override

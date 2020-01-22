@@ -587,4 +587,54 @@
         <item name="android:textColor">?attr/colorTextSecondary</item>
     </style>
 
+    <style name="fees_and_discounts_point_number">
+        <item name="android:layout_width">32dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:fontFamily">@font/montserrat_bold</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">?attr/colorTextPrimary</item>
+    </style>
+
+    <style name="fees_and_discounts_point_text">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:alpha">0.8</item>
+        <item name="android:fontFamily">@font/montserrat</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">?attr/colorTextPrimary</item>
+        <item name="android:lineSpacingMultiplier">1.4</item>
+    </style>
+
+    <style name="fees_and_discounts_point_group">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">12dp</item>
+        <item name="android:orientation">horizontal</item>
+    </style>
+
+    <style name="fees_and_discounts_table_row">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">50dp</item>
+        <item name="android:paddingStart">@dimen/padding</item>
+        <item name="android:paddingEnd">@dimen/padding</item>
+        <item name="android:orientation">horizontal</item>
+    </style>
+
+    <style name="fees_and_discounts_table_amount">
+        <item name="android:layout_width">200dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:fontFamily">@font/montserrat</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:textColor">?attr/colorTextPrimary</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="fees_and_discounts_table_discount">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:fontFamily">@font/montserrat_bold</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:textColor">?attr/colorTextPrimary</item>
+        <item name="android:textSize">14sp</item>
+    </style>
 </resources>

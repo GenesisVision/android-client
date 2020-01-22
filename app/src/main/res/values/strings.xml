@@ -824,6 +824,36 @@
     <string name="attach_external_description">Please provide us your API key and API secret, so that we can attach your external account to Genesis Vision. Usually, the API key and the API secret can be found in your profile or on a settings page of your exchange.</string>
     <string name="dialog_unfollow_external">Are you sure you want to stop following trades of this Follow?</string>
     <string name="drawdown">Drawdown</string>
+    <string name="signal_program">Signal program</string>
+    <string name="signal_trading_account">Signal trading account</string>
+    <string name="external_trading_account">External trading account</string>
+    <string name="using_gvt_to_pay_for_fees">Using GVT to pay for fees</string>
+
+    <string name="fees_and_discounts">Fees and Discounts</string>
+    <string name="fees_and_discounts_text_top">Genesis Vision Token holders who select Genesis Markets as their broker will receive discounted transaction fees.</string>
+    <string name="fees_and_discounts_text_title">To be eligible for a trading discount:</string>
+    <string name="fees_and_discounts_point_1">There must be more than 1 GVT stored in the wallet;</string>
+    <string name="fees_and_discounts_point_2">The \"Using GVT to pay for fees\" function must be enabled. The fee will be charged at a discount depending on the amount of GVT stored in the wallet.</string>
+    <string name="fees_and_discounts_point_3">The discounted fee will be charged from the GVT wallet, not from the trading account.</string>
+    <string name="fees_and_discounts_table_title">Conditions for obtaining discounts</string>
+    <string name="fees_and_discounts_table_amount">Amount</string>
+    <string name="fees_and_discounts_table_discount">Discount</string>
+    <string name="fees_and_discounts_table_amount_1">From 1 GVT up to 10</string>
+    <string name="fees_and_discounts_table_amount_2">Up to 25 GVT</string>
+    <string name="fees_and_discounts_table_amount_3">Up to 50 GVT</string>
+    <string name="fees_and_discounts_table_amount_4">Up to 100 GVT</string>
+    <string name="fees_and_discounts_table_amount_5">Up to 500 GVT</string>
+    <string name="fees_and_discounts_table_amount_6">500+ GVT</string>
+    <string name="fees_and_discounts_table_discount_1">30%</string>
+    <string name="fees_and_discounts_table_discount_2">35%</string>
+    <string name="fees_and_discounts_table_discount_3">40%</string>
+    <string name="fees_and_discounts_table_discount_4">45%</string>
+    <string name="fees_and_discounts_table_discount_5">50%</string>
+    <string name="fees_and_discounts_table_discount_6">55%</string>
+    <string name="fees_and_discounts_note_title">Note:</string>
+    <string name="fees_and_discounts_note_1">If you switch this function off, the fee will become \"Regular\" and charge 100%.</string>
+    <string name="fees_and_discounts_note_2">If you have enabled the \"Using GVT to pay for fees\" function but have an insufficient amount of GVT stored in the wallet, this function will no longer work and the fee will become Regular.</string>
+    <string name="fees_and_discounts_note_3">For managers the commission for trading will be debited from the manager’s GVT wallet. At the end of the reporting period, the manager will receive a refund of the commission at the expense of increasing the share of own funds in management.</string>
 
     <plurals name="assets">
         <item quantity="one">asset</item>

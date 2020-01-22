@@ -1,0 +1,329 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/toolbar_height">
+
+        <ImageView
+            android:id="@+id/button_back"
+            android:layout_width="50dp"
+            android:layout_height="@dimen/toolbar_height"
+            android:layout_centerVertical="true"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:padding="20dp"
+            android:tint="?attr/colorTextPrimary"
+            app:srcCompat="@drawable/icon_back"/>
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:ellipsize="end"
+            android:fontFamily="@font/montserrat_semibold"
+            android:gravity="center"
+            android:text="@string/fees_and_discounts"
+            android:textColor="?attr/colorTextPrimary"
+            android:textSize="18sp"/>
+
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/toolbar">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/padding">
+
+                <TextView
+                    style="@style/fees_and_discounts_point_text"
+                    android:alpha="0.8"
+                    android:text="@string/fees_and_discounts_text_top"/>
+
+                <TextView
+                    style="@style/fees_and_discounts_point_text"
+                    android:layout_marginTop="20dp"
+                    android:alpha="0.8"
+                    android:fontFamily="@font/montserrat_bold"
+                    android:text="@string/fees_and_discounts_text_title"/>
+
+                <LinearLayout style="@style/fees_and_discounts_point_group">
+
+                    <TextView
+                        style="@style/fees_and_discounts_point_number"
+                        android:text="&#8226;"
+                        android:textStyle="bold"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            style="@style/fees_and_discounts_point_text"
+                            android:alpha="0.9"
+                            android:text="@string/fees_and_discounts_point_1"/>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout style="@style/fees_and_discounts_point_group">
+
+                    <TextView
+                        style="@style/fees_and_discounts_point_number"
+                        android:text="&#8226;"
+                        android:textStyle="bold"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            style="@style/fees_and_discounts_point_text"
+                            android:alpha="0.9"
+                            android:text="@string/fees_and_discounts_point_2"/>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_marginStart="@dimen/padding"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/montserrat_semibold"
+                android:text="@string/fees_and_discounts_table_title"
+                android:textColor="?attr/colorTextPrimary"
+                android:textSize="16sp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?attr/colorCard"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <LinearLayout style="@style/fees_and_discounts_table_row">
+
+                        <TextView
+                            style="@style/fees_and_discounts_table_amount"
+                            android:fontFamily="@font/montserrat_semibold"
+                            android:text="@string/fees_and_discounts_table_amount"/>
+
+                        <TextView
+                            style="@style/fees_and_discounts_table_discount"
+                            android:fontFamily="@font/montserrat_semibold"
+                            android:text="@string/fees_and_discounts_table_discount"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        style="@style/fees_and_discounts_table_row"
+                        android:background="?attr/colorDelimiterLight">
+
+                        <TextView
+                            style="@style/fees_and_discounts_table_amount"
+                            android:text="@string/fees_and_discounts_table_amount_1"/>
+
+                        <TextView
+                            style="@style/fees_and_discounts_table_discount"
+                            android:text="@string/fees_and_discounts_table_discount_1"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout style="@style/fees_and_discounts_table_row">
+
+                        <TextView
+                            style="@style/fees_and_discounts_table_amount"
+                            android:text="@string/fees_and_discounts_table_amount_2"/>
+
+                        <TextView
+                            style="@style/fees_and_discounts_table_discount"
+                            android:text="@string/fees_and_discounts_table_discount_2"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        style="@style/fees_and_discounts_table_row"
+                        android:background="?attr/colorDelimiterLight">
+
+                        <TextView
+                            style="@style/fees_and_discounts_table_amount"
+                            android:text="@string/fees_and_discounts_table_amount_3"/>
+
+                        <TextView
+                            style="@style/fees_and_discounts_table_discount"
+                            android:text="@string/fees_and_discounts_table_discount_3"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout style="@style/fees_and_discounts_table_row">
+
+                        <TextView
+                            style="@style/fees_and_discounts_table_amount"
+                            android:text="@string/fees_and_discounts_table_amount_4"/>
+
+                        <TextView
+                            style="@style/fees_and_discounts_table_discount"
+                            android:text="@string/fees_and_discounts_table_discount_4"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        style="@style/fees_and_discounts_table_row"
+                        android:background="?attr/colorDelimiterLight">
+
+                        <TextView
+                            style="@style/fees_and_discounts_table_amount"
+                            android:text="@string/fees_and_discounts_table_amount_5"/>
+
+                        <TextView
+                            style="@style/fees_and_discounts_table_discount"
+                            android:text="@string/fees_and_discounts_table_discount_5"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout style="@style/fees_and_discounts_table_row">
+
+                        <TextView
+                            style="@style/fees_and_discounts_table_amount"
+                            android:text="@string/fees_and_discounts_table_amount_6"/>
+
+                        <TextView
+                            style="@style/fees_and_discounts_table_discount"
+                            android:text="@string/fees_and_discounts_table_discount_6"/>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/padding">
+
+                <LinearLayout style="@style/fees_and_discounts_point_group">
+
+                    <TextView
+                        style="@style/fees_and_discounts_point_number"
+                        android:text="&#8226;"
+                        android:textStyle="bold"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            style="@style/fees_and_discounts_point_text"
+                            android:alpha="0.9"
+                            android:text="@string/fees_and_discounts_point_3"/>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/notes"
+                    style="@style/fees_and_discounts_point_text"
+                    android:layout_marginTop="20dp"
+                    android:alpha="0.9"
+                    android:fontFamily="@font/montserrat_bold"
+                    android:text="@string/fees_and_discounts_note_title"/>
+
+                <LinearLayout style="@style/fees_and_discounts_point_group">
+
+                    <TextView
+                        style="@style/fees_and_discounts_point_number"
+                        android:text="&#8226;"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            style="@style/fees_and_discounts_point_text"
+                            android:alpha="0.9"
+                            android:text="@string/fees_and_discounts_note_1"/>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout style="@style/fees_and_discounts_point_group">
+
+                    <TextView
+                        style="@style/fees_and_discounts_point_number"
+                        android:text="&#8226;"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            style="@style/fees_and_discounts_point_text"
+                            android:alpha="0.9"
+                            android:text="@string/fees_and_discounts_note_2"/>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    style="@style/fees_and_discounts_point_group"
+                    android:layout_marginBottom="40dp">
+
+                    <TextView
+                        style="@style/fees_and_discounts_point_number"
+                        android:text="&#8226;"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            style="@style/fees_and_discounts_point_text"
+                            android:alpha="0.9"
+                            android:text="@string/fees_and_discounts_note_3"/>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</RelativeLayout>

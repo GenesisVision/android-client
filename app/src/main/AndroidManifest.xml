@@ -458,6 +458,12 @@
             android:theme="@style/SwipeBackActivityTheme"
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan"/>
 
+        <activity
+            android:name=".feature.main.fees_and_discounts.FeesAndDiscountsActivity"
+            android:launchMode="singleTop"
+            android:theme="@style/SwipeBackActivityTheme"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustPan"/>
+
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="${applicationId}.provider"

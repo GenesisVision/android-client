@@ -154,4 +154,10 @@ public class WalletManager
 	public Observable<Void> resendConfirmationEmail(UUID transactionId) {
 		return walletApi.resendWithdrawalRequestEmail(transactionId, AuthManager.token.getValue());
 	}
+
+	public Observable<Void> setUsingGvtToPayFees(boolean on) {
+		return on
+				? walletApi.switchPayFeeInGvtOn(AuthManager.token.getValue())
+				: walletApi.switchPayFeeInGvtOff(AuthManager.token.getValue());
+	}
 }
