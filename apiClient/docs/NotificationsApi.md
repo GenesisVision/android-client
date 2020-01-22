@@ -11,6 +11,7 @@ Method | HTTP request | Description
 [**getNotificationsManagerSettings**](NotificationsApi.md#getNotificationsManagerSettings) | **GET** v2.0/notifications/settings/managers/{id} | User settings for manager
 [**getNotificationsProgramSettings**](NotificationsApi.md#getNotificationsProgramSettings) | **GET** v2.0/notifications/settings/programs/{id} | User settings for program
 [**getNotificationsSettings**](NotificationsApi.md#getNotificationsSettings) | **GET** v2.0/notifications/settings | User settings
+[**readAllNotification**](NotificationsApi.md#readAllNotification) | **POST** v2.0/notifications/all/read | Read all notification
 [**readNotification**](NotificationsApi.md#readNotification) | **POST** v2.0/notifications/{id}/read | Read notification
 [**removeNotificationsSettings**](NotificationsApi.md#removeNotificationsSettings) | **POST** v2.0/notifications/settings/remove/{id} | Remove setting
 [**toggleNotificationSettings**](NotificationsApi.md#toggleNotificationSettings) | **POST** v2.0/notifications/settings/{id}/{enable} | Enable/disable setting
@@ -51,7 +52,7 @@ Name | Type | Description  | Notes
  **authorization** | **String**| JWT access token |
  **assetId** | [**UUID**](.md)|  | [optional]
  **managerId** | [**UUID**](.md)|  | [optional]
- **type** | **String**|  | [optional] [enum: PlatformNewsAndUpdates, PlatformEmergency, PlatformOther, ProfileUpdated, ProfilePwdUpdated, ProfileVerification, Profile2FA, ProfileSecurity, TradingAccountPwdUpdated, TradingAccountUpdated, ProgramNewsAndUpdates, ProgramEndOfPeriod, ProgramCondition, ProgramExceedInvestmentLimit, FundNewsAndUpdates, FundEndOfPeriod, FundRebalancing, ManagerNewProgram, ManagerNewFund, ManagerNewExternalSignalAccount, ManagerNewSignalProvider, Signals, ExternalSignals]
+ **type** | **String**|  | [optional] [enum: PlatformNewsAndUpdates, PlatformEmergency, PlatformOther, ProfileUpdated, ProfilePwdUpdated, ProfileVerification, Profile2FA, ProfileSecurity, TradingAccountPwdUpdated, TradingAccountUpdated, ProgramNewsAndUpdates, ProgramEndOfPeriod, ProgramCondition, ProgramExceedInvestmentLimit, FollowNewsAndUpdates, FundNewsAndUpdates, FundEndOfPeriod, FundRebalancing, ManagerNewProgram, ManagerNewFund, ManagerNewExternalSignalAccount, ManagerNewSignalProvider, Signals, ExternalSignals]
  **conditionType** | **String**|  | [optional] [enum: Empty, Profit, Level, AvailableToInvest]
  **conditionAmount** | **Double**|  | [optional]
 
@@ -326,6 +327,49 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**NotificationSettingList**](NotificationSettingList.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
+
+<a name="readAllNotification"></a>
+# **readAllNotification**
+> Void readAllNotification(authorization)
+
+Read all notification
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiException;
+//import io.swagger.client.api.NotificationsApi;
+
+
+NotificationsApi apiInstance = new NotificationsApi();
+String authorization = "authorization_example"; // String | JWT access token
+try {
+    Void result = apiInstance.readAllNotification(authorization);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling NotificationsApi#readAllNotification");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **authorization** | **String**| JWT access token |
+
+### Return type
+
+[**Void**](.md)
 
 ### Authorization
 

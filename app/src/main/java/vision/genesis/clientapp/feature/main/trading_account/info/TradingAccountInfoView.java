@@ -9,6 +9,7 @@ import java.util.List;
 import io.swagger.client.model.PrivateTradingAccountFull;
 import io.swagger.client.model.SignalSubscription;
 import vision.genesis.clientapp.model.CreateProgramModel;
+import vision.genesis.clientapp.model.ProgramRequest;
 import vision.genesis.clientapp.model.TradingAccountDetailsModel;
 import vision.genesis.clientapp.model.TransferFundsModel;
 
@@ -40,4 +41,6 @@ interface TradingAccountInfoView extends MvpView
 	void showCopytradingDetailsActivity(TradingAccountDetailsModel model);
 
 	void showProfilePublicInfoActivity();
+
+	void showAddDemoFundsActivity(ProgramRequest request);
 }

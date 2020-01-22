@@ -169,7 +169,7 @@ public class SelectBrokerFragment extends BaseFragment implements SelectBrokerVi
 
 			presenter.setData(assetId, isExternal);
 
-			nextButton.setText(String.format(Locale.getDefault(), "%s (1/%d)", getString(R.string.next), assetId != null || isExternal ? 2 : 3));
+//			nextButton.setText(String.format(Locale.getDefault(), "%s (1/%d)", getString(R.string.next), assetId != null || isExternal ? 2 : 3));
 			brokerChangeInfo.setVisibility(assetId != null ? View.VISIBLE : View.GONE);
 			return;
 		}

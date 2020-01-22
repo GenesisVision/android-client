@@ -15,6 +15,7 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import io.swagger.client.model.Tag;
 import vision.genesis.clientapp.R;
+import vision.genesis.clientapp.utils.ThemeUtil;
 import vision.genesis.clientapp.utils.TypefaceUtil;
 
 /**
@@ -67,5 +68,11 @@ public class TagView extends RelativeLayout
 		int tagColor = Color.parseColor(tag.getColor());
 		this.name.setTextColor(tagColor);
 		ViewCompat.setBackgroundTintList(background, ColorStateList.valueOf(tagColor));
+	}
+
+	public void setDemo() {
+		this.name.setText(getContext().getString(R.string.demo).toUpperCase());
+		this.name.setTextColor(ThemeUtil.getColorByAttrId(getContext(), R.attr.colorPending));
+		ViewCompat.setBackgroundTintList(background, ColorStateList.valueOf(ThemeUtil.getColorByAttrId(getContext(), R.attr.colorPending)));
 	}
 }

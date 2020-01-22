@@ -48,6 +48,9 @@ public class TradingAssetDashboardShortView extends RelativeLayout
 	@BindView(R.id.name)
 	public TextView name;
 
+	@BindView(R.id.demo_tag)
+	public TagView demoTag;
+
 	@BindView(R.id.type)
 	public TextView type;
 
@@ -119,6 +122,7 @@ public class TradingAssetDashboardShortView extends RelativeLayout
 								asset.getBroker() != null ? asset.getBroker().getLogo() : null,
 								asset.getAccountInfo() != null ? asset.getAccountInfo().getType() : null
 						);
+						tradingAccountDetailsModel.setIsDemo(asset.getActions().isCanMakeDemoDeposit());
 						EventBus.getDefault().post(new ShowTradingAccountDetailsEvent(tradingAccountDetailsModel));
 						break;
 					case PROGRAM:
@@ -209,6 +213,11 @@ public class TradingAssetDashboardShortView extends RelativeLayout
 			}
 
 			this.change.setVisibility(ViewGroup.GONE);
+
+			if (asset.getActions().isCanMakeDemoDeposit()) {
+				demoTag.setVisibility(View.VISIBLE);
+				demoTag.setDemo();
+			}
 		}
 		else {
 			this.brokerLogo.setVisibility(View.GONE);

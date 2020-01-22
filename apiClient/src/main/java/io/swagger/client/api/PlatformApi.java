@@ -70,11 +70,12 @@ public interface PlatformApi
 	 * @param followTake   (optional)
 	 * @param programsTake (optional)
 	 * @param fundsTake    (optional)
+	 * @param newsTake     (optional)
 	 * @return Call&lt;LandingInfo&gt;
 	 */
 	@GET("v2.0/platform/landing")
 	Observable<LandingInfo> getPlatformLandingInfo(
-			@retrofit2.http.Query("eventsTake") Integer eventsTake, @retrofit2.http.Query("followTake") Integer followTake, @retrofit2.http.Query("programsTake") Integer programsTake, @retrofit2.http.Query("fundsTake") Integer fundsTake
+			@retrofit2.http.Query("eventsTake") Integer eventsTake, @retrofit2.http.Query("followTake") Integer followTake, @retrofit2.http.Query("programsTake") Integer programsTake, @retrofit2.http.Query("fundsTake") Integer fundsTake, @retrofit2.http.Query("newsTake") Integer newsTake
 	);
 
 	/**

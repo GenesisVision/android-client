@@ -53,6 +53,9 @@ public class NotificationSettingList implements Parcelable
 	@SerializedName("settingsManager")
 	private List<ManagerNotificationSettingList> settingsManager = null;
 
+	@SerializedName("settingsFollow")
+	private List<FollowNotificationSettingList> settingsFollow = null;
+
 	public NotificationSettingList() {
 	}
 
@@ -61,6 +64,7 @@ public class NotificationSettingList implements Parcelable
 		settingsProgram = (List<ProgramNotificationSettingList>) in.readValue(ProgramNotificationSettingList.class.getClassLoader());
 		settingsFund = (List<FundNotificationSettingList>) in.readValue(FundNotificationSettingList.class.getClassLoader());
 		settingsManager = (List<ManagerNotificationSettingList>) in.readValue(ManagerNotificationSettingList.class.getClassLoader());
+		settingsFollow = (List<FollowNotificationSettingList>) in.readValue(FollowNotificationSettingList.class.getClassLoader());
 	}
 
 	public NotificationSettingList settingsGeneral(List<NotificationSettingViewModel> settingsGeneral) {
@@ -171,6 +175,33 @@ public class NotificationSettingList implements Parcelable
 		this.settingsManager = settingsManager;
 	}
 
+	public NotificationSettingList settingsFollow(List<FollowNotificationSettingList> settingsFollow) {
+		this.settingsFollow = settingsFollow;
+		return this;
+	}
+
+	public NotificationSettingList addSettingsFollowItem(FollowNotificationSettingList settingsFollowItem) {
+		if (this.settingsFollow == null) {
+			this.settingsFollow = new ArrayList<FollowNotificationSettingList>();
+		}
+		this.settingsFollow.add(settingsFollowItem);
+		return this;
+	}
+
+	/**
+	 * Get settingsFollow
+	 *
+	 * @return settingsFollow
+	 **/
+	@Schema(description = "")
+	public List<FollowNotificationSettingList> getSettingsFollow() {
+		return settingsFollow;
+	}
+
+	public void setSettingsFollow(List<FollowNotificationSettingList> settingsFollow) {
+		this.settingsFollow = settingsFollow;
+	}
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -183,12 +214,13 @@ public class NotificationSettingList implements Parcelable
 		return Objects.equals(this.settingsGeneral, notificationSettingList.settingsGeneral) &&
 				Objects.equals(this.settingsProgram, notificationSettingList.settingsProgram) &&
 				Objects.equals(this.settingsFund, notificationSettingList.settingsFund) &&
-				Objects.equals(this.settingsManager, notificationSettingList.settingsManager);
+				Objects.equals(this.settingsManager, notificationSettingList.settingsManager) &&
+				Objects.equals(this.settingsFollow, notificationSettingList.settingsFollow);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(settingsGeneral, settingsProgram, settingsFund, settingsManager);
+		return Objects.hash(settingsGeneral, settingsProgram, settingsFund, settingsManager, settingsFollow);
 	}
 
 	@Override
@@ -200,6 +232,7 @@ public class NotificationSettingList implements Parcelable
 		sb.append("    settingsProgram: ").append(toIndentedString(settingsProgram)).append("\n");
 		sb.append("    settingsFund: ").append(toIndentedString(settingsFund)).append("\n");
 		sb.append("    settingsManager: ").append(toIndentedString(settingsManager)).append("\n");
+		sb.append("    settingsFollow: ").append(toIndentedString(settingsFollow)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}
@@ -220,6 +253,7 @@ public class NotificationSettingList implements Parcelable
 		out.writeValue(settingsProgram);
 		out.writeValue(settingsFund);
 		out.writeValue(settingsManager);
+		out.writeValue(settingsFollow);
 	}
 
 	public int describeContents() {

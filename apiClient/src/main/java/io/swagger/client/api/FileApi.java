@@ -13,12 +13,13 @@ public interface FileApi
 	/**
 	 * Download file
 	 *
-	 * @param id (required)
+	 * @param id      (required)
+	 * @param quality (optional)
 	 * @return Call&lt;Void&gt;
 	 */
 	@GET("v2.0/file/{id}")
 	Observable<Void> getFile(
-			@retrofit2.http.Path("id") UUID id
+			@retrofit2.http.Path("id") UUID id, @retrofit2.http.Query("quality") String quality
 	);
 
 	/**

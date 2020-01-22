@@ -44,6 +44,9 @@ public class LandingInfo implements Parcelable
 	@SerializedName("events")
 	private List<PlatformEvent> events = null;
 
+	@SerializedName("news")
+	private List<PlatformNews> news = null;
+
 	@SerializedName("follows")
 	private ItemsViewModelFollowDetailsListItem follows = null;
 
@@ -58,6 +61,7 @@ public class LandingInfo implements Parcelable
 
 	LandingInfo(Parcel in) {
 		events = (List<PlatformEvent>) in.readValue(PlatformEvent.class.getClassLoader());
+		news = (List<PlatformNews>) in.readValue(PlatformNews.class.getClassLoader());
 		follows = (ItemsViewModelFollowDetailsListItem) in.readValue(ItemsViewModelFollowDetailsListItem.class.getClassLoader());
 		programs = (ItemsViewModelProgramDetailsListItem) in.readValue(ItemsViewModelProgramDetailsListItem.class.getClassLoader());
 		funds = (ItemsViewModelFundDetailsListItem) in.readValue(ItemsViewModelFundDetailsListItem.class.getClassLoader());
@@ -88,6 +92,33 @@ public class LandingInfo implements Parcelable
 
 	public void setEvents(List<PlatformEvent> events) {
 		this.events = events;
+	}
+
+	public LandingInfo news(List<PlatformNews> news) {
+		this.news = news;
+		return this;
+	}
+
+	public LandingInfo addNewsItem(PlatformNews newsItem) {
+		if (this.news == null) {
+			this.news = new ArrayList<PlatformNews>();
+		}
+		this.news.add(newsItem);
+		return this;
+	}
+
+	/**
+	 * Get news
+	 *
+	 * @return news
+	 **/
+	@Schema(description = "")
+	public List<PlatformNews> getNews() {
+		return news;
+	}
+
+	public void setNews(List<PlatformNews> news) {
+		this.news = news;
 	}
 
 	public LandingInfo follows(ItemsViewModelFollowDetailsListItem follows) {
@@ -157,6 +188,7 @@ public class LandingInfo implements Parcelable
 		}
 		LandingInfo landingInfo = (LandingInfo) o;
 		return Objects.equals(this.events, landingInfo.events) &&
+				Objects.equals(this.news, landingInfo.news) &&
 				Objects.equals(this.follows, landingInfo.follows) &&
 				Objects.equals(this.programs, landingInfo.programs) &&
 				Objects.equals(this.funds, landingInfo.funds);
@@ -164,7 +196,7 @@ public class LandingInfo implements Parcelable
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(events, follows, programs, funds);
+		return Objects.hash(events, news, follows, programs, funds);
 	}
 
 	@Override
@@ -173,6 +205,7 @@ public class LandingInfo implements Parcelable
 		sb.append("class LandingInfo {\n");
 
 		sb.append("    events: ").append(toIndentedString(events)).append("\n");
+		sb.append("    news: ").append(toIndentedString(news)).append("\n");
 		sb.append("    follows: ").append(toIndentedString(follows)).append("\n");
 		sb.append("    programs: ").append(toIndentedString(programs)).append("\n");
 		sb.append("    funds: ").append(toIndentedString(funds)).append("\n");
@@ -193,6 +226,7 @@ public class LandingInfo implements Parcelable
 
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(events);
+		out.writeValue(news);
 		out.writeValue(follows);
 		out.writeValue(programs);
 		out.writeValue(funds);

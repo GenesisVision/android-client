@@ -33,8 +33,10 @@ import vision.genesis.clientapp.feature.main.follow.create.CreateFollowActivity;
 import vision.genesis.clientapp.feature.main.program.create.CreateProgramActivity;
 import vision.genesis.clientapp.feature.main.settings.public_info.ProfilePublicInfoActivity;
 import vision.genesis.clientapp.feature.main.trading_account.TradingAccountDetailsPagerAdapter;
+import vision.genesis.clientapp.feature.main.trading_account.add_demo_funds.AddDemoFundsActivity;
 import vision.genesis.clientapp.feature.main.wallet.transfer_funds.TransferFundsActivity;
 import vision.genesis.clientapp.model.CreateProgramModel;
+import vision.genesis.clientapp.model.ProgramRequest;
 import vision.genesis.clientapp.model.TradingAccountDetailsModel;
 import vision.genesis.clientapp.model.TransferFundsModel;
 import vision.genesis.clientapp.ui.AccountAgeView;
@@ -120,6 +122,9 @@ public class TradingAccountInfoFragment extends BaseFragment implements TradingA
 	@BindView(R.id.button_add_funds)
 	public PrimaryButton addFundsButton;
 
+	@BindView(R.id.button_add_demo_funds)
+	public PrimaryButton addDemoFundsButton;
+
 
 	@BindView(R.id.group_program)
 	public ViewGroup groupProgram;
@@ -130,6 +135,9 @@ public class TradingAccountInfoFragment extends BaseFragment implements TradingA
 	@BindView(R.id.button_create_program)
 	public PrimaryButton createProgramButton;
 
+
+	@BindView(R.id.group_follow)
+	public ViewGroup groupFollow;
 
 	@BindView(R.id.label_follow)
 	public TextView labelFollow;
@@ -180,6 +188,11 @@ public class TradingAccountInfoFragment extends BaseFragment implements TradingA
 	@OnClick(R.id.button_add_funds)
 	public void onAddFundsClicked() {
 		presenter.onAddFundsClicked();
+	}
+
+	@OnClick(R.id.button_add_demo_funds)
+	public void onAddDemoFundsClicked() {
+		presenter.onAddDemoFundsClicked();
 	}
 
 	@OnClick(R.id.button_create_program)
@@ -274,10 +287,21 @@ public class TradingAccountInfoFragment extends BaseFragment implements TradingA
 			else {
 				value.setText(StringFormatUtil.getValueString(accountDetails.getTradingAccountInfo().getBalance(),
 						accountDetails.getTradingAccountInfo().getCurrency().getValue()));
-				depositButtonsGroup.setVisibility(View.VISIBLE);
-			}
+				if (accountDetails.getOwnerActions().isCanMakeDemoDeposit()) {
+					addDemoFundsButton.setVisibility(View.VISIBLE);
+					depositButtonsGroup.setVisibility(View.GONE);
 
-			groupProgram.setVisibility(accountDetails.getTradingAccountInfo().isIsExternal() ? View.GONE : View.VISIBLE);
+					groupProgram.setVisibility(View.GONE);
+					groupFollow.setVisibility(View.GONE);
+				}
+				else {
+					addDemoFundsButton.setVisibility(View.GONE);
+					depositButtonsGroup.setVisibility(View.VISIBLE);
+
+					groupProgram.setVisibility(accountDetails.getTradingAccountInfo().isIsExternal() ? View.GONE : View.VISIBLE);
+					groupFollow.setVisibility(View.VISIBLE);
+				}
+			}
 
 			if (accountDetails.getOwnerActions() != null) {
 				withdrawButton.setEnabled(accountDetails.getOwnerActions().isCanTransferMoney());
@@ -400,6 +424,13 @@ public class TradingAccountInfoFragment extends BaseFragment implements TradingA
 	public void showProfilePublicInfoActivity() {
 		if (getActivity() != null) {
 			ProfilePublicInfoActivity.startFrom(getActivity(), true);
+		}
+	}
+
+	@Override
+	public void showAddDemoFundsActivity(ProgramRequest request) {
+		if (getActivity() != null) {
+			AddDemoFundsActivity.startWith(getActivity(), request);
 		}
 	}
 }

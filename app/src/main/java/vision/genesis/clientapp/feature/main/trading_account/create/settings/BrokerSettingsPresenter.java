@@ -37,8 +37,6 @@ public class BrokerSettingsPresenter extends MvpPresenter<BrokerSettingsView>
 
 	private UUID assetId;
 
-	private UUID brokerAccountTypeId;
-
 	private Currency currency;
 
 	private Integer leverage;
@@ -57,7 +55,7 @@ public class BrokerSettingsPresenter extends MvpPresenter<BrokerSettingsView>
 	void setBroker(Broker broker) {
 		this.broker = broker;
 
-		this.brokerAccountTypeId = null;
+		this.selectedAccountType = null;
 		this.currency = null;
 		this.leverage = null;
 
@@ -71,15 +69,19 @@ public class BrokerSettingsPresenter extends MvpPresenter<BrokerSettingsView>
 
 	private void updateNextButtonAvailability() {
 		boolean currencyOk = assetId == null || currency != null;
-		getViewState().setNextButtonEnabled(brokerAccountTypeId != null && currencyOk && leverage != null);
+		getViewState().setNextButtonEnabled(selectedAccountType != null && currencyOk && leverage != null);
 	}
 
 	void onAccountTypeOptionSelected(Integer position, String text) {
 		selectedAccountType = broker.getAccountTypes().get(position);
-		brokerAccountTypeId = selectedAccountType.getId();
 		currency = null;
 		leverage = null;
 
+		if (assetId == null) {
+			getViewState().setButtonText(selectedAccountType.isIsDepositRequired()
+					? context.getString(R.string.next)
+					: context.getString(R.string.create_trading_account));
+		}
 		getViewState().setAccountType(text, position);
 		getViewState().setAccountTypeDescription(String.format(Locale.getDefault(), "%s: %s",
 				context.getString(R.string.trading_platform), selectedAccountType.getType().getValue()));
@@ -110,6 +112,6 @@ public class BrokerSettingsPresenter extends MvpPresenter<BrokerSettingsView>
 	}
 
 	void onConfirmClicked() {
-		EventBus.getDefault().post(new OnAccountBrokerSettingsSelectedEvent(brokerAccountTypeId, currency, leverage));
+		EventBus.getDefault().post(new OnAccountBrokerSettingsSelectedEvent(selectedAccountType, currency, leverage));
 	}
 }

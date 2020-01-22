@@ -1,7 +1,6 @@
 package vision.genesis.clientapp.model.events;
 
-import java.util.UUID;
-
+import io.swagger.client.model.BrokerAccountType;
 import io.swagger.client.model.Currency;
 
 /**
@@ -10,20 +9,20 @@ import io.swagger.client.model.Currency;
  */
 public class OnAccountBrokerSettingsSelectedEvent
 {
-	private UUID brokerAccountTypeId;
+	private BrokerAccountType brokerAccountType;
 
 	private Currency currency;
 
 	private Integer leverage;
 
-	public OnAccountBrokerSettingsSelectedEvent(UUID brokerAccountTypeId, Currency currency, Integer leverage) {
-		this.brokerAccountTypeId = brokerAccountTypeId;
+	public OnAccountBrokerSettingsSelectedEvent(BrokerAccountType brokerAccountType, Currency currency, Integer leverage) {
+		this.brokerAccountType = brokerAccountType;
 		this.currency = currency;
 		this.leverage = leverage;
 	}
 
-	public UUID getBrokerAccountTypeId() {
-		return brokerAccountTypeId;
+	public BrokerAccountType getBrokerAccountType() {
+		return brokerAccountType;
 	}
 
 	public Currency getCurrency() {

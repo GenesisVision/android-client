@@ -113,6 +113,7 @@ import vision.genesis.clientapp.feature.main.settings.security.SecurityPresenter
 import vision.genesis.clientapp.feature.main.settings.security.change_password.ChangePasswordPresenter;
 import vision.genesis.clientapp.feature.main.settings.social_links.SocialLinksPresenter;
 import vision.genesis.clientapp.feature.main.trading_account.TradingAccountDetailsPresenter;
+import vision.genesis.clientapp.feature.main.trading_account.add_demo_funds.AddDemoFundsPresenter;
 import vision.genesis.clientapp.feature.main.trading_account.balance.TradingAccountBalancePresenter;
 import vision.genesis.clientapp.feature.main.trading_account.change_broker.ChangeBrokerPresenter;
 import vision.genesis.clientapp.feature.main.trading_account.change_password.ChangeTradingAccountPasswordPresenter;
@@ -425,4 +426,6 @@ public interface AppComponent
 	void inject(AttachExternalAccountPresenter attachExternalAccountPresenter);
 
 	void inject(FollowBalancePresenter followBalancePresenter);
+
+	void inject(AddDemoFundsPresenter addDemoFundsPresenter);
 }

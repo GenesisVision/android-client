@@ -26,6 +26,7 @@ import vision.genesis.clientapp.managers.FollowsManager;
 import vision.genesis.clientapp.managers.ProfileManager;
 import vision.genesis.clientapp.managers.TradingAccountManager;
 import vision.genesis.clientapp.model.CreateProgramModel;
+import vision.genesis.clientapp.model.ProgramRequest;
 import vision.genesis.clientapp.model.TradingAccountDetailsModel;
 import vision.genesis.clientapp.model.TransferFundsModel;
 import vision.genesis.clientapp.model.events.OnProfilePublicInfoFilledEvent;
@@ -132,6 +133,14 @@ public class TradingAccountInfoPresenter extends MvpPresenter<TradingAccountInfo
 		model.setAssetType(InternalTransferRequestType.PRIVATETRADINGACCOUNT);
 		model.setTransferDirection(TransferFundsModel.TransferDirection.DEPOSIT);
 		getViewState().showTransferFundsActivity(model);
+	}
+
+	void onAddDemoFundsClicked() {
+		ProgramRequest request = new ProgramRequest();
+		request.setProgramId(accountDetails.getId());
+		request.setProgramName(accountDetails.getPublicInfo().getTitle());
+		request.setProgramCurrency(accountDetails.getTradingAccountInfo().getCurrency().getValue());
+		getViewState().showAddDemoFundsActivity(request);
 	}
 
 	void onCreateProgramClicked() {

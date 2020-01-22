@@ -16,6 +16,7 @@ import io.swagger.client.model.NewFundRequest;
 import io.swagger.client.model.NewTradingAccountRequest;
 import io.swagger.client.model.ProgramUpdate;
 import io.swagger.client.model.TradingAccountCreateResult;
+import io.swagger.client.model.TradingAccountDemoDeposit;
 import io.swagger.client.model.TradingAccountPwdUpdate;
 import io.swagger.client.model.TwoFactorCodeModel;
 import rx.Observable;
@@ -103,5 +104,11 @@ public class AssetsManager
 
 	public Observable<Void> closeFund(UUID fundId, TwoFactorCodeModel model) {
 		return assetsApi.closeFund(AuthManager.token.getValue(), fundId, model);
+	}
+
+	public Observable<Void> addDemoFunds(UUID accountId, Double amount) {
+		TradingAccountDemoDeposit model = new TradingAccountDemoDeposit();
+		model.setAmount(amount);
+		return assetsApi.makeDemoTradingAccountDeposit(AuthManager.token.getValue(), accountId, model);
 	}
 }

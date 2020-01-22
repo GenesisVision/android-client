@@ -223,6 +223,17 @@
 
                 </LinearLayout>
 
+                <vision.genesis.clientapp.ui.PrimaryButton
+                    android:id="@+id/button_add_demo_funds"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/button_height"
+                    android:layout_marginStart="@dimen/program_details_padding"
+                    android:layout_marginEnd="@dimen/program_details_padding"
+                    android:layout_marginBottom="24dp"
+                    android:text="@string/add_demo_funds"
+                    android:visibility="gone"
+                    tools:visibility="visible"/>
+
             </LinearLayout>
 
             <LinearLayout

@@ -222,28 +222,29 @@ public interface ProgramsApi
 	/**
 	 * Programs list
 	 *
-	 * @param authorization    (optional)
-	 * @param sorting          (optional)
-	 * @param showIn           (optional)
-	 * @param tags             (optional)
-	 * @param programCurrency  (optional)
-	 * @param levelMin         (optional)
-	 * @param levelMax         (optional)
-	 * @param levelsSet        (optional)
-	 * @param dateFrom         (optional)
-	 * @param dateTo           (optional)
-	 * @param chartPointsCount (optional)
-	 * @param facetId          (optional)
-	 * @param mask             (optional)
-	 * @param ownerId          (optional)
-	 * @param showFavorites    (optional)
-	 * @param skip             (optional)
-	 * @param take             (optional)
+	 * @param authorization          (optional)
+	 * @param sorting                (optional)
+	 * @param showIn                 (optional)
+	 * @param tags                   (optional)
+	 * @param programCurrency        (optional)
+	 * @param levelMin               (optional)
+	 * @param levelMax               (optional)
+	 * @param levelsSet              (optional)
+	 * @param includeWithInvestments (optional)
+	 * @param dateFrom               (optional)
+	 * @param dateTo                 (optional)
+	 * @param chartPointsCount       (optional)
+	 * @param facetId                (optional)
+	 * @param mask                   (optional)
+	 * @param ownerId                (optional)
+	 * @param showFavorites          (optional)
+	 * @param skip                   (optional)
+	 * @param take                   (optional)
 	 * @return Call&lt;ItemsViewModelProgramDetailsListItem&gt;
 	 */
 	@GET("v2.0/programs")
 	Observable<ItemsViewModelProgramDetailsListItem> getPrograms(
-			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("Sorting") String sorting, @retrofit2.http.Query("ShowIn") String showIn, @retrofit2.http.Query("Tags") List<String> tags, @retrofit2.http.Query("ProgramCurrency") String programCurrency, @retrofit2.http.Query("LevelMin") Integer levelMin, @retrofit2.http.Query("LevelMax") Integer levelMax, @retrofit2.http.Query("LevelsSet") List<Integer> levelsSet, @retrofit2.http.Query("DateFrom") DateTime dateFrom, @retrofit2.http.Query("DateTo") DateTime dateTo, @retrofit2.http.Query("ChartPointsCount") Integer chartPointsCount, @retrofit2.http.Query("FacetId") String facetId, @retrofit2.http.Query("Mask") String mask, @retrofit2.http.Query("OwnerId") UUID ownerId, @retrofit2.http.Query("ShowFavorites") Boolean showFavorites, @retrofit2.http.Query("Skip") Integer skip, @retrofit2.http.Query("Take") Integer take
+			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("Sorting") String sorting, @retrofit2.http.Query("ShowIn") String showIn, @retrofit2.http.Query("Tags") List<String> tags, @retrofit2.http.Query("ProgramCurrency") String programCurrency, @retrofit2.http.Query("LevelMin") Integer levelMin, @retrofit2.http.Query("LevelMax") Integer levelMax, @retrofit2.http.Query("LevelsSet") List<Integer> levelsSet, @retrofit2.http.Query("IncludeWithInvestments") Boolean includeWithInvestments, @retrofit2.http.Query("DateFrom") DateTime dateFrom, @retrofit2.http.Query("DateTo") DateTime dateTo, @retrofit2.http.Query("ChartPointsCount") Integer chartPointsCount, @retrofit2.http.Query("FacetId") String facetId, @retrofit2.http.Query("Mask") String mask, @retrofit2.http.Query("OwnerId") UUID ownerId, @retrofit2.http.Query("ShowFavorites") Boolean showFavorites, @retrofit2.http.Query("Skip") Integer skip, @retrofit2.http.Query("Take") Integer take
 	);
 
 	/**

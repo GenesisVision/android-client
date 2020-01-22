@@ -9,7 +9,7 @@ Method | HTTP request | Description
 
 <a name="getFile"></a>
 # **getFile**
-> Void getFile(id)
+> Void getFile(id, quality)
 
 Download file
 
@@ -22,8 +22,9 @@ Download file
 
 FileApi apiInstance = new FileApi();
 UUID id = new UUID(); // UUID | 
+String quality = "quality_example"; // String | 
 try {
-    Void result = apiInstance.getFile(id);
+    Void result = apiInstance.getFile(id, quality);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling FileApi#getFile");
@@ -36,6 +37,7 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | [**UUID**](.md)|  |
+ **quality** | **String**|  | [optional] [enum: Low, Medium, High]
 
 ### Return type
 

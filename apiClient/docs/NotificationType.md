@@ -16,6 +16,7 @@
 * `PROGRAMENDOFPERIOD` (value: `"ProgramEndOfPeriod"`)
 * `PROGRAMCONDITION` (value: `"ProgramCondition"`)
 * `PROGRAMEXCEEDINVESTMENTLIMIT` (value: `"ProgramExceedInvestmentLimit"`)
+* `FOLLOWNEWSANDUPDATES` (value: `"FollowNewsAndUpdates"`)
 * `FUNDNEWSANDUPDATES` (value: `"FundNewsAndUpdates"`)
 * `FUNDENDOFPERIOD` (value: `"FundEndOfPeriod"`)
 * `FUNDREBALANCING` (value: `"FundRebalancing"`)

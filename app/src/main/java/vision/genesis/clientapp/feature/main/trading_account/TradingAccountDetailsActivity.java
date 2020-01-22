@@ -27,6 +27,7 @@ import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseSwipeBackActivity;
 import vision.genesis.clientapp.feature.main.copytrading.unfollow_trades.UnfollowTradesActivity;
 import vision.genesis.clientapp.model.TradingAccountDetailsModel;
+import vision.genesis.clientapp.ui.TagView;
 import vision.genesis.clientapp.ui.common.DetailsTabView;
 import vision.genesis.clientapp.utils.ImageUtils;
 import vision.genesis.clientapp.utils.TabLayoutUtil;
@@ -61,6 +62,9 @@ public class TradingAccountDetailsActivity extends BaseSwipeBackActivity impleme
 
 	@BindView(R.id.toolbar_account_name)
 	public TextView toolbarAccountName;
+
+	@BindView(R.id.demo_tag)
+	public TagView demoTag;
 
 	@BindView(R.id.tab_layout)
 	public TabLayout tabLayout;
@@ -202,6 +206,11 @@ public class TradingAccountDetailsActivity extends BaseSwipeBackActivity impleme
 	private void updateHeader() {
 		toolbarBrokerLogo.setImageURI(ImageUtils.getImageUri(model.getBrokerLogo()));
 		toolbarAccountName.setText(model.getAccountName());
+
+		if (model.isDemo()) {
+			demoTag.setVisibility(View.VISIBLE);
+			demoTag.setDemo();
+		}
 	}
 
 	private void initTabs() {

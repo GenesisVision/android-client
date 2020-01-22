@@ -12,7 +12,6 @@ import androidx.annotation.Nullable;
 import com.arellomobile.mvp.presenter.InjectPresenter;
 
 import java.util.ArrayList;
-import java.util.Locale;
 import java.util.UUID;
 
 import butterknife.BindView;
@@ -150,11 +149,13 @@ public class BrokerSettingsFragment extends BaseFragment implements BrokerSettin
 
 				nextButton.setText(getString(R.string.update));
 			}
+			else {
+//				nextButton.setText(String.format(Locale.getDefault(), "%s (2/3)", getString(R.string.next)));
+				nextButton.setText(getString(R.string.next));
+			}
 			return;
 		}
-		else {
-			nextButton.setText(String.format(Locale.getDefault(), "%s (2/3)", getString(R.string.next)));
-		}
+
 		Timber.e("Passed empty arguments to %s", getClass().getSimpleName());
 		onBackPressed();
 	}
@@ -234,6 +235,11 @@ public class BrokerSettingsFragment extends BaseFragment implements BrokerSettin
 	@Override
 	public void setAccountTypeDescription(String description) {
 		this.accountTypeDescription.setText(description);
+	}
+
+	@Override
+	public void setButtonText(String text) {
+		this.nextButton.setText(text);
 	}
 
 	@Override

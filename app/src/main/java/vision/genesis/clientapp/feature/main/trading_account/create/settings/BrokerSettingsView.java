@@ -25,6 +25,8 @@ interface BrokerSettingsView extends MvpView
 
 	void setAccountTypeDescription(String description);
 
+	void setButtonText(String text);
+
 	void showSnackbarMessage(String message);
 
 	void setNextButtonEnabled(boolean enabled);

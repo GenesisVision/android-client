@@ -12,3 +12,4 @@ Name | Type | Description | Notes
 **signalInfo** | [**DashboardTradingAssetSignalDetails**](DashboardTradingAssetSignalDetails.md) |  |  [optional]
 **broker** | [**DashboardTradingAssetBrokerDetails**](DashboardTradingAssetBrokerDetails.md) |  |  [optional]
 **actions** | [**DashboardTradingAssetActions**](DashboardTradingAssetActions.md) |  |  [optional]
+**tags** | [**List&lt;Tag&gt;**](Tag.md) |  |  [optional]

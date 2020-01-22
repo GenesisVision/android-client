@@ -19,6 +19,7 @@ Method | HTTP request | Description
 [**getProgram2FA**](AssetsApi.md#getProgram2FA) | **GET** v2.0/assets/programs/{id}/2fa/get | Get 2FA for program if needed
 [**makeAccountProgram**](AssetsApi.md#makeAccountProgram) | **POST** v2.0/assets/programs/fromaccount/create | Create an investment program
 [**makeAccountSignalProvider**](AssetsApi.md#makeAccountSignalProvider) | **POST** v2.0/assets/signal/create | Make account signal provider
+[**makeDemoTradingAccountDeposit**](AssetsApi.md#makeDemoTradingAccountDeposit) | **POST** v2.0/assets/tradingaccounts/{id}/demo/deposit | Make demo trading account deposit
 [**makeExternalAccountSignalProvider**](AssetsApi.md#makeExternalAccountSignalProvider) | **POST** v2.0/assets/tradingaccounts/external/fromaccount/create | Make external trading account signal provider
 [**makeSignalProviderProgram**](AssetsApi.md#makeSignalProviderProgram) | **POST** v2.0/assets/programs/fromsignalprovider/create | Create an investment program
 [**updateAsset**](AssetsApi.md#updateAsset) | **POST** v2.0/assets/follow/{id}/update | Update investment program/fund details
@@ -698,6 +699,53 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **authorization** | **String**| JWT access token |
  **body** | [**MakeTradingAccountSignalProvider**](MakeTradingAccountSignalProvider.md)|  | [optional]
+
+### Return type
+
+[**Void**](.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json-patch+json, application/json, text/json, application/_*+json
+ - **Accept**: text/plain, application/json, text/json
+
+<a name="makeDemoTradingAccountDeposit"></a>
+# **makeDemoTradingAccountDeposit**
+> Void makeDemoTradingAccountDeposit(authorization, id, body)
+
+Make demo trading account deposit
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiException;
+//import io.swagger.client.api.AssetsApi;
+
+
+AssetsApi apiInstance = new AssetsApi();
+String authorization = "authorization_example"; // String | JWT access token
+UUID id = new UUID(); // UUID | 
+TradingAccountDemoDeposit body = new TradingAccountDemoDeposit(); // TradingAccountDemoDeposit | 
+try {
+    Void result = apiInstance.makeDemoTradingAccountDeposit(authorization, id, body);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling AssetsApi#makeDemoTradingAccountDeposit");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **authorization** | **String**| JWT access token |
+ **id** | [**UUID**](.md)|  |
+ **body** | [**TradingAccountDemoDeposit**](TradingAccountDemoDeposit.md)|  | [optional]
 
 ### Return type
 

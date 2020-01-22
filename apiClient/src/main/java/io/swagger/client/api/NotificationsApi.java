@@ -101,6 +101,17 @@ public interface NotificationsApi
 	);
 
 	/**
+	 * Read all notification
+	 *
+	 * @param authorization JWT access token (required)
+	 * @return Call&lt;Void&gt;
+	 */
+	@POST("v2.0/notifications/all/read")
+	Observable<Void> readAllNotification(
+			@retrofit2.http.Header("Authorization") String authorization
+	);
+
+	/**
 	 * Read notification
 	 *
 	 * @param id            (required)

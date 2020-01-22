@@ -15,6 +15,7 @@ import io.swagger.client.model.NewTradingAccountRequest;
 import io.swagger.client.model.ProgramLevelInfo;
 import io.swagger.client.model.ProgramUpdate;
 import io.swagger.client.model.TradingAccountCreateResult;
+import io.swagger.client.model.TradingAccountDemoDeposit;
 import io.swagger.client.model.TradingAccountPwdUpdate;
 import io.swagger.client.model.TwoFactorAuthenticator;
 import io.swagger.client.model.TwoFactorCodeModel;
@@ -238,6 +239,22 @@ public interface AssetsApi
 	@POST("v2.0/assets/signal/create")
 	Observable<Void> makeAccountSignalProvider(
 			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Body MakeTradingAccountSignalProvider body
+	);
+
+	/**
+	 * Make demo trading account deposit
+	 *
+	 * @param authorization JWT access token (required)
+	 * @param id            (required)
+	 * @param body          (optional)
+	 * @return Call&lt;Void&gt;
+	 */
+	@Headers({
+			"Content-Type:application/json"
+	})
+	@POST("v2.0/assets/tradingaccounts/{id}/demo/deposit")
+	Observable<Void> makeDemoTradingAccountDeposit(
+			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Path("id") UUID id, @retrofit2.http.Body TradingAccountDemoDeposit body
 	);
 
 	/**

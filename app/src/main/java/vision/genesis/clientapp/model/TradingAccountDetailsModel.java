@@ -50,6 +50,8 @@ public class TradingAccountDetailsModel implements Parcelable
 
 	private Boolean canChangeBroker = false;
 
+	private Boolean isDemo = false;
+
 	private PrivateTradingAccountType type;
 
 
@@ -96,6 +98,7 @@ public class TradingAccountDetailsModel implements Parcelable
 		currency = in.readString();
 		migration = in.readParcelable(MigrationRequest.class.getClassLoader());
 		canChangeBroker = in.readByte() == 1;
+		isDemo = in.readByte() == 1;
 		if (in.readByte() == 0) {
 			type = null;
 		}
@@ -127,6 +130,7 @@ public class TradingAccountDetailsModel implements Parcelable
 		parcel.writeString(currency);
 		parcel.writeParcelable(migration, flags);
 		parcel.writeByte(canChangeBroker ? (byte) 1 : (byte) 0);
+		parcel.writeByte(isDemo ? (byte) 1 : (byte) 0);
 		parcel.writeByte(type != null ? (byte) 1 : (byte) 0);
 		parcel.writeSerializable(type);
 	}
@@ -173,6 +177,14 @@ public class TradingAccountDetailsModel implements Parcelable
 
 	public Boolean isCanChangeBroker() {
 		return canChangeBroker;
+	}
+
+	public Boolean isDemo() {
+		return isDemo;
+	}
+
+	public void setIsDemo(Boolean isDemo) {
+		this.isDemo = isDemo;
 	}
 
 	public PrivateTradingAccountType getType() {

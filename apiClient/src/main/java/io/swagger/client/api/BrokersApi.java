@@ -19,6 +19,15 @@ public interface BrokersApi
 
 
 	/**
+	 * Get brokers for creating demo trading accounts
+	 *
+	 * @return Call&lt;BrokersInfo&gt;
+	 */
+	@GET("v2.0/brokers/demo")
+	Observable<BrokersInfo> getBrokersDemo();
+
+
+	/**
 	 * Get brokers for creating external trading accounts
 	 *
 	 * @return Call&lt;BrokersInfo&gt;

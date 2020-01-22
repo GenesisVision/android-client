@@ -71,6 +71,9 @@ public class BrokerAccountType implements Parcelable
 	@SerializedName("isSignalsAvailable")
 	private Boolean isSignalsAvailable = null;
 
+	@SerializedName("isDepositRequired")
+	private Boolean isDepositRequired = null;
+
 	public BrokerAccountType() {
 	}
 
@@ -84,6 +87,7 @@ public class BrokerAccountType implements Parcelable
 		minimumDepositsAmount = (Map<String, Double>) in.readValue(null);
 		isKycRequired = (Boolean) in.readValue(null);
 		isSignalsAvailable = (Boolean) in.readValue(null);
+		isDepositRequired = (Boolean) in.readValue(null);
 	}
 
 	public BrokerAccountType id(UUID id) {
@@ -281,6 +285,25 @@ public class BrokerAccountType implements Parcelable
 		this.isSignalsAvailable = isSignalsAvailable;
 	}
 
+	public BrokerAccountType isDepositRequired(Boolean isDepositRequired) {
+		this.isDepositRequired = isDepositRequired;
+		return this;
+	}
+
+	/**
+	 * Get isDepositRequired
+	 *
+	 * @return isDepositRequired
+	 **/
+	@Schema(description = "")
+	public Boolean isIsDepositRequired() {
+		return isDepositRequired;
+	}
+
+	public void setIsDepositRequired(Boolean isDepositRequired) {
+		this.isDepositRequired = isDepositRequired;
+	}
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -298,12 +321,13 @@ public class BrokerAccountType implements Parcelable
 				Objects.equals(this.currencies, brokerAccountType.currencies) &&
 				Objects.equals(this.minimumDepositsAmount, brokerAccountType.minimumDepositsAmount) &&
 				Objects.equals(this.isKycRequired, brokerAccountType.isKycRequired) &&
-				Objects.equals(this.isSignalsAvailable, brokerAccountType.isSignalsAvailable);
+				Objects.equals(this.isSignalsAvailable, brokerAccountType.isSignalsAvailable) &&
+				Objects.equals(this.isDepositRequired, brokerAccountType.isDepositRequired);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, name, description, type, leverages, currencies, minimumDepositsAmount, isKycRequired, isSignalsAvailable);
+		return Objects.hash(id, name, description, type, leverages, currencies, minimumDepositsAmount, isKycRequired, isSignalsAvailable, isDepositRequired);
 	}
 
 	@Override
@@ -320,6 +344,7 @@ public class BrokerAccountType implements Parcelable
 		sb.append("    minimumDepositsAmount: ").append(toIndentedString(minimumDepositsAmount)).append("\n");
 		sb.append("    isKycRequired: ").append(toIndentedString(isKycRequired)).append("\n");
 		sb.append("    isSignalsAvailable: ").append(toIndentedString(isSignalsAvailable)).append("\n");
+		sb.append("    isDepositRequired: ").append(toIndentedString(isDepositRequired)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}
@@ -345,6 +370,7 @@ public class BrokerAccountType implements Parcelable
 		out.writeValue(minimumDepositsAmount);
 		out.writeValue(isKycRequired);
 		out.writeValue(isSignalsAvailable);
+		out.writeValue(isDepositRequired);
 	}
 
 	public int describeContents() {

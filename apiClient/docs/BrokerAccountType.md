@@ -12,3 +12,4 @@ Name | Type | Description | Notes
 **minimumDepositsAmount** | **Map&lt;String, Double&gt;** |  |  [optional]
 **isKycRequired** | **Boolean** |  |  [optional]
 **isSignalsAvailable** | **Boolean** |  |  [optional]
+**isDepositRequired** | **Boolean** |  |  [optional]

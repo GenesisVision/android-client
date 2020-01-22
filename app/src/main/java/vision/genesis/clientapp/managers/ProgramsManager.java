@@ -48,7 +48,7 @@ public class ProgramsManager
 				filter.getTags(),
 				filter.getCurrency() == null ? null : filter.getCurrency().getValue(),
 				filter.getLevelMin(), filter.getLevelMax(),
-				null,
+				null, false,
 				filter.getDateRange().getFrom(), filter.getDateRange().getTo(),
 				filter.getChartPointsCount(), filter.getFacetId() == null ? null : filter.getFacetId().toString(),
 				filter.getMask(), filter.getManagerId(), false,

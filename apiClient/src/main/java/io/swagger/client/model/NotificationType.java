@@ -39,6 +39,7 @@ public enum NotificationType
 	PROGRAMENDOFPERIOD("ProgramEndOfPeriod"),
 	PROGRAMCONDITION("ProgramCondition"),
 	PROGRAMEXCEEDINVESTMENTLIMIT("ProgramExceedInvestmentLimit"),
+	FOLLOWNEWSANDUPDATES("FollowNewsAndUpdates"),
 	FUNDNEWSANDUPDATES("FundNewsAndUpdates"),
 	FUNDENDOFPERIOD("FundEndOfPeriod"),
 	FUNDREBALANCING("FundRebalancing"),

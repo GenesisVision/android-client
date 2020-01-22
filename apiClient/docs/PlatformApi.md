@@ -219,7 +219,7 @@ No authorization required
 
 <a name="getPlatformLandingInfo"></a>
 # **getPlatformLandingInfo**
-> LandingInfo getPlatformLandingInfo(eventsTake, followTake, programsTake, fundsTake)
+> LandingInfo getPlatformLandingInfo(eventsTake, followTake, programsTake, fundsTake, newsTake)
 
 Platform landing info
 
@@ -235,8 +235,9 @@ Integer eventsTake = 56; // Integer |
 Integer followTake = 56; // Integer | 
 Integer programsTake = 56; // Integer | 
 Integer fundsTake = 56; // Integer | 
+Integer newsTake = 56; // Integer | 
 try {
-    LandingInfo result = apiInstance.getPlatformLandingInfo(eventsTake, followTake, programsTake, fundsTake);
+    LandingInfo result = apiInstance.getPlatformLandingInfo(eventsTake, followTake, programsTake, fundsTake, newsTake);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling PlatformApi#getPlatformLandingInfo");
@@ -252,6 +253,7 @@ Name | Type | Description  | Notes
  **followTake** | **Integer**|  | [optional]
  **programsTake** | **Integer**|  | [optional]
  **fundsTake** | **Integer**|  | [optional]
+ **newsTake** | **Integer**|  | [optional]
 
 ### Return type
 
@@ -294,7 +296,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **currency** | **String**|  | [optional] [enum: USD, Undefined, GVT, ETH, BTC, ADA, USDT, XRP, BCH, LTC, DOGE, BNB, EUR]
+ **currency** | **String**|  | [optional] [enum: USD, BTC, ETH, USDT, GVT, Undefined, ADA, XRP, BCH, LTC, DOGE, BNB, EUR]
 
 ### Return type
 
@@ -337,7 +339,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **currency** | **String**|  | [optional] [enum: USD, Undefined, GVT, ETH, BTC, ADA, USDT, XRP, BCH, LTC, DOGE, BNB, EUR]
+ **currency** | **String**|  | [optional] [enum: USD, BTC, ETH, USDT, GVT, Undefined, ADA, XRP, BCH, LTC, DOGE, BNB, EUR]
 
 ### Return type
 

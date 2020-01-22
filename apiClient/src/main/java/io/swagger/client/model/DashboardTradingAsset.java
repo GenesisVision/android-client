@@ -17,6 +17,8 @@ import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -29,297 +31,331 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class DashboardTradingAsset implements Parcelable
 {
-	public static final Parcelable.Creator<DashboardTradingAsset> CREATOR = new Parcelable.Creator<DashboardTradingAsset>()
-	{
-		public DashboardTradingAsset createFromParcel(Parcel in) {
-			return new DashboardTradingAsset(in);
-		}
+  public static final Parcelable.Creator<DashboardTradingAsset> CREATOR = new Parcelable.Creator<DashboardTradingAsset>()
+  {
+    public DashboardTradingAsset createFromParcel(Parcel in) {
+      return new DashboardTradingAsset(in);
+    }
 
-		public DashboardTradingAsset[] newArray(int size) {
-			return new DashboardTradingAsset[size];
-		}
-	};
+    public DashboardTradingAsset[] newArray(int size) {
+      return new DashboardTradingAsset[size];
+    }
+  };
 
-	@SerializedName("id")
-	private UUID id = null;
+  @SerializedName("id")
+  private UUID id = null;
 
-	@SerializedName("assetType")
-	private AssetType assetType = null;
+  @SerializedName("assetType")
+  private AssetType assetType = null;
 
-	@SerializedName("assetTypeExt")
-	private AssetTypeExt assetTypeExt = null;
+  @SerializedName("assetTypeExt")
+  private AssetTypeExt assetTypeExt = null;
 
-	@SerializedName("statistic")
-	private ProfitChart statistic = null;
+  @SerializedName("statistic")
+  private ProfitChart statistic = null;
 
-	@SerializedName("publicInfo")
-	private DashboardTradingAssetPublicDetails publicInfo = null;
+  @SerializedName("publicInfo")
+  private DashboardTradingAssetPublicDetails publicInfo = null;
 
-	@SerializedName("accountInfo")
-	private DashboardTradingAssetCommonDetails accountInfo = null;
+  @SerializedName("accountInfo")
+  private DashboardTradingAssetCommonDetails accountInfo = null;
 
-	@SerializedName("signalInfo")
-	private DashboardTradingAssetSignalDetails signalInfo = null;
+  @SerializedName("signalInfo")
+  private DashboardTradingAssetSignalDetails signalInfo = null;
 
-	@SerializedName("broker")
-	private DashboardTradingAssetBrokerDetails broker = null;
+  @SerializedName("broker")
+  private DashboardTradingAssetBrokerDetails broker = null;
 
-	@SerializedName("actions")
-	private DashboardTradingAssetActions actions = null;
+  @SerializedName("actions")
+  private DashboardTradingAssetActions actions = null;
 
-	public DashboardTradingAsset() {
-	}
+  @SerializedName("tags")
+  private List<Tag> tags = null;
 
-	DashboardTradingAsset(Parcel in) {
-		id = (UUID) in.readValue(UUID.class.getClassLoader());
-		assetType = (AssetType) in.readValue(AssetType.class.getClassLoader());
-		assetTypeExt = (AssetTypeExt) in.readValue(AssetTypeExt.class.getClassLoader());
-		statistic = (ProfitChart) in.readValue(ProfitChart.class.getClassLoader());
-		publicInfo = (DashboardTradingAssetPublicDetails) in.readValue(DashboardTradingAssetPublicDetails.class.getClassLoader());
-		accountInfo = (DashboardTradingAssetCommonDetails) in.readValue(DashboardTradingAssetCommonDetails.class.getClassLoader());
-		signalInfo = (DashboardTradingAssetSignalDetails) in.readValue(DashboardTradingAssetSignalDetails.class.getClassLoader());
-		broker = (DashboardTradingAssetBrokerDetails) in.readValue(DashboardTradingAssetBrokerDetails.class.getClassLoader());
-		actions = (DashboardTradingAssetActions) in.readValue(DashboardTradingAssetActions.class.getClassLoader());
-	}
+  public DashboardTradingAsset() {
+  }
 
-	public DashboardTradingAsset id(UUID id) {
-		this.id = id;
-		return this;
-	}
+  DashboardTradingAsset(Parcel in) {
+    id = (UUID) in.readValue(UUID.class.getClassLoader());
+    assetType = (AssetType) in.readValue(AssetType.class.getClassLoader());
+    assetTypeExt = (AssetTypeExt) in.readValue(AssetTypeExt.class.getClassLoader());
+    statistic = (ProfitChart) in.readValue(ProfitChart.class.getClassLoader());
+    publicInfo = (DashboardTradingAssetPublicDetails) in.readValue(DashboardTradingAssetPublicDetails.class.getClassLoader());
+    accountInfo = (DashboardTradingAssetCommonDetails) in.readValue(DashboardTradingAssetCommonDetails.class.getClassLoader());
+    signalInfo = (DashboardTradingAssetSignalDetails) in.readValue(DashboardTradingAssetSignalDetails.class.getClassLoader());
+    broker = (DashboardTradingAssetBrokerDetails) in.readValue(DashboardTradingAssetBrokerDetails.class.getClassLoader());
+    actions = (DashboardTradingAssetActions) in.readValue(DashboardTradingAssetActions.class.getClassLoader());
+    tags = (List<Tag>) in.readValue(Tag.class.getClassLoader());
+  }
 
-	/**
-	 * Get id
-	 *
-	 * @return id
-	 **/
-	@Schema(description = "")
-	public UUID getId() {
-		return id;
-	}
+  public DashboardTradingAsset id(UUID id) {
+    this.id = id;
+    return this;
+  }
 
-	public void setId(UUID id) {
-		this.id = id;
-	}
+  /**
+   * Get id
+   *
+   * @return id
+   **/
+  @Schema(description = "")
+  public UUID getId() {
+    return id;
+  }
 
-	public DashboardTradingAsset assetType(AssetType assetType) {
-		this.assetType = assetType;
-		return this;
-	}
+  public void setId(UUID id) {
+    this.id = id;
+  }
 
-	/**
-	 * Get assetType
-	 *
-	 * @return assetType
-	 **/
-	@Schema(description = "")
-	public AssetType getAssetType() {
-		return assetType;
-	}
+  public DashboardTradingAsset assetType(AssetType assetType) {
+    this.assetType = assetType;
+    return this;
+  }
 
-	public void setAssetType(AssetType assetType) {
-		this.assetType = assetType;
-	}
+  /**
+   * Get assetType
+   *
+   * @return assetType
+   **/
+  @Schema(description = "")
+  public AssetType getAssetType() {
+    return assetType;
+  }
 
-	public DashboardTradingAsset assetTypeExt(AssetTypeExt assetTypeExt) {
-		this.assetTypeExt = assetTypeExt;
-		return this;
-	}
+  public void setAssetType(AssetType assetType) {
+    this.assetType = assetType;
+  }
 
-	/**
-	 * Get assetTypeExt
-	 *
-	 * @return assetTypeExt
-	 **/
-	@Schema(description = "")
-	public AssetTypeExt getAssetTypeExt() {
-		return assetTypeExt;
-	}
+  public DashboardTradingAsset assetTypeExt(AssetTypeExt assetTypeExt) {
+    this.assetTypeExt = assetTypeExt;
+    return this;
+  }
 
-	public void setAssetTypeExt(AssetTypeExt assetTypeExt) {
-		this.assetTypeExt = assetTypeExt;
-	}
+  /**
+   * Get assetTypeExt
+   *
+   * @return assetTypeExt
+   **/
+  @Schema(description = "")
+  public AssetTypeExt getAssetTypeExt() {
+    return assetTypeExt;
+  }
 
-	public DashboardTradingAsset statistic(ProfitChart statistic) {
-		this.statistic = statistic;
-		return this;
-	}
+  public void setAssetTypeExt(AssetTypeExt assetTypeExt) {
+    this.assetTypeExt = assetTypeExt;
+  }
 
-	/**
-	 * Get statistic
-	 *
-	 * @return statistic
-	 **/
-	@Schema(description = "")
-	public ProfitChart getStatistic() {
-		return statistic;
-	}
+  public DashboardTradingAsset statistic(ProfitChart statistic) {
+    this.statistic = statistic;
+    return this;
+  }
 
-	public void setStatistic(ProfitChart statistic) {
-		this.statistic = statistic;
-	}
+  /**
+   * Get statistic
+   *
+   * @return statistic
+   **/
+  @Schema(description = "")
+  public ProfitChart getStatistic() {
+    return statistic;
+  }
 
-	public DashboardTradingAsset publicInfo(DashboardTradingAssetPublicDetails publicInfo) {
-		this.publicInfo = publicInfo;
-		return this;
-	}
+  public void setStatistic(ProfitChart statistic) {
+    this.statistic = statistic;
+  }
 
-	/**
-	 * Get publicInfo
-	 *
-	 * @return publicInfo
-	 **/
-	@Schema(description = "")
-	public DashboardTradingAssetPublicDetails getPublicInfo() {
-		return publicInfo;
-	}
+  public DashboardTradingAsset publicInfo(DashboardTradingAssetPublicDetails publicInfo) {
+    this.publicInfo = publicInfo;
+    return this;
+  }
 
-	public void setPublicInfo(DashboardTradingAssetPublicDetails publicInfo) {
-		this.publicInfo = publicInfo;
-	}
+  /**
+   * Get publicInfo
+   *
+   * @return publicInfo
+   **/
+  @Schema(description = "")
+  public DashboardTradingAssetPublicDetails getPublicInfo() {
+    return publicInfo;
+  }
 
-	public DashboardTradingAsset accountInfo(DashboardTradingAssetCommonDetails accountInfo) {
-		this.accountInfo = accountInfo;
-		return this;
-	}
+  public void setPublicInfo(DashboardTradingAssetPublicDetails publicInfo) {
+    this.publicInfo = publicInfo;
+  }
 
-	/**
-	 * Get accountInfo
-	 *
-	 * @return accountInfo
-	 **/
-	@Schema(description = "")
-	public DashboardTradingAssetCommonDetails getAccountInfo() {
-		return accountInfo;
-	}
+  public DashboardTradingAsset accountInfo(DashboardTradingAssetCommonDetails accountInfo) {
+    this.accountInfo = accountInfo;
+    return this;
+  }
 
-	public void setAccountInfo(DashboardTradingAssetCommonDetails accountInfo) {
-		this.accountInfo = accountInfo;
-	}
+  /**
+   * Get accountInfo
+   *
+   * @return accountInfo
+   **/
+  @Schema(description = "")
+  public DashboardTradingAssetCommonDetails getAccountInfo() {
+    return accountInfo;
+  }
 
-	public DashboardTradingAsset signalInfo(DashboardTradingAssetSignalDetails signalInfo) {
-		this.signalInfo = signalInfo;
-		return this;
-	}
+  public void setAccountInfo(DashboardTradingAssetCommonDetails accountInfo) {
+    this.accountInfo = accountInfo;
+  }
 
-	/**
-	 * Get signalInfo
-	 *
-	 * @return signalInfo
-	 **/
-	@Schema(description = "")
-	public DashboardTradingAssetSignalDetails getSignalInfo() {
-		return signalInfo;
-	}
+  public DashboardTradingAsset signalInfo(DashboardTradingAssetSignalDetails signalInfo) {
+    this.signalInfo = signalInfo;
+    return this;
+  }
 
-	public void setSignalInfo(DashboardTradingAssetSignalDetails signalInfo) {
-		this.signalInfo = signalInfo;
-	}
+  /**
+   * Get signalInfo
+   *
+   * @return signalInfo
+   **/
+  @Schema(description = "")
+  public DashboardTradingAssetSignalDetails getSignalInfo() {
+    return signalInfo;
+  }
 
-	public DashboardTradingAsset broker(DashboardTradingAssetBrokerDetails broker) {
-		this.broker = broker;
-		return this;
-	}
+  public void setSignalInfo(DashboardTradingAssetSignalDetails signalInfo) {
+    this.signalInfo = signalInfo;
+  }
 
-	/**
-	 * Get broker
-	 *
-	 * @return broker
-	 **/
-	@Schema(description = "")
-	public DashboardTradingAssetBrokerDetails getBroker() {
-		return broker;
-	}
+  public DashboardTradingAsset broker(DashboardTradingAssetBrokerDetails broker) {
+    this.broker = broker;
+    return this;
+  }
 
-	public void setBroker(DashboardTradingAssetBrokerDetails broker) {
-		this.broker = broker;
-	}
+  /**
+   * Get broker
+   *
+   * @return broker
+   **/
+  @Schema(description = "")
+  public DashboardTradingAssetBrokerDetails getBroker() {
+    return broker;
+  }
 
-	public DashboardTradingAsset actions(DashboardTradingAssetActions actions) {
-		this.actions = actions;
-		return this;
-	}
+  public void setBroker(DashboardTradingAssetBrokerDetails broker) {
+    this.broker = broker;
+  }
 
-	/**
-	 * Get actions
-	 *
-	 * @return actions
-	 **/
-	@Schema(description = "")
-	public DashboardTradingAssetActions getActions() {
-		return actions;
-	}
+  public DashboardTradingAsset actions(DashboardTradingAssetActions actions) {
+    this.actions = actions;
+    return this;
+  }
 
-	public void setActions(DashboardTradingAssetActions actions) {
-		this.actions = actions;
-	}
+  /**
+   * Get actions
+   *
+   * @return actions
+   **/
+  @Schema(description = "")
+  public DashboardTradingAssetActions getActions() {
+    return actions;
+  }
 
-	@Override
-	public boolean equals(java.lang.Object o) {
-		if (this == o) {
-			return true;
-		}
-		if (o == null || getClass() != o.getClass()) {
-			return false;
-		}
-		DashboardTradingAsset dashboardTradingAsset = (DashboardTradingAsset) o;
-		return Objects.equals(this.id, dashboardTradingAsset.id) &&
-				Objects.equals(this.assetType, dashboardTradingAsset.assetType) &&
-				Objects.equals(this.assetTypeExt, dashboardTradingAsset.assetTypeExt) &&
-				Objects.equals(this.statistic, dashboardTradingAsset.statistic) &&
-				Objects.equals(this.publicInfo, dashboardTradingAsset.publicInfo) &&
-				Objects.equals(this.accountInfo, dashboardTradingAsset.accountInfo) &&
-				Objects.equals(this.signalInfo, dashboardTradingAsset.signalInfo) &&
-				Objects.equals(this.broker, dashboardTradingAsset.broker) &&
-				Objects.equals(this.actions, dashboardTradingAsset.actions);
-	}
+  public void setActions(DashboardTradingAssetActions actions) {
+    this.actions = actions;
+  }
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(id, assetType, assetTypeExt, statistic, publicInfo, accountInfo, signalInfo, broker, actions);
-	}
+  public DashboardTradingAsset tags(List<Tag> tags) {
+    this.tags = tags;
+    return this;
+  }
 
-	@Override
-	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		sb.append("class DashboardTradingAsset {\n");
+  public DashboardTradingAsset addTagsItem(Tag tagsItem) {
+    if (this.tags == null) {
+      this.tags = new ArrayList<Tag>();
+    }
+    this.tags.add(tagsItem);
+    return this;
+  }
 
-		sb.append("    id: ").append(toIndentedString(id)).append("\n");
-		sb.append("    assetType: ").append(toIndentedString(assetType)).append("\n");
-		sb.append("    assetTypeExt: ").append(toIndentedString(assetTypeExt)).append("\n");
-		sb.append("    statistic: ").append(toIndentedString(statistic)).append("\n");
-		sb.append("    publicInfo: ").append(toIndentedString(publicInfo)).append("\n");
-		sb.append("    accountInfo: ").append(toIndentedString(accountInfo)).append("\n");
-		sb.append("    signalInfo: ").append(toIndentedString(signalInfo)).append("\n");
-		sb.append("    broker: ").append(toIndentedString(broker)).append("\n");
-		sb.append("    actions: ").append(toIndentedString(actions)).append("\n");
-		sb.append("}");
-		return sb.toString();
-	}
+  /**
+   * Get tags
+   *
+   * @return tags
+   **/
+  @Schema(description = "")
+  public List<Tag> getTags() {
+    return tags;
+  }
 
-	/**
-	 * Convert the given object to string with each line indented by 4 spaces
-	 * (except the first line).
-	 */
-	private String toIndentedString(java.lang.Object o) {
-		if (o == null) {
-			return "null";
-		}
-		return o.toString().replace("\n", "\n    ");
-	}
+  public void setTags(List<Tag> tags) {
+    this.tags = tags;
+  }
 
-	public void writeToParcel(Parcel out, int flags) {
-		out.writeValue(id);
-		out.writeValue(assetType);
-		out.writeValue(assetTypeExt);
-		out.writeValue(statistic);
-		out.writeValue(publicInfo);
-		out.writeValue(accountInfo);
-		out.writeValue(signalInfo);
-		out.writeValue(broker);
-		out.writeValue(actions);
-	}
+  @Override
+  public boolean equals(java.lang.Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    DashboardTradingAsset dashboardTradingAsset = (DashboardTradingAsset) o;
+    return Objects.equals(this.id, dashboardTradingAsset.id) &&
+            Objects.equals(this.assetType, dashboardTradingAsset.assetType) &&
+            Objects.equals(this.assetTypeExt, dashboardTradingAsset.assetTypeExt) &&
+            Objects.equals(this.statistic, dashboardTradingAsset.statistic) &&
+            Objects.equals(this.publicInfo, dashboardTradingAsset.publicInfo) &&
+            Objects.equals(this.accountInfo, dashboardTradingAsset.accountInfo) &&
+            Objects.equals(this.signalInfo, dashboardTradingAsset.signalInfo) &&
+            Objects.equals(this.broker, dashboardTradingAsset.broker) &&
+            Objects.equals(this.actions, dashboardTradingAsset.actions) &&
+            Objects.equals(this.tags, dashboardTradingAsset.tags);
+  }
 
-	public int describeContents() {
-		return 0;
-	}
+  @Override
+  public int hashCode() {
+    return Objects.hash(id, assetType, assetTypeExt, statistic, publicInfo, accountInfo, signalInfo, broker, actions, tags);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class DashboardTradingAsset {\n");
+
+    sb.append("    id: ").append(toIndentedString(id)).append("\n");
+    sb.append("    assetType: ").append(toIndentedString(assetType)).append("\n");
+    sb.append("    assetTypeExt: ").append(toIndentedString(assetTypeExt)).append("\n");
+    sb.append("    statistic: ").append(toIndentedString(statistic)).append("\n");
+    sb.append("    publicInfo: ").append(toIndentedString(publicInfo)).append("\n");
+    sb.append("    accountInfo: ").append(toIndentedString(accountInfo)).append("\n");
+    sb.append("    signalInfo: ").append(toIndentedString(signalInfo)).append("\n");
+    sb.append("    broker: ").append(toIndentedString(broker)).append("\n");
+    sb.append("    actions: ").append(toIndentedString(actions)).append("\n");
+    sb.append("    tags: ").append(toIndentedString(tags)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(java.lang.Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+  public void writeToParcel(Parcel out, int flags) {
+    out.writeValue(id);
+    out.writeValue(assetType);
+    out.writeValue(assetTypeExt);
+    out.writeValue(statistic);
+    out.writeValue(publicInfo);
+    out.writeValue(accountInfo);
+    out.writeValue(signalInfo);
+    out.writeValue(broker);
+    out.writeValue(actions);
+    out.writeValue(tags);
+  }
+
+  public int describeContents() {
+    return 0;
+  }
 }

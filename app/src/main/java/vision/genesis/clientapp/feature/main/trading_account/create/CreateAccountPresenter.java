@@ -20,6 +20,7 @@ import vision.genesis.clientapp.managers.AssetsManager;
 import vision.genesis.clientapp.model.events.OnAccountBrokerSettingsSelectedEvent;
 import vision.genesis.clientapp.model.events.OnBrokerSelectedEvent;
 import vision.genesis.clientapp.model.events.OnCreateAccountCreateButtonClickedEvent;
+import vision.genesis.clientapp.model.events.OnSelectBrokerNextClickedEvent;
 import vision.genesis.clientapp.net.ApiErrorResolver;
 
 /**
@@ -90,8 +91,13 @@ public class CreateAccountPresenter extends MvpPresenter<CreateAccountView>
 	}
 
 	@Subscribe
+	public void onEventMainThread(OnSelectBrokerNextClickedEvent event) {
+		getViewState().showAccountSettings(selectedBroker);
+	}
+
+	@Subscribe
 	public void onEventMainThread(OnAccountBrokerSettingsSelectedEvent event) {
-		request.setBrokerAccountTypeId(event.getBrokerAccountTypeId());
+		request.setBrokerAccountTypeId(event.getBrokerAccountType().getId());
 		request.setCurrency(event.getCurrency());
 		request.setLeverage(event.getLeverage());
 
@@ -102,7 +108,12 @@ public class CreateAccountPresenter extends MvpPresenter<CreateAccountView>
 				break;
 			}
 		}
-		getViewState().showAccountDeposit(minDepositAmount, request.getCurrency().getValue());
+		if (event.getBrokerAccountType().isIsDepositRequired()) {
+			getViewState().showAccountDeposit(minDepositAmount, request.getCurrency().getValue());
+		}
+		else {
+			sendCreateAccountRequest();
+		}
 	}
 
 	@Subscribe

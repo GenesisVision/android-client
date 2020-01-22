@@ -96,7 +96,7 @@ public class ChangeBrokerPresenter extends MvpPresenter<ChangeBrokerView>
 
 	@Subscribe
 	public void onEventMainThread(OnAccountBrokerSettingsSelectedEvent event) {
-		request.setNewBrokerAccountTypeId(event.getBrokerAccountTypeId());
+		request.setNewBrokerAccountTypeId(event.getBrokerAccountType().getId());
 		request.setNewLeverage(event.getLeverage());
 
 		sendChangeBrokerRequest();
