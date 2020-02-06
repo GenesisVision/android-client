@@ -805,8 +805,8 @@
     <string name="social_links">Social links</string>
     <string name="save_changes">Save changes</string>
     <string name="warning_info_switch_gm_to_huobi">Warning: all signal program subscriptions will be cancelled when switching from GM to Huobi (we do not currently offer copy trading on Huobi).</string>
-    <string name="investment_events">Investment events</string>
-    <string name="trading_events">Trading events</string>
+    <string name="investment_history">Investment history</string>
+    <string name="trading_history">Trading history</string>
     <string name="referral_program">Referral program</string>
     <string name="referral_friends">Referral friends</string>
     <string name="reward">Reward</string>
@@ -862,6 +862,7 @@
     <string name="investment_scale">Investment scale</string>
     <string name="tooltip_invest_scale">The current value of the indicator, which depends on the Age, Volume Scale and Genesis Ratio. The indicator is set in a range from 1 to 20.\n\nAvailable to invest = Investment scale * Manager balance</string>
     <string name="tooltip_volume_scale">This is a multiplier of the volume traded by the manager relative to the program balance for all periods. It is calculated similarly to the Genesis Ratio, being a weighted average over all given periods.</string>
+    <string name="my_history">My history</string>
 
     <plurals name="assets">
         <item quantity="one">asset</item>

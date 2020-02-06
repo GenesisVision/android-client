@@ -120,8 +120,8 @@ public class EventsActivity extends BaseSwipeBackActivity implements EventsView
 	}
 
 	private void updateTitle(String eventsGroup) {
-		this.title.setText(getString(eventsGroup.equals(GROUP_INVESTMENT) ? R.string.investment_events
-				: eventsGroup.equals(GROUP_TRADING) ? R.string.trading_events : R.string.events));
+		this.title.setText(getString(eventsGroup.equals(GROUP_INVESTMENT) ? R.string.investment_history
+				: eventsGroup.equals(GROUP_TRADING) ? R.string.trading_history : R.string.events));
 	}
 
 	@Override

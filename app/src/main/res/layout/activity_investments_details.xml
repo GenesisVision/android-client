@@ -215,7 +215,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
-                            android:text="@string/events"
+                            android:text="@string/history"
                             android:textColor="?attr/colorTextPrimary"
                             android:textSize="16sp"/>
 

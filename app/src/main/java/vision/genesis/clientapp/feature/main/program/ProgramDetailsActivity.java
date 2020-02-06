@@ -399,7 +399,7 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 		openPositionsTab = tabLayout.newTab().setCustomView(getTabView(R.string.open_positions)).setTag("open_positions");
 		tradesTab = tabLayout.newTab().setCustomView(getTabView(R.string.trades)).setTag("trades");
 		periodHistoryTab = tabLayout.newTab().setCustomView(getTabView(R.string.period_history)).setTag("period_history");
-		eventsTab = tabLayout.newTab().setCustomView(getTabView(R.string.events)).setTag("events");
+		eventsTab = tabLayout.newTab().setCustomView(getTabView(R.string.my_history)).setTag("events");
 
 		tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
