@@ -218,6 +218,130 @@
 
                     </LinearLayout>
 
+                    <LinearLayout
+                        android:id="@+id/group_scales"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="24dp"
+                        android:gravity="bottom"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:id="@+id/group_genesis_ratio"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="center_vertical"
+                                android:orientation="horizontal">
+
+                                <ProgressBar
+                                    android:id="@+id/genesis_ratio_progress_bar"
+                                    style="?android:attr/progressBarStyleHorizontal"
+                                    android:layout_width="20dp"
+                                    android:layout_height="20dp"
+                                    android:background="@drawable/circle_shape"
+                                    android:indeterminate="false"
+                                    android:max="100"
+                                    android:progressDrawable="@drawable/circular_progress_bar"
+                                    tools:progress="25"/>
+
+                                <TextView
+                                    android:id="@+id/genesis_ratio"
+                                    style="@style/program_info_invest_value"
+                                    android:layout_marginStart="8dp"
+                                    tools:text="0.25"/>
+
+                            </LinearLayout>
+
+                            <TextView
+                                style="@style/program_info_invest_label"
+                                android:text="@string/genesis_ratio"/>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/group_invest_scale"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="center_vertical"
+                                android:orientation="horizontal">
+
+                                <ProgressBar
+                                    android:id="@+id/invest_scale_progress_bar"
+                                    style="?android:attr/progressBarStyleHorizontal"
+                                    android:layout_width="20dp"
+                                    android:layout_height="20dp"
+                                    android:background="@drawable/circle_shape"
+                                    android:indeterminate="false"
+                                    android:max="2000"
+                                    android:progressDrawable="@drawable/circular_progress_bar"
+                                    tools:progress="250"/>
+
+                                <TextView
+                                    android:id="@+id/invest_scale"
+                                    style="@style/program_info_invest_value"
+                                    android:layout_marginStart="8dp"
+                                    tools:text="0.25"/>
+
+                            </LinearLayout>
+
+                            <TextView
+                                style="@style/program_info_invest_label"
+                                android:text="@string/invest_scale"/>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/group_volume_scale"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="center_vertical"
+                                android:orientation="horizontal">
+
+                                <ProgressBar
+                                    android:id="@+id/volume_scale_progress_bar"
+                                    style="?android:attr/progressBarStyleHorizontal"
+                                    android:layout_width="20dp"
+                                    android:layout_height="20dp"
+                                    android:background="@drawable/circle_shape"
+                                    android:indeterminate="false"
+                                    android:max="100"
+                                    android:progressDrawable="@drawable/circular_progress_bar"
+                                    tools:progress="25"/>
+
+                                <TextView
+                                    android:id="@+id/volume_scale"
+                                    style="@style/program_info_invest_value"
+                                    android:layout_marginStart="8dp"
+                                    tools:text="0.25"/>
+
+                            </LinearLayout>
+
+                            <TextView
+                                style="@style/program_info_invest_label"
+                                android:text="@string/volume_scale"/>
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
                 </LinearLayout>
 
             </LinearLayout>

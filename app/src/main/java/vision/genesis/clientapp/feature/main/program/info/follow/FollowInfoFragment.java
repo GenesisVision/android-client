@@ -15,6 +15,7 @@ import androidx.annotation.Nullable;
 import androidx.core.widget.NestedScrollView;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
+import com.facebook.drawee.view.SimpleDraweeView;
 
 import java.util.List;
 import java.util.Locale;
@@ -38,11 +39,13 @@ import vision.genesis.clientapp.feature.main.copytrading.unfollow_trades.Unfollo
 import vision.genesis.clientapp.feature.main.manager.ManagerDetailsActivity;
 import vision.genesis.clientapp.feature.main.program.ProgramDetailsPagerAdapter;
 import vision.genesis.clientapp.model.ManagerDetailsModel;
+import vision.genesis.clientapp.ui.AccountAgeView;
 import vision.genesis.clientapp.ui.AvatarView;
 import vision.genesis.clientapp.ui.FollowSubscriberView;
 import vision.genesis.clientapp.ui.PrimaryButton;
 import vision.genesis.clientapp.ui.SocialLinksView;
 import vision.genesis.clientapp.utils.DateTimeUtil;
+import vision.genesis.clientapp.utils.ImageUtils;
 import vision.genesis.clientapp.utils.StringFormatUtil;
 import vision.genesis.clientapp.utils.TypefaceUtil;
 
@@ -89,6 +92,20 @@ public class FollowInfoFragment extends BaseFragment implements FollowInfoView, 
 
 	@BindView(R.id.strategy_shadow)
 	public View strategyShadow;
+
+
+	@BindView(R.id.broker_logo)
+	public SimpleDraweeView brokerLogo;
+
+	@BindView(R.id.currency)
+	public TextView accountCurrency;
+
+	@BindView(R.id.leverage)
+	public TextView leverage;
+
+	@BindView(R.id.age_period)
+	public AccountAgeView age;
+
 
 	@BindView(R.id.group_subscription)
 	public ViewGroup subscriptionGroup;
@@ -237,7 +254,15 @@ public class FollowInfoFragment extends BaseFragment implements FollowInfoView, 
 		scrollView.setVisibility(View.VISIBLE);
 
 		updateFollowInfo(details);
+		updateAccountInfo(details);
 		updateSubscription(details.getFollowDetails());
+	}
+
+	private void updateAccountInfo(ProgramFollowDetailsFull details) {
+		this.brokerLogo.setImageURI(ImageUtils.getImageUri(details.getBrokerDetails().getLogo()));
+		this.accountCurrency.setText(details.getTradingAccountInfo().getCurrency().getValue());
+		this.leverage.setText(String.format(Locale.getDefault(), "1:%d", details.getTradingAccountInfo().getLeverageMax()));
+		this.age.setCreationDate(details.getPublicInfo().getCreationDate());
 	}
 
 	@Override

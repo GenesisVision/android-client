@@ -812,7 +812,7 @@
     <string name="referral_friends">Referral friends</string>
     <string name="reward">Reward</string>
     <string name="no_referral_friends_yet">You have no referral friends yet.</string>
-    <string name="registration_date">Registration date</string>
+    <string name="registered">Registered</string>
     <string name="invite_your_friends">Invite your friends to Genesis Vision</string>
     <string name="your_referral_link">Your referral link:</string>
     <string name="referral_friends_level_1">Referral friends Level 1</string>
@@ -856,6 +856,13 @@
     <string name="fees_and_discounts_note_3">For managers the commission for trading will be debited from the manager’s GVT wallet. At the end of the reporting period, the manager will receive a refund of the commission at the expense of increasing the share of own funds in management.</string>
     <string name="add_demo_funds">Add demo funds</string>
     <string name="demo">Demo</string>
+    <string name="genesis_ratio">genesis ratio</string>
+    <string name="invest_scale">invest. scale</string>
+    <string name="volume_scale">volume scale</string>
+    <string name="tooltip_genesis_ratio"><![CDATA[The ratio of the profit of the program against its risk. It is set in the range from 0 to 1. If Genesis Ratio < 0.2, then the program is high risk and the Investment Scale is limited to 1, meaning that the manager can attract no more than his own deposit.]]></string>
+    <string name="investment_scale">Investment scale</string>
+    <string name="tooltip_invest_scale">The current value of the indicator, which depends on the Age, Volume Scale and Genesis Ratio. The indicator is set in a range from 1 to 20.\n\nAvailable to invest = Investment scale * Manager balance</string>
+    <string name="tooltip_volume_scale">This is a multiplier of the volume traded by the manager relative to the program balance for all periods. It is calculated similarly to the Genesis Ratio, being a weighted average over all given periods.</string>
 
     <plurals name="assets">
         <item quantity="one">asset</item>

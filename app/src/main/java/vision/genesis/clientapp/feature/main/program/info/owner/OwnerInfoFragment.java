@@ -139,6 +139,28 @@ public class OwnerInfoFragment extends BaseFragment implements OwnerInfoView, Pr
 	public TextView labelAge;
 
 
+	@BindView(R.id.group_scales)
+	public ViewGroup groupScales;
+
+	@BindView(R.id.genesis_ratio_progress_bar)
+	public ProgressBar genesisRatioProgressBar;
+
+	@BindView(R.id.genesis_ratio)
+	public TextView genesisRatio;
+
+	@BindView(R.id.invest_scale_progress_bar)
+	public ProgressBar investScaleProgressBar;
+
+	@BindView(R.id.invest_scale)
+	public TextView investScale;
+
+	@BindView(R.id.volume_scale_progress_bar)
+	public ProgressBar volumeScaleProgressBar;
+
+	@BindView(R.id.volume_scale)
+	public TextView volumeScale;
+
+
 	@BindView(R.id.group_your_deposit)
 	public ViewGroup yourDepositGroup;
 
@@ -290,6 +312,33 @@ public class OwnerInfoFragment extends BaseFragment implements OwnerInfoView, Pr
 		}
 		else if (strategy.getHeight() > strategyMaxHeight) {
 			collapseStrategy();
+		}
+	}
+
+	@OnClick(R.id.group_genesis_ratio)
+	public void onGenesisRatioClicked() {
+		if (getActivity() != null) {
+			MessageBottomSheetDialog dialog = new MessageBottomSheetDialog();
+			dialog.show(getActivity().getSupportFragmentManager(), dialog.getTag());
+			dialog.setData(R.drawable.icon_info, getString(R.string.genesis_ratio).toUpperCase(), getString(R.string.tooltip_genesis_ratio), false, null);
+		}
+	}
+
+	@OnClick(R.id.group_invest_scale)
+	public void onInvestScaleClicked() {
+		if (getActivity() != null) {
+			MessageBottomSheetDialog dialog = new MessageBottomSheetDialog();
+			dialog.show(getActivity().getSupportFragmentManager(), dialog.getTag());
+			dialog.setData(R.drawable.icon_info, getString(R.string.investment_scale).toUpperCase(), getString(R.string.tooltip_invest_scale), false, null);
+		}
+	}
+
+	@OnClick(R.id.group_volume_scale)
+	public void onVolumeScaleClicked() {
+		if (getActivity() != null) {
+			MessageBottomSheetDialog dialog = new MessageBottomSheetDialog();
+			dialog.show(getActivity().getSupportFragmentManager(), dialog.getTag());
+			dialog.setData(R.drawable.icon_info, getString(R.string.volume_scale).toUpperCase(), getString(R.string.tooltip_volume_scale), false, null);
 		}
 	}
 
@@ -492,6 +541,7 @@ public class OwnerInfoFragment extends BaseFragment implements OwnerInfoView, Pr
 		if (details.getPublicInfo().getTypeExt().equals(AssetTypeExt.EXTERNALSIGNALTRADINGACCOUNT)) {
 			groupCurrency.setVisibility(View.GONE);
 			groupLeverage.setVisibility(View.GONE);
+			groupScales.setVisibility(View.GONE);
 		}
 		else {
 			groupCurrency.setVisibility(View.VISIBLE);
@@ -499,6 +549,20 @@ public class OwnerInfoFragment extends BaseFragment implements OwnerInfoView, Pr
 
 			this.currency.setText(details.getTradingAccountInfo().getCurrency().getValue());
 			this.leverage.setText(String.format(Locale.getDefault(), "1:%d", details.getTradingAccountInfo().getLeverageMax()));
+
+			if (details.getPublicInfo().getTypeExt().equals(AssetTypeExt.SIGNALTRADINGACCOUNT)) {
+				groupScales.setVisibility(View.GONE);
+			}
+			else {
+				groupScales.setVisibility(View.VISIBLE);
+				this.genesisRatioProgressBar.setProgress(Double.valueOf(details.getProgramDetails().getGenesisRatio() * 100).intValue());
+				this.investScaleProgressBar.setProgress(Double.valueOf(details.getProgramDetails().getInvestmentScale() * 100).intValue());
+				this.volumeScaleProgressBar.setProgress(Double.valueOf(details.getProgramDetails().getVolumeScale() * 100).intValue());
+
+				this.genesisRatio.setText(StringFormatUtil.formatAmount(details.getProgramDetails().getGenesisRatio(), 0, 2));
+				this.investScale.setText(StringFormatUtil.formatAmount(details.getProgramDetails().getInvestmentScale(), 0, 2));
+				this.volumeScale.setText(StringFormatUtil.formatAmount(details.getProgramDetails().getVolumeScale(), 0, 2));
+			}
 		}
 	}
 

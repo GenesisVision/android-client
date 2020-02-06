@@ -20,7 +20,7 @@ public class EventsManager
 	}
 
 	public Observable<InvestmentEventViewModels> getEvents(String eventsGroup, DateRange dateRange, Integer skip, Integer take) {
-		return eventsApi.getEvents(AuthManager.token.getValue(), InvestmentEventLocation.ASSET.getValue(), null,
+		return eventsApi.getEvents(AuthManager.token.getValue(), InvestmentEventLocation.DASHBOARD.getValue(), null,
 				dateRange.getFrom(), dateRange.getTo(),
 				null, null,
 				null, null,

@@ -15,6 +15,7 @@ import androidx.appcompat.widget.SwitchCompat;
 import androidx.core.widget.NestedScrollView;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
+import com.facebook.drawee.view.SimpleDraweeView;
 
 import java.util.Locale;
 
@@ -40,6 +41,7 @@ import vision.genesis.clientapp.feature.main.program.invest.InvestProgramActivit
 import vision.genesis.clientapp.feature.main.program.withdraw.WithdrawProgramActivity;
 import vision.genesis.clientapp.model.ManagerDetailsModel;
 import vision.genesis.clientapp.model.ProgramRequest;
+import vision.genesis.clientapp.ui.AccountAgeView;
 import vision.genesis.clientapp.ui.AvatarView;
 import vision.genesis.clientapp.ui.InvestmentStatusView;
 import vision.genesis.clientapp.ui.PeriodLeftDetailsView;
@@ -47,6 +49,7 @@ import vision.genesis.clientapp.ui.PrimaryButton;
 import vision.genesis.clientapp.ui.SocialLinksView;
 import vision.genesis.clientapp.utils.Constants;
 import vision.genesis.clientapp.utils.DateTimeUtil;
+import vision.genesis.clientapp.utils.ImageUtils;
 import vision.genesis.clientapp.utils.StringFormatUtil;
 import vision.genesis.clientapp.utils.ThemeUtil;
 import vision.genesis.clientapp.utils.TypefaceUtil;
@@ -94,6 +97,38 @@ public class ProgramInfoFragment extends BaseFragment implements ProgramInfoView
 
 	@BindView(R.id.view_period)
 	public PeriodLeftDetailsView periodView;
+
+
+	@BindView(R.id.broker_logo)
+	public SimpleDraweeView brokerLogo;
+
+	@BindView(R.id.currency)
+	public TextView accountCurrency;
+
+	@BindView(R.id.leverage)
+	public TextView leverage;
+
+	@BindView(R.id.age_period)
+	public AccountAgeView age;
+
+	@BindView(R.id.genesis_ratio_progress_bar)
+	public ProgressBar genesisRatioProgressBar;
+
+	@BindView(R.id.genesis_ratio)
+	public TextView genesisRatio;
+
+	@BindView(R.id.invest_scale_progress_bar)
+	public ProgressBar investScaleProgressBar;
+
+	@BindView(R.id.invest_scale)
+	public TextView investScale;
+
+	@BindView(R.id.volume_scale_progress_bar)
+	public ProgressBar volumeScaleProgressBar;
+
+	@BindView(R.id.volume_scale)
+	public TextView volumeScale;
+
 
 	@BindView(R.id.group_your_investment)
 	public ViewGroup yourInvestmentGroup;
@@ -184,6 +219,34 @@ public class ProgramInfoFragment extends BaseFragment implements ProgramInfoView
 		}
 		else if (strategy.getHeight() > strategyMaxHeight) {
 			collapseStrategy();
+		}
+	}
+
+
+	@OnClick(R.id.group_genesis_ratio)
+	public void onGenesisRatioClicked() {
+		if (getActivity() != null) {
+			MessageBottomSheetDialog dialog = new MessageBottomSheetDialog();
+			dialog.show(getActivity().getSupportFragmentManager(), dialog.getTag());
+			dialog.setData(R.drawable.icon_info, getString(R.string.genesis_ratio).toUpperCase(), getString(R.string.tooltip_genesis_ratio), false, null);
+		}
+	}
+
+	@OnClick(R.id.group_invest_scale)
+	public void onInvestScaleClicked() {
+		if (getActivity() != null) {
+			MessageBottomSheetDialog dialog = new MessageBottomSheetDialog();
+			dialog.show(getActivity().getSupportFragmentManager(), dialog.getTag());
+			dialog.setData(R.drawable.icon_info, getString(R.string.investment_scale).toUpperCase(), getString(R.string.tooltip_invest_scale), false, null);
+		}
+	}
+
+	@OnClick(R.id.group_volume_scale)
+	public void onVolumeScaleClicked() {
+		if (getActivity() != null) {
+			MessageBottomSheetDialog dialog = new MessageBottomSheetDialog();
+			dialog.show(getActivity().getSupportFragmentManager(), dialog.getTag());
+			dialog.setData(R.drawable.icon_info, getString(R.string.volume_scale).toUpperCase(), getString(R.string.tooltip_volume_scale), false, null);
 		}
 	}
 
@@ -307,6 +370,7 @@ public class ProgramInfoFragment extends BaseFragment implements ProgramInfoView
 		scrollView.setVisibility(View.VISIBLE);
 
 		updateProgramInfo(details);
+		updateAccountInfo(details);
 		updateYourInvestment(details.getProgramDetails().getPersonalDetails());
 		updateInvestNow(details.getProgramDetails());
 	}
@@ -327,7 +391,21 @@ public class ProgramInfoFragment extends BaseFragment implements ProgramInfoView
 
 		ProgramDetailsFull programDetails = details.getProgramDetails();
 		periodView.setData(programDetails.getPeriodDuration(), programDetails.getPeriodStarts(), programDetails.getPeriodEnds(), true, true);
+	}
 
+	private void updateAccountInfo(ProgramFollowDetailsFull details) {
+		this.brokerLogo.setImageURI(ImageUtils.getImageUri(details.getBrokerDetails().getLogo()));
+		this.accountCurrency.setText(details.getTradingAccountInfo().getCurrency().getValue());
+		this.leverage.setText(String.format(Locale.getDefault(), "1:%d", details.getTradingAccountInfo().getLeverageMax()));
+		this.age.setCreationDate(details.getPublicInfo().getCreationDate());
+
+		this.genesisRatioProgressBar.setProgress(Double.valueOf(details.getProgramDetails().getGenesisRatio() * 100).intValue());
+		this.investScaleProgressBar.setProgress(Double.valueOf(details.getProgramDetails().getInvestmentScale() * 100).intValue());
+		this.volumeScaleProgressBar.setProgress(Double.valueOf(details.getProgramDetails().getVolumeScale() * 100).intValue());
+
+		this.genesisRatio.setText(StringFormatUtil.formatAmount(details.getProgramDetails().getGenesisRatio(), 0, 2));
+		this.investScale.setText(StringFormatUtil.formatAmount(details.getProgramDetails().getInvestmentScale(), 0, 2));
+		this.volumeScale.setText(StringFormatUtil.formatAmount(details.getProgramDetails().getVolumeScale(), 0, 2));
 	}
 
 	private void updateInvestNow(ProgramDetailsFull programDetails) {

@@ -131,6 +131,117 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/group_account"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="24dp"
+                android:background="?attr/colorBackground"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp">
+
+                    <TextView
+                        android:id="@+id/label_account"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="20dp"
+                        android:fontFamily="@font/montserrat_semibold"
+                        android:text="@string/account"
+                        android:textColor="?attr/colorTextPrimary"
+                        android:textSize="20sp"/>
+
+                    <com.facebook.drawee.view.SimpleDraweeView
+                        android:id="@+id/broker_logo"
+                        android:layout_width="100dp"
+                        android:layout_height="50dp"
+                        android:layout_centerInParent="true"
+                        android:layout_marginStart="20dp"
+                        android:scaleType="centerInside"
+                        app:actualImageScaleType="centerInside"/>
+
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:id="@+id/group_account_info"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="24dp"
+                    android:orientation="vertical"
+                    android:paddingStart="20dp"
+                    android:paddingEnd="20dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="bottom"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:id="@+id/group_currency"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/currency"
+                                style="@style/program_info_invest_value"
+                                tools:text="USD"/>
+
+                            <TextView
+                                android:id="@+id/label_currency"
+                                style="@style/program_info_invest_label"
+                                android:text="@string/currency"/>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/group_leverage"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/leverage"
+                                style="@style/program_info_invest_value"
+                                tools:text="1:1"/>
+
+                            <TextView
+                                android:id="@+id/label_leverage"
+                                style="@style/program_info_invest_label"
+                                android:text="@string/leverage"/>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <vision.genesis.clientapp.ui.AccountAgeView
+                                android:id="@+id/age_period"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+
+                            <TextView
+                                android:id="@+id/label_age"
+                                style="@style/program_info_invest_label"
+                                android:text="@string/age"/>
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
                 android:id="@+id/group_subscription"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

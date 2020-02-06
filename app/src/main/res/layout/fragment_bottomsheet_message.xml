@@ -43,8 +43,6 @@
                 android:alpha="0.4"
                 android:gravity="center"
                 android:lineSpacingMultiplier="1.2"
-                android:paddingLeft="48dp"
-                android:paddingRight="48dp"
                 android:textColor="?attr/colorTextPrimary"
                 android:textSize="14sp"
                 tools:text="You successfully submitted your verification request"/>

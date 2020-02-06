@@ -150,5 +150,5 @@
     <dimen name="item_list_follow_height">280dp</dimen>
     <dimen name="social_link_height">70dp</dimen>
     <dimen name="referral_table_item_height">60dp</dimen>
-    <dimen name="referral_table_date_cell_width">175dp</dimen>
+    <dimen name="referral_table_date_cell_width">160dp</dimen>
 </resources>
