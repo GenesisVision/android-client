@@ -147,7 +147,7 @@ public class SearchActivity extends MvpAppCompatActivity implements SearchView
 	private void initTabs() {
 		programsTab = tabLayout.newTab().setCustomView(getTabView(R.string.programs)).setTag("programs");
 		fundsTab = tabLayout.newTab().setCustomView(getTabView(R.string.funds)).setTag("funds");
-		followsTab = tabLayout.newTab().setCustomView(getTabView(R.string.follows)).setTag("follows");
+		followsTab = tabLayout.newTab().setCustomView(getTabView(R.string.follow)).setTag("follows");
 		managersTab = tabLayout.newTab().setCustomView(getTabView(R.string.managers)).setTag("managers");
 
 		tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);

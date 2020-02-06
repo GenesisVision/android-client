@@ -355,12 +355,12 @@ public class TradingAccountInfoFragment extends BaseFragment implements TradingA
 
 		subscriptionsInfoActive.setText(String.format(Locale.getDefault(), getString(R.string.template_subscriptions_info_active),
 				active,
-				getResources().getQuantityString(R.plurals.follows, active)));
+				getResources().getString(R.string.follow)));
 		subscriptionsInfoActive.setVisibility(active > 0 ? View.VISIBLE : View.GONE);
 
 		subscriptionsInfoInactive.setText(String.format(Locale.getDefault(), getString(R.string.template_subscriptions_info_inactive),
 				inactive,
-				getResources().getQuantityString(R.plurals.follows, inactive)));
+				getResources().getString(R.string.follow)));
 		subscriptionsInfoInactive.setVisibility(inactive > 0 ? View.VISIBLE : View.GONE);
 	}
 

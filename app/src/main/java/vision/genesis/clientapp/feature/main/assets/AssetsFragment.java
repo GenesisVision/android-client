@@ -169,7 +169,7 @@ public class AssetsFragment extends BaseFragment implements AssetsView, ViewPage
 
 	private View getFollowsTabView() {
 		CustomTabView view = new CustomTabView(getContext());
-		view.setData(0, R.string.follows);
+		view.setData(0, R.string.follow);
 		return view;
 	}
 

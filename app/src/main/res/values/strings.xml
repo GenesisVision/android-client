@@ -726,11 +726,10 @@
     <string name="read_terms">Read Terms</string>
     <string name="template_create_trading_account_deposit_notification">You must deposit at least the equivalent of %s to create a trading account.</string>
     <string name="template_dashboard_header_change_period">for a %s</string>
-    <string name="follows">Follows</string>
+    <string name="follow">Follow</string>
     <string name="subscribers">Subscribers</string>
     <string name="public_info">Public info</string>
     <string name="your_deposit">Your deposit</string>
-    <string name="follow">Follow</string>
     <string name="make_signal_provider">Make a signal provider</string>
     <string name="manage">Manage</string>
     <string name="create_follow_text">Make your account a signal provider so that other users can copy your trades and bring you an extra income.</string>
@@ -789,8 +788,8 @@
     <string name="template_subscriptions_info_active">This account copies trades of %d %s:</string>
     <string name="template_subscriptions_info_inactive">This account used to copy trades of %d %s. See details for more info.</string>
     <string name="total_volume">Total volume</string>
-    <string name="active_subscriptions_empty_text">This account does not follow any trades at the moment. You can find a new Follow to subscribe or you can resubscribe to one of the Follows from the History below.</string>
-    <string name="archive_subscriptions_empty_text">All the Follows you will unsubscribe from can be found here.</string>
+    <string name="active_subscriptions_empty_text">This account does not follow any trades at the moment. You can find a new Follow to subscribe or you can resubscribe to one of the Follow from the History below.</string>
+    <string name="archive_subscriptions_empty_text">All the Follow you will unsubscribe from can be found here.</string>
     <string name="username">Username</string>
     <string name="avatar">Avatar</string>
     <string name="required">* Required</string>
@@ -868,12 +867,6 @@
         <item quantity="one">asset</item>
         <item quantity="two">assets</item>
         <item quantity="other">assets</item>
-    </plurals>
-
-    <plurals name="follows">
-        <item quantity="one">follow</item>
-        <item quantity="two">follows</item>
-        <item quantity="other">follows</item>
     </plurals>
 
 </resources>

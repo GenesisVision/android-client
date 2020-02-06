@@ -267,7 +267,7 @@ public class ManagerDetailsActivity extends BaseSwipeBackActivity implements Man
 		infoTab = tabLayout.newTab().setCustomView(getTabView(R.string.info)).setTag("info");
 		programsTab = tabLayout.newTab().setCustomView(getTabView(R.string.programs)).setTag("programs");
 		fundsTab = tabLayout.newTab().setCustomView(getTabView(R.string.funds)).setTag("funds");
-		followsTab = tabLayout.newTab().setCustomView(getTabView(R.string.follows)).setTag("follows");
+		followsTab = tabLayout.newTab().setCustomView(getTabView(R.string.follow)).setTag("follows");
 
 		tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
