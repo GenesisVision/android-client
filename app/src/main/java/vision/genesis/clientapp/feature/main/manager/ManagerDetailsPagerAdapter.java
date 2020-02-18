@@ -60,7 +60,7 @@ public class ManagerDetailsPagerAdapter extends FragmentStatePagerAdapter
 		followsFilter.setManagerId(managerId);
 		Bundle dataFollows = new Bundle();
 		dataFollows.putParcelable(ProgramsListFragment.EXTRA_FILTER, programsFilter);
-		managerFollowsFragment = FollowsListFragment.with(FundsListFragment.LOCATION_MANAGER, dataFollows);
+		managerFollowsFragment = FollowsListFragment.with(FollowsListFragment.LOCATION_MANAGER, dataFollows);
 	}
 
 	@Override

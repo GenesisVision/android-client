@@ -11,7 +11,6 @@ import org.greenrobot.eventbus.Subscribe;
 import javax.inject.Inject;
 
 import io.swagger.client.model.PlatformInfo;
-import io.swagger.client.model.ProgramsFilterSorting;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -338,9 +337,11 @@ public class MainPresenter extends MvpPresenter<MainView>
 	@Subscribe
 	public void onEventMainThread(OnProgramFacetClickedEvent event) {
 		if (event.getFacet().getTitle().toLowerCase().equals(context.getString(R.string.rating).toLowerCase())) {
-			event.getFacet().setSorting(ProgramsFilterSorting.BYLEVELPROGRESSDESC.getValue());
+			getViewState().showProgramsRating(event.getFacet());
 		}
-		getViewState().showProgramFacet(event.getFacet());
+		else {
+			getViewState().showProgramFacet(event.getFacet());
+		}
 	}
 
 	@Subscribe

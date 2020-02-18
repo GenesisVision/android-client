@@ -44,7 +44,7 @@ public class ProgramsFilter implements Parcelable
 
 	private Double profitAvgMax;
 
-	private DateRange dateRange = DateRange.createFromEnum(DateRange.DateRangeEnum.ALL_TIME);
+	private DateRange dateRange;
 
 	private String mask;
 

@@ -116,11 +116,6 @@ public class FollowsListPresenter extends MvpPresenter<FollowsListView>
 	void setData(String location, ProgramsFilter filter) {
 		this.location = location;
 		createFilter(filter);
-		if (location.equals(FollowsListFragment.LOCATION_RATING)) {
-			this.filter.setDateRange(null);
-			this.filter.setSorting(null);
-			this.filter.setChartPointsCount(null);
-		}
 		if (!location.equals(FollowsListFragment.LOCATION_SEARCH)) {
 			isDataSet = true;
 			getFollowsList(true);
@@ -164,7 +159,9 @@ public class FollowsListPresenter extends MvpPresenter<FollowsListView>
 		this.filter = filter;
 		this.filter.setSkip(0);
 		this.filter.setTake(TAKE);
-		this.filter.setDateRange(dateRange);
+		if (this.filter.getDateRange() == null) {
+			this.filter.setDateRange(dateRange);
+		}
 		this.filter.setChartPointsCount(10);
 	}
 

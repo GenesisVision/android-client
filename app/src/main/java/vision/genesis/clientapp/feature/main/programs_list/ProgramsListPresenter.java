@@ -26,6 +26,7 @@ import vision.genesis.clientapp.managers.ProgramsManager;
 import vision.genesis.clientapp.managers.SettingsManager;
 import vision.genesis.clientapp.model.CurrencyEnum;
 import vision.genesis.clientapp.model.DateRange;
+import vision.genesis.clientapp.model.SortingEnum;
 import vision.genesis.clientapp.model.events.OnListProgramFavoriteClickedEvent;
 import vision.genesis.clientapp.model.events.OnProgramFavoriteChangedEvent;
 import vision.genesis.clientapp.model.events.ProgramsListFiltersAppliedEvent;
@@ -119,9 +120,8 @@ public class ProgramsListPresenter extends MvpPresenter<ProgramsListView>
 		this.location = location;
 		createFilter(filter);
 		if (location.equals(ProgramsListFragment.LOCATION_RATING)) {
-			this.filter.setDateRange(null);
-			this.filter.setSorting(null);
-			this.filter.setChartPointsCount(null);
+			this.filter.setDateRange(DateRange.createFromEnum(DateRange.DateRangeEnum.ALL_TIME));
+			this.filter.setSorting(SortingEnum.BYLEVELPROGRESSDESC);
 		}
 		if (!location.equals(ProgramsListFragment.LOCATION_SEARCH)) {
 			isDataSet = true;
@@ -166,7 +166,9 @@ public class ProgramsListPresenter extends MvpPresenter<ProgramsListView>
 		this.filter = filter;
 		this.filter.setSkip(0);
 		this.filter.setTake(TAKE);
-		this.filter.setDateRange(dateRange);
+		if (this.filter.getDateRange() == null) {
+			this.filter.setDateRange(dateRange);
+		}
 		this.filter.setChartPointsCount(10);
 	}
 

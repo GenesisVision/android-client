@@ -15,5 +15,11 @@ interface ProgramsRatingView extends MvpView
 {
 	void setData(List<LevelInfo> levelData);
 
+	void showLevel(Integer level);
+
+	void showAllLevels();
+
+	void showProgress(boolean show);
+
 	void showSnackbarMessage(String message);
 }

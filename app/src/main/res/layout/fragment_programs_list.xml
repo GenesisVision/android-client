@@ -1,124 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout android:id="@+id/root"
-                xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 xmlns:app="http://schemas.android.com/apk/res-auto"
                 xmlns:tools="http://schemas.android.com/tools"
+                android:id="@+id/root"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="?attr/colorBackground">
 
-    <RelativeLayout
-        android:id="@+id/group_rating_info"
-        android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:visibility="gone"
-        tools:visibility="visible">
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:alpha="0.45"
-            android:background="?attr/colorCard"/>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal"
-            android:paddingEnd="20dp"
-            android:paddingStart="20dp">
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/rating_total"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="?attr/colorTextPrimary"
-                    android:textSize="18sp"
-                    tools:text="145"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:alpha="0.4"
-                    android:text="@string/programs"
-                    android:textColor="?attr/colorTextPrimary"
-                    android:textSize="12sp"/>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/rating_quota"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="?attr/colorTextPrimary"
-                    android:textSize="18sp"
-                    tools:text="15"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:alpha="0.4"
-                    android:text="@string/quota"
-                    android:textColor="?attr/colorTextPrimary"
-                    android:textSize="12sp"/>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/rating_target_profit"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="?attr/colorTextPrimary"
-                    android:textSize="18sp"
-                    tools:text="18.45%"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:alpha="0.4"
-                    android:text="@string/target_profit"
-                    android:textColor="?attr/colorTextPrimary"
-                    android:textSize="12sp"/>
-
-            </LinearLayout>
-
-        </LinearLayout>
-
-    </RelativeLayout>
-
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/refresh_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/group_rating_info">
+        android:layout_height="match_parent">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:clipToPadding="false"
-            android:paddingBottom="70dp"
-            android:paddingTop="16dp"/>
+            android:paddingTop="16dp"
+            android:paddingBottom="70dp"/>
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
@@ -210,12 +110,12 @@
             android:id="@+id/background"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/group_filters"
-            android:layout_alignEnd="@+id/group_filters"
-            android:layout_alignLeft="@+id/group_filters"
-            android:layout_alignRight="@+id/group_filters"
             android:layout_alignStart="@+id/group_filters"
+            android:layout_alignLeft="@+id/group_filters"
             android:layout_alignTop="@+id/group_filters"
+            android:layout_alignEnd="@+id/group_filters"
+            android:layout_alignRight="@+id/group_filters"
+            android:layout_alignBottom="@+id/group_filters"
             android:src="@drawable/button_filters"/>
 
 
@@ -224,10 +124,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:paddingBottom="12dp"
             android:paddingLeft="20dp"
+            android:paddingTop="12dp"
             android:paddingRight="20dp"
-            android:paddingTop="12dp">
+            android:paddingBottom="12dp">
 
             <ImageView
                 android:id="@+id/icon"
@@ -242,8 +142,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_marginLeft="8dp"
                 android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:fontFamily="@font/montserrat_semibold"
                 android:gravity="center"
                 android:text="@string/filters"
                 android:textColor="?attr/colorBackground"
@@ -256,8 +157,8 @@
             android:layout_width="8dp"
             android:layout_height="8dp"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="8dp"
             android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
             android:background="@drawable/circle_white"
             android:tint="?attr/colorRed"
             android:visibility="gone"/>

@@ -74,7 +74,7 @@ public interface MainView extends MvpView
 
 	void showManagerDetails(ManagerDetailsModel model);
 
-	void showProgramsRating();
+	void showProgramsRating(AssetFacet facet);
 
 	void showProgramFacet(AssetFacet facet);
 

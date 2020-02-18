@@ -7,7 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -20,7 +19,6 @@ import com.arellomobile.mvp.presenter.InjectPresenter;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 import java.util.UUID;
 
 import butterknife.BindDimen;
@@ -36,11 +34,8 @@ import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
 import vision.genesis.clientapp.feature.main.filters.FiltersActivity;
-import vision.genesis.clientapp.model.RatingInfo;
 import vision.genesis.clientapp.model.filter.ProgramsFilter;
 import vision.genesis.clientapp.model.filter.UserFilter;
-import vision.genesis.clientapp.utils.StringFormatUtil;
-import vision.genesis.clientapp.utils.TypefaceUtil;
 
 /**
  * GenesisVisionAndroid
@@ -57,11 +52,7 @@ public class FollowsListFragment extends BaseFragment implements FollowsListView
 
 	public static final String LOCATION_FACET = "location_facet";
 
-	public static final String LOCATION_RATING = "location_rating";
-
 	public static final String EXTRA_FILTER = "extra_filter";
-
-	public static final String EXTRA_RATING_INFO = "extra_rating_info";
 
 	private static final String EXTRA_LOCATION = "extra_location";
 
@@ -88,23 +79,8 @@ public class FollowsListFragment extends BaseFragment implements FollowsListView
 	@BindView(R.id.group_no_internet)
 	public ViewGroup noInternetGroup;
 
-	@BindView(R.id.group_rating_info)
-	public ViewGroup ratingInfoGroup;
-
-	@BindView(R.id.rating_total)
-	public TextView ratingTotal;
-
-	@BindView(R.id.rating_quota)
-	public TextView ratingQuota;
-
-	@BindView(R.id.rating_target_profit)
-	public TextView ratingTargetProfit;
-
 	@BindView(R.id.filters)
 	public ViewGroup filters;
-
-	@BindView(R.id.text_filters)
-	public TextView filtersText;
 
 	@BindView(R.id.filters_dot)
 	public View filtersDot;
@@ -162,9 +138,7 @@ public class FollowsListFragment extends BaseFragment implements FollowsListView
 			String location = getArguments().getString(EXTRA_LOCATION);
 
 			ProgramsFilter filter = null;
-			RatingInfo ratingInfo;
 
-			setFonts();
 			initRefreshLayout();
 			initRecyclerView();
 
@@ -184,15 +158,6 @@ public class FollowsListFragment extends BaseFragment implements FollowsListView
 					case LOCATION_FACET:
 						filters.setVisibility(View.GONE);
 						filter = data != null ? data.getParcelable(EXTRA_FILTER) : null;
-						break;
-					case LOCATION_RATING:
-						filters.setVisibility(View.GONE);
-						filter = data != null ? data.getParcelable(EXTRA_FILTER) : null;
-						ratingInfo = data != null ? data.getParcelable(EXTRA_RATING_INFO) : null;
-						if (ratingInfo != null) {
-							this.ratingInfoGroup.setVisibility(View.VISIBLE);
-							updateRatingInfo(ratingInfo);
-						}
 						break;
 					default:
 						filtersMarginBottom = assetsFiltersMarginBottom;
@@ -220,13 +185,6 @@ public class FollowsListFragment extends BaseFragment implements FollowsListView
 		}
 
 		super.onDestroyView();
-	}
-
-	private void setFonts() {
-		filtersText.setTypeface(TypefaceUtil.semibold());
-		ratingTotal.setTypeface(TypefaceUtil.semibold());
-		ratingQuota.setTypeface(TypefaceUtil.semibold());
-		ratingTargetProfit.setTypeface(TypefaceUtil.semibold());
 	}
 
 	private void initRefreshLayout() {
@@ -272,13 +230,6 @@ public class FollowsListFragment extends BaseFragment implements FollowsListView
 		if (followsListAdapter != null) {
 			followsListAdapter.setFacets(facets);
 		}
-	}
-
-	private void updateRatingInfo(RatingInfo ratingInfo) {
-		this.ratingTotal.setText(String.valueOf(ratingInfo.getTotal()));
-		this.ratingQuota.setText(String.valueOf(ratingInfo.getQuota()));
-		this.ratingTargetProfit.setText(String.format(Locale.getDefault(), "%s%%",
-				StringFormatUtil.formatAmount(ratingInfo.getTargetProfit(), 0, 2)));
 	}
 
 	@Override

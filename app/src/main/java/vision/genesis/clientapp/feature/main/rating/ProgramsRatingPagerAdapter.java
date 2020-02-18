@@ -6,13 +6,12 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 
-import com.google.android.material.tabs.TabLayout;
-
 import java.util.ArrayList;
 import java.util.List;
 
 import io.swagger.client.model.LevelInfo;
 import vision.genesis.clientapp.feature.main.programs_list.ProgramsListFragment;
+import vision.genesis.clientapp.model.FacetModel;
 import vision.genesis.clientapp.model.filter.ProgramsFilter;
 
 /**
@@ -29,24 +28,36 @@ public class ProgramsRatingPagerAdapter extends FragmentStatePagerAdapter
 		void pagerHide();
 	}
 
+	private List<LevelInfo> levelData;
+
 	private List<ProgramsListFragment> fragments = new ArrayList<>();
 
-	private TabLayout tabLayout;
-
-	ProgramsRatingPagerAdapter(FragmentManager fm, TabLayout tabLayout, List<LevelInfo> levelUpData) {
+	ProgramsRatingPagerAdapter(FragmentManager fm, List<LevelInfo> levelData, FacetModel facetModel) {
 		super(fm);
-		this.tabLayout = tabLayout;
 
-		for (LevelInfo data : levelUpData) {
+		this.levelData = levelData;
+
+		addAllLevelsFragment(facetModel);
+
+		for (LevelInfo data : levelData) {
 			ProgramsFilter filter = new ProgramsFilter();
-			filter.setLevelUpFrom(data.getLevel());
-			Bundle bundle = new Bundle();
-			bundle.putParcelable(ProgramsListFragment.EXTRA_FILTER, filter);
-
-//			RatingInfo ratingInfo = new RatingInfo(data.getLevel(), data.getTotal(), data.getQuota(), data.getTargetProfit());
-//			bundle.putParcelable(ProgramsListFragment.EXTRA_RATING_INFO, ratingInfo);
-//			fragments.add(ProgramsListFragment.with(ProgramsListFragment.LOCATION_RATING, bundle));
+			filter.setLevelMin(data.getLevel());
+			filter.setLevelMax(data.getLevel());
+			filter.setFacetId(facetModel.getId());
+			addFragment(filter);
 		}
+	}
+
+	private void addAllLevelsFragment(FacetModel facetModel) {
+		ProgramsFilter filter = new ProgramsFilter();
+		filter.setFacetId(facetModel.getId());
+		addFragment(filter);
+	}
+
+	private void addFragment(ProgramsFilter filter) {
+		Bundle bundle = new Bundle();
+		bundle.putParcelable(ProgramsListFragment.EXTRA_FILTER, filter);
+		fragments.add(ProgramsListFragment.with(ProgramsListFragment.LOCATION_RATING, bundle));
 	}
 
 	@Override
@@ -56,6 +67,6 @@ public class ProgramsRatingPagerAdapter extends FragmentStatePagerAdapter
 
 	@Override
 	public int getCount() {
-		return tabLayout.getTabCount();
+		return levelData.size();
 	}
 }

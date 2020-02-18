@@ -19,6 +19,7 @@ import vision.genesis.clientapp.feature.BaseSwipeBackActivity;
 import vision.genesis.clientapp.feature.main.funds_list.FundsListFragment;
 import vision.genesis.clientapp.model.DateRange;
 import vision.genesis.clientapp.model.FacetModel;
+import vision.genesis.clientapp.model.SortingEnum;
 import vision.genesis.clientapp.model.filter.ProgramsFilter;
 import vision.genesis.clientapp.utils.ThemeUtil;
 import vision.genesis.clientapp.utils.TypefaceUtil;
@@ -68,6 +69,7 @@ public class FundsFacetActivity extends BaseSwipeBackActivity implements MvpView
 				ProgramsFilter filter = new ProgramsFilter();
 				filter.setFacetId(model.getId());
 				filter.setDateRange(DateRange.createFromString(model.getTimeFrame()));
+				filter.setSorting(SortingEnum.fromValue(model.getSorting()));
 
 				getSupportFragmentManager()
 						.beginTransaction()

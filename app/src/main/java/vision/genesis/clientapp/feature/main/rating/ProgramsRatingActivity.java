@@ -4,27 +4,30 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.TextView;
-
-import androidx.viewpager.widget.ViewPager;
+import android.widget.HorizontalScrollView;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
-import com.google.android.material.tabs.TabLayout;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
+import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.swagger.client.model.AssetFacet;
 import io.swagger.client.model.LevelInfo;
+import timber.log.Timber;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseSwipeBackActivity;
 import vision.genesis.clientapp.feature.main.about_levels.AboutLevelsActivity;
-import vision.genesis.clientapp.ui.common.DetailsTabView;
-import vision.genesis.clientapp.utils.TabLayoutUtil;
+import vision.genesis.clientapp.model.FacetModel;
+import vision.genesis.clientapp.ui.LevelView;
+import vision.genesis.clientapp.ui.NonSwipeableViewPager;
 import vision.genesis.clientapp.utils.ThemeUtil;
-import vision.genesis.clientapp.utils.TypefaceUtil;
+import vision.genesis.clientapp.utils.TypedValueFormatter;
 
 /**
  * GenesisVisionAndroid
@@ -33,29 +36,36 @@ import vision.genesis.clientapp.utils.TypefaceUtil;
 
 public class ProgramsRatingActivity extends BaseSwipeBackActivity implements ProgramsRatingView
 {
-	public static void startWith(Activity activity) {
+	private static final String EXTRA_MODEL = "extra_model";
+
+	public static void startWith(Activity activity, AssetFacet facet) {
 		Intent intent = new Intent(activity.getApplicationContext(), ProgramsRatingActivity.class);
+		FacetModel model = new FacetModel(facet.getId(), facet.getTitle(), facet.getTimeframe().toString(), facet.getSorting());
+		intent.putExtra(EXTRA_MODEL, model);
 		activity.startActivity(intent);
 		activity.overridePendingTransition(R.anim.slide_from_right, R.anim.hold);
 	}
 
-	@BindView(R.id.title)
-	public TextView title;
+	@BindView(R.id.scrollview)
+	public HorizontalScrollView scrollview;
 
-	@BindView(R.id.tab_layout)
-	public TabLayout tabLayout;
+	@BindView(R.id.group_levels)
+	public LinearLayout levelsGroup;
 
 	@BindView(R.id.view_pager_programs_rating)
-	public ViewPager viewPager;
+	public NonSwipeableViewPager viewPager;
+
+	@BindView(R.id.progress_bar)
+	public ProgressBar progressBar;
 
 	@InjectPresenter
-	ProgramsRatingPresenter programsRatingPresenter;
+	ProgramsRatingPresenter presenter;
 
-	private TabLayout.OnTabSelectedListener tabSelectedListener;
+	private List<LevelView> levelViews = new ArrayList<>();
 
-	private TabLayout.TabLayoutOnPageChangeListener tabLayoutOnPageChangeListener;
+	private LevelView selectedLevel;
 
-	private ProgramsRatingPagerAdapter pagerAdapter;
+	private FacetModel facetModel;
 
 	@OnClick(R.id.button_back)
 	public void onBackClicked() {
@@ -76,87 +86,108 @@ public class ProgramsRatingActivity extends BaseSwipeBackActivity implements Pro
 
 		ButterKnife.bind(this);
 
-		setFonts();
-	}
+		viewPager.setAllowSwipe(false);
 
-	private void setFonts() {
-		title.setTypeface(TypefaceUtil.semibold());
+		if (getIntent().getExtras() != null) {
+			facetModel = Objects.requireNonNull(getIntent().getExtras().getParcelable(EXTRA_MODEL));
+			presenter.setData(facetModel);
+
+			return;
+		}
+		Timber.e("Passed empty model to %s", getClass().getSimpleName());
+		onBackPressed();
 	}
 
 	@Override
 	public void setData(List<LevelInfo> levelData) {
-		initTabs(levelData);
+		initLevels(levelData);
 		initViewPager(levelData);
 	}
 
-	private void initTabs(List<LevelInfo> levelData) {
-		tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
-
-		tabSelectedListener = new TabLayout.OnTabSelectedListener()
-		{
-			@Override
-			public void onTabSelected(TabLayout.Tab tab) {
-				viewPager.setCurrentItem(tab.getPosition());
-				if (tab.getCustomView() != null && tab.getCustomView().getClass().equals(DetailsTabView.class)) {
-					((DetailsTabView) tab.getCustomView()).setSelectedState(true);
-				}
+	@Override
+	public void showLevel(Integer level) {
+		if (selectedLevel != null) {
+			if (selectedLevel.getLevel() == level) {
+				return;
 			}
+			selectedLevel.setSelected(false);
+		}
+		viewPager.setCurrentItem(level);
+		selectedLevel = levelViews.get(level - 1);
+		selectedLevel.setSelected(true);
+	}
 
-			@Override
-			public void onTabUnselected(TabLayout.Tab tab) {
-				if (tab.getCustomView() != null && tab.getCustomView().getClass().equals(DetailsTabView.class)) {
-					((DetailsTabView) tab.getCustomView()).setSelectedState(false);
-				}
-			}
+	@Override
+	public void showAllLevels() {
+		if (selectedLevel != null) {
+			selectedLevel.setSelected(false);
+			selectedLevel = null;
+		}
+		viewPager.setCurrentItem(0);
+	}
 
-			@Override
-			public void onTabReselected(TabLayout.Tab tab) {
-				if (tab.getCustomView() != null && tab.getCustomView().getClass().equals(DetailsTabView.class)) {
-					((DetailsTabView) tab.getCustomView()).setSelectedState(true);
-				}
-			}
-		};
-
-		tabLayout.addOnTabSelectedListener(tabSelectedListener);
-
-		int index = 0;
-		for (LevelInfo data : levelData) {
-			TabLayout.Tab newTab = tabLayout.newTab().setCustomView(getTabView(data.getLevel())).setTag(data.getLevel());
-			addPage(newTab, index == 0);
-			index++;
+	@Override
+	public void showProgress(boolean show) {
+		this.progressBar.setVisibility(show ? View.VISIBLE : View.GONE);
+		if (!show) {
+			this.scrollview.setVisibility(View.VISIBLE);
+			this.viewPager.setVisibility(View.VISIBLE);
 		}
 	}
 
-	private View getTabView(Integer level) {
-		DetailsTabView view = new DetailsTabView(this);
-		view.setData(String.format(Locale.getDefault(), "%d → %d", level, level + 1));
-		return view;
+	private void initLevels(List<LevelInfo> levelData) {
+		levelsGroup.removeAllViews();
+		levelViews.clear();
+
+		for (LevelInfo info : levelData) {
+			LevelView view = new LevelView(this);
+			view.setLevel(info.getLevel(), getLevelColor(info.getLevel()));
+			levelsGroup.addView(view);
+			levelViews.add(view);
+			LinearLayout.LayoutParams lp = (LinearLayout.LayoutParams) view.getLayoutParams();
+			lp.setMargins(TypedValueFormatter.toDp(20), 0, 0, 0);
+			view.setLayoutParams(lp);
+			view.setOnClickListener(view1 -> presenter.onLevelClicked(info.getLevel()));
+		}
 	}
 
-	private void addPage(TabLayout.Tab tab, boolean selected) {
-		if (tab.getPosition() != TabLayout.Tab.INVALID_POSITION) {
-			return;
+	private int getLevelColor(Integer level) {
+		int colorResId = R.color.level1;
+		switch (level) {
+			case 1:
+				colorResId = R.color.level1;
+				break;
+			case 2:
+				colorResId = R.color.level2;
+				break;
+			case 3:
+				colorResId = R.color.level3;
+				break;
+			case 4:
+				colorResId = R.color.level4;
+				break;
+			case 5:
+				colorResId = R.color.level5;
+				break;
+			case 6:
+				colorResId = R.color.level6;
+				break;
+			case 7:
+				colorResId = R.color.level7;
+				break;
 		}
-
-		tabLayout.addTab(tab, selected);
-		TabLayoutUtil.wrapTabIndicatorToTitle(tabLayout, 20, 10);
-		if (pagerAdapter != null) {
-			pagerAdapter.notifyDataSetChanged();
-		}
+		return colorResId;
 	}
 
 	private void initViewPager(List<LevelInfo> levelData) {
-		pagerAdapter = new ProgramsRatingPagerAdapter(getSupportFragmentManager(), tabLayout, levelData);
+		ProgramsRatingPagerAdapter pagerAdapter = new ProgramsRatingPagerAdapter(getSupportFragmentManager(), levelData, facetModel);
 		viewPager.setAdapter(pagerAdapter);
-		viewPager.setOffscreenPageLimit(5);
-
-		tabLayoutOnPageChangeListener = new TabLayout.TabLayoutOnPageChangeListener(tabLayout);
-		viewPager.addOnPageChangeListener(tabLayoutOnPageChangeListener);
+		viewPager.setOffscreenPageLimit(2);
 	}
 
 	@Override
 	public void showSnackbarMessage(String message) {
-		showSnackbar(message, title);
+		showSnackbar(message, viewPager);
 	}
 
 	@Override

@@ -27,7 +27,6 @@ import io.swagger.client.model.Tag;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.common.facet.FollowFacetView;
-import vision.genesis.clientapp.feature.common.facet.ProgramFacetView;
 import vision.genesis.clientapp.model.ProgramDetailsModel;
 import vision.genesis.clientapp.model.events.OnListFollowFavoriteClickedEvent;
 import vision.genesis.clientapp.model.events.ShowProgramDetailsEvent;
@@ -294,7 +293,7 @@ public class FollowsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 					? ThemeUtil.getColorByAttrId(itemView.getContext(), R.attr.colorGreen)
 					: ThemeUtil.getColorByAttrId(itemView.getContext(), R.attr.colorRed));
 
-			this.trades.setText(String.valueOf(follow.getSubscribersCount()));
+			this.trades.setText(String.valueOf(follow.getTradesCount()));
 			this.subscribers.setText(String.valueOf(follow.getSubscribersCount()));
 			this.drawdown.setText(String.format(Locale.getDefault(), "%s%%",
 					StringFormatUtil.formatAmount(follow.getStatistic().getDrawdown(), 0, 2)));

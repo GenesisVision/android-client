@@ -25,6 +25,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
+            android:fontFamily="@font/montserrat_semibold"
             android:gravity="center"
             android:text="@string/rating"
             android:textColor="?attr/colorTextPrimary"
@@ -44,25 +45,39 @@
 
     </RelativeLayout>
 
-    <com.google.android.material.tabs.TabLayout
-        android:id="@+id/tab_layout"
+    <HorizontalScrollView
+        android:id="@+id/scrollview"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/tabs_height"
+        android:layout_height="60dp"
         android:layout_below="@+id/toolbar"
         android:background="?attr/colorCard"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        app:tabGravity="fill"
-        app:tabIndicatorColor="?attr/colorAccent"
-        app:tabMaxWidth="0dp"
-        app:tabMode="scrollable"
-        app:tabSelectedTextColor="?attr/colorTextPrimary"
-        app:tabTextColor="?attr/colorTextSecondary"/>
+        android:scrollbars="none"
+        android:visibility="gone">
 
-    <androidx.viewpager.widget.ViewPager
+        <LinearLayout
+            android:id="@+id/group_levels"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"/>
+
+    </HorizontalScrollView>
+
+    <vision.genesis.clientapp.ui.NonSwipeableViewPager
         android:id="@+id/view_pager_programs_rating"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/tab_layout"
+        android:layout_below="@+id/scrollview"
+        android:visibility="gone"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_below="@+id/toolbar"
+        android:indeterminate="true"
+        android:scaleY="4"/>
 
 </RelativeLayout>

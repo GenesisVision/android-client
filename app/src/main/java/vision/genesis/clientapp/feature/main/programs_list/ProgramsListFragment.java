@@ -7,7 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -20,7 +19,6 @@ import com.arellomobile.mvp.presenter.InjectPresenter;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 import java.util.UUID;
 
 import butterknife.BindDimen;
@@ -36,11 +34,8 @@ import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
 import vision.genesis.clientapp.feature.main.filters.FiltersActivity;
-import vision.genesis.clientapp.model.RatingInfo;
 import vision.genesis.clientapp.model.filter.ProgramsFilter;
 import vision.genesis.clientapp.model.filter.UserFilter;
-import vision.genesis.clientapp.utils.StringFormatUtil;
-import vision.genesis.clientapp.utils.TypefaceUtil;
 
 /**
  * GenesisVision
@@ -60,8 +55,6 @@ public class ProgramsListFragment extends BaseFragment implements ProgramsListVi
 	public static final String LOCATION_RATING = "location_rating";
 
 	public static final String EXTRA_FILTER = "extra_filter";
-
-	public static final String EXTRA_RATING_INFO = "extra_rating_info";
 
 	private static final String EXTRA_LOCATION = "extra_location";
 
@@ -88,23 +81,8 @@ public class ProgramsListFragment extends BaseFragment implements ProgramsListVi
 	@BindView(R.id.group_no_internet)
 	public ViewGroup noInternetGroup;
 
-	@BindView(R.id.group_rating_info)
-	public ViewGroup ratingInfoGroup;
-
-	@BindView(R.id.rating_total)
-	public TextView ratingTotal;
-
-	@BindView(R.id.rating_quota)
-	public TextView ratingQuota;
-
-	@BindView(R.id.rating_target_profit)
-	public TextView ratingTargetProfit;
-
 	@BindView(R.id.filters)
 	public ViewGroup filters;
-
-	@BindView(R.id.text_filters)
-	public TextView filtersText;
 
 	@BindView(R.id.filters_dot)
 	public View filtersDot;
@@ -125,7 +103,7 @@ public class ProgramsListFragment extends BaseFragment implements ProgramsListVi
 	public int dateRangeMarginBottom;
 
 	@InjectPresenter
-	ProgramsListPresenter programsListPresenter;
+	ProgramsListPresenter presenter;
 
 	private int filtersMarginBottom;
 
@@ -137,12 +115,12 @@ public class ProgramsListFragment extends BaseFragment implements ProgramsListVi
 
 	@OnClick(R.id.button_try_again)
 	public void onTryAgainClicked() {
-		programsListPresenter.onTryAgainClicked();
+		presenter.onTryAgainClicked();
 	}
 
 	@OnClick(R.id.filters)
 	public void onFiltersClicked() {
-		programsListPresenter.onFiltersClicked();
+		presenter.onFiltersClicked();
 	}
 
 	@Nullable
@@ -162,9 +140,7 @@ public class ProgramsListFragment extends BaseFragment implements ProgramsListVi
 			String location = getArguments().getString(EXTRA_LOCATION);
 
 			ProgramsFilter filter = null;
-			RatingInfo ratingInfo;
 
-			setFonts();
 			initRefreshLayout();
 			initRecyclerView();
 
@@ -188,11 +164,6 @@ public class ProgramsListFragment extends BaseFragment implements ProgramsListVi
 					case LOCATION_RATING:
 						filters.setVisibility(View.GONE);
 						filter = data != null ? data.getParcelable(EXTRA_FILTER) : null;
-						ratingInfo = data != null ? data.getParcelable(EXTRA_RATING_INFO) : null;
-						if (ratingInfo != null) {
-							this.ratingInfoGroup.setVisibility(View.VISIBLE);
-							updateRatingInfo(ratingInfo);
-						}
 						break;
 					default:
 						filtersMarginBottom = assetsFiltersMarginBottom;
@@ -200,7 +171,7 @@ public class ProgramsListFragment extends BaseFragment implements ProgramsListVi
 				}
 			}
 
-			programsListPresenter.setData(location, filter);
+			presenter.setData(location, filter);
 		}
 		else {
 			Timber.e("Passed empty arguments to ProgramsListFragment");
@@ -222,18 +193,11 @@ public class ProgramsListFragment extends BaseFragment implements ProgramsListVi
 		super.onDestroyView();
 	}
 
-	private void setFonts() {
-		filtersText.setTypeface(TypefaceUtil.semibold());
-		ratingTotal.setTypeface(TypefaceUtil.semibold());
-		ratingQuota.setTypeface(TypefaceUtil.semibold());
-		ratingTargetProfit.setTypeface(TypefaceUtil.semibold());
-	}
-
 	private void initRefreshLayout() {
 		refreshLayout.setColorSchemeColors(ContextCompat.getColor(GenesisVisionApplication.INSTANCE, R.color.colorAccent),
 				ContextCompat.getColor(GenesisVisionApplication.INSTANCE, R.color.colorAccent),
 				ContextCompat.getColor(GenesisVisionApplication.INSTANCE, R.color.colorMedium));
-		refreshLayout.setOnRefreshListener(() -> programsListPresenter.onSwipeRefresh());
+		refreshLayout.setOnRefreshListener(() -> presenter.onSwipeRefresh());
 	}
 
 	private void initRecyclerView() {
@@ -263,7 +227,7 @@ public class ProgramsListFragment extends BaseFragment implements ProgramsListVi
 
 		boolean endHasBeenReached = lastVisible + 1 >= totalItemCount;
 		if (totalItemCount > 0 && endHasBeenReached) {
-			programsListPresenter.onLastListItemVisible();
+			presenter.onLastListItemVisible();
 		}
 	}
 
@@ -272,13 +236,6 @@ public class ProgramsListFragment extends BaseFragment implements ProgramsListVi
 		if (programsListAdapter != null) {
 			programsListAdapter.setFacets(facets);
 		}
-	}
-
-	private void updateRatingInfo(RatingInfo ratingInfo) {
-		this.ratingTotal.setText(String.valueOf(ratingInfo.getTotal()));
-		this.ratingQuota.setText(String.valueOf(ratingInfo.getQuota()));
-		this.ratingTargetProfit.setText(String.format(Locale.getDefault(), "%s%%",
-				StringFormatUtil.formatAmount(ratingInfo.getTargetProfit(), 0, 2)));
 	}
 
 	@Override
@@ -345,7 +302,7 @@ public class ProgramsListFragment extends BaseFragment implements ProgramsListVi
 		if (requestCode == UserFilter.TYPE_PROGRAMS_LIST_FILTER && resultCode == Activity.RESULT_OK) {
 			UserFilter userFilter = data.getParcelableExtra("filter");
 			if (userFilter != null) {
-				programsListPresenter.onFilterUpdated(userFilter);
+				presenter.onFilterUpdated(userFilter);
 			}
 		}
 		else {
@@ -354,8 +311,8 @@ public class ProgramsListFragment extends BaseFragment implements ProgramsListVi
 	}
 
 	public void showSearchResults(ItemsViewModelProgramDetailsListItem result) {
-		if (programsListPresenter != null) {
-			programsListPresenter.showSearchResults(result);
+		if (presenter != null) {
+			presenter.showSearchResults(result);
 		}
 	}
 

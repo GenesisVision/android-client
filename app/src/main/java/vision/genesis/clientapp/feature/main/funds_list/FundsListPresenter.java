@@ -183,7 +183,9 @@ public class FundsListPresenter extends MvpPresenter<FundsListView>
 		this.filter = filter;
 		this.filter.setSkip(0);
 		this.filter.setTake(TAKE);
-		this.filter.setDateRange(dateRange);
+		if (this.filter.getDateRange() == null) {
+			this.filter.setDateRange(dateRange);
+		}
 //		filter.setEquityChartLength(10);
 	}
 

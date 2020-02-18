@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                style="@style/levels_limits_group_level">
+
+    <View
+        android:id="@+id/background"
+        style="@style/levels_limits_level_background"
+        android:background="@drawable/circle_white"
+        android:tint="@color/level3"/>
+
+    <TextView
+        android:id="@+id/level"
+        style="@style/levels_limits_level"
+        android:fontFamily="@font/montserrat_semibold"
+        tools:text="3"/>
+
+</RelativeLayout>
