@@ -24,18 +24,18 @@
                 android:layout_height="wrap_content"
                 android:background="?attr/colorBackground"
                 android:orientation="vertical"
-                android:paddingBottom="16dp"
-                android:paddingTop="24dp">
+                android:paddingTop="24dp"
+                android:paddingBottom="24dp">
 
                 <RelativeLayout
                     android:id="@+id/group_manager"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="?attr/selectableItemBackground"
-                    android:paddingBottom="8dp"
                     android:paddingLeft="@dimen/program_details_padding"
+                    android:paddingTop="8dp"
                     android:paddingRight="@dimen/program_details_padding"
-                    android:paddingTop="8dp">
+                    android:paddingBottom="8dp">
 
                     <vision.genesis.clientapp.ui.AvatarView
                         android:id="@+id/manager_avatar"
@@ -47,10 +47,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
-                        android:layout_marginLeft="16dp"
                         android:layout_marginStart="16dp"
                         android:layout_toEndOf="@+id/manager_avatar"
-                        android:layout_toRightOf="@+id/manager_avatar"
                         android:orientation="vertical">
 
                         <TextView
@@ -77,7 +75,6 @@
                         android:layout_width="12dp"
                         android:layout_height="12dp"
                         android:layout_alignParentEnd="true"
-                        android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
                         android:alpha="0.4"
                         android:tint="?attr/colorTextPrimary"
@@ -124,6 +121,81 @@
 
                 </RelativeLayout>
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/padding"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="@dimen/padding"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/balance"
+                            style="@style/program_info_invest_value"
+                            tools:text="847.32 $"/>
+
+                        <TextView
+                            android:id="@+id/label_balance"
+                            style="@style/program_info_invest_label"
+                            android:text="@string/balance"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/investors"
+                            style="@style/program_info_invest_value"
+                            tools:text="62"/>
+
+                        <TextView
+                            android:id="@+id/label_investors"
+                            style="@style/program_info_invest_label"
+                            android:text="@string/investors"/>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/padding"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="@dimen/padding"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/start_day"
+                            style="@style/program_info_invest_value"
+                            tools:text="Feb 28, 2019"/>
+
+                        <TextView
+                            android:id="@+id/label_start_day"
+                            style="@style/program_info_invest_label"
+                            android:text="@string/start_day"/>
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
             </LinearLayout>
 
             <LinearLayout
@@ -133,10 +205,10 @@
                 android:layout_marginTop="24dp"
                 android:background="?attr/colorBackground"
                 android:orientation="vertical"
-                android:paddingBottom="24dp"
                 android:paddingLeft="@dimen/program_details_padding"
-                android:paddingRight="@dimen/program_details_padding"
                 android:paddingTop="24dp"
+                android:paddingRight="@dimen/program_details_padding"
+                android:paddingBottom="24dp"
                 android:visibility="gone"
                 tools:visibility="visible">
 
@@ -159,7 +231,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
-                        android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"/>
 
                 </RelativeLayout>
@@ -192,10 +263,10 @@
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginEnd="6dp"
-                        android:layout_marginLeft="6dp"
-                        android:layout_marginRight="6dp"
                         android:layout_marginStart="6dp"
+                        android:layout_marginLeft="6dp"
+                        android:layout_marginEnd="6dp"
+                        android:layout_marginRight="6dp"
                         android:layout_weight="1"
                         android:orientation="vertical">
 
@@ -261,10 +332,10 @@
                 android:layout_marginTop="24dp"
                 android:background="?attr/colorBackground"
                 android:orientation="vertical"
-                android:paddingBottom="24dp"
                 android:paddingLeft="@dimen/program_details_padding"
+                android:paddingTop="24dp"
                 android:paddingRight="@dimen/program_details_padding"
-                android:paddingTop="24dp">
+                android:paddingBottom="24dp">
 
                 <TextView
                     android:id="@+id/label_invest_now"

@@ -3,6 +3,8 @@ package vision.genesis.clientapp.feature.main.fund.profit;
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -22,6 +24,7 @@ import vision.genesis.clientapp.managers.FundsManager;
 import vision.genesis.clientapp.managers.SettingsManager;
 import vision.genesis.clientapp.model.CurrencyEnum;
 import vision.genesis.clientapp.model.DateRange;
+import vision.genesis.clientapp.model.events.OnFundStatisticsUpdatedEvent;
 import vision.genesis.clientapp.ui.chart.ProfitChartView;
 import vision.genesis.clientapp.utils.StringFormatUtil;
 
@@ -171,6 +174,7 @@ public class FundProfitPresenter extends MvpPresenter<FundProfitView> implements
 		this.percentChart = response;
 
 		getViewState().setPercentChart(percentChart.getCharts());
+		EventBus.getDefault().post(new OnFundStatisticsUpdatedEvent(fundId, percentChart.getStatistic(), baseCurrency.getValue()));
 		getViewState().updateStatistics(percentChart.getStatistic());
 //		resetValuesSelection();
 	}

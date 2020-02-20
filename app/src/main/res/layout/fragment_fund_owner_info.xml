@@ -59,8 +59,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingStart="20dp"
-                    android:paddingEnd="20dp"
-                    android:paddingBottom="20dp">
+                    android:paddingEnd="20dp">
 
                     <TextView
                         android:id="@+id/label_strategy"
@@ -94,6 +93,81 @@
                         tools:visibility="visible"/>
 
                 </RelativeLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/padding"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="@dimen/padding"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/balance"
+                            style="@style/program_info_invest_value"
+                            tools:text="847.32 $"/>
+
+                        <TextView
+                            android:id="@+id/label_balance"
+                            style="@style/program_info_invest_label"
+                            android:text="@string/balance"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/investors"
+                            style="@style/program_info_invest_value"
+                            tools:text="62"/>
+
+                        <TextView
+                            android:id="@+id/label_investors"
+                            style="@style/program_info_invest_label"
+                            android:text="@string/investors"/>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/padding"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="@dimen/padding"
+                    android:layout_marginBottom="20dp"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/start_day"
+                            style="@style/program_info_invest_value"
+                            tools:text="Feb 28, 2019"/>
+
+                        <TextView
+                            android:id="@+id/label_start_day"
+                            style="@style/program_info_invest_label"
+                            android:text="@string/start_day"/>
+
+                    </LinearLayout>
+
+                </LinearLayout>
 
             </LinearLayout>
 

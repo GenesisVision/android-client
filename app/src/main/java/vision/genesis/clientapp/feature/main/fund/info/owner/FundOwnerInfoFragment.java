@@ -24,6 +24,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 import io.swagger.client.model.Currency;
+import io.swagger.client.model.FundChartStatistic;
 import io.swagger.client.model.FundDetailsFull;
 import io.swagger.client.model.PersonalFundDetails;
 import io.swagger.client.model.ProgramUpdate;
@@ -40,6 +41,7 @@ import vision.genesis.clientapp.feature.main.fund.withdraw.WithdrawFundActivity;
 import vision.genesis.clientapp.model.FundRequest;
 import vision.genesis.clientapp.ui.InvestmentStatusView;
 import vision.genesis.clientapp.ui.PrimaryButton;
+import vision.genesis.clientapp.utils.DateTimeUtil;
 import vision.genesis.clientapp.utils.StringFormatUtil;
 import vision.genesis.clientapp.utils.TypefaceUtil;
 
@@ -77,6 +79,25 @@ public class FundOwnerInfoFragment extends BaseFragment implements FundOwnerInfo
 
 	@BindView(R.id.strategy_shadow)
 	public View strategyShadow;
+
+
+	@BindView(R.id.balance)
+	public TextView balance;
+
+	@BindView(R.id.label_balance)
+	public TextView balanceLabel;
+
+	@BindView(R.id.investors)
+	public TextView investors;
+
+	@BindView(R.id.label_investors)
+	public TextView investorsLabel;
+
+	@BindView(R.id.start_day)
+	public TextView startDay;
+
+	@BindView(R.id.label_start_day)
+	public TextView startDayLabel;
 
 
 	@BindView(R.id.group_your_investment)
@@ -254,6 +275,10 @@ public class FundOwnerInfoFragment extends BaseFragment implements FundOwnerInfo
 		entryFee.setTypeface(TypefaceUtil.semibold());
 		exitFee.setTypeface(TypefaceUtil.semibold());
 
+		balanceLabel.setText(balanceLabel.getText().toString().toLowerCase());
+		investorsLabel.setText(investorsLabel.getText().toString().toLowerCase());
+		startDayLabel.setText(startDayLabel.getText().toString().toLowerCase());
+
 		profitLabel.setText(profitLabel.getText().toString().toLowerCase());
 		entryFeeLabel.setText(entryFeeLabel.getText().toString().toLowerCase());
 		exitFeeLabel.setText(exitFeeLabel.getText().toString().toLowerCase());
@@ -317,6 +342,13 @@ public class FundOwnerInfoFragment extends BaseFragment implements FundOwnerInfo
 //		Double value = fundDetails.getPersonalDetails().getValue();
 //		return Math.abs(invested != 0 ? 100 / invested * (invested - value) : 0);
 //	}
+
+	@Override
+	public void updateStatistics(FundChartStatistic statistic, String baseCurrency) {
+		this.balance.setText(StringFormatUtil.getValueString(statistic.getBalance(), baseCurrency));
+		this.investors.setText(String.valueOf(statistic.getInvestors()));
+		this.startDay.setText(DateTimeUtil.formatDate(statistic.getCreationDate()));
+	}
 
 	@Override
 	public void showInvestWithdrawButtons() {

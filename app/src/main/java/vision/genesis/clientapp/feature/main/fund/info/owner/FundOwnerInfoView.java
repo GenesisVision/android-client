@@ -7,6 +7,7 @@ import com.arellomobile.mvp.viewstate.strategy.StateStrategyType;
 
 import java.util.UUID;
 
+import io.swagger.client.model.FundChartStatistic;
 import io.swagger.client.model.FundDetailsFull;
 import io.swagger.client.model.ProgramUpdate;
 import vision.genesis.clientapp.model.FundRequest;
@@ -20,6 +21,8 @@ interface FundOwnerInfoView extends MvpView
 {
 	@StateStrategyType(AddToEndSingleStrategy.class)
 	void setFundDetails(FundDetailsFull fundDetails);
+
+	void updateStatistics(FundChartStatistic statistic, String baseCurrency);
 
 	@StateStrategyType(AddToEndSingleStrategy.class)
 	void showInvestWithdrawButtons();

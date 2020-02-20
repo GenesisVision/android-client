@@ -3,6 +3,9 @@ package vision.genesis.clientapp.feature.main.fund.info.owner;
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+
 import java.util.UUID;
 
 import javax.inject.Inject;
@@ -19,6 +22,7 @@ import vision.genesis.clientapp.managers.FundsManager;
 import vision.genesis.clientapp.model.CurrencyEnum;
 import vision.genesis.clientapp.model.FundRequest;
 import vision.genesis.clientapp.model.User;
+import vision.genesis.clientapp.model.events.OnFundStatisticsUpdatedEvent;
 
 /**
  * GenesisVisionAndroid
@@ -50,6 +54,8 @@ public class FundOwnerInfoPresenter extends MvpPresenter<FundOwnerInfoView>
 
 		GenesisVisionApplication.getComponent().inject(this);
 
+		EventBus.getDefault().register(this);
+
 		subscribeToUser();
 		getViewState().showProgress(true);
 		getFundDetails();
@@ -64,6 +70,8 @@ public class FundOwnerInfoPresenter extends MvpPresenter<FundOwnerInfoView>
 		if (fundDetailsSubscription != null) {
 			fundDetailsSubscription.unsubscribe();
 		}
+
+		EventBus.getDefault().unregister(this);
 
 		super.onDestroy();
 	}
@@ -198,5 +206,12 @@ public class FundOwnerInfoPresenter extends MvpPresenter<FundOwnerInfoView>
 
 	private void handleUserError(Throwable throwable) {
 		userLoggedOff();
+	}
+
+	@Subscribe
+	public void onEventMainThread(OnFundStatisticsUpdatedEvent event) {
+		if (event.getFundId().equals(fundId)) {
+			getViewState().updateStatistics(event.getStatistic(), event.getBaseCurrency());
+		}
 	}
 }

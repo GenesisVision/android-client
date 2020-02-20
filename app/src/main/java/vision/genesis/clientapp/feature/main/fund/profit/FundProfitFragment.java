@@ -28,12 +28,12 @@ import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
 import vision.genesis.clientapp.feature.common.date_range.DateRangeBottomSheetFragment;
 import vision.genesis.clientapp.feature.main.fund.FundDetailsPagerAdapter;
+import vision.genesis.clientapp.feature.main.fund.profit.glossary.FundStatisticsGlossaryBottomSheetDialog;
 import vision.genesis.clientapp.model.DateRange;
 import vision.genesis.clientapp.ui.DateRangeView;
 import vision.genesis.clientapp.ui.chart.ProfitChartView;
 import vision.genesis.clientapp.utils.StringFormatUtil;
 import vision.genesis.clientapp.utils.ThemeUtil;
-import vision.genesis.clientapp.utils.TypefaceUtil;
 
 /**
  * GenesisVisionAndroid
@@ -76,9 +76,6 @@ public class FundProfitFragment extends BaseFragment implements FundProfitView, 
 	@BindView(R.id.label_statistics)
 	public TextView statisticsLabel;
 
-	@BindView(R.id.rebalances)
-	public TextView rebalances;
-
 	@BindView(R.id.sharpe_ratio)
 	public TextView sharpeRatio;
 
@@ -91,6 +88,9 @@ public class FundProfitFragment extends BaseFragment implements FundProfitView, 
 	@BindView(R.id.max_drawdown)
 	public TextView maxDrawdown;
 
+	@BindView(R.id.profit_change)
+	public TextView profitChange;
+
 	@BindDimen(R.dimen.date_range_margin_bottom)
 	public int dateRangeMarginBottom;
 
@@ -102,6 +102,14 @@ public class FundProfitFragment extends BaseFragment implements FundProfitView, 
 	private Unbinder unbinder;
 
 	private DateRange dateRange = DateRange.createFromEnum(DateRange.DateRangeEnum.WEEK);
+
+	@OnClick(R.id.glossary)
+	public void onGlossaryClicked() {
+		if (getActivity() != null) {
+			FundStatisticsGlossaryBottomSheetDialog dialog = new FundStatisticsGlossaryBottomSheetDialog();
+			dialog.show(getActivity().getSupportFragmentManager(), dialog.getTag());
+		}
+	}
 
 	@OnClick(R.id.date_range)
 	public void onDateRangeClicked() {
@@ -145,14 +153,6 @@ public class FundProfitFragment extends BaseFragment implements FundProfitView, 
 
 	private void setFonts() {
 		valueTitle.setText(StringFormatUtil.capitalize(getString(R.string.value)));
-		value.setTypeface(TypefaceUtil.semibold());
-
-		statisticsLabel.setTypeface(TypefaceUtil.semibold());
-		rebalances.setTypeface(TypefaceUtil.semibold());
-		sharpeRatio.setTypeface(TypefaceUtil.semibold());
-		sortinoRatio.setTypeface(TypefaceUtil.semibold());
-		calmarRatio.setTypeface(TypefaceUtil.semibold());
-		maxDrawdown.setTypeface(TypefaceUtil.semibold());
 	}
 
 	@Override
@@ -171,6 +171,7 @@ public class FundProfitFragment extends BaseFragment implements FundProfitView, 
 		this.sortinoRatio.setText(StringFormatUtil.formatAmount(statistic.getSortinoRatio(), 0, 4));
 		this.calmarRatio.setText(StringFormatUtil.formatAmount(statistic.getCalmarRatio(), 0, 4));
 		this.maxDrawdown.setText(String.format(Locale.getDefault(), "%s%%", StringFormatUtil.formatAmount(statistic.getMaxDrawdown(), 0, 4)));
+		this.profitChange.setText(String.format(Locale.getDefault(), "%s%%", StringFormatUtil.formatAmount(statistic.getProfitPercent(), 0, 4)));
 	}
 
 	@Override

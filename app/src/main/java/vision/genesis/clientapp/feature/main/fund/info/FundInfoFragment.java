@@ -24,6 +24,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 import io.swagger.client.model.AssetInvestmentStatus;
+import io.swagger.client.model.FundChartStatistic;
 import io.swagger.client.model.FundDetailsFull;
 import io.swagger.client.model.PersonalFundDetails;
 import io.swagger.client.model.ProfilePublic;
@@ -68,6 +69,7 @@ public class FundInfoFragment extends BaseFragment implements FundInfoView, Fund
 	@BindView(R.id.progress_bar)
 	public ProgressBar progressBar;
 
+
 	@BindView(R.id.manager_avatar)
 	public AvatarView managerAvatar;
 
@@ -82,6 +84,26 @@ public class FundInfoFragment extends BaseFragment implements FundInfoView, Fund
 
 	@BindView(R.id.strategy_shadow)
 	public View strategyShadow;
+
+
+	@BindView(R.id.balance)
+	public TextView balance;
+
+	@BindView(R.id.label_balance)
+	public TextView balanceLabel;
+
+	@BindView(R.id.investors)
+	public TextView investors;
+
+	@BindView(R.id.label_investors)
+	public TextView investorsLabel;
+
+	@BindView(R.id.start_day)
+	public TextView startDay;
+
+	@BindView(R.id.label_start_day)
+	public TextView startDayLabel;
+
 
 	@BindView(R.id.group_your_investment)
 	public ViewGroup yourInvestmentGroup;
@@ -109,6 +131,7 @@ public class FundInfoFragment extends BaseFragment implements FundInfoView, Fund
 
 	@BindView(R.id.button_withdraw)
 	public PrimaryButton withdrawButton;
+
 
 	@BindView(R.id.label_invest_now)
 	public TextView labelInvestNow;
@@ -243,6 +266,10 @@ public class FundInfoFragment extends BaseFragment implements FundInfoView, Fund
 		entryFee.setTypeface(TypefaceUtil.semibold());
 		exitFee.setTypeface(TypefaceUtil.semibold());
 
+		balanceLabel.setText(balanceLabel.getText().toString().toLowerCase());
+		investorsLabel.setText(investorsLabel.getText().toString().toLowerCase());
+		startDayLabel.setText(startDayLabel.getText().toString().toLowerCase());
+
 		investedLabel.setText(investedLabel.getText().toString().toLowerCase());
 		profitLabel.setText(profitLabel.getText().toString().toLowerCase());
 		entryFeeLabel.setText(entryFeeLabel.getText().toString().toLowerCase());
@@ -290,6 +317,13 @@ public class FundInfoFragment extends BaseFragment implements FundInfoView, Fund
 		}
 
 //		investInfo.setText(String.format(Locale.getDefault(), getString(R.string.request_info_template), DateTimeUtil.formatShortDateTime(fundDetails.getPeriodEnds())));
+	}
+
+	@Override
+	public void updateStatistics(FundChartStatistic statistic, String baseCurrency) {
+		this.balance.setText(StringFormatUtil.getValueString(statistic.getBalance(), baseCurrency));
+		this.investors.setText(String.valueOf(statistic.getInvestors()));
+		this.startDay.setText(DateTimeUtil.formatDate(statistic.getCreationDate()));
 	}
 
 	private void updateCurrentSelectedField(TextView textView, Double current, Double selected) {
