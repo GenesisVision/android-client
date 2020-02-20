@@ -8,5 +8,6 @@ Name | Type | Description | Notes
 **userName** | **String** |  |  [optional]
 **refCode** | **String** |  |  [optional]
 **isAuto** | **Boolean** |  |  [optional]
+**utmSource** | [**UtmSource**](UtmSource.md) |  |  [optional]
 **email** | **String** |  | 
 **captchaCheckResult** | [**CaptchaCheckResult**](CaptchaCheckResult.md) |  |  [optional]

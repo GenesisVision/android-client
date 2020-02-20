@@ -112,10 +112,8 @@ public class TradingAccountOpenPositionsPresenter extends MvpPresenter<TradingAc
 
 		EventBus.getDefault().post(new SetTradingAccountDetailsOpenPositionsCountEvent(model.getTotal()));
 
-		List<OrderModel> newTrades = model.getItems();
-
 		int index = 0;
-		for (OrderModel newTrade : newTrades) {
+		for (OrderModel newTrade : model.getItems()) {
 			String dateString = DateTimeUtil.formatShortDate(newTrade.getDate());
 			String lastSectionDate = sections.isEmpty() ? "" : sections.get(sections.size() - 1).getTitle().toString();
 			if (!lastSectionDate.equals(dateString)) {
@@ -124,7 +122,7 @@ public class TradingAccountOpenPositionsPresenter extends MvpPresenter<TradingAc
 			index++;
 		}
 
-		getViewState().setOpenPositions(newTrades, sections);
+		getViewState().setOpenPositions(model, sections);
 	}
 
 	private void handleGetOpenPositionsError(Throwable error) {
@@ -138,6 +136,6 @@ public class TradingAccountOpenPositionsPresenter extends MvpPresenter<TradingAc
 
 	@Subscribe
 	public void onEventMainThread(OnOpenPositionClickedEvent event) {
-		getViewState().showOpenPositionDetails(event.getOpenPosition());
+		getViewState().showOpenPositionDetails(event.getOpenPosition(), event.getModel());
 	}
 }

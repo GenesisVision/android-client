@@ -7,6 +7,7 @@ import com.arellomobile.mvp.viewstate.strategy.StateStrategyType;
 import java.util.List;
 
 import io.swagger.client.model.OrderModel;
+import io.swagger.client.model.TradesViewModel;
 import vision.genesis.clientapp.ui.common.SimpleSectionedRecyclerViewAdapter;
 
 /**
@@ -19,9 +20,9 @@ interface OpenPositionsView extends MvpView
 	@StateStrategyType(AddToEndSingleStrategy.class)
 	void showProgress(boolean show);
 
-	void setOpenPositions(List<OrderModel> trades, List<SimpleSectionedRecyclerViewAdapter.Section> sections);
+	void setOpenPositions(TradesViewModel model, List<SimpleSectionedRecyclerViewAdapter.Section> sections);
 
-	void showOpenPositionDetails(OrderModel openPosition);
+	void showOpenPositionDetails(OrderModel openPosition, TradesViewModel model);
 
 	void showSnackbarMessage(String message);
 }

@@ -112,11 +112,10 @@ public class OpenPositionsPresenter extends MvpPresenter<OpenPositionsView>
 
 		EventBus.getDefault().post(new SetProgramDetailsOpenPositionsCountEvent(model.getTotal()));
 
-		List<OrderModel> newTrades = model.getItems();
 
 		int index = 0;
-		for (OrderModel newTrade : newTrades) {
-			String dateString = DateTimeUtil.formatShortDate(newTrade.getDate());
+		for (OrderModel order : model.getItems()) {
+			String dateString = DateTimeUtil.formatShortDate(order.getDate());
 			String lastSectionDate = sections.isEmpty() ? "" : sections.get(sections.size() - 1).getTitle().toString();
 			if (!lastSectionDate.equals(dateString)) {
 				sections.add(new SimpleSectionedRecyclerViewAdapter.Section(index, dateString));
@@ -124,7 +123,7 @@ public class OpenPositionsPresenter extends MvpPresenter<OpenPositionsView>
 			index++;
 		}
 
-		getViewState().setOpenPositions(newTrades, sections);
+		getViewState().setOpenPositions(model, sections);
 	}
 
 	private void handleGetOpenPositionsError(Throwable error) {
@@ -138,6 +137,6 @@ public class OpenPositionsPresenter extends MvpPresenter<OpenPositionsView>
 
 	@Subscribe
 	public void onEventMainThread(OnOpenPositionClickedEvent event) {
-		getViewState().showOpenPositionDetails(event.getOpenPosition());
+		getViewState().showOpenPositionDetails(event.getOpenPosition(), event.getModel());
 	}
 }

@@ -50,6 +50,9 @@ public class FundAssetPlatformInfo implements Parcelable
 	@SerializedName("minInvestAmountIntoFund")
 	private List<AmountWithCurrency> minInvestAmountIntoFund = null;
 
+	@SerializedName("minWithdrawAmountFromFund")
+	private List<AmountWithCurrency> minWithdrawAmountFromFund = null;
+
 	@SerializedName("createFundInfo")
 	private FundCreateAssetPlatformInfo createFundInfo = null;
 
@@ -60,6 +63,7 @@ public class FundAssetPlatformInfo implements Parcelable
 		facets = (List<AssetFacet>) in.readValue(AssetFacet.class.getClassLoader());
 		assets = (List<PlatformAsset>) in.readValue(PlatformAsset.class.getClassLoader());
 		minInvestAmountIntoFund = (List<AmountWithCurrency>) in.readValue(AmountWithCurrency.class.getClassLoader());
+		minWithdrawAmountFromFund = (List<AmountWithCurrency>) in.readValue(AmountWithCurrency.class.getClassLoader());
 		createFundInfo = (FundCreateAssetPlatformInfo) in.readValue(FundCreateAssetPlatformInfo.class.getClassLoader());
 	}
 
@@ -144,6 +148,33 @@ public class FundAssetPlatformInfo implements Parcelable
 		this.minInvestAmountIntoFund = minInvestAmountIntoFund;
 	}
 
+	public FundAssetPlatformInfo minWithdrawAmountFromFund(List<AmountWithCurrency> minWithdrawAmountFromFund) {
+		this.minWithdrawAmountFromFund = minWithdrawAmountFromFund;
+		return this;
+	}
+
+	public FundAssetPlatformInfo addMinWithdrawAmountFromFundItem(AmountWithCurrency minWithdrawAmountFromFundItem) {
+		if (this.minWithdrawAmountFromFund == null) {
+			this.minWithdrawAmountFromFund = new ArrayList<AmountWithCurrency>();
+		}
+		this.minWithdrawAmountFromFund.add(minWithdrawAmountFromFundItem);
+		return this;
+	}
+
+	/**
+	 * Get minWithdrawAmountFromFund
+	 *
+	 * @return minWithdrawAmountFromFund
+	 **/
+	@Schema(description = "")
+	public List<AmountWithCurrency> getMinWithdrawAmountFromFund() {
+		return minWithdrawAmountFromFund;
+	}
+
+	public void setMinWithdrawAmountFromFund(List<AmountWithCurrency> minWithdrawAmountFromFund) {
+		this.minWithdrawAmountFromFund = minWithdrawAmountFromFund;
+	}
+
 	public FundAssetPlatformInfo createFundInfo(FundCreateAssetPlatformInfo createFundInfo) {
 		this.createFundInfo = createFundInfo;
 		return this;
@@ -175,12 +206,13 @@ public class FundAssetPlatformInfo implements Parcelable
 		return Objects.equals(this.facets, fundAssetPlatformInfo.facets) &&
 				Objects.equals(this.assets, fundAssetPlatformInfo.assets) &&
 				Objects.equals(this.minInvestAmountIntoFund, fundAssetPlatformInfo.minInvestAmountIntoFund) &&
+				Objects.equals(this.minWithdrawAmountFromFund, fundAssetPlatformInfo.minWithdrawAmountFromFund) &&
 				Objects.equals(this.createFundInfo, fundAssetPlatformInfo.createFundInfo);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(facets, assets, minInvestAmountIntoFund, createFundInfo);
+		return Objects.hash(facets, assets, minInvestAmountIntoFund, minWithdrawAmountFromFund, createFundInfo);
 	}
 
 	@Override
@@ -191,6 +223,7 @@ public class FundAssetPlatformInfo implements Parcelable
 		sb.append("    facets: ").append(toIndentedString(facets)).append("\n");
 		sb.append("    assets: ").append(toIndentedString(assets)).append("\n");
 		sb.append("    minInvestAmountIntoFund: ").append(toIndentedString(minInvestAmountIntoFund)).append("\n");
+		sb.append("    minWithdrawAmountFromFund: ").append(toIndentedString(minWithdrawAmountFromFund)).append("\n");
 		sb.append("    createFundInfo: ").append(toIndentedString(createFundInfo)).append("\n");
 		sb.append("}");
 		return sb.toString();
@@ -211,6 +244,7 @@ public class FundAssetPlatformInfo implements Parcelable
 		out.writeValue(facets);
 		out.writeValue(assets);
 		out.writeValue(minInvestAmountIntoFund);
+		out.writeValue(minWithdrawAmountFromFund);
 		out.writeValue(createFundInfo);
 	}
 

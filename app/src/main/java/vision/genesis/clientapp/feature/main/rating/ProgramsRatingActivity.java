@@ -139,15 +139,20 @@ public class ProgramsRatingActivity extends BaseSwipeBackActivity implements Pro
 		levelsGroup.removeAllViews();
 		levelViews.clear();
 
+		int index = 0;
 		for (LevelInfo info : levelData) {
 			LevelView view = new LevelView(this);
 			view.setLevel(info.getLevel(), getLevelColor(info.getLevel()));
 			levelsGroup.addView(view);
 			levelViews.add(view);
 			LinearLayout.LayoutParams lp = (LinearLayout.LayoutParams) view.getLayoutParams();
-			lp.setMargins(TypedValueFormatter.toDp(20), 0, 0, 0);
+			lp.setMargins(TypedValueFormatter.toDp(20),
+					0,
+					index == levelData.size() - 1 ? TypedValueFormatter.toDp(20) : 0,
+					0);
 			view.setLayoutParams(lp);
 			view.setOnClickListener(view1 -> presenter.onLevelClicked(info.getLevel()));
+			index++;
 		}
 	}
 

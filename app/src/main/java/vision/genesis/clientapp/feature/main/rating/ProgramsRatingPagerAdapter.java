@@ -67,6 +67,6 @@ public class ProgramsRatingPagerAdapter extends FragmentStatePagerAdapter
 
 	@Override
 	public int getCount() {
-		return levelData.size();
+		return levelData.size() + 1;
 	}
 }

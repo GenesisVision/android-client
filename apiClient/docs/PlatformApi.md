@@ -13,6 +13,7 @@ Method | HTTP request | Description
 [**getProgramLevels**](PlatformApi.md#getProgramLevels) | **GET** v2.0/platform/levels | Investment programs levels
 [**getProgramLevelsParams**](PlatformApi.md#getProgramLevelsParams) | **GET** v2.0/platform/levels/parameters | Investment programs levels parameters
 [**getRiskControlInfo**](PlatformApi.md#getRiskControlInfo) | **GET** v2.0/platform/riskcontrol | Risk control
+[**getSitemapInfo**](PlatformApi.md#getSitemapInfo) | **GET** v2.0/platform/sitemap | Sitemap info
 
 <a name="getAllPlatformAssets"></a>
 # **getAllPlatformAssets**
@@ -296,7 +297,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **currency** | **String**|  | [optional] [enum: USD, BTC, ETH, USDT, GVT, Undefined, ADA, XRP, BCH, LTC, DOGE, BNB, EUR]
+ **currency** | **String**|  | [optional] [enum: USD, Undefined, GVT, ETH, BTC, ADA, USDT, XRP, BCH, LTC, DOGE, BNB, EUR]
 
 ### Return type
 
@@ -339,7 +340,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **currency** | **String**|  | [optional] [enum: USD, BTC, ETH, USDT, GVT, Undefined, ADA, XRP, BCH, LTC, DOGE, BNB, EUR]
+ **currency** | **String**|  | [optional] [enum: USD, Undefined, GVT, ETH, BTC, ADA, USDT, XRP, BCH, LTC, DOGE, BNB, EUR]
 
 ### Return type
 
@@ -391,6 +392,45 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**CaptchaDetails**](CaptchaDetails.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
+
+<a name="getSitemapInfo"></a>
+# **getSitemapInfo**
+> SiteMapInfo getSitemapInfo()
+
+Sitemap info
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiException;
+//import io.swagger.client.api.PlatformApi;
+
+
+PlatformApi apiInstance = new PlatformApi();
+try {
+    SiteMapInfo result = apiInstance.getSitemapInfo();
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling PlatformApi#getSitemapInfo");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+[**SiteMapInfo**](SiteMapInfo.md)
 
 ### Authorization
 

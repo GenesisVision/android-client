@@ -18,6 +18,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.swagger.client.model.OrderModel;
+import io.swagger.client.model.TradesViewModel;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.model.events.OnOpenPositionClickedEvent;
@@ -34,6 +35,8 @@ public class OpenPositionsListAdapter extends RecyclerView.Adapter<OpenPositions
 {
 	private List<OrderModel> openPositions = new ArrayList<>();
 
+	private TradesViewModel model;
+
 	@NonNull
 	@Override
 	public TradeViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -43,7 +46,7 @@ public class OpenPositionsListAdapter extends RecyclerView.Adapter<OpenPositions
 
 	@Override
 	public void onBindViewHolder(@NonNull TradeViewHolder holder, int position) {
-		holder.setTrade(openPositions.get(position));
+		holder.setTrade(openPositions.get(position), model);
 	}
 
 	@Override
@@ -51,9 +54,10 @@ public class OpenPositionsListAdapter extends RecyclerView.Adapter<OpenPositions
 		return openPositions.size();
 	}
 
-	public void setOpenPositions(List<OrderModel> trades) {
+	public void setOpenPositions(TradesViewModel model) {
+		this.model = model;
 		this.openPositions.clear();
-		this.openPositions.addAll(trades);
+		this.openPositions.addAll(model.getItems());
 		notifyDataSetChanged();
 	}
 
@@ -82,6 +86,8 @@ public class OpenPositionsListAdapter extends RecyclerView.Adapter<OpenPositions
 
 		private OrderModel trade;
 
+		private TradesViewModel model;
+
 		TradeViewHolder(View itemView) {
 			super(itemView);
 
@@ -89,7 +95,7 @@ public class OpenPositionsListAdapter extends RecyclerView.Adapter<OpenPositions
 
 			itemView.setOnClickListener(view -> {
 				if (trade != null) {
-					EventBus.getDefault().post(new OnOpenPositionClickedEvent(trade));
+					EventBus.getDefault().post(new OnOpenPositionClickedEvent(trade, model));
 				}
 			});
 
@@ -103,30 +109,53 @@ public class OpenPositionsListAdapter extends RecyclerView.Adapter<OpenPositions
 			profit.setTypeface(TypefaceUtil.semibold());
 		}
 
-		void setTrade(OrderModel trade) {
+		void setTrade(OrderModel trade, TradesViewModel model) {
 			this.trade = trade;
-			int dirResId = R.drawable.icon_red_arrow_up;
-			switch (trade.getDirection()) {
-				case BUY:
-					dirResId = R.drawable.icon_arrow_green_down;
-					break;
-				case SELL:
-					dirResId = R.drawable.icon_arrow_red_up;
-					break;
-				default:
-					break;
-			}
-
-			entry.setImageDrawable(AppCompatResources.getDrawable(GenesisVisionApplication.INSTANCE, dirResId));
+			this.model = model;
 
 			symbol.setText(trade.getSymbol());
-			direction.setText(trade.getDirection().getValue());
 			volume.setText(StringFormatUtil.formatAmount(trade.getVolume(), 2, 8));
-			price.setText(StringFormatUtil.formatAmountWithoutGrouping(trade.getPrice()));
-//			balance.setText("120.2301");
-//			time.setText(DateTimeUtil.formatShortDateTime(trade.getDate()));
 
-			setProfit(trade);
+			if (model.isShowDirection()) {
+				this.direction.setVisibility(View.VISIBLE);
+				this.entry.setVisibility(View.VISIBLE);
+
+				int dirResId = R.drawable.icon_red_arrow_up;
+				switch (trade.getDirection()) {
+					case BUY:
+						dirResId = R.drawable.icon_arrow_green_down;
+						break;
+					case SELL:
+						dirResId = R.drawable.icon_arrow_red_up;
+						break;
+					default:
+						break;
+				}
+
+				entry.setImageDrawable(AppCompatResources.getDrawable(GenesisVisionApplication.INSTANCE, dirResId));
+
+				direction.setText(trade.getDirection().getValue());
+			}
+			else {
+				this.entry.setVisibility(View.GONE);
+				this.direction.setVisibility(View.GONE);
+			}
+
+			if (model.isShowPrice()) {
+				this.price.setVisibility(View.VISIBLE);
+				price.setText(StringFormatUtil.formatAmountWithoutGrouping(trade.getPrice()));
+			}
+			else {
+				this.price.setVisibility(View.GONE);
+			}
+
+			if (model.isShowProfit()) {
+				this.profit.setVisibility(View.VISIBLE);
+				setProfit(trade);
+			}
+			else {
+				this.profit.setVisibility(View.GONE);
+			}
 		}
 
 		private void setProfit(OrderModel trade) {

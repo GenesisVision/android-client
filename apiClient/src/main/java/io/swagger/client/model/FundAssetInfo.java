@@ -54,6 +54,9 @@ public class FundAssetInfo implements Parcelable
 	@SerializedName("current")
 	private Double current = null;
 
+	@SerializedName("url")
+	private String url = null;
+
 	public FundAssetInfo() {
 	}
 
@@ -63,6 +66,7 @@ public class FundAssetInfo implements Parcelable
 		icon = (String) in.readValue(null);
 		target = (Double) in.readValue(null);
 		current = (Double) in.readValue(null);
+		url = (String) in.readValue(null);
 	}
 
 	public FundAssetInfo asset(String asset) {
@@ -160,6 +164,25 @@ public class FundAssetInfo implements Parcelable
 		this.current = current;
 	}
 
+	public FundAssetInfo url(String url) {
+		this.url = url;
+		return this;
+	}
+
+	/**
+	 * Get url
+	 *
+	 * @return url
+	 **/
+	@Schema(description = "")
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -173,12 +196,13 @@ public class FundAssetInfo implements Parcelable
 				Objects.equals(this.symbol, fundAssetInfo.symbol) &&
 				Objects.equals(this.icon, fundAssetInfo.icon) &&
 				Objects.equals(this.target, fundAssetInfo.target) &&
-				Objects.equals(this.current, fundAssetInfo.current);
+				Objects.equals(this.current, fundAssetInfo.current) &&
+				Objects.equals(this.url, fundAssetInfo.url);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(asset, symbol, icon, target, current);
+		return Objects.hash(asset, symbol, icon, target, current, url);
 	}
 
 	@Override
@@ -191,6 +215,7 @@ public class FundAssetInfo implements Parcelable
 		sb.append("    icon: ").append(toIndentedString(icon)).append("\n");
 		sb.append("    target: ").append(toIndentedString(target)).append("\n");
 		sb.append("    current: ").append(toIndentedString(current)).append("\n");
+		sb.append("    url: ").append(toIndentedString(url)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}
@@ -212,6 +237,7 @@ public class FundAssetInfo implements Parcelable
 		out.writeValue(icon);
 		out.writeValue(target);
 		out.writeValue(current);
+		out.writeValue(url);
 	}
 
 	public int describeContents() {

@@ -54,6 +54,9 @@ public class RegisterViewModel implements Parcelable
 	@SerializedName("isAuto")
 	private Boolean isAuto = null;
 
+	@SerializedName("utmSource")
+	private UtmSource utmSource = null;
+
 	@SerializedName("email")
 	private String email = null;
 
@@ -69,6 +72,7 @@ public class RegisterViewModel implements Parcelable
 		userName = (String) in.readValue(null);
 		refCode = (String) in.readValue(null);
 		isAuto = (Boolean) in.readValue(null);
+		utmSource = (UtmSource) in.readValue(UtmSource.class.getClassLoader());
 		email = (String) in.readValue(null);
 		captchaCheckResult = (CaptchaCheckResult) in.readValue(CaptchaCheckResult.class.getClassLoader());
 	}
@@ -168,6 +172,25 @@ public class RegisterViewModel implements Parcelable
 		this.isAuto = isAuto;
 	}
 
+	public RegisterViewModel utmSource(UtmSource utmSource) {
+		this.utmSource = utmSource;
+		return this;
+	}
+
+	/**
+	 * Get utmSource
+	 *
+	 * @return utmSource
+	 **/
+	@Schema(description = "")
+	public UtmSource getUtmSource() {
+		return utmSource;
+	}
+
+	public void setUtmSource(UtmSource utmSource) {
+		this.utmSource = utmSource;
+	}
+
 	public RegisterViewModel email(String email) {
 		this.email = email;
 		return this;
@@ -220,13 +243,14 @@ public class RegisterViewModel implements Parcelable
 				Objects.equals(this.userName, registerViewModel.userName) &&
 				Objects.equals(this.refCode, registerViewModel.refCode) &&
 				Objects.equals(this.isAuto, registerViewModel.isAuto) &&
+				Objects.equals(this.utmSource, registerViewModel.utmSource) &&
 				Objects.equals(this.email, registerViewModel.email) &&
 				Objects.equals(this.captchaCheckResult, registerViewModel.captchaCheckResult);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(password, confirmPassword, userName, refCode, isAuto, email, captchaCheckResult);
+		return Objects.hash(password, confirmPassword, userName, refCode, isAuto, utmSource, email, captchaCheckResult);
 	}
 
 	@Override
@@ -239,6 +263,7 @@ public class RegisterViewModel implements Parcelable
 		sb.append("    userName: ").append(toIndentedString(userName)).append("\n");
 		sb.append("    refCode: ").append(toIndentedString(refCode)).append("\n");
 		sb.append("    isAuto: ").append(toIndentedString(isAuto)).append("\n");
+		sb.append("    utmSource: ").append(toIndentedString(utmSource)).append("\n");
 		sb.append("    email: ").append(toIndentedString(email)).append("\n");
 		sb.append("    captchaCheckResult: ").append(toIndentedString(captchaCheckResult)).append("\n");
 		sb.append("}");
@@ -262,6 +287,7 @@ public class RegisterViewModel implements Parcelable
 		out.writeValue(userName);
 		out.writeValue(refCode);
 		out.writeValue(isAuto);
+		out.writeValue(utmSource);
 		out.writeValue(email);
 		out.writeValue(captchaCheckResult);
 	}

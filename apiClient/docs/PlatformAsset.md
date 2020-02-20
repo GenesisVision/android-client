@@ -10,3 +10,4 @@ Name | Type | Description | Notes
 **icon** | **String** |  |  [optional]
 **color** | **String** |  |  [optional]
 **mandatoryFundPercent** | **Double** |  |  [optional]
+**url** | **String** |  |  [optional]

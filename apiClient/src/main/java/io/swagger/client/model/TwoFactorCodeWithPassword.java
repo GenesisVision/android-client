@@ -42,6 +42,9 @@ public class TwoFactorCodeWithPassword implements Parcelable
 	@SerializedName("twoFactorCode")
 	private String twoFactorCode = null;
 
+	@SerializedName("recoveryCode")
+	private String recoveryCode = null;
+
 	@SerializedName("password")
 	private String password = null;
 
@@ -50,6 +53,7 @@ public class TwoFactorCodeWithPassword implements Parcelable
 
 	TwoFactorCodeWithPassword(Parcel in) {
 		twoFactorCode = (String) in.readValue(null);
+		recoveryCode = (String) in.readValue(null);
 		password = (String) in.readValue(null);
 	}
 
@@ -63,13 +67,32 @@ public class TwoFactorCodeWithPassword implements Parcelable
 	 *
 	 * @return twoFactorCode
 	 **/
-	@Schema(required = true, description = "")
+	@Schema(description = "")
 	public String getTwoFactorCode() {
 		return twoFactorCode;
 	}
 
 	public void setTwoFactorCode(String twoFactorCode) {
 		this.twoFactorCode = twoFactorCode;
+	}
+
+	public TwoFactorCodeWithPassword recoveryCode(String recoveryCode) {
+		this.recoveryCode = recoveryCode;
+		return this;
+	}
+
+	/**
+	 * Get recoveryCode
+	 *
+	 * @return recoveryCode
+	 **/
+	@Schema(description = "")
+	public String getRecoveryCode() {
+		return recoveryCode;
+	}
+
+	public void setRecoveryCode(String recoveryCode) {
+		this.recoveryCode = recoveryCode;
 	}
 
 	public TwoFactorCodeWithPassword password(String password) {
@@ -101,12 +124,13 @@ public class TwoFactorCodeWithPassword implements Parcelable
 		}
 		TwoFactorCodeWithPassword twoFactorCodeWithPassword = (TwoFactorCodeWithPassword) o;
 		return Objects.equals(this.twoFactorCode, twoFactorCodeWithPassword.twoFactorCode) &&
+				Objects.equals(this.recoveryCode, twoFactorCodeWithPassword.recoveryCode) &&
 				Objects.equals(this.password, twoFactorCodeWithPassword.password);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(twoFactorCode, password);
+		return Objects.hash(twoFactorCode, recoveryCode, password);
 	}
 
 	@Override
@@ -115,6 +139,7 @@ public class TwoFactorCodeWithPassword implements Parcelable
 		sb.append("class TwoFactorCodeWithPassword {\n");
 
 		sb.append("    twoFactorCode: ").append(toIndentedString(twoFactorCode)).append("\n");
+		sb.append("    recoveryCode: ").append(toIndentedString(recoveryCode)).append("\n");
 		sb.append("    password: ").append(toIndentedString(password)).append("\n");
 		sb.append("}");
 		return sb.toString();
@@ -133,6 +158,7 @@ public class TwoFactorCodeWithPassword implements Parcelable
 
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(twoFactorCode);
+		out.writeValue(recoveryCode);
 		out.writeValue(password);
 	}
 

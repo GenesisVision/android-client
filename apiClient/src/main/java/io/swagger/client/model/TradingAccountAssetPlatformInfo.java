@@ -44,11 +44,15 @@ public class TradingAccountAssetPlatformInfo implements Parcelable
 	@SerializedName("minAmounts")
 	private List<TradingAccountMinCreateAmount> minAmounts = null;
 
+	@SerializedName("maxAmounts")
+	private List<TradingAccountMaxCreateAmount> maxAmounts = null;
+
 	public TradingAccountAssetPlatformInfo() {
 	}
 
 	TradingAccountAssetPlatformInfo(Parcel in) {
 		minAmounts = (List<TradingAccountMinCreateAmount>) in.readValue(TradingAccountMinCreateAmount.class.getClassLoader());
+		maxAmounts = (List<TradingAccountMaxCreateAmount>) in.readValue(TradingAccountMaxCreateAmount.class.getClassLoader());
 	}
 
 	public TradingAccountAssetPlatformInfo minAmounts(List<TradingAccountMinCreateAmount> minAmounts) {
@@ -78,6 +82,33 @@ public class TradingAccountAssetPlatformInfo implements Parcelable
 		this.minAmounts = minAmounts;
 	}
 
+	public TradingAccountAssetPlatformInfo maxAmounts(List<TradingAccountMaxCreateAmount> maxAmounts) {
+		this.maxAmounts = maxAmounts;
+		return this;
+	}
+
+	public TradingAccountAssetPlatformInfo addMaxAmountsItem(TradingAccountMaxCreateAmount maxAmountsItem) {
+		if (this.maxAmounts == null) {
+			this.maxAmounts = new ArrayList<TradingAccountMaxCreateAmount>();
+		}
+		this.maxAmounts.add(maxAmountsItem);
+		return this;
+	}
+
+	/**
+	 * Get maxAmounts
+	 *
+	 * @return maxAmounts
+	 **/
+	@Schema(description = "")
+	public List<TradingAccountMaxCreateAmount> getMaxAmounts() {
+		return maxAmounts;
+	}
+
+	public void setMaxAmounts(List<TradingAccountMaxCreateAmount> maxAmounts) {
+		this.maxAmounts = maxAmounts;
+	}
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -87,12 +118,13 @@ public class TradingAccountAssetPlatformInfo implements Parcelable
 			return false;
 		}
 		TradingAccountAssetPlatformInfo tradingAccountAssetPlatformInfo = (TradingAccountAssetPlatformInfo) o;
-		return Objects.equals(this.minAmounts, tradingAccountAssetPlatformInfo.minAmounts);
+		return Objects.equals(this.minAmounts, tradingAccountAssetPlatformInfo.minAmounts) &&
+				Objects.equals(this.maxAmounts, tradingAccountAssetPlatformInfo.maxAmounts);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(minAmounts);
+		return Objects.hash(minAmounts, maxAmounts);
 	}
 
 	@Override
@@ -101,6 +133,7 @@ public class TradingAccountAssetPlatformInfo implements Parcelable
 		sb.append("class TradingAccountAssetPlatformInfo {\n");
 
 		sb.append("    minAmounts: ").append(toIndentedString(minAmounts)).append("\n");
+		sb.append("    maxAmounts: ").append(toIndentedString(maxAmounts)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}
@@ -118,6 +151,7 @@ public class TradingAccountAssetPlatformInfo implements Parcelable
 
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(minAmounts);
+		out.writeValue(maxAmounts);
 	}
 
 	public int describeContents() {

@@ -8,3 +8,4 @@ Name | Type | Description | Notes
 **icon** | **String** |  |  [optional]
 **target** | **Double** |  |  [optional]
 **current** | **Double** |  |  [optional]
+**url** | **String** |  |  [optional]

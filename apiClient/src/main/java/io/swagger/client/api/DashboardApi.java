@@ -123,7 +123,7 @@ public interface DashboardApi
 	);
 
 	/**
-	 * Money distribution in percents. Empty list if no money at all
+	 * Money distribution in percents
 	 *
 	 * @param authorization JWT access token (required)
 	 * @return Call&lt;DashboardPortfolio&gt;

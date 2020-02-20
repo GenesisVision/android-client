@@ -6,18 +6,20 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
+import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.arellomobile.mvp.presenter.InjectPresenter;
 
 import java.util.List;
 import java.util.UUID;
 
-import androidx.annotation.Nullable;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import io.swagger.client.model.OrderModel;
+import io.swagger.client.model.TradesViewModel;
 import timber.log.Timber;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
@@ -117,25 +119,25 @@ public class OpenPositionsFragment extends BaseFragment implements OpenPositions
 	}
 
 	@Override
-	public void setOpenPositions(List<OrderModel> trades, List<SimpleSectionedRecyclerViewAdapter.Section> sections) {
-		if (trades.isEmpty()) {
+	public void setOpenPositions(TradesViewModel model, List<SimpleSectionedRecyclerViewAdapter.Section> sections) {
+		if (model.getItems().isEmpty()) {
 			groupNoPositions.setVisibility(View.VISIBLE);
 			recyclerView.setVisibility(View.GONE);
 			return;
 		}
 
 		sectionedAdapter.setSections(sections);
-		openPositionsListAdapter.setOpenPositions(trades);
+		openPositionsListAdapter.setOpenPositions(model);
 		groupNoPositions.setVisibility(View.GONE);
 		recyclerView.setVisibility(View.VISIBLE);
 	}
 
 	@Override
-	public void showOpenPositionDetails(OrderModel openPosition) {
+	public void showOpenPositionDetails(OrderModel openPosition, TradesViewModel model) {
 		if (getActivity() != null) {
 			OpenPositionDetailsDialog dialog = new OpenPositionDetailsDialog();
 			dialog.show(getActivity().getSupportFragmentManager(), dialog.getTag());
-			dialog.setData(openPosition);
+			dialog.setData(openPosition, model);
 		}
 	}
 

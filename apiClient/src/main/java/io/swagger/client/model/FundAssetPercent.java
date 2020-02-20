@@ -51,6 +51,9 @@ public class FundAssetPercent implements Parcelable
 	@SerializedName("icon")
 	private String icon = null;
 
+	@SerializedName("url")
+	private String url = null;
+
 	public FundAssetPercent() {
 	}
 
@@ -59,6 +62,7 @@ public class FundAssetPercent implements Parcelable
 		name = (String) in.readValue(null);
 		percent = (Double) in.readValue(null);
 		icon = (String) in.readValue(null);
+		url = (String) in.readValue(null);
 	}
 
 	public FundAssetPercent asset(String asset) {
@@ -137,6 +141,25 @@ public class FundAssetPercent implements Parcelable
 		this.icon = icon;
 	}
 
+	public FundAssetPercent url(String url) {
+		this.url = url;
+		return this;
+	}
+
+	/**
+	 * Get url
+	 *
+	 * @return url
+	 **/
+	@Schema(description = "")
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -149,12 +172,13 @@ public class FundAssetPercent implements Parcelable
 		return Objects.equals(this.asset, fundAssetPercent.asset) &&
 				Objects.equals(this.name, fundAssetPercent.name) &&
 				Objects.equals(this.percent, fundAssetPercent.percent) &&
-				Objects.equals(this.icon, fundAssetPercent.icon);
+				Objects.equals(this.icon, fundAssetPercent.icon) &&
+				Objects.equals(this.url, fundAssetPercent.url);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(asset, name, percent, icon);
+		return Objects.hash(asset, name, percent, icon, url);
 	}
 
 	@Override
@@ -166,6 +190,7 @@ public class FundAssetPercent implements Parcelable
 		sb.append("    name: ").append(toIndentedString(name)).append("\n");
 		sb.append("    percent: ").append(toIndentedString(percent)).append("\n");
 		sb.append("    icon: ").append(toIndentedString(icon)).append("\n");
+		sb.append("    url: ").append(toIndentedString(url)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}
@@ -186,6 +211,7 @@ public class FundAssetPercent implements Parcelable
 		out.writeValue(name);
 		out.writeValue(percent);
 		out.writeValue(icon);
+		out.writeValue(url);
 	}
 
 	public int describeContents() {

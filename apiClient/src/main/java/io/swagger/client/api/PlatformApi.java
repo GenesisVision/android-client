@@ -8,6 +8,7 @@ import io.swagger.client.model.PlatformAssets;
 import io.swagger.client.model.PlatformEvents;
 import io.swagger.client.model.PlatformInfo;
 import io.swagger.client.model.ProgramsLevelsInfo;
+import io.swagger.client.model.SiteMapInfo;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import rx.Observable;
@@ -112,5 +113,14 @@ public interface PlatformApi
 	Observable<CaptchaDetails> getRiskControlInfo(
 			@retrofit2.http.Query("Route") String route, @retrofit2.http.Query("Client") String client, @retrofit2.http.Query("Version") String version
 	);
+
+	/**
+	 * Sitemap info
+	 *
+	 * @return Call&lt;SiteMapInfo&gt;
+	 */
+	@GET("v2.0/platform/sitemap")
+	Observable<SiteMapInfo> getSitemapInfo();
+
 
 }

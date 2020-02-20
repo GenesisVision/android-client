@@ -3,5 +3,6 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**twoFactorCode** | **String** |  | 
+**twoFactorCode** | **String** |  |  [optional]
+**recoveryCode** | **String** |  |  [optional]
 **password** | **String** |  | 
