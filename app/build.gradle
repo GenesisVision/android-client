@@ -31,7 +31,7 @@ android {
         multiDexEnabled true
 
         versionCode 20022001
-        versionName "2.0.4.2"
+        versionName "2.0.4"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
         renderscriptTargetApi 28

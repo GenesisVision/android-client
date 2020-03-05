@@ -8,6 +8,7 @@ Name | Type | Description | Notes
 **isInvested** | **Boolean** |  |  [optional]
 **canInvest** | **Boolean** |  |  [optional]
 **canWithdraw** | **Boolean** |  |  [optional]
+**canChangeReinvest** | **Boolean** |  |  [optional]
 **hasNotifications** | **Boolean** |  |  [optional]
 **showTwoFactorButton** | **Boolean** |  |  [optional]
 **value** | **Double** |  |  [optional]

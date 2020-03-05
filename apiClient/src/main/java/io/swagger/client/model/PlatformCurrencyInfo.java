@@ -45,12 +45,16 @@ public class PlatformCurrencyInfo implements Parcelable
 	@SerializedName("color")
 	private String color = null;
 
+	@SerializedName("minConvertAmount")
+	private Double minConvertAmount = null;
+
 	public PlatformCurrencyInfo() {
 	}
 
 	PlatformCurrencyInfo(Parcel in) {
 		name = (String) in.readValue(null);
 		color = (String) in.readValue(null);
+		minConvertAmount = (Double) in.readValue(null);
 	}
 
 	public PlatformCurrencyInfo name(String name) {
@@ -91,6 +95,25 @@ public class PlatformCurrencyInfo implements Parcelable
 		this.color = color;
 	}
 
+	public PlatformCurrencyInfo minConvertAmount(Double minConvertAmount) {
+		this.minConvertAmount = minConvertAmount;
+		return this;
+	}
+
+	/**
+	 * Get minConvertAmount
+	 *
+	 * @return minConvertAmount
+	 **/
+	@Schema(description = "")
+	public Double getMinConvertAmount() {
+		return minConvertAmount;
+	}
+
+	public void setMinConvertAmount(Double minConvertAmount) {
+		this.minConvertAmount = minConvertAmount;
+	}
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -101,12 +124,13 @@ public class PlatformCurrencyInfo implements Parcelable
 		}
 		PlatformCurrencyInfo platformCurrencyInfo = (PlatformCurrencyInfo) o;
 		return Objects.equals(this.name, platformCurrencyInfo.name) &&
-				Objects.equals(this.color, platformCurrencyInfo.color);
+				Objects.equals(this.color, platformCurrencyInfo.color) &&
+				Objects.equals(this.minConvertAmount, platformCurrencyInfo.minConvertAmount);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(name, color);
+		return Objects.hash(name, color, minConvertAmount);
 	}
 
 	@Override
@@ -116,6 +140,7 @@ public class PlatformCurrencyInfo implements Parcelable
 
 		sb.append("    name: ").append(toIndentedString(name)).append("\n");
 		sb.append("    color: ").append(toIndentedString(color)).append("\n");
+		sb.append("    minConvertAmount: ").append(toIndentedString(minConvertAmount)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}
@@ -134,6 +159,7 @@ public class PlatformCurrencyInfo implements Parcelable
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(name);
 		out.writeValue(color);
+		out.writeValue(minConvertAmount);
 	}
 
 	public int describeContents() {

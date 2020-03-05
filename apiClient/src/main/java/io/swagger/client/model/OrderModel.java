@@ -96,6 +96,9 @@ public class OrderModel implements Parcelable
 	@SerializedName("showOriginalCommission")
 	private Boolean showOriginalCommission = null;
 
+	@SerializedName("assetData")
+	private TradeAssetData assetData = null;
+
 	@SerializedName("signalData")
 	private OrderModelSignalData signalData = null;
 
@@ -121,6 +124,7 @@ public class OrderModel implements Parcelable
 		commission = (Double) in.readValue(null);
 		swap = (Double) in.readValue(null);
 		showOriginalCommission = (Boolean) in.readValue(null);
+		assetData = (TradeAssetData) in.readValue(TradeAssetData.class.getClassLoader());
 		signalData = (OrderModelSignalData) in.readValue(OrderModelSignalData.class.getClassLoader());
 	}
 
@@ -466,6 +470,25 @@ public class OrderModel implements Parcelable
 		this.showOriginalCommission = showOriginalCommission;
 	}
 
+	public OrderModel assetData(TradeAssetData assetData) {
+		this.assetData = assetData;
+		return this;
+	}
+
+	/**
+	 * Get assetData
+	 *
+	 * @return assetData
+	 **/
+	@Schema(description = "")
+	public TradeAssetData getAssetData() {
+		return assetData;
+	}
+
+	public void setAssetData(TradeAssetData assetData) {
+		this.assetData = assetData;
+	}
+
 	public OrderModel signalData(OrderModelSignalData signalData) {
 		this.signalData = signalData;
 		return this;
@@ -512,12 +535,13 @@ public class OrderModel implements Parcelable
 				Objects.equals(this.commission, orderModel.commission) &&
 				Objects.equals(this.swap, orderModel.swap) &&
 				Objects.equals(this.showOriginalCommission, orderModel.showOriginalCommission) &&
+				Objects.equals(this.assetData, orderModel.assetData) &&
 				Objects.equals(this.signalData, orderModel.signalData);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, login, ticket, symbol, volume, profit, profitCurrency, direction, date, price, priceCurrent, entry, baseVolume, originalCommission, originalCommissionCurrency, commission, swap, showOriginalCommission, signalData);
+		return Objects.hash(id, login, ticket, symbol, volume, profit, profitCurrency, direction, date, price, priceCurrent, entry, baseVolume, originalCommission, originalCommissionCurrency, commission, swap, showOriginalCommission, assetData, signalData);
 	}
 
 	@Override
@@ -543,6 +567,7 @@ public class OrderModel implements Parcelable
 		sb.append("    commission: ").append(toIndentedString(commission)).append("\n");
 		sb.append("    swap: ").append(toIndentedString(swap)).append("\n");
 		sb.append("    showOriginalCommission: ").append(toIndentedString(showOriginalCommission)).append("\n");
+		sb.append("    assetData: ").append(toIndentedString(assetData)).append("\n");
 		sb.append("    signalData: ").append(toIndentedString(signalData)).append("\n");
 		sb.append("}");
 		return sb.toString();
@@ -578,6 +603,7 @@ public class OrderModel implements Parcelable
 		out.writeValue(commission);
 		out.writeValue(swap);
 		out.writeValue(showOriginalCommission);
+		out.writeValue(assetData);
 		out.writeValue(signalData);
 	}
 

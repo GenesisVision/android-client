@@ -54,6 +54,9 @@ public class PersonalInvestingProgramDetailsList implements Parcelable
 	@SerializedName("canWithdraw")
 	private Boolean canWithdraw = null;
 
+	@SerializedName("canChangeReinvest")
+	private Boolean canChangeReinvest = null;
+
 	@SerializedName("share")
 	private Double share = null;
 
@@ -81,6 +84,7 @@ public class PersonalInvestingProgramDetailsList implements Parcelable
 		isReinvest = (Boolean) in.readValue(null);
 		canInvest = (Boolean) in.readValue(null);
 		canWithdraw = (Boolean) in.readValue(null);
+		canChangeReinvest = (Boolean) in.readValue(null);
 		share = (Double) in.readValue(null);
 		value = (Double) in.readValue(null);
 		profit = (Double) in.readValue(null);
@@ -182,6 +186,25 @@ public class PersonalInvestingProgramDetailsList implements Parcelable
 
 	public void setCanWithdraw(Boolean canWithdraw) {
 		this.canWithdraw = canWithdraw;
+	}
+
+	public PersonalInvestingProgramDetailsList canChangeReinvest(Boolean canChangeReinvest) {
+		this.canChangeReinvest = canChangeReinvest;
+		return this;
+	}
+
+	/**
+	 * Get canChangeReinvest
+	 *
+	 * @return canChangeReinvest
+	 **/
+	@Schema(description = "")
+	public Boolean isCanChangeReinvest() {
+		return canChangeReinvest;
+	}
+
+	public void setCanChangeReinvest(Boolean canChangeReinvest) {
+		this.canChangeReinvest = canChangeReinvest;
 	}
 
 	public PersonalInvestingProgramDetailsList share(Double share) {
@@ -312,6 +335,7 @@ public class PersonalInvestingProgramDetailsList implements Parcelable
 				Objects.equals(this.isReinvest, personalInvestingProgramDetailsList.isReinvest) &&
 				Objects.equals(this.canInvest, personalInvestingProgramDetailsList.canInvest) &&
 				Objects.equals(this.canWithdraw, personalInvestingProgramDetailsList.canWithdraw) &&
+				Objects.equals(this.canChangeReinvest, personalInvestingProgramDetailsList.canChangeReinvest) &&
 				Objects.equals(this.share, personalInvestingProgramDetailsList.share) &&
 				Objects.equals(this.value, personalInvestingProgramDetailsList.value) &&
 				Objects.equals(this.profit, personalInvestingProgramDetailsList.profit) &&
@@ -322,7 +346,7 @@ public class PersonalInvestingProgramDetailsList implements Parcelable
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(isOwnAsset, isFavorite, isReinvest, canInvest, canWithdraw, share, value, profit, profitPercent, invested, status);
+		return Objects.hash(isOwnAsset, isFavorite, isReinvest, canInvest, canWithdraw, canChangeReinvest, share, value, profit, profitPercent, invested, status);
 	}
 
 	@Override
@@ -335,6 +359,7 @@ public class PersonalInvestingProgramDetailsList implements Parcelable
 		sb.append("    isReinvest: ").append(toIndentedString(isReinvest)).append("\n");
 		sb.append("    canInvest: ").append(toIndentedString(canInvest)).append("\n");
 		sb.append("    canWithdraw: ").append(toIndentedString(canWithdraw)).append("\n");
+		sb.append("    canChangeReinvest: ").append(toIndentedString(canChangeReinvest)).append("\n");
 		sb.append("    share: ").append(toIndentedString(share)).append("\n");
 		sb.append("    value: ").append(toIndentedString(value)).append("\n");
 		sb.append("    profit: ").append(toIndentedString(profit)).append("\n");
@@ -362,6 +387,7 @@ public class PersonalInvestingProgramDetailsList implements Parcelable
 		out.writeValue(isReinvest);
 		out.writeValue(canInvest);
 		out.writeValue(canWithdraw);
+		out.writeValue(canChangeReinvest);
 		out.writeValue(share);
 		out.writeValue(value);
 		out.writeValue(profit);

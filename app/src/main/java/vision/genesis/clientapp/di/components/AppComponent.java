@@ -71,6 +71,7 @@ import vision.genesis.clientapp.feature.main.fund.reallocate.ReallocateFundPrese
 import vision.genesis.clientapp.feature.main.fund.reallocate_history.ReallocateHistoryPresenter;
 import vision.genesis.clientapp.feature.main.fund.withdraw.WithdrawFundPresenter;
 import vision.genesis.clientapp.feature.main.fund.withdraw.confirm.ConfirmFundWithdrawBottomSheetFragment;
+import vision.genesis.clientapp.feature.main.funds_challenge.FundsChallengePresenter;
 import vision.genesis.clientapp.feature.main.funds_list.FundsListPresenter;
 import vision.genesis.clientapp.feature.main.manager.ManagerDetailsPresenter;
 import vision.genesis.clientapp.feature.main.manager.info.ManagerInfoPresenter;
@@ -428,4 +429,6 @@ public interface AppComponent
 	void inject(FollowBalancePresenter followBalancePresenter);
 
 	void inject(AddDemoFundsPresenter addDemoFundsPresenter);
+
+	void inject(FundsChallengePresenter fundsChallengePresenter);
 }

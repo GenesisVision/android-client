@@ -117,7 +117,7 @@ public class FundsListFragment extends BaseFragment implements FundsListView
 
 	@OnClick(R.id.button_try_again)
 	public void onTryAgainClicked() {
-		fundsListPresenter.onTryAgainClicked();
+		fundsListPresenter.onUpdateAll();
 	}
 
 	@OnClick(R.id.filters)
@@ -312,6 +312,12 @@ public class FundsListFragment extends BaseFragment implements FundsListView
 	public void showSearchResults(ItemsViewModelFundDetailsListItem result) {
 		if (fundsListPresenter != null) {
 			fundsListPresenter.showSearchResults(result);
+		}
+	}
+
+	public void onSwipeRefresh() {
+		if (fundsListPresenter != null) {
+			fundsListPresenter.onUpdateAll();
 		}
 	}
 

@@ -10,6 +10,7 @@ Method | HTTP request | Description
 [**getFundDetails**](FundsApi.md#getFundDetails) | **GET** v2.0/funds/{id} | Fund details
 [**getFundProfitPercentCharts**](FundsApi.md#getFundProfitPercentCharts) | **GET** v2.0/funds/{id}/charts/profit/percent | Fund profit percent charts
 [**getFunds**](FundsApi.md#getFunds) | **GET** v2.0/funds | Funds list
+[**getLastChallengeWinner**](FundsApi.md#getLastChallengeWinner) | **GET** v2.0/funds/challenge/winner | Get last weekly funds challenge winner
 [**getReallocatingHistory**](FundsApi.md#getReallocatingHistory) | **GET** v2.0/funds/{id}/reallocations | Get history of asset part update requests
 [**removeFromFavorites**](FundsApi.md#removeFromFavorites) | **POST** v2.0/funds/{id}/favorite/remove | Remove from favorites
 
@@ -94,7 +95,7 @@ Name | Type | Description  | Notes
  **dateFrom** | **DateTime**|  | [optional]
  **dateTo** | **DateTime**|  | [optional]
  **maxPointCount** | **Integer**|  | [optional]
- **currency** | **String**|  | [optional] [enum: USD, Undefined, GVT, ETH, BTC, ADA, USDT, XRP, BCH, LTC, DOGE, BNB, EUR]
+ **currency** | **String**|  | [optional] [enum: BTC, ETH, USDT, USD, GVT, Undefined, ADA, XRP, BCH, LTC, DOGE, BNB, EUR]
 
 ### Return type
 
@@ -145,7 +146,7 @@ Name | Type | Description  | Notes
  **dateFrom** | **DateTime**|  | [optional]
  **dateTo** | **DateTime**|  | [optional]
  **maxPointCount** | **Integer**|  | [optional]
- **currency** | **String**|  | [optional] [enum: USD, Undefined, GVT, ETH, BTC, ADA, USDT, XRP, BCH, LTC, DOGE, BNB, EUR]
+ **currency** | **String**|  | [optional] [enum: BTC, ETH, USDT, USD, GVT, Undefined, ADA, XRP, BCH, LTC, DOGE, BNB, EUR]
 
 ### Return type
 
@@ -192,7 +193,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **String**|  |
  **authorization** | **String**|  | [optional]
- **currency** | **String**|  | [optional] [enum: USD, Undefined, GVT, ETH, BTC, ADA, USDT, XRP, BCH, LTC, DOGE, BNB, EUR]
+ **currency** | **String**|  | [optional] [enum: BTC, ETH, USDT, USD, GVT, Undefined, ADA, XRP, BCH, LTC, DOGE, BNB, EUR]
 
 ### Return type
 
@@ -245,7 +246,7 @@ Name | Type | Description  | Notes
  **dateFrom** | **DateTime**|  | [optional]
  **dateTo** | **DateTime**|  | [optional]
  **maxPointCount** | **Integer**|  | [optional]
- **currency** | **String**|  | [optional] [enum: USD, Undefined, GVT, ETH, BTC, ADA, USDT, XRP, BCH, LTC, DOGE, BNB, EUR]
+ **currency** | **String**|  | [optional] [enum: BTC, ETH, USDT, USD, GVT, Undefined, ADA, XRP, BCH, LTC, DOGE, BNB, EUR]
  **currencies** | [**List&lt;Object&gt;**](Object.md)|  | [optional]
  **chartAssetsCount** | **Integer**|  | [optional]
 
@@ -305,7 +306,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **authorization** | **String**|  | [optional]
  **sorting** | **String**|  | [optional] [enum: ByTitleAsc, ByTitleDesc, BySizeAsc, BySizeDesc, ByInvestorsAsc, ByInvestorsDesc, ByDrawdownAsc, ByDrawdownDesc, ByProfitAsc, ByProfitDesc, ByNewAsc, ByNewDesc, ByValueAsc, ByValueDesc]
- **showIn** | **String**|  | [optional] [enum: USD, Undefined, GVT, ETH, BTC, ADA, USDT, XRP, BCH, LTC, DOGE, BNB, EUR]
+ **showIn** | **String**|  | [optional] [enum: BTC, ETH, USDT, USD, GVT, Undefined, ADA, XRP, BCH, LTC, DOGE, BNB, EUR]
  **assets** | [**List&lt;String&gt;**](String.md)|  | [optional]
  **includeWithInvestments** | **Boolean**|  | [optional]
  **dateFrom** | **DateTime**|  | [optional]
@@ -321,6 +322,51 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**ItemsViewModelFundDetailsListItem**](ItemsViewModelFundDetailsListItem.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
+
+<a name="getLastChallengeWinner"></a>
+# **getLastChallengeWinner**
+> FundDetailsListItem getLastChallengeWinner(authorization, chartPointsCount)
+
+Get last weekly funds challenge winner
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiException;
+//import io.swagger.client.api.FundsApi;
+
+
+FundsApi apiInstance = new FundsApi();
+String authorization = "authorization_example"; // String | 
+Integer chartPointsCount = 56; // Integer | 
+try {
+    FundDetailsListItem result = apiInstance.getLastChallengeWinner(authorization, chartPointsCount);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling FundsApi#getLastChallengeWinner");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **authorization** | **String**|  | [optional]
+ **chartPointsCount** | **Integer**|  | [optional]
+
+### Return type
+
+[**FundDetailsListItem**](FundDetailsListItem.md)
 
 ### Authorization
 

@@ -307,13 +307,13 @@ public class PrivateTradingAccountFullTradingAccountDetails implements Parcelabl
 	@JsonAdapter(CurrencyEnum.Adapter.class)
 	public enum CurrencyEnum
 	{
-		USD("USD"),
-		UNDEFINED("Undefined"),
-		GVT("GVT"),
-		ETH("ETH"),
 		BTC("BTC"),
-		ADA("ADA"),
+		ETH("ETH"),
 		USDT("USDT"),
+		USD("USD"),
+		GVT("GVT"),
+		UNDEFINED("Undefined"),
+		ADA("ADA"),
 		XRP("XRP"),
 		BCH("BCH"),
 		LTC("LTC"),

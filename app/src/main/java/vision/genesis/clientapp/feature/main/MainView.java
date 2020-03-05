@@ -78,6 +78,8 @@ public interface MainView extends MvpView
 
 	void showProgramFacet(AssetFacet facet);
 
+	void showFundsChallengeActivity(AssetFacet facet);
+
 	void showFundFacet(AssetFacet facet);
 
 	void showFollowFacet(AssetFacet facet);

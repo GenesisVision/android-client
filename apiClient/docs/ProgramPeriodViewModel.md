@@ -9,6 +9,7 @@ Name | Type | Description | Notes
 **status** | [**PeriodStatus**](PeriodStatus.md) |  |  [optional]
 **number** | **Integer** |  |  [optional]
 **profit** | **Double** |  |  [optional]
+**profitPercent** | **Double** |  |  [optional]
 **balance** | **Double** |  |  [optional]
 **investors** | **Integer** |  |  [optional]
 **managerDeposit** | **Double** |  |  [optional]

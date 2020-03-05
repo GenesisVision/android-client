@@ -39,6 +39,7 @@ import vision.genesis.clientapp.feature.main.facet.follows.FollowsFacetActivity;
 import vision.genesis.clientapp.feature.main.facet.funds.FundsFacetActivity;
 import vision.genesis.clientapp.feature.main.facet.programs.ProgramsFacetActivity;
 import vision.genesis.clientapp.feature.main.fund.FundDetailsActivity;
+import vision.genesis.clientapp.feature.main.funds_challenge.FundsChallengeActivity;
 import vision.genesis.clientapp.feature.main.manager.ManagerDetailsActivity;
 import vision.genesis.clientapp.feature.main.message.MessageBottomSheetDialog;
 import vision.genesis.clientapp.feature.main.program.ProgramDetailsActivity;
@@ -403,6 +404,11 @@ public class MainActivity extends MvpAppCompatActivity implements MainView, Bloc
 	@Override
 	public void showProgramFacet(AssetFacet facet) {
 		ProgramsFacetActivity.startWith(this, facet);
+	}
+
+	@Override
+	public void showFundsChallengeActivity(AssetFacet facet) {
+		FundsChallengeActivity.startWith(this, facet);
 	}
 
 	@Override

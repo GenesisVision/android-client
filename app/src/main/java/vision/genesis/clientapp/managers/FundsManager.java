@@ -10,6 +10,7 @@ import io.swagger.client.api.InvestmentsApi;
 import io.swagger.client.model.AbsoluteProfitChart;
 import io.swagger.client.model.FundBalanceChart;
 import io.swagger.client.model.FundDetailsFull;
+import io.swagger.client.model.FundDetailsListItem;
 import io.swagger.client.model.FundProfitPercentCharts;
 import io.swagger.client.model.FundWithdrawInfo;
 import io.swagger.client.model.InvestmentEventLocation;
@@ -115,5 +116,9 @@ public class FundsManager
 
 	public Observable<ItemsViewModelReallocationModel> getReallocateHistory(UUID fundId, DateRange dateRange, int skip, int take) {
 		return fundsApi.getReallocatingHistory(fundId, dateRange.getFrom(), dateRange.getTo(), skip, take);
+	}
+
+	public Observable<FundDetailsListItem> getChallengeWinner() {
+		return fundsApi.getLastChallengeWinner(AuthManager.token.getValue(), null);
 	}
 }

@@ -109,6 +109,9 @@ public class FollowDetailsListItem implements Parcelable
 	@SerializedName("tags")
 	private List<Tag> tags = null;
 
+	@SerializedName("balance")
+	private AmountWithCurrency balance = null;
+
 	public FollowDetailsListItem() {
 	}
 
@@ -133,6 +136,7 @@ public class FollowDetailsListItem implements Parcelable
 		statistic = (ProfitChart) in.readValue(ProfitChart.class.getClassLoader());
 		personalDetails = (PersonalFollowDetailsList) in.readValue(PersonalFollowDetailsList.class.getClassLoader());
 		tags = (List<Tag>) in.readValue(Tag.class.getClassLoader());
+		balance = (AmountWithCurrency) in.readValue(AmountWithCurrency.class.getClassLoader());
 	}
 
 	public FollowDetailsListItem id(UUID id) {
@@ -523,6 +527,25 @@ public class FollowDetailsListItem implements Parcelable
 		this.tags = tags;
 	}
 
+	public FollowDetailsListItem balance(AmountWithCurrency balance) {
+		this.balance = balance;
+		return this;
+	}
+
+	/**
+	 * Get balance
+	 *
+	 * @return balance
+	 **/
+	@Schema(description = "")
+	public AmountWithCurrency getBalance() {
+		return balance;
+	}
+
+	public void setBalance(AmountWithCurrency balance) {
+		this.balance = balance;
+	}
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -551,12 +574,13 @@ public class FollowDetailsListItem implements Parcelable
 				Objects.equals(this.owner, followDetailsListItem.owner) &&
 				Objects.equals(this.statistic, followDetailsListItem.statistic) &&
 				Objects.equals(this.personalDetails, followDetailsListItem.personalDetails) &&
-				Objects.equals(this.tags, followDetailsListItem.tags);
+				Objects.equals(this.tags, followDetailsListItem.tags) &&
+				Objects.equals(this.balance, followDetailsListItem.balance);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, title, description, logo, creationDate, currency, subscribersCount, tradesCount, status, url, color, isExternal, leverageMin, leverageMax, brokerId, brokerType, owner, statistic, personalDetails, tags);
+		return Objects.hash(id, title, description, logo, creationDate, currency, subscribersCount, tradesCount, status, url, color, isExternal, leverageMin, leverageMax, brokerId, brokerType, owner, statistic, personalDetails, tags, balance);
 	}
 
 	@Override
@@ -584,6 +608,7 @@ public class FollowDetailsListItem implements Parcelable
 		sb.append("    statistic: ").append(toIndentedString(statistic)).append("\n");
 		sb.append("    personalDetails: ").append(toIndentedString(personalDetails)).append("\n");
 		sb.append("    tags: ").append(toIndentedString(tags)).append("\n");
+		sb.append("    balance: ").append(toIndentedString(balance)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}
@@ -620,6 +645,7 @@ public class FollowDetailsListItem implements Parcelable
 		out.writeValue(statistic);
 		out.writeValue(personalDetails);
 		out.writeValue(tags);
+		out.writeValue(balance);
 	}
 
 	public int describeContents() {
@@ -632,13 +658,13 @@ public class FollowDetailsListItem implements Parcelable
 	@JsonAdapter(CurrencyEnum.Adapter.class)
 	public enum CurrencyEnum
 	{
-		USD("USD"),
-		UNDEFINED("Undefined"),
-		GVT("GVT"),
-		ETH("ETH"),
 		BTC("BTC"),
-		ADA("ADA"),
+		ETH("ETH"),
 		USDT("USDT"),
+		USD("USD"),
+		GVT("GVT"),
+		UNDEFINED("Undefined"),
+		ADA("ADA"),
 		XRP("XRP"),
 		BCH("BCH"),
 		LTC("LTC"),

@@ -136,7 +136,7 @@ public class FundsListPresenter extends MvpPresenter<FundsListView>
 		getFundsList(true);
 	}
 
-	void onTryAgainClicked() {
+	void onUpdateAll() {
 		getViewState().showProgressBar(true);
 		getFundsList(true);
 	}

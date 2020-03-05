@@ -59,6 +59,9 @@ public class ProgramPeriodViewModel implements Parcelable
 	@SerializedName("profit")
 	private Double profit = null;
 
+	@SerializedName("profitPercent")
+	private Double profitPercent = null;
+
 	@SerializedName("balance")
 	private Double balance = null;
 
@@ -99,6 +102,7 @@ public class ProgramPeriodViewModel implements Parcelable
 		status = (PeriodStatus) in.readValue(PeriodStatus.class.getClassLoader());
 		number = (Integer) in.readValue(null);
 		profit = (Double) in.readValue(null);
+		profitPercent = (Double) in.readValue(null);
 		balance = (Double) in.readValue(null);
 		investors = (Integer) in.readValue(null);
 		managerDeposit = (Double) in.readValue(null);
@@ -223,6 +227,25 @@ public class ProgramPeriodViewModel implements Parcelable
 
 	public void setProfit(Double profit) {
 		this.profit = profit;
+	}
+
+	public ProgramPeriodViewModel profitPercent(Double profitPercent) {
+		this.profitPercent = profitPercent;
+		return this;
+	}
+
+	/**
+	 * Get profitPercent
+	 *
+	 * @return profitPercent
+	 **/
+	@Schema(description = "")
+	public Double getProfitPercent() {
+		return profitPercent;
+	}
+
+	public void setProfitPercent(Double profitPercent) {
+		this.profitPercent = profitPercent;
 	}
 
 	public ProgramPeriodViewModel balance(Double balance) {
@@ -430,6 +453,7 @@ public class ProgramPeriodViewModel implements Parcelable
 				Objects.equals(this.status, programPeriodViewModel.status) &&
 				Objects.equals(this.number, programPeriodViewModel.number) &&
 				Objects.equals(this.profit, programPeriodViewModel.profit) &&
+				Objects.equals(this.profitPercent, programPeriodViewModel.profitPercent) &&
 				Objects.equals(this.balance, programPeriodViewModel.balance) &&
 				Objects.equals(this.investors, programPeriodViewModel.investors) &&
 				Objects.equals(this.managerDeposit, programPeriodViewModel.managerDeposit) &&
@@ -444,7 +468,7 @@ public class ProgramPeriodViewModel implements Parcelable
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(dateFrom, dateTo, periodLength, status, number, profit, balance, investors, managerDeposit, managerWithdraw, managerCommissionRebate, investorsDeposit, investorsWithdraw, investorsProfitWithdraw, platformSuccessFee, managerStatistic);
+		return Objects.hash(dateFrom, dateTo, periodLength, status, number, profit, profitPercent, balance, investors, managerDeposit, managerWithdraw, managerCommissionRebate, investorsDeposit, investorsWithdraw, investorsProfitWithdraw, platformSuccessFee, managerStatistic);
 	}
 
 	@Override
@@ -458,6 +482,7 @@ public class ProgramPeriodViewModel implements Parcelable
 		sb.append("    status: ").append(toIndentedString(status)).append("\n");
 		sb.append("    number: ").append(toIndentedString(number)).append("\n");
 		sb.append("    profit: ").append(toIndentedString(profit)).append("\n");
+		sb.append("    profitPercent: ").append(toIndentedString(profitPercent)).append("\n");
 		sb.append("    balance: ").append(toIndentedString(balance)).append("\n");
 		sb.append("    investors: ").append(toIndentedString(investors)).append("\n");
 		sb.append("    managerDeposit: ").append(toIndentedString(managerDeposit)).append("\n");
@@ -490,6 +515,7 @@ public class ProgramPeriodViewModel implements Parcelable
 		out.writeValue(status);
 		out.writeValue(number);
 		out.writeValue(profit);
+		out.writeValue(profitPercent);
 		out.writeValue(balance);
 		out.writeValue(investors);
 		out.writeValue(managerDeposit);

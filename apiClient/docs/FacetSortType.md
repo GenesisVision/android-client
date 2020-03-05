@@ -11,3 +11,4 @@
 * `TRADING` (value: `"Trading"`)
 * `INVESTING` (value: `"Investing"`)
 * `AUM` (value: `"AUM"`)
+* `FUNDSCHALLENGE` (value: `"FundsChallenge"`)

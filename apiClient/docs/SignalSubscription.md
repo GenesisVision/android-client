@@ -19,6 +19,8 @@ Name | Type | Description | Notes
 **fixedCurrency** | [**FixedCurrencyEnum**](#FixedCurrencyEnum) |  |  [optional]
 **totalProfit** | **Double** |  |  [optional]
 **totalVolume** | **Double** |  |  [optional]
+**successFeePersonal** | **Double** |  |  [optional]
+**volumeFeePersonal** | **Double** |  |  [optional]
 
 <a name="DetachModeEnum"></a>
 ## Enum: DetachModeEnum
@@ -32,13 +34,13 @@ CLOSEALLIMMEDIATELY | &quot;CloseAllImmediately&quot;
 ## Enum: FixedCurrencyEnum
 Name | Value
 ---- | -----
-USD | &quot;USD&quot;
-UNDEFINED | &quot;Undefined&quot;
-GVT | &quot;GVT&quot;
-ETH | &quot;ETH&quot;
 BTC | &quot;BTC&quot;
-ADA | &quot;ADA&quot;
+ETH | &quot;ETH&quot;
 USDT | &quot;USDT&quot;
+USD | &quot;USD&quot;
+GVT | &quot;GVT&quot;
+UNDEFINED | &quot;Undefined&quot;
+ADA | &quot;ADA&quot;
 XRP | &quot;XRP&quot;
 BCH | &quot;BCH&quot;
 LTC | &quot;LTC&quot;

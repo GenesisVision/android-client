@@ -21,4 +21,5 @@ Name | Type | Description | Notes
 **commission** | **Double** | In account currency |  [optional]
 **swap** | **Double** |  |  [optional]
 **showOriginalCommission** | **Boolean** |  |  [optional]
+**assetData** | [**TradeAssetData**](TradeAssetData.md) |  |  [optional]
 **signalData** | [**OrderModelSignalData**](OrderModelSignalData.md) |  |  [optional]

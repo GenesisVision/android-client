@@ -252,7 +252,6 @@ public class BrokerSettingsFragment extends BaseFragment implements BrokerSettin
 		nextButton.setEnabled(enabled);
 	}
 
-
 	public void setSelectedBroker(Broker selectedBroker) {
 		presenter.setBroker(selectedBroker);
 	}

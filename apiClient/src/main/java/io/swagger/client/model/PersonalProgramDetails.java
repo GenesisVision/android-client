@@ -54,6 +54,9 @@ public class PersonalProgramDetails implements Parcelable
 	@SerializedName("canWithdraw")
 	private Boolean canWithdraw = null;
 
+	@SerializedName("canChangeReinvest")
+	private Boolean canChangeReinvest = null;
+
 	@SerializedName("hasNotifications")
 	private Boolean hasNotifications = null;
 
@@ -102,6 +105,7 @@ public class PersonalProgramDetails implements Parcelable
 		isInvested = (Boolean) in.readValue(null);
 		canInvest = (Boolean) in.readValue(null);
 		canWithdraw = (Boolean) in.readValue(null);
+		canChangeReinvest = (Boolean) in.readValue(null);
 		hasNotifications = (Boolean) in.readValue(null);
 		showTwoFactorButton = (Boolean) in.readValue(null);
 		value = (Double) in.readValue(null);
@@ -210,6 +214,25 @@ public class PersonalProgramDetails implements Parcelable
 
 	public void setCanWithdraw(Boolean canWithdraw) {
 		this.canWithdraw = canWithdraw;
+	}
+
+	public PersonalProgramDetails canChangeReinvest(Boolean canChangeReinvest) {
+		this.canChangeReinvest = canChangeReinvest;
+		return this;
+	}
+
+	/**
+	 * Get canChangeReinvest
+	 *
+	 * @return canChangeReinvest
+	 **/
+	@Schema(description = "")
+	public Boolean isCanChangeReinvest() {
+		return canChangeReinvest;
+	}
+
+	public void setCanChangeReinvest(Boolean canChangeReinvest) {
+		this.canChangeReinvest = canChangeReinvest;
 	}
 
 	public PersonalProgramDetails hasNotifications(Boolean hasNotifications) {
@@ -473,6 +496,7 @@ public class PersonalProgramDetails implements Parcelable
 				Objects.equals(this.isInvested, personalProgramDetails.isInvested) &&
 				Objects.equals(this.canInvest, personalProgramDetails.canInvest) &&
 				Objects.equals(this.canWithdraw, personalProgramDetails.canWithdraw) &&
+				Objects.equals(this.canChangeReinvest, personalProgramDetails.canChangeReinvest) &&
 				Objects.equals(this.hasNotifications, personalProgramDetails.hasNotifications) &&
 				Objects.equals(this.showTwoFactorButton, personalProgramDetails.showTwoFactorButton) &&
 				Objects.equals(this.value, personalProgramDetails.value) &&
@@ -490,7 +514,7 @@ public class PersonalProgramDetails implements Parcelable
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(isFavorite, isReinvest, isInvested, canInvest, canWithdraw, hasNotifications, showTwoFactorButton, value, profit, profitPercent, invested, pendingInput, pendingOutput, pendingOutputIsWithdrawAll, status, successFeePersonal, migration, subscribedAccounts);
+		return Objects.hash(isFavorite, isReinvest, isInvested, canInvest, canWithdraw, canChangeReinvest, hasNotifications, showTwoFactorButton, value, profit, profitPercent, invested, pendingInput, pendingOutput, pendingOutputIsWithdrawAll, status, successFeePersonal, migration, subscribedAccounts);
 	}
 
 	@Override
@@ -503,6 +527,7 @@ public class PersonalProgramDetails implements Parcelable
 		sb.append("    isInvested: ").append(toIndentedString(isInvested)).append("\n");
 		sb.append("    canInvest: ").append(toIndentedString(canInvest)).append("\n");
 		sb.append("    canWithdraw: ").append(toIndentedString(canWithdraw)).append("\n");
+		sb.append("    canChangeReinvest: ").append(toIndentedString(canChangeReinvest)).append("\n");
 		sb.append("    hasNotifications: ").append(toIndentedString(hasNotifications)).append("\n");
 		sb.append("    showTwoFactorButton: ").append(toIndentedString(showTwoFactorButton)).append("\n");
 		sb.append("    value: ").append(toIndentedString(value)).append("\n");
@@ -537,6 +562,7 @@ public class PersonalProgramDetails implements Parcelable
 		out.writeValue(isInvested);
 		out.writeValue(canInvest);
 		out.writeValue(canWithdraw);
+		out.writeValue(canChangeReinvest);
 		out.writeValue(hasNotifications);
 		out.writeValue(showTwoFactorButton);
 		out.writeValue(value);

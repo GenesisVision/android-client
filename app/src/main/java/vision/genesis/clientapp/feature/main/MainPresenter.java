@@ -10,6 +10,7 @@ import org.greenrobot.eventbus.Subscribe;
 
 import javax.inject.Inject;
 
+import io.swagger.client.model.FacetSortType;
 import io.swagger.client.model.PlatformInfo;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
@@ -346,7 +347,12 @@ public class MainPresenter extends MvpPresenter<MainView>
 
 	@Subscribe
 	public void onEventMainThread(OnFundFacetClickedEvent event) {
-		getViewState().showFundFacet(event.getFacet());
+		if (event.getFacet().getSortType().equals(FacetSortType.FUNDSCHALLENGE)) {
+			getViewState().showFundsChallengeActivity(event.getFacet());
+		}
+		else {
+			getViewState().showFundFacet(event.getFacet());
+		}
 	}
 
 	@Subscribe

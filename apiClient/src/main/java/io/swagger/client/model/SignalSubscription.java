@@ -94,6 +94,12 @@ public class SignalSubscription implements Parcelable
 	@SerializedName("totalVolume")
 	private Double totalVolume = null;
 
+	@SerializedName("successFeePersonal")
+	private Double successFeePersonal = null;
+
+	@SerializedName("volumeFeePersonal")
+	private Double volumeFeePersonal = null;
+
 	public SignalSubscription() {
 	}
 
@@ -114,6 +120,8 @@ public class SignalSubscription implements Parcelable
 		fixedCurrency = (FixedCurrencyEnum) in.readValue(null);
 		totalProfit = (Double) in.readValue(null);
 		totalVolume = (Double) in.readValue(null);
+		successFeePersonal = (Double) in.readValue(null);
+		volumeFeePersonal = (Double) in.readValue(null);
 	}
 
 	public SignalSubscription subscriberInfo(SignalSubscriberInfo subscriberInfo) {
@@ -420,6 +428,44 @@ public class SignalSubscription implements Parcelable
 		this.totalVolume = totalVolume;
 	}
 
+	public SignalSubscription successFeePersonal(Double successFeePersonal) {
+		this.successFeePersonal = successFeePersonal;
+		return this;
+	}
+
+	/**
+	 * Get successFeePersonal
+	 *
+	 * @return successFeePersonal
+	 **/
+	@Schema(description = "")
+	public Double getSuccessFeePersonal() {
+		return successFeePersonal;
+	}
+
+	public void setSuccessFeePersonal(Double successFeePersonal) {
+		this.successFeePersonal = successFeePersonal;
+	}
+
+	public SignalSubscription volumeFeePersonal(Double volumeFeePersonal) {
+		this.volumeFeePersonal = volumeFeePersonal;
+		return this;
+	}
+
+	/**
+	 * Get volumeFeePersonal
+	 *
+	 * @return volumeFeePersonal
+	 **/
+	@Schema(description = "")
+	public Double getVolumeFeePersonal() {
+		return volumeFeePersonal;
+	}
+
+	public void setVolumeFeePersonal(Double volumeFeePersonal) {
+		this.volumeFeePersonal = volumeFeePersonal;
+	}
+
 
 	@Override
 	public boolean equals(java.lang.Object o) {
@@ -445,12 +491,14 @@ public class SignalSubscription implements Parcelable
 				Objects.equals(this.fixedVolume, signalSubscription.fixedVolume) &&
 				Objects.equals(this.fixedCurrency, signalSubscription.fixedCurrency) &&
 				Objects.equals(this.totalProfit, signalSubscription.totalProfit) &&
-				Objects.equals(this.totalVolume, signalSubscription.totalVolume);
+				Objects.equals(this.totalVolume, signalSubscription.totalVolume) &&
+				Objects.equals(this.successFeePersonal, signalSubscription.successFeePersonal) &&
+				Objects.equals(this.volumeFeePersonal, signalSubscription.volumeFeePersonal);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(subscriberInfo, asset, status, subscriptionDate, unsubscriptionDate, hasSignalAccount, hasActiveSubscription, isExternal, mode, detachMode, percent, openTolerancePercent, fixedVolume, fixedCurrency, totalProfit, totalVolume);
+		return Objects.hash(subscriberInfo, asset, status, subscriptionDate, unsubscriptionDate, hasSignalAccount, hasActiveSubscription, isExternal, mode, detachMode, percent, openTolerancePercent, fixedVolume, fixedCurrency, totalProfit, totalVolume, successFeePersonal, volumeFeePersonal);
 	}
 
 
@@ -475,6 +523,8 @@ public class SignalSubscription implements Parcelable
 		sb.append("    fixedCurrency: ").append(toIndentedString(fixedCurrency)).append("\n");
 		sb.append("    totalProfit: ").append(toIndentedString(totalProfit)).append("\n");
 		sb.append("    totalVolume: ").append(toIndentedString(totalVolume)).append("\n");
+		sb.append("    successFeePersonal: ").append(toIndentedString(successFeePersonal)).append("\n");
+		sb.append("    volumeFeePersonal: ").append(toIndentedString(volumeFeePersonal)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}
@@ -508,6 +558,8 @@ public class SignalSubscription implements Parcelable
 		out.writeValue(fixedCurrency);
 		out.writeValue(totalProfit);
 		out.writeValue(totalVolume);
+		out.writeValue(successFeePersonal);
+		out.writeValue(volumeFeePersonal);
 	}
 
 	public int describeContents() {
@@ -569,13 +621,13 @@ public class SignalSubscription implements Parcelable
 	@JsonAdapter(FixedCurrencyEnum.Adapter.class)
 	public enum FixedCurrencyEnum
 	{
-		USD("USD"),
-		UNDEFINED("Undefined"),
-		GVT("GVT"),
-		ETH("ETH"),
 		BTC("BTC"),
-		ADA("ADA"),
+		ETH("ETH"),
 		USDT("USDT"),
+		USD("USD"),
+		GVT("GVT"),
+		UNDEFINED("Undefined"),
+		ADA("ADA"),
 		XRP("XRP"),
 		BCH("BCH"),
 		LTC("LTC"),

@@ -23,18 +23,19 @@ Name | Type | Description | Notes
 **statistic** | [**ProfitChart**](ProfitChart.md) |  |  [optional]
 **personalDetails** | [**PersonalFollowDetailsList**](PersonalFollowDetailsList.md) |  |  [optional]
 **tags** | [**List&lt;Tag&gt;**](Tag.md) |  |  [optional]
+**balance** | [**AmountWithCurrency**](AmountWithCurrency.md) |  |  [optional]
 
 <a name="CurrencyEnum"></a>
 ## Enum: CurrencyEnum
 Name | Value
 ---- | -----
-USD | &quot;USD&quot;
-UNDEFINED | &quot;Undefined&quot;
-GVT | &quot;GVT&quot;
-ETH | &quot;ETH&quot;
 BTC | &quot;BTC&quot;
-ADA | &quot;ADA&quot;
+ETH | &quot;ETH&quot;
 USDT | &quot;USDT&quot;
+USD | &quot;USD&quot;
+GVT | &quot;GVT&quot;
+UNDEFINED | &quot;Undefined&quot;
+ADA | &quot;ADA&quot;
 XRP | &quot;XRP&quot;
 BCH | &quot;BCH&quot;
 LTC | &quot;LTC&quot;

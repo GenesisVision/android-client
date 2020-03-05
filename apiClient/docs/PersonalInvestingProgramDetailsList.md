@@ -8,6 +8,7 @@ Name | Type | Description | Notes
 **isReinvest** | **Boolean** |  |  [optional]
 **canInvest** | **Boolean** |  |  [optional]
 **canWithdraw** | **Boolean** |  |  [optional]
+**canChangeReinvest** | **Boolean** |  |  [optional]
 **share** | **Double** |  |  [optional]
 **value** | **Double** |  |  [optional]
 **profit** | **Double** |  |  [optional]

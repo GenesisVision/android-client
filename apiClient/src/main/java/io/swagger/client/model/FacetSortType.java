@@ -33,7 +33,8 @@ public enum FacetSortType
 	MOSTRELIABLE("MostReliable"),
 	TRADING("Trading"),
 	INVESTING("Investing"),
-	AUM("AUM");
+	AUM("AUM"),
+	FUNDSCHALLENGE("FundsChallenge");
 
 	public static FacetSortType fromValue(String text) {
 		for (FacetSortType b : FacetSortType.values()) {

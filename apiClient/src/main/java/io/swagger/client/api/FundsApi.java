@@ -8,6 +8,7 @@ import java.util.UUID;
 import io.swagger.client.model.AbsoluteProfitChart;
 import io.swagger.client.model.FundBalanceChart;
 import io.swagger.client.model.FundDetailsFull;
+import io.swagger.client.model.FundDetailsListItem;
 import io.swagger.client.model.FundProfitPercentCharts;
 import io.swagger.client.model.ItemsViewModelFundDetailsListItem;
 import io.swagger.client.model.ItemsViewModelReallocationModel;
@@ -111,6 +112,18 @@ public interface FundsApi
 	@GET("v2.0/funds")
 	Observable<ItemsViewModelFundDetailsListItem> getFunds(
 			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("Sorting") String sorting, @retrofit2.http.Query("ShowIn") String showIn, @retrofit2.http.Query("Assets") List<String> assets, @retrofit2.http.Query("IncludeWithInvestments") Boolean includeWithInvestments, @retrofit2.http.Query("DateFrom") DateTime dateFrom, @retrofit2.http.Query("DateTo") DateTime dateTo, @retrofit2.http.Query("ChartPointsCount") Integer chartPointsCount, @retrofit2.http.Query("FacetId") String facetId, @retrofit2.http.Query("Mask") String mask, @retrofit2.http.Query("OwnerId") UUID ownerId, @retrofit2.http.Query("ShowFavorites") Boolean showFavorites, @retrofit2.http.Query("Skip") Integer skip, @retrofit2.http.Query("Take") Integer take
+	);
+
+	/**
+	 * Get last weekly funds challenge winner
+	 *
+	 * @param authorization    (optional)
+	 * @param chartPointsCount (optional)
+	 * @return Call&lt;FundDetailsListItem&gt;
+	 */
+	@GET("v2.0/funds/challenge/winner")
+	Observable<FundDetailsListItem> getLastChallengeWinner(
+			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("chartPointsCount") Integer chartPointsCount
 	);
 
 	/**
