@@ -1,17 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
                 xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/item_trades_height"
                 android:background="?attr/selectableItemBackground"
                 android:paddingStart="@dimen/program_details_padding">
 
-    <ImageView
-        android:id="@+id/entry"
+    <RelativeLayout
+        android:id="@+id/group_icon"
         android:layout_width="44dp"
         android:layout_height="44dp"
-        android:layout_centerVertical="true"
-        tools:src="@drawable/icon_red_arrow_up"/>
+        android:layout_centerVertical="true">
+
+        <ImageView
+            android:id="@+id/entry"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:src="@drawable/icon_red_arrow_up"/>
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/icon"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:roundAsCircle="true"/>
+
+    </RelativeLayout>
 
     <LinearLayout
         android:id="@+id/group_left"
@@ -19,7 +33,7 @@
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_marginStart="20dp"
-        android:layout_toEndOf="@+id/entry"
+        android:layout_toEndOf="@+id/group_icon"
         android:gravity="center_vertical"
         android:orientation="vertical">
 
@@ -41,6 +55,7 @@
                 android:id="@+id/direction"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="4dp"
                 android:alpha="0.3"
                 android:textColor="?attr/colorTextPrimary"
                 android:textSize="14sp"
@@ -50,7 +65,6 @@
                 android:id="@+id/volume"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="4dp"
                 android:alpha="0.3"
                 android:textColor="?attr/colorTextPrimary"
                 android:textSize="14sp"

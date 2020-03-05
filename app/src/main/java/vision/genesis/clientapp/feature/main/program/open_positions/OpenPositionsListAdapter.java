@@ -10,6 +10,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.facebook.drawee.view.SimpleDraweeView;
+
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
@@ -22,6 +24,7 @@ import io.swagger.client.model.TradesViewModel;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.model.events.OnOpenPositionClickedEvent;
+import vision.genesis.clientapp.utils.ImageUtils;
 import vision.genesis.clientapp.utils.StringFormatUtil;
 import vision.genesis.clientapp.utils.ThemeUtil;
 import vision.genesis.clientapp.utils.TypefaceUtil;
@@ -65,6 +68,9 @@ public class OpenPositionsListAdapter extends RecyclerView.Adapter<OpenPositions
 	{
 		@BindView(R.id.entry)
 		public ImageView entry;
+
+		@BindView(R.id.icon)
+		public SimpleDraweeView icon;
 
 		@BindView(R.id.symbol)
 		public TextView symbol;
@@ -115,6 +121,13 @@ public class OpenPositionsListAdapter extends RecyclerView.Adapter<OpenPositions
 
 			symbol.setText(trade.getSymbol());
 			volume.setText(StringFormatUtil.formatAmount(trade.getVolume(), 2, 8));
+
+			if (trade.getAssetData() != null) {
+				icon.setImageURI(ImageUtils.getImageUri(trade.getAssetData().getIcon()));
+			}
+			else {
+				icon.setImageURI(ImageUtils.getImageUri(null));
+			}
 
 			if (model.isShowDirection()) {
 				this.direction.setVisibility(View.VISIBLE);
