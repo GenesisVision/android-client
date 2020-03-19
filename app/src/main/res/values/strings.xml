@@ -873,6 +873,8 @@
     <string name="last_week_challenge_winner">Last week challenge winner</string>
 
     <string name="funds_challenge_details_url">https://blog.genesis.vision/gv-funds-weekly-challenge-58e23edc876b</string>
+    <string name="size">Size</string>
+    <string name="all_funds">All funds</string>
 
 
     <plurals name="assets">

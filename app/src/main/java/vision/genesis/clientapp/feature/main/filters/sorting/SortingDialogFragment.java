@@ -50,8 +50,11 @@ public class SortingDialogFragment extends AppCompatDialogFragment
 	@BindView(R.id.end_of_period)
 	public SortingOptionView endOfPeriod;
 
-	@BindView(R.id.balance)
-	public SortingOptionView balance;
+	@BindView(R.id.equity)
+	public SortingOptionView equity;
+
+	@BindView(R.id.size)
+	public SortingOptionView size;
 
 	@BindView(R.id.title)
 	public SortingOptionView title;
@@ -74,8 +77,11 @@ public class SortingDialogFragment extends AppCompatDialogFragment
 	@BindView(R.id.end_of_period_delimiter)
 	public View endOfPeriodDelimiter;
 
-	@BindView(R.id.balance_delimiter)
-	public View balanceDelimiter;
+	@BindView(R.id.equity_delimiter)
+	public View equityDelimiter;
+
+	@BindView(R.id.size_delimiter)
+	public View sizeDelimiter;
 
 	@BindView(R.id.title_delimiter)
 	public View titleDelimiter;
@@ -122,9 +128,14 @@ public class SortingDialogFragment extends AppCompatDialogFragment
 		selectOption(level);
 	}
 
-	@OnClick(R.id.balance)
-	public void onBalanceClicked() {
-		selectOption(balance);
+	@OnClick(R.id.equity)
+	public void onEquityClicked() {
+		selectOption(equity);
+	}
+
+	@OnClick(R.id.size)
+	public void onSizeClicked() {
+		selectOption(size);
 	}
 
 	@OnClick(R.id.end_of_period)
@@ -212,8 +223,10 @@ public class SortingDialogFragment extends AppCompatDialogFragment
 				levelDelimiter.setVisibility(View.VISIBLE);
 				endOfPeriod.setVisibility(View.VISIBLE);
 				endOfPeriodDelimiter.setVisibility(View.VISIBLE);
-				balance.setVisibility(View.VISIBLE);
-				balanceDelimiter.setVisibility(View.VISIBLE);
+				equity.setVisibility(View.VISIBLE);
+				equityDelimiter.setVisibility(View.VISIBLE);
+				size.setVisibility(View.GONE);
+				sizeDelimiter.setVisibility(View.GONE);
 				title.setVisibility(View.VISIBLE);
 				titleDelimiter.setVisibility(View.VISIBLE);
 				subscribers.setVisibility(View.GONE);
@@ -230,8 +243,10 @@ public class SortingDialogFragment extends AppCompatDialogFragment
 				levelDelimiter.setVisibility(View.GONE);
 				endOfPeriod.setVisibility(View.GONE);
 				endOfPeriodDelimiter.setVisibility(View.GONE);
-				balance.setVisibility(View.VISIBLE);
-				balanceDelimiter.setVisibility(View.VISIBLE);
+				equity.setVisibility(View.GONE);
+				equityDelimiter.setVisibility(View.GONE);
+				size.setVisibility(View.VISIBLE);
+				sizeDelimiter.setVisibility(View.VISIBLE);
 				title.setVisibility(View.VISIBLE);
 				titleDelimiter.setVisibility(View.VISIBLE);
 				subscribers.setVisibility(View.GONE);
@@ -248,8 +263,10 @@ public class SortingDialogFragment extends AppCompatDialogFragment
 				levelDelimiter.setVisibility(View.GONE);
 				endOfPeriod.setVisibility(View.GONE);
 				endOfPeriodDelimiter.setVisibility(View.GONE);
-				balance.setVisibility(View.GONE);
-				balanceDelimiter.setVisibility(View.GONE);
+				equity.setVisibility(View.VISIBLE);
+				equityDelimiter.setVisibility(View.VISIBLE);
+				size.setVisibility(View.GONE);
+				sizeDelimiter.setVisibility(View.GONE);
 				title.setVisibility(View.VISIBLE);
 				titleDelimiter.setVisibility(View.VISIBLE);
 				subscribers.setVisibility(View.VISIBLE);
@@ -277,7 +294,8 @@ public class SortingDialogFragment extends AppCompatDialogFragment
 		profit.setText(getString(R.string.profit));
 		level.setText(getString(R.string.level));
 		endOfPeriod.setText(getString(R.string.end_of_period));
-		balance.setText(getString(R.string.balance));
+		equity.setText(getString(R.string.equity));
+		size.setText(getString(R.string.size));
 		title.setText(getString(R.string.title));
 		subscribers.setText(getString(R.string.subscribers));
 		investors.setText(getString(R.string.investors));
@@ -295,8 +313,11 @@ public class SortingDialogFragment extends AppCompatDialogFragment
 			case "end of period":
 				selectOption(endOfPeriod);
 				break;
-			case "balance":
-				selectOption(balance);
+			case "equity":
+				selectOption(equity);
+				break;
+			case "size":
+				selectOption(size);
 				break;
 			case "title":
 				selectOption(title);

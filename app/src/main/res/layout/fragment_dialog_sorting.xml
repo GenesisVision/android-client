@@ -105,12 +105,24 @@
                     android:background="?attr/colorDelimiterLight"/>
 
                 <vision.genesis.clientapp.feature.main.filters.sorting.SortingOptionView
-                    android:id="@+id/balance"
+                    android:id="@+id/equity"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
 
                 <View
-                    android:id="@+id/balance_delimiter"
+                    android:id="@+id/equity_delimiter"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginStart="20dp"
+                    android:background="?attr/colorDelimiterLight"/>
+
+                <vision.genesis.clientapp.feature.main.filters.sorting.SortingOptionView
+                    android:id="@+id/size"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+                <View
+                    android:id="@+id/size_delimiter"
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:layout_marginStart="20dp"

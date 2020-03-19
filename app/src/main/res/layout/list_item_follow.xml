@@ -117,15 +117,15 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/trades"
+                android:id="@+id/equity"
                 style="@style/text_value"
                 tools:text="235k GVT"/>
 
             <TextView
-                android:id="@+id/trades_label"
+                android:id="@+id/equity_label"
                 style="@style/text_label"
                 android:layout_marginTop="4dp"
-                android:text="@string/trades"/>
+                android:text="@string/equity"/>
 
         </LinearLayout>
 

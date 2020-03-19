@@ -50,6 +50,14 @@ public enum SortingEnum
 
 	BYBALANCEDESC("ByBalanceDesc"),
 
+	BYEQUITYASC("ByEquityAsc"),
+
+	BYEQUITYDESC("ByEquityDesc"),
+
+	BYSIZEASC("BySizeAsc"),
+
+	BYSIZEDESC("BySizeDesc"),
+
 	BYSUBSCRIBERSASC("BySubscribersAsc"),
 
 	BYSUBSCRIBERSDESC("BySubscribersDesc"),

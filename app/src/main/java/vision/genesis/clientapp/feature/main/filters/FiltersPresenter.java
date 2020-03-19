@@ -97,6 +97,22 @@ public class FiltersPresenter extends MvpPresenter<FiltersView> implements DateR
 					sortingEnum = SortingEnum.BYBALANCEDESC;
 				}
 				break;
+			case "equity":
+				if (direction.equals("asc")) {
+					sortingEnum = SortingEnum.BYEQUITYASC;
+				}
+				else {
+					sortingEnum = SortingEnum.BYEQUITYDESC;
+				}
+				break;
+			case "size":
+				if (direction.equals("asc")) {
+					sortingEnum = SortingEnum.BYSIZEASC;
+				}
+				else {
+					sortingEnum = SortingEnum.BYSIZEDESC;
+				}
+				break;
 			case "title":
 				if (direction.equals("asc")) {
 					sortingEnum = SortingEnum.BYTITLEASC;

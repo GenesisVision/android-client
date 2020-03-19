@@ -177,11 +177,11 @@ public class FollowsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 		@BindView(R.id.profit_percent)
 		public TextView profitPercent;
 
-		@BindView(R.id.trades)
-		public TextView trades;
+		@BindView(R.id.equity)
+		public TextView equity;
 
-		@BindView(R.id.trades_label)
-		public TextView tradesLabel;
+		@BindView(R.id.equity_label)
+		public TextView equityLabel;
 
 		@BindView(R.id.subscribers)
 		public TextView subscribers;
@@ -253,11 +253,11 @@ public class FollowsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 			ownerName.setTypeface(TypefaceUtil.medium());
 			profitPercent.setTypeface(TypefaceUtil.semibold());
 			subscribers.setTypeface(TypefaceUtil.semibold());
-			trades.setTypeface(TypefaceUtil.semibold());
+			equity.setTypeface(TypefaceUtil.semibold());
 			drawdown.setTypeface(TypefaceUtil.semibold());
 
 			subscribersLabel.setText(subscribersLabel.getText().toString().toLowerCase());
-			tradesLabel.setText(tradesLabel.getText().toString().toLowerCase());
+			equityLabel.setText(equityLabel.getText().toString().toLowerCase());
 			drawdownLabel.setText(drawdownLabel.getText().toString().toLowerCase());
 		}
 
@@ -293,7 +293,8 @@ public class FollowsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 					? ThemeUtil.getColorByAttrId(itemView.getContext(), R.attr.colorGreen)
 					: ThemeUtil.getColorByAttrId(itemView.getContext(), R.attr.colorRed));
 
-			this.trades.setText(String.valueOf(follow.getTradesCount()));
+			this.equity.setText(String.format(Locale.getDefault(), "%s %s",
+					StringFormatUtil.getShortenedAmount(follow.getBalance().getAmount()), follow.getCurrency().getValue()));
 			this.subscribers.setText(String.valueOf(follow.getSubscribersCount()));
 			this.drawdown.setText(String.format(Locale.getDefault(), "%s%%",
 					StringFormatUtil.formatAmount(follow.getStatistic().getDrawdown(), 0, 2)));
