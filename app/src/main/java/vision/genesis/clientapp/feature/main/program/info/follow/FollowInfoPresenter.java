@@ -12,9 +12,9 @@ import java.util.UUID;
 
 import javax.inject.Inject;
 
-import io.swagger.client.model.ItemsViewModelSignalSubscription;
 import io.swagger.client.model.ProgramFollowDetailsFull;
 import io.swagger.client.model.SignalSubscription;
+import io.swagger.client.model.SignalSubscriptionItemsViewModel;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -178,7 +178,7 @@ public class FollowInfoPresenter extends MvpPresenter<FollowInfoView>
 		}
 	}
 
-	private void handleSubscriptionsSuccess(ItemsViewModelSignalSubscription response) {
+	private void handleSubscriptionsSuccess(SignalSubscriptionItemsViewModel response) {
 		subscriptionsSubscription.unsubscribe();
 
 		this.subscriptions = new ArrayList<>();

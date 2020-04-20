@@ -244,7 +244,7 @@ public class FundsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 			itemView.setOnClickListener(v -> {
 				if (fund != null) {
 					FundDetailsModel fundDetailsModel = new FundDetailsModel(fund.getId(),
-							fund.getLogo(),
+							fund.getLogoUrl(),
 							fund.getColor(),
 							fund.getTitle(),
 							fund.getOwner().getUsername(),
@@ -294,7 +294,7 @@ public class FundsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 		}
 
 		private void updateData() {
-			fundLogo.setImage(fund.getLogo(), fund.getColor(), 100, 100);
+			fundLogo.setImage(fund.getLogoUrl(), fund.getColor(), 100, 100);
 			fundLogo.hideLevel();
 
 			if (fund.getPersonalDetails() != null) {
@@ -365,7 +365,7 @@ public class FundsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
 		private void updateAsset(ViewGroup groupAsset, SimpleDraweeView iconAsset, TextView nameAsset, FundAssetPercent fundAsset) {
 			groupAsset.setVisibility(View.VISIBLE);
-			iconAsset.setImageURI(ImageUtils.getImageUri(fundAsset.getIcon()));
+			iconAsset.setImageURI(ImageUtils.getImageUri(fundAsset.getLogoUrl()));
 			nameAsset.setText(String.format(Locale.getDefault(), "%s%%", StringFormatUtil.formatAmount(fundAsset.getPercent(), 0, 0)));
 		}
 

@@ -168,11 +168,11 @@ public class AuthManager
 	}
 
 	private Observable<TwoFactorStatus> twoFactorStatus() {
-		return authApi.getTwoStepAuthStatus(AuthManager.token.getValue());
+		return authApi.getTwoStepAuthStatus();
 	}
 
 	public Observable<TwoFactorAuthenticator> createTfaKey() {
-		return authApi.createTwoStepAuth(AuthManager.token.getValue());
+		return authApi.createTwoStepAuth();
 	}
 
 	public Observable<RecoveryCodesViewModel> confirmTfa(String sharedKey, String password, String code) {
@@ -180,14 +180,14 @@ public class AuthManager
 		model.setSharedKey(sharedKey);
 		model.setPassword(password);
 		model.setCode(code);
-		return authApi.confirmTwoStepAuth(AuthManager.token.getValue(), model);
+		return authApi.confirmTwoStepAuth(model);
 	}
 
 	public Observable<Void> disableTfa(String password, String code) {
 		TwoFactorCodeWithPassword model = new TwoFactorCodeWithPassword();
 		model.setPassword(password);
 		model.setTwoFactorCode(code);
-		return authApi.disableTwoStepAuth(AuthManager.token.getValue(), model);
+		return authApi.disableTwoStepAuth(model);
 	}
 
 	public Observable<Void> register(String email, String password, String confirmPassword, CaptchaCheckResult captchaCheckResult) {
@@ -211,7 +211,7 @@ public class AuthManager
 		model.setOldPassword(oldPassword);
 		model.setPassword(newPassword);
 		model.setConfirmPassword(confirmPassword);
-		return authApi.changePassword(AuthManager.token.getValue(), model);
+		return authApi.changePassword(model);
 	}
 
 	private Observable<String> getLoginApiObservable(LoginViewModel model) {

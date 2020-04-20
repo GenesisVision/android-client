@@ -1,6 +1,6 @@
 # NotificationsApi
 
-All URIs are relative to */api*
+All URIs are relative to *https://red.genesis.vision/api*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -18,26 +18,35 @@ Method | HTTP request | Description
 
 <a name="addNotificationsSettings"></a>
 # **addNotificationsSettings**
-> UUID addNotificationsSettings(authorization, assetId, managerId, type, conditionType, conditionAmount)
+> UUID addNotificationsSettings(assetId, managerId, type, conditionType, conditionAmount)
 
 Add new setting
 
 ### Example
 ```java
 // Import classes:
+//import io.swagger.client.ApiClient;
 //import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
 //import io.swagger.client.api.NotificationsApi;
 
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
 
 NotificationsApi apiInstance = new NotificationsApi();
-String authorization = "authorization_example"; // String | JWT access token
 UUID assetId = new UUID(); // UUID | 
 UUID managerId = new UUID(); // UUID | 
-String type = "type_example"; // String | 
-String conditionType = "conditionType_example"; // String | 
+NotificationType type = new NotificationType(); // NotificationType | 
+NotificationSettingConditionType conditionType = new NotificationSettingConditionType(); // NotificationSettingConditionType | 
 Double conditionAmount = 3.4D; // Double | 
 try {
-    UUID result = apiInstance.addNotificationsSettings(authorization, assetId, managerId, type, conditionType, conditionAmount);
+    UUID result = apiInstance.addNotificationsSettings(assetId, managerId, type, conditionType, conditionAmount);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling NotificationsApi#addNotificationsSettings");
@@ -49,11 +58,10 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **String**| JWT access token |
  **assetId** | [**UUID**](.md)|  | [optional]
  **managerId** | [**UUID**](.md)|  | [optional]
- **type** | **String**|  | [optional] [enum: PlatformNewsAndUpdates, PlatformEmergency, PlatformOther, ProfileUpdated, ProfilePwdUpdated, ProfileVerification, Profile2FA, ProfileSecurity, TradingAccountPwdUpdated, TradingAccountUpdated, ProgramNewsAndUpdates, ProgramEndOfPeriod, ProgramCondition, ProgramExceedInvestmentLimit, FollowNewsAndUpdates, FundNewsAndUpdates, FundEndOfPeriod, FundRebalancing, ManagerNewProgram, ManagerNewFund, ManagerNewExternalSignalAccount, ManagerNewSignalProvider, Signals, ExternalSignals]
- **conditionType** | **String**|  | [optional] [enum: Empty, Profit, Level, AvailableToInvest]
+ **type** | [**NotificationType**](.md)|  | [optional]
+ **conditionType** | [**NotificationSettingConditionType**](.md)|  | [optional]
  **conditionAmount** | **Double**|  | [optional]
 
 ### Return type
@@ -62,7 +70,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[Bearer](../README.md#Bearer)
 
 ### HTTP request headers
 
@@ -71,21 +79,30 @@ No authorization required
 
 <a name="getNewNotificationsCount"></a>
 # **getNewNotificationsCount**
-> Integer getNewNotificationsCount(authorization)
+> Integer getNewNotificationsCount()
 
 Unread notifications count
 
 ### Example
 ```java
 // Import classes:
+//import io.swagger.client.ApiClient;
 //import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
 //import io.swagger.client.api.NotificationsApi;
 
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
 
 NotificationsApi apiInstance = new NotificationsApi();
-String authorization = "authorization_example"; // String | JWT access token
 try {
-    Integer result = apiInstance.getNewNotificationsCount(authorization);
+    Integer result = apiInstance.getNewNotificationsCount();
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling NotificationsApi#getNewNotificationsCount");
@@ -94,10 +111,7 @@ try {
 ```
 
 ### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **authorization** | **String**| JWT access token |
+This endpoint does not need any parameter.
 
 ### Return type
 
@@ -105,7 +119,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[Bearer](../README.md#Bearer)
 
 ### HTTP request headers
 
@@ -114,23 +128,32 @@ No authorization required
 
 <a name="getNotifications"></a>
 # **getNotifications**
-> NotificationList getNotifications(authorization, skip, take)
+> NotificationList getNotifications(skip, take)
 
 User notifications
 
 ### Example
 ```java
 // Import classes:
+//import io.swagger.client.ApiClient;
 //import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
 //import io.swagger.client.api.NotificationsApi;
 
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
 
 NotificationsApi apiInstance = new NotificationsApi();
-String authorization = "authorization_example"; // String | JWT access token
 Integer skip = 56; // Integer | 
 Integer take = 56; // Integer | 
 try {
-    NotificationList result = apiInstance.getNotifications(authorization, skip, take);
+    NotificationList result = apiInstance.getNotifications(skip, take);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling NotificationsApi#getNotifications");
@@ -142,7 +165,6 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **String**| JWT access token |
  **skip** | **Integer**|  | [optional]
  **take** | **Integer**|  | [optional]
 
@@ -152,7 +174,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[Bearer](../README.md#Bearer)
 
 ### HTTP request headers
 
@@ -161,22 +183,31 @@ No authorization required
 
 <a name="getNotificationsFundSettings"></a>
 # **getNotificationsFundSettings**
-> FundNotificationSettingList getNotificationsFundSettings(id, authorization)
+> FundNotificationSettingList getNotificationsFundSettings(id)
 
 User settings for fund
 
 ### Example
 ```java
 // Import classes:
+//import io.swagger.client.ApiClient;
 //import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
 //import io.swagger.client.api.NotificationsApi;
 
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
 
 NotificationsApi apiInstance = new NotificationsApi();
 String id = "id_example"; // String | 
-String authorization = "authorization_example"; // String | JWT access token
 try {
-    FundNotificationSettingList result = apiInstance.getNotificationsFundSettings(id, authorization);
+    FundNotificationSettingList result = apiInstance.getNotificationsFundSettings(id);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling NotificationsApi#getNotificationsFundSettings");
@@ -189,7 +220,6 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **String**|  |
- **authorization** | **String**| JWT access token |
 
 ### Return type
 
@@ -197,7 +227,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[Bearer](../README.md#Bearer)
 
 ### HTTP request headers
 
@@ -206,22 +236,31 @@ No authorization required
 
 <a name="getNotificationsManagerSettings"></a>
 # **getNotificationsManagerSettings**
-> ManagerNotificationSettingList getNotificationsManagerSettings(id, authorization)
+> ManagerNotificationSettingList getNotificationsManagerSettings(id)
 
 User settings for manager
 
 ### Example
 ```java
 // Import classes:
+//import io.swagger.client.ApiClient;
 //import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
 //import io.swagger.client.api.NotificationsApi;
 
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
 
 NotificationsApi apiInstance = new NotificationsApi();
 String id = "id_example"; // String | 
-String authorization = "authorization_example"; // String | JWT access token
 try {
-    ManagerNotificationSettingList result = apiInstance.getNotificationsManagerSettings(id, authorization);
+    ManagerNotificationSettingList result = apiInstance.getNotificationsManagerSettings(id);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling NotificationsApi#getNotificationsManagerSettings");
@@ -234,7 +273,6 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **String**|  |
- **authorization** | **String**| JWT access token |
 
 ### Return type
 
@@ -242,7 +280,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[Bearer](../README.md#Bearer)
 
 ### HTTP request headers
 
@@ -251,22 +289,31 @@ No authorization required
 
 <a name="getNotificationsProgramSettings"></a>
 # **getNotificationsProgramSettings**
-> ProgramNotificationSettingList getNotificationsProgramSettings(id, authorization)
+> ProgramNotificationSettingList getNotificationsProgramSettings(id)
 
 User settings for program
 
 ### Example
 ```java
 // Import classes:
+//import io.swagger.client.ApiClient;
 //import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
 //import io.swagger.client.api.NotificationsApi;
 
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
 
 NotificationsApi apiInstance = new NotificationsApi();
 String id = "id_example"; // String | 
-String authorization = "authorization_example"; // String | JWT access token
 try {
-    ProgramNotificationSettingList result = apiInstance.getNotificationsProgramSettings(id, authorization);
+    ProgramNotificationSettingList result = apiInstance.getNotificationsProgramSettings(id);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling NotificationsApi#getNotificationsProgramSettings");
@@ -279,7 +326,6 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **String**|  |
- **authorization** | **String**| JWT access token |
 
 ### Return type
 
@@ -287,7 +333,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[Bearer](../README.md#Bearer)
 
 ### HTTP request headers
 
@@ -296,21 +342,30 @@ No authorization required
 
 <a name="getNotificationsSettings"></a>
 # **getNotificationsSettings**
-> NotificationSettingList getNotificationsSettings(authorization)
+> NotificationSettingList getNotificationsSettings()
 
 User settings
 
 ### Example
 ```java
 // Import classes:
+//import io.swagger.client.ApiClient;
 //import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
 //import io.swagger.client.api.NotificationsApi;
 
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
 
 NotificationsApi apiInstance = new NotificationsApi();
-String authorization = "authorization_example"; // String | JWT access token
 try {
-    NotificationSettingList result = apiInstance.getNotificationsSettings(authorization);
+    NotificationSettingList result = apiInstance.getNotificationsSettings();
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling NotificationsApi#getNotificationsSettings");
@@ -319,10 +374,7 @@ try {
 ```
 
 ### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **authorization** | **String**| JWT access token |
+This endpoint does not need any parameter.
 
 ### Return type
 
@@ -330,7 +382,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[Bearer](../README.md#Bearer)
 
 ### HTTP request headers
 
@@ -339,21 +391,30 @@ No authorization required
 
 <a name="readAllNotification"></a>
 # **readAllNotification**
-> Void readAllNotification(authorization)
+> Void readAllNotification()
 
 Read all notification
 
 ### Example
 ```java
 // Import classes:
+//import io.swagger.client.ApiClient;
 //import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
 //import io.swagger.client.api.NotificationsApi;
 
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
 
 NotificationsApi apiInstance = new NotificationsApi();
-String authorization = "authorization_example"; // String | JWT access token
 try {
-    Void result = apiInstance.readAllNotification(authorization);
+    Void result = apiInstance.readAllNotification();
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling NotificationsApi#readAllNotification");
@@ -362,10 +423,7 @@ try {
 ```
 
 ### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **authorization** | **String**| JWT access token |
+This endpoint does not need any parameter.
 
 ### Return type
 
@@ -373,7 +431,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[Bearer](../README.md#Bearer)
 
 ### HTTP request headers
 
@@ -382,22 +440,31 @@ No authorization required
 
 <a name="readNotification"></a>
 # **readNotification**
-> Void readNotification(id, authorization)
+> Void readNotification(id)
 
 Read notification
 
 ### Example
 ```java
 // Import classes:
+//import io.swagger.client.ApiClient;
 //import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
 //import io.swagger.client.api.NotificationsApi;
 
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
 
 NotificationsApi apiInstance = new NotificationsApi();
 UUID id = new UUID(); // UUID | 
-String authorization = "authorization_example"; // String | JWT access token
 try {
-    Void result = apiInstance.readNotification(id, authorization);
+    Void result = apiInstance.readNotification(id);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling NotificationsApi#readNotification");
@@ -410,7 +477,6 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | [**UUID**](.md)|  |
- **authorization** | **String**| JWT access token |
 
 ### Return type
 
@@ -418,7 +484,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[Bearer](../README.md#Bearer)
 
 ### HTTP request headers
 
@@ -427,22 +493,31 @@ No authorization required
 
 <a name="removeNotificationsSettings"></a>
 # **removeNotificationsSettings**
-> Void removeNotificationsSettings(id, authorization)
+> Void removeNotificationsSettings(id)
 
 Remove setting
 
 ### Example
 ```java
 // Import classes:
+//import io.swagger.client.ApiClient;
 //import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
 //import io.swagger.client.api.NotificationsApi;
 
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
 
 NotificationsApi apiInstance = new NotificationsApi();
 UUID id = new UUID(); // UUID | 
-String authorization = "authorization_example"; // String | JWT access token
 try {
-    Void result = apiInstance.removeNotificationsSettings(id, authorization);
+    Void result = apiInstance.removeNotificationsSettings(id);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling NotificationsApi#removeNotificationsSettings");
@@ -455,7 +530,6 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | [**UUID**](.md)|  |
- **authorization** | **String**| JWT access token |
 
 ### Return type
 
@@ -463,7 +537,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[Bearer](../README.md#Bearer)
 
 ### HTTP request headers
 
@@ -472,23 +546,32 @@ No authorization required
 
 <a name="toggleNotificationSettings"></a>
 # **toggleNotificationSettings**
-> UUID toggleNotificationSettings(id, enable, authorization)
+> UUID toggleNotificationSettings(id, enable)
 
 Enable/disable setting
 
 ### Example
 ```java
 // Import classes:
+//import io.swagger.client.ApiClient;
 //import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
 //import io.swagger.client.api.NotificationsApi;
 
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
 
 NotificationsApi apiInstance = new NotificationsApi();
 UUID id = new UUID(); // UUID | 
 Boolean enable = true; // Boolean | 
-String authorization = "authorization_example"; // String | JWT access token
 try {
-    UUID result = apiInstance.toggleNotificationSettings(id, enable, authorization);
+    UUID result = apiInstance.toggleNotificationSettings(id, enable);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling NotificationsApi#toggleNotificationSettings");
@@ -502,7 +585,6 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | [**UUID**](.md)|  |
  **enable** | **Boolean**|  |
- **authorization** | **String**| JWT access token |
 
 ### Return type
 
@@ -510,7 +592,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[Bearer](../README.md#Bearer)
 
 ### HTTP request headers
 

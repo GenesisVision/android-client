@@ -14,8 +14,8 @@ import java.util.UUID;
 
 import javax.inject.Inject;
 
-import io.swagger.client.model.ItemsViewModelProgramDetailsListItem;
 import io.swagger.client.model.ProgramDetailsListItem;
+import io.swagger.client.model.ProgramDetailsListItemItemsViewModel;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -167,7 +167,7 @@ public class FavoritesPresenter extends MvpPresenter<FavoritesView>
 //		return model;
 //	}
 
-	private void handleGetProgramsList(ItemsViewModelProgramDetailsListItem response) {
+	private void handleGetProgramsList(ProgramDetailsListItemItemsViewModel response) {
 		getProgramsSubscription.unsubscribe();
 
 		getViewState().showNoInternet(false);

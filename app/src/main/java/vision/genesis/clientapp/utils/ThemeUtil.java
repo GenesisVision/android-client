@@ -8,6 +8,7 @@ import android.content.res.TypedArray;
 import android.util.TypedValue;
 
 import androidx.core.content.ContextCompat;
+
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 
@@ -84,10 +85,11 @@ public class ThemeUtil
 	private static int getColorByAttrId(Resources.Theme theme, int themeAttributeId) {
 		TypedValue outValue = new TypedValue();
 		if (theme.resolveAttribute(themeAttributeId, outValue, true)) {
-			if (outValue.type == TYPE_INT_COLOR_RGB8)
+			if (outValue.type == TYPE_INT_COLOR_RGB8) {
 				return outValue.resourceId == 0
 						? outValue.data
 						: ContextCompat.getColor(GenesisVisionApplication.INSTANCE, outValue.resourceId);
+			}
 		}
 		return ContextCompat.getColor(GenesisVisionApplication.INSTANCE, R.color.colorNotFound);
 	}

@@ -2,9 +2,10 @@ package io.swagger.client.api;
 
 import org.joda.time.DateTime;
 
-import io.swagger.client.model.ItemsViewModelReferralFriend;
-import io.swagger.client.model.ItemsViewModelRewardDetails;
+import io.swagger.client.model.Currency;
 import io.swagger.client.model.PartnershipDetails;
+import io.swagger.client.model.ReferralFriendItemsViewModel;
+import io.swagger.client.model.RewardDetailsItemsViewModel;
 import retrofit2.http.GET;
 import rx.Observable;
 
@@ -13,58 +14,54 @@ public interface PartnershipApi
 	/**
 	 * Export rewards history.
 	 *
-	 * @param authorization JWT access token (required)
-	 * @param dateFrom      (optional)
-	 * @param dateTo        (optional)
-	 * @param skip          (optional)
-	 * @param take          (optional)
-	 * @return Call&lt;String&gt;
+	 * @param dateFrom (optional)
+	 * @param dateTo   (optional)
+	 * @param skip     (optional)
+	 * @param take     (optional)
+	 * @return Call&lt;byte[]&gt;
 	 */
 	@GET("v2.0/partnership/rewards/history/export")
-	Observable<String> exportHistory(
-			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("DateFrom") DateTime dateFrom, @retrofit2.http.Query("DateTo") DateTime dateTo, @retrofit2.http.Query("Skip") Integer skip, @retrofit2.http.Query("Take") Integer take
+	Observable<byte[]> exportHistory(
+			@retrofit2.http.Query("DateFrom") DateTime dateFrom, @retrofit2.http.Query("DateTo") DateTime dateTo, @retrofit2.http.Query("Skip") Integer skip, @retrofit2.http.Query("Take") Integer take
 	);
 
 	/**
 	 * Get partnership details.
 	 *
-	 * @param authorization JWT access token (required)
-	 * @param currency      (optional)
+	 * @param currency (optional)
 	 * @return Call&lt;PartnershipDetails&gt;
 	 */
 	@GET("v2.0/partnership/details")
 	Observable<PartnershipDetails> getDetails(
-			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("currency") String currency
+			@retrofit2.http.Query("currency") Currency currency
 	);
 
 	/**
 	 * Get agent friends (referrals and second level referrals).
 	 *
-	 * @param authorization JWT access token (required)
-	 * @param dateFrom      (optional)
-	 * @param dateTo        (optional)
-	 * @param skip          (optional)
-	 * @param take          (optional)
-	 * @return Call&lt;ItemsViewModelReferralFriend&gt;
+	 * @param dateFrom (optional)
+	 * @param dateTo   (optional)
+	 * @param skip     (optional)
+	 * @param take     (optional)
+	 * @return Call&lt;ReferralFriendItemsViewModel&gt;
 	 */
 	@GET("v2.0/partnership/referrals")
-	Observable<ItemsViewModelReferralFriend> getReferrals(
-			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("DateFrom") DateTime dateFrom, @retrofit2.http.Query("DateTo") DateTime dateTo, @retrofit2.http.Query("Skip") Integer skip, @retrofit2.http.Query("Take") Integer take
+	Observable<ReferralFriendItemsViewModel> getReferrals(
+			@retrofit2.http.Query("DateFrom") DateTime dateFrom, @retrofit2.http.Query("DateTo") DateTime dateTo, @retrofit2.http.Query("Skip") Integer skip, @retrofit2.http.Query("Take") Integer take
 	);
 
 	/**
 	 * Get history of agent rewards.
 	 *
-	 * @param authorization JWT access token (required)
-	 * @param dateFrom      (optional)
-	 * @param dateTo        (optional)
-	 * @param skip          (optional)
-	 * @param take          (optional)
-	 * @return Call&lt;ItemsViewModelRewardDetails&gt;
+	 * @param dateFrom (optional)
+	 * @param dateTo   (optional)
+	 * @param skip     (optional)
+	 * @param take     (optional)
+	 * @return Call&lt;RewardDetailsItemsViewModel&gt;
 	 */
 	@GET("v2.0/partnership/rewards/history")
-	Observable<ItemsViewModelRewardDetails> getRewardsHistory(
-			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("DateFrom") DateTime dateFrom, @retrofit2.http.Query("DateTo") DateTime dateTo, @retrofit2.http.Query("Skip") Integer skip, @retrofit2.http.Query("Take") Integer take
+	Observable<RewardDetailsItemsViewModel> getRewardsHistory(
+			@retrofit2.http.Query("DateFrom") DateTime dateFrom, @retrofit2.http.Query("DateTo") DateTime dateTo, @retrofit2.http.Query("Skip") Integer skip, @retrofit2.http.Query("Take") Integer take
 	);
 
 }

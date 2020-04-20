@@ -3,7 +3,7 @@ package vision.genesis.clientapp.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import io.swagger.client.model.ProgramUpdate;
+import io.swagger.client.model.TradesDelay;
 
 /**
  * GenesisVisionAndroid
@@ -49,7 +49,7 @@ public class ProgramSettingsModel implements Parcelable
 
 	private Boolean isNew;
 
-	private ProgramUpdate.TradesDelayEnum tradesDelay;
+	private TradesDelay tradesDelay;
 
 	public ProgramSettingsModel() {
 
@@ -58,7 +58,7 @@ public class ProgramSettingsModel implements Parcelable
 	public ProgramSettingsModel(Boolean needStep, String stepNumber, String stepTitle,
 	                            Boolean needWarningInfo, String buttonText, String currency,
 	                            Integer periodLength, Double stopOutLevel, Double investmentLimit,
-	                            Double entryFee, Double successFee, ProgramUpdate.TradesDelayEnum tradesDelay,
+	                            Double entryFee, Double successFee, TradesDelay tradesDelay,
 	                            Boolean isNew) {
 		this.needStep = needStep;
 		this.stepNumber = stepNumber;
@@ -114,7 +114,7 @@ public class ProgramSettingsModel implements Parcelable
 		else {
 			successFee = in.readDouble();
 		}
-		tradesDelay = (ProgramUpdate.TradesDelayEnum) in.readSerializable();
+		tradesDelay = (TradesDelay) in.readSerializable();
 		byte tmpIsNew = in.readByte();
 		isNew = tmpIsNew == 0 ? null : tmpIsNew == 1;
 	}
@@ -167,11 +167,11 @@ public class ProgramSettingsModel implements Parcelable
 		this.investmentLimit = investmentLimit;
 	}
 
-	public ProgramUpdate.TradesDelayEnum getTradesDelay() {
+	public TradesDelay getTradesDelay() {
 		return tradesDelay;
 	}
 
-	public void setTradesDelay(ProgramUpdate.TradesDelayEnum tradesDelay) {
+	public void setTradesDelay(TradesDelay tradesDelay) {
 		this.tradesDelay = tradesDelay;
 	}
 

@@ -5,7 +5,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **name** | **String** |  |  [optional]
 **description** | **String** |  |  [optional]
-**logo** | **String** |  |  [optional]
+**logoUrl** | **String** |  |  [optional]
 **terms** | **String** |  |  [optional]
 **assets** | **String** |  |  [optional]
 **fee** | **Double** |  |  [optional]

@@ -54,6 +54,9 @@ public class DashboardSummary implements Parcelable
 	@SerializedName("profits")
 	private DashboardProfits profits = null;
 
+	@SerializedName("limitWithoutKyc")
+	private LimitWithoutKyc limitWithoutKyc = null;
+
 	public DashboardSummary() {
 	}
 
@@ -63,6 +66,7 @@ public class DashboardSummary implements Parcelable
 		wallets = (Double) in.readValue(null);
 		total = (Double) in.readValue(null);
 		profits = (DashboardProfits) in.readValue(DashboardProfits.class.getClassLoader());
+		limitWithoutKyc = (LimitWithoutKyc) in.readValue(LimitWithoutKyc.class.getClassLoader());
 	}
 
 	public DashboardSummary invested(Double invested) {
@@ -160,6 +164,25 @@ public class DashboardSummary implements Parcelable
 		this.profits = profits;
 	}
 
+	public DashboardSummary limitWithoutKyc(LimitWithoutKyc limitWithoutKyc) {
+		this.limitWithoutKyc = limitWithoutKyc;
+		return this;
+	}
+
+	/**
+	 * Get limitWithoutKyc
+	 *
+	 * @return limitWithoutKyc
+	 **/
+	@Schema(description = "")
+	public LimitWithoutKyc getLimitWithoutKyc() {
+		return limitWithoutKyc;
+	}
+
+	public void setLimitWithoutKyc(LimitWithoutKyc limitWithoutKyc) {
+		this.limitWithoutKyc = limitWithoutKyc;
+	}
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -173,12 +196,13 @@ public class DashboardSummary implements Parcelable
 				Objects.equals(this.trading, dashboardSummary.trading) &&
 				Objects.equals(this.wallets, dashboardSummary.wallets) &&
 				Objects.equals(this.total, dashboardSummary.total) &&
-				Objects.equals(this.profits, dashboardSummary.profits);
+				Objects.equals(this.profits, dashboardSummary.profits) &&
+				Objects.equals(this.limitWithoutKyc, dashboardSummary.limitWithoutKyc);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(invested, trading, wallets, total, profits);
+		return Objects.hash(invested, trading, wallets, total, profits, limitWithoutKyc);
 	}
 
 	@Override
@@ -191,6 +215,7 @@ public class DashboardSummary implements Parcelable
 		sb.append("    wallets: ").append(toIndentedString(wallets)).append("\n");
 		sb.append("    total: ").append(toIndentedString(total)).append("\n");
 		sb.append("    profits: ").append(toIndentedString(profits)).append("\n");
+		sb.append("    limitWithoutKyc: ").append(toIndentedString(limitWithoutKyc)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}
@@ -212,6 +237,7 @@ public class DashboardSummary implements Parcelable
 		out.writeValue(wallets);
 		out.writeValue(total);
 		out.writeValue(profits);
+		out.writeValue(limitWithoutKyc);
 	}
 
 	public int describeContents() {

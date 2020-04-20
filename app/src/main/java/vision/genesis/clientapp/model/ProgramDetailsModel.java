@@ -146,7 +146,7 @@ public class ProgramDetailsModel implements Parcelable
 
 	public void update(ProgramDetailsFull programDetails) {
 //		this.programId = programDetails.getId();
-//		this.avatar = programDetails.getLogo();
+//		this.avatar = programDetails.getLogoUrl();
 //		this.programColor = programDetails.getColor();
 //		this.level = programDetails.getLevel();
 //		this.levelProgress = programDetails.getLevelProgress();
@@ -164,7 +164,7 @@ public class ProgramDetailsModel implements Parcelable
 
 	public void update(ProgramFollowDetailsFull details) {
 		this.programId = details.getId();
-		this.avatar = details.getPublicInfo().getLogo();
+		this.avatar = details.getPublicInfo().getLogoUrl();
 		this.programColor = details.getPublicInfo().getColor();
 		this.level = details.getProgramDetails() != null
 				? details.getProgramDetails().getLevel()

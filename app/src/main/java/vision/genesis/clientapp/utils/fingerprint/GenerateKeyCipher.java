@@ -6,6 +6,8 @@ import android.security.keystore.KeyGenParameterSpec;
 import android.security.keystore.KeyPermanentlyInvalidatedException;
 import android.security.keystore.KeyProperties;
 
+import androidx.annotation.RequiresApi;
+
 import com.crashlytics.android.Crashlytics;
 
 import java.io.IOException;
@@ -24,7 +26,6 @@ import javax.crypto.KeyGenerator;
 import javax.crypto.NoSuchPaddingException;
 import javax.crypto.SecretKey;
 
-import androidx.annotation.RequiresApi;
 import timber.log.Timber;
 
 /**

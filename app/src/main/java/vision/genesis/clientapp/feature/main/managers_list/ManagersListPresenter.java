@@ -13,8 +13,8 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import io.swagger.client.model.ItemsViewModelPublicProfile;
 import io.swagger.client.model.PublicProfile;
+import io.swagger.client.model.PublicProfileItemsViewModel;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -106,7 +106,7 @@ public class ManagersListPresenter extends MvpPresenter<ManagersListView> implem
 		}
 	}
 
-	void showSearchResults(ItemsViewModelPublicProfile result) {
+	void showSearchResults(PublicProfileItemsViewModel result) {
 		skip = 0;
 		handleGetManagersList(result);
 	}
@@ -178,7 +178,7 @@ public class ManagersListPresenter extends MvpPresenter<ManagersListView> implem
 //		return model;
 //	}
 
-	private void handleGetManagersList(ItemsViewModelPublicProfile response) {
+	private void handleGetManagersList(PublicProfileItemsViewModel response) {
 		getViewState().setRefreshing(false);
 		getViewState().showProgressBar(false);
 		getViewState().showNoInternet(false);

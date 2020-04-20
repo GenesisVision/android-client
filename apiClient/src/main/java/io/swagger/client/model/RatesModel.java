@@ -17,6 +17,9 @@ import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -40,17 +43,25 @@ public class RatesModel implements Parcelable
 	};
 
 	@SerializedName("rates")
-	private Object rates = null;
+	private Map<String, List<RateItem>> rates = null;
 
 	public RatesModel() {
 	}
 
 	RatesModel(Parcel in) {
-		rates = (Object) in.readValue(null);
+		rates = (Map<String, List<RateItem>>) in.readValue(List.class.getClassLoader());
 	}
 
-	public RatesModel rates(Object rates) {
+	public RatesModel rates(Map<String, List<RateItem>> rates) {
 		this.rates = rates;
+		return this;
+	}
+
+	public RatesModel putRatesItem(String key, List<RateItem> ratesItem) {
+		if (this.rates == null) {
+			this.rates = new HashMap<String, List<RateItem>>();
+		}
+		this.rates.put(key, ratesItem);
 		return this;
 	}
 
@@ -60,11 +71,11 @@ public class RatesModel implements Parcelable
 	 * @return rates
 	 **/
 	@Schema(description = "")
-	public Object getRates() {
+	public Map<String, List<RateItem>> getRates() {
 		return rates;
 	}
 
-	public void setRates(Object rates) {
+	public void setRates(Map<String, List<RateItem>> rates) {
 		this.rates = rates;
 	}
 

@@ -134,8 +134,8 @@ public class TransactionsListAdapter extends RecyclerView.Adapter<TransactionsLi
 
 			description.setText(transaction.getDescription());
 
-			logoFirst.setImageURI(ImageUtils.getImageUri(first.getLogo()));
-			logoFirstSmall.setImageURI(ImageUtils.getImageUri(first.getLogo()));
+			logoFirst.setImageURI(ImageUtils.getImageUri(first.getLogoUrl()));
+			logoFirstSmall.setImageURI(ImageUtils.getImageUri(first.getLogoUrl()));
 			valueFirst.setText(StringFormatUtil.getValueString(first.getAmount(), first.getCurrency().getValue()));
 
 			if (second == null) {
@@ -156,7 +156,7 @@ public class TransactionsListAdapter extends RecyclerView.Adapter<TransactionsLi
 				valueFirst.setTextColor(ThemeUtil.getColorByAttrId(itemView.getContext(), R.attr.colorTextPrimary));
 				valueSecond.setTextColor(ThemeUtil.getColorByAttrId(itemView.getContext(), R.attr.colorTextPrimary));
 
-				logoSecondSmall.setImageURI(ImageUtils.getImageUri(second.getLogo()));
+				logoSecondSmall.setImageURI(ImageUtils.getImageUri(second.getLogoUrl()));
 				valueSecond.setText(StringFormatUtil.getValueString(second.getAmount(), second.getCurrency().getValue()));
 			}
 

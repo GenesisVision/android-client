@@ -15,15 +15,10 @@ package io.swagger.client.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.google.gson.TypeAdapter;
-import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonWriter;
 
 import org.joda.time.DateTime;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -58,14 +53,14 @@ public class FollowDetailsListItem implements Parcelable
 	@SerializedName("description")
 	private String description = null;
 
-	@SerializedName("logo")
-	private String logo = null;
+	@SerializedName("logoUrl")
+	private String logoUrl = null;
 
 	@SerializedName("creationDate")
 	private DateTime creationDate = null;
 
 	@SerializedName("currency")
-	private CurrencyEnum currency = null;
+	private Currency currency = null;
 
 	@SerializedName("subscribersCount")
 	private Integer subscribersCount = null;
@@ -119,9 +114,9 @@ public class FollowDetailsListItem implements Parcelable
 		id = (UUID) in.readValue(UUID.class.getClassLoader());
 		title = (String) in.readValue(null);
 		description = (String) in.readValue(null);
-		logo = (String) in.readValue(null);
+		logoUrl = (String) in.readValue(null);
 		creationDate = (DateTime) in.readValue(DateTime.class.getClassLoader());
-		currency = (CurrencyEnum) in.readValue(null);
+		currency = (Currency) in.readValue(Currency.class.getClassLoader());
 		subscribersCount = (Integer) in.readValue(null);
 		tradesCount = (Integer) in.readValue(null);
 		status = (String) in.readValue(null);
@@ -196,23 +191,23 @@ public class FollowDetailsListItem implements Parcelable
 		this.description = description;
 	}
 
-	public FollowDetailsListItem logo(String logo) {
-		this.logo = logo;
+	public FollowDetailsListItem logoUrl(String logoUrl) {
+		this.logoUrl = logoUrl;
 		return this;
 	}
 
 	/**
-	 * Get logo
+	 * Get logoUrl
 	 *
-	 * @return logo
+	 * @return logoUrl
 	 **/
 	@Schema(description = "")
-	public String getLogo() {
-		return logo;
+	public String getLogoUrl() {
+		return logoUrl;
 	}
 
-	public void setLogo(String logo) {
-		this.logo = logo;
+	public void setLogoUrl(String logoUrl) {
+		this.logoUrl = logoUrl;
 	}
 
 	public FollowDetailsListItem creationDate(DateTime creationDate) {
@@ -234,7 +229,7 @@ public class FollowDetailsListItem implements Parcelable
 		this.creationDate = creationDate;
 	}
 
-	public FollowDetailsListItem currency(CurrencyEnum currency) {
+	public FollowDetailsListItem currency(Currency currency) {
 		this.currency = currency;
 		return this;
 	}
@@ -245,11 +240,11 @@ public class FollowDetailsListItem implements Parcelable
 	 * @return currency
 	 **/
 	@Schema(description = "")
-	public CurrencyEnum getCurrency() {
+	public Currency getCurrency() {
 		return currency;
 	}
 
-	public void setCurrency(CurrencyEnum currency) {
+	public void setCurrency(Currency currency) {
 		this.currency = currency;
 	}
 
@@ -558,7 +553,7 @@ public class FollowDetailsListItem implements Parcelable
 		return Objects.equals(this.id, followDetailsListItem.id) &&
 				Objects.equals(this.title, followDetailsListItem.title) &&
 				Objects.equals(this.description, followDetailsListItem.description) &&
-				Objects.equals(this.logo, followDetailsListItem.logo) &&
+				Objects.equals(this.logoUrl, followDetailsListItem.logoUrl) &&
 				Objects.equals(this.creationDate, followDetailsListItem.creationDate) &&
 				Objects.equals(this.currency, followDetailsListItem.currency) &&
 				Objects.equals(this.subscribersCount, followDetailsListItem.subscribersCount) &&
@@ -580,7 +575,7 @@ public class FollowDetailsListItem implements Parcelable
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, title, description, logo, creationDate, currency, subscribersCount, tradesCount, status, url, color, isExternal, leverageMin, leverageMax, brokerId, brokerType, owner, statistic, personalDetails, tags, balance);
+		return Objects.hash(id, title, description, logoUrl, creationDate, currency, subscribersCount, tradesCount, status, url, color, isExternal, leverageMin, leverageMax, brokerId, brokerType, owner, statistic, personalDetails, tags, balance);
 	}
 
 	@Override
@@ -591,7 +586,7 @@ public class FollowDetailsListItem implements Parcelable
 		sb.append("    id: ").append(toIndentedString(id)).append("\n");
 		sb.append("    title: ").append(toIndentedString(title)).append("\n");
 		sb.append("    description: ").append(toIndentedString(description)).append("\n");
-		sb.append("    logo: ").append(toIndentedString(logo)).append("\n");
+		sb.append("    logoUrl: ").append(toIndentedString(logoUrl)).append("\n");
 		sb.append("    creationDate: ").append(toIndentedString(creationDate)).append("\n");
 		sb.append("    currency: ").append(toIndentedString(currency)).append("\n");
 		sb.append("    subscribersCount: ").append(toIndentedString(subscribersCount)).append("\n");
@@ -628,7 +623,7 @@ public class FollowDetailsListItem implements Parcelable
 		out.writeValue(id);
 		out.writeValue(title);
 		out.writeValue(description);
-		out.writeValue(logo);
+		out.writeValue(logoUrl);
 		out.writeValue(creationDate);
 		out.writeValue(currency);
 		out.writeValue(subscribersCount);
@@ -650,64 +645,5 @@ public class FollowDetailsListItem implements Parcelable
 
 	public int describeContents() {
 		return 0;
-	}
-
-	/**
-	 * Gets or Sets currency
-	 */
-	@JsonAdapter(CurrencyEnum.Adapter.class)
-	public enum CurrencyEnum
-	{
-		BTC("BTC"),
-		ETH("ETH"),
-		USDT("USDT"),
-		USD("USD"),
-		GVT("GVT"),
-		UNDEFINED("Undefined"),
-		ADA("ADA"),
-		XRP("XRP"),
-		BCH("BCH"),
-		LTC("LTC"),
-		DOGE("DOGE"),
-		BNB("BNB"),
-		EUR("EUR");
-
-		public static CurrencyEnum fromValue(String text) {
-			for (CurrencyEnum b : CurrencyEnum.values()) {
-				if (String.valueOf(b.value).equals(text)) {
-					return b;
-				}
-			}
-			return null;
-		}
-
-		private String value;
-
-		CurrencyEnum(String value) {
-			this.value = value;
-		}
-
-		public String getValue() {
-			return value;
-		}
-
-		@Override
-		public String toString() {
-			return String.valueOf(value);
-		}
-
-		public static class Adapter extends TypeAdapter<CurrencyEnum>
-		{
-			@Override
-			public void write(final JsonWriter jsonWriter, final CurrencyEnum enumeration) throws IOException {
-				jsonWriter.value(enumeration.getValue());
-			}
-
-			@Override
-			public CurrencyEnum read(final JsonReader jsonReader) throws IOException {
-				String value = jsonReader.nextString();
-				return CurrencyEnum.fromValue(String.valueOf(value));
-			}
-		}
 	}
 }

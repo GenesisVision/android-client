@@ -1,6 +1,6 @@
 # InvestmentsApi
 
-All URIs are relative to */api*
+All URIs are relative to *https://red.genesis.vision/api*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -11,6 +11,8 @@ Method | HTTP request | Description
 [**getRequestsByProgram**](InvestmentsApi.md#getRequestsByProgram) | **GET** v2.0/investments/requests/{id}/{skip}/{take} | Get program/fund requests
 [**investIntoFund**](InvestmentsApi.md#investIntoFund) | **POST** v2.0/investments/funds/{id}/invest | Investing into the fund
 [**investIntoProgram**](InvestmentsApi.md#investIntoProgram) | **POST** v2.0/investments/programs/{id}/invest | Investing into the program
+[**switchAutoJoinOff**](InvestmentsApi.md#switchAutoJoinOff) | **POST** v2.0/investments/programs/{id}/autojoin/off | Disable autojoin
+[**switchAutoJoinOn**](InvestmentsApi.md#switchAutoJoinOn) | **POST** v2.0/investments/programs/{id}/autojoin/on | Enable autojoin
 [**switchReinvestOff**](InvestmentsApi.md#switchReinvestOff) | **POST** v2.0/investments/programs/{id}/reinvest/off | Disable reinvesting
 [**switchReinvestOn**](InvestmentsApi.md#switchReinvestOn) | **POST** v2.0/investments/programs/{id}/reinvest/on | Enable reinvesting
 [**withdrawFromFund**](InvestmentsApi.md#withdrawFromFund) | **POST** v2.0/investments/funds/{id}/withdraw | Withdraw from fund. Percent is % of manager total money
@@ -18,22 +20,31 @@ Method | HTTP request | Description
 
 <a name="cancelRequest"></a>
 # **cancelRequest**
-> Void cancelRequest(id, authorization)
+> Void cancelRequest(id)
 
 Cancel investment request
 
 ### Example
 ```java
 // Import classes:
+//import io.swagger.client.ApiClient;
 //import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
 //import io.swagger.client.api.InvestmentsApi;
 
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
 
 InvestmentsApi apiInstance = new InvestmentsApi();
 UUID id = new UUID(); // UUID | 
-String authorization = "authorization_example"; // String | JWT access token
 try {
-    Void result = apiInstance.cancelRequest(id, authorization);
+    Void result = apiInstance.cancelRequest(id);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling InvestmentsApi#cancelRequest");
@@ -46,7 +57,6 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | [**UUID**](.md)|  |
- **authorization** | **String**| JWT access token |
 
 ### Return type
 
@@ -54,7 +64,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[Bearer](../README.md#Bearer)
 
 ### HTTP request headers
 
@@ -63,23 +73,32 @@ No authorization required
 
 <a name="getFundWithdrawInfo"></a>
 # **getFundWithdrawInfo**
-> FundWithdrawInfo getFundWithdrawInfo(id, authorization, currency)
+> FundWithdrawInfo getFundWithdrawInfo(id, currency)
 
 Data for withdrawal from fund (in selected currency)
 
 ### Example
 ```java
 // Import classes:
+//import io.swagger.client.ApiClient;
 //import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
 //import io.swagger.client.api.InvestmentsApi;
 
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
 
 InvestmentsApi apiInstance = new InvestmentsApi();
 UUID id = new UUID(); // UUID | 
-String authorization = "authorization_example"; // String | JWT access token
-String currency = "currency_example"; // String | 
+Currency currency = new Currency(); // Currency | 
 try {
-    FundWithdrawInfo result = apiInstance.getFundWithdrawInfo(id, authorization, currency);
+    FundWithdrawInfo result = apiInstance.getFundWithdrawInfo(id, currency);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling InvestmentsApi#getFundWithdrawInfo");
@@ -92,8 +111,7 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | [**UUID**](.md)|  |
- **authorization** | **String**| JWT access token |
- **currency** | **String**|  | [optional] [enum: BTC, ETH, USDT, USD, GVT, Undefined, ADA, XRP, BCH, LTC, DOGE, BNB, EUR]
+ **currency** | [**Currency**](.md)|  | [optional]
 
 ### Return type
 
@@ -101,7 +119,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[Bearer](../README.md#Bearer)
 
 ### HTTP request headers
 
@@ -110,22 +128,31 @@ No authorization required
 
 <a name="getProgramWithdrawInfo"></a>
 # **getProgramWithdrawInfo**
-> ProgramWithdrawInfo getProgramWithdrawInfo(id, authorization)
+> ProgramWithdrawInfo getProgramWithdrawInfo(id)
 
 Data for withdrawal from investment program (in program currency)
 
 ### Example
 ```java
 // Import classes:
+//import io.swagger.client.ApiClient;
 //import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
 //import io.swagger.client.api.InvestmentsApi;
 
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
 
 InvestmentsApi apiInstance = new InvestmentsApi();
 UUID id = new UUID(); // UUID | 
-String authorization = "authorization_example"; // String | JWT access token
 try {
-    ProgramWithdrawInfo result = apiInstance.getProgramWithdrawInfo(id, authorization);
+    ProgramWithdrawInfo result = apiInstance.getProgramWithdrawInfo(id);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling InvestmentsApi#getProgramWithdrawInfo");
@@ -138,7 +165,6 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | [**UUID**](.md)|  |
- **authorization** | **String**| JWT access token |
 
 ### Return type
 
@@ -146,7 +172,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[Bearer](../README.md#Bearer)
 
 ### HTTP request headers
 
@@ -155,23 +181,32 @@ No authorization required
 
 <a name="getRequests"></a>
 # **getRequests**
-> ItemsViewModelAssetInvestmentRequest getRequests(skip, take, authorization)
+> AssetInvestmentRequestItemsViewModel getRequests(skip, take)
 
 Get all requests
 
 ### Example
 ```java
 // Import classes:
+//import io.swagger.client.ApiClient;
 //import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
 //import io.swagger.client.api.InvestmentsApi;
 
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
 
 InvestmentsApi apiInstance = new InvestmentsApi();
 Integer skip = 56; // Integer | 
 Integer take = 56; // Integer | 
-String authorization = "authorization_example"; // String | JWT access token
 try {
-    ItemsViewModelAssetInvestmentRequest result = apiInstance.getRequests(skip, take, authorization);
+    AssetInvestmentRequestItemsViewModel result = apiInstance.getRequests(skip, take);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling InvestmentsApi#getRequests");
@@ -185,15 +220,14 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **skip** | **Integer**|  |
  **take** | **Integer**|  |
- **authorization** | **String**| JWT access token |
 
 ### Return type
 
-[**ItemsViewModelAssetInvestmentRequest**](ItemsViewModelAssetInvestmentRequest.md)
+[**AssetInvestmentRequestItemsViewModel**](AssetInvestmentRequestItemsViewModel.md)
 
 ### Authorization
 
-No authorization required
+[Bearer](../README.md#Bearer)
 
 ### HTTP request headers
 
@@ -202,24 +236,33 @@ No authorization required
 
 <a name="getRequestsByProgram"></a>
 # **getRequestsByProgram**
-> ItemsViewModelAssetInvestmentRequest getRequestsByProgram(id, skip, take, authorization)
+> AssetInvestmentRequestItemsViewModel getRequestsByProgram(id, skip, take)
 
 Get program/fund requests
 
 ### Example
 ```java
 // Import classes:
+//import io.swagger.client.ApiClient;
 //import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
 //import io.swagger.client.api.InvestmentsApi;
 
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
 
 InvestmentsApi apiInstance = new InvestmentsApi();
 UUID id = new UUID(); // UUID | 
 Integer skip = 56; // Integer | 
 Integer take = 56; // Integer | 
-String authorization = "authorization_example"; // String | JWT access token
 try {
-    ItemsViewModelAssetInvestmentRequest result = apiInstance.getRequestsByProgram(id, skip, take, authorization);
+    AssetInvestmentRequestItemsViewModel result = apiInstance.getRequestsByProgram(id, skip, take);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling InvestmentsApi#getRequestsByProgram");
@@ -234,15 +277,14 @@ Name | Type | Description  | Notes
  **id** | [**UUID**](.md)|  |
  **skip** | **Integer**|  |
  **take** | **Integer**|  |
- **authorization** | **String**| JWT access token |
 
 ### Return type
 
-[**ItemsViewModelAssetInvestmentRequest**](ItemsViewModelAssetInvestmentRequest.md)
+[**AssetInvestmentRequestItemsViewModel**](AssetInvestmentRequestItemsViewModel.md)
 
 ### Authorization
 
-No authorization required
+[Bearer](../README.md#Bearer)
 
 ### HTTP request headers
 
@@ -251,24 +293,33 @@ No authorization required
 
 <a name="investIntoFund"></a>
 # **investIntoFund**
-> Void investIntoFund(id, authorization, amount, walletId)
+> Void investIntoFund(id, amount, walletId)
 
 Investing into the fund
 
 ### Example
 ```java
 // Import classes:
+//import io.swagger.client.ApiClient;
 //import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
 //import io.swagger.client.api.InvestmentsApi;
 
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
 
 InvestmentsApi apiInstance = new InvestmentsApi();
 UUID id = new UUID(); // UUID | 
-String authorization = "authorization_example"; // String | JWT access token
 Double amount = 3.4D; // Double | 
 UUID walletId = new UUID(); // UUID | 
 try {
-    Void result = apiInstance.investIntoFund(id, authorization, amount, walletId);
+    Void result = apiInstance.investIntoFund(id, amount, walletId);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling InvestmentsApi#investIntoFund");
@@ -281,7 +332,6 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | [**UUID**](.md)|  |
- **authorization** | **String**| JWT access token |
  **amount** | **Double**|  | [optional]
  **walletId** | [**UUID**](.md)|  | [optional]
 
@@ -291,7 +341,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[Bearer](../README.md#Bearer)
 
 ### HTTP request headers
 
@@ -300,24 +350,33 @@ No authorization required
 
 <a name="investIntoProgram"></a>
 # **investIntoProgram**
-> Void investIntoProgram(id, authorization, amount, walletId)
+> Void investIntoProgram(id, amount, walletId)
 
 Investing into the program
 
 ### Example
 ```java
 // Import classes:
+//import io.swagger.client.ApiClient;
 //import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
 //import io.swagger.client.api.InvestmentsApi;
 
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
 
 InvestmentsApi apiInstance = new InvestmentsApi();
 UUID id = new UUID(); // UUID | 
-String authorization = "authorization_example"; // String | JWT access token
 Double amount = 3.4D; // Double | 
 UUID walletId = new UUID(); // UUID | 
 try {
-    Void result = apiInstance.investIntoProgram(id, authorization, amount, walletId);
+    Void result = apiInstance.investIntoProgram(id, amount, walletId);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling InvestmentsApi#investIntoProgram");
@@ -330,7 +389,6 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | [**UUID**](.md)|  |
- **authorization** | **String**| JWT access token |
  **amount** | **Double**|  | [optional]
  **walletId** | [**UUID**](.md)|  | [optional]
 
@@ -340,7 +398,113 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
+
+<a name="switchAutoJoinOff"></a>
+# **switchAutoJoinOff**
+> Void switchAutoJoinOff(id)
+
+Disable autojoin
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiClient;
+//import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
+//import io.swagger.client.api.InvestmentsApi;
+
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
+
+InvestmentsApi apiInstance = new InvestmentsApi();
+UUID id = new UUID(); // UUID | 
+try {
+    Void result = apiInstance.switchAutoJoinOff(id);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling InvestmentsApi#switchAutoJoinOff");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | [**UUID**](.md)|  |
+
+### Return type
+
+[**Void**](.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
+
+<a name="switchAutoJoinOn"></a>
+# **switchAutoJoinOn**
+> Void switchAutoJoinOn(id)
+
+Enable autojoin
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiClient;
+//import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
+//import io.swagger.client.api.InvestmentsApi;
+
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
+
+InvestmentsApi apiInstance = new InvestmentsApi();
+UUID id = new UUID(); // UUID | 
+try {
+    Void result = apiInstance.switchAutoJoinOn(id);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling InvestmentsApi#switchAutoJoinOn");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | [**UUID**](.md)|  |
+
+### Return type
+
+[**Void**](.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
 
 ### HTTP request headers
 
@@ -349,22 +513,31 @@ No authorization required
 
 <a name="switchReinvestOff"></a>
 # **switchReinvestOff**
-> Void switchReinvestOff(id, authorization)
+> Void switchReinvestOff(id)
 
 Disable reinvesting
 
 ### Example
 ```java
 // Import classes:
+//import io.swagger.client.ApiClient;
 //import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
 //import io.swagger.client.api.InvestmentsApi;
 
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
 
 InvestmentsApi apiInstance = new InvestmentsApi();
 UUID id = new UUID(); // UUID | 
-String authorization = "authorization_example"; // String | JWT access token
 try {
-    Void result = apiInstance.switchReinvestOff(id, authorization);
+    Void result = apiInstance.switchReinvestOff(id);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling InvestmentsApi#switchReinvestOff");
@@ -377,7 +550,6 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | [**UUID**](.md)|  |
- **authorization** | **String**| JWT access token |
 
 ### Return type
 
@@ -385,7 +557,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[Bearer](../README.md#Bearer)
 
 ### HTTP request headers
 
@@ -394,22 +566,31 @@ No authorization required
 
 <a name="switchReinvestOn"></a>
 # **switchReinvestOn**
-> Void switchReinvestOn(id, authorization)
+> Void switchReinvestOn(id)
 
 Enable reinvesting
 
 ### Example
 ```java
 // Import classes:
+//import io.swagger.client.ApiClient;
 //import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
 //import io.swagger.client.api.InvestmentsApi;
 
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
 
 InvestmentsApi apiInstance = new InvestmentsApi();
 UUID id = new UUID(); // UUID | 
-String authorization = "authorization_example"; // String | JWT access token
 try {
-    Void result = apiInstance.switchReinvestOn(id, authorization);
+    Void result = apiInstance.switchReinvestOn(id);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling InvestmentsApi#switchReinvestOn");
@@ -422,7 +603,6 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | [**UUID**](.md)|  |
- **authorization** | **String**| JWT access token |
 
 ### Return type
 
@@ -430,7 +610,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[Bearer](../README.md#Bearer)
 
 ### HTTP request headers
 
@@ -439,24 +619,33 @@ No authorization required
 
 <a name="withdrawFromFund"></a>
 # **withdrawFromFund**
-> Void withdrawFromFund(id, authorization, percent, currency)
+> Void withdrawFromFund(id, percent, currency)
 
 Withdraw from fund. Percent is % of manager total money
 
 ### Example
 ```java
 // Import classes:
+//import io.swagger.client.ApiClient;
 //import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
 //import io.swagger.client.api.InvestmentsApi;
 
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
 
 InvestmentsApi apiInstance = new InvestmentsApi();
 UUID id = new UUID(); // UUID | 
-String authorization = "authorization_example"; // String | JWT access token
 Double percent = 3.4D; // Double | 
-String currency = "currency_example"; // String | 
+Currency currency = new Currency(); // Currency | 
 try {
-    Void result = apiInstance.withdrawFromFund(id, authorization, percent, currency);
+    Void result = apiInstance.withdrawFromFund(id, percent, currency);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling InvestmentsApi#withdrawFromFund");
@@ -469,9 +658,8 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | [**UUID**](.md)|  |
- **authorization** | **String**| JWT access token |
  **percent** | **Double**|  | [optional]
- **currency** | **String**|  | [optional] [enum: BTC, ETH, USDT, USD, GVT, Undefined, ADA, XRP, BCH, LTC, DOGE, BNB, EUR]
+ **currency** | [**Currency**](.md)|  | [optional]
 
 ### Return type
 
@@ -479,7 +667,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[Bearer](../README.md#Bearer)
 
 ### HTTP request headers
 
@@ -488,24 +676,33 @@ No authorization required
 
 <a name="withdrawFromProgram"></a>
 # **withdrawFromProgram**
-> Void withdrawFromProgram(id, authorization, amount, withdrawAll)
+> Void withdrawFromProgram(id, amount, withdrawAll)
 
 Withdrawal from program
 
 ### Example
 ```java
 // Import classes:
+//import io.swagger.client.ApiClient;
 //import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
 //import io.swagger.client.api.InvestmentsApi;
 
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
 
 InvestmentsApi apiInstance = new InvestmentsApi();
 UUID id = new UUID(); // UUID | 
-String authorization = "authorization_example"; // String | JWT access token
 Double amount = 3.4D; // Double | 
 Boolean withdrawAll = true; // Boolean | 
 try {
-    Void result = apiInstance.withdrawFromProgram(id, authorization, amount, withdrawAll);
+    Void result = apiInstance.withdrawFromProgram(id, amount, withdrawAll);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling InvestmentsApi#withdrawFromProgram");
@@ -518,7 +715,6 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | [**UUID**](.md)|  |
- **authorization** | **String**| JWT access token |
  **amount** | **Double**|  | [optional]
  **withdrawAll** | **Boolean**|  | [optional]
 
@@ -528,7 +724,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[Bearer](../README.md#Bearer)
 
 ### HTTP request headers
 

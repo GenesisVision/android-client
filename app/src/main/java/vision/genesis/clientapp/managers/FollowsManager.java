@@ -9,15 +9,18 @@ import io.swagger.client.model.AbsoluteProfitChart;
 import io.swagger.client.model.AccountBalanceChart;
 import io.swagger.client.model.AttachToExternalSignalProviderExt;
 import io.swagger.client.model.AttachToSignalProvider;
+import io.swagger.client.model.Currency;
 import io.swagger.client.model.DetachFromExternalSignalProvider;
 import io.swagger.client.model.DetachFromSignalProvider;
-import io.swagger.client.model.ItemsViewModelFollowDetailsListItem;
-import io.swagger.client.model.ItemsViewModelSignalSubscription;
-import io.swagger.client.model.ItemsViewModelSignalTradingEvent;
-import io.swagger.client.model.ItemsViewModelTradingAccountDetails;
+import io.swagger.client.model.FollowDetailsListItemItemsViewModel;
+import io.swagger.client.model.FollowFilterSorting;
+import io.swagger.client.model.ImageQuality;
 import io.swagger.client.model.ProgramFollowDetailsFull;
 import io.swagger.client.model.ProgramProfitPercentCharts;
+import io.swagger.client.model.SignalSubscriptionItemsViewModel;
+import io.swagger.client.model.SignalTradingEventItemsViewModel;
 import io.swagger.client.model.TradesSignalViewModel;
+import io.swagger.client.model.TradingAccountDetailsItemsViewModel;
 import rx.Observable;
 import vision.genesis.clientapp.model.DateRange;
 import vision.genesis.clientapp.model.SubscriptionSettingsModel;
@@ -39,10 +42,10 @@ public class FollowsManager
 		this.followApi = followApi;
 	}
 
-	public Observable<ItemsViewModelFollowDetailsListItem> getFollows(ProgramsFilter filter) {
-		return followApi.getFollowAssets(AuthManager.token.getValue(),
-				filter.getSorting() != null ? filter.getSorting().getValue() : null,
-				filter.getShowIn() != null ? filter.getShowIn().getValue() : null,
+	public Observable<FollowDetailsListItemItemsViewModel> getFollows(ProgramsFilter filter) {
+		return followApi.getFollowAssets(
+				filter.getSorting() != null ? FollowFilterSorting.fromValue(filter.getSorting().getValue()) : null,
+				filter.getShowIn() != null ? Currency.fromValue(filter.getShowIn().getValue()) : null,
 				filter.getTags(),
 				filter.getDateRange().getFrom(), filter.getDateRange().getTo(),
 				filter.getChartPointsCount(), filter.getFacetId() == null ? null : filter.getFacetId().toString(),
@@ -51,15 +54,15 @@ public class FollowsManager
 	}
 
 	public Observable<ProgramFollowDetailsFull> getFollowDetails(String followId) {
-		return followApi.getFollowAssetDetails(followId, AuthManager.token.getValue());
+		return followApi.getFollowAssetDetails(followId, ImageQuality.HIGH);
 	}
 
-	public Observable<ItemsViewModelSignalSubscription> getMySubscriptionsForFollow(UUID followId, Boolean onlyActive) {
-		return followApi.getFollowSubscriptionsForAsset(followId, AuthManager.token.getValue(), onlyActive);
+	public Observable<SignalSubscriptionItemsViewModel> getMySubscriptionsForFollow(UUID followId, Boolean onlyActive) {
+		return followApi.getFollowSubscriptionsForAsset(followId, onlyActive);
 	}
 
-	public Observable<ItemsViewModelSignalSubscription> getMastersForMyAccount(UUID accountId, Boolean onlyActive) {
-		return followApi.getFollowSubscriptionsForOwnAccount(accountId, AuthManager.token.getValue(), onlyActive);
+	public Observable<SignalSubscriptionItemsViewModel> getMastersForMyAccount(UUID accountId, Boolean onlyActive) {
+		return followApi.getFollowSubscriptionsForOwnAccount(accountId, onlyActive);
 	}
 
 	public Observable<TradesSignalViewModel> getTrades(UUID assetId, DateRange dateRange, Boolean isFollow, Integer skip, Integer take) {
@@ -67,50 +70,50 @@ public class FollowsManager
 	}
 
 	public Observable<Void> subscribeToFollow(UUID followId, AttachToSignalProvider model) {
-		return signalApi.attachSlaveToMasterInternal(AuthManager.token.getValue(), followId, model);
+		return signalApi.attachSlaveToMasterInternal(followId, model);
 	}
 
 	public Observable<Void> subscribeToExternalFollowWithPrivate(UUID followId, AttachToExternalSignalProviderExt model) {
-		return signalApi.attachSlaveToMasterExternalPrivateAccount(AuthManager.token.getValue(), followId, model);
+		return signalApi.attachSlaveToMasterExternalPrivateAccount(followId, model);
 	}
 
 	public Observable<Void> updateSubscription(UUID followId, SubscriptionSettingsModel model) {
-		return signalApi.updateSubscriptionSettings(AuthManager.token.getValue(), followId, model.getApiModel());
+		return signalApi.updateSubscriptionSettings(followId, model.getApiModel());
 	}
 
 	public Observable<Void> unsubscribeFromFollow(UUID followId, DetachFromSignalProvider model) {
-		return signalApi.detachSlaveFromMasterInternal(AuthManager.token.getValue(), followId, model);
+		return signalApi.detachSlaveFromMasterInternal(followId, model);
 	}
 
 	public Observable<Void> unsubscribeFromExternalFollow(UUID followId, DetachFromExternalSignalProvider model) {
-		return signalApi.detachSlaveFromMasterExternal(AuthManager.token.getValue(), followId, model);
+		return signalApi.detachSlaveFromMasterExternal(followId, model);
 	}
 
-	public Observable<TradesSignalViewModel> getOpenTrades(String sorting, String symbol, UUID accountId, String accountCurrency, Integer skip, Integer take) {
-		return signalApi.getOpenSignalTrades(AuthManager.token.getValue(), sorting, symbol, accountId, accountCurrency, skip, take);
+//	public Observable<TradesSignalViewModel> getOpenTrades(String sorting, String symbol, UUID accountId, String accountCurrency, Integer skip, Integer take) {
+//		return signalApi.getOpenSignalTrades( sorting, symbol, accountId, accountCurrency, skip, take);
+//	}
+//
+//	public Observable<Void> closeTrade(UUID tradeId, UUID programId) {
+//		return signalApi.closeTradeInternal(tradeId programId);
+//	}
+
+	public Observable<SignalTradingEventItemsViewModel> getTradingLog(UUID accountId, Integer skip, Integer take) {
+		return signalApi.getSignalTradingLog(accountId, null, skip, take);
 	}
 
-	public Observable<Void> closeTrade(UUID tradeId, UUID programId) {
-		return signalApi.closeTradeInternal(tradeId, AuthManager.token.getValue(), programId);
+	public Observable<TradingAccountDetailsItemsViewModel> getSubscriberAccounts(UUID followId) {
+		return signalApi.getSubscriberAccountsForAsset(followId);
 	}
 
-	public Observable<ItemsViewModelSignalTradingEvent> getTradingLog(UUID accountId, Integer skip, Integer take) {
-		return signalApi.getSignalTradingLog(AuthManager.token.getValue(), accountId, null, skip, take);
+	public Observable<ProgramProfitPercentCharts> getProfitPercentChart(UUID programId, DateRange dateRange, Integer maxPointCount, Currency currency, List<Currency> currencies) {
+		return followApi.getProfitPercentCharts(programId, dateRange.getFrom(), dateRange.getTo(), maxPointCount, currency, currencies);
 	}
 
-	public Observable<ItemsViewModelTradingAccountDetails> getSubscriberAccounts(UUID followId) {
-		return signalApi.getSubscriberAccountsForAsset(followId, AuthManager.token.getValue());
-	}
-
-	public Observable<ProgramProfitPercentCharts> getProfitPercentChart(UUID programId, DateRange dateRange, Integer maxPointCount, String currency, List<Object> currencies) {
-		return followApi.getProfitPercentCharts(programId, AuthManager.token.getValue(), dateRange.getFrom(), dateRange.getTo(), maxPointCount, currency, currencies);
-	}
-
-	public Observable<AbsoluteProfitChart> getProfitAbsoluteChart(UUID programId, DateRange dateRange, Integer maxPointCount, String currency) {
+	public Observable<AbsoluteProfitChart> getProfitAbsoluteChart(UUID programId, DateRange dateRange, Integer maxPointCount, Currency currency) {
 		return followApi.getAbsoluteProfitChart(programId, dateRange.getFrom(), dateRange.getTo(), maxPointCount, currency);
 	}
 
-	public Observable<AccountBalanceChart> getBalanceChart(UUID programId, DateRange dateRange, Integer maxPointCount, String currency) {
+	public Observable<AccountBalanceChart> getBalanceChart(UUID programId, DateRange dateRange, Integer maxPointCount, Currency currency) {
 		return followApi.getBalanceChart(programId, dateRange.getFrom(), dateRange.getTo(), maxPointCount, currency);
 	}
 
@@ -119,10 +122,10 @@ public class FollowsManager
 	}
 
 	private Observable<Void> followFavoritesAdd(UUID programId) {
-		return followApi.addToFavorites(programId, AuthManager.token.getValue());
+		return followApi.addToFavorites(programId);
 	}
 
 	private Observable<Void> followFavoritesRemove(UUID programId) {
-		return followApi.removeFromFavorites(programId, AuthManager.token.getValue());
+		return followApi.removeFromFavorites(programId);
 	}
 }

@@ -4,7 +4,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | [**UUID**](UUID.md) |  |  [optional]
-**logo** | **String** |  |  [optional]
+**logoUrl** | **String** |  |  [optional]
 **name** | **String** |  |  [optional]
 **type** | [**BrokerTradeServerType**](BrokerTradeServerType.md) |  |  [optional]
 **isKycRequired** | **Boolean** |  |  [optional]

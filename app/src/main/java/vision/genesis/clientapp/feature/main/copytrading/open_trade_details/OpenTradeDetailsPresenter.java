@@ -12,8 +12,6 @@ import java.util.UUID;
 import javax.inject.Inject;
 
 import rx.Subscription;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.managers.FollowsManager;
 import vision.genesis.clientapp.model.OpenTradeModel;
@@ -47,8 +45,9 @@ public class OpenTradeDetailsPresenter extends MvpPresenter<OpenTradeDetailsView
 
 	@Override
 	public void onDestroy() {
-		if (closeTradeSubscription != null)
+		if (closeTradeSubscription != null) {
 			closeTradeSubscription.unsubscribe();
+		}
 
 		EventBus.getDefault().unregister(this);
 
@@ -63,11 +62,11 @@ public class OpenTradeDetailsPresenter extends MvpPresenter<OpenTradeDetailsView
 	void closeTrade(UUID programId) {
 		if (followsManager != null && model != null && programId != null) {
 			getViewState().showProgress(true);
-			closeTradeSubscription = followsManager.closeTrade(model.getId(), programId)
-					.subscribeOn(Schedulers.computation())
-					.observeOn(AndroidSchedulers.mainThread())
-					.subscribe(response -> handleCloseTradeSuccess(programId),
-							this::handleCloseTradeError);
+//			closeTradeSubscription = followsManager.closeTrade(model.getId(), programId)
+//					.subscribeOn(Schedulers.computation())
+//					.observeOn(AndroidSchedulers.mainThread())
+//					.subscribe(response -> handleCloseTradeSuccess(programId),
+//							this::handleCloseTradeError);
 		}
 	}
 

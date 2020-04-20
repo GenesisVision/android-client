@@ -24,8 +24,9 @@ public class UnauthorizedInterceptor implements Interceptor
 		Response response = chain.proceed(request);
 		String rawJson = response.body().string();
 
-		if (response.code() == HttpURLConnection.HTTP_UNAUTHORIZED)
+		if (response.code() == HttpURLConnection.HTTP_UNAUTHORIZED) {
 			EventBus.getDefault().post(new OnUnauthorizedResponseGetEvent());
+		}
 
 		return response.newBuilder()
 				.body(ResponseBody.create(response.body().contentType(), rawJson)).build();

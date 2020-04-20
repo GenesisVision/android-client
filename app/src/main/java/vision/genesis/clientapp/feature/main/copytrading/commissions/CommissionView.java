@@ -69,8 +69,9 @@ public class CommissionView extends RelativeLayout
 	}
 
 	private String getAmountString(Double amount, String currency) {
-		if (amount > 0)
+		if (amount > 0) {
 			amount *= -1;
+		}
 		return StringFormatUtil.formatCurrencyAmount(amount, currency);
 	}
 

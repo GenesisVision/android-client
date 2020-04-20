@@ -115,10 +115,12 @@ public class DisableTfaActivity extends BaseSwipeBackActivity implements Disable
 	@Override
 	public void onStop() {
 		super.onStop();
-		if (passwordTextChangeSubscription != null)
+		if (passwordTextChangeSubscription != null) {
 			passwordTextChangeSubscription.unsubscribe();
-		if (codeTextChangeSubscription != null)
+		}
+		if (codeTextChangeSubscription != null) {
 			codeTextChangeSubscription.unsubscribe();
+		}
 	}
 
 	private void setTextListeners() {

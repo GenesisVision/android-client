@@ -36,7 +36,9 @@ public enum FollowFilterSorting
 	BYPROFITASC("ByProfitAsc"),
 	BYPROFITDESC("ByProfitDesc"),
 	BYNEWASC("ByNewAsc"),
-	BYNEWDESC("ByNewDesc");
+	BYNEWDESC("ByNewDesc"),
+	BYEQUITYASC("ByEquityAsc"),
+	BYEQUITYDESC("ByEquityDesc");
 
 	public static FollowFilterSorting fromValue(String text) {
 		for (FollowFilterSorting b : FollowFilterSorting.values()) {

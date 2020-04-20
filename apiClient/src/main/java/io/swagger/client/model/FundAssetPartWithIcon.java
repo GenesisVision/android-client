@@ -39,8 +39,8 @@ public class FundAssetPartWithIcon implements Parcelable
 		}
 	};
 
-	@SerializedName("icon")
-	private String icon = null;
+	@SerializedName("logoUrl")
+	private String logoUrl = null;
 
 	@SerializedName("color")
 	private String color = null;
@@ -61,7 +61,7 @@ public class FundAssetPartWithIcon implements Parcelable
 	}
 
 	FundAssetPartWithIcon(Parcel in) {
-		icon = (String) in.readValue(null);
+		logoUrl = (String) in.readValue(null);
 		color = (String) in.readValue(null);
 		url = (String) in.readValue(null);
 		name = (String) in.readValue(null);
@@ -69,23 +69,23 @@ public class FundAssetPartWithIcon implements Parcelable
 		percent = (Double) in.readValue(null);
 	}
 
-	public FundAssetPartWithIcon icon(String icon) {
-		this.icon = icon;
+	public FundAssetPartWithIcon logoUrl(String logoUrl) {
+		this.logoUrl = logoUrl;
 		return this;
 	}
 
 	/**
-	 * Get icon
+	 * Get logoUrl
 	 *
-	 * @return icon
+	 * @return logoUrl
 	 **/
 	@Schema(description = "")
-	public String getIcon() {
-		return icon;
+	public String getLogoUrl() {
+		return logoUrl;
 	}
 
-	public void setIcon(String icon) {
-		this.icon = icon;
+	public void setLogoUrl(String logoUrl) {
+		this.logoUrl = logoUrl;
 	}
 
 	public FundAssetPartWithIcon color(String color) {
@@ -192,7 +192,7 @@ public class FundAssetPartWithIcon implements Parcelable
 			return false;
 		}
 		FundAssetPartWithIcon fundAssetPartWithIcon = (FundAssetPartWithIcon) o;
-		return Objects.equals(this.icon, fundAssetPartWithIcon.icon) &&
+		return Objects.equals(this.logoUrl, fundAssetPartWithIcon.logoUrl) &&
 				Objects.equals(this.color, fundAssetPartWithIcon.color) &&
 				Objects.equals(this.url, fundAssetPartWithIcon.url) &&
 				Objects.equals(this.name, fundAssetPartWithIcon.name) &&
@@ -202,7 +202,7 @@ public class FundAssetPartWithIcon implements Parcelable
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(icon, color, url, name, asset, percent);
+		return Objects.hash(logoUrl, color, url, name, asset, percent);
 	}
 
 	@Override
@@ -210,7 +210,7 @@ public class FundAssetPartWithIcon implements Parcelable
 		StringBuilder sb = new StringBuilder();
 		sb.append("class FundAssetPartWithIcon {\n");
 
-		sb.append("    icon: ").append(toIndentedString(icon)).append("\n");
+		sb.append("    logoUrl: ").append(toIndentedString(logoUrl)).append("\n");
 		sb.append("    color: ").append(toIndentedString(color)).append("\n");
 		sb.append("    url: ").append(toIndentedString(url)).append("\n");
 		sb.append("    name: ").append(toIndentedString(name)).append("\n");
@@ -232,7 +232,7 @@ public class FundAssetPartWithIcon implements Parcelable
 	}
 
 	public void writeToParcel(Parcel out, int flags) {
-		out.writeValue(icon);
+		out.writeValue(logoUrl);
 		out.writeValue(color);
 		out.writeValue(url);
 		out.writeValue(name);

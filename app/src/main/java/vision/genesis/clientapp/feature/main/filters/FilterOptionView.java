@@ -55,8 +55,9 @@ public class FilterOptionView extends RelativeLayout
 		ButterKnife.bind(this);
 
 		setOnClickListener(view -> {
-			if (listener != null)
+			if (listener != null) {
 				listener.onClick(filter);
+			}
 		});
 	}
 
@@ -94,12 +95,15 @@ public class FilterOptionView extends RelativeLayout
 //			if (maxValue == null)
 //				maxValue = defaultLevelMaxLevel;
 
-			if (maxValue - minValue == 1)
+			if (maxValue - minValue == 1) {
 				filterValueView.setText(String.format(Locale.getDefault(), "%d, %d", minValue, maxValue));
-			else if (minValue.equals(maxValue))
+			}
+			else if (minValue.equals(maxValue)) {
 				filterValueView.setText(String.format(Locale.getDefault(), "%d", minValue));
-			else
+			}
+			else {
 				filterValueView.setText(String.format(Locale.getDefault(), "%d-%d", minValue, maxValue));
+			}
 		}
 	}
 

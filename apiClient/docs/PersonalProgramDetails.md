@@ -5,6 +5,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **isFavorite** | **Boolean** |  |  [optional]
 **isReinvest** | **Boolean** |  |  [optional]
+**isAutoJoin** | **Boolean** |  |  [optional]
 **isInvested** | **Boolean** |  |  [optional]
 **canInvest** | **Boolean** |  |  [optional]
 **canWithdraw** | **Boolean** |  |  [optional]
@@ -20,5 +21,6 @@ Name | Type | Description | Notes
 **pendingOutputIsWithdrawAll** | **Boolean** |  |  [optional]
 **status** | [**AssetInvestmentStatus**](AssetInvestmentStatus.md) |  |  [optional]
 **successFeePersonal** | **Double** |  |  [optional]
+**managementFeePersonal** | **Double** |  |  [optional]
 **migration** | [**MigrationRequest**](MigrationRequest.md) |  |  [optional]
 **subscribedAccounts** | **Integer** |  |  [optional]

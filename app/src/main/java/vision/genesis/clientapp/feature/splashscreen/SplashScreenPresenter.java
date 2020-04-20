@@ -51,12 +51,15 @@ public class SplashScreenPresenter extends MvpPresenter<SplashScreenView>
 
 	@Override
 	public void onDestroy() {
-		if (platformStatusSubscription != null)
+		if (platformStatusSubscription != null) {
 			platformStatusSubscription.unsubscribe();
-		if (networkAvailabilitySubscription != null)
+		}
+		if (networkAvailabilitySubscription != null) {
 			networkAvailabilitySubscription.unsubscribe();
-		if (serverAvailabilitySubscription != null)
+		}
+		if (serverAvailabilitySubscription != null) {
 			serverAvailabilitySubscription.unsubscribe();
+		}
 
 		super.onDestroy();
 	}
@@ -75,8 +78,9 @@ public class SplashScreenPresenter extends MvpPresenter<SplashScreenView>
 	}
 
 	private void onPlatformStatusSuccess(PlatformInfo response) {
-		if (platformStatusSubscription != null)
+		if (platformStatusSubscription != null) {
 			platformStatusSubscription.unsubscribe();
+		}
 		getViewState().showMainActivity();
 	}
 
@@ -93,8 +97,9 @@ public class SplashScreenPresenter extends MvpPresenter<SplashScreenView>
 	}
 
 	private void subscribeToNetworkAvailability() {
-		if (networkAvailabilitySubscription != null)
+		if (networkAvailabilitySubscription != null) {
 			networkAvailabilitySubscription.unsubscribe();
+		}
 		networkAvailabilitySubscription = networkManager.networkAvailabilitySubject
 				.observeOn(AndroidSchedulers.mainThread())
 				.subscribeOn(Schedulers.newThread())
@@ -110,8 +115,9 @@ public class SplashScreenPresenter extends MvpPresenter<SplashScreenView>
 	}
 
 	private void subscribeToServerAvailability() {
-		if (serverAvailabilitySubscription != null)
+		if (serverAvailabilitySubscription != null) {
 			serverAvailabilitySubscription.unsubscribe();
+		}
 		serverAvailabilitySubscription = NetworkManager.serverAvailabilitySubject
 				.observeOn(AndroidSchedulers.mainThread())
 				.subscribeOn(Schedulers.newThread())

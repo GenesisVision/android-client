@@ -36,8 +36,7 @@ public interface AuthApi
 	/**
 	 * Change password
 	 *
-	 * @param authorization JWT access token (required)
-	 * @param body          (optional)
+	 * @param body (optional)
 	 * @return Call&lt;String&gt;
 	 */
 	@Headers({
@@ -45,7 +44,7 @@ public interface AuthApi
 	})
 	@POST("v2.0/auth/password/change")
 	Observable<String> changePassword(
-			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Body ChangePasswordViewModel body
+			@retrofit2.http.Body ChangePasswordViewModel body
 	);
 
 	/**
@@ -63,8 +62,7 @@ public interface AuthApi
 	/**
 	 * 2FA confirm
 	 *
-	 * @param authorization JWT access token (required)
-	 * @param body          (optional)
+	 * @param body (optional)
 	 * @return Call&lt;RecoveryCodesViewModel&gt;
 	 */
 	@Headers({
@@ -72,25 +70,22 @@ public interface AuthApi
 	})
 	@POST("v2.0/auth/2fa/confirm")
 	Observable<RecoveryCodesViewModel> confirmTwoStepAuth(
-			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Body TwoFactorAuthenticatorConfirm body
+			@retrofit2.http.Body TwoFactorAuthenticatorConfirm body
 	);
 
 	/**
 	 * 2FA create
 	 *
-	 * @param authorization JWT access token (required)
 	 * @return Call&lt;TwoFactorAuthenticator&gt;
 	 */
 	@POST("v2.0/auth/2fa/create")
-	Observable<TwoFactorAuthenticator> createTwoStepAuth(
-			@retrofit2.http.Header("Authorization") String authorization
-	);
+	Observable<TwoFactorAuthenticator> createTwoStepAuth();
+
 
 	/**
 	 * 2FA generate new recovery codes
 	 *
-	 * @param authorization JWT access token (required)
-	 * @param body          (optional)
+	 * @param body (optional)
 	 * @return Call&lt;RecoveryCodesViewModel&gt;
 	 */
 	@Headers({
@@ -98,14 +93,13 @@ public interface AuthApi
 	})
 	@POST("v2.0/auth/2fa/recoverycodes/new")
 	Observable<RecoveryCodesViewModel> createTwoStepAuthRecoveryCodes(
-			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Body PasswordModel body
+			@retrofit2.http.Body PasswordModel body
 	);
 
 	/**
 	 * 2FA disable
 	 *
-	 * @param authorization JWT access token (required)
-	 * @param body          (optional)
+	 * @param body (optional)
 	 * @return Call&lt;Void&gt;
 	 */
 	@Headers({
@@ -113,7 +107,7 @@ public interface AuthApi
 	})
 	@POST("v2.0/auth/2fa/disable")
 	Observable<Void> disableTwoStepAuth(
-			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Body TwoFactorCodeWithPassword body
+			@retrofit2.http.Body TwoFactorCodeWithPassword body
 	);
 
 	/**
@@ -133,8 +127,7 @@ public interface AuthApi
 	/**
 	 * 2FA recovery codes
 	 *
-	 * @param authorization JWT access token (required)
-	 * @param body          (optional)
+	 * @param body (optional)
 	 * @return Call&lt;RecoveryCodesViewModel&gt;
 	 */
 	@Headers({
@@ -142,30 +135,26 @@ public interface AuthApi
 	})
 	@POST("v2.0/auth/2fa/recoverycodes")
 	Observable<RecoveryCodesViewModel> getTwoStepAuthRecoveryCodes(
-			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Body PasswordModel body
+			@retrofit2.http.Body PasswordModel body
 	);
 
 	/**
 	 * 2FA status
 	 *
-	 * @param authorization JWT access token (required)
 	 * @return Call&lt;TwoFactorStatus&gt;
 	 */
 	@GET("v2.0/auth/2fa")
-	Observable<TwoFactorStatus> getTwoStepAuthStatus(
-			@retrofit2.http.Header("Authorization") String authorization
-	);
+	Observable<TwoFactorStatus> getTwoStepAuthStatus();
+
 
 	/**
 	 * Logout from another devices
 	 *
-	 * @param authorization JWT access token (required)
 	 * @return Call&lt;String&gt;
 	 */
 	@POST("v2.0/auth/token/devices/logout")
-	Observable<String> logoutFromAnotherDevices(
-			@retrofit2.http.Header("Authorization") String authorization
-	);
+	Observable<String> logoutFromAnotherDevices();
+
 
 	/**
 	 * New registration
@@ -184,13 +173,11 @@ public interface AuthApi
 	/**
 	 * Get phone number verification code
 	 *
-	 * @param authorization JWT access token (required)
 	 * @return Call&lt;Integer&gt;
 	 */
 	@POST("v2.0/auth/phone/code")
-	Observable<Integer> requestPhoneNumberVerificationCode(
-			@retrofit2.http.Header("Authorization") String authorization
-	);
+	Observable<Integer> requestPhoneNumberVerificationCode();
+
 
 	/**
 	 * Resend Confirmation Link
@@ -223,24 +210,21 @@ public interface AuthApi
 	/**
 	 * Update auth token
 	 *
-	 * @param authorization JWT access token (required)
 	 * @return Call&lt;String&gt;
 	 */
 	@POST("v2.0/auth/token/update")
-	Observable<String> updateAuthToken(
-			@retrofit2.http.Header("Authorization") String authorization
-	);
+	Observable<String> updateAuthToken();
+
 
 	/**
 	 * Verify phone number
 	 *
-	 * @param authorization JWT access token (required)
-	 * @param code          (optional)
+	 * @param code (optional)
 	 * @return Call&lt;Void&gt;
 	 */
 	@POST("v2.0/auth/phone/verify")
 	Observable<Void> validatePhoneNumber(
-			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("code") String code
+			@retrofit2.http.Query("code") String code
 	);
 
 }

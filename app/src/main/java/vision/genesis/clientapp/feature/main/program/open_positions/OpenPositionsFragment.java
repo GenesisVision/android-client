@@ -148,8 +148,9 @@ public class OpenPositionsFragment extends BaseFragment implements OpenPositions
 
 	@Override
 	public void pagerShow() {
-		if (openPositionsPresenter != null)
+		if (openPositionsPresenter != null) {
 			openPositionsPresenter.onShow();
+		}
 	}
 
 	@Override
@@ -157,7 +158,8 @@ public class OpenPositionsFragment extends BaseFragment implements OpenPositions
 	}
 
 	public void onSwipeRefresh() {
-		if (openPositionsPresenter != null)
+		if (openPositionsPresenter != null) {
 			openPositionsPresenter.onSwipeRefresh();
+		}
 	}
 }

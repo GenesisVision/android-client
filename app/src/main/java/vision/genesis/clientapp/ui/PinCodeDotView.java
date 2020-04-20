@@ -6,6 +6,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import androidx.appcompat.content.res.AppCompatResources;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import vision.genesis.clientapp.R;

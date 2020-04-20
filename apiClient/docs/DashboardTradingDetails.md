@@ -7,4 +7,4 @@ Name | Type | Description | Notes
 **aum** | **Double** |  |  [optional]
 **total** | **Double** |  |  [optional]
 **profits** | [**DashboardProfits**](DashboardProfits.md) |  |  [optional]
-**events** | [**ItemsViewModelInvestmentEventViewModel**](ItemsViewModelInvestmentEventViewModel.md) |  |  [optional]
+**events** | [**InvestmentEventViewModelItemsViewModel**](InvestmentEventViewModelItemsViewModel.md) |  |  [optional]

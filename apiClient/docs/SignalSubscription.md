@@ -12,38 +12,12 @@ Name | Type | Description | Notes
 **hasActiveSubscription** | **Boolean** |  |  [optional]
 **isExternal** | **Boolean** |  |  [optional]
 **mode** | [**SubscriptionMode**](SubscriptionMode.md) |  |  [optional]
-**detachMode** | [**DetachModeEnum**](#DetachModeEnum) |  |  [optional]
+**detachMode** | [**SignalDetachMode**](SignalDetachMode.md) |  |  [optional]
 **percent** | **Double** |  |  [optional]
 **openTolerancePercent** | **Double** |  |  [optional]
 **fixedVolume** | **Double** |  |  [optional]
-**fixedCurrency** | [**FixedCurrencyEnum**](#FixedCurrencyEnum) |  |  [optional]
+**fixedCurrency** | [**Currency**](Currency.md) |  |  [optional]
 **totalProfit** | **Double** |  |  [optional]
 **totalVolume** | **Double** |  |  [optional]
 **successFeePersonal** | **Double** |  |  [optional]
 **volumeFeePersonal** | **Double** |  |  [optional]
-
-<a name="DetachModeEnum"></a>
-## Enum: DetachModeEnum
-Name | Value
----- | -----
-NONE | &quot;None&quot;
-PROVIDERCLOSEONLY | &quot;ProviderCloseOnly&quot;
-CLOSEALLIMMEDIATELY | &quot;CloseAllImmediately&quot;
-
-<a name="FixedCurrencyEnum"></a>
-## Enum: FixedCurrencyEnum
-Name | Value
----- | -----
-BTC | &quot;BTC&quot;
-ETH | &quot;ETH&quot;
-USDT | &quot;USDT&quot;
-USD | &quot;USD&quot;
-GVT | &quot;GVT&quot;
-UNDEFINED | &quot;Undefined&quot;
-ADA | &quot;ADA&quot;
-XRP | &quot;XRP&quot;
-BCH | &quot;BCH&quot;
-LTC | &quot;LTC&quot;
-DOGE | &quot;DOGE&quot;
-BNB | &quot;BNB&quot;
-EUR | &quot;EUR&quot;

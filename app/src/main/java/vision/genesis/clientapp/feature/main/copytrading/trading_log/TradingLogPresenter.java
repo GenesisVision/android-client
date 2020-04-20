@@ -11,8 +11,8 @@ import java.util.UUID;
 
 import javax.inject.Inject;
 
-import io.swagger.client.model.ItemsViewModelSignalTradingEvent;
 import io.swagger.client.model.SignalTradingEvent;
+import io.swagger.client.model.SignalTradingEventItemsViewModel;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -100,7 +100,7 @@ public class TradingLogPresenter extends MvpPresenter<TradingLogView> implements
 		}
 	}
 
-	private void handleGetTradingLogSuccess(ItemsViewModelSignalTradingEvent response) {
+	private void handleGetTradingLogSuccess(SignalTradingEventItemsViewModel response) {
 		getTradingLogSubscription.unsubscribe();
 		getViewState().showProgress(false);
 

@@ -1,6 +1,6 @@
 # BrokersApi
 
-All URIs are relative to */api*
+All URIs are relative to *https://red.genesis.vision/api*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -18,9 +18,19 @@ Get brokers for creating trading accounts
 ### Example
 ```java
 // Import classes:
+//import io.swagger.client.ApiClient;
 //import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
 //import io.swagger.client.api.BrokersApi;
 
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
 
 BrokersApi apiInstance = new BrokersApi();
 try {
@@ -41,7 +51,7 @@ This endpoint does not need any parameter.
 
 ### Authorization
 
-No authorization required
+[Bearer](../README.md#Bearer)
 
 ### HTTP request headers
 
@@ -57,9 +67,19 @@ Get brokers for creating demo trading accounts
 ### Example
 ```java
 // Import classes:
+//import io.swagger.client.ApiClient;
 //import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
 //import io.swagger.client.api.BrokersApi;
 
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
 
 BrokersApi apiInstance = new BrokersApi();
 try {
@@ -80,7 +100,7 @@ This endpoint does not need any parameter.
 
 ### Authorization
 
-No authorization required
+[Bearer](../README.md#Bearer)
 
 ### HTTP request headers
 
@@ -96,9 +116,19 @@ Get brokers for creating external trading accounts
 ### Example
 ```java
 // Import classes:
+//import io.swagger.client.ApiClient;
 //import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
 //import io.swagger.client.api.BrokersApi;
 
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
 
 BrokersApi apiInstance = new BrokersApi();
 try {
@@ -119,7 +149,7 @@ This endpoint does not need any parameter.
 
 ### Authorization
 
-No authorization required
+[Bearer](../README.md#Bearer)
 
 ### HTTP request headers
 
@@ -135,9 +165,19 @@ Get brokers for program
 ### Example
 ```java
 // Import classes:
+//import io.swagger.client.ApiClient;
 //import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
 //import io.swagger.client.api.BrokersApi;
 
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
 
 BrokersApi apiInstance = new BrokersApi();
 UUID programId = new UUID(); // UUID | 
@@ -162,7 +202,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[Bearer](../README.md#Bearer)
 
 ### HTTP request headers
 

@@ -39,37 +39,18 @@ public class ProgramCreateAssetPlatformInfo implements Parcelable
 		}
 	};
 
-	@SerializedName("maxEntryFee")
-	private Double maxEntryFee = null;
-
 	@SerializedName("maxSuccessFee")
 	private Double maxSuccessFee = null;
+
+	@SerializedName("maxManagementFee")
+	private Double maxManagementFee = null;
 
 	public ProgramCreateAssetPlatformInfo() {
 	}
 
 	ProgramCreateAssetPlatformInfo(Parcel in) {
-		maxEntryFee = (Double) in.readValue(null);
 		maxSuccessFee = (Double) in.readValue(null);
-	}
-
-	public ProgramCreateAssetPlatformInfo maxEntryFee(Double maxEntryFee) {
-		this.maxEntryFee = maxEntryFee;
-		return this;
-	}
-
-	/**
-	 * Get maxEntryFee
-	 *
-	 * @return maxEntryFee
-	 **/
-	@Schema(description = "")
-	public Double getMaxEntryFee() {
-		return maxEntryFee;
-	}
-
-	public void setMaxEntryFee(Double maxEntryFee) {
-		this.maxEntryFee = maxEntryFee;
+		maxManagementFee = (Double) in.readValue(null);
 	}
 
 	public ProgramCreateAssetPlatformInfo maxSuccessFee(Double maxSuccessFee) {
@@ -91,6 +72,25 @@ public class ProgramCreateAssetPlatformInfo implements Parcelable
 		this.maxSuccessFee = maxSuccessFee;
 	}
 
+	public ProgramCreateAssetPlatformInfo maxManagementFee(Double maxManagementFee) {
+		this.maxManagementFee = maxManagementFee;
+		return this;
+	}
+
+	/**
+	 * Get maxManagementFee
+	 *
+	 * @return maxManagementFee
+	 **/
+	@Schema(description = "")
+	public Double getMaxManagementFee() {
+		return maxManagementFee;
+	}
+
+	public void setMaxManagementFee(Double maxManagementFee) {
+		this.maxManagementFee = maxManagementFee;
+	}
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -100,13 +100,13 @@ public class ProgramCreateAssetPlatformInfo implements Parcelable
 			return false;
 		}
 		ProgramCreateAssetPlatformInfo programCreateAssetPlatformInfo = (ProgramCreateAssetPlatformInfo) o;
-		return Objects.equals(this.maxEntryFee, programCreateAssetPlatformInfo.maxEntryFee) &&
-				Objects.equals(this.maxSuccessFee, programCreateAssetPlatformInfo.maxSuccessFee);
+		return Objects.equals(this.maxSuccessFee, programCreateAssetPlatformInfo.maxSuccessFee) &&
+				Objects.equals(this.maxManagementFee, programCreateAssetPlatformInfo.maxManagementFee);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(maxEntryFee, maxSuccessFee);
+		return Objects.hash(maxSuccessFee, maxManagementFee);
 	}
 
 	@Override
@@ -114,8 +114,8 @@ public class ProgramCreateAssetPlatformInfo implements Parcelable
 		StringBuilder sb = new StringBuilder();
 		sb.append("class ProgramCreateAssetPlatformInfo {\n");
 
-		sb.append("    maxEntryFee: ").append(toIndentedString(maxEntryFee)).append("\n");
 		sb.append("    maxSuccessFee: ").append(toIndentedString(maxSuccessFee)).append("\n");
+		sb.append("    maxManagementFee: ").append(toIndentedString(maxManagementFee)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}
@@ -132,8 +132,8 @@ public class ProgramCreateAssetPlatformInfo implements Parcelable
 	}
 
 	public void writeToParcel(Parcel out, int flags) {
-		out.writeValue(maxEntryFee);
 		out.writeValue(maxSuccessFee);
+		out.writeValue(maxManagementFee);
 	}
 
 	public int describeContents() {

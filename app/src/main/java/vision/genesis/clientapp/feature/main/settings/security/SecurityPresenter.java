@@ -53,24 +53,29 @@ public class SecurityPresenter extends MvpPresenter<SecurityView>
 
 	@Override
 	public void onDestroy() {
-		if (settingsSubscription != null)
+		if (settingsSubscription != null) {
 			settingsSubscription.unsubscribe();
+		}
 
 		super.onDestroy();
 	}
 
 	public void onTwoFactorClicked() {
-		if (settingsModel.isTwoFactorEnabled())
+		if (settingsModel.isTwoFactorEnabled()) {
 			getViewState().showDisableTfaActivity();
-		else
+		}
+		else {
 			getViewState().showSetupTfaActivity();
+		}
 	}
 
 	public void onPinCodeClicked() {
-		if (!settingsModel.isPinCodeEnabled())
+		if (!settingsModel.isPinCodeEnabled()) {
 			getViewState().showSetPinActivity();
-		else
+		}
+		else {
 			getViewState().showDisablePin();
+		}
 	}
 
 	public void onFingerprintClicked() {
@@ -79,10 +84,12 @@ public class SecurityPresenter extends MvpPresenter<SecurityView>
 		}
 		else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
 			if (authManager.hasEnrolledFingerprints()) {
-				if (!settingsModel.isFingerprintEnabled())
+				if (!settingsModel.isFingerprintEnabled()) {
 					getViewState().showEnableFingerprint();
-				else
+				}
+				else {
 					getViewState().showDisableFingerprint();
+				}
 			}
 			else {
 				getViewState().showDialogMessage(context.getString(R.string.error_no_fingerprints));

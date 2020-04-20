@@ -10,6 +10,7 @@ import java.util.Locale;
 import javax.inject.Inject;
 
 import io.swagger.client.model.AbsoluteProfitChart;
+import io.swagger.client.model.Currency;
 import io.swagger.client.model.ProgramFollowDetailsFull;
 import io.swagger.client.model.ProgramProfitPercentCharts;
 import io.swagger.client.model.SimpleChartPoint;
@@ -61,9 +62,9 @@ public class ProgramProfitPresenter extends MvpPresenter<ProgramProfitView> impl
 
 	private ProgramFollowDetailsFull details;
 
-	private List<Object> currencies = new ArrayList<>();
+	private List<Currency> currencies = new ArrayList<>();
 
-	private CurrencyEnum baseCurrency;
+	private Currency baseCurrency;
 
 	@Override
 	protected void onFirstViewAttach() {
@@ -115,7 +116,7 @@ public class ProgramProfitPresenter extends MvpPresenter<ProgramProfitView> impl
 	}
 
 	private void baseCurrencyChangedHandler(CurrencyEnum baseCurrency) {
-		this.baseCurrency = baseCurrency;
+		this.baseCurrency = Currency.fromValue(baseCurrency.getValue());
 		updateAll();
 	}
 
@@ -126,8 +127,8 @@ public class ProgramProfitPresenter extends MvpPresenter<ProgramProfitView> impl
 			}
 
 			absSubscription = (details.getProgramDetails() != null
-					? programsManager.getProfitAbsoluteChart(details.getId(), chartDateRange, 100, details.getTradingAccountInfo().getCurrency().getValue())
-					: followsManager.getProfitAbsoluteChart(details.getId(), chartDateRange, 100, details.getTradingAccountInfo().getCurrency().getValue()))
+					? programsManager.getProfitAbsoluteChart(details.getId(), chartDateRange, 100, details.getTradingAccountInfo().getCurrency())
+					: followsManager.getProfitAbsoluteChart(details.getId(), chartDateRange, 100, details.getTradingAccountInfo().getCurrency()))
 					.observeOn(AndroidSchedulers.mainThread())
 					.subscribeOn(Schedulers.io())
 					.subscribe(this::handleGetAbsSuccess,
@@ -160,8 +161,8 @@ public class ProgramProfitPresenter extends MvpPresenter<ProgramProfitView> impl
 			currencies.add(baseCurrency);
 
 			percentSubscription = (details.getProgramDetails() != null
-					? programsManager.getProfitPercentChart(details.getId(), chartDateRange, 100, baseCurrency.getValue(), currencies)
-					: followsManager.getProfitPercentChart(details.getId(), chartDateRange, 100, baseCurrency.getValue(), currencies))
+					? programsManager.getProfitPercentChart(details.getId(), chartDateRange, 100, baseCurrency, currencies)
+					: followsManager.getProfitPercentChart(details.getId(), chartDateRange, 100, baseCurrency, currencies))
 					.observeOn(AndroidSchedulers.mainThread())
 					.subscribeOn(Schedulers.io())
 					.subscribe(this::handleGetPercentSuccess,

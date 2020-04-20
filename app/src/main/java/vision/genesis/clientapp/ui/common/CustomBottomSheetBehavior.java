@@ -29,10 +29,6 @@ import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.view.ViewParent;
 
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.ref.WeakReference;
-
 import androidx.annotation.IntDef;
 import androidx.annotation.NonNull;
 import androidx.annotation.RestrictTo;
@@ -42,6 +38,11 @@ import androidx.core.math.MathUtils;
 import androidx.core.view.ViewCompat;
 import androidx.customview.view.AbsSavedState;
 import androidx.customview.widget.ViewDragHelper;
+
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.ref.WeakReference;
+
 import vision.genesis.clientapp.R;
 
 import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP;

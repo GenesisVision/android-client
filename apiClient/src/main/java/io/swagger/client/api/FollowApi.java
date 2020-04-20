@@ -7,10 +7,14 @@ import java.util.UUID;
 
 import io.swagger.client.model.AbsoluteProfitChart;
 import io.swagger.client.model.AccountBalanceChart;
-import io.swagger.client.model.ItemsViewModelFollowDetailsListItem;
-import io.swagger.client.model.ItemsViewModelSignalSubscription;
+import io.swagger.client.model.Currency;
+import io.swagger.client.model.FollowDetailsListItemItemsViewModel;
+import io.swagger.client.model.FollowFilterSorting;
+import io.swagger.client.model.ImageQuality;
 import io.swagger.client.model.ProgramFollowDetailsFull;
 import io.swagger.client.model.ProgramProfitPercentCharts;
+import io.swagger.client.model.SignalSubscriptionItemsViewModel;
+import io.swagger.client.model.TradeSorting;
 import io.swagger.client.model.TradesSignalViewModel;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
@@ -21,13 +25,24 @@ public interface FollowApi
 	/**
 	 * Add to favorites
 	 *
-	 * @param id            (required)
-	 * @param authorization JWT access token (required)
+	 * @param id (required)
 	 * @return Call&lt;Void&gt;
 	 */
 	@POST("v2.0/follow/{id}/favorite/add")
 	Observable<Void> addToFavorites(
-			@retrofit2.http.Path("id") UUID id, @retrofit2.http.Header("Authorization") String authorization
+			@retrofit2.http.Path("id") UUID id
+	);
+
+	/**
+	 * Manually close trade by symbol for asset
+	 *
+	 * @param id     (required)
+	 * @param symbol (optional)
+	 * @return Call&lt;Void&gt;
+	 */
+	@POST("v2.0/follow/{id}/trades/close")
+	Observable<Void> closeAssetTrade(
+			@retrofit2.http.Path("id") UUID id, @retrofit2.http.Query("Symbol") String symbol
 	);
 
 	/**
@@ -42,7 +57,7 @@ public interface FollowApi
 	 */
 	@GET("v2.0/follow/{id}/charts/profit/absolute")
 	Observable<AbsoluteProfitChart> getAbsoluteProfitChart(
-			@retrofit2.http.Path("id") UUID id, @retrofit2.http.Query("DateFrom") DateTime dateFrom, @retrofit2.http.Query("DateTo") DateTime dateTo, @retrofit2.http.Query("MaxPointCount") Integer maxPointCount, @retrofit2.http.Query("Currency") String currency
+			@retrofit2.http.Path("id") UUID id, @retrofit2.http.Query("DateFrom") DateTime dateFrom, @retrofit2.http.Query("DateTo") DateTime dateTo, @retrofit2.http.Query("MaxPointCount") Integer maxPointCount, @retrofit2.http.Query("Currency") Currency currency
 	);
 
 	/**
@@ -62,7 +77,7 @@ public interface FollowApi
 	 */
 	@GET("v2.0/follow/{id}/trades")
 	Observable<TradesSignalViewModel> getAssetTrades(
-			@retrofit2.http.Path("id") UUID id, @retrofit2.http.Query("DateFrom") DateTime dateFrom, @retrofit2.http.Query("DateTo") DateTime dateTo, @retrofit2.http.Query("Symbol") String symbol, @retrofit2.http.Query("Sorting") String sorting, @retrofit2.http.Query("AccountId") UUID accountId, @retrofit2.http.Query("AccountCurrency") String accountCurrency, @retrofit2.http.Query("IsFollow") Boolean isFollow, @retrofit2.http.Query("Skip") Integer skip, @retrofit2.http.Query("Take") Integer take
+			@retrofit2.http.Path("id") UUID id, @retrofit2.http.Query("DateFrom") DateTime dateFrom, @retrofit2.http.Query("DateTo") DateTime dateTo, @retrofit2.http.Query("Symbol") String symbol, @retrofit2.http.Query("Sorting") TradeSorting sorting, @retrofit2.http.Query("AccountId") UUID accountId, @retrofit2.http.Query("AccountCurrency") Currency accountCurrency, @retrofit2.http.Query("IsFollow") Boolean isFollow, @retrofit2.http.Query("Skip") Integer skip, @retrofit2.http.Query("Take") Integer take
 	);
 
 	/**
@@ -77,25 +92,24 @@ public interface FollowApi
 	 */
 	@GET("v2.0/follow/{id}/charts/balance")
 	Observable<AccountBalanceChart> getBalanceChart(
-			@retrofit2.http.Path("id") UUID id, @retrofit2.http.Query("DateFrom") DateTime dateFrom, @retrofit2.http.Query("DateTo") DateTime dateTo, @retrofit2.http.Query("MaxPointCount") Integer maxPointCount, @retrofit2.http.Query("Currency") String currency
+			@retrofit2.http.Path("id") UUID id, @retrofit2.http.Query("DateFrom") DateTime dateFrom, @retrofit2.http.Query("DateTo") DateTime dateTo, @retrofit2.http.Query("MaxPointCount") Integer maxPointCount, @retrofit2.http.Query("Currency") Currency currency
 	);
 
 	/**
 	 * Follow asset details
 	 *
-	 * @param id            (required)
-	 * @param authorization (optional)
+	 * @param id          (required)
+	 * @param logoQuality (optional)
 	 * @return Call&lt;ProgramFollowDetailsFull&gt;
 	 */
 	@GET("v2.0/follow/{id}")
 	Observable<ProgramFollowDetailsFull> getFollowAssetDetails(
-			@retrofit2.http.Path("id") String id, @retrofit2.http.Header("Authorization") String authorization
+			@retrofit2.http.Path("id") String id, @retrofit2.http.Query("logoQuality") ImageQuality logoQuality
 	);
 
 	/**
 	 * Follow assets
 	 *
-	 * @param authorization    (optional)
 	 * @param sorting          (optional)
 	 * @param showIn           (optional)
 	 * @param tags             (optional)
@@ -108,44 +122,41 @@ public interface FollowApi
 	 * @param showFavorites    (optional)
 	 * @param skip             (optional)
 	 * @param take             (optional)
-	 * @return Call&lt;ItemsViewModelFollowDetailsListItem&gt;
+	 * @return Call&lt;FollowDetailsListItemItemsViewModel&gt;
 	 */
 	@GET("v2.0/follow")
-	Observable<ItemsViewModelFollowDetailsListItem> getFollowAssets(
-			@retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("Sorting") String sorting, @retrofit2.http.Query("ShowIn") String showIn, @retrofit2.http.Query("Tags") List<String> tags, @retrofit2.http.Query("DateFrom") DateTime dateFrom, @retrofit2.http.Query("DateTo") DateTime dateTo, @retrofit2.http.Query("ChartPointsCount") Integer chartPointsCount, @retrofit2.http.Query("FacetId") String facetId, @retrofit2.http.Query("Mask") String mask, @retrofit2.http.Query("OwnerId") UUID ownerId, @retrofit2.http.Query("ShowFavorites") Boolean showFavorites, @retrofit2.http.Query("Skip") Integer skip, @retrofit2.http.Query("Take") Integer take
+	Observable<FollowDetailsListItemItemsViewModel> getFollowAssets(
+			@retrofit2.http.Query("Sorting") FollowFilterSorting sorting, @retrofit2.http.Query("ShowIn") Currency showIn, @retrofit2.http.Query("Tags") List<String> tags, @retrofit2.http.Query("DateFrom") DateTime dateFrom, @retrofit2.http.Query("DateTo") DateTime dateTo, @retrofit2.http.Query("ChartPointsCount") Integer chartPointsCount, @retrofit2.http.Query("FacetId") String facetId, @retrofit2.http.Query("Mask") String mask, @retrofit2.http.Query("OwnerId") UUID ownerId, @retrofit2.http.Query("ShowFavorites") Boolean showFavorites, @retrofit2.http.Query("Skip") Integer skip, @retrofit2.http.Query("Take") Integer take
 	);
 
 	/**
 	 * Get subscriptions to current asset
 	 *
-	 * @param id            (required)
-	 * @param authorization JWT access token (required)
-	 * @param onlyActive    (optional)
-	 * @return Call&lt;ItemsViewModelSignalSubscription&gt;
+	 * @param id         (required)
+	 * @param onlyActive (optional)
+	 * @return Call&lt;SignalSubscriptionItemsViewModel&gt;
 	 */
 	@POST("v2.0/follow/{id}/subscriptions")
-	Observable<ItemsViewModelSignalSubscription> getFollowSubscriptionsForAsset(
-			@retrofit2.http.Path("id") UUID id, @retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("onlyActive") Boolean onlyActive
+	Observable<SignalSubscriptionItemsViewModel> getFollowSubscriptionsForAsset(
+			@retrofit2.http.Path("id") UUID id, @retrofit2.http.Query("onlyActive") Boolean onlyActive
 	);
 
 	/**
 	 * Get subscriptions for my trading account
 	 *
-	 * @param id            (required)
-	 * @param authorization JWT access token (required)
-	 * @param onlyActive    (optional)
-	 * @return Call&lt;ItemsViewModelSignalSubscription&gt;
+	 * @param id         (required)
+	 * @param onlyActive (optional)
+	 * @return Call&lt;SignalSubscriptionItemsViewModel&gt;
 	 */
 	@POST("v2.0/follow/account/own/{id}/subscriptions")
-	Observable<ItemsViewModelSignalSubscription> getFollowSubscriptionsForOwnAccount(
-			@retrofit2.http.Path("id") UUID id, @retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("onlyActive") Boolean onlyActive
+	Observable<SignalSubscriptionItemsViewModel> getFollowSubscriptionsForOwnAccount(
+			@retrofit2.http.Path("id") UUID id, @retrofit2.http.Query("onlyActive") Boolean onlyActive
 	);
 
 	/**
 	 * Follow profit percent charts
 	 *
 	 * @param id            (required)
-	 * @param authorization (optional)
 	 * @param dateFrom      (optional)
 	 * @param dateTo        (optional)
 	 * @param maxPointCount (optional)
@@ -155,19 +166,18 @@ public interface FollowApi
 	 */
 	@GET("v2.0/follow/{id}/charts/profit/percent")
 	Observable<ProgramProfitPercentCharts> getProfitPercentCharts(
-			@retrofit2.http.Path("id") UUID id, @retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Query("DateFrom") DateTime dateFrom, @retrofit2.http.Query("DateTo") DateTime dateTo, @retrofit2.http.Query("MaxPointCount") Integer maxPointCount, @retrofit2.http.Query("Currency") String currency, @retrofit2.http.Query("currencies") List<Object> currencies
+			@retrofit2.http.Path("id") UUID id, @retrofit2.http.Query("DateFrom") DateTime dateFrom, @retrofit2.http.Query("DateTo") DateTime dateTo, @retrofit2.http.Query("MaxPointCount") Integer maxPointCount, @retrofit2.http.Query("Currency") Currency currency, @retrofit2.http.Query("currencies") List<Currency> currencies
 	);
 
 	/**
 	 * Remove from favorites
 	 *
-	 * @param id            (required)
-	 * @param authorization JWT access token (required)
+	 * @param id (required)
 	 * @return Call&lt;Void&gt;
 	 */
 	@POST("v2.0/follow/{id}/favorite/remove")
 	Observable<Void> removeFromFavorites(
-			@retrofit2.http.Path("id") UUID id, @retrofit2.http.Header("Authorization") String authorization
+			@retrofit2.http.Path("id") UUID id
 	);
 
 }

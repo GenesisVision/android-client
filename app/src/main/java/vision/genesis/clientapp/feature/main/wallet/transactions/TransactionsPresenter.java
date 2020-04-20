@@ -12,8 +12,8 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import io.swagger.client.model.ItemsViewModelTransactionViewModel;
 import io.swagger.client.model.TransactionViewModel;
+import io.swagger.client.model.TransactionViewModelItemsViewModel;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -116,7 +116,7 @@ public class TransactionsPresenter extends MvpPresenter<TransactionsView>
 		}
 	}
 
-	private void handleGetTransactionsResponse(ItemsViewModelTransactionViewModel model) {
+	private void handleGetTransactionsResponse(TransactionViewModelItemsViewModel model) {
 		transactionsSubscription.unsubscribe();
 		getViewState().showProgress(false);
 

@@ -1,6 +1,6 @@
 # WalletApi
 
-All URIs are relative to */api*
+All URIs are relative to *https://red.genesis.vision/api*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -15,29 +15,36 @@ Method | HTTP request | Description
 [**getWalletAvailable**](WalletApi.md#getWalletAvailable) | **GET** v2.0/wallet/{currency}/available | Wallet available
 [**getWalletSummary**](WalletApi.md#getWalletSummary) | **GET** v2.0/wallet/{currency} | Wallet summary
 [**resendWithdrawalRequestEmail**](WalletApi.md#resendWithdrawalRequestEmail) | **POST** v2.0/wallet/withdraw/request/resend/{txId} | 
-[**switchPayFeeInGvtOff**](WalletApi.md#switchPayFeeInGvtOff) | **POST** v2.0/wallet/paygvtfee/off | Disable paying platform fees with GVT
-[**switchPayFeeInGvtOn**](WalletApi.md#switchPayFeeInGvtOn) | **POST** v2.0/wallet/paygvtfee/on | Enable paying platform fees with GVT
 [**transfer**](WalletApi.md#transfer) | **POST** v2.0/wallet/transfer | Transfer money
 [**updateDepositWallets**](WalletApi.md#updateDepositWallets) | **POST** v2.0/wallet/deposit/update | Update deposit wallets
 
 <a name="cancelWithdrawalRequest"></a>
 # **cancelWithdrawalRequest**
-> Void cancelWithdrawalRequest(txId, authorization)
+> Void cancelWithdrawalRequest(txId)
 
 
 
 ### Example
 ```java
 // Import classes:
+//import io.swagger.client.ApiClient;
 //import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
 //import io.swagger.client.api.WalletApi;
 
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
 
 WalletApi apiInstance = new WalletApi();
 UUID txId = new UUID(); // UUID | 
-String authorization = "authorization_example"; // String | JWT access token
 try {
-    Void result = apiInstance.cancelWithdrawalRequest(txId, authorization);
+    Void result = apiInstance.cancelWithdrawalRequest(txId);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling WalletApi#cancelWithdrawalRequest");
@@ -50,7 +57,6 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **txId** | [**UUID**](.md)|  |
- **authorization** | **String**| JWT access token |
 
 ### Return type
 
@@ -58,7 +64,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[Bearer](../README.md#Bearer)
 
 ### HTTP request headers
 
@@ -74,9 +80,19 @@ No authorization required
 ### Example
 ```java
 // Import classes:
+//import io.swagger.client.ApiClient;
 //import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
 //import io.swagger.client.api.WalletApi;
 
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
 
 WalletApi apiInstance = new WalletApi();
 UUID requestId = new UUID(); // UUID | 
@@ -103,7 +119,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[Bearer](../README.md#Bearer)
 
 ### HTTP request headers
 
@@ -112,22 +128,31 @@ No authorization required
 
 <a name="createWithdrawalRequest"></a>
 # **createWithdrawalRequest**
-> Void createWithdrawalRequest(authorization, body)
+> Void createWithdrawalRequest(body)
 
 
 
 ### Example
 ```java
 // Import classes:
+//import io.swagger.client.ApiClient;
 //import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
 //import io.swagger.client.api.WalletApi;
 
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
 
 WalletApi apiInstance = new WalletApi();
-String authorization = "authorization_example"; // String | JWT access token
 CreateWithdrawalRequestModel body = new CreateWithdrawalRequestModel(); // CreateWithdrawalRequestModel | 
 try {
-    Void result = apiInstance.createWithdrawalRequest(authorization, body);
+    Void result = apiInstance.createWithdrawalRequest(body);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling WalletApi#createWithdrawalRequest");
@@ -139,7 +164,6 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **String**| JWT access token |
  **body** | [**CreateWithdrawalRequestModel**](CreateWithdrawalRequestModel.md)|  | [optional]
 
 ### Return type
@@ -148,31 +172,40 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[Bearer](../README.md#Bearer)
 
 ### HTTP request headers
 
- - **Content-Type**: application/json-patch+json, application/json, text/json, application/_*+json
+ - **Content-Type**: application/json, text/json, application/_*+json
  - **Accept**: text/plain, application/json, text/json
 
 <a name="getAccountsAvailable"></a>
 # **getAccountsAvailable**
-> WalletMultiAvailable getAccountsAvailable(currency, authorization)
+> WalletMultiAvailable getAccountsAvailable(currency)
 
 Accounts available
 
 ### Example
 ```java
 // Import classes:
+//import io.swagger.client.ApiClient;
 //import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
 //import io.swagger.client.api.WalletApi;
 
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
 
 WalletApi apiInstance = new WalletApi();
-String currency = "currency_example"; // String | 
-String authorization = "authorization_example"; // String | JWT access token
+Currency currency = new Currency(); // Currency | 
 try {
-    WalletMultiAvailable result = apiInstance.getAccountsAvailable(currency, authorization);
+    WalletMultiAvailable result = apiInstance.getAccountsAvailable(currency);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling WalletApi#getAccountsAvailable");
@@ -184,8 +217,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **currency** | **String**|  | [enum: BTC, ETH, USDT, USD, GVT, Undefined, ADA, XRP, BCH, LTC, DOGE, BNB, EUR]
- **authorization** | **String**| JWT access token |
+ **currency** | [**Currency**](.md)|  |
 
 ### Return type
 
@@ -193,7 +225,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[Bearer](../README.md#Bearer)
 
 ### HTTP request headers
 
@@ -202,21 +234,30 @@ No authorization required
 
 <a name="getGMCommissionData"></a>
 # **getGMCommissionData**
-> UserCommissionData getGMCommissionData(authorization)
+> UserCommissionData getGMCommissionData()
 
 GenesisMarkets commission data
 
 ### Example
 ```java
 // Import classes:
+//import io.swagger.client.ApiClient;
 //import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
 //import io.swagger.client.api.WalletApi;
 
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
 
 WalletApi apiInstance = new WalletApi();
-String authorization = "authorization_example"; // String | JWT access token
 try {
-    UserCommissionData result = apiInstance.getGMCommissionData(authorization);
+    UserCommissionData result = apiInstance.getGMCommissionData();
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling WalletApi#getGMCommissionData");
@@ -225,10 +266,7 @@ try {
 ```
 
 ### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **authorization** | **String**| JWT access token |
+This endpoint does not need any parameter.
 
 ### Return type
 
@@ -236,7 +274,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[Bearer](../README.md#Bearer)
 
 ### HTTP request headers
 
@@ -245,27 +283,36 @@ No authorization required
 
 <a name="getTransactionsExternal"></a>
 # **getTransactionsExternal**
-> ItemsViewModelTransactionViewModel getTransactionsExternal(authorization, transactionType, dateFrom, dateTo, currency, skip, take)
+> TransactionViewModelItemsViewModel getTransactionsExternal(transactionType, dateFrom, dateTo, currency, skip, take)
 
 External transactions
 
 ### Example
 ```java
 // Import classes:
+//import io.swagger.client.ApiClient;
 //import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
 //import io.swagger.client.api.WalletApi;
 
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
 
 WalletApi apiInstance = new WalletApi();
-String authorization = "authorization_example"; // String | JWT access token
-String transactionType = "transactionType_example"; // String | 
+TransactionExternalType transactionType = new TransactionExternalType(); // TransactionExternalType | 
 DateTime dateFrom = new DateTime(); // DateTime | 
 DateTime dateTo = new DateTime(); // DateTime | 
-String currency = "currency_example"; // String | 
+Currency currency = new Currency(); // Currency | 
 Integer skip = 56; // Integer | 
 Integer take = 56; // Integer | 
 try {
-    ItemsViewModelTransactionViewModel result = apiInstance.getTransactionsExternal(authorization, transactionType, dateFrom, dateTo, currency, skip, take);
+    TransactionViewModelItemsViewModel result = apiInstance.getTransactionsExternal(transactionType, dateFrom, dateTo, currency, skip, take);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling WalletApi#getTransactionsExternal");
@@ -277,21 +324,20 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **String**| JWT access token |
- **transactionType** | **String**|  | [optional] [enum: All, Withdrawal, Deposit, Platform]
+ **transactionType** | [**TransactionExternalType**](.md)|  | [optional]
  **dateFrom** | **DateTime**|  | [optional]
  **dateTo** | **DateTime**|  | [optional]
- **currency** | **String**|  | [optional] [enum: BTC, ETH, USDT, USD, GVT, Undefined, ADA, XRP, BCH, LTC, DOGE, BNB, EUR]
+ **currency** | [**Currency**](.md)|  | [optional]
  **skip** | **Integer**|  | [optional]
  **take** | **Integer**|  | [optional]
 
 ### Return type
 
-[**ItemsViewModelTransactionViewModel**](ItemsViewModelTransactionViewModel.md)
+[**TransactionViewModelItemsViewModel**](TransactionViewModelItemsViewModel.md)
 
 ### Authorization
 
-No authorization required
+[Bearer](../README.md#Bearer)
 
 ### HTTP request headers
 
@@ -300,27 +346,36 @@ No authorization required
 
 <a name="getTransactionsInternal"></a>
 # **getTransactionsInternal**
-> ItemsViewModelTransactionViewModel getTransactionsInternal(authorization, transactionType, dateFrom, dateTo, currency, skip, take)
+> TransactionViewModelItemsViewModel getTransactionsInternal(transactionType, dateFrom, dateTo, currency, skip, take)
 
 Internal transactions
 
 ### Example
 ```java
 // Import classes:
+//import io.swagger.client.ApiClient;
 //import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
 //import io.swagger.client.api.WalletApi;
 
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
 
 WalletApi apiInstance = new WalletApi();
-String authorization = "authorization_example"; // String | JWT access token
-String transactionType = "transactionType_example"; // String | 
+TransactionInternalType transactionType = new TransactionInternalType(); // TransactionInternalType | 
 DateTime dateFrom = new DateTime(); // DateTime | 
 DateTime dateTo = new DateTime(); // DateTime | 
-String currency = "currency_example"; // String | 
+Currency currency = new Currency(); // Currency | 
 Integer skip = 56; // Integer | 
 Integer take = 56; // Integer | 
 try {
-    ItemsViewModelTransactionViewModel result = apiInstance.getTransactionsInternal(authorization, transactionType, dateFrom, dateTo, currency, skip, take);
+    TransactionViewModelItemsViewModel result = apiInstance.getTransactionsInternal(transactionType, dateFrom, dateTo, currency, skip, take);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling WalletApi#getTransactionsInternal");
@@ -332,21 +387,20 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **String**| JWT access token |
- **transactionType** | **String**|  | [optional] [enum: All, Investment, Withdrawal, Conversion, Commission, Program, Fund, Follow, TradingAccounts, AgentReward]
+ **transactionType** | [**TransactionInternalType**](.md)|  | [optional]
  **dateFrom** | **DateTime**|  | [optional]
  **dateTo** | **DateTime**|  | [optional]
- **currency** | **String**|  | [optional] [enum: BTC, ETH, USDT, USD, GVT, Undefined, ADA, XRP, BCH, LTC, DOGE, BNB, EUR]
+ **currency** | [**Currency**](.md)|  | [optional]
  **skip** | **Integer**|  | [optional]
  **take** | **Integer**|  | [optional]
 
 ### Return type
 
-[**ItemsViewModelTransactionViewModel**](ItemsViewModelTransactionViewModel.md)
+[**TransactionViewModelItemsViewModel**](TransactionViewModelItemsViewModel.md)
 
 ### Authorization
 
-No authorization required
+[Bearer](../README.md#Bearer)
 
 ### HTTP request headers
 
@@ -355,21 +409,30 @@ No authorization required
 
 <a name="getUserWithdrawalSummary"></a>
 # **getUserWithdrawalSummary**
-> WithdrawalSummary getUserWithdrawalSummary(authorization)
+> WithdrawalSummary getUserWithdrawalSummary()
 
 
 
 ### Example
 ```java
 // Import classes:
+//import io.swagger.client.ApiClient;
 //import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
 //import io.swagger.client.api.WalletApi;
 
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
 
 WalletApi apiInstance = new WalletApi();
-String authorization = "authorization_example"; // String | JWT access token
 try {
-    WithdrawalSummary result = apiInstance.getUserWithdrawalSummary(authorization);
+    WithdrawalSummary result = apiInstance.getUserWithdrawalSummary();
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling WalletApi#getUserWithdrawalSummary");
@@ -378,10 +441,7 @@ try {
 ```
 
 ### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **authorization** | **String**| JWT access token |
+This endpoint does not need any parameter.
 
 ### Return type
 
@@ -389,7 +449,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[Bearer](../README.md#Bearer)
 
 ### HTTP request headers
 
@@ -398,22 +458,31 @@ No authorization required
 
 <a name="getWalletAvailable"></a>
 # **getWalletAvailable**
-> WalletMultiAvailable getWalletAvailable(currency, authorization)
+> WalletMultiAvailable getWalletAvailable(currency)
 
 Wallet available
 
 ### Example
 ```java
 // Import classes:
+//import io.swagger.client.ApiClient;
 //import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
 //import io.swagger.client.api.WalletApi;
 
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
 
 WalletApi apiInstance = new WalletApi();
-String currency = "currency_example"; // String | 
-String authorization = "authorization_example"; // String | JWT access token
+Currency currency = new Currency(); // Currency | 
 try {
-    WalletMultiAvailable result = apiInstance.getWalletAvailable(currency, authorization);
+    WalletMultiAvailable result = apiInstance.getWalletAvailable(currency);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling WalletApi#getWalletAvailable");
@@ -425,8 +494,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **currency** | **String**|  | [enum: BTC, ETH, USDT, USD, GVT, Undefined, ADA, XRP, BCH, LTC, DOGE, BNB, EUR]
- **authorization** | **String**| JWT access token |
+ **currency** | [**Currency**](.md)|  |
 
 ### Return type
 
@@ -434,7 +502,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[Bearer](../README.md#Bearer)
 
 ### HTTP request headers
 
@@ -443,22 +511,31 @@ No authorization required
 
 <a name="getWalletSummary"></a>
 # **getWalletSummary**
-> WalletSummary getWalletSummary(currency, authorization)
+> WalletSummary getWalletSummary(currency)
 
 Wallet summary
 
 ### Example
 ```java
 // Import classes:
+//import io.swagger.client.ApiClient;
 //import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
 //import io.swagger.client.api.WalletApi;
 
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
 
 WalletApi apiInstance = new WalletApi();
-String currency = "currency_example"; // String | 
-String authorization = "authorization_example"; // String | JWT access token
+Currency currency = new Currency(); // Currency | 
 try {
-    WalletSummary result = apiInstance.getWalletSummary(currency, authorization);
+    WalletSummary result = apiInstance.getWalletSummary(currency);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling WalletApi#getWalletSummary");
@@ -470,8 +547,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **currency** | **String**|  | [enum: BTC, ETH, USDT, USD, GVT, Undefined, ADA, XRP, BCH, LTC, DOGE, BNB, EUR]
- **authorization** | **String**| JWT access token |
+ **currency** | [**Currency**](.md)|  |
 
 ### Return type
 
@@ -479,7 +555,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[Bearer](../README.md#Bearer)
 
 ### HTTP request headers
 
@@ -488,22 +564,31 @@ No authorization required
 
 <a name="resendWithdrawalRequestEmail"></a>
 # **resendWithdrawalRequestEmail**
-> Void resendWithdrawalRequestEmail(txId, authorization)
+> Void resendWithdrawalRequestEmail(txId)
 
 
 
 ### Example
 ```java
 // Import classes:
+//import io.swagger.client.ApiClient;
 //import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
 //import io.swagger.client.api.WalletApi;
 
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
 
 WalletApi apiInstance = new WalletApi();
 UUID txId = new UUID(); // UUID | 
-String authorization = "authorization_example"; // String | JWT access token
 try {
-    Void result = apiInstance.resendWithdrawalRequestEmail(txId, authorization);
+    Void result = apiInstance.resendWithdrawalRequestEmail(txId);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling WalletApi#resendWithdrawalRequestEmail");
@@ -516,7 +601,6 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **txId** | [**UUID**](.md)|  |
- **authorization** | **String**| JWT access token |
 
 ### Return type
 
@@ -524,93 +608,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: text/plain, application/json, text/json
-
-<a name="switchPayFeeInGvtOff"></a>
-# **switchPayFeeInGvtOff**
-> Void switchPayFeeInGvtOff(authorization)
-
-Disable paying platform fees with GVT
-
-### Example
-```java
-// Import classes:
-//import io.swagger.client.ApiException;
-//import io.swagger.client.api.WalletApi;
-
-
-WalletApi apiInstance = new WalletApi();
-String authorization = "authorization_example"; // String | JWT access token
-try {
-    Void result = apiInstance.switchPayFeeInGvtOff(authorization);
-    System.out.println(result);
-} catch (ApiException e) {
-    System.err.println("Exception when calling WalletApi#switchPayFeeInGvtOff");
-    e.printStackTrace();
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **authorization** | **String**| JWT access token |
-
-### Return type
-
-[**Void**](.md)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: text/plain, application/json, text/json
-
-<a name="switchPayFeeInGvtOn"></a>
-# **switchPayFeeInGvtOn**
-> Void switchPayFeeInGvtOn(authorization)
-
-Enable paying platform fees with GVT
-
-### Example
-```java
-// Import classes:
-//import io.swagger.client.ApiException;
-//import io.swagger.client.api.WalletApi;
-
-
-WalletApi apiInstance = new WalletApi();
-String authorization = "authorization_example"; // String | JWT access token
-try {
-    Void result = apiInstance.switchPayFeeInGvtOn(authorization);
-    System.out.println(result);
-} catch (ApiException e) {
-    System.err.println("Exception when calling WalletApi#switchPayFeeInGvtOn");
-    e.printStackTrace();
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **authorization** | **String**| JWT access token |
-
-### Return type
-
-[**Void**](.md)
-
-### Authorization
-
-No authorization required
+[Bearer](../README.md#Bearer)
 
 ### HTTP request headers
 
@@ -619,22 +617,31 @@ No authorization required
 
 <a name="transfer"></a>
 # **transfer**
-> Void transfer(authorization, body)
+> Void transfer(body)
 
 Transfer money
 
 ### Example
 ```java
 // Import classes:
+//import io.swagger.client.ApiClient;
 //import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
 //import io.swagger.client.api.WalletApi;
 
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
 
 WalletApi apiInstance = new WalletApi();
-String authorization = "authorization_example"; // String | JWT access token
 InternalTransferRequest body = new InternalTransferRequest(); // InternalTransferRequest | 
 try {
-    Void result = apiInstance.transfer(authorization, body);
+    Void result = apiInstance.transfer(body);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling WalletApi#transfer");
@@ -646,7 +653,6 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **String**| JWT access token |
  **body** | [**InternalTransferRequest**](InternalTransferRequest.md)|  | [optional]
 
 ### Return type
@@ -655,30 +661,39 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[Bearer](../README.md#Bearer)
 
 ### HTTP request headers
 
- - **Content-Type**: application/json-patch+json, application/json, text/json, application/_*+json
+ - **Content-Type**: application/json, text/json, application/_*+json
  - **Accept**: text/plain, application/json, text/json
 
 <a name="updateDepositWallets"></a>
 # **updateDepositWallets**
-> WalletDepositSummary updateDepositWallets(authorization)
+> WalletDepositSummary updateDepositWallets()
 
 Update deposit wallets
 
 ### Example
 ```java
 // Import classes:
+//import io.swagger.client.ApiClient;
 //import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
 //import io.swagger.client.api.WalletApi;
 
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
 
 WalletApi apiInstance = new WalletApi();
-String authorization = "authorization_example"; // String | JWT access token
 try {
-    WalletDepositSummary result = apiInstance.updateDepositWallets(authorization);
+    WalletDepositSummary result = apiInstance.updateDepositWallets();
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling WalletApi#updateDepositWallets");
@@ -687,10 +702,7 @@ try {
 ```
 
 ### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **authorization** | **String**| JWT access token |
+This endpoint does not need any parameter.
 
 ### Return type
 
@@ -698,7 +710,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[Bearer](../README.md#Bearer)
 
 ### HTTP request headers
 

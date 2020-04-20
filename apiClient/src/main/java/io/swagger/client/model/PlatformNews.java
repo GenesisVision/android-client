@@ -50,8 +50,8 @@ public class PlatformNews implements Parcelable
 	@SerializedName("body")
 	private String body = null;
 
-	@SerializedName("logo")
-	private String logo = null;
+	@SerializedName("logoUrl")
+	private String logoUrl = null;
 
 	@SerializedName("url")
 	private String url = null;
@@ -66,7 +66,7 @@ public class PlatformNews implements Parcelable
 		date = (DateTime) in.readValue(DateTime.class.getClassLoader());
 		title = (String) in.readValue(null);
 		body = (String) in.readValue(null);
-		logo = (String) in.readValue(null);
+		logoUrl = (String) in.readValue(null);
 		url = (String) in.readValue(null);
 		isHot = (Boolean) in.readValue(null);
 	}
@@ -128,23 +128,23 @@ public class PlatformNews implements Parcelable
 		this.body = body;
 	}
 
-	public PlatformNews logo(String logo) {
-		this.logo = logo;
+	public PlatformNews logoUrl(String logoUrl) {
+		this.logoUrl = logoUrl;
 		return this;
 	}
 
 	/**
-	 * Get logo
+	 * Get logoUrl
 	 *
-	 * @return logo
+	 * @return logoUrl
 	 **/
 	@Schema(description = "")
-	public String getLogo() {
-		return logo;
+	public String getLogoUrl() {
+		return logoUrl;
 	}
 
-	public void setLogo(String logo) {
-		this.logo = logo;
+	public void setLogoUrl(String logoUrl) {
+		this.logoUrl = logoUrl;
 	}
 
 	public PlatformNews url(String url) {
@@ -197,14 +197,14 @@ public class PlatformNews implements Parcelable
 		return Objects.equals(this.date, platformNews.date) &&
 				Objects.equals(this.title, platformNews.title) &&
 				Objects.equals(this.body, platformNews.body) &&
-				Objects.equals(this.logo, platformNews.logo) &&
+				Objects.equals(this.logoUrl, platformNews.logoUrl) &&
 				Objects.equals(this.url, platformNews.url) &&
 				Objects.equals(this.isHot, platformNews.isHot);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(date, title, body, logo, url, isHot);
+		return Objects.hash(date, title, body, logoUrl, url, isHot);
 	}
 
 	@Override
@@ -215,7 +215,7 @@ public class PlatformNews implements Parcelable
 		sb.append("    date: ").append(toIndentedString(date)).append("\n");
 		sb.append("    title: ").append(toIndentedString(title)).append("\n");
 		sb.append("    body: ").append(toIndentedString(body)).append("\n");
-		sb.append("    logo: ").append(toIndentedString(logo)).append("\n");
+		sb.append("    logoUrl: ").append(toIndentedString(logoUrl)).append("\n");
 		sb.append("    url: ").append(toIndentedString(url)).append("\n");
 		sb.append("    isHot: ").append(toIndentedString(isHot)).append("\n");
 		sb.append("}");
@@ -237,7 +237,7 @@ public class PlatformNews implements Parcelable
 		out.writeValue(date);
 		out.writeValue(title);
 		out.writeValue(body);
-		out.writeValue(logo);
+		out.writeValue(logoUrl);
 		out.writeValue(url);
 		out.writeValue(isHot);
 	}

@@ -5,13 +5,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.recyclerview.widget.RecyclerView;
+
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -41,8 +42,9 @@ public class OpenTradeDetailsAdapter extends RecyclerView.Adapter<OpenTradeDetai
 
 	@Override
 	public void onBindViewHolder(OpenTradeViewHolder holder, int position) {
-		if (trades.get(position) != null)
+		if (trades.get(position) != null) {
 			holder.setTrade(trades.get(position));
+		}
 	}
 
 	@Override

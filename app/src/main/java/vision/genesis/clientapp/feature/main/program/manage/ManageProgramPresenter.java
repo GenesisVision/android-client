@@ -73,12 +73,12 @@ public class ManageProgramPresenter extends MvpPresenter<ManageProgramView>
 		ProgramUpdate model = new ProgramUpdate();
 		model.setTitle(details.getPublicInfo().getTitle());
 		model.setDescription(details.getPublicInfo().getDescription());
-		model.setLogo(details.getPublicInfo().getLogo());
-		model.setEntryFee(details.getProgramDetails().getEntryFeeSelected());
+		model.setLogo(details.getPublicInfo().getLogoUrl());
+		model.setEntryFee(details.getProgramDetails().getManagementFeeSelected());
 		model.setSuccessFee(details.getProgramDetails().getSuccessFeeSelected());
 		model.setInvestmentLimit(details.getProgramDetails().getAvailableInvestmentLimit());
 		model.setStopOutLevel(details.getProgramDetails().getStopOutLevelSelected());
-		model.setTradesDelay(ProgramUpdate.TradesDelayEnum.fromValue(details.getProgramDetails().getTradesDelay().getValue()));
+		model.setTradesDelay(TradesDelay.fromValue(details.getProgramDetails().getTradesDelay().getValue()));
 
 		getViewState().showChangeSettingsActivity(details.getId(), details.getTradingAccountInfo().getCurrency().getValue(), model);
 	}
@@ -143,7 +143,7 @@ public class ManageProgramPresenter extends MvpPresenter<ManageProgramView>
 		details.getProgramDetails().setAvailableInvestmentLimit(event.getModel().getInvestmentLimit());
 		details.getProgramDetails().setTradesDelay(TradesDelay.fromValue(event.getModel().getTradesDelay().getValue()));
 		details.getProgramDetails().setStopOutLevelSelected(event.getModel().getStopOutLevel());
-		details.getProgramDetails().setEntryFeeSelected(event.getModel().getEntryFee());
+		details.getProgramDetails().setManagementFeeSelected(event.getModel().getEntryFee());
 		details.getProgramDetails().setSuccessFeeSelected(event.getModel().getSuccessFee());
 		getViewState().updateView(details.getProgramDetails());
 	}

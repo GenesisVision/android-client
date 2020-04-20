@@ -15,13 +15,8 @@ package io.swagger.client.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.google.gson.TypeAdapter;
-import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonWriter;
 
-import java.io.IOException;
 import java.util.Objects;
 
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -45,7 +40,7 @@ public class AttachToExternalSignalProviderCommon implements Parcelable
 	};
 
 	@SerializedName("initialDepositCurrency")
-	private InitialDepositCurrencyEnum initialDepositCurrency = null;
+	private Currency initialDepositCurrency = null;
 
 	@SerializedName("initialDepositAmount")
 	private Double initialDepositAmount = null;
@@ -63,22 +58,22 @@ public class AttachToExternalSignalProviderCommon implements Parcelable
 	private Double fixedVolume = null;
 
 	@SerializedName("fixedCurrency")
-	private FixedCurrencyEnum fixedCurrency = null;
+	private Currency fixedCurrency = null;
 
 	public AttachToExternalSignalProviderCommon() {
 	}
 
 	AttachToExternalSignalProviderCommon(Parcel in) {
-		initialDepositCurrency = (InitialDepositCurrencyEnum) in.readValue(null);
+		initialDepositCurrency = (Currency) in.readValue(Currency.class.getClassLoader());
 		initialDepositAmount = (Double) in.readValue(null);
 		mode = (SubscriptionMode) in.readValue(SubscriptionMode.class.getClassLoader());
 		percent = (Double) in.readValue(null);
 		openTolerancePercent = (Double) in.readValue(null);
 		fixedVolume = (Double) in.readValue(null);
-		fixedCurrency = (FixedCurrencyEnum) in.readValue(null);
+		fixedCurrency = (Currency) in.readValue(Currency.class.getClassLoader());
 	}
 
-	public AttachToExternalSignalProviderCommon initialDepositCurrency(InitialDepositCurrencyEnum initialDepositCurrency) {
+	public AttachToExternalSignalProviderCommon initialDepositCurrency(Currency initialDepositCurrency) {
 		this.initialDepositCurrency = initialDepositCurrency;
 		return this;
 	}
@@ -89,11 +84,11 @@ public class AttachToExternalSignalProviderCommon implements Parcelable
 	 * @return initialDepositCurrency
 	 **/
 	@Schema(description = "")
-	public InitialDepositCurrencyEnum getInitialDepositCurrency() {
+	public Currency getInitialDepositCurrency() {
 		return initialDepositCurrency;
 	}
 
-	public void setInitialDepositCurrency(InitialDepositCurrencyEnum initialDepositCurrency) {
+	public void setInitialDepositCurrency(Currency initialDepositCurrency) {
 		this.initialDepositCurrency = initialDepositCurrency;
 	}
 
@@ -192,7 +187,7 @@ public class AttachToExternalSignalProviderCommon implements Parcelable
 		this.fixedVolume = fixedVolume;
 	}
 
-	public AttachToExternalSignalProviderCommon fixedCurrency(FixedCurrencyEnum fixedCurrency) {
+	public AttachToExternalSignalProviderCommon fixedCurrency(Currency fixedCurrency) {
 		this.fixedCurrency = fixedCurrency;
 		return this;
 	}
@@ -203,14 +198,13 @@ public class AttachToExternalSignalProviderCommon implements Parcelable
 	 * @return fixedCurrency
 	 **/
 	@Schema(description = "")
-	public FixedCurrencyEnum getFixedCurrency() {
+	public Currency getFixedCurrency() {
 		return fixedCurrency;
 	}
 
-	public void setFixedCurrency(FixedCurrencyEnum fixedCurrency) {
+	public void setFixedCurrency(Currency fixedCurrency) {
 		this.fixedCurrency = fixedCurrency;
 	}
-
 
 	@Override
 	public boolean equals(java.lang.Object o) {
@@ -234,7 +228,6 @@ public class AttachToExternalSignalProviderCommon implements Parcelable
 	public int hashCode() {
 		return Objects.hash(initialDepositCurrency, initialDepositAmount, mode, percent, openTolerancePercent, fixedVolume, fixedCurrency);
 	}
-
 
 	@Override
 	public String toString() {
@@ -263,7 +256,6 @@ public class AttachToExternalSignalProviderCommon implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
-
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(initialDepositCurrency);
 		out.writeValue(initialDepositAmount);
@@ -276,123 +268,5 @@ public class AttachToExternalSignalProviderCommon implements Parcelable
 
 	public int describeContents() {
 		return 0;
-	}
-
-	/**
-	 * Gets or Sets initialDepositCurrency
-	 */
-	@JsonAdapter(InitialDepositCurrencyEnum.Adapter.class)
-	public enum InitialDepositCurrencyEnum
-	{
-		BTC("BTC"),
-		ETH("ETH"),
-		USDT("USDT"),
-		USD("USD"),
-		GVT("GVT"),
-		UNDEFINED("Undefined"),
-		ADA("ADA"),
-		XRP("XRP"),
-		BCH("BCH"),
-		LTC("LTC"),
-		DOGE("DOGE"),
-		BNB("BNB"),
-		EUR("EUR");
-
-		public static InitialDepositCurrencyEnum fromValue(String text) {
-			for (InitialDepositCurrencyEnum b : InitialDepositCurrencyEnum.values()) {
-				if (String.valueOf(b.value).equals(text)) {
-					return b;
-				}
-			}
-			return null;
-		}
-
-		private String value;
-
-		InitialDepositCurrencyEnum(String value) {
-			this.value = value;
-		}
-
-		public String getValue() {
-			return value;
-		}
-
-		@Override
-		public String toString() {
-			return String.valueOf(value);
-		}
-
-		public static class Adapter extends TypeAdapter<InitialDepositCurrencyEnum>
-		{
-			@Override
-			public void write(final JsonWriter jsonWriter, final InitialDepositCurrencyEnum enumeration) throws IOException {
-				jsonWriter.value(enumeration.getValue());
-			}
-
-			@Override
-			public InitialDepositCurrencyEnum read(final JsonReader jsonReader) throws IOException {
-				String value = jsonReader.nextString();
-				return InitialDepositCurrencyEnum.fromValue(String.valueOf(value));
-			}
-		}
-	}
-
-	/**
-	 * Gets or Sets fixedCurrency
-	 */
-	@JsonAdapter(FixedCurrencyEnum.Adapter.class)
-	public enum FixedCurrencyEnum
-	{
-		BTC("BTC"),
-		ETH("ETH"),
-		USDT("USDT"),
-		USD("USD"),
-		GVT("GVT"),
-		UNDEFINED("Undefined"),
-		ADA("ADA"),
-		XRP("XRP"),
-		BCH("BCH"),
-		LTC("LTC"),
-		DOGE("DOGE"),
-		BNB("BNB"),
-		EUR("EUR");
-
-		public static FixedCurrencyEnum fromValue(String text) {
-			for (FixedCurrencyEnum b : FixedCurrencyEnum.values()) {
-				if (String.valueOf(b.value).equals(text)) {
-					return b;
-				}
-			}
-			return null;
-		}
-
-		private String value;
-
-		FixedCurrencyEnum(String value) {
-			this.value = value;
-		}
-
-		public String getValue() {
-			return value;
-		}
-
-		@Override
-		public String toString() {
-			return String.valueOf(value);
-		}
-
-		public static class Adapter extends TypeAdapter<FixedCurrencyEnum>
-		{
-			@Override
-			public void write(final JsonWriter jsonWriter, final FixedCurrencyEnum enumeration) throws IOException {
-				jsonWriter.value(enumeration.getValue());
-			}
-
-			@Override
-			public FixedCurrencyEnum read(final JsonReader jsonReader) throws IOException {
-				String value = jsonReader.nextString();
-				return FixedCurrencyEnum.fromValue(String.valueOf(value));
-			}
-		}
 	}
 }

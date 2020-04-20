@@ -47,8 +47,8 @@ public class Broker implements Parcelable
 	@SerializedName("description")
 	private String description = null;
 
-	@SerializedName("logo")
-	private String logo = null;
+	@SerializedName("logoUrl")
+	private String logoUrl = null;
 
 	@SerializedName("terms")
 	private String terms = null;
@@ -80,7 +80,7 @@ public class Broker implements Parcelable
 	Broker(Parcel in) {
 		name = (String) in.readValue(null);
 		description = (String) in.readValue(null);
-		logo = (String) in.readValue(null);
+		logoUrl = (String) in.readValue(null);
 		terms = (String) in.readValue(null);
 		assets = (String) in.readValue(null);
 		fee = (Double) in.readValue(null);
@@ -129,23 +129,23 @@ public class Broker implements Parcelable
 		this.description = description;
 	}
 
-	public Broker logo(String logo) {
-		this.logo = logo;
+	public Broker logoUrl(String logoUrl) {
+		this.logoUrl = logoUrl;
 		return this;
 	}
 
 	/**
-	 * Get logo
+	 * Get logoUrl
 	 *
-	 * @return logo
+	 * @return logoUrl
 	 **/
 	@Schema(description = "")
-	public String getLogo() {
-		return logo;
+	public String getLogoUrl() {
+		return logoUrl;
 	}
 
-	public void setLogo(String logo) {
-		this.logo = logo;
+	public void setLogoUrl(String logoUrl) {
+		this.logoUrl = logoUrl;
 	}
 
 	public Broker terms(String terms) {
@@ -300,7 +300,7 @@ public class Broker implements Parcelable
 		Broker broker = (Broker) o;
 		return Objects.equals(this.name, broker.name) &&
 				Objects.equals(this.description, broker.description) &&
-				Objects.equals(this.logo, broker.logo) &&
+				Objects.equals(this.logoUrl, broker.logoUrl) &&
 				Objects.equals(this.terms, broker.terms) &&
 				Objects.equals(this.assets, broker.assets) &&
 				Objects.equals(this.fee, broker.fee) &&
@@ -313,7 +313,7 @@ public class Broker implements Parcelable
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(name, description, logo, terms, assets, fee, leverageMin, leverageMax, isKycRequired, accountTypes, tags);
+		return Objects.hash(name, description, logoUrl, terms, assets, fee, leverageMin, leverageMax, isKycRequired, accountTypes, tags);
 	}
 
 	@Override
@@ -323,7 +323,7 @@ public class Broker implements Parcelable
 
 		sb.append("    name: ").append(toIndentedString(name)).append("\n");
 		sb.append("    description: ").append(toIndentedString(description)).append("\n");
-		sb.append("    logo: ").append(toIndentedString(logo)).append("\n");
+		sb.append("    logoUrl: ").append(toIndentedString(logoUrl)).append("\n");
 		sb.append("    terms: ").append(toIndentedString(terms)).append("\n");
 		sb.append("    assets: ").append(toIndentedString(assets)).append("\n");
 		sb.append("    fee: ").append(toIndentedString(fee)).append("\n");
@@ -350,7 +350,7 @@ public class Broker implements Parcelable
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(name);
 		out.writeValue(description);
-		out.writeValue(logo);
+		out.writeValue(logoUrl);
 		out.writeValue(terms);
 		out.writeValue(assets);
 		out.writeValue(fee);

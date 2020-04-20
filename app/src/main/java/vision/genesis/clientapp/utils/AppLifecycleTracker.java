@@ -59,16 +59,18 @@ public class AppLifecycleTracker implements Application.ActivityLifecycleCallbac
 	public void onActivityResumed(Activity activity) {
 		Timber.d("TEST %s resumed", activity.getClass().getSimpleName());
 
-		if (activity instanceof BlockScreenHolder)
+		if (activity instanceof BlockScreenHolder) {
 			((BlockScreenHolder) activity).hideBlock();
+		}
 	}
 
 	@Override
 	public void onActivityPaused(Activity activity) {
 		Timber.d("TEST %s paused", activity.getClass().getSimpleName());
 
-		if (settingsManager.isScreenLockEnabled() && activity instanceof BlockScreenHolder)
+		if (settingsManager.isScreenLockEnabled() && activity instanceof BlockScreenHolder) {
 			((BlockScreenHolder) activity).showBlock();
+		}
 	}
 
 	@Override

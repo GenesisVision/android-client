@@ -11,6 +11,7 @@ import javax.inject.Inject;
 
 import io.swagger.client.model.AbsoluteProfitChart;
 import io.swagger.client.model.AccountProfitPercentCharts;
+import io.swagger.client.model.Currency;
 import io.swagger.client.model.PrivateTradingAccountFull;
 import io.swagger.client.model.SimpleChartPoint;
 import rx.Subscription;
@@ -57,9 +58,9 @@ public class TradingAccountProfitPresenter extends MvpPresenter<TradingAccountPr
 
 	private PrivateTradingAccountFull details;
 
-	private List<Object> currencies = new ArrayList<>();
+	private List<Currency> currencies = new ArrayList<>();
 
-	private CurrencyEnum baseCurrency;
+	private Currency baseCurrency;
 
 	@Override
 	protected void onFirstViewAttach() {
@@ -111,7 +112,7 @@ public class TradingAccountProfitPresenter extends MvpPresenter<TradingAccountPr
 	}
 
 	private void baseCurrencyChangedHandler(CurrencyEnum baseCurrency) {
-		this.baseCurrency = baseCurrency;
+		this.baseCurrency = Currency.fromValue(baseCurrency.getValue());
 		updateAll();
 	}
 
@@ -122,7 +123,7 @@ public class TradingAccountProfitPresenter extends MvpPresenter<TradingAccountPr
 			}
 
 			absSubscription = tradingAccountManager.getProfitAbsoluteChart(details.getId(), chartDateRange,
-					100, baseCurrency.getValue())
+					100, baseCurrency)
 					.observeOn(AndroidSchedulers.mainThread())
 					.subscribeOn(Schedulers.io())
 					.subscribe(this::handleGetAbsSuccess,
@@ -152,10 +153,10 @@ public class TradingAccountProfitPresenter extends MvpPresenter<TradingAccountPr
 			}
 
 			currencies = new ArrayList<>();
-			currencies.add(baseCurrency.getValue());
+			currencies.add(baseCurrency);
 
 			percentSubscription = tradingAccountManager.getProfitPercentChart(details.getId(), chartDateRange,
-					100, baseCurrency.getValue(), currencies)
+					100, baseCurrency, currencies)
 					.observeOn(AndroidSchedulers.mainThread())
 					.subscribeOn(Schedulers.io())
 					.subscribe(this::handleGetPercentSuccess,

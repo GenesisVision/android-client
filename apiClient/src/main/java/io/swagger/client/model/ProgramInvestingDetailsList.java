@@ -47,8 +47,8 @@ public class ProgramInvestingDetailsList implements Parcelable
 	@SerializedName("id")
 	private UUID id = null;
 
-	@SerializedName("logo")
-	private String logo = null;
+	@SerializedName("logoUrl")
+	private String logoUrl = null;
 
 	@SerializedName("url")
 	private String url = null;
@@ -109,7 +109,7 @@ public class ProgramInvestingDetailsList implements Parcelable
 
 	ProgramInvestingDetailsList(Parcel in) {
 		id = (UUID) in.readValue(UUID.class.getClassLoader());
-		logo = (String) in.readValue(null);
+		logoUrl = (String) in.readValue(null);
 		url = (String) in.readValue(null);
 		color = (String) in.readValue(null);
 		title = (String) in.readValue(null);
@@ -149,23 +149,23 @@ public class ProgramInvestingDetailsList implements Parcelable
 		this.id = id;
 	}
 
-	public ProgramInvestingDetailsList logo(String logo) {
-		this.logo = logo;
+	public ProgramInvestingDetailsList logoUrl(String logoUrl) {
+		this.logoUrl = logoUrl;
 		return this;
 	}
 
 	/**
-	 * Get logo
+	 * Get logoUrl
 	 *
-	 * @return logo
+	 * @return logoUrl
 	 **/
 	@Schema(description = "")
-	public String getLogo() {
-		return logo;
+	public String getLogoUrl() {
+		return logoUrl;
 	}
 
-	public void setLogo(String logo) {
-		this.logo = logo;
+	public void setLogoUrl(String logoUrl) {
+		this.logoUrl = logoUrl;
 	}
 
 	public ProgramInvestingDetailsList url(String url) {
@@ -528,7 +528,7 @@ public class ProgramInvestingDetailsList implements Parcelable
 		}
 		ProgramInvestingDetailsList programInvestingDetailsList = (ProgramInvestingDetailsList) o;
 		return Objects.equals(this.id, programInvestingDetailsList.id) &&
-				Objects.equals(this.logo, programInvestingDetailsList.logo) &&
+				Objects.equals(this.logoUrl, programInvestingDetailsList.logoUrl) &&
 				Objects.equals(this.url, programInvestingDetailsList.url) &&
 				Objects.equals(this.color, programInvestingDetailsList.color) &&
 				Objects.equals(this.title, programInvestingDetailsList.title) &&
@@ -551,7 +551,7 @@ public class ProgramInvestingDetailsList implements Parcelable
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, logo, url, color, title, creationDate, currency, availableToInvest, level, levelProgress, periodDuration, investorsCount, periodStarts, periodEnds, owner, brokerDetails, personalDetails, tags, statistic, balance);
+		return Objects.hash(id, logoUrl, url, color, title, creationDate, currency, availableToInvest, level, levelProgress, periodDuration, investorsCount, periodStarts, periodEnds, owner, brokerDetails, personalDetails, tags, statistic, balance);
 	}
 
 	@Override
@@ -560,7 +560,7 @@ public class ProgramInvestingDetailsList implements Parcelable
 		sb.append("class ProgramInvestingDetailsList {\n");
 
 		sb.append("    id: ").append(toIndentedString(id)).append("\n");
-		sb.append("    logo: ").append(toIndentedString(logo)).append("\n");
+		sb.append("    logoUrl: ").append(toIndentedString(logoUrl)).append("\n");
 		sb.append("    url: ").append(toIndentedString(url)).append("\n");
 		sb.append("    color: ").append(toIndentedString(color)).append("\n");
 		sb.append("    title: ").append(toIndentedString(title)).append("\n");
@@ -596,7 +596,7 @@ public class ProgramInvestingDetailsList implements Parcelable
 
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(id);
-		out.writeValue(logo);
+		out.writeValue(logoUrl);
 		out.writeValue(url);
 		out.writeValue(color);
 		out.writeValue(title);

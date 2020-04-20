@@ -131,7 +131,7 @@ public class SignalProviderView extends RelativeLayout
 			if (data != null && data.getAsset() != null) {
 				AssetDetails assetDetails = data.getAsset();
 				ProgramDetailsModel programDetailsModel = new ProgramDetailsModel(assetDetails.getId(),
-						assetDetails.getLogo(),
+						assetDetails.getLogoUrl(),
 						assetDetails.getColor(),
 						assetDetails.getProgramDetails() != null ? assetDetails.getProgramDetails().getLevel() : 0,
 						assetDetails.getProgramDetails() != null ? assetDetails.getProgramDetails().getLevelProgress() : 0.0,
@@ -171,7 +171,7 @@ public class SignalProviderView extends RelativeLayout
 		this.data = data;
 
 		if (data.getAsset() != null) {
-			this.logo.setImage(data.getAsset().getLogo(), data.getAsset().getColor(), 50, 50);
+			this.logo.setImage(data.getAsset().getLogoUrl(), data.getAsset().getColor(), 50, 50);
 			this.logo.hideLevel();
 
 			this.name.setText(data.getAsset().getTitle());

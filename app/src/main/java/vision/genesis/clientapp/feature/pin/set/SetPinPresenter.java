@@ -48,10 +48,12 @@ public class SetPinPresenter extends MvpPresenter<SetPinView>
 	}
 
 	public void onNumber(String number) {
-		if (pin.length() != Constants.PIN_CODE_LENGTH)
+		if (pin.length() != Constants.PIN_CODE_LENGTH) {
 			addToPin(number);
-		else
+		}
+		else {
 			addToRepeatPin(number);
+		}
 	}
 
 	private void addToPin(String number) {
@@ -83,10 +85,12 @@ public class SetPinPresenter extends MvpPresenter<SetPinView>
 	}
 
 	public void onBackspace() {
-		if (pin.length() != Constants.PIN_CODE_LENGTH)
+		if (pin.length() != Constants.PIN_CODE_LENGTH) {
 			backspacePin();
-		else
+		}
+		else {
 			backspaceRepeatPin();
+		}
 	}
 
 	private void backspacePin() {
@@ -106,10 +110,12 @@ public class SetPinPresenter extends MvpPresenter<SetPinView>
 	}
 
 	public void onLongBackspace() {
-		if (pin.length() != Constants.PIN_CODE_LENGTH)
+		if (pin.length() != Constants.PIN_CODE_LENGTH) {
 			longBackspacePin();
-		else
+		}
+		else {
 			longBackspaceRepeatPin();
+		}
 	}
 
 	private void longBackspacePin() {

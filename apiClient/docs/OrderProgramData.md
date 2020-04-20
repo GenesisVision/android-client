@@ -8,5 +8,5 @@ Name | Type | Description | Notes
 **levelProgress** | **Double** |  |  [optional]
 **color** | **String** |  |  [optional]
 **url** | **String** |  |  [optional]
-**logo** | **String** |  |  [optional]
+**logoUrl** | **String** |  |  [optional]
 **type** | [**AssetType**](AssetType.md) |  |  [optional]

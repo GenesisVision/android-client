@@ -132,7 +132,7 @@ public class ExternalTransactionsListAdapter extends RecyclerView.Adapter<Extern
 
 			description.setText(transaction.getDescription());
 
-			logo.setImageURI(ImageUtils.getImageUri(first.getLogo()));
+			logo.setImageURI(ImageUtils.getImageUri(first.getLogoUrl()));
 			value.setText(StringFormatUtil.getValueString(first.getAmount(), first.getCurrency().getValue()));
 			value.setTextColor(ThemeUtil.getColorByAttrId(itemView.getContext(),
 					first.getAmount() >= 0

@@ -32,11 +32,11 @@ import butterknife.BindDimen;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.swagger.client.model.AssetInvestmentRequestItemsViewModel;
 import io.swagger.client.model.DashboardInvestingDetails;
 import io.swagger.client.model.DashboardTimeframeProfit;
 import io.swagger.client.model.FundInvestingDetailsList;
 import io.swagger.client.model.InvestmentEventViewModel;
-import io.swagger.client.model.ItemsViewModelAssetInvestmentRequest;
 import io.swagger.client.model.ProgramInvestingDetailsList;
 import io.swagger.client.model.Timeframe;
 import vision.genesis.clientapp.R;
@@ -426,7 +426,7 @@ public class InvestmentsDetailsActivity extends BaseSwipeBackActivity implements
 	}
 
 	@Override
-	public void setRequests(ItemsViewModelAssetInvestmentRequest data) {
+	public void setRequests(AssetInvestmentRequestItemsViewModel data) {
 		requestsGroup.setVisibility(data.getTotal() > 0 ? View.VISIBLE : View.GONE);
 		requestsCount.setText(String.valueOf(data.getTotal()));
 

@@ -3,4 +3,4 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**rates** | **Object** |  |  [optional]
+**rates** | [**Map&lt;String, List&lt;RateItem&gt;&gt;**](List.md) |  |  [optional]

@@ -218,7 +218,7 @@ public class FollowsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 			itemView.setOnClickListener(v -> {
 				if (follow != null) {
 					ProgramDetailsModel programDetailsModel = new ProgramDetailsModel(follow.getId(),
-							follow.getLogo(),
+							follow.getLogoUrl(),
 							follow.getColor(),
 							0,
 							0.0,
@@ -267,7 +267,7 @@ public class FollowsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 		}
 
 		private void updateData() {
-			followLogo.setImage(follow.getLogo(), follow.getColor(), 100, 100);
+			followLogo.setImage(follow.getLogoUrl(), follow.getColor(), 100, 100);
 			followLogo.hideLevel();
 
 			if (follow.getPersonalDetails() != null) {

@@ -52,8 +52,8 @@ public class PlatformAsset implements Parcelable
 	@SerializedName("description")
 	private String description = null;
 
-	@SerializedName("icon")
-	private String icon = null;
+	@SerializedName("logoUrl")
+	private String logoUrl = null;
 
 	@SerializedName("color")
 	private String color = null;
@@ -72,7 +72,7 @@ public class PlatformAsset implements Parcelable
 		name = (String) in.readValue(null);
 		asset = (String) in.readValue(null);
 		description = (String) in.readValue(null);
-		icon = (String) in.readValue(null);
+		logoUrl = (String) in.readValue(null);
 		color = (String) in.readValue(null);
 		mandatoryFundPercent = (Double) in.readValue(null);
 		url = (String) in.readValue(null);
@@ -154,23 +154,23 @@ public class PlatformAsset implements Parcelable
 		this.description = description;
 	}
 
-	public PlatformAsset icon(String icon) {
-		this.icon = icon;
+	public PlatformAsset logoUrl(String logoUrl) {
+		this.logoUrl = logoUrl;
 		return this;
 	}
 
 	/**
-	 * Get icon
+	 * Get logoUrl
 	 *
-	 * @return icon
+	 * @return logoUrl
 	 **/
 	@Schema(description = "")
-	public String getIcon() {
-		return icon;
+	public String getLogoUrl() {
+		return logoUrl;
 	}
 
-	public void setIcon(String icon) {
-		this.icon = icon;
+	public void setLogoUrl(String logoUrl) {
+		this.logoUrl = logoUrl;
 	}
 
 	public PlatformAsset color(String color) {
@@ -243,7 +243,7 @@ public class PlatformAsset implements Parcelable
 				Objects.equals(this.name, platformAsset.name) &&
 				Objects.equals(this.asset, platformAsset.asset) &&
 				Objects.equals(this.description, platformAsset.description) &&
-				Objects.equals(this.icon, platformAsset.icon) &&
+				Objects.equals(this.logoUrl, platformAsset.logoUrl) &&
 				Objects.equals(this.color, platformAsset.color) &&
 				Objects.equals(this.mandatoryFundPercent, platformAsset.mandatoryFundPercent) &&
 				Objects.equals(this.url, platformAsset.url);
@@ -251,7 +251,7 @@ public class PlatformAsset implements Parcelable
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, name, asset, description, icon, color, mandatoryFundPercent, url);
+		return Objects.hash(id, name, asset, description, logoUrl, color, mandatoryFundPercent, url);
 	}
 
 	@Override
@@ -263,7 +263,7 @@ public class PlatformAsset implements Parcelable
 		sb.append("    name: ").append(toIndentedString(name)).append("\n");
 		sb.append("    asset: ").append(toIndentedString(asset)).append("\n");
 		sb.append("    description: ").append(toIndentedString(description)).append("\n");
-		sb.append("    icon: ").append(toIndentedString(icon)).append("\n");
+		sb.append("    logoUrl: ").append(toIndentedString(logoUrl)).append("\n");
 		sb.append("    color: ").append(toIndentedString(color)).append("\n");
 		sb.append("    mandatoryFundPercent: ").append(toIndentedString(mandatoryFundPercent)).append("\n");
 		sb.append("    url: ").append(toIndentedString(url)).append("\n");
@@ -287,7 +287,7 @@ public class PlatformAsset implements Parcelable
 		out.writeValue(name);
 		out.writeValue(asset);
 		out.writeValue(description);
-		out.writeValue(icon);
+		out.writeValue(logoUrl);
 		out.writeValue(color);
 		out.writeValue(mandatoryFundPercent);
 		out.writeValue(url);

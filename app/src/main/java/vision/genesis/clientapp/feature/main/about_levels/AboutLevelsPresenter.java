@@ -41,8 +41,9 @@ public class AboutLevelsPresenter extends MvpPresenter<AboutLevelsView> implemen
 
 	@Override
 	public void onDestroy() {
-		if (levelsInfoSubscription != null)
+		if (levelsInfoSubscription != null) {
 			levelsInfoSubscription.unsubscribe();
+		}
 
 		super.onDestroy();
 	}

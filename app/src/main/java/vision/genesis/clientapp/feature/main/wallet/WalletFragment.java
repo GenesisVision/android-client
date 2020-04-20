@@ -325,7 +325,7 @@ public class WalletFragment extends BaseFragment implements WalletView, ViewPage
 		this.pendingPercent.setText(String.format(Locale.getDefault(), "%d%%", pendingPercent));
 		this.pending.setText(StringFormatUtil.getValueString(data.getGrandTotal().getTrading(), currency));
 
-		this.switchUsingGvt.setChecked(data.isPayFeesWithGvt());
+//		this.switchUsingGvt.setChecked(data.isPayFeesWithGvt());
 	}
 
 	@Override

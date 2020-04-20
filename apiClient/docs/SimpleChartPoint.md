@@ -3,5 +3,5 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**date** | **Long** |  |  [optional]
+**date** | [**DateTime**](DateTime.md) |  |  [optional]
 **value** | **Double** |  |  [optional]

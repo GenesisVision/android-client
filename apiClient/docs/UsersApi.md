@@ -1,6 +1,6 @@
 # UsersApi
 
-All URIs are relative to */api*
+All URIs are relative to *https://red.genesis.vision/api*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -9,21 +9,32 @@ Method | HTTP request | Description
 
 <a name="getManagerProfile"></a>
 # **getManagerProfile**
-> PublicProfile getManagerProfile(id)
+> PublicProfile getManagerProfile(id, logoQuality)
 
 Public profile
 
 ### Example
 ```java
 // Import classes:
+//import io.swagger.client.ApiClient;
 //import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
 //import io.swagger.client.api.UsersApi;
 
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
 
 UsersApi apiInstance = new UsersApi();
 String id = "id_example"; // String | 
+ImageQuality logoQuality = new ImageQuality(); // ImageQuality | 
 try {
-    PublicProfile result = apiInstance.getManagerProfile(id);
+    PublicProfile result = apiInstance.getManagerProfile(id, logoQuality);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling UsersApi#getManagerProfile");
@@ -36,6 +47,7 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **String**|  |
+ **logoQuality** | [**ImageQuality**](.md)|  | [optional]
 
 ### Return type
 
@@ -43,7 +55,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[Bearer](../README.md#Bearer)
 
 ### HTTP request headers
 
@@ -52,25 +64,35 @@ No authorization required
 
 <a name="getUsersList"></a>
 # **getUsersList**
-> ItemsViewModelUserDetailsList getUsersList(facetId, sorting, tags, skip, take)
+> UserDetailsListItemsViewModel getUsersList(sorting, timeframe, tags, skip, take)
 
 Get users list
 
 ### Example
 ```java
 // Import classes:
+//import io.swagger.client.ApiClient;
 //import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
 //import io.swagger.client.api.UsersApi;
 
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
 
 UsersApi apiInstance = new UsersApi();
-String facetId = "facetId_example"; // String | 
-String sorting = "sorting_example"; // String | 
+UsersFilterSorting sorting = new UsersFilterSorting(); // UsersFilterSorting | 
+UsersFilterTimeframe timeframe = new UsersFilterTimeframe(); // UsersFilterTimeframe | 
 List<String> tags = Arrays.asList("tags_example"); // List<String> | 
 Integer skip = 56; // Integer | 
 Integer take = 56; // Integer | 
 try {
-    ItemsViewModelUserDetailsList result = apiInstance.getUsersList(facetId, sorting, tags, skip, take);
+    UserDetailsListItemsViewModel result = apiInstance.getUsersList(sorting, timeframe, tags, skip, take);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling UsersApi#getUsersList");
@@ -82,19 +104,19 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **facetId** | **String**|  | [optional]
- **sorting** | **String**|  | [optional] [enum: ByNameAsc, ByNameDesc, ByAgeAsc, ByAgeDesc, ByAumAsc, ByAumDesc, ByFollowersAsc, ByFollowersDesc, ByInvestorsAsc, ByInvestorsDesc, ByPopularityAsc, ByPopularityDesc, ByProfitAsc, ByProfitDesc, ByTradingProfitAsc, ByTradingProfitDesc, ByInvestingProfitAsc, ByInvestingProfitDesc]
+ **sorting** | [**UsersFilterSorting**](.md)|  | [optional]
+ **timeframe** | [**UsersFilterTimeframe**](.md)|  | [optional]
  **tags** | [**List&lt;String&gt;**](String.md)|  | [optional]
  **skip** | **Integer**|  | [optional]
  **take** | **Integer**|  | [optional]
 
 ### Return type
 
-[**ItemsViewModelUserDetailsList**](ItemsViewModelUserDetailsList.md)
+[**UserDetailsListItemsViewModel**](UserDetailsListItemsViewModel.md)
 
 ### Authorization
 
-No authorization required
+[Bearer](../README.md#Bearer)
 
 ### HTTP request headers
 

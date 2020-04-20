@@ -49,10 +49,12 @@ public class VerifyFingerprintPresenter extends MvpPresenter<VerifyFingerprintVi
 
 	private void initFingerprintAuthMaybe() {
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-			if (authManager.generateFingerprintKey())
+			if (authManager.generateFingerprintKey()) {
 				cancellationSignal = authManager.startFingerprintAuth(new FingerprintHandler(this));
-			if (cancellationSignal == null)
+			}
+			if (cancellationSignal == null) {
 				getViewState().finishActivity();
+			}
 		}
 		else {
 			getViewState().finishActivity();
@@ -60,8 +62,9 @@ public class VerifyFingerprintPresenter extends MvpPresenter<VerifyFingerprintVi
 	}
 
 	void onStop() {
-		if (cancellationSignal != null)
+		if (cancellationSignal != null) {
 			cancellationSignal.cancel();
+		}
 	}
 
 	@Override

@@ -28,7 +28,7 @@ import butterknife.OnClick;
 import butterknife.Unbinder;
 import io.swagger.client.model.AssetFacet;
 import io.swagger.client.model.FundDetailsListItem;
-import io.swagger.client.model.ItemsViewModelFundDetailsListItem;
+import io.swagger.client.model.FundDetailsListItemItemsViewModel;
 import timber.log.Timber;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
@@ -309,7 +309,7 @@ public class FundsListFragment extends BaseFragment implements FundsListView
 		}
 	}
 
-	public void showSearchResults(ItemsViewModelFundDetailsListItem result) {
+	public void showSearchResults(FundDetailsListItemItemsViewModel result) {
 		if (fundsListPresenter != null) {
 			fundsListPresenter.showSearchResults(result);
 		}

@@ -62,10 +62,12 @@ public class SetupTfaPresenter extends MvpPresenter<SetupTfaView>
 
 	@Override
 	public void onDestroy() {
-		if (createTfaKeySubscription != null)
+		if (createTfaKeySubscription != null) {
 			createTfaKeySubscription.unsubscribe();
-		if (confirmTfaKeySubscription != null)
+		}
+		if (confirmTfaKeySubscription != null) {
 			confirmTfaKeySubscription.unsubscribe();
+		}
 
 		EventBus.getDefault().unregister(this);
 
@@ -73,8 +75,9 @@ public class SetupTfaPresenter extends MvpPresenter<SetupTfaView>
 	}
 
 	private void createTfaKey() {
-		if (createTfaKeySubscription != null)
+		if (createTfaKeySubscription != null) {
 			createTfaKeySubscription.unsubscribe();
+		}
 		createTfaKeySubscription = authManager.createTfaKey()
 				.observeOn(AndroidSchedulers.mainThread())
 				.subscribeOn(Schedulers.io())
@@ -103,8 +106,9 @@ public class SetupTfaPresenter extends MvpPresenter<SetupTfaView>
 
 	private void confirmTfa(String password, String code) {
 		getViewState().showProgress(true);
-		if (confirmTfaKeySubscription != null)
+		if (confirmTfaKeySubscription != null) {
 			confirmTfaKeySubscription.unsubscribe();
+		}
 		confirmTfaKeySubscription = authManager.confirmTfa(sharedKey, password, code)
 				.observeOn(AndroidSchedulers.mainThread())
 				.subscribeOn(Schedulers.io())

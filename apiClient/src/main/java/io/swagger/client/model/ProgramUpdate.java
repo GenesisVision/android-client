@@ -15,14 +15,10 @@ package io.swagger.client.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.google.gson.TypeAdapter;
-import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonWriter;
 
-import java.io.IOException;
 import java.util.Objects;
+import java.util.UUID;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 
@@ -69,7 +65,10 @@ public class ProgramUpdate implements Parcelable
 	private Double investmentLimit = null;
 
 	@SerializedName("tradesDelay")
-	private TradesDelayEnum tradesDelay = null;
+	private TradesDelay tradesDelay = null;
+
+	@SerializedName("id")
+	private UUID id = null;
 
 	public ProgramUpdate() {
 	}
@@ -83,7 +82,8 @@ public class ProgramUpdate implements Parcelable
 		successFee = (Double) in.readValue(null);
 		stopOutLevel = (Double) in.readValue(null);
 		investmentLimit = (Double) in.readValue(null);
-		tradesDelay = (TradesDelayEnum) in.readValue(null);
+		tradesDelay = (TradesDelay) in.readValue(TradesDelay.class.getClassLoader());
+		id = (UUID) in.readValue(UUID.class.getClassLoader());
 	}
 
 	public ProgramUpdate title(String title) {
@@ -238,7 +238,7 @@ public class ProgramUpdate implements Parcelable
 		this.investmentLimit = investmentLimit;
 	}
 
-	public ProgramUpdate tradesDelay(TradesDelayEnum tradesDelay) {
+	public ProgramUpdate tradesDelay(TradesDelay tradesDelay) {
 		this.tradesDelay = tradesDelay;
 		return this;
 	}
@@ -249,12 +249,31 @@ public class ProgramUpdate implements Parcelable
 	 * @return tradesDelay
 	 **/
 	@Schema(description = "")
-	public TradesDelayEnum getTradesDelay() {
+	public TradesDelay getTradesDelay() {
 		return tradesDelay;
 	}
 
-	public void setTradesDelay(TradesDelayEnum tradesDelay) {
+	public void setTradesDelay(TradesDelay tradesDelay) {
 		this.tradesDelay = tradesDelay;
+	}
+
+	public ProgramUpdate id(UUID id) {
+		this.id = id;
+		return this;
+	}
+
+	/**
+	 * Get id
+	 *
+	 * @return id
+	 **/
+	@Schema(description = "")
+	public UUID getId() {
+		return id;
+	}
+
+	public void setId(UUID id) {
+		this.id = id;
 	}
 
 	@Override
@@ -274,12 +293,13 @@ public class ProgramUpdate implements Parcelable
 				Objects.equals(this.successFee, programUpdate.successFee) &&
 				Objects.equals(this.stopOutLevel, programUpdate.stopOutLevel) &&
 				Objects.equals(this.investmentLimit, programUpdate.investmentLimit) &&
-				Objects.equals(this.tradesDelay, programUpdate.tradesDelay);
+				Objects.equals(this.tradesDelay, programUpdate.tradesDelay) &&
+				Objects.equals(this.id, programUpdate.id);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(title, description, logo, entryFee, exitFee, successFee, stopOutLevel, investmentLimit, tradesDelay);
+		return Objects.hash(title, description, logo, entryFee, exitFee, successFee, stopOutLevel, investmentLimit, tradesDelay, id);
 	}
 
 	@Override
@@ -296,6 +316,7 @@ public class ProgramUpdate implements Parcelable
 		sb.append("    stopOutLevel: ").append(toIndentedString(stopOutLevel)).append("\n");
 		sb.append("    investmentLimit: ").append(toIndentedString(investmentLimit)).append("\n");
 		sb.append("    tradesDelay: ").append(toIndentedString(tradesDelay)).append("\n");
+		sb.append("    id: ").append(toIndentedString(id)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}
@@ -321,61 +342,10 @@ public class ProgramUpdate implements Parcelable
 		out.writeValue(stopOutLevel);
 		out.writeValue(investmentLimit);
 		out.writeValue(tradesDelay);
+		out.writeValue(id);
 	}
 
 	public int describeContents() {
 		return 0;
-	}
-
-	/**
-	 * Gets or Sets tradesDelay
-	 */
-	@JsonAdapter(TradesDelayEnum.Adapter.class)
-	public enum TradesDelayEnum
-	{
-		NONE("None"),
-		FIVEMINUTES("FiveMinutes"),
-		FIFTEENMINUTES("FifteenMinutes"),
-		THIRTYMINUTES("ThirtyMinutes"),
-		ONEHOUR("OneHour"),
-		SIXHOURS("SixHours");
-
-		public static TradesDelayEnum fromValue(String text) {
-			for (TradesDelayEnum b : TradesDelayEnum.values()) {
-				if (String.valueOf(b.value).equals(text)) {
-					return b;
-				}
-			}
-			return null;
-		}
-
-		private String value;
-
-		TradesDelayEnum(String value) {
-			this.value = value;
-		}
-
-		public String getValue() {
-			return value;
-		}
-
-		@Override
-		public String toString() {
-			return String.valueOf(value);
-		}
-
-		public static class Adapter extends TypeAdapter<TradesDelayEnum>
-		{
-			@Override
-			public void write(final JsonWriter jsonWriter, final TradesDelayEnum enumeration) throws IOException {
-				jsonWriter.value(enumeration.getValue());
-			}
-
-			@Override
-			public TradesDelayEnum read(final JsonReader jsonReader) throws IOException {
-				String value = jsonReader.nextString();
-				return TradesDelayEnum.fromValue(String.valueOf(value));
-			}
-		}
 	}
 }

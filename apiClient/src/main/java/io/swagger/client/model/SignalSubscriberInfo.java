@@ -46,12 +46,16 @@ public class SignalSubscriberInfo implements Parcelable
 	@SerializedName("tradingAccountLogin")
 	private String tradingAccountLogin = null;
 
+	@SerializedName("asset")
+	private AssetDetails asset = null;
+
 	public SignalSubscriberInfo() {
 	}
 
 	SignalSubscriberInfo(Parcel in) {
 		tradingAccountId = (UUID) in.readValue(UUID.class.getClassLoader());
 		tradingAccountLogin = (String) in.readValue(null);
+		asset = (AssetDetails) in.readValue(AssetDetails.class.getClassLoader());
 	}
 
 	public SignalSubscriberInfo tradingAccountId(UUID tradingAccountId) {
@@ -92,6 +96,25 @@ public class SignalSubscriberInfo implements Parcelable
 		this.tradingAccountLogin = tradingAccountLogin;
 	}
 
+	public SignalSubscriberInfo asset(AssetDetails asset) {
+		this.asset = asset;
+		return this;
+	}
+
+	/**
+	 * Get asset
+	 *
+	 * @return asset
+	 **/
+	@Schema(description = "")
+	public AssetDetails getAsset() {
+		return asset;
+	}
+
+	public void setAsset(AssetDetails asset) {
+		this.asset = asset;
+	}
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -102,12 +125,13 @@ public class SignalSubscriberInfo implements Parcelable
 		}
 		SignalSubscriberInfo signalSubscriberInfo = (SignalSubscriberInfo) o;
 		return Objects.equals(this.tradingAccountId, signalSubscriberInfo.tradingAccountId) &&
-				Objects.equals(this.tradingAccountLogin, signalSubscriberInfo.tradingAccountLogin);
+				Objects.equals(this.tradingAccountLogin, signalSubscriberInfo.tradingAccountLogin) &&
+				Objects.equals(this.asset, signalSubscriberInfo.asset);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(tradingAccountId, tradingAccountLogin);
+		return Objects.hash(tradingAccountId, tradingAccountLogin, asset);
 	}
 
 	@Override
@@ -117,6 +141,7 @@ public class SignalSubscriberInfo implements Parcelable
 
 		sb.append("    tradingAccountId: ").append(toIndentedString(tradingAccountId)).append("\n");
 		sb.append("    tradingAccountLogin: ").append(toIndentedString(tradingAccountLogin)).append("\n");
+		sb.append("    asset: ").append(toIndentedString(asset)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}
@@ -135,6 +160,7 @@ public class SignalSubscriberInfo implements Parcelable
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(tradingAccountId);
 		out.writeValue(tradingAccountLogin);
+		out.writeValue(asset);
 	}
 
 	public int describeContents() {

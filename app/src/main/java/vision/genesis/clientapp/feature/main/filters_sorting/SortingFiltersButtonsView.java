@@ -7,9 +7,10 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import androidx.fragment.app.FragmentActivity;
+
 import java.util.Locale;
 
-import androidx.fragment.app.FragmentActivity;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -99,8 +100,9 @@ public class SortingFiltersButtonsView extends RelativeLayout
 
 		filtersDot.setVisibility(isFilterReset(filter) ? View.GONE : VISIBLE);
 
-		if (filtersUpdateListener != null)
+		if (filtersUpdateListener != null) {
 			filtersUpdateListener.onFilterUpdated(filter);
+		}
 	}
 
 	private boolean isFilterReset(ProgramsFilter filter) {
@@ -113,8 +115,9 @@ public class SortingFiltersButtonsView extends RelativeLayout
 
 	@OnClick(R.id.button_up)
 	public void onUpClicked() {
-		if (buttonUpListener != null)
+		if (buttonUpListener != null) {
 			buttonUpListener.onButtonClicked();
+		}
 	}
 
 	private void initView() {
@@ -150,8 +153,9 @@ public class SortingFiltersButtonsView extends RelativeLayout
 	}
 
 	private void extractSortingFromFilter(SortingEnum sortingEnum) {
-		if (sortingEnum == null)
+		if (sortingEnum == null) {
 			return;
+		}
 
 		switch (sortingEnum) {
 			case BYPROFITASC:
@@ -205,34 +209,44 @@ public class SortingFiltersButtonsView extends RelativeLayout
 		SortingEnum sortingEnum;
 		switch (option) {
 			case "profit":
-				if (direction.equals("asc"))
+				if (direction.equals("asc")) {
 					sortingEnum = SortingEnum.BYPROFITASC;
-				else
+				}
+				else {
 					sortingEnum = SortingEnum.BYPROFITDESC;
+				}
 				break;
 			case "level":
-				if (direction.equals("asc"))
+				if (direction.equals("asc")) {
 					sortingEnum = SortingEnum.BYLEVELASC;
-				else
+				}
+				else {
 					sortingEnum = SortingEnum.BYLEVELDESC;
+				}
 				break;
 			case "end of period":
-				if (direction.equals("asc"))
+				if (direction.equals("asc")) {
 					sortingEnum = SortingEnum.BYENDOFPERIODASC;
-				else
+				}
+				else {
 					sortingEnum = SortingEnum.BYENDOFPERIODDESC;
+				}
 				break;
 			case "balance":
-				if (direction.equals("asc"))
+				if (direction.equals("asc")) {
 					sortingEnum = SortingEnum.BYBALANCEASC;
-				else
+				}
+				else {
 					sortingEnum = SortingEnum.BYBALANCEDESC;
+				}
 				break;
 			case "title":
-				if (direction.equals("asc"))
+				if (direction.equals("asc")) {
 					sortingEnum = SortingEnum.BYTITLEASC;
-				else
+				}
+				else {
 					sortingEnum = SortingEnum.BYTITLEDESC;
+				}
 				break;
 			default:
 				sortingEnum = SortingEnum.BYPROFITASC;
@@ -244,8 +258,9 @@ public class SortingFiltersButtonsView extends RelativeLayout
 		filter.setSorting(sortingEnum);
 		extractSortingFromFilter(filter.getSorting());
 
-		if (filtersUpdateListener != null)
+		if (filtersUpdateListener != null) {
 			filtersUpdateListener.onFilterUpdated(filter);
+		}
 	}
 
 	private void updateSortingText(String option, String direction) {

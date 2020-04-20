@@ -56,9 +56,9 @@ public class SubscriptionSettingsModel implements Parcelable
 
 	private Double fixedVolume = 0.0;
 
-	private String fixedCurrency = AttachToSignalProvider.FixedCurrencyEnum.USD.getValue();
+	private String fixedCurrency = Currency.USD.getValue();
 
-	private String initialDepositCurrency = AttachToSignalProvider.FixedCurrencyEnum.GVT.getValue();
+	private String initialDepositCurrency = Currency.GVT.getValue();
 
 	private Double initialDepositAmount = 0.0;
 
@@ -274,7 +274,7 @@ public class SubscriptionSettingsModel implements Parcelable
 		model.setPercent(getPercent());
 		model.setOpenTolerancePercent(getTolerancePercent());
 		model.setFixedVolume(getFixedVolume());
-		model.setFixedCurrency(AttachToSignalProvider.FixedCurrencyEnum.fromValue(getFixedCurrency()));
+		model.setFixedCurrency(Currency.fromValue(getFixedCurrency()));
 		return model;
 	}
 }

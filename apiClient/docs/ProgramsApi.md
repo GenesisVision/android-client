@@ -1,10 +1,11 @@
 # ProgramsApi
 
-All URIs are relative to */api*
+All URIs are relative to *https://red.genesis.vision/api*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**addToFavorites**](ProgramsApi.md#addToFavorites) | **POST** v2.0/programs/{id}/favorite/add | Add to favorites
+[**closeAssetTrade**](ProgramsApi.md#closeAssetTrade) | **POST** v2.0/programs/{id}/trades/close | Manually close trade by symbol for asset
 [**exportProgramPeriods**](ProgramsApi.md#exportProgramPeriods) | **GET** v2.0/programs/{id}/periods/export | Export periods
 [**exportProgramPeriodsFinStatistic**](ProgramsApi.md#exportProgramPeriodsFinStatistic) | **GET** v2.0/programs/{id}/periods/export/statistic | Export period financial statistic
 [**exportProgramTrades**](ProgramsApi.md#exportProgramTrades) | **GET** v2.0/programs/{id}/trades/export | Export trade history
@@ -21,22 +22,31 @@ Method | HTTP request | Description
 
 <a name="addToFavorites"></a>
 # **addToFavorites**
-> Void addToFavorites(id, authorization)
+> Void addToFavorites(id)
 
 Add to favorites
 
 ### Example
 ```java
 // Import classes:
+//import io.swagger.client.ApiClient;
 //import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
 //import io.swagger.client.api.ProgramsApi;
 
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
 
 ProgramsApi apiInstance = new ProgramsApi();
 UUID id = new UUID(); // UUID | 
-String authorization = "authorization_example"; // String | JWT access token
 try {
-    Void result = apiInstance.addToFavorites(id, authorization);
+    Void result = apiInstance.addToFavorites(id);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling ProgramsApi#addToFavorites");
@@ -49,7 +59,6 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | [**UUID**](.md)|  |
- **authorization** | **String**| JWT access token |
 
 ### Return type
 
@@ -57,7 +66,62 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
+
+<a name="closeAssetTrade"></a>
+# **closeAssetTrade**
+> Void closeAssetTrade(id, symbol)
+
+Manually close trade by symbol for asset
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiClient;
+//import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
+//import io.swagger.client.api.ProgramsApi;
+
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
+
+ProgramsApi apiInstance = new ProgramsApi();
+UUID id = new UUID(); // UUID | 
+String symbol = "symbol_example"; // String | 
+try {
+    Void result = apiInstance.closeAssetTrade(id, symbol);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling ProgramsApi#closeAssetTrade");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | [**UUID**](.md)|  |
+ **symbol** | **String**|  | [optional]
+
+### Return type
+
+[**Void**](.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
 
 ### HTTP request headers
 
@@ -66,16 +130,26 @@ No authorization required
 
 <a name="exportProgramPeriods"></a>
 # **exportProgramPeriods**
-> String exportProgramPeriods(id, dateFrom, dateTo, numberMin, numberMax, status, skip, take)
+> byte[] exportProgramPeriods(id, dateFrom, dateTo, numberMin, numberMax, status, skip, take)
 
 Export periods
 
 ### Example
 ```java
 // Import classes:
+//import io.swagger.client.ApiClient;
 //import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
 //import io.swagger.client.api.ProgramsApi;
 
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
 
 ProgramsApi apiInstance = new ProgramsApi();
 String id = "id_example"; // String | 
@@ -83,11 +157,11 @@ DateTime dateFrom = new DateTime(); // DateTime |
 DateTime dateTo = new DateTime(); // DateTime | 
 Integer numberMin = 56; // Integer | 
 Integer numberMax = 56; // Integer | 
-String status = "status_example"; // String | 
+PeriodStatus status = new PeriodStatus(); // PeriodStatus | 
 Integer skip = 56; // Integer | 
 Integer take = 56; // Integer | 
 try {
-    String result = apiInstance.exportProgramPeriods(id, dateFrom, dateTo, numberMin, numberMax, status, skip, take);
+    byte[] result = apiInstance.exportProgramPeriods(id, dateFrom, dateTo, numberMin, numberMax, status, skip, take);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling ProgramsApi#exportProgramPeriods");
@@ -104,17 +178,17 @@ Name | Type | Description  | Notes
  **dateTo** | **DateTime**|  | [optional]
  **numberMin** | **Integer**|  | [optional]
  **numberMax** | **Integer**|  | [optional]
- **status** | **String**|  | [optional] [enum: Planned, InProccess, Closed]
+ **status** | [**PeriodStatus**](.md)|  | [optional]
  **skip** | **Integer**|  | [optional]
  **take** | **Integer**|  | [optional]
 
 ### Return type
 
-**String**
+**byte[]**
 
 ### Authorization
 
-No authorization required
+[Bearer](../README.md#Bearer)
 
 ### HTTP request headers
 
@@ -123,29 +197,38 @@ No authorization required
 
 <a name="exportProgramPeriodsFinStatistic"></a>
 # **exportProgramPeriodsFinStatistic**
-> String exportProgramPeriodsFinStatistic(id, authorization, dateFrom, dateTo, numberMin, numberMax, status, skip, take)
+> byte[] exportProgramPeriodsFinStatistic(id, dateFrom, dateTo, numberMin, numberMax, status, skip, take)
 
 Export period financial statistic
 
 ### Example
 ```java
 // Import classes:
+//import io.swagger.client.ApiClient;
 //import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
 //import io.swagger.client.api.ProgramsApi;
 
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
 
 ProgramsApi apiInstance = new ProgramsApi();
 String id = "id_example"; // String | 
-String authorization = "authorization_example"; // String | JWT access token
 DateTime dateFrom = new DateTime(); // DateTime | 
 DateTime dateTo = new DateTime(); // DateTime | 
 Integer numberMin = 56; // Integer | 
 Integer numberMax = 56; // Integer | 
-String status = "status_example"; // String | 
+PeriodStatus status = new PeriodStatus(); // PeriodStatus | 
 Integer skip = 56; // Integer | 
 Integer take = 56; // Integer | 
 try {
-    String result = apiInstance.exportProgramPeriodsFinStatistic(id, authorization, dateFrom, dateTo, numberMin, numberMax, status, skip, take);
+    byte[] result = apiInstance.exportProgramPeriodsFinStatistic(id, dateFrom, dateTo, numberMin, numberMax, status, skip, take);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling ProgramsApi#exportProgramPeriodsFinStatistic");
@@ -158,22 +241,21 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **String**|  |
- **authorization** | **String**| JWT access token |
  **dateFrom** | **DateTime**|  | [optional]
  **dateTo** | **DateTime**|  | [optional]
  **numberMin** | **Integer**|  | [optional]
  **numberMax** | **Integer**|  | [optional]
- **status** | **String**|  | [optional] [enum: Planned, InProccess, Closed]
+ **status** | [**PeriodStatus**](.md)|  | [optional]
  **skip** | **Integer**|  | [optional]
  **take** | **Integer**|  | [optional]
 
 ### Return type
 
-**String**
+**byte[]**
 
 ### Authorization
 
-No authorization required
+[Bearer](../README.md#Bearer)
 
 ### HTTP request headers
 
@@ -182,30 +264,40 @@ No authorization required
 
 <a name="exportProgramTrades"></a>
 # **exportProgramTrades**
-> String exportProgramTrades(id, dateFrom, dateTo, symbol, sorting, accountId, accountCurrency, isFollow, skip, take)
+> byte[] exportProgramTrades(id, dateFrom, dateTo, symbol, sorting, accountId, accountCurrency, isFollow, skip, take)
 
 Export trade history
 
 ### Example
 ```java
 // Import classes:
+//import io.swagger.client.ApiClient;
 //import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
 //import io.swagger.client.api.ProgramsApi;
 
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
 
 ProgramsApi apiInstance = new ProgramsApi();
 UUID id = new UUID(); // UUID | 
 DateTime dateFrom = new DateTime(); // DateTime | 
 DateTime dateTo = new DateTime(); // DateTime | 
 String symbol = "symbol_example"; // String | 
-String sorting = "sorting_example"; // String | 
+TradeSorting sorting = new TradeSorting(); // TradeSorting | 
 UUID accountId = new UUID(); // UUID | 
-String accountCurrency = "accountCurrency_example"; // String | 
+Currency accountCurrency = new Currency(); // Currency | 
 Boolean isFollow = true; // Boolean | 
 Integer skip = 56; // Integer | 
 Integer take = 56; // Integer | 
 try {
-    String result = apiInstance.exportProgramTrades(id, dateFrom, dateTo, symbol, sorting, accountId, accountCurrency, isFollow, skip, take);
+    byte[] result = apiInstance.exportProgramTrades(id, dateFrom, dateTo, symbol, sorting, accountId, accountCurrency, isFollow, skip, take);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling ProgramsApi#exportProgramTrades");
@@ -221,20 +313,20 @@ Name | Type | Description  | Notes
  **dateFrom** | **DateTime**|  | [optional]
  **dateTo** | **DateTime**|  | [optional]
  **symbol** | **String**|  | [optional]
- **sorting** | **String**|  | [optional] [enum: ByDateAsc, ByDateDesc, ByTicketAsc, ByTicketDesc, BySymbolAsc, BySymbolDesc, ByDirectionAsc, ByDirectionDesc, ByVolumeAsc, ByVolumeDesc, ByPriceAsc, ByPriceDesc, ByPriceCurrentAsc, ByPriceCurrentDesc, ByProfitAsc, ByProfitDesc, ByCommissionAsc, ByCommissionDesc, BySwapAsc, BySwapDesc]
+ **sorting** | [**TradeSorting**](.md)|  | [optional]
  **accountId** | [**UUID**](.md)|  | [optional]
- **accountCurrency** | **String**|  | [optional] [enum: BTC, ETH, USDT, USD, GVT, Undefined, ADA, XRP, BCH, LTC, DOGE, BNB, EUR]
+ **accountCurrency** | [**Currency**](.md)|  | [optional]
  **isFollow** | **Boolean**|  | [optional]
  **skip** | **Integer**|  | [optional]
  **take** | **Integer**|  | [optional]
 
 ### Return type
 
-**String**
+**byte[]**
 
 ### Authorization
 
-No authorization required
+[Bearer](../README.md#Bearer)
 
 ### HTTP request headers
 
@@ -250,18 +342,28 @@ Trade history
 ### Example
 ```java
 // Import classes:
+//import io.swagger.client.ApiClient;
 //import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
 //import io.swagger.client.api.ProgramsApi;
 
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
 
 ProgramsApi apiInstance = new ProgramsApi();
 UUID id = new UUID(); // UUID | 
 DateTime dateFrom = new DateTime(); // DateTime | 
 DateTime dateTo = new DateTime(); // DateTime | 
 String symbol = "symbol_example"; // String | 
-String sorting = "sorting_example"; // String | 
+TradeSorting sorting = new TradeSorting(); // TradeSorting | 
 UUID accountId = new UUID(); // UUID | 
-String accountCurrency = "accountCurrency_example"; // String | 
+Currency accountCurrency = new Currency(); // Currency | 
 Boolean isFollow = true; // Boolean | 
 Integer skip = 56; // Integer | 
 Integer take = 56; // Integer | 
@@ -282,9 +384,9 @@ Name | Type | Description  | Notes
  **dateFrom** | **DateTime**|  | [optional]
  **dateTo** | **DateTime**|  | [optional]
  **symbol** | **String**|  | [optional]
- **sorting** | **String**|  | [optional] [enum: ByDateAsc, ByDateDesc, ByTicketAsc, ByTicketDesc, BySymbolAsc, BySymbolDesc, ByDirectionAsc, ByDirectionDesc, ByVolumeAsc, ByVolumeDesc, ByPriceAsc, ByPriceDesc, ByPriceCurrentAsc, ByPriceCurrentDesc, ByProfitAsc, ByProfitDesc, ByCommissionAsc, ByCommissionDesc, BySwapAsc, BySwapDesc]
+ **sorting** | [**TradeSorting**](.md)|  | [optional]
  **accountId** | [**UUID**](.md)|  | [optional]
- **accountCurrency** | **String**|  | [optional] [enum: BTC, ETH, USDT, USD, GVT, Undefined, ADA, XRP, BCH, LTC, DOGE, BNB, EUR]
+ **accountCurrency** | [**Currency**](.md)|  | [optional]
  **isFollow** | **Boolean**|  | [optional]
  **skip** | **Integer**|  | [optional]
  **take** | **Integer**|  | [optional]
@@ -295,7 +397,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[Bearer](../README.md#Bearer)
 
 ### HTTP request headers
 
@@ -311,16 +413,26 @@ Program absolute profit chart
 ### Example
 ```java
 // Import classes:
+//import io.swagger.client.ApiClient;
 //import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
 //import io.swagger.client.api.ProgramsApi;
 
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
 
 ProgramsApi apiInstance = new ProgramsApi();
 UUID id = new UUID(); // UUID | 
 DateTime dateFrom = new DateTime(); // DateTime | 
 DateTime dateTo = new DateTime(); // DateTime | 
 Integer maxPointCount = 56; // Integer | 
-String currency = "currency_example"; // String | 
+Currency currency = new Currency(); // Currency | 
 try {
     AbsoluteProfitChart result = apiInstance.getProgramAbsoluteProfitChart(id, dateFrom, dateTo, maxPointCount, currency);
     System.out.println(result);
@@ -338,7 +450,7 @@ Name | Type | Description  | Notes
  **dateFrom** | **DateTime**|  | [optional]
  **dateTo** | **DateTime**|  | [optional]
  **maxPointCount** | **Integer**|  | [optional]
- **currency** | **String**|  | [optional] [enum: BTC, ETH, USDT, USD, GVT, Undefined, ADA, XRP, BCH, LTC, DOGE, BNB, EUR]
+ **currency** | [**Currency**](.md)|  | [optional]
 
 ### Return type
 
@@ -346,7 +458,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[Bearer](../README.md#Bearer)
 
 ### HTTP request headers
 
@@ -362,16 +474,26 @@ Program balance chart
 ### Example
 ```java
 // Import classes:
+//import io.swagger.client.ApiClient;
 //import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
 //import io.swagger.client.api.ProgramsApi;
 
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
 
 ProgramsApi apiInstance = new ProgramsApi();
 UUID id = new UUID(); // UUID | 
 DateTime dateFrom = new DateTime(); // DateTime | 
 DateTime dateTo = new DateTime(); // DateTime | 
 Integer maxPointCount = 56; // Integer | 
-String currency = "currency_example"; // String | 
+Currency currency = new Currency(); // Currency | 
 try {
     ProgramBalanceChart result = apiInstance.getProgramBalanceChart(id, dateFrom, dateTo, maxPointCount, currency);
     System.out.println(result);
@@ -389,7 +511,7 @@ Name | Type | Description  | Notes
  **dateFrom** | **DateTime**|  | [optional]
  **dateTo** | **DateTime**|  | [optional]
  **maxPointCount** | **Integer**|  | [optional]
- **currency** | **String**|  | [optional] [enum: BTC, ETH, USDT, USD, GVT, Undefined, ADA, XRP, BCH, LTC, DOGE, BNB, EUR]
+ **currency** | [**Currency**](.md)|  | [optional]
 
 ### Return type
 
@@ -397,7 +519,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[Bearer](../README.md#Bearer)
 
 ### HTTP request headers
 
@@ -406,22 +528,32 @@ No authorization required
 
 <a name="getProgramDetails"></a>
 # **getProgramDetails**
-> ProgramFollowDetailsFull getProgramDetails(id, authorization)
+> ProgramFollowDetailsFull getProgramDetails(id, logoQuality)
 
 Program details
 
 ### Example
 ```java
 // Import classes:
+//import io.swagger.client.ApiClient;
 //import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
 //import io.swagger.client.api.ProgramsApi;
 
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
 
 ProgramsApi apiInstance = new ProgramsApi();
 String id = "id_example"; // String | 
-String authorization = "authorization_example"; // String | 
+ImageQuality logoQuality = new ImageQuality(); // ImageQuality | 
 try {
-    ProgramFollowDetailsFull result = apiInstance.getProgramDetails(id, authorization);
+    ProgramFollowDetailsFull result = apiInstance.getProgramDetails(id, logoQuality);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling ProgramsApi#getProgramDetails");
@@ -434,7 +566,7 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **String**|  |
- **authorization** | **String**|  | [optional]
+ **logoQuality** | [**ImageQuality**](.md)|  | [optional]
 
 ### Return type
 
@@ -442,7 +574,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[Bearer](../README.md#Bearer)
 
 ### HTTP request headers
 
@@ -458,16 +590,26 @@ Open positions
 ### Example
 ```java
 // Import classes:
+//import io.swagger.client.ApiClient;
 //import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
 //import io.swagger.client.api.ProgramsApi;
 
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
 
 ProgramsApi apiInstance = new ProgramsApi();
 UUID id = new UUID(); // UUID | 
-String sorting = "sorting_example"; // String | 
+TradeSorting sorting = new TradeSorting(); // TradeSorting | 
 String symbol = "symbol_example"; // String | 
 UUID accountId = new UUID(); // UUID | 
-String accountCurrency = "accountCurrency_example"; // String | 
+Currency accountCurrency = new Currency(); // Currency | 
 Integer skip = 56; // Integer | 
 Integer take = 56; // Integer | 
 try {
@@ -484,10 +626,10 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | [**UUID**](.md)|  |
- **sorting** | **String**|  | [optional] [enum: ByDateAsc, ByDateDesc, ByTicketAsc, ByTicketDesc, BySymbolAsc, BySymbolDesc, ByDirectionAsc, ByDirectionDesc, ByVolumeAsc, ByVolumeDesc, ByPriceAsc, ByPriceDesc, ByPriceCurrentAsc, ByPriceCurrentDesc, ByProfitAsc, ByProfitDesc, ByCommissionAsc, ByCommissionDesc, BySwapAsc, BySwapDesc]
+ **sorting** | [**TradeSorting**](.md)|  | [optional]
  **symbol** | **String**|  | [optional]
  **accountId** | [**UUID**](.md)|  | [optional]
- **accountCurrency** | **String**|  | [optional] [enum: BTC, ETH, USDT, USD, GVT, Undefined, ADA, XRP, BCH, LTC, DOGE, BNB, EUR]
+ **accountCurrency** | [**Currency**](.md)|  | [optional]
  **skip** | **Integer**|  | [optional]
  **take** | **Integer**|  | [optional]
 
@@ -497,7 +639,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[Bearer](../README.md#Bearer)
 
 ### HTTP request headers
 
@@ -506,29 +648,38 @@ No authorization required
 
 <a name="getProgramPeriods"></a>
 # **getProgramPeriods**
-> ProgramPeriodsViewModel getProgramPeriods(id, authorization, dateFrom, dateTo, numberMin, numberMax, status, skip, take)
+> ProgramPeriodsViewModel getProgramPeriods(id, dateFrom, dateTo, numberMin, numberMax, status, skip, take)
 
 Program periods
 
 ### Example
 ```java
 // Import classes:
+//import io.swagger.client.ApiClient;
 //import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
 //import io.swagger.client.api.ProgramsApi;
 
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
 
 ProgramsApi apiInstance = new ProgramsApi();
 String id = "id_example"; // String | 
-String authorization = "authorization_example"; // String | 
 DateTime dateFrom = new DateTime(); // DateTime | 
 DateTime dateTo = new DateTime(); // DateTime | 
 Integer numberMin = 56; // Integer | 
 Integer numberMax = 56; // Integer | 
-String status = "status_example"; // String | 
+PeriodStatus status = new PeriodStatus(); // PeriodStatus | 
 Integer skip = 56; // Integer | 
 Integer take = 56; // Integer | 
 try {
-    ProgramPeriodsViewModel result = apiInstance.getProgramPeriods(id, authorization, dateFrom, dateTo, numberMin, numberMax, status, skip, take);
+    ProgramPeriodsViewModel result = apiInstance.getProgramPeriods(id, dateFrom, dateTo, numberMin, numberMax, status, skip, take);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling ProgramsApi#getProgramPeriods");
@@ -541,12 +692,11 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **String**|  |
- **authorization** | **String**|  | [optional]
  **dateFrom** | **DateTime**|  | [optional]
  **dateTo** | **DateTime**|  | [optional]
  **numberMin** | **Integer**|  | [optional]
  **numberMax** | **Integer**|  | [optional]
- **status** | **String**|  | [optional] [enum: Planned, InProccess, Closed]
+ **status** | [**PeriodStatus**](.md)|  | [optional]
  **skip** | **Integer**|  | [optional]
  **take** | **Integer**|  | [optional]
 
@@ -556,7 +706,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[Bearer](../README.md#Bearer)
 
 ### HTTP request headers
 
@@ -565,27 +715,36 @@ No authorization required
 
 <a name="getProgramProfitPercentCharts"></a>
 # **getProgramProfitPercentCharts**
-> ProgramProfitPercentCharts getProgramProfitPercentCharts(id, authorization, dateFrom, dateTo, maxPointCount, currency, currencies)
+> ProgramProfitPercentCharts getProgramProfitPercentCharts(id, dateFrom, dateTo, maxPointCount, currency, currencies)
 
 Program profit percent charts
 
 ### Example
 ```java
 // Import classes:
+//import io.swagger.client.ApiClient;
 //import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
 //import io.swagger.client.api.ProgramsApi;
 
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
 
 ProgramsApi apiInstance = new ProgramsApi();
 UUID id = new UUID(); // UUID | 
-String authorization = "authorization_example"; // String | 
 DateTime dateFrom = new DateTime(); // DateTime | 
 DateTime dateTo = new DateTime(); // DateTime | 
 Integer maxPointCount = 56; // Integer | 
-String currency = "currency_example"; // String | 
-List<Object> currencies = null; // List<Object> | 
+Currency currency = new Currency(); // Currency | 
+List<Currency> currencies = Arrays.asList(new Currency()); // List<Currency> | 
 try {
-    ProgramProfitPercentCharts result = apiInstance.getProgramProfitPercentCharts(id, authorization, dateFrom, dateTo, maxPointCount, currency, currencies);
+    ProgramProfitPercentCharts result = apiInstance.getProgramProfitPercentCharts(id, dateFrom, dateTo, maxPointCount, currency, currencies);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling ProgramsApi#getProgramProfitPercentCharts");
@@ -598,12 +757,11 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | [**UUID**](.md)|  |
- **authorization** | **String**|  | [optional]
  **dateFrom** | **DateTime**|  | [optional]
  **dateTo** | **DateTime**|  | [optional]
  **maxPointCount** | **Integer**|  | [optional]
- **currency** | **String**|  | [optional] [enum: BTC, ETH, USDT, USD, GVT, Undefined, ADA, XRP, BCH, LTC, DOGE, BNB, EUR]
- **currencies** | [**List&lt;Object&gt;**](Object.md)|  | [optional]
+ **currency** | [**Currency**](.md)|  | [optional]
+ **currencies** | [**List&lt;Currency&gt;**](Currency.md)|  | [optional]
 
 ### Return type
 
@@ -611,7 +769,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[Bearer](../README.md#Bearer)
 
 ### HTTP request headers
 
@@ -620,25 +778,34 @@ No authorization required
 
 <a name="getProgramSubscribers"></a>
 # **getProgramSubscribers**
-> SignalProviderSubscribers getProgramSubscribers(id, authorization, status, skip, take)
+> SignalProviderSubscribers getProgramSubscribers(id, status, skip, take)
 
 Signal subscribers
 
 ### Example
 ```java
 // Import classes:
+//import io.swagger.client.ApiClient;
 //import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
 //import io.swagger.client.api.ProgramsApi;
 
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
 
 ProgramsApi apiInstance = new ProgramsApi();
 UUID id = new UUID(); // UUID | 
-String authorization = "authorization_example"; // String | JWT access token
-String status = "status_example"; // String | 
+DashboardActionStatus status = new DashboardActionStatus(); // DashboardActionStatus | 
 Integer skip = 56; // Integer | 
 Integer take = 56; // Integer | 
 try {
-    SignalProviderSubscribers result = apiInstance.getProgramSubscribers(id, authorization, status, skip, take);
+    SignalProviderSubscribers result = apiInstance.getProgramSubscribers(id, status, skip, take);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling ProgramsApi#getProgramSubscribers");
@@ -651,8 +818,7 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | [**UUID**](.md)|  |
- **authorization** | **String**| JWT access token |
- **status** | **String**|  | [optional] [enum: All, Active]
+ **status** | [**DashboardActionStatus**](.md)|  | [optional]
  **skip** | **Integer**|  | [optional]
  **take** | **Integer**|  | [optional]
 
@@ -662,7 +828,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[Bearer](../README.md#Bearer)
 
 ### HTTP request headers
 
@@ -671,23 +837,32 @@ No authorization required
 
 <a name="getPrograms"></a>
 # **getPrograms**
-> ItemsViewModelProgramDetailsListItem getPrograms(authorization, sorting, showIn, tags, programCurrency, levelMin, levelMax, levelsSet, includeWithInvestments, dateFrom, dateTo, chartPointsCount, facetId, mask, ownerId, showFavorites, skip, take)
+> ProgramDetailsListItemItemsViewModel getPrograms(sorting, showIn, tags, programCurrency, levelMin, levelMax, levelsSet, includeWithInvestments, dateFrom, dateTo, chartPointsCount, facetId, mask, ownerId, showFavorites, skip, take)
 
 Programs list
 
 ### Example
 ```java
 // Import classes:
+//import io.swagger.client.ApiClient;
 //import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
 //import io.swagger.client.api.ProgramsApi;
 
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
 
 ProgramsApi apiInstance = new ProgramsApi();
-String authorization = "authorization_example"; // String | 
-String sorting = "sorting_example"; // String | 
-String showIn = "showIn_example"; // String | 
+ProgramsFilterSorting sorting = new ProgramsFilterSorting(); // ProgramsFilterSorting | 
+Currency showIn = new Currency(); // Currency | 
 List<String> tags = Arrays.asList("tags_example"); // List<String> | 
-String programCurrency = "programCurrency_example"; // String | 
+Currency programCurrency = new Currency(); // Currency | 
 Integer levelMin = 56; // Integer | 
 Integer levelMax = 56; // Integer | 
 List<Integer> levelsSet = Arrays.asList(56); // List<Integer> | 
@@ -702,7 +877,7 @@ Boolean showFavorites = true; // Boolean |
 Integer skip = 56; // Integer | 
 Integer take = 56; // Integer | 
 try {
-    ItemsViewModelProgramDetailsListItem result = apiInstance.getPrograms(authorization, sorting, showIn, tags, programCurrency, levelMin, levelMax, levelsSet, includeWithInvestments, dateFrom, dateTo, chartPointsCount, facetId, mask, ownerId, showFavorites, skip, take);
+    ProgramDetailsListItemItemsViewModel result = apiInstance.getPrograms(sorting, showIn, tags, programCurrency, levelMin, levelMax, levelsSet, includeWithInvestments, dateFrom, dateTo, chartPointsCount, facetId, mask, ownerId, showFavorites, skip, take);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling ProgramsApi#getPrograms");
@@ -714,11 +889,10 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **String**|  | [optional]
- **sorting** | **String**|  | [optional] [enum: ByTitleAsc, ByTitleDesc, ByEquityAsc, ByEquityDesc, ByInvestorsAsc, ByInvestorsDesc, ByPeriodAsc, ByPeriodDesc, ByDrawdownAsc, ByDrawdownDesc, ByProfitAsc, ByProfitDesc, ByNewAsc, ByNewDesc, ByLevelProgressAsc, ByLevelProgressDesc, ByLevelAsc, ByLevelDesc, ByValueAsc, ByValueDesc]
- **showIn** | **String**|  | [optional] [enum: BTC, ETH, USDT, USD, GVT, Undefined, ADA, XRP, BCH, LTC, DOGE, BNB, EUR]
+ **sorting** | [**ProgramsFilterSorting**](.md)|  | [optional]
+ **showIn** | [**Currency**](.md)|  | [optional]
  **tags** | [**List&lt;String&gt;**](String.md)|  | [optional]
- **programCurrency** | **String**|  | [optional] [enum: BTC, ETH, USDT, USD, GVT, Undefined, ADA, XRP, BCH, LTC, DOGE, BNB, EUR]
+ **programCurrency** | [**Currency**](.md)|  | [optional]
  **levelMin** | **Integer**|  | [optional]
  **levelMax** | **Integer**|  | [optional]
  **levelsSet** | [**List&lt;Integer&gt;**](Integer.md)|  | [optional]
@@ -735,11 +909,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ItemsViewModelProgramDetailsListItem**](ItemsViewModelProgramDetailsListItem.md)
+[**ProgramDetailsListItemItemsViewModel**](ProgramDetailsListItemItemsViewModel.md)
 
 ### Authorization
 
-No authorization required
+[Bearer](../README.md#Bearer)
 
 ### HTTP request headers
 
@@ -748,22 +922,31 @@ No authorization required
 
 <a name="removeFromFavorites"></a>
 # **removeFromFavorites**
-> Void removeFromFavorites(id, authorization)
+> Void removeFromFavorites(id)
 
 Remove from favorites
 
 ### Example
 ```java
 // Import classes:
+//import io.swagger.client.ApiClient;
 //import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
 //import io.swagger.client.api.ProgramsApi;
 
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
 
 ProgramsApi apiInstance = new ProgramsApi();
 UUID id = new UUID(); // UUID | 
-String authorization = "authorization_example"; // String | JWT access token
 try {
-    Void result = apiInstance.removeFromFavorites(id, authorization);
+    Void result = apiInstance.removeFromFavorites(id);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling ProgramsApi#removeFromFavorites");
@@ -776,7 +959,6 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | [**UUID**](.md)|  |
- **authorization** | **String**| JWT access token |
 
 ### Return type
 
@@ -784,7 +966,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[Bearer](../README.md#Bearer)
 
 ### HTTP request headers
 

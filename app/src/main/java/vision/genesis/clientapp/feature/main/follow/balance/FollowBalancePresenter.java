@@ -6,6 +6,7 @@ import com.arellomobile.mvp.MvpPresenter;
 import javax.inject.Inject;
 
 import io.swagger.client.model.AccountBalanceChart;
+import io.swagger.client.model.Currency;
 import io.swagger.client.model.ProgramFollowDetailsFull;
 import io.swagger.client.model.SimpleChartPoint;
 import rx.Subscription;
@@ -46,7 +47,7 @@ public class FollowBalancePresenter extends MvpPresenter<FollowBalanceView> impl
 
 	private DateRange chartDateRange = DateRange.createFromEnum(DateRange.DateRangeEnum.MONTH);
 
-	private CurrencyEnum baseCurrency;
+	private Currency baseCurrency;
 
 	private ProgramFollowDetailsFull details;
 
@@ -92,7 +93,7 @@ public class FollowBalancePresenter extends MvpPresenter<FollowBalanceView> impl
 	}
 
 	private void baseCurrencyChangedHandler(CurrencyEnum baseCurrency) {
-		this.baseCurrency = baseCurrency;
+		this.baseCurrency = Currency.fromValue(baseCurrency.getValue());
 		getChartData();
 	}
 
@@ -102,7 +103,7 @@ public class FollowBalancePresenter extends MvpPresenter<FollowBalanceView> impl
 				chartDataSubscription.unsubscribe();
 			}
 
-			chartDataSubscription = followsManager.getBalanceChart(details.getId(), chartDateRange, 30, baseCurrency.getValue())
+			chartDataSubscription = followsManager.getBalanceChart(details.getId(), chartDateRange, 30, baseCurrency)
 					.observeOn(AndroidSchedulers.mainThread())
 					.subscribeOn(Schedulers.io())
 					.subscribe(this::handleGetFollowChartDataSuccess,

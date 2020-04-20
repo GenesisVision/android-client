@@ -19,17 +19,20 @@ public class CaptchaUtils
 		String diffString = "";
 
 		for (int i = 0; i < 64; i++) {
-			if (i < captchaDetails.getPow().getDifficulty())
+			if (i < captchaDetails.getPow().getDifficulty()) {
 				diffString = diffString.concat("0");
-			else
+			}
+			else {
 				diffString = diffString.concat("f");
+			}
 		}
 		try {
 			while (true) {
 				str = prefix.toString().concat(captchaDetails.getPow().getNonce()).concat(captchaDetails.getRoute());
 				hash = HashGeneratorUtil.generateSHA256(str);
-				if (hash.compareTo(diffString) < 0)
+				if (hash.compareTo(diffString) < 0) {
 					break;
+				}
 
 				prefix++;
 			}

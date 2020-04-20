@@ -119,7 +119,7 @@ public class TradingAssetDashboardShortView extends RelativeLayout
 						TradingAccountDetailsModel tradingAccountDetailsModel = new TradingAccountDetailsModel(
 								asset.getId(),
 								asset.getAccountInfo() != null ? asset.getAccountInfo().getTitle() : null,
-								asset.getBroker() != null ? asset.getBroker().getLogo() : null,
+								asset.getBroker() != null ? asset.getBroker().getLogoUrl() : null,
 								asset.getAccountInfo() != null ? asset.getAccountInfo().getType() : null
 						);
 						tradingAccountDetailsModel.setIsDemo(asset.getActions().isCanMakeDemoDeposit());
@@ -128,7 +128,7 @@ public class TradingAssetDashboardShortView extends RelativeLayout
 					case PROGRAM:
 						ProgramDetailsModel programDetailsModel = new ProgramDetailsModel(
 								asset.getId(),
-								asset.getPublicInfo().getLogo(),
+								asset.getPublicInfo().getLogoUrl(),
 								asset.getPublicInfo().getColor(),
 								0,
 								0.0,
@@ -143,7 +143,7 @@ public class TradingAssetDashboardShortView extends RelativeLayout
 					case FUND:
 						FundDetailsModel fundDetailsModel = new FundDetailsModel(
 								asset.getId(),
-								asset.getPublicInfo().getLogo(),
+								asset.getPublicInfo().getLogoUrl(),
 								asset.getPublicInfo().getColor(),
 								asset.getPublicInfo().getTitle(),
 								"",
@@ -154,7 +154,7 @@ public class TradingAssetDashboardShortView extends RelativeLayout
 					case FOLLOW:
 						ProgramDetailsModel followDetailsModel = new ProgramDetailsModel(
 								asset.getId(),
-								asset.getPublicInfo().getLogo(),
+								asset.getPublicInfo().getLogoUrl(),
 								asset.getPublicInfo().getColor(),
 								0,
 								0.0,
@@ -187,7 +187,7 @@ public class TradingAssetDashboardShortView extends RelativeLayout
 		if (asset.getAssetType().equals(AssetType.NONE)) {
 			this.logo.setVisibility(View.GONE);
 			this.brokerLogo.setVisibility(View.VISIBLE);
-			this.brokerLogo.setImageURI(ImageUtils.getImageUri(asset.getBroker().getLogo()));
+			this.brokerLogo.setImageURI(ImageUtils.getImageUri(asset.getBroker().getLogoUrl()));
 
 			this.name.setText(asset.getAccountInfo().getTitle());
 			if (asset.getAccountInfo().getBalance() != null) {
@@ -222,7 +222,7 @@ public class TradingAssetDashboardShortView extends RelativeLayout
 		else {
 			this.brokerLogo.setVisibility(View.GONE);
 			this.logo.setVisibility(View.VISIBLE);
-			this.logo.setImage(asset.getPublicInfo().getLogo(), asset.getPublicInfo().getColor(), 50, 50);
+			this.logo.setImage(asset.getPublicInfo().getLogoUrl(), asset.getPublicInfo().getColor(), 50, 50);
 			this.logo.hideLevel();
 
 			this.name.setText(asset.getPublicInfo().getTitle());

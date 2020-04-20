@@ -198,10 +198,10 @@ public class ProfilePublicInfoPresenter extends MvpPresenter<ProfilePublicInfoVi
 		if (profile.getAbout() != null) {
 			getViewState().setAbout(profile.getAbout());
 		}
-		if (profile.getAvatar() != null) {
-			this.avatar = profile.getAvatar();
+		if (profile.getLogoUrl() != null) {
+			this.avatar = profile.getLogoUrl();
 			getViewState().showLogoProgress(false);
-			getViewState().updateLogo(profile.getAvatar());
+			getViewState().updateLogo(profile.getLogoUrl());
 		}
 	}
 
@@ -229,7 +229,7 @@ public class ProfilePublicInfoPresenter extends MvpPresenter<ProfilePublicInfoVi
 	private void handleUpdateProfileResponse(Void response) {
 		updateProfileSubscription.unsubscribe();
 
-		if (!Objects.equals(profile.getAvatar(), avatar)) {
+		if (!Objects.equals(profile.getLogoUrl(), avatar)) {
 			if (avatar == null || avatar.isEmpty()) {
 				removeAvatar();
 			}

@@ -5,6 +5,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.facebook.drawee.view.SimpleDraweeView;
 
 import org.greenrobot.eventbus.EventBus;
@@ -13,8 +16,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.swagger.client.model.CopyTradingAccountInfo;
@@ -78,8 +79,9 @@ public class CopytradingAccountsListAdapter extends RecyclerView.Adapter<Copytra
 			setFonts();
 
 			itemView.setOnClickListener(v -> {
-				if (account != null)
+				if (account != null) {
 					EventBus.getDefault().post(new ShowCopytradingAccountDetailsEvent(CopytradingAccountModel.createFrom(account)));
+				}
 			});
 		}
 

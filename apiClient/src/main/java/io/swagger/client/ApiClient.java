@@ -47,7 +47,15 @@ public class ApiClient
 	public ApiClient(String[] authNames) {
 		this();
 		for (String authName : authNames) {
-			throw new RuntimeException("auth name \"" + authName + "\" not found in available auth names");
+			Interceptor auth;
+			if ("Bearer".equals(authName)) {
+				auth = new ApiKeyAuth("header", "Authorization");
+			}
+			else {
+				throw new RuntimeException("auth name \"" + authName + "\" not found in available auth names");
+			}
+
+			addAuthorization(authName, auth);
 		}
 	}
 
@@ -105,7 +113,7 @@ public class ApiClient
 		json = new JSON();
 		okBuilder = new OkHttpClient.Builder();
 
-		String baseUrl = "https://localhost/api";
+		String baseUrl = "https://red.genesis.vision/api";
 		if (!baseUrl.endsWith("/")) {
 			baseUrl = baseUrl + "/";
 		}

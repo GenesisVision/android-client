@@ -157,7 +157,7 @@ public class DashboardFundsAdapter extends RecyclerView.Adapter<DashboardFundsAd
 			itemView.setOnClickListener(v -> {
 //				if (fund != null) {
 //					FundDetailsModel fundDetailsModel = new FundDetailsModel(fund.getId(),
-//							fund.getLogo(),
+//							fund.getLogoUrl(),
 //							fund.getColor(),
 //							fund.getTitle(),
 //							fund.getManager().getUsername(),
@@ -205,7 +205,7 @@ public class DashboardFundsAdapter extends RecyclerView.Adapter<DashboardFundsAd
 //		}
 
 //		private void updateData() {
-//			fundLogo.setImage(fund.getLogo(), fund.getColor(), 100, 100);
+//			fundLogo.setImage(fund.getLogoUrl(), fund.getColor(), 100, 100);
 //			fundLogo.hideLevel();
 //
 //			if (fund.getPersonalDetails() != null) {

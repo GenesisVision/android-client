@@ -1,9 +1,10 @@
 # TradingaccountApi
 
-All URIs are relative to */api*
+All URIs are relative to *https://red.genesis.vision/api*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**closeAccountAssetTrade**](TradingaccountApi.md#closeAccountAssetTrade) | **POST** v2.0/tradingaccount/{id}/trades/close | Manually close trade by symbol for account
 [**exportTrades**](TradingaccountApi.md#exportTrades) | **GET** v2.0/tradingaccount/{id}/trades/export | Export trade history
 [**getAbsoluteProfitChart**](TradingaccountApi.md#getAbsoluteProfitChart) | **GET** v2.0/tradingaccount/{id}/charts/profit/absolute | Trading account absolute profit chart
 [**getBalanceChart**](TradingaccountApi.md#getBalanceChart) | **GET** v2.0/tradingaccount/{id}/charts/balance | Trading account balance chart
@@ -12,33 +13,97 @@ Method | HTTP request | Description
 [**getTrades**](TradingaccountApi.md#getTrades) | **GET** v2.0/tradingaccount/{id}/trades | Trading account trades
 [**getTradingAccountDetails**](TradingaccountApi.md#getTradingAccountDetails) | **GET** v2.0/tradingaccount/{id} | Trading account details
 
+<a name="closeAccountAssetTrade"></a>
+# **closeAccountAssetTrade**
+> Void closeAccountAssetTrade(id, symbol)
+
+Manually close trade by symbol for account
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiClient;
+//import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
+//import io.swagger.client.api.TradingaccountApi;
+
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
+
+TradingaccountApi apiInstance = new TradingaccountApi();
+UUID id = new UUID(); // UUID | 
+String symbol = "symbol_example"; // String | 
+try {
+    Void result = apiInstance.closeAccountAssetTrade(id, symbol);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling TradingaccountApi#closeAccountAssetTrade");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | [**UUID**](.md)|  |
+ **symbol** | **String**|  | [optional]
+
+### Return type
+
+[**Void**](.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
+
 <a name="exportTrades"></a>
 # **exportTrades**
-> String exportTrades(id, authorization, dateFrom, dateTo, symbol, sorting, accountId, accountCurrency, isFollow, skip, take)
+> byte[] exportTrades(id, dateFrom, dateTo, symbol, sorting, accountId, accountCurrency, isFollow, skip, take)
 
 Export trade history
 
 ### Example
 ```java
 // Import classes:
+//import io.swagger.client.ApiClient;
 //import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
 //import io.swagger.client.api.TradingaccountApi;
 
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
 
 TradingaccountApi apiInstance = new TradingaccountApi();
 UUID id = new UUID(); // UUID | 
-String authorization = "authorization_example"; // String | JWT access token
 DateTime dateFrom = new DateTime(); // DateTime | 
 DateTime dateTo = new DateTime(); // DateTime | 
 String symbol = "symbol_example"; // String | 
-String sorting = "sorting_example"; // String | 
+TradeSorting sorting = new TradeSorting(); // TradeSorting | 
 UUID accountId = new UUID(); // UUID | 
-String accountCurrency = "accountCurrency_example"; // String | 
+Currency accountCurrency = new Currency(); // Currency | 
 Boolean isFollow = true; // Boolean | 
 Integer skip = 56; // Integer | 
 Integer take = 56; // Integer | 
 try {
-    String result = apiInstance.exportTrades(id, authorization, dateFrom, dateTo, symbol, sorting, accountId, accountCurrency, isFollow, skip, take);
+    byte[] result = apiInstance.exportTrades(id, dateFrom, dateTo, symbol, sorting, accountId, accountCurrency, isFollow, skip, take);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling TradingaccountApi#exportTrades");
@@ -51,24 +116,23 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | [**UUID**](.md)|  |
- **authorization** | **String**| JWT access token |
  **dateFrom** | **DateTime**|  | [optional]
  **dateTo** | **DateTime**|  | [optional]
  **symbol** | **String**|  | [optional]
- **sorting** | **String**|  | [optional] [enum: ByDateAsc, ByDateDesc, ByTicketAsc, ByTicketDesc, BySymbolAsc, BySymbolDesc, ByDirectionAsc, ByDirectionDesc, ByVolumeAsc, ByVolumeDesc, ByPriceAsc, ByPriceDesc, ByPriceCurrentAsc, ByPriceCurrentDesc, ByProfitAsc, ByProfitDesc, ByCommissionAsc, ByCommissionDesc, BySwapAsc, BySwapDesc]
+ **sorting** | [**TradeSorting**](.md)|  | [optional]
  **accountId** | [**UUID**](.md)|  | [optional]
- **accountCurrency** | **String**|  | [optional] [enum: BTC, ETH, USDT, USD, GVT, Undefined, ADA, XRP, BCH, LTC, DOGE, BNB, EUR]
+ **accountCurrency** | [**Currency**](.md)|  | [optional]
  **isFollow** | **Boolean**|  | [optional]
  **skip** | **Integer**|  | [optional]
  **take** | **Integer**|  | [optional]
 
 ### Return type
 
-**String**
+**byte[]**
 
 ### Authorization
 
-No authorization required
+[Bearer](../README.md#Bearer)
 
 ### HTTP request headers
 
@@ -77,26 +141,35 @@ No authorization required
 
 <a name="getAbsoluteProfitChart"></a>
 # **getAbsoluteProfitChart**
-> AbsoluteProfitChart getAbsoluteProfitChart(id, authorization, dateFrom, dateTo, maxPointCount, currency)
+> AbsoluteProfitChart getAbsoluteProfitChart(id, dateFrom, dateTo, maxPointCount, currency)
 
 Trading account absolute profit chart
 
 ### Example
 ```java
 // Import classes:
+//import io.swagger.client.ApiClient;
 //import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
 //import io.swagger.client.api.TradingaccountApi;
 
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
 
 TradingaccountApi apiInstance = new TradingaccountApi();
 UUID id = new UUID(); // UUID | 
-String authorization = "authorization_example"; // String | JWT access token
 DateTime dateFrom = new DateTime(); // DateTime | 
 DateTime dateTo = new DateTime(); // DateTime | 
 Integer maxPointCount = 56; // Integer | 
-String currency = "currency_example"; // String | 
+Currency currency = new Currency(); // Currency | 
 try {
-    AbsoluteProfitChart result = apiInstance.getAbsoluteProfitChart(id, authorization, dateFrom, dateTo, maxPointCount, currency);
+    AbsoluteProfitChart result = apiInstance.getAbsoluteProfitChart(id, dateFrom, dateTo, maxPointCount, currency);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling TradingaccountApi#getAbsoluteProfitChart");
@@ -109,11 +182,10 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | [**UUID**](.md)|  |
- **authorization** | **String**| JWT access token |
  **dateFrom** | **DateTime**|  | [optional]
  **dateTo** | **DateTime**|  | [optional]
  **maxPointCount** | **Integer**|  | [optional]
- **currency** | **String**|  | [optional] [enum: BTC, ETH, USDT, USD, GVT, Undefined, ADA, XRP, BCH, LTC, DOGE, BNB, EUR]
+ **currency** | [**Currency**](.md)|  | [optional]
 
 ### Return type
 
@@ -121,7 +193,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[Bearer](../README.md#Bearer)
 
 ### HTTP request headers
 
@@ -130,26 +202,35 @@ No authorization required
 
 <a name="getBalanceChart"></a>
 # **getBalanceChart**
-> AccountBalanceChart getBalanceChart(id, authorization, dateFrom, dateTo, maxPointCount, currency)
+> AccountBalanceChart getBalanceChart(id, dateFrom, dateTo, maxPointCount, currency)
 
 Trading account balance chart
 
 ### Example
 ```java
 // Import classes:
+//import io.swagger.client.ApiClient;
 //import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
 //import io.swagger.client.api.TradingaccountApi;
 
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
 
 TradingaccountApi apiInstance = new TradingaccountApi();
 UUID id = new UUID(); // UUID | 
-String authorization = "authorization_example"; // String | JWT access token
 DateTime dateFrom = new DateTime(); // DateTime | 
 DateTime dateTo = new DateTime(); // DateTime | 
 Integer maxPointCount = 56; // Integer | 
-String currency = "currency_example"; // String | 
+Currency currency = new Currency(); // Currency | 
 try {
-    AccountBalanceChart result = apiInstance.getBalanceChart(id, authorization, dateFrom, dateTo, maxPointCount, currency);
+    AccountBalanceChart result = apiInstance.getBalanceChart(id, dateFrom, dateTo, maxPointCount, currency);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling TradingaccountApi#getBalanceChart");
@@ -162,11 +243,10 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | [**UUID**](.md)|  |
- **authorization** | **String**| JWT access token |
  **dateFrom** | **DateTime**|  | [optional]
  **dateTo** | **DateTime**|  | [optional]
  **maxPointCount** | **Integer**|  | [optional]
- **currency** | **String**|  | [optional] [enum: BTC, ETH, USDT, USD, GVT, Undefined, ADA, XRP, BCH, LTC, DOGE, BNB, EUR]
+ **currency** | [**Currency**](.md)|  | [optional]
 
 ### Return type
 
@@ -174,7 +254,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[Bearer](../README.md#Bearer)
 
 ### HTTP request headers
 
@@ -183,28 +263,37 @@ No authorization required
 
 <a name="getOpenTrades"></a>
 # **getOpenTrades**
-> TradesViewModel getOpenTrades(id, authorization, sorting, symbol, accountId, accountCurrency, skip, take)
+> TradesViewModel getOpenTrades(id, sorting, symbol, accountId, accountCurrency, skip, take)
 
 Trading account open positions
 
 ### Example
 ```java
 // Import classes:
+//import io.swagger.client.ApiClient;
 //import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
 //import io.swagger.client.api.TradingaccountApi;
 
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
 
 TradingaccountApi apiInstance = new TradingaccountApi();
 UUID id = new UUID(); // UUID | 
-String authorization = "authorization_example"; // String | JWT access token
-String sorting = "sorting_example"; // String | 
+TradeSorting sorting = new TradeSorting(); // TradeSorting | 
 String symbol = "symbol_example"; // String | 
 UUID accountId = new UUID(); // UUID | 
-String accountCurrency = "accountCurrency_example"; // String | 
+Currency accountCurrency = new Currency(); // Currency | 
 Integer skip = 56; // Integer | 
 Integer take = 56; // Integer | 
 try {
-    TradesViewModel result = apiInstance.getOpenTrades(id, authorization, sorting, symbol, accountId, accountCurrency, skip, take);
+    TradesViewModel result = apiInstance.getOpenTrades(id, sorting, symbol, accountId, accountCurrency, skip, take);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling TradingaccountApi#getOpenTrades");
@@ -217,11 +306,10 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | [**UUID**](.md)|  |
- **authorization** | **String**| JWT access token |
- **sorting** | **String**|  | [optional] [enum: ByDateAsc, ByDateDesc, ByTicketAsc, ByTicketDesc, BySymbolAsc, BySymbolDesc, ByDirectionAsc, ByDirectionDesc, ByVolumeAsc, ByVolumeDesc, ByPriceAsc, ByPriceDesc, ByPriceCurrentAsc, ByPriceCurrentDesc, ByProfitAsc, ByProfitDesc, ByCommissionAsc, ByCommissionDesc, BySwapAsc, BySwapDesc]
+ **sorting** | [**TradeSorting**](.md)|  | [optional]
  **symbol** | **String**|  | [optional]
  **accountId** | [**UUID**](.md)|  | [optional]
- **accountCurrency** | **String**|  | [optional] [enum: BTC, ETH, USDT, USD, GVT, Undefined, ADA, XRP, BCH, LTC, DOGE, BNB, EUR]
+ **accountCurrency** | [**Currency**](.md)|  | [optional]
  **skip** | **Integer**|  | [optional]
  **take** | **Integer**|  | [optional]
 
@@ -231,7 +319,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[Bearer](../README.md#Bearer)
 
 ### HTTP request headers
 
@@ -240,27 +328,36 @@ No authorization required
 
 <a name="getProfitPercentCharts"></a>
 # **getProfitPercentCharts**
-> AccountProfitPercentCharts getProfitPercentCharts(id, authorization, dateFrom, dateTo, maxPointCount, currency, currencies)
+> AccountProfitPercentCharts getProfitPercentCharts(id, dateFrom, dateTo, maxPointCount, currency, currencies)
 
 Trading account profit percent charts
 
 ### Example
 ```java
 // Import classes:
+//import io.swagger.client.ApiClient;
 //import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
 //import io.swagger.client.api.TradingaccountApi;
 
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
 
 TradingaccountApi apiInstance = new TradingaccountApi();
 UUID id = new UUID(); // UUID | 
-String authorization = "authorization_example"; // String | JWT access token
 DateTime dateFrom = new DateTime(); // DateTime | 
 DateTime dateTo = new DateTime(); // DateTime | 
 Integer maxPointCount = 56; // Integer | 
-String currency = "currency_example"; // String | 
-List<Object> currencies = null; // List<Object> | 
+Currency currency = new Currency(); // Currency | 
+List<Currency> currencies = Arrays.asList(new Currency()); // List<Currency> | 
 try {
-    AccountProfitPercentCharts result = apiInstance.getProfitPercentCharts(id, authorization, dateFrom, dateTo, maxPointCount, currency, currencies);
+    AccountProfitPercentCharts result = apiInstance.getProfitPercentCharts(id, dateFrom, dateTo, maxPointCount, currency, currencies);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling TradingaccountApi#getProfitPercentCharts");
@@ -273,12 +370,11 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | [**UUID**](.md)|  |
- **authorization** | **String**| JWT access token |
  **dateFrom** | **DateTime**|  | [optional]
  **dateTo** | **DateTime**|  | [optional]
  **maxPointCount** | **Integer**|  | [optional]
- **currency** | **String**|  | [optional] [enum: BTC, ETH, USDT, USD, GVT, Undefined, ADA, XRP, BCH, LTC, DOGE, BNB, EUR]
- **currencies** | [**List&lt;Object&gt;**](Object.md)|  | [optional]
+ **currency** | [**Currency**](.md)|  | [optional]
+ **currencies** | [**List&lt;Currency&gt;**](Currency.md)|  | [optional]
 
 ### Return type
 
@@ -286,7 +382,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[Bearer](../README.md#Bearer)
 
 ### HTTP request headers
 
@@ -295,31 +391,40 @@ No authorization required
 
 <a name="getTrades"></a>
 # **getTrades**
-> TradesSignalViewModel getTrades(id, authorization, dateFrom, dateTo, symbol, sorting, accountId, accountCurrency, isFollow, skip, take)
+> TradesSignalViewModel getTrades(id, dateFrom, dateTo, symbol, sorting, accountId, accountCurrency, isFollow, skip, take)
 
 Trading account trades
 
 ### Example
 ```java
 // Import classes:
+//import io.swagger.client.ApiClient;
 //import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
 //import io.swagger.client.api.TradingaccountApi;
 
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
 
 TradingaccountApi apiInstance = new TradingaccountApi();
 UUID id = new UUID(); // UUID | 
-String authorization = "authorization_example"; // String | JWT access token
 DateTime dateFrom = new DateTime(); // DateTime | 
 DateTime dateTo = new DateTime(); // DateTime | 
 String symbol = "symbol_example"; // String | 
-String sorting = "sorting_example"; // String | 
+TradeSorting sorting = new TradeSorting(); // TradeSorting | 
 UUID accountId = new UUID(); // UUID | 
-String accountCurrency = "accountCurrency_example"; // String | 
+Currency accountCurrency = new Currency(); // Currency | 
 Boolean isFollow = true; // Boolean | 
 Integer skip = 56; // Integer | 
 Integer take = 56; // Integer | 
 try {
-    TradesSignalViewModel result = apiInstance.getTrades(id, authorization, dateFrom, dateTo, symbol, sorting, accountId, accountCurrency, isFollow, skip, take);
+    TradesSignalViewModel result = apiInstance.getTrades(id, dateFrom, dateTo, symbol, sorting, accountId, accountCurrency, isFollow, skip, take);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling TradingaccountApi#getTrades");
@@ -332,13 +437,12 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | [**UUID**](.md)|  |
- **authorization** | **String**| JWT access token |
  **dateFrom** | **DateTime**|  | [optional]
  **dateTo** | **DateTime**|  | [optional]
  **symbol** | **String**|  | [optional]
- **sorting** | **String**|  | [optional] [enum: ByDateAsc, ByDateDesc, ByTicketAsc, ByTicketDesc, BySymbolAsc, BySymbolDesc, ByDirectionAsc, ByDirectionDesc, ByVolumeAsc, ByVolumeDesc, ByPriceAsc, ByPriceDesc, ByPriceCurrentAsc, ByPriceCurrentDesc, ByProfitAsc, ByProfitDesc, ByCommissionAsc, ByCommissionDesc, BySwapAsc, BySwapDesc]
+ **sorting** | [**TradeSorting**](.md)|  | [optional]
  **accountId** | [**UUID**](.md)|  | [optional]
- **accountCurrency** | **String**|  | [optional] [enum: BTC, ETH, USDT, USD, GVT, Undefined, ADA, XRP, BCH, LTC, DOGE, BNB, EUR]
+ **accountCurrency** | [**Currency**](.md)|  | [optional]
  **isFollow** | **Boolean**|  | [optional]
  **skip** | **Integer**|  | [optional]
  **take** | **Integer**|  | [optional]
@@ -349,7 +453,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[Bearer](../README.md#Bearer)
 
 ### HTTP request headers
 
@@ -358,22 +462,31 @@ No authorization required
 
 <a name="getTradingAccountDetails"></a>
 # **getTradingAccountDetails**
-> PrivateTradingAccountFull getTradingAccountDetails(id, authorization)
+> PrivateTradingAccountFull getTradingAccountDetails(id)
 
 Trading account details
 
 ### Example
 ```java
 // Import classes:
+//import io.swagger.client.ApiClient;
 //import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
 //import io.swagger.client.api.TradingaccountApi;
 
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
 
 TradingaccountApi apiInstance = new TradingaccountApi();
 UUID id = new UUID(); // UUID | 
-String authorization = "authorization_example"; // String | JWT access token
 try {
-    PrivateTradingAccountFull result = apiInstance.getTradingAccountDetails(id, authorization);
+    PrivateTradingAccountFull result = apiInstance.getTradingAccountDetails(id);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling TradingaccountApi#getTradingAccountDetails");
@@ -386,7 +499,6 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | [**UUID**](.md)|  |
- **authorization** | **String**| JWT access token |
 
 ### Return type
 
@@ -394,7 +506,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[Bearer](../README.md#Bearer)
 
 ### HTTP request headers
 

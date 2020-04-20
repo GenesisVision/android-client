@@ -14,8 +14,8 @@ import java.util.UUID;
 
 import javax.inject.Inject;
 
-import io.swagger.client.model.ItemsViewModelReallocationModel;
 import io.swagger.client.model.ReallocationModel;
+import io.swagger.client.model.ReallocationModelItemsViewModel;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -119,7 +119,7 @@ public class ReallocateHistoryPresenter extends MvpPresenter<ReallocateHistoryVi
 		}
 	}
 
-	private void handleGetHistoryResponse(ItemsViewModelReallocationModel response) {
+	private void handleGetHistoryResponse(ReallocationModelItemsViewModel response) {
 		historySubscription.unsubscribe();
 		getViewState().showProgress(false);
 

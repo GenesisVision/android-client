@@ -147,7 +147,7 @@ public class AssetShareDialogFragment extends AppCompatDialogFragment
 
 	private void updateView() {
 		if (asset != null && this.icon != null) {
-			this.icon.setImageURI(ImageUtils.getImageUri(asset.getIcon()));
+			this.icon.setImageURI(ImageUtils.getImageUri(asset.getLogoUrl()));
 			this.name.setText(asset.getName());
 			this.ticker.setText(asset.getAsset());
 

@@ -6,7 +6,9 @@ import java.util.UUID;
 import io.swagger.client.api.NotificationsApi;
 import io.swagger.client.model.FundNotificationSettingList;
 import io.swagger.client.model.NotificationList;
+import io.swagger.client.model.NotificationSettingConditionType;
 import io.swagger.client.model.NotificationSettingList;
+import io.swagger.client.model.NotificationType;
 import io.swagger.client.model.ProgramNotificationSettingList;
 import rx.Observable;
 
@@ -24,30 +26,30 @@ public class NotificationsManager
 	}
 
 	public Observable<NotificationList> getNotifications(Integer skip, Integer take) {
-		return notificationsApi.getNotifications(AuthManager.token.getValue(), skip, take);
+		return notificationsApi.getNotifications(skip, take);
 	}
 
 	public Observable<NotificationSettingList> getNotificationsSettings() {
-		return notificationsApi.getNotificationsSettings(AuthManager.token.getValue());
+		return notificationsApi.getNotificationsSettings();
 	}
 
 	public Observable<UUID> addNotificationSetting(UUID assetId, UUID managerId, String settingType, String conditionType, Double conditionAmount) {
-		return notificationsApi.addNotificationsSettings(AuthManager.token.getValue(), assetId, managerId, settingType, conditionType, conditionAmount);
+		return notificationsApi.addNotificationsSettings(assetId, managerId, NotificationType.fromValue(settingType), NotificationSettingConditionType.fromValue(conditionType), conditionAmount);
 	}
 
 	public Observable<Void> removeNotificationSetting(UUID settingId) {
-		return notificationsApi.removeNotificationsSettings(settingId, AuthManager.token.getValue());
+		return notificationsApi.removeNotificationsSettings(settingId);
 	}
 
 	public Observable<ProgramNotificationSettingList> getProgramNotificationsSettings(UUID programId) {
-		return notificationsApi.getNotificationsProgramSettings(programId.toString(), AuthManager.token.getValue());
+		return notificationsApi.getNotificationsProgramSettings(programId.toString());
 	}
 
 	public Observable<FundNotificationSettingList> getFundNotificationsSettings(UUID fundId) {
-		return notificationsApi.getNotificationsFundSettings(fundId.toString(), AuthManager.token.getValue());
+		return notificationsApi.getNotificationsFundSettings(fundId.toString());
 	}
 
 	public Observable<UUID> setEnabledNotificationSetting(UUID settingId, Boolean enabled) {
-		return notificationsApi.toggleNotificationSettings(settingId, enabled, AuthManager.token.getValue());
+		return notificationsApi.toggleNotificationSettings(settingId, enabled);
 	}
 }

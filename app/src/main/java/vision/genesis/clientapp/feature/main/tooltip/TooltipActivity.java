@@ -96,8 +96,9 @@ public class TooltipActivity extends MvpAppCompatActivity
 		}
 
 		float newY = model.bottomY;
-		if (newY + tooltipText.getHeight() > root.getHeight())
+		if (newY + tooltipText.getHeight() > root.getHeight()) {
 			newY = model.topY - PADDING - tooltipText.getHeight();
+		}
 		tooltipGroup.setY(newY);
 		tooltipGroup.invalidate();
 

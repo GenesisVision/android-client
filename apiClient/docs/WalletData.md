@@ -12,7 +12,7 @@ Name | Type | Description | Notes
 **totalCcy** | **Double** |  |  [optional]
 **id** | [**UUID**](UUID.md) |  |  [optional]
 **title** | **String** |  |  [optional]
-**logo** | **String** |  |  [optional]
+**logoUrl** | **String** |  |  [optional]
 **isDepositEnabled** | **Boolean** |  |  [optional]
 **isWithdrawalEnabled** | **Boolean** |  |  [optional]
 **withdrawalCommission** | **Double** |  |  [optional]

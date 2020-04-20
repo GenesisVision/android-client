@@ -1,6 +1,6 @@
 # AssetsApi
 
-All URIs are relative to */api*
+All URIs are relative to *https://red.genesis.vision/api*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -30,22 +30,31 @@ Method | HTTP request | Description
 
 <a name="cancelChangeBroker"></a>
 # **cancelChangeBroker**
-> Void cancelChangeBroker(id, authorization)
+> Void cancelChangeBroker(id)
 
 Cancel changing broker in existing program
 
 ### Example
 ```java
 // Import classes:
+//import io.swagger.client.ApiClient;
 //import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
 //import io.swagger.client.api.AssetsApi;
 
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
 
 AssetsApi apiInstance = new AssetsApi();
 UUID id = new UUID(); // UUID | 
-String authorization = "authorization_example"; // String | JWT access token
 try {
-    Void result = apiInstance.cancelChangeBroker(id, authorization);
+    Void result = apiInstance.cancelChangeBroker(id);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling AssetsApi#cancelChangeBroker");
@@ -58,7 +67,6 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | [**UUID**](.md)|  |
- **authorization** | **String**| JWT access token |
 
 ### Return type
 
@@ -66,7 +74,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[Bearer](../README.md#Bearer)
 
 ### HTTP request headers
 
@@ -75,23 +83,32 @@ No authorization required
 
 <a name="changeBroker"></a>
 # **changeBroker**
-> Void changeBroker(authorization, id, body)
+> Void changeBroker(id, body)
 
 Change broker in existing program
 
 ### Example
 ```java
 // Import classes:
+//import io.swagger.client.ApiClient;
 //import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
 //import io.swagger.client.api.AssetsApi;
 
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
 
 AssetsApi apiInstance = new AssetsApi();
-String authorization = "authorization_example"; // String | JWT access token
 UUID id = new UUID(); // UUID | 
 ChangeBrokerProgramRequest body = new ChangeBrokerProgramRequest(); // ChangeBrokerProgramRequest | 
 try {
-    Void result = apiInstance.changeBroker(authorization, id, body);
+    Void result = apiInstance.changeBroker(id, body);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling AssetsApi#changeBroker");
@@ -103,7 +120,6 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **String**| JWT access token |
  **id** | [**UUID**](.md)|  |
  **body** | [**ChangeBrokerProgramRequest**](ChangeBrokerProgramRequest.md)|  | [optional]
 
@@ -113,32 +129,41 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[Bearer](../README.md#Bearer)
 
 ### HTTP request headers
 
- - **Content-Type**: application/json-patch+json, application/json, text/json, application/_*+json
+ - **Content-Type**: application/json, text/json, application/_*+json
  - **Accept**: text/plain, application/json, text/json
 
 <a name="changeTradingAccountPassword"></a>
 # **changeTradingAccountPassword**
-> Void changeTradingAccountPassword(authorization, id, body)
+> Void changeTradingAccountPassword(id, body)
 
 Change trading account password
 
 ### Example
 ```java
 // Import classes:
+//import io.swagger.client.ApiClient;
 //import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
 //import io.swagger.client.api.AssetsApi;
 
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
 
 AssetsApi apiInstance = new AssetsApi();
-String authorization = "authorization_example"; // String | JWT access token
 UUID id = new UUID(); // UUID | 
 TradingAccountPwdUpdate body = new TradingAccountPwdUpdate(); // TradingAccountPwdUpdate | 
 try {
-    Void result = apiInstance.changeTradingAccountPassword(authorization, id, body);
+    Void result = apiInstance.changeTradingAccountPassword(id, body);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling AssetsApi#changeTradingAccountPassword");
@@ -150,7 +175,6 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **String**| JWT access token |
  **id** | [**UUID**](.md)|  |
  **body** | [**TradingAccountPwdUpdate**](TradingAccountPwdUpdate.md)|  | [optional]
 
@@ -160,31 +184,40 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[Bearer](../README.md#Bearer)
 
 ### HTTP request headers
 
- - **Content-Type**: application/json-patch+json, application/json, text/json, application/_*+json
+ - **Content-Type**: application/json, text/json, application/_*+json
  - **Accept**: text/plain, application/json, text/json
 
 <a name="closeCurrentPeriod"></a>
 # **closeCurrentPeriod**
-> Void closeCurrentPeriod(id, authorization)
+> Void closeCurrentPeriod(id)
 
 Close current period
 
 ### Example
 ```java
 // Import classes:
+//import io.swagger.client.ApiClient;
 //import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
 //import io.swagger.client.api.AssetsApi;
 
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
 
 AssetsApi apiInstance = new AssetsApi();
 UUID id = new UUID(); // UUID | 
-String authorization = "authorization_example"; // String | JWT access token
 try {
-    Void result = apiInstance.closeCurrentPeriod(id, authorization);
+    Void result = apiInstance.closeCurrentPeriod(id);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling AssetsApi#closeCurrentPeriod");
@@ -197,7 +230,6 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | [**UUID**](.md)|  |
- **authorization** | **String**| JWT access token |
 
 ### Return type
 
@@ -205,7 +237,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[Bearer](../README.md#Bearer)
 
 ### HTTP request headers
 
@@ -214,23 +246,32 @@ No authorization required
 
 <a name="closeFund"></a>
 # **closeFund**
-> Void closeFund(authorization, id, body)
+> Void closeFund(id, body)
 
 Close existing fund
 
 ### Example
 ```java
 // Import classes:
+//import io.swagger.client.ApiClient;
 //import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
 //import io.swagger.client.api.AssetsApi;
 
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
 
 AssetsApi apiInstance = new AssetsApi();
-String authorization = "authorization_example"; // String | JWT access token
 UUID id = new UUID(); // UUID | 
 TwoFactorCodeModel body = new TwoFactorCodeModel(); // TwoFactorCodeModel | 
 try {
-    Void result = apiInstance.closeFund(authorization, id, body);
+    Void result = apiInstance.closeFund(id, body);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling AssetsApi#closeFund");
@@ -242,7 +283,6 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **String**| JWT access token |
  **id** | [**UUID**](.md)|  |
  **body** | [**TwoFactorCodeModel**](TwoFactorCodeModel.md)|  | [optional]
 
@@ -252,32 +292,41 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[Bearer](../README.md#Bearer)
 
 ### HTTP request headers
 
- - **Content-Type**: application/json-patch+json, application/json, text/json, application/_*+json
+ - **Content-Type**: application/json, text/json, application/_*+json
  - **Accept**: text/plain, application/json, text/json
 
 <a name="closeInvestmentProgram"></a>
 # **closeInvestmentProgram**
-> Void closeInvestmentProgram(authorization, id, body)
+> Void closeInvestmentProgram(id, body)
 
 Close existing investment program
 
 ### Example
 ```java
 // Import classes:
+//import io.swagger.client.ApiClient;
 //import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
 //import io.swagger.client.api.AssetsApi;
 
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
 
 AssetsApi apiInstance = new AssetsApi();
-String authorization = "authorization_example"; // String | JWT access token
 UUID id = new UUID(); // UUID | 
 TwoFactorCodeModel body = new TwoFactorCodeModel(); // TwoFactorCodeModel | 
 try {
-    Void result = apiInstance.closeInvestmentProgram(authorization, id, body);
+    Void result = apiInstance.closeInvestmentProgram(id, body);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling AssetsApi#closeInvestmentProgram");
@@ -289,7 +338,6 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **String**| JWT access token |
  **id** | [**UUID**](.md)|  |
  **body** | [**TwoFactorCodeModel**](TwoFactorCodeModel.md)|  | [optional]
 
@@ -299,31 +347,40 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[Bearer](../README.md#Bearer)
 
 ### HTTP request headers
 
- - **Content-Type**: application/json-patch+json, application/json, text/json, application/_*+json
+ - **Content-Type**: application/json, text/json, application/_*+json
  - **Accept**: text/plain, application/json, text/json
 
 <a name="closeTradingAccount"></a>
 # **closeTradingAccount**
-> Void closeTradingAccount(id, authorization)
+> Void closeTradingAccount(id)
 
 Close trading account
 
 ### Example
 ```java
 // Import classes:
+//import io.swagger.client.ApiClient;
 //import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
 //import io.swagger.client.api.AssetsApi;
 
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
 
 AssetsApi apiInstance = new AssetsApi();
 UUID id = new UUID(); // UUID | 
-String authorization = "authorization_example"; // String | JWT access token
 try {
-    Void result = apiInstance.closeTradingAccount(id, authorization);
+    Void result = apiInstance.closeTradingAccount(id);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling AssetsApi#closeTradingAccount");
@@ -336,7 +393,6 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | [**UUID**](.md)|  |
- **authorization** | **String**| JWT access token |
 
 ### Return type
 
@@ -344,7 +400,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[Bearer](../README.md#Bearer)
 
 ### HTTP request headers
 
@@ -353,23 +409,32 @@ No authorization required
 
 <a name="confirmProgram2FA"></a>
 # **confirmProgram2FA**
-> Void confirmProgram2FA(authorization, id, body)
+> Void confirmProgram2FA(id, body)
 
 Confirm 2FA for program if required (for brokers like Huobi)
 
 ### Example
 ```java
 // Import classes:
+//import io.swagger.client.ApiClient;
 //import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
 //import io.swagger.client.api.AssetsApi;
 
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
 
 AssetsApi apiInstance = new AssetsApi();
-String authorization = "authorization_example"; // String | JWT access token
 UUID id = new UUID(); // UUID | 
 TwoFactorCodeModel body = new TwoFactorCodeModel(); // TwoFactorCodeModel | 
 try {
-    Void result = apiInstance.confirmProgram2FA(authorization, id, body);
+    Void result = apiInstance.confirmProgram2FA(id, body);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling AssetsApi#confirmProgram2FA");
@@ -381,7 +446,6 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **String**| JWT access token |
  **id** | [**UUID**](.md)|  |
  **body** | [**TwoFactorCodeModel**](TwoFactorCodeModel.md)|  | [optional]
 
@@ -391,31 +455,40 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[Bearer](../README.md#Bearer)
 
 ### HTTP request headers
 
- - **Content-Type**: application/json-patch+json, application/json, text/json, application/_*+json
+ - **Content-Type**: application/json, text/json, application/_*+json
  - **Accept**: text/plain, application/json, text/json
 
 <a name="createExternalTradingAccount"></a>
 # **createExternalTradingAccount**
-> TradingAccountCreateResult createExternalTradingAccount(authorization, body)
+> TradingAccountCreateResult createExternalTradingAccount(body)
 
 Create external trading account
 
 ### Example
 ```java
 // Import classes:
+//import io.swagger.client.ApiClient;
 //import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
 //import io.swagger.client.api.AssetsApi;
 
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
 
 AssetsApi apiInstance = new AssetsApi();
-String authorization = "authorization_example"; // String | JWT access token
 NewExternalTradingAccountRequest body = new NewExternalTradingAccountRequest(); // NewExternalTradingAccountRequest | 
 try {
-    TradingAccountCreateResult result = apiInstance.createExternalTradingAccount(authorization, body);
+    TradingAccountCreateResult result = apiInstance.createExternalTradingAccount(body);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling AssetsApi#createExternalTradingAccount");
@@ -427,7 +500,6 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **String**| JWT access token |
  **body** | [**NewExternalTradingAccountRequest**](NewExternalTradingAccountRequest.md)|  | [optional]
 
 ### Return type
@@ -436,31 +508,40 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[Bearer](../README.md#Bearer)
 
 ### HTTP request headers
 
- - **Content-Type**: application/json-patch+json, application/json, text/json, application/_*+json
+ - **Content-Type**: application/json, text/json, application/_*+json
  - **Accept**: text/plain, application/json, text/json
 
 <a name="createFund"></a>
 # **createFund**
-> Void createFund(authorization, body)
+> Void createFund(body)
 
 Create fund
 
 ### Example
 ```java
 // Import classes:
+//import io.swagger.client.ApiClient;
 //import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
 //import io.swagger.client.api.AssetsApi;
 
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
 
 AssetsApi apiInstance = new AssetsApi();
-String authorization = "authorization_example"; // String | JWT access token
 NewFundRequest body = new NewFundRequest(); // NewFundRequest | 
 try {
-    Void result = apiInstance.createFund(authorization, body);
+    Void result = apiInstance.createFund(body);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling AssetsApi#createFund");
@@ -472,7 +553,6 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **String**| JWT access token |
  **body** | [**NewFundRequest**](NewFundRequest.md)|  | [optional]
 
 ### Return type
@@ -481,31 +561,40 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[Bearer](../README.md#Bearer)
 
 ### HTTP request headers
 
- - **Content-Type**: application/json-patch+json, application/json, text/json, application/_*+json
+ - **Content-Type**: application/json, text/json, application/_*+json
  - **Accept**: text/plain, application/json, text/json
 
 <a name="createTradingAccount"></a>
 # **createTradingAccount**
-> TradingAccountCreateResult createTradingAccount(authorization, body)
+> TradingAccountCreateResult createTradingAccount(body)
 
 Create trading account
 
 ### Example
 ```java
 // Import classes:
+//import io.swagger.client.ApiClient;
 //import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
 //import io.swagger.client.api.AssetsApi;
 
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
 
 AssetsApi apiInstance = new AssetsApi();
-String authorization = "authorization_example"; // String | JWT access token
 NewTradingAccountRequest body = new NewTradingAccountRequest(); // NewTradingAccountRequest | 
 try {
-    TradingAccountCreateResult result = apiInstance.createTradingAccount(authorization, body);
+    TradingAccountCreateResult result = apiInstance.createTradingAccount(body);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling AssetsApi#createTradingAccount");
@@ -517,7 +606,6 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **String**| JWT access token |
  **body** | [**NewTradingAccountRequest**](NewTradingAccountRequest.md)|  | [optional]
 
 ### Return type
@@ -526,31 +614,40 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[Bearer](../README.md#Bearer)
 
 ### HTTP request headers
 
- - **Content-Type**: application/json-patch+json, application/json, text/json, application/_*+json
+ - **Content-Type**: application/json, text/json, application/_*+json
  - **Accept**: text/plain, application/json, text/json
 
 <a name="getLevelsCalculator"></a>
 # **getLevelsCalculator**
-> ProgramLevelInfo getLevelsCalculator(id, authorization)
+> ProgramLevelInfo getLevelsCalculator(id)
 
 Get program data for levels calculator
 
 ### Example
 ```java
 // Import classes:
+//import io.swagger.client.ApiClient;
 //import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
 //import io.swagger.client.api.AssetsApi;
 
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
 
 AssetsApi apiInstance = new AssetsApi();
 UUID id = new UUID(); // UUID | 
-String authorization = "authorization_example"; // String | JWT access token
 try {
-    ProgramLevelInfo result = apiInstance.getLevelsCalculator(id, authorization);
+    ProgramLevelInfo result = apiInstance.getLevelsCalculator(id);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling AssetsApi#getLevelsCalculator");
@@ -563,7 +660,6 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | [**UUID**](.md)|  |
- **authorization** | **String**| JWT access token |
 
 ### Return type
 
@@ -571,7 +667,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[Bearer](../README.md#Bearer)
 
 ### HTTP request headers
 
@@ -580,22 +676,31 @@ No authorization required
 
 <a name="getProgram2FA"></a>
 # **getProgram2FA**
-> TwoFactorAuthenticator getProgram2FA(id, authorization)
+> TwoFactorAuthenticator getProgram2FA(id)
 
 Get 2FA for program if needed
 
 ### Example
 ```java
 // Import classes:
+//import io.swagger.client.ApiClient;
 //import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
 //import io.swagger.client.api.AssetsApi;
 
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
 
 AssetsApi apiInstance = new AssetsApi();
 UUID id = new UUID(); // UUID | 
-String authorization = "authorization_example"; // String | JWT access token
 try {
-    TwoFactorAuthenticator result = apiInstance.getProgram2FA(id, authorization);
+    TwoFactorAuthenticator result = apiInstance.getProgram2FA(id);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling AssetsApi#getProgram2FA");
@@ -608,7 +713,6 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | [**UUID**](.md)|  |
- **authorization** | **String**| JWT access token |
 
 ### Return type
 
@@ -616,7 +720,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[Bearer](../README.md#Bearer)
 
 ### HTTP request headers
 
@@ -625,22 +729,31 @@ No authorization required
 
 <a name="makeAccountProgram"></a>
 # **makeAccountProgram**
-> Void makeAccountProgram(authorization, body)
+> Void makeAccountProgram(body)
 
 Create an investment program
 
 ### Example
 ```java
 // Import classes:
+//import io.swagger.client.ApiClient;
 //import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
 //import io.swagger.client.api.AssetsApi;
 
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
 
 AssetsApi apiInstance = new AssetsApi();
-String authorization = "authorization_example"; // String | JWT access token
 MakeTradingAccountProgram body = new MakeTradingAccountProgram(); // MakeTradingAccountProgram | 
 try {
-    Void result = apiInstance.makeAccountProgram(authorization, body);
+    Void result = apiInstance.makeAccountProgram(body);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling AssetsApi#makeAccountProgram");
@@ -652,7 +765,6 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **String**| JWT access token |
  **body** | [**MakeTradingAccountProgram**](MakeTradingAccountProgram.md)|  | [optional]
 
 ### Return type
@@ -661,31 +773,40 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[Bearer](../README.md#Bearer)
 
 ### HTTP request headers
 
- - **Content-Type**: application/json-patch+json, application/json, text/json, application/_*+json
+ - **Content-Type**: application/json, text/json, application/_*+json
  - **Accept**: text/plain, application/json, text/json
 
 <a name="makeAccountSignalProvider"></a>
 # **makeAccountSignalProvider**
-> Void makeAccountSignalProvider(authorization, body)
+> Void makeAccountSignalProvider(body)
 
 Make account signal provider
 
 ### Example
 ```java
 // Import classes:
+//import io.swagger.client.ApiClient;
 //import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
 //import io.swagger.client.api.AssetsApi;
 
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
 
 AssetsApi apiInstance = new AssetsApi();
-String authorization = "authorization_example"; // String | JWT access token
 MakeTradingAccountSignalProvider body = new MakeTradingAccountSignalProvider(); // MakeTradingAccountSignalProvider | 
 try {
-    Void result = apiInstance.makeAccountSignalProvider(authorization, body);
+    Void result = apiInstance.makeAccountSignalProvider(body);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling AssetsApi#makeAccountSignalProvider");
@@ -697,7 +818,6 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **String**| JWT access token |
  **body** | [**MakeTradingAccountSignalProvider**](MakeTradingAccountSignalProvider.md)|  | [optional]
 
 ### Return type
@@ -706,32 +826,41 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[Bearer](../README.md#Bearer)
 
 ### HTTP request headers
 
- - **Content-Type**: application/json-patch+json, application/json, text/json, application/_*+json
+ - **Content-Type**: application/json, text/json, application/_*+json
  - **Accept**: text/plain, application/json, text/json
 
 <a name="makeDemoTradingAccountDeposit"></a>
 # **makeDemoTradingAccountDeposit**
-> Void makeDemoTradingAccountDeposit(authorization, id, body)
+> Void makeDemoTradingAccountDeposit(id, body)
 
 Make demo trading account deposit
 
 ### Example
 ```java
 // Import classes:
+//import io.swagger.client.ApiClient;
 //import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
 //import io.swagger.client.api.AssetsApi;
 
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
 
 AssetsApi apiInstance = new AssetsApi();
-String authorization = "authorization_example"; // String | JWT access token
 UUID id = new UUID(); // UUID | 
 TradingAccountDemoDeposit body = new TradingAccountDemoDeposit(); // TradingAccountDemoDeposit | 
 try {
-    Void result = apiInstance.makeDemoTradingAccountDeposit(authorization, id, body);
+    Void result = apiInstance.makeDemoTradingAccountDeposit(id, body);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling AssetsApi#makeDemoTradingAccountDeposit");
@@ -743,7 +872,6 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **String**| JWT access token |
  **id** | [**UUID**](.md)|  |
  **body** | [**TradingAccountDemoDeposit**](TradingAccountDemoDeposit.md)|  | [optional]
 
@@ -753,31 +881,40 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[Bearer](../README.md#Bearer)
 
 ### HTTP request headers
 
- - **Content-Type**: application/json-patch+json, application/json, text/json, application/_*+json
+ - **Content-Type**: application/json, text/json, application/_*+json
  - **Accept**: text/plain, application/json, text/json
 
 <a name="makeExternalAccountSignalProvider"></a>
 # **makeExternalAccountSignalProvider**
-> Void makeExternalAccountSignalProvider(authorization, body)
+> Void makeExternalAccountSignalProvider(body)
 
 Make external trading account signal provider
 
 ### Example
 ```java
 // Import classes:
+//import io.swagger.client.ApiClient;
 //import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
 //import io.swagger.client.api.AssetsApi;
 
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
 
 AssetsApi apiInstance = new AssetsApi();
-String authorization = "authorization_example"; // String | JWT access token
 MakeTradingAccountSignalProvider body = new MakeTradingAccountSignalProvider(); // MakeTradingAccountSignalProvider | 
 try {
-    Void result = apiInstance.makeExternalAccountSignalProvider(authorization, body);
+    Void result = apiInstance.makeExternalAccountSignalProvider(body);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling AssetsApi#makeExternalAccountSignalProvider");
@@ -789,7 +926,6 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **String**| JWT access token |
  **body** | [**MakeTradingAccountSignalProvider**](MakeTradingAccountSignalProvider.md)|  | [optional]
 
 ### Return type
@@ -798,31 +934,40 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[Bearer](../README.md#Bearer)
 
 ### HTTP request headers
 
- - **Content-Type**: application/json-patch+json, application/json, text/json, application/_*+json
+ - **Content-Type**: application/json, text/json, application/_*+json
  - **Accept**: text/plain, application/json, text/json
 
 <a name="makeSignalProviderProgram"></a>
 # **makeSignalProviderProgram**
-> Void makeSignalProviderProgram(authorization, body)
+> Void makeSignalProviderProgram(body)
 
 Create an investment program
 
 ### Example
 ```java
 // Import classes:
+//import io.swagger.client.ApiClient;
 //import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
 //import io.swagger.client.api.AssetsApi;
 
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
 
 AssetsApi apiInstance = new AssetsApi();
-String authorization = "authorization_example"; // String | JWT access token
 MakeSignalProviderProgram body = new MakeSignalProviderProgram(); // MakeSignalProviderProgram | 
 try {
-    Void result = apiInstance.makeSignalProviderProgram(authorization, body);
+    Void result = apiInstance.makeSignalProviderProgram(body);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling AssetsApi#makeSignalProviderProgram");
@@ -834,7 +979,6 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **String**| JWT access token |
  **body** | [**MakeSignalProviderProgram**](MakeSignalProviderProgram.md)|  | [optional]
 
 ### Return type
@@ -843,32 +987,41 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[Bearer](../README.md#Bearer)
 
 ### HTTP request headers
 
- - **Content-Type**: application/json-patch+json, application/json, text/json, application/_*+json
+ - **Content-Type**: application/json, text/json, application/_*+json
  - **Accept**: text/plain, application/json, text/json
 
 <a name="updateAsset"></a>
 # **updateAsset**
-> Void updateAsset(authorization, id, body)
+> Void updateAsset(id, body)
 
 Update investment program/fund details
 
 ### Example
 ```java
 // Import classes:
+//import io.swagger.client.ApiClient;
 //import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
 //import io.swagger.client.api.AssetsApi;
 
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
 
 AssetsApi apiInstance = new AssetsApi();
-String authorization = "authorization_example"; // String | JWT access token
 UUID id = new UUID(); // UUID | 
 ProgramUpdate body = new ProgramUpdate(); // ProgramUpdate | 
 try {
-    Void result = apiInstance.updateAsset(authorization, id, body);
+    Void result = apiInstance.updateAsset(id, body);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling AssetsApi#updateAsset");
@@ -880,7 +1033,6 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **String**| JWT access token |
  **id** | [**UUID**](.md)|  |
  **body** | [**ProgramUpdate**](ProgramUpdate.md)|  | [optional]
 
@@ -890,32 +1042,41 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[Bearer](../README.md#Bearer)
 
 ### HTTP request headers
 
- - **Content-Type**: application/json-patch+json, application/json, text/json, application/_*+json
+ - **Content-Type**: application/json, text/json, application/_*+json
  - **Accept**: text/plain, application/json, text/json
 
 <a name="updateAsset_0"></a>
 # **updateAsset_0**
-> Void updateAsset_0(authorization, id, body)
+> Void updateAsset_0(id, body)
 
 Update investment program/fund details
 
 ### Example
 ```java
 // Import classes:
+//import io.swagger.client.ApiClient;
 //import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
 //import io.swagger.client.api.AssetsApi;
 
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
 
 AssetsApi apiInstance = new AssetsApi();
-String authorization = "authorization_example"; // String | JWT access token
 UUID id = new UUID(); // UUID | 
 ProgramUpdate body = new ProgramUpdate(); // ProgramUpdate | 
 try {
-    Void result = apiInstance.updateAsset_0(authorization, id, body);
+    Void result = apiInstance.updateAsset_0(id, body);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling AssetsApi#updateAsset_0");
@@ -927,7 +1088,6 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **String**| JWT access token |
  **id** | [**UUID**](.md)|  |
  **body** | [**ProgramUpdate**](ProgramUpdate.md)|  | [optional]
 
@@ -937,32 +1097,41 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[Bearer](../README.md#Bearer)
 
 ### HTTP request headers
 
- - **Content-Type**: application/json-patch+json, application/json, text/json, application/_*+json
+ - **Content-Type**: application/json, text/json, application/_*+json
  - **Accept**: text/plain, application/json, text/json
 
 <a name="updateAsset_1"></a>
 # **updateAsset_1**
-> Void updateAsset_1(authorization, id, body)
+> Void updateAsset_1(id, body)
 
 Update investment program/fund details
 
 ### Example
 ```java
 // Import classes:
+//import io.swagger.client.ApiClient;
 //import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
 //import io.swagger.client.api.AssetsApi;
 
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
 
 AssetsApi apiInstance = new AssetsApi();
-String authorization = "authorization_example"; // String | JWT access token
 UUID id = new UUID(); // UUID | 
 ProgramUpdate body = new ProgramUpdate(); // ProgramUpdate | 
 try {
-    Void result = apiInstance.updateAsset_1(authorization, id, body);
+    Void result = apiInstance.updateAsset_1(id, body);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling AssetsApi#updateAsset_1");
@@ -974,7 +1143,6 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **String**| JWT access token |
  **id** | [**UUID**](.md)|  |
  **body** | [**ProgramUpdate**](ProgramUpdate.md)|  | [optional]
 
@@ -984,32 +1152,41 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[Bearer](../README.md#Bearer)
 
 ### HTTP request headers
 
- - **Content-Type**: application/json-patch+json, application/json, text/json, application/_*+json
+ - **Content-Type**: application/json, text/json, application/_*+json
  - **Accept**: text/plain, application/json, text/json
 
 <a name="updateFundAssets"></a>
 # **updateFundAssets**
-> Void updateFundAssets(authorization, id, body)
+> Void updateFundAssets(id, body)
 
 Update fund assets parts
 
 ### Example
 ```java
 // Import classes:
+//import io.swagger.client.ApiClient;
 //import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
 //import io.swagger.client.api.AssetsApi;
 
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
 
 AssetsApi apiInstance = new AssetsApi();
-String authorization = "authorization_example"; // String | JWT access token
 UUID id = new UUID(); // UUID | 
 List<FundAssetPart> body = Arrays.asList(new FundAssetPart()); // List<FundAssetPart> | 
 try {
-    Void result = apiInstance.updateFundAssets(authorization, id, body);
+    Void result = apiInstance.updateFundAssets(id, body);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling AssetsApi#updateFundAssets");
@@ -1021,7 +1198,6 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **String**| JWT access token |
  **id** | [**UUID**](.md)|  |
  **body** | [**List&lt;FundAssetPart&gt;**](FundAssetPart.md)|  | [optional]
 
@@ -1031,31 +1207,40 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[Bearer](../README.md#Bearer)
 
 ### HTTP request headers
 
- - **Content-Type**: application/json-patch+json, application/json, text/json, application/_*+json
+ - **Content-Type**: application/json, text/json, application/_*+json
  - **Accept**: text/plain, application/json, text/json
 
 <a name="updateSignalProviderSettings"></a>
 # **updateSignalProviderSettings**
-> Void updateSignalProviderSettings(authorization, body)
+> Void updateSignalProviderSettings(body)
 
 Edit account signal settings
 
 ### Example
 ```java
 // Import classes:
+//import io.swagger.client.ApiClient;
 //import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
 //import io.swagger.client.api.AssetsApi;
 
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
 
 AssetsApi apiInstance = new AssetsApi();
-String authorization = "authorization_example"; // String | JWT access token
 CreateSignalProvider body = new CreateSignalProvider(); // CreateSignalProvider | 
 try {
-    Void result = apiInstance.updateSignalProviderSettings(authorization, body);
+    Void result = apiInstance.updateSignalProviderSettings(body);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling AssetsApi#updateSignalProviderSettings");
@@ -1067,7 +1252,6 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **String**| JWT access token |
  **body** | [**CreateSignalProvider**](CreateSignalProvider.md)|  | [optional]
 
 ### Return type
@@ -1076,10 +1260,10 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[Bearer](../README.md#Bearer)
 
 ### HTTP request headers
 
- - **Content-Type**: application/json-patch+json, application/json, text/json, application/_*+json
+ - **Content-Type**: application/json, text/json, application/_*+json
  - **Accept**: text/plain, application/json, text/json
 

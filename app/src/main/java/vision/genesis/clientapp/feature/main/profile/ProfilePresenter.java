@@ -88,17 +88,21 @@ public class ProfilePresenter extends MvpPresenter<ProfileView>
 	public void onDestroy() {
 		EventBus.getDefault().unregister(this);
 
-		if (userSubscription != null)
+		if (userSubscription != null) {
 			userSubscription.unsubscribe();
+		}
 
-		if (profileSubscription != null)
+		if (profileSubscription != null) {
 			profileSubscription.unsubscribe();
+		}
 
-		if (avatarUploadSubscription != null)
+		if (avatarUploadSubscription != null) {
 			avatarUploadSubscription.unsubscribe();
+		}
 
-		if (updateProfileSubscription != null)
+		if (updateProfileSubscription != null) {
 			updateProfileSubscription.unsubscribe();
+		}
 
 		super.onDestroy();
 	}
@@ -127,8 +131,9 @@ public class ProfilePresenter extends MvpPresenter<ProfileView>
 	}
 
 	void onResume() {
-		if (!isEditMode)
+		if (!isEditMode) {
 			getProfile();
+		}
 	}
 
 	void onBirthdyCalendarButtonClicked() {
@@ -282,7 +287,7 @@ public class ProfilePresenter extends MvpPresenter<ProfileView>
 
 		newProfile.setId(profile.getId());
 		newProfile.setAddress(profile.getAddress());
-		newProfile.setAvatar(profile.getAvatar());
+		newProfile.setLogoUrl(profile.getLogoUrl());
 		newProfile.setBirthday(profile.getBirthday());
 		newProfile.setCity(profile.getCity());
 		newProfile.setCountry(profile.getCountry());

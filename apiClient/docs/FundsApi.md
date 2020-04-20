@@ -1,6 +1,6 @@
 # FundsApi
 
-All URIs are relative to */api*
+All URIs are relative to *https://red.genesis.vision/api*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -16,22 +16,31 @@ Method | HTTP request | Description
 
 <a name="addToFavorites"></a>
 # **addToFavorites**
-> Void addToFavorites(id, authorization)
+> Void addToFavorites(id)
 
 Add to favorites
 
 ### Example
 ```java
 // Import classes:
+//import io.swagger.client.ApiClient;
 //import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
 //import io.swagger.client.api.FundsApi;
 
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
 
 FundsApi apiInstance = new FundsApi();
 UUID id = new UUID(); // UUID | 
-String authorization = "authorization_example"; // String | JWT access token
 try {
-    Void result = apiInstance.addToFavorites(id, authorization);
+    Void result = apiInstance.addToFavorites(id);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling FundsApi#addToFavorites");
@@ -44,7 +53,6 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | [**UUID**](.md)|  |
- **authorization** | **String**| JWT access token |
 
 ### Return type
 
@@ -52,7 +60,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[Bearer](../README.md#Bearer)
 
 ### HTTP request headers
 
@@ -68,16 +76,26 @@ Fund absolute profit chart
 ### Example
 ```java
 // Import classes:
+//import io.swagger.client.ApiClient;
 //import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
 //import io.swagger.client.api.FundsApi;
 
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
 
 FundsApi apiInstance = new FundsApi();
 UUID id = new UUID(); // UUID | 
 DateTime dateFrom = new DateTime(); // DateTime | 
 DateTime dateTo = new DateTime(); // DateTime | 
 Integer maxPointCount = 56; // Integer | 
-String currency = "currency_example"; // String | 
+Currency currency = new Currency(); // Currency | 
 try {
     AbsoluteProfitChart result = apiInstance.getFundAbsoluteProfitChart(id, dateFrom, dateTo, maxPointCount, currency);
     System.out.println(result);
@@ -95,7 +113,7 @@ Name | Type | Description  | Notes
  **dateFrom** | **DateTime**|  | [optional]
  **dateTo** | **DateTime**|  | [optional]
  **maxPointCount** | **Integer**|  | [optional]
- **currency** | **String**|  | [optional] [enum: BTC, ETH, USDT, USD, GVT, Undefined, ADA, XRP, BCH, LTC, DOGE, BNB, EUR]
+ **currency** | [**Currency**](.md)|  | [optional]
 
 ### Return type
 
@@ -103,7 +121,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[Bearer](../README.md#Bearer)
 
 ### HTTP request headers
 
@@ -119,16 +137,26 @@ Fund balance chart
 ### Example
 ```java
 // Import classes:
+//import io.swagger.client.ApiClient;
 //import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
 //import io.swagger.client.api.FundsApi;
 
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
 
 FundsApi apiInstance = new FundsApi();
 UUID id = new UUID(); // UUID | 
 DateTime dateFrom = new DateTime(); // DateTime | 
 DateTime dateTo = new DateTime(); // DateTime | 
 Integer maxPointCount = 56; // Integer | 
-String currency = "currency_example"; // String | 
+Currency currency = new Currency(); // Currency | 
 try {
     FundBalanceChart result = apiInstance.getFundBalanceChart(id, dateFrom, dateTo, maxPointCount, currency);
     System.out.println(result);
@@ -146,7 +174,7 @@ Name | Type | Description  | Notes
  **dateFrom** | **DateTime**|  | [optional]
  **dateTo** | **DateTime**|  | [optional]
  **maxPointCount** | **Integer**|  | [optional]
- **currency** | **String**|  | [optional] [enum: BTC, ETH, USDT, USD, GVT, Undefined, ADA, XRP, BCH, LTC, DOGE, BNB, EUR]
+ **currency** | [**Currency**](.md)|  | [optional]
 
 ### Return type
 
@@ -154,7 +182,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[Bearer](../README.md#Bearer)
 
 ### HTTP request headers
 
@@ -163,23 +191,33 @@ No authorization required
 
 <a name="getFundDetails"></a>
 # **getFundDetails**
-> FundDetailsFull getFundDetails(id, authorization, currency)
+> FundDetailsFull getFundDetails(id, currency, logoQuality)
 
 Fund details
 
 ### Example
 ```java
 // Import classes:
+//import io.swagger.client.ApiClient;
 //import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
 //import io.swagger.client.api.FundsApi;
 
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
 
 FundsApi apiInstance = new FundsApi();
 String id = "id_example"; // String | 
-String authorization = "authorization_example"; // String | 
-String currency = "currency_example"; // String | 
+Currency currency = new Currency(); // Currency | 
+ImageQuality logoQuality = new ImageQuality(); // ImageQuality | 
 try {
-    FundDetailsFull result = apiInstance.getFundDetails(id, authorization, currency);
+    FundDetailsFull result = apiInstance.getFundDetails(id, currency, logoQuality);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling FundsApi#getFundDetails");
@@ -192,8 +230,8 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **String**|  |
- **authorization** | **String**|  | [optional]
- **currency** | **String**|  | [optional] [enum: BTC, ETH, USDT, USD, GVT, Undefined, ADA, XRP, BCH, LTC, DOGE, BNB, EUR]
+ **currency** | [**Currency**](.md)|  | [optional]
+ **logoQuality** | [**ImageQuality**](.md)|  | [optional]
 
 ### Return type
 
@@ -201,7 +239,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[Bearer](../README.md#Bearer)
 
 ### HTTP request headers
 
@@ -217,17 +255,27 @@ Fund profit percent charts
 ### Example
 ```java
 // Import classes:
+//import io.swagger.client.ApiClient;
 //import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
 //import io.swagger.client.api.FundsApi;
 
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
 
 FundsApi apiInstance = new FundsApi();
 UUID id = new UUID(); // UUID | 
 DateTime dateFrom = new DateTime(); // DateTime | 
 DateTime dateTo = new DateTime(); // DateTime | 
 Integer maxPointCount = 56; // Integer | 
-String currency = "currency_example"; // String | 
-List<Object> currencies = null; // List<Object> | 
+Currency currency = new Currency(); // Currency | 
+List<Currency> currencies = Arrays.asList(new Currency()); // List<Currency> | 
 Integer chartAssetsCount = 56; // Integer | 
 try {
     FundProfitPercentCharts result = apiInstance.getFundProfitPercentCharts(id, dateFrom, dateTo, maxPointCount, currency, currencies, chartAssetsCount);
@@ -246,8 +294,8 @@ Name | Type | Description  | Notes
  **dateFrom** | **DateTime**|  | [optional]
  **dateTo** | **DateTime**|  | [optional]
  **maxPointCount** | **Integer**|  | [optional]
- **currency** | **String**|  | [optional] [enum: BTC, ETH, USDT, USD, GVT, Undefined, ADA, XRP, BCH, LTC, DOGE, BNB, EUR]
- **currencies** | [**List&lt;Object&gt;**](Object.md)|  | [optional]
+ **currency** | [**Currency**](.md)|  | [optional]
+ **currencies** | [**List&lt;Currency&gt;**](Currency.md)|  | [optional]
  **chartAssetsCount** | **Integer**|  | [optional]
 
 ### Return type
@@ -256,7 +304,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[Bearer](../README.md#Bearer)
 
 ### HTTP request headers
 
@@ -265,21 +313,30 @@ No authorization required
 
 <a name="getFunds"></a>
 # **getFunds**
-> ItemsViewModelFundDetailsListItem getFunds(authorization, sorting, showIn, assets, includeWithInvestments, dateFrom, dateTo, chartPointsCount, facetId, mask, ownerId, showFavorites, skip, take)
+> FundDetailsListItemItemsViewModel getFunds(sorting, showIn, assets, includeWithInvestments, dateFrom, dateTo, chartPointsCount, facetId, mask, ownerId, showFavorites, skip, take)
 
 Funds list
 
 ### Example
 ```java
 // Import classes:
+//import io.swagger.client.ApiClient;
 //import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
 //import io.swagger.client.api.FundsApi;
 
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
 
 FundsApi apiInstance = new FundsApi();
-String authorization = "authorization_example"; // String | 
-String sorting = "sorting_example"; // String | 
-String showIn = "showIn_example"; // String | 
+FundsFilterSorting sorting = new FundsFilterSorting(); // FundsFilterSorting | 
+Currency showIn = new Currency(); // Currency | 
 List<String> assets = Arrays.asList("assets_example"); // List<String> | 
 Boolean includeWithInvestments = true; // Boolean | 
 DateTime dateFrom = new DateTime(); // DateTime | 
@@ -292,7 +349,7 @@ Boolean showFavorites = true; // Boolean |
 Integer skip = 56; // Integer | 
 Integer take = 56; // Integer | 
 try {
-    ItemsViewModelFundDetailsListItem result = apiInstance.getFunds(authorization, sorting, showIn, assets, includeWithInvestments, dateFrom, dateTo, chartPointsCount, facetId, mask, ownerId, showFavorites, skip, take);
+    FundDetailsListItemItemsViewModel result = apiInstance.getFunds(sorting, showIn, assets, includeWithInvestments, dateFrom, dateTo, chartPointsCount, facetId, mask, ownerId, showFavorites, skip, take);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling FundsApi#getFunds");
@@ -304,9 +361,8 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **String**|  | [optional]
- **sorting** | **String**|  | [optional] [enum: ByTitleAsc, ByTitleDesc, BySizeAsc, BySizeDesc, ByInvestorsAsc, ByInvestorsDesc, ByDrawdownAsc, ByDrawdownDesc, ByProfitAsc, ByProfitDesc, ByNewAsc, ByNewDesc, ByValueAsc, ByValueDesc]
- **showIn** | **String**|  | [optional] [enum: BTC, ETH, USDT, USD, GVT, Undefined, ADA, XRP, BCH, LTC, DOGE, BNB, EUR]
+ **sorting** | [**FundsFilterSorting**](.md)|  | [optional]
+ **showIn** | [**Currency**](.md)|  | [optional]
  **assets** | [**List&lt;String&gt;**](String.md)|  | [optional]
  **includeWithInvestments** | **Boolean**|  | [optional]
  **dateFrom** | **DateTime**|  | [optional]
@@ -321,11 +377,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ItemsViewModelFundDetailsListItem**](ItemsViewModelFundDetailsListItem.md)
+[**FundDetailsListItemItemsViewModel**](FundDetailsListItemItemsViewModel.md)
 
 ### Authorization
 
-No authorization required
+[Bearer](../README.md#Bearer)
 
 ### HTTP request headers
 
@@ -334,22 +390,31 @@ No authorization required
 
 <a name="getLastChallengeWinner"></a>
 # **getLastChallengeWinner**
-> FundDetailsListItem getLastChallengeWinner(authorization, chartPointsCount)
+> FundDetailsListItem getLastChallengeWinner(chartPointsCount)
 
 Get last weekly funds challenge winner
 
 ### Example
 ```java
 // Import classes:
+//import io.swagger.client.ApiClient;
 //import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
 //import io.swagger.client.api.FundsApi;
 
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
 
 FundsApi apiInstance = new FundsApi();
-String authorization = "authorization_example"; // String | 
 Integer chartPointsCount = 56; // Integer | 
 try {
-    FundDetailsListItem result = apiInstance.getLastChallengeWinner(authorization, chartPointsCount);
+    FundDetailsListItem result = apiInstance.getLastChallengeWinner(chartPointsCount);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling FundsApi#getLastChallengeWinner");
@@ -361,7 +426,6 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **String**|  | [optional]
  **chartPointsCount** | **Integer**|  | [optional]
 
 ### Return type
@@ -370,7 +434,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[Bearer](../README.md#Bearer)
 
 ### HTTP request headers
 
@@ -379,16 +443,26 @@ No authorization required
 
 <a name="getReallocatingHistory"></a>
 # **getReallocatingHistory**
-> ItemsViewModelReallocationModel getReallocatingHistory(id, dateFrom, dateTo, skip, take)
+> ReallocationModelItemsViewModel getReallocatingHistory(id, dateFrom, dateTo, skip, take)
 
 Get history of asset part update requests
 
 ### Example
 ```java
 // Import classes:
+//import io.swagger.client.ApiClient;
 //import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
 //import io.swagger.client.api.FundsApi;
 
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
 
 FundsApi apiInstance = new FundsApi();
 UUID id = new UUID(); // UUID | 
@@ -397,7 +471,7 @@ DateTime dateTo = new DateTime(); // DateTime |
 Integer skip = 56; // Integer | 
 Integer take = 56; // Integer | 
 try {
-    ItemsViewModelReallocationModel result = apiInstance.getReallocatingHistory(id, dateFrom, dateTo, skip, take);
+    ReallocationModelItemsViewModel result = apiInstance.getReallocatingHistory(id, dateFrom, dateTo, skip, take);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling FundsApi#getReallocatingHistory");
@@ -417,11 +491,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ItemsViewModelReallocationModel**](ItemsViewModelReallocationModel.md)
+[**ReallocationModelItemsViewModel**](ReallocationModelItemsViewModel.md)
 
 ### Authorization
 
-No authorization required
+[Bearer](../README.md#Bearer)
 
 ### HTTP request headers
 
@@ -430,22 +504,31 @@ No authorization required
 
 <a name="removeFromFavorites"></a>
 # **removeFromFavorites**
-> Void removeFromFavorites(id, authorization)
+> Void removeFromFavorites(id)
 
 Remove from favorites
 
 ### Example
 ```java
 // Import classes:
+//import io.swagger.client.ApiClient;
 //import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
 //import io.swagger.client.api.FundsApi;
 
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
 
 FundsApi apiInstance = new FundsApi();
 UUID id = new UUID(); // UUID | 
-String authorization = "authorization_example"; // String | JWT access token
 try {
-    Void result = apiInstance.removeFromFavorites(id, authorization);
+    Void result = apiInstance.removeFromFavorites(id);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling FundsApi#removeFromFavorites");
@@ -458,7 +541,6 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | [**UUID**](.md)|  |
- **authorization** | **String**| JWT access token |
 
 ### Return type
 
@@ -466,7 +548,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[Bearer](../README.md#Bearer)
 
 ### HTTP request headers
 

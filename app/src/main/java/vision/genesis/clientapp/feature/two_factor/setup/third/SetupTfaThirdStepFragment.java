@@ -8,11 +8,12 @@ import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 
+import androidx.annotation.Nullable;
+
 import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.google.android.material.textfield.TextInputLayout;
 import com.jakewharton.rxbinding.widget.RxTextView;
 
-import androidx.annotation.Nullable;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -95,10 +96,12 @@ public class SetupTfaThirdStepFragment extends BaseFragment implements SetupTfaT
 	@Override
 	public void onStop() {
 		super.onStop();
-		if (passwordTextChangeSubscription != null)
+		if (passwordTextChangeSubscription != null) {
 			passwordTextChangeSubscription.unsubscribe();
-		if (codeTextChangeSubscription != null)
+		}
+		if (codeTextChangeSubscription != null) {
 			codeTextChangeSubscription.unsubscribe();
+		}
 	}
 
 	@Override

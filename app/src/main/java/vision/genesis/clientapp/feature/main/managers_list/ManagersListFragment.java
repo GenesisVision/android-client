@@ -23,8 +23,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
-import io.swagger.client.model.ItemsViewModelPublicProfile;
 import io.swagger.client.model.PublicProfile;
+import io.swagger.client.model.PublicProfileItemsViewModel;
 import timber.log.Timber;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
@@ -245,7 +245,7 @@ public class ManagersListFragment extends BaseFragment implements ManagersListVi
 //		}
 	}
 
-	public void showSearchResults(ItemsViewModelPublicProfile result) {
+	public void showSearchResults(PublicProfileItemsViewModel result) {
 		if (managersListPresenter != null) {
 			managersListPresenter.showSearchResults(result);
 		}

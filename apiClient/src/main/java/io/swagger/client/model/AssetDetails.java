@@ -43,8 +43,8 @@ public class AssetDetails implements Parcelable
 	@SerializedName("id")
 	private UUID id = null;
 
-	@SerializedName("logo")
-	private String logo = null;
+	@SerializedName("logoUrl")
+	private String logoUrl = null;
 
 	@SerializedName("color")
 	private String color = null;
@@ -66,7 +66,7 @@ public class AssetDetails implements Parcelable
 
 	AssetDetails(Parcel in) {
 		id = (UUID) in.readValue(UUID.class.getClassLoader());
-		logo = (String) in.readValue(null);
+		logoUrl = (String) in.readValue(null);
 		color = (String) in.readValue(null);
 		title = (String) in.readValue(null);
 		url = (String) in.readValue(null);
@@ -93,23 +93,23 @@ public class AssetDetails implements Parcelable
 		this.id = id;
 	}
 
-	public AssetDetails logo(String logo) {
-		this.logo = logo;
+	public AssetDetails logoUrl(String logoUrl) {
+		this.logoUrl = logoUrl;
 		return this;
 	}
 
 	/**
-	 * Get logo
+	 * Get logoUrl
 	 *
-	 * @return logo
+	 * @return logoUrl
 	 **/
 	@Schema(description = "")
-	public String getLogo() {
-		return logo;
+	public String getLogoUrl() {
+		return logoUrl;
 	}
 
-	public void setLogo(String logo) {
-		this.logo = logo;
+	public void setLogoUrl(String logoUrl) {
+		this.logoUrl = logoUrl;
 	}
 
 	public AssetDetails color(String color) {
@@ -217,7 +217,7 @@ public class AssetDetails implements Parcelable
 		}
 		AssetDetails assetDetails = (AssetDetails) o;
 		return Objects.equals(this.id, assetDetails.id) &&
-				Objects.equals(this.logo, assetDetails.logo) &&
+				Objects.equals(this.logoUrl, assetDetails.logoUrl) &&
 				Objects.equals(this.color, assetDetails.color) &&
 				Objects.equals(this.title, assetDetails.title) &&
 				Objects.equals(this.url, assetDetails.url) &&
@@ -227,7 +227,7 @@ public class AssetDetails implements Parcelable
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, logo, color, title, url, assetType, programDetails);
+		return Objects.hash(id, logoUrl, color, title, url, assetType, programDetails);
 	}
 
 	@Override
@@ -236,7 +236,7 @@ public class AssetDetails implements Parcelable
 		sb.append("class AssetDetails {\n");
 
 		sb.append("    id: ").append(toIndentedString(id)).append("\n");
-		sb.append("    logo: ").append(toIndentedString(logo)).append("\n");
+		sb.append("    logoUrl: ").append(toIndentedString(logoUrl)).append("\n");
 		sb.append("    color: ").append(toIndentedString(color)).append("\n");
 		sb.append("    title: ").append(toIndentedString(title)).append("\n");
 		sb.append("    url: ").append(toIndentedString(url)).append("\n");
@@ -259,7 +259,7 @@ public class AssetDetails implements Parcelable
 
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(id);
-		out.writeValue(logo);
+		out.writeValue(logoUrl);
 		out.writeValue(color);
 		out.writeValue(title);
 		out.writeValue(url);

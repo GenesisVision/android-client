@@ -27,8 +27,8 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 import io.swagger.client.model.AssetFacet;
-import io.swagger.client.model.ItemsViewModelProgramDetailsListItem;
 import io.swagger.client.model.ProgramDetailsListItem;
+import io.swagger.client.model.ProgramDetailsListItemItemsViewModel;
 import timber.log.Timber;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
@@ -310,7 +310,7 @@ public class ProgramsListFragment extends BaseFragment implements ProgramsListVi
 		}
 	}
 
-	public void showSearchResults(ItemsViewModelProgramDetailsListItem result) {
+	public void showSearchResults(ProgramDetailsListItemItemsViewModel result) {
 		if (presenter != null) {
 			presenter.showSearchResults(result);
 		}

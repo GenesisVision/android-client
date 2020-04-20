@@ -69,7 +69,7 @@ public class FundReallocationAdapter extends RecyclerView.Adapter<FundReallocati
 		}
 
 		void setAsset(FundAssetPartWithIcon asset) {
-			icon.setImageURI(ImageUtils.getImageUri(asset.getIcon()));
+			icon.setImageURI(ImageUtils.getImageUri(asset.getLogoUrl()));
 			name.setText(asset.getName());
 			percent.setText(String.format(Locale.getDefault(), "%s %%", StringFormatUtil.formatAmount(asset.getPercent(), 0, 2)));
 		}

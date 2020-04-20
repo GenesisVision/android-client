@@ -17,11 +17,12 @@ import io.swagger.client.model.AssetType;
 import io.swagger.client.model.CreateSignalProvider;
 import io.swagger.client.model.FollowDetailsFull;
 import io.swagger.client.model.InternalTransferRequestType;
-import io.swagger.client.model.ItemsViewModelSignalSubscription;
 import io.swagger.client.model.ProgramDetailsFull;
 import io.swagger.client.model.ProgramFollowDetailsFull;
 import io.swagger.client.model.ProgramUpdate;
 import io.swagger.client.model.SignalSubscription;
+import io.swagger.client.model.SignalSubscriptionItemsViewModel;
+import io.swagger.client.model.TradesDelay;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -103,14 +104,14 @@ public class OwnerInfoPresenter extends MvpPresenter<OwnerInfoView>
 			ProgramUpdate model = new ProgramUpdate();
 			model.setTitle(details.getPublicInfo().getTitle());
 			model.setDescription(details.getPublicInfo().getDescription());
-			model.setLogo(details.getPublicInfo().getLogo());
+			model.setLogo(details.getPublicInfo().getLogoUrl());
 			ProgramDetailsFull programDetails = details.getProgramDetails();
 			if (programDetails != null) {
-				model.setEntryFee(programDetails.getEntryFeeCurrent());
+				model.setEntryFee(programDetails.getManagementFeeCurrent());
 				model.setSuccessFee(programDetails.getSuccessFeeCurrent());
 				model.setInvestmentLimit(programDetails.getAvailableInvestmentLimit());
 				model.setStopOutLevel(programDetails.getStopOutLevelCurrent());
-				model.setTradesDelay(ProgramUpdate.TradesDelayEnum.fromValue(programDetails.getTradesDelay().getValue()));
+				model.setTradesDelay(TradesDelay.fromValue(programDetails.getTradesDelay().getValue()));
 			}
 			getViewState().showEditPublicInfoActivity(assetId, model);
 		}
@@ -122,7 +123,7 @@ public class OwnerInfoPresenter extends MvpPresenter<OwnerInfoView>
 				details.getTradingAccountInfo().getId(),
 				details.getPublicInfo().getTitle(),
 				details.getBrokerDetails().getName(),
-				details.getBrokerDetails().getLogo(),
+				details.getBrokerDetails().getLogoUrl(),
 				details.getPublicInfo().getCreationDate(),
 				details.getTradingAccountInfo().getLeverageMax(),
 				details.getTradingAccountInfo().getCurrency().getValue(),
@@ -172,7 +173,7 @@ public class OwnerInfoPresenter extends MvpPresenter<OwnerInfoView>
 		ProgramRequest request = new ProgramRequest();
 
 		request.setProgramId(details.getId());
-		request.setProgramLogo(details.getPublicInfo().getLogo());
+		request.setProgramLogo(details.getPublicInfo().getLogoUrl());
 		request.setProgramColor(details.getPublicInfo().getColor());
 		request.setProgramCurrency(details.getTradingAccountInfo().getCurrency().getValue());
 		request.setLevel(programDetails.getLevel());
@@ -180,7 +181,7 @@ public class OwnerInfoPresenter extends MvpPresenter<OwnerInfoView>
 		request.setProgramName(details.getPublicInfo().getTitle());
 		request.setManagerName(details.getOwner().getUsername());
 		request.setAvailableInvestment(programDetails.getAvailableInvestmentBase());
-		request.setEntryFee(programDetails.getEntryFeeCurrent());
+		request.setEntryFee(programDetails.getManagementFeeCurrent());
 		request.setBrokerType(details.getBrokerDetails().getType());
 
 		getViewState().showInvestProgramActivity(request);
@@ -194,7 +195,7 @@ public class OwnerInfoPresenter extends MvpPresenter<OwnerInfoView>
 		ProgramRequest request = new ProgramRequest();
 
 		request.setProgramId(details.getId());
-		request.setProgramLogo(details.getPublicInfo().getLogo());
+		request.setProgramLogo(details.getPublicInfo().getLogoUrl());
 		request.setProgramColor(details.getPublicInfo().getColor());
 		request.setProgramCurrency(details.getTradingAccountInfo().getCurrency().getValue());
 		request.setLevel(details.getProgramDetails().getLevel());
@@ -246,7 +247,7 @@ public class OwnerInfoPresenter extends MvpPresenter<OwnerInfoView>
 		TradingAccountDetailsModel model = new TradingAccountDetailsModel(
 				details.getTradingAccountInfo().getId(),
 				details.getPublicInfo().getTitle(),
-				details.getBrokerDetails().getLogo());
+				details.getBrokerDetails().getLogoUrl());
 		getViewState().showCopytradingDetailsActivity(model);
 
 	}
@@ -295,7 +296,7 @@ public class OwnerInfoPresenter extends MvpPresenter<OwnerInfoView>
 		}
 	}
 
-	private void handleSubscriptionsSuccess(ItemsViewModelSignalSubscription response) {
+	private void handleSubscriptionsSuccess(SignalSubscriptionItemsViewModel response) {
 		subscriptionsSubscription.unsubscribe();
 
 		this.masters = response.getItems();

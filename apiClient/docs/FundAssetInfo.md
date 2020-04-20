@@ -5,7 +5,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **asset** | **String** |  |  [optional]
 **symbol** | **String** |  |  [optional]
-**icon** | **String** |  |  [optional]
+**logoUrl** | **String** |  |  [optional]
 **target** | **Double** |  |  [optional]
 **current** | **Double** |  |  [optional]
 **url** | **String** |  |  [optional]

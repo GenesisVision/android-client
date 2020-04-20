@@ -1,10 +1,11 @@
 package vision.genesis.clientapp.feature.main.wallet.specific_wallet;
 
-import com.google.android.material.tabs.TabLayout;
-
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
+
+import com.google.android.material.tabs.TabLayout;
+
 import vision.genesis.clientapp.feature.main.wallet.external_transactions.ExternalTransactionsFragment;
 import vision.genesis.clientapp.feature.main.wallet.transactions.TransactionsFragment;
 

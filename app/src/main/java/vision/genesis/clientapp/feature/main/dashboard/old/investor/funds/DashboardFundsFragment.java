@@ -103,8 +103,9 @@ public class DashboardFundsFragment extends BaseFragment implements DashboardFun
 
 	@Override
 	public void onDestroyView() {
-		if (recyclerView != null)
+		if (recyclerView != null) {
 			recyclerView.setAdapter(null);
+		}
 
 		if (unbinder != null) {
 			unbinder.unbind();
@@ -157,8 +158,9 @@ public class DashboardFundsFragment extends BaseFragment implements DashboardFun
 
 	@Override
 	public void pagerShow() {
-		if (dashboardFundsPresenter != null)
+		if (dashboardFundsPresenter != null) {
 			dashboardFundsPresenter.onShow();
+		}
 	}
 
 	@Override
@@ -168,8 +170,9 @@ public class DashboardFundsFragment extends BaseFragment implements DashboardFun
 	public void onOffsetChanged(int verticalOffset) {
 		if (filters != null) {
 			float newY = root.getHeight() - verticalOffset - filters.getHeight() - filtersMarginBottom;
-			if (newY < filtersMarginTop)
+			if (newY < filtersMarginTop) {
 				newY = filtersMarginTop;
+			}
 			filters.setY(newY);
 		}
 	}
@@ -178,8 +181,9 @@ public class DashboardFundsFragment extends BaseFragment implements DashboardFun
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if (requestCode == UserFilter.TYPE_DASHBOARD_FUNDS_FILTER && resultCode == Activity.RESULT_OK) {
 			UserFilter userFilter = data.getParcelableExtra("filter");
-			if (userFilter != null)
+			if (userFilter != null) {
 				dashboardFundsPresenter.onFilterUpdated(userFilter);
+			}
 		}
 		else {
 			super.onActivityResult(requestCode, resultCode, data);

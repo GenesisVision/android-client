@@ -66,7 +66,7 @@ public class BrokerView extends RelativeLayout
 	}
 
 	public void setData(Broker broker) {
-		this.logo.setImageURI(ImageUtils.getImageUri(broker.getLogo()));
+		this.logo.setImageURI(ImageUtils.getImageUri(broker.getLogoUrl()));
 
 		groupTags.removeAllViews();
 		int position = 0;

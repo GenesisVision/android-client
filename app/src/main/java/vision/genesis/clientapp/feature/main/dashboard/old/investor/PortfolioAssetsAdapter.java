@@ -34,8 +34,9 @@ public class PortfolioAssetsAdapter extends RecyclerView.Adapter<PortfolioAssets
 
 	@Override
 	public void onBindViewHolder(ProgramViewHolder holder, int position) {
-		if (assets.get(position) != null)
+		if (assets.get(position) != null) {
 			holder.setAsset(assets.get(position));
+		}
 	}
 
 	@Override

@@ -40,28 +40,28 @@ public class CommonPublicAssetsViewModel implements Parcelable
 	};
 
 	@SerializedName("programs")
-	private ItemsViewModelProgramDetailsListItem programs = null;
+	private ProgramDetailsListItemItemsViewModel programs = null;
 
 	@SerializedName("funds")
-	private ItemsViewModelFundDetailsListItem funds = null;
+	private FundDetailsListItemItemsViewModel funds = null;
 
 	@SerializedName("follows")
-	private ItemsViewModelFollowDetailsListItem follows = null;
+	private FollowDetailsListItemItemsViewModel follows = null;
 
 	@SerializedName("managers")
-	private ItemsViewModelPublicProfile managers = null;
+	private PublicProfileItemsViewModel managers = null;
 
 	public CommonPublicAssetsViewModel() {
 	}
 
 	CommonPublicAssetsViewModel(Parcel in) {
-		programs = (ItemsViewModelProgramDetailsListItem) in.readValue(ItemsViewModelProgramDetailsListItem.class.getClassLoader());
-		funds = (ItemsViewModelFundDetailsListItem) in.readValue(ItemsViewModelFundDetailsListItem.class.getClassLoader());
-		follows = (ItemsViewModelFollowDetailsListItem) in.readValue(ItemsViewModelFollowDetailsListItem.class.getClassLoader());
-		managers = (ItemsViewModelPublicProfile) in.readValue(ItemsViewModelPublicProfile.class.getClassLoader());
+		programs = (ProgramDetailsListItemItemsViewModel) in.readValue(ProgramDetailsListItemItemsViewModel.class.getClassLoader());
+		funds = (FundDetailsListItemItemsViewModel) in.readValue(FundDetailsListItemItemsViewModel.class.getClassLoader());
+		follows = (FollowDetailsListItemItemsViewModel) in.readValue(FollowDetailsListItemItemsViewModel.class.getClassLoader());
+		managers = (PublicProfileItemsViewModel) in.readValue(PublicProfileItemsViewModel.class.getClassLoader());
 	}
 
-	public CommonPublicAssetsViewModel programs(ItemsViewModelProgramDetailsListItem programs) {
+	public CommonPublicAssetsViewModel programs(ProgramDetailsListItemItemsViewModel programs) {
 		this.programs = programs;
 		return this;
 	}
@@ -72,15 +72,15 @@ public class CommonPublicAssetsViewModel implements Parcelable
 	 * @return programs
 	 **/
 	@Schema(description = "")
-	public ItemsViewModelProgramDetailsListItem getPrograms() {
+	public ProgramDetailsListItemItemsViewModel getPrograms() {
 		return programs;
 	}
 
-	public void setPrograms(ItemsViewModelProgramDetailsListItem programs) {
+	public void setPrograms(ProgramDetailsListItemItemsViewModel programs) {
 		this.programs = programs;
 	}
 
-	public CommonPublicAssetsViewModel funds(ItemsViewModelFundDetailsListItem funds) {
+	public CommonPublicAssetsViewModel funds(FundDetailsListItemItemsViewModel funds) {
 		this.funds = funds;
 		return this;
 	}
@@ -91,15 +91,15 @@ public class CommonPublicAssetsViewModel implements Parcelable
 	 * @return funds
 	 **/
 	@Schema(description = "")
-	public ItemsViewModelFundDetailsListItem getFunds() {
+	public FundDetailsListItemItemsViewModel getFunds() {
 		return funds;
 	}
 
-	public void setFunds(ItemsViewModelFundDetailsListItem funds) {
+	public void setFunds(FundDetailsListItemItemsViewModel funds) {
 		this.funds = funds;
 	}
 
-	public CommonPublicAssetsViewModel follows(ItemsViewModelFollowDetailsListItem follows) {
+	public CommonPublicAssetsViewModel follows(FollowDetailsListItemItemsViewModel follows) {
 		this.follows = follows;
 		return this;
 	}
@@ -110,15 +110,15 @@ public class CommonPublicAssetsViewModel implements Parcelable
 	 * @return follows
 	 **/
 	@Schema(description = "")
-	public ItemsViewModelFollowDetailsListItem getFollows() {
+	public FollowDetailsListItemItemsViewModel getFollows() {
 		return follows;
 	}
 
-	public void setFollows(ItemsViewModelFollowDetailsListItem follows) {
+	public void setFollows(FollowDetailsListItemItemsViewModel follows) {
 		this.follows = follows;
 	}
 
-	public CommonPublicAssetsViewModel managers(ItemsViewModelPublicProfile managers) {
+	public CommonPublicAssetsViewModel managers(PublicProfileItemsViewModel managers) {
 		this.managers = managers;
 		return this;
 	}
@@ -129,11 +129,11 @@ public class CommonPublicAssetsViewModel implements Parcelable
 	 * @return managers
 	 **/
 	@Schema(description = "")
-	public ItemsViewModelPublicProfile getManagers() {
+	public PublicProfileItemsViewModel getManagers() {
 		return managers;
 	}
 
-	public void setManagers(ItemsViewModelPublicProfile managers) {
+	public void setManagers(PublicProfileItemsViewModel managers) {
 		this.managers = managers;
 	}
 

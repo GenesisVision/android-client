@@ -170,7 +170,7 @@ public class FundInfoFragment extends BaseFragment implements FundInfoView, Fund
 			ProfilePublic manager = fundDetails.getOwner();
 			ManagerDetailsModel model = new ManagerDetailsModel(
 					manager.getId(),
-					manager.getAvatar(),
+					manager.getLogoUrl(),
 					manager.getUsername(),
 					manager.getRegistrationDate());
 			ManagerDetailsActivity.startWith(getActivity(), model);
@@ -282,7 +282,7 @@ public class FundInfoFragment extends BaseFragment implements FundInfoView, Fund
 
 		scrollView.setVisibility(View.VISIBLE);
 
-		managerAvatar.setImage(fundDetails.getOwner().getAvatar(), 100, 100);
+		managerAvatar.setImage(fundDetails.getOwner().getLogoUrl(), 100, 100);
 		managerName.setText(fundDetails.getOwner().getUsername());
 		managerDate.setText(DateTimeUtil.formatShortDate(fundDetails.getOwner().getRegistrationDate()));
 

@@ -13,10 +13,10 @@ import javax.inject.Inject;
 
 import io.swagger.client.model.AssetType;
 import io.swagger.client.model.InternalTransferRequestType;
-import io.swagger.client.model.ItemsViewModelSignalSubscription;
 import io.swagger.client.model.PrivateTradingAccountFull;
 import io.swagger.client.model.ProfileFullViewModel;
 import io.swagger.client.model.SignalSubscription;
+import io.swagger.client.model.SignalSubscriptionItemsViewModel;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -111,7 +111,7 @@ public class TradingAccountInfoPresenter extends MvpPresenter<TradingAccountInfo
 //		TradingAccountDetailsModel model = new TradingAccountDetailsModel(
 //				accountId,
 //				accountDetails.getTitle(),
-//				accountDetails.getBrokerDetails().getLogo(),
+//				accountDetails.getBrokerDetails().getLogoUrl(),
 //				accountDetails.getCreationDate(),
 //				accountDetails.getLeverage(),
 //				accountDetails.getCurrency(),
@@ -167,7 +167,7 @@ public class TradingAccountInfoPresenter extends MvpPresenter<TradingAccountInfo
 		TradingAccountDetailsModel model = new TradingAccountDetailsModel(
 				accountDetails.getId(),
 				accountDetails.getPublicInfo().getTitle(),
-				accountDetails.getBrokerDetails().getLogo());
+				accountDetails.getBrokerDetails().getLogoUrl());
 		getViewState().showCopytradingDetailsActivity(model);
 
 	}
@@ -244,7 +244,7 @@ public class TradingAccountInfoPresenter extends MvpPresenter<TradingAccountInfo
 		}
 	}
 
-	private void handleSubscriptionsSuccess(ItemsViewModelSignalSubscription response) {
+	private void handleSubscriptionsSuccess(SignalSubscriptionItemsViewModel response) {
 		subscriptionsSubscription.unsubscribe();
 
 		this.masters = response.getItems();

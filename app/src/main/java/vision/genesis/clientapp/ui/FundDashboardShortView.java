@@ -85,7 +85,7 @@ public class FundDashboardShortView extends RelativeLayout
 		setOnClickListener(v -> {
 			if (fund != null) {
 				FundDetailsModel fundDetailsModel = new FundDetailsModel(fund.getId(),
-						fund.getLogo(),
+						fund.getLogoUrl(),
 						fund.getColor(),
 						fund.getTitle(),
 						fund.getOwner().getUsername(),
@@ -110,7 +110,7 @@ public class FundDashboardShortView extends RelativeLayout
 		this.fund = fund;
 		this.baseCurrency = baseCurrency;
 
-		this.fundLogo.setImage(fund.getLogo(), fund.getColor(), 50, 50);
+		this.fundLogo.setImage(fund.getLogoUrl(), fund.getColor(), 50, 50);
 		this.fundLogo.hideLevel();
 		this.fundName.setText(fund.getTitle());
 		this.ownerName.setText(fund.getOwner().getUsername());

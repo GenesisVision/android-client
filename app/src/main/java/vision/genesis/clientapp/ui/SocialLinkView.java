@@ -114,7 +114,7 @@ public class SocialLinkView extends RelativeLayout
 
 	public void setData(SocialLinkViewModel model) {
 		this.model = model;
-		this.logo.setImageURI(ImageUtils.getImageUri(model.getLogo()));
+		this.logo.setImageURI(ImageUtils.getImageUri(model.getLogoUrl()));
 		this.textInputLayout.setHint(model.getName());
 		if (model.getValue() != null && !model.getValue().isEmpty()) {
 			this.editText.setText(model.getUrl().concat(model.getValue()));

@@ -123,7 +123,7 @@ public class OpenPositionsListAdapter extends RecyclerView.Adapter<OpenPositions
 			volume.setText(StringFormatUtil.formatAmount(trade.getVolume(), 2, 8));
 
 			if (trade.getAssetData() != null) {
-				icon.setImageURI(ImageUtils.getImageUri(trade.getAssetData().getIcon()));
+				icon.setImageURI(ImageUtils.getImageUri(trade.getAssetData().getLogoUrl()));
 			}
 			else {
 				icon.setImageURI(ImageUtils.getImageUri(null));

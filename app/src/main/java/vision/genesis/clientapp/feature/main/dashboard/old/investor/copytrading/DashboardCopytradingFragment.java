@@ -150,8 +150,9 @@ public class DashboardCopytradingFragment extends BaseFragment implements Dashbo
 
 	@Override
 	public void pagerShow() {
-		if (dashboardCopytradingPresenter != null)
+		if (dashboardCopytradingPresenter != null) {
 			dashboardCopytradingPresenter.onShow();
+		}
 	}
 
 	@Override
@@ -161,8 +162,9 @@ public class DashboardCopytradingFragment extends BaseFragment implements Dashbo
 	public void onOffsetChanged(int verticalOffset) {
 		if (filters != null) {
 			float newY = root.getHeight() - verticalOffset - filters.getHeight() - filtersMarginBottom;
-			if (newY < filtersMarginTop)
+			if (newY < filtersMarginTop) {
 				newY = filtersMarginTop;
+			}
 			filters.setY(newY);
 		}
 	}
@@ -171,8 +173,9 @@ public class DashboardCopytradingFragment extends BaseFragment implements Dashbo
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if (requestCode == UserFilter.TYPE_DASHBOARD_SIGNALS_FILTER && resultCode == Activity.RESULT_OK) {
 			UserFilter userFilter = data.getParcelableExtra("filter");
-			if (userFilter != null)
+			if (userFilter != null) {
 				dashboardCopytradingPresenter.onFilterUpdated(userFilter);
+			}
 		}
 		else {
 			super.onActivityResult(requestCode, resultCode, data);

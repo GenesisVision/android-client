@@ -6,6 +6,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.widget.SwitchCompat;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import vision.genesis.clientapp.R;
@@ -65,8 +66,9 @@ public class FilterSwitchView extends RelativeLayout
 	public void setChecked(boolean checked) {
 		this.checked = checked;
 		this.switchBox.setChecked(checked);
-		if (listener != null)
+		if (listener != null) {
 			listener.onChecked(checked);
+		}
 	}
 
 	public void setListener(OnCheckChangeListener listener) {

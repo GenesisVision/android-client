@@ -125,7 +125,7 @@ public class RequestsAdapter extends RecyclerView.Adapter<RequestsAdapter.Reques
 						if (details.getAssetType().equals(AssetType.PROGRAM)) {
 							ProgramDetailsModel programDetailsModel = new ProgramDetailsModel(
 									details.getId(),
-									details.getLogo(),
+									details.getLogoUrl(),
 									details.getColor(),
 									details.getProgramDetails().getLevel(),
 									details.getProgramDetails().getLevelProgress(),
@@ -140,7 +140,7 @@ public class RequestsAdapter extends RecyclerView.Adapter<RequestsAdapter.Reques
 						else if (details.getAssetType().equals(AssetType.FUND)) {
 							FundDetailsModel fundDetailsModel = new FundDetailsModel(
 									details.getId(),
-									details.getLogo(),
+									details.getLogoUrl(),
 									details.getColor(),
 									details.getTitle(),
 									"",
@@ -196,14 +196,14 @@ public class RequestsAdapter extends RecyclerView.Adapter<RequestsAdapter.Reques
 
 			this.date.setText(DateTimeUtil.formatRequestDate(request.getDate()));
 
-			if (details.getLogo() == null || details.getLogo().isEmpty()) {
+			if (details.getLogoUrl() == null || details.getLogoUrl().isEmpty()) {
 				GenericDraweeHierarchy hierarchy = subject.getHierarchy();
 				hierarchy.setBackgroundImage(new ColorDrawable(Color.parseColor(details.getColor())));
 				subject.setHierarchy(hierarchy);
 				subject.setImageURI("");
 			}
 			else {
-				subject.setImageURI(ImageUtils.getImageUri(details.getLogo()));
+				subject.setImageURI(ImageUtils.getImageUri(details.getLogoUrl()));
 			}
 
 			int actionResId = 0;

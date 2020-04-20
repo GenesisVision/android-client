@@ -67,8 +67,8 @@ public class WalletData implements Parcelable
 	@SerializedName("title")
 	private String title = null;
 
-	@SerializedName("logo")
-	private String logo = null;
+	@SerializedName("logoUrl")
+	private String logoUrl = null;
 
 	@SerializedName("isDepositEnabled")
 	private Boolean isDepositEnabled = null;
@@ -110,7 +110,7 @@ public class WalletData implements Parcelable
 		totalCcy = (Double) in.readValue(null);
 		id = (UUID) in.readValue(UUID.class.getClassLoader());
 		title = (String) in.readValue(null);
-		logo = (String) in.readValue(null);
+		logoUrl = (String) in.readValue(null);
 		isDepositEnabled = (Boolean) in.readValue(null);
 		isWithdrawalEnabled = (Boolean) in.readValue(null);
 		withdrawalCommission = (Double) in.readValue(null);
@@ -275,23 +275,23 @@ public class WalletData implements Parcelable
 		this.title = title;
 	}
 
-	public WalletData logo(String logo) {
-		this.logo = logo;
+	public WalletData logoUrl(String logoUrl) {
+		this.logoUrl = logoUrl;
 		return this;
 	}
 
 	/**
-	 * Get logo
+	 * Get logoUrl
 	 *
-	 * @return logo
+	 * @return logoUrl
 	 **/
 	@Schema(description = "")
-	public String getLogo() {
-		return logo;
+	public String getLogoUrl() {
+		return logoUrl;
 	}
 
-	public void setLogo(String logo) {
-		this.logo = logo;
+	public void setLogoUrl(String logoUrl) {
+		this.logoUrl = logoUrl;
 	}
 
 	public WalletData isDepositEnabled(Boolean isDepositEnabled) {
@@ -483,7 +483,7 @@ public class WalletData implements Parcelable
 				Objects.equals(this.totalCcy, walletData.totalCcy) &&
 				Objects.equals(this.id, walletData.id) &&
 				Objects.equals(this.title, walletData.title) &&
-				Objects.equals(this.logo, walletData.logo) &&
+				Objects.equals(this.logoUrl, walletData.logoUrl) &&
 				Objects.equals(this.isDepositEnabled, walletData.isDepositEnabled) &&
 				Objects.equals(this.isWithdrawalEnabled, walletData.isWithdrawalEnabled) &&
 				Objects.equals(this.withdrawalCommission, walletData.withdrawalCommission) &&
@@ -497,7 +497,7 @@ public class WalletData implements Parcelable
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(pending, total, availableCcy, investedCcy, tradingCcy, pendingCcy, totalCcy, id, title, logo, isDepositEnabled, isWithdrawalEnabled, withdrawalCommission, depositAddress, depositUrlCoindirect, currency, available, invested, trading);
+		return Objects.hash(pending, total, availableCcy, investedCcy, tradingCcy, pendingCcy, totalCcy, id, title, logoUrl, isDepositEnabled, isWithdrawalEnabled, withdrawalCommission, depositAddress, depositUrlCoindirect, currency, available, invested, trading);
 	}
 
 	@Override
@@ -514,7 +514,7 @@ public class WalletData implements Parcelable
 		sb.append("    totalCcy: ").append(toIndentedString(totalCcy)).append("\n");
 		sb.append("    id: ").append(toIndentedString(id)).append("\n");
 		sb.append("    title: ").append(toIndentedString(title)).append("\n");
-		sb.append("    logo: ").append(toIndentedString(logo)).append("\n");
+		sb.append("    logoUrl: ").append(toIndentedString(logoUrl)).append("\n");
 		sb.append("    isDepositEnabled: ").append(toIndentedString(isDepositEnabled)).append("\n");
 		sb.append("    isWithdrawalEnabled: ").append(toIndentedString(isWithdrawalEnabled)).append("\n");
 		sb.append("    withdrawalCommission: ").append(toIndentedString(withdrawalCommission)).append("\n");
@@ -549,7 +549,7 @@ public class WalletData implements Parcelable
 		out.writeValue(totalCcy);
 		out.writeValue(id);
 		out.writeValue(title);
-		out.writeValue(logo);
+		out.writeValue(logoUrl);
 		out.writeValue(isDepositEnabled);
 		out.writeValue(isWithdrawalEnabled);
 		out.writeValue(withdrawalCommission);

@@ -50,8 +50,9 @@ public class ValueView extends RelativeLayout
 	}
 
 	public void setValueParams(Boolean semibold, Integer textSizeSp) {
-		if (semibold)
+		if (semibold) {
 			this.value.setTypeface(TypefaceUtil.semibold());
+		}
 		this.value.setTextSize(TypedValue.COMPLEX_UNIT_SP, textSizeSp);
 	}
 }

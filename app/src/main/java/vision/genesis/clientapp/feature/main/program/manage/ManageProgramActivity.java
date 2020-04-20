@@ -218,7 +218,7 @@ public class ManageProgramActivity extends BaseSwipeBackActivity implements Mana
 				: StringFormatUtil.getTradesDelayString(programDetails.getTradesDelay()));
 
 		stopOut.setText(String.format(Locale.getDefault(), "%s%%", StringFormatUtil.formatAmount(programDetails.getStopOutLevelSelected(), 0, 4)));
-		entryFee.setText(String.format(Locale.getDefault(), "%s%%", StringFormatUtil.formatAmount(programDetails.getEntryFeeSelected(), 0, 4)));
+		entryFee.setText(String.format(Locale.getDefault(), "%s%%", StringFormatUtil.formatAmount(programDetails.getManagementFeeSelected(), 0, 4)));
 		successFee.setText(String.format(Locale.getDefault(), "%s%%", StringFormatUtil.formatAmount(programDetails.getSuccessFeeSelected(), 0, 4)));
 
 		availableToInvest.setText(String.format(Locale.getDefault(), "%s %s",

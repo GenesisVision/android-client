@@ -536,7 +536,7 @@ public class OwnerInfoFragment extends BaseFragment implements OwnerInfoView, Pr
 	}
 
 	private void updateAccountInfo(ProgramFollowDetailsFull details) {
-		this.brokerLogo.setImageURI(ImageUtils.getImageUri(details.getBrokerDetails().getLogo()));
+		this.brokerLogo.setImageURI(ImageUtils.getImageUri(details.getBrokerDetails().getLogoUrl()));
 		this.age.setCreationDate(details.getPublicInfo().getCreationDate());
 		if (details.getPublicInfo().getTypeExt().equals(AssetTypeExt.EXTERNALSIGNALTRADINGACCOUNT)) {
 			groupCurrency.setVisibility(View.GONE);
@@ -584,7 +584,7 @@ public class OwnerInfoFragment extends BaseFragment implements OwnerInfoView, Pr
 					this.details.getTradingAccountInfo().getCurrency().getValue()));
 
 			updateCurrentSelectedField(stopOut, programDetails.getStopOutLevelCurrent(), programDetails.getStopOutLevelSelected());
-			updateCurrentSelectedField(entryFee, programDetails.getEntryFeeCurrent(), programDetails.getEntryFeeSelected());
+			updateCurrentSelectedField(entryFee, programDetails.getManagementFeeCurrent(), programDetails.getManagementFeeSelected());
 			updateCurrentSelectedField(successFee, programDetails.getSuccessFeeCurrent(), programDetails.getSuccessFeeSelected());
 
 			periodView.setData(programDetails.getPeriodDuration(), programDetails.getPeriodStarts(), programDetails.getPeriodEnds(), true, true);

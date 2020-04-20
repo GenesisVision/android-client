@@ -45,6 +45,9 @@ public class PersonalProgramDetails implements Parcelable
 	@SerializedName("isReinvest")
 	private Boolean isReinvest = null;
 
+	@SerializedName("isAutoJoin")
+	private Boolean isAutoJoin = null;
+
 	@SerializedName("isInvested")
 	private Boolean isInvested = null;
 
@@ -90,6 +93,9 @@ public class PersonalProgramDetails implements Parcelable
 	@SerializedName("successFeePersonal")
 	private Double successFeePersonal = null;
 
+	@SerializedName("managementFeePersonal")
+	private Double managementFeePersonal = null;
+
 	@SerializedName("migration")
 	private MigrationRequest migration = null;
 
@@ -102,6 +108,7 @@ public class PersonalProgramDetails implements Parcelable
 	PersonalProgramDetails(Parcel in) {
 		isFavorite = (Boolean) in.readValue(null);
 		isReinvest = (Boolean) in.readValue(null);
+		isAutoJoin = (Boolean) in.readValue(null);
 		isInvested = (Boolean) in.readValue(null);
 		canInvest = (Boolean) in.readValue(null);
 		canWithdraw = (Boolean) in.readValue(null);
@@ -117,6 +124,7 @@ public class PersonalProgramDetails implements Parcelable
 		pendingOutputIsWithdrawAll = (Boolean) in.readValue(null);
 		status = (AssetInvestmentStatus) in.readValue(AssetInvestmentStatus.class.getClassLoader());
 		successFeePersonal = (Double) in.readValue(null);
+		managementFeePersonal = (Double) in.readValue(null);
 		migration = (MigrationRequest) in.readValue(MigrationRequest.class.getClassLoader());
 		subscribedAccounts = (Integer) in.readValue(null);
 	}
@@ -157,6 +165,25 @@ public class PersonalProgramDetails implements Parcelable
 
 	public void setIsReinvest(Boolean isReinvest) {
 		this.isReinvest = isReinvest;
+	}
+
+	public PersonalProgramDetails isAutoJoin(Boolean isAutoJoin) {
+		this.isAutoJoin = isAutoJoin;
+		return this;
+	}
+
+	/**
+	 * Get isAutoJoin
+	 *
+	 * @return isAutoJoin
+	 **/
+	@Schema(description = "")
+	public Boolean isIsAutoJoin() {
+		return isAutoJoin;
+	}
+
+	public void setIsAutoJoin(Boolean isAutoJoin) {
+		this.isAutoJoin = isAutoJoin;
 	}
 
 	public PersonalProgramDetails isInvested(Boolean isInvested) {
@@ -444,6 +471,25 @@ public class PersonalProgramDetails implements Parcelable
 		this.successFeePersonal = successFeePersonal;
 	}
 
+	public PersonalProgramDetails managementFeePersonal(Double managementFeePersonal) {
+		this.managementFeePersonal = managementFeePersonal;
+		return this;
+	}
+
+	/**
+	 * Get managementFeePersonal
+	 *
+	 * @return managementFeePersonal
+	 **/
+	@Schema(description = "")
+	public Double getManagementFeePersonal() {
+		return managementFeePersonal;
+	}
+
+	public void setManagementFeePersonal(Double managementFeePersonal) {
+		this.managementFeePersonal = managementFeePersonal;
+	}
+
 	public PersonalProgramDetails migration(MigrationRequest migration) {
 		this.migration = migration;
 		return this;
@@ -493,6 +539,7 @@ public class PersonalProgramDetails implements Parcelable
 		PersonalProgramDetails personalProgramDetails = (PersonalProgramDetails) o;
 		return Objects.equals(this.isFavorite, personalProgramDetails.isFavorite) &&
 				Objects.equals(this.isReinvest, personalProgramDetails.isReinvest) &&
+				Objects.equals(this.isAutoJoin, personalProgramDetails.isAutoJoin) &&
 				Objects.equals(this.isInvested, personalProgramDetails.isInvested) &&
 				Objects.equals(this.canInvest, personalProgramDetails.canInvest) &&
 				Objects.equals(this.canWithdraw, personalProgramDetails.canWithdraw) &&
@@ -508,13 +555,14 @@ public class PersonalProgramDetails implements Parcelable
 				Objects.equals(this.pendingOutputIsWithdrawAll, personalProgramDetails.pendingOutputIsWithdrawAll) &&
 				Objects.equals(this.status, personalProgramDetails.status) &&
 				Objects.equals(this.successFeePersonal, personalProgramDetails.successFeePersonal) &&
+				Objects.equals(this.managementFeePersonal, personalProgramDetails.managementFeePersonal) &&
 				Objects.equals(this.migration, personalProgramDetails.migration) &&
 				Objects.equals(this.subscribedAccounts, personalProgramDetails.subscribedAccounts);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(isFavorite, isReinvest, isInvested, canInvest, canWithdraw, canChangeReinvest, hasNotifications, showTwoFactorButton, value, profit, profitPercent, invested, pendingInput, pendingOutput, pendingOutputIsWithdrawAll, status, successFeePersonal, migration, subscribedAccounts);
+		return Objects.hash(isFavorite, isReinvest, isAutoJoin, isInvested, canInvest, canWithdraw, canChangeReinvest, hasNotifications, showTwoFactorButton, value, profit, profitPercent, invested, pendingInput, pendingOutput, pendingOutputIsWithdrawAll, status, successFeePersonal, managementFeePersonal, migration, subscribedAccounts);
 	}
 
 	@Override
@@ -524,6 +572,7 @@ public class PersonalProgramDetails implements Parcelable
 
 		sb.append("    isFavorite: ").append(toIndentedString(isFavorite)).append("\n");
 		sb.append("    isReinvest: ").append(toIndentedString(isReinvest)).append("\n");
+		sb.append("    isAutoJoin: ").append(toIndentedString(isAutoJoin)).append("\n");
 		sb.append("    isInvested: ").append(toIndentedString(isInvested)).append("\n");
 		sb.append("    canInvest: ").append(toIndentedString(canInvest)).append("\n");
 		sb.append("    canWithdraw: ").append(toIndentedString(canWithdraw)).append("\n");
@@ -539,6 +588,7 @@ public class PersonalProgramDetails implements Parcelable
 		sb.append("    pendingOutputIsWithdrawAll: ").append(toIndentedString(pendingOutputIsWithdrawAll)).append("\n");
 		sb.append("    status: ").append(toIndentedString(status)).append("\n");
 		sb.append("    successFeePersonal: ").append(toIndentedString(successFeePersonal)).append("\n");
+		sb.append("    managementFeePersonal: ").append(toIndentedString(managementFeePersonal)).append("\n");
 		sb.append("    migration: ").append(toIndentedString(migration)).append("\n");
 		sb.append("    subscribedAccounts: ").append(toIndentedString(subscribedAccounts)).append("\n");
 		sb.append("}");
@@ -559,6 +609,7 @@ public class PersonalProgramDetails implements Parcelable
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(isFavorite);
 		out.writeValue(isReinvest);
+		out.writeValue(isAutoJoin);
 		out.writeValue(isInvested);
 		out.writeValue(canInvest);
 		out.writeValue(canWithdraw);
@@ -574,6 +625,7 @@ public class PersonalProgramDetails implements Parcelable
 		out.writeValue(pendingOutputIsWithdrawAll);
 		out.writeValue(status);
 		out.writeValue(successFeePersonal);
+		out.writeValue(managementFeePersonal);
 		out.writeValue(migration);
 		out.writeValue(subscribedAccounts);
 	}

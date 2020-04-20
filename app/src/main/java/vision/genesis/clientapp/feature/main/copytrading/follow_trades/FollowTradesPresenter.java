@@ -15,6 +15,7 @@ import javax.inject.Inject;
 import io.swagger.client.model.AssetTypeExt;
 import io.swagger.client.model.AttachToExternalSignalProviderExt;
 import io.swagger.client.model.AttachToSignalProvider;
+import io.swagger.client.model.Currency;
 import io.swagger.client.model.ProgramFollowDetailsFull;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
@@ -112,7 +113,7 @@ public class FollowTradesPresenter extends MvpPresenter<FollowTradesView>
 		this.model.setTradingAccountId(tradingAccountId);
 
 		this.extModel = new AttachToExternalSignalProviderExt();
-		extModel.setFixedCurrency(AttachToExternalSignalProviderExt.FixedCurrencyEnum.fromValue(model.getFixedCurrency().getValue()));
+		extModel.setFixedCurrency(Currency.fromValue(model.getFixedCurrency().getValue()));
 		extModel.setFixedVolume(model.getFixedVolume());
 		extModel.setMode(model.getMode());
 		extModel.setOpenTolerancePercent(model.getOpenTolerancePercent());

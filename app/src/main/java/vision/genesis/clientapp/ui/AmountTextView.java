@@ -62,8 +62,9 @@ public class AmountTextView extends androidx.appcompat.widget.AppCompatTextView
 			@Override
 			public void onBackspace() {
 				String text = getText().toString();
-				if (text.length() > 0)
+				if (text.length() > 0) {
 					setText(text.subSequence(0, text.length() - 1));
+				}
 			}
 
 			@Override
@@ -76,8 +77,9 @@ public class AmountTextView extends androidx.appcompat.widget.AppCompatTextView
 	public void setAmountChangeListener(AmountChangeListener listener) {
 		this.listener = listener;
 		this.listener.onAmountChanged(amount);
-		if (getText().toString().isEmpty())
+		if (getText().toString().isEmpty()) {
 			this.listener.onAmountCleared();
+		}
 	}
 
 	public void setMaxDecimalDigits(int maxDigits) {
@@ -137,12 +139,14 @@ public class AmountTextView extends androidx.appcompat.widget.AppCompatTextView
 			amount = 0;
 		}
 
-		if (listener != null)
+		if (listener != null) {
 			listener.onAmountChanged(amount);
+		}
 
 		if (getText().toString().isEmpty()) {
-			if (listener != null)
+			if (listener != null) {
 				listener.onAmountCleared();
+			}
 		}
 	}
 

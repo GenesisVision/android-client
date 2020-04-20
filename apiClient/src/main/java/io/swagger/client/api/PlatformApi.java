@@ -2,6 +2,7 @@ package io.swagger.client.api;
 
 import io.swagger.client.model.AssetInfo;
 import io.swagger.client.model.CaptchaDetails;
+import io.swagger.client.model.Currency;
 import io.swagger.client.model.LandingInfo;
 import io.swagger.client.model.LevelsParamsInfo;
 import io.swagger.client.model.PlatformAssets;
@@ -87,7 +88,7 @@ public interface PlatformApi
 	 */
 	@GET("v2.0/platform/levels")
 	Observable<ProgramsLevelsInfo> getProgramLevels(
-			@retrofit2.http.Query("currency") String currency
+			@retrofit2.http.Query("currency") Currency currency
 	);
 
 	/**
@@ -98,7 +99,7 @@ public interface PlatformApi
 	 */
 	@GET("v2.0/platform/levels/parameters")
 	Observable<LevelsParamsInfo> getProgramLevelsParams(
-			@retrofit2.http.Query("currency") String currency
+			@retrofit2.http.Query("currency") Currency currency
 	);
 
 	/**

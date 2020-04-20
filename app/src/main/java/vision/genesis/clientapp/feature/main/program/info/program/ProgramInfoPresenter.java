@@ -115,7 +115,7 @@ public class ProgramInfoPresenter extends MvpPresenter<ProgramInfoView>
 		ProgramRequest request = new ProgramRequest();
 
 		request.setProgramId(details.getId());
-		request.setProgramLogo(details.getPublicInfo().getLogo());
+		request.setProgramLogo(details.getPublicInfo().getLogoUrl());
 		request.setProgramColor(details.getPublicInfo().getColor());
 		request.setProgramName(details.getPublicInfo().getTitle());
 		request.setProgramCurrency(details.getTradingAccountInfo().getCurrency().getValue());
@@ -123,7 +123,7 @@ public class ProgramInfoPresenter extends MvpPresenter<ProgramInfoView>
 		request.setLevel(details.getProgramDetails().getLevel());
 		request.setLevelProgress(details.getProgramDetails().getLevelProgress());
 		request.setAvailableInvestment(details.getProgramDetails().getAvailableInvestmentBase());
-		request.setEntryFee(details.getProgramDetails().getEntryFeeCurrent());
+		request.setEntryFee(details.getProgramDetails().getManagementFeeCurrent());
 		request.setBrokerType(details.getBrokerDetails().getType());
 
 		getViewState().showInvestProgramActivity(request);
@@ -142,7 +142,7 @@ public class ProgramInfoPresenter extends MvpPresenter<ProgramInfoView>
 		ProgramRequest request = new ProgramRequest();
 
 		request.setProgramId(details.getId());
-		request.setProgramLogo(details.getPublicInfo().getLogo());
+		request.setProgramLogo(details.getPublicInfo().getLogoUrl());
 		request.setProgramColor(details.getPublicInfo().getColor());
 		request.setProgramName(details.getPublicInfo().getTitle());
 		request.setProgramCurrency(details.getTradingAccountInfo().getCurrency().getValue());

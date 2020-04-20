@@ -47,16 +47,12 @@ public class WalletSummary implements Parcelable
 	@SerializedName("wallets")
 	private List<WalletData> wallets = null;
 
-	@SerializedName("payFeesWithGvt")
-	private Boolean payFeesWithGvt = null;
-
 	public WalletSummary() {
 	}
 
 	WalletSummary(Parcel in) {
 		grandTotal = (WalletsGrandTotal) in.readValue(WalletsGrandTotal.class.getClassLoader());
 		wallets = (List<WalletData>) in.readValue(WalletData.class.getClassLoader());
-		payFeesWithGvt = (Boolean) in.readValue(null);
 	}
 
 	public WalletSummary grandTotal(WalletsGrandTotal grandTotal) {
@@ -105,25 +101,6 @@ public class WalletSummary implements Parcelable
 		this.wallets = wallets;
 	}
 
-	public WalletSummary payFeesWithGvt(Boolean payFeesWithGvt) {
-		this.payFeesWithGvt = payFeesWithGvt;
-		return this;
-	}
-
-	/**
-	 * Get payFeesWithGvt
-	 *
-	 * @return payFeesWithGvt
-	 **/
-	@Schema(description = "")
-	public Boolean isPayFeesWithGvt() {
-		return payFeesWithGvt;
-	}
-
-	public void setPayFeesWithGvt(Boolean payFeesWithGvt) {
-		this.payFeesWithGvt = payFeesWithGvt;
-	}
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -134,13 +111,12 @@ public class WalletSummary implements Parcelable
 		}
 		WalletSummary walletSummary = (WalletSummary) o;
 		return Objects.equals(this.grandTotal, walletSummary.grandTotal) &&
-				Objects.equals(this.wallets, walletSummary.wallets) &&
-				Objects.equals(this.payFeesWithGvt, walletSummary.payFeesWithGvt);
+				Objects.equals(this.wallets, walletSummary.wallets);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(grandTotal, wallets, payFeesWithGvt);
+		return Objects.hash(grandTotal, wallets);
 	}
 
 	@Override
@@ -150,7 +126,6 @@ public class WalletSummary implements Parcelable
 
 		sb.append("    grandTotal: ").append(toIndentedString(grandTotal)).append("\n");
 		sb.append("    wallets: ").append(toIndentedString(wallets)).append("\n");
-		sb.append("    payFeesWithGvt: ").append(toIndentedString(payFeesWithGvt)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}
@@ -169,7 +144,6 @@ public class WalletSummary implements Parcelable
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(grandTotal);
 		out.writeValue(wallets);
-		out.writeValue(payFeesWithGvt);
 	}
 
 	public int describeContents() {

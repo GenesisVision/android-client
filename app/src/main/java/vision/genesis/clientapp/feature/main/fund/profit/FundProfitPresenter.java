@@ -13,6 +13,7 @@ import java.util.UUID;
 import javax.inject.Inject;
 
 import io.swagger.client.model.AbsoluteProfitChart;
+import io.swagger.client.model.Currency;
 import io.swagger.client.model.FundProfitPercentCharts;
 import io.swagger.client.model.SimpleChartPoint;
 import rx.Subscription;
@@ -56,9 +57,9 @@ public class FundProfitPresenter extends MvpPresenter<FundProfitView> implements
 
 	private DateRange chartDateRange = DateRange.createFromEnum(DateRange.DateRangeEnum.MONTH);
 
-	private CurrencyEnum baseCurrency;
+	private Currency baseCurrency;
 
-	private ArrayList<Object> currencies = new ArrayList<>();
+	private ArrayList<Currency> currencies = new ArrayList<>();
 
 	private AbsoluteProfitChart absChart;
 
@@ -110,7 +111,7 @@ public class FundProfitPresenter extends MvpPresenter<FundProfitView> implements
 	}
 
 	private void baseCurrencyChangedHandler(CurrencyEnum baseCurrency) {
-		this.baseCurrency = baseCurrency;
+		this.baseCurrency = Currency.fromValue(baseCurrency.getValue());
 		updateAll();
 	}
 
@@ -126,7 +127,7 @@ public class FundProfitPresenter extends MvpPresenter<FundProfitView> implements
 			}
 
 			absSubscription = fundsManager.getProfitAbsoluteChart(fundId, chartDateRange,
-					100, baseCurrency.getValue())
+					100, baseCurrency)
 					.observeOn(AndroidSchedulers.mainThread())
 					.subscribeOn(Schedulers.io())
 					.subscribe(this::handleGetAbsSuccess,
@@ -156,10 +157,10 @@ public class FundProfitPresenter extends MvpPresenter<FundProfitView> implements
 			}
 
 			currencies = new ArrayList<>();
-			currencies.add(baseCurrency.getValue());
+			currencies.add(baseCurrency);
 
 			percentSubscription = fundsManager.getProfitPercentChart(fundId, chartDateRange,
-					100, baseCurrency.getValue(), currencies, 1)
+					100, baseCurrency, currencies, 1)
 					.observeOn(AndroidSchedulers.mainThread())
 					.subscribeOn(Schedulers.io())
 					.subscribe(this::handleGetPercentSuccess,

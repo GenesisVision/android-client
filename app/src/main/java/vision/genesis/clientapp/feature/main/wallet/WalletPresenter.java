@@ -141,11 +141,11 @@ public class WalletPresenter extends MvpPresenter<WalletView>
 			if (usingGvtSubscription != null) {
 				usingGvtSubscription.unsubscribe();
 			}
-			usingGvtSubscription = walletManager.setUsingGvtToPayFees(on)
-					.subscribeOn(Schedulers.io())
-					.observeOn(AndroidSchedulers.mainThread())
-					.subscribe(this::handleUsingGvtSuccess,
-							this::handleUsingGvtError);
+//			usingGvtSubscription = walletManager.setUsingGvtToPayFees(on)
+//					.subscribeOn(Schedulers.io())
+//					.observeOn(AndroidSchedulers.mainThread())
+//					.subscribe(this::handleUsingGvtSuccess,
+//							this::handleUsingGvtError);
 		}
 	}
 

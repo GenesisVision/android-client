@@ -5,10 +5,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import org.greenrobot.eventbus.EventBus;
-
 import androidx.annotation.Nullable;
 import androidx.viewpager.widget.ViewPager;
+
+import org.greenrobot.eventbus.EventBus;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;

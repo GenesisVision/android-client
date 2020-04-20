@@ -48,13 +48,13 @@ public class LandingInfo implements Parcelable
 	private List<PlatformNews> news = null;
 
 	@SerializedName("follows")
-	private ItemsViewModelFollowDetailsListItem follows = null;
+	private FollowDetailsListItemItemsViewModel follows = null;
 
 	@SerializedName("programs")
-	private ItemsViewModelProgramDetailsListItem programs = null;
+	private ProgramDetailsListItemItemsViewModel programs = null;
 
 	@SerializedName("funds")
-	private ItemsViewModelFundDetailsListItem funds = null;
+	private FundDetailsListItemItemsViewModel funds = null;
 
 	public LandingInfo() {
 	}
@@ -62,9 +62,9 @@ public class LandingInfo implements Parcelable
 	LandingInfo(Parcel in) {
 		events = (List<PlatformEvent>) in.readValue(PlatformEvent.class.getClassLoader());
 		news = (List<PlatformNews>) in.readValue(PlatformNews.class.getClassLoader());
-		follows = (ItemsViewModelFollowDetailsListItem) in.readValue(ItemsViewModelFollowDetailsListItem.class.getClassLoader());
-		programs = (ItemsViewModelProgramDetailsListItem) in.readValue(ItemsViewModelProgramDetailsListItem.class.getClassLoader());
-		funds = (ItemsViewModelFundDetailsListItem) in.readValue(ItemsViewModelFundDetailsListItem.class.getClassLoader());
+		follows = (FollowDetailsListItemItemsViewModel) in.readValue(FollowDetailsListItemItemsViewModel.class.getClassLoader());
+		programs = (ProgramDetailsListItemItemsViewModel) in.readValue(ProgramDetailsListItemItemsViewModel.class.getClassLoader());
+		funds = (FundDetailsListItemItemsViewModel) in.readValue(FundDetailsListItemItemsViewModel.class.getClassLoader());
 	}
 
 	public LandingInfo events(List<PlatformEvent> events) {
@@ -121,7 +121,7 @@ public class LandingInfo implements Parcelable
 		this.news = news;
 	}
 
-	public LandingInfo follows(ItemsViewModelFollowDetailsListItem follows) {
+	public LandingInfo follows(FollowDetailsListItemItemsViewModel follows) {
 		this.follows = follows;
 		return this;
 	}
@@ -132,15 +132,15 @@ public class LandingInfo implements Parcelable
 	 * @return follows
 	 **/
 	@Schema(description = "")
-	public ItemsViewModelFollowDetailsListItem getFollows() {
+	public FollowDetailsListItemItemsViewModel getFollows() {
 		return follows;
 	}
 
-	public void setFollows(ItemsViewModelFollowDetailsListItem follows) {
+	public void setFollows(FollowDetailsListItemItemsViewModel follows) {
 		this.follows = follows;
 	}
 
-	public LandingInfo programs(ItemsViewModelProgramDetailsListItem programs) {
+	public LandingInfo programs(ProgramDetailsListItemItemsViewModel programs) {
 		this.programs = programs;
 		return this;
 	}
@@ -151,15 +151,15 @@ public class LandingInfo implements Parcelable
 	 * @return programs
 	 **/
 	@Schema(description = "")
-	public ItemsViewModelProgramDetailsListItem getPrograms() {
+	public ProgramDetailsListItemItemsViewModel getPrograms() {
 		return programs;
 	}
 
-	public void setPrograms(ItemsViewModelProgramDetailsListItem programs) {
+	public void setPrograms(ProgramDetailsListItemItemsViewModel programs) {
 		this.programs = programs;
 	}
 
-	public LandingInfo funds(ItemsViewModelFundDetailsListItem funds) {
+	public LandingInfo funds(FundDetailsListItemItemsViewModel funds) {
 		this.funds = funds;
 		return this;
 	}
@@ -170,11 +170,11 @@ public class LandingInfo implements Parcelable
 	 * @return funds
 	 **/
 	@Schema(description = "")
-	public ItemsViewModelFundDetailsListItem getFunds() {
+	public FundDetailsListItemItemsViewModel getFunds() {
 		return funds;
 	}
 
-	public void setFunds(ItemsViewModelFundDetailsListItem funds) {
+	public void setFunds(FundDetailsListItemItemsViewModel funds) {
 		this.funds = funds;
 	}
 

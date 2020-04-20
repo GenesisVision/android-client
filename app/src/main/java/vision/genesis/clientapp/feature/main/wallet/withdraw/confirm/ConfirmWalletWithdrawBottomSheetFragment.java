@@ -98,8 +98,9 @@ public class ConfirmWalletWithdrawBottomSheetFragment extends BottomSheetDialogF
 	@OnClick(R.id.button_confirm)
 	public void onConfirmClicked() {
 		if (twoFactorEnabled) {
-			if (getActivity() != null)
+			if (getActivity() != null) {
 				CheckTfaActivity.startWith(getActivity(), "");
+			}
 		}
 		else {
 			sendWithdrawRequest();
@@ -119,8 +120,9 @@ public class ConfirmWalletWithdrawBottomSheetFragment extends BottomSheetDialogF
 		getDialog().setOnShowListener(dialog1 -> {
 			BottomSheetDialog d = (BottomSheetDialog) dialog1;
 			View bottomSheetInternal = d.findViewById(com.google.android.material.R.id.design_bottom_sheet);
-			if (bottomSheetInternal != null)
+			if (bottomSheetInternal != null) {
 				BottomSheetBehavior.from(bottomSheetInternal).setState(BottomSheetBehavior.STATE_EXPANDED);
+			}
 		});
 
 		View contentView = View.inflate(getContext(), R.layout.fragment_bottomsheet_confirm_wallet_withdraw, null);
@@ -145,10 +147,12 @@ public class ConfirmWalletWithdrawBottomSheetFragment extends BottomSheetDialogF
 
 	@Override
 	public void onDestroyView() {
-		if (userSubscription != null)
+		if (userSubscription != null) {
 			userSubscription.unsubscribe();
-		if (withdrawSubscription != null)
+		}
+		if (withdrawSubscription != null) {
 			withdrawSubscription.unsubscribe();
+		}
 
 		EventBus.getDefault().unregister(this);
 
@@ -171,8 +175,9 @@ public class ConfirmWalletWithdrawBottomSheetFragment extends BottomSheetDialogF
 	public void setData(WithdrawalRequest withdrawalRequest) {
 		this.withdrawalRequest = withdrawalRequest;
 
-		if (title != null)
+		if (title != null) {
 			updateView();
+		}
 	}
 
 	private void setFonts() {
@@ -213,8 +218,9 @@ public class ConfirmWalletWithdrawBottomSheetFragment extends BottomSheetDialogF
 	private void handleWithdrawSuccess(Void response) {
 		withdrawSubscription.unsubscribe();
 
-		if (tfaEnabled)
+		if (tfaEnabled) {
 			EventBus.getDefault().post(new OnCheckTfaSuccessEvent());
+		}
 
 		if (listener != null) {
 			listener.onWithdrawSucceeded();
@@ -227,20 +233,24 @@ public class ConfirmWalletWithdrawBottomSheetFragment extends BottomSheetDialogF
 		showProgress(false);
 
 		if (ApiErrorResolver.isNetworkError(throwable)) {
-			if (tfaEnabled)
+			if (tfaEnabled) {
 				EventBus.getDefault().post(new OnCheckTfaErrorEvent(getContext().getResources().getString(R.string.network_error)));
-			else
+			}
+			else {
 				showToast(getContext().getResources().getString(R.string.network_error));
+			}
 		}
 		else {
 			ErrorResponse response = ErrorResponseConverter.createFromThrowable(throwable);
 			if (response != null) {
 				for (Error error : response.errors) {
 					if (error.property == null || error.property.isEmpty()) {
-						if (tfaEnabled)
+						if (tfaEnabled) {
 							EventBus.getDefault().post(new OnCheckTfaErrorEvent(error.message));
-						else
+						}
+						else {
 							showToast(error.message);
+						}
 					}
 				}
 			}

@@ -33,7 +33,7 @@ public class OpenTradeProviderModel implements Parcelable
 
 		model.programId = info.getProgramId();
 		model.programName = info.getProgram().getTitle();
-		model.programLogo = info.getProgram().getLogo();
+		model.programLogo = info.getProgram().getLogoUrl();
 		model.programLevel = info.getProgram().getLevel();
 		model.programLevelProgress = info.getProgram().getLevelProgress();
 		model.programColor = info.getProgram().getColor();

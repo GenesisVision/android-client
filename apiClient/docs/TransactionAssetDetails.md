@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 **description** | **String** |  |  [optional]
 **manager** | **String** |  |  [optional]
 **id** | [**UUID**](UUID.md) |  |  [optional]
-**logo** | **String** |  |  [optional]
+**logoUrl** | **String** |  |  [optional]
 **color** | **String** |  |  [optional]
 **title** | **String** |  |  [optional]
 **url** | **String** |  |  [optional]

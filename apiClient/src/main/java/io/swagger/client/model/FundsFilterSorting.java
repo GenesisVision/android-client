@@ -36,7 +36,9 @@ public enum FundsFilterSorting
 	BYPROFITASC("ByProfitAsc"),
 	BYPROFITDESC("ByProfitDesc"),
 	BYNEWASC("ByNewAsc"),
-	BYNEWDESC("ByNewDesc");
+	BYNEWDESC("ByNewDesc"),
+	BYVALUEASC("ByValueAsc"),
+	BYVALUEDESC("ByValueDesc");
 
 	public static FundsFilterSorting fromValue(String text) {
 		for (FundsFilterSorting b : FundsFilterSorting.values()) {

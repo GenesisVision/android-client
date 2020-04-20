@@ -110,15 +110,17 @@ public class FilterMinMaxBottomSheetFragment extends BottomSheetDialogFragment
 
 		setFonts();
 
-		if (model != null)
+		if (model != null) {
 			setValues(model);
+		}
 	}
 
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
-		if (getDialog().getWindow() != null)
+		if (getDialog().getWindow() != null) {
 			getDialog().getWindow().getAttributes().windowAnimations = R.style.dialog_slide_animation;
+		}
 	}
 
 	@Override
@@ -130,10 +132,12 @@ public class FilterMinMaxBottomSheetFragment extends BottomSheetDialogFragment
 	@Override
 	public void onStop() {
 		super.onStop();
-		if (minValueTextChangeSubscription != null)
+		if (minValueTextChangeSubscription != null) {
 			minValueTextChangeSubscription.unsubscribe();
-		if (maxValueTextChangeSubscription != null)
+		}
+		if (maxValueTextChangeSubscription != null) {
 			maxValueTextChangeSubscription.unsubscribe();
+		}
 		hideSoftKeyboard(minValueEditText);
 	}
 
@@ -169,8 +173,9 @@ public class FilterMinMaxBottomSheetFragment extends BottomSheetDialogFragment
 	public void setData(MinMaxFilterModel model) {
 		this.model = model;
 
-		if (minValueEditText != null)
+		if (minValueEditText != null) {
 			setValues(model);
+		}
 	}
 
 	private void setValues(MinMaxFilterModel model) {

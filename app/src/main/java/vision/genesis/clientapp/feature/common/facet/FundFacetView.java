@@ -61,7 +61,7 @@ public class FundFacetView extends RelativeLayout
 
 	public void setData(AssetFacet facet) {
 		this.facet = facet;
-		this.image.setImageURI(ImageUtils.getImageUri(facet.getLogo()));
+		this.image.setImageURI(ImageUtils.getImageUri(facet.getLogoUrl()));
 		this.name.setText(facet.getTitle());
 		this.description.setText(facet.getDescription());
 	}

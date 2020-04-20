@@ -8,11 +8,12 @@ import android.widget.ProgressBar;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import androidx.appcompat.widget.SwitchCompat;
+
 import com.arellomobile.mvp.presenter.InjectPresenter;
 
 import java.util.UUID;
 
-import androidx.appcompat.widget.SwitchCompat;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;

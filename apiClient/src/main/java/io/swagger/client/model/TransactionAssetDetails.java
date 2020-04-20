@@ -49,8 +49,8 @@ public class TransactionAssetDetails implements Parcelable
 	@SerializedName("id")
 	private UUID id = null;
 
-	@SerializedName("logo")
-	private String logo = null;
+	@SerializedName("logoUrl")
+	private String logoUrl = null;
 
 	@SerializedName("color")
 	private String color = null;
@@ -74,7 +74,7 @@ public class TransactionAssetDetails implements Parcelable
 		description = (String) in.readValue(null);
 		manager = (String) in.readValue(null);
 		id = (UUID) in.readValue(UUID.class.getClassLoader());
-		logo = (String) in.readValue(null);
+		logoUrl = (String) in.readValue(null);
 		color = (String) in.readValue(null);
 		title = (String) in.readValue(null);
 		url = (String) in.readValue(null);
@@ -139,23 +139,23 @@ public class TransactionAssetDetails implements Parcelable
 		this.id = id;
 	}
 
-	public TransactionAssetDetails logo(String logo) {
-		this.logo = logo;
+	public TransactionAssetDetails logoUrl(String logoUrl) {
+		this.logoUrl = logoUrl;
 		return this;
 	}
 
 	/**
-	 * Get logo
+	 * Get logoUrl
 	 *
-	 * @return logo
+	 * @return logoUrl
 	 **/
 	@Schema(description = "")
-	public String getLogo() {
-		return logo;
+	public String getLogoUrl() {
+		return logoUrl;
 	}
 
-	public void setLogo(String logo) {
-		this.logo = logo;
+	public void setLogoUrl(String logoUrl) {
+		this.logoUrl = logoUrl;
 	}
 
 	public TransactionAssetDetails color(String color) {
@@ -265,7 +265,7 @@ public class TransactionAssetDetails implements Parcelable
 		return Objects.equals(this.description, transactionAssetDetails.description) &&
 				Objects.equals(this.manager, transactionAssetDetails.manager) &&
 				Objects.equals(this.id, transactionAssetDetails.id) &&
-				Objects.equals(this.logo, transactionAssetDetails.logo) &&
+				Objects.equals(this.logoUrl, transactionAssetDetails.logoUrl) &&
 				Objects.equals(this.color, transactionAssetDetails.color) &&
 				Objects.equals(this.title, transactionAssetDetails.title) &&
 				Objects.equals(this.url, transactionAssetDetails.url) &&
@@ -275,7 +275,7 @@ public class TransactionAssetDetails implements Parcelable
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(description, manager, id, logo, color, title, url, assetType, programDetails);
+		return Objects.hash(description, manager, id, logoUrl, color, title, url, assetType, programDetails);
 	}
 
 	@Override
@@ -286,7 +286,7 @@ public class TransactionAssetDetails implements Parcelable
 		sb.append("    description: ").append(toIndentedString(description)).append("\n");
 		sb.append("    manager: ").append(toIndentedString(manager)).append("\n");
 		sb.append("    id: ").append(toIndentedString(id)).append("\n");
-		sb.append("    logo: ").append(toIndentedString(logo)).append("\n");
+		sb.append("    logoUrl: ").append(toIndentedString(logoUrl)).append("\n");
 		sb.append("    color: ").append(toIndentedString(color)).append("\n");
 		sb.append("    title: ").append(toIndentedString(title)).append("\n");
 		sb.append("    url: ").append(toIndentedString(url)).append("\n");
@@ -311,7 +311,7 @@ public class TransactionAssetDetails implements Parcelable
 		out.writeValue(description);
 		out.writeValue(manager);
 		out.writeValue(id);
-		out.writeValue(logo);
+		out.writeValue(logoUrl);
 		out.writeValue(color);
 		out.writeValue(title);
 		out.writeValue(url);

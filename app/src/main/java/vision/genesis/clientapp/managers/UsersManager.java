@@ -1,6 +1,7 @@
 package vision.genesis.clientapp.managers;
 
 import io.swagger.client.api.UsersApi;
+import io.swagger.client.model.ImageQuality;
 import io.swagger.client.model.PublicProfile;
 import rx.Observable;
 
@@ -17,8 +18,8 @@ public class UsersManager
 		this.usersApi = usersApi;
 	}
 
-	public Observable<PublicProfile> getUser(String userId) {
-		return usersApi.getManagerProfile(userId);
+	public Observable<PublicProfile> getUser(String userId, ImageQuality imageQuality) {
+		return usersApi.getManagerProfile(userId, imageQuality);
 	}
 
 }

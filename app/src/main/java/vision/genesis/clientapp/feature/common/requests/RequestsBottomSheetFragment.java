@@ -27,7 +27,7 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.swagger.client.model.AssetInvestmentRequest;
-import io.swagger.client.model.ItemsViewModelAssetInvestmentRequest;
+import io.swagger.client.model.AssetInvestmentRequestItemsViewModel;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -186,7 +186,7 @@ public class RequestsBottomSheetFragment extends BottomSheetDialogFragment
 		}
 	}
 
-	private void handleGetRequests(ItemsViewModelAssetInvestmentRequest programRequests) {
+	private void handleGetRequests(AssetInvestmentRequestItemsViewModel programRequests) {
 		getRequestsSubscription.unsubscribe();
 
 		setRequests(programRequests.getItems());

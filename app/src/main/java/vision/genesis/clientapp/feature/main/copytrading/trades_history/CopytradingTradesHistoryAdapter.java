@@ -5,13 +5,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.recyclerview.widget.RecyclerView;
+
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.swagger.client.model.OrderProgramData;
@@ -41,8 +42,9 @@ public class CopytradingTradesHistoryAdapter extends RecyclerView.Adapter<Copytr
 
 	@Override
 	public void onBindViewHolder(TradesHistoryViewHolder holder, int position) {
-		if (trades.get(position) != null)
+		if (trades.get(position) != null) {
 			holder.setTrade(trades.get(position));
+		}
 	}
 
 	@Override
@@ -129,7 +131,7 @@ public class CopytradingTradesHistoryAdapter extends RecyclerView.Adapter<Copytr
 			itemView.setOnClickListener(v -> {
 				if (trade != null) {
 //					ProgramDetailsModel programDetailsModel = new ProgramDetailsModel(trade.getId(),
-//							trade.getLogo(),
+//							trade.getLogoUrl(),
 //							trade.getColor(),
 //							trade.getLevel(),
 //							trade.getTitle(),
@@ -169,7 +171,7 @@ public class CopytradingTradesHistoryAdapter extends RecyclerView.Adapter<Copytr
 			if (trade.getProviders().size() > 0) {
 				OrderProgramData program = trade.getProviders().get(0).getProgram();
 
-				this.programLogo.setImage(program.getLogo(), program.getColor(), 100, 100);
+				this.programLogo.setImage(program.getLogoUrl(), program.getColor(), 100, 100);
 				this.programLogo.setLevel(program.getLevel(), program.getLevelProgress());
 
 				this.programName.setText(program.getTitle());

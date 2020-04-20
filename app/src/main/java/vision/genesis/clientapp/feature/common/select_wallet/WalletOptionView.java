@@ -53,7 +53,7 @@ public class WalletOptionView extends RelativeLayout
 	}
 
 	public void setData(WalletData wallet) {
-		this.icon.setImageURI(ImageUtils.getImageUri(wallet.getLogo()));
+		this.icon.setImageURI(ImageUtils.getImageUri(wallet.getLogoUrl()));
 		this.walletName.setText(wallet.getTitle());
 		this.walletAvailable.setText(String.format(Locale.getDefault(), "%s %s",
 				StringFormatUtil.formatCurrencyAmount(wallet.getAvailable(), wallet.getCurrency().getValue()),

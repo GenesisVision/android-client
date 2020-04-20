@@ -7,6 +7,7 @@ Name | Type | Description | Notes
 **canChangePassword** | **Boolean** |  |  [optional]
 **canTransferMoney** | **Boolean** |  |  [optional]
 **canMakeDemoDeposit** | **Boolean** |  |  [optional]
+**canCloseOpenPositions** | **Boolean** |  |  [optional]
 **canMakeProgramFromPrivateTradingAccount** | **Boolean** |  |  [optional]
 **canMakeSignalProviderFromPrivateTradingAccount** | **Boolean** |  |  [optional]
 **canMakeSignalProviderFromPrivateExternalTradingAccount** | **Boolean** |  |  [optional]

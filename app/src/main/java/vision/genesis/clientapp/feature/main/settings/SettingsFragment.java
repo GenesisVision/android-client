@@ -260,8 +260,8 @@ public class SettingsFragment extends BaseFragment implements SettingsView
 
 	@Override
 	public void updateProfile(ProfileFullViewModel profile) {
-		avatar.setImage(profile.getAvatar(), 200, 200);
-		groupAvatarEmpty.setVisibility(profile.getAvatar() != null && !profile.getAvatar().isEmpty() ? View.GONE : View.VISIBLE);
+		avatar.setImage(profile.getLogoUrl(), 200, 200);
+		groupAvatarEmpty.setVisibility(profile.getLogoUrl() != null && !profile.getLogoUrl().isEmpty() ? View.GONE : View.VISIBLE);
 
 		if (profile.getUserName() != null && !profile.getUserName().isEmpty()) {
 			profileName.setText(profile.getUserName());

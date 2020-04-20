@@ -1,6 +1,7 @@
 package vision.genesis.clientapp.managers;
 
 import io.swagger.client.api.EventsApi;
+import io.swagger.client.model.EventGroupType;
 import io.swagger.client.model.InvestmentEventLocation;
 import io.swagger.client.model.InvestmentEventViewModels;
 import rx.Observable;
@@ -20,11 +21,11 @@ public class EventsManager
 	}
 
 	public Observable<InvestmentEventViewModels> getEvents(String eventsGroup, DateRange dateRange, Integer skip, Integer take) {
-		return eventsApi.getEvents(AuthManager.token.getValue(), InvestmentEventLocation.DASHBOARD.getValue(), null,
+		return eventsApi.getEvents(InvestmentEventLocation.DASHBOARD, null,
 				dateRange.getFrom(), dateRange.getTo(),
 				null, null,
 				null, null,
-				eventsGroup,
+				EventGroupType.fromValue(eventsGroup),
 				skip, take);
 	}
 }

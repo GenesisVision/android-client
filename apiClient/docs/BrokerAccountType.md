@@ -11,5 +11,6 @@ Name | Type | Description | Notes
 **currencies** | **List&lt;String&gt;** |  |  [optional]
 **minimumDepositsAmount** | **Map&lt;String, Double&gt;** |  |  [optional]
 **isKycRequired** | **Boolean** |  |  [optional]
+**isCountryNotUSRequired** | **Boolean** |  |  [optional]
 **isSignalsAvailable** | **Boolean** |  |  [optional]
 **isDepositRequired** | **Boolean** |  |  [optional]

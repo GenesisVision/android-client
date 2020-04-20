@@ -313,7 +313,7 @@ public class TradingAccountInfoFragment extends BaseFragment implements TradingA
 	}
 
 	private void updateAccountInfo(PrivateTradingAccountFull details) {
-		this.brokerLogo.setImageURI(ImageUtils.getImageUri(details.getBrokerDetails().getLogo()));
+		this.brokerLogo.setImageURI(ImageUtils.getImageUri(details.getBrokerDetails().getLogoUrl()));
 		this.age.setCreationDate(details.getPublicInfo().getCreationDate());
 		if (details.getTradingAccountInfo().isIsExternal()) {
 			groupCurrency.setVisibility(View.GONE);

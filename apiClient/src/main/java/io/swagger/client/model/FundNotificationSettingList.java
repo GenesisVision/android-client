@@ -51,8 +51,8 @@ public class FundNotificationSettingList implements Parcelable
 	@SerializedName("url")
 	private String url = null;
 
-	@SerializedName("logo")
-	private String logo = null;
+	@SerializedName("logoUrl")
+	private String logoUrl = null;
 
 	@SerializedName("color")
 	private String color = null;
@@ -67,7 +67,7 @@ public class FundNotificationSettingList implements Parcelable
 		assetId = (UUID) in.readValue(UUID.class.getClassLoader());
 		title = (String) in.readValue(null);
 		url = (String) in.readValue(null);
-		logo = (String) in.readValue(null);
+		logoUrl = (String) in.readValue(null);
 		color = (String) in.readValue(null);
 		settingsGeneral = (List<NotificationSettingViewModel>) in.readValue(NotificationSettingViewModel.class.getClassLoader());
 	}
@@ -129,23 +129,23 @@ public class FundNotificationSettingList implements Parcelable
 		this.url = url;
 	}
 
-	public FundNotificationSettingList logo(String logo) {
-		this.logo = logo;
+	public FundNotificationSettingList logoUrl(String logoUrl) {
+		this.logoUrl = logoUrl;
 		return this;
 	}
 
 	/**
-	 * Get logo
+	 * Get logoUrl
 	 *
-	 * @return logo
+	 * @return logoUrl
 	 **/
 	@Schema(description = "")
-	public String getLogo() {
-		return logo;
+	public String getLogoUrl() {
+		return logoUrl;
 	}
 
-	public void setLogo(String logo) {
-		this.logo = logo;
+	public void setLogoUrl(String logoUrl) {
+		this.logoUrl = logoUrl;
 	}
 
 	public FundNotificationSettingList color(String color) {
@@ -206,14 +206,14 @@ public class FundNotificationSettingList implements Parcelable
 		return Objects.equals(this.assetId, fundNotificationSettingList.assetId) &&
 				Objects.equals(this.title, fundNotificationSettingList.title) &&
 				Objects.equals(this.url, fundNotificationSettingList.url) &&
-				Objects.equals(this.logo, fundNotificationSettingList.logo) &&
+				Objects.equals(this.logoUrl, fundNotificationSettingList.logoUrl) &&
 				Objects.equals(this.color, fundNotificationSettingList.color) &&
 				Objects.equals(this.settingsGeneral, fundNotificationSettingList.settingsGeneral);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(assetId, title, url, logo, color, settingsGeneral);
+		return Objects.hash(assetId, title, url, logoUrl, color, settingsGeneral);
 	}
 
 	@Override
@@ -224,7 +224,7 @@ public class FundNotificationSettingList implements Parcelable
 		sb.append("    assetId: ").append(toIndentedString(assetId)).append("\n");
 		sb.append("    title: ").append(toIndentedString(title)).append("\n");
 		sb.append("    url: ").append(toIndentedString(url)).append("\n");
-		sb.append("    logo: ").append(toIndentedString(logo)).append("\n");
+		sb.append("    logoUrl: ").append(toIndentedString(logoUrl)).append("\n");
 		sb.append("    color: ").append(toIndentedString(color)).append("\n");
 		sb.append("    settingsGeneral: ").append(toIndentedString(settingsGeneral)).append("\n");
 		sb.append("}");
@@ -246,7 +246,7 @@ public class FundNotificationSettingList implements Parcelable
 		out.writeValue(assetId);
 		out.writeValue(title);
 		out.writeValue(url);
-		out.writeValue(logo);
+		out.writeValue(logoUrl);
 		out.writeValue(color);
 		out.writeValue(settingsGeneral);
 	}

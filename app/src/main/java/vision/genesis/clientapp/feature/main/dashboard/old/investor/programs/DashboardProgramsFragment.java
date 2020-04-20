@@ -173,8 +173,9 @@ public class DashboardProgramsFragment extends BaseFragment implements Dashboard
 
 	@Override
 	public void pagerShow() {
-		if (dashboardProgramsPresenter != null)
+		if (dashboardProgramsPresenter != null) {
 			dashboardProgramsPresenter.onShow();
+		}
 	}
 
 	@Override
@@ -184,8 +185,9 @@ public class DashboardProgramsFragment extends BaseFragment implements Dashboard
 	public void onOffsetChanged(int verticalOffset) {
 		if (filters != null) {
 			float newY = root.getHeight() - verticalOffset - filters.getHeight() - filtersMarginBottom;
-			if (newY < filtersMarginTop)
+			if (newY < filtersMarginTop) {
 				newY = filtersMarginTop;
+			}
 			filters.setY(newY);
 		}
 	}
@@ -194,8 +196,9 @@ public class DashboardProgramsFragment extends BaseFragment implements Dashboard
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if (requestCode == UserFilter.TYPE_DASHBOARD_PROGRAMS_FILTER && resultCode == Activity.RESULT_OK) {
 			UserFilter userFilter = data.getParcelableExtra("filter");
-			if (userFilter != null)
+			if (userFilter != null) {
 				dashboardProgramsPresenter.onFilterUpdated(userFilter);
+			}
 		}
 		else {
 			super.onActivityResult(requestCode, resultCode, data);

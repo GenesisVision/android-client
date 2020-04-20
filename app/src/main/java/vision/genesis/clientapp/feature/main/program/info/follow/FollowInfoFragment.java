@@ -147,7 +147,7 @@ public class FollowInfoFragment extends BaseFragment implements FollowInfoView, 
 			ProfilePublic manager = details.getOwner();
 			ManagerDetailsModel model = new ManagerDetailsModel(
 					manager.getId(),
-					manager.getAvatar(),
+					manager.getLogoUrl(),
 					manager.getUsername(),
 					manager.getRegistrationDate());
 			ManagerDetailsActivity.startWith(getActivity(), model);
@@ -259,7 +259,7 @@ public class FollowInfoFragment extends BaseFragment implements FollowInfoView, 
 	}
 
 	private void updateAccountInfo(ProgramFollowDetailsFull details) {
-		this.brokerLogo.setImageURI(ImageUtils.getImageUri(details.getBrokerDetails().getLogo()));
+		this.brokerLogo.setImageURI(ImageUtils.getImageUri(details.getBrokerDetails().getLogoUrl()));
 		this.accountCurrency.setText(details.getTradingAccountInfo().getCurrency().getValue());
 		this.leverage.setText(String.format(Locale.getDefault(), "1:%d", details.getTradingAccountInfo().getLeverageMax()));
 		this.age.setCreationDate(details.getPublicInfo().getCreationDate());
@@ -282,7 +282,7 @@ public class FollowInfoFragment extends BaseFragment implements FollowInfoView, 
 	}
 
 	private void updateFollowInfo(ProgramFollowDetailsFull details) {
-		managerAvatar.setImage(details.getOwner().getAvatar(), 100, 100);
+		managerAvatar.setImage(details.getOwner().getLogoUrl(), 100, 100);
 		managerName.setText(details.getOwner().getUsername());
 		managerDate.setText(DateTimeUtil.formatShortDate(details.getOwner().getRegistrationDate()));
 

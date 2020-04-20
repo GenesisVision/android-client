@@ -102,8 +102,9 @@ public class ConfirmProgramWithdrawBottomSheetFragment extends BottomSheetDialog
 		getDialog().setOnShowListener(dialog1 -> {
 			BottomSheetDialog d = (BottomSheetDialog) dialog1;
 			View bottomSheetInternal = d.findViewById(com.google.android.material.R.id.design_bottom_sheet);
-			if (bottomSheetInternal != null)
+			if (bottomSheetInternal != null) {
 				BottomSheetBehavior.from(bottomSheetInternal).setState(BottomSheetBehavior.STATE_EXPANDED);
+			}
 		});
 
 		View contentView = View.inflate(getContext(), R.layout.fragment_bottomsheet_confirm_program_withdraw, null);
@@ -125,8 +126,9 @@ public class ConfirmProgramWithdrawBottomSheetFragment extends BottomSheetDialog
 
 	@Override
 	public void onDestroyView() {
-		if (withdrawSubscription != null)
+		if (withdrawSubscription != null) {
 			withdrawSubscription.unsubscribe();
+		}
 
 		super.onDestroyView();
 	}
@@ -147,8 +149,9 @@ public class ConfirmProgramWithdrawBottomSheetFragment extends BottomSheetDialog
 	public void setData(ProgramRequest programRequest) {
 		this.programRequest = programRequest;
 
-		if (title != null)
+		if (title != null) {
 			updateView();
+		}
 	}
 
 	private void setFonts() {

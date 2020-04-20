@@ -197,7 +197,7 @@ public class WithdrawFundActivity extends BaseSwipeBackActivity implements Withd
 
 	@Override
 	public void setWalletTo(WalletData wallet) {
-		this.iconTo.setImageURI(ImageUtils.getImageUri(wallet.getLogo()));
+		this.iconTo.setImageURI(ImageUtils.getImageUri(wallet.getLogoUrl()));
 		this.walletTo.setText(wallet.getTitle());
 	}
 

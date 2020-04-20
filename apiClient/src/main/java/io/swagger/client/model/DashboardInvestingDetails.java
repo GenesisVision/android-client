@@ -52,7 +52,7 @@ public class DashboardInvestingDetails implements Parcelable
 	private DashboardProfits profits = null;
 
 	@SerializedName("events")
-	private ItemsViewModelInvestmentEventViewModel events = null;
+	private InvestmentEventViewModelItemsViewModel events = null;
 
 	public DashboardInvestingDetails() {
 	}
@@ -62,7 +62,7 @@ public class DashboardInvestingDetails implements Parcelable
 		programsCount = (Integer) in.readValue(null);
 		fundsCount = (Integer) in.readValue(null);
 		profits = (DashboardProfits) in.readValue(DashboardProfits.class.getClassLoader());
-		events = (ItemsViewModelInvestmentEventViewModel) in.readValue(ItemsViewModelInvestmentEventViewModel.class.getClassLoader());
+		events = (InvestmentEventViewModelItemsViewModel) in.readValue(InvestmentEventViewModelItemsViewModel.class.getClassLoader());
 	}
 
 	public DashboardInvestingDetails equity(Double equity) {
@@ -141,7 +141,7 @@ public class DashboardInvestingDetails implements Parcelable
 		this.profits = profits;
 	}
 
-	public DashboardInvestingDetails events(ItemsViewModelInvestmentEventViewModel events) {
+	public DashboardInvestingDetails events(InvestmentEventViewModelItemsViewModel events) {
 		this.events = events;
 		return this;
 	}
@@ -152,11 +152,11 @@ public class DashboardInvestingDetails implements Parcelable
 	 * @return events
 	 **/
 	@Schema(description = "")
-	public ItemsViewModelInvestmentEventViewModel getEvents() {
+	public InvestmentEventViewModelItemsViewModel getEvents() {
 		return events;
 	}
 
-	public void setEvents(ItemsViewModelInvestmentEventViewModel events) {
+	public void setEvents(InvestmentEventViewModelItemsViewModel events) {
 		this.events = events;
 	}
 

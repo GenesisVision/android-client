@@ -49,8 +49,9 @@ public class DisableTfaPresenter extends MvpPresenter<DisableTfaView>
 
 	@Override
 	public void onDestroy() {
-		if (disableTfaSubscription != null)
+		if (disableTfaSubscription != null) {
 			disableTfaSubscription.unsubscribe();
+		}
 
 		EventBus.getDefault().unregister(this);
 
@@ -77,8 +78,9 @@ public class DisableTfaPresenter extends MvpPresenter<DisableTfaView>
 
 	private void disableTfa(String password, String code) {
 		getViewState().showProgress(true);
-		if (disableTfaSubscription != null)
+		if (disableTfaSubscription != null) {
 			disableTfaSubscription.unsubscribe();
+		}
 		disableTfaSubscription = authManager.disableTfa(password, code)
 				.observeOn(AndroidSchedulers.mainThread())
 				.subscribeOn(Schedulers.io())

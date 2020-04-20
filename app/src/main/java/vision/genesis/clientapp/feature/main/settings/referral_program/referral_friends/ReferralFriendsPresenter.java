@@ -10,8 +10,8 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import io.swagger.client.model.ItemsViewModelReferralFriend;
 import io.swagger.client.model.ReferralFriend;
+import io.swagger.client.model.ReferralFriendItemsViewModel;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -82,7 +82,7 @@ public class ReferralFriendsPresenter extends MvpPresenter<ReferralFriendsView>
 		}
 	}
 
-	private void handleGetReferralsSuccess(ItemsViewModelReferralFriend response) {
+	private void handleGetReferralsSuccess(ReferralFriendItemsViewModel response) {
 		getReferralsSubscription.unsubscribe();
 		getViewState().showProgress(false);
 

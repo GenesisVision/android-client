@@ -48,8 +48,8 @@ public class FundAssetPercent implements Parcelable
 	@SerializedName("percent")
 	private Double percent = null;
 
-	@SerializedName("icon")
-	private String icon = null;
+	@SerializedName("logoUrl")
+	private String logoUrl = null;
 
 	@SerializedName("url")
 	private String url = null;
@@ -61,7 +61,7 @@ public class FundAssetPercent implements Parcelable
 		asset = (String) in.readValue(null);
 		name = (String) in.readValue(null);
 		percent = (Double) in.readValue(null);
-		icon = (String) in.readValue(null);
+		logoUrl = (String) in.readValue(null);
 		url = (String) in.readValue(null);
 	}
 
@@ -122,23 +122,23 @@ public class FundAssetPercent implements Parcelable
 		this.percent = percent;
 	}
 
-	public FundAssetPercent icon(String icon) {
-		this.icon = icon;
+	public FundAssetPercent logoUrl(String logoUrl) {
+		this.logoUrl = logoUrl;
 		return this;
 	}
 
 	/**
-	 * Get icon
+	 * Get logoUrl
 	 *
-	 * @return icon
+	 * @return logoUrl
 	 **/
 	@Schema(description = "")
-	public String getIcon() {
-		return icon;
+	public String getLogoUrl() {
+		return logoUrl;
 	}
 
-	public void setIcon(String icon) {
-		this.icon = icon;
+	public void setLogoUrl(String logoUrl) {
+		this.logoUrl = logoUrl;
 	}
 
 	public FundAssetPercent url(String url) {
@@ -172,13 +172,13 @@ public class FundAssetPercent implements Parcelable
 		return Objects.equals(this.asset, fundAssetPercent.asset) &&
 				Objects.equals(this.name, fundAssetPercent.name) &&
 				Objects.equals(this.percent, fundAssetPercent.percent) &&
-				Objects.equals(this.icon, fundAssetPercent.icon) &&
+				Objects.equals(this.logoUrl, fundAssetPercent.logoUrl) &&
 				Objects.equals(this.url, fundAssetPercent.url);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(asset, name, percent, icon, url);
+		return Objects.hash(asset, name, percent, logoUrl, url);
 	}
 
 	@Override
@@ -189,7 +189,7 @@ public class FundAssetPercent implements Parcelable
 		sb.append("    asset: ").append(toIndentedString(asset)).append("\n");
 		sb.append("    name: ").append(toIndentedString(name)).append("\n");
 		sb.append("    percent: ").append(toIndentedString(percent)).append("\n");
-		sb.append("    icon: ").append(toIndentedString(icon)).append("\n");
+		sb.append("    logoUrl: ").append(toIndentedString(logoUrl)).append("\n");
 		sb.append("    url: ").append(toIndentedString(url)).append("\n");
 		sb.append("}");
 		return sb.toString();
@@ -210,7 +210,7 @@ public class FundAssetPercent implements Parcelable
 		out.writeValue(asset);
 		out.writeValue(name);
 		out.writeValue(percent);
-		out.writeValue(icon);
+		out.writeValue(logoUrl);
 		out.writeValue(url);
 	}
 

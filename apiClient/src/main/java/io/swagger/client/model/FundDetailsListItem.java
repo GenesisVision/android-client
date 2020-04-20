@@ -47,8 +47,8 @@ public class FundDetailsListItem implements Parcelable
 	@SerializedName("id")
 	private UUID id = null;
 
-	@SerializedName("logo")
-	private String logo = null;
+	@SerializedName("logoUrl")
+	private String logoUrl = null;
 
 	@SerializedName("url")
 	private String url = null;
@@ -94,7 +94,7 @@ public class FundDetailsListItem implements Parcelable
 
 	FundDetailsListItem(Parcel in) {
 		id = (UUID) in.readValue(UUID.class.getClassLoader());
-		logo = (String) in.readValue(null);
+		logoUrl = (String) in.readValue(null);
 		url = (String) in.readValue(null);
 		color = (String) in.readValue(null);
 		title = (String) in.readValue(null);
@@ -129,23 +129,23 @@ public class FundDetailsListItem implements Parcelable
 		this.id = id;
 	}
 
-	public FundDetailsListItem logo(String logo) {
-		this.logo = logo;
+	public FundDetailsListItem logoUrl(String logoUrl) {
+		this.logoUrl = logoUrl;
 		return this;
 	}
 
 	/**
-	 * Get logo
+	 * Get logoUrl
 	 *
-	 * @return logo
+	 * @return logoUrl
 	 **/
 	@Schema(description = "")
-	public String getLogo() {
-		return logo;
+	public String getLogoUrl() {
+		return logoUrl;
 	}
 
-	public void setLogo(String logo) {
-		this.logo = logo;
+	public void setLogoUrl(String logoUrl) {
+		this.logoUrl = logoUrl;
 	}
 
 	public FundDetailsListItem url(String url) {
@@ -413,7 +413,7 @@ public class FundDetailsListItem implements Parcelable
 		}
 		FundDetailsListItem fundDetailsListItem = (FundDetailsListItem) o;
 		return Objects.equals(this.id, fundDetailsListItem.id) &&
-				Objects.equals(this.logo, fundDetailsListItem.logo) &&
+				Objects.equals(this.logoUrl, fundDetailsListItem.logoUrl) &&
 				Objects.equals(this.url, fundDetailsListItem.url) &&
 				Objects.equals(this.color, fundDetailsListItem.color) &&
 				Objects.equals(this.title, fundDetailsListItem.title) &&
@@ -431,7 +431,7 @@ public class FundDetailsListItem implements Parcelable
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, logo, url, color, title, description, creationDate, investorsCount, status, totalAssetsCount, topFundAssets, owner, statistic, personalDetails, balance);
+		return Objects.hash(id, logoUrl, url, color, title, description, creationDate, investorsCount, status, totalAssetsCount, topFundAssets, owner, statistic, personalDetails, balance);
 	}
 
 	@Override
@@ -440,7 +440,7 @@ public class FundDetailsListItem implements Parcelable
 		sb.append("class FundDetailsListItem {\n");
 
 		sb.append("    id: ").append(toIndentedString(id)).append("\n");
-		sb.append("    logo: ").append(toIndentedString(logo)).append("\n");
+		sb.append("    logoUrl: ").append(toIndentedString(logoUrl)).append("\n");
 		sb.append("    url: ").append(toIndentedString(url)).append("\n");
 		sb.append("    color: ").append(toIndentedString(color)).append("\n");
 		sb.append("    title: ").append(toIndentedString(title)).append("\n");
@@ -471,7 +471,7 @@ public class FundDetailsListItem implements Parcelable
 
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(id);
-		out.writeValue(logo);
+		out.writeValue(logoUrl);
 		out.writeValue(url);
 		out.writeValue(color);
 		out.writeValue(title);

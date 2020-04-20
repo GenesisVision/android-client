@@ -3,7 +3,7 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**programs** | [**ItemsViewModelProgramDetailsListItem**](ItemsViewModelProgramDetailsListItem.md) |  |  [optional]
-**funds** | [**ItemsViewModelFundDetailsListItem**](ItemsViewModelFundDetailsListItem.md) |  |  [optional]
-**follows** | [**ItemsViewModelFollowDetailsListItem**](ItemsViewModelFollowDetailsListItem.md) |  |  [optional]
-**managers** | [**ItemsViewModelPublicProfile**](ItemsViewModelPublicProfile.md) |  |  [optional]
+**programs** | [**ProgramDetailsListItemItemsViewModel**](ProgramDetailsListItemItemsViewModel.md) |  |  [optional]
+**funds** | [**FundDetailsListItemItemsViewModel**](FundDetailsListItemItemsViewModel.md) |  |  [optional]
+**follows** | [**FollowDetailsListItemItemsViewModel**](FollowDetailsListItemItemsViewModel.md) |  |  [optional]
+**managers** | [**PublicProfileItemsViewModel**](PublicProfileItemsViewModel.md) |  |  [optional]

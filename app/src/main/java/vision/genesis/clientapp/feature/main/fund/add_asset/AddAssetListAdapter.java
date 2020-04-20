@@ -91,7 +91,7 @@ public class AddAssetListAdapter extends RecyclerView.Adapter<AddAssetListAdapte
 		void setAsset(PlatformAsset asset) {
 			this.asset = asset;
 
-			this.icon.setImageURI(ImageUtils.getImageUri(asset.getIcon()));
+			this.icon.setImageURI(ImageUtils.getImageUri(asset.getLogoUrl()));
 			this.name.setText(asset.getName());
 			this.ticker.setText(asset.getAsset());
 		}

@@ -14,8 +14,8 @@ import java.util.UUID;
 
 import javax.inject.Inject;
 
-import io.swagger.client.model.ItemsViewModelProgramDetailsListItem;
 import io.swagger.client.model.ProgramDetailsListItem;
+import io.swagger.client.model.ProgramDetailsListItemItemsViewModel;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -129,7 +129,7 @@ public class ProgramsListPresenter extends MvpPresenter<ProgramsListView>
 		}
 	}
 
-	void showSearchResults(ItemsViewModelProgramDetailsListItem result) {
+	void showSearchResults(ProgramDetailsListItemItemsViewModel result) {
 		skip = 0;
 		handleGetProgramsList(result);
 	}
@@ -223,7 +223,7 @@ public class ProgramsListPresenter extends MvpPresenter<ProgramsListView>
 //		return model;
 //	}
 
-	private void handleGetProgramsList(ItemsViewModelProgramDetailsListItem response) {
+	private void handleGetProgramsList(ProgramDetailsListItemItemsViewModel response) {
 		getViewState().setRefreshing(false);
 		getViewState().showProgressBar(false);
 		getViewState().showNoInternet(false);

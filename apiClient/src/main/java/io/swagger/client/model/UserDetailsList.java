@@ -50,14 +50,11 @@ public class UserDetailsList implements Parcelable
 	@SerializedName("username")
 	private String username = null;
 
-	@SerializedName("avatar")
-	private String avatar = null;
+	@SerializedName("logoUrl")
+	private String logoUrl = null;
 
 	@SerializedName("url")
 	private String url = null;
-
-	@SerializedName("socialLinks")
-	private List<SocialLinkViewModel> socialLinks = null;
 
 	@SerializedName("tags")
 	private List<Tag> tags = null;
@@ -77,29 +74,20 @@ public class UserDetailsList implements Parcelable
 	@SerializedName("totalProfit")
 	private Double totalProfit = null;
 
-	@SerializedName("tradingProfit")
-	private Double tradingProfit = null;
-
-	@SerializedName("investingProfit")
-	private Double investingProfit = null;
-
 	public UserDetailsList() {
 	}
 
 	UserDetailsList(Parcel in) {
 		userId = (UUID) in.readValue(UUID.class.getClassLoader());
 		username = (String) in.readValue(null);
-		avatar = (String) in.readValue(null);
+		logoUrl = (String) in.readValue(null);
 		url = (String) in.readValue(null);
-		socialLinks = (List<SocialLinkViewModel>) in.readValue(SocialLinkViewModel.class.getClassLoader());
 		tags = (List<Tag>) in.readValue(Tag.class.getClassLoader());
 		regDate = (DateTime) in.readValue(DateTime.class.getClassLoader());
 		assetsUnderManagement = (Double) in.readValue(null);
 		investorsCount = (Integer) in.readValue(null);
 		followersCount = (Integer) in.readValue(null);
 		totalProfit = (Double) in.readValue(null);
-		tradingProfit = (Double) in.readValue(null);
-		investingProfit = (Double) in.readValue(null);
 	}
 
 	public UserDetailsList userId(UUID userId) {
@@ -140,23 +128,23 @@ public class UserDetailsList implements Parcelable
 		this.username = username;
 	}
 
-	public UserDetailsList avatar(String avatar) {
-		this.avatar = avatar;
+	public UserDetailsList logoUrl(String logoUrl) {
+		this.logoUrl = logoUrl;
 		return this;
 	}
 
 	/**
-	 * Get avatar
+	 * Get logoUrl
 	 *
-	 * @return avatar
+	 * @return logoUrl
 	 **/
 	@Schema(description = "")
-	public String getAvatar() {
-		return avatar;
+	public String getLogoUrl() {
+		return logoUrl;
 	}
 
-	public void setAvatar(String avatar) {
-		this.avatar = avatar;
+	public void setLogoUrl(String logoUrl) {
+		this.logoUrl = logoUrl;
 	}
 
 	public UserDetailsList url(String url) {
@@ -176,33 +164,6 @@ public class UserDetailsList implements Parcelable
 
 	public void setUrl(String url) {
 		this.url = url;
-	}
-
-	public UserDetailsList socialLinks(List<SocialLinkViewModel> socialLinks) {
-		this.socialLinks = socialLinks;
-		return this;
-	}
-
-	public UserDetailsList addSocialLinksItem(SocialLinkViewModel socialLinksItem) {
-		if (this.socialLinks == null) {
-			this.socialLinks = new ArrayList<SocialLinkViewModel>();
-		}
-		this.socialLinks.add(socialLinksItem);
-		return this;
-	}
-
-	/**
-	 * Get socialLinks
-	 *
-	 * @return socialLinks
-	 **/
-	@Schema(description = "")
-	public List<SocialLinkViewModel> getSocialLinks() {
-		return socialLinks;
-	}
-
-	public void setSocialLinks(List<SocialLinkViewModel> socialLinks) {
-		this.socialLinks = socialLinks;
 	}
 
 	public UserDetailsList tags(List<Tag> tags) {
@@ -327,44 +288,6 @@ public class UserDetailsList implements Parcelable
 		this.totalProfit = totalProfit;
 	}
 
-	public UserDetailsList tradingProfit(Double tradingProfit) {
-		this.tradingProfit = tradingProfit;
-		return this;
-	}
-
-	/**
-	 * Get tradingProfit
-	 *
-	 * @return tradingProfit
-	 **/
-	@Schema(description = "")
-	public Double getTradingProfit() {
-		return tradingProfit;
-	}
-
-	public void setTradingProfit(Double tradingProfit) {
-		this.tradingProfit = tradingProfit;
-	}
-
-	public UserDetailsList investingProfit(Double investingProfit) {
-		this.investingProfit = investingProfit;
-		return this;
-	}
-
-	/**
-	 * Get investingProfit
-	 *
-	 * @return investingProfit
-	 **/
-	@Schema(description = "")
-	public Double getInvestingProfit() {
-		return investingProfit;
-	}
-
-	public void setInvestingProfit(Double investingProfit) {
-		this.investingProfit = investingProfit;
-	}
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -376,22 +299,19 @@ public class UserDetailsList implements Parcelable
 		UserDetailsList userDetailsList = (UserDetailsList) o;
 		return Objects.equals(this.userId, userDetailsList.userId) &&
 				Objects.equals(this.username, userDetailsList.username) &&
-				Objects.equals(this.avatar, userDetailsList.avatar) &&
+				Objects.equals(this.logoUrl, userDetailsList.logoUrl) &&
 				Objects.equals(this.url, userDetailsList.url) &&
-				Objects.equals(this.socialLinks, userDetailsList.socialLinks) &&
 				Objects.equals(this.tags, userDetailsList.tags) &&
 				Objects.equals(this.regDate, userDetailsList.regDate) &&
 				Objects.equals(this.assetsUnderManagement, userDetailsList.assetsUnderManagement) &&
 				Objects.equals(this.investorsCount, userDetailsList.investorsCount) &&
 				Objects.equals(this.followersCount, userDetailsList.followersCount) &&
-				Objects.equals(this.totalProfit, userDetailsList.totalProfit) &&
-				Objects.equals(this.tradingProfit, userDetailsList.tradingProfit) &&
-				Objects.equals(this.investingProfit, userDetailsList.investingProfit);
+				Objects.equals(this.totalProfit, userDetailsList.totalProfit);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(userId, username, avatar, url, socialLinks, tags, regDate, assetsUnderManagement, investorsCount, followersCount, totalProfit, tradingProfit, investingProfit);
+		return Objects.hash(userId, username, logoUrl, url, tags, regDate, assetsUnderManagement, investorsCount, followersCount, totalProfit);
 	}
 
 	@Override
@@ -401,17 +321,14 @@ public class UserDetailsList implements Parcelable
 
 		sb.append("    userId: ").append(toIndentedString(userId)).append("\n");
 		sb.append("    username: ").append(toIndentedString(username)).append("\n");
-		sb.append("    avatar: ").append(toIndentedString(avatar)).append("\n");
+		sb.append("    logoUrl: ").append(toIndentedString(logoUrl)).append("\n");
 		sb.append("    url: ").append(toIndentedString(url)).append("\n");
-		sb.append("    socialLinks: ").append(toIndentedString(socialLinks)).append("\n");
 		sb.append("    tags: ").append(toIndentedString(tags)).append("\n");
 		sb.append("    regDate: ").append(toIndentedString(regDate)).append("\n");
 		sb.append("    assetsUnderManagement: ").append(toIndentedString(assetsUnderManagement)).append("\n");
 		sb.append("    investorsCount: ").append(toIndentedString(investorsCount)).append("\n");
 		sb.append("    followersCount: ").append(toIndentedString(followersCount)).append("\n");
 		sb.append("    totalProfit: ").append(toIndentedString(totalProfit)).append("\n");
-		sb.append("    tradingProfit: ").append(toIndentedString(tradingProfit)).append("\n");
-		sb.append("    investingProfit: ").append(toIndentedString(investingProfit)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}
@@ -430,17 +347,14 @@ public class UserDetailsList implements Parcelable
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(userId);
 		out.writeValue(username);
-		out.writeValue(avatar);
+		out.writeValue(logoUrl);
 		out.writeValue(url);
-		out.writeValue(socialLinks);
 		out.writeValue(tags);
 		out.writeValue(regDate);
 		out.writeValue(assetsUnderManagement);
 		out.writeValue(investorsCount);
 		out.writeValue(followersCount);
 		out.writeValue(totalProfit);
-		out.writeValue(tradingProfit);
-		out.writeValue(investingProfit);
 	}
 
 	public int describeContents() {

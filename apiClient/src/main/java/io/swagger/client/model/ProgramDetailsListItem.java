@@ -47,8 +47,8 @@ public class ProgramDetailsListItem implements Parcelable
 	@SerializedName("id")
 	private UUID id = null;
 
-	@SerializedName("logo")
-	private String logo = null;
+	@SerializedName("logoUrl")
+	private String logoUrl = null;
 
 	@SerializedName("url")
 	private String url = null;
@@ -121,7 +121,7 @@ public class ProgramDetailsListItem implements Parcelable
 
 	ProgramDetailsListItem(Parcel in) {
 		id = (UUID) in.readValue(UUID.class.getClassLoader());
-		logo = (String) in.readValue(null);
+		logoUrl = (String) in.readValue(null);
 		url = (String) in.readValue(null);
 		description = (String) in.readValue(null);
 		color = (String) in.readValue(null);
@@ -165,23 +165,23 @@ public class ProgramDetailsListItem implements Parcelable
 		this.id = id;
 	}
 
-	public ProgramDetailsListItem logo(String logo) {
-		this.logo = logo;
+	public ProgramDetailsListItem logoUrl(String logoUrl) {
+		this.logoUrl = logoUrl;
 		return this;
 	}
 
 	/**
-	 * Get logo
+	 * Get logoUrl
 	 *
-	 * @return logo
+	 * @return logoUrl
 	 **/
 	@Schema(description = "")
-	public String getLogo() {
-		return logo;
+	public String getLogoUrl() {
+		return logoUrl;
 	}
 
-	public void setLogo(String logo) {
-		this.logo = logo;
+	public void setLogoUrl(String logoUrl) {
+		this.logoUrl = logoUrl;
 	}
 
 	public ProgramDetailsListItem url(String url) {
@@ -620,7 +620,7 @@ public class ProgramDetailsListItem implements Parcelable
 		}
 		ProgramDetailsListItem programDetailsListItem = (ProgramDetailsListItem) o;
 		return Objects.equals(this.id, programDetailsListItem.id) &&
-				Objects.equals(this.logo, programDetailsListItem.logo) &&
+				Objects.equals(this.logoUrl, programDetailsListItem.logoUrl) &&
 				Objects.equals(this.url, programDetailsListItem.url) &&
 				Objects.equals(this.description, programDetailsListItem.description) &&
 				Objects.equals(this.color, programDetailsListItem.color) &&
@@ -647,7 +647,7 @@ public class ProgramDetailsListItem implements Parcelable
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, logo, url, description, color, title, creationDate, currency, level, levelProgress, periodDuration, availableToInvest, investorsCount, periodStarts, periodEnds, status, entryFeeSelected, entryFeeCurrent, brokerId, owner, personalDetails, tags, statistic, balance);
+		return Objects.hash(id, logoUrl, url, description, color, title, creationDate, currency, level, levelProgress, periodDuration, availableToInvest, investorsCount, periodStarts, periodEnds, status, entryFeeSelected, entryFeeCurrent, brokerId, owner, personalDetails, tags, statistic, balance);
 	}
 
 	@Override
@@ -656,7 +656,7 @@ public class ProgramDetailsListItem implements Parcelable
 		sb.append("class ProgramDetailsListItem {\n");
 
 		sb.append("    id: ").append(toIndentedString(id)).append("\n");
-		sb.append("    logo: ").append(toIndentedString(logo)).append("\n");
+		sb.append("    logoUrl: ").append(toIndentedString(logoUrl)).append("\n");
 		sb.append("    url: ").append(toIndentedString(url)).append("\n");
 		sb.append("    description: ").append(toIndentedString(description)).append("\n");
 		sb.append("    color: ").append(toIndentedString(color)).append("\n");
@@ -696,7 +696,7 @@ public class ProgramDetailsListItem implements Parcelable
 
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(id);
-		out.writeValue(logo);
+		out.writeValue(logoUrl);
 		out.writeValue(url);
 		out.writeValue(description);
 		out.writeValue(color);

@@ -8,15 +8,18 @@ import io.swagger.client.api.EventsApi;
 import io.swagger.client.api.FundsApi;
 import io.swagger.client.api.InvestmentsApi;
 import io.swagger.client.model.AbsoluteProfitChart;
+import io.swagger.client.model.Currency;
 import io.swagger.client.model.FundBalanceChart;
 import io.swagger.client.model.FundDetailsFull;
 import io.swagger.client.model.FundDetailsListItem;
+import io.swagger.client.model.FundDetailsListItemItemsViewModel;
 import io.swagger.client.model.FundProfitPercentCharts;
 import io.swagger.client.model.FundWithdrawInfo;
+import io.swagger.client.model.FundsFilterSorting;
+import io.swagger.client.model.ImageQuality;
 import io.swagger.client.model.InvestmentEventLocation;
 import io.swagger.client.model.InvestmentEventViewModels;
-import io.swagger.client.model.ItemsViewModelFundDetailsListItem;
-import io.swagger.client.model.ItemsViewModelReallocationModel;
+import io.swagger.client.model.ReallocationModelItemsViewModel;
 import rx.Observable;
 import vision.genesis.clientapp.model.CurrencyEnum;
 import vision.genesis.clientapp.model.DateRange;
@@ -45,9 +48,9 @@ public class FundsManager
 		this.eventsApi = eventsApi;
 	}
 
-	public Observable<ItemsViewModelFundDetailsListItem> getFundsList(ProgramsFilter filter) {
-		return fundsApi.getFunds(AuthManager.token.getValue(),
-				filter.getSorting().getValue(), filter.getShowIn().getValue(), null, false,
+	public Observable<FundDetailsListItemItemsViewModel> getFundsList(ProgramsFilter filter) {
+		return fundsApi.getFunds(
+				FundsFilterSorting.fromValue(filter.getSorting().getValue()), Currency.fromValue(filter.getShowIn().getValue()), null, false,
 				filter.getDateRange().getFrom(), filter.getDateRange().getTo(),
 				filter.getChartPointsCount(), filter.getFacetId() == null ? null : filter.getFacetId().toString(),
 				filter.getMask(), filter.getManagerId(), filter.getIsFavorite(),
@@ -59,15 +62,15 @@ public class FundsManager
 	}
 
 	private Observable<Void> fundFavoritesAdd(UUID fundId) {
-		return fundsApi.addToFavorites(fundId, AuthManager.token.getValue());
+		return fundsApi.addToFavorites(fundId);
 	}
 
 	private Observable<Void> fundFavoritesRemove(UUID fundId) {
-		return fundsApi.removeFromFavorites(fundId, AuthManager.token.getValue());
+		return fundsApi.removeFromFavorites(fundId);
 	}
 
 	public Observable<FundDetailsFull> getFundDetails(UUID fundId, CurrencyEnum baseCurrency) {
-		return fundsApi.getFundDetails(fundId.toString(), AuthManager.token.getValue(), baseCurrency.getValue());
+		return fundsApi.getFundDetails(fundId.toString(), Currency.fromValue(baseCurrency.getValue()), ImageQuality.HIGH);
 	}
 
 //	public Observable<FundAssetsListInfo> getFundAssets(UUID fundId) {
@@ -75,22 +78,22 @@ public class FundsManager
 //	}
 
 	public Observable<FundProfitPercentCharts> getProfitPercentChart(UUID fundId, DateRange dateRange, Integer maxPointCount,
-	                                                                 String currency, List<Object> currencies, Integer chartAssetsCount) {
+	                                                                 Currency currency, List<Currency> currencies, Integer chartAssetsCount) {
 		return fundsApi.getFundProfitPercentCharts(fundId, dateRange.getFrom(), dateRange.getTo(),
 				maxPointCount, currency, currencies, chartAssetsCount);
 	}
 
 	public Observable<AbsoluteProfitChart> getProfitAbsoluteChart(UUID fundId, DateRange dateRange,
-	                                                              Integer maxPointCount, String currency) {
+	                                                              Integer maxPointCount, Currency currency) {
 		return fundsApi.getFundAbsoluteProfitChart(fundId, dateRange.getFrom(), dateRange.getTo(), maxPointCount, currency);
 	}
 
-	public Observable<FundBalanceChart> getBalanceChart(UUID fundId, DateRange dateRange, Integer maxPointCount, String currency) {
+	public Observable<FundBalanceChart> getBalanceChart(UUID fundId, DateRange dateRange, Integer maxPointCount, Currency currency) {
 		return fundsApi.getFundBalanceChart(fundId, dateRange.getFrom(), dateRange.getTo(), maxPointCount, currency);
 	}
 
 	public Observable<InvestmentEventViewModels> getEvents(UUID fundId, DateRange dateRange, Integer skip, Integer take) {
-		return eventsApi.getEvents(AuthManager.token.getValue(), InvestmentEventLocation.ASSET.getValue(), fundId,
+		return eventsApi.getEvents(InvestmentEventLocation.ASSET, fundId,
 				dateRange.getFrom(), dateRange.getTo(),
 				null, null,
 				null, null,
@@ -99,26 +102,26 @@ public class FundsManager
 	}
 
 //	public Observable<FundInvestInfo> getInvestInfo(UUID programId, String baseCurrency) {
-//		return investmentsApi.v10InvestorFundsByIdInvestInfoByCurrencyGet(programId, baseCurrency, AuthManager.token.getValue());
+//		return investmentsApi.v10InvestorFundsByIdInvestInfoByCurrencyGet(programId, baseCurrency);
 //	}
 
-	public Observable<FundWithdrawInfo> getWithdrawInfo(UUID programId, String baseCurrency) {
-		return investmentsApi.getFundWithdrawInfo(programId, AuthManager.token.getValue(), baseCurrency);
+	public Observable<FundWithdrawInfo> getWithdrawInfo(UUID programId, Currency baseCurrency) {
+		return investmentsApi.getFundWithdrawInfo(programId, baseCurrency);
 	}
 
 	public Observable<Void> invest(FundRequest fundRequest) {
-		return investmentsApi.investIntoFund(fundRequest.getFundId(), AuthManager.token.getValue(), fundRequest.getAmount(), fundRequest.getWalletId());
+		return investmentsApi.investIntoFund(fundRequest.getFundId(), fundRequest.getAmount(), fundRequest.getWalletId());
 	}
 
 	public Observable<Void> withdraw(FundRequest fundRequest) {
-		return investmentsApi.withdrawFromFund(fundRequest.getFundId(), AuthManager.token.getValue(), fundRequest.getAmount(), fundRequest.getWalletCurrency());
+		return investmentsApi.withdrawFromFund(fundRequest.getFundId(), fundRequest.getAmount(), Currency.fromValue(fundRequest.getWalletCurrency()));
 	}
 
-	public Observable<ItemsViewModelReallocationModel> getReallocateHistory(UUID fundId, DateRange dateRange, int skip, int take) {
+	public Observable<ReallocationModelItemsViewModel> getReallocateHistory(UUID fundId, DateRange dateRange, int skip, int take) {
 		return fundsApi.getReallocatingHistory(fundId, dateRange.getFrom(), dateRange.getTo(), skip, take);
 	}
 
 	public Observable<FundDetailsListItem> getChallengeWinner() {
-		return fundsApi.getLastChallengeWinner(AuthManager.token.getValue(), null);
+		return fundsApi.getLastChallengeWinner(null);
 	}
 }

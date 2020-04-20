@@ -68,6 +68,9 @@ public class BrokerAccountType implements Parcelable
 	@SerializedName("isKycRequired")
 	private Boolean isKycRequired = null;
 
+	@SerializedName("isCountryNotUSRequired")
+	private Boolean isCountryNotUSRequired = null;
+
 	@SerializedName("isSignalsAvailable")
 	private Boolean isSignalsAvailable = null;
 
@@ -86,6 +89,7 @@ public class BrokerAccountType implements Parcelable
 		currencies = (List<String>) in.readValue(null);
 		minimumDepositsAmount = (Map<String, Double>) in.readValue(null);
 		isKycRequired = (Boolean) in.readValue(null);
+		isCountryNotUSRequired = (Boolean) in.readValue(null);
 		isSignalsAvailable = (Boolean) in.readValue(null);
 		isDepositRequired = (Boolean) in.readValue(null);
 	}
@@ -266,6 +270,25 @@ public class BrokerAccountType implements Parcelable
 		this.isKycRequired = isKycRequired;
 	}
 
+	public BrokerAccountType isCountryNotUSRequired(Boolean isCountryNotUSRequired) {
+		this.isCountryNotUSRequired = isCountryNotUSRequired;
+		return this;
+	}
+
+	/**
+	 * Get isCountryNotUSRequired
+	 *
+	 * @return isCountryNotUSRequired
+	 **/
+	@Schema(description = "")
+	public Boolean isIsCountryNotUSRequired() {
+		return isCountryNotUSRequired;
+	}
+
+	public void setIsCountryNotUSRequired(Boolean isCountryNotUSRequired) {
+		this.isCountryNotUSRequired = isCountryNotUSRequired;
+	}
+
 	public BrokerAccountType isSignalsAvailable(Boolean isSignalsAvailable) {
 		this.isSignalsAvailable = isSignalsAvailable;
 		return this;
@@ -321,13 +344,14 @@ public class BrokerAccountType implements Parcelable
 				Objects.equals(this.currencies, brokerAccountType.currencies) &&
 				Objects.equals(this.minimumDepositsAmount, brokerAccountType.minimumDepositsAmount) &&
 				Objects.equals(this.isKycRequired, brokerAccountType.isKycRequired) &&
+				Objects.equals(this.isCountryNotUSRequired, brokerAccountType.isCountryNotUSRequired) &&
 				Objects.equals(this.isSignalsAvailable, brokerAccountType.isSignalsAvailable) &&
 				Objects.equals(this.isDepositRequired, brokerAccountType.isDepositRequired);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, name, description, type, leverages, currencies, minimumDepositsAmount, isKycRequired, isSignalsAvailable, isDepositRequired);
+		return Objects.hash(id, name, description, type, leverages, currencies, minimumDepositsAmount, isKycRequired, isCountryNotUSRequired, isSignalsAvailable, isDepositRequired);
 	}
 
 	@Override
@@ -343,6 +367,7 @@ public class BrokerAccountType implements Parcelable
 		sb.append("    currencies: ").append(toIndentedString(currencies)).append("\n");
 		sb.append("    minimumDepositsAmount: ").append(toIndentedString(minimumDepositsAmount)).append("\n");
 		sb.append("    isKycRequired: ").append(toIndentedString(isKycRequired)).append("\n");
+		sb.append("    isCountryNotUSRequired: ").append(toIndentedString(isCountryNotUSRequired)).append("\n");
 		sb.append("    isSignalsAvailable: ").append(toIndentedString(isSignalsAvailable)).append("\n");
 		sb.append("    isDepositRequired: ").append(toIndentedString(isDepositRequired)).append("\n");
 		sb.append("}");
@@ -369,6 +394,7 @@ public class BrokerAccountType implements Parcelable
 		out.writeValue(currencies);
 		out.writeValue(minimumDepositsAmount);
 		out.writeValue(isKycRequired);
+		out.writeValue(isCountryNotUSRequired);
 		out.writeValue(isSignalsAvailable);
 		out.writeValue(isDepositRequired);
 	}

@@ -5,12 +5,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.recyclerview.widget.RecyclerView;
+
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.swagger.client.model.ProgramNotificationSettingList;
@@ -36,8 +37,9 @@ public class ProgramsNotificationsListAdapter extends RecyclerView.Adapter<Progr
 
 	@Override
 	public void onBindViewHolder(SettingsViewHolder holder, int position) {
-		if (settings.get(position) != null)
+		if (settings.get(position) != null) {
 			holder.setSettings(settings.get(position));
+		}
 	}
 
 	@Override
@@ -95,7 +97,7 @@ public class ProgramsNotificationsListAdapter extends RecyclerView.Adapter<Progr
 		void setSettings(ProgramNotificationSettingList settings) {
 			this.settings = settings;
 
-			programLogo.setImage(settings.getLogo(), "#ffffff", 50, 50);
+			programLogo.setImage(settings.getLogoUrl(), "#ffffff", 50, 50);
 			programLogo.setLevel(settings.getLevel(), settings.getLevelProgress());
 			programName.setText(settings.getTitle());
 //			managerName.setText(settings.getManagerName());

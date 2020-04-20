@@ -7,10 +7,11 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.RelativeLayout;
 
+import androidx.core.content.ContextCompat;
+
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
-import androidx.core.content.ContextCompat;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;

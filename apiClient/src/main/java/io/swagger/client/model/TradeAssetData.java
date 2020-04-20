@@ -39,8 +39,8 @@ public class TradeAssetData implements Parcelable
 		}
 	};
 
-	@SerializedName("icon")
-	private String icon = null;
+	@SerializedName("logoUrl")
+	private String logoUrl = null;
 
 	@SerializedName("hasAssetInfo")
 	private Boolean hasAssetInfo = null;
@@ -52,28 +52,28 @@ public class TradeAssetData implements Parcelable
 	}
 
 	TradeAssetData(Parcel in) {
-		icon = (String) in.readValue(null);
+		logoUrl = (String) in.readValue(null);
 		hasAssetInfo = (Boolean) in.readValue(null);
 		url = (String) in.readValue(null);
 	}
 
-	public TradeAssetData icon(String icon) {
-		this.icon = icon;
+	public TradeAssetData logoUrl(String logoUrl) {
+		this.logoUrl = logoUrl;
 		return this;
 	}
 
 	/**
-	 * Get icon
+	 * Get logoUrl
 	 *
-	 * @return icon
+	 * @return logoUrl
 	 **/
 	@Schema(description = "")
-	public String getIcon() {
-		return icon;
+	public String getLogoUrl() {
+		return logoUrl;
 	}
 
-	public void setIcon(String icon) {
-		this.icon = icon;
+	public void setLogoUrl(String logoUrl) {
+		this.logoUrl = logoUrl;
 	}
 
 	/**
@@ -114,14 +114,14 @@ public class TradeAssetData implements Parcelable
 			return false;
 		}
 		TradeAssetData tradeAssetData = (TradeAssetData) o;
-		return Objects.equals(this.icon, tradeAssetData.icon) &&
+		return Objects.equals(this.logoUrl, tradeAssetData.logoUrl) &&
 				Objects.equals(this.hasAssetInfo, tradeAssetData.hasAssetInfo) &&
 				Objects.equals(this.url, tradeAssetData.url);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(icon, hasAssetInfo, url);
+		return Objects.hash(logoUrl, hasAssetInfo, url);
 	}
 
 	@Override
@@ -129,7 +129,7 @@ public class TradeAssetData implements Parcelable
 		StringBuilder sb = new StringBuilder();
 		sb.append("class TradeAssetData {\n");
 
-		sb.append("    icon: ").append(toIndentedString(icon)).append("\n");
+		sb.append("    logoUrl: ").append(toIndentedString(logoUrl)).append("\n");
 		sb.append("    hasAssetInfo: ").append(toIndentedString(hasAssetInfo)).append("\n");
 		sb.append("    url: ").append(toIndentedString(url)).append("\n");
 		sb.append("}");
@@ -148,7 +148,7 @@ public class TradeAssetData implements Parcelable
 	}
 
 	public void writeToParcel(Parcel out, int flags) {
-		out.writeValue(icon);
+		out.writeValue(logoUrl);
 		out.writeValue(hasAssetInfo);
 		out.writeValue(url);
 	}

@@ -51,8 +51,8 @@ public class ManagerNotificationSettingList implements Parcelable
 	@SerializedName("username")
 	private String username = null;
 
-	@SerializedName("avatar")
-	private String avatar = null;
+	@SerializedName("logoUrl")
+	private String logoUrl = null;
 
 	@SerializedName("about")
 	private String about = null;
@@ -67,7 +67,7 @@ public class ManagerNotificationSettingList implements Parcelable
 		managerId = (UUID) in.readValue(UUID.class.getClassLoader());
 		url = (String) in.readValue(null);
 		username = (String) in.readValue(null);
-		avatar = (String) in.readValue(null);
+		logoUrl = (String) in.readValue(null);
 		about = (String) in.readValue(null);
 		settingsGeneral = (List<NotificationSettingViewModel>) in.readValue(NotificationSettingViewModel.class.getClassLoader());
 	}
@@ -129,23 +129,23 @@ public class ManagerNotificationSettingList implements Parcelable
 		this.username = username;
 	}
 
-	public ManagerNotificationSettingList avatar(String avatar) {
-		this.avatar = avatar;
+	public ManagerNotificationSettingList logoUrl(String logoUrl) {
+		this.logoUrl = logoUrl;
 		return this;
 	}
 
 	/**
-	 * Get avatar
+	 * Get logoUrl
 	 *
-	 * @return avatar
+	 * @return logoUrl
 	 **/
 	@Schema(description = "")
-	public String getAvatar() {
-		return avatar;
+	public String getLogoUrl() {
+		return logoUrl;
 	}
 
-	public void setAvatar(String avatar) {
-		this.avatar = avatar;
+	public void setLogoUrl(String logoUrl) {
+		this.logoUrl = logoUrl;
 	}
 
 	public ManagerNotificationSettingList about(String about) {
@@ -206,14 +206,14 @@ public class ManagerNotificationSettingList implements Parcelable
 		return Objects.equals(this.managerId, managerNotificationSettingList.managerId) &&
 				Objects.equals(this.url, managerNotificationSettingList.url) &&
 				Objects.equals(this.username, managerNotificationSettingList.username) &&
-				Objects.equals(this.avatar, managerNotificationSettingList.avatar) &&
+				Objects.equals(this.logoUrl, managerNotificationSettingList.logoUrl) &&
 				Objects.equals(this.about, managerNotificationSettingList.about) &&
 				Objects.equals(this.settingsGeneral, managerNotificationSettingList.settingsGeneral);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(managerId, url, username, avatar, about, settingsGeneral);
+		return Objects.hash(managerId, url, username, logoUrl, about, settingsGeneral);
 	}
 
 	@Override
@@ -224,7 +224,7 @@ public class ManagerNotificationSettingList implements Parcelable
 		sb.append("    managerId: ").append(toIndentedString(managerId)).append("\n");
 		sb.append("    url: ").append(toIndentedString(url)).append("\n");
 		sb.append("    username: ").append(toIndentedString(username)).append("\n");
-		sb.append("    avatar: ").append(toIndentedString(avatar)).append("\n");
+		sb.append("    logoUrl: ").append(toIndentedString(logoUrl)).append("\n");
 		sb.append("    about: ").append(toIndentedString(about)).append("\n");
 		sb.append("    settingsGeneral: ").append(toIndentedString(settingsGeneral)).append("\n");
 		sb.append("}");
@@ -246,7 +246,7 @@ public class ManagerNotificationSettingList implements Parcelable
 		out.writeValue(managerId);
 		out.writeValue(url);
 		out.writeValue(username);
-		out.writeValue(avatar);
+		out.writeValue(logoUrl);
 		out.writeValue(about);
 		out.writeValue(settingsGeneral);
 	}

@@ -50,8 +50,8 @@ public class ProfilePublic implements Parcelable
 	@SerializedName("username")
 	private String username = null;
 
-	@SerializedName("avatar")
-	private String avatar = null;
+	@SerializedName("logoUrl")
+	private String logoUrl = null;
 
 	@SerializedName("registrationDate")
 	private DateTime registrationDate = null;
@@ -68,7 +68,7 @@ public class ProfilePublic implements Parcelable
 	ProfilePublic(Parcel in) {
 		id = (UUID) in.readValue(UUID.class.getClassLoader());
 		username = (String) in.readValue(null);
-		avatar = (String) in.readValue(null);
+		logoUrl = (String) in.readValue(null);
 		registrationDate = (DateTime) in.readValue(DateTime.class.getClassLoader());
 		url = (String) in.readValue(null);
 		socialLinks = (List<SocialLinkViewModel>) in.readValue(SocialLinkViewModel.class.getClassLoader());
@@ -112,23 +112,23 @@ public class ProfilePublic implements Parcelable
 		this.username = username;
 	}
 
-	public ProfilePublic avatar(String avatar) {
-		this.avatar = avatar;
+	public ProfilePublic logoUrl(String logoUrl) {
+		this.logoUrl = logoUrl;
 		return this;
 	}
 
 	/**
-	 * Get avatar
+	 * Get logoUrl
 	 *
-	 * @return avatar
+	 * @return logoUrl
 	 **/
 	@Schema(description = "")
-	public String getAvatar() {
-		return avatar;
+	public String getLogoUrl() {
+		return logoUrl;
 	}
 
-	public void setAvatar(String avatar) {
-		this.avatar = avatar;
+	public void setLogoUrl(String logoUrl) {
+		this.logoUrl = logoUrl;
 	}
 
 	public ProfilePublic registrationDate(DateTime registrationDate) {
@@ -207,7 +207,7 @@ public class ProfilePublic implements Parcelable
 		ProfilePublic profilePublic = (ProfilePublic) o;
 		return Objects.equals(this.id, profilePublic.id) &&
 				Objects.equals(this.username, profilePublic.username) &&
-				Objects.equals(this.avatar, profilePublic.avatar) &&
+				Objects.equals(this.logoUrl, profilePublic.logoUrl) &&
 				Objects.equals(this.registrationDate, profilePublic.registrationDate) &&
 				Objects.equals(this.url, profilePublic.url) &&
 				Objects.equals(this.socialLinks, profilePublic.socialLinks);
@@ -215,7 +215,7 @@ public class ProfilePublic implements Parcelable
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, username, avatar, registrationDate, url, socialLinks);
+		return Objects.hash(id, username, logoUrl, registrationDate, url, socialLinks);
 	}
 
 	@Override
@@ -225,7 +225,7 @@ public class ProfilePublic implements Parcelable
 
 		sb.append("    id: ").append(toIndentedString(id)).append("\n");
 		sb.append("    username: ").append(toIndentedString(username)).append("\n");
-		sb.append("    avatar: ").append(toIndentedString(avatar)).append("\n");
+		sb.append("    logoUrl: ").append(toIndentedString(logoUrl)).append("\n");
 		sb.append("    registrationDate: ").append(toIndentedString(registrationDate)).append("\n");
 		sb.append("    url: ").append(toIndentedString(url)).append("\n");
 		sb.append("    socialLinks: ").append(toIndentedString(socialLinks)).append("\n");
@@ -247,7 +247,7 @@ public class ProfilePublic implements Parcelable
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(id);
 		out.writeValue(username);
-		out.writeValue(avatar);
+		out.writeValue(logoUrl);
 		out.writeValue(registrationDate);
 		out.writeValue(url);
 		out.writeValue(socialLinks);

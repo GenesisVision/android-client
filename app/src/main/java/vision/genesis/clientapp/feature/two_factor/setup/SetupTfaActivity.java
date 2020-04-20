@@ -97,8 +97,9 @@ public class SetupTfaActivity extends BaseSwipeBackActivity implements SetupTfaV
 
 	@Override
 	public void onBackPressed() {
-		if (currentStepNumber == 0)
+		if (currentStepNumber == 0) {
 			finishActivity();
+		}
 		else if (currentStepNumber < 3) {
 			setCurrentStep(currentStepNumber - 1);
 		}

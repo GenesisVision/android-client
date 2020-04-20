@@ -5,11 +5,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
 import java.util.ArrayList;
 import java.util.List;
 
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.swagger.client.model.SignalTradingEvent;
@@ -35,8 +36,9 @@ public class TradingLogListAdapter extends RecyclerView.Adapter<TradingLogListAd
 
 	@Override
 	public void onBindViewHolder(@NonNull EventViewHolder holder, int position) {
-		if (events.get(position) != null)
+		if (events.get(position) != null) {
 			holder.setEvent(events.get(position));
+		}
 	}
 
 	@Override

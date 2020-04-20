@@ -83,8 +83,9 @@ public class CommissionsBottomSheetFragment extends BottomSheetDialogFragment
 	}
 
 	private void updateView() {
-		if (trade.getProviders() == null || trade.getProviders().isEmpty())
+		if (trade.getProviders() == null || trade.getProviders().isEmpty()) {
 			return;
+		}
 
 		if (feesGroup != null) {
 			feesGroup.addView(createTradingFeeView(trade));

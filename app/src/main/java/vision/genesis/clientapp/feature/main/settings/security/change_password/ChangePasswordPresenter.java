@@ -43,8 +43,9 @@ public class ChangePasswordPresenter extends MvpPresenter<ChangePasswordView>
 
 	@Override
 	public void onDestroy() {
-		if (sendCodeSubscription != null)
+		if (sendCodeSubscription != null) {
 			sendCodeSubscription.unsubscribe();
+		}
 
 		super.onDestroy();
 	}
@@ -71,8 +72,9 @@ public class ChangePasswordPresenter extends MvpPresenter<ChangePasswordView>
 			hasErrors = true;
 		}
 
-		if (!hasErrors)
+		if (!hasErrors) {
 			sendChangePassword(oldPassword, newPassword, repeatPassword);
+		}
 	}
 
 	private void sendChangePassword(String oldPassword, String newPassword, String confirmPassword) {

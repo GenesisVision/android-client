@@ -5,7 +5,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **isPrivateAccount** | **Boolean** |  |  [optional]
 **id** | [**UUID**](UUID.md) |  |  [optional]
-**logo** | **String** |  |  [optional]
+**logoUrl** | **String** |  |  [optional]
 **color** | **String** |  |  [optional]
 **title** | **String** |  |  [optional]
 **url** | **String** |  |  [optional]

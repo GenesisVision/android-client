@@ -183,7 +183,7 @@ public class InvestFundPresenter extends MvpPresenter<InvestFundView> implements
 
 	void onMaxClicked() {
 		if (info != null) {
-			getViewState().setAmount(StringFormatUtil.formatCurrencyAmount(availableInWallet, CurrencyEnum.GVT.getValue()));
+			getViewState().setAmount(StringFormatUtil.formatAmountWithoutGrouping(availableInWallet));
 		}
 	}
 

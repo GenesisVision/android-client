@@ -40,7 +40,11 @@ public enum ProgramsFilterSorting
 	BYNEWASC("ByNewAsc"),
 	BYNEWDESC("ByNewDesc"),
 	BYLEVELPROGRESSASC("ByLevelProgressAsc"),
-	BYLEVELPROGRESSDESC("ByLevelProgressDesc");
+	BYLEVELPROGRESSDESC("ByLevelProgressDesc"),
+	BYLEVELASC("ByLevelAsc"),
+	BYLEVELDESC("ByLevelDesc"),
+	BYVALUEASC("ByValueAsc"),
+	BYVALUEDESC("ByValueDesc");
 
 	public static ProgramsFilterSorting fromValue(String text) {
 		for (ProgramsFilterSorting b : ProgramsFilterSorting.values()) {

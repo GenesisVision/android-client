@@ -14,3 +14,5 @@
 * `BYPROFITDESC` (value: `"ByProfitDesc"`)
 * `BYNEWASC` (value: `"ByNewAsc"`)
 * `BYNEWDESC` (value: `"ByNewDesc"`)
+* `BYEQUITYASC` (value: `"ByEquityAsc"`)
+* `BYEQUITYDESC` (value: `"ByEquityDesc"`)

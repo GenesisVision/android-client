@@ -53,8 +53,8 @@ public class PublicProfile implements Parcelable
 	@SerializedName("about")
 	private String about = null;
 
-	@SerializedName("avatar")
-	private String avatar = null;
+	@SerializedName("logoUrl")
+	private String logoUrl = null;
 
 	@SerializedName("regDate")
 	private DateTime regDate = null;
@@ -65,8 +65,17 @@ public class PublicProfile implements Parcelable
 	@SerializedName("url")
 	private String url = null;
 
+	@SerializedName("followers")
+	private Integer followers = null;
+
+	@SerializedName("following")
+	private Integer following = null;
+
 	@SerializedName("socialLinks")
 	private List<SocialLinkViewModel> socialLinks = null;
+
+	@SerializedName("personalDetails")
+	private PublicProfilePersonalDetails personalDetails = null;
 
 	public PublicProfile() {
 	}
@@ -75,11 +84,14 @@ public class PublicProfile implements Parcelable
 		id = (UUID) in.readValue(UUID.class.getClassLoader());
 		username = (String) in.readValue(null);
 		about = (String) in.readValue(null);
-		avatar = (String) in.readValue(null);
+		logoUrl = (String) in.readValue(null);
 		regDate = (DateTime) in.readValue(DateTime.class.getClassLoader());
 		assets = (List<String>) in.readValue(null);
 		url = (String) in.readValue(null);
+		followers = (Integer) in.readValue(null);
+		following = (Integer) in.readValue(null);
 		socialLinks = (List<SocialLinkViewModel>) in.readValue(SocialLinkViewModel.class.getClassLoader());
+		personalDetails = (PublicProfilePersonalDetails) in.readValue(PublicProfilePersonalDetails.class.getClassLoader());
 	}
 
 	public PublicProfile id(UUID id) {
@@ -139,23 +151,23 @@ public class PublicProfile implements Parcelable
 		this.about = about;
 	}
 
-	public PublicProfile avatar(String avatar) {
-		this.avatar = avatar;
+	public PublicProfile logoUrl(String logoUrl) {
+		this.logoUrl = logoUrl;
 		return this;
 	}
 
 	/**
-	 * Get avatar
+	 * Get logoUrl
 	 *
-	 * @return avatar
+	 * @return logoUrl
 	 **/
 	@Schema(description = "")
-	public String getAvatar() {
-		return avatar;
+	public String getLogoUrl() {
+		return logoUrl;
 	}
 
-	public void setAvatar(String avatar) {
-		this.avatar = avatar;
+	public void setLogoUrl(String logoUrl) {
+		this.logoUrl = logoUrl;
 	}
 
 	public PublicProfile regDate(DateTime regDate) {
@@ -223,6 +235,44 @@ public class PublicProfile implements Parcelable
 		this.url = url;
 	}
 
+	public PublicProfile followers(Integer followers) {
+		this.followers = followers;
+		return this;
+	}
+
+	/**
+	 * Get followers
+	 *
+	 * @return followers
+	 **/
+	@Schema(description = "")
+	public Integer getFollowers() {
+		return followers;
+	}
+
+	public void setFollowers(Integer followers) {
+		this.followers = followers;
+	}
+
+	public PublicProfile following(Integer following) {
+		this.following = following;
+		return this;
+	}
+
+	/**
+	 * Get following
+	 *
+	 * @return following
+	 **/
+	@Schema(description = "")
+	public Integer getFollowing() {
+		return following;
+	}
+
+	public void setFollowing(Integer following) {
+		this.following = following;
+	}
+
 	public PublicProfile socialLinks(List<SocialLinkViewModel> socialLinks) {
 		this.socialLinks = socialLinks;
 		return this;
@@ -250,6 +300,25 @@ public class PublicProfile implements Parcelable
 		this.socialLinks = socialLinks;
 	}
 
+	public PublicProfile personalDetails(PublicProfilePersonalDetails personalDetails) {
+		this.personalDetails = personalDetails;
+		return this;
+	}
+
+	/**
+	 * Get personalDetails
+	 *
+	 * @return personalDetails
+	 **/
+	@Schema(description = "")
+	public PublicProfilePersonalDetails getPersonalDetails() {
+		return personalDetails;
+	}
+
+	public void setPersonalDetails(PublicProfilePersonalDetails personalDetails) {
+		this.personalDetails = personalDetails;
+	}
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -262,16 +331,19 @@ public class PublicProfile implements Parcelable
 		return Objects.equals(this.id, publicProfile.id) &&
 				Objects.equals(this.username, publicProfile.username) &&
 				Objects.equals(this.about, publicProfile.about) &&
-				Objects.equals(this.avatar, publicProfile.avatar) &&
+				Objects.equals(this.logoUrl, publicProfile.logoUrl) &&
 				Objects.equals(this.regDate, publicProfile.regDate) &&
 				Objects.equals(this.assets, publicProfile.assets) &&
 				Objects.equals(this.url, publicProfile.url) &&
-				Objects.equals(this.socialLinks, publicProfile.socialLinks);
+				Objects.equals(this.followers, publicProfile.followers) &&
+				Objects.equals(this.following, publicProfile.following) &&
+				Objects.equals(this.socialLinks, publicProfile.socialLinks) &&
+				Objects.equals(this.personalDetails, publicProfile.personalDetails);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, username, about, avatar, regDate, assets, url, socialLinks);
+		return Objects.hash(id, username, about, logoUrl, regDate, assets, url, followers, following, socialLinks, personalDetails);
 	}
 
 	@Override
@@ -282,11 +354,14 @@ public class PublicProfile implements Parcelable
 		sb.append("    id: ").append(toIndentedString(id)).append("\n");
 		sb.append("    username: ").append(toIndentedString(username)).append("\n");
 		sb.append("    about: ").append(toIndentedString(about)).append("\n");
-		sb.append("    avatar: ").append(toIndentedString(avatar)).append("\n");
+		sb.append("    logoUrl: ").append(toIndentedString(logoUrl)).append("\n");
 		sb.append("    regDate: ").append(toIndentedString(regDate)).append("\n");
 		sb.append("    assets: ").append(toIndentedString(assets)).append("\n");
 		sb.append("    url: ").append(toIndentedString(url)).append("\n");
+		sb.append("    followers: ").append(toIndentedString(followers)).append("\n");
+		sb.append("    following: ").append(toIndentedString(following)).append("\n");
 		sb.append("    socialLinks: ").append(toIndentedString(socialLinks)).append("\n");
+		sb.append("    personalDetails: ").append(toIndentedString(personalDetails)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}
@@ -306,11 +381,14 @@ public class PublicProfile implements Parcelable
 		out.writeValue(id);
 		out.writeValue(username);
 		out.writeValue(about);
-		out.writeValue(avatar);
+		out.writeValue(logoUrl);
 		out.writeValue(regDate);
 		out.writeValue(assets);
 		out.writeValue(url);
+		out.writeValue(followers);
+		out.writeValue(following);
 		out.writeValue(socialLinks);
+		out.writeValue(personalDetails);
 	}
 
 	public int describeContents() {

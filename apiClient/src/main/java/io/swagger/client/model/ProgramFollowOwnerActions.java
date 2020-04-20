@@ -51,6 +51,9 @@ public class ProgramFollowOwnerActions implements Parcelable
 	@SerializedName("canTransferMoney")
 	private Boolean canTransferMoney = null;
 
+	@SerializedName("canCloseOpenPositions")
+	private Boolean canCloseOpenPositions = null;
+
 	@SerializedName("canMakeProgramFromPrivateTradingAccount")
 	private Boolean canMakeProgramFromPrivateTradingAccount = null;
 
@@ -83,6 +86,7 @@ public class ProgramFollowOwnerActions implements Parcelable
 		canClosePeriod = (Boolean) in.readValue(null);
 		canChangePassword = (Boolean) in.readValue(null);
 		canTransferMoney = (Boolean) in.readValue(null);
+		canCloseOpenPositions = (Boolean) in.readValue(null);
 		canMakeProgramFromPrivateTradingAccount = (Boolean) in.readValue(null);
 		canMakeSignalProviderFromPrivateTradingAccount = (Boolean) in.readValue(null);
 		canMakeSignalProviderFromPrivateExternalTradingAccount = (Boolean) in.readValue(null);
@@ -167,6 +171,25 @@ public class ProgramFollowOwnerActions implements Parcelable
 
 	public void setCanTransferMoney(Boolean canTransferMoney) {
 		this.canTransferMoney = canTransferMoney;
+	}
+
+	public ProgramFollowOwnerActions canCloseOpenPositions(Boolean canCloseOpenPositions) {
+		this.canCloseOpenPositions = canCloseOpenPositions;
+		return this;
+	}
+
+	/**
+	 * Get canCloseOpenPositions
+	 *
+	 * @return canCloseOpenPositions
+	 **/
+	@Schema(description = "")
+	public Boolean isCanCloseOpenPositions() {
+		return canCloseOpenPositions;
+	}
+
+	public void setCanCloseOpenPositions(Boolean canCloseOpenPositions) {
+		this.canCloseOpenPositions = canCloseOpenPositions;
 	}
 
 	public ProgramFollowOwnerActions canMakeProgramFromPrivateTradingAccount(Boolean canMakeProgramFromPrivateTradingAccount) {
@@ -334,6 +357,7 @@ public class ProgramFollowOwnerActions implements Parcelable
 				Objects.equals(this.canClosePeriod, programFollowOwnerActions.canClosePeriod) &&
 				Objects.equals(this.canChangePassword, programFollowOwnerActions.canChangePassword) &&
 				Objects.equals(this.canTransferMoney, programFollowOwnerActions.canTransferMoney) &&
+				Objects.equals(this.canCloseOpenPositions, programFollowOwnerActions.canCloseOpenPositions) &&
 				Objects.equals(this.canMakeProgramFromPrivateTradingAccount, programFollowOwnerActions.canMakeProgramFromPrivateTradingAccount) &&
 				Objects.equals(this.canMakeSignalProviderFromPrivateTradingAccount, programFollowOwnerActions.canMakeSignalProviderFromPrivateTradingAccount) &&
 				Objects.equals(this.canMakeSignalProviderFromPrivateExternalTradingAccount, programFollowOwnerActions.canMakeSignalProviderFromPrivateExternalTradingAccount) &&
@@ -346,7 +370,7 @@ public class ProgramFollowOwnerActions implements Parcelable
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(canClose, canClosePeriod, canChangePassword, canTransferMoney, canMakeProgramFromPrivateTradingAccount, canMakeSignalProviderFromPrivateTradingAccount, canMakeSignalProviderFromPrivateExternalTradingAccount, canMakeProgramFromSignalProvider, canMakeSignalProviderFromProgram, canEditSignalProviderSettings, isEnoughMoneyToCreateProgram, canConfirm2FA);
+		return Objects.hash(canClose, canClosePeriod, canChangePassword, canTransferMoney, canCloseOpenPositions, canMakeProgramFromPrivateTradingAccount, canMakeSignalProviderFromPrivateTradingAccount, canMakeSignalProviderFromPrivateExternalTradingAccount, canMakeProgramFromSignalProvider, canMakeSignalProviderFromProgram, canEditSignalProviderSettings, isEnoughMoneyToCreateProgram, canConfirm2FA);
 	}
 
 	@Override
@@ -358,6 +382,7 @@ public class ProgramFollowOwnerActions implements Parcelable
 		sb.append("    canClosePeriod: ").append(toIndentedString(canClosePeriod)).append("\n");
 		sb.append("    canChangePassword: ").append(toIndentedString(canChangePassword)).append("\n");
 		sb.append("    canTransferMoney: ").append(toIndentedString(canTransferMoney)).append("\n");
+		sb.append("    canCloseOpenPositions: ").append(toIndentedString(canCloseOpenPositions)).append("\n");
 		sb.append("    canMakeProgramFromPrivateTradingAccount: ").append(toIndentedString(canMakeProgramFromPrivateTradingAccount)).append("\n");
 		sb.append("    canMakeSignalProviderFromPrivateTradingAccount: ").append(toIndentedString(canMakeSignalProviderFromPrivateTradingAccount)).append("\n");
 		sb.append("    canMakeSignalProviderFromPrivateExternalTradingAccount: ").append(toIndentedString(canMakeSignalProviderFromPrivateExternalTradingAccount)).append("\n");
@@ -386,6 +411,7 @@ public class ProgramFollowOwnerActions implements Parcelable
 		out.writeValue(canClosePeriod);
 		out.writeValue(canChangePassword);
 		out.writeValue(canTransferMoney);
+		out.writeValue(canCloseOpenPositions);
 		out.writeValue(canMakeProgramFromPrivateTradingAccount);
 		out.writeValue(canMakeSignalProviderFromPrivateTradingAccount);
 		out.writeValue(canMakeSignalProviderFromPrivateExternalTradingAccount);

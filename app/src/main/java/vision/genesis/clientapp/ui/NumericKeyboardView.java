@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import androidx.core.content.ContextCompat;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -158,19 +159,22 @@ public class NumericKeyboardView extends RelativeLayout
 
 	@OnClick(R.id.button_decimal)
 	public void onButtonDecimal() {
-		if (listener != null)
+		if (listener != null) {
 			listener.onDecimal();
+		}
 	}
 
 	@OnClick(R.id.button_backspace)
 	public void onBackspaceButton() {
-		if (listener != null)
+		if (listener != null) {
 			listener.onBackspace();
+		}
 	}
 
 	private boolean onLongBackspaceButton() {
-		if (listener != null)
+		if (listener != null) {
 			listener.onLongBackspace();
+		}
 		return false;
 	}
 
@@ -351,8 +355,9 @@ public class NumericKeyboardView extends RelativeLayout
 	}
 
 	private void numberClicked(String number) {
-		if (listener != null)
+		if (listener != null) {
 			listener.onNumber(number);
+		}
 	}
 
 	public void onDestroy() {

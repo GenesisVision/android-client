@@ -58,8 +58,9 @@ public class CheckPinPresenter extends MvpPresenter<CheckPinView> implements Fin
 	}
 
 	void onStop() {
-		if (cancellationSignal != null)
+		if (cancellationSignal != null) {
 			cancellationSignal.cancel();
+		}
 	}
 
 	void setFingerprintEnabled(boolean fingerprintEnabled) {
@@ -115,8 +116,9 @@ public class CheckPinPresenter extends MvpPresenter<CheckPinView> implements Fin
 				getViewState().setKeyboardKeysEnabled(false);
 				getViewState().setErrorMessage(context.getString(R.string.error_pin_too_many_attempts));
 				VibrationUtil.vibrateResetPin(context);
-				if (cancellationSignal != null)
+				if (cancellationSignal != null) {
 					cancellationSignal.cancel();
+				}
 				getViewState().disableFingerprint(false);
 			}
 			else {
@@ -130,8 +132,9 @@ public class CheckPinPresenter extends MvpPresenter<CheckPinView> implements Fin
 		else {
 			VibrationUtil.vibrateRightPin(context);
 			if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-				if (fingerprintChanged && authManager.hasEnrolledFingerprints())
+				if (fingerprintChanged && authManager.hasEnrolledFingerprints()) {
 					getViewState().showVerifyFingerprintActivity();
+				}
 			}
 			finish();
 		}

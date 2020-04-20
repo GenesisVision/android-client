@@ -161,7 +161,7 @@ public class WithdrawWalletActivity extends BaseSwipeBackActivity implements Wit
 
 	@Override
 	public void setWalletInfo(WalletWithdrawalInfo wallet) {
-		this.walletIcon.setImageURI(ImageUtils.getImageUri(wallet.getLogo()));
+		this.walletIcon.setImageURI(ImageUtils.getImageUri(wallet.getLogoUrl()));
 		this.walletName.setText(wallet.getDescription());
 		this.walletBalance.setText(String.format(Locale.getDefault(), "%s %s",
 				StringFormatUtil.formatCurrencyAmount(wallet.getAvailableToWithdrawal(), wallet.getCurrency().getValue()),

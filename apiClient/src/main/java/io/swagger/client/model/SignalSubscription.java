@@ -15,15 +15,10 @@ package io.swagger.client.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.google.gson.TypeAdapter;
-import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonWriter;
 
 import org.joda.time.DateTime;
 
-import java.io.IOException;
 import java.util.Objects;
 
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -74,7 +69,7 @@ public class SignalSubscription implements Parcelable
 	private SubscriptionMode mode = null;
 
 	@SerializedName("detachMode")
-	private DetachModeEnum detachMode = null;
+	private SignalDetachMode detachMode = null;
 
 	@SerializedName("percent")
 	private Double percent = null;
@@ -86,7 +81,7 @@ public class SignalSubscription implements Parcelable
 	private Double fixedVolume = null;
 
 	@SerializedName("fixedCurrency")
-	private FixedCurrencyEnum fixedCurrency = null;
+	private Currency fixedCurrency = null;
 
 	@SerializedName("totalProfit")
 	private Double totalProfit = null;
@@ -113,11 +108,11 @@ public class SignalSubscription implements Parcelable
 		hasActiveSubscription = (Boolean) in.readValue(null);
 		isExternal = (Boolean) in.readValue(null);
 		mode = (SubscriptionMode) in.readValue(SubscriptionMode.class.getClassLoader());
-		detachMode = (DetachModeEnum) in.readValue(null);
+		detachMode = (SignalDetachMode) in.readValue(SignalDetachMode.class.getClassLoader());
 		percent = (Double) in.readValue(null);
 		openTolerancePercent = (Double) in.readValue(null);
 		fixedVolume = (Double) in.readValue(null);
-		fixedCurrency = (FixedCurrencyEnum) in.readValue(null);
+		fixedCurrency = (Currency) in.readValue(Currency.class.getClassLoader());
 		totalProfit = (Double) in.readValue(null);
 		totalVolume = (Double) in.readValue(null);
 		successFeePersonal = (Double) in.readValue(null);
@@ -295,7 +290,7 @@ public class SignalSubscription implements Parcelable
 		this.mode = mode;
 	}
 
-	public SignalSubscription detachMode(DetachModeEnum detachMode) {
+	public SignalSubscription detachMode(SignalDetachMode detachMode) {
 		this.detachMode = detachMode;
 		return this;
 	}
@@ -306,11 +301,11 @@ public class SignalSubscription implements Parcelable
 	 * @return detachMode
 	 **/
 	@Schema(description = "")
-	public DetachModeEnum getDetachMode() {
+	public SignalDetachMode getDetachMode() {
 		return detachMode;
 	}
 
-	public void setDetachMode(DetachModeEnum detachMode) {
+	public void setDetachMode(SignalDetachMode detachMode) {
 		this.detachMode = detachMode;
 	}
 
@@ -371,7 +366,7 @@ public class SignalSubscription implements Parcelable
 		this.fixedVolume = fixedVolume;
 	}
 
-	public SignalSubscription fixedCurrency(FixedCurrencyEnum fixedCurrency) {
+	public SignalSubscription fixedCurrency(Currency fixedCurrency) {
 		this.fixedCurrency = fixedCurrency;
 		return this;
 	}
@@ -382,11 +377,11 @@ public class SignalSubscription implements Parcelable
 	 * @return fixedCurrency
 	 **/
 	@Schema(description = "")
-	public FixedCurrencyEnum getFixedCurrency() {
+	public Currency getFixedCurrency() {
 		return fixedCurrency;
 	}
 
-	public void setFixedCurrency(FixedCurrencyEnum fixedCurrency) {
+	public void setFixedCurrency(Currency fixedCurrency) {
 		this.fixedCurrency = fixedCurrency;
 	}
 
@@ -466,7 +461,6 @@ public class SignalSubscription implements Parcelable
 		this.volumeFeePersonal = volumeFeePersonal;
 	}
 
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -500,7 +494,6 @@ public class SignalSubscription implements Parcelable
 	public int hashCode() {
 		return Objects.hash(subscriberInfo, asset, status, subscriptionDate, unsubscriptionDate, hasSignalAccount, hasActiveSubscription, isExternal, mode, detachMode, percent, openTolerancePercent, fixedVolume, fixedCurrency, totalProfit, totalVolume, successFeePersonal, volumeFeePersonal);
 	}
-
 
 	@Override
 	public String toString() {
@@ -540,7 +533,6 @@ public class SignalSubscription implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
-
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(subscriberInfo);
 		out.writeValue(asset);
@@ -564,113 +556,5 @@ public class SignalSubscription implements Parcelable
 
 	public int describeContents() {
 		return 0;
-	}
-
-	/**
-	 * Gets or Sets detachMode
-	 */
-	@JsonAdapter(DetachModeEnum.Adapter.class)
-	public enum DetachModeEnum
-	{
-		NONE("None"),
-		PROVIDERCLOSEONLY("ProviderCloseOnly"),
-		CLOSEALLIMMEDIATELY("CloseAllImmediately");
-
-		public static DetachModeEnum fromValue(String text) {
-			for (DetachModeEnum b : DetachModeEnum.values()) {
-				if (String.valueOf(b.value).equals(text)) {
-					return b;
-				}
-			}
-			return null;
-		}
-
-		private String value;
-
-		DetachModeEnum(String value) {
-			this.value = value;
-		}
-
-		public String getValue() {
-			return value;
-		}
-
-		@Override
-		public String toString() {
-			return String.valueOf(value);
-		}
-
-		public static class Adapter extends TypeAdapter<DetachModeEnum>
-		{
-			@Override
-			public void write(final JsonWriter jsonWriter, final DetachModeEnum enumeration) throws IOException {
-				jsonWriter.value(enumeration.getValue());
-			}
-
-			@Override
-			public DetachModeEnum read(final JsonReader jsonReader) throws IOException {
-				String value = jsonReader.nextString();
-				return DetachModeEnum.fromValue(String.valueOf(value));
-			}
-		}
-	}
-
-	/**
-	 * Gets or Sets fixedCurrency
-	 */
-	@JsonAdapter(FixedCurrencyEnum.Adapter.class)
-	public enum FixedCurrencyEnum
-	{
-		BTC("BTC"),
-		ETH("ETH"),
-		USDT("USDT"),
-		USD("USD"),
-		GVT("GVT"),
-		UNDEFINED("Undefined"),
-		ADA("ADA"),
-		XRP("XRP"),
-		BCH("BCH"),
-		LTC("LTC"),
-		DOGE("DOGE"),
-		BNB("BNB"),
-		EUR("EUR");
-
-		public static FixedCurrencyEnum fromValue(String text) {
-			for (FixedCurrencyEnum b : FixedCurrencyEnum.values()) {
-				if (String.valueOf(b.value).equals(text)) {
-					return b;
-				}
-			}
-			return null;
-		}
-
-		private String value;
-
-		FixedCurrencyEnum(String value) {
-			this.value = value;
-		}
-
-		public String getValue() {
-			return value;
-		}
-
-		@Override
-		public String toString() {
-			return String.valueOf(value);
-		}
-
-		public static class Adapter extends TypeAdapter<FixedCurrencyEnum>
-		{
-			@Override
-			public void write(final JsonWriter jsonWriter, final FixedCurrencyEnum enumeration) throws IOException {
-				jsonWriter.value(enumeration.getValue());
-			}
-
-			@Override
-			public FixedCurrencyEnum read(final JsonReader jsonReader) throws IOException {
-				String value = jsonReader.nextString();
-				return FixedCurrencyEnum.fromValue(String.valueOf(value));
-			}
-		}
 	}
 }

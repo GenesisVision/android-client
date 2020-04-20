@@ -226,7 +226,7 @@ public class ProgramsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 			itemView.setOnClickListener(v -> {
 				if (program != null) {
 					ProgramDetailsModel programDetailsModel = new ProgramDetailsModel(program.getId(),
-							program.getLogo(),
+							program.getLogoUrl(),
 							program.getColor(),
 							program.getLevel(),
 							program.getLevelProgress(),
@@ -274,7 +274,7 @@ public class ProgramsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 		}
 
 		private void updateData() {
-			programLogo.setImage(program.getLogo(), program.getColor(), 100, 100);
+			programLogo.setImage(program.getLogoUrl(), program.getColor(), 100, 100);
 			programLogo.setLevel(program.getLevel(), program.getLevelProgress());
 
 			if (program.getPersonalDetails() != null) {

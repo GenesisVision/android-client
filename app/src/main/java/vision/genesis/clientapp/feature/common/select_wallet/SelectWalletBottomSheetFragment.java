@@ -7,11 +7,12 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
 import java.util.List;
 
-import androidx.annotation.NonNull;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.swagger.client.model.WalletData;

@@ -48,6 +48,9 @@ public class PersonalProgramDetailsList implements Parcelable
 	@SerializedName("isReinvest")
 	private Boolean isReinvest = null;
 
+	@SerializedName("isAutoJoin")
+	private Boolean isAutoJoin = null;
+
 	public PersonalProgramDetailsList() {
 	}
 
@@ -55,6 +58,7 @@ public class PersonalProgramDetailsList implements Parcelable
 		isOwnAsset = (Boolean) in.readValue(null);
 		isFavorite = (Boolean) in.readValue(null);
 		isReinvest = (Boolean) in.readValue(null);
+		isAutoJoin = (Boolean) in.readValue(null);
 	}
 
 	public PersonalProgramDetailsList isOwnAsset(Boolean isOwnAsset) {
@@ -114,6 +118,25 @@ public class PersonalProgramDetailsList implements Parcelable
 		this.isReinvest = isReinvest;
 	}
 
+	public PersonalProgramDetailsList isAutoJoin(Boolean isAutoJoin) {
+		this.isAutoJoin = isAutoJoin;
+		return this;
+	}
+
+	/**
+	 * Get isAutoJoin
+	 *
+	 * @return isAutoJoin
+	 **/
+	@Schema(description = "")
+	public Boolean isIsAutoJoin() {
+		return isAutoJoin;
+	}
+
+	public void setIsAutoJoin(Boolean isAutoJoin) {
+		this.isAutoJoin = isAutoJoin;
+	}
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -125,12 +148,13 @@ public class PersonalProgramDetailsList implements Parcelable
 		PersonalProgramDetailsList personalProgramDetailsList = (PersonalProgramDetailsList) o;
 		return Objects.equals(this.isOwnAsset, personalProgramDetailsList.isOwnAsset) &&
 				Objects.equals(this.isFavorite, personalProgramDetailsList.isFavorite) &&
-				Objects.equals(this.isReinvest, personalProgramDetailsList.isReinvest);
+				Objects.equals(this.isReinvest, personalProgramDetailsList.isReinvest) &&
+				Objects.equals(this.isAutoJoin, personalProgramDetailsList.isAutoJoin);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(isOwnAsset, isFavorite, isReinvest);
+		return Objects.hash(isOwnAsset, isFavorite, isReinvest, isAutoJoin);
 	}
 
 	@Override
@@ -141,6 +165,7 @@ public class PersonalProgramDetailsList implements Parcelable
 		sb.append("    isOwnAsset: ").append(toIndentedString(isOwnAsset)).append("\n");
 		sb.append("    isFavorite: ").append(toIndentedString(isFavorite)).append("\n");
 		sb.append("    isReinvest: ").append(toIndentedString(isReinvest)).append("\n");
+		sb.append("    isAutoJoin: ").append(toIndentedString(isAutoJoin)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}
@@ -160,6 +185,7 @@ public class PersonalProgramDetailsList implements Parcelable
 		out.writeValue(isOwnAsset);
 		out.writeValue(isFavorite);
 		out.writeValue(isReinvest);
+		out.writeValue(isAutoJoin);
 	}
 
 	public int describeContents() {

@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.content.ContextCompat;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;

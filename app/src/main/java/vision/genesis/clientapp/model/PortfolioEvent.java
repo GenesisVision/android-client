@@ -12,7 +12,7 @@ public class PortfolioEvent
 //		event.setAssetType(dashboardEvent.getAssetType());
 //		event.setAssetId(dashboardEvent.getAssetId());
 //
-//		event.setLogoUrl(dashboardEvent.getLogo());
+//		event.setLogoUrl(dashboardEvent.getLogoUrl());
 //		event.setAssetColor(dashboardEvent.getColor());
 //		event.setAssetName(dashboardEvent.getTitle());
 //		event.setProgramCurrency(dashboardEvent.getCurrency().getValue());

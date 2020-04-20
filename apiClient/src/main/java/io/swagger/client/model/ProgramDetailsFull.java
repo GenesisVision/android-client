@@ -71,11 +71,11 @@ public class ProgramDetailsFull implements Parcelable
 	@SerializedName("volumeScale")
 	private Double volumeScale = null;
 
-	@SerializedName("entryFeeSelected")
-	private Double entryFeeSelected = null;
+	@SerializedName("managementFeeSelected")
+	private Double managementFeeSelected = null;
 
-	@SerializedName("entryFeeCurrent")
-	private Double entryFeeCurrent = null;
+	@SerializedName("managementFeeCurrent")
+	private Double managementFeeCurrent = null;
 
 	@SerializedName("successFeeSelected")
 	private Double successFeeSelected = null;
@@ -115,8 +115,8 @@ public class ProgramDetailsFull implements Parcelable
 		genesisRatio = (Double) in.readValue(null);
 		investmentScale = (Double) in.readValue(null);
 		volumeScale = (Double) in.readValue(null);
-		entryFeeSelected = (Double) in.readValue(null);
-		entryFeeCurrent = (Double) in.readValue(null);
+		managementFeeSelected = (Double) in.readValue(null);
+		managementFeeCurrent = (Double) in.readValue(null);
 		successFeeSelected = (Double) in.readValue(null);
 		successFeeCurrent = (Double) in.readValue(null);
 		stopOutLevelSelected = (Double) in.readValue(null);
@@ -317,42 +317,42 @@ public class ProgramDetailsFull implements Parcelable
 		this.volumeScale = volumeScale;
 	}
 
-	public ProgramDetailsFull entryFeeSelected(Double entryFeeSelected) {
-		this.entryFeeSelected = entryFeeSelected;
+	public ProgramDetailsFull managementFeeSelected(Double managementFeeSelected) {
+		this.managementFeeSelected = managementFeeSelected;
 		return this;
 	}
 
 	/**
-	 * Get entryFeeSelected
+	 * Get managementFeeSelected
 	 *
-	 * @return entryFeeSelected
+	 * @return managementFeeSelected
 	 **/
 	@Schema(description = "")
-	public Double getEntryFeeSelected() {
-		return entryFeeSelected;
+	public Double getManagementFeeSelected() {
+		return managementFeeSelected;
 	}
 
-	public void setEntryFeeSelected(Double entryFeeSelected) {
-		this.entryFeeSelected = entryFeeSelected;
+	public void setManagementFeeSelected(Double managementFeeSelected) {
+		this.managementFeeSelected = managementFeeSelected;
 	}
 
-	public ProgramDetailsFull entryFeeCurrent(Double entryFeeCurrent) {
-		this.entryFeeCurrent = entryFeeCurrent;
+	public ProgramDetailsFull managementFeeCurrent(Double managementFeeCurrent) {
+		this.managementFeeCurrent = managementFeeCurrent;
 		return this;
 	}
 
 	/**
-	 * Get entryFeeCurrent
+	 * Get managementFeeCurrent
 	 *
-	 * @return entryFeeCurrent
+	 * @return managementFeeCurrent
 	 **/
 	@Schema(description = "")
-	public Double getEntryFeeCurrent() {
-		return entryFeeCurrent;
+	public Double getManagementFeeCurrent() {
+		return managementFeeCurrent;
 	}
 
-	public void setEntryFeeCurrent(Double entryFeeCurrent) {
-		this.entryFeeCurrent = entryFeeCurrent;
+	public void setManagementFeeCurrent(Double managementFeeCurrent) {
+		this.managementFeeCurrent = managementFeeCurrent;
 	}
 
 	public ProgramDetailsFull successFeeSelected(Double successFeeSelected) {
@@ -526,8 +526,8 @@ public class ProgramDetailsFull implements Parcelable
 				Objects.equals(this.genesisRatio, programDetailsFull.genesisRatio) &&
 				Objects.equals(this.investmentScale, programDetailsFull.investmentScale) &&
 				Objects.equals(this.volumeScale, programDetailsFull.volumeScale) &&
-				Objects.equals(this.entryFeeSelected, programDetailsFull.entryFeeSelected) &&
-				Objects.equals(this.entryFeeCurrent, programDetailsFull.entryFeeCurrent) &&
+				Objects.equals(this.managementFeeSelected, programDetailsFull.managementFeeSelected) &&
+				Objects.equals(this.managementFeeCurrent, programDetailsFull.managementFeeCurrent) &&
 				Objects.equals(this.successFeeSelected, programDetailsFull.successFeeSelected) &&
 				Objects.equals(this.successFeeCurrent, programDetailsFull.successFeeCurrent) &&
 				Objects.equals(this.stopOutLevelSelected, programDetailsFull.stopOutLevelSelected) &&
@@ -540,7 +540,7 @@ public class ProgramDetailsFull implements Parcelable
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(level, levelProgress, periodDuration, periodStarts, periodEnds, tradesDelay, ageDays, genesisRatio, investmentScale, volumeScale, entryFeeSelected, entryFeeCurrent, successFeeSelected, successFeeCurrent, stopOutLevelSelected, stopOutLevelCurrent, availableInvestmentBase, availableInvestmentLimit, totalAvailableInvestment, personalDetails);
+		return Objects.hash(level, levelProgress, periodDuration, periodStarts, periodEnds, tradesDelay, ageDays, genesisRatio, investmentScale, volumeScale, managementFeeSelected, managementFeeCurrent, successFeeSelected, successFeeCurrent, stopOutLevelSelected, stopOutLevelCurrent, availableInvestmentBase, availableInvestmentLimit, totalAvailableInvestment, personalDetails);
 	}
 
 	@Override
@@ -558,8 +558,8 @@ public class ProgramDetailsFull implements Parcelable
 		sb.append("    genesisRatio: ").append(toIndentedString(genesisRatio)).append("\n");
 		sb.append("    investmentScale: ").append(toIndentedString(investmentScale)).append("\n");
 		sb.append("    volumeScale: ").append(toIndentedString(volumeScale)).append("\n");
-		sb.append("    entryFeeSelected: ").append(toIndentedString(entryFeeSelected)).append("\n");
-		sb.append("    entryFeeCurrent: ").append(toIndentedString(entryFeeCurrent)).append("\n");
+		sb.append("    managementFeeSelected: ").append(toIndentedString(managementFeeSelected)).append("\n");
+		sb.append("    managementFeeCurrent: ").append(toIndentedString(managementFeeCurrent)).append("\n");
 		sb.append("    successFeeSelected: ").append(toIndentedString(successFeeSelected)).append("\n");
 		sb.append("    successFeeCurrent: ").append(toIndentedString(successFeeCurrent)).append("\n");
 		sb.append("    stopOutLevelSelected: ").append(toIndentedString(stopOutLevelSelected)).append("\n");
@@ -594,8 +594,8 @@ public class ProgramDetailsFull implements Parcelable
 		out.writeValue(genesisRatio);
 		out.writeValue(investmentScale);
 		out.writeValue(volumeScale);
-		out.writeValue(entryFeeSelected);
-		out.writeValue(entryFeeCurrent);
+		out.writeValue(managementFeeSelected);
+		out.writeValue(managementFeeCurrent);
 		out.writeValue(successFeeSelected);
 		out.writeValue(successFeeCurrent);
 		out.writeValue(stopOutLevelSelected);

@@ -180,7 +180,7 @@ public class CreateCopytradingAccountActivity extends BaseSwipeBackActivity impl
 
 	@Override
 	public void setWalletFrom(WalletData wallet) {
-		this.iconFrom.setImageURI(ImageUtils.getImageUri(wallet.getLogo()));
+		this.iconFrom.setImageURI(ImageUtils.getImageUri(wallet.getLogoUrl()));
 		this.walletFrom.setText(wallet.getTitle());
 		this.availableFrom.setText(String.format(Locale.getDefault(), "%s %s",
 				getString(R.string.available_in_wallet),

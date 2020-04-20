@@ -6,10 +6,10 @@ import com.arellomobile.mvp.viewstate.strategy.StateStrategyType;
 
 import java.util.List;
 
+import io.swagger.client.model.AssetInvestmentRequestItemsViewModel;
 import io.swagger.client.model.DashboardInvestingDetails;
 import io.swagger.client.model.FundInvestingDetailsList;
 import io.swagger.client.model.InvestmentEventViewModel;
-import io.swagger.client.model.ItemsViewModelAssetInvestmentRequest;
 import io.swagger.client.model.ProgramInvestingDetailsList;
 import io.swagger.client.model.Timeframe;
 import vision.genesis.clientapp.model.CurrencyEnum;
@@ -25,7 +25,7 @@ interface InvestmentsDetailsView extends MvpView
 
 	void setTimeframe(Timeframe timeframe);
 
-	void setRequests(ItemsViewModelAssetInvestmentRequest data);
+	void setRequests(AssetInvestmentRequestItemsViewModel data);
 
 	void setInvesting(DashboardInvestingDetails details);
 

@@ -36,7 +36,7 @@ public class ProfileManager
 
 	public BehaviorSubject<ProfileFullViewModel> getProfileFull(boolean needUpdate) {
 		if (needUpdate) {
-			getProfileSubscription = profileApi.getProfileFull(AuthManager.token.getValue())
+			getProfileSubscription = profileApi.getProfileFull()
 					.observeOn(AndroidSchedulers.mainThread())
 					.subscribeOn(Schedulers.io())
 					.subscribe(this::handleGetProfileSuccess,
@@ -55,15 +55,15 @@ public class ProfileManager
 	}
 
 	public Observable<Void> updateProfile(UpdateProfileViewModel model) {
-		return profileApi.updateProfile(AuthManager.token.getValue(), model);
+		return profileApi.updateProfile(model);
 	}
 
 	public Observable<Void> updateAvatar(String avatar) {
-		return profileApi.updateAvatar(avatar, AuthManager.token.getValue());
+		return profileApi.updateAvatar(avatar);
 	}
 
 	public Observable<Void> removeAvatar() {
-		return profileApi.removeAvatar(AuthManager.token.getValue());
+		return profileApi.removeAvatar();
 	}
 
 	public Observable<Void> updateProfile(ProfileFullViewModel newProfileModel) {
@@ -78,7 +78,7 @@ public class ProfileManager
 	}
 
 	private Observable<Void> getUpdateProfileApiObservable(ProfileFullViewModel newProfileModel) {
-		return profileApi.updateProfile(AuthManager.token.getValue(), getUpdateProfileViewModel(newProfileModel));
+		return profileApi.updateProfile(getUpdateProfileViewModel(newProfileModel));
 	}
 
 	private UpdateProfileViewModel getUpdateProfileViewModel(ProfileFullViewModel newProfileModel) {
@@ -108,15 +108,15 @@ public class ProfileManager
 
 	public Observable<Void> setPublicInvestorProfile(boolean on) {
 		return on
-				? profileApi.switchPublicInvestorOn(AuthManager.token.getValue())
-				: profileApi.switchPublicInvestorOff(AuthManager.token.getValue());
+				? profileApi.switchPublicInvestorOn()
+				: profileApi.switchPublicInvestorOff();
 	}
 
 	public Observable<SocialLinksViewModel> getSocialLinks() {
-		return profileApi.getSocialLinks(AuthManager.token.getValue());
+		return profileApi.getSocialLinks();
 	}
 
 	public Observable<Void> updateSocialLinks(UpdateSocialLinksViewModel model) {
-		return profileApi.updateAllSocialLinks(AuthManager.token.getValue(), model);
+		return profileApi.updateAllSocialLinks(model);
 	}
 }

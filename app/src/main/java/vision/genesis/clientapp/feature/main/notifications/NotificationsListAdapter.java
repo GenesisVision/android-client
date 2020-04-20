@@ -109,7 +109,7 @@ public class NotificationsListAdapter extends RecyclerView.Adapter<Notifications
 						if (notification.getAssetType() != null) {
 							if (notification.getAssetType().equals(InvestmentProgramType.PROGRAM)) {
 								ProgramDetailsModel programDetailsModel = new ProgramDetailsModel(notification.getAssetId(),
-										notification.getLogo(),
+										notification.getLogoUrl(),
 										notification.getColor(),
 										0,
 										0.0,
@@ -124,7 +124,7 @@ public class NotificationsListAdapter extends RecyclerView.Adapter<Notifications
 							}
 							else if (notification.getAssetType().equals(InvestmentProgramType.FUND)) {
 								FundDetailsModel fundDetailsModel = new FundDetailsModel(notification.getAssetId(),
-										notification.getLogo(),
+										notification.getLogoUrl(),
 										notification.getColor(),
 										"",
 										"",
@@ -172,16 +172,16 @@ public class NotificationsListAdapter extends RecyclerView.Adapter<Notifications
 				case PROFILESECURITY:
 					break;
 				case PROGRAMNEWSANDUPDATES:
-					logo = notification.getLogo();
+					logo = notification.getLogoUrl();
 					break;
 				case PROGRAMENDOFPERIOD:
-					logo = notification.getLogo();
+					logo = notification.getLogoUrl();
 					break;
 				case PROGRAMCONDITION:
-					logo = notification.getLogo();
+					logo = notification.getLogoUrl();
 					break;
 				case MANAGERNEWPROGRAM:
-					logo = notification.getLogo();
+					logo = notification.getLogoUrl();
 					break;
 			}
 

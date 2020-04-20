@@ -35,80 +35,80 @@ public class AssetsManager
 	}
 
 	public Observable<Void> createFund(NewFundRequest request) {
-		return assetsApi.createFund(AuthManager.token.getValue(), request);
+		return assetsApi.createFund(request);
 	}
 
 	public Observable<TradingAccountCreateResult> createTradingAccount(NewTradingAccountRequest request) {
-		return assetsApi.createTradingAccount(AuthManager.token.getValue(), request);
+		return assetsApi.createTradingAccount(request);
 	}
 
 	public Observable<TradingAccountCreateResult> createExternalTradingAccount(NewExternalTradingAccountRequest request) {
-		return assetsApi.createExternalTradingAccount(AuthManager.token.getValue(), request);
+		return assetsApi.createExternalTradingAccount(request);
 	}
 
 	public Observable<Void> createProgramFromTradingAccount(MakeTradingAccountProgram request) {
-		return assetsApi.makeAccountProgram(AuthManager.token.getValue(), request);
+		return assetsApi.makeAccountProgram(request);
 	}
 
 	public Observable<Void> createProgramFromSignalProvider(MakeSignalProviderProgram followRequest) {
-		return assetsApi.makeSignalProviderProgram(AuthManager.token.getValue(), followRequest);
+		return assetsApi.makeSignalProviderProgram(followRequest);
 	}
 
 	public Observable<Void> createFollowFromTradingAccount(MakeTradingAccountSignalProvider request) {
-		return assetsApi.makeAccountSignalProvider(AuthManager.token.getValue(), request);
+		return assetsApi.makeAccountSignalProvider(request);
 	}
 
 	public Observable<Void> createFollowFromExternalAccount(MakeTradingAccountSignalProvider request) {
-		return assetsApi.makeExternalAccountSignalProvider(AuthManager.token.getValue(), request);
+		return assetsApi.makeExternalAccountSignalProvider(request);
 	}
 
 	public Observable<Void> updateSignalProviderSettings(CreateSignalProvider request) {
-		return assetsApi.updateSignalProviderSettings(AuthManager.token.getValue(), request);
+		return assetsApi.updateSignalProviderSettings(request);
 	}
 
 	public Observable<Void> updatePublicInfo(UUID assetId, ProgramUpdate request) {
-		return assetsApi.updateAsset(AuthManager.token.getValue(), assetId, request);
+		return assetsApi.updateAsset(assetId, request);
 	}
 
 	public Observable<Void> changeBroker(UUID assetId, ChangeBrokerProgramRequest request) {
-		return assetsApi.changeBroker(AuthManager.token.getValue(), assetId, request);
+		return assetsApi.changeBroker(assetId, request);
 	}
 
 	public Observable<Void> cancelBrokerChange(UUID accountId) {
-		return assetsApi.cancelChangeBroker(accountId, AuthManager.token.getValue());
+		return assetsApi.cancelChangeBroker(accountId);
 	}
 
 	public Observable<Void> changeTradingAccountPassword(UUID accountId, TradingAccountPwdUpdate request) {
-		return assetsApi.changeTradingAccountPassword(AuthManager.token.getValue(), accountId, request);
+		return assetsApi.changeTradingAccountPassword(accountId, request);
 	}
 
 	public Observable<Void> updateProgramSettings(UUID assetId, ProgramUpdate request) {
-		return assetsApi.updateAsset(AuthManager.token.getValue(), assetId, request);
+		return assetsApi.updateAsset(assetId, request);
 	}
 
 	public Observable<Void> closePeriod(UUID programId) {
-		return assetsApi.closeCurrentPeriod(programId, AuthManager.token.getValue());
+		return assetsApi.closeCurrentPeriod(programId);
 	}
 
 	public Observable<Void> closeProgram(UUID programId, TwoFactorCodeModel model) {
-		return assetsApi.closeInvestmentProgram(AuthManager.token.getValue(), programId, model);
+		return assetsApi.closeInvestmentProgram(programId, model);
 	}
 
 	public Observable<Void> updateFundSettings(UUID assetId, ProgramUpdate request) {
-		return assetsApi.updateAsset(AuthManager.token.getValue(), assetId, request);
+		return assetsApi.updateAsset(assetId, request);
 	}
 
 	public Observable<Void> updateFundAssets(UUID fundId, List<FundAssetPart> assets) {
-		return assetsApi.updateFundAssets(AuthManager.token.getValue(), fundId, assets);
+		return assetsApi.updateFundAssets(fundId, assets);
 	}
 
 	public Observable<Void> closeFund(UUID fundId, TwoFactorCodeModel model) {
-		return assetsApi.closeFund(AuthManager.token.getValue(), fundId, model);
+		return assetsApi.closeFund(fundId, model);
 	}
 
 	public Observable<Void> addDemoFunds(UUID accountId, Double amount) {
 		TradingAccountDemoDeposit model = new TradingAccountDemoDeposit();
 		model.setAmount(amount);
-		return assetsApi.makeDemoTradingAccountDeposit(AuthManager.token.getValue(), accountId, model);
+		return assetsApi.makeDemoTradingAccountDeposit(accountId, model);
 	}
 }

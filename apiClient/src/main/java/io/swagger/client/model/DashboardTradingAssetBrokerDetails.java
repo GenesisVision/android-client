@@ -43,8 +43,8 @@ public class DashboardTradingAssetBrokerDetails implements Parcelable
 	@SerializedName("id")
 	private UUID id = null;
 
-	@SerializedName("logo")
-	private String logo = null;
+	@SerializedName("logoUrl")
+	private String logoUrl = null;
 
 	@SerializedName("name")
 	private String name = null;
@@ -57,7 +57,7 @@ public class DashboardTradingAssetBrokerDetails implements Parcelable
 
 	DashboardTradingAssetBrokerDetails(Parcel in) {
 		id = (UUID) in.readValue(UUID.class.getClassLoader());
-		logo = (String) in.readValue(null);
+		logoUrl = (String) in.readValue(null);
 		name = (String) in.readValue(null);
 		type = (BrokerTradeServerType) in.readValue(BrokerTradeServerType.class.getClassLoader());
 	}
@@ -81,23 +81,23 @@ public class DashboardTradingAssetBrokerDetails implements Parcelable
 		this.id = id;
 	}
 
-	public DashboardTradingAssetBrokerDetails logo(String logo) {
-		this.logo = logo;
+	public DashboardTradingAssetBrokerDetails logoUrl(String logoUrl) {
+		this.logoUrl = logoUrl;
 		return this;
 	}
 
 	/**
-	 * Get logo
+	 * Get logoUrl
 	 *
-	 * @return logo
+	 * @return logoUrl
 	 **/
 	@Schema(description = "")
-	public String getLogo() {
-		return logo;
+	public String getLogoUrl() {
+		return logoUrl;
 	}
 
-	public void setLogo(String logo) {
-		this.logo = logo;
+	public void setLogoUrl(String logoUrl) {
+		this.logoUrl = logoUrl;
 	}
 
 	public DashboardTradingAssetBrokerDetails name(String name) {
@@ -148,14 +148,14 @@ public class DashboardTradingAssetBrokerDetails implements Parcelable
 		}
 		DashboardTradingAssetBrokerDetails dashboardTradingAssetBrokerDetails = (DashboardTradingAssetBrokerDetails) o;
 		return Objects.equals(this.id, dashboardTradingAssetBrokerDetails.id) &&
-				Objects.equals(this.logo, dashboardTradingAssetBrokerDetails.logo) &&
+				Objects.equals(this.logoUrl, dashboardTradingAssetBrokerDetails.logoUrl) &&
 				Objects.equals(this.name, dashboardTradingAssetBrokerDetails.name) &&
 				Objects.equals(this.type, dashboardTradingAssetBrokerDetails.type);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, logo, name, type);
+		return Objects.hash(id, logoUrl, name, type);
 	}
 
 	@Override
@@ -164,7 +164,7 @@ public class DashboardTradingAssetBrokerDetails implements Parcelable
 		sb.append("class DashboardTradingAssetBrokerDetails {\n");
 
 		sb.append("    id: ").append(toIndentedString(id)).append("\n");
-		sb.append("    logo: ").append(toIndentedString(logo)).append("\n");
+		sb.append("    logoUrl: ").append(toIndentedString(logoUrl)).append("\n");
 		sb.append("    name: ").append(toIndentedString(name)).append("\n");
 		sb.append("    type: ").append(toIndentedString(type)).append("\n");
 		sb.append("}");
@@ -184,7 +184,7 @@ public class DashboardTradingAssetBrokerDetails implements Parcelable
 
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(id);
-		out.writeValue(logo);
+		out.writeValue(logoUrl);
 		out.writeValue(name);
 		out.writeValue(type);
 	}

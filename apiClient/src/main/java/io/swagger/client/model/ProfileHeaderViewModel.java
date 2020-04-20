@@ -17,6 +17,8 @@ import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -52,8 +54,8 @@ public class ProfileHeaderViewModel implements Parcelable
 	@SerializedName("url")
 	private String url = null;
 
-	@SerializedName("avatar")
-	private String avatar = null;
+	@SerializedName("logoUrl")
+	private String logoUrl = null;
 
 	@SerializedName("countryCode")
 	private String countryCode = null;
@@ -67,6 +69,9 @@ public class ProfileHeaderViewModel implements Parcelable
 	@SerializedName("isForexAllowed")
 	private Boolean isForexAllowed = null;
 
+	@SerializedName("isCountryUS")
+	private Boolean isCountryUS = null;
+
 	@SerializedName("isTwoFactorEnabled")
 	private Boolean isTwoFactorEnabled = null;
 
@@ -76,8 +81,14 @@ public class ProfileHeaderViewModel implements Parcelable
 	@SerializedName("isPublicInvestor")
 	private Boolean isPublicInvestor = null;
 
+	@SerializedName("betaTester")
+	private List<BetaTestingType> betaTester = null;
+
 	@SerializedName("isUserNameFilled")
 	private Boolean isUserNameFilled = null;
+
+	@SerializedName("platformCurrency")
+	private Currency platformCurrency = null;
 
 	public ProfileHeaderViewModel() {
 	}
@@ -87,15 +98,18 @@ public class ProfileHeaderViewModel implements Parcelable
 		name = (String) in.readValue(null);
 		email = (String) in.readValue(null);
 		url = (String) in.readValue(null);
-		avatar = (String) in.readValue(null);
+		logoUrl = (String) in.readValue(null);
 		countryCode = (String) in.readValue(null);
 		notificationsCount = (Integer) in.readValue(null);
 		isKycConfirmed = (Boolean) in.readValue(null);
 		isForexAllowed = (Boolean) in.readValue(null);
+		isCountryUS = (Boolean) in.readValue(null);
 		isTwoFactorEnabled = (Boolean) in.readValue(null);
 		isNewUser = (Boolean) in.readValue(null);
 		isPublicInvestor = (Boolean) in.readValue(null);
+		betaTester = (List<BetaTestingType>) in.readValue(BetaTestingType.class.getClassLoader());
 		isUserNameFilled = (Boolean) in.readValue(null);
+		platformCurrency = (Currency) in.readValue(Currency.class.getClassLoader());
 	}
 
 	public ProfileHeaderViewModel id(UUID id) {
@@ -174,23 +188,23 @@ public class ProfileHeaderViewModel implements Parcelable
 		this.url = url;
 	}
 
-	public ProfileHeaderViewModel avatar(String avatar) {
-		this.avatar = avatar;
+	public ProfileHeaderViewModel logoUrl(String logoUrl) {
+		this.logoUrl = logoUrl;
 		return this;
 	}
 
 	/**
-	 * Get avatar
+	 * Get logoUrl
 	 *
-	 * @return avatar
+	 * @return logoUrl
 	 **/
 	@Schema(description = "")
-	public String getAvatar() {
-		return avatar;
+	public String getLogoUrl() {
+		return logoUrl;
 	}
 
-	public void setAvatar(String avatar) {
-		this.avatar = avatar;
+	public void setLogoUrl(String logoUrl) {
+		this.logoUrl = logoUrl;
 	}
 
 	public ProfileHeaderViewModel countryCode(String countryCode) {
@@ -269,6 +283,25 @@ public class ProfileHeaderViewModel implements Parcelable
 		this.isForexAllowed = isForexAllowed;
 	}
 
+	public ProfileHeaderViewModel isCountryUS(Boolean isCountryUS) {
+		this.isCountryUS = isCountryUS;
+		return this;
+	}
+
+	/**
+	 * Get isCountryUS
+	 *
+	 * @return isCountryUS
+	 **/
+	@Schema(description = "")
+	public Boolean isIsCountryUS() {
+		return isCountryUS;
+	}
+
+	public void setIsCountryUS(Boolean isCountryUS) {
+		this.isCountryUS = isCountryUS;
+	}
+
 	public ProfileHeaderViewModel isTwoFactorEnabled(Boolean isTwoFactorEnabled) {
 		this.isTwoFactorEnabled = isTwoFactorEnabled;
 		return this;
@@ -326,6 +359,33 @@ public class ProfileHeaderViewModel implements Parcelable
 		this.isPublicInvestor = isPublicInvestor;
 	}
 
+	public ProfileHeaderViewModel betaTester(List<BetaTestingType> betaTester) {
+		this.betaTester = betaTester;
+		return this;
+	}
+
+	public ProfileHeaderViewModel addBetaTesterItem(BetaTestingType betaTesterItem) {
+		if (this.betaTester == null) {
+			this.betaTester = new ArrayList<BetaTestingType>();
+		}
+		this.betaTester.add(betaTesterItem);
+		return this;
+	}
+
+	/**
+	 * Get betaTester
+	 *
+	 * @return betaTester
+	 **/
+	@Schema(description = "")
+	public List<BetaTestingType> getBetaTester() {
+		return betaTester;
+	}
+
+	public void setBetaTester(List<BetaTestingType> betaTester) {
+		this.betaTester = betaTester;
+	}
+
 	public ProfileHeaderViewModel isUserNameFilled(Boolean isUserNameFilled) {
 		this.isUserNameFilled = isUserNameFilled;
 		return this;
@@ -345,6 +405,25 @@ public class ProfileHeaderViewModel implements Parcelable
 		this.isUserNameFilled = isUserNameFilled;
 	}
 
+	public ProfileHeaderViewModel platformCurrency(Currency platformCurrency) {
+		this.platformCurrency = platformCurrency;
+		return this;
+	}
+
+	/**
+	 * Get platformCurrency
+	 *
+	 * @return platformCurrency
+	 **/
+	@Schema(description = "")
+	public Currency getPlatformCurrency() {
+		return platformCurrency;
+	}
+
+	public void setPlatformCurrency(Currency platformCurrency) {
+		this.platformCurrency = platformCurrency;
+	}
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -358,20 +437,23 @@ public class ProfileHeaderViewModel implements Parcelable
 				Objects.equals(this.name, profileHeaderViewModel.name) &&
 				Objects.equals(this.email, profileHeaderViewModel.email) &&
 				Objects.equals(this.url, profileHeaderViewModel.url) &&
-				Objects.equals(this.avatar, profileHeaderViewModel.avatar) &&
+				Objects.equals(this.logoUrl, profileHeaderViewModel.logoUrl) &&
 				Objects.equals(this.countryCode, profileHeaderViewModel.countryCode) &&
 				Objects.equals(this.notificationsCount, profileHeaderViewModel.notificationsCount) &&
 				Objects.equals(this.isKycConfirmed, profileHeaderViewModel.isKycConfirmed) &&
 				Objects.equals(this.isForexAllowed, profileHeaderViewModel.isForexAllowed) &&
+				Objects.equals(this.isCountryUS, profileHeaderViewModel.isCountryUS) &&
 				Objects.equals(this.isTwoFactorEnabled, profileHeaderViewModel.isTwoFactorEnabled) &&
 				Objects.equals(this.isNewUser, profileHeaderViewModel.isNewUser) &&
 				Objects.equals(this.isPublicInvestor, profileHeaderViewModel.isPublicInvestor) &&
-				Objects.equals(this.isUserNameFilled, profileHeaderViewModel.isUserNameFilled);
+				Objects.equals(this.betaTester, profileHeaderViewModel.betaTester) &&
+				Objects.equals(this.isUserNameFilled, profileHeaderViewModel.isUserNameFilled) &&
+				Objects.equals(this.platformCurrency, profileHeaderViewModel.platformCurrency);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, name, email, url, avatar, countryCode, notificationsCount, isKycConfirmed, isForexAllowed, isTwoFactorEnabled, isNewUser, isPublicInvestor, isUserNameFilled);
+		return Objects.hash(id, name, email, url, logoUrl, countryCode, notificationsCount, isKycConfirmed, isForexAllowed, isCountryUS, isTwoFactorEnabled, isNewUser, isPublicInvestor, betaTester, isUserNameFilled, platformCurrency);
 	}
 
 	@Override
@@ -383,15 +465,18 @@ public class ProfileHeaderViewModel implements Parcelable
 		sb.append("    name: ").append(toIndentedString(name)).append("\n");
 		sb.append("    email: ").append(toIndentedString(email)).append("\n");
 		sb.append("    url: ").append(toIndentedString(url)).append("\n");
-		sb.append("    avatar: ").append(toIndentedString(avatar)).append("\n");
+		sb.append("    logoUrl: ").append(toIndentedString(logoUrl)).append("\n");
 		sb.append("    countryCode: ").append(toIndentedString(countryCode)).append("\n");
 		sb.append("    notificationsCount: ").append(toIndentedString(notificationsCount)).append("\n");
 		sb.append("    isKycConfirmed: ").append(toIndentedString(isKycConfirmed)).append("\n");
 		sb.append("    isForexAllowed: ").append(toIndentedString(isForexAllowed)).append("\n");
+		sb.append("    isCountryUS: ").append(toIndentedString(isCountryUS)).append("\n");
 		sb.append("    isTwoFactorEnabled: ").append(toIndentedString(isTwoFactorEnabled)).append("\n");
 		sb.append("    isNewUser: ").append(toIndentedString(isNewUser)).append("\n");
 		sb.append("    isPublicInvestor: ").append(toIndentedString(isPublicInvestor)).append("\n");
+		sb.append("    betaTester: ").append(toIndentedString(betaTester)).append("\n");
 		sb.append("    isUserNameFilled: ").append(toIndentedString(isUserNameFilled)).append("\n");
+		sb.append("    platformCurrency: ").append(toIndentedString(platformCurrency)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}
@@ -412,15 +497,18 @@ public class ProfileHeaderViewModel implements Parcelable
 		out.writeValue(name);
 		out.writeValue(email);
 		out.writeValue(url);
-		out.writeValue(avatar);
+		out.writeValue(logoUrl);
 		out.writeValue(countryCode);
 		out.writeValue(notificationsCount);
 		out.writeValue(isKycConfirmed);
 		out.writeValue(isForexAllowed);
+		out.writeValue(isCountryUS);
 		out.writeValue(isTwoFactorEnabled);
 		out.writeValue(isNewUser);
 		out.writeValue(isPublicInvestor);
+		out.writeValue(betaTester);
 		out.writeValue(isUserNameFilled);
+		out.writeValue(platformCurrency);
 	}
 
 	public int describeContents() {

@@ -88,7 +88,7 @@ public class ManagersListAdapter extends RecyclerView.Adapter<ManagersListAdapte
 				if (manager != null) {
 					ManagerDetailsModel model = new ManagerDetailsModel(
 							manager.getId(),
-							manager.getAvatar(),
+							manager.getLogoUrl(),
 							manager.getUsername(),
 							manager.getRegDate());
 					EventBus.getDefault().post(new ShowManagerDetailsEvent(model));
@@ -106,7 +106,7 @@ public class ManagersListAdapter extends RecyclerView.Adapter<ManagersListAdapte
 		}
 
 		private void updateData() {
-			managerAvatar.setImage(manager.getAvatar(), 100, 100);
+			managerAvatar.setImage(manager.getLogoUrl(), 100, 100);
 			managerName.setText(manager.getUsername());
 			managerDate.setText(DateTimeUtil.formatShortDate(manager.getRegDate()));
 		}

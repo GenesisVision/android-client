@@ -12,8 +12,8 @@ import java.util.ArrayList;
 
 import javax.inject.Inject;
 
+import io.swagger.client.model.DashboardTradingAssetItemsViewModel;
 import io.swagger.client.model.DashboardTradingDetails;
-import io.swagger.client.model.ItemsViewModelDashboardTradingAsset;
 import io.swagger.client.model.ProfileFullViewModel;
 import io.swagger.client.model.Timeframe;
 import rx.Subscription;
@@ -251,7 +251,7 @@ public class TradingDetailsPresenter extends MvpPresenter<TradingDetailsView> im
 		}
 	}
 
-	private void handleGetPrivateResponse(ItemsViewModelDashboardTradingAsset response) {
+	private void handleGetPrivateResponse(DashboardTradingAssetItemsViewModel response) {
 		privateSubscription.unsubscribe();
 		getViewState().hidePrivateProgress();
 
@@ -281,7 +281,7 @@ public class TradingDetailsPresenter extends MvpPresenter<TradingDetailsView> im
 		}
 	}
 
-	private void handleGetPublicResponse(ItemsViewModelDashboardTradingAsset response) {
+	private void handleGetPublicResponse(DashboardTradingAssetItemsViewModel response) {
 		publicSubscription.unsubscribe();
 		getViewState().hidePublicProgress();
 

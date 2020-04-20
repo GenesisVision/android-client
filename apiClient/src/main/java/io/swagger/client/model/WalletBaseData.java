@@ -46,8 +46,8 @@ public class WalletBaseData implements Parcelable
 	@SerializedName("title")
 	private String title = null;
 
-	@SerializedName("logo")
-	private String logo = null;
+	@SerializedName("logoUrl")
+	private String logoUrl = null;
 
 	@SerializedName("currency")
 	private Currency currency = null;
@@ -64,7 +64,7 @@ public class WalletBaseData implements Parcelable
 	WalletBaseData(Parcel in) {
 		id = (UUID) in.readValue(UUID.class.getClassLoader());
 		title = (String) in.readValue(null);
-		logo = (String) in.readValue(null);
+		logoUrl = (String) in.readValue(null);
 		currency = (Currency) in.readValue(Currency.class.getClassLoader());
 		available = (Double) in.readValue(null);
 		rate = (Double) in.readValue(null);
@@ -108,23 +108,23 @@ public class WalletBaseData implements Parcelable
 		this.title = title;
 	}
 
-	public WalletBaseData logo(String logo) {
-		this.logo = logo;
+	public WalletBaseData logoUrl(String logoUrl) {
+		this.logoUrl = logoUrl;
 		return this;
 	}
 
 	/**
-	 * Get logo
+	 * Get logoUrl
 	 *
-	 * @return logo
+	 * @return logoUrl
 	 **/
 	@Schema(description = "")
-	public String getLogo() {
-		return logo;
+	public String getLogoUrl() {
+		return logoUrl;
 	}
 
-	public void setLogo(String logo) {
-		this.logo = logo;
+	public void setLogoUrl(String logoUrl) {
+		this.logoUrl = logoUrl;
 	}
 
 	public WalletBaseData currency(Currency currency) {
@@ -195,7 +195,7 @@ public class WalletBaseData implements Parcelable
 		WalletBaseData walletBaseData = (WalletBaseData) o;
 		return Objects.equals(this.id, walletBaseData.id) &&
 				Objects.equals(this.title, walletBaseData.title) &&
-				Objects.equals(this.logo, walletBaseData.logo) &&
+				Objects.equals(this.logoUrl, walletBaseData.logoUrl) &&
 				Objects.equals(this.currency, walletBaseData.currency) &&
 				Objects.equals(this.available, walletBaseData.available) &&
 				Objects.equals(this.rate, walletBaseData.rate);
@@ -203,7 +203,7 @@ public class WalletBaseData implements Parcelable
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, title, logo, currency, available, rate);
+		return Objects.hash(id, title, logoUrl, currency, available, rate);
 	}
 
 	@Override
@@ -213,7 +213,7 @@ public class WalletBaseData implements Parcelable
 
 		sb.append("    id: ").append(toIndentedString(id)).append("\n");
 		sb.append("    title: ").append(toIndentedString(title)).append("\n");
-		sb.append("    logo: ").append(toIndentedString(logo)).append("\n");
+		sb.append("    logoUrl: ").append(toIndentedString(logoUrl)).append("\n");
 		sb.append("    currency: ").append(toIndentedString(currency)).append("\n");
 		sb.append("    available: ").append(toIndentedString(available)).append("\n");
 		sb.append("    rate: ").append(toIndentedString(rate)).append("\n");
@@ -235,7 +235,7 @@ public class WalletBaseData implements Parcelable
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(id);
 		out.writeValue(title);
-		out.writeValue(logo);
+		out.writeValue(logoUrl);
 		out.writeValue(currency);
 		out.writeValue(available);
 		out.writeValue(rate);

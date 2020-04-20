@@ -41,9 +41,6 @@ public class UsersPlatformInfo implements Parcelable
 		}
 	};
 
-	@SerializedName("facets")
-	private List<AssetFacet> facets = null;
-
 	@SerializedName("tags")
 	private List<Tag> tags = null;
 
@@ -51,35 +48,7 @@ public class UsersPlatformInfo implements Parcelable
 	}
 
 	UsersPlatformInfo(Parcel in) {
-		facets = (List<AssetFacet>) in.readValue(AssetFacet.class.getClassLoader());
 		tags = (List<Tag>) in.readValue(Tag.class.getClassLoader());
-	}
-
-	public UsersPlatformInfo facets(List<AssetFacet> facets) {
-		this.facets = facets;
-		return this;
-	}
-
-	public UsersPlatformInfo addFacetsItem(AssetFacet facetsItem) {
-		if (this.facets == null) {
-			this.facets = new ArrayList<AssetFacet>();
-		}
-		this.facets.add(facetsItem);
-		return this;
-	}
-
-	/**
-	 * Get facets
-	 *
-	 * @return facets
-	 **/
-	@Schema(description = "")
-	public List<AssetFacet> getFacets() {
-		return facets;
-	}
-
-	public void setFacets(List<AssetFacet> facets) {
-		this.facets = facets;
 	}
 
 	public UsersPlatformInfo tags(List<Tag> tags) {
@@ -118,13 +87,12 @@ public class UsersPlatformInfo implements Parcelable
 			return false;
 		}
 		UsersPlatformInfo usersPlatformInfo = (UsersPlatformInfo) o;
-		return Objects.equals(this.facets, usersPlatformInfo.facets) &&
-				Objects.equals(this.tags, usersPlatformInfo.tags);
+		return Objects.equals(this.tags, usersPlatformInfo.tags);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(facets, tags);
+		return Objects.hash(tags);
 	}
 
 	@Override
@@ -132,7 +100,6 @@ public class UsersPlatformInfo implements Parcelable
 		StringBuilder sb = new StringBuilder();
 		sb.append("class UsersPlatformInfo {\n");
 
-		sb.append("    facets: ").append(toIndentedString(facets)).append("\n");
 		sb.append("    tags: ").append(toIndentedString(tags)).append("\n");
 		sb.append("}");
 		return sb.toString();
@@ -150,7 +117,6 @@ public class UsersPlatformInfo implements Parcelable
 	}
 
 	public void writeToParcel(Parcel out, int flags) {
-		out.writeValue(facets);
 		out.writeValue(tags);
 	}
 

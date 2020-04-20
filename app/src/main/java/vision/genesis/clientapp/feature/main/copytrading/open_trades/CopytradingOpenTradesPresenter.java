@@ -15,8 +15,6 @@ import javax.inject.Inject;
 import io.swagger.client.model.OrderSignalModel;
 import io.swagger.client.model.TradesSignalViewModel;
 import rx.Subscription;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.managers.FollowsManager;
 import vision.genesis.clientapp.model.events.OnOpenTradeWholeCloseClickedEvent;
@@ -86,11 +84,11 @@ public class CopytradingOpenTradesPresenter extends MvpPresenter<CopytradingOpen
 
 	private void getOpenTrades() {
 		if (followsManager != null && accountId != null) {
-			getOpenTradesSubscription = followsManager.getOpenTrades("", "", accountId, null, 0, 1000)
-					.subscribeOn(Schedulers.computation())
-					.observeOn(AndroidSchedulers.mainThread())
-					.subscribe(this::handleGetOpenTradesSuccess,
-							this::handleGetOpenTradesError);
+//			getOpenTradesSubscription = followsManager.getOpenTrades("", "", accountId, null, 0, 1000)
+//					.subscribeOn(Schedulers.computation())
+//					.observeOn(AndroidSchedulers.mainThread())
+//					.subscribe(this::handleGetOpenTradesSuccess,
+//							this::handleGetOpenTradesError);
 		}
 	}
 
@@ -122,11 +120,11 @@ public class CopytradingOpenTradesPresenter extends MvpPresenter<CopytradingOpen
 
 	void closeTrade(UUID tradeId) {
 		if (followsManager != null && tradeId != null) {
-			closeTradeSubscription = followsManager.closeTrade(tradeId, null)
-					.subscribeOn(Schedulers.computation())
-					.observeOn(AndroidSchedulers.mainThread())
-					.subscribe(response -> handleCloseTradeSuccess(response, tradeId),
-							this::handleCloseTradeError);
+//			closeTradeSubscription = followsManager.closeTrade(tradeId, null)
+//					.subscribeOn(Schedulers.computation())
+//					.observeOn(AndroidSchedulers.mainThread())
+//					.subscribe(response -> handleCloseTradeSuccess(response, tradeId),
+//							this::handleCloseTradeError);
 		}
 	}
 

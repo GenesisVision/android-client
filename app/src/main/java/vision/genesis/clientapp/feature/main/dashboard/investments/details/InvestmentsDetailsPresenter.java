@@ -12,10 +12,10 @@ import java.util.UUID;
 
 import javax.inject.Inject;
 
+import io.swagger.client.model.AssetInvestmentRequestItemsViewModel;
 import io.swagger.client.model.DashboardInvestingDetails;
-import io.swagger.client.model.ItemsViewModelAssetInvestmentRequest;
-import io.swagger.client.model.ItemsViewModelFundInvestingDetailsList;
-import io.swagger.client.model.ItemsViewModelProgramInvestingDetailsList;
+import io.swagger.client.model.FundInvestingDetailsListItemsViewModel;
+import io.swagger.client.model.ProgramInvestingDetailsListItemsViewModel;
 import io.swagger.client.model.Timeframe;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
@@ -152,7 +152,7 @@ public class InvestmentsDetailsPresenter extends MvpPresenter<InvestmentsDetails
 		}
 	}
 
-	private void handleRequestsSuccess(ItemsViewModelAssetInvestmentRequest response) {
+	private void handleRequestsSuccess(AssetInvestmentRequestItemsViewModel response) {
 		getRequestsSubscription.unsubscribe();
 
 		getViewState().setRequests(response);
@@ -216,7 +216,7 @@ public class InvestmentsDetailsPresenter extends MvpPresenter<InvestmentsDetails
 		}
 	}
 
-	private void handleGetProgramsResponse(ItemsViewModelProgramInvestingDetailsList response) {
+	private void handleGetProgramsResponse(ProgramInvestingDetailsListItemsViewModel response) {
 		programsSubscription.unsubscribe();
 		getViewState().hideProgramsProgress();
 
@@ -252,7 +252,7 @@ public class InvestmentsDetailsPresenter extends MvpPresenter<InvestmentsDetails
 		}
 	}
 
-	private void handleGetFundsResponse(ItemsViewModelFundInvestingDetailsList response) {
+	private void handleGetFundsResponse(FundInvestingDetailsListItemsViewModel response) {
 		fundsSubscription.unsubscribe();
 		getViewState().hideFundsProgress();
 

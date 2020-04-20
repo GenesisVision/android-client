@@ -49,8 +49,8 @@ public class AssetFacet implements Parcelable
 	@SerializedName("description")
 	private String description = null;
 
-	@SerializedName("logo")
-	private String logo = null;
+	@SerializedName("logoUrl")
+	private String logoUrl = null;
 
 	@SerializedName("url")
 	private String url = null;
@@ -71,7 +71,7 @@ public class AssetFacet implements Parcelable
 		id = (UUID) in.readValue(UUID.class.getClassLoader());
 		title = (String) in.readValue(null);
 		description = (String) in.readValue(null);
-		logo = (String) in.readValue(null);
+		logoUrl = (String) in.readValue(null);
 		url = (String) in.readValue(null);
 		sortType = (FacetSortType) in.readValue(FacetSortType.class.getClassLoader());
 		timeframe = (Timeframe) in.readValue(Timeframe.class.getClassLoader());
@@ -135,23 +135,23 @@ public class AssetFacet implements Parcelable
 		this.description = description;
 	}
 
-	public AssetFacet logo(String logo) {
-		this.logo = logo;
+	public AssetFacet logoUrl(String logoUrl) {
+		this.logoUrl = logoUrl;
 		return this;
 	}
 
 	/**
-	 * Get logo
+	 * Get logoUrl
 	 *
-	 * @return logo
+	 * @return logoUrl
 	 **/
 	@Schema(description = "")
-	public String getLogo() {
-		return logo;
+	public String getLogoUrl() {
+		return logoUrl;
 	}
 
-	public void setLogo(String logo) {
-		this.logo = logo;
+	public void setLogoUrl(String logoUrl) {
+		this.logoUrl = logoUrl;
 	}
 
 	public AssetFacet url(String url) {
@@ -242,7 +242,7 @@ public class AssetFacet implements Parcelable
 		return Objects.equals(this.id, assetFacet.id) &&
 				Objects.equals(this.title, assetFacet.title) &&
 				Objects.equals(this.description, assetFacet.description) &&
-				Objects.equals(this.logo, assetFacet.logo) &&
+				Objects.equals(this.logoUrl, assetFacet.logoUrl) &&
 				Objects.equals(this.url, assetFacet.url) &&
 				Objects.equals(this.sortType, assetFacet.sortType) &&
 				Objects.equals(this.timeframe, assetFacet.timeframe) &&
@@ -251,7 +251,7 @@ public class AssetFacet implements Parcelable
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, title, description, logo, url, sortType, timeframe, sorting);
+		return Objects.hash(id, title, description, logoUrl, url, sortType, timeframe, sorting);
 	}
 
 	@Override
@@ -262,7 +262,7 @@ public class AssetFacet implements Parcelable
 		sb.append("    id: ").append(toIndentedString(id)).append("\n");
 		sb.append("    title: ").append(toIndentedString(title)).append("\n");
 		sb.append("    description: ").append(toIndentedString(description)).append("\n");
-		sb.append("    logo: ").append(toIndentedString(logo)).append("\n");
+		sb.append("    logoUrl: ").append(toIndentedString(logoUrl)).append("\n");
 		sb.append("    url: ").append(toIndentedString(url)).append("\n");
 		sb.append("    sortType: ").append(toIndentedString(sortType)).append("\n");
 		sb.append("    timeframe: ").append(toIndentedString(timeframe)).append("\n");
@@ -286,7 +286,7 @@ public class AssetFacet implements Parcelable
 		out.writeValue(id);
 		out.writeValue(title);
 		out.writeValue(description);
-		out.writeValue(logo);
+		out.writeValue(logoUrl);
 		out.writeValue(url);
 		out.writeValue(sortType);
 		out.writeValue(timeframe);

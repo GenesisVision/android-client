@@ -191,7 +191,7 @@ public class ManageTradingAccountActivity extends BaseSwipeBackActivity implemen
 
 
 		if (model.getMigration() != null) {
-			this.newBrokerLogo.setImageURI(ImageUtils.getImageUri(model.getMigration().getNewBroker().getLogo()));
+			this.newBrokerLogo.setImageURI(ImageUtils.getImageUri(model.getMigration().getNewBroker().getLogoUrl()));
 			this.newCurrency.setText(model.getCurrency());
 			this.newLeverage.setText(String.format(Locale.getDefault(), "1:%d", model.getMigration().getNewLeverage()));
 			this.migrationInfo.setText(String.format(Locale.getDefault(),

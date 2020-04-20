@@ -43,6 +43,9 @@ public class AssetRequestDetails implements Parcelable
 	@SerializedName("entryFee")
 	private Double entryFee = null;
 
+	@SerializedName("managementFee")
+	private Double managementFee = null;
+
 	@SerializedName("exitFee")
 	private Double exitFee = null;
 
@@ -58,8 +61,8 @@ public class AssetRequestDetails implements Parcelable
 	@SerializedName("id")
 	private UUID id = null;
 
-	@SerializedName("logo")
-	private String logo = null;
+	@SerializedName("logoUrl")
+	private String logoUrl = null;
 
 	@SerializedName("color")
 	private String color = null;
@@ -81,12 +84,13 @@ public class AssetRequestDetails implements Parcelable
 
 	AssetRequestDetails(Parcel in) {
 		entryFee = (Double) in.readValue(null);
+		managementFee = (Double) in.readValue(null);
 		exitFee = (Double) in.readValue(null);
 		withdrawPercent = (Double) in.readValue(null);
 		isWithdrawAll = (Boolean) in.readValue(null);
 		successFee = (Double) in.readValue(null);
 		id = (UUID) in.readValue(UUID.class.getClassLoader());
-		logo = (String) in.readValue(null);
+		logoUrl = (String) in.readValue(null);
 		color = (String) in.readValue(null);
 		title = (String) in.readValue(null);
 		url = (String) in.readValue(null);
@@ -111,6 +115,25 @@ public class AssetRequestDetails implements Parcelable
 
 	public void setEntryFee(Double entryFee) {
 		this.entryFee = entryFee;
+	}
+
+	public AssetRequestDetails managementFee(Double managementFee) {
+		this.managementFee = managementFee;
+		return this;
+	}
+
+	/**
+	 * Get managementFee
+	 *
+	 * @return managementFee
+	 **/
+	@Schema(description = "")
+	public Double getManagementFee() {
+		return managementFee;
+	}
+
+	public void setManagementFee(Double managementFee) {
+		this.managementFee = managementFee;
 	}
 
 	public AssetRequestDetails exitFee(Double exitFee) {
@@ -208,23 +231,23 @@ public class AssetRequestDetails implements Parcelable
 		this.id = id;
 	}
 
-	public AssetRequestDetails logo(String logo) {
-		this.logo = logo;
+	public AssetRequestDetails logoUrl(String logoUrl) {
+		this.logoUrl = logoUrl;
 		return this;
 	}
 
 	/**
-	 * Get logo
+	 * Get logoUrl
 	 *
-	 * @return logo
+	 * @return logoUrl
 	 **/
 	@Schema(description = "")
-	public String getLogo() {
-		return logo;
+	public String getLogoUrl() {
+		return logoUrl;
 	}
 
-	public void setLogo(String logo) {
-		this.logo = logo;
+	public void setLogoUrl(String logoUrl) {
+		this.logoUrl = logoUrl;
 	}
 
 	public AssetRequestDetails color(String color) {
@@ -332,12 +355,13 @@ public class AssetRequestDetails implements Parcelable
 		}
 		AssetRequestDetails assetRequestDetails = (AssetRequestDetails) o;
 		return Objects.equals(this.entryFee, assetRequestDetails.entryFee) &&
+				Objects.equals(this.managementFee, assetRequestDetails.managementFee) &&
 				Objects.equals(this.exitFee, assetRequestDetails.exitFee) &&
 				Objects.equals(this.withdrawPercent, assetRequestDetails.withdrawPercent) &&
 				Objects.equals(this.isWithdrawAll, assetRequestDetails.isWithdrawAll) &&
 				Objects.equals(this.successFee, assetRequestDetails.successFee) &&
 				Objects.equals(this.id, assetRequestDetails.id) &&
-				Objects.equals(this.logo, assetRequestDetails.logo) &&
+				Objects.equals(this.logoUrl, assetRequestDetails.logoUrl) &&
 				Objects.equals(this.color, assetRequestDetails.color) &&
 				Objects.equals(this.title, assetRequestDetails.title) &&
 				Objects.equals(this.url, assetRequestDetails.url) &&
@@ -347,7 +371,7 @@ public class AssetRequestDetails implements Parcelable
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(entryFee, exitFee, withdrawPercent, isWithdrawAll, successFee, id, logo, color, title, url, assetType, programDetails);
+		return Objects.hash(entryFee, managementFee, exitFee, withdrawPercent, isWithdrawAll, successFee, id, logoUrl, color, title, url, assetType, programDetails);
 	}
 
 	@Override
@@ -356,12 +380,13 @@ public class AssetRequestDetails implements Parcelable
 		sb.append("class AssetRequestDetails {\n");
 
 		sb.append("    entryFee: ").append(toIndentedString(entryFee)).append("\n");
+		sb.append("    managementFee: ").append(toIndentedString(managementFee)).append("\n");
 		sb.append("    exitFee: ").append(toIndentedString(exitFee)).append("\n");
 		sb.append("    withdrawPercent: ").append(toIndentedString(withdrawPercent)).append("\n");
 		sb.append("    isWithdrawAll: ").append(toIndentedString(isWithdrawAll)).append("\n");
 		sb.append("    successFee: ").append(toIndentedString(successFee)).append("\n");
 		sb.append("    id: ").append(toIndentedString(id)).append("\n");
-		sb.append("    logo: ").append(toIndentedString(logo)).append("\n");
+		sb.append("    logoUrl: ").append(toIndentedString(logoUrl)).append("\n");
 		sb.append("    color: ").append(toIndentedString(color)).append("\n");
 		sb.append("    title: ").append(toIndentedString(title)).append("\n");
 		sb.append("    url: ").append(toIndentedString(url)).append("\n");
@@ -384,12 +409,13 @@ public class AssetRequestDetails implements Parcelable
 
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(entryFee);
+		out.writeValue(managementFee);
 		out.writeValue(exitFee);
 		out.writeValue(withdrawPercent);
 		out.writeValue(isWithdrawAll);
 		out.writeValue(successFee);
 		out.writeValue(id);
-		out.writeValue(logo);
+		out.writeValue(logoUrl);
 		out.writeValue(color);
 		out.writeValue(title);
 		out.writeValue(url);

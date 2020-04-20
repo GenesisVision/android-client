@@ -21,8 +21,9 @@ public class TimeValueFormatter implements IAxisValueFormatter
 
 		DateTime value = dateRange.getFrom().withMinuteOfHour(0).withSecondOfMinute(0);
 		while (value.isBefore(dateRange.getTo())) {
-			if (value.getHourOfDay() % 6 == 0)
+			if (value.getHourOfDay() % 6 == 0) {
 				values.add(DateTimeUtil.formatShortTime(value));
+			}
 			value = value.plusHours(1);
 		}
 

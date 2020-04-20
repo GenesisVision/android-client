@@ -6,6 +6,7 @@ import com.arellomobile.mvp.MvpPresenter;
 import javax.inject.Inject;
 
 import io.swagger.client.model.AccountBalanceChart;
+import io.swagger.client.model.Currency;
 import io.swagger.client.model.PrivateTradingAccountFull;
 import io.swagger.client.model.SimpleChartPoint;
 import rx.Subscription;
@@ -48,7 +49,7 @@ public class TradingAccountBalancePresenter extends MvpPresenter<TradingAccountB
 
 	private PrivateTradingAccountFull details;
 
-	private CurrencyEnum baseCurrency;
+	private Currency baseCurrency;
 
 	@Override
 	protected void onFirstViewAttach() {
@@ -92,7 +93,7 @@ public class TradingAccountBalancePresenter extends MvpPresenter<TradingAccountB
 	}
 
 	private void baseCurrencyChangedHandler(CurrencyEnum baseCurrency) {
-		this.baseCurrency = baseCurrency;
+		this.baseCurrency = Currency.fromValue(baseCurrency.getValue());
 		getChartData();
 	}
 
@@ -102,7 +103,7 @@ public class TradingAccountBalancePresenter extends MvpPresenter<TradingAccountB
 				chartDataSubscription.unsubscribe();
 			}
 			//TODO: calculate maxPointCount
-			chartDataSubscription = tradingAccountManager.getBalanceChart(details.getId(), chartDateRange, 30, baseCurrency.getValue())
+			chartDataSubscription = tradingAccountManager.getBalanceChart(details.getId(), chartDateRange, 30, baseCurrency)
 					.observeOn(AndroidSchedulers.mainThread())
 					.subscribeOn(Schedulers.io())
 					.subscribe(this::handleGetChartDataSuccess,

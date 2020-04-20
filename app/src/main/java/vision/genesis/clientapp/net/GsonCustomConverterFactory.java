@@ -29,18 +29,21 @@ public class GsonCustomConverterFactory extends Converter.Factory
 	private final GsonConverterFactory gsonConverterFactory;
 
 	private GsonCustomConverterFactory(Gson gson) {
-		if (gson == null)
+		if (gson == null) {
 			throw new NullPointerException("gson == null");
+		}
 		this.gson = gson;
 		this.gsonConverterFactory = GsonConverterFactory.create(gson);
 	}
 
 	@Override
 	public Converter<ResponseBody, ?> responseBodyConverter(Type type, Annotation[] annotations, Retrofit retrofit) {
-		if (type.equals(String.class))
+		if (type.equals(String.class)) {
 			return new GsonResponseBodyConverterToString<Object>(gson, type);
-		else
+		}
+		else {
 			return gsonConverterFactory.responseBodyConverter(type, annotations, retrofit);
+		}
 	}
 
 	@Override

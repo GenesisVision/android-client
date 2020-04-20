@@ -80,8 +80,9 @@ public class ForgotPasswordActivity extends BaseSwipeBackActivity implements For
 
 		ButterKnife.bind(this);
 
-		if (getIntent().getExtras() != null)
+		if (getIntent().getExtras() != null) {
 			email.setText(getIntent().getExtras().getString(EXTRA_EMAIL, ""));
+		}
 
 		setFonts();
 

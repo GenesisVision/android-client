@@ -18,3 +18,7 @@
 * `BYNEWDESC` (value: `"ByNewDesc"`)
 * `BYLEVELPROGRESSASC` (value: `"ByLevelProgressAsc"`)
 * `BYLEVELPROGRESSDESC` (value: `"ByLevelProgressDesc"`)
+* `BYLEVELASC` (value: `"ByLevelAsc"`)
+* `BYLEVELDESC` (value: `"ByLevelDesc"`)
+* `BYVALUEASC` (value: `"ByValueAsc"`)
+* `BYVALUEDESC` (value: `"ByValueDesc"`)

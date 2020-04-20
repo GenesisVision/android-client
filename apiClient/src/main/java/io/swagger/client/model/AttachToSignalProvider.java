@@ -15,13 +15,8 @@ package io.swagger.client.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.google.gson.TypeAdapter;
-import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonWriter;
 
-import java.io.IOException;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -61,7 +56,7 @@ public class AttachToSignalProvider implements Parcelable
 	private Double fixedVolume = null;
 
 	@SerializedName("fixedCurrency")
-	private FixedCurrencyEnum fixedCurrency = null;
+	private Currency fixedCurrency = null;
 
 	public AttachToSignalProvider() {
 	}
@@ -72,7 +67,7 @@ public class AttachToSignalProvider implements Parcelable
 		percent = (Double) in.readValue(null);
 		openTolerancePercent = (Double) in.readValue(null);
 		fixedVolume = (Double) in.readValue(null);
-		fixedCurrency = (FixedCurrencyEnum) in.readValue(null);
+		fixedCurrency = (Currency) in.readValue(Currency.class.getClassLoader());
 	}
 
 	public AttachToSignalProvider tradingAccountId(UUID tradingAccountId) {
@@ -170,7 +165,7 @@ public class AttachToSignalProvider implements Parcelable
 		this.fixedVolume = fixedVolume;
 	}
 
-	public AttachToSignalProvider fixedCurrency(FixedCurrencyEnum fixedCurrency) {
+	public AttachToSignalProvider fixedCurrency(Currency fixedCurrency) {
 		this.fixedCurrency = fixedCurrency;
 		return this;
 	}
@@ -181,11 +176,11 @@ public class AttachToSignalProvider implements Parcelable
 	 * @return fixedCurrency
 	 **/
 	@Schema(description = "")
-	public FixedCurrencyEnum getFixedCurrency() {
+	public Currency getFixedCurrency() {
 		return fixedCurrency;
 	}
 
-	public void setFixedCurrency(FixedCurrencyEnum fixedCurrency) {
+	public void setFixedCurrency(Currency fixedCurrency) {
 		this.fixedCurrency = fixedCurrency;
 	}
 
@@ -248,64 +243,5 @@ public class AttachToSignalProvider implements Parcelable
 
 	public int describeContents() {
 		return 0;
-	}
-
-	/**
-	 * Gets or Sets fixedCurrency
-	 */
-	@JsonAdapter(FixedCurrencyEnum.Adapter.class)
-	public enum FixedCurrencyEnum
-	{
-		BTC("BTC"),
-		ETH("ETH"),
-		USDT("USDT"),
-		USD("USD"),
-		GVT("GVT"),
-		UNDEFINED("Undefined"),
-		ADA("ADA"),
-		XRP("XRP"),
-		BCH("BCH"),
-		LTC("LTC"),
-		DOGE("DOGE"),
-		BNB("BNB"),
-		EUR("EUR");
-
-		public static FixedCurrencyEnum fromValue(String text) {
-			for (FixedCurrencyEnum b : FixedCurrencyEnum.values()) {
-				if (String.valueOf(b.value).equals(text)) {
-					return b;
-				}
-			}
-			return null;
-		}
-
-		private String value;
-
-		FixedCurrencyEnum(String value) {
-			this.value = value;
-		}
-
-		public String getValue() {
-			return value;
-		}
-
-		@Override
-		public String toString() {
-			return String.valueOf(value);
-		}
-
-		public static class Adapter extends TypeAdapter<FixedCurrencyEnum>
-		{
-			@Override
-			public void write(final JsonWriter jsonWriter, final FixedCurrencyEnum enumeration) throws IOException {
-				jsonWriter.value(enumeration.getValue());
-			}
-
-			@Override
-			public FixedCurrencyEnum read(final JsonReader jsonReader) throws IOException {
-				String value = jsonReader.nextString();
-				return FixedCurrencyEnum.fromValue(String.valueOf(value));
-			}
-		}
 	}
 }

@@ -201,13 +201,15 @@ public class ProfitDetailsChartView extends RelativeLayout
 			v.getParent().requestDisallowInterceptTouchEvent(true);
 			if (me.getAction() == MotionEvent.ACTION_DOWN || me.getAction() == MotionEvent.ACTION_MOVE) {
 				showHighlight(chart.getHighlightByTouchPoint(me.getX(), me.getY()));
-				if (touchListener != null)
+				if (touchListener != null) {
 					touchListener.onTouch();
+				}
 			}
 			else if (me.getAction() == MotionEvent.ACTION_UP || me.getAction() == MotionEvent.ACTION_CANCEL) {
 				hideHighlight();
-				if (touchListener != null)
+				if (touchListener != null) {
 					touchListener.onStop();
+				}
 				v.getParent().requestDisallowInterceptTouchEvent(false);
 			}
 			return true;
@@ -307,8 +309,9 @@ public class ProfitDetailsChartView extends RelativeLayout
 	}
 
 	private void showHighlight(Highlight highlight) {
-		if (highlight == null)
+		if (highlight == null) {
 			return;
+		}
 		highlightBox.setVisibility(View.VISIBLE);
 		highlightCircle.setVisibility(View.VISIBLE);
 		chart.highlightValue(highlight, false);
@@ -320,10 +323,12 @@ public class ProfitDetailsChartView extends RelativeLayout
 
 	private void moveHighlightBox(Highlight highlight) {
 		float x = highlight.getXPx() - highlightBox.getWidth() / 2;
-		if (x < 0)
+		if (x < 0) {
 			x = 0;
-		if (x > this.getWidth() - highlightBox.getWidth())
+		}
+		if (x > this.getWidth() - highlightBox.getWidth()) {
 			x = this.getWidth() - highlightBox.getWidth();
+		}
 
 		highlightBox.setX(x);
 	}
@@ -337,8 +342,9 @@ public class ProfitDetailsChartView extends RelativeLayout
 	}
 
 	private void hideHighlight() {
-		if (highlightBox != null)
+		if (highlightBox != null) {
 			highlightBox.setVisibility(View.INVISIBLE);
+		}
 		highlightCircle.setVisibility(View.INVISIBLE);
 		chart.highlightValue(null, false);
 	}

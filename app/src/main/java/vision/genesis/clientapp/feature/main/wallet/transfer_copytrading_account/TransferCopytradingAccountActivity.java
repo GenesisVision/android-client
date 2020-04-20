@@ -232,14 +232,15 @@ public class TransferCopytradingAccountActivity extends BaseSwipeBackActivity im
 
 	@Override
 	public void setSelectedWallet(WalletData wallet) {
-		this.iconFromTo.setImageURI(ImageUtils.getImageUri(wallet.getLogo()));
+		this.iconFromTo.setImageURI(ImageUtils.getImageUri(wallet.getLogoUrl()));
 		this.walletFromTo.setText(wallet.getTitle());
 		this.availableFromTo.setText(String.format(Locale.getDefault(), "%s %s %s",
 				getString(R.string.available),
 				StringFormatUtil.formatCurrencyAmount(wallet.getAvailable(), wallet.getCurrency().getValue()),
 				wallet.getCurrency().getValue()));
-		if (operation.equals(OPERATION_DEPOSIT))
+		if (operation.equals(OPERATION_DEPOSIT)) {
 			this.amountCurrency.setText(wallet.getCurrency().getValue());
+		}
 		showRate = !wallet.getCurrency().getValue().equals(model.getCurrency());
 		fundsConvertedText.setVisibility(showRate ? View.VISIBLE : View.INVISIBLE);
 	}
@@ -275,10 +276,12 @@ public class TransferCopytradingAccountActivity extends BaseSwipeBackActivity im
 
 	@Override
 	public void showRateProgress(boolean show) {
-		if (show)
+		if (show) {
 			rate.setVisibility(View.INVISIBLE);
-		else if (showRate)
+		}
+		else if (showRate) {
 			rate.setVisibility(View.VISIBLE);
+		}
 		finalAmountGroup.setVisibility(show ? View.INVISIBLE : View.VISIBLE);
 		rateProgress.setVisibility(!show ? View.INVISIBLE : View.VISIBLE);
 	}

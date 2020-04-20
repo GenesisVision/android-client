@@ -1,6 +1,6 @@
 # EventsApi
 
-All URIs are relative to */api*
+All URIs are relative to *https://red.genesis.vision/api*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -8,32 +8,41 @@ Method | HTTP request | Description
 
 <a name="getEvents"></a>
 # **getEvents**
-> InvestmentEventViewModels getEvents(authorization, eventLocation, assetId, from, to, eventType, assetType, assetsIds, forceFilterByIds, eventGroup, skip, take)
+> InvestmentEventViewModels getEvents(eventLocation, assetId, from, to, eventType, assetType, assetsIds, forceFilterByIds, eventGroup, skip, take)
 
 Events
 
 ### Example
 ```java
 // Import classes:
+//import io.swagger.client.ApiClient;
 //import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
 //import io.swagger.client.api.EventsApi;
 
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
 
 EventsApi apiInstance = new EventsApi();
-String authorization = "authorization_example"; // String | JWT access token
-String eventLocation = "eventLocation_example"; // String | 
+InvestmentEventLocation eventLocation = new InvestmentEventLocation(); // InvestmentEventLocation | 
 UUID assetId = new UUID(); // UUID | 
 DateTime from = new DateTime(); // DateTime | 
 DateTime to = new DateTime(); // DateTime | 
-String eventType = "eventType_example"; // String | 
-String assetType = "assetType_example"; // String | 
+InvestmentEventType eventType = new InvestmentEventType(); // InvestmentEventType | 
+AssetFilterType assetType = new AssetFilterType(); // AssetFilterType | 
 List<UUID> assetsIds = Arrays.asList(new UUID()); // List<UUID> | 
 Boolean forceFilterByIds = true; // Boolean | 
-String eventGroup = "eventGroup_example"; // String | 
+EventGroupType eventGroup = new EventGroupType(); // EventGroupType | 
 Integer skip = 56; // Integer | 
 Integer take = 56; // Integer | 
 try {
-    InvestmentEventViewModels result = apiInstance.getEvents(authorization, eventLocation, assetId, from, to, eventType, assetType, assetsIds, forceFilterByIds, eventGroup, skip, take);
+    InvestmentEventViewModels result = apiInstance.getEvents(eventLocation, assetId, from, to, eventType, assetType, assetsIds, forceFilterByIds, eventGroup, skip, take);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling EventsApi#getEvents");
@@ -45,16 +54,15 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **String**| JWT access token |
- **eventLocation** | **String**|  | [optional] [enum: Asset, Dashboard, EventsAll]
+ **eventLocation** | [**InvestmentEventLocation**](.md)|  | [optional]
  **assetId** | [**UUID**](.md)|  | [optional]
  **from** | **DateTime**|  | [optional]
  **to** | **DateTime**|  | [optional]
- **eventType** | **String**|  | [optional] [enum: All, AssetFinished, AssetPeriodStarted, AssetPeriodEnded, AssetPeriodEndedDueToStopOut, AssetBrokerChanged, AssetEnterInvestment, AssetTradeOpen, AssetTradeClosed, AssetSubscriptionEdit, AssetInvestByInvestor, AssetWithdrawalByInvestor, AssetReallocation, AssetStarted, AssetPeriodProcessed, AssetInvestByManager, AssetWithdrawalByManager, AssetSubscribeByInvestor, AssetUnsubscribeByInvestor]
- **assetType** | **String**|  | [optional] [enum: All, Program, Fund, Follow]
+ **eventType** | [**InvestmentEventType**](.md)|  | [optional]
+ **assetType** | [**AssetFilterType**](.md)|  | [optional]
  **assetsIds** | [**List&lt;UUID&gt;**](UUID.md)|  | [optional]
  **forceFilterByIds** | **Boolean**|  | [optional]
- **eventGroup** | **String**|  | [optional] [enum: InvestmentHistory, TradingHistory]
+ **eventGroup** | [**EventGroupType**](.md)|  | [optional]
  **skip** | **Integer**|  | [optional]
  **take** | **Integer**|  | [optional]
 
@@ -64,7 +72,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[Bearer](../README.md#Bearer)
 
 ### HTTP request headers
 

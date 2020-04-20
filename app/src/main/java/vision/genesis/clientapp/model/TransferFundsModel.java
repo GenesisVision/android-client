@@ -35,12 +35,12 @@ public class TransferFundsModel implements Parcelable
 	}
 
 	public static TransferFundsModel createFrom(PrivateTradingAccountFull account) {
-		return new TransferFundsModel(account.getId(), account.getBrokerDetails().getLogo(), account.getPublicInfo().getTitle(),
+		return new TransferFundsModel(account.getId(), account.getBrokerDetails().getLogoUrl(), account.getPublicInfo().getTitle(),
 				account.getTradingAccountInfo().getCurrency().getValue(), account.getTradingAccountInfo().getBalance());
 	}
 
 	public static TransferFundsModel createFromFollow(ProgramFollowDetailsFull follow) {
-		TransferFundsModel model = new TransferFundsModel(follow.getId(), follow.getPublicInfo().getLogo(), follow.getPublicInfo().getTitle(),
+		TransferFundsModel model = new TransferFundsModel(follow.getId(), follow.getPublicInfo().getLogoUrl(), follow.getPublicInfo().getTitle(),
 				follow.getTradingAccountInfo().getCurrency().getValue(), follow.getTradingAccountInfo().getBalance());
 		model.setColor(follow.getPublicInfo().getColor());
 		return model;

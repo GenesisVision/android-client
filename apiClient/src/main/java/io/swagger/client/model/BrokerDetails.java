@@ -43,8 +43,8 @@ public class BrokerDetails implements Parcelable
 	@SerializedName("id")
 	private UUID id = null;
 
-	@SerializedName("logo")
-	private String logo = null;
+	@SerializedName("logoUrl")
+	private String logoUrl = null;
 
 	@SerializedName("name")
 	private String name = null;
@@ -84,7 +84,7 @@ public class BrokerDetails implements Parcelable
 
 	BrokerDetails(Parcel in) {
 		id = (UUID) in.readValue(UUID.class.getClassLoader());
-		logo = (String) in.readValue(null);
+		logoUrl = (String) in.readValue(null);
 		name = (String) in.readValue(null);
 		type = (BrokerTradeServerType) in.readValue(BrokerTradeServerType.class.getClassLoader());
 		isKycRequired = (Boolean) in.readValue(null);
@@ -117,23 +117,23 @@ public class BrokerDetails implements Parcelable
 		this.id = id;
 	}
 
-	public BrokerDetails logo(String logo) {
-		this.logo = logo;
+	public BrokerDetails logoUrl(String logoUrl) {
+		this.logoUrl = logoUrl;
 		return this;
 	}
 
 	/**
-	 * Get logo
+	 * Get logoUrl
 	 *
-	 * @return logo
+	 * @return logoUrl
 	 **/
 	@Schema(description = "")
-	public String getLogo() {
-		return logo;
+	public String getLogoUrl() {
+		return logoUrl;
 	}
 
-	public void setLogo(String logo) {
-		this.logo = logo;
+	public void setLogoUrl(String logoUrl) {
+		this.logoUrl = logoUrl;
 	}
 
 	public BrokerDetails name(String name) {
@@ -355,7 +355,7 @@ public class BrokerDetails implements Parcelable
 		}
 		BrokerDetails brokerDetails = (BrokerDetails) o;
 		return Objects.equals(this.id, brokerDetails.id) &&
-				Objects.equals(this.logo, brokerDetails.logo) &&
+				Objects.equals(this.logoUrl, brokerDetails.logoUrl) &&
 				Objects.equals(this.name, brokerDetails.name) &&
 				Objects.equals(this.type, brokerDetails.type) &&
 				Objects.equals(this.isKycRequired, brokerDetails.isKycRequired) &&
@@ -371,7 +371,7 @@ public class BrokerDetails implements Parcelable
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, logo, name, type, isKycRequired, showSwaps, showTickets, showCommissionRebate, isSignalsAvailable, isKycRequiredSometime, showSwapsSometime, showTicketsSometime, showCommissionRebateSometime);
+		return Objects.hash(id, logoUrl, name, type, isKycRequired, showSwaps, showTickets, showCommissionRebate, isSignalsAvailable, isKycRequiredSometime, showSwapsSometime, showTicketsSometime, showCommissionRebateSometime);
 	}
 
 	@Override
@@ -380,7 +380,7 @@ public class BrokerDetails implements Parcelable
 		sb.append("class BrokerDetails {\n");
 
 		sb.append("    id: ").append(toIndentedString(id)).append("\n");
-		sb.append("    logo: ").append(toIndentedString(logo)).append("\n");
+		sb.append("    logoUrl: ").append(toIndentedString(logoUrl)).append("\n");
 		sb.append("    name: ").append(toIndentedString(name)).append("\n");
 		sb.append("    type: ").append(toIndentedString(type)).append("\n");
 		sb.append("    isKycRequired: ").append(toIndentedString(isKycRequired)).append("\n");
@@ -409,7 +409,7 @@ public class BrokerDetails implements Parcelable
 
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(id);
-		out.writeValue(logo);
+		out.writeValue(logoUrl);
 		out.writeValue(name);
 		out.writeValue(type);
 		out.writeValue(isKycRequired);

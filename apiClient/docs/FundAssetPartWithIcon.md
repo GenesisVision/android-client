@@ -3,7 +3,7 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**icon** | **String** |  |  [optional]
+**logoUrl** | **String** |  |  [optional]
 **color** | **String** |  |  [optional]
 **url** | **String** |  |  [optional]
 **name** | **String** |  |  [optional]

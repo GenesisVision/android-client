@@ -1,6 +1,6 @@
 # ProfileApi
 
-All URIs are relative to */api*
+All URIs are relative to *https://red.genesis.vision/api*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -18,24 +18,35 @@ Method | HTTP request | Description
 [**updatePersonalDetails**](ProfileApi.md#updatePersonalDetails) | **POST** v2.0/profile/personal/update | Update user personal details
 [**updateProfile**](ProfileApi.md#updateProfile) | **POST** v2.0/profile/update | Update profile
 [**updateSocialLinks**](ProfileApi.md#updateSocialLinks) | **POST** v2.0/profile/sociallinks/update | Add or update social links
+[**updateUserPlatformCurrency**](ProfileApi.md#updateUserPlatformCurrency) | **POST** v2.0/profile/currency/update | Update platform currency
+[**updateUserSocialSettings**](ProfileApi.md#updateUserSocialSettings) | **POST** v2.0/profile/social/settings/update | Update user social settings
 
 <a name="getProfileFull"></a>
 # **getProfileFull**
-> ProfileFullViewModel getProfileFull(authorization)
+> ProfileFullViewModel getProfileFull()
 
 Get full profile
 
 ### Example
 ```java
 // Import classes:
+//import io.swagger.client.ApiClient;
 //import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
 //import io.swagger.client.api.ProfileApi;
 
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
 
 ProfileApi apiInstance = new ProfileApi();
-String authorization = "authorization_example"; // String | JWT access token
 try {
-    ProfileFullViewModel result = apiInstance.getProfileFull(authorization);
+    ProfileFullViewModel result = apiInstance.getProfileFull();
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling ProfileApi#getProfileFull");
@@ -44,10 +55,7 @@ try {
 ```
 
 ### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **authorization** | **String**| JWT access token |
+This endpoint does not need any parameter.
 
 ### Return type
 
@@ -55,7 +63,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[Bearer](../README.md#Bearer)
 
 ### HTTP request headers
 
@@ -64,21 +72,30 @@ No authorization required
 
 <a name="getProfileHeader"></a>
 # **getProfileHeader**
-> ProfileHeaderViewModel getProfileHeader(authorization)
+> ProfileHeaderViewModel getProfileHeader()
 
 Get header profile
 
 ### Example
 ```java
 // Import classes:
+//import io.swagger.client.ApiClient;
 //import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
 //import io.swagger.client.api.ProfileApi;
 
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
 
 ProfileApi apiInstance = new ProfileApi();
-String authorization = "authorization_example"; // String | JWT access token
 try {
-    ProfileHeaderViewModel result = apiInstance.getProfileHeader(authorization);
+    ProfileHeaderViewModel result = apiInstance.getProfileHeader();
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling ProfileApi#getProfileHeader");
@@ -87,10 +104,7 @@ try {
 ```
 
 ### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **authorization** | **String**| JWT access token |
+This endpoint does not need any parameter.
 
 ### Return type
 
@@ -98,7 +112,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[Bearer](../README.md#Bearer)
 
 ### HTTP request headers
 
@@ -107,21 +121,30 @@ No authorization required
 
 <a name="getSocialLinks"></a>
 # **getSocialLinks**
-> SocialLinksViewModel getSocialLinks(authorization)
+> SocialLinksViewModel getSocialLinks()
 
 Get social links
 
 ### Example
 ```java
 // Import classes:
+//import io.swagger.client.ApiClient;
 //import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
 //import io.swagger.client.api.ProfileApi;
 
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
 
 ProfileApi apiInstance = new ProfileApi();
-String authorization = "authorization_example"; // String | JWT access token
 try {
-    SocialLinksViewModel result = apiInstance.getSocialLinks(authorization);
+    SocialLinksViewModel result = apiInstance.getSocialLinks();
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling ProfileApi#getSocialLinks");
@@ -130,10 +153,7 @@ try {
 ```
 
 ### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **authorization** | **String**| JWT access token |
+This endpoint does not need any parameter.
 
 ### Return type
 
@@ -141,7 +161,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[Bearer](../README.md#Bearer)
 
 ### HTTP request headers
 
@@ -150,21 +170,30 @@ No authorization required
 
 <a name="getVerificationToken"></a>
 # **getVerificationToken**
-> String getVerificationToken(authorization)
+> String getVerificationToken()
 
 
 
 ### Example
 ```java
 // Import classes:
+//import io.swagger.client.ApiClient;
 //import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
 //import io.swagger.client.api.ProfileApi;
 
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
 
 ProfileApi apiInstance = new ProfileApi();
-String authorization = "authorization_example"; // String | JWT access token
 try {
-    String result = apiInstance.getVerificationToken(authorization);
+    String result = apiInstance.getVerificationToken();
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling ProfileApi#getVerificationToken");
@@ -173,10 +202,7 @@ try {
 ```
 
 ### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **authorization** | **String**| JWT access token |
+This endpoint does not need any parameter.
 
 ### Return type
 
@@ -184,7 +210,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[Bearer](../README.md#Bearer)
 
 ### HTTP request headers
 
@@ -193,21 +219,30 @@ No authorization required
 
 <a name="removeAvatar"></a>
 # **removeAvatar**
-> Void removeAvatar(authorization)
+> Void removeAvatar()
 
 Remove avatar
 
 ### Example
 ```java
 // Import classes:
+//import io.swagger.client.ApiClient;
 //import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
 //import io.swagger.client.api.ProfileApi;
 
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
 
 ProfileApi apiInstance = new ProfileApi();
-String authorization = "authorization_example"; // String | JWT access token
 try {
-    Void result = apiInstance.removeAvatar(authorization);
+    Void result = apiInstance.removeAvatar();
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling ProfileApi#removeAvatar");
@@ -216,10 +251,7 @@ try {
 ```
 
 ### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **authorization** | **String**| JWT access token |
+This endpoint does not need any parameter.
 
 ### Return type
 
@@ -227,7 +259,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[Bearer](../README.md#Bearer)
 
 ### HTTP request headers
 
@@ -236,22 +268,31 @@ No authorization required
 
 <a name="removeFcmToken"></a>
 # **removeFcmToken**
-> Void removeFcmToken(authorization, body)
+> Void removeFcmToken(body)
 
 
 
 ### Example
 ```java
 // Import classes:
+//import io.swagger.client.ApiClient;
 //import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
 //import io.swagger.client.api.ProfileApi;
 
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
 
 ProfileApi apiInstance = new ProfileApi();
-String authorization = "authorization_example"; // String | JWT access token
 FcmTokenViewModel body = new FcmTokenViewModel(); // FcmTokenViewModel | 
 try {
-    Void result = apiInstance.removeFcmToken(authorization, body);
+    Void result = apiInstance.removeFcmToken(body);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling ProfileApi#removeFcmToken");
@@ -263,7 +304,6 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **String**| JWT access token |
  **body** | [**FcmTokenViewModel**](FcmTokenViewModel.md)|  | [optional]
 
 ### Return type
@@ -272,30 +312,39 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[Bearer](../README.md#Bearer)
 
 ### HTTP request headers
 
- - **Content-Type**: application/json-patch+json, application/json, text/json, application/_*+json
+ - **Content-Type**: application/json, text/json, application/_*+json
  - **Accept**: text/plain, application/json, text/json
 
 <a name="switchPublicInvestorOff"></a>
 # **switchPublicInvestorOff**
-> Void switchPublicInvestorOff(authorization)
+> Void switchPublicInvestorOff()
 
 Disable public investor profile
 
 ### Example
 ```java
 // Import classes:
+//import io.swagger.client.ApiClient;
 //import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
 //import io.swagger.client.api.ProfileApi;
 
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
 
 ProfileApi apiInstance = new ProfileApi();
-String authorization = "authorization_example"; // String | JWT access token
 try {
-    Void result = apiInstance.switchPublicInvestorOff(authorization);
+    Void result = apiInstance.switchPublicInvestorOff();
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling ProfileApi#switchPublicInvestorOff");
@@ -304,10 +353,7 @@ try {
 ```
 
 ### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **authorization** | **String**| JWT access token |
+This endpoint does not need any parameter.
 
 ### Return type
 
@@ -315,7 +361,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[Bearer](../README.md#Bearer)
 
 ### HTTP request headers
 
@@ -324,21 +370,30 @@ No authorization required
 
 <a name="switchPublicInvestorOn"></a>
 # **switchPublicInvestorOn**
-> Void switchPublicInvestorOn(authorization)
+> Void switchPublicInvestorOn()
 
 Enable public investor profile
 
 ### Example
 ```java
 // Import classes:
+//import io.swagger.client.ApiClient;
 //import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
 //import io.swagger.client.api.ProfileApi;
 
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
 
 ProfileApi apiInstance = new ProfileApi();
-String authorization = "authorization_example"; // String | JWT access token
 try {
-    Void result = apiInstance.switchPublicInvestorOn(authorization);
+    Void result = apiInstance.switchPublicInvestorOn();
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling ProfileApi#switchPublicInvestorOn");
@@ -347,10 +402,7 @@ try {
 ```
 
 ### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **authorization** | **String**| JWT access token |
+This endpoint does not need any parameter.
 
 ### Return type
 
@@ -358,7 +410,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[Bearer](../README.md#Bearer)
 
 ### HTTP request headers
 
@@ -367,22 +419,31 @@ No authorization required
 
 <a name="updateAllSocialLinks"></a>
 # **updateAllSocialLinks**
-> Void updateAllSocialLinks(authorization, body)
+> Void updateAllSocialLinks(body)
 
 Add or update all social links
 
 ### Example
 ```java
 // Import classes:
+//import io.swagger.client.ApiClient;
 //import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
 //import io.swagger.client.api.ProfileApi;
 
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
 
 ProfileApi apiInstance = new ProfileApi();
-String authorization = "authorization_example"; // String | JWT access token
 UpdateSocialLinksViewModel body = new UpdateSocialLinksViewModel(); // UpdateSocialLinksViewModel | 
 try {
-    Void result = apiInstance.updateAllSocialLinks(authorization, body);
+    Void result = apiInstance.updateAllSocialLinks(body);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling ProfileApi#updateAllSocialLinks");
@@ -394,7 +455,6 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **String**| JWT access token |
  **body** | [**UpdateSocialLinksViewModel**](UpdateSocialLinksViewModel.md)|  | [optional]
 
 ### Return type
@@ -403,31 +463,40 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[Bearer](../README.md#Bearer)
 
 ### HTTP request headers
 
- - **Content-Type**: application/json-patch+json, application/json, text/json, application/_*+json
+ - **Content-Type**: application/json, text/json, application/_*+json
  - **Accept**: text/plain, application/json, text/json
 
 <a name="updateAvatar"></a>
 # **updateAvatar**
-> Void updateAvatar(fileId, authorization)
+> Void updateAvatar(fileId)
 
 Update avatar
 
 ### Example
 ```java
 // Import classes:
+//import io.swagger.client.ApiClient;
 //import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
 //import io.swagger.client.api.ProfileApi;
 
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
 
 ProfileApi apiInstance = new ProfileApi();
 String fileId = "fileId_example"; // String | 
-String authorization = "authorization_example"; // String | JWT access token
 try {
-    Void result = apiInstance.updateAvatar(fileId, authorization);
+    Void result = apiInstance.updateAvatar(fileId);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling ProfileApi#updateAvatar");
@@ -440,7 +509,6 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **fileId** | **String**|  |
- **authorization** | **String**| JWT access token |
 
 ### Return type
 
@@ -448,7 +516,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[Bearer](../README.md#Bearer)
 
 ### HTTP request headers
 
@@ -457,22 +525,31 @@ No authorization required
 
 <a name="updateFcmToken"></a>
 # **updateFcmToken**
-> Void updateFcmToken(authorization, body)
+> Void updateFcmToken(body)
 
 
 
 ### Example
 ```java
 // Import classes:
+//import io.swagger.client.ApiClient;
 //import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
 //import io.swagger.client.api.ProfileApi;
 
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
 
 ProfileApi apiInstance = new ProfileApi();
-String authorization = "authorization_example"; // String | JWT access token
 FcmTokenViewModel body = new FcmTokenViewModel(); // FcmTokenViewModel | 
 try {
-    Void result = apiInstance.updateFcmToken(authorization, body);
+    Void result = apiInstance.updateFcmToken(body);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling ProfileApi#updateFcmToken");
@@ -484,7 +561,6 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **String**| JWT access token |
  **body** | [**FcmTokenViewModel**](FcmTokenViewModel.md)|  | [optional]
 
 ### Return type
@@ -493,31 +569,40 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[Bearer](../README.md#Bearer)
 
 ### HTTP request headers
 
- - **Content-Type**: application/json-patch+json, application/json, text/json, application/_*+json
+ - **Content-Type**: application/json, text/json, application/_*+json
  - **Accept**: text/plain, application/json, text/json
 
 <a name="updatePersonalDetails"></a>
 # **updatePersonalDetails**
-> Void updatePersonalDetails(authorization, body)
+> Void updatePersonalDetails(body)
 
 Update user personal details
 
 ### Example
 ```java
 // Import classes:
+//import io.swagger.client.ApiClient;
 //import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
 //import io.swagger.client.api.ProfileApi;
 
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
 
 ProfileApi apiInstance = new ProfileApi();
-String authorization = "authorization_example"; // String | JWT access token
 UpdatePersonalDetailViewModel body = new UpdatePersonalDetailViewModel(); // UpdatePersonalDetailViewModel | 
 try {
-    Void result = apiInstance.updatePersonalDetails(authorization, body);
+    Void result = apiInstance.updatePersonalDetails(body);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling ProfileApi#updatePersonalDetails");
@@ -529,7 +614,6 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **String**| JWT access token |
  **body** | [**UpdatePersonalDetailViewModel**](UpdatePersonalDetailViewModel.md)|  | [optional]
 
 ### Return type
@@ -538,31 +622,40 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[Bearer](../README.md#Bearer)
 
 ### HTTP request headers
 
- - **Content-Type**: application/json-patch+json, application/json, text/json, application/_*+json
+ - **Content-Type**: application/json, text/json, application/_*+json
  - **Accept**: text/plain, application/json, text/json
 
 <a name="updateProfile"></a>
 # **updateProfile**
-> Void updateProfile(authorization, body)
+> Void updateProfile(body)
 
 Update profile
 
 ### Example
 ```java
 // Import classes:
+//import io.swagger.client.ApiClient;
 //import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
 //import io.swagger.client.api.ProfileApi;
 
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
 
 ProfileApi apiInstance = new ProfileApi();
-String authorization = "authorization_example"; // String | JWT access token
 UpdateProfileViewModel body = new UpdateProfileViewModel(); // UpdateProfileViewModel | 
 try {
-    Void result = apiInstance.updateProfile(authorization, body);
+    Void result = apiInstance.updateProfile(body);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling ProfileApi#updateProfile");
@@ -574,7 +667,6 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **String**| JWT access token |
  **body** | [**UpdateProfileViewModel**](UpdateProfileViewModel.md)|  | [optional]
 
 ### Return type
@@ -583,31 +675,40 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[Bearer](../README.md#Bearer)
 
 ### HTTP request headers
 
- - **Content-Type**: application/json-patch+json, application/json, text/json, application/_*+json
+ - **Content-Type**: application/json, text/json, application/_*+json
  - **Accept**: text/plain, application/json, text/json
 
 <a name="updateSocialLinks"></a>
 # **updateSocialLinks**
-> Void updateSocialLinks(authorization, body)
+> Void updateSocialLinks(body)
 
 Add or update social links
 
 ### Example
 ```java
 // Import classes:
+//import io.swagger.client.ApiClient;
 //import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
 //import io.swagger.client.api.ProfileApi;
 
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
 
 ProfileApi apiInstance = new ProfileApi();
-String authorization = "authorization_example"; // String | JWT access token
 UpdateSocialLinkViewModel body = new UpdateSocialLinkViewModel(); // UpdateSocialLinkViewModel | 
 try {
-    Void result = apiInstance.updateSocialLinks(authorization, body);
+    Void result = apiInstance.updateSocialLinks(body);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling ProfileApi#updateSocialLinks");
@@ -619,7 +720,6 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **String**| JWT access token |
  **body** | [**UpdateSocialLinkViewModel**](UpdateSocialLinkViewModel.md)|  | [optional]
 
 ### Return type
@@ -628,10 +728,120 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[Bearer](../README.md#Bearer)
 
 ### HTTP request headers
 
- - **Content-Type**: application/json-patch+json, application/json, text/json, application/_*+json
+ - **Content-Type**: application/json, text/json, application/_*+json
+ - **Accept**: text/plain, application/json, text/json
+
+<a name="updateUserPlatformCurrency"></a>
+# **updateUserPlatformCurrency**
+> Void updateUserPlatformCurrency(currency)
+
+Update platform currency
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiClient;
+//import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
+//import io.swagger.client.api.ProfileApi;
+
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
+
+ProfileApi apiInstance = new ProfileApi();
+Currency currency = new Currency(); // Currency | 
+try {
+    Void result = apiInstance.updateUserPlatformCurrency(currency);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling ProfileApi#updateUserPlatformCurrency");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **currency** | [**Currency**](.md)|  | [optional]
+
+### Return type
+
+[**Void**](.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
+
+<a name="updateUserSocialSettings"></a>
+# **updateUserSocialSettings**
+> Void updateUserSocialSettings(whoCanPostToMayWall, whoCanViewCommentsOnMyPosts, whoCanCommentOnMyPosts)
+
+Update user social settings
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiClient;
+//import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
+//import io.swagger.client.api.ProfileApi;
+
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
+
+ProfileApi apiInstance = new ProfileApi();
+SocialViewMode whoCanPostToMayWall = new SocialViewMode(); // SocialViewMode | 
+SocialViewMode whoCanViewCommentsOnMyPosts = new SocialViewMode(); // SocialViewMode | 
+SocialViewMode whoCanCommentOnMyPosts = new SocialViewMode(); // SocialViewMode | 
+try {
+    Void result = apiInstance.updateUserSocialSettings(whoCanPostToMayWall, whoCanViewCommentsOnMyPosts, whoCanCommentOnMyPosts);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling ProfileApi#updateUserSocialSettings");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **whoCanPostToMayWall** | [**SocialViewMode**](.md)|  | [optional]
+ **whoCanViewCommentsOnMyPosts** | [**SocialViewMode**](.md)|  | [optional]
+ **whoCanCommentOnMyPosts** | [**SocialViewMode**](.md)|  | [optional]
+
+### Return type
+
+[**Void**](.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
  - **Accept**: text/plain, application/json, text/json
 

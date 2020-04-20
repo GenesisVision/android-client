@@ -6,6 +6,7 @@ Name | Type | Description | Notes
 **isOwnAsset** | **Boolean** |  |  [optional]
 **isFavorite** | **Boolean** |  |  [optional]
 **isReinvest** | **Boolean** |  |  [optional]
+**isAutoJoin** | **Boolean** |  |  [optional]
 **canInvest** | **Boolean** |  |  [optional]
 **canWithdraw** | **Boolean** |  |  [optional]
 **canChangeReinvest** | **Boolean** |  |  [optional]

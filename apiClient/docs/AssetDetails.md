@@ -4,7 +4,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | [**UUID**](UUID.md) |  |  [optional]
-**logo** | **String** |  |  [optional]
+**logoUrl** | **String** |  |  [optional]
 **color** | **String** |  |  [optional]
 **title** | **String** |  |  [optional]
 **url** | **String** |  |  [optional]

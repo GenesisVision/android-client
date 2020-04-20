@@ -50,15 +50,17 @@ public class DashboardCopytradingPresenter extends MvpPresenter<DashboardCopytra
 
 	@Override
 	public void onDestroy() {
-		if (getSignalProvidersSubscription != null)
+		if (getSignalProvidersSubscription != null) {
 			getSignalProvidersSubscription.unsubscribe();
+		}
 
 		super.onDestroy();
 	}
 
 	private void createFilter() {
-		if (filter == null)
+		if (filter == null) {
 			filter = new DashboardFilter();
+		}
 		this.filter.setSkip(0);
 		this.filter.setTake(1000);
 		this.filter.setDateRange(DateRange.createFromEnum(DateRange.DateRangeEnum.MONTH));

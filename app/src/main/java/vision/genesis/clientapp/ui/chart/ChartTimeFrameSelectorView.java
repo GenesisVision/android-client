@@ -148,8 +148,9 @@ public class ChartTimeFrameSelectorView extends RelativeLayout
 
 	public void selectZoom(ChartZoomEnum zoomClicked) {
 		setCurrentZoomButtonSelection(zoomClicked);
-		if (timeFrameChangeListener != null)
+		if (timeFrameChangeListener != null) {
 			timeFrameChangeListener.onChange(zoomClicked);
+		}
 	}
 
 	private void setCurrentZoomButtonSelection(ChartZoomEnum currentZoom) {

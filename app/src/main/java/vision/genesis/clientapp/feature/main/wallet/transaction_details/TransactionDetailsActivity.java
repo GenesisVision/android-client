@@ -117,11 +117,11 @@ public class TransactionDetailsActivity extends BaseSwipeBackActivity implements
 		AmountItem second = details.getAmount().getSecond();
 
 		if (first != null) {
-			addWallet(first.getLogo(), first.getCurrency().getValue());
+			addWallet(first.getLogoUrl(), first.getCurrency().getValue());
 			addValue(details.getAmount().getTitle(), StringFormatUtil.getValueString(first.getAmount(), first.getCurrency().getValue()));
 		}
 		if (second != null) {
-			addWallet(second.getLogo(), second.getCurrency().getValue());
+			addWallet(second.getLogoUrl(), second.getCurrency().getValue());
 			addValue(details.getAmount().getTitle(), StringFormatUtil.getValueString(second.getAmount(), second.getCurrency().getValue()));
 		}
 

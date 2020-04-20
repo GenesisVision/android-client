@@ -45,8 +45,8 @@ public class FundAssetInfo implements Parcelable
 	@SerializedName("symbol")
 	private String symbol = null;
 
-	@SerializedName("icon")
-	private String icon = null;
+	@SerializedName("logoUrl")
+	private String logoUrl = null;
 
 	@SerializedName("target")
 	private Double target = null;
@@ -63,7 +63,7 @@ public class FundAssetInfo implements Parcelable
 	FundAssetInfo(Parcel in) {
 		asset = (String) in.readValue(null);
 		symbol = (String) in.readValue(null);
-		icon = (String) in.readValue(null);
+		logoUrl = (String) in.readValue(null);
 		target = (Double) in.readValue(null);
 		current = (Double) in.readValue(null);
 		url = (String) in.readValue(null);
@@ -107,23 +107,23 @@ public class FundAssetInfo implements Parcelable
 		this.symbol = symbol;
 	}
 
-	public FundAssetInfo icon(String icon) {
-		this.icon = icon;
+	public FundAssetInfo logoUrl(String logoUrl) {
+		this.logoUrl = logoUrl;
 		return this;
 	}
 
 	/**
-	 * Get icon
+	 * Get logoUrl
 	 *
-	 * @return icon
+	 * @return logoUrl
 	 **/
 	@Schema(description = "")
-	public String getIcon() {
-		return icon;
+	public String getLogoUrl() {
+		return logoUrl;
 	}
 
-	public void setIcon(String icon) {
-		this.icon = icon;
+	public void setLogoUrl(String logoUrl) {
+		this.logoUrl = logoUrl;
 	}
 
 	public FundAssetInfo target(Double target) {
@@ -194,7 +194,7 @@ public class FundAssetInfo implements Parcelable
 		FundAssetInfo fundAssetInfo = (FundAssetInfo) o;
 		return Objects.equals(this.asset, fundAssetInfo.asset) &&
 				Objects.equals(this.symbol, fundAssetInfo.symbol) &&
-				Objects.equals(this.icon, fundAssetInfo.icon) &&
+				Objects.equals(this.logoUrl, fundAssetInfo.logoUrl) &&
 				Objects.equals(this.target, fundAssetInfo.target) &&
 				Objects.equals(this.current, fundAssetInfo.current) &&
 				Objects.equals(this.url, fundAssetInfo.url);
@@ -202,7 +202,7 @@ public class FundAssetInfo implements Parcelable
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(asset, symbol, icon, target, current, url);
+		return Objects.hash(asset, symbol, logoUrl, target, current, url);
 	}
 
 	@Override
@@ -212,7 +212,7 @@ public class FundAssetInfo implements Parcelable
 
 		sb.append("    asset: ").append(toIndentedString(asset)).append("\n");
 		sb.append("    symbol: ").append(toIndentedString(symbol)).append("\n");
-		sb.append("    icon: ").append(toIndentedString(icon)).append("\n");
+		sb.append("    logoUrl: ").append(toIndentedString(logoUrl)).append("\n");
 		sb.append("    target: ").append(toIndentedString(target)).append("\n");
 		sb.append("    current: ").append(toIndentedString(current)).append("\n");
 		sb.append("    url: ").append(toIndentedString(url)).append("\n");
@@ -234,7 +234,7 @@ public class FundAssetInfo implements Parcelable
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(asset);
 		out.writeValue(symbol);
-		out.writeValue(icon);
+		out.writeValue(logoUrl);
 		out.writeValue(target);
 		out.writeValue(current);
 		out.writeValue(url);

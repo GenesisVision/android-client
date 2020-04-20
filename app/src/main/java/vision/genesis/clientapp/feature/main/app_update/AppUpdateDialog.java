@@ -6,12 +6,13 @@ import android.net.Uri;
 import android.widget.CompoundButton;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatDialog;
+import androidx.core.content.ContextCompat;
+
 import java.util.Locale;
 
 import javax.inject.Inject;
 
-import androidx.appcompat.app.AppCompatDialog;
-import androidx.core.content.ContextCompat;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnCheckedChanged;
@@ -58,8 +59,9 @@ public class AppUpdateDialog extends AppCompatDialog
 
 	@OnClick(R.id.button_cancel)
 	public void onCancelClicked() {
-		if (dontRemind)
+		if (dontRemind) {
 			authManager.setIgnoredVersionUpdate(model.getVersionCode());
+		}
 		this.dismiss();
 	}
 

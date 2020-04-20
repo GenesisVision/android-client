@@ -200,7 +200,7 @@ public class WithdrawFundPresenter extends MvpPresenter<WithdrawFundView> implem
 		if (fundsManager != null && fundRequest != null && selectedWalletTo != null) {
 			getViewState().showAmountProgress(true);
 			getViewState().setContinueButtonEnabled(false);
-			withdrawInfoSubscription = fundsManager.getWithdrawInfo(fundRequest.getFundId(), selectedWalletTo.getCurrency().getValue())
+			withdrawInfoSubscription = fundsManager.getWithdrawInfo(fundRequest.getFundId(), selectedWalletTo.getCurrency())
 					.observeOn(AndroidSchedulers.mainThread())
 					.subscribeOn(Schedulers.io())
 					.subscribe(this::handleWithdrawInfoResponse,

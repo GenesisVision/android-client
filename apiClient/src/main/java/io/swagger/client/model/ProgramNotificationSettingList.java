@@ -60,8 +60,8 @@ public class ProgramNotificationSettingList implements Parcelable
 	@SerializedName("url")
 	private String url = null;
 
-	@SerializedName("logo")
-	private String logo = null;
+	@SerializedName("logoUrl")
+	private String logoUrl = null;
 
 	@SerializedName("color")
 	private String color = null;
@@ -79,7 +79,7 @@ public class ProgramNotificationSettingList implements Parcelable
 		assetId = (UUID) in.readValue(UUID.class.getClassLoader());
 		title = (String) in.readValue(null);
 		url = (String) in.readValue(null);
-		logo = (String) in.readValue(null);
+		logoUrl = (String) in.readValue(null);
 		color = (String) in.readValue(null);
 		settingsGeneral = (List<NotificationSettingViewModel>) in.readValue(NotificationSettingViewModel.class.getClassLoader());
 	}
@@ -206,23 +206,23 @@ public class ProgramNotificationSettingList implements Parcelable
 		this.url = url;
 	}
 
-	public ProgramNotificationSettingList logo(String logo) {
-		this.logo = logo;
+	public ProgramNotificationSettingList logoUrl(String logoUrl) {
+		this.logoUrl = logoUrl;
 		return this;
 	}
 
 	/**
-	 * Get logo
+	 * Get logoUrl
 	 *
-	 * @return logo
+	 * @return logoUrl
 	 **/
 	@Schema(description = "")
-	public String getLogo() {
-		return logo;
+	public String getLogoUrl() {
+		return logoUrl;
 	}
 
-	public void setLogo(String logo) {
-		this.logo = logo;
+	public void setLogoUrl(String logoUrl) {
+		this.logoUrl = logoUrl;
 	}
 
 	public ProgramNotificationSettingList color(String color) {
@@ -286,14 +286,14 @@ public class ProgramNotificationSettingList implements Parcelable
 				Objects.equals(this.assetId, programNotificationSettingList.assetId) &&
 				Objects.equals(this.title, programNotificationSettingList.title) &&
 				Objects.equals(this.url, programNotificationSettingList.url) &&
-				Objects.equals(this.logo, programNotificationSettingList.logo) &&
+				Objects.equals(this.logoUrl, programNotificationSettingList.logoUrl) &&
 				Objects.equals(this.color, programNotificationSettingList.color) &&
 				Objects.equals(this.settingsGeneral, programNotificationSettingList.settingsGeneral);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(level, levelProgress, settingsCustom, assetId, title, url, logo, color, settingsGeneral);
+		return Objects.hash(level, levelProgress, settingsCustom, assetId, title, url, logoUrl, color, settingsGeneral);
 	}
 
 	@Override
@@ -307,7 +307,7 @@ public class ProgramNotificationSettingList implements Parcelable
 		sb.append("    assetId: ").append(toIndentedString(assetId)).append("\n");
 		sb.append("    title: ").append(toIndentedString(title)).append("\n");
 		sb.append("    url: ").append(toIndentedString(url)).append("\n");
-		sb.append("    logo: ").append(toIndentedString(logo)).append("\n");
+		sb.append("    logoUrl: ").append(toIndentedString(logoUrl)).append("\n");
 		sb.append("    color: ").append(toIndentedString(color)).append("\n");
 		sb.append("    settingsGeneral: ").append(toIndentedString(settingsGeneral)).append("\n");
 		sb.append("}");
@@ -332,7 +332,7 @@ public class ProgramNotificationSettingList implements Parcelable
 		out.writeValue(assetId);
 		out.writeValue(title);
 		out.writeValue(url);
-		out.writeValue(logo);
+		out.writeValue(logoUrl);
 		out.writeValue(color);
 		out.writeValue(settingsGeneral);
 	}

@@ -15,15 +15,10 @@ package io.swagger.client.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.google.gson.TypeAdapter;
-import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonWriter;
 
 import org.joda.time.DateTime;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -51,8 +46,8 @@ public class InvestmentEventViewModel implements Parcelable
 	@SerializedName("title")
 	private String title = null;
 
-	@SerializedName("icon")
-	private String icon = null;
+	@SerializedName("logoUrl")
+	private String logoUrl = null;
 
 	@SerializedName("date")
 	private DateTime date = null;
@@ -64,7 +59,7 @@ public class InvestmentEventViewModel implements Parcelable
 	private Double amount = null;
 
 	@SerializedName("currency")
-	private CurrencyEnum currency = null;
+	private Currency currency = null;
 
 	@SerializedName("changeState")
 	private ChangeState changeState = null;
@@ -79,23 +74,23 @@ public class InvestmentEventViewModel implements Parcelable
 	private Double totalFeesAmount = null;
 
 	@SerializedName("totalFeesCurrency")
-	private TotalFeesCurrencyEnum totalFeesCurrency = null;
+	private Currency totalFeesCurrency = null;
 
 	public InvestmentEventViewModel() {
 	}
 
 	InvestmentEventViewModel(Parcel in) {
 		title = (String) in.readValue(null);
-		icon = (String) in.readValue(null);
+		logoUrl = (String) in.readValue(null);
 		date = (DateTime) in.readValue(DateTime.class.getClassLoader());
 		assetDetails = (AssetDetails) in.readValue(AssetDetails.class.getClassLoader());
 		amount = (Double) in.readValue(null);
-		currency = (CurrencyEnum) in.readValue(null);
+		currency = (Currency) in.readValue(Currency.class.getClassLoader());
 		changeState = (ChangeState) in.readValue(ChangeState.class.getClassLoader());
 		extendedInfo = (List<InvestmentEventItemViewModel>) in.readValue(InvestmentEventItemViewModel.class.getClassLoader());
 		feesInfo = (List<FeeDetails>) in.readValue(FeeDetails.class.getClassLoader());
 		totalFeesAmount = (Double) in.readValue(null);
-		totalFeesCurrency = (TotalFeesCurrencyEnum) in.readValue(null);
+		totalFeesCurrency = (Currency) in.readValue(Currency.class.getClassLoader());
 	}
 
 	public InvestmentEventViewModel title(String title) {
@@ -117,23 +112,23 @@ public class InvestmentEventViewModel implements Parcelable
 		this.title = title;
 	}
 
-	public InvestmentEventViewModel icon(String icon) {
-		this.icon = icon;
+	public InvestmentEventViewModel logoUrl(String logoUrl) {
+		this.logoUrl = logoUrl;
 		return this;
 	}
 
 	/**
-	 * Get icon
+	 * Get logoUrl
 	 *
-	 * @return icon
+	 * @return logoUrl
 	 **/
 	@Schema(description = "")
-	public String getIcon() {
-		return icon;
+	public String getLogoUrl() {
+		return logoUrl;
 	}
 
-	public void setIcon(String icon) {
-		this.icon = icon;
+	public void setLogoUrl(String logoUrl) {
+		this.logoUrl = logoUrl;
 	}
 
 	public InvestmentEventViewModel date(DateTime date) {
@@ -193,7 +188,7 @@ public class InvestmentEventViewModel implements Parcelable
 		this.amount = amount;
 	}
 
-	public InvestmentEventViewModel currency(CurrencyEnum currency) {
+	public InvestmentEventViewModel currency(Currency currency) {
 		this.currency = currency;
 		return this;
 	}
@@ -204,11 +199,11 @@ public class InvestmentEventViewModel implements Parcelable
 	 * @return currency
 	 **/
 	@Schema(description = "")
-	public CurrencyEnum getCurrency() {
+	public Currency getCurrency() {
 		return currency;
 	}
 
-	public void setCurrency(CurrencyEnum currency) {
+	public void setCurrency(Currency currency) {
 		this.currency = currency;
 	}
 
@@ -304,7 +299,7 @@ public class InvestmentEventViewModel implements Parcelable
 		this.totalFeesAmount = totalFeesAmount;
 	}
 
-	public InvestmentEventViewModel totalFeesCurrency(TotalFeesCurrencyEnum totalFeesCurrency) {
+	public InvestmentEventViewModel totalFeesCurrency(Currency totalFeesCurrency) {
 		this.totalFeesCurrency = totalFeesCurrency;
 		return this;
 	}
@@ -315,14 +310,13 @@ public class InvestmentEventViewModel implements Parcelable
 	 * @return totalFeesCurrency
 	 **/
 	@Schema(description = "")
-	public TotalFeesCurrencyEnum getTotalFeesCurrency() {
+	public Currency getTotalFeesCurrency() {
 		return totalFeesCurrency;
 	}
 
-	public void setTotalFeesCurrency(TotalFeesCurrencyEnum totalFeesCurrency) {
+	public void setTotalFeesCurrency(Currency totalFeesCurrency) {
 		this.totalFeesCurrency = totalFeesCurrency;
 	}
-
 
 	@Override
 	public boolean equals(java.lang.Object o) {
@@ -334,7 +328,7 @@ public class InvestmentEventViewModel implements Parcelable
 		}
 		InvestmentEventViewModel investmentEventViewModel = (InvestmentEventViewModel) o;
 		return Objects.equals(this.title, investmentEventViewModel.title) &&
-				Objects.equals(this.icon, investmentEventViewModel.icon) &&
+				Objects.equals(this.logoUrl, investmentEventViewModel.logoUrl) &&
 				Objects.equals(this.date, investmentEventViewModel.date) &&
 				Objects.equals(this.assetDetails, investmentEventViewModel.assetDetails) &&
 				Objects.equals(this.amount, investmentEventViewModel.amount) &&
@@ -348,9 +342,8 @@ public class InvestmentEventViewModel implements Parcelable
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(title, icon, date, assetDetails, amount, currency, changeState, extendedInfo, feesInfo, totalFeesAmount, totalFeesCurrency);
+		return Objects.hash(title, logoUrl, date, assetDetails, amount, currency, changeState, extendedInfo, feesInfo, totalFeesAmount, totalFeesCurrency);
 	}
-
 
 	@Override
 	public String toString() {
@@ -358,7 +351,7 @@ public class InvestmentEventViewModel implements Parcelable
 		sb.append("class InvestmentEventViewModel {\n");
 
 		sb.append("    title: ").append(toIndentedString(title)).append("\n");
-		sb.append("    icon: ").append(toIndentedString(icon)).append("\n");
+		sb.append("    logoUrl: ").append(toIndentedString(logoUrl)).append("\n");
 		sb.append("    date: ").append(toIndentedString(date)).append("\n");
 		sb.append("    assetDetails: ").append(toIndentedString(assetDetails)).append("\n");
 		sb.append("    amount: ").append(toIndentedString(amount)).append("\n");
@@ -383,10 +376,9 @@ public class InvestmentEventViewModel implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
-
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(title);
-		out.writeValue(icon);
+		out.writeValue(logoUrl);
 		out.writeValue(date);
 		out.writeValue(assetDetails);
 		out.writeValue(amount);
@@ -400,123 +392,5 @@ public class InvestmentEventViewModel implements Parcelable
 
 	public int describeContents() {
 		return 0;
-	}
-
-	/**
-	 * Gets or Sets currency
-	 */
-	@JsonAdapter(CurrencyEnum.Adapter.class)
-	public enum CurrencyEnum
-	{
-		BTC("BTC"),
-		ETH("ETH"),
-		USDT("USDT"),
-		USD("USD"),
-		GVT("GVT"),
-		UNDEFINED("Undefined"),
-		ADA("ADA"),
-		XRP("XRP"),
-		BCH("BCH"),
-		LTC("LTC"),
-		DOGE("DOGE"),
-		BNB("BNB"),
-		EUR("EUR");
-
-		public static CurrencyEnum fromValue(String text) {
-			for (CurrencyEnum b : CurrencyEnum.values()) {
-				if (String.valueOf(b.value).equals(text)) {
-					return b;
-				}
-			}
-			return null;
-		}
-
-		private String value;
-
-		CurrencyEnum(String value) {
-			this.value = value;
-		}
-
-		public String getValue() {
-			return value;
-		}
-
-		@Override
-		public String toString() {
-			return String.valueOf(value);
-		}
-
-		public static class Adapter extends TypeAdapter<CurrencyEnum>
-		{
-			@Override
-			public void write(final JsonWriter jsonWriter, final CurrencyEnum enumeration) throws IOException {
-				jsonWriter.value(enumeration.getValue());
-			}
-
-			@Override
-			public CurrencyEnum read(final JsonReader jsonReader) throws IOException {
-				String value = jsonReader.nextString();
-				return CurrencyEnum.fromValue(String.valueOf(value));
-			}
-		}
-	}
-
-	/**
-	 * Gets or Sets totalFeesCurrency
-	 */
-	@JsonAdapter(TotalFeesCurrencyEnum.Adapter.class)
-	public enum TotalFeesCurrencyEnum
-	{
-		BTC("BTC"),
-		ETH("ETH"),
-		USDT("USDT"),
-		USD("USD"),
-		GVT("GVT"),
-		UNDEFINED("Undefined"),
-		ADA("ADA"),
-		XRP("XRP"),
-		BCH("BCH"),
-		LTC("LTC"),
-		DOGE("DOGE"),
-		BNB("BNB"),
-		EUR("EUR");
-
-		public static TotalFeesCurrencyEnum fromValue(String text) {
-			for (TotalFeesCurrencyEnum b : TotalFeesCurrencyEnum.values()) {
-				if (String.valueOf(b.value).equals(text)) {
-					return b;
-				}
-			}
-			return null;
-		}
-
-		private String value;
-
-		TotalFeesCurrencyEnum(String value) {
-			this.value = value;
-		}
-
-		public String getValue() {
-			return value;
-		}
-
-		@Override
-		public String toString() {
-			return String.valueOf(value);
-		}
-
-		public static class Adapter extends TypeAdapter<TotalFeesCurrencyEnum>
-		{
-			@Override
-			public void write(final JsonWriter jsonWriter, final TotalFeesCurrencyEnum enumeration) throws IOException {
-				jsonWriter.value(enumeration.getValue());
-			}
-
-			@Override
-			public TotalFeesCurrencyEnum read(final JsonReader jsonReader) throws IOException {
-				String value = jsonReader.nextString();
-				return TotalFeesCurrencyEnum.fromValue(String.valueOf(value));
-			}
-		}
 	}
 }

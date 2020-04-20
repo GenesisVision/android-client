@@ -58,7 +58,7 @@ public class EventDetailsBottomSheetFragment extends BottomSheetDialogFragment
 //			AssetDetails details = event.getAssetDetails();
 //			if (details.getAssetType().equals(AssetType.PROGRAM) || details.getAssetType().equals(AssetType.FOLLOW)) {
 //				ProgramDetailsModel programDetailsModel = new ProgramDetailsModel(details.getId(),
-//						details.getLogo(),
+//						details.getLogoUrl(),
 //						details.getColor(),
 //						0,
 //						0.0,
@@ -72,7 +72,7 @@ public class EventDetailsBottomSheetFragment extends BottomSheetDialogFragment
 //			}
 //			else if (details.getAssetType().equals(AssetType.FUND)) {
 //				FundDetailsModel fundDetailsModel = new FundDetailsModel(details.getId(),
-//						details.getLogo(),
+//						details.getLogoUrl(),
 //						details.getColor(),
 //						details.getTitle(),
 //						"",
@@ -120,7 +120,7 @@ public class EventDetailsBottomSheetFragment extends BottomSheetDialogFragment
 			return;
 		}
 
-		this.action.setImageURI(ImageUtils.getImageUri(event.getIcon()));
+		this.action.setImageURI(ImageUtils.getImageUri(event.getLogoUrl()));
 
 		this.date.setText(DateTimeUtil.formatEventDateTime(event.getDate()));
 		this.title.setText(event.getTitle());

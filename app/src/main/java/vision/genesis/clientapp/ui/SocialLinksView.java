@@ -85,7 +85,7 @@ public class SocialLinksView extends RelativeLayout
 
 	private View createSocialLinkView(SocialLinkViewModel data) {
 		SimpleDraweeView view = new SimpleDraweeView(getContext());
-		view.setImageURI(ImageUtils.getImageUri(data.getLogo()));
+		view.setImageURI(ImageUtils.getImageUri(data.getLogoUrl()));
 		view.setOnClickListener(view1 -> {
 			try {
 				Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(data.getUrl().concat(data.getValue())));

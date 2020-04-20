@@ -8,10 +8,11 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import java.util.Locale;
-
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.content.ContextCompat;
+
+import java.util.Locale;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;

@@ -128,7 +128,7 @@ public class CreateFundAssetView extends RelativeLayout
 	}
 
 	public void setAsset(FundAssetInfo asset) {
-		this.icon.setImageURI(ImageUtils.getImageUri(asset.getIcon()));
+		this.icon.setImageURI(ImageUtils.getImageUri(asset.getLogoUrl()));
 		this.name.setText(asset.getSymbol());
 		this.removeButton.setVisibility(View.GONE);
 
@@ -138,7 +138,7 @@ public class CreateFundAssetView extends RelativeLayout
 	public void setAsset(PlatformAsset asset, double share) {
 		this.asset = asset;
 
-		this.icon.setImageURI(ImageUtils.getImageUri(asset.getIcon()));
+		this.icon.setImageURI(ImageUtils.getImageUri(asset.getLogoUrl()));
 		this.name.setText(asset.getAsset());
 		this.removeButton.setVisibility(share > asset.getMandatoryFundPercent() ? View.VISIBLE : View.GONE);
 

@@ -9,11 +9,12 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import androidx.annotation.Nullable;
+
 import com.arellomobile.mvp.presenter.InjectPresenter;
 
 import org.greenrobot.eventbus.EventBus;
 
-import androidx.annotation.Nullable;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -82,8 +83,9 @@ public class SetupTfaSecondStepFragment extends BaseFragment implements SetupTfa
 	}
 
 	public void onSetKey(String sharedKey, String authenticatorUri) {
-		if (setupTfaSecondStepPresenter != null)
+		if (setupTfaSecondStepPresenter != null) {
 			setupTfaSecondStepPresenter.onSetKey(getContext(), sharedKey, authenticatorUri);
+		}
 	}
 
 	@Override

@@ -3,46 +3,10 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**initialDepositCurrency** | [**InitialDepositCurrencyEnum**](#InitialDepositCurrencyEnum) |  |  [optional]
+**initialDepositCurrency** | [**Currency**](Currency.md) |  |  [optional]
 **initialDepositAmount** | **Double** |  |  [optional]
 **mode** | [**SubscriptionMode**](SubscriptionMode.md) |  |  [optional]
 **percent** | **Double** |  |  [optional]
 **openTolerancePercent** | **Double** |  |  [optional]
 **fixedVolume** | **Double** |  |  [optional]
-**fixedCurrency** | [**FixedCurrencyEnum**](#FixedCurrencyEnum) |  |  [optional]
-
-<a name="InitialDepositCurrencyEnum"></a>
-## Enum: InitialDepositCurrencyEnum
-Name | Value
----- | -----
-BTC | &quot;BTC&quot;
-ETH | &quot;ETH&quot;
-USDT | &quot;USDT&quot;
-USD | &quot;USD&quot;
-GVT | &quot;GVT&quot;
-UNDEFINED | &quot;Undefined&quot;
-ADA | &quot;ADA&quot;
-XRP | &quot;XRP&quot;
-BCH | &quot;BCH&quot;
-LTC | &quot;LTC&quot;
-DOGE | &quot;DOGE&quot;
-BNB | &quot;BNB&quot;
-EUR | &quot;EUR&quot;
-
-<a name="FixedCurrencyEnum"></a>
-## Enum: FixedCurrencyEnum
-Name | Value
----- | -----
-BTC | &quot;BTC&quot;
-ETH | &quot;ETH&quot;
-USDT | &quot;USDT&quot;
-USD | &quot;USD&quot;
-GVT | &quot;GVT&quot;
-UNDEFINED | &quot;Undefined&quot;
-ADA | &quot;ADA&quot;
-XRP | &quot;XRP&quot;
-BCH | &quot;BCH&quot;
-LTC | &quot;LTC&quot;
-DOGE | &quot;DOGE&quot;
-BNB | &quot;BNB&quot;
-EUR | &quot;EUR&quot;
+**fixedCurrency** | [**Currency**](Currency.md) |  |  [optional]

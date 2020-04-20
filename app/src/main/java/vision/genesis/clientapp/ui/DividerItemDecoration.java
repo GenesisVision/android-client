@@ -37,10 +37,12 @@ public class DividerItemDecoration extends RecyclerView.ItemDecoration
 	@Override
 	public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
 		super.getItemOffsets(outRect, view, parent, state);
-		if (mDivider == null)
+		if (mDivider == null) {
 			return;
-		if (parent.getChildAdapterPosition(view) < 1)
+		}
+		if (parent.getChildAdapterPosition(view) < 1) {
 			return;
+		}
 
 		if (getOrientation(parent) == LinearLayoutManager.VERTICAL) {
 			outRect.top = mDivider.getIntrinsicHeight();
@@ -95,7 +97,8 @@ public class DividerItemDecoration extends RecyclerView.ItemDecoration
 			LinearLayoutManager layoutManager = (LinearLayoutManager) parent.getLayoutManager();
 			return layoutManager.getOrientation();
 		}
-		else
+		else {
 			throw new IllegalStateException("DividerItemDecoration can only be used with a LinearLayoutManager.");
+		}
 	}
 }

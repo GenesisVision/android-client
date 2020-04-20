@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **name** | **String** |  |  [optional]
 **asset** | **String** |  |  [optional]
 **description** | **String** |  |  [optional]
-**icon** | **String** |  |  [optional]
+**logoUrl** | **String** |  |  [optional]
 **color** | **String** |  |  [optional]
 **mandatoryFundPercent** | **Double** |  |  [optional]
 **url** | **String** |  |  [optional]

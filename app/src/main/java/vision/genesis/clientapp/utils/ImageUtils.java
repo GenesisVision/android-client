@@ -42,7 +42,8 @@ public class ImageUtils
 	private static final int AVATAR_WIDTH = 500;
 
 	public static String getImageUri(String imageId) {
-		return (BuildConfig.API_ADDRESS + "/v2.0/file/" + imageId);
+//		return (BuildConfig.API_ADDRESS + "/v2.0/file/" + imageId);
+		return imageId;
 	}
 
 	public static boolean saveImageToFile(Context context, Bitmap image, String imageUri) {

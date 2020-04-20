@@ -7,7 +7,9 @@ import io.swagger.client.api.TradingaccountApi;
 import io.swagger.client.model.AbsoluteProfitChart;
 import io.swagger.client.model.AccountBalanceChart;
 import io.swagger.client.model.AccountProfitPercentCharts;
+import io.swagger.client.model.Currency;
 import io.swagger.client.model.PrivateTradingAccountFull;
+import io.swagger.client.model.TradeSorting;
 import io.swagger.client.model.TradesSignalViewModel;
 import io.swagger.client.model.TradesViewModel;
 import rx.Observable;
@@ -27,31 +29,31 @@ public class TradingAccountManager
 	}
 
 	public Observable<PrivateTradingAccountFull> getAccountDetails(UUID accountId) {
-		return tradingAccountApi.getTradingAccountDetails(accountId, AuthManager.token.getValue());
+		return tradingAccountApi.getTradingAccountDetails(accountId);
 	}
 
 	public Observable<TradesViewModel> getAccountOpenPositions(UUID accountId) {
-		return tradingAccountApi.getOpenTrades(accountId, AuthManager.token.getValue(), "ByDateDesc",
+		return tradingAccountApi.getOpenTrades(accountId, TradeSorting.BYDATEDESC,
 				null, null, null,
 				0, 1000);
 	}
 
-	public Observable<AccountProfitPercentCharts> getProfitPercentChart(UUID accountId, DateRange dateRange, Integer maxPointCount, String currency, List<Object> currencies) {
-		return tradingAccountApi.getProfitPercentCharts(accountId, AuthManager.token.getValue(), dateRange.getFrom(), dateRange.getTo(), maxPointCount, currency, currencies);
+	public Observable<AccountProfitPercentCharts> getProfitPercentChart(UUID accountId, DateRange dateRange, Integer maxPointCount, Currency currency, List<Currency> currencies) {
+		return tradingAccountApi.getProfitPercentCharts(accountId, dateRange.getFrom(), dateRange.getTo(), maxPointCount, currency, currencies);
 	}
 
-	public Observable<AbsoluteProfitChart> getProfitAbsoluteChart(UUID accountId, DateRange dateRange, Integer maxPointCount, String currency) {
-		return tradingAccountApi.getAbsoluteProfitChart(accountId, AuthManager.token.getValue(), dateRange.getFrom(), dateRange.getTo(), maxPointCount, currency);
+	public Observable<AbsoluteProfitChart> getProfitAbsoluteChart(UUID accountId, DateRange dateRange, Integer maxPointCount, Currency currency) {
+		return tradingAccountApi.getAbsoluteProfitChart(accountId, dateRange.getFrom(), dateRange.getTo(), maxPointCount, currency);
 	}
 
 
-	public Observable<AccountBalanceChart> getBalanceChart(UUID accountId, DateRange dateRange, Integer maxPointCount, String currency) {
-		return tradingAccountApi.getBalanceChart(accountId, AuthManager.token.getValue(),
+	public Observable<AccountBalanceChart> getBalanceChart(UUID accountId, DateRange dateRange, Integer maxPointCount, Currency currency) {
+		return tradingAccountApi.getBalanceChart(accountId,
 				dateRange.getFrom(), dateRange.getTo(), maxPointCount, currency);
 	}
 
 	public Observable<TradesSignalViewModel> getTrades(UUID accountId, DateRange dateRange, Boolean isFollow, Integer skip, Integer take) {
-		return tradingAccountApi.getTrades(accountId, AuthManager.token.getValue(),
+		return tradingAccountApi.getTrades(accountId,
 				dateRange.getFrom(), dateRange.getTo(),
 				null, null, null, null, isFollow,
 				skip, take);

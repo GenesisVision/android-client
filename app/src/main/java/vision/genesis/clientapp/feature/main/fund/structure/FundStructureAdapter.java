@@ -5,13 +5,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.facebook.drawee.view.SimpleDraweeView;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.swagger.client.model.FundAssetInfo;
@@ -75,7 +76,7 @@ public class FundStructureAdapter extends RecyclerView.Adapter<FundStructureAdap
 		void setAsset(FundAssetInfo asset) {
 			this.asset = asset;
 
-			icon.setImageURI(ImageUtils.getImageUri(asset.getIcon()));
+			icon.setImageURI(ImageUtils.getImageUri(asset.getLogoUrl()));
 			name.setText(asset.getAsset());
 			target.setText(String.format(Locale.getDefault(), "%s %%", StringFormatUtil.formatAmount(asset.getTarget(), 2, 2)));
 			current.setText(String.format(Locale.getDefault(), "%s %%", StringFormatUtil.formatAmount(asset.getCurrent(), 2, 2)));

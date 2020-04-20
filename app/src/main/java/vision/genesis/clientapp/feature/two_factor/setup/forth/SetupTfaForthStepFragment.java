@@ -6,11 +6,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.annotation.Nullable;
+
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 
-import androidx.annotation.Nullable;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -80,13 +81,15 @@ public class SetupTfaForthStepFragment extends BaseFragment
 		for (int i = 0; i < codes.size(); i++) {
 			if (i % 2 == 0) {
 				leftColumn.append(codes.get(i));
-				if (i < codes.size() - 2)
+				if (i < codes.size() - 2) {
 					leftColumn.append("\n");
+				}
 			}
 			else {
 				rightColumn.append(codes.get(i));
-				if (i < codes.size() - 2)
+				if (i < codes.size() - 2) {
 					rightColumn.append("\n");
+				}
 			}
 		}
 	}

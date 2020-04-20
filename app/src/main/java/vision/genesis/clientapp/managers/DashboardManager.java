@@ -5,13 +5,17 @@ import java.util.UUID;
 import io.swagger.client.api.CopytradingApi;
 import io.swagger.client.api.DashboardApi;
 import io.swagger.client.api.InvestmentsApi;
+import io.swagger.client.model.AssetInvestmentRequestItemsViewModel;
+import io.swagger.client.model.Currency;
+import io.swagger.client.model.DashboardAssetStatus;
 import io.swagger.client.model.DashboardInvestingDetails;
 import io.swagger.client.model.DashboardSummary;
+import io.swagger.client.model.DashboardTradingAssetItemsViewModel;
 import io.swagger.client.model.DashboardTradingDetails;
-import io.swagger.client.model.ItemsViewModelAssetInvestmentRequest;
-import io.swagger.client.model.ItemsViewModelDashboardTradingAsset;
-import io.swagger.client.model.ItemsViewModelFundInvestingDetailsList;
-import io.swagger.client.model.ItemsViewModelProgramInvestingDetailsList;
+import io.swagger.client.model.FundInvestingDetailsListItemsViewModel;
+import io.swagger.client.model.FundsFilterSorting;
+import io.swagger.client.model.ProgramInvestingDetailsListItemsViewModel;
+import io.swagger.client.model.ProgramsFilterSorting;
 import rx.Observable;
 import vision.genesis.clientapp.model.DateRange;
 import vision.genesis.clientapp.model.filter.ProgramsFilter;
@@ -36,48 +40,48 @@ public class DashboardManager
 	}
 
 	public Observable<DashboardSummary> getSummary(String currency) {
-		return dashboardApi.getSummary(AuthManager.token.getValue(), currency);
+		return dashboardApi.getDashboardSummary(Currency.fromValue(currency));
 	}
 
 	public Observable<DashboardInvestingDetails> getInvestingDetails(String currency, int eventsTake) {
-		return dashboardApi.getInvestingDetails(AuthManager.token.getValue(), currency, eventsTake);
+		return dashboardApi.getInvestingDetails(Currency.fromValue(currency), eventsTake);
 	}
 
 	public Observable<DashboardTradingDetails> getTradingDetails(String currency, int eventsTake) {
-		return dashboardApi.getTradingDetails(AuthManager.token.getValue(), currency, eventsTake);
+		return dashboardApi.getTradingDetails(Currency.fromValue(currency), eventsTake);
 	}
 
-	public Observable<ItemsViewModelAssetInvestmentRequest> getRequests(int skip, int take) {
-		return investmentsApi.getRequests(skip, take, AuthManager.token.getValue());
+	public Observable<AssetInvestmentRequestItemsViewModel> getRequests(int skip, int take) {
+		return investmentsApi.getRequests(skip, take);
 	}
 
-	public Observable<ItemsViewModelAssetInvestmentRequest> getRequestsByAsset(UUID assetId) {
-		return investmentsApi.getRequestsByProgram(assetId, 0, 100, AuthManager.token.getValue());
+	public Observable<AssetInvestmentRequestItemsViewModel> getRequestsByAsset(UUID assetId) {
+		return investmentsApi.getRequestsByProgram(assetId, 0, 100);
 	}
 
 	public Observable<Void> cancelRequest(UUID requestId) {
-		return investmentsApi.cancelRequest(requestId, AuthManager.token.getValue());
+		return investmentsApi.cancelRequest(requestId);
 	}
 
-	public Observable<ItemsViewModelDashboardTradingAsset> getPrivate(DateRange dateRange, String baseCurrency, int skip, int take) {
-		return dashboardApi.getPrivateTradingAssets(AuthManager.token.getValue(),
+	public Observable<DashboardTradingAssetItemsViewModel> getPrivate(DateRange dateRange, String baseCurrency, int skip, int take) {
+		return dashboardApi.getPrivateTradingAssets(
 				dateRange != null ? dateRange.getFrom() : null, dateRange != null ? dateRange.getTo() : null,
-				10, baseCurrency, null,
+				10, Currency.fromValue(baseCurrency), null,
 				skip, take);
 	}
 
-	public Observable<ItemsViewModelDashboardTradingAsset> getPublic(DateRange dateRange, String baseCurrency, int skip, int take) {
-		return dashboardApi.getPublicTradingAssets(AuthManager.token.getValue(),
+	public Observable<DashboardTradingAssetItemsViewModel> getPublic(DateRange dateRange, String baseCurrency, int skip, int take) {
+		return dashboardApi.getPublicTradingAssets(
 				dateRange != null ? dateRange.getFrom() : null, dateRange != null ? dateRange.getTo() : null,
-				10, baseCurrency, null,
+				10, Currency.fromValue(baseCurrency), null,
 				skip, take);
 	}
 
-	public Observable<ItemsViewModelProgramInvestingDetailsList> getPrograms(ProgramsFilter filter) {
-		return dashboardApi.getInvestingPrograms(AuthManager.token.getValue(),
-				filter.getSorting() != null ? filter.getSorting().getValue() : null,
-				filter.getShowIn() != null ? filter.getShowIn().getValue() : null,
-				filter.getStatus(),
+	public Observable<ProgramInvestingDetailsListItemsViewModel> getPrograms(ProgramsFilter filter) {
+		return dashboardApi.getInvestingPrograms(
+				filter.getSorting() != null ? ProgramsFilterSorting.fromValue(filter.getSorting().getValue()) : null,
+				filter.getShowIn() != null ? Currency.fromValue(filter.getShowIn().getValue()) : null,
+				DashboardAssetStatus.fromValue(filter.getStatus()),
 				filter.getDateRange().getFrom(), filter.getDateRange().getTo(),
 				filter.getChartPointsCount(),
 				filter.getFacetId() == null ? null : filter.getFacetId().toString(),
@@ -85,11 +89,11 @@ public class DashboardManager
 				filter.getSkip(), filter.getTake());
 	}
 
-	public Observable<ItemsViewModelFundInvestingDetailsList> getFunds(ProgramsFilter filter) {
-		return dashboardApi.getInvestingFunds(AuthManager.token.getValue(),
-				filter.getSorting() != null ? filter.getSorting().getValue() : null,
-				filter.getShowIn() != null ? filter.getShowIn().getValue() : null,
-				filter.getStatus(),
+	public Observable<FundInvestingDetailsListItemsViewModel> getFunds(ProgramsFilter filter) {
+		return dashboardApi.getInvestingFunds(
+				filter.getSorting() != null ? FundsFilterSorting.fromValue(filter.getSorting().getValue()) : null,
+				filter.getShowIn() != null ? Currency.fromValue(filter.getShowIn().getValue()) : null,
+				DashboardAssetStatus.fromValue(filter.getStatus()),
 				filter.getDateRange().getFrom(), filter.getDateRange().getTo(),
 				filter.getChartPointsCount(),
 				filter.getFacetId() == null ? null : filter.getFacetId().toString(),

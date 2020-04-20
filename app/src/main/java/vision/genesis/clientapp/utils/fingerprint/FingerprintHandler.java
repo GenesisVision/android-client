@@ -9,6 +9,7 @@ import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 import androidx.core.app.ActivityCompat;
+
 import timber.log.Timber;
 import vision.genesis.clientapp.GenesisVisionApplication;
 

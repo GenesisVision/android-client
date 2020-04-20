@@ -223,7 +223,7 @@ public class TransferFundsActivity extends BaseSwipeBackActivity implements Tran
 
 	@Override
 	public void setWallet(WalletData wallet) {
-		this.secondIcon.setImageURI(ImageUtils.getImageUri(wallet.getLogo()));
+		this.secondIcon.setImageURI(ImageUtils.getImageUri(wallet.getLogoUrl()));
 		this.secondName.setText(wallet.getTitle());
 		this.secondBalance.setText(String.format(Locale.getDefault(), "%s %s %s",
 				getString(R.string.available),

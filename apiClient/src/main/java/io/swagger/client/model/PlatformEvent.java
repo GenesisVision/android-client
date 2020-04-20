@@ -47,8 +47,8 @@ public class PlatformEvent implements Parcelable
 	@SerializedName("text")
 	private String text = null;
 
-	@SerializedName("icon")
-	private String icon = null;
+	@SerializedName("logoUrl")
+	private String logoUrl = null;
 
 	@SerializedName("assetUrl")
 	private String assetUrl = null;
@@ -77,7 +77,7 @@ public class PlatformEvent implements Parcelable
 	PlatformEvent(Parcel in) {
 		title = (String) in.readValue(null);
 		text = (String) in.readValue(null);
-		icon = (String) in.readValue(null);
+		logoUrl = (String) in.readValue(null);
 		assetUrl = (String) in.readValue(null);
 		userUrl = (String) in.readValue(null);
 		value = (String) in.readValue(null);
@@ -125,23 +125,23 @@ public class PlatformEvent implements Parcelable
 		this.text = text;
 	}
 
-	public PlatformEvent icon(String icon) {
-		this.icon = icon;
+	public PlatformEvent logoUrl(String logoUrl) {
+		this.logoUrl = logoUrl;
 		return this;
 	}
 
 	/**
-	 * Get icon
+	 * Get logoUrl
 	 *
-	 * @return icon
+	 * @return logoUrl
 	 **/
 	@Schema(description = "")
-	public String getIcon() {
-		return icon;
+	public String getLogoUrl() {
+		return logoUrl;
 	}
 
-	public void setIcon(String icon) {
-		this.icon = icon;
+	public void setLogoUrl(String logoUrl) {
+		this.logoUrl = logoUrl;
 	}
 
 	public PlatformEvent assetUrl(String assetUrl) {
@@ -188,11 +188,11 @@ public class PlatformEvent implements Parcelable
 	}
 
 	/**
-	 * Get value
+	 * Can be null
 	 *
 	 * @return value
 	 **/
-	@Schema(description = "")
+	@Schema(description = "Can be null")
 	public String getValue() {
 		return value;
 	}
@@ -288,7 +288,7 @@ public class PlatformEvent implements Parcelable
 		PlatformEvent platformEvent = (PlatformEvent) o;
 		return Objects.equals(this.title, platformEvent.title) &&
 				Objects.equals(this.text, platformEvent.text) &&
-				Objects.equals(this.icon, platformEvent.icon) &&
+				Objects.equals(this.logoUrl, platformEvent.logoUrl) &&
 				Objects.equals(this.assetUrl, platformEvent.assetUrl) &&
 				Objects.equals(this.userUrl, platformEvent.userUrl) &&
 				Objects.equals(this.value, platformEvent.value) &&
@@ -300,7 +300,7 @@ public class PlatformEvent implements Parcelable
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(title, text, icon, assetUrl, userUrl, value, color, assetType, date, type);
+		return Objects.hash(title, text, logoUrl, assetUrl, userUrl, value, color, assetType, date, type);
 	}
 
 	@Override
@@ -310,7 +310,7 @@ public class PlatformEvent implements Parcelable
 
 		sb.append("    title: ").append(toIndentedString(title)).append("\n");
 		sb.append("    text: ").append(toIndentedString(text)).append("\n");
-		sb.append("    icon: ").append(toIndentedString(icon)).append("\n");
+		sb.append("    logoUrl: ").append(toIndentedString(logoUrl)).append("\n");
 		sb.append("    assetUrl: ").append(toIndentedString(assetUrl)).append("\n");
 		sb.append("    userUrl: ").append(toIndentedString(userUrl)).append("\n");
 		sb.append("    value: ").append(toIndentedString(value)).append("\n");
@@ -336,7 +336,7 @@ public class PlatformEvent implements Parcelable
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(title);
 		out.writeValue(text);
-		out.writeValue(icon);
+		out.writeValue(logoUrl);
 		out.writeValue(assetUrl);
 		out.writeValue(userUrl);
 		out.writeValue(value);

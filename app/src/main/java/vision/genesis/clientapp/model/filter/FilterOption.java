@@ -130,8 +130,9 @@ public class FilterOption implements Parcelable
 			return false;
 		}
 		FilterOption filterOption = (FilterOption) o;
-		if (!Objects.equals(getSelectedPosition(), filterOption.getSelectedPosition()))
+		if (!Objects.equals(getSelectedPosition(), filterOption.getSelectedPosition())) {
 			Timber.d("stop");
+		}
 		return Objects.equals(getName(), filterOption.getName()) &&
 				getValues().equals(filterOption.getValues()) &&
 				Objects.equals(getSelectedPosition(), filterOption.getSelectedPosition()) &&

@@ -78,8 +78,8 @@ public class ProfileFullViewModel implements Parcelable
 	@SerializedName("gender")
 	private Boolean gender = null;
 
-	@SerializedName("avatar")
-	private String avatar = null;
+	@SerializedName("logoUrl")
+	private String logoUrl = null;
 
 	@SerializedName("about")
 	private String about = null;
@@ -102,6 +102,18 @@ public class ProfileFullViewModel implements Parcelable
 	@SerializedName("isPublicInvestor")
 	private Boolean isPublicInvestor = null;
 
+	@SerializedName("platformCurrency")
+	private Currency platformCurrency = null;
+
+	@SerializedName("whoCanPostToMayWall")
+	private SocialViewMode whoCanPostToMayWall = null;
+
+	@SerializedName("whoCanCommentOnMyPosts")
+	private SocialViewMode whoCanCommentOnMyPosts = null;
+
+	@SerializedName("whoCanViewCommentsOnMyPosts")
+	private SocialViewMode whoCanViewCommentsOnMyPosts = null;
+
 	public ProfileFullViewModel() {
 	}
 
@@ -118,7 +130,7 @@ public class ProfileFullViewModel implements Parcelable
 		phoneNumberConfirmed = (Boolean) in.readValue(null);
 		birthday = (DateTime) in.readValue(DateTime.class.getClassLoader());
 		gender = (Boolean) in.readValue(null);
-		avatar = (String) in.readValue(null);
+		logoUrl = (String) in.readValue(null);
 		about = (String) in.readValue(null);
 		userName = (String) in.readValue(null);
 		index = (String) in.readValue(null);
@@ -126,6 +138,10 @@ public class ProfileFullViewModel implements Parcelable
 		refUrl = (String) in.readValue(null);
 		verificationStatus = (UserVerificationStatus) in.readValue(UserVerificationStatus.class.getClassLoader());
 		isPublicInvestor = (Boolean) in.readValue(null);
+		platformCurrency = (Currency) in.readValue(Currency.class.getClassLoader());
+		whoCanPostToMayWall = (SocialViewMode) in.readValue(SocialViewMode.class.getClassLoader());
+		whoCanCommentOnMyPosts = (SocialViewMode) in.readValue(SocialViewMode.class.getClassLoader());
+		whoCanViewCommentsOnMyPosts = (SocialViewMode) in.readValue(SocialViewMode.class.getClassLoader());
 	}
 
 	public ProfileFullViewModel id(UUID id) {
@@ -356,23 +372,23 @@ public class ProfileFullViewModel implements Parcelable
 		this.gender = gender;
 	}
 
-	public ProfileFullViewModel avatar(String avatar) {
-		this.avatar = avatar;
+	public ProfileFullViewModel logoUrl(String logoUrl) {
+		this.logoUrl = logoUrl;
 		return this;
 	}
 
 	/**
-	 * Get avatar
+	 * Get logoUrl
 	 *
-	 * @return avatar
+	 * @return logoUrl
 	 **/
 	@Schema(description = "")
-	public String getAvatar() {
-		return avatar;
+	public String getLogoUrl() {
+		return logoUrl;
 	}
 
-	public void setAvatar(String avatar) {
-		this.avatar = avatar;
+	public void setLogoUrl(String logoUrl) {
+		this.logoUrl = logoUrl;
 	}
 
 	public ProfileFullViewModel about(String about) {
@@ -508,6 +524,82 @@ public class ProfileFullViewModel implements Parcelable
 		this.isPublicInvestor = isPublicInvestor;
 	}
 
+	public ProfileFullViewModel platformCurrency(Currency platformCurrency) {
+		this.platformCurrency = platformCurrency;
+		return this;
+	}
+
+	/**
+	 * Get platformCurrency
+	 *
+	 * @return platformCurrency
+	 **/
+	@Schema(description = "")
+	public Currency getPlatformCurrency() {
+		return platformCurrency;
+	}
+
+	public void setPlatformCurrency(Currency platformCurrency) {
+		this.platformCurrency = platformCurrency;
+	}
+
+	public ProfileFullViewModel whoCanPostToMayWall(SocialViewMode whoCanPostToMayWall) {
+		this.whoCanPostToMayWall = whoCanPostToMayWall;
+		return this;
+	}
+
+	/**
+	 * Get whoCanPostToMayWall
+	 *
+	 * @return whoCanPostToMayWall
+	 **/
+	@Schema(description = "")
+	public SocialViewMode getWhoCanPostToMayWall() {
+		return whoCanPostToMayWall;
+	}
+
+	public void setWhoCanPostToMayWall(SocialViewMode whoCanPostToMayWall) {
+		this.whoCanPostToMayWall = whoCanPostToMayWall;
+	}
+
+	public ProfileFullViewModel whoCanCommentOnMyPosts(SocialViewMode whoCanCommentOnMyPosts) {
+		this.whoCanCommentOnMyPosts = whoCanCommentOnMyPosts;
+		return this;
+	}
+
+	/**
+	 * Get whoCanCommentOnMyPosts
+	 *
+	 * @return whoCanCommentOnMyPosts
+	 **/
+	@Schema(description = "")
+	public SocialViewMode getWhoCanCommentOnMyPosts() {
+		return whoCanCommentOnMyPosts;
+	}
+
+	public void setWhoCanCommentOnMyPosts(SocialViewMode whoCanCommentOnMyPosts) {
+		this.whoCanCommentOnMyPosts = whoCanCommentOnMyPosts;
+	}
+
+	public ProfileFullViewModel whoCanViewCommentsOnMyPosts(SocialViewMode whoCanViewCommentsOnMyPosts) {
+		this.whoCanViewCommentsOnMyPosts = whoCanViewCommentsOnMyPosts;
+		return this;
+	}
+
+	/**
+	 * Get whoCanViewCommentsOnMyPosts
+	 *
+	 * @return whoCanViewCommentsOnMyPosts
+	 **/
+	@Schema(description = "")
+	public SocialViewMode getWhoCanViewCommentsOnMyPosts() {
+		return whoCanViewCommentsOnMyPosts;
+	}
+
+	public void setWhoCanViewCommentsOnMyPosts(SocialViewMode whoCanViewCommentsOnMyPosts) {
+		this.whoCanViewCommentsOnMyPosts = whoCanViewCommentsOnMyPosts;
+	}
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -529,19 +621,23 @@ public class ProfileFullViewModel implements Parcelable
 				Objects.equals(this.phoneNumberConfirmed, profileFullViewModel.phoneNumberConfirmed) &&
 				Objects.equals(this.birthday, profileFullViewModel.birthday) &&
 				Objects.equals(this.gender, profileFullViewModel.gender) &&
-				Objects.equals(this.avatar, profileFullViewModel.avatar) &&
+				Objects.equals(this.logoUrl, profileFullViewModel.logoUrl) &&
 				Objects.equals(this.about, profileFullViewModel.about) &&
 				Objects.equals(this.userName, profileFullViewModel.userName) &&
 				Objects.equals(this.index, profileFullViewModel.index) &&
 				Objects.equals(this.citizenship, profileFullViewModel.citizenship) &&
 				Objects.equals(this.refUrl, profileFullViewModel.refUrl) &&
 				Objects.equals(this.verificationStatus, profileFullViewModel.verificationStatus) &&
-				Objects.equals(this.isPublicInvestor, profileFullViewModel.isPublicInvestor);
+				Objects.equals(this.isPublicInvestor, profileFullViewModel.isPublicInvestor) &&
+				Objects.equals(this.platformCurrency, profileFullViewModel.platformCurrency) &&
+				Objects.equals(this.whoCanPostToMayWall, profileFullViewModel.whoCanPostToMayWall) &&
+				Objects.equals(this.whoCanCommentOnMyPosts, profileFullViewModel.whoCanCommentOnMyPosts) &&
+				Objects.equals(this.whoCanViewCommentsOnMyPosts, profileFullViewModel.whoCanViewCommentsOnMyPosts);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, email, firstName, middleName, lastName, country, city, address, phone, phoneNumberConfirmed, birthday, gender, avatar, about, userName, index, citizenship, refUrl, verificationStatus, isPublicInvestor);
+		return Objects.hash(id, email, firstName, middleName, lastName, country, city, address, phone, phoneNumberConfirmed, birthday, gender, logoUrl, about, userName, index, citizenship, refUrl, verificationStatus, isPublicInvestor, platformCurrency, whoCanPostToMayWall, whoCanCommentOnMyPosts, whoCanViewCommentsOnMyPosts);
 	}
 
 	@Override
@@ -561,7 +657,7 @@ public class ProfileFullViewModel implements Parcelable
 		sb.append("    phoneNumberConfirmed: ").append(toIndentedString(phoneNumberConfirmed)).append("\n");
 		sb.append("    birthday: ").append(toIndentedString(birthday)).append("\n");
 		sb.append("    gender: ").append(toIndentedString(gender)).append("\n");
-		sb.append("    avatar: ").append(toIndentedString(avatar)).append("\n");
+		sb.append("    logoUrl: ").append(toIndentedString(logoUrl)).append("\n");
 		sb.append("    about: ").append(toIndentedString(about)).append("\n");
 		sb.append("    userName: ").append(toIndentedString(userName)).append("\n");
 		sb.append("    index: ").append(toIndentedString(index)).append("\n");
@@ -569,6 +665,10 @@ public class ProfileFullViewModel implements Parcelable
 		sb.append("    refUrl: ").append(toIndentedString(refUrl)).append("\n");
 		sb.append("    verificationStatus: ").append(toIndentedString(verificationStatus)).append("\n");
 		sb.append("    isPublicInvestor: ").append(toIndentedString(isPublicInvestor)).append("\n");
+		sb.append("    platformCurrency: ").append(toIndentedString(platformCurrency)).append("\n");
+		sb.append("    whoCanPostToMayWall: ").append(toIndentedString(whoCanPostToMayWall)).append("\n");
+		sb.append("    whoCanCommentOnMyPosts: ").append(toIndentedString(whoCanCommentOnMyPosts)).append("\n");
+		sb.append("    whoCanViewCommentsOnMyPosts: ").append(toIndentedString(whoCanViewCommentsOnMyPosts)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}
@@ -597,7 +697,7 @@ public class ProfileFullViewModel implements Parcelable
 		out.writeValue(phoneNumberConfirmed);
 		out.writeValue(birthday);
 		out.writeValue(gender);
-		out.writeValue(avatar);
+		out.writeValue(logoUrl);
 		out.writeValue(about);
 		out.writeValue(userName);
 		out.writeValue(index);
@@ -605,6 +705,10 @@ public class ProfileFullViewModel implements Parcelable
 		out.writeValue(refUrl);
 		out.writeValue(verificationStatus);
 		out.writeValue(isPublicInvestor);
+		out.writeValue(platformCurrency);
+		out.writeValue(whoCanPostToMayWall);
+		out.writeValue(whoCanCommentOnMyPosts);
+		out.writeValue(whoCanViewCommentsOnMyPosts);
 	}
 
 	public int describeContents() {

@@ -61,8 +61,9 @@ public class NotificationsPresenter extends MvpPresenter<NotificationsView>
 
 	@Override
 	public void onDestroy() {
-		if (notificationsSubscription != null)
+		if (notificationsSubscription != null) {
 			notificationsSubscription.unsubscribe();
+		}
 
 		super.onDestroy();
 	}
@@ -83,8 +84,9 @@ public class NotificationsPresenter extends MvpPresenter<NotificationsView>
 			skip = 0;
 		}
 
-		if (notificationsSubscription != null)
+		if (notificationsSubscription != null) {
 			notificationsSubscription.unsubscribe();
+		}
 		notificationsSubscription = notificationsManager.getNotifications(skip, TAKE)
 				.observeOn(AndroidSchedulers.mainThread())
 				.subscribeOn(Schedulers.newThread())
@@ -108,8 +110,9 @@ public class NotificationsPresenter extends MvpPresenter<NotificationsView>
 		for (NotificationViewModel newNotification : newNotifications) {
 			String dateString = DateTimeUtil.formatShortDate(newNotification.getDate());
 			String lastSectionDate = sections.isEmpty() ? "" : sections.get(sections.size() - 1).getTitle().toString();
-			if (!lastSectionDate.equals(dateString))
+			if (!lastSectionDate.equals(dateString)) {
 				sections.add(new SimpleSectionedRecyclerViewAdapter.Section(index, dateString));
+			}
 			index++;
 		}
 

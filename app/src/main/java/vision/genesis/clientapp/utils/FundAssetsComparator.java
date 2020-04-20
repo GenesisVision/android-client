@@ -14,13 +14,16 @@ public class FundAssetsComparator implements Comparator<FundAssetInfo>
 	public int compare(FundAssetInfo asset1, FundAssetInfo asset2) {
 		double diff = asset1.getTarget() - asset2.getTarget();
 
-		if (diff == 0f)
+		if (diff == 0f) {
 			return 0;
+		}
 		else {
-			if (diff > 0f)
+			if (diff > 0f) {
 				return 1;
-			else
+			}
+			else {
 				return -1;
+			}
 		}
 	}
 }

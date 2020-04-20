@@ -89,7 +89,7 @@ public class FundOwnerInfoPresenter extends MvpPresenter<FundOwnerInfoView>
 		ProgramUpdate model = new ProgramUpdate();
 		model.setTitle(fundDetails.getPublicInfo().getTitle());
 		model.setDescription(fundDetails.getPublicInfo().getDescription());
-		model.setLogo(fundDetails.getPublicInfo().getLogo());
+		model.setLogo(fundDetails.getPublicInfo().getLogoUrl());
 		model.setEntryFee(fundDetails.getEntryFeeCurrent());
 		model.setExitFee(fundDetails.getExitFeeCurrent());
 		getViewState().showEditPublicInfoActivity(fundId, model);
@@ -121,7 +121,7 @@ public class FundOwnerInfoPresenter extends MvpPresenter<FundOwnerInfoView>
 		FundRequest request = new FundRequest();
 
 		request.setFundId(fundDetails.getId());
-		request.setFundLogo(fundDetails.getPublicInfo().getLogo());
+		request.setFundLogo(fundDetails.getPublicInfo().getLogoUrl());
 		request.setFundColor(fundDetails.getPublicInfo().getColor());
 		request.setFundName(fundDetails.getPublicInfo().getTitle());
 		request.setManagerName(fundDetails.getOwner().getUsername());
@@ -143,7 +143,7 @@ public class FundOwnerInfoPresenter extends MvpPresenter<FundOwnerInfoView>
 		FundRequest request = new FundRequest();
 
 		request.setFundId(fundDetails.getId());
-		request.setFundLogo(fundDetails.getPublicInfo().getLogo());
+		request.setFundLogo(fundDetails.getPublicInfo().getLogoUrl());
 		request.setFundColor(fundDetails.getPublicInfo().getColor());
 		request.setFundName(fundDetails.getPublicInfo().getTitle());
 		request.setManagerName(fundDetails.getOwner().getUsername());

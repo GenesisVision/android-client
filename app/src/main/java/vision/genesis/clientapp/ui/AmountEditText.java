@@ -101,7 +101,8 @@ public class AmountEditText extends androidx.appcompat.widget.AppCompatEditText
 			amount = 0;
 		}
 
-		if (listener != null)
+		if (listener != null) {
 			listener.onAmountChanged(amount);
+		}
 	}
 }

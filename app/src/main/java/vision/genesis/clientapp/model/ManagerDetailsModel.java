@@ -86,7 +86,7 @@ public class ManagerDetailsModel implements Parcelable
 
 	public void update(PublicProfile managerDetails) {
 		this.managerId = managerDetails.getId();
-		this.avatar = managerDetails.getAvatar();
+		this.avatar = managerDetails.getLogoUrl();
 		this.managerName = managerDetails.getUsername();
 		this.managerDate = managerDetails.getRegDate();
 	}

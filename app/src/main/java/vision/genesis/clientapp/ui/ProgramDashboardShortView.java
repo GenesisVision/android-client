@@ -86,7 +86,7 @@ public class ProgramDashboardShortView extends RelativeLayout
 		setOnClickListener(v -> {
 			if (program != null) {
 				ProgramDetailsModel programDetailsModel = new ProgramDetailsModel(program.getId(),
-						program.getLogo(),
+						program.getLogoUrl(),
 						program.getColor(),
 						program.getLevel(),
 						program.getLevelProgress(),
@@ -115,7 +115,7 @@ public class ProgramDashboardShortView extends RelativeLayout
 		this.program = program;
 		this.baseCurrency = baseCurrency;
 
-		this.programLogo.setImage(program.getLogo(), program.getColor(), 50, 50);
+		this.programLogo.setImage(program.getLogoUrl(), program.getColor(), 50, 50);
 		this.programLogo.setLevel(program.getLevel(), program.getLevelProgress());
 		this.programName.setText(program.getTitle());
 		this.timeLeft.setData(program.getPeriodDuration(), program.getPeriodStarts(), program.getPeriodEnds(), false, true);

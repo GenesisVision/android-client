@@ -75,8 +75,9 @@ public class CreateCopytradingAccountPresenter extends MvpPresenter<CreateCopytr
 
 	@Override
 	public void onDestroy() {
-		if (walletsSubscription != null)
+		if (walletsSubscription != null) {
 			walletsSubscription.unsubscribe();
+		}
 
 		EventBus.getDefault().unregister(this);
 
@@ -134,8 +135,9 @@ public class CreateCopytradingAccountPresenter extends MvpPresenter<CreateCopytr
 
 	private void subscribeToWallets() {
 		if (walletManager != null && model != null) {
-			if (walletsSubscription != null)
+			if (walletsSubscription != null) {
 				walletsSubscription.unsubscribe();
+			}
 			walletsSubscription = walletManager.getWallets(CurrencyEnum.GVT.getValue(), false)
 					.observeOn(AndroidSchedulers.mainThread())
 					.subscribeOn(Schedulers.io())

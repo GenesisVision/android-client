@@ -120,18 +120,18 @@ public class PortfolioEventDashboardView extends RelativeLayout
 
 		AssetDetails details = event.getAssetDetails();
 		if (details != null) {
-			if (details.getLogo() == null || details.getLogo().isEmpty()) {
+			if (details.getLogoUrl() == null || details.getLogoUrl().isEmpty()) {
 				GenericDraweeHierarchy hierarchy = subject.getHierarchy();
 				hierarchy.setBackgroundImage(new ColorDrawable(Color.parseColor(details.getColor())));
 				subject.setHierarchy(hierarchy);
 				subject.setImageURI("");
 			}
 			else {
-				subject.setImageURI(ImageUtils.getImageUri(details.getLogo()));
+				subject.setImageURI(ImageUtils.getImageUri(details.getLogoUrl()));
 			}
 		}
 
-		action.setImageURI(ImageUtils.getImageUri(event.getIcon()));
+		action.setImageURI(ImageUtils.getImageUri(event.getLogoUrl()));
 		text.setText(event.getTitle());
 		date.setText(DateTimeUtil.formatEventDateTime(event.getDate()));
 

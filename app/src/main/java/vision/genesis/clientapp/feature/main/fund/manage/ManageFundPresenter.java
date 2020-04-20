@@ -71,7 +71,7 @@ public class ManageFundPresenter extends MvpPresenter<ManageFundView>
 		ProgramUpdate model = new ProgramUpdate();
 		model.setTitle(details.getPublicInfo().getTitle());
 		model.setDescription(details.getPublicInfo().getDescription());
-		model.setLogo(details.getPublicInfo().getLogo());
+		model.setLogo(details.getPublicInfo().getLogoUrl());
 		model.setEntryFee(details.getEntryFeeSelected());
 		model.setExitFee(details.getExitFeeSelected());
 

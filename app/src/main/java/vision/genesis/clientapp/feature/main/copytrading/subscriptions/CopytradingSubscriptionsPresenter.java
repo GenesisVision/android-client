@@ -12,8 +12,8 @@ import java.util.UUID;
 
 import javax.inject.Inject;
 
-import io.swagger.client.model.ItemsViewModelSignalSubscription;
 import io.swagger.client.model.SignalSubscription;
+import io.swagger.client.model.SignalSubscriptionItemsViewModel;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -92,7 +92,7 @@ public class CopytradingSubscriptionsPresenter extends MvpPresenter<CopytradingS
 		}
 	}
 
-	private void handleGetSubscriptionsSuccess(ItemsViewModelSignalSubscription response) {
+	private void handleGetSubscriptionsSuccess(SignalSubscriptionItemsViewModel response) {
 		getSubscriptionsSubscription.unsubscribe();
 		getViewState().showProgress(false);
 

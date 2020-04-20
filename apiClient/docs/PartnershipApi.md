@@ -1,6 +1,6 @@
 # PartnershipApi
 
-All URIs are relative to */api*
+All URIs are relative to *https://red.genesis.vision/api*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -11,25 +11,34 @@ Method | HTTP request | Description
 
 <a name="exportHistory"></a>
 # **exportHistory**
-> String exportHistory(authorization, dateFrom, dateTo, skip, take)
+> byte[] exportHistory(dateFrom, dateTo, skip, take)
 
 Export rewards history.
 
 ### Example
 ```java
 // Import classes:
+//import io.swagger.client.ApiClient;
 //import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
 //import io.swagger.client.api.PartnershipApi;
 
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
 
 PartnershipApi apiInstance = new PartnershipApi();
-String authorization = "authorization_example"; // String | JWT access token
 DateTime dateFrom = new DateTime(); // DateTime | 
 DateTime dateTo = new DateTime(); // DateTime | 
 Integer skip = 56; // Integer | 
 Integer take = 56; // Integer | 
 try {
-    String result = apiInstance.exportHistory(authorization, dateFrom, dateTo, skip, take);
+    byte[] result = apiInstance.exportHistory(dateFrom, dateTo, skip, take);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling PartnershipApi#exportHistory");
@@ -41,7 +50,6 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **String**| JWT access token |
  **dateFrom** | **DateTime**|  | [optional]
  **dateTo** | **DateTime**|  | [optional]
  **skip** | **Integer**|  | [optional]
@@ -49,11 +57,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**String**
+**byte[]**
 
 ### Authorization
 
-No authorization required
+[Bearer](../README.md#Bearer)
 
 ### HTTP request headers
 
@@ -62,22 +70,31 @@ No authorization required
 
 <a name="getDetails"></a>
 # **getDetails**
-> PartnershipDetails getDetails(authorization, currency)
+> PartnershipDetails getDetails(currency)
 
 Get partnership details.
 
 ### Example
 ```java
 // Import classes:
+//import io.swagger.client.ApiClient;
 //import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
 //import io.swagger.client.api.PartnershipApi;
 
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
 
 PartnershipApi apiInstance = new PartnershipApi();
-String authorization = "authorization_example"; // String | JWT access token
-String currency = "currency_example"; // String | 
+Currency currency = new Currency(); // Currency | 
 try {
-    PartnershipDetails result = apiInstance.getDetails(authorization, currency);
+    PartnershipDetails result = apiInstance.getDetails(currency);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling PartnershipApi#getDetails");
@@ -89,8 +106,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **String**| JWT access token |
- **currency** | **String**|  | [optional] [enum: BTC, ETH, USDT, USD, GVT, Undefined, ADA, XRP, BCH, LTC, DOGE, BNB, EUR]
+ **currency** | [**Currency**](.md)|  | [optional]
 
 ### Return type
 
@@ -98,7 +114,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[Bearer](../README.md#Bearer)
 
 ### HTTP request headers
 
@@ -107,25 +123,34 @@ No authorization required
 
 <a name="getReferrals"></a>
 # **getReferrals**
-> ItemsViewModelReferralFriend getReferrals(authorization, dateFrom, dateTo, skip, take)
+> ReferralFriendItemsViewModel getReferrals(dateFrom, dateTo, skip, take)
 
 Get agent friends (referrals and second level referrals).
 
 ### Example
 ```java
 // Import classes:
+//import io.swagger.client.ApiClient;
 //import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
 //import io.swagger.client.api.PartnershipApi;
 
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
 
 PartnershipApi apiInstance = new PartnershipApi();
-String authorization = "authorization_example"; // String | JWT access token
 DateTime dateFrom = new DateTime(); // DateTime | 
 DateTime dateTo = new DateTime(); // DateTime | 
 Integer skip = 56; // Integer | 
 Integer take = 56; // Integer | 
 try {
-    ItemsViewModelReferralFriend result = apiInstance.getReferrals(authorization, dateFrom, dateTo, skip, take);
+    ReferralFriendItemsViewModel result = apiInstance.getReferrals(dateFrom, dateTo, skip, take);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling PartnershipApi#getReferrals");
@@ -137,7 +162,6 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **String**| JWT access token |
  **dateFrom** | **DateTime**|  | [optional]
  **dateTo** | **DateTime**|  | [optional]
  **skip** | **Integer**|  | [optional]
@@ -145,11 +169,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ItemsViewModelReferralFriend**](ItemsViewModelReferralFriend.md)
+[**ReferralFriendItemsViewModel**](ReferralFriendItemsViewModel.md)
 
 ### Authorization
 
-No authorization required
+[Bearer](../README.md#Bearer)
 
 ### HTTP request headers
 
@@ -158,25 +182,34 @@ No authorization required
 
 <a name="getRewardsHistory"></a>
 # **getRewardsHistory**
-> ItemsViewModelRewardDetails getRewardsHistory(authorization, dateFrom, dateTo, skip, take)
+> RewardDetailsItemsViewModel getRewardsHistory(dateFrom, dateTo, skip, take)
 
 Get history of agent rewards.
 
 ### Example
 ```java
 // Import classes:
+//import io.swagger.client.ApiClient;
 //import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
 //import io.swagger.client.api.PartnershipApi;
 
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
 
 PartnershipApi apiInstance = new PartnershipApi();
-String authorization = "authorization_example"; // String | JWT access token
 DateTime dateFrom = new DateTime(); // DateTime | 
 DateTime dateTo = new DateTime(); // DateTime | 
 Integer skip = 56; // Integer | 
 Integer take = 56; // Integer | 
 try {
-    ItemsViewModelRewardDetails result = apiInstance.getRewardsHistory(authorization, dateFrom, dateTo, skip, take);
+    RewardDetailsItemsViewModel result = apiInstance.getRewardsHistory(dateFrom, dateTo, skip, take);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling PartnershipApi#getRewardsHistory");
@@ -188,7 +221,6 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **String**| JWT access token |
  **dateFrom** | **DateTime**|  | [optional]
  **dateTo** | **DateTime**|  | [optional]
  **skip** | **Integer**|  | [optional]
@@ -196,11 +228,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ItemsViewModelRewardDetails**](ItemsViewModelRewardDetails.md)
+[**RewardDetailsItemsViewModel**](RewardDetailsItemsViewModel.md)
 
 ### Authorization
 
-No authorization required
+[Bearer](../README.md#Bearer)
 
 ### HTTP request headers
 

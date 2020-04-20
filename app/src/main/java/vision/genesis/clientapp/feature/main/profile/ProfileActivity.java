@@ -55,8 +55,9 @@ public class ProfileActivity extends BaseSwipeBackActivity implements ProfileVie
 	public static void startFrom(Fragment fragment) {
 		Intent intent = new Intent(fragment.getContext(), ProfileActivity.class);
 		fragment.startActivity(intent);
-		if (fragment.getActivity() != null)
+		if (fragment.getActivity() != null) {
 			fragment.getActivity().overridePendingTransition(R.anim.activity_slide_from_right, R.anim.hold);
+		}
 	}
 
 	@BindView(R.id.toolbar)
@@ -125,14 +126,16 @@ public class ProfileActivity extends BaseSwipeBackActivity implements ProfileVie
 
 	@OnClick(R.id.avatar)
 	public void onChangeAvatarClicked() {
-		if (editMode)
+		if (editMode) {
 			ProfileActivityPermissionsDispatcher.showPictureChooserWithPermissionCheck(this);
+		}
 	}
 
 	@OnClick(R.id.button_birthday_calendar)
 	public void onBirthdyCalendarButtonClicked() {
-		if (editMode)
+		if (editMode) {
 			profilePresenter.onBirthdyCalendarButtonClicked();
+		}
 	}
 
 	@Override
@@ -184,8 +187,9 @@ public class ProfileActivity extends BaseSwipeBackActivity implements ProfileVie
 		{
 			@Override
 			public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-				if (profileModel != null)
+				if (profileModel != null) {
 					profileModel.setGender(position > 0);
+				}
 			}
 
 			@Override
@@ -267,14 +271,15 @@ public class ProfileActivity extends BaseSwipeBackActivity implements ProfileVie
 	public void updateProfile(ProfileFullViewModel profileModel) {
 		this.profileModel = profileModel;
 
-		updateAvatar(profileModel.getAvatar());
+		updateAvatar(profileModel.getLogoUrl());
 
 		firstName.setText(profileModel.getFirstName());
 		middleName.setText(profileModel.getMiddleName());
 		lastName.setText(profileModel.getLastName());
 		email.setText(profileModel.getEmail());
-		if (profileModel.isGender() != null)
+		if (profileModel.isGender() != null) {
 			genderSpinner.setSelection(profileModel.isGender() ? 1 : 0);
+		}
 		setBirthday();
 		country.setText(profileModel.getCountry());
 		city.setText(profileModel.getCity());
@@ -292,11 +297,13 @@ public class ProfileActivity extends BaseSwipeBackActivity implements ProfileVie
 
 	@Override
 	public void updateAvatar(String imageId) {
-		profileModel.setAvatar(imageId);
-		if (imageId != null && !imageId.isEmpty())
+//		profileModel.setAvatar(imageId);
+		if (imageId != null && !imageId.isEmpty()) {
 			this.avatar.setImageURI(ImageUtils.getImageUri(imageId));
-		else
+		}
+		else {
 			this.avatar.setImageURI("");
+		}
 	}
 
 	@Override
@@ -312,8 +319,9 @@ public class ProfileActivity extends BaseSwipeBackActivity implements ProfileVie
 	@Override
 	public void showDatePicker() {
 		DateTime calendarDate = profileModel.getBirthday();
-		if (calendarDate == null)
+		if (calendarDate == null) {
 			calendarDate = DateTime.now();
+		}
 		DatePickerDialog dpd = DatePickerDialog.newInstance((view, year, monthOfYear, dayOfMonth) -> {
 			DateTime newBirthday = new DateTime(year, monthOfYear + 1, dayOfMonth, 0, 0);
 			profileModel.setBirthday(newBirthday);
@@ -345,8 +353,9 @@ public class ProfileActivity extends BaseSwipeBackActivity implements ProfileVie
 
 	@Override
 	public void onBackPressed() {
-		if (!profilePresenter.onBackPressed())
+		if (!profilePresenter.onBackPressed()) {
 			finishActivity();
+		}
 	}
 
 	@Override

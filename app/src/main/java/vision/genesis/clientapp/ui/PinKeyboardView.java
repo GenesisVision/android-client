@@ -14,6 +14,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.core.content.ContextCompat;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -184,13 +185,15 @@ public class PinKeyboardView extends RelativeLayout
 
 	@OnClick(R.id.button_backspace)
 	public void onBackspaceButton() {
-		if (listener != null)
+		if (listener != null) {
 			listener.onBackspace();
+		}
 	}
 
 	private boolean onLongBackspaceButton() {
-		if (listener != null)
+		if (listener != null) {
 			listener.onLongBackspace();
+		}
 		return false;
 	}
 
@@ -281,8 +284,9 @@ public class PinKeyboardView extends RelativeLayout
 	}
 
 	private void numberClicked(String number) {
-		if (listener != null)
+		if (listener != null) {
 			listener.onNumber(number);
+		}
 	}
 
 	public void onDestroy() {

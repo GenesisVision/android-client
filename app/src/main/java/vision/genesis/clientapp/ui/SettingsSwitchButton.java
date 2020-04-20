@@ -6,6 +6,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.widget.SwitchCompat;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import vision.genesis.clientapp.R;
@@ -70,8 +71,9 @@ public class SettingsSwitchButton extends RelativeLayout
 	public void setChecked(boolean checked) {
 		this.checked = checked;
 		this.switchView.setChecked(checked);
-		if (listener != null)
+		if (listener != null) {
 			listener.onChecked(checked);
+		}
 	}
 
 	public void setSwitchListener(OnCheckChangeListener listener) {

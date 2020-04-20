@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **type** | [**NotificationType**](NotificationType.md) |  |  [optional]
 **assetId** | [**UUID**](UUID.md) |  |  [optional]
 **managerId** | [**UUID**](UUID.md) |  |  [optional]
-**logo** | **String** |  |  [optional]
+**logoUrl** | **String** |  |  [optional]
 **url** | **String** |  |  [optional]
 **color** | **String** |  |  [optional]
 **isUnread** | **Boolean** |  |  [optional]

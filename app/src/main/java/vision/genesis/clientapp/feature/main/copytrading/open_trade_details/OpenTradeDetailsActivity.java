@@ -8,15 +8,16 @@ import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AlertDialog;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.arellomobile.mvp.presenter.InjectPresenter;
 
 import java.util.List;
 import java.util.Locale;
 import java.util.UUID;
 
-import androidx.appcompat.app.AlertDialog;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -58,15 +59,15 @@ public class OpenTradeDetailsActivity extends BaseSwipeBackActivity implements O
 	@BindView(R.id.progress_bar)
 	public ProgressBar progressBar;
 
-	@OnClick(R.id.button_back)
-	public void onBackClicked() {
-		onBackPressed();
-	}
-
 	@InjectPresenter
 	public OpenTradeDetailsPresenter openTradeDetailsPresenter;
 
 	private OpenTradeDetailsAdapter openTradeDetailsAdapter;
+
+	@OnClick(R.id.button_back)
+	public void onBackClicked() {
+		onBackPressed();
+	}
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -128,8 +129,9 @@ public class OpenTradeDetailsActivity extends BaseSwipeBackActivity implements O
 	@Override
 	public void removeOpenTrade(int position, boolean isListEmpty) {
 		openTradeDetailsAdapter.deleteTrade(position);
-		if (isListEmpty)
+		if (isListEmpty) {
 			finishActivity();
+		}
 	}
 
 	@Override

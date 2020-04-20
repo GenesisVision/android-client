@@ -9,14 +9,15 @@ import android.widget.ProgressBar;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import androidx.appcompat.widget.SwitchCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.arellomobile.mvp.presenter.InjectPresenter;
 
 import java.util.List;
 import java.util.UUID;
 
-import androidx.appcompat.widget.SwitchCompat;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;

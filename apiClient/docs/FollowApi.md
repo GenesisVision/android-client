@@ -1,10 +1,11 @@
 # FollowApi
 
-All URIs are relative to */api*
+All URIs are relative to *https://red.genesis.vision/api*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**addToFavorites**](FollowApi.md#addToFavorites) | **POST** v2.0/follow/{id}/favorite/add | Add to favorites
+[**closeAssetTrade**](FollowApi.md#closeAssetTrade) | **POST** v2.0/follow/{id}/trades/close | Manually close trade by symbol for asset
 [**getAbsoluteProfitChart**](FollowApi.md#getAbsoluteProfitChart) | **GET** v2.0/follow/{id}/charts/profit/absolute | Follow absolute profit chart
 [**getAssetTrades**](FollowApi.md#getAssetTrades) | **GET** v2.0/follow/{id}/trades | Trade history
 [**getBalanceChart**](FollowApi.md#getBalanceChart) | **GET** v2.0/follow/{id}/charts/balance | Follow balance chart
@@ -17,22 +18,31 @@ Method | HTTP request | Description
 
 <a name="addToFavorites"></a>
 # **addToFavorites**
-> Void addToFavorites(id, authorization)
+> Void addToFavorites(id)
 
 Add to favorites
 
 ### Example
 ```java
 // Import classes:
+//import io.swagger.client.ApiClient;
 //import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
 //import io.swagger.client.api.FollowApi;
 
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
 
 FollowApi apiInstance = new FollowApi();
 UUID id = new UUID(); // UUID | 
-String authorization = "authorization_example"; // String | JWT access token
 try {
-    Void result = apiInstance.addToFavorites(id, authorization);
+    Void result = apiInstance.addToFavorites(id);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling FollowApi#addToFavorites");
@@ -45,7 +55,6 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | [**UUID**](.md)|  |
- **authorization** | **String**| JWT access token |
 
 ### Return type
 
@@ -53,7 +62,62 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
+
+<a name="closeAssetTrade"></a>
+# **closeAssetTrade**
+> Void closeAssetTrade(id, symbol)
+
+Manually close trade by symbol for asset
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiClient;
+//import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
+//import io.swagger.client.api.FollowApi;
+
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
+
+FollowApi apiInstance = new FollowApi();
+UUID id = new UUID(); // UUID | 
+String symbol = "symbol_example"; // String | 
+try {
+    Void result = apiInstance.closeAssetTrade(id, symbol);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling FollowApi#closeAssetTrade");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | [**UUID**](.md)|  |
+ **symbol** | **String**|  | [optional]
+
+### Return type
+
+[**Void**](.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
 
 ### HTTP request headers
 
@@ -69,16 +133,26 @@ Follow absolute profit chart
 ### Example
 ```java
 // Import classes:
+//import io.swagger.client.ApiClient;
 //import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
 //import io.swagger.client.api.FollowApi;
 
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
 
 FollowApi apiInstance = new FollowApi();
 UUID id = new UUID(); // UUID | 
 DateTime dateFrom = new DateTime(); // DateTime | 
 DateTime dateTo = new DateTime(); // DateTime | 
 Integer maxPointCount = 56; // Integer | 
-String currency = "currency_example"; // String | 
+Currency currency = new Currency(); // Currency | 
 try {
     AbsoluteProfitChart result = apiInstance.getAbsoluteProfitChart(id, dateFrom, dateTo, maxPointCount, currency);
     System.out.println(result);
@@ -96,7 +170,7 @@ Name | Type | Description  | Notes
  **dateFrom** | **DateTime**|  | [optional]
  **dateTo** | **DateTime**|  | [optional]
  **maxPointCount** | **Integer**|  | [optional]
- **currency** | **String**|  | [optional] [enum: BTC, ETH, USDT, USD, GVT, Undefined, ADA, XRP, BCH, LTC, DOGE, BNB, EUR]
+ **currency** | [**Currency**](.md)|  | [optional]
 
 ### Return type
 
@@ -104,7 +178,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[Bearer](../README.md#Bearer)
 
 ### HTTP request headers
 
@@ -120,18 +194,28 @@ Trade history
 ### Example
 ```java
 // Import classes:
+//import io.swagger.client.ApiClient;
 //import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
 //import io.swagger.client.api.FollowApi;
 
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
 
 FollowApi apiInstance = new FollowApi();
 UUID id = new UUID(); // UUID | 
 DateTime dateFrom = new DateTime(); // DateTime | 
 DateTime dateTo = new DateTime(); // DateTime | 
 String symbol = "symbol_example"; // String | 
-String sorting = "sorting_example"; // String | 
+TradeSorting sorting = new TradeSorting(); // TradeSorting | 
 UUID accountId = new UUID(); // UUID | 
-String accountCurrency = "accountCurrency_example"; // String | 
+Currency accountCurrency = new Currency(); // Currency | 
 Boolean isFollow = true; // Boolean | 
 Integer skip = 56; // Integer | 
 Integer take = 56; // Integer | 
@@ -152,9 +236,9 @@ Name | Type | Description  | Notes
  **dateFrom** | **DateTime**|  | [optional]
  **dateTo** | **DateTime**|  | [optional]
  **symbol** | **String**|  | [optional]
- **sorting** | **String**|  | [optional] [enum: ByDateAsc, ByDateDesc, ByTicketAsc, ByTicketDesc, BySymbolAsc, BySymbolDesc, ByDirectionAsc, ByDirectionDesc, ByVolumeAsc, ByVolumeDesc, ByPriceAsc, ByPriceDesc, ByPriceCurrentAsc, ByPriceCurrentDesc, ByProfitAsc, ByProfitDesc, ByCommissionAsc, ByCommissionDesc, BySwapAsc, BySwapDesc]
+ **sorting** | [**TradeSorting**](.md)|  | [optional]
  **accountId** | [**UUID**](.md)|  | [optional]
- **accountCurrency** | **String**|  | [optional] [enum: BTC, ETH, USDT, USD, GVT, Undefined, ADA, XRP, BCH, LTC, DOGE, BNB, EUR]
+ **accountCurrency** | [**Currency**](.md)|  | [optional]
  **isFollow** | **Boolean**|  | [optional]
  **skip** | **Integer**|  | [optional]
  **take** | **Integer**|  | [optional]
@@ -165,7 +249,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[Bearer](../README.md#Bearer)
 
 ### HTTP request headers
 
@@ -181,16 +265,26 @@ Follow balance chart
 ### Example
 ```java
 // Import classes:
+//import io.swagger.client.ApiClient;
 //import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
 //import io.swagger.client.api.FollowApi;
 
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
 
 FollowApi apiInstance = new FollowApi();
 UUID id = new UUID(); // UUID | 
 DateTime dateFrom = new DateTime(); // DateTime | 
 DateTime dateTo = new DateTime(); // DateTime | 
 Integer maxPointCount = 56; // Integer | 
-String currency = "currency_example"; // String | 
+Currency currency = new Currency(); // Currency | 
 try {
     AccountBalanceChart result = apiInstance.getBalanceChart(id, dateFrom, dateTo, maxPointCount, currency);
     System.out.println(result);
@@ -208,7 +302,7 @@ Name | Type | Description  | Notes
  **dateFrom** | **DateTime**|  | [optional]
  **dateTo** | **DateTime**|  | [optional]
  **maxPointCount** | **Integer**|  | [optional]
- **currency** | **String**|  | [optional] [enum: BTC, ETH, USDT, USD, GVT, Undefined, ADA, XRP, BCH, LTC, DOGE, BNB, EUR]
+ **currency** | [**Currency**](.md)|  | [optional]
 
 ### Return type
 
@@ -216,7 +310,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[Bearer](../README.md#Bearer)
 
 ### HTTP request headers
 
@@ -225,22 +319,32 @@ No authorization required
 
 <a name="getFollowAssetDetails"></a>
 # **getFollowAssetDetails**
-> ProgramFollowDetailsFull getFollowAssetDetails(id, authorization)
+> ProgramFollowDetailsFull getFollowAssetDetails(id, logoQuality)
 
 Follow asset details
 
 ### Example
 ```java
 // Import classes:
+//import io.swagger.client.ApiClient;
 //import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
 //import io.swagger.client.api.FollowApi;
 
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
 
 FollowApi apiInstance = new FollowApi();
 String id = "id_example"; // String | 
-String authorization = "authorization_example"; // String | 
+ImageQuality logoQuality = new ImageQuality(); // ImageQuality | 
 try {
-    ProgramFollowDetailsFull result = apiInstance.getFollowAssetDetails(id, authorization);
+    ProgramFollowDetailsFull result = apiInstance.getFollowAssetDetails(id, logoQuality);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling FollowApi#getFollowAssetDetails");
@@ -253,7 +357,7 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **String**|  |
- **authorization** | **String**|  | [optional]
+ **logoQuality** | [**ImageQuality**](.md)|  | [optional]
 
 ### Return type
 
@@ -261,7 +365,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[Bearer](../README.md#Bearer)
 
 ### HTTP request headers
 
@@ -270,21 +374,30 @@ No authorization required
 
 <a name="getFollowAssets"></a>
 # **getFollowAssets**
-> ItemsViewModelFollowDetailsListItem getFollowAssets(authorization, sorting, showIn, tags, dateFrom, dateTo, chartPointsCount, facetId, mask, ownerId, showFavorites, skip, take)
+> FollowDetailsListItemItemsViewModel getFollowAssets(sorting, showIn, tags, dateFrom, dateTo, chartPointsCount, facetId, mask, ownerId, showFavorites, skip, take)
 
 Follow assets
 
 ### Example
 ```java
 // Import classes:
+//import io.swagger.client.ApiClient;
 //import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
 //import io.swagger.client.api.FollowApi;
 
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
 
 FollowApi apiInstance = new FollowApi();
-String authorization = "authorization_example"; // String | 
-String sorting = "sorting_example"; // String | 
-String showIn = "showIn_example"; // String | 
+FollowFilterSorting sorting = new FollowFilterSorting(); // FollowFilterSorting | 
+Currency showIn = new Currency(); // Currency | 
 List<String> tags = Arrays.asList("tags_example"); // List<String> | 
 DateTime dateFrom = new DateTime(); // DateTime | 
 DateTime dateTo = new DateTime(); // DateTime | 
@@ -296,7 +409,7 @@ Boolean showFavorites = true; // Boolean |
 Integer skip = 56; // Integer | 
 Integer take = 56; // Integer | 
 try {
-    ItemsViewModelFollowDetailsListItem result = apiInstance.getFollowAssets(authorization, sorting, showIn, tags, dateFrom, dateTo, chartPointsCount, facetId, mask, ownerId, showFavorites, skip, take);
+    FollowDetailsListItemItemsViewModel result = apiInstance.getFollowAssets(sorting, showIn, tags, dateFrom, dateTo, chartPointsCount, facetId, mask, ownerId, showFavorites, skip, take);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling FollowApi#getFollowAssets");
@@ -308,9 +421,8 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **String**|  | [optional]
- **sorting** | **String**|  | [optional] [enum: ByTitleAsc, ByTitleDesc, BySubscribersAsc, BySubscribersDesc, ByTradesAsc, ByTradesDesc, ByDrawdownAsc, ByDrawdownDesc, ByProfitAsc, ByProfitDesc, ByNewAsc, ByNewDesc, ByEquityAsc, ByEquityDesc]
- **showIn** | **String**|  | [optional] [enum: BTC, ETH, USDT, USD, GVT, Undefined, ADA, XRP, BCH, LTC, DOGE, BNB, EUR]
+ **sorting** | [**FollowFilterSorting**](.md)|  | [optional]
+ **showIn** | [**Currency**](.md)|  | [optional]
  **tags** | [**List&lt;String&gt;**](String.md)|  | [optional]
  **dateFrom** | **DateTime**|  | [optional]
  **dateTo** | **DateTime**|  | [optional]
@@ -324,11 +436,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ItemsViewModelFollowDetailsListItem**](ItemsViewModelFollowDetailsListItem.md)
+[**FollowDetailsListItemItemsViewModel**](FollowDetailsListItemItemsViewModel.md)
 
 ### Authorization
 
-No authorization required
+[Bearer](../README.md#Bearer)
 
 ### HTTP request headers
 
@@ -337,23 +449,32 @@ No authorization required
 
 <a name="getFollowSubscriptionsForAsset"></a>
 # **getFollowSubscriptionsForAsset**
-> ItemsViewModelSignalSubscription getFollowSubscriptionsForAsset(id, authorization, onlyActive)
+> SignalSubscriptionItemsViewModel getFollowSubscriptionsForAsset(id, onlyActive)
 
 Get subscriptions to current asset
 
 ### Example
 ```java
 // Import classes:
+//import io.swagger.client.ApiClient;
 //import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
 //import io.swagger.client.api.FollowApi;
 
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
 
 FollowApi apiInstance = new FollowApi();
 UUID id = new UUID(); // UUID | 
-String authorization = "authorization_example"; // String | JWT access token
 Boolean onlyActive = true; // Boolean | 
 try {
-    ItemsViewModelSignalSubscription result = apiInstance.getFollowSubscriptionsForAsset(id, authorization, onlyActive);
+    SignalSubscriptionItemsViewModel result = apiInstance.getFollowSubscriptionsForAsset(id, onlyActive);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling FollowApi#getFollowSubscriptionsForAsset");
@@ -366,16 +487,15 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | [**UUID**](.md)|  |
- **authorization** | **String**| JWT access token |
  **onlyActive** | **Boolean**|  | [optional]
 
 ### Return type
 
-[**ItemsViewModelSignalSubscription**](ItemsViewModelSignalSubscription.md)
+[**SignalSubscriptionItemsViewModel**](SignalSubscriptionItemsViewModel.md)
 
 ### Authorization
 
-No authorization required
+[Bearer](../README.md#Bearer)
 
 ### HTTP request headers
 
@@ -384,23 +504,32 @@ No authorization required
 
 <a name="getFollowSubscriptionsForOwnAccount"></a>
 # **getFollowSubscriptionsForOwnAccount**
-> ItemsViewModelSignalSubscription getFollowSubscriptionsForOwnAccount(id, authorization, onlyActive)
+> SignalSubscriptionItemsViewModel getFollowSubscriptionsForOwnAccount(id, onlyActive)
 
 Get subscriptions for my trading account
 
 ### Example
 ```java
 // Import classes:
+//import io.swagger.client.ApiClient;
 //import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
 //import io.swagger.client.api.FollowApi;
 
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
 
 FollowApi apiInstance = new FollowApi();
 UUID id = new UUID(); // UUID | 
-String authorization = "authorization_example"; // String | JWT access token
 Boolean onlyActive = true; // Boolean | 
 try {
-    ItemsViewModelSignalSubscription result = apiInstance.getFollowSubscriptionsForOwnAccount(id, authorization, onlyActive);
+    SignalSubscriptionItemsViewModel result = apiInstance.getFollowSubscriptionsForOwnAccount(id, onlyActive);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling FollowApi#getFollowSubscriptionsForOwnAccount");
@@ -413,16 +542,15 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | [**UUID**](.md)|  |
- **authorization** | **String**| JWT access token |
  **onlyActive** | **Boolean**|  | [optional]
 
 ### Return type
 
-[**ItemsViewModelSignalSubscription**](ItemsViewModelSignalSubscription.md)
+[**SignalSubscriptionItemsViewModel**](SignalSubscriptionItemsViewModel.md)
 
 ### Authorization
 
-No authorization required
+[Bearer](../README.md#Bearer)
 
 ### HTTP request headers
 
@@ -431,27 +559,36 @@ No authorization required
 
 <a name="getProfitPercentCharts"></a>
 # **getProfitPercentCharts**
-> ProgramProfitPercentCharts getProfitPercentCharts(id, authorization, dateFrom, dateTo, maxPointCount, currency, currencies)
+> ProgramProfitPercentCharts getProfitPercentCharts(id, dateFrom, dateTo, maxPointCount, currency, currencies)
 
 Follow profit percent charts
 
 ### Example
 ```java
 // Import classes:
+//import io.swagger.client.ApiClient;
 //import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
 //import io.swagger.client.api.FollowApi;
 
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
 
 FollowApi apiInstance = new FollowApi();
 UUID id = new UUID(); // UUID | 
-String authorization = "authorization_example"; // String | 
 DateTime dateFrom = new DateTime(); // DateTime | 
 DateTime dateTo = new DateTime(); // DateTime | 
 Integer maxPointCount = 56; // Integer | 
-String currency = "currency_example"; // String | 
-List<Object> currencies = null; // List<Object> | 
+Currency currency = new Currency(); // Currency | 
+List<Currency> currencies = Arrays.asList(new Currency()); // List<Currency> | 
 try {
-    ProgramProfitPercentCharts result = apiInstance.getProfitPercentCharts(id, authorization, dateFrom, dateTo, maxPointCount, currency, currencies);
+    ProgramProfitPercentCharts result = apiInstance.getProfitPercentCharts(id, dateFrom, dateTo, maxPointCount, currency, currencies);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling FollowApi#getProfitPercentCharts");
@@ -464,12 +601,11 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | [**UUID**](.md)|  |
- **authorization** | **String**|  | [optional]
  **dateFrom** | **DateTime**|  | [optional]
  **dateTo** | **DateTime**|  | [optional]
  **maxPointCount** | **Integer**|  | [optional]
- **currency** | **String**|  | [optional] [enum: BTC, ETH, USDT, USD, GVT, Undefined, ADA, XRP, BCH, LTC, DOGE, BNB, EUR]
- **currencies** | [**List&lt;Object&gt;**](Object.md)|  | [optional]
+ **currency** | [**Currency**](.md)|  | [optional]
+ **currencies** | [**List&lt;Currency&gt;**](Currency.md)|  | [optional]
 
 ### Return type
 
@@ -477,7 +613,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[Bearer](../README.md#Bearer)
 
 ### HTTP request headers
 
@@ -486,22 +622,31 @@ No authorization required
 
 <a name="removeFromFavorites"></a>
 # **removeFromFavorites**
-> Void removeFromFavorites(id, authorization)
+> Void removeFromFavorites(id)
 
 Remove from favorites
 
 ### Example
 ```java
 // Import classes:
+//import io.swagger.client.ApiClient;
 //import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
 //import io.swagger.client.api.FollowApi;
 
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
 
 FollowApi apiInstance = new FollowApi();
 UUID id = new UUID(); // UUID | 
-String authorization = "authorization_example"; // String | JWT access token
 try {
-    Void result = apiInstance.removeFromFavorites(id, authorization);
+    Void result = apiInstance.removeFromFavorites(id);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling FollowApi#removeFromFavorites");
@@ -514,7 +659,6 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | [**UUID**](.md)|  |
- **authorization** | **String**| JWT access token |
 
 ### Return type
 
@@ -522,7 +666,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[Bearer](../README.md#Bearer)
 
 ### HTTP request headers
 

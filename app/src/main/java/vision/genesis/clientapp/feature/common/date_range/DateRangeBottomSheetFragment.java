@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
@@ -15,7 +17,6 @@ import org.joda.time.DateTime;
 
 import java.util.Locale;
 
-import androidx.annotation.NonNull;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -132,8 +133,9 @@ public class DateRangeBottomSheetFragment extends BottomSheetDialogFragment
 		getDialog().setOnShowListener(dialog1 -> {
 			BottomSheetDialog d = (BottomSheetDialog) dialog1;
 			View bottomSheetInternal = d.findViewById(com.google.android.material.R.id.design_bottom_sheet);
-			if (bottomSheetInternal != null)
+			if (bottomSheetInternal != null) {
 				BottomSheetBehavior.from(bottomSheetInternal).setState(BottomSheetBehavior.STATE_EXPANDED);
+			}
 		});
 
 		View contentView = View.inflate(getContext(), R.layout.fragment_bottomsheet_date_range, null);
@@ -174,8 +176,9 @@ public class DateRangeBottomSheetFragment extends BottomSheetDialogFragment
 		this.dateRange = DateRange.copy(dateRange);
 		this.oldDateRange = dateRange;
 
-		if (day != null)
+		if (day != null) {
 			updateView();
+		}
 	}
 
 	private void setFonts() {
@@ -196,8 +199,9 @@ public class DateRangeBottomSheetFragment extends BottomSheetDialogFragment
 	}
 
 	private void deselectPreviousOption() {
-		if (selectedOption != null)
+		if (selectedOption != null) {
 			selectedOption.setSelected(false);
+		}
 	}
 
 	private void setDateRange(DateRangeOptionView newOption) {
@@ -276,14 +280,16 @@ public class DateRangeBottomSheetFragment extends BottomSheetDialogFragment
 
 	public void showDateFromPicker() {
 		DateTime dateFrom = dateRange.getFrom();
-		if (dateRange.getSelectedRange().equals(DateRange.DateRangeEnum.ALL_TIME))
+		if (dateRange.getSelectedRange().equals(DateRange.DateRangeEnum.ALL_TIME)) {
 			dateFrom = dateRange.getTo();
+		}
 		DatePickerDialog dpd = DatePickerDialog.newInstance((view, year, monthOfYear, dayOfMonth) ->
 						setFrom(new DateTime(year, monthOfYear + 1, dayOfMonth, 0, 0, 0)),
 				dateFrom.getYear(), dateFrom.getMonthOfYear() - 1, dateFrom.getDayOfMonth());
 		dpd.setMaxDate(dateRange.getTo().toCalendar(Locale.getDefault()));
-		if (getActivity() != null)
+		if (getActivity() != null) {
 			dpd.show(getActivity().getFragmentManager(), "DateFromPickerDialog");
+		}
 	}
 
 	public void showDateToPicker() {
@@ -292,7 +298,8 @@ public class DateRangeBottomSheetFragment extends BottomSheetDialogFragment
 				dateRange.getTo().getYear(), dateRange.getTo().getMonthOfYear() - 1, dateRange.getTo().getDayOfMonth());
 		dpd.setMinDate(dateRange.getFrom().toCalendar(Locale.getDefault()));
 		dpd.setMaxDate(DateTime.now().toCalendar(Locale.getDefault()));
-		if (getActivity() != null)
+		if (getActivity() != null) {
 			dpd.show(getActivity().getFragmentManager(), "DateFromPickerDialog");
+		}
 	}
 }

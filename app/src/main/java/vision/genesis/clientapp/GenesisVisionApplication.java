@@ -3,6 +3,8 @@ package vision.genesis.clientapp;
 import android.app.Application;
 import android.content.Context;
 
+import androidx.multidex.MultiDex;
+
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
@@ -12,7 +14,6 @@ import java.security.NoSuchAlgorithmException;
 
 import javax.net.ssl.SSLContext;
 
-import androidx.multidex.MultiDex;
 import timber.log.Timber;
 import vision.genesis.clientapp.di.components.AppComponent;
 import vision.genesis.clientapp.di.components.DaggerAppComponent;

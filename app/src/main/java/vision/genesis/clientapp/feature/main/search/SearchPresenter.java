@@ -47,8 +47,9 @@ public class SearchPresenter extends MvpPresenter<SearchView>
 
 	@Override
 	public void onDestroy() {
-		if (searchSubscription != null)
+		if (searchSubscription != null) {
 			searchSubscription.unsubscribe();
+		}
 
 		super.onDestroy();
 	}
@@ -67,8 +68,9 @@ public class SearchPresenter extends MvpPresenter<SearchView>
 	}
 
 	private void performSearch(String mask) {
-		if (searchSubscription != null)
+		if (searchSubscription != null) {
 			searchSubscription.unsubscribe();
+		}
 		searchSubscription = searchManager.search(mask, TAKE)
 				.observeOn(AndroidSchedulers.mainThread())
 				.subscribeOn(Schedulers.io())

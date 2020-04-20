@@ -47,8 +47,8 @@ public class AssetInfo implements Parcelable
 	@SerializedName("symbol")
 	private String symbol = null;
 
-	@SerializedName("logo")
-	private String logo = null;
+	@SerializedName("logoUrl")
+	private String logoUrl = null;
 
 	@SerializedName("description")
 	private String description = null;
@@ -68,7 +68,7 @@ public class AssetInfo implements Parcelable
 	AssetInfo(Parcel in) {
 		name = (String) in.readValue(null);
 		symbol = (String) in.readValue(null);
-		logo = (String) in.readValue(null);
+		logoUrl = (String) in.readValue(null);
 		description = (String) in.readValue(null);
 		chartSymbol = (String) in.readValue(null);
 		tags = (List<Tag>) in.readValue(Tag.class.getClassLoader());
@@ -113,23 +113,23 @@ public class AssetInfo implements Parcelable
 		this.symbol = symbol;
 	}
 
-	public AssetInfo logo(String logo) {
-		this.logo = logo;
+	public AssetInfo logoUrl(String logoUrl) {
+		this.logoUrl = logoUrl;
 		return this;
 	}
 
 	/**
-	 * Get logo
+	 * Get logoUrl
 	 *
-	 * @return logo
+	 * @return logoUrl
 	 **/
 	@Schema(description = "")
-	public String getLogo() {
-		return logo;
+	public String getLogoUrl() {
+		return logoUrl;
 	}
 
-	public void setLogo(String logo) {
-		this.logo = logo;
+	public void setLogoUrl(String logoUrl) {
+		this.logoUrl = logoUrl;
 	}
 
 	public AssetInfo description(String description) {
@@ -235,7 +235,7 @@ public class AssetInfo implements Parcelable
 		AssetInfo assetInfo = (AssetInfo) o;
 		return Objects.equals(this.name, assetInfo.name) &&
 				Objects.equals(this.symbol, assetInfo.symbol) &&
-				Objects.equals(this.logo, assetInfo.logo) &&
+				Objects.equals(this.logoUrl, assetInfo.logoUrl) &&
 				Objects.equals(this.description, assetInfo.description) &&
 				Objects.equals(this.chartSymbol, assetInfo.chartSymbol) &&
 				Objects.equals(this.tags, assetInfo.tags) &&
@@ -244,7 +244,7 @@ public class AssetInfo implements Parcelable
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(name, symbol, logo, description, chartSymbol, tags, socialLinks);
+		return Objects.hash(name, symbol, logoUrl, description, chartSymbol, tags, socialLinks);
 	}
 
 	@Override
@@ -254,7 +254,7 @@ public class AssetInfo implements Parcelable
 
 		sb.append("    name: ").append(toIndentedString(name)).append("\n");
 		sb.append("    symbol: ").append(toIndentedString(symbol)).append("\n");
-		sb.append("    logo: ").append(toIndentedString(logo)).append("\n");
+		sb.append("    logoUrl: ").append(toIndentedString(logoUrl)).append("\n");
 		sb.append("    description: ").append(toIndentedString(description)).append("\n");
 		sb.append("    chartSymbol: ").append(toIndentedString(chartSymbol)).append("\n");
 		sb.append("    tags: ").append(toIndentedString(tags)).append("\n");
@@ -277,7 +277,7 @@ public class AssetInfo implements Parcelable
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(name);
 		out.writeValue(symbol);
-		out.writeValue(logo);
+		out.writeValue(logoUrl);
 		out.writeValue(description);
 		out.writeValue(chartSymbol);
 		out.writeValue(tags);

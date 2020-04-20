@@ -45,8 +45,8 @@ public class WalletWithdrawalInfo implements Parcelable
 	@SerializedName("description")
 	private String description = null;
 
-	@SerializedName("logo")
-	private String logo = null;
+	@SerializedName("logoUrl")
+	private String logoUrl = null;
 
 	@SerializedName("commission")
 	private Double commission = null;
@@ -63,7 +63,7 @@ public class WalletWithdrawalInfo implements Parcelable
 	WalletWithdrawalInfo(Parcel in) {
 		currency = (Currency) in.readValue(Currency.class.getClassLoader());
 		description = (String) in.readValue(null);
-		logo = (String) in.readValue(null);
+		logoUrl = (String) in.readValue(null);
 		commission = (Double) in.readValue(null);
 		rateToGvt = (Double) in.readValue(null);
 		availableToWithdrawal = (Double) in.readValue(null);
@@ -107,23 +107,23 @@ public class WalletWithdrawalInfo implements Parcelable
 		this.description = description;
 	}
 
-	public WalletWithdrawalInfo logo(String logo) {
-		this.logo = logo;
+	public WalletWithdrawalInfo logoUrl(String logoUrl) {
+		this.logoUrl = logoUrl;
 		return this;
 	}
 
 	/**
-	 * Get logo
+	 * Get logoUrl
 	 *
-	 * @return logo
+	 * @return logoUrl
 	 **/
 	@Schema(description = "")
-	public String getLogo() {
-		return logo;
+	public String getLogoUrl() {
+		return logoUrl;
 	}
 
-	public void setLogo(String logo) {
-		this.logo = logo;
+	public void setLogoUrl(String logoUrl) {
+		this.logoUrl = logoUrl;
 	}
 
 	public WalletWithdrawalInfo commission(Double commission) {
@@ -194,7 +194,7 @@ public class WalletWithdrawalInfo implements Parcelable
 		WalletWithdrawalInfo walletWithdrawalInfo = (WalletWithdrawalInfo) o;
 		return Objects.equals(this.currency, walletWithdrawalInfo.currency) &&
 				Objects.equals(this.description, walletWithdrawalInfo.description) &&
-				Objects.equals(this.logo, walletWithdrawalInfo.logo) &&
+				Objects.equals(this.logoUrl, walletWithdrawalInfo.logoUrl) &&
 				Objects.equals(this.commission, walletWithdrawalInfo.commission) &&
 				Objects.equals(this.rateToGvt, walletWithdrawalInfo.rateToGvt) &&
 				Objects.equals(this.availableToWithdrawal, walletWithdrawalInfo.availableToWithdrawal);
@@ -202,7 +202,7 @@ public class WalletWithdrawalInfo implements Parcelable
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(currency, description, logo, commission, rateToGvt, availableToWithdrawal);
+		return Objects.hash(currency, description, logoUrl, commission, rateToGvt, availableToWithdrawal);
 	}
 
 	@Override
@@ -212,7 +212,7 @@ public class WalletWithdrawalInfo implements Parcelable
 
 		sb.append("    currency: ").append(toIndentedString(currency)).append("\n");
 		sb.append("    description: ").append(toIndentedString(description)).append("\n");
-		sb.append("    logo: ").append(toIndentedString(logo)).append("\n");
+		sb.append("    logoUrl: ").append(toIndentedString(logoUrl)).append("\n");
 		sb.append("    commission: ").append(toIndentedString(commission)).append("\n");
 		sb.append("    rateToGvt: ").append(toIndentedString(rateToGvt)).append("\n");
 		sb.append("    availableToWithdrawal: ").append(toIndentedString(availableToWithdrawal)).append("\n");
@@ -234,7 +234,7 @@ public class WalletWithdrawalInfo implements Parcelable
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(currency);
 		out.writeValue(description);
-		out.writeValue(logo);
+		out.writeValue(logoUrl);
 		out.writeValue(commission);
 		out.writeValue(rateToGvt);
 		out.writeValue(availableToWithdrawal);

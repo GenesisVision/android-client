@@ -7,6 +7,7 @@ import java.util.UUID;
 
 import javax.inject.Inject;
 
+import io.swagger.client.model.ImageQuality;
 import io.swagger.client.model.PublicProfile;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
@@ -66,7 +67,7 @@ public class ManagerInfoPresenter extends MvpPresenter<ManagerInfoView>
 			if (managersDetailsSubscription != null) {
 				managersDetailsSubscription.unsubscribe();
 			}
-			managersDetailsSubscription = usersManager.getUser(managerId.toString())
+			managersDetailsSubscription = usersManager.getUser(managerId.toString(), ImageQuality.MEDIUM)
 					.observeOn(AndroidSchedulers.mainThread())
 					.subscribeOn(Schedulers.io())
 					.subscribe(this::handleManagerDetailsSuccess,

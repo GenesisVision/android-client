@@ -42,8 +42,8 @@ public class SocialLinkViewModel implements Parcelable
 	@SerializedName("url")
 	private String url = null;
 
-	@SerializedName("logo")
-	private String logo = null;
+	@SerializedName("logoUrl")
+	private String logoUrl = null;
 
 	@SerializedName("name")
 	private String name = null;
@@ -59,7 +59,7 @@ public class SocialLinkViewModel implements Parcelable
 
 	SocialLinkViewModel(Parcel in) {
 		url = (String) in.readValue(null);
-		logo = (String) in.readValue(null);
+		logoUrl = (String) in.readValue(null);
 		name = (String) in.readValue(null);
 		value = (String) in.readValue(null);
 		type = (SocialLinkType) in.readValue(SocialLinkType.class.getClassLoader());
@@ -84,23 +84,23 @@ public class SocialLinkViewModel implements Parcelable
 		this.url = url;
 	}
 
-	public SocialLinkViewModel logo(String logo) {
-		this.logo = logo;
+	public SocialLinkViewModel logoUrl(String logoUrl) {
+		this.logoUrl = logoUrl;
 		return this;
 	}
 
 	/**
-	 * Get logo
+	 * Get logoUrl
 	 *
-	 * @return logo
+	 * @return logoUrl
 	 **/
 	@Schema(description = "")
-	public String getLogo() {
-		return logo;
+	public String getLogoUrl() {
+		return logoUrl;
 	}
 
-	public void setLogo(String logo) {
-		this.logo = logo;
+	public void setLogoUrl(String logoUrl) {
+		this.logoUrl = logoUrl;
 	}
 
 	public SocialLinkViewModel name(String name) {
@@ -170,7 +170,7 @@ public class SocialLinkViewModel implements Parcelable
 		}
 		SocialLinkViewModel socialLinkViewModel = (SocialLinkViewModel) o;
 		return Objects.equals(this.url, socialLinkViewModel.url) &&
-				Objects.equals(this.logo, socialLinkViewModel.logo) &&
+				Objects.equals(this.logoUrl, socialLinkViewModel.logoUrl) &&
 				Objects.equals(this.name, socialLinkViewModel.name) &&
 				Objects.equals(this.value, socialLinkViewModel.value) &&
 				Objects.equals(this.type, socialLinkViewModel.type);
@@ -178,7 +178,7 @@ public class SocialLinkViewModel implements Parcelable
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(url, logo, name, value, type);
+		return Objects.hash(url, logoUrl, name, value, type);
 	}
 
 	@Override
@@ -187,7 +187,7 @@ public class SocialLinkViewModel implements Parcelable
 		sb.append("class SocialLinkViewModel {\n");
 
 		sb.append("    url: ").append(toIndentedString(url)).append("\n");
-		sb.append("    logo: ").append(toIndentedString(logo)).append("\n");
+		sb.append("    logoUrl: ").append(toIndentedString(logoUrl)).append("\n");
 		sb.append("    name: ").append(toIndentedString(name)).append("\n");
 		sb.append("    value: ").append(toIndentedString(value)).append("\n");
 		sb.append("    type: ").append(toIndentedString(type)).append("\n");
@@ -208,7 +208,7 @@ public class SocialLinkViewModel implements Parcelable
 
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(url);
-		out.writeValue(logo);
+		out.writeValue(logoUrl);
 		out.writeValue(name);
 		out.writeValue(value);
 		out.writeValue(type);

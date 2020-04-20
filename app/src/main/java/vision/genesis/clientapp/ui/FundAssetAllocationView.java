@@ -68,7 +68,7 @@ public class FundAssetAllocationView extends RelativeLayout
 	}
 
 	public void setAsset(FundAssetPartWithIcon asset) {
-		this.icon.setImageURI(ImageUtils.getImageUri(asset.getIcon()));
+		this.icon.setImageURI(ImageUtils.getImageUri(asset.getLogoUrl()));
 		this.percent.setText(String.format(Locale.getDefault(), "%s%%", StringFormatUtil.formatAmount(asset.getPercent(), 0, 0)));
 
 //		int assetColor = Color.parseColor(asset.getColor());

@@ -97,7 +97,7 @@ public class MyWalletsListAdapter extends RecyclerView.Adapter<MyWalletsListAdap
 
 		void setData(WalletData wallet, String baseCurrency) {
 			this.wallet = wallet;
-			icon.setImageURI(ImageUtils.getImageUri(wallet.getLogo()));
+			icon.setImageURI(ImageUtils.getImageUri(wallet.getLogoUrl()));
 			currency.setText(wallet.getTitle());
 			value.setText(String.format(Locale.getDefault(), "%s",
 					StringFormatUtil.getValueString(wallet.getAvailable(), wallet.getCurrency().getValue())));

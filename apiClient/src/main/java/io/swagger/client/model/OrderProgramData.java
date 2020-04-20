@@ -54,8 +54,8 @@ public class OrderProgramData implements Parcelable
 	@SerializedName("url")
 	private String url = null;
 
-	@SerializedName("logo")
-	private String logo = null;
+	@SerializedName("logoUrl")
+	private String logoUrl = null;
 
 	@SerializedName("type")
 	private AssetType type = null;
@@ -69,7 +69,7 @@ public class OrderProgramData implements Parcelable
 		levelProgress = (Double) in.readValue(null);
 		color = (String) in.readValue(null);
 		url = (String) in.readValue(null);
-		logo = (String) in.readValue(null);
+		logoUrl = (String) in.readValue(null);
 		type = (AssetType) in.readValue(AssetType.class.getClassLoader());
 	}
 
@@ -168,23 +168,23 @@ public class OrderProgramData implements Parcelable
 		this.url = url;
 	}
 
-	public OrderProgramData logo(String logo) {
-		this.logo = logo;
+	public OrderProgramData logoUrl(String logoUrl) {
+		this.logoUrl = logoUrl;
 		return this;
 	}
 
 	/**
-	 * Get logo
+	 * Get logoUrl
 	 *
-	 * @return logo
+	 * @return logoUrl
 	 **/
 	@Schema(description = "")
-	public String getLogo() {
-		return logo;
+	public String getLogoUrl() {
+		return logoUrl;
 	}
 
-	public void setLogo(String logo) {
-		this.logo = logo;
+	public void setLogoUrl(String logoUrl) {
+		this.logoUrl = logoUrl;
 	}
 
 	public OrderProgramData type(AssetType type) {
@@ -220,13 +220,13 @@ public class OrderProgramData implements Parcelable
 				Objects.equals(this.levelProgress, orderProgramData.levelProgress) &&
 				Objects.equals(this.color, orderProgramData.color) &&
 				Objects.equals(this.url, orderProgramData.url) &&
-				Objects.equals(this.logo, orderProgramData.logo) &&
+				Objects.equals(this.logoUrl, orderProgramData.logoUrl) &&
 				Objects.equals(this.type, orderProgramData.type);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(title, level, levelProgress, color, url, logo, type);
+		return Objects.hash(title, level, levelProgress, color, url, logoUrl, type);
 	}
 
 	@Override
@@ -239,7 +239,7 @@ public class OrderProgramData implements Parcelable
 		sb.append("    levelProgress: ").append(toIndentedString(levelProgress)).append("\n");
 		sb.append("    color: ").append(toIndentedString(color)).append("\n");
 		sb.append("    url: ").append(toIndentedString(url)).append("\n");
-		sb.append("    logo: ").append(toIndentedString(logo)).append("\n");
+		sb.append("    logoUrl: ").append(toIndentedString(logoUrl)).append("\n");
 		sb.append("    type: ").append(toIndentedString(type)).append("\n");
 		sb.append("}");
 		return sb.toString();
@@ -262,7 +262,7 @@ public class OrderProgramData implements Parcelable
 		out.writeValue(levelProgress);
 		out.writeValue(color);
 		out.writeValue(url);
-		out.writeValue(logo);
+		out.writeValue(logoUrl);
 		out.writeValue(type);
 	}
 

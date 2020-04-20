@@ -248,11 +248,13 @@ public class DashboardFilter implements Parcelable
 			if (this.getDashboardActionStatus() != null && this.getDashboardActionStatus().equals(status)) {
 				selectedFound = true;
 			}
-			if (!selectedFound)
+			if (!selectedFound) {
 				selectedPosition++;
+			}
 		}
-		if (!selectedFound)
+		if (!selectedFound) {
 			selectedPosition = 0;
+		}
 		return new FilterOption(FilterOption.TYPE_SINGLE_VALUE, GenesisVisionApplication.INSTANCE.getString(R.string.status), values, selectedPosition);
 	}
 

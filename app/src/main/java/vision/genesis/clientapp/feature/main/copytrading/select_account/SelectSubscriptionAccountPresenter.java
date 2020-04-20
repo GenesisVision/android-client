@@ -12,8 +12,8 @@ import java.util.UUID;
 
 import javax.inject.Inject;
 
-import io.swagger.client.model.ItemsViewModelTradingAccountDetails;
 import io.swagger.client.model.TradingAccountDetails;
+import io.swagger.client.model.TradingAccountDetailsItemsViewModel;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -85,7 +85,7 @@ public class SelectSubscriptionAccountPresenter extends MvpPresenter<SelectSubsc
 		}
 	}
 
-	private void handleGetAccountsSuccess(ItemsViewModelTradingAccountDetails response) {
+	private void handleGetAccountsSuccess(TradingAccountDetailsItemsViewModel response) {
 		getAccountsSubscription.unsubscribe();
 		getViewState().showProgress(false);
 		if (response.getTotal() == 0) {

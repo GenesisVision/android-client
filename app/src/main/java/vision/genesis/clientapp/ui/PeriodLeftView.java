@@ -85,8 +85,9 @@ public class PeriodLeftView extends RelativeLayout
 	}
 
 	public void onDestroy() {
-		if (timeSubscription != null)
+		if (timeSubscription != null) {
 			timeSubscription.unsubscribe();
+		}
 
 		if (unbinder != null) {
 			unbinder.unbind();
@@ -114,13 +115,15 @@ public class PeriodLeftView extends RelativeLayout
 	}
 
 	protected void initProgressBar() {
-		if (dateFrom != null && dateFrom.getYear() > 0 && dateFrom.isBefore(DateTime.now()))
+		if (dateFrom != null && dateFrom.getYear() > 0 && dateFrom.isBefore(DateTime.now())) {
 			progressBar.setMax(Seconds.secondsBetween(dateFrom, dateTo).getSeconds());
+		}
 	}
 
 	protected void updateProgressBar() {
-		if (dateFrom != null && dateFrom.getYear() > 0 && dateFrom.isBefore(DateTime.now()))
+		if (dateFrom != null && dateFrom.getYear() > 0 && dateFrom.isBefore(DateTime.now())) {
 			progressBar.setProgress(Seconds.secondsBetween(dateFrom, DateTime.now()).getSeconds());
+		}
 	}
 
 	protected void startTimer() {
@@ -165,8 +168,9 @@ public class PeriodLeftView extends RelativeLayout
 		else {
 			setPeriodText(0, GenesisVisionApplication.INSTANCE.getResources().getQuantityString(R.plurals.secs, secondsLeft, secondsLeft, secondsLeft));
 
-			if (timeSubscription != null)
+			if (timeSubscription != null) {
 				timeSubscription.unsubscribe();
+			}
 
 //			if (!programClosed)
 //				EventBus.getDefault().post(new OnPeriodLeftEvent());

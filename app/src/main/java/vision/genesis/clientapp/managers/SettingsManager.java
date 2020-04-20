@@ -2,6 +2,7 @@ package vision.genesis.clientapp.managers;
 
 
 import io.swagger.client.api.PlatformApi;
+import io.swagger.client.model.Currency;
 import io.swagger.client.model.PlatformInfo;
 import io.swagger.client.model.ProgramsLevelsInfo;
 import rx.Observable;
@@ -183,6 +184,6 @@ public class SettingsManager
 	}
 
 	public Observable<ProgramsLevelsInfo> getLevelsInfo(String currency) {
-		return platformApi.getProgramLevels(currency);
+		return platformApi.getProgramLevels(Currency.fromValue(currency));
 	}
 }

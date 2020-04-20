@@ -15,7 +15,6 @@ import javax.inject.Inject;
 
 import io.swagger.client.model.PlatformInfo;
 import io.swagger.client.model.ProgramCreateAssetPlatformInfo;
-import io.swagger.client.model.ProgramUpdate;
 import io.swagger.client.model.TradesDelay;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
@@ -169,7 +168,7 @@ public class ProgramSettingsPresenter extends MvpPresenter<ProgramSettingsView>
 		newModel.setStopOutLevel(stopOut);
 		newModel.setEntryFee(entryFee);
 		newModel.setSuccessFee(successFee);
-		newModel.setTradesDelay(ProgramUpdate.TradesDelayEnum.fromValue(tradesDelay.getValue()));
+		newModel.setTradesDelay(TradesDelay.fromValue(tradesDelay.getValue()));
 		EventBus.getDefault().post(new OnProgramSettingsConfirmEvent(newModel));
 	}
 
@@ -190,7 +189,7 @@ public class ProgramSettingsPresenter extends MvpPresenter<ProgramSettingsView>
 	private void handleGetPlatformInfoSuccess(PlatformInfo platformInfo) {
 		platformInfoSubscription.unsubscribe();
 		ProgramCreateAssetPlatformInfo info = platformInfo.getAssetInfo().getProgramInfo().getCreateProgramInfo();
-		maxEntryFee = info.getMaxEntryFee();
+		maxEntryFee = info.getMaxManagementFee();
 		maxSuccessFee = info.getMaxSuccessFee();
 		getViewState().updateEntryFeeDescription(maxEntryFee);
 		getViewState().updateSuccessFeeDescription(maxSuccessFee);

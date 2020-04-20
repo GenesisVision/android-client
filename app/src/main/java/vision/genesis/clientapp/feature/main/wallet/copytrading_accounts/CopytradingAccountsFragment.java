@@ -6,13 +6,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
+import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.arellomobile.mvp.presenter.InjectPresenter;
 
 import java.util.List;
 
-import androidx.annotation.Nullable;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -107,8 +108,9 @@ public class CopytradingAccountsFragment extends BaseFragment implements Copytra
 
 	@Override
 	public void pagerShow() {
-		if (copytradingAccountsPresenter != null)
+		if (copytradingAccountsPresenter != null) {
 			copytradingAccountsPresenter.onShow();
+		}
 	}
 
 	@Override
@@ -116,7 +118,8 @@ public class CopytradingAccountsFragment extends BaseFragment implements Copytra
 	}
 
 	public void onSwipeRefresh() {
-		if (copytradingAccountsPresenter != null)
+		if (copytradingAccountsPresenter != null) {
 			copytradingAccountsPresenter.onSwipeRefresh();
+		}
 	}
 }

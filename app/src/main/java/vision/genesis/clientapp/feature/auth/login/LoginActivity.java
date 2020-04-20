@@ -158,10 +158,12 @@ public class LoginActivity extends BaseSwipeBackActivity implements LoginView
 	@Override
 	public void finishActivity(boolean withAnimation) {
 		finish();
-		if (withAnimation)
+		if (withAnimation) {
 			overridePendingTransition(R.anim.hold, R.anim.activity_slide_to_right);
-		else
+		}
+		else {
 			overridePendingTransition(R.anim.hold, R.anim.hold);
+		}
 	}
 
 	@Override

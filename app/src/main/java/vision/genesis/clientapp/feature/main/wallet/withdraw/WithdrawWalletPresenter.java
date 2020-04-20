@@ -64,8 +64,9 @@ public class WithdrawWalletPresenter extends MvpPresenter<WithdrawWalletView> im
 
 	@Override
 	public void onDestroy() {
-		if (getWithdrawalInfoSubscription != null)
+		if (getWithdrawalInfoSubscription != null) {
 			getWithdrawalInfoSubscription.unsubscribe();
+		}
 
 		super.onDestroy();
 	}
@@ -142,8 +143,9 @@ public class WithdrawWalletPresenter extends MvpPresenter<WithdrawWalletView> im
 	private void updateFinalAmount() {
 		if (walletInfo != null) {
 			finalAmount = amount - walletInfo.getCommission();
-			if (finalAmount < 0)
+			if (finalAmount < 0) {
 				finalAmount = 0.0;
+			}
 
 			getViewState().setFinalAmountLabel(getFinalAmountLabelString());
 			getViewState().setFinalAmount(getFinalAmountString());

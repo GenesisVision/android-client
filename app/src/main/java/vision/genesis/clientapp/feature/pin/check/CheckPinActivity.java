@@ -210,7 +210,8 @@ public class CheckPinActivity extends MvpAppCompatActivity implements CheckPinVi
 	@Override
 	public void disableFingerprint(boolean changeText) {
 		keyboard.showFingerprintError();
-		if (changeText)
+		if (changeText) {
 			text.setText(getString(R.string.enter_pin_code));
+		}
 	}
 }

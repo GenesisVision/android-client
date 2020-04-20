@@ -111,7 +111,7 @@ public class AssetView extends RelativeLayout
 
 	public void setData(TransactionAssetDetails asset) {
 		this.assetId = asset.getId();
-		this.logo = asset.getLogo();
+		this.logo = asset.getLogoUrl();
 		this.color = asset.getColor();
 		this.title = asset.getTitle();
 		this.assetType = asset.getAssetType();
@@ -122,7 +122,7 @@ public class AssetView extends RelativeLayout
 
 	public void setData(AssetDetails asset) {
 		this.assetId = asset.getId();
-		this.logo = asset.getLogo();
+		this.logo = asset.getLogoUrl();
 		this.color = asset.getColor();
 		this.title = asset.getTitle();
 		this.assetType = asset.getAssetType();

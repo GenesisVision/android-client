@@ -10,8 +10,8 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import io.swagger.client.model.ItemsViewModelRewardDetails;
 import io.swagger.client.model.RewardDetails;
+import io.swagger.client.model.RewardDetailsItemsViewModel;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -87,7 +87,7 @@ public class ReferralHistoryPresenter extends MvpPresenter<ReferralHistoryView> 
 		}
 	}
 
-	private void handleGetEventsSuccess(ItemsViewModelRewardDetails response) {
+	private void handleGetEventsSuccess(RewardDetailsItemsViewModel response) {
 		getEventsSubscription.unsubscribe();
 		getViewState().showProgress(false);
 

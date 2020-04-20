@@ -54,10 +54,12 @@ public class ForgotPasswordPresenter extends MvpPresenter<ForgotPasswordView>
 
 	@Override
 	public void onDestroy() {
-		if (riskControlSubscription != null)
+		if (riskControlSubscription != null) {
 			riskControlSubscription.unsubscribe();
-		if (forgotPasswordSubscription != null)
+		}
+		if (forgotPasswordSubscription != null) {
 			forgotPasswordSubscription.unsubscribe();
+		}
 
 		super.onDestroy();
 	}
@@ -68,10 +70,12 @@ public class ForgotPasswordPresenter extends MvpPresenter<ForgotPasswordView>
 
 	void onResetPasswordClicked(String email) {
 		this.email = email.trim();
-		if (ValidatorUtil.isEmailValid(this.email))
+		if (ValidatorUtil.isEmailValid(this.email)) {
 			checkRiskControl(this.email);
-		else
+		}
+		else {
 			getViewState().setEmailError(context.getString(R.string.enter_valid_email));
+		}
 	}
 
 	private void checkRiskControl(String route) {

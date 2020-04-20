@@ -8,6 +8,7 @@ import java.util.UUID;
 import javax.inject.Inject;
 
 import io.swagger.client.model.BalanceChartPoint;
+import io.swagger.client.model.Currency;
 import io.swagger.client.model.FundBalanceChart;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
@@ -49,7 +50,7 @@ public class FundBalancePresenter extends MvpPresenter<FundBalanceView> implemen
 
 	private DateRange chartDateRange = DateRange.createFromEnum(DateRange.DateRangeEnum.MONTH);
 
-	private CurrencyEnum baseCurrency;
+	private Currency baseCurrency;
 
 	@Override
 	protected void onFirstViewAttach() {
@@ -93,7 +94,7 @@ public class FundBalancePresenter extends MvpPresenter<FundBalanceView> implemen
 	}
 
 	private void baseCurrencyChangedHandler(CurrencyEnum baseCurrency) {
-		this.baseCurrency = baseCurrency;
+		this.baseCurrency = Currency.fromValue(baseCurrency.getValue());
 		getChartData();
 	}
 
@@ -103,7 +104,7 @@ public class FundBalancePresenter extends MvpPresenter<FundBalanceView> implemen
 				chartDataSubscription.unsubscribe();
 			}
 
-			chartDataSubscription = fundsManager.getBalanceChart(fundId, chartDateRange, 30, baseCurrency.getValue())
+			chartDataSubscription = fundsManager.getBalanceChart(fundId, chartDateRange, 30, baseCurrency)
 					.observeOn(AndroidSchedulers.mainThread())
 					.subscribeOn(Schedulers.io())
 					.subscribe(this::handleGetChartDataSuccess,

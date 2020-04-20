@@ -6,11 +6,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.fragment.app.FragmentActivity;
+
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
 import java.util.Locale;
 
-import androidx.fragment.app.FragmentActivity;
 import butterknife.BindInt;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -126,8 +127,9 @@ public class FiltersBottomSheetFragment extends BottomSheetDialogFragment
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
-		if (getDialog().getWindow() != null)
+		if (getDialog().getWindow() != null) {
 			getDialog().getWindow().getAttributes().windowAnimations = R.style.dialog_slide_animation;
+		}
 	}
 
 	@Override
@@ -143,8 +145,9 @@ public class FiltersBottomSheetFragment extends BottomSheetDialogFragment
 
 		initFilterOptions();
 
-		if (filter != null)
+		if (filter != null) {
 			setFilterData(filter);
+		}
 	}
 
 	public void setCurrentFilter(ProgramsFilter filter) {
@@ -160,8 +163,9 @@ public class FiltersBottomSheetFragment extends BottomSheetDialogFragment
 //		maxBalance = NumberFormatUtil.doubleToInteger(filter.getBalanceUsdMax());
 //		activeOnly = filter.isShowActivePrograms();
 
-		if (activeProgramsOnly != null)
+		if (activeProgramsOnly != null) {
 			setFilterData(filter);
+		}
 	}
 
 	public void setActivity(FragmentActivity activity) {
@@ -293,15 +297,17 @@ public class FiltersBottomSheetFragment extends BottomSheetDialogFragment
 		String from = "";
 		String to = "";
 
-		if (minValue != null)
+		if (minValue != null) {
 			from = String.format(Locale.getDefault(), "%s %s",
 					getString(R.string.from),
 					StringFormatUtil.formatAmount(minValue, 0, 4));
+		}
 
-		if (maxValue != null)
+		if (maxValue != null) {
 			to = String.format(Locale.getDefault(), " %s %s",
 					getString(R.string.to),
 					StringFormatUtil.formatAmount(maxValue, 0, 4));
+		}
 
 		filterOptionView.setValue(!from.isEmpty() || !to.isEmpty()
 				? String.format(Locale.getDefault(), "%s %s", from, to)

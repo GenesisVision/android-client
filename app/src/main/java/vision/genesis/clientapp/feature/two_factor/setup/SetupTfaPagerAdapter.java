@@ -1,10 +1,11 @@
 package vision.genesis.clientapp.feature.two_factor.setup;
 
-import java.util.ArrayList;
-
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
+
+import java.util.ArrayList;
+
 import vision.genesis.clientapp.feature.two_factor.setup.first.SetupTfaFirstStepFragment;
 import vision.genesis.clientapp.feature.two_factor.setup.forth.SetupTfaForthStepFragment;
 import vision.genesis.clientapp.feature.two_factor.setup.second.SetupTfaSecondStepFragment;

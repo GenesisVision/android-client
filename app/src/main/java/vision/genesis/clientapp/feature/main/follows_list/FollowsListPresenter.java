@@ -15,7 +15,7 @@ import java.util.UUID;
 import javax.inject.Inject;
 
 import io.swagger.client.model.FollowDetailsListItem;
-import io.swagger.client.model.ItemsViewModelFollowDetailsListItem;
+import io.swagger.client.model.FollowDetailsListItemItemsViewModel;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -122,7 +122,7 @@ public class FollowsListPresenter extends MvpPresenter<FollowsListView>
 		}
 	}
 
-	void showSearchResults(ItemsViewModelFollowDetailsListItem result) {
+	void showSearchResults(FollowDetailsListItemItemsViewModel result) {
 		skip = 0;
 		handleGetFollowsList(result);
 	}
@@ -216,7 +216,7 @@ public class FollowsListPresenter extends MvpPresenter<FollowsListView>
 //		return model;
 //	}
 
-	private void handleGetFollowsList(ItemsViewModelFollowDetailsListItem response) {
+	private void handleGetFollowsList(FollowDetailsListItemItemsViewModel response) {
 		getViewState().setRefreshing(false);
 		getViewState().showProgressBar(false);
 		getViewState().showNoInternet(false);

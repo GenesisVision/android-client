@@ -8,11 +8,12 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.appcompat.content.res.AppCompatResources;
+
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
 import java.util.Objects;
 
-import androidx.appcompat.content.res.AppCompatResources;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -97,8 +98,9 @@ public class MessageBottomSheetDialog extends BottomSheetDialogFragment
 
 	private void updateView() {
 		if (this.image != null) {
-			if (imageResourceId > 0)
+			if (imageResourceId > 0) {
 				this.image.setImageDrawable(AppCompatResources.getDrawable(Objects.requireNonNull(getContext()), imageResourceId));
+			}
 			this.title.setText(titleText);
 			this.message.setText(messageText);
 
@@ -108,15 +110,17 @@ public class MessageBottomSheetDialog extends BottomSheetDialogFragment
 
 	@Override
 	public void onCancel(DialogInterface dialog) {
-		if (listener != null)
+		if (listener != null) {
 			listener.onMessageButtonClicked();
+		}
 		super.onCancel(dialog);
 	}
 
 	@Override
 	public void dismiss() {
-		if (listener != null)
+		if (listener != null) {
 			listener.onMessageButtonClicked();
+		}
 		super.dismiss();
 	}
 }

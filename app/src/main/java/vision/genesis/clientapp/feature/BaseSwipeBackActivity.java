@@ -6,11 +6,12 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AlertDialog;
+import androidx.core.content.ContextCompat;
+
 import com.arellomobile.mvp.MvpAppCompatActivity;
 import com.google.android.material.snackbar.Snackbar;
 
-import androidx.appcompat.app.AlertDialog;
-import androidx.core.content.ContextCompat;
 import me.imid.swipebacklayout.lib.SwipeBackLayout;
 import me.imid.swipebacklayout.lib.Utils;
 import me.imid.swipebacklayout.lib.app.SwipeBackActivityBase;
@@ -47,8 +48,9 @@ public class BaseSwipeBackActivity extends MvpAppCompatActivity implements Swipe
 	@Override
 	public View findViewById(int id) {
 		View v = super.findViewById(id);
-		if (v == null && mHelper != null)
+		if (v == null && mHelper != null) {
 			return mHelper.findViewById(id);
+		}
 		return v;
 	}
 
@@ -81,8 +83,9 @@ public class BaseSwipeBackActivity extends MvpAppCompatActivity implements Swipe
 	}
 
 	protected void showMessageDialog(String message) {
-		if (messageDialog != null)
+		if (messageDialog != null) {
 			messageDialog.cancel();
+		}
 		messageDialog = showDialogMessage(message);
 	}
 

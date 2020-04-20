@@ -60,8 +60,8 @@ public class NotificationViewModel implements Parcelable
 	@SerializedName("managerId")
 	private UUID managerId = null;
 
-	@SerializedName("logo")
-	private String logo = null;
+	@SerializedName("logoUrl")
+	private String logoUrl = null;
 
 	@SerializedName("url")
 	private String url = null;
@@ -85,7 +85,7 @@ public class NotificationViewModel implements Parcelable
 		type = (NotificationType) in.readValue(NotificationType.class.getClassLoader());
 		assetId = (UUID) in.readValue(UUID.class.getClassLoader());
 		managerId = (UUID) in.readValue(UUID.class.getClassLoader());
-		logo = (String) in.readValue(null);
+		logoUrl = (String) in.readValue(null);
 		url = (String) in.readValue(null);
 		color = (String) in.readValue(null);
 		isUnread = (Boolean) in.readValue(null);
@@ -206,23 +206,23 @@ public class NotificationViewModel implements Parcelable
 		this.managerId = managerId;
 	}
 
-	public NotificationViewModel logo(String logo) {
-		this.logo = logo;
+	public NotificationViewModel logoUrl(String logoUrl) {
+		this.logoUrl = logoUrl;
 		return this;
 	}
 
 	/**
-	 * Get logo
+	 * Get logoUrl
 	 *
-	 * @return logo
+	 * @return logoUrl
 	 **/
 	@Schema(description = "")
-	public String getLogo() {
-		return logo;
+	public String getLogoUrl() {
+		return logoUrl;
 	}
 
-	public void setLogo(String logo) {
-		this.logo = logo;
+	public void setLogoUrl(String logoUrl) {
+		this.logoUrl = logoUrl;
 	}
 
 	public NotificationViewModel url(String url) {
@@ -316,7 +316,7 @@ public class NotificationViewModel implements Parcelable
 				Objects.equals(this.type, notificationViewModel.type) &&
 				Objects.equals(this.assetId, notificationViewModel.assetId) &&
 				Objects.equals(this.managerId, notificationViewModel.managerId) &&
-				Objects.equals(this.logo, notificationViewModel.logo) &&
+				Objects.equals(this.logoUrl, notificationViewModel.logoUrl) &&
 				Objects.equals(this.url, notificationViewModel.url) &&
 				Objects.equals(this.color, notificationViewModel.color) &&
 				Objects.equals(this.isUnread, notificationViewModel.isUnread) &&
@@ -325,7 +325,7 @@ public class NotificationViewModel implements Parcelable
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, text, date, type, assetId, managerId, logo, url, color, isUnread, assetType);
+		return Objects.hash(id, text, date, type, assetId, managerId, logoUrl, url, color, isUnread, assetType);
 	}
 
 	@Override
@@ -339,7 +339,7 @@ public class NotificationViewModel implements Parcelable
 		sb.append("    type: ").append(toIndentedString(type)).append("\n");
 		sb.append("    assetId: ").append(toIndentedString(assetId)).append("\n");
 		sb.append("    managerId: ").append(toIndentedString(managerId)).append("\n");
-		sb.append("    logo: ").append(toIndentedString(logo)).append("\n");
+		sb.append("    logoUrl: ").append(toIndentedString(logoUrl)).append("\n");
 		sb.append("    url: ").append(toIndentedString(url)).append("\n");
 		sb.append("    color: ").append(toIndentedString(color)).append("\n");
 		sb.append("    isUnread: ").append(toIndentedString(isUnread)).append("\n");
@@ -366,7 +366,7 @@ public class NotificationViewModel implements Parcelable
 		out.writeValue(type);
 		out.writeValue(assetId);
 		out.writeValue(managerId);
-		out.writeValue(logo);
+		out.writeValue(logoUrl);
 		out.writeValue(url);
 		out.writeValue(color);
 		out.writeValue(isUnread);

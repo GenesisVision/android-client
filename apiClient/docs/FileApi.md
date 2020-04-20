@@ -1,75 +1,38 @@
 # FileApi
 
-All URIs are relative to */api*
+All URIs are relative to *https://red.genesis.vision/api*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**getFile**](FileApi.md#getFile) | **GET** v2.0/file/{id} | Download file
 [**uploadFile**](FileApi.md#uploadFile) | **POST** v2.0/file/upload | Upload file
-
-<a name="getFile"></a>
-# **getFile**
-> Void getFile(id, quality)
-
-Download file
-
-### Example
-```java
-// Import classes:
-//import io.swagger.client.ApiException;
-//import io.swagger.client.api.FileApi;
-
-
-FileApi apiInstance = new FileApi();
-UUID id = new UUID(); // UUID | 
-String quality = "quality_example"; // String | 
-try {
-    Void result = apiInstance.getFile(id, quality);
-    System.out.println(result);
-} catch (ApiException e) {
-    System.err.println("Exception when calling FileApi#getFile");
-    e.printStackTrace();
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **id** | [**UUID**](.md)|  |
- **quality** | **String**|  | [optional] [enum: Low, Medium, High]
-
-### Return type
-
-[**Void**](.md)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: Not defined
 
 <a name="uploadFile"></a>
 # **uploadFile**
-> UploadResult uploadFile(uploadedFile, authorization)
+> UploadResult uploadFile(uploadedFile)
 
 Upload file
 
 ### Example
 ```java
 // Import classes:
+//import io.swagger.client.ApiClient;
 //import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
 //import io.swagger.client.api.FileApi;
 
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
 
 FileApi apiInstance = new FileApi();
 File uploadedFile = new File("uploadedFile_example"); // File | 
-String authorization = "authorization_example"; // String | 
 try {
-    UploadResult result = apiInstance.uploadFile(uploadedFile, authorization);
+    UploadResult result = apiInstance.uploadFile(uploadedFile);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling FileApi#uploadFile");
@@ -81,8 +44,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **uploadedFile** | **File**|  |
- **authorization** | **String**|  | [optional]
+ **uploadedFile** | **File**|  | [optional]
 
 ### Return type
 
@@ -90,7 +52,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[Bearer](../README.md#Bearer)
 
 ### HTTP request headers
 

@@ -46,8 +46,8 @@ public class DashboardChartAsset implements Parcelable
 	@SerializedName("id")
 	private UUID id = null;
 
-	@SerializedName("logo")
-	private String logo = null;
+	@SerializedName("logoUrl")
+	private String logoUrl = null;
 
 	@SerializedName("color")
 	private String color = null;
@@ -70,7 +70,7 @@ public class DashboardChartAsset implements Parcelable
 	DashboardChartAsset(Parcel in) {
 		isPrivateAccount = (Boolean) in.readValue(null);
 		id = (UUID) in.readValue(UUID.class.getClassLoader());
-		logo = (String) in.readValue(null);
+		logoUrl = (String) in.readValue(null);
 		color = (String) in.readValue(null);
 		title = (String) in.readValue(null);
 		url = (String) in.readValue(null);
@@ -116,23 +116,23 @@ public class DashboardChartAsset implements Parcelable
 		this.id = id;
 	}
 
-	public DashboardChartAsset logo(String logo) {
-		this.logo = logo;
+	public DashboardChartAsset logoUrl(String logoUrl) {
+		this.logoUrl = logoUrl;
 		return this;
 	}
 
 	/**
-	 * Get logo
+	 * Get logoUrl
 	 *
-	 * @return logo
+	 * @return logoUrl
 	 **/
 	@Schema(description = "")
-	public String getLogo() {
-		return logo;
+	public String getLogoUrl() {
+		return logoUrl;
 	}
 
-	public void setLogo(String logo) {
-		this.logo = logo;
+	public void setLogoUrl(String logoUrl) {
+		this.logoUrl = logoUrl;
 	}
 
 	public DashboardChartAsset color(String color) {
@@ -241,7 +241,7 @@ public class DashboardChartAsset implements Parcelable
 		DashboardChartAsset dashboardChartAsset = (DashboardChartAsset) o;
 		return Objects.equals(this.isPrivateAccount, dashboardChartAsset.isPrivateAccount) &&
 				Objects.equals(this.id, dashboardChartAsset.id) &&
-				Objects.equals(this.logo, dashboardChartAsset.logo) &&
+				Objects.equals(this.logoUrl, dashboardChartAsset.logoUrl) &&
 				Objects.equals(this.color, dashboardChartAsset.color) &&
 				Objects.equals(this.title, dashboardChartAsset.title) &&
 				Objects.equals(this.url, dashboardChartAsset.url) &&
@@ -251,7 +251,7 @@ public class DashboardChartAsset implements Parcelable
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(isPrivateAccount, id, logo, color, title, url, assetType, programDetails);
+		return Objects.hash(isPrivateAccount, id, logoUrl, color, title, url, assetType, programDetails);
 	}
 
 	@Override
@@ -261,7 +261,7 @@ public class DashboardChartAsset implements Parcelable
 
 		sb.append("    isPrivateAccount: ").append(toIndentedString(isPrivateAccount)).append("\n");
 		sb.append("    id: ").append(toIndentedString(id)).append("\n");
-		sb.append("    logo: ").append(toIndentedString(logo)).append("\n");
+		sb.append("    logoUrl: ").append(toIndentedString(logoUrl)).append("\n");
 		sb.append("    color: ").append(toIndentedString(color)).append("\n");
 		sb.append("    title: ").append(toIndentedString(title)).append("\n");
 		sb.append("    url: ").append(toIndentedString(url)).append("\n");
@@ -285,7 +285,7 @@ public class DashboardChartAsset implements Parcelable
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(isPrivateAccount);
 		out.writeValue(id);
-		out.writeValue(logo);
+		out.writeValue(logoUrl);
 		out.writeValue(color);
 		out.writeValue(title);
 		out.writeValue(url);

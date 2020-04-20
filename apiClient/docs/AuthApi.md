@@ -1,6 +1,6 @@
 # AuthApi
 
-All URIs are relative to */api*
+All URIs are relative to *https://red.genesis.vision/api*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -31,9 +31,19 @@ Authorize
 ### Example
 ```java
 // Import classes:
+//import io.swagger.client.ApiClient;
 //import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
 //import io.swagger.client.api.AuthApi;
 
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
 
 AuthApi apiInstance = new AuthApi();
 LoginViewModel body = new LoginViewModel(); // LoginViewModel | 
@@ -58,31 +68,40 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[Bearer](../README.md#Bearer)
 
 ### HTTP request headers
 
- - **Content-Type**: application/json-patch+json, application/json, text/json, application/_*+json
+ - **Content-Type**: application/json, text/json, application/_*+json
  - **Accept**: text/plain, application/json, text/json
 
 <a name="changePassword"></a>
 # **changePassword**
-> String changePassword(authorization, body)
+> String changePassword(body)
 
 Change password
 
 ### Example
 ```java
 // Import classes:
+//import io.swagger.client.ApiClient;
 //import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
 //import io.swagger.client.api.AuthApi;
 
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
 
 AuthApi apiInstance = new AuthApi();
-String authorization = "authorization_example"; // String | JWT access token
 ChangePasswordViewModel body = new ChangePasswordViewModel(); // ChangePasswordViewModel | 
 try {
-    String result = apiInstance.changePassword(authorization, body);
+    String result = apiInstance.changePassword(body);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling AuthApi#changePassword");
@@ -94,7 +113,6 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **String**| JWT access token |
  **body** | [**ChangePasswordViewModel**](ChangePasswordViewModel.md)|  | [optional]
 
 ### Return type
@@ -103,11 +121,11 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[Bearer](../README.md#Bearer)
 
 ### HTTP request headers
 
- - **Content-Type**: application/json-patch+json, application/json, text/json, application/_*+json
+ - **Content-Type**: application/json, text/json, application/_*+json
  - **Accept**: text/plain, application/json, text/json
 
 <a name="confirmEmail"></a>
@@ -119,9 +137,19 @@ Confirm email after registration
 ### Example
 ```java
 // Import classes:
+//import io.swagger.client.ApiClient;
 //import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
 //import io.swagger.client.api.AuthApi;
 
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
 
 AuthApi apiInstance = new AuthApi();
 String userId = "userId_example"; // String | 
@@ -148,7 +176,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[Bearer](../README.md#Bearer)
 
 ### HTTP request headers
 
@@ -157,22 +185,31 @@ No authorization required
 
 <a name="confirmTwoStepAuth"></a>
 # **confirmTwoStepAuth**
-> RecoveryCodesViewModel confirmTwoStepAuth(authorization, body)
+> RecoveryCodesViewModel confirmTwoStepAuth(body)
 
 2FA confirm
 
 ### Example
 ```java
 // Import classes:
+//import io.swagger.client.ApiClient;
 //import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
 //import io.swagger.client.api.AuthApi;
 
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
 
 AuthApi apiInstance = new AuthApi();
-String authorization = "authorization_example"; // String | JWT access token
 TwoFactorAuthenticatorConfirm body = new TwoFactorAuthenticatorConfirm(); // TwoFactorAuthenticatorConfirm | 
 try {
-    RecoveryCodesViewModel result = apiInstance.confirmTwoStepAuth(authorization, body);
+    RecoveryCodesViewModel result = apiInstance.confirmTwoStepAuth(body);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling AuthApi#confirmTwoStepAuth");
@@ -184,7 +221,6 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **String**| JWT access token |
  **body** | [**TwoFactorAuthenticatorConfirm**](TwoFactorAuthenticatorConfirm.md)|  | [optional]
 
 ### Return type
@@ -193,30 +229,39 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[Bearer](../README.md#Bearer)
 
 ### HTTP request headers
 
- - **Content-Type**: application/json-patch+json, application/json, text/json, application/_*+json
+ - **Content-Type**: application/json, text/json, application/_*+json
  - **Accept**: text/plain, application/json, text/json
 
 <a name="createTwoStepAuth"></a>
 # **createTwoStepAuth**
-> TwoFactorAuthenticator createTwoStepAuth(authorization)
+> TwoFactorAuthenticator createTwoStepAuth()
 
 2FA create
 
 ### Example
 ```java
 // Import classes:
+//import io.swagger.client.ApiClient;
 //import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
 //import io.swagger.client.api.AuthApi;
 
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
 
 AuthApi apiInstance = new AuthApi();
-String authorization = "authorization_example"; // String | JWT access token
 try {
-    TwoFactorAuthenticator result = apiInstance.createTwoStepAuth(authorization);
+    TwoFactorAuthenticator result = apiInstance.createTwoStepAuth();
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling AuthApi#createTwoStepAuth");
@@ -225,10 +270,7 @@ try {
 ```
 
 ### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **authorization** | **String**| JWT access token |
+This endpoint does not need any parameter.
 
 ### Return type
 
@@ -236,7 +278,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[Bearer](../README.md#Bearer)
 
 ### HTTP request headers
 
@@ -245,22 +287,31 @@ No authorization required
 
 <a name="createTwoStepAuthRecoveryCodes"></a>
 # **createTwoStepAuthRecoveryCodes**
-> RecoveryCodesViewModel createTwoStepAuthRecoveryCodes(authorization, body)
+> RecoveryCodesViewModel createTwoStepAuthRecoveryCodes(body)
 
 2FA generate new recovery codes
 
 ### Example
 ```java
 // Import classes:
+//import io.swagger.client.ApiClient;
 //import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
 //import io.swagger.client.api.AuthApi;
 
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
 
 AuthApi apiInstance = new AuthApi();
-String authorization = "authorization_example"; // String | JWT access token
 PasswordModel body = new PasswordModel(); // PasswordModel | 
 try {
-    RecoveryCodesViewModel result = apiInstance.createTwoStepAuthRecoveryCodes(authorization, body);
+    RecoveryCodesViewModel result = apiInstance.createTwoStepAuthRecoveryCodes(body);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling AuthApi#createTwoStepAuthRecoveryCodes");
@@ -272,7 +323,6 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **String**| JWT access token |
  **body** | [**PasswordModel**](PasswordModel.md)|  | [optional]
 
 ### Return type
@@ -281,31 +331,40 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[Bearer](../README.md#Bearer)
 
 ### HTTP request headers
 
- - **Content-Type**: application/json-patch+json, application/json, text/json, application/_*+json
+ - **Content-Type**: application/json, text/json, application/_*+json
  - **Accept**: text/plain, application/json, text/json
 
 <a name="disableTwoStepAuth"></a>
 # **disableTwoStepAuth**
-> Void disableTwoStepAuth(authorization, body)
+> Void disableTwoStepAuth(body)
 
 2FA disable
 
 ### Example
 ```java
 // Import classes:
+//import io.swagger.client.ApiClient;
 //import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
 //import io.swagger.client.api.AuthApi;
 
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
 
 AuthApi apiInstance = new AuthApi();
-String authorization = "authorization_example"; // String | JWT access token
 TwoFactorCodeWithPassword body = new TwoFactorCodeWithPassword(); // TwoFactorCodeWithPassword | 
 try {
-    Void result = apiInstance.disableTwoStepAuth(authorization, body);
+    Void result = apiInstance.disableTwoStepAuth(body);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling AuthApi#disableTwoStepAuth");
@@ -317,7 +376,6 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **String**| JWT access token |
  **body** | [**TwoFactorCodeWithPassword**](TwoFactorCodeWithPassword.md)|  | [optional]
 
 ### Return type
@@ -326,11 +384,11 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[Bearer](../README.md#Bearer)
 
 ### HTTP request headers
 
- - **Content-Type**: application/json-patch+json, application/json, text/json, application/_*+json
+ - **Content-Type**: application/json, text/json, application/_*+json
  - **Accept**: text/plain, application/json, text/json
 
 <a name="forgotPassword"></a>
@@ -342,9 +400,19 @@ Forgot password for investor
 ### Example
 ```java
 // Import classes:
+//import io.swagger.client.ApiClient;
 //import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
 //import io.swagger.client.api.AuthApi;
 
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
 
 AuthApi apiInstance = new AuthApi();
 ForgotPasswordViewModel body = new ForgotPasswordViewModel(); // ForgotPasswordViewModel | 
@@ -369,31 +437,40 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[Bearer](../README.md#Bearer)
 
 ### HTTP request headers
 
- - **Content-Type**: application/json-patch+json, application/json, text/json, application/_*+json
+ - **Content-Type**: application/json, text/json, application/_*+json
  - **Accept**: text/plain, application/json, text/json
 
 <a name="getTwoStepAuthRecoveryCodes"></a>
 # **getTwoStepAuthRecoveryCodes**
-> RecoveryCodesViewModel getTwoStepAuthRecoveryCodes(authorization, body)
+> RecoveryCodesViewModel getTwoStepAuthRecoveryCodes(body)
 
 2FA recovery codes
 
 ### Example
 ```java
 // Import classes:
+//import io.swagger.client.ApiClient;
 //import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
 //import io.swagger.client.api.AuthApi;
 
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
 
 AuthApi apiInstance = new AuthApi();
-String authorization = "authorization_example"; // String | JWT access token
 PasswordModel body = new PasswordModel(); // PasswordModel | 
 try {
-    RecoveryCodesViewModel result = apiInstance.getTwoStepAuthRecoveryCodes(authorization, body);
+    RecoveryCodesViewModel result = apiInstance.getTwoStepAuthRecoveryCodes(body);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling AuthApi#getTwoStepAuthRecoveryCodes");
@@ -405,7 +482,6 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **String**| JWT access token |
  **body** | [**PasswordModel**](PasswordModel.md)|  | [optional]
 
 ### Return type
@@ -414,30 +490,39 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[Bearer](../README.md#Bearer)
 
 ### HTTP request headers
 
- - **Content-Type**: application/json-patch+json, application/json, text/json, application/_*+json
+ - **Content-Type**: application/json, text/json, application/_*+json
  - **Accept**: text/plain, application/json, text/json
 
 <a name="getTwoStepAuthStatus"></a>
 # **getTwoStepAuthStatus**
-> TwoFactorStatus getTwoStepAuthStatus(authorization)
+> TwoFactorStatus getTwoStepAuthStatus()
 
 2FA status
 
 ### Example
 ```java
 // Import classes:
+//import io.swagger.client.ApiClient;
 //import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
 //import io.swagger.client.api.AuthApi;
 
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
 
 AuthApi apiInstance = new AuthApi();
-String authorization = "authorization_example"; // String | JWT access token
 try {
-    TwoFactorStatus result = apiInstance.getTwoStepAuthStatus(authorization);
+    TwoFactorStatus result = apiInstance.getTwoStepAuthStatus();
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling AuthApi#getTwoStepAuthStatus");
@@ -446,10 +531,7 @@ try {
 ```
 
 ### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **authorization** | **String**| JWT access token |
+This endpoint does not need any parameter.
 
 ### Return type
 
@@ -457,7 +539,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[Bearer](../README.md#Bearer)
 
 ### HTTP request headers
 
@@ -466,21 +548,30 @@ No authorization required
 
 <a name="logoutFromAnotherDevices"></a>
 # **logoutFromAnotherDevices**
-> String logoutFromAnotherDevices(authorization)
+> String logoutFromAnotherDevices()
 
 Logout from another devices
 
 ### Example
 ```java
 // Import classes:
+//import io.swagger.client.ApiClient;
 //import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
 //import io.swagger.client.api.AuthApi;
 
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
 
 AuthApi apiInstance = new AuthApi();
-String authorization = "authorization_example"; // String | JWT access token
 try {
-    String result = apiInstance.logoutFromAnotherDevices(authorization);
+    String result = apiInstance.logoutFromAnotherDevices();
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling AuthApi#logoutFromAnotherDevices");
@@ -489,10 +580,7 @@ try {
 ```
 
 ### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **authorization** | **String**| JWT access token |
+This endpoint does not need any parameter.
 
 ### Return type
 
@@ -500,7 +588,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[Bearer](../README.md#Bearer)
 
 ### HTTP request headers
 
@@ -516,9 +604,19 @@ New registration
 ### Example
 ```java
 // Import classes:
+//import io.swagger.client.ApiClient;
 //import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
 //import io.swagger.client.api.AuthApi;
 
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
 
 AuthApi apiInstance = new AuthApi();
 RegisterViewModel body = new RegisterViewModel(); // RegisterViewModel | 
@@ -543,30 +641,39 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[Bearer](../README.md#Bearer)
 
 ### HTTP request headers
 
- - **Content-Type**: application/json-patch+json, application/json, text/json, application/_*+json
+ - **Content-Type**: application/json, text/json, application/_*+json
  - **Accept**: text/plain, application/json, text/json
 
 <a name="requestPhoneNumberVerificationCode"></a>
 # **requestPhoneNumberVerificationCode**
-> Integer requestPhoneNumberVerificationCode(authorization)
+> Integer requestPhoneNumberVerificationCode()
 
 Get phone number verification code
 
 ### Example
 ```java
 // Import classes:
+//import io.swagger.client.ApiClient;
 //import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
 //import io.swagger.client.api.AuthApi;
 
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
 
 AuthApi apiInstance = new AuthApi();
-String authorization = "authorization_example"; // String | JWT access token
 try {
-    Integer result = apiInstance.requestPhoneNumberVerificationCode(authorization);
+    Integer result = apiInstance.requestPhoneNumberVerificationCode();
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling AuthApi#requestPhoneNumberVerificationCode");
@@ -575,10 +682,7 @@ try {
 ```
 
 ### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **authorization** | **String**| JWT access token |
+This endpoint does not need any parameter.
 
 ### Return type
 
@@ -586,7 +690,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[Bearer](../README.md#Bearer)
 
 ### HTTP request headers
 
@@ -602,9 +706,19 @@ Resend Confirmation Link
 ### Example
 ```java
 // Import classes:
+//import io.swagger.client.ApiClient;
 //import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
 //import io.swagger.client.api.AuthApi;
 
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
 
 AuthApi apiInstance = new AuthApi();
 ResendConfirmationViewModel body = new ResendConfirmationViewModel(); // ResendConfirmationViewModel | 
@@ -629,11 +743,11 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[Bearer](../README.md#Bearer)
 
 ### HTTP request headers
 
- - **Content-Type**: application/json-patch+json, application/json, text/json, application/_*+json
+ - **Content-Type**: application/json, text/json, application/_*+json
  - **Accept**: text/plain, application/json, text/json
 
 <a name="resetPassword"></a>
@@ -645,9 +759,19 @@ Reset password
 ### Example
 ```java
 // Import classes:
+//import io.swagger.client.ApiClient;
 //import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
 //import io.swagger.client.api.AuthApi;
 
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
 
 AuthApi apiInstance = new AuthApi();
 ResetPasswordViewModel body = new ResetPasswordViewModel(); // ResetPasswordViewModel | 
@@ -672,30 +796,39 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[Bearer](../README.md#Bearer)
 
 ### HTTP request headers
 
- - **Content-Type**: application/json-patch+json, application/json, text/json, application/_*+json
+ - **Content-Type**: application/json, text/json, application/_*+json
  - **Accept**: text/plain, application/json, text/json
 
 <a name="updateAuthToken"></a>
 # **updateAuthToken**
-> String updateAuthToken(authorization)
+> String updateAuthToken()
 
 Update auth token
 
 ### Example
 ```java
 // Import classes:
+//import io.swagger.client.ApiClient;
 //import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
 //import io.swagger.client.api.AuthApi;
 
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
 
 AuthApi apiInstance = new AuthApi();
-String authorization = "authorization_example"; // String | JWT access token
 try {
-    String result = apiInstance.updateAuthToken(authorization);
+    String result = apiInstance.updateAuthToken();
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling AuthApi#updateAuthToken");
@@ -704,10 +837,7 @@ try {
 ```
 
 ### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **authorization** | **String**| JWT access token |
+This endpoint does not need any parameter.
 
 ### Return type
 
@@ -715,7 +845,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[Bearer](../README.md#Bearer)
 
 ### HTTP request headers
 
@@ -724,22 +854,31 @@ No authorization required
 
 <a name="validatePhoneNumber"></a>
 # **validatePhoneNumber**
-> Void validatePhoneNumber(authorization, code)
+> Void validatePhoneNumber(code)
 
 Verify phone number
 
 ### Example
 ```java
 // Import classes:
+//import io.swagger.client.ApiClient;
 //import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
 //import io.swagger.client.api.AuthApi;
 
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
 
 AuthApi apiInstance = new AuthApi();
-String authorization = "authorization_example"; // String | JWT access token
 String code = "code_example"; // String | 
 try {
-    Void result = apiInstance.validatePhoneNumber(authorization, code);
+    Void result = apiInstance.validatePhoneNumber(code);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling AuthApi#validatePhoneNumber");
@@ -751,7 +890,6 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **String**| JWT access token |
  **code** | **String**|  | [optional]
 
 ### Return type
@@ -760,7 +898,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[Bearer](../README.md#Bearer)
 
 ### HTTP request headers
 

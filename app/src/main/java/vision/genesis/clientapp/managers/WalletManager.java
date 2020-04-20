@@ -9,7 +9,9 @@ import io.swagger.client.api.WalletApi;
 import io.swagger.client.model.CreateWithdrawalRequestModel;
 import io.swagger.client.model.Currency;
 import io.swagger.client.model.InternalTransferRequest;
-import io.swagger.client.model.ItemsViewModelTransactionViewModel;
+import io.swagger.client.model.TransactionExternalType;
+import io.swagger.client.model.TransactionInternalType;
+import io.swagger.client.model.TransactionViewModelItemsViewModel;
 import io.swagger.client.model.WalletSummary;
 import io.swagger.client.model.WithdrawalSummary;
 import rx.Observable;
@@ -75,7 +77,7 @@ public class WalletManager
 //	}
 
 	public Observable<WithdrawalSummary> getWalletWithdrawInfo() {
-		return walletApi.getUserWithdrawalSummary(AuthManager.token.getValue());
+		return walletApi.getUserWithdrawalSummary();
 	}
 
 	public Observable<Void> withdraw(WithdrawalRequest request) {
@@ -84,14 +86,14 @@ public class WalletManager
 		requestModel.setCurrency(Currency.fromValue(request.getCurrency()));
 		requestModel.setAddress(request.getAddress());
 		requestModel.setTwoFactorCode(request.getTfaCode());
-		return walletApi.createWithdrawalRequest(AuthManager.token.getValue(), requestModel);
+		return walletApi.createWithdrawalRequest(requestModel);
 	}
 
 	public BehaviorSubject<WalletSummary> getWallets(String currency, Boolean forceUpdate) {
 		if (forceUpdate) {
 			walletsSubject = BehaviorSubject.create();
 		}
-		getWalletsSubscription = walletApi.getWalletSummary(currency, AuthManager.token.getValue())
+		getWalletsSubscription = walletApi.getWalletSummary(Currency.fromValue(currency))
 				.observeOn(Schedulers.io())
 				.subscribeOn(Schedulers.io())
 				.subscribe(this::handleGetWalletsSuccess,
@@ -109,26 +111,26 @@ public class WalletManager
 		getWalletsSubscription.unsubscribe();
 	}
 
-	public Observable<ItemsViewModelTransactionViewModel> getTransactionsInternal(TransactionsFilter filter) {
-		return walletApi.getTransactionsInternal(AuthManager.token.getValue(),
-				filter.getType() == null ? null : filter.getType().getValue(),
+	public Observable<TransactionViewModelItemsViewModel> getTransactionsInternal(TransactionsFilter filter) {
+		return walletApi.getTransactionsInternal(
+				filter.getType() == null ? null : TransactionInternalType.fromValue(filter.getType().getValue()),
 				filter.getDateRange() == null ? null : filter.getDateRange().getFrom(),
 				filter.getDateRange() == null ? null : filter.getDateRange().getTo(),
-				filter.getWalletCurrency(),
+				Currency.fromValue(filter.getWalletCurrency()),
 				filter.getSkip(), filter.getTake());
 	}
 
-	public Observable<ItemsViewModelTransactionViewModel> getTransactionsExternal(TransactionsFilter filter) {
-		return walletApi.getTransactionsExternal(AuthManager.token.getValue(),
-				filter.getType() == null ? null : filter.getType().getValue(),
+	public Observable<TransactionViewModelItemsViewModel> getTransactionsExternal(TransactionsFilter filter) {
+		return walletApi.getTransactionsExternal(
+				filter.getType() == null ? null : TransactionExternalType.fromValue(filter.getType().getValue()),
 				filter.getDateRange() == null ? null : filter.getDateRange().getFrom(),
 				filter.getDateRange() == null ? null : filter.getDateRange().getTo(),
-				filter.getWalletCurrency(),
+				Currency.fromValue(filter.getWalletCurrency()),
 				filter.getSkip(), filter.getTake());
 	}
 
 //	public Observable<MultiWalletExternalTransactionsViewModel> getExternalTransactions(TransactionsFilter filter) {
-//		return walletApi.get(AuthManager.token.getValue(),
+//		return walletApi.get(
 //				filter.getDateRange().getFrom(), filter.getDateRange().getTo(),
 //				null, filter.getWalletCurrency(),
 //				filter.getSkip(), filter.getTake());
@@ -140,24 +142,24 @@ public class WalletManager
 	}
 
 	public Observable<Void> transfer(InternalTransferRequest request) {
-		return walletApi.transfer(AuthManager.token.getValue(), request);
+		return walletApi.transfer(request);
 	}
 
 //	public Observable<TransactionDetails> getTransaction(UUID transactionId) {
-//		return walletApi.v10WalletTransactionByIdGet(transactionId, AuthManager.token.getValue());
+//		return walletApi.v10WalletTransactionByIdGet(transactionId);
 //	}
 
 	public Observable<Void> cancelWithdrawRequest(UUID transactionId) {
-		return walletApi.cancelWithdrawalRequest(transactionId, AuthManager.token.getValue());
+		return walletApi.cancelWithdrawalRequest(transactionId);
 	}
 
 	public Observable<Void> resendConfirmationEmail(UUID transactionId) {
-		return walletApi.resendWithdrawalRequestEmail(transactionId, AuthManager.token.getValue());
+		return walletApi.resendWithdrawalRequestEmail(transactionId);
 	}
 
-	public Observable<Void> setUsingGvtToPayFees(boolean on) {
-		return on
-				? walletApi.switchPayFeeInGvtOn(AuthManager.token.getValue())
-				: walletApi.switchPayFeeInGvtOff(AuthManager.token.getValue());
-	}
+//	public Observable<Void> setUsingGvtToPayFees(boolean on) {
+//		return on
+//				? walletApi.switchPayFeeInGvtOn(AuthManager.token.getValue())
+//				: walletApi.switchPayFeeInGvtOff(AuthManager.token.getValue());
+//	}
 }

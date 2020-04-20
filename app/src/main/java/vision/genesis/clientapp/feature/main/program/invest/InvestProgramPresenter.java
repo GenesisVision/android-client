@@ -187,7 +187,7 @@ public class InvestProgramPresenter extends MvpPresenter<InvestProgramView> impl
 
 	void onMaxClicked() {
 		if (info != null) {
-			getViewState().setAmount(StringFormatUtil.formatCurrencyAmount(availableToInvest, CurrencyEnum.GVT.getValue()));
+			getViewState().setAmount(StringFormatUtil.formatAmountWithoutGrouping(availableToInvest));
 		}
 	}
 

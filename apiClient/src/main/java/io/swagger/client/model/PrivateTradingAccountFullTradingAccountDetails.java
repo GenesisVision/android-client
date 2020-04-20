@@ -15,13 +15,8 @@ package io.swagger.client.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.google.gson.TypeAdapter;
-import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonWriter;
 
-import java.io.IOException;
 import java.util.Objects;
 
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -45,7 +40,7 @@ public class PrivateTradingAccountFullTradingAccountDetails implements Parcelabl
 	};
 
 	@SerializedName("currency")
-	private CurrencyEnum currency = null;
+	private Currency currency = null;
 
 	@SerializedName("leverage")
 	private Integer leverage = null;
@@ -68,11 +63,14 @@ public class PrivateTradingAccountFullTradingAccountDetails implements Parcelabl
 	@SerializedName("isExternal")
 	private Boolean isExternal = null;
 
+	@SerializedName("showTradingLog")
+	private Boolean showTradingLog = null;
+
 	public PrivateTradingAccountFullTradingAccountDetails() {
 	}
 
 	PrivateTradingAccountFullTradingAccountDetails(Parcel in) {
-		currency = (CurrencyEnum) in.readValue(null);
+		currency = (Currency) in.readValue(Currency.class.getClassLoader());
 		leverage = (Integer) in.readValue(null);
 		apiKey = (String) in.readValue(null);
 		login = (String) in.readValue(null);
@@ -80,9 +78,10 @@ public class PrivateTradingAccountFullTradingAccountDetails implements Parcelabl
 		type = (PrivateTradingAccountType) in.readValue(PrivateTradingAccountType.class.getClassLoader());
 		subscriptions = (Integer) in.readValue(null);
 		isExternal = (Boolean) in.readValue(null);
+		showTradingLog = (Boolean) in.readValue(null);
 	}
 
-	public PrivateTradingAccountFullTradingAccountDetails currency(CurrencyEnum currency) {
+	public PrivateTradingAccountFullTradingAccountDetails currency(Currency currency) {
 		this.currency = currency;
 		return this;
 	}
@@ -93,11 +92,11 @@ public class PrivateTradingAccountFullTradingAccountDetails implements Parcelabl
 	 * @return currency
 	 **/
 	@Schema(description = "")
-	public CurrencyEnum getCurrency() {
+	public Currency getCurrency() {
 		return currency;
 	}
 
-	public void setCurrency(CurrencyEnum currency) {
+	public void setCurrency(Currency currency) {
 		this.currency = currency;
 	}
 
@@ -234,6 +233,25 @@ public class PrivateTradingAccountFullTradingAccountDetails implements Parcelabl
 		this.isExternal = isExternal;
 	}
 
+	public PrivateTradingAccountFullTradingAccountDetails showTradingLog(Boolean showTradingLog) {
+		this.showTradingLog = showTradingLog;
+		return this;
+	}
+
+	/**
+	 * Get showTradingLog
+	 *
+	 * @return showTradingLog
+	 **/
+	@Schema(description = "")
+	public Boolean isShowTradingLog() {
+		return showTradingLog;
+	}
+
+	public void setShowTradingLog(Boolean showTradingLog) {
+		this.showTradingLog = showTradingLog;
+	}
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -250,12 +268,13 @@ public class PrivateTradingAccountFullTradingAccountDetails implements Parcelabl
 				Objects.equals(this.balance, privateTradingAccountFullTradingAccountDetails.balance) &&
 				Objects.equals(this.type, privateTradingAccountFullTradingAccountDetails.type) &&
 				Objects.equals(this.subscriptions, privateTradingAccountFullTradingAccountDetails.subscriptions) &&
-				Objects.equals(this.isExternal, privateTradingAccountFullTradingAccountDetails.isExternal);
+				Objects.equals(this.isExternal, privateTradingAccountFullTradingAccountDetails.isExternal) &&
+				Objects.equals(this.showTradingLog, privateTradingAccountFullTradingAccountDetails.showTradingLog);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(currency, leverage, apiKey, login, balance, type, subscriptions, isExternal);
+		return Objects.hash(currency, leverage, apiKey, login, balance, type, subscriptions, isExternal, showTradingLog);
 	}
 
 	@Override
@@ -271,6 +290,7 @@ public class PrivateTradingAccountFullTradingAccountDetails implements Parcelabl
 		sb.append("    type: ").append(toIndentedString(type)).append("\n");
 		sb.append("    subscriptions: ").append(toIndentedString(subscriptions)).append("\n");
 		sb.append("    isExternal: ").append(toIndentedString(isExternal)).append("\n");
+		sb.append("    showTradingLog: ").append(toIndentedString(showTradingLog)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}
@@ -295,68 +315,10 @@ public class PrivateTradingAccountFullTradingAccountDetails implements Parcelabl
 		out.writeValue(type);
 		out.writeValue(subscriptions);
 		out.writeValue(isExternal);
+		out.writeValue(showTradingLog);
 	}
 
 	public int describeContents() {
 		return 0;
-	}
-
-	/**
-	 * Gets or Sets currency
-	 */
-	@JsonAdapter(CurrencyEnum.Adapter.class)
-	public enum CurrencyEnum
-	{
-		BTC("BTC"),
-		ETH("ETH"),
-		USDT("USDT"),
-		USD("USD"),
-		GVT("GVT"),
-		UNDEFINED("Undefined"),
-		ADA("ADA"),
-		XRP("XRP"),
-		BCH("BCH"),
-		LTC("LTC"),
-		DOGE("DOGE"),
-		BNB("BNB"),
-		EUR("EUR");
-
-		public static CurrencyEnum fromValue(String text) {
-			for (CurrencyEnum b : CurrencyEnum.values()) {
-				if (String.valueOf(b.value).equals(text)) {
-					return b;
-				}
-			}
-			return null;
-		}
-
-		private String value;
-
-		CurrencyEnum(String value) {
-			this.value = value;
-		}
-
-		public String getValue() {
-			return value;
-		}
-
-		@Override
-		public String toString() {
-			return String.valueOf(value);
-		}
-
-		public static class Adapter extends TypeAdapter<CurrencyEnum>
-		{
-			@Override
-			public void write(final JsonWriter jsonWriter, final CurrencyEnum enumeration) throws IOException {
-				jsonWriter.value(enumeration.getValue());
-			}
-
-			@Override
-			public CurrencyEnum read(final JsonReader jsonReader) throws IOException {
-				String value = jsonReader.nextString();
-				return CurrencyEnum.fromValue(String.valueOf(value));
-			}
-		}
 	}
 }

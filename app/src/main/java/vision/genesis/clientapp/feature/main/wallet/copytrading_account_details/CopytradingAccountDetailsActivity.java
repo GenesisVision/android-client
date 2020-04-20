@@ -8,6 +8,9 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+import androidx.viewpager.widget.ViewPager;
+
 import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.google.android.material.appbar.AppBarLayout;
@@ -15,8 +18,6 @@ import com.google.android.material.tabs.TabLayout;
 
 import java.util.Locale;
 
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-import androidx.viewpager.widget.ViewPager;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -195,8 +196,9 @@ public class CopytradingAccountDetailsActivity extends BaseSwipeBackActivity imp
 	public void onResume() {
 		super.onResume();
 
-		if (pagerAdapter != null)
+		if (pagerAdapter != null) {
 			pagerAdapter.sendUpdate();
+		}
 	}
 
 	@Override
@@ -206,17 +208,21 @@ public class CopytradingAccountDetailsActivity extends BaseSwipeBackActivity imp
 
 	@Override
 	public void onDestroy() {
-		if (pagerAdapter != null)
+		if (pagerAdapter != null) {
 			pagerAdapter.destroy();
+		}
 
-		if (tabSelectedListener != null)
+		if (tabSelectedListener != null) {
 			tabLayout.removeOnTabSelectedListener(tabSelectedListener);
+		}
 
-		if (tabLayoutOnPageChangeListener != null)
+		if (tabLayoutOnPageChangeListener != null) {
 			viewPager.removeOnPageChangeListener(tabLayoutOnPageChangeListener);
+		}
 
-		if (viewPager != null)
+		if (viewPager != null) {
 			viewPager.clearOnPageChangeListeners();
+		}
 
 
 		super.onDestroy();
@@ -246,8 +252,9 @@ public class CopytradingAccountDetailsActivity extends BaseSwipeBackActivity imp
 				ThemeUtil.getColorByAttrId(this, R.attr.colorTextPrimary),
 				ThemeUtil.getColorByAttrId(this, R.attr.colorTextSecondary));
 		refreshLayout.setOnRefreshListener(() -> {
-			if (pagerAdapter != null)
+			if (pagerAdapter != null) {
 				pagerAdapter.sendSwipeRefresh();
+			}
 			refreshLayout.setRefreshing(false);
 		});
 	}
@@ -313,13 +320,15 @@ public class CopytradingAccountDetailsActivity extends BaseSwipeBackActivity imp
 	}
 
 	private void addPage(TabLayout.Tab tab, boolean selected) {
-		if (tab.getPosition() != TabLayout.Tab.INVALID_POSITION)
+		if (tab.getPosition() != TabLayout.Tab.INVALID_POSITION) {
 			return;
+		}
 
 		tabLayout.addTab(tab, selected);
 		TabLayoutUtil.wrapTabIndicatorToTitle(tabLayout, 20, 10);
-		if (pagerAdapter != null)
+		if (pagerAdapter != null) {
 			pagerAdapter.notifyDataSetChanged();
+		}
 	}
 
 	private void initViewPager(String accountCurrency) {

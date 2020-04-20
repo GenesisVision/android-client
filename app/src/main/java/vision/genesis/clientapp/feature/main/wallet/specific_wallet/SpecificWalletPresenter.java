@@ -62,10 +62,12 @@ public class SpecificWalletPresenter extends MvpPresenter<SpecificWalletView>
 
 	@Override
 	public void onDestroy() {
-		if (baseCurrencySubscription != null)
+		if (baseCurrencySubscription != null) {
 			baseCurrencySubscription.unsubscribe();
-		if (walletSubscription != null)
+		}
+		if (walletSubscription != null) {
 			walletSubscription.unsubscribe();
+		}
 
 		EventBus.getDefault().unregister(this);
 
@@ -101,8 +103,9 @@ public class SpecificWalletPresenter extends MvpPresenter<SpecificWalletView>
 
 	private void subscribeToWallet() {
 		if (walletManager != null && walletId != null && baseCurrency != null) {
-			if (walletSubscription != null)
+			if (walletSubscription != null) {
 				walletSubscription.unsubscribe();
+			}
 			walletSubscription = walletManager.getWallets(baseCurrency.getValue(), false)
 					.observeOn(AndroidSchedulers.mainThread())
 					.subscribeOn(Schedulers.io())

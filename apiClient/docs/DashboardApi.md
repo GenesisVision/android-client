@@ -1,11 +1,12 @@
 # DashboardApi
 
-All URIs are relative to */api*
+All URIs are relative to *https://red.genesis.vision/api*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**getChart**](DashboardApi.md#getChart) | **GET** v2.0/dashboard/chart | 
 [**getChartAssets**](DashboardApi.md#getChartAssets) | **GET** v2.0/dashboard/chart/assets | Active assets for chart
+[**getDashboardSummary**](DashboardApi.md#getDashboardSummary) | **GET** v2.0/dashboard/summary | 
 [**getHoldings**](DashboardApi.md#getHoldings) | **GET** v2.0/dashboard/holdings | 
 [**getInvestingDetails**](DashboardApi.md#getInvestingDetails) | **GET** v2.0/dashboard/investing | 
 [**getInvestingFunds**](DashboardApi.md#getInvestingFunds) | **GET** v2.0/dashboard/investing/funds | 
@@ -15,31 +16,39 @@ Method | HTTP request | Description
 [**getPrivateTradingAssets**](DashboardApi.md#getPrivateTradingAssets) | **GET** v2.0/dashboard/trading/private | 
 [**getPublicTradingAssets**](DashboardApi.md#getPublicTradingAssets) | **GET** v2.0/dashboard/trading/public | 
 [**getRecommendations**](DashboardApi.md#getRecommendations) | **GET** v2.0/dashboard/recommendations | Recommended assets to invest (programs, funds and follows). Funds in passed currency
-[**getSummary**](DashboardApi.md#getSummary) | **GET** v2.0/dashboard/summary | 
 [**getTradingDetails**](DashboardApi.md#getTradingDetails) | **GET** v2.0/dashboard/trading | 
 
 <a name="getChart"></a>
 # **getChart**
-> DashboardChart getChart(authorization, assets, dateFrom, dateTo, chartPointsCount, showIn)
+> DashboardChart getChart(assets, dateFrom, dateTo, chartPointsCount, showIn)
 
 
 
 ### Example
 ```java
 // Import classes:
+//import io.swagger.client.ApiClient;
 //import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
 //import io.swagger.client.api.DashboardApi;
 
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
 
 DashboardApi apiInstance = new DashboardApi();
-String authorization = "authorization_example"; // String | JWT access token
 List<UUID> assets = Arrays.asList(new UUID()); // List<UUID> | 
 DateTime dateFrom = new DateTime(); // DateTime | 
 DateTime dateTo = new DateTime(); // DateTime | 
 Integer chartPointsCount = 56; // Integer | 
-String showIn = "showIn_example"; // String | 
+Currency showIn = new Currency(); // Currency | 
 try {
-    DashboardChart result = apiInstance.getChart(authorization, assets, dateFrom, dateTo, chartPointsCount, showIn);
+    DashboardChart result = apiInstance.getChart(assets, dateFrom, dateTo, chartPointsCount, showIn);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling DashboardApi#getChart");
@@ -51,12 +60,11 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **String**| JWT access token |
  **assets** | [**List&lt;UUID&gt;**](UUID.md)|  | [optional]
  **dateFrom** | **DateTime**|  | [optional]
  **dateTo** | **DateTime**|  | [optional]
  **chartPointsCount** | **Integer**|  | [optional]
- **showIn** | **String**|  | [optional] [enum: BTC, ETH, USDT, USD, GVT, Undefined, ADA, XRP, BCH, LTC, DOGE, BNB, EUR]
+ **showIn** | [**Currency**](.md)|  | [optional]
 
 ### Return type
 
@@ -64,7 +72,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[Bearer](../README.md#Bearer)
 
 ### HTTP request headers
 
@@ -73,21 +81,30 @@ No authorization required
 
 <a name="getChartAssets"></a>
 # **getChartAssets**
-> DashboardChartAssets getChartAssets(authorization)
+> DashboardChartAssets getChartAssets()
 
 Active assets for chart
 
 ### Example
 ```java
 // Import classes:
+//import io.swagger.client.ApiClient;
 //import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
 //import io.swagger.client.api.DashboardApi;
 
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
 
 DashboardApi apiInstance = new DashboardApi();
-String authorization = "authorization_example"; // String | JWT access token
 try {
-    DashboardChartAssets result = apiInstance.getChartAssets(authorization);
+    DashboardChartAssets result = apiInstance.getChartAssets();
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling DashboardApi#getChartAssets");
@@ -96,10 +113,7 @@ try {
 ```
 
 ### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **authorization** | **String**| JWT access token |
+This endpoint does not need any parameter.
 
 ### Return type
 
@@ -107,7 +121,60 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
+
+<a name="getDashboardSummary"></a>
+# **getDashboardSummary**
+> DashboardSummary getDashboardSummary(currency)
+
+
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiClient;
+//import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
+//import io.swagger.client.api.DashboardApi;
+
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
+
+DashboardApi apiInstance = new DashboardApi();
+Currency currency = new Currency(); // Currency | 
+try {
+    DashboardSummary result = apiInstance.getDashboardSummary(currency);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling DashboardApi#getDashboardSummary");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **currency** | [**Currency**](.md)|  | [optional]
+
+### Return type
+
+[**DashboardSummary**](DashboardSummary.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
 
 ### HTTP request headers
 
@@ -116,22 +183,31 @@ No authorization required
 
 <a name="getHoldings"></a>
 # **getHoldings**
-> DashboardAssets getHoldings(authorization, topAssetsCount)
+> DashboardAssets getHoldings(topAssetsCount)
 
 
 
 ### Example
 ```java
 // Import classes:
+//import io.swagger.client.ApiClient;
 //import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
 //import io.swagger.client.api.DashboardApi;
 
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
 
 DashboardApi apiInstance = new DashboardApi();
-String authorization = "authorization_example"; // String | JWT access token
 Integer topAssetsCount = 56; // Integer | 
 try {
-    DashboardAssets result = apiInstance.getHoldings(authorization, topAssetsCount);
+    DashboardAssets result = apiInstance.getHoldings(topAssetsCount);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling DashboardApi#getHoldings");
@@ -143,7 +219,6 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **String**| JWT access token |
  **topAssetsCount** | **Integer**|  | [optional]
 
 ### Return type
@@ -152,7 +227,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[Bearer](../README.md#Bearer)
 
 ### HTTP request headers
 
@@ -161,23 +236,32 @@ No authorization required
 
 <a name="getInvestingDetails"></a>
 # **getInvestingDetails**
-> DashboardInvestingDetails getInvestingDetails(authorization, currency, eventsTake)
+> DashboardInvestingDetails getInvestingDetails(currency, eventsTake)
 
 
 
 ### Example
 ```java
 // Import classes:
+//import io.swagger.client.ApiClient;
 //import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
 //import io.swagger.client.api.DashboardApi;
 
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
 
 DashboardApi apiInstance = new DashboardApi();
-String authorization = "authorization_example"; // String | JWT access token
-String currency = "currency_example"; // String | 
+Currency currency = new Currency(); // Currency | 
 Integer eventsTake = 56; // Integer | 
 try {
-    DashboardInvestingDetails result = apiInstance.getInvestingDetails(authorization, currency, eventsTake);
+    DashboardInvestingDetails result = apiInstance.getInvestingDetails(currency, eventsTake);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling DashboardApi#getInvestingDetails");
@@ -189,8 +273,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **String**| JWT access token |
- **currency** | **String**|  | [optional] [enum: BTC, ETH, USDT, USD, GVT, Undefined, ADA, XRP, BCH, LTC, DOGE, BNB, EUR]
+ **currency** | [**Currency**](.md)|  | [optional]
  **eventsTake** | **Integer**|  | [optional]
 
 ### Return type
@@ -199,7 +282,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[Bearer](../README.md#Bearer)
 
 ### HTTP request headers
 
@@ -208,22 +291,31 @@ No authorization required
 
 <a name="getInvestingFunds"></a>
 # **getInvestingFunds**
-> ItemsViewModelFundInvestingDetailsList getInvestingFunds(authorization, sorting, showIn, status, dateFrom, dateTo, chartPointsCount, facetId, mask, ownerId, showFavorites, skip, take)
+> FundInvestingDetailsListItemsViewModel getInvestingFunds(sorting, showIn, status, dateFrom, dateTo, chartPointsCount, facetId, mask, ownerId, showFavorites, skip, take)
 
 
 
 ### Example
 ```java
 // Import classes:
+//import io.swagger.client.ApiClient;
 //import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
 //import io.swagger.client.api.DashboardApi;
 
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
 
 DashboardApi apiInstance = new DashboardApi();
-String authorization = "authorization_example"; // String | JWT access token
-String sorting = "sorting_example"; // String | 
-String showIn = "showIn_example"; // String | 
-String status = "status_example"; // String | 
+FundsFilterSorting sorting = new FundsFilterSorting(); // FundsFilterSorting | 
+Currency showIn = new Currency(); // Currency | 
+DashboardAssetStatus status = new DashboardAssetStatus(); // DashboardAssetStatus | 
 DateTime dateFrom = new DateTime(); // DateTime | 
 DateTime dateTo = new DateTime(); // DateTime | 
 Integer chartPointsCount = 56; // Integer | 
@@ -234,7 +326,7 @@ Boolean showFavorites = true; // Boolean |
 Integer skip = 56; // Integer | 
 Integer take = 56; // Integer | 
 try {
-    ItemsViewModelFundInvestingDetailsList result = apiInstance.getInvestingFunds(authorization, sorting, showIn, status, dateFrom, dateTo, chartPointsCount, facetId, mask, ownerId, showFavorites, skip, take);
+    FundInvestingDetailsListItemsViewModel result = apiInstance.getInvestingFunds(sorting, showIn, status, dateFrom, dateTo, chartPointsCount, facetId, mask, ownerId, showFavorites, skip, take);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling DashboardApi#getInvestingFunds");
@@ -246,10 +338,9 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **String**| JWT access token |
- **sorting** | **String**|  | [optional] [enum: ByTitleAsc, ByTitleDesc, BySizeAsc, BySizeDesc, ByInvestorsAsc, ByInvestorsDesc, ByDrawdownAsc, ByDrawdownDesc, ByProfitAsc, ByProfitDesc, ByNewAsc, ByNewDesc, ByValueAsc, ByValueDesc]
- **showIn** | **String**|  | [optional] [enum: BTC, ETH, USDT, USD, GVT, Undefined, ADA, XRP, BCH, LTC, DOGE, BNB, EUR]
- **status** | **String**|  | [optional] [enum: All, Active]
+ **sorting** | [**FundsFilterSorting**](.md)|  | [optional]
+ **showIn** | [**Currency**](.md)|  | [optional]
+ **status** | [**DashboardAssetStatus**](.md)|  | [optional]
  **dateFrom** | **DateTime**|  | [optional]
  **dateTo** | **DateTime**|  | [optional]
  **chartPointsCount** | **Integer**|  | [optional]
@@ -262,11 +353,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ItemsViewModelFundInvestingDetailsList**](ItemsViewModelFundInvestingDetailsList.md)
+[**FundInvestingDetailsListItemsViewModel**](FundInvestingDetailsListItemsViewModel.md)
 
 ### Authorization
 
-No authorization required
+[Bearer](../README.md#Bearer)
 
 ### HTTP request headers
 
@@ -275,22 +366,31 @@ No authorization required
 
 <a name="getInvestingPrograms"></a>
 # **getInvestingPrograms**
-> ItemsViewModelProgramInvestingDetailsList getInvestingPrograms(authorization, sorting, showIn, status, dateFrom, dateTo, chartPointsCount, facetId, mask, ownerId, showFavorites, skip, take)
+> ProgramInvestingDetailsListItemsViewModel getInvestingPrograms(sorting, showIn, status, dateFrom, dateTo, chartPointsCount, facetId, mask, ownerId, showFavorites, skip, take)
 
 
 
 ### Example
 ```java
 // Import classes:
+//import io.swagger.client.ApiClient;
 //import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
 //import io.swagger.client.api.DashboardApi;
 
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
 
 DashboardApi apiInstance = new DashboardApi();
-String authorization = "authorization_example"; // String | JWT access token
-String sorting = "sorting_example"; // String | 
-String showIn = "showIn_example"; // String | 
-String status = "status_example"; // String | 
+ProgramsFilterSorting sorting = new ProgramsFilterSorting(); // ProgramsFilterSorting | 
+Currency showIn = new Currency(); // Currency | 
+DashboardAssetStatus status = new DashboardAssetStatus(); // DashboardAssetStatus | 
 DateTime dateFrom = new DateTime(); // DateTime | 
 DateTime dateTo = new DateTime(); // DateTime | 
 Integer chartPointsCount = 56; // Integer | 
@@ -301,7 +401,7 @@ Boolean showFavorites = true; // Boolean |
 Integer skip = 56; // Integer | 
 Integer take = 56; // Integer | 
 try {
-    ItemsViewModelProgramInvestingDetailsList result = apiInstance.getInvestingPrograms(authorization, sorting, showIn, status, dateFrom, dateTo, chartPointsCount, facetId, mask, ownerId, showFavorites, skip, take);
+    ProgramInvestingDetailsListItemsViewModel result = apiInstance.getInvestingPrograms(sorting, showIn, status, dateFrom, dateTo, chartPointsCount, facetId, mask, ownerId, showFavorites, skip, take);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling DashboardApi#getInvestingPrograms");
@@ -313,10 +413,9 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **String**| JWT access token |
- **sorting** | **String**|  | [optional] [enum: ByTitleAsc, ByTitleDesc, ByEquityAsc, ByEquityDesc, ByInvestorsAsc, ByInvestorsDesc, ByPeriodAsc, ByPeriodDesc, ByDrawdownAsc, ByDrawdownDesc, ByProfitAsc, ByProfitDesc, ByNewAsc, ByNewDesc, ByLevelProgressAsc, ByLevelProgressDesc, ByLevelAsc, ByLevelDesc, ByValueAsc, ByValueDesc]
- **showIn** | **String**|  | [optional] [enum: BTC, ETH, USDT, USD, GVT, Undefined, ADA, XRP, BCH, LTC, DOGE, BNB, EUR]
- **status** | **String**|  | [optional] [enum: All, Active]
+ **sorting** | [**ProgramsFilterSorting**](.md)|  | [optional]
+ **showIn** | [**Currency**](.md)|  | [optional]
+ **status** | [**DashboardAssetStatus**](.md)|  | [optional]
  **dateFrom** | **DateTime**|  | [optional]
  **dateTo** | **DateTime**|  | [optional]
  **chartPointsCount** | **Integer**|  | [optional]
@@ -329,11 +428,11 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ItemsViewModelProgramInvestingDetailsList**](ItemsViewModelProgramInvestingDetailsList.md)
+[**ProgramInvestingDetailsListItemsViewModel**](ProgramInvestingDetailsListItemsViewModel.md)
 
 ### Authorization
 
-No authorization required
+[Bearer](../README.md#Bearer)
 
 ### HTTP request headers
 
@@ -342,25 +441,34 @@ No authorization required
 
 <a name="getMostProfitableAssets"></a>
 # **getMostProfitableAssets**
-> ItemsViewModelDashboardTradingAsset getMostProfitableAssets(authorization, dateFrom, dateTo, chartPointsCount, showIn)
+> DashboardTradingAssetItemsViewModel getMostProfitableAssets(dateFrom, dateTo, chartPointsCount, showIn)
 
 
 
 ### Example
 ```java
 // Import classes:
+//import io.swagger.client.ApiClient;
 //import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
 //import io.swagger.client.api.DashboardApi;
 
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
 
 DashboardApi apiInstance = new DashboardApi();
-String authorization = "authorization_example"; // String | JWT access token
 DateTime dateFrom = new DateTime(); // DateTime | 
 DateTime dateTo = new DateTime(); // DateTime | 
 Integer chartPointsCount = 56; // Integer | 
-String showIn = "showIn_example"; // String | 
+Currency showIn = new Currency(); // Currency | 
 try {
-    ItemsViewModelDashboardTradingAsset result = apiInstance.getMostProfitableAssets(authorization, dateFrom, dateTo, chartPointsCount, showIn);
+    DashboardTradingAssetItemsViewModel result = apiInstance.getMostProfitableAssets(dateFrom, dateTo, chartPointsCount, showIn);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling DashboardApi#getMostProfitableAssets");
@@ -372,19 +480,18 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **String**| JWT access token |
  **dateFrom** | **DateTime**|  | [optional]
  **dateTo** | **DateTime**|  | [optional]
  **chartPointsCount** | **Integer**|  | [optional]
- **showIn** | **String**|  | [optional] [enum: BTC, ETH, USDT, USD, GVT, Undefined, ADA, XRP, BCH, LTC, DOGE, BNB, EUR]
+ **showIn** | [**Currency**](.md)|  | [optional]
 
 ### Return type
 
-[**ItemsViewModelDashboardTradingAsset**](ItemsViewModelDashboardTradingAsset.md)
+[**DashboardTradingAssetItemsViewModel**](DashboardTradingAssetItemsViewModel.md)
 
 ### Authorization
 
-No authorization required
+[Bearer](../README.md#Bearer)
 
 ### HTTP request headers
 
@@ -393,21 +500,30 @@ No authorization required
 
 <a name="getPortfolio"></a>
 # **getPortfolio**
-> DashboardPortfolio getPortfolio(authorization)
+> DashboardPortfolio getPortfolio()
 
 Money distribution in percents
 
 ### Example
 ```java
 // Import classes:
+//import io.swagger.client.ApiClient;
 //import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
 //import io.swagger.client.api.DashboardApi;
 
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
 
 DashboardApi apiInstance = new DashboardApi();
-String authorization = "authorization_example"; // String | JWT access token
 try {
-    DashboardPortfolio result = apiInstance.getPortfolio(authorization);
+    DashboardPortfolio result = apiInstance.getPortfolio();
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling DashboardApi#getPortfolio");
@@ -416,10 +532,7 @@ try {
 ```
 
 ### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **authorization** | **String**| JWT access token |
+This endpoint does not need any parameter.
 
 ### Return type
 
@@ -427,7 +540,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[Bearer](../README.md#Bearer)
 
 ### HTTP request headers
 
@@ -436,28 +549,37 @@ No authorization required
 
 <a name="getPrivateTradingAssets"></a>
 # **getPrivateTradingAssets**
-> ItemsViewModelDashboardTradingAsset getPrivateTradingAssets(authorization, dateFrom, dateTo, chartPointsCount, showIn, status, skip, take)
+> DashboardTradingAssetItemsViewModel getPrivateTradingAssets(dateFrom, dateTo, chartPointsCount, showIn, status, skip, take)
 
 
 
 ### Example
 ```java
 // Import classes:
+//import io.swagger.client.ApiClient;
 //import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
 //import io.swagger.client.api.DashboardApi;
 
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
 
 DashboardApi apiInstance = new DashboardApi();
-String authorization = "authorization_example"; // String | JWT access token
 DateTime dateFrom = new DateTime(); // DateTime | 
 DateTime dateTo = new DateTime(); // DateTime | 
 Integer chartPointsCount = 56; // Integer | 
-String showIn = "showIn_example"; // String | 
-String status = "status_example"; // String | 
+Currency showIn = new Currency(); // Currency | 
+DashboardAssetStatus status = new DashboardAssetStatus(); // DashboardAssetStatus | 
 Integer skip = 56; // Integer | 
 Integer take = 56; // Integer | 
 try {
-    ItemsViewModelDashboardTradingAsset result = apiInstance.getPrivateTradingAssets(authorization, dateFrom, dateTo, chartPointsCount, showIn, status, skip, take);
+    DashboardTradingAssetItemsViewModel result = apiInstance.getPrivateTradingAssets(dateFrom, dateTo, chartPointsCount, showIn, status, skip, take);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling DashboardApi#getPrivateTradingAssets");
@@ -469,22 +591,21 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **String**| JWT access token |
  **dateFrom** | **DateTime**|  | [optional]
  **dateTo** | **DateTime**|  | [optional]
  **chartPointsCount** | **Integer**|  | [optional]
- **showIn** | **String**|  | [optional] [enum: BTC, ETH, USDT, USD, GVT, Undefined, ADA, XRP, BCH, LTC, DOGE, BNB, EUR]
- **status** | **String**|  | [optional] [enum: All, Active]
+ **showIn** | [**Currency**](.md)|  | [optional]
+ **status** | [**DashboardAssetStatus**](.md)|  | [optional]
  **skip** | **Integer**|  | [optional]
  **take** | **Integer**|  | [optional]
 
 ### Return type
 
-[**ItemsViewModelDashboardTradingAsset**](ItemsViewModelDashboardTradingAsset.md)
+[**DashboardTradingAssetItemsViewModel**](DashboardTradingAssetItemsViewModel.md)
 
 ### Authorization
 
-No authorization required
+[Bearer](../README.md#Bearer)
 
 ### HTTP request headers
 
@@ -493,28 +614,37 @@ No authorization required
 
 <a name="getPublicTradingAssets"></a>
 # **getPublicTradingAssets**
-> ItemsViewModelDashboardTradingAsset getPublicTradingAssets(authorization, dateFrom, dateTo, chartPointsCount, showIn, status, skip, take)
+> DashboardTradingAssetItemsViewModel getPublicTradingAssets(dateFrom, dateTo, chartPointsCount, showIn, status, skip, take)
 
 
 
 ### Example
 ```java
 // Import classes:
+//import io.swagger.client.ApiClient;
 //import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
 //import io.swagger.client.api.DashboardApi;
 
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
 
 DashboardApi apiInstance = new DashboardApi();
-String authorization = "authorization_example"; // String | JWT access token
 DateTime dateFrom = new DateTime(); // DateTime | 
 DateTime dateTo = new DateTime(); // DateTime | 
 Integer chartPointsCount = 56; // Integer | 
-String showIn = "showIn_example"; // String | 
-String status = "status_example"; // String | 
+Currency showIn = new Currency(); // Currency | 
+DashboardAssetStatus status = new DashboardAssetStatus(); // DashboardAssetStatus | 
 Integer skip = 56; // Integer | 
 Integer take = 56; // Integer | 
 try {
-    ItemsViewModelDashboardTradingAsset result = apiInstance.getPublicTradingAssets(authorization, dateFrom, dateTo, chartPointsCount, showIn, status, skip, take);
+    DashboardTradingAssetItemsViewModel result = apiInstance.getPublicTradingAssets(dateFrom, dateTo, chartPointsCount, showIn, status, skip, take);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling DashboardApi#getPublicTradingAssets");
@@ -526,22 +656,21 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **String**| JWT access token |
  **dateFrom** | **DateTime**|  | [optional]
  **dateTo** | **DateTime**|  | [optional]
  **chartPointsCount** | **Integer**|  | [optional]
- **showIn** | **String**|  | [optional] [enum: BTC, ETH, USDT, USD, GVT, Undefined, ADA, XRP, BCH, LTC, DOGE, BNB, EUR]
- **status** | **String**|  | [optional] [enum: All, Active]
+ **showIn** | [**Currency**](.md)|  | [optional]
+ **status** | [**DashboardAssetStatus**](.md)|  | [optional]
  **skip** | **Integer**|  | [optional]
  **take** | **Integer**|  | [optional]
 
 ### Return type
 
-[**ItemsViewModelDashboardTradingAsset**](ItemsViewModelDashboardTradingAsset.md)
+[**DashboardTradingAssetItemsViewModel**](DashboardTradingAssetItemsViewModel.md)
 
 ### Authorization
 
-No authorization required
+[Bearer](../README.md#Bearer)
 
 ### HTTP request headers
 
@@ -550,24 +679,33 @@ No authorization required
 
 <a name="getRecommendations"></a>
 # **getRecommendations**
-> CommonPublicAssetsViewModel getRecommendations(authorization, currency, take, onlyFollows)
+> CommonPublicAssetsViewModel getRecommendations(currency, take, onlyFollows)
 
 Recommended assets to invest (programs, funds and follows). Funds in passed currency
 
 ### Example
 ```java
 // Import classes:
+//import io.swagger.client.ApiClient;
 //import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
 //import io.swagger.client.api.DashboardApi;
 
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
 
 DashboardApi apiInstance = new DashboardApi();
-String authorization = "authorization_example"; // String | JWT access token
-String currency = "currency_example"; // String | 
+Currency currency = new Currency(); // Currency | 
 Integer take = 56; // Integer | 
 Boolean onlyFollows = true; // Boolean | 
 try {
-    CommonPublicAssetsViewModel result = apiInstance.getRecommendations(authorization, currency, take, onlyFollows);
+    CommonPublicAssetsViewModel result = apiInstance.getRecommendations(currency, take, onlyFollows);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling DashboardApi#getRecommendations");
@@ -579,8 +717,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **String**| JWT access token |
- **currency** | **String**|  | [optional] [enum: BTC, ETH, USDT, USD, GVT, Undefined, ADA, XRP, BCH, LTC, DOGE, BNB, EUR]
+ **currency** | [**Currency**](.md)|  | [optional]
  **take** | **Integer**|  | [optional]
  **onlyFollows** | **Boolean**|  | [optional]
 
@@ -590,52 +727,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: text/plain, application/json, text/json
-
-<a name="getSummary"></a>
-# **getSummary**
-> DashboardSummary getSummary(authorization, currency)
-
-
-
-### Example
-```java
-// Import classes:
-//import io.swagger.client.ApiException;
-//import io.swagger.client.api.DashboardApi;
-
-
-DashboardApi apiInstance = new DashboardApi();
-String authorization = "authorization_example"; // String | JWT access token
-String currency = "currency_example"; // String | 
-try {
-    DashboardSummary result = apiInstance.getSummary(authorization, currency);
-    System.out.println(result);
-} catch (ApiException e) {
-    System.err.println("Exception when calling DashboardApi#getSummary");
-    e.printStackTrace();
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **authorization** | **String**| JWT access token |
- **currency** | **String**|  | [optional] [enum: BTC, ETH, USDT, USD, GVT, Undefined, ADA, XRP, BCH, LTC, DOGE, BNB, EUR]
-
-### Return type
-
-[**DashboardSummary**](DashboardSummary.md)
-
-### Authorization
-
-No authorization required
+[Bearer](../README.md#Bearer)
 
 ### HTTP request headers
 
@@ -644,23 +736,32 @@ No authorization required
 
 <a name="getTradingDetails"></a>
 # **getTradingDetails**
-> DashboardTradingDetails getTradingDetails(authorization, currency, eventsTake)
+> DashboardTradingDetails getTradingDetails(currency, eventsTake)
 
 
 
 ### Example
 ```java
 // Import classes:
+//import io.swagger.client.ApiClient;
 //import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
 //import io.swagger.client.api.DashboardApi;
 
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
 
 DashboardApi apiInstance = new DashboardApi();
-String authorization = "authorization_example"; // String | JWT access token
-String currency = "currency_example"; // String | 
+Currency currency = new Currency(); // Currency | 
 Integer eventsTake = 56; // Integer | 
 try {
-    DashboardTradingDetails result = apiInstance.getTradingDetails(authorization, currency, eventsTake);
+    DashboardTradingDetails result = apiInstance.getTradingDetails(currency, eventsTake);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling DashboardApi#getTradingDetails");
@@ -672,8 +773,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **String**| JWT access token |
- **currency** | **String**|  | [optional] [enum: BTC, ETH, USDT, USD, GVT, Undefined, ADA, XRP, BCH, LTC, DOGE, BNB, EUR]
+ **currency** | [**Currency**](.md)|  | [optional]
  **eventsTake** | **Integer**|  | [optional]
 
 ### Return type
@@ -682,7 +782,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[Bearer](../README.md#Bearer)
 
 ### HTTP request headers
 

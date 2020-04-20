@@ -157,7 +157,7 @@ public class DashboardProgramsAdapter extends RecyclerView.Adapter<DashboardProg
 			itemView.setOnClickListener(v -> {
 //				if (program != null) {
 //					ProgramDetailsModel programDetailsModel = new ProgramDetailsModel(program.getId(),
-//							program.getLogo(),
+//							program.getLogoUrl(),
 //							program.getColor(),
 //							program.getLevel(),
 //							program.getLevelProgress(),
@@ -214,7 +214,7 @@ public class DashboardProgramsAdapter extends RecyclerView.Adapter<DashboardProg
 //		}
 //
 //		private void updateData() {
-//			this.programLogo.setImage(program.getLogo(), program.getColor(), 100, 100);
+//			this.programLogo.setImage(program.getLogoUrl(), program.getColor(), 100, 100);
 //			this.programLogo.setLevel(program.getLevel(), program.getLevelProgress());
 //
 //			this.programName.setText(program.getTitle());

@@ -8,3 +8,4 @@ Name | Type | Description | Notes
 **wallets** | **Double** |  |  [optional]
 **total** | **Double** |  |  [optional]
 **profits** | [**DashboardProfits**](DashboardProfits.md) |  |  [optional]
+**limitWithoutKyc** | [**LimitWithoutKyc**](LimitWithoutKyc.md) |  |  [optional]
