@@ -62,7 +62,6 @@ import vision.genesis.clientapp.ui.InvestmentStatusView;
 import vision.genesis.clientapp.ui.PeriodLeftDetailsView;
 import vision.genesis.clientapp.ui.PrimaryButton;
 import vision.genesis.clientapp.ui.SignalProviderView;
-import vision.genesis.clientapp.utils.Constants;
 import vision.genesis.clientapp.utils.ImageUtils;
 import vision.genesis.clientapp.utils.StringFormatUtil;
 import vision.genesis.clientapp.utils.ThemeUtil;
@@ -222,11 +221,11 @@ public class OwnerInfoFragment extends BaseFragment implements OwnerInfoView, Pr
 	@BindView(R.id.label_stop_out)
 	public TextView stopOutLabel;
 
-	@BindView(R.id.entry_fee)
-	public TextView entryFee;
+	@BindView(R.id.management_fee)
+	public TextView managementFee;
 
-	@BindView(R.id.label_entry_fee)
-	public TextView entryFeeLabel;
+	@BindView(R.id.label_management_fee)
+	public TextView managementFeeLabel;
 
 	@BindView(R.id.success_fee)
 	public TextView successFee;
@@ -342,12 +341,12 @@ public class OwnerInfoFragment extends BaseFragment implements OwnerInfoView, Pr
 		}
 	}
 
-	@OnClick(R.id.group_entry_fee)
-	public void onEntryFeeClicked() {
-		if (details != null && details.getProgramDetails() != null && details.getProgramDetails().getLevel() < Constants.MIN_PROGRAM_LEVEL_ENTRY_FEE && getActivity() != null) {
+	@OnClick(R.id.group_management_fee)
+	public void onManagementFeeClicked() {
+		if (details != null && details.getProgramDetails() != null && getActivity() != null) {
 			MessageBottomSheetDialog dialog = new MessageBottomSheetDialog();
 			dialog.show(getActivity().getSupportFragmentManager(), dialog.getTag());
-			dialog.setData(R.drawable.icon_info, getString(R.string.entry_fee_disabled_title), getString(R.string.entry_fee_disabled_message), false, null);
+			dialog.setData(R.drawable.icon_info, getString(R.string.management_fee), getString(R.string.management_fee_info), false, null);
 		}
 	}
 
@@ -488,7 +487,7 @@ public class OwnerInfoFragment extends BaseFragment implements OwnerInfoView, Pr
 		manageProgramButton.setTypeface(TypefaceUtil.semibold());
 		availableToInvest.setTypeface(TypefaceUtil.semibold());
 		stopOut.setTypeface(TypefaceUtil.semibold());
-		entryFee.setTypeface(TypefaceUtil.semibold());
+		managementFee.setTypeface(TypefaceUtil.semibold());
 		successFee.setTypeface(TypefaceUtil.semibold());
 
 		labelFollow.setTypeface(TypefaceUtil.semibold());
@@ -505,7 +504,7 @@ public class OwnerInfoFragment extends BaseFragment implements OwnerInfoView, Pr
 
 		stopOutLabel.setText(stopOutLabel.getText().toString().toLowerCase());
 		profitLabel.setText(profitLabel.getText().toString().toLowerCase());
-		entryFeeLabel.setText(entryFeeLabel.getText().toString().toLowerCase());
+		managementFeeLabel.setText(managementFeeLabel.getText().toString().toLowerCase());
 		subscriptionVolumeFeeLabel.setText(subscriptionVolumeFeeLabel.getText().toString().toLowerCase());
 	}
 
@@ -584,7 +583,7 @@ public class OwnerInfoFragment extends BaseFragment implements OwnerInfoView, Pr
 					this.details.getTradingAccountInfo().getCurrency().getValue()));
 
 			updateCurrentSelectedField(stopOut, programDetails.getStopOutLevelCurrent(), programDetails.getStopOutLevelSelected());
-			updateCurrentSelectedField(entryFee, programDetails.getManagementFeeCurrent(), programDetails.getManagementFeeSelected());
+			updateCurrentSelectedField(managementFee, programDetails.getManagementFeeCurrent(), programDetails.getManagementFeeSelected());
 			updateCurrentSelectedField(successFee, programDetails.getSuccessFeeCurrent(), programDetails.getSuccessFeeSelected());
 
 			periodView.setData(programDetails.getPeriodDuration(), programDetails.getPeriodStarts(), programDetails.getPeriodEnds(), true, true);

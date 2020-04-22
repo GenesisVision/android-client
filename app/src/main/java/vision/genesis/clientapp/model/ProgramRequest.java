@@ -56,7 +56,7 @@ public class ProgramRequest implements Parcelable
 	@SerializedName("amount_to_invest_text")
 	private String amountTopText;
 
-	@SerializedName("entry_fee_text")
+	@SerializedName("info_middle_text")
 	private String infoMiddleText;
 
 	@SerializedName("amount_due_text")
@@ -83,8 +83,8 @@ public class ProgramRequest implements Parcelable
 	@SerializedName("available_investment")
 	private Double availableInvestment;
 
-	@SerializedName("entry_fee")
-	private Double entryFee;
+	@SerializedName("management_fee")
+	private Double managementFee;
 
 	@SerializedName("is_owner")
 	private Boolean isOwner = false;
@@ -128,10 +128,10 @@ public class ProgramRequest implements Parcelable
 			availableInvestment = in.readDouble();
 		}
 		if (in.readByte() == 0) {
-			entryFee = null;
+			managementFee = null;
 		}
 		else {
-			entryFee = in.readDouble();
+			managementFee = in.readDouble();
 		}
 		isOwner = in.readByte() != 0;
 	}
@@ -179,12 +179,12 @@ public class ProgramRequest implements Parcelable
 			dest.writeByte((byte) 1);
 			dest.writeDouble(availableInvestment);
 		}
-		if (entryFee == null) {
+		if (managementFee == null) {
 			dest.writeByte((byte) 0);
 		}
 		else {
 			dest.writeByte((byte) 1);
-			dest.writeDouble(entryFee);
+			dest.writeDouble(managementFee);
 		}
 		dest.writeByte((byte) (isOwner ? 1 : 0));
 	}
@@ -333,12 +333,12 @@ public class ProgramRequest implements Parcelable
 		this.availableInvestment = availableInvestment;
 	}
 
-	public Double getEntryFee() {
-		return entryFee;
+	public Double getManagementFee() {
+		return managementFee;
 	}
 
-	public void setEntryFee(Double entryFee) {
-		this.entryFee = entryFee;
+	public void setManagementFee(Double managementFee) {
+		this.managementFee = managementFee;
 	}
 
 	public Boolean isOwner() {

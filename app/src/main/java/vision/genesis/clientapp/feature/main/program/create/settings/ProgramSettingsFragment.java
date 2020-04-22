@@ -84,11 +84,11 @@ public class ProgramSettingsFragment extends BaseFragment implements ProgramSett
 	@BindView(R.id.stop_out_error)
 	public TextView stopOutError;
 
-	@BindView(R.id.entry_fee)
-	public EditText entryFee;
+	@BindView(R.id.management_fee)
+	public EditText managementFee;
 
-	@BindView(R.id.entry_fee_description)
-	public TextView entryFeeDescription;
+	@BindView(R.id.management_fee_description)
+	public TextView managementFeeDescription;
 
 	@BindView(R.id.label_success_fee)
 	public TextView successFeeLabel;
@@ -145,9 +145,9 @@ public class ProgramSettingsFragment extends BaseFragment implements ProgramSett
 		showSoftKeyboard(stopOut);
 	}
 
-	@OnClick(R.id.group_entry_fee)
-	public void onEntryFeeClicked() {
-		showSoftKeyboard(entryFee);
+	@OnClick(R.id.group_management_fee)
+	public void onManagementFeeClicked() {
+		showSoftKeyboard(managementFee);
 	}
 
 	@OnClick(R.id.group_success_fee)
@@ -227,8 +227,8 @@ public class ProgramSettingsFragment extends BaseFragment implements ProgramSett
 				.subscribe(charSequence -> presenter.onInvestmentLimitChanged(charSequence.toString()));
 		RxTextView.textChanges(stopOut)
 				.subscribe(charSequence -> presenter.onStopOutChanged(charSequence.toString()));
-		RxTextView.textChanges(entryFee)
-				.subscribe(charSequence -> presenter.onEntryFeeChanged(charSequence.toString()));
+		RxTextView.textChanges(managementFee)
+				.subscribe(charSequence -> presenter.onManagementFeeChanged(charSequence.toString()));
 		RxTextView.textChanges(successFee)
 				.subscribe(charSequence -> presenter.onSuccessFeeChanged(charSequence.toString()));
 	}
@@ -288,14 +288,14 @@ public class ProgramSettingsFragment extends BaseFragment implements ProgramSett
 	}
 
 	@Override
-	public void setEntryFee(Double entryFeeValue) {
-		String entryFeeText = StringFormatUtil.formatAmount(entryFeeValue, 0, 4);
-		if (entryFeeValue == 0) {
-			this.entryFee.setText("");
+	public void setManagementFee(Double managementFeeValue) {
+		String managementFeeText = StringFormatUtil.formatAmount(managementFeeValue, 0, 4);
+		if (managementFeeValue == 0) {
+			this.managementFee.setText("");
 		}
 		else {
-			this.entryFee.setText(entryFeeText);
-			this.entryFee.setSelection(entryFeeText.length(), entryFeeText.length());
+			this.managementFee.setText(managementFeeText);
+			this.managementFee.setSelection(managementFeeText.length(), managementFeeText.length());
 		}
 	}
 
@@ -323,10 +323,10 @@ public class ProgramSettingsFragment extends BaseFragment implements ProgramSett
 	}
 
 	@Override
-	public void updateEntryFeeDescription(Double maxEntryFee) {
-		this.entryFeeDescription.setText(String.format(Locale.getDefault(),
-				getString(R.string.template_program_settings_entry_fee_description),
-				StringFormatUtil.formatAmount(maxEntryFee, 0, 4)));
+	public void updateManagementFeeDescription(Double maxManagementFee) {
+		this.managementFeeDescription.setText(String.format(Locale.getDefault(),
+				getString(R.string.template_program_settings_management_fee_description),
+				StringFormatUtil.formatAmount(maxManagementFee, 0, 4)));
 	}
 
 	@Override
@@ -359,10 +359,10 @@ public class ProgramSettingsFragment extends BaseFragment implements ProgramSett
 			InputMethodManager imm = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
 			investmentLimit.clearFocus();
 			stopOut.clearFocus();
-			successFee.clearFocus();
+			managementFee.clearFocus();
 			successFee.clearFocus();
 			if (imm != null) {
-				imm.hideSoftInputFromWindow(entryFee.getWindowToken(), 0);
+				imm.hideSoftInputFromWindow(managementFee.getWindowToken(), 0);
 			}
 		}
 	}

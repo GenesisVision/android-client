@@ -23,7 +23,7 @@ interface ProgramSettingsView extends MvpView
 
 	void setStopOutLevel(Double stopOutLevel);
 
-	void setEntryFee(Double entryFeeValue);
+	void setManagementFee(Double entryFeeValue);
 
 	void setSuccessFee(Double exitFeeValue);
 
@@ -31,7 +31,7 @@ interface ProgramSettingsView extends MvpView
 
 	void hideStopOutError();
 
-	void updateEntryFeeDescription(Double managerMaxEntryFee);
+	void updateManagementFeeDescription(Double managerMaxEntryFee);
 
 	void updateSuccessFeeDescription(Double managerMaxExitFee);
 

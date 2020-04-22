@@ -301,17 +301,17 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
                 android:alpha="0.4"
-                android:text="@string/entry_fee"
+                android:text="@string/management_fee"
                 android:textColor="?attr/colorTextPrimary"
                 android:textSize="12sp"/>
 
             <RelativeLayout
-                android:id="@+id/group_entry_fee"
+                android:id="@+id/group_management_fee"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/text_input_height">
 
                 <EditText
-                    android:id="@+id/entry_fee"
+                    android:id="@+id/management_fee"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:background="@android:color/transparent"
@@ -326,7 +326,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_marginStart="8dp"
-                    android:layout_toEndOf="@+id/entry_fee"
+                    android:layout_toEndOf="@+id/management_fee"
                     android:alpha="0.4"
                     android:gravity="center"
                     android:text="%"
@@ -343,11 +343,11 @@
             </RelativeLayout>
 
             <TextView
-                android:id="@+id/entry_fee_description"
+                android:id="@+id/management_fee_description"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:text="@string/template_create_fund_entry_fee_description"
+                android:text="@string/template_program_settings_management_fee_description"
                 android:textColor="?attr/colorTextSecondary"
                 android:textSize="12sp"/>
 

@@ -92,8 +92,8 @@ public class InvestProgramActivity extends BaseSwipeBackActivity implements Inve
 	@BindView(R.id.group_commissions)
 	public ViewGroup commissionsGroup;
 
-	@BindView(R.id.entry_fee)
-	public TextView entryFee;
+	@BindView(R.id.management_fee)
+	public TextView managementFee;
 
 	@BindView(R.id.gv_commission)
 	public TextView gvCommission;
@@ -227,8 +227,8 @@ public class InvestProgramActivity extends BaseSwipeBackActivity implements Inve
 	}
 
 	@Override
-	public void setEntryFee(String entryFeeText) {
-		this.entryFee.setText(entryFeeText);
+	public void setManagementFee(String managementFeeText) {
+		this.managementFee.setText(managementFeeText);
 	}
 
 	@Override

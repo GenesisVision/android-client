@@ -597,21 +597,21 @@
                         android:orientation="horizontal">
 
                         <LinearLayout
-                            android:id="@+id/group_entry_fee"
+                            android:id="@+id/group_management_fee"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:orientation="vertical">
 
                             <TextView
-                                android:id="@+id/entry_fee"
+                                android:id="@+id/management_fee"
                                 style="@style/program_info_invest_value"
                                 tools:text="3.43%"/>
 
                             <TextView
-                                android:id="@+id/label_entry_fee"
+                                android:id="@+id/label_management_fee"
                                 style="@style/program_info_invest_label"
-                                android:text="@string/entry_fee"/>
+                                android:text="@string/management_fee"/>
 
                         </LinearLayout>
 

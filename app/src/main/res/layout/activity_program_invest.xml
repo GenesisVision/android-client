@@ -264,18 +264,18 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:alpha="0.4"
-                    android:text="@string/entry_fee"
+                    android:text="@string/management_fee"
                     android:textColor="?attr/colorTextPrimary"
                     android:textSize="14sp"/>
 
                 <TextView
-                    android:id="@+id/entry_fee"
+                    android:id="@+id/management_fee"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
                     android:textColor="?attr/colorTextPrimary"
                     android:textSize="14sp"
-                    tools:text="10% (0.498 GVT)"/>
+                    tools:text="10% (annual)"/>
 
             </RelativeLayout>
 

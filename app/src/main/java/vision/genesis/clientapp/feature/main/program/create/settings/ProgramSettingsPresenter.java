@@ -50,14 +50,14 @@ public class ProgramSettingsPresenter extends MvpPresenter<ProgramSettingsView>
 
 	private double stopOut = 0;
 
-	private double entryFee = 0;
+	private double managementFee = 0;
 
 	private double successFee = 0;
 
 
 	private Double maxStopOutLevel = 100.0;
 
-	private double maxEntryFee = 0;
+	private double maxManagementFee = 0;
 
 	private double maxSuccessFee = 0;
 
@@ -133,14 +133,14 @@ public class ProgramSettingsPresenter extends MvpPresenter<ProgramSettingsView>
 		updateConfirmButtonAvailability();
 	}
 
-	void onEntryFeeChanged(String entryFeeString) {
+	void onManagementFeeChanged(String managementFeeString) {
 		try {
-			entryFee = Double.parseDouble(entryFeeString);
+			managementFee = Double.parseDouble(managementFeeString);
 		} catch (NumberFormatException e) {
-			entryFee = 0;
+			managementFee = 0;
 		}
-		if (entryFee > maxEntryFee) {
-			getViewState().setEntryFee(maxEntryFee);
+		if (managementFee > maxManagementFee) {
+			getViewState().setManagementFee(maxManagementFee);
 			return;
 		}
 
@@ -166,14 +166,14 @@ public class ProgramSettingsPresenter extends MvpPresenter<ProgramSettingsView>
 		newModel.setPeriodLength(periodLength);
 		newModel.setInvestmentLimit(!isInvestmentLimitEnabled ? null : investmentLimit);
 		newModel.setStopOutLevel(stopOut);
-		newModel.setEntryFee(entryFee);
+		newModel.setEntryFee(managementFee);
 		newModel.setSuccessFee(successFee);
 		newModel.setTradesDelay(TradesDelay.fromValue(tradesDelay.getValue()));
 		EventBus.getDefault().post(new OnProgramSettingsConfirmEvent(newModel));
 	}
 
 	private void updateConfirmButtonAvailability() {
-		getViewState().setConfirmButtonEnabled(entryFee <= maxEntryFee && successFee <= maxSuccessFee);
+		getViewState().setConfirmButtonEnabled(managementFee <= maxManagementFee && successFee <= maxSuccessFee);
 	}
 
 	private void getPlatformInfo() {
@@ -189,9 +189,9 @@ public class ProgramSettingsPresenter extends MvpPresenter<ProgramSettingsView>
 	private void handleGetPlatformInfoSuccess(PlatformInfo platformInfo) {
 		platformInfoSubscription.unsubscribe();
 		ProgramCreateAssetPlatformInfo info = platformInfo.getAssetInfo().getProgramInfo().getCreateProgramInfo();
-		maxEntryFee = info.getMaxManagementFee();
+		maxManagementFee = info.getMaxManagementFee();
 		maxSuccessFee = info.getMaxSuccessFee();
-		getViewState().updateEntryFeeDescription(maxEntryFee);
+		getViewState().updateManagementFeeDescription(maxManagementFee);
 		getViewState().updateSuccessFeeDescription(maxSuccessFee);
 
 		this.maxStopOutLevel = model.getStopOutLevel() == null ? 100 : model.getStopOutLevel();
@@ -219,7 +219,7 @@ public class ProgramSettingsPresenter extends MvpPresenter<ProgramSettingsView>
 			getViewState().setStopOutLevel(model.getStopOutLevel());
 		}
 		if (model.getEntryFee() != null) {
-			getViewState().setEntryFee(model.getEntryFee());
+			getViewState().setManagementFee(model.getEntryFee());
 		}
 		if (model.getSuccessFee() != null) {
 			getViewState().setSuccessFee(model.getSuccessFee());

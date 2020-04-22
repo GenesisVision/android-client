@@ -69,7 +69,7 @@ public class InvestProgramPresenter extends MvpPresenter<InvestProgramView> impl
 
 	private Double availableToInvest;
 
-	private Double entryFee;
+	private Double managementFee;
 
 	private Double gvCommission;
 
@@ -128,12 +128,11 @@ public class InvestProgramPresenter extends MvpPresenter<InvestProgramView> impl
 
 			amountBase = amount / rate;
 
-			entryFee = amountBase * (programRequest.getEntryFee() / 100);
 			gvCommission = amount * (gvCommissionPercent / 100);
-			investmentAmount = amountBase - entryFee - gvCommission / rate;
+			investmentAmount = amountBase - gvCommission / rate;
 
 			getViewState().setAmountBase(getAmountBaseString());
-			getViewState().setEntryFee(getEntryFeeString());
+			getViewState().setManagementFee(getManagementFeeString());
 			getViewState().setGvCommission(getGvCommissionString());
 			getViewState().setInvestmentAmount(getInvestmentAmountString());
 			getViewState().setContinueButtonEnabled(amount >= programCurrencyMinInvestment * rate
@@ -157,11 +156,10 @@ public class InvestProgramPresenter extends MvpPresenter<InvestProgramView> impl
 		return result;
 	}
 
-	private String getEntryFeeString() {
-		return String.format(Locale.getDefault(), "%s%% (%s%s)",
-				StringFormatUtil.formatAmount(programRequest.getEntryFee(), 0, 2),
-				selectedWalletFrom.getCurrency().getValue().equals(programRequest.getProgramCurrency()) ? "" : StringFormatUtil.getApproxSymbolIfNeeded(entryFee),
-				StringFormatUtil.getValueString(entryFee, programRequest.getProgramCurrency()));
+	private String getManagementFeeString() {
+		return String.format(Locale.getDefault(), "%s%% (%s)",
+				StringFormatUtil.formatAmount(programRequest.getManagementFee(), 0, 2),
+				context.getString(R.string.annual));
 	}
 
 	private String getGvCommissionString() {
@@ -177,10 +175,9 @@ public class InvestProgramPresenter extends MvpPresenter<InvestProgramView> impl
 	}
 
 	private String getFeesAndCommissionsString() {
-		return String.format(Locale.getDefault(), "%s%% (%s%s)\n%s%% (%s)",
-				StringFormatUtil.formatAmount(programRequest.getEntryFee(), 0, 5),
-				selectedWalletFrom.getCurrency().getValue().equals(programRequest.getProgramCurrency()) ? "" : StringFormatUtil.getApproxSymbolIfNeeded(entryFee),
-				StringFormatUtil.getValueString(entryFee, programRequest.getProgramCurrency()),
+		return String.format(Locale.getDefault(), "%s%% (%s)\n%s%% (%s)",
+				StringFormatUtil.formatAmount(programRequest.getManagementFee(), 0, 2),
+				context.getString(R.string.annual),
 				StringFormatUtil.formatAmount(gvCommissionPercent, 0, 5),
 				StringFormatUtil.getValueString(gvCommission, selectedWalletFrom.getCurrency().getValue()));
 	}

@@ -61,8 +61,8 @@ public class ManageProgramActivity extends BaseSwipeBackActivity implements Mana
 	@BindView(R.id.label_stop_out)
 	public TextView labelStopOut;
 
-	@BindView(R.id.label_entry_fee)
-	public TextView labelEntryFee;
+	@BindView(R.id.label_management_fee)
+	public TextView labelManagementFee;
 
 	@BindView(R.id.label_success_fee)
 	public TextView labelSuccessFee;
@@ -77,8 +77,8 @@ public class ManageProgramActivity extends BaseSwipeBackActivity implements Mana
 	@BindView(R.id.stop_out)
 	public TextView stopOut;
 
-	@BindView(R.id.entry_fee)
-	public TextView entryFee;
+	@BindView(R.id.management_fee)
+	public TextView managementFee;
 
 	@BindView(R.id.success_fee)
 	public TextView successFee;
@@ -195,7 +195,7 @@ public class ManageProgramActivity extends BaseSwipeBackActivity implements Mana
 		investmentLimit.setTypeface(TypefaceUtil.semibold());
 		tradesDelay.setTypeface(TypefaceUtil.semibold());
 		stopOut.setTypeface(TypefaceUtil.semibold());
-		entryFee.setTypeface(TypefaceUtil.semibold());
+		managementFee.setTypeface(TypefaceUtil.semibold());
 		successFee.setTypeface(TypefaceUtil.semibold());
 		availableToInvest.setTypeface(TypefaceUtil.semibold());
 		labelDangerZone.setTypeface(TypefaceUtil.semibold());
@@ -203,7 +203,7 @@ public class ManageProgramActivity extends BaseSwipeBackActivity implements Mana
 		labelInvestmentLimit.setText(labelInvestmentLimit.getText().toString().toLowerCase());
 		labelTradesDelay.setText(labelTradesDelay.getText().toString().toLowerCase());
 		labelStopOut.setText(labelStopOut.getText().toString().toLowerCase());
-		labelEntryFee.setText(labelEntryFee.getText().toString().toLowerCase());
+		labelManagementFee.setText(labelManagementFee.getText().toString().toLowerCase());
 		labelSuccessFee.setText(labelSuccessFee.getText().toString().toLowerCase());
 		labelAvailableToInvest.setText(labelAvailableToInvest.getText().toString().toLowerCase());
 	}
@@ -218,7 +218,7 @@ public class ManageProgramActivity extends BaseSwipeBackActivity implements Mana
 				: StringFormatUtil.getTradesDelayString(programDetails.getTradesDelay()));
 
 		stopOut.setText(String.format(Locale.getDefault(), "%s%%", StringFormatUtil.formatAmount(programDetails.getStopOutLevelSelected(), 0, 4)));
-		entryFee.setText(String.format(Locale.getDefault(), "%s%%", StringFormatUtil.formatAmount(programDetails.getManagementFeeSelected(), 0, 4)));
+		managementFee.setText(String.format(Locale.getDefault(), "%s%%", StringFormatUtil.formatAmount(programDetails.getManagementFeeSelected(), 0, 4)));
 		successFee.setText(String.format(Locale.getDefault(), "%s%%", StringFormatUtil.formatAmount(programDetails.getSuccessFeeSelected(), 0, 4)));
 
 		availableToInvest.setText(String.format(Locale.getDefault(), "%s %s",

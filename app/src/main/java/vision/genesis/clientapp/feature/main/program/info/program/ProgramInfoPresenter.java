@@ -123,7 +123,7 @@ public class ProgramInfoPresenter extends MvpPresenter<ProgramInfoView>
 		request.setLevel(details.getProgramDetails().getLevel());
 		request.setLevelProgress(details.getProgramDetails().getLevelProgress());
 		request.setAvailableInvestment(details.getProgramDetails().getAvailableInvestmentBase());
-		request.setEntryFee(details.getProgramDetails().getManagementFeeCurrent());
+		request.setManagementFee(details.getProgramDetails().getManagementFeeCurrent());
 		request.setBrokerType(details.getBrokerDetails().getType());
 
 		getViewState().showInvestProgramActivity(request);
