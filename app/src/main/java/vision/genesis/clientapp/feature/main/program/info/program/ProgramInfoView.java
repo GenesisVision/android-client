@@ -32,6 +32,8 @@ interface ProgramInfoView extends MvpView
 
 	void setReinvest(Boolean isReinvest);
 
+	void setIgnoreSo(Boolean isIgnoreSo);
+
 	void showRequestsBottomSheet();
 
 	void showSnackbarMessage(String message);

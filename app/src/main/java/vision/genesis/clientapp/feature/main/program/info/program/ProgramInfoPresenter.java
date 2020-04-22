@@ -46,6 +46,8 @@ public class ProgramInfoPresenter extends MvpPresenter<ProgramInfoView>
 
 	private Subscription reinvestSubscription;
 
+	private Subscription ignoreSoSubscription;
+
 	private UUID programId;
 
 	private Boolean userLoggedOn;
@@ -77,6 +79,10 @@ public class ProgramInfoPresenter extends MvpPresenter<ProgramInfoView>
 			reinvestSubscription.unsubscribe();
 		}
 
+		if (ignoreSoSubscription != null) {
+			ignoreSoSubscription.unsubscribe();
+		}
+
 		super.onDestroy();
 	}
 
@@ -100,6 +106,10 @@ public class ProgramInfoPresenter extends MvpPresenter<ProgramInfoView>
 
 	void onReinvestClicked() {
 		setReinvest(!details.getProgramDetails().getPersonalDetails().isIsReinvest());
+	}
+
+	void onIgnoreSoClicked() {
+		setIgnoreSo(!details.getProgramDetails().getPersonalDetails().isIsAutoJoin());
 	}
 
 	void onInvestClicked() {
@@ -204,6 +214,31 @@ public class ProgramInfoPresenter extends MvpPresenter<ProgramInfoView>
 	private void handleReinvestError(Throwable throwable) {
 		reinvestSubscription.unsubscribe();
 		getViewState().setReinvest(details.getProgramDetails().getPersonalDetails().isIsReinvest());
+
+		ApiErrorResolver.resolveErrors(throwable, message -> getViewState().showSnackbarMessage(message));
+	}
+
+	private void setIgnoreSo(boolean ignoreSo) {
+		if (programId != null && programsManager != null) {
+			if (ignoreSoSubscription != null) {
+				ignoreSoSubscription.unsubscribe();
+			}
+			ignoreSoSubscription = programsManager.setIgnoreSo(programId, ignoreSo)
+					.observeOn(AndroidSchedulers.mainThread())
+					.subscribeOn(Schedulers.io())
+					.subscribe(response -> handleIgnoreSoSuccess(ignoreSo),
+							this::handleIgnoreSoError);
+		}
+	}
+
+	private void handleIgnoreSoSuccess(Boolean ignoreSo) {
+		ignoreSoSubscription.unsubscribe();
+		details.getProgramDetails().getPersonalDetails().setIsAutoJoin(ignoreSo);
+	}
+
+	private void handleIgnoreSoError(Throwable throwable) {
+		ignoreSoSubscription.unsubscribe();
+		getViewState().setIgnoreSo(details.getProgramDetails().getPersonalDetails().isIsAutoJoin());
 
 		ApiErrorResolver.resolveErrors(throwable, message -> getViewState().showSnackbarMessage(message));
 	}

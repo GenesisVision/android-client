@@ -874,10 +874,17 @@
     <string name="last_week_challenge_winner">Last week challenge winner</string>
 
     <string name="funds_challenge_details_url">https://blog.genesis.vision/gv-funds-weekly-challenge-58e23edc876b</string>
+
     <string name="size">Size</string>
     <string name="all_funds">All funds</string>
+
     <string name="management_fee_info">The сommission that is paid to the manager by an investor for the actual asset management period. Management fee is defined in annual percentage and is charged at the end of each reporting period.</string>
     <string name="annual">annual</string>
+
+    <string name="ignore_so">Ignore SO</string>
+    <string name="tooltip_ignore_stopout_title">In the event a program hits the Stop-Out limit:</string>
+    <string name="tooltip_ignore_stopout_info">“Ignore SO” is turned off → your investment (minus losses) is returned to your wallet.\n\n“Ignore SO” is turned on → your investment (minus losses) is reinvested in the program keeping all configured conditions saved.</string>
+    <string name="tooltip_reinvest_profit_info">If the reinvestment trigger is on, then at the end of the period all profits after deducting the commission will be reinvested back into the program.\n\nIf the button is not pressed, then at the end of the period all the profits will be transferred to your GVT wallet.</string>
 
 
     <plurals name="assets">

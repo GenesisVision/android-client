@@ -130,6 +130,12 @@ public class ProgramsManager
 				: investmentsApi.switchReinvestOff(programId);
 	}
 
+	public Observable<Void> setIgnoreSo(UUID programId, boolean ignoreSo) {
+		return ignoreSo
+				? investmentsApi.switchAutoJoinOn(programId)
+				: investmentsApi.switchAutoJoinOff(programId);
+	}
+
 //	public Observable<LevelUpSummary> getRatingInfo() {
 //		return programsApi.v10ProgramsLevelupSummaryGet(AuthManager.token.getValue());
 //	}

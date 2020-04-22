@@ -156,6 +156,9 @@ public class ProgramInfoFragment extends BaseFragment implements ProgramInfoView
 	@BindView(R.id.switch_reinvest)
 	public SwitchCompat reinvestSwitch;
 
+	@BindView(R.id.switch_ignore_so)
+	public SwitchCompat ignoreSoSwitch;
+
 	@BindView(R.id.button_withdraw)
 	public PrimaryButton withdrawButton;
 
@@ -258,6 +261,24 @@ public class ProgramInfoFragment extends BaseFragment implements ProgramInfoView
 		}
 	}
 
+	@OnClick(R.id.tooltip_reinvest)
+	public void onReinvestProfitTooltipClicked() {
+		if (getActivity() != null) {
+			MessageBottomSheetDialog dialog = new MessageBottomSheetDialog();
+			dialog.show(getActivity().getSupportFragmentManager(), dialog.getTag());
+			dialog.setData(R.drawable.icon_info, getString(R.string.reinvest_profit), getString(R.string.tooltip_reinvest_profit_info), false, null);
+		}
+	}
+
+	@OnClick(R.id.tooltip_ignore_so)
+	public void onIgnoreSoTooltipClicked() {
+		if (getActivity() != null) {
+			MessageBottomSheetDialog dialog = new MessageBottomSheetDialog();
+			dialog.show(getActivity().getSupportFragmentManager(), dialog.getTag());
+			dialog.setData(R.drawable.icon_info, getString(R.string.tooltip_ignore_stopout_title), getString(R.string.tooltip_ignore_stopout_info), false, null);
+		}
+	}
+
 	private void expandStrategy() {
 		ValueAnimator animator = ValueAnimator.ofInt(strategy.getMaxHeight(), 10000);
 		animator.addUpdateListener(animation -> strategy.setMaxHeight((int) animator.getAnimatedValue()));
@@ -301,6 +322,12 @@ public class ProgramInfoFragment extends BaseFragment implements ProgramInfoView
 	@OnClick(R.id.switch_reinvest)
 	public void onReinvestClicked() {
 		presenter.onReinvestClicked();
+	}
+
+
+	@OnClick(R.id.switch_ignore_so)
+	public void onIgnoreSoClicked() {
+		presenter.onIgnoreSoClicked();
 	}
 
 	@Nullable
@@ -456,6 +483,7 @@ public class ProgramInfoFragment extends BaseFragment implements ProgramInfoView
 							: R.attr.colorGreen));
 
 			reinvestSwitch.setChecked(personalDetails.isIsReinvest());
+			ignoreSoSwitch.setChecked(personalDetails.isIsAutoJoin());
 		}
 		else {
 			yourInvestmentGroup.setVisibility(View.GONE);
@@ -506,6 +534,12 @@ public class ProgramInfoFragment extends BaseFragment implements ProgramInfoView
 	@Override
 	public void setReinvest(Boolean isReinvest) {
 		reinvestSwitch.setChecked(isReinvest);
+	}
+
+
+	@Override
+	public void setIgnoreSo(Boolean isIgnoreSo) {
+		ignoreSoSwitch.setChecked(isIgnoreSo);
 	}
 
 	@Override
