@@ -32,4 +32,8 @@ interface PublicInfoView extends MvpView
 	void showSnackbarMessage(String message);
 
 	void setConfirmButtonEnabled(boolean enabled);
+
+	void showTitleError(String errorText);
+
+	void cleanTitleError();
 }

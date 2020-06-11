@@ -70,8 +70,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
-                            android:layout_marginLeft="16dp"
                             android:layout_marginStart="16dp"
+                            android:layout_marginLeft="16dp"
                             android:orientation="vertical">
 
                             <TextView
@@ -105,23 +105,31 @@
                         style="@style/confirmation_dialog_value"
                         tools:text="10.235 GVT"/>
 
-                    <TextView
-                        style="@style/confirmation_dialog_label"
-                        android:text="@string/fees_and_commissions"/>
+                    <LinearLayout
+                        android:id="@+id/group_commissions"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
 
-                    <TextView
-                        android:id="@+id/fees_and_commissions"
-                        style="@style/confirmation_dialog_value"
-                        tools:text="1.4% (0.1433 GVT)"/>
+                        <TextView
+                            style="@style/confirmation_dialog_label"
+                            android:text="@string/fees_and_commissions"/>
 
-                    <TextView
-                        style="@style/confirmation_dialog_label"
-                        android:text="@string/investment_amount"/>
+                        <TextView
+                            android:id="@+id/fees_and_commissions"
+                            style="@style/confirmation_dialog_value"
+                            tools:text="1.4% (0.1433 GVT)"/>
 
-                    <TextView
-                        android:id="@+id/investment_amount"
-                        style="@style/confirmation_dialog_value"
-                        tools:text="10.3783 GVT"/>
+                        <TextView
+                            style="@style/confirmation_dialog_label"
+                            android:text="@string/investment_amount"/>
+
+                        <TextView
+                            android:id="@+id/investment_amount"
+                            style="@style/confirmation_dialog_value"
+                            tools:text="10.3783 GVT"/>
+
+                    </LinearLayout>
 
                 </LinearLayout>
 
@@ -144,8 +152,8 @@
                         style="?android:attr/borderlessButtonStyle"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_marginLeft="8dp"
                         android:layout_marginStart="8dp"
+                        android:layout_marginLeft="8dp"
                         android:layout_weight="1"
                         android:text="@string/confirm"/>
 

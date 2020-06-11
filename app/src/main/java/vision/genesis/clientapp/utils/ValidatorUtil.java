@@ -17,4 +17,8 @@ public class ValidatorUtil
 	public static boolean isEthAddressValid(String address) {
 		return Pattern.matches("^0x[a-fA-F0-9]{40,}$", address);
 	}
+
+	public static boolean isTitleValid(String title) {
+		return Pattern.matches("^[a-zA-Z0-9\\s-]{0,}$", title);
+	}
 }

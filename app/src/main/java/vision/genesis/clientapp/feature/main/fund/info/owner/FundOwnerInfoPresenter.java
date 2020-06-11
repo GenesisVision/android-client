@@ -126,6 +126,7 @@ public class FundOwnerInfoPresenter extends MvpPresenter<FundOwnerInfoView>
 		request.setFundName(fundDetails.getPublicInfo().getTitle());
 		request.setManagerName(fundDetails.getOwner().getUsername());
 		request.setEntryFee(fundDetails.getEntryFeeCurrent());
+		request.setIsOwnFund(true);
 
 		getViewState().showInvestFundActivity(request);
 	}

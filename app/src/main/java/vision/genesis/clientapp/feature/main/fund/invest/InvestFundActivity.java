@@ -157,7 +157,7 @@ public class InvestFundActivity extends BaseSwipeBackActivity implements InvestF
 			if (request != null) {
 				investFundPresenter.setFundRequest(request);
 
-				setFundName(request.getFundName());
+				updateView(request);
 
 				setFonts();
 
@@ -170,8 +170,11 @@ public class InvestFundActivity extends BaseSwipeBackActivity implements InvestF
 
 	}
 
-	private void setFundName(String fundName) {
-		this.fundName.setText(fundName);
+	private void updateView(FundRequest request) {
+		this.fundName.setText(request.getFundName());
+		if (request.isOwnFund()) {
+			this.commissionsGroup.setVisibility(View.GONE);
+		}
 	}
 
 	private void setTextListener() {
@@ -252,8 +255,10 @@ public class InvestFundActivity extends BaseSwipeBackActivity implements InvestF
 	@Override
 	public void showAmountProgress(boolean show) {
 		amountGroup.setVisibility(show ? View.INVISIBLE : View.VISIBLE);
-		commissionsGroup.setVisibility(show ? View.INVISIBLE : View.VISIBLE);
 		amountProgress.setVisibility(!show ? View.INVISIBLE : View.VISIBLE);
+		if (request != null && !request.isOwnFund()) {
+			commissionsGroup.setVisibility(show ? View.INVISIBLE : View.VISIBLE);
+		}
 	}
 
 	@Override

@@ -26,6 +26,7 @@ import java.util.Locale;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.OnFocusChange;
 import butterknife.Unbinder;
 import permissions.dispatcher.NeedsPermission;
 import permissions.dispatcher.OnNeverAskAgain;
@@ -129,6 +130,13 @@ public class PublicInfoFragment extends BaseFragment implements PublicInfoView
 	private PublicInfoModel model;
 
 	private String warningInfoText;
+
+	@OnFocusChange(R.id.title)
+	void onTitleFocusChange(View view, boolean hasFocus) {
+		if (!hasFocus) {
+			presenter.onTitleFocusLost();
+		}
+	}
 
 	@OnClick(R.id.button_remove_logo)
 	public void onRemoveLogoClicked() {
@@ -277,6 +285,16 @@ public class PublicInfoFragment extends BaseFragment implements PublicInfoView
 	@Override
 	public void setConfirmButtonEnabled(boolean enabled) {
 		confirmButton.setEnabled(enabled);
+	}
+
+	@Override
+	public void showTitleError(String errorText) {
+		this.title.setError(errorText);
+	}
+
+	@Override
+	public void cleanTitleError() {
+		this.title.setError(null);
 	}
 
 	public void setWarningInfo(String warningInfo) {

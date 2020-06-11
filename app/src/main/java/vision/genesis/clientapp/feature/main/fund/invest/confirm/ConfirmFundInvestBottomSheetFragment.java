@@ -60,6 +60,9 @@ public class ConfirmFundInvestBottomSheetFragment extends BottomSheetDialogFragm
 	@BindView(R.id.amount_to_invest)
 	public TextView amountToInvest;
 
+	@BindView(R.id.group_commissions)
+	public ViewGroup commissionsGroup;
+
 	@BindView(R.id.fees_and_commissions)
 	public TextView feesAndCommissions;
 
@@ -167,6 +170,10 @@ public class ConfirmFundInvestBottomSheetFragment extends BottomSheetDialogFragm
 			amountToInvest.setText(fundRequest.getAmountTopText());
 			feesAndCommissions.setText(fundRequest.getInfoMiddleText());
 			investmentAmount.setText(fundRequest.getAmountBottomText());
+
+			if (fundRequest.isOwnFund()) {
+				commissionsGroup.setVisibility(View.GONE);
+			}
 		}
 	}
 

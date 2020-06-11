@@ -63,6 +63,9 @@ public class FundRequest implements Parcelable
 	@SerializedName("entry_fee")
 	private double entryFee;
 
+	@SerializedName("is_own_fund")
+	private Boolean isOwnFund = false;
+
 	public FundRequest() {
 
 	}
@@ -80,6 +83,7 @@ public class FundRequest implements Parcelable
 		walletCurrency = in.readString();
 		walletId = (UUID) in.readValue(UUID.class.getClassLoader());
 		entryFee = in.readDouble();
+		isOwnFund = in.readByte() != 0;
 	}
 
 	@Override
@@ -101,6 +105,7 @@ public class FundRequest implements Parcelable
 		dest.writeString(walletCurrency);
 		dest.writeValue(walletId);
 		dest.writeDouble(entryFee);
+		dest.writeByte((byte) (isOwnFund ? 1 : 0));
 	}
 
 	public UUID getFundId() {
@@ -197,5 +202,13 @@ public class FundRequest implements Parcelable
 
 	public void setEntryFee(Double entryFee) {
 		this.entryFee = entryFee;
+	}
+
+	public Boolean isOwnFund() {
+		return isOwnFund;
+	}
+
+	public void setIsOwnFund(Boolean isOwnFund) {
+		this.isOwnFund = isOwnFund;
 	}
 }

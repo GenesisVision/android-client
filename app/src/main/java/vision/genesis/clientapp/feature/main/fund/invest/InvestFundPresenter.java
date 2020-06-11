@@ -69,9 +69,9 @@ public class InvestFundPresenter extends MvpPresenter<InvestFundView> implements
 
 	private Double availableInWallet;
 
-	private Double entryFee;
+	private Double entryFee = 0.0;
 
-	private Double gvCommission;
+	private Double gvCommission = 0.0;
 
 	private Double investmentAmount;
 
@@ -135,8 +135,10 @@ public class InvestFundPresenter extends MvpPresenter<InvestFundView> implements
 
 			amountBase = amount / rate;
 
-			entryFee = amount * (fundRequest.getEntryFee() / 100);
-			gvCommission = amount * (gvCommissionPercent / 100);
+			if (!fundRequest.isOwnFund()) {
+				entryFee = amount * (fundRequest.getEntryFee() / 100);
+				gvCommission = amount * (gvCommissionPercent / 100);
+			}
 			investmentAmount = amount - entryFee - gvCommission;
 
 			getViewState().setAmountBase(getAmountBaseString());

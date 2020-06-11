@@ -11,6 +11,7 @@ import org.greenrobot.eventbus.Subscribe;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Locale;
 
 import javax.inject.Inject;
 
@@ -19,6 +20,7 @@ import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
+import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.managers.FilesManager;
 import vision.genesis.clientapp.model.PublicInfoModel;
 import vision.genesis.clientapp.model.events.OnPictureChooserCameraClickedEvent;
@@ -27,6 +29,7 @@ import vision.genesis.clientapp.model.events.OnPublicInfoConfirmButtonClickedEve
 import vision.genesis.clientapp.net.ApiErrorResolver;
 import vision.genesis.clientapp.utils.Constants;
 import vision.genesis.clientapp.utils.ImageUtils;
+import vision.genesis.clientapp.utils.ValidatorUtil;
 
 /**
  * GenesisVisionAndroid
@@ -135,6 +138,7 @@ public class PublicInfoPresenter extends MvpPresenter<PublicInfoView>
 
 	void onTitleChanged(String title) {
 		this.title = title.trim();
+		checkTitleError();
 		checkButtonAvailability();
 	}
 
@@ -143,9 +147,29 @@ public class PublicInfoPresenter extends MvpPresenter<PublicInfoView>
 		checkButtonAvailability();
 	}
 
+	void onTitleFocusLost() {
+		if (this.title.length() < Constants.MIN_ASSET_NAME_LENGTH && context != null) {
+			getViewState().showTitleError(String.format(Locale.getDefault(), context.getString(R.string.template_minimum_symbols), Constants.MIN_ASSET_NAME_LENGTH));
+		}
+	}
+
+	private void checkTitleError() {
+		if (this.title.isEmpty()) {
+			getViewState().cleanTitleError();
+			return;
+		}
+		if (!ValidatorUtil.isTitleValid(this.title) && context != null) {
+			getViewState().showTitleError(context.getString(R.string.error_title_not_valid));
+		}
+		else if (this.title.length() >= Constants.MIN_ASSET_NAME_LENGTH) {
+			getViewState().cleanTitleError();
+		}
+	}
+
 	private void checkButtonAvailability() {
 		getViewState().setConfirmButtonEnabled(this.title.length() >= Constants.MIN_ASSET_NAME_LENGTH
 				&& this.title.length() <= Constants.MAX_ASSET_NAME_LENGTH
+				&& ValidatorUtil.isTitleValid(this.title)
 				&& this.description.length() >= Constants.MIN_ASSET_DESCRIPTION_LENGTH
 				&& this.description.length() <= Constants.MAX_ASSET_DESCRIPTION_LENGTH);
 	}

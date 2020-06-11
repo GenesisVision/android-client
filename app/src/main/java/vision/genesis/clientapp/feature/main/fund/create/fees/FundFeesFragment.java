@@ -2,6 +2,7 @@ package vision.genesis.clientapp.feature.main.fund.create.fees;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.text.InputFilter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,6 +26,7 @@ import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
 import vision.genesis.clientapp.model.FundSettingsModel;
 import vision.genesis.clientapp.ui.PrimaryButton;
+import vision.genesis.clientapp.utils.DigitsInputFilter;
 import vision.genesis.clientapp.utils.StringFormatUtil;
 import vision.genesis.clientapp.utils.TypefaceUtil;
 
@@ -111,6 +113,9 @@ public class FundFeesFragment extends BaseFragment implements FundFeesView
 				updateView(model);
 
 				setTextListeners();
+				entryFee.setFilters(new InputFilter[]{new DigitsInputFilter(3, 4, 1000)});
+				exitFee.setFilters(new InputFilter[]{new DigitsInputFilter(3, 4, 1000)});
+
 				presenter.setModel(model);
 				return;
 			}

@@ -185,7 +185,11 @@ public class AssetShareDialogFragment extends AppCompatDialogFragment
 		try {
 			currentShareValue = Double.parseDouble(shareString);
 		} catch (NumberFormatException e) {
-			currentShareValue = asset.getMandatoryFundPercent();
+			currentShareValue = 0;
+		}
+		if (currentShareValue > 99) {
+			setShareText(99);
+			return;
 		}
 		if (currentShareValue > origShareValue + origFreeSpaceValue) {
 			setShareText(origShareValue + origFreeSpaceValue);
@@ -201,10 +205,10 @@ public class AssetShareDialogFragment extends AppCompatDialogFragment
 	}
 
 	private void updateButtons() {
-		this.addButton.setEnabled(currentShareValue > 0 && currentFreeSpaceValue >= 0 && currentShareValue != origShareValue);
+		this.addButton.setEnabled(currentShareValue > 0 && currentShareValue <= 99 && currentFreeSpaceValue >= 0 && currentShareValue != origShareValue);
 		this.minusButton.setAlpha(currentShareValue > asset.getMandatoryFundPercent() ? 1f : 0.4f);
 		this.minusButton.setEnabled(currentShareValue > asset.getMandatoryFundPercent());
-		this.plusButton.setAlpha(currentFreeSpaceValue > 0 ? 1f : 0.4f);
-		this.plusButton.setEnabled(currentFreeSpaceValue > 0);
+		this.plusButton.setAlpha(currentFreeSpaceValue > 0 && currentShareValue < 99 ? 1f : 0.4f);
+		this.plusButton.setEnabled(currentFreeSpaceValue > 0 && currentShareValue < 99);
 	}
 }

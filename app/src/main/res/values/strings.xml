@@ -885,6 +885,7 @@
     <string name="tooltip_ignore_stopout_title">In the event a program hits the Stop-Out limit:</string>
     <string name="tooltip_ignore_stopout_info">“Ignore SO” is turned off → your investment (minus losses) is returned to your wallet.\n\n“Ignore SO” is turned on → your investment (minus losses) is reinvested in the program keeping all configured conditions saved.</string>
     <string name="tooltip_reinvest_profit_info">If the reinvestment trigger is on, then at the end of the period all profits after deducting the commission will be reinvested back into the program.\n\nIf the button is not pressed, then at the end of the period all the profits will be transferred to your GVT wallet.</string>
+    <string name="error_title_not_valid">Latin letters and numbers only</string>
 
 
     <plurals name="assets">

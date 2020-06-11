@@ -2,6 +2,7 @@ package vision.genesis.clientapp.feature.main.program.create.settings;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.text.InputFilter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,6 +29,7 @@ import vision.genesis.clientapp.feature.BaseFragment;
 import vision.genesis.clientapp.feature.common.option.SelectOptionBottomSheetFragment;
 import vision.genesis.clientapp.model.ProgramSettingsModel;
 import vision.genesis.clientapp.ui.PrimaryButton;
+import vision.genesis.clientapp.utils.DigitsInputFilter;
 import vision.genesis.clientapp.utils.StringFormatUtil;
 import vision.genesis.clientapp.utils.TypefaceUtil;
 
@@ -180,6 +182,8 @@ public class ProgramSettingsFragment extends BaseFragment implements ProgramSett
 			if (model != null) {
 				updateView(model);
 				setListeners();
+				managementFee.setFilters(new InputFilter[]{new DigitsInputFilter(3, 4, 1000)});
+				successFee.setFilters(new InputFilter[]{new DigitsInputFilter(3, 4, 1000)});
 				presenter.setModel(model);
 				return;
 			}
