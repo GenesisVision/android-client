@@ -7,6 +7,7 @@ Method | HTTP request | Description
 [**addNotificationsSettings**](NotificationsApi.md#addNotificationsSettings) | **POST** v2.0/notifications/settings/add | Add new setting
 [**getNewNotificationsCount**](NotificationsApi.md#getNewNotificationsCount) | **GET** v2.0/notifications/new | Unread notifications count
 [**getNotifications**](NotificationsApi.md#getNotifications) | **GET** v2.0/notifications | User notifications
+[**getNotificationsFollowSettings**](NotificationsApi.md#getNotificationsFollowSettings) | **GET** v2.0/notifications/settings/follow/{id} | User settings for follow
 [**getNotificationsFundSettings**](NotificationsApi.md#getNotificationsFundSettings) | **GET** v2.0/notifications/settings/funds/{id} | User settings for fund
 [**getNotificationsManagerSettings**](NotificationsApi.md#getNotificationsManagerSettings) | **GET** v2.0/notifications/settings/managers/{id} | User settings for manager
 [**getNotificationsProgramSettings**](NotificationsApi.md#getNotificationsProgramSettings) | **GET** v2.0/notifications/settings/programs/{id} | User settings for program
@@ -171,6 +172,59 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**NotificationList**](NotificationList.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
+
+<a name="getNotificationsFollowSettings"></a>
+# **getNotificationsFollowSettings**
+> FollowNotificationSettingList getNotificationsFollowSettings(id)
+
+User settings for follow
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiClient;
+//import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
+//import io.swagger.client.api.NotificationsApi;
+
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
+
+NotificationsApi apiInstance = new NotificationsApi();
+String id = "id_example"; // String | 
+try {
+    FollowNotificationSettingList result = apiInstance.getNotificationsFollowSettings(id);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling NotificationsApi#getNotificationsFollowSettings");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **String**|  |
+
+### Return type
+
+[**FollowNotificationSettingList**](FollowNotificationSettingList.md)
 
 ### Authorization
 

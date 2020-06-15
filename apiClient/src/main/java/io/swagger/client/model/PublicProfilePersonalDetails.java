@@ -45,8 +45,8 @@ public class PublicProfilePersonalDetails implements Parcelable
 	@SerializedName("canWritePost")
 	private Boolean canWritePost = null;
 
-	@SerializedName("canFollow")
-	private Boolean canFollow = null;
+	@SerializedName("allowFollow")
+	private Boolean allowFollow = null;
 
 	@SerializedName("canCommentPosts")
 	private Boolean canCommentPosts = null;
@@ -57,7 +57,7 @@ public class PublicProfilePersonalDetails implements Parcelable
 	PublicProfilePersonalDetails(Parcel in) {
 		isFollow = (Boolean) in.readValue(null);
 		canWritePost = (Boolean) in.readValue(null);
-		canFollow = (Boolean) in.readValue(null);
+		allowFollow = (Boolean) in.readValue(null);
 		canCommentPosts = (Boolean) in.readValue(null);
 	}
 
@@ -99,23 +99,23 @@ public class PublicProfilePersonalDetails implements Parcelable
 		this.canWritePost = canWritePost;
 	}
 
-	public PublicProfilePersonalDetails canFollow(Boolean canFollow) {
-		this.canFollow = canFollow;
+	public PublicProfilePersonalDetails allowFollow(Boolean allowFollow) {
+		this.allowFollow = allowFollow;
 		return this;
 	}
 
 	/**
-	 * Get canFollow
+	 * Get allowFollow
 	 *
-	 * @return canFollow
+	 * @return allowFollow
 	 **/
 	@Schema(description = "")
-	public Boolean isCanFollow() {
-		return canFollow;
+	public Boolean isAllowFollow() {
+		return allowFollow;
 	}
 
-	public void setCanFollow(Boolean canFollow) {
-		this.canFollow = canFollow;
+	public void setAllowFollow(Boolean allowFollow) {
+		this.allowFollow = allowFollow;
 	}
 
 	public PublicProfilePersonalDetails canCommentPosts(Boolean canCommentPosts) {
@@ -148,13 +148,13 @@ public class PublicProfilePersonalDetails implements Parcelable
 		PublicProfilePersonalDetails publicProfilePersonalDetails = (PublicProfilePersonalDetails) o;
 		return Objects.equals(this.isFollow, publicProfilePersonalDetails.isFollow) &&
 				Objects.equals(this.canWritePost, publicProfilePersonalDetails.canWritePost) &&
-				Objects.equals(this.canFollow, publicProfilePersonalDetails.canFollow) &&
+				Objects.equals(this.allowFollow, publicProfilePersonalDetails.allowFollow) &&
 				Objects.equals(this.canCommentPosts, publicProfilePersonalDetails.canCommentPosts);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(isFollow, canWritePost, canFollow, canCommentPosts);
+		return Objects.hash(isFollow, canWritePost, allowFollow, canCommentPosts);
 	}
 
 	@Override
@@ -164,7 +164,7 @@ public class PublicProfilePersonalDetails implements Parcelable
 
 		sb.append("    isFollow: ").append(toIndentedString(isFollow)).append("\n");
 		sb.append("    canWritePost: ").append(toIndentedString(canWritePost)).append("\n");
-		sb.append("    canFollow: ").append(toIndentedString(canFollow)).append("\n");
+		sb.append("    allowFollow: ").append(toIndentedString(allowFollow)).append("\n");
 		sb.append("    canCommentPosts: ").append(toIndentedString(canCommentPosts)).append("\n");
 		sb.append("}");
 		return sb.toString();
@@ -184,7 +184,7 @@ public class PublicProfilePersonalDetails implements Parcelable
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(isFollow);
 		out.writeValue(canWritePost);
-		out.writeValue(canFollow);
+		out.writeValue(allowFollow);
 		out.writeValue(canCommentPosts);
 	}
 

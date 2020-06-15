@@ -173,6 +173,7 @@ public class InvestFundActivity extends BaseSwipeBackActivity implements InvestF
 	private void updateView(FundRequest request) {
 		this.fundName.setText(request.getFundName());
 		if (request.isOwnFund()) {
+			this.title.setText(getString(R.string.deposit));
 			this.commissionsGroup.setVisibility(View.GONE);
 		}
 	}
@@ -209,7 +210,7 @@ public class InvestFundActivity extends BaseSwipeBackActivity implements InvestF
 	@Override
 	public void setMinInvestmentAmount(Double minInvestmentAmount) {
 		amountToInvestLabel.setText(String.format(Locale.getDefault(), "%s (min %s)",
-				getString(R.string.amount_to_invest),
+				getString(request.isOwnFund() ? R.string.amount_to_deposit : R.string.amount_to_invest),
 				StringFormatUtil.formatAmount(minInvestmentAmount, 0, 6)));
 	}
 

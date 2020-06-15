@@ -10,6 +10,8 @@ Method | HTTP request | Description
 [**getVerificationToken**](ProfileApi.md#getVerificationToken) | **POST** v2.0/profile/verification/token | 
 [**removeAvatar**](ProfileApi.md#removeAvatar) | **POST** v2.0/profile/avatar/remove | Remove avatar
 [**removeFcmToken**](ProfileApi.md#removeFcmToken) | **POST** v2.0/profile/push/token/remove | 
+[**switchBetaFeatureOff**](ProfileApi.md#switchBetaFeatureOff) | **POST** v2.0/profile/beta/off | Disable beta feature
+[**switchBetaFeatureOn**](ProfileApi.md#switchBetaFeatureOn) | **POST** v2.0/profile/beta/on | Enable beta feature
 [**switchPublicInvestorOff**](ProfileApi.md#switchPublicInvestorOff) | **POST** v2.0/profile/investor/public/off | Disable public investor profile
 [**switchPublicInvestorOn**](ProfileApi.md#switchPublicInvestorOn) | **POST** v2.0/profile/investor/public/on | Enable public investor profile
 [**updateAllSocialLinks**](ProfileApi.md#updateAllSocialLinks) | **POST** v2.0/profile/sociallinks/all/update | Add or update all social links
@@ -317,6 +319,112 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: application/json, text/json, application/_*+json
+ - **Accept**: text/plain, application/json, text/json
+
+<a name="switchBetaFeatureOff"></a>
+# **switchBetaFeatureOff**
+> Void switchBetaFeatureOff(feature)
+
+Disable beta feature
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiClient;
+//import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
+//import io.swagger.client.api.ProfileApi;
+
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
+
+ProfileApi apiInstance = new ProfileApi();
+BetaTestingType feature = new BetaTestingType(); // BetaTestingType | 
+try {
+    Void result = apiInstance.switchBetaFeatureOff(feature);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling ProfileApi#switchBetaFeatureOff");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **feature** | [**BetaTestingType**](.md)|  | [optional]
+
+### Return type
+
+[**Void**](.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
+
+<a name="switchBetaFeatureOn"></a>
+# **switchBetaFeatureOn**
+> Void switchBetaFeatureOn(feature)
+
+Enable beta feature
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiClient;
+//import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
+//import io.swagger.client.api.ProfileApi;
+
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
+
+ProfileApi apiInstance = new ProfileApi();
+BetaTestingType feature = new BetaTestingType(); // BetaTestingType | 
+try {
+    Void result = apiInstance.switchBetaFeatureOn(feature);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling ProfileApi#switchBetaFeatureOn");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **feature** | [**BetaTestingType**](.md)|  | [optional]
+
+### Return type
+
+[**Void**](.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
  - **Accept**: text/plain, application/json, text/json
 
 <a name="switchPublicInvestorOff"></a>

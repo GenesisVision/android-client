@@ -41,103 +41,103 @@ public class SocialSummary implements Parcelable
 		}
 	};
 
-	@SerializedName("trendHashTags")
-	private List<String> trendHashTags = null;
+	@SerializedName("hotTopics")
+	private List<SocialSummaryHashTag> hotTopics = null;
 
-	@SerializedName("trendAssets")
-	private List<AssetDetails> trendAssets = null;
+	@SerializedName("topStrategies")
+	private List<SocialSummaryStrategy> topStrategies = null;
 
-	@SerializedName("trendPlatformAssets")
-	private List<PlatformAsset> trendPlatformAssets = null;
+	@SerializedName("topAssets")
+	private List<SocialPostPlatformAsset> topAssets = null;
 
 	public SocialSummary() {
 	}
 
 	SocialSummary(Parcel in) {
-		trendHashTags = (List<String>) in.readValue(null);
-		trendAssets = (List<AssetDetails>) in.readValue(AssetDetails.class.getClassLoader());
-		trendPlatformAssets = (List<PlatformAsset>) in.readValue(PlatformAsset.class.getClassLoader());
+		hotTopics = (List<SocialSummaryHashTag>) in.readValue(SocialSummaryHashTag.class.getClassLoader());
+		topStrategies = (List<SocialSummaryStrategy>) in.readValue(SocialSummaryStrategy.class.getClassLoader());
+		topAssets = (List<SocialPostPlatformAsset>) in.readValue(SocialPostPlatformAsset.class.getClassLoader());
 	}
 
-	public SocialSummary trendHashTags(List<String> trendHashTags) {
-		this.trendHashTags = trendHashTags;
+	public SocialSummary hotTopics(List<SocialSummaryHashTag> hotTopics) {
+		this.hotTopics = hotTopics;
 		return this;
 	}
 
-	public SocialSummary addTrendHashTagsItem(String trendHashTagsItem) {
-		if (this.trendHashTags == null) {
-			this.trendHashTags = new ArrayList<String>();
+	public SocialSummary addHotTopicsItem(SocialSummaryHashTag hotTopicsItem) {
+		if (this.hotTopics == null) {
+			this.hotTopics = new ArrayList<SocialSummaryHashTag>();
 		}
-		this.trendHashTags.add(trendHashTagsItem);
+		this.hotTopics.add(hotTopicsItem);
 		return this;
 	}
 
 	/**
-	 * Get trendHashTags
+	 * Get hotTopics
 	 *
-	 * @return trendHashTags
+	 * @return hotTopics
 	 **/
 	@Schema(description = "")
-	public List<String> getTrendHashTags() {
-		return trendHashTags;
+	public List<SocialSummaryHashTag> getHotTopics() {
+		return hotTopics;
 	}
 
-	public void setTrendHashTags(List<String> trendHashTags) {
-		this.trendHashTags = trendHashTags;
+	public void setHotTopics(List<SocialSummaryHashTag> hotTopics) {
+		this.hotTopics = hotTopics;
 	}
 
-	public SocialSummary trendAssets(List<AssetDetails> trendAssets) {
-		this.trendAssets = trendAssets;
+	public SocialSummary topStrategies(List<SocialSummaryStrategy> topStrategies) {
+		this.topStrategies = topStrategies;
 		return this;
 	}
 
-	public SocialSummary addTrendAssetsItem(AssetDetails trendAssetsItem) {
-		if (this.trendAssets == null) {
-			this.trendAssets = new ArrayList<AssetDetails>();
+	public SocialSummary addTopStrategiesItem(SocialSummaryStrategy topStrategiesItem) {
+		if (this.topStrategies == null) {
+			this.topStrategies = new ArrayList<SocialSummaryStrategy>();
 		}
-		this.trendAssets.add(trendAssetsItem);
+		this.topStrategies.add(topStrategiesItem);
 		return this;
 	}
 
 	/**
-	 * Get trendAssets
+	 * Get topStrategies
 	 *
-	 * @return trendAssets
+	 * @return topStrategies
 	 **/
 	@Schema(description = "")
-	public List<AssetDetails> getTrendAssets() {
-		return trendAssets;
+	public List<SocialSummaryStrategy> getTopStrategies() {
+		return topStrategies;
 	}
 
-	public void setTrendAssets(List<AssetDetails> trendAssets) {
-		this.trendAssets = trendAssets;
+	public void setTopStrategies(List<SocialSummaryStrategy> topStrategies) {
+		this.topStrategies = topStrategies;
 	}
 
-	public SocialSummary trendPlatformAssets(List<PlatformAsset> trendPlatformAssets) {
-		this.trendPlatformAssets = trendPlatformAssets;
+	public SocialSummary topAssets(List<SocialPostPlatformAsset> topAssets) {
+		this.topAssets = topAssets;
 		return this;
 	}
 
-	public SocialSummary addTrendPlatformAssetsItem(PlatformAsset trendPlatformAssetsItem) {
-		if (this.trendPlatformAssets == null) {
-			this.trendPlatformAssets = new ArrayList<PlatformAsset>();
+	public SocialSummary addTopAssetsItem(SocialPostPlatformAsset topAssetsItem) {
+		if (this.topAssets == null) {
+			this.topAssets = new ArrayList<SocialPostPlatformAsset>();
 		}
-		this.trendPlatformAssets.add(trendPlatformAssetsItem);
+		this.topAssets.add(topAssetsItem);
 		return this;
 	}
 
 	/**
-	 * Get trendPlatformAssets
+	 * Get topAssets
 	 *
-	 * @return trendPlatformAssets
+	 * @return topAssets
 	 **/
 	@Schema(description = "")
-	public List<PlatformAsset> getTrendPlatformAssets() {
-		return trendPlatformAssets;
+	public List<SocialPostPlatformAsset> getTopAssets() {
+		return topAssets;
 	}
 
-	public void setTrendPlatformAssets(List<PlatformAsset> trendPlatformAssets) {
-		this.trendPlatformAssets = trendPlatformAssets;
+	public void setTopAssets(List<SocialPostPlatformAsset> topAssets) {
+		this.topAssets = topAssets;
 	}
 
 	@Override
@@ -149,14 +149,14 @@ public class SocialSummary implements Parcelable
 			return false;
 		}
 		SocialSummary socialSummary = (SocialSummary) o;
-		return Objects.equals(this.trendHashTags, socialSummary.trendHashTags) &&
-				Objects.equals(this.trendAssets, socialSummary.trendAssets) &&
-				Objects.equals(this.trendPlatformAssets, socialSummary.trendPlatformAssets);
+		return Objects.equals(this.hotTopics, socialSummary.hotTopics) &&
+				Objects.equals(this.topStrategies, socialSummary.topStrategies) &&
+				Objects.equals(this.topAssets, socialSummary.topAssets);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(trendHashTags, trendAssets, trendPlatformAssets);
+		return Objects.hash(hotTopics, topStrategies, topAssets);
 	}
 
 	@Override
@@ -164,9 +164,9 @@ public class SocialSummary implements Parcelable
 		StringBuilder sb = new StringBuilder();
 		sb.append("class SocialSummary {\n");
 
-		sb.append("    trendHashTags: ").append(toIndentedString(trendHashTags)).append("\n");
-		sb.append("    trendAssets: ").append(toIndentedString(trendAssets)).append("\n");
-		sb.append("    trendPlatformAssets: ").append(toIndentedString(trendPlatformAssets)).append("\n");
+		sb.append("    hotTopics: ").append(toIndentedString(hotTopics)).append("\n");
+		sb.append("    topStrategies: ").append(toIndentedString(topStrategies)).append("\n");
+		sb.append("    topAssets: ").append(toIndentedString(topAssets)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}
@@ -183,9 +183,9 @@ public class SocialSummary implements Parcelable
 	}
 
 	public void writeToParcel(Parcel out, int flags) {
-		out.writeValue(trendHashTags);
-		out.writeValue(trendAssets);
-		out.writeValue(trendPlatformAssets);
+		out.writeValue(hotTopics);
+		out.writeValue(topStrategies);
+		out.writeValue(topAssets);
 	}
 
 	public int describeContents() {

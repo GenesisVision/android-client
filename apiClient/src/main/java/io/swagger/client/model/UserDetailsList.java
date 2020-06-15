@@ -74,6 +74,15 @@ public class UserDetailsList implements Parcelable
 	@SerializedName("totalProfit")
 	private Double totalProfit = null;
 
+	@SerializedName("about")
+	private String about = null;
+
+	@SerializedName("followers")
+	private List<ProfilePublicShort> followers = null;
+
+	@SerializedName("personalDetails")
+	private PublicProfilePersonalDetails personalDetails = null;
+
 	public UserDetailsList() {
 	}
 
@@ -88,6 +97,9 @@ public class UserDetailsList implements Parcelable
 		investorsCount = (Integer) in.readValue(null);
 		followersCount = (Integer) in.readValue(null);
 		totalProfit = (Double) in.readValue(null);
+		about = (String) in.readValue(null);
+		followers = (List<ProfilePublicShort>) in.readValue(ProfilePublicShort.class.getClassLoader());
+		personalDetails = (PublicProfilePersonalDetails) in.readValue(PublicProfilePersonalDetails.class.getClassLoader());
 	}
 
 	public UserDetailsList userId(UUID userId) {
@@ -288,6 +300,71 @@ public class UserDetailsList implements Parcelable
 		this.totalProfit = totalProfit;
 	}
 
+	public UserDetailsList about(String about) {
+		this.about = about;
+		return this;
+	}
+
+	/**
+	 * Get about
+	 *
+	 * @return about
+	 **/
+	@Schema(description = "")
+	public String getAbout() {
+		return about;
+	}
+
+	public void setAbout(String about) {
+		this.about = about;
+	}
+
+	public UserDetailsList followers(List<ProfilePublicShort> followers) {
+		this.followers = followers;
+		return this;
+	}
+
+	public UserDetailsList addFollowersItem(ProfilePublicShort followersItem) {
+		if (this.followers == null) {
+			this.followers = new ArrayList<ProfilePublicShort>();
+		}
+		this.followers.add(followersItem);
+		return this;
+	}
+
+	/**
+	 * Get followers
+	 *
+	 * @return followers
+	 **/
+	@Schema(description = "")
+	public List<ProfilePublicShort> getFollowers() {
+		return followers;
+	}
+
+	public void setFollowers(List<ProfilePublicShort> followers) {
+		this.followers = followers;
+	}
+
+	public UserDetailsList personalDetails(PublicProfilePersonalDetails personalDetails) {
+		this.personalDetails = personalDetails;
+		return this;
+	}
+
+	/**
+	 * Get personalDetails
+	 *
+	 * @return personalDetails
+	 **/
+	@Schema(description = "")
+	public PublicProfilePersonalDetails getPersonalDetails() {
+		return personalDetails;
+	}
+
+	public void setPersonalDetails(PublicProfilePersonalDetails personalDetails) {
+		this.personalDetails = personalDetails;
+	}
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -306,12 +383,15 @@ public class UserDetailsList implements Parcelable
 				Objects.equals(this.assetsUnderManagement, userDetailsList.assetsUnderManagement) &&
 				Objects.equals(this.investorsCount, userDetailsList.investorsCount) &&
 				Objects.equals(this.followersCount, userDetailsList.followersCount) &&
-				Objects.equals(this.totalProfit, userDetailsList.totalProfit);
+				Objects.equals(this.totalProfit, userDetailsList.totalProfit) &&
+				Objects.equals(this.about, userDetailsList.about) &&
+				Objects.equals(this.followers, userDetailsList.followers) &&
+				Objects.equals(this.personalDetails, userDetailsList.personalDetails);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(userId, username, logoUrl, url, tags, regDate, assetsUnderManagement, investorsCount, followersCount, totalProfit);
+		return Objects.hash(userId, username, logoUrl, url, tags, regDate, assetsUnderManagement, investorsCount, followersCount, totalProfit, about, followers, personalDetails);
 	}
 
 	@Override
@@ -329,6 +409,9 @@ public class UserDetailsList implements Parcelable
 		sb.append("    investorsCount: ").append(toIndentedString(investorsCount)).append("\n");
 		sb.append("    followersCount: ").append(toIndentedString(followersCount)).append("\n");
 		sb.append("    totalProfit: ").append(toIndentedString(totalProfit)).append("\n");
+		sb.append("    about: ").append(toIndentedString(about)).append("\n");
+		sb.append("    followers: ").append(toIndentedString(followers)).append("\n");
+		sb.append("    personalDetails: ").append(toIndentedString(personalDetails)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}
@@ -355,6 +438,9 @@ public class UserDetailsList implements Parcelable
 		out.writeValue(investorsCount);
 		out.writeValue(followersCount);
 		out.writeValue(totalProfit);
+		out.writeValue(about);
+		out.writeValue(followers);
+		out.writeValue(personalDetails);
 	}
 
 	public int describeContents() {

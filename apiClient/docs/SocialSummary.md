@@ -3,6 +3,6 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**trendHashTags** | **List&lt;String&gt;** |  |  [optional]
-**trendAssets** | [**List&lt;AssetDetails&gt;**](AssetDetails.md) |  |  [optional]
-**trendPlatformAssets** | [**List&lt;PlatformAsset&gt;**](PlatformAsset.md) |  |  [optional]
+**hotTopics** | [**List&lt;SocialSummaryHashTag&gt;**](SocialSummaryHashTag.md) |  |  [optional]
+**topStrategies** | [**List&lt;SocialSummaryStrategy&gt;**](SocialSummaryStrategy.md) |  |  [optional]
+**topAssets** | [**List&lt;SocialPostPlatformAsset&gt;**](SocialPostPlatformAsset.md) |  |  [optional]

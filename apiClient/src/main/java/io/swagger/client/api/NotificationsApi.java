@@ -2,6 +2,7 @@ package io.swagger.client.api;
 
 import java.util.UUID;
 
+import io.swagger.client.model.FollowNotificationSettingList;
 import io.swagger.client.model.FundNotificationSettingList;
 import io.swagger.client.model.ManagerNotificationSettingList;
 import io.swagger.client.model.NotificationList;
@@ -49,6 +50,17 @@ public interface NotificationsApi
 	@GET("v2.0/notifications")
 	Observable<NotificationList> getNotifications(
 			@retrofit2.http.Query("skip") Integer skip, @retrofit2.http.Query("take") Integer take
+	);
+
+	/**
+	 * User settings for follow
+	 *
+	 * @param id (required)
+	 * @return Call&lt;FollowNotificationSettingList&gt;
+	 */
+	@GET("v2.0/notifications/settings/follow/{id}")
+	Observable<FollowNotificationSettingList> getNotificationsFollowSettings(
+			@retrofit2.http.Path("id") String id
 	);
 
 	/**

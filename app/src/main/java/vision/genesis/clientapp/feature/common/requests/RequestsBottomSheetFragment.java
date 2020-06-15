@@ -201,11 +201,11 @@ public class RequestsBottomSheetFragment extends BottomSheetDialogFragment
 	}
 
 	private void cancelRequest(UUID requestId) {
-//		cancelRequestSubscription = dashboardManager.cancelRequest(requestId)
-//				.subscribeOn(Schedulers.io())
-//				.observeOn(AndroidSchedulers.mainThread())
-//				.subscribe(response -> handleCancelRequestSuccess(requestId),
-//						this::handleCancelRequestError);
+		cancelRequestSubscription = dashboardManager.cancelRequest(requestId)
+				.subscribeOn(Schedulers.io())
+				.observeOn(AndroidSchedulers.mainThread())
+				.subscribe(response -> handleCancelRequestSuccess(requestId),
+						this::handleCancelRequestError);
 	}
 
 	private void handleCancelRequestSuccess(UUID requestId) {

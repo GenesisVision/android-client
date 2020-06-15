@@ -11,6 +11,7 @@ import io.swagger.client.model.DashboardAssetStatus;
 import io.swagger.client.model.DashboardAssets;
 import io.swagger.client.model.DashboardChart;
 import io.swagger.client.model.DashboardChartAssets;
+import io.swagger.client.model.DashboardExchangeTradingAsset;
 import io.swagger.client.model.DashboardInvestingDetails;
 import io.swagger.client.model.DashboardPortfolio;
 import io.swagger.client.model.DashboardSummary;
@@ -31,11 +32,12 @@ public interface DashboardApi
 	 * @param dateTo           (optional)
 	 * @param chartPointsCount (optional)
 	 * @param showIn           (optional)
+	 * @param skipStatistic    (optional)
 	 * @return Call&lt;DashboardChart&gt;
 	 */
 	@GET("v2.0/dashboard/chart")
 	Observable<DashboardChart> getChart(
-			@retrofit2.http.Query("Assets") List<UUID> assets, @retrofit2.http.Query("DateFrom") DateTime dateFrom, @retrofit2.http.Query("DateTo") DateTime dateTo, @retrofit2.http.Query("ChartPointsCount") Integer chartPointsCount, @retrofit2.http.Query("ShowIn") Currency showIn
+			@retrofit2.http.Query("Assets") List<UUID> assets, @retrofit2.http.Query("DateFrom") DateTime dateFrom, @retrofit2.http.Query("DateTo") DateTime dateTo, @retrofit2.http.Query("ChartPointsCount") Integer chartPointsCount, @retrofit2.http.Query("ShowIn") Currency showIn, @retrofit2.http.Query("SkipStatistic") Boolean skipStatistic
 	);
 
 	/**
@@ -54,6 +56,16 @@ public interface DashboardApi
 	@GET("v2.0/dashboard/summary")
 	Observable<DashboardSummary> getDashboardSummary(
 			@retrofit2.http.Query("currency") Currency currency
+	);
+
+	/**
+	 * @param exchangeAccountId (optional)
+	 * @param brokerId          (optional)
+	 * @return Call&lt;DashboardExchangeTradingAsset&gt;
+	 */
+	@GET("v2.0/dashboard/trading/exchange/credentials")
+	Observable<DashboardExchangeTradingAsset> getExchangeAccountCredentials(
+			@retrofit2.http.Query("exchangeAccountId") UUID exchangeAccountId, @retrofit2.http.Query("brokerId") UUID brokerId
 	);
 
 	/**
@@ -86,13 +98,14 @@ public interface DashboardApi
 	 * @param mask             (optional)
 	 * @param ownerId          (optional)
 	 * @param showFavorites    (optional)
+	 * @param skipStatistic    (optional)
 	 * @param skip             (optional)
 	 * @param take             (optional)
 	 * @return Call&lt;FundInvestingDetailsListItemsViewModel&gt;
 	 */
 	@GET("v2.0/dashboard/investing/funds")
 	Observable<FundInvestingDetailsListItemsViewModel> getInvestingFunds(
-			@retrofit2.http.Query("Sorting") FundsFilterSorting sorting, @retrofit2.http.Query("ShowIn") Currency showIn, @retrofit2.http.Query("Status") DashboardAssetStatus status, @retrofit2.http.Query("DateFrom") DateTime dateFrom, @retrofit2.http.Query("DateTo") DateTime dateTo, @retrofit2.http.Query("ChartPointsCount") Integer chartPointsCount, @retrofit2.http.Query("FacetId") String facetId, @retrofit2.http.Query("Mask") String mask, @retrofit2.http.Query("OwnerId") UUID ownerId, @retrofit2.http.Query("ShowFavorites") Boolean showFavorites, @retrofit2.http.Query("Skip") Integer skip, @retrofit2.http.Query("Take") Integer take
+			@retrofit2.http.Query("Sorting") FundsFilterSorting sorting, @retrofit2.http.Query("ShowIn") Currency showIn, @retrofit2.http.Query("Status") DashboardAssetStatus status, @retrofit2.http.Query("DateFrom") DateTime dateFrom, @retrofit2.http.Query("DateTo") DateTime dateTo, @retrofit2.http.Query("ChartPointsCount") Integer chartPointsCount, @retrofit2.http.Query("FacetId") String facetId, @retrofit2.http.Query("Mask") String mask, @retrofit2.http.Query("OwnerId") UUID ownerId, @retrofit2.http.Query("ShowFavorites") Boolean showFavorites, @retrofit2.http.Query("SkipStatistic") Boolean skipStatistic, @retrofit2.http.Query("Skip") Integer skip, @retrofit2.http.Query("Take") Integer take
 	);
 
 	/**
@@ -106,13 +119,14 @@ public interface DashboardApi
 	 * @param mask             (optional)
 	 * @param ownerId          (optional)
 	 * @param showFavorites    (optional)
+	 * @param skipStatistic    (optional)
 	 * @param skip             (optional)
 	 * @param take             (optional)
 	 * @return Call&lt;ProgramInvestingDetailsListItemsViewModel&gt;
 	 */
 	@GET("v2.0/dashboard/investing/programs")
 	Observable<ProgramInvestingDetailsListItemsViewModel> getInvestingPrograms(
-			@retrofit2.http.Query("Sorting") ProgramsFilterSorting sorting, @retrofit2.http.Query("ShowIn") Currency showIn, @retrofit2.http.Query("Status") DashboardAssetStatus status, @retrofit2.http.Query("DateFrom") DateTime dateFrom, @retrofit2.http.Query("DateTo") DateTime dateTo, @retrofit2.http.Query("ChartPointsCount") Integer chartPointsCount, @retrofit2.http.Query("FacetId") String facetId, @retrofit2.http.Query("Mask") String mask, @retrofit2.http.Query("OwnerId") UUID ownerId, @retrofit2.http.Query("ShowFavorites") Boolean showFavorites, @retrofit2.http.Query("Skip") Integer skip, @retrofit2.http.Query("Take") Integer take
+			@retrofit2.http.Query("Sorting") ProgramsFilterSorting sorting, @retrofit2.http.Query("ShowIn") Currency showIn, @retrofit2.http.Query("Status") DashboardAssetStatus status, @retrofit2.http.Query("DateFrom") DateTime dateFrom, @retrofit2.http.Query("DateTo") DateTime dateTo, @retrofit2.http.Query("ChartPointsCount") Integer chartPointsCount, @retrofit2.http.Query("FacetId") String facetId, @retrofit2.http.Query("Mask") String mask, @retrofit2.http.Query("OwnerId") UUID ownerId, @retrofit2.http.Query("ShowFavorites") Boolean showFavorites, @retrofit2.http.Query("SkipStatistic") Boolean skipStatistic, @retrofit2.http.Query("Skip") Integer skip, @retrofit2.http.Query("Take") Integer take
 	);
 
 	/**
@@ -120,11 +134,12 @@ public interface DashboardApi
 	 * @param dateTo           (optional)
 	 * @param chartPointsCount (optional)
 	 * @param showIn           (optional)
+	 * @param skipStatistic    (optional)
 	 * @return Call&lt;DashboardTradingAssetItemsViewModel&gt;
 	 */
 	@GET("v2.0/dashboard/trading/mostprofitable")
 	Observable<DashboardTradingAssetItemsViewModel> getMostProfitableAssets(
-			@retrofit2.http.Query("DateFrom") DateTime dateFrom, @retrofit2.http.Query("DateTo") DateTime dateTo, @retrofit2.http.Query("ChartPointsCount") Integer chartPointsCount, @retrofit2.http.Query("ShowIn") Currency showIn
+			@retrofit2.http.Query("DateFrom") DateTime dateFrom, @retrofit2.http.Query("DateTo") DateTime dateTo, @retrofit2.http.Query("ChartPointsCount") Integer chartPointsCount, @retrofit2.http.Query("ShowIn") Currency showIn, @retrofit2.http.Query("SkipStatistic") Boolean skipStatistic
 	);
 
 	/**
@@ -142,13 +157,14 @@ public interface DashboardApi
 	 * @param chartPointsCount (optional)
 	 * @param showIn           (optional)
 	 * @param status           (optional)
+	 * @param skipStatistic    (optional)
 	 * @param skip             (optional)
 	 * @param take             (optional)
 	 * @return Call&lt;DashboardTradingAssetItemsViewModel&gt;
 	 */
 	@GET("v2.0/dashboard/trading/private")
 	Observable<DashboardTradingAssetItemsViewModel> getPrivateTradingAssets(
-			@retrofit2.http.Query("DateFrom") DateTime dateFrom, @retrofit2.http.Query("DateTo") DateTime dateTo, @retrofit2.http.Query("ChartPointsCount") Integer chartPointsCount, @retrofit2.http.Query("ShowIn") Currency showIn, @retrofit2.http.Query("Status") DashboardAssetStatus status, @retrofit2.http.Query("Skip") Integer skip, @retrofit2.http.Query("Take") Integer take
+			@retrofit2.http.Query("DateFrom") DateTime dateFrom, @retrofit2.http.Query("DateTo") DateTime dateTo, @retrofit2.http.Query("ChartPointsCount") Integer chartPointsCount, @retrofit2.http.Query("ShowIn") Currency showIn, @retrofit2.http.Query("Status") DashboardAssetStatus status, @retrofit2.http.Query("SkipStatistic") Boolean skipStatistic, @retrofit2.http.Query("Skip") Integer skip, @retrofit2.http.Query("Take") Integer take
 	);
 
 	/**
@@ -157,13 +173,14 @@ public interface DashboardApi
 	 * @param chartPointsCount (optional)
 	 * @param showIn           (optional)
 	 * @param status           (optional)
+	 * @param skipStatistic    (optional)
 	 * @param skip             (optional)
 	 * @param take             (optional)
 	 * @return Call&lt;DashboardTradingAssetItemsViewModel&gt;
 	 */
 	@GET("v2.0/dashboard/trading/public")
 	Observable<DashboardTradingAssetItemsViewModel> getPublicTradingAssets(
-			@retrofit2.http.Query("DateFrom") DateTime dateFrom, @retrofit2.http.Query("DateTo") DateTime dateTo, @retrofit2.http.Query("ChartPointsCount") Integer chartPointsCount, @retrofit2.http.Query("ShowIn") Currency showIn, @retrofit2.http.Query("Status") DashboardAssetStatus status, @retrofit2.http.Query("Skip") Integer skip, @retrofit2.http.Query("Take") Integer take
+			@retrofit2.http.Query("DateFrom") DateTime dateFrom, @retrofit2.http.Query("DateTo") DateTime dateTo, @retrofit2.http.Query("ChartPointsCount") Integer chartPointsCount, @retrofit2.http.Query("ShowIn") Currency showIn, @retrofit2.http.Query("Status") DashboardAssetStatus status, @retrofit2.http.Query("SkipStatistic") Boolean skipStatistic, @retrofit2.http.Query("Skip") Integer skip, @retrofit2.http.Query("Take") Integer take
 	);
 
 	/**

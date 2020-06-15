@@ -13,3 +13,6 @@ Name | Type | Description | Notes
 **investorsCount** | **Integer** |  |  [optional]
 **followersCount** | **Integer** |  |  [optional]
 **totalProfit** | **Double** |  |  [optional]
+**about** | **String** |  |  [optional]
+**followers** | [**List&lt;ProfilePublicShort&gt;**](ProfilePublicShort.md) |  |  [optional]
+**personalDetails** | [**PublicProfilePersonalDetails**](PublicProfilePersonalDetails.md) |  |  [optional]

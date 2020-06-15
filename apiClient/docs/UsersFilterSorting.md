@@ -16,3 +16,5 @@
 * `BYPOPULARITYDESC` (value: `"ByPopularityDesc"`)
 * `BYPROFITASC` (value: `"ByProfitAsc"`)
 * `BYPROFITDESC` (value: `"ByProfitDesc"`)
+* `BYACTIVITYASC` (value: `"ByActivityAsc"`)
+* `BYACTIVITYDESC` (value: `"ByActivityDesc"`)

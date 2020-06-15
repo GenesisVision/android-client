@@ -562,7 +562,7 @@
 
     <style name="text_label_period_details">
         <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">36dp</item>
+        <item name="android:layout_height">40dp</item>
         <item name="android:gravity">center_vertical</item>
         <item name="android:textColor">?attr/colorTextSecondary</item>
         <item name="android:textSize">12sp</item>
@@ -570,7 +570,7 @@
 
     <style name="text_value_period_details">
         <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">36dp</item>
+        <item name="android:layout_height">40dp</item>
         <item name="android:gravity">center_vertical</item>
         <item name="android:textColor">?attr/colorTextPrimary</item>
         <item name="android:textSize">16sp</item>

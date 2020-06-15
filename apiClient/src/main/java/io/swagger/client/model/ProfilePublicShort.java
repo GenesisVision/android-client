@@ -49,6 +49,12 @@ public class ProfilePublicShort implements Parcelable
 	@SerializedName("url")
 	private String url = null;
 
+	@SerializedName("logoUrl")
+	private String logoUrl = null;
+
+	@SerializedName("personalDetails")
+	private PublicProfilePersonalDetails personalDetails = null;
+
 	public ProfilePublicShort() {
 	}
 
@@ -56,6 +62,8 @@ public class ProfilePublicShort implements Parcelable
 		id = (UUID) in.readValue(UUID.class.getClassLoader());
 		username = (String) in.readValue(null);
 		url = (String) in.readValue(null);
+		logoUrl = (String) in.readValue(null);
+		personalDetails = (PublicProfilePersonalDetails) in.readValue(PublicProfilePersonalDetails.class.getClassLoader());
 	}
 
 	public ProfilePublicShort id(UUID id) {
@@ -115,6 +123,44 @@ public class ProfilePublicShort implements Parcelable
 		this.url = url;
 	}
 
+	public ProfilePublicShort logoUrl(String logoUrl) {
+		this.logoUrl = logoUrl;
+		return this;
+	}
+
+	/**
+	 * Get logoUrl
+	 *
+	 * @return logoUrl
+	 **/
+	@Schema(description = "")
+	public String getLogoUrl() {
+		return logoUrl;
+	}
+
+	public void setLogoUrl(String logoUrl) {
+		this.logoUrl = logoUrl;
+	}
+
+	public ProfilePublicShort personalDetails(PublicProfilePersonalDetails personalDetails) {
+		this.personalDetails = personalDetails;
+		return this;
+	}
+
+	/**
+	 * Get personalDetails
+	 *
+	 * @return personalDetails
+	 **/
+	@Schema(description = "")
+	public PublicProfilePersonalDetails getPersonalDetails() {
+		return personalDetails;
+	}
+
+	public void setPersonalDetails(PublicProfilePersonalDetails personalDetails) {
+		this.personalDetails = personalDetails;
+	}
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -126,12 +172,14 @@ public class ProfilePublicShort implements Parcelable
 		ProfilePublicShort profilePublicShort = (ProfilePublicShort) o;
 		return Objects.equals(this.id, profilePublicShort.id) &&
 				Objects.equals(this.username, profilePublicShort.username) &&
-				Objects.equals(this.url, profilePublicShort.url);
+				Objects.equals(this.url, profilePublicShort.url) &&
+				Objects.equals(this.logoUrl, profilePublicShort.logoUrl) &&
+				Objects.equals(this.personalDetails, profilePublicShort.personalDetails);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, username, url);
+		return Objects.hash(id, username, url, logoUrl, personalDetails);
 	}
 
 	@Override
@@ -142,6 +190,8 @@ public class ProfilePublicShort implements Parcelable
 		sb.append("    id: ").append(toIndentedString(id)).append("\n");
 		sb.append("    username: ").append(toIndentedString(username)).append("\n");
 		sb.append("    url: ").append(toIndentedString(url)).append("\n");
+		sb.append("    logoUrl: ").append(toIndentedString(logoUrl)).append("\n");
+		sb.append("    personalDetails: ").append(toIndentedString(personalDetails)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}
@@ -161,6 +211,8 @@ public class ProfilePublicShort implements Parcelable
 		out.writeValue(id);
 		out.writeValue(username);
 		out.writeValue(url);
+		out.writeValue(logoUrl);
+		out.writeValue(personalDetails);
 	}
 
 	public int describeContents() {

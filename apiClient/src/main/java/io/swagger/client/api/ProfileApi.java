@@ -1,5 +1,6 @@
 package io.swagger.client.api;
 
+import io.swagger.client.model.BetaTestingType;
 import io.swagger.client.model.Currency;
 import io.swagger.client.model.FcmTokenViewModel;
 import io.swagger.client.model.ProfileFullViewModel;
@@ -70,6 +71,28 @@ public interface ProfileApi
 	@POST("v2.0/profile/push/token/remove")
 	Observable<Void> removeFcmToken(
 			@retrofit2.http.Body FcmTokenViewModel body
+	);
+
+	/**
+	 * Disable beta feature
+	 *
+	 * @param feature (optional)
+	 * @return Call&lt;Void&gt;
+	 */
+	@POST("v2.0/profile/beta/off")
+	Observable<Void> switchBetaFeatureOff(
+			@retrofit2.http.Query("feature") BetaTestingType feature
+	);
+
+	/**
+	 * Enable beta feature
+	 *
+	 * @param feature (optional)
+	 * @return Call&lt;Void&gt;
+	 */
+	@POST("v2.0/profile/beta/on")
+	Observable<Void> switchBetaFeatureOn(
+			@retrofit2.http.Query("feature") BetaTestingType feature
 	);
 
 	/**

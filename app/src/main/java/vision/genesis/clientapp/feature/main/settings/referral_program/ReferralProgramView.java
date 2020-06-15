@@ -11,9 +11,9 @@ import com.arellomobile.mvp.viewstate.strategy.StateStrategyType;
 
 interface ReferralProgramView extends MvpView
 {
-	void setReferralFriendsCount(Integer openPositionsCount);
+	void setReferralFriendsCount(Integer friendsCount);
 
-	void setHistoryCount(Integer tradesCount);
+	void setHistoryCount(Integer historyCount);
 
 	@StateStrategyType(OneExecutionStateStrategy.class)
 	void finishActivity();

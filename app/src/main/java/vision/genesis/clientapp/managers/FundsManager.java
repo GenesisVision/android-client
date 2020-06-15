@@ -50,10 +50,12 @@ public class FundsManager
 
 	public Observable<FundDetailsListItemItemsViewModel> getFundsList(ProgramsFilter filter) {
 		return fundsApi.getFunds(
-				FundsFilterSorting.fromValue(filter.getSorting().getValue()), Currency.fromValue(filter.getShowIn().getValue()), null, false,
+				FundsFilterSorting.fromValue(filter.getSorting().getValue()), Currency.fromValue(filter.getShowIn().getValue()),
+				null, null, false,
 				filter.getDateRange().getFrom(), filter.getDateRange().getTo(),
 				filter.getChartPointsCount(), filter.getFacetId() == null ? null : filter.getFacetId().toString(),
-				filter.getMask(), filter.getManagerId(), filter.getIsFavorite(),
+				filter.getMask(), filter.getManagerId(),
+				filter.getIsFavorite(), false,
 				filter.getSkip(), filter.getTake());
 	}
 

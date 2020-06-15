@@ -19,6 +19,8 @@ import com.google.gson.annotations.SerializedName;
 
 import org.joda.time.DateTime;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -65,6 +67,12 @@ public class DashboardTradingAssetCommonDetails implements Parcelable
 	@SerializedName("type")
 	private PrivateTradingAccountType type = null;
 
+	@SerializedName("balances")
+	private List<AmountWithCurrency> balances = null;
+
+	@SerializedName("supportedCurrencies")
+	private List<Currency> supportedCurrencies = null;
+
 	public DashboardTradingAssetCommonDetails() {
 	}
 
@@ -77,6 +85,8 @@ public class DashboardTradingAssetCommonDetails implements Parcelable
 		currency = (Currency) in.readValue(Currency.class.getClassLoader());
 		leverage = (Integer) in.readValue(null);
 		type = (PrivateTradingAccountType) in.readValue(PrivateTradingAccountType.class.getClassLoader());
+		balances = (List<AmountWithCurrency>) in.readValue(AmountWithCurrency.class.getClassLoader());
+		supportedCurrencies = (List<Currency>) in.readValue(Currency.class.getClassLoader());
 	}
 
 	public DashboardTradingAssetCommonDetails title(String title) {
@@ -231,6 +241,60 @@ public class DashboardTradingAssetCommonDetails implements Parcelable
 		this.type = type;
 	}
 
+	public DashboardTradingAssetCommonDetails balances(List<AmountWithCurrency> balances) {
+		this.balances = balances;
+		return this;
+	}
+
+	public DashboardTradingAssetCommonDetails addBalancesItem(AmountWithCurrency balancesItem) {
+		if (this.balances == null) {
+			this.balances = new ArrayList<AmountWithCurrency>();
+		}
+		this.balances.add(balancesItem);
+		return this;
+	}
+
+	/**
+	 * Get balances
+	 *
+	 * @return balances
+	 **/
+	@Schema(description = "")
+	public List<AmountWithCurrency> getBalances() {
+		return balances;
+	}
+
+	public void setBalances(List<AmountWithCurrency> balances) {
+		this.balances = balances;
+	}
+
+	public DashboardTradingAssetCommonDetails supportedCurrencies(List<Currency> supportedCurrencies) {
+		this.supportedCurrencies = supportedCurrencies;
+		return this;
+	}
+
+	public DashboardTradingAssetCommonDetails addSupportedCurrenciesItem(Currency supportedCurrenciesItem) {
+		if (this.supportedCurrencies == null) {
+			this.supportedCurrencies = new ArrayList<Currency>();
+		}
+		this.supportedCurrencies.add(supportedCurrenciesItem);
+		return this;
+	}
+
+	/**
+	 * Get supportedCurrencies
+	 *
+	 * @return supportedCurrencies
+	 **/
+	@Schema(description = "")
+	public List<Currency> getSupportedCurrencies() {
+		return supportedCurrencies;
+	}
+
+	public void setSupportedCurrencies(List<Currency> supportedCurrencies) {
+		this.supportedCurrencies = supportedCurrencies;
+	}
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -247,12 +311,14 @@ public class DashboardTradingAssetCommonDetails implements Parcelable
 				Objects.equals(this.login, dashboardTradingAssetCommonDetails.login) &&
 				Objects.equals(this.currency, dashboardTradingAssetCommonDetails.currency) &&
 				Objects.equals(this.leverage, dashboardTradingAssetCommonDetails.leverage) &&
-				Objects.equals(this.type, dashboardTradingAssetCommonDetails.type);
+				Objects.equals(this.type, dashboardTradingAssetCommonDetails.type) &&
+				Objects.equals(this.balances, dashboardTradingAssetCommonDetails.balances) &&
+				Objects.equals(this.supportedCurrencies, dashboardTradingAssetCommonDetails.supportedCurrencies);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(title, status, creationDate, balance, login, currency, leverage, type);
+		return Objects.hash(title, status, creationDate, balance, login, currency, leverage, type, balances, supportedCurrencies);
 	}
 
 	@Override
@@ -268,6 +334,8 @@ public class DashboardTradingAssetCommonDetails implements Parcelable
 		sb.append("    currency: ").append(toIndentedString(currency)).append("\n");
 		sb.append("    leverage: ").append(toIndentedString(leverage)).append("\n");
 		sb.append("    type: ").append(toIndentedString(type)).append("\n");
+		sb.append("    balances: ").append(toIndentedString(balances)).append("\n");
+		sb.append("    supportedCurrencies: ").append(toIndentedString(supportedCurrencies)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}
@@ -292,6 +360,8 @@ public class DashboardTradingAssetCommonDetails implements Parcelable
 		out.writeValue(currency);
 		out.writeValue(leverage);
 		out.writeValue(type);
+		out.writeValue(balances);
+		out.writeValue(supportedCurrencies);
 	}
 
 	public int describeContents() {

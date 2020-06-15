@@ -4,6 +4,7 @@ import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 
 import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.util.UUID;
 
@@ -21,6 +22,7 @@ import vision.genesis.clientapp.managers.ProgramsManager;
 import vision.genesis.clientapp.model.ProgramRequest;
 import vision.genesis.clientapp.model.User;
 import vision.genesis.clientapp.model.events.OnProgramReinvestChangedEvent;
+import vision.genesis.clientapp.model.events.OnRequestCancelledEvent;
 import vision.genesis.clientapp.net.ApiErrorResolver;
 
 /**
@@ -60,6 +62,8 @@ public class ProgramInfoPresenter extends MvpPresenter<ProgramInfoView>
 
 		GenesisVisionApplication.getComponent().inject(this);
 
+		EventBus.getDefault().register(this);
+
 		subscribeToUser();
 		getViewState().showProgress(true);
 		getProgramDetails();
@@ -82,6 +86,8 @@ public class ProgramInfoPresenter extends MvpPresenter<ProgramInfoView>
 		if (ignoreSoSubscription != null) {
 			ignoreSoSubscription.unsubscribe();
 		}
+
+		EventBus.getDefault().unregister(this);
 
 		super.onDestroy();
 	}
@@ -271,5 +277,10 @@ public class ProgramInfoPresenter extends MvpPresenter<ProgramInfoView>
 
 	private void handleUserError(Throwable throwable) {
 		userLoggedOff();
+	}
+
+	@Subscribe
+	public void onEventMainThread(OnRequestCancelledEvent event) {
+		getProgramDetails();
 	}
 }

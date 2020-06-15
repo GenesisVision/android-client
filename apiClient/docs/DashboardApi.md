@@ -7,6 +7,7 @@ Method | HTTP request | Description
 [**getChart**](DashboardApi.md#getChart) | **GET** v2.0/dashboard/chart | 
 [**getChartAssets**](DashboardApi.md#getChartAssets) | **GET** v2.0/dashboard/chart/assets | Active assets for chart
 [**getDashboardSummary**](DashboardApi.md#getDashboardSummary) | **GET** v2.0/dashboard/summary | 
+[**getExchangeAccountCredentials**](DashboardApi.md#getExchangeAccountCredentials) | **GET** v2.0/dashboard/trading/exchange/credentials | 
 [**getHoldings**](DashboardApi.md#getHoldings) | **GET** v2.0/dashboard/holdings | 
 [**getInvestingDetails**](DashboardApi.md#getInvestingDetails) | **GET** v2.0/dashboard/investing | 
 [**getInvestingFunds**](DashboardApi.md#getInvestingFunds) | **GET** v2.0/dashboard/investing/funds | 
@@ -20,7 +21,7 @@ Method | HTTP request | Description
 
 <a name="getChart"></a>
 # **getChart**
-> DashboardChart getChart(assets, dateFrom, dateTo, chartPointsCount, showIn)
+> DashboardChart getChart(assets, dateFrom, dateTo, chartPointsCount, showIn, skipStatistic)
 
 
 
@@ -47,8 +48,9 @@ DateTime dateFrom = new DateTime(); // DateTime |
 DateTime dateTo = new DateTime(); // DateTime | 
 Integer chartPointsCount = 56; // Integer | 
 Currency showIn = new Currency(); // Currency | 
+Boolean skipStatistic = true; // Boolean | 
 try {
-    DashboardChart result = apiInstance.getChart(assets, dateFrom, dateTo, chartPointsCount, showIn);
+    DashboardChart result = apiInstance.getChart(assets, dateFrom, dateTo, chartPointsCount, showIn, skipStatistic);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling DashboardApi#getChart");
@@ -65,6 +67,7 @@ Name | Type | Description  | Notes
  **dateTo** | **DateTime**|  | [optional]
  **chartPointsCount** | **Integer**|  | [optional]
  **showIn** | [**Currency**](.md)|  | [optional]
+ **skipStatistic** | **Boolean**|  | [optional]
 
 ### Return type
 
@@ -171,6 +174,61 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**DashboardSummary**](DashboardSummary.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
+
+<a name="getExchangeAccountCredentials"></a>
+# **getExchangeAccountCredentials**
+> DashboardExchangeTradingAsset getExchangeAccountCredentials(exchangeAccountId, brokerId)
+
+
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiClient;
+//import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
+//import io.swagger.client.api.DashboardApi;
+
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
+
+DashboardApi apiInstance = new DashboardApi();
+UUID exchangeAccountId = new UUID(); // UUID | 
+UUID brokerId = new UUID(); // UUID | 
+try {
+    DashboardExchangeTradingAsset result = apiInstance.getExchangeAccountCredentials(exchangeAccountId, brokerId);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling DashboardApi#getExchangeAccountCredentials");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **exchangeAccountId** | [**UUID**](.md)|  | [optional]
+ **brokerId** | [**UUID**](.md)|  | [optional]
+
+### Return type
+
+[**DashboardExchangeTradingAsset**](DashboardExchangeTradingAsset.md)
 
 ### Authorization
 
@@ -291,7 +349,7 @@ Name | Type | Description  | Notes
 
 <a name="getInvestingFunds"></a>
 # **getInvestingFunds**
-> FundInvestingDetailsListItemsViewModel getInvestingFunds(sorting, showIn, status, dateFrom, dateTo, chartPointsCount, facetId, mask, ownerId, showFavorites, skip, take)
+> FundInvestingDetailsListItemsViewModel getInvestingFunds(sorting, showIn, status, dateFrom, dateTo, chartPointsCount, facetId, mask, ownerId, showFavorites, skipStatistic, skip, take)
 
 
 
@@ -323,10 +381,11 @@ String facetId = "facetId_example"; // String |
 String mask = "mask_example"; // String | 
 UUID ownerId = new UUID(); // UUID | 
 Boolean showFavorites = true; // Boolean | 
+Boolean skipStatistic = true; // Boolean | 
 Integer skip = 56; // Integer | 
 Integer take = 56; // Integer | 
 try {
-    FundInvestingDetailsListItemsViewModel result = apiInstance.getInvestingFunds(sorting, showIn, status, dateFrom, dateTo, chartPointsCount, facetId, mask, ownerId, showFavorites, skip, take);
+    FundInvestingDetailsListItemsViewModel result = apiInstance.getInvestingFunds(sorting, showIn, status, dateFrom, dateTo, chartPointsCount, facetId, mask, ownerId, showFavorites, skipStatistic, skip, take);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling DashboardApi#getInvestingFunds");
@@ -348,6 +407,7 @@ Name | Type | Description  | Notes
  **mask** | **String**|  | [optional]
  **ownerId** | [**UUID**](.md)|  | [optional]
  **showFavorites** | **Boolean**|  | [optional]
+ **skipStatistic** | **Boolean**|  | [optional]
  **skip** | **Integer**|  | [optional]
  **take** | **Integer**|  | [optional]
 
@@ -366,7 +426,7 @@ Name | Type | Description  | Notes
 
 <a name="getInvestingPrograms"></a>
 # **getInvestingPrograms**
-> ProgramInvestingDetailsListItemsViewModel getInvestingPrograms(sorting, showIn, status, dateFrom, dateTo, chartPointsCount, facetId, mask, ownerId, showFavorites, skip, take)
+> ProgramInvestingDetailsListItemsViewModel getInvestingPrograms(sorting, showIn, status, dateFrom, dateTo, chartPointsCount, facetId, mask, ownerId, showFavorites, skipStatistic, skip, take)
 
 
 
@@ -398,10 +458,11 @@ String facetId = "facetId_example"; // String |
 String mask = "mask_example"; // String | 
 UUID ownerId = new UUID(); // UUID | 
 Boolean showFavorites = true; // Boolean | 
+Boolean skipStatistic = true; // Boolean | 
 Integer skip = 56; // Integer | 
 Integer take = 56; // Integer | 
 try {
-    ProgramInvestingDetailsListItemsViewModel result = apiInstance.getInvestingPrograms(sorting, showIn, status, dateFrom, dateTo, chartPointsCount, facetId, mask, ownerId, showFavorites, skip, take);
+    ProgramInvestingDetailsListItemsViewModel result = apiInstance.getInvestingPrograms(sorting, showIn, status, dateFrom, dateTo, chartPointsCount, facetId, mask, ownerId, showFavorites, skipStatistic, skip, take);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling DashboardApi#getInvestingPrograms");
@@ -423,6 +484,7 @@ Name | Type | Description  | Notes
  **mask** | **String**|  | [optional]
  **ownerId** | [**UUID**](.md)|  | [optional]
  **showFavorites** | **Boolean**|  | [optional]
+ **skipStatistic** | **Boolean**|  | [optional]
  **skip** | **Integer**|  | [optional]
  **take** | **Integer**|  | [optional]
 
@@ -441,7 +503,7 @@ Name | Type | Description  | Notes
 
 <a name="getMostProfitableAssets"></a>
 # **getMostProfitableAssets**
-> DashboardTradingAssetItemsViewModel getMostProfitableAssets(dateFrom, dateTo, chartPointsCount, showIn)
+> DashboardTradingAssetItemsViewModel getMostProfitableAssets(dateFrom, dateTo, chartPointsCount, showIn, skipStatistic)
 
 
 
@@ -467,8 +529,9 @@ DateTime dateFrom = new DateTime(); // DateTime |
 DateTime dateTo = new DateTime(); // DateTime | 
 Integer chartPointsCount = 56; // Integer | 
 Currency showIn = new Currency(); // Currency | 
+Boolean skipStatistic = true; // Boolean | 
 try {
-    DashboardTradingAssetItemsViewModel result = apiInstance.getMostProfitableAssets(dateFrom, dateTo, chartPointsCount, showIn);
+    DashboardTradingAssetItemsViewModel result = apiInstance.getMostProfitableAssets(dateFrom, dateTo, chartPointsCount, showIn, skipStatistic);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling DashboardApi#getMostProfitableAssets");
@@ -484,6 +547,7 @@ Name | Type | Description  | Notes
  **dateTo** | **DateTime**|  | [optional]
  **chartPointsCount** | **Integer**|  | [optional]
  **showIn** | [**Currency**](.md)|  | [optional]
+ **skipStatistic** | **Boolean**|  | [optional]
 
 ### Return type
 
@@ -549,7 +613,7 @@ This endpoint does not need any parameter.
 
 <a name="getPrivateTradingAssets"></a>
 # **getPrivateTradingAssets**
-> DashboardTradingAssetItemsViewModel getPrivateTradingAssets(dateFrom, dateTo, chartPointsCount, showIn, status, skip, take)
+> DashboardTradingAssetItemsViewModel getPrivateTradingAssets(dateFrom, dateTo, chartPointsCount, showIn, status, skipStatistic, skip, take)
 
 
 
@@ -576,10 +640,11 @@ DateTime dateTo = new DateTime(); // DateTime |
 Integer chartPointsCount = 56; // Integer | 
 Currency showIn = new Currency(); // Currency | 
 DashboardAssetStatus status = new DashboardAssetStatus(); // DashboardAssetStatus | 
+Boolean skipStatistic = true; // Boolean | 
 Integer skip = 56; // Integer | 
 Integer take = 56; // Integer | 
 try {
-    DashboardTradingAssetItemsViewModel result = apiInstance.getPrivateTradingAssets(dateFrom, dateTo, chartPointsCount, showIn, status, skip, take);
+    DashboardTradingAssetItemsViewModel result = apiInstance.getPrivateTradingAssets(dateFrom, dateTo, chartPointsCount, showIn, status, skipStatistic, skip, take);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling DashboardApi#getPrivateTradingAssets");
@@ -596,6 +661,7 @@ Name | Type | Description  | Notes
  **chartPointsCount** | **Integer**|  | [optional]
  **showIn** | [**Currency**](.md)|  | [optional]
  **status** | [**DashboardAssetStatus**](.md)|  | [optional]
+ **skipStatistic** | **Boolean**|  | [optional]
  **skip** | **Integer**|  | [optional]
  **take** | **Integer**|  | [optional]
 
@@ -614,7 +680,7 @@ Name | Type | Description  | Notes
 
 <a name="getPublicTradingAssets"></a>
 # **getPublicTradingAssets**
-> DashboardTradingAssetItemsViewModel getPublicTradingAssets(dateFrom, dateTo, chartPointsCount, showIn, status, skip, take)
+> DashboardTradingAssetItemsViewModel getPublicTradingAssets(dateFrom, dateTo, chartPointsCount, showIn, status, skipStatistic, skip, take)
 
 
 
@@ -641,10 +707,11 @@ DateTime dateTo = new DateTime(); // DateTime |
 Integer chartPointsCount = 56; // Integer | 
 Currency showIn = new Currency(); // Currency | 
 DashboardAssetStatus status = new DashboardAssetStatus(); // DashboardAssetStatus | 
+Boolean skipStatistic = true; // Boolean | 
 Integer skip = 56; // Integer | 
 Integer take = 56; // Integer | 
 try {
-    DashboardTradingAssetItemsViewModel result = apiInstance.getPublicTradingAssets(dateFrom, dateTo, chartPointsCount, showIn, status, skip, take);
+    DashboardTradingAssetItemsViewModel result = apiInstance.getPublicTradingAssets(dateFrom, dateTo, chartPointsCount, showIn, status, skipStatistic, skip, take);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling DashboardApi#getPublicTradingAssets");
@@ -661,6 +728,7 @@ Name | Type | Description  | Notes
  **chartPointsCount** | **Integer**|  | [optional]
  **showIn** | [**Currency**](.md)|  | [optional]
  **status** | [**DashboardAssetStatus**](.md)|  | [optional]
+ **skipStatistic** | **Boolean**|  | [optional]
  **skip** | **Integer**|  | [optional]
  **take** | **Integer**|  | [optional]
 

@@ -28,6 +28,7 @@ import vision.genesis.clientapp.managers.SettingsManager;
 import vision.genesis.clientapp.model.CurrencyEnum;
 import vision.genesis.clientapp.model.DateRange;
 import vision.genesis.clientapp.model.events.OnCancelRequestClickedEvent;
+import vision.genesis.clientapp.model.events.OnRequestCancelledEvent;
 import vision.genesis.clientapp.model.filter.ProgramsFilter;
 import vision.genesis.clientapp.net.ApiErrorResolver;
 
@@ -75,6 +76,8 @@ public class InvestmentsDetailsPresenter extends MvpPresenter<InvestmentsDetails
 
 	private Timeframe selectedTimeframe = Timeframe.DAY;
 
+	private boolean isActive = false;
+
 	@Override
 	protected void onFirstViewAttach() {
 		super.onFirstViewAttach();
@@ -114,7 +117,12 @@ public class InvestmentsDetailsPresenter extends MvpPresenter<InvestmentsDetails
 	}
 
 	void onResume() {
+		isActive = true;
 		updateAll();
+	}
+
+	void onPause() {
+		isActive = false;
 	}
 
 	void onSwipeRefresh() {
@@ -289,6 +297,7 @@ public class InvestmentsDetailsPresenter extends MvpPresenter<InvestmentsDetails
 
 	@Subscribe
 	public void onEventMainThread(OnCancelRequestClickedEvent event) {
+
 		cancelRequest(event.getRequestId());
 	}
 
@@ -301,10 +310,10 @@ public class InvestmentsDetailsPresenter extends MvpPresenter<InvestmentsDetails
 		updateAll();
 	}
 
-//	@Subscribe
-//	public void onEventMainThread(ShowDasboardProgramDetailsEvent event) {
-//		getViewState().showProgramDetails(event.getProgram());
-//	}
+	@Subscribe
+	public void onEventMainThread(OnRequestCancelledEvent event) {
+		getRequests();
+	}
 
 //	@Subscribe
 //	public void onEventMainThread(ShowFundDetailsEvent event) {

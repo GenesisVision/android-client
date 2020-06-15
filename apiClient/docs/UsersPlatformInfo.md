@@ -4,3 +4,4 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **tags** | [**List&lt;Tag&gt;**](Tag.md) |  |  [optional]
+**availableBetaFeatures** | [**List&lt;BetaTestingType&gt;**](BetaTestingType.md) |  |  [optional]

@@ -34,6 +34,7 @@ import vision.genesis.clientapp.model.CreateProgramModel;
 import vision.genesis.clientapp.model.ProgramRequest;
 import vision.genesis.clientapp.model.TradingAccountDetailsModel;
 import vision.genesis.clientapp.model.TransferFundsModel;
+import vision.genesis.clientapp.model.events.OnRequestCancelledEvent;
 import vision.genesis.clientapp.model.events.ShowUnfollowTradesEvent;
 import vision.genesis.clientapp.net.ApiErrorResolver;
 
@@ -314,5 +315,10 @@ public class OwnerInfoPresenter extends MvpPresenter<OwnerInfoView>
 	@Subscribe
 	public void onEventMainThread(ShowUnfollowTradesEvent event) {
 		getViewState().showUnfollowTradesActivity(event.getFollowId(), event.getTradingAccountId(), event.getFollowName(), event.isExternal());
+	}
+
+	@Subscribe
+	public void onEventMainThread(OnRequestCancelledEvent event) {
+		getDetails();
 	}
 }

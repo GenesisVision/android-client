@@ -38,7 +38,9 @@ public enum UsersFilterSorting
 	BYPOPULARITYASC("ByPopularityAsc"),
 	BYPOPULARITYDESC("ByPopularityDesc"),
 	BYPROFITASC("ByProfitAsc"),
-	BYPROFITDESC("ByProfitDesc");
+	BYPROFITDESC("ByProfitDesc"),
+	BYACTIVITYASC("ByActivityAsc"),
+	BYACTIVITYDESC("ByActivityDesc");
 
 	public static UsersFilterSorting fromValue(String text) {
 		for (UsersFilterSorting b : UsersFilterSorting.values()) {

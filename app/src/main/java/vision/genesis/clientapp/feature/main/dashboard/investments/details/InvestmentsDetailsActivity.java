@@ -392,6 +392,12 @@ public class InvestmentsDetailsActivity extends BaseSwipeBackActivity implements
 		presenter.onResume();
 	}
 
+	@Override
+	protected void onPause() {
+		super.onPause();
+		presenter.onPause();
+	}
+
 	private void finishActivity() {
 		finish();
 		overridePendingTransition(R.anim.hold, R.anim.activity_slide_to_right);

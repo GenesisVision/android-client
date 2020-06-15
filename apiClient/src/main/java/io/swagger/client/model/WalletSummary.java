@@ -47,12 +47,16 @@ public class WalletSummary implements Parcelable
 	@SerializedName("wallets")
 	private List<WalletData> wallets = null;
 
+	@SerializedName("genesisMarketsDiscountPercent")
+	private Double genesisMarketsDiscountPercent = null;
+
 	public WalletSummary() {
 	}
 
 	WalletSummary(Parcel in) {
 		grandTotal = (WalletsGrandTotal) in.readValue(WalletsGrandTotal.class.getClassLoader());
 		wallets = (List<WalletData>) in.readValue(WalletData.class.getClassLoader());
+		genesisMarketsDiscountPercent = (Double) in.readValue(null);
 	}
 
 	public WalletSummary grandTotal(WalletsGrandTotal grandTotal) {
@@ -101,6 +105,25 @@ public class WalletSummary implements Parcelable
 		this.wallets = wallets;
 	}
 
+	public WalletSummary genesisMarketsDiscountPercent(Double genesisMarketsDiscountPercent) {
+		this.genesisMarketsDiscountPercent = genesisMarketsDiscountPercent;
+		return this;
+	}
+
+	/**
+	 * Get genesisMarketsDiscountPercent
+	 *
+	 * @return genesisMarketsDiscountPercent
+	 **/
+	@Schema(description = "")
+	public Double getGenesisMarketsDiscountPercent() {
+		return genesisMarketsDiscountPercent;
+	}
+
+	public void setGenesisMarketsDiscountPercent(Double genesisMarketsDiscountPercent) {
+		this.genesisMarketsDiscountPercent = genesisMarketsDiscountPercent;
+	}
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -111,12 +134,13 @@ public class WalletSummary implements Parcelable
 		}
 		WalletSummary walletSummary = (WalletSummary) o;
 		return Objects.equals(this.grandTotal, walletSummary.grandTotal) &&
-				Objects.equals(this.wallets, walletSummary.wallets);
+				Objects.equals(this.wallets, walletSummary.wallets) &&
+				Objects.equals(this.genesisMarketsDiscountPercent, walletSummary.genesisMarketsDiscountPercent);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(grandTotal, wallets);
+		return Objects.hash(grandTotal, wallets, genesisMarketsDiscountPercent);
 	}
 
 	@Override
@@ -126,6 +150,7 @@ public class WalletSummary implements Parcelable
 
 		sb.append("    grandTotal: ").append(toIndentedString(grandTotal)).append("\n");
 		sb.append("    wallets: ").append(toIndentedString(wallets)).append("\n");
+		sb.append("    genesisMarketsDiscountPercent: ").append(toIndentedString(genesisMarketsDiscountPercent)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}
@@ -144,6 +169,7 @@ public class WalletSummary implements Parcelable
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(grandTotal);
 		out.writeValue(wallets);
+		out.writeValue(genesisMarketsDiscountPercent);
 	}
 
 	public int describeContents() {

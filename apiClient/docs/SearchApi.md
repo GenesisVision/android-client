@@ -8,7 +8,7 @@ Method | HTTP request | Description
 
 <a name="search"></a>
 # **search**
-> CommonPublicAssetsViewModel search(mask, take)
+> CommonPublicAssetsViewModel search(mask, take, skipStatistic)
 
 Program / fund / manager search
 
@@ -32,8 +32,9 @@ Bearer.setApiKey("YOUR API KEY");
 SearchApi apiInstance = new SearchApi();
 String mask = "mask_example"; // String | 
 Integer take = 56; // Integer | 
+Boolean skipStatistic = true; // Boolean | 
 try {
-    CommonPublicAssetsViewModel result = apiInstance.search(mask, take);
+    CommonPublicAssetsViewModel result = apiInstance.search(mask, take, skipStatistic);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling SearchApi#search");
@@ -47,6 +48,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **mask** | **String**|  | [optional]
  **take** | **Integer**|  | [optional]
+ **skipStatistic** | **Boolean**|  | [optional]
 
 ### Return type
 

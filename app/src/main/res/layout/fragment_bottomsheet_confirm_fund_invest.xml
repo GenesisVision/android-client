@@ -98,6 +98,7 @@
 
                     <TextView
                         style="@style/confirmation_dialog_label"
+                        android:id="@+id/label_amount_to_invest"
                         android:text="@string/amount_to_invest"/>
 
                     <TextView

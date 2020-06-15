@@ -52,10 +52,11 @@ public class ProgramsManager
 				filter.getTags(),
 				filter.getCurrency() == null ? null : Currency.fromValue(filter.getCurrency().getValue()),
 				filter.getLevelMin(), filter.getLevelMax(),
-				null, false,
+				null, null, false,
 				filter.getDateRange().getFrom(), filter.getDateRange().getTo(),
 				filter.getChartPointsCount(), filter.getFacetId() == null ? null : filter.getFacetId().toString(),
-				filter.getMask(), filter.getManagerId(), false,
+				filter.getMask(), filter.getManagerId(),
+				false, false,
 				filter.getSkip(), filter.getTake());
 	}
 

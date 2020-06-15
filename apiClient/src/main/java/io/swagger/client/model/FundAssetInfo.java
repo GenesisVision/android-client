@@ -54,6 +54,9 @@ public class FundAssetInfo implements Parcelable
 	@SerializedName("current")
 	private Double current = null;
 
+	@SerializedName("currentAmount")
+	private Double currentAmount = null;
+
 	@SerializedName("url")
 	private String url = null;
 
@@ -66,6 +69,7 @@ public class FundAssetInfo implements Parcelable
 		logoUrl = (String) in.readValue(null);
 		target = (Double) in.readValue(null);
 		current = (Double) in.readValue(null);
+		currentAmount = (Double) in.readValue(null);
 		url = (String) in.readValue(null);
 	}
 
@@ -164,6 +168,25 @@ public class FundAssetInfo implements Parcelable
 		this.current = current;
 	}
 
+	public FundAssetInfo currentAmount(Double currentAmount) {
+		this.currentAmount = currentAmount;
+		return this;
+	}
+
+	/**
+	 * Get currentAmount
+	 *
+	 * @return currentAmount
+	 **/
+	@Schema(description = "")
+	public Double getCurrentAmount() {
+		return currentAmount;
+	}
+
+	public void setCurrentAmount(Double currentAmount) {
+		this.currentAmount = currentAmount;
+	}
+
 	public FundAssetInfo url(String url) {
 		this.url = url;
 		return this;
@@ -197,12 +220,13 @@ public class FundAssetInfo implements Parcelable
 				Objects.equals(this.logoUrl, fundAssetInfo.logoUrl) &&
 				Objects.equals(this.target, fundAssetInfo.target) &&
 				Objects.equals(this.current, fundAssetInfo.current) &&
+				Objects.equals(this.currentAmount, fundAssetInfo.currentAmount) &&
 				Objects.equals(this.url, fundAssetInfo.url);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(asset, symbol, logoUrl, target, current, url);
+		return Objects.hash(asset, symbol, logoUrl, target, current, currentAmount, url);
 	}
 
 	@Override
@@ -215,6 +239,7 @@ public class FundAssetInfo implements Parcelable
 		sb.append("    logoUrl: ").append(toIndentedString(logoUrl)).append("\n");
 		sb.append("    target: ").append(toIndentedString(target)).append("\n");
 		sb.append("    current: ").append(toIndentedString(current)).append("\n");
+		sb.append("    currentAmount: ").append(toIndentedString(currentAmount)).append("\n");
 		sb.append("    url: ").append(toIndentedString(url)).append("\n");
 		sb.append("}");
 		return sb.toString();
@@ -237,6 +262,7 @@ public class FundAssetInfo implements Parcelable
 		out.writeValue(logoUrl);
 		out.writeValue(target);
 		out.writeValue(current);
+		out.writeValue(currentAmount);
 		out.writeValue(url);
 	}
 

@@ -5,9 +5,11 @@ import java.util.UUID;
 
 import io.swagger.client.model.EditPost;
 import io.swagger.client.model.EditablePost;
+import io.swagger.client.model.MediaPostItemsViewModel;
 import io.swagger.client.model.NewPost;
 import io.swagger.client.model.PostItemsViewModel;
 import io.swagger.client.model.RePost;
+import io.swagger.client.model.SocialLinkType;
 import io.swagger.client.model.SocialSummary;
 import io.swagger.client.model.UserFeedMode;
 import retrofit2.http.GET;
@@ -70,19 +72,21 @@ public interface SocialApi
 	/**
 	 * Get feed
 	 *
-	 * @param userId    (optional)
-	 * @param userMode  (optional)
-	 * @param hashTags  (optional)
-	 * @param mask      (optional)
-	 * @param showTop   (optional)
-	 * @param showLiked (optional)
-	 * @param skip      (optional)
-	 * @param take      (optional)
+	 * @param userId        (optional)
+	 * @param tagContentId  (optional)
+	 * @param tagContentIds (optional)
+	 * @param userMode      (optional)
+	 * @param hashTags      (optional)
+	 * @param mask          (optional)
+	 * @param showTop       (optional)
+	 * @param showLiked     (optional)
+	 * @param skip          (optional)
+	 * @param take          (optional)
 	 * @return Call&lt;PostItemsViewModel&gt;
 	 */
 	@GET("v2.0/social/feed")
 	Observable<PostItemsViewModel> getFeed(
-			@retrofit2.http.Query("UserId") UUID userId, @retrofit2.http.Query("UserMode") UserFeedMode userMode, @retrofit2.http.Query("HashTags") List<String> hashTags, @retrofit2.http.Query("Mask") String mask, @retrofit2.http.Query("ShowTop") Boolean showTop, @retrofit2.http.Query("ShowLiked") Boolean showLiked, @retrofit2.http.Query("Skip") Integer skip, @retrofit2.http.Query("Take") Integer take
+			@retrofit2.http.Query("UserId") UUID userId, @retrofit2.http.Query("TagContentId") UUID tagContentId, @retrofit2.http.Query("TagContentIds") List<UUID> tagContentIds, @retrofit2.http.Query("UserMode") UserFeedMode userMode, @retrofit2.http.Query("HashTags") List<String> hashTags, @retrofit2.http.Query("Mask") String mask, @retrofit2.http.Query("ShowTop") Boolean showTop, @retrofit2.http.Query("ShowLiked") Boolean showLiked, @retrofit2.http.Query("Skip") Integer skip, @retrofit2.http.Query("Take") Integer take
 	);
 
 	/**
@@ -94,6 +98,20 @@ public interface SocialApi
 	@GET("v2.0/social/feed/{id}")
 	Observable<EditablePost> getPost(
 			@retrofit2.http.Path("id") UUID id
+	);
+
+	/**
+	 * Get social media
+	 *
+	 * @param mask (optional)
+	 * @param type (optional)
+	 * @param skip (optional)
+	 * @param take (optional)
+	 * @return Call&lt;MediaPostItemsViewModel&gt;
+	 */
+	@GET("v2.0/social/feed/media")
+	Observable<MediaPostItemsViewModel> getSocialMedia(
+			@retrofit2.http.Query("Mask") String mask, @retrofit2.http.Query("Type") SocialLinkType type, @retrofit2.http.Query("Skip") Integer skip, @retrofit2.http.Query("Take") Integer take
 	);
 
 	/**

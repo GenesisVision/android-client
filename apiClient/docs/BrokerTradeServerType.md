@@ -13,3 +13,4 @@
 * `HUOBI` (value: `"Huobi"`)
 * `EXANTE` (value: `"Exante"`)
 * `BINANCEFOLLOW` (value: `"BinanceFollow"`)
+* `BINANCE` (value: `"Binance"`)

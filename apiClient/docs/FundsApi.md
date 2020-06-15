@@ -313,7 +313,7 @@ Name | Type | Description  | Notes
 
 <a name="getFunds"></a>
 # **getFunds**
-> FundDetailsListItemItemsViewModel getFunds(sorting, showIn, assets, includeWithInvestments, dateFrom, dateTo, chartPointsCount, facetId, mask, ownerId, showFavorites, skip, take)
+> FundDetailsListItemItemsViewModel getFunds(sorting, showIn, assets, investorId, includeWithInvestments, dateFrom, dateTo, chartPointsCount, facetId, mask, ownerId, showFavorites, skipStatistic, skip, take)
 
 Funds list
 
@@ -338,6 +338,7 @@ FundsApi apiInstance = new FundsApi();
 FundsFilterSorting sorting = new FundsFilterSorting(); // FundsFilterSorting | 
 Currency showIn = new Currency(); // Currency | 
 List<String> assets = Arrays.asList("assets_example"); // List<String> | 
+UUID investorId = new UUID(); // UUID | 
 Boolean includeWithInvestments = true; // Boolean | 
 DateTime dateFrom = new DateTime(); // DateTime | 
 DateTime dateTo = new DateTime(); // DateTime | 
@@ -346,10 +347,11 @@ String facetId = "facetId_example"; // String |
 String mask = "mask_example"; // String | 
 UUID ownerId = new UUID(); // UUID | 
 Boolean showFavorites = true; // Boolean | 
+Boolean skipStatistic = true; // Boolean | 
 Integer skip = 56; // Integer | 
 Integer take = 56; // Integer | 
 try {
-    FundDetailsListItemItemsViewModel result = apiInstance.getFunds(sorting, showIn, assets, includeWithInvestments, dateFrom, dateTo, chartPointsCount, facetId, mask, ownerId, showFavorites, skip, take);
+    FundDetailsListItemItemsViewModel result = apiInstance.getFunds(sorting, showIn, assets, investorId, includeWithInvestments, dateFrom, dateTo, chartPointsCount, facetId, mask, ownerId, showFavorites, skipStatistic, skip, take);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling FundsApi#getFunds");
@@ -364,6 +366,7 @@ Name | Type | Description  | Notes
  **sorting** | [**FundsFilterSorting**](.md)|  | [optional]
  **showIn** | [**Currency**](.md)|  | [optional]
  **assets** | [**List&lt;String&gt;**](String.md)|  | [optional]
+ **investorId** | [**UUID**](.md)|  | [optional]
  **includeWithInvestments** | **Boolean**|  | [optional]
  **dateFrom** | **DateTime**|  | [optional]
  **dateTo** | **DateTime**|  | [optional]
@@ -372,6 +375,7 @@ Name | Type | Description  | Notes
  **mask** | **String**|  | [optional]
  **ownerId** | [**UUID**](.md)|  | [optional]
  **showFavorites** | **Boolean**|  | [optional]
+ **skipStatistic** | **Boolean**|  | [optional]
  **skip** | **Integer**|  | [optional]
  **take** | **Integer**|  | [optional]
 

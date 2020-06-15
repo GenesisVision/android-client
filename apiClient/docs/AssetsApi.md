@@ -4,6 +4,7 @@ All URIs are relative to *https://red.genesis.vision/api*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**addFavoriteSymbol**](AssetsApi.md#addFavoriteSymbol) | **POST** v2.0/assets/tradingaccounts/{id}/symbol/favorite/{symbol}/add | Add trading account favorite symbol
 [**cancelChangeBroker**](AssetsApi.md#cancelChangeBroker) | **POST** v2.0/assets/programs/{id}/broker/change/cancel | Cancel changing broker in existing program
 [**changeBroker**](AssetsApi.md#changeBroker) | **POST** v2.0/assets/programs/{id}/broker/change | Change broker in existing program
 [**changeTradingAccountPassword**](AssetsApi.md#changeTradingAccountPassword) | **POST** v2.0/assets/tradingaccounts/{id}/password/change | Change trading account password
@@ -12,9 +13,11 @@ Method | HTTP request | Description
 [**closeInvestmentProgram**](AssetsApi.md#closeInvestmentProgram) | **POST** v2.0/assets/programs/{id}/close | Close existing investment program
 [**closeTradingAccount**](AssetsApi.md#closeTradingAccount) | **POST** v2.0/assets/tradingaccounts/{id}/close | Close trading account
 [**confirmProgram2FA**](AssetsApi.md#confirmProgram2FA) | **POST** v2.0/assets/programs/{id}/2fa/confirm | Confirm 2FA for program if required (for brokers like Huobi)
+[**createExchangeAccount**](AssetsApi.md#createExchangeAccount) | **POST** v2.0/assets/tradingaccounts/exchange/create | Create exchange account
 [**createExternalTradingAccount**](AssetsApi.md#createExternalTradingAccount) | **POST** v2.0/assets/tradingaccounts/external/create | Create external trading account
 [**createFund**](AssetsApi.md#createFund) | **POST** v2.0/assets/funds/create | Create fund
 [**createTradingAccount**](AssetsApi.md#createTradingAccount) | **POST** v2.0/assets/tradingaccounts/create | Create trading account
+[**getFavoriteSymbols**](AssetsApi.md#getFavoriteSymbols) | **GET** v2.0/assets/tradingaccounts/{id}/symbol/favorite | Get trading account favorite symbols
 [**getLevelsCalculator**](AssetsApi.md#getLevelsCalculator) | **GET** v2.0/assets/programs/{id}/levels/info | Get program data for levels calculator
 [**getProgram2FA**](AssetsApi.md#getProgram2FA) | **GET** v2.0/assets/programs/{id}/2fa/get | Get 2FA for program if needed
 [**makeAccountProgram**](AssetsApi.md#makeAccountProgram) | **POST** v2.0/assets/programs/fromaccount/create | Create an investment program
@@ -22,11 +25,67 @@ Method | HTTP request | Description
 [**makeDemoTradingAccountDeposit**](AssetsApi.md#makeDemoTradingAccountDeposit) | **POST** v2.0/assets/tradingaccounts/{id}/demo/deposit | Make demo trading account deposit
 [**makeExternalAccountSignalProvider**](AssetsApi.md#makeExternalAccountSignalProvider) | **POST** v2.0/assets/tradingaccounts/external/fromaccount/create | Make external trading account signal provider
 [**makeSignalProviderProgram**](AssetsApi.md#makeSignalProviderProgram) | **POST** v2.0/assets/programs/fromsignalprovider/create | Create an investment program
+[**removeFavoriteSymbol**](AssetsApi.md#removeFavoriteSymbol) | **POST** v2.0/assets/tradingaccounts/{id}/symbol/favorite/{symbol}/remove | Remove trading account favorite symbol
 [**updateAsset**](AssetsApi.md#updateAsset) | **POST** v2.0/assets/follow/{id}/update | Update investment program/fund details
 [**updateAsset_0**](AssetsApi.md#updateAsset_0) | **POST** v2.0/assets/funds/{id}/update | Update investment program/fund details
 [**updateAsset_1**](AssetsApi.md#updateAsset_1) | **POST** v2.0/assets/programs/{id}/update | Update investment program/fund details
 [**updateFundAssets**](AssetsApi.md#updateFundAssets) | **POST** v2.0/assets/funds/{id}/assets/update | Update fund assets parts
 [**updateSignalProviderSettings**](AssetsApi.md#updateSignalProviderSettings) | **POST** v2.0/assets/signal/edit | Edit account signal settings
+
+<a name="addFavoriteSymbol"></a>
+# **addFavoriteSymbol**
+> Void addFavoriteSymbol(id, symbol)
+
+Add trading account favorite symbol
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiClient;
+//import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
+//import io.swagger.client.api.AssetsApi;
+
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
+
+AssetsApi apiInstance = new AssetsApi();
+UUID id = new UUID(); // UUID | 
+String symbol = "symbol_example"; // String | 
+try {
+    Void result = apiInstance.addFavoriteSymbol(id, symbol);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling AssetsApi#addFavoriteSymbol");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | [**UUID**](.md)|  |
+ **symbol** | **String**|  |
+
+### Return type
+
+[**Void**](.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
 
 <a name="cancelChangeBroker"></a>
 # **cancelChangeBroker**
@@ -462,6 +521,59 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, text/json, application/_*+json
  - **Accept**: text/plain, application/json, text/json
 
+<a name="createExchangeAccount"></a>
+# **createExchangeAccount**
+> TradingAccountCreateResult createExchangeAccount(body)
+
+Create exchange account
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiClient;
+//import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
+//import io.swagger.client.api.AssetsApi;
+
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
+
+AssetsApi apiInstance = new AssetsApi();
+NewExchangeAccountRequest body = new NewExchangeAccountRequest(); // NewExchangeAccountRequest | 
+try {
+    TradingAccountCreateResult result = apiInstance.createExchangeAccount(body);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling AssetsApi#createExchangeAccount");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **body** | [**NewExchangeAccountRequest**](NewExchangeAccountRequest.md)|  | [optional]
+
+### Return type
+
+[**TradingAccountCreateResult**](TradingAccountCreateResult.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json, text/json, application/_*+json
+ - **Accept**: text/plain, application/json, text/json
+
 <a name="createExternalTradingAccount"></a>
 # **createExternalTradingAccount**
 > TradingAccountCreateResult createExternalTradingAccount(body)
@@ -619,6 +731,59 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: application/json, text/json, application/_*+json
+ - **Accept**: text/plain, application/json, text/json
+
+<a name="getFavoriteSymbols"></a>
+# **getFavoriteSymbols**
+> StringItemsViewModel getFavoriteSymbols(id)
+
+Get trading account favorite symbols
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiClient;
+//import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
+//import io.swagger.client.api.AssetsApi;
+
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
+
+AssetsApi apiInstance = new AssetsApi();
+UUID id = new UUID(); // UUID | 
+try {
+    StringItemsViewModel result = apiInstance.getFavoriteSymbols(id);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling AssetsApi#getFavoriteSymbols");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | [**UUID**](.md)|  |
+
+### Return type
+
+[**StringItemsViewModel**](StringItemsViewModel.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
  - **Accept**: text/plain, application/json, text/json
 
 <a name="getLevelsCalculator"></a>
@@ -992,6 +1157,61 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: application/json, text/json, application/_*+json
+ - **Accept**: text/plain, application/json, text/json
+
+<a name="removeFavoriteSymbol"></a>
+# **removeFavoriteSymbol**
+> Void removeFavoriteSymbol(id, symbol)
+
+Remove trading account favorite symbol
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiClient;
+//import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
+//import io.swagger.client.api.AssetsApi;
+
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
+
+AssetsApi apiInstance = new AssetsApi();
+UUID id = new UUID(); // UUID | 
+String symbol = "symbol_example"; // String | 
+try {
+    Void result = apiInstance.removeFavoriteSymbol(id, symbol);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling AssetsApi#removeFavoriteSymbol");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | [**UUID**](.md)|  |
+ **symbol** | **String**|  |
+
+### Return type
+
+[**Void**](.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
  - **Accept**: text/plain, application/json, text/json
 
 <a name="updateAsset"></a>

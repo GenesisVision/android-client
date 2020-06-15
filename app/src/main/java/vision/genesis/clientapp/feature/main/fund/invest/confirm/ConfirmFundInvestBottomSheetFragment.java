@@ -57,6 +57,9 @@ public class ConfirmFundInvestBottomSheetFragment extends BottomSheetDialogFragm
 	@BindView(R.id.manager_name)
 	public TextView managerName;
 
+	@BindView(R.id.label_amount_to_invest)
+	public TextView amountToInvestLabel;
+
 	@BindView(R.id.amount_to_invest)
 	public TextView amountToInvest;
 
@@ -172,6 +175,8 @@ public class ConfirmFundInvestBottomSheetFragment extends BottomSheetDialogFragm
 			investmentAmount.setText(fundRequest.getAmountBottomText());
 
 			if (fundRequest.isOwnFund()) {
+				title.setText(R.string.confirm_deposit);
+				amountToInvestLabel.setText(R.string.amount_to_deposit);
 				commissionsGroup.setVisibility(View.GONE);
 			}
 		}

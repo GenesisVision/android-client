@@ -8,3 +8,4 @@
 * `PRIVATETRADINGACCOUNT` (value: `"PrivateTradingAccount"`)
 * `SIGNALTRADINGACCOUNT` (value: `"SignalTradingAccount"`)
 * `PUBLICTRADINGACCOUNT` (value: `"PublicTradingAccount"`)
+* `EXCHANGEACCOUNT` (value: `"ExchangeAccount"`)

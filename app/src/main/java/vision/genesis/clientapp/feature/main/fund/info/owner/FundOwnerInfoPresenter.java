@@ -23,6 +23,7 @@ import vision.genesis.clientapp.model.CurrencyEnum;
 import vision.genesis.clientapp.model.FundRequest;
 import vision.genesis.clientapp.model.User;
 import vision.genesis.clientapp.model.events.OnFundStatisticsUpdatedEvent;
+import vision.genesis.clientapp.model.events.OnRequestCancelledEvent;
 
 /**
  * GenesisVisionAndroid
@@ -214,5 +215,10 @@ public class FundOwnerInfoPresenter extends MvpPresenter<FundOwnerInfoView>
 		if (event.getFundId().equals(fundId)) {
 			getViewState().updateStatistics(event.getStatistic(), event.getBaseCurrency());
 		}
+	}
+
+	@Subscribe
+	public void onEventMainThread(OnRequestCancelledEvent event) {
+		getFundDetails();
 	}
 }

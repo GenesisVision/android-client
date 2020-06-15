@@ -837,7 +837,7 @@ Name | Type | Description  | Notes
 
 <a name="getPrograms"></a>
 # **getPrograms**
-> ProgramDetailsListItemItemsViewModel getPrograms(sorting, showIn, tags, programCurrency, levelMin, levelMax, levelsSet, includeWithInvestments, dateFrom, dateTo, chartPointsCount, facetId, mask, ownerId, showFavorites, skip, take)
+> ProgramDetailsListItemItemsViewModel getPrograms(sorting, showIn, tags, programCurrency, levelMin, levelMax, levelsSet, investorId, includeWithInvestments, dateFrom, dateTo, chartPointsCount, facetId, mask, ownerId, showFavorites, skipStatistic, skip, take)
 
 Programs list
 
@@ -866,6 +866,7 @@ Currency programCurrency = new Currency(); // Currency |
 Integer levelMin = 56; // Integer | 
 Integer levelMax = 56; // Integer | 
 List<Integer> levelsSet = Arrays.asList(56); // List<Integer> | 
+UUID investorId = new UUID(); // UUID | 
 Boolean includeWithInvestments = true; // Boolean | 
 DateTime dateFrom = new DateTime(); // DateTime | 
 DateTime dateTo = new DateTime(); // DateTime | 
@@ -874,10 +875,11 @@ String facetId = "facetId_example"; // String |
 String mask = "mask_example"; // String | 
 UUID ownerId = new UUID(); // UUID | 
 Boolean showFavorites = true; // Boolean | 
+Boolean skipStatistic = true; // Boolean | 
 Integer skip = 56; // Integer | 
 Integer take = 56; // Integer | 
 try {
-    ProgramDetailsListItemItemsViewModel result = apiInstance.getPrograms(sorting, showIn, tags, programCurrency, levelMin, levelMax, levelsSet, includeWithInvestments, dateFrom, dateTo, chartPointsCount, facetId, mask, ownerId, showFavorites, skip, take);
+    ProgramDetailsListItemItemsViewModel result = apiInstance.getPrograms(sorting, showIn, tags, programCurrency, levelMin, levelMax, levelsSet, investorId, includeWithInvestments, dateFrom, dateTo, chartPointsCount, facetId, mask, ownerId, showFavorites, skipStatistic, skip, take);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling ProgramsApi#getPrograms");
@@ -896,6 +898,7 @@ Name | Type | Description  | Notes
  **levelMin** | **Integer**|  | [optional]
  **levelMax** | **Integer**|  | [optional]
  **levelsSet** | [**List&lt;Integer&gt;**](Integer.md)|  | [optional]
+ **investorId** | [**UUID**](.md)|  | [optional]
  **includeWithInvestments** | **Boolean**|  | [optional]
  **dateFrom** | **DateTime**|  | [optional]
  **dateTo** | **DateTime**|  | [optional]
@@ -904,6 +907,7 @@ Name | Type | Description  | Notes
  **mask** | **String**|  | [optional]
  **ownerId** | [**UUID**](.md)|  | [optional]
  **showFavorites** | **Boolean**|  | [optional]
+ **skipStatistic** | **Boolean**|  | [optional]
  **skip** | **Integer**|  | [optional]
  **take** | **Integer**|  | [optional]
 

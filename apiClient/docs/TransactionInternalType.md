@@ -12,3 +12,4 @@
 * `FOLLOW` (value: `"Follow"`)
 * `TRADINGACCOUNTS` (value: `"TradingAccounts"`)
 * `AGENTREWARD` (value: `"AgentReward"`)
+* `EXCHANGEACCOUNTS` (value: `"ExchangeAccounts"`)

@@ -9,11 +9,13 @@ import io.swagger.client.model.FundAssetPart;
 import io.swagger.client.model.MakeSignalProviderProgram;
 import io.swagger.client.model.MakeTradingAccountProgram;
 import io.swagger.client.model.MakeTradingAccountSignalProvider;
+import io.swagger.client.model.NewExchangeAccountRequest;
 import io.swagger.client.model.NewExternalTradingAccountRequest;
 import io.swagger.client.model.NewFundRequest;
 import io.swagger.client.model.NewTradingAccountRequest;
 import io.swagger.client.model.ProgramLevelInfo;
 import io.swagger.client.model.ProgramUpdate;
+import io.swagger.client.model.StringItemsViewModel;
 import io.swagger.client.model.TradingAccountCreateResult;
 import io.swagger.client.model.TradingAccountDemoDeposit;
 import io.swagger.client.model.TradingAccountPwdUpdate;
@@ -26,6 +28,18 @@ import rx.Observable;
 
 public interface AssetsApi
 {
+	/**
+	 * Add trading account favorite symbol
+	 *
+	 * @param id     (required)
+	 * @param symbol (required)
+	 * @return Call&lt;Void&gt;
+	 */
+	@POST("v2.0/assets/tradingaccounts/{id}/symbol/favorite/{symbol}/add")
+	Observable<Void> addFavoriteSymbol(
+			@retrofit2.http.Path("id") UUID id, @retrofit2.http.Path("symbol") String symbol
+	);
+
 	/**
 	 * Cancel changing broker in existing program
 	 *
@@ -135,6 +149,20 @@ public interface AssetsApi
 	);
 
 	/**
+	 * Create exchange account
+	 *
+	 * @param body (optional)
+	 * @return Call&lt;TradingAccountCreateResult&gt;
+	 */
+	@Headers({
+			"Content-Type:application/json"
+	})
+	@POST("v2.0/assets/tradingaccounts/exchange/create")
+	Observable<TradingAccountCreateResult> createExchangeAccount(
+			@retrofit2.http.Body NewExchangeAccountRequest body
+	);
+
+	/**
 	 * Create external trading account
 	 *
 	 * @param body (optional)
@@ -174,6 +202,17 @@ public interface AssetsApi
 	@POST("v2.0/assets/tradingaccounts/create")
 	Observable<TradingAccountCreateResult> createTradingAccount(
 			@retrofit2.http.Body NewTradingAccountRequest body
+	);
+
+	/**
+	 * Get trading account favorite symbols
+	 *
+	 * @param id (required)
+	 * @return Call&lt;StringItemsViewModel&gt;
+	 */
+	@GET("v2.0/assets/tradingaccounts/{id}/symbol/favorite")
+	Observable<StringItemsViewModel> getFavoriteSymbols(
+			@retrofit2.http.Path("id") UUID id
 	);
 
 	/**
@@ -267,6 +306,18 @@ public interface AssetsApi
 	@POST("v2.0/assets/programs/fromsignalprovider/create")
 	Observable<Void> makeSignalProviderProgram(
 			@retrofit2.http.Body MakeSignalProviderProgram body
+	);
+
+	/**
+	 * Remove trading account favorite symbol
+	 *
+	 * @param id     (required)
+	 * @param symbol (required)
+	 * @return Call&lt;Void&gt;
+	 */
+	@POST("v2.0/assets/tradingaccounts/{id}/symbol/favorite/{symbol}/remove")
+	Observable<Void> removeFavoriteSymbol(
+			@retrofit2.http.Path("id") UUID id, @retrofit2.http.Path("symbol") String symbol
 	);
 
 	/**

@@ -19,7 +19,7 @@ public class UsersManager
 	}
 
 	public Observable<PublicProfile> getUser(String userId, ImageQuality imageQuality) {
-		return usersApi.getManagerProfile(userId, imageQuality);
+		return usersApi.getUserProfile(userId, imageQuality);
 	}
 
 }

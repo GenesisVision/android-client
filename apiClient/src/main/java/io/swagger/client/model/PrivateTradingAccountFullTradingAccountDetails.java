@@ -17,6 +17,8 @@ import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -54,6 +56,9 @@ public class PrivateTradingAccountFullTradingAccountDetails implements Parcelabl
 	@SerializedName("balance")
 	private Double balance = null;
 
+	@SerializedName("balances")
+	private List<AmountWithCurrency> balances = null;
+
 	@SerializedName("type")
 	private PrivateTradingAccountType type = null;
 
@@ -66,6 +71,9 @@ public class PrivateTradingAccountFullTradingAccountDetails implements Parcelabl
 	@SerializedName("showTradingLog")
 	private Boolean showTradingLog = null;
 
+	@SerializedName("supportedCurrencies")
+	private List<Currency> supportedCurrencies = null;
+
 	public PrivateTradingAccountFullTradingAccountDetails() {
 	}
 
@@ -75,10 +83,12 @@ public class PrivateTradingAccountFullTradingAccountDetails implements Parcelabl
 		apiKey = (String) in.readValue(null);
 		login = (String) in.readValue(null);
 		balance = (Double) in.readValue(null);
+		balances = (List<AmountWithCurrency>) in.readValue(AmountWithCurrency.class.getClassLoader());
 		type = (PrivateTradingAccountType) in.readValue(PrivateTradingAccountType.class.getClassLoader());
 		subscriptions = (Integer) in.readValue(null);
 		isExternal = (Boolean) in.readValue(null);
 		showTradingLog = (Boolean) in.readValue(null);
+		supportedCurrencies = (List<Currency>) in.readValue(Currency.class.getClassLoader());
 	}
 
 	public PrivateTradingAccountFullTradingAccountDetails currency(Currency currency) {
@@ -176,6 +186,33 @@ public class PrivateTradingAccountFullTradingAccountDetails implements Parcelabl
 		this.balance = balance;
 	}
 
+	public PrivateTradingAccountFullTradingAccountDetails balances(List<AmountWithCurrency> balances) {
+		this.balances = balances;
+		return this;
+	}
+
+	public PrivateTradingAccountFullTradingAccountDetails addBalancesItem(AmountWithCurrency balancesItem) {
+		if (this.balances == null) {
+			this.balances = new ArrayList<AmountWithCurrency>();
+		}
+		this.balances.add(balancesItem);
+		return this;
+	}
+
+	/**
+	 * Get balances
+	 *
+	 * @return balances
+	 **/
+	@Schema(description = "")
+	public List<AmountWithCurrency> getBalances() {
+		return balances;
+	}
+
+	public void setBalances(List<AmountWithCurrency> balances) {
+		this.balances = balances;
+	}
+
 	public PrivateTradingAccountFullTradingAccountDetails type(PrivateTradingAccountType type) {
 		this.type = type;
 		return this;
@@ -252,6 +289,33 @@ public class PrivateTradingAccountFullTradingAccountDetails implements Parcelabl
 		this.showTradingLog = showTradingLog;
 	}
 
+	public PrivateTradingAccountFullTradingAccountDetails supportedCurrencies(List<Currency> supportedCurrencies) {
+		this.supportedCurrencies = supportedCurrencies;
+		return this;
+	}
+
+	public PrivateTradingAccountFullTradingAccountDetails addSupportedCurrenciesItem(Currency supportedCurrenciesItem) {
+		if (this.supportedCurrencies == null) {
+			this.supportedCurrencies = new ArrayList<Currency>();
+		}
+		this.supportedCurrencies.add(supportedCurrenciesItem);
+		return this;
+	}
+
+	/**
+	 * Get supportedCurrencies
+	 *
+	 * @return supportedCurrencies
+	 **/
+	@Schema(description = "")
+	public List<Currency> getSupportedCurrencies() {
+		return supportedCurrencies;
+	}
+
+	public void setSupportedCurrencies(List<Currency> supportedCurrencies) {
+		this.supportedCurrencies = supportedCurrencies;
+	}
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -266,15 +330,17 @@ public class PrivateTradingAccountFullTradingAccountDetails implements Parcelabl
 				Objects.equals(this.apiKey, privateTradingAccountFullTradingAccountDetails.apiKey) &&
 				Objects.equals(this.login, privateTradingAccountFullTradingAccountDetails.login) &&
 				Objects.equals(this.balance, privateTradingAccountFullTradingAccountDetails.balance) &&
+				Objects.equals(this.balances, privateTradingAccountFullTradingAccountDetails.balances) &&
 				Objects.equals(this.type, privateTradingAccountFullTradingAccountDetails.type) &&
 				Objects.equals(this.subscriptions, privateTradingAccountFullTradingAccountDetails.subscriptions) &&
 				Objects.equals(this.isExternal, privateTradingAccountFullTradingAccountDetails.isExternal) &&
-				Objects.equals(this.showTradingLog, privateTradingAccountFullTradingAccountDetails.showTradingLog);
+				Objects.equals(this.showTradingLog, privateTradingAccountFullTradingAccountDetails.showTradingLog) &&
+				Objects.equals(this.supportedCurrencies, privateTradingAccountFullTradingAccountDetails.supportedCurrencies);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(currency, leverage, apiKey, login, balance, type, subscriptions, isExternal, showTradingLog);
+		return Objects.hash(currency, leverage, apiKey, login, balance, balances, type, subscriptions, isExternal, showTradingLog, supportedCurrencies);
 	}
 
 	@Override
@@ -287,10 +353,12 @@ public class PrivateTradingAccountFullTradingAccountDetails implements Parcelabl
 		sb.append("    apiKey: ").append(toIndentedString(apiKey)).append("\n");
 		sb.append("    login: ").append(toIndentedString(login)).append("\n");
 		sb.append("    balance: ").append(toIndentedString(balance)).append("\n");
+		sb.append("    balances: ").append(toIndentedString(balances)).append("\n");
 		sb.append("    type: ").append(toIndentedString(type)).append("\n");
 		sb.append("    subscriptions: ").append(toIndentedString(subscriptions)).append("\n");
 		sb.append("    isExternal: ").append(toIndentedString(isExternal)).append("\n");
 		sb.append("    showTradingLog: ").append(toIndentedString(showTradingLog)).append("\n");
+		sb.append("    supportedCurrencies: ").append(toIndentedString(supportedCurrencies)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}
@@ -312,10 +380,12 @@ public class PrivateTradingAccountFullTradingAccountDetails implements Parcelabl
 		out.writeValue(apiKey);
 		out.writeValue(login);
 		out.writeValue(balance);
+		out.writeValue(balances);
 		out.writeValue(type);
 		out.writeValue(subscriptions);
 		out.writeValue(isExternal);
 		out.writeValue(showTradingLog);
+		out.writeValue(supportedCurrencies);
 	}
 
 	public int describeContents() {

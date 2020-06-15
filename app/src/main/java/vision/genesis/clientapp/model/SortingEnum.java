@@ -38,9 +38,9 @@ public enum SortingEnum
 
 	BYINVESTORSDESC("ByInvestorsDesc"),
 
-	BYENDOFPERIODASC("ByEndOfPeriodAsc"),
+	BYENDOFPERIODASC("ByPeriodAsc"),
 
-	BYENDOFPERIODDESC("ByEndOfPeriodDesc"),
+	BYENDOFPERIODDESC("ByPeriodDesc"),
 
 	BYTITLEASC("ByTitleAsc"),
 

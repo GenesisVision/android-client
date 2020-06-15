@@ -10,6 +10,7 @@ Method | HTTP request | Description
 [**followUser**](SocialApi.md#followUser) | **POST** v2.0/social/user/{userId}/follow | Follow user
 [**getFeed**](SocialApi.md#getFeed) | **GET** v2.0/social/feed | Get feed
 [**getPost**](SocialApi.md#getPost) | **GET** v2.0/social/feed/{id} | Get post
+[**getSocialMedia**](SocialApi.md#getSocialMedia) | **GET** v2.0/social/feed/media | Get social media
 [**getSocialSummary**](SocialApi.md#getSocialSummary) | **GET** v2.0/social/feed/summary | Get social summary
 [**likePost**](SocialApi.md#likePost) | **POST** v2.0/social/feed/{id}/like | Like
 [**pinPost**](SocialApi.md#pinPost) | **POST** v2.0/social/feed/{id}/pin | Pin post
@@ -233,7 +234,7 @@ Name | Type | Description  | Notes
 
 <a name="getFeed"></a>
 # **getFeed**
-> PostItemsViewModel getFeed(userId, userMode, hashTags, mask, showTop, showLiked, skip, take)
+> PostItemsViewModel getFeed(userId, tagContentId, tagContentIds, userMode, hashTags, mask, showTop, showLiked, skip, take)
 
 Get feed
 
@@ -256,6 +257,8 @@ Bearer.setApiKey("YOUR API KEY");
 
 SocialApi apiInstance = new SocialApi();
 UUID userId = new UUID(); // UUID | 
+UUID tagContentId = new UUID(); // UUID | 
+List<UUID> tagContentIds = Arrays.asList(new UUID()); // List<UUID> | 
 UserFeedMode userMode = new UserFeedMode(); // UserFeedMode | 
 List<String> hashTags = Arrays.asList("hashTags_example"); // List<String> | 
 String mask = "mask_example"; // String | 
@@ -264,7 +267,7 @@ Boolean showLiked = true; // Boolean |
 Integer skip = 56; // Integer | 
 Integer take = 56; // Integer | 
 try {
-    PostItemsViewModel result = apiInstance.getFeed(userId, userMode, hashTags, mask, showTop, showLiked, skip, take);
+    PostItemsViewModel result = apiInstance.getFeed(userId, tagContentId, tagContentIds, userMode, hashTags, mask, showTop, showLiked, skip, take);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling SocialApi#getFeed");
@@ -277,6 +280,8 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **userId** | [**UUID**](.md)|  | [optional]
+ **tagContentId** | [**UUID**](.md)|  | [optional]
+ **tagContentIds** | [**List&lt;UUID&gt;**](UUID.md)|  | [optional]
  **userMode** | [**UserFeedMode**](.md)|  | [optional]
  **hashTags** | [**List&lt;String&gt;**](String.md)|  | [optional]
  **mask** | **String**|  | [optional]
@@ -341,6 +346,65 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**EditablePost**](EditablePost.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
+
+<a name="getSocialMedia"></a>
+# **getSocialMedia**
+> MediaPostItemsViewModel getSocialMedia(mask, type, skip, take)
+
+Get social media
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiClient;
+//import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
+//import io.swagger.client.api.SocialApi;
+
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
+
+SocialApi apiInstance = new SocialApi();
+String mask = "mask_example"; // String | 
+SocialLinkType type = new SocialLinkType(); // SocialLinkType | 
+Integer skip = 56; // Integer | 
+Integer take = 56; // Integer | 
+try {
+    MediaPostItemsViewModel result = apiInstance.getSocialMedia(mask, type, skip, take);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling SocialApi#getSocialMedia");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **mask** | **String**|  | [optional]
+ **type** | [**SocialLinkType**](.md)|  | [optional]
+ **skip** | **Integer**|  | [optional]
+ **take** | **Integer**|  | [optional]
+
+### Return type
+
+[**MediaPostItemsViewModel**](MediaPostItemsViewModel.md)
 
 ### Authorization
 

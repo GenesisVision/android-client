@@ -4,11 +4,11 @@
               xmlns:tools="http://schemas.android.com/tools"
               android:layout_width="match_parent"
               android:layout_height="@dimen/item_dashboard_signal_height"
-              android:layout_marginBottom="@dimen/dashboard_padding"
-              android:layout_marginEnd="@dimen/dashboard_padding"
-              android:layout_marginLeft="@dimen/dashboard_padding"
-              android:layout_marginRight="@dimen/dashboard_padding"
               android:layout_marginStart="@dimen/dashboard_padding"
+              android:layout_marginLeft="@dimen/dashboard_padding"
+              android:layout_marginEnd="@dimen/dashboard_padding"
+              android:layout_marginRight="@dimen/dashboard_padding"
+              android:layout_marginBottom="@dimen/dashboard_padding"
               android:background="@drawable/program_list_item_background"
               android:gravity="center_vertical"
               android:orientation="vertical"
@@ -32,10 +32,10 @@
             android:layout_height="wrap_content"
             android:layout_alignBottom="@+id/button_close"
             android:background="@drawable/background_providers_count"
-            android:paddingBottom="2dp"
-            android:paddingEnd="8dp"
             android:paddingStart="8dp"
             android:paddingTop="2dp"
+            android:paddingEnd="8dp"
+            android:paddingBottom="2dp"
             android:textColor="?attr/colorTextPrimary"
             android:textSize="13sp"
             android:visibility="gone"
@@ -47,8 +47,8 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginStart="8dp"
-            android:layout_toEndOf="@+id/program_logo"
             android:layout_toStartOf="@+id/button_close"
+            android:layout_toEndOf="@+id/program_logo"
             android:orientation="vertical">
 
             <TextView
@@ -97,9 +97,15 @@
             android:gravity="bottom"
             android:orientation="vertical">
 
-            <TextView
+            <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/symbol"
                 style="@style/text_value"
+                android:ellipsize="end"
+                android:maxLines="1"
+                app:autoSizeMaxTextSize="16sp"
+                app:autoSizeMinTextSize="12sp"
+                app:autoSizeStepGranularity="2sp"
+                app:autoSizeTextType="uniform"
                 tools:text="BTCETH"/>
 
             <TextView

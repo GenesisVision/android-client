@@ -2,14 +2,14 @@ package vision.genesis.clientapp.managers;
 
 import android.util.Pair;
 
-import com.google.gson.internal.LinkedTreeMap;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import io.swagger.client.api.RateApi;
+import io.swagger.client.model.RateItem;
 import io.swagger.client.model.RateModel;
 import io.swagger.client.model.RatesModel;
 import rx.Subscription;
@@ -84,11 +84,11 @@ public class RateManager
 		baseRatesSubscription.unsubscribe();
 
 		HashMap<CurrencyEnum, Double> responseMap = new HashMap<>();
-		LinkedTreeMap rates = (LinkedTreeMap) response.getRates();
+		Map<String, List<RateItem>> rates = response.getRates();
 		//TODO:
-		for (LinkedTreeMap rateItem : (List<LinkedTreeMap>) rates.get("GVT")) {
-			getRateSubject(CurrencyEnum.GVT.getValue(), (String) rateItem.get("currency")).onNext((Double) rateItem.get("rate"));
-			responseMap.put(CurrencyEnum.fromValue((String) rateItem.get("currency")), (Double) rateItem.get("rate"));
+		for (RateItem rateItem : rates.get("GVT")) {
+			getRateSubject(CurrencyEnum.GVT.getValue(), rateItem.getCurrency().getValue()).onNext(rateItem.getRate());
+			responseMap.put(CurrencyEnum.fromValue(rateItem.getCurrency().getValue()), rateItem.getRate());
 		}
 		baseRatesSubject.onNext(responseMap);
 	}

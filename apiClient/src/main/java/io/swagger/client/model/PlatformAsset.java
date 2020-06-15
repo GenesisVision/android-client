@@ -40,6 +40,9 @@ public class PlatformAsset implements Parcelable
 		}
 	};
 
+	@SerializedName("mandatoryFundPercent")
+	private Double mandatoryFundPercent = null;
+
 	@SerializedName("id")
 	private UUID id = null;
 
@@ -58,9 +61,6 @@ public class PlatformAsset implements Parcelable
 	@SerializedName("color")
 	private String color = null;
 
-	@SerializedName("mandatoryFundPercent")
-	private Double mandatoryFundPercent = null;
-
 	@SerializedName("url")
 	private String url = null;
 
@@ -68,14 +68,33 @@ public class PlatformAsset implements Parcelable
 	}
 
 	PlatformAsset(Parcel in) {
+		mandatoryFundPercent = (Double) in.readValue(null);
 		id = (UUID) in.readValue(UUID.class.getClassLoader());
 		name = (String) in.readValue(null);
 		asset = (String) in.readValue(null);
 		description = (String) in.readValue(null);
 		logoUrl = (String) in.readValue(null);
 		color = (String) in.readValue(null);
-		mandatoryFundPercent = (Double) in.readValue(null);
 		url = (String) in.readValue(null);
+	}
+
+	public PlatformAsset mandatoryFundPercent(Double mandatoryFundPercent) {
+		this.mandatoryFundPercent = mandatoryFundPercent;
+		return this;
+	}
+
+	/**
+	 * Get mandatoryFundPercent
+	 *
+	 * @return mandatoryFundPercent
+	 **/
+	@Schema(description = "")
+	public Double getMandatoryFundPercent() {
+		return mandatoryFundPercent;
+	}
+
+	public void setMandatoryFundPercent(Double mandatoryFundPercent) {
+		this.mandatoryFundPercent = mandatoryFundPercent;
 	}
 
 	public PlatformAsset id(UUID id) {
@@ -192,25 +211,6 @@ public class PlatformAsset implements Parcelable
 		this.color = color;
 	}
 
-	public PlatformAsset mandatoryFundPercent(Double mandatoryFundPercent) {
-		this.mandatoryFundPercent = mandatoryFundPercent;
-		return this;
-	}
-
-	/**
-	 * Get mandatoryFundPercent
-	 *
-	 * @return mandatoryFundPercent
-	 **/
-	@Schema(description = "")
-	public Double getMandatoryFundPercent() {
-		return mandatoryFundPercent;
-	}
-
-	public void setMandatoryFundPercent(Double mandatoryFundPercent) {
-		this.mandatoryFundPercent = mandatoryFundPercent;
-	}
-
 	public PlatformAsset url(String url) {
 		this.url = url;
 		return this;
@@ -239,19 +239,19 @@ public class PlatformAsset implements Parcelable
 			return false;
 		}
 		PlatformAsset platformAsset = (PlatformAsset) o;
-		return Objects.equals(this.id, platformAsset.id) &&
+		return Objects.equals(this.mandatoryFundPercent, platformAsset.mandatoryFundPercent) &&
+				Objects.equals(this.id, platformAsset.id) &&
 				Objects.equals(this.name, platformAsset.name) &&
 				Objects.equals(this.asset, platformAsset.asset) &&
 				Objects.equals(this.description, platformAsset.description) &&
 				Objects.equals(this.logoUrl, platformAsset.logoUrl) &&
 				Objects.equals(this.color, platformAsset.color) &&
-				Objects.equals(this.mandatoryFundPercent, platformAsset.mandatoryFundPercent) &&
 				Objects.equals(this.url, platformAsset.url);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, name, asset, description, logoUrl, color, mandatoryFundPercent, url);
+		return Objects.hash(mandatoryFundPercent, id, name, asset, description, logoUrl, color, url);
 	}
 
 	@Override
@@ -259,13 +259,13 @@ public class PlatformAsset implements Parcelable
 		StringBuilder sb = new StringBuilder();
 		sb.append("class PlatformAsset {\n");
 
+		sb.append("    mandatoryFundPercent: ").append(toIndentedString(mandatoryFundPercent)).append("\n");
 		sb.append("    id: ").append(toIndentedString(id)).append("\n");
 		sb.append("    name: ").append(toIndentedString(name)).append("\n");
 		sb.append("    asset: ").append(toIndentedString(asset)).append("\n");
 		sb.append("    description: ").append(toIndentedString(description)).append("\n");
 		sb.append("    logoUrl: ").append(toIndentedString(logoUrl)).append("\n");
 		sb.append("    color: ").append(toIndentedString(color)).append("\n");
-		sb.append("    mandatoryFundPercent: ").append(toIndentedString(mandatoryFundPercent)).append("\n");
 		sb.append("    url: ").append(toIndentedString(url)).append("\n");
 		sb.append("}");
 		return sb.toString();
@@ -283,13 +283,13 @@ public class PlatformAsset implements Parcelable
 	}
 
 	public void writeToParcel(Parcel out, int flags) {
+		out.writeValue(mandatoryFundPercent);
 		out.writeValue(id);
 		out.writeValue(name);
 		out.writeValue(asset);
 		out.writeValue(description);
 		out.writeValue(logoUrl);
 		out.writeValue(color);
-		out.writeValue(mandatoryFundPercent);
 		out.writeValue(url);
 	}
 

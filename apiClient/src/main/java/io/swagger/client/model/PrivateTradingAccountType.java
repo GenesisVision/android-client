@@ -27,6 +27,7 @@ public enum PrivateTradingAccountType
 {
 	NONE("None"),
 	TRADINGACCOUNT("TradingAccount"),
+	EXCHANGEACCOUNT("ExchangeAccount"),
 	EXTERNALTRADINGACCOUNT("ExternalTradingAccount");
 
 	public static PrivateTradingAccountType fromValue(String text) {

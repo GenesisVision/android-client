@@ -8,4 +8,5 @@ Name | Type | Description | Notes
 **logoUrl** | **String** |  |  [optional]
 **target** | **Double** |  |  [optional]
 **current** | **Double** |  |  [optional]
+**currentAmount** | **Double** |  |  [optional]
 **url** | **String** |  |  [optional]

@@ -109,7 +109,7 @@ public class WithdrawProgramPresenter extends MvpPresenter<WithdrawProgramView> 
 
 			updateRemainingInvestment();
 
-			getViewState().setAmountBase(getAmountBaseString());
+//			getViewState().setAmountBase(getAmountBaseString());
 			updateContinueButtonEnabled();
 		}
 	}

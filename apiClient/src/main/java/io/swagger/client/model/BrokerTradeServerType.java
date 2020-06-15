@@ -35,7 +35,8 @@ public enum BrokerTradeServerType
 	IDEX("IDEX"),
 	HUOBI("Huobi"),
 	EXANTE("Exante"),
-	BINANCEFOLLOW("BinanceFollow");
+	BINANCEFOLLOW("BinanceFollow"),
+	BINANCE("Binance");
 
 	public static BrokerTradeServerType fromValue(String text) {
 		for (BrokerTradeServerType b : BrokerTradeServerType.values()) {

@@ -66,14 +66,16 @@ public class DashboardManager
 	public Observable<DashboardTradingAssetItemsViewModel> getPrivate(DateRange dateRange, String baseCurrency, int skip, int take) {
 		return dashboardApi.getPrivateTradingAssets(
 				dateRange != null ? dateRange.getFrom() : null, dateRange != null ? dateRange.getTo() : null,
-				10, Currency.fromValue(baseCurrency), null,
+				10, Currency.fromValue(baseCurrency),
+				null, false,
 				skip, take);
 	}
 
 	public Observable<DashboardTradingAssetItemsViewModel> getPublic(DateRange dateRange, String baseCurrency, int skip, int take) {
 		return dashboardApi.getPublicTradingAssets(
 				dateRange != null ? dateRange.getFrom() : null, dateRange != null ? dateRange.getTo() : null,
-				10, Currency.fromValue(baseCurrency), null,
+				10, Currency.fromValue(baseCurrency),
+				null, false,
 				skip, take);
 	}
 
@@ -85,7 +87,8 @@ public class DashboardManager
 				filter.getDateRange().getFrom(), filter.getDateRange().getTo(),
 				filter.getChartPointsCount(),
 				filter.getFacetId() == null ? null : filter.getFacetId().toString(),
-				filter.getMask(), filter.getManagerId(), false,
+				filter.getMask(), filter.getManagerId(),
+				false, false,
 				filter.getSkip(), filter.getTake());
 	}
 
@@ -97,7 +100,8 @@ public class DashboardManager
 				filter.getDateRange().getFrom(), filter.getDateRange().getTo(),
 				filter.getChartPointsCount(),
 				filter.getFacetId() == null ? null : filter.getFacetId().toString(),
-				filter.getMask(), filter.getManagerId(), false,
+				filter.getMask(), filter.getManagerId(),
+				false, false,
 				filter.getSkip(), filter.getTake());
 	}
 }

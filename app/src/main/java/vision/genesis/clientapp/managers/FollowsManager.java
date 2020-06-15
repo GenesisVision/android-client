@@ -46,10 +46,11 @@ public class FollowsManager
 		return followApi.getFollowAssets(
 				filter.getSorting() != null ? FollowFilterSorting.fromValue(filter.getSorting().getValue()) : null,
 				filter.getShowIn() != null ? Currency.fromValue(filter.getShowIn().getValue()) : null,
-				filter.getTags(),
+				filter.getTags(), null,
 				filter.getDateRange().getFrom(), filter.getDateRange().getTo(),
 				filter.getChartPointsCount(), filter.getFacetId() == null ? null : filter.getFacetId().toString(),
-				filter.getMask(), filter.getManagerId(), false,
+				filter.getMask(), filter.getManagerId(),
+				false, false,
 				filter.getSkip(), filter.getTake());
 	}
 

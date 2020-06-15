@@ -49,16 +49,19 @@ public class PostTag implements Parcelable
 	private SocialPostTagType type = null;
 
 	@SerializedName("assetDetails")
-	private AssetDetails assetDetails = null;
+	private PostAssetDetailsWithPrices assetDetails = null;
 
 	@SerializedName("userDetails")
 	private ProfilePublic userDetails = null;
 
 	@SerializedName("platformAssetDetails")
-	private PlatformAsset platformAssetDetails = null;
+	private PostPlatformAssetDetailsWithPrices platformAssetDetails = null;
 
 	@SerializedName("post")
 	private Post post = null;
+
+	@SerializedName("event")
+	private PostEvent event = null;
 
 	public PostTag() {
 	}
@@ -67,10 +70,11 @@ public class PostTag implements Parcelable
 		title = (String) in.readValue(null);
 		number = (Integer) in.readValue(null);
 		type = (SocialPostTagType) in.readValue(SocialPostTagType.class.getClassLoader());
-		assetDetails = (AssetDetails) in.readValue(AssetDetails.class.getClassLoader());
+		assetDetails = (PostAssetDetailsWithPrices) in.readValue(PostAssetDetailsWithPrices.class.getClassLoader());
 		userDetails = (ProfilePublic) in.readValue(ProfilePublic.class.getClassLoader());
-		platformAssetDetails = (PlatformAsset) in.readValue(PlatformAsset.class.getClassLoader());
+		platformAssetDetails = (PostPlatformAssetDetailsWithPrices) in.readValue(PostPlatformAssetDetailsWithPrices.class.getClassLoader());
 		post = (Post) in.readValue(Post.class.getClassLoader());
+		event = (PostEvent) in.readValue(PostEvent.class.getClassLoader());
 	}
 
 	public PostTag title(String title) {
@@ -130,7 +134,7 @@ public class PostTag implements Parcelable
 		this.type = type;
 	}
 
-	public PostTag assetDetails(AssetDetails assetDetails) {
+	public PostTag assetDetails(PostAssetDetailsWithPrices assetDetails) {
 		this.assetDetails = assetDetails;
 		return this;
 	}
@@ -141,11 +145,11 @@ public class PostTag implements Parcelable
 	 * @return assetDetails
 	 **/
 	@Schema(description = "")
-	public AssetDetails getAssetDetails() {
+	public PostAssetDetailsWithPrices getAssetDetails() {
 		return assetDetails;
 	}
 
-	public void setAssetDetails(AssetDetails assetDetails) {
+	public void setAssetDetails(PostAssetDetailsWithPrices assetDetails) {
 		this.assetDetails = assetDetails;
 	}
 
@@ -168,7 +172,7 @@ public class PostTag implements Parcelable
 		this.userDetails = userDetails;
 	}
 
-	public PostTag platformAssetDetails(PlatformAsset platformAssetDetails) {
+	public PostTag platformAssetDetails(PostPlatformAssetDetailsWithPrices platformAssetDetails) {
 		this.platformAssetDetails = platformAssetDetails;
 		return this;
 	}
@@ -179,11 +183,11 @@ public class PostTag implements Parcelable
 	 * @return platformAssetDetails
 	 **/
 	@Schema(description = "")
-	public PlatformAsset getPlatformAssetDetails() {
+	public PostPlatformAssetDetailsWithPrices getPlatformAssetDetails() {
 		return platformAssetDetails;
 	}
 
-	public void setPlatformAssetDetails(PlatformAsset platformAssetDetails) {
+	public void setPlatformAssetDetails(PostPlatformAssetDetailsWithPrices platformAssetDetails) {
 		this.platformAssetDetails = platformAssetDetails;
 	}
 
@@ -206,6 +210,25 @@ public class PostTag implements Parcelable
 		this.post = post;
 	}
 
+	public PostTag event(PostEvent event) {
+		this.event = event;
+		return this;
+	}
+
+	/**
+	 * Get event
+	 *
+	 * @return event
+	 **/
+	@Schema(description = "")
+	public PostEvent getEvent() {
+		return event;
+	}
+
+	public void setEvent(PostEvent event) {
+		this.event = event;
+	}
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -221,12 +244,13 @@ public class PostTag implements Parcelable
 				Objects.equals(this.assetDetails, postTag.assetDetails) &&
 				Objects.equals(this.userDetails, postTag.userDetails) &&
 				Objects.equals(this.platformAssetDetails, postTag.platformAssetDetails) &&
-				Objects.equals(this.post, postTag.post);
+				Objects.equals(this.post, postTag.post) &&
+				Objects.equals(this.event, postTag.event);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(title, number, type, assetDetails, userDetails, platformAssetDetails, post);
+		return Objects.hash(title, number, type, assetDetails, userDetails, platformAssetDetails, post, event);
 	}
 
 	@Override
@@ -241,6 +265,7 @@ public class PostTag implements Parcelable
 		sb.append("    userDetails: ").append(toIndentedString(userDetails)).append("\n");
 		sb.append("    platformAssetDetails: ").append(toIndentedString(platformAssetDetails)).append("\n");
 		sb.append("    post: ").append(toIndentedString(post)).append("\n");
+		sb.append("    event: ").append(toIndentedString(event)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}
@@ -264,6 +289,7 @@ public class PostTag implements Parcelable
 		out.writeValue(userDetails);
 		out.writeValue(platformAssetDetails);
 		out.writeValue(post);
+		out.writeValue(event);
 	}
 
 	public int describeContents() {

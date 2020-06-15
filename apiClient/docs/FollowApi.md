@@ -374,7 +374,7 @@ Name | Type | Description  | Notes
 
 <a name="getFollowAssets"></a>
 # **getFollowAssets**
-> FollowDetailsListItemItemsViewModel getFollowAssets(sorting, showIn, tags, dateFrom, dateTo, chartPointsCount, facetId, mask, ownerId, showFavorites, skip, take)
+> FollowDetailsListItemItemsViewModel getFollowAssets(sorting, showIn, tags, subscriberId, dateFrom, dateTo, chartPointsCount, facetId, mask, ownerId, showFavorites, skipStatistic, skip, take)
 
 Follow assets
 
@@ -399,6 +399,7 @@ FollowApi apiInstance = new FollowApi();
 FollowFilterSorting sorting = new FollowFilterSorting(); // FollowFilterSorting | 
 Currency showIn = new Currency(); // Currency | 
 List<String> tags = Arrays.asList("tags_example"); // List<String> | 
+UUID subscriberId = new UUID(); // UUID | 
 DateTime dateFrom = new DateTime(); // DateTime | 
 DateTime dateTo = new DateTime(); // DateTime | 
 Integer chartPointsCount = 56; // Integer | 
@@ -406,10 +407,11 @@ String facetId = "facetId_example"; // String |
 String mask = "mask_example"; // String | 
 UUID ownerId = new UUID(); // UUID | 
 Boolean showFavorites = true; // Boolean | 
+Boolean skipStatistic = true; // Boolean | 
 Integer skip = 56; // Integer | 
 Integer take = 56; // Integer | 
 try {
-    FollowDetailsListItemItemsViewModel result = apiInstance.getFollowAssets(sorting, showIn, tags, dateFrom, dateTo, chartPointsCount, facetId, mask, ownerId, showFavorites, skip, take);
+    FollowDetailsListItemItemsViewModel result = apiInstance.getFollowAssets(sorting, showIn, tags, subscriberId, dateFrom, dateTo, chartPointsCount, facetId, mask, ownerId, showFavorites, skipStatistic, skip, take);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling FollowApi#getFollowAssets");
@@ -424,6 +426,7 @@ Name | Type | Description  | Notes
  **sorting** | [**FollowFilterSorting**](.md)|  | [optional]
  **showIn** | [**Currency**](.md)|  | [optional]
  **tags** | [**List&lt;String&gt;**](String.md)|  | [optional]
+ **subscriberId** | [**UUID**](.md)|  | [optional]
  **dateFrom** | **DateTime**|  | [optional]
  **dateTo** | **DateTime**|  | [optional]
  **chartPointsCount** | **Integer**|  | [optional]
@@ -431,6 +434,7 @@ Name | Type | Description  | Notes
  **mask** | **String**|  | [optional]
  **ownerId** | [**UUID**](.md)|  | [optional]
  **showFavorites** | **Boolean**|  | [optional]
+ **skipStatistic** | **Boolean**|  | [optional]
  **skip** | **Integer**|  | [optional]
  **take** | **Integer**|  | [optional]
 

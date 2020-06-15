@@ -10,11 +10,11 @@
         android:id="@+id/label"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="4dp"
+        android:layout_marginEnd="8dp"
         android:layout_toStartOf="@+id/value"
         android:alpha="0.5"
         android:ellipsize="end"
-        android:maxLines="1"
+        android:maxLines="2"
         android:textColor="?attr/colorTextPrimary"
         android:textSize="16sp"
         tools:text="Manager Success fee"/>
