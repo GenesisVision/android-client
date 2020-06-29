@@ -22,6 +22,7 @@ import vision.genesis.clientapp.model.events.OnCreateFollowSuccessEvent;
 import vision.genesis.clientapp.model.events.OnCreateProgramSuccessEvent;
 import vision.genesis.clientapp.model.events.SetTradingAccountDetailsOpenPositionsCountEvent;
 import vision.genesis.clientapp.model.events.SetTradingAccountDetailsTradesCountEvent;
+import vision.genesis.clientapp.model.events.ShowEditSubscriptionEvent;
 import vision.genesis.clientapp.model.events.ShowUnfollowTradesEvent;
 import vision.genesis.clientapp.net.ApiErrorResolver;
 
@@ -160,6 +161,15 @@ public class TradingAccountDetailsPresenter extends MvpPresenter<TradingAccountD
 
 	@Subscribe
 	public void onEventMainThread(ShowUnfollowTradesEvent event) {
-		getViewState().showUnfollowTradesActivity(event.getFollowId(), event.getTradingAccountId(), event.getFollowName(), event.isExternal());
+		if (isActive) {
+			getViewState().showUnfollowTradesActivity(event.getFollowId(), event.getTradingAccountId(), event.getFollowName(), event.isExternal());
+		}
+	}
+
+	@Subscribe
+	public void onEventMainThread(ShowEditSubscriptionEvent event) {
+		if (isActive) {
+			getViewState().showEditSubscriptionActivity(event.getModel(), event.getFollowId(), event.getTradingAccountId(), event.getExternal());
+		}
 	}
 }

@@ -11,6 +11,8 @@ import java.util.ArrayList;
 
 interface SubscriptionSettingsView extends MvpView
 {
+	void setTextListeners();
+
 	void setTypeOptions(ArrayList<String> typeOptions);
 
 	void setType(String type, Integer position);

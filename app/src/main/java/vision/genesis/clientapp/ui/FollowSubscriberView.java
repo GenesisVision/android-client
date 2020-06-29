@@ -14,7 +14,10 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 import io.swagger.client.model.SignalSubscription;
+import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
+import vision.genesis.clientapp.model.SubscriptionSettingsModel;
+import vision.genesis.clientapp.model.events.ShowEditSubscriptionEvent;
 import vision.genesis.clientapp.model.events.ShowUnfollowTradesEvent;
 import vision.genesis.clientapp.utils.StringFormatUtil;
 import vision.genesis.clientapp.utils.TypefaceUtil;
@@ -62,6 +65,9 @@ public class FollowSubscriberView extends RelativeLayout
 	@BindView(R.id.group_volume)
 	public ViewGroup groupVolume;
 
+	@BindView(R.id.button_unfollow)
+	public PrimaryButton unfollowButton;
+
 	@BindView(R.id.delimiter)
 	public View delimiter;
 
@@ -82,6 +88,21 @@ public class FollowSubscriberView extends RelativeLayout
 	public FollowSubscriberView(Context context, AttributeSet attrs, int defStyleAttr) {
 		super(context, attrs, defStyleAttr);
 		initView();
+	}
+
+	@OnClick(R.id.button_edit)
+	public void onEditClicked() {
+		if (data != null) {
+			EventBus.getDefault().post(new ShowEditSubscriptionEvent(
+					new SubscriptionSettingsModel(false, null,
+							GenesisVisionApplication.INSTANCE.getString(R.string.subscription_settings),
+							GenesisVisionApplication.INSTANCE.getString(R.string.update),
+							data.getMode().getValue(), data.getPercent(), data.getOpenTolerancePercent(), data.getFixedVolume(),
+							data.getFixedCurrency() != null ? data.getFixedCurrency().getValue() : null),
+					data.getAsset().getId(),
+					data.getSubscriberInfo().getTradingAccountId(),
+					data.isIsExternal()));
+		}
 	}
 
 	@OnClick(R.id.button_unfollow)
@@ -107,6 +128,8 @@ public class FollowSubscriberView extends RelativeLayout
 		unbinder = ButterKnife.bind(this);
 
 		setFonts();
+
+		unfollowButton.setEmpty();
 
 //		setOnClickListener(v -> {
 //			if (data != null) {

@@ -172,7 +172,12 @@ public class CopytradingTradesHistoryAdapter extends RecyclerView.Adapter<Copytr
 				OrderProgramData program = trade.getProviders().get(0).getProgram();
 
 				this.programLogo.setImage(program.getLogoUrl(), program.getColor(), 100, 100);
-				this.programLogo.setLevel(program.getLevel(), program.getLevelProgress());
+				if (program.getLevel() == 0) {
+					this.programLogo.hideLevel();
+				}
+				else {
+					this.programLogo.setLevel(program.getLevel(), program.getLevelProgress());
+				}
 
 				this.programName.setText(program.getTitle());
 				this.date.setText(DateTimeUtil.formatEventDateTime(trade.getDate()));

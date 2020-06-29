@@ -138,6 +138,13 @@ public class PublicInfoFragment extends BaseFragment implements PublicInfoView
 		}
 	}
 
+	@OnFocusChange(R.id.description)
+	void onDescriptionFocusChange(View view, boolean hasFocus) {
+		if (!hasFocus) {
+			presenter.onDescriptionFocusLost();
+		}
+	}
+
 	@OnClick(R.id.button_remove_logo)
 	public void onRemoveLogoClicked() {
 		presenter.onRemoveLogoClicked();
@@ -274,7 +281,7 @@ public class PublicInfoFragment extends BaseFragment implements PublicInfoView
 
 	@Override
 	public void updateLogo(String url) {
-		logo.setImageURI(ImageUtils.getImageUri(url));
+		logo.setImageURI(ImageUtils.getImageUriById(url));
 	}
 
 	@Override
@@ -293,8 +300,18 @@ public class PublicInfoFragment extends BaseFragment implements PublicInfoView
 	}
 
 	@Override
+	public void showDescriptionError(String errorText) {
+		this.description.setError(errorText);
+	}
+
+	@Override
 	public void cleanTitleError() {
 		this.title.setError(null);
+	}
+
+	@Override
+	public void cleanDescriptionError() {
+		this.description.setError(null);
 	}
 
 	public void setWarningInfo(String warningInfo) {

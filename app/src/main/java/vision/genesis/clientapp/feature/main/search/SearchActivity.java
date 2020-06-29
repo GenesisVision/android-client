@@ -84,7 +84,7 @@ public class SearchActivity extends MvpAppCompatActivity implements SearchView
 
 	private TabLayout.Tab followsTab;
 
-	private TabLayout.Tab managersTab;
+	private TabLayout.Tab usersTab;
 
 	private SearchPagerAdapter pagerAdapter;
 
@@ -148,7 +148,7 @@ public class SearchActivity extends MvpAppCompatActivity implements SearchView
 		programsTab = tabLayout.newTab().setCustomView(getTabView(R.string.programs)).setTag("programs");
 		fundsTab = tabLayout.newTab().setCustomView(getTabView(R.string.funds)).setTag("funds");
 		followsTab = tabLayout.newTab().setCustomView(getTabView(R.string.follow)).setTag("follows");
-		managersTab = tabLayout.newTab().setCustomView(getTabView(R.string.managers)).setTag("managers");
+		usersTab = tabLayout.newTab().setCustomView(getTabView(R.string.users)).setTag("users");
 
 		tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
@@ -182,7 +182,7 @@ public class SearchActivity extends MvpAppCompatActivity implements SearchView
 		addPage(programsTab, true);
 		addPage(fundsTab, false);
 		addPage(followsTab, false);
-		addPage(managersTab, false);
+		addPage(usersTab, false);
 	}
 
 	private View getTabView(int textResId) {
@@ -249,7 +249,7 @@ public class SearchActivity extends MvpAppCompatActivity implements SearchView
 			((CustomTabView) programsTab.getCustomView()).setCount(results.getPrograms().getTotal());
 			((CustomTabView) fundsTab.getCustomView()).setCount(results.getFunds().getTotal());
 			((CustomTabView) followsTab.getCustomView()).setCount(results.getFollows().getTotal());
-			((CustomTabView) managersTab.getCustomView()).setCount(results.getManagers().getTotal());
+			((CustomTabView) usersTab.getCustomView()).setCount(results.getManagers().getTotal());
 		}
 	}
 

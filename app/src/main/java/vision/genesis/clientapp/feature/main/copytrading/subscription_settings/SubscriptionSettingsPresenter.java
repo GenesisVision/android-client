@@ -70,11 +70,13 @@ public class SubscriptionSettingsPresenter extends MvpPresenter<SubscriptionSett
 			}
 			onOptionSelected(selectedOptionPosition, typeOptions.get(selectedOptionPosition));
 
-			getViewState().setVolumePercentage(StringFormatUtil.formatAmount(model.getPercent(), 0, 2));
-			getViewState().setEquivalent(StringFormatUtil.formatAmountWithoutGrouping(model.getFixedVolume()));
-			getViewState().setTolerancePercentage(StringFormatUtil.formatAmount(model.getTolerancePercent(), 0, 2));
+			getViewState().setVolumePercentage(StringFormatUtil.formatAmount(model.getPercent() != null ? model.getPercent() : 0.0, 0, 2));
+			getViewState().setEquivalent(StringFormatUtil.formatAmountWithoutGrouping(model.getFixedVolume() != null ? model.getFixedVolume() : 0.0));
+			getViewState().setTolerancePercentage(StringFormatUtil.formatAmount(model.getTolerancePercent() != null ? model.getTolerancePercent() : 0.0, 0, 2));
 
 			updateConfirmButtonEnabled();
+
+			getViewState().setTextListeners();
 		}
 	}
 

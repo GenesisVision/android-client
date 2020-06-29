@@ -25,7 +25,7 @@ public class LogJsonInterceptor implements Interceptor
 		NetworkManager.serverAvailabilitySubject.onNext(response.code() < 500 && response.code() >= 200);
 		if (!BuildConfig.PROD) {
 			Timber.tag("REST");
-			Timber.d("REQUEST %s\nRESPONSE %s", request.url(), rawJson);
+			Timber.d("REQUEST %s\nRESPONSE %d %s", request.url(), response.code(), rawJson);
 		}
 		// Re-create the response before returning it because body can be read only once
 		return response.newBuilder()

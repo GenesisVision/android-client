@@ -526,7 +526,7 @@
     <string name="enter_pin_code_to_enable">Enter PIN code to enable it</string>
     <string name="enter_pin_code_to_disable">Enter PIN code to disable it</string>
     <string name="fingerprint">Fingerprint</string>
-    <string name="enter_tfa_code">Enter the 2F authentication code</string>
+    <string name="enter_tfa_code">Enter the 2FA code</string>
     <string name="fund_notifications">Fund notifications</string>
     <string name="fund_news_and_updates">Fund news and updates</string>
     <string name="fund_structure_changing">Fund structure changing</string>
@@ -887,6 +887,7 @@
     <string name="tooltip_reinvest_profit_info">If the reinvestment trigger is on, then at the end of the period all profits after deducting the commission will be reinvested back into the program.\n\nIf the button is not pressed, then at the end of the period all the profits will be transferred to your GVT wallet.</string>
     <string name="error_title_not_valid">Latin letters and numbers only</string>
     <string name="confirm_deposit">Confirm Deposit</string>
+    <string name="users">Users</string>
 
 
     <plurals name="assets">

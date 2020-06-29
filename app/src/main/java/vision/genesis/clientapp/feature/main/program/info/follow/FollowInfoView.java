@@ -9,6 +9,7 @@ import java.util.UUID;
 
 import io.swagger.client.model.ProgramFollowDetailsFull;
 import io.swagger.client.model.SignalSubscription;
+import vision.genesis.clientapp.model.SubscriptionSettingsModel;
 
 /**
  * GenesisVisionAndroid
@@ -34,4 +35,6 @@ interface FollowInfoView extends MvpView
 	void showFollowTradesActivity(ProgramFollowDetailsFull details);
 
 	void showUnfollowTradesActivity(UUID followId, UUID tradingAccountId, String followName, Boolean isExternal);
+
+	void showEditSubscriptionActivity(SubscriptionSettingsModel model, UUID followId, UUID tradingAccountId, Boolean external);
 }

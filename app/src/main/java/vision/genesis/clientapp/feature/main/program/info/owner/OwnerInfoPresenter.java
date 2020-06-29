@@ -35,6 +35,7 @@ import vision.genesis.clientapp.model.ProgramRequest;
 import vision.genesis.clientapp.model.TradingAccountDetailsModel;
 import vision.genesis.clientapp.model.TransferFundsModel;
 import vision.genesis.clientapp.model.events.OnRequestCancelledEvent;
+import vision.genesis.clientapp.model.events.ShowEditSubscriptionEvent;
 import vision.genesis.clientapp.model.events.ShowUnfollowTradesEvent;
 import vision.genesis.clientapp.net.ApiErrorResolver;
 
@@ -64,6 +65,8 @@ public class OwnerInfoPresenter extends MvpPresenter<OwnerInfoView>
 	private ProgramFollowDetailsFull details;
 
 	private List<SignalSubscription> masters = new ArrayList<>();
+
+	private boolean isActive = false;
 
 	@Override
 	protected void onFirstViewAttach() {
@@ -96,6 +99,14 @@ public class OwnerInfoPresenter extends MvpPresenter<OwnerInfoView>
 		this.details = details;
 	}
 
+	void onResume() {
+		isActive = true;
+	}
+
+	void onPause() {
+		isActive = false;
+	}
+
 	void onShow() {
 		getDetails();
 	}
@@ -105,7 +116,7 @@ public class OwnerInfoPresenter extends MvpPresenter<OwnerInfoView>
 			ProgramUpdate model = new ProgramUpdate();
 			model.setTitle(details.getPublicInfo().getTitle());
 			model.setDescription(details.getPublicInfo().getDescription());
-			model.setLogo(details.getPublicInfo().getLogoUrl());
+			model.setLogo(details.getPublicInfo().getLogo());
 			ProgramDetailsFull programDetails = details.getProgramDetails();
 			if (programDetails != null) {
 				model.setEntryFee(programDetails.getManagementFeeCurrent());
@@ -314,7 +325,16 @@ public class OwnerInfoPresenter extends MvpPresenter<OwnerInfoView>
 
 	@Subscribe
 	public void onEventMainThread(ShowUnfollowTradesEvent event) {
-		getViewState().showUnfollowTradesActivity(event.getFollowId(), event.getTradingAccountId(), event.getFollowName(), event.isExternal());
+		if (isActive) {
+			getViewState().showUnfollowTradesActivity(event.getFollowId(), event.getTradingAccountId(), event.getFollowName(), event.isExternal());
+		}
+	}
+
+	@Subscribe
+	public void onEventMainThread(ShowEditSubscriptionEvent event) {
+		if (isActive) {
+			getViewState().showEditSubscriptionActivity(event.getModel(), event.getFollowId(), event.getTradingAccountId(), event.getExternal());
+		}
 	}
 
 	@Subscribe

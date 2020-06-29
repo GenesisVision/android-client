@@ -25,7 +25,9 @@ import io.swagger.client.model.PrivateTradingAccountFull;
 import timber.log.Timber;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseSwipeBackActivity;
+import vision.genesis.clientapp.feature.main.copytrading.edit_subscription.EditSubscriptionActivity;
 import vision.genesis.clientapp.feature.main.copytrading.unfollow_trades.UnfollowTradesActivity;
+import vision.genesis.clientapp.model.SubscriptionSettingsModel;
 import vision.genesis.clientapp.model.TradingAccountDetailsModel;
 import vision.genesis.clientapp.ui.TagView;
 import vision.genesis.clientapp.ui.common.DetailsTabView;
@@ -379,5 +381,10 @@ public class TradingAccountDetailsActivity extends BaseSwipeBackActivity impleme
 	@Override
 	public void showUnfollowTradesActivity(UUID followId, UUID tradingAccountId, String followName, Boolean isExternal) {
 		UnfollowTradesActivity.startWith(this, followId, tradingAccountId, followName, isExternal);
+	}
+
+	@Override
+	public void showEditSubscriptionActivity(SubscriptionSettingsModel model, UUID followId, UUID tradingAccountId, Boolean isExternal) {
+		EditSubscriptionActivity.startWith(this, model, followId, tradingAccountId, isExternal);
 	}
 }

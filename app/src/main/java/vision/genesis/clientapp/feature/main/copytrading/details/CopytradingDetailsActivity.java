@@ -70,7 +70,7 @@ public class CopytradingDetailsActivity extends BaseSwipeBackActivity implements
 
 	private TabLayout.Tab subscriptionsTab;
 
-	private TabLayout.Tab openTradesTab;
+//	private TabLayout.Tab openTradesTab;
 
 	private TabLayout.Tab tradesHistoryTab;
 
@@ -172,7 +172,7 @@ public class CopytradingDetailsActivity extends BaseSwipeBackActivity implements
 
 	private void initTabs() {
 		subscriptionsTab = tabLayout.newTab().setCustomView(getTabView(R.string.subscriptions)).setTag("subscriptions");
-		openTradesTab = tabLayout.newTab().setCustomView(getTabView(R.string.open_trades)).setTag("open_trades");
+//		openTradesTab = tabLayout.newTab().setCustomView(getTabView(R.string.open_trades)).setTag("open_trades");
 		tradesHistoryTab = tabLayout.newTab().setCustomView(getTabView(R.string.trades)).setTag("trades_history");
 		tradingLogTab = tabLayout.newTab().setCustomView(getTabView(R.string.trading_log)).setTag("trading_log");
 
@@ -206,7 +206,7 @@ public class CopytradingDetailsActivity extends BaseSwipeBackActivity implements
 		tabLayout.addOnTabSelectedListener(tabSelectedListener);
 
 		addPage(subscriptionsTab, true);
-		addPage(openTradesTab, false);
+//		addPage(openTradesTab, false);
 		addPage(tradesHistoryTab, false);
 		addPage(tradingLogTab, false);
 	}
@@ -267,7 +267,7 @@ public class CopytradingDetailsActivity extends BaseSwipeBackActivity implements
 
 	@Override
 	public void setOpenTradesCount(Integer openPositionsCount) {
-		((DetailsTabView) openTradesTab.getCustomView()).setCount(openPositionsCount);
+//		((DetailsTabView) openTradesTab.getCustomView()).setCount(openPositionsCount);
 	}
 
 	@Override

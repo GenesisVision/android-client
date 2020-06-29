@@ -32,7 +32,7 @@ public class SearchPagerAdapter extends FragmentStatePagerAdapter
 
 	private FollowsListFragment followsFragment;
 
-	private ManagersListFragment managersFragment;
+	private ManagersListFragment usersFragment;
 
 	private TabLayout tabLayout;
 
@@ -42,7 +42,7 @@ public class SearchPagerAdapter extends FragmentStatePagerAdapter
 		programsFragment = ProgramsListFragment.with(ProgramsListFragment.LOCATION_SEARCH, null);
 		fundsFragment = FundsListFragment.with(FundsListFragment.LOCATION_SEARCH, null);
 		followsFragment = FollowsListFragment.with(FollowsListFragment.LOCATION_SEARCH, null);
-		managersFragment = ManagersListFragment.with(ManagersListFragment.LOCATION_SEARCH);
+		usersFragment = ManagersListFragment.with(ManagersListFragment.LOCATION_SEARCH);
 	}
 
 	@Override
@@ -54,8 +54,8 @@ public class SearchPagerAdapter extends FragmentStatePagerAdapter
 				return fundsFragment;
 			case "follows":
 				return followsFragment;
-			case "managers":
-				return managersFragment;
+			case "users":
+				return usersFragment;
 			default:
 				return null;
 		}
@@ -70,6 +70,6 @@ public class SearchPagerAdapter extends FragmentStatePagerAdapter
 		programsFragment.showSearchResults(model.getPrograms());
 		fundsFragment.showSearchResults(model.getFunds());
 		followsFragment.showSearchResults(model.getFollows());
-		managersFragment.showSearchResults(model.getManagers());
+		usersFragment.showSearchResults(model.getManagers());
 	}
 }

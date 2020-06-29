@@ -8,6 +8,7 @@ import com.arellomobile.mvp.viewstate.strategy.StateStrategyType;
 import java.util.UUID;
 
 import io.swagger.client.model.PrivateTradingAccountFull;
+import vision.genesis.clientapp.model.SubscriptionSettingsModel;
 
 /**
  * GenesisVisionAndroid
@@ -41,4 +42,6 @@ interface TradingAccountDetailsView extends MvpView
 	void setTradesCount(Integer tradesCount);
 
 	void showUnfollowTradesActivity(UUID followId, UUID tradingAccountId, String followName, Boolean isExternal);
+
+	void showEditSubscriptionActivity(SubscriptionSettingsModel model, UUID followId, UUID tradingAccountId, Boolean external);
 }

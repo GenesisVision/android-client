@@ -14,6 +14,7 @@ import io.swagger.client.model.ProgramUpdate;
 import io.swagger.client.model.SignalSubscription;
 import vision.genesis.clientapp.model.CreateProgramModel;
 import vision.genesis.clientapp.model.ProgramRequest;
+import vision.genesis.clientapp.model.SubscriptionSettingsModel;
 import vision.genesis.clientapp.model.TradingAccountDetailsModel;
 import vision.genesis.clientapp.model.TransferFundsModel;
 
@@ -64,4 +65,6 @@ interface OwnerInfoView extends MvpView
 	void showCopytradingDetailsActivity(TradingAccountDetailsModel model);
 
 	void showTransferFundsActivity(TransferFundsModel model);
+
+	void showEditSubscriptionActivity(SubscriptionSettingsModel model, UUID followId, UUID tradingAccountId, Boolean external);
 }

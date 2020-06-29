@@ -73,7 +73,7 @@ public class ManageProgramPresenter extends MvpPresenter<ManageProgramView>
 		ProgramUpdate model = new ProgramUpdate();
 		model.setTitle(details.getPublicInfo().getTitle());
 		model.setDescription(details.getPublicInfo().getDescription());
-		model.setLogo(details.getPublicInfo().getLogoUrl());
+		model.setLogo(details.getPublicInfo().getLogo());
 		model.setEntryFee(details.getProgramDetails().getManagementFeeSelected());
 		model.setSuccessFee(details.getProgramDetails().getSuccessFeeSelected());
 		model.setInvestmentLimit(details.getProgramDetails().getAvailableInvestmentLimit());

@@ -198,7 +198,6 @@ public class SubscriptionSettingsFragment extends BaseFragment implements Subscr
 			if (model != null) {
 				updateView(model);
 				presenter.setModel(model);
-				setTextListeners();
 				return;
 			}
 		}
@@ -237,7 +236,8 @@ public class SubscriptionSettingsFragment extends BaseFragment implements Subscr
 
 	}
 
-	private void setTextListeners() {
+	@Override
+	public void setTextListeners() {
 		RxTextView.textChanges(volumePercentage)
 				.subscribe(charSequence -> presenter.onVolumePercentageChanged(charSequence.toString()));
 		RxTextView.textChanges(equivalent)

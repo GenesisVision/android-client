@@ -39,14 +39,28 @@
 
         </LinearLayout>
 
-        <vision.genesis.clientapp.ui.PrimaryButton
-            android:id="@+id/button_unfollow"
+        <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="40dp"
+            android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
             android:layout_marginStart="4dp"
-            android:text="@string/unfollow"/>
+            android:orientation="vertical">
+
+            <vision.genesis.clientapp.ui.PrimaryButton
+                android:id="@+id/button_edit"
+                android:layout_width="110dp"
+                android:layout_height="40dp"
+                android:text="@string/edit"/>
+
+            <vision.genesis.clientapp.ui.PrimaryButton
+                android:id="@+id/button_unfollow"
+                android:layout_width="110dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="8dp"
+                android:text="@string/unfollow"/>
+
+        </LinearLayout>
 
     </RelativeLayout>
 

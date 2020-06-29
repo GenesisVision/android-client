@@ -23,7 +23,6 @@ import io.swagger.client.model.TradesSignalViewModel;
 import io.swagger.client.model.TradingAccountDetailsItemsViewModel;
 import rx.Observable;
 import vision.genesis.clientapp.model.DateRange;
-import vision.genesis.clientapp.model.SubscriptionSettingsModel;
 import vision.genesis.clientapp.model.filter.ProgramsFilter;
 
 /**
@@ -78,8 +77,12 @@ public class FollowsManager
 		return signalApi.attachSlaveToMasterExternalPrivateAccount(followId, model);
 	}
 
-	public Observable<Void> updateSubscription(UUID followId, SubscriptionSettingsModel model) {
-		return signalApi.updateSubscriptionSettings(followId, model.getApiModel());
+	public Observable<Void> updateSubscription(UUID followId, AttachToSignalProvider model) {
+		return signalApi.updateSubscriptionSettings(followId, model);
+	}
+
+	public Observable<Void> updateExternalSubscription(UUID followId, AttachToExternalSignalProviderExt model) {
+		return signalApi.updateExternalSubscriptionSettings(followId, model);
 	}
 
 	public Observable<Void> unsubscribeFromFollow(UUID followId, DetachFromSignalProvider model) {

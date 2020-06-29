@@ -61,6 +61,10 @@ public class SelectSubscriptionAccountPresenter extends MvpPresenter<SelectSubsc
 		super.onDestroy();
 	}
 
+	void onResume() {
+		getAccounts();
+	}
+
 	void setData(UUID followId) {
 		this.followId = followId;
 
@@ -77,6 +81,9 @@ public class SelectSubscriptionAccountPresenter extends MvpPresenter<SelectSubsc
 
 	private void getAccounts() {
 		if (followsManager != null && followId != null) {
+			if (getAccountsSubscription != null) {
+				getAccountsSubscription.unsubscribe();
+			}
 			getAccountsSubscription = followsManager.getSubscriberAccounts(followId)
 					.observeOn(AndroidSchedulers.mainThread())
 					.subscribeOn(Schedulers.newThread())

@@ -6,7 +6,6 @@ import androidx.fragment.app.FragmentStatePagerAdapter;
 
 import com.google.android.material.tabs.TabLayout;
 
-import vision.genesis.clientapp.feature.main.copytrading.open_trades.CopytradingOpenTradesFragment;
 import vision.genesis.clientapp.feature.main.copytrading.subscriptions.CopytradingSubscriptionsFragment;
 import vision.genesis.clientapp.feature.main.copytrading.trades_history.CopytradingTradesHistoryFragment;
 import vision.genesis.clientapp.feature.main.copytrading.trading_log.TradingLogFragment;
@@ -28,7 +27,7 @@ public class CopytradingDetailsPagerAdapter extends FragmentStatePagerAdapter
 
 	private CopytradingSubscriptionsFragment subscriptionsFragment;
 
-	private CopytradingOpenTradesFragment openTradesFragment;
+//	private CopytradingOpenTradesFragment openTradesFragment;
 
 	private CopytradingTradesHistoryFragment tradesHistoryFragment;
 
@@ -42,7 +41,7 @@ public class CopytradingDetailsPagerAdapter extends FragmentStatePagerAdapter
 		this.tabLayout = tabLayout;
 
 		subscriptionsFragment = CopytradingSubscriptionsFragment.with(model.getAccountId());
-		openTradesFragment = CopytradingOpenTradesFragment.with(model.getAccountId());
+//		openTradesFragment = CopytradingOpenTradesFragment.with(model.getAccountId());
 		tradesHistoryFragment = CopytradingTradesHistoryFragment.with(model);
 		tradingLogFragment = TradingLogFragment.with(model.getAccountId());
 	}
@@ -52,8 +51,8 @@ public class CopytradingDetailsPagerAdapter extends FragmentStatePagerAdapter
 		switch (tabLayout.getTabAt(position).getTag().toString()) {
 			case "subscriptions":
 				return subscriptionsFragment;
-			case "open_trades":
-				return openTradesFragment;
+//			case "open_trades":
+//				return openTradesFragment;
 			case "trades_history":
 				return tradesHistoryFragment;
 			case "trading_log":
@@ -75,9 +74,9 @@ public class CopytradingDetailsPagerAdapter extends FragmentStatePagerAdapter
 		if (subscriptionsFragment != null) {
 			subscriptionsFragment.pagerShow();
 		}
-		if (openTradesFragment != null) {
-			openTradesFragment.pagerShow();
-		}
+//		if (openTradesFragment != null) {
+//			openTradesFragment.pagerShow();
+//		}
 		if (tradesHistoryFragment != null) {
 			tradesHistoryFragment.pagerShow();
 		}
@@ -90,9 +89,9 @@ public class CopytradingDetailsPagerAdapter extends FragmentStatePagerAdapter
 		if (subscriptionsFragment != null) {
 			subscriptionsFragment.onSwipeRefresh();
 		}
-		if (openTradesFragment != null) {
-			openTradesFragment.pagerShow();
-		}
+//		if (openTradesFragment != null) {
+//			openTradesFragment.pagerShow();
+//		}
 		if (tradesHistoryFragment != null) {
 			tradesHistoryFragment.onSwipeRefresh();
 		}

@@ -26,6 +26,7 @@ import vision.genesis.clientapp.feature.main.app_update.AppUpdateDialog;
 import vision.genesis.clientapp.feature.main.assets.AssetsPresenter;
 import vision.genesis.clientapp.feature.main.copytrading.create_account.CreateCopytradingAccountPresenter;
 import vision.genesis.clientapp.feature.main.copytrading.details.CopytradingDetailsPresenter;
+import vision.genesis.clientapp.feature.main.copytrading.edit_subscription.EditSubscriptionPresenter;
 import vision.genesis.clientapp.feature.main.copytrading.follow_trades.FollowTradesPresenter;
 import vision.genesis.clientapp.feature.main.copytrading.open_trade_details.OpenTradeDetailsPresenter;
 import vision.genesis.clientapp.feature.main.copytrading.open_trades.CopytradingOpenTradesPresenter;
@@ -431,4 +432,6 @@ public interface AppComponent
 	void inject(AddDemoFundsPresenter addDemoFundsPresenter);
 
 	void inject(FundsChallengePresenter fundsChallengePresenter);
+
+	void inject(EditSubscriptionPresenter editSubscriptionPresenter);
 }

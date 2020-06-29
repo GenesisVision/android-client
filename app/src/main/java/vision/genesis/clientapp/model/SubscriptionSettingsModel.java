@@ -160,7 +160,7 @@ public class SubscriptionSettingsModel implements Parcelable
 	}
 
 	public Double getTolerancePercent() {
-		return tolerancePercent;
+		return tolerancePercent != null ? tolerancePercent : 0.0;
 	}
 
 	public void setTolerancePercent(Double tolerancePercent) {

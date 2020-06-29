@@ -22,6 +22,7 @@ import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.managers.AuthManager;
 import vision.genesis.clientapp.managers.FollowsManager;
 import vision.genesis.clientapp.model.User;
+import vision.genesis.clientapp.model.events.ShowEditSubscriptionEvent;
 import vision.genesis.clientapp.model.events.ShowUnfollowTradesEvent;
 
 /**
@@ -51,6 +52,8 @@ public class FollowInfoPresenter extends MvpPresenter<FollowInfoView>
 	private ProgramFollowDetailsFull details;
 
 	private List<SignalSubscription> subscriptions = new ArrayList<>();
+
+	private boolean isActive = false;
 
 	@Override
 	protected void onFirstViewAttach() {
@@ -85,6 +88,14 @@ public class FollowInfoPresenter extends MvpPresenter<FollowInfoView>
 	void setDetails(ProgramFollowDetailsFull followDetails) {
 		this.followId = followDetails.getId();
 		this.details = followDetails;
+	}
+
+	void onResume() {
+		isActive = true;
+	}
+
+	void onPause() {
+		isActive = false;
 	}
 
 	void onShow() {
@@ -228,7 +239,16 @@ public class FollowInfoPresenter extends MvpPresenter<FollowInfoView>
 	}
 
 	@Subscribe
+	public void onEventMainThread(ShowEditSubscriptionEvent event) {
+		if (isActive) {
+			getViewState().showEditSubscriptionActivity(event.getModel(), event.getFollowId(), event.getTradingAccountId(), event.getExternal());
+		}
+	}
+
+	@Subscribe
 	public void onEventMainThread(ShowUnfollowTradesEvent event) {
-		getViewState().showUnfollowTradesActivity(event.getFollowId(), event.getTradingAccountId(), event.getFollowName(), event.isExternal());
+		if (isActive) {
+			getViewState().showUnfollowTradesActivity(event.getFollowId(), event.getTradingAccountId(), event.getFollowName(), event.isExternal());
+		}
 	}
 }

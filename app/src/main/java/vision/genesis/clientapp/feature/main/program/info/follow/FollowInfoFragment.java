@@ -34,11 +34,13 @@ import timber.log.Timber;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
 import vision.genesis.clientapp.feature.auth.login.LoginActivity;
+import vision.genesis.clientapp.feature.main.copytrading.edit_subscription.EditSubscriptionActivity;
 import vision.genesis.clientapp.feature.main.copytrading.follow_trades.FollowTradesActivity;
 import vision.genesis.clientapp.feature.main.copytrading.unfollow_trades.UnfollowTradesActivity;
 import vision.genesis.clientapp.feature.main.manager.ManagerDetailsActivity;
 import vision.genesis.clientapp.feature.main.program.ProgramDetailsPagerAdapter;
 import vision.genesis.clientapp.model.ManagerDetailsModel;
+import vision.genesis.clientapp.model.SubscriptionSettingsModel;
 import vision.genesis.clientapp.ui.AccountAgeView;
 import vision.genesis.clientapp.ui.AvatarView;
 import vision.genesis.clientapp.ui.FollowSubscriberView;
@@ -232,6 +234,22 @@ public class FollowInfoFragment extends BaseFragment implements FollowInfoView, 
 	}
 
 	@Override
+	public void onResume() {
+		super.onResume();
+		if (presenter != null) {
+			presenter.onResume();
+		}
+	}
+
+	@Override
+	public void onPause() {
+		super.onPause();
+		if (presenter != null) {
+			presenter.onPause();
+		}
+	}
+
+	@Override
 	public void onDestroyView() {
 		if (unbinder != null) {
 			unbinder.unbind();
@@ -364,6 +382,13 @@ public class FollowInfoFragment extends BaseFragment implements FollowInfoView, 
 	public void showUnfollowTradesActivity(UUID followId, UUID tradingAccountId, String followName, Boolean isExternal) {
 		if (getActivity() != null) {
 			UnfollowTradesActivity.startWith(getActivity(), followId, tradingAccountId, followName, isExternal);
+		}
+	}
+
+	@Override
+	public void showEditSubscriptionActivity(SubscriptionSettingsModel model, UUID followId, UUID tradingAccountId, Boolean isExternal) {
+		if (getActivity() != null) {
+			EditSubscriptionActivity.startWith(getActivity(), model, followId, tradingAccountId, isExternal);
 		}
 	}
 }

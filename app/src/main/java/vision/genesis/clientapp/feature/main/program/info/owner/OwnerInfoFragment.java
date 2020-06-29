@@ -42,6 +42,7 @@ import vision.genesis.clientapp.feature.auth.login.LoginActivity;
 import vision.genesis.clientapp.feature.common.public_info.edit.EditPublicInfoActivity;
 import vision.genesis.clientapp.feature.common.requests.RequestsBottomSheetFragment;
 import vision.genesis.clientapp.feature.main.copytrading.details.CopytradingDetailsActivity;
+import vision.genesis.clientapp.feature.main.copytrading.edit_subscription.EditSubscriptionActivity;
 import vision.genesis.clientapp.feature.main.copytrading.unfollow_trades.UnfollowTradesActivity;
 import vision.genesis.clientapp.feature.main.follow.create.CreateFollowActivity;
 import vision.genesis.clientapp.feature.main.follow.edit.EditFollowSettingsActivity;
@@ -55,6 +56,7 @@ import vision.genesis.clientapp.feature.main.trading_account.manage.ManageTradin
 import vision.genesis.clientapp.feature.main.wallet.transfer_funds.TransferFundsActivity;
 import vision.genesis.clientapp.model.CreateProgramModel;
 import vision.genesis.clientapp.model.ProgramRequest;
+import vision.genesis.clientapp.model.SubscriptionSettingsModel;
 import vision.genesis.clientapp.model.TradingAccountDetailsModel;
 import vision.genesis.clientapp.model.TransferFundsModel;
 import vision.genesis.clientapp.ui.AccountAgeView;
@@ -461,6 +463,22 @@ public class OwnerInfoFragment extends BaseFragment implements OwnerInfoView, Pr
 	}
 
 	@Override
+	public void onResume() {
+		super.onResume();
+		if (presenter != null) {
+			presenter.onResume();
+		}
+	}
+
+	@Override
+	public void onPause() {
+		super.onPause();
+		if (presenter != null) {
+			presenter.onPause();
+		}
+	}
+
+	@Override
 	public void onDestroyView() {
 		if (unbinder != null) {
 			unbinder.unbind();
@@ -810,6 +828,13 @@ public class OwnerInfoFragment extends BaseFragment implements OwnerInfoView, Pr
 	public void showUnfollowTradesActivity(UUID followId, UUID tradingAccountId, String followName, Boolean isExternal) {
 		if (getActivity() != null) {
 			UnfollowTradesActivity.startWith(getActivity(), followId, tradingAccountId, followName, isExternal);
+		}
+	}
+
+	@Override
+	public void showEditSubscriptionActivity(SubscriptionSettingsModel model, UUID followId, UUID tradingAccountId, Boolean isExternal) {
+		if (getActivity() != null) {
+			EditSubscriptionActivity.startWith(getActivity(), model, followId, tradingAccountId, isExternal);
 		}
 	}
 

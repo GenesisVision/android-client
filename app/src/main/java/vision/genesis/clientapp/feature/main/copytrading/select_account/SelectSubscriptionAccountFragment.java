@@ -129,6 +129,14 @@ public class SelectSubscriptionAccountFragment extends BaseFragment implements S
 	}
 
 	@Override
+	public void onResume() {
+		super.onResume();
+		if (presenter != null) {
+			presenter.onResume();
+		}
+	}
+
+	@Override
 	public void onDestroyView() {
 		if (unbinder != null) {
 			unbinder.unbind();

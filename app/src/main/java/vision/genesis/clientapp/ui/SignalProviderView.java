@@ -16,8 +16,11 @@ import butterknife.Unbinder;
 import io.swagger.client.model.AssetDetails;
 import io.swagger.client.model.AssetType;
 import io.swagger.client.model.SignalSubscription;
+import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.model.ProgramDetailsModel;
+import vision.genesis.clientapp.model.SubscriptionSettingsModel;
+import vision.genesis.clientapp.model.events.ShowEditSubscriptionEvent;
 import vision.genesis.clientapp.model.events.ShowProgramDetailsEvent;
 import vision.genesis.clientapp.model.events.ShowUnfollowTradesEvent;
 import vision.genesis.clientapp.utils.StringFormatUtil;
@@ -78,6 +81,9 @@ public class SignalProviderView extends RelativeLayout
 	@BindView(R.id.group_volume)
 	public ViewGroup groupVolume;
 
+	@BindView(R.id.button_edit)
+	public PrimaryButton buttonEdit;
+
 	@BindView(R.id.button_unfollow)
 	public PrimaryButton buttonUnfollow;
 
@@ -103,6 +109,21 @@ public class SignalProviderView extends RelativeLayout
 		initView();
 	}
 
+	@OnClick(R.id.button_edit)
+	public void onEditClicked() {
+		if (data != null) {
+			EventBus.getDefault().post(new ShowEditSubscriptionEvent(
+					new SubscriptionSettingsModel(false, null,
+							GenesisVisionApplication.INSTANCE.getString(R.string.subscription_settings),
+							GenesisVisionApplication.INSTANCE.getString(R.string.update),
+							data.getMode().getValue(), data.getPercent(), data.getOpenTolerancePercent(), data.getFixedVolume(),
+							data.getFixedCurrency() != null ? data.getFixedCurrency().getValue() : null),
+					data.getAsset().getId(),
+					data.getSubscriberInfo().getTradingAccountId(),
+					data.isIsExternal()));
+		}
+	}
+
 	@OnClick(R.id.button_unfollow)
 	public void onUnfollowClicked() {
 		if (data != null) {
@@ -126,6 +147,8 @@ public class SignalProviderView extends RelativeLayout
 		unbinder = ButterKnife.bind(this);
 
 		setFonts();
+
+		buttonUnfollow.setEmpty();
 
 		setOnClickListener(v -> {
 			if (data != null && data.getAsset() != null) {
@@ -177,6 +200,7 @@ public class SignalProviderView extends RelativeLayout
 			this.name.setText(data.getAsset().getTitle());
 		}
 
+		buttonEdit.setVisibility(data.getStatus().toLowerCase().equals("active") ? View.VISIBLE : View.GONE);
 		buttonUnfollow.setVisibility(data.getStatus().toLowerCase().equals("active") ? View.VISIBLE : View.GONE);
 
 		switch (data.getMode()) {

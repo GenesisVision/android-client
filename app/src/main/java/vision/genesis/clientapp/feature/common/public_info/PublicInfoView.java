@@ -35,5 +35,9 @@ interface PublicInfoView extends MvpView
 
 	void showTitleError(String errorText);
 
+	void showDescriptionError(String errorText);
+
 	void cleanTitleError();
+
+	void cleanDescriptionError();
 }

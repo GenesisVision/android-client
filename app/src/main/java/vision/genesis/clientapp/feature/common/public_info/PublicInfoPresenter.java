@@ -85,7 +85,7 @@ public class PublicInfoPresenter extends MvpPresenter<PublicInfoView>
 		if (model.getDescription() != null) {
 			getViewState().setDescription(model.getDescription());
 		}
-		if (model.getLogo() != null) {
+		if (model.getLogo() != null && !model.getLogo().isEmpty()) {
 			this.logo = model.getLogo();
 			getViewState().showLogoProgress(false);
 			getViewState().updateLogo(model.getLogo());
@@ -144,12 +144,19 @@ public class PublicInfoPresenter extends MvpPresenter<PublicInfoView>
 
 	void onDescriptionChanged(String description) {
 		this.description = description.trim();
+		checkDescriptionError();
 		checkButtonAvailability();
 	}
 
 	void onTitleFocusLost() {
 		if (this.title.length() < Constants.MIN_ASSET_NAME_LENGTH && context != null) {
 			getViewState().showTitleError(String.format(Locale.getDefault(), context.getString(R.string.template_minimum_symbols), Constants.MIN_ASSET_NAME_LENGTH));
+		}
+	}
+
+	void onDescriptionFocusLost() {
+		if (this.description.length() < Constants.MIN_ASSET_DESCRIPTION_LENGTH && context != null) {
+			getViewState().showDescriptionError(String.format(Locale.getDefault(), context.getString(R.string.template_minimum_symbols), Constants.MIN_ASSET_DESCRIPTION_LENGTH));
 		}
 	}
 
@@ -163,6 +170,16 @@ public class PublicInfoPresenter extends MvpPresenter<PublicInfoView>
 		}
 		else if (this.title.length() >= Constants.MIN_ASSET_NAME_LENGTH) {
 			getViewState().cleanTitleError();
+		}
+	}
+
+	private void checkDescriptionError() {
+		if (this.description.isEmpty()) {
+			getViewState().cleanDescriptionError();
+			return;
+		}
+		if (this.description.length() >= Constants.MIN_ASSET_DESCRIPTION_LENGTH) {
+			getViewState().cleanDescriptionError();
 		}
 	}
 

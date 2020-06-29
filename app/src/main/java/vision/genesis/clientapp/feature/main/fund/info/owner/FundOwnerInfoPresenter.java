@@ -90,7 +90,7 @@ public class FundOwnerInfoPresenter extends MvpPresenter<FundOwnerInfoView>
 		ProgramUpdate model = new ProgramUpdate();
 		model.setTitle(fundDetails.getPublicInfo().getTitle());
 		model.setDescription(fundDetails.getPublicInfo().getDescription());
-		model.setLogo(fundDetails.getPublicInfo().getLogoUrl());
+		model.setLogo(fundDetails.getPublicInfo().getLogo());
 		model.setEntryFee(fundDetails.getEntryFeeCurrent());
 		model.setExitFee(fundDetails.getExitFeeCurrent());
 		getViewState().showEditPublicInfoActivity(fundId, model);
