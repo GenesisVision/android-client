@@ -195,6 +195,7 @@ public class OwnerInfoPresenter extends MvpPresenter<OwnerInfoView>
 		request.setAvailableInvestment(programDetails.getAvailableInvestmentBase());
 		request.setManagementFee(programDetails.getManagementFeeCurrent());
 		request.setBrokerType(details.getBrokerDetails().getType());
+		request.setIsOwner(details.getPublicInfo().isIsOwnAsset());
 
 		getViewState().showInvestProgramActivity(request);
 	}

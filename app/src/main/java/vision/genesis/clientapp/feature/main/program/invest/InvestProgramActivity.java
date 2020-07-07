@@ -59,6 +59,9 @@ public class InvestProgramActivity extends BaseSwipeBackActivity implements Inve
 	@BindView(R.id.content)
 	public ViewGroup content;
 
+	@BindView(R.id.group_available_to_invest)
+	public ViewGroup availableToInvestGroup;
+
 	@BindView(R.id.available_to_invest)
 	public TextView availableToInvest;
 
@@ -159,7 +162,7 @@ public class InvestProgramActivity extends BaseSwipeBackActivity implements Inve
 			if (request != null) {
 				investProgramPresenter.setProgramRequest(request);
 
-				setProgramName(request.getProgramName());
+				updateView(request);
 				setFonts();
 
 				setTextListener();
@@ -170,8 +173,13 @@ public class InvestProgramActivity extends BaseSwipeBackActivity implements Inve
 		onBackPressed();
 	}
 
-	private void setProgramName(String programName) {
-		this.programName.setText(programName);
+	private void updateView(ProgramRequest request) {
+		this.programName.setText(request.getProgramName());
+		if (request.isOwner()) {
+			this.title.setText(getString(R.string.deposit));
+			this.availableToInvestGroup.setVisibility(View.GONE);
+			this.commissionsGroup.setVisibility(View.GONE);
+		}
 	}
 
 	private void setTextListener() {
@@ -211,7 +219,7 @@ public class InvestProgramActivity extends BaseSwipeBackActivity implements Inve
 	@Override
 	public void setMinInvestmentAmount(Double minInvestmentAmount) {
 		amountToInvestLabel.setText(String.format(Locale.getDefault(), "%s (min %s)",
-				getString(R.string.amount_to_invest),
+				getString(request.isOwner() ? R.string.amount_to_deposit : R.string.amount_to_invest),
 				StringFormatUtil.formatAmount(minInvestmentAmount, 0, 6)));
 	}
 
@@ -257,8 +265,10 @@ public class InvestProgramActivity extends BaseSwipeBackActivity implements Inve
 	@Override
 	public void showAmountProgress(boolean show) {
 		amountGroup.setVisibility(show ? View.INVISIBLE : View.VISIBLE);
-		commissionsGroup.setVisibility(show ? View.INVISIBLE : View.VISIBLE);
 		amountProgress.setVisibility(!show ? View.INVISIBLE : View.VISIBLE);
+		if (request != null && !request.isOwner()) {
+			commissionsGroup.setVisibility(show ? View.INVISIBLE : View.VISIBLE);
+		}
 	}
 
 	@Override

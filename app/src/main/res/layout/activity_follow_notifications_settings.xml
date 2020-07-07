@@ -27,12 +27,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="@string/program_notifications"
+            android:text="@string/follow_notifications"
             android:textColor="?attr/colorTextPrimary"
             android:textSize="18sp"/>
 
         <TextView
-            android:id="@+id/program_name"
+            android:id="@+id/follow_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/title"
@@ -85,7 +85,7 @@
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:layout_marginStart="20dp"
-                        android:text="@string/program_news_and_updates"
+                        android:text="@string/follow_news_and_updates"
                         android:textColor="?attr/colorTextPrimary"
                         android:textSize="14sp"/>
 
@@ -97,73 +97,7 @@
                         android:layout_centerVertical="true"
                         android:layout_marginEnd="20dp"/>
 
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:layout_alignParentBottom="true"
-                        android:layout_marginStart="20dp"
-                        android:alpha="0.05"
-                        android:background="?attr/colorTextPrimary"/>
-
                 </RelativeLayout>
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="60dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_marginStart="20dp"
-                        android:text="@string/end_of_the_period"
-                        android:textColor="?attr/colorTextPrimary"
-                        android:textSize="14sp"/>
-
-                    <androidx.appcompat.widget.SwitchCompat
-                        android:id="@+id/switch_period"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentEnd="true"
-                        android:layout_centerVertical="true"
-                        android:layout_marginEnd="20dp"/>
-
-                </RelativeLayout>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/group_custom"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:background="?attr/colorBackground"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/label_custom"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginBottom="10dp"
-                    android:text="@string/custom"
-                    android:textColor="?attr/colorTextPrimary"
-                    android:textSize="18sp"/>
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recycler_view"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:clipToPadding="false"
-                    android:paddingBottom="20dp"/>
-
-                <vision.genesis.clientapp.ui.PrimaryButton
-                    android:id="@+id/button_create_notification"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/button_height"
-                    android:layout_margin="20dp"
-                    android:text="@string/create_notification"/>
 
             </LinearLayout>
 

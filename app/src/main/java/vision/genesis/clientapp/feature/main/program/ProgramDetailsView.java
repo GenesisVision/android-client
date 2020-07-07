@@ -5,6 +5,8 @@ import com.arellomobile.mvp.viewstate.strategy.AddToEndSingleStrategy;
 import com.arellomobile.mvp.viewstate.strategy.OneExecutionStateStrategy;
 import com.arellomobile.mvp.viewstate.strategy.StateStrategyType;
 
+import java.util.UUID;
+
 import io.swagger.client.model.InvestmentEventViewModel;
 import io.swagger.client.model.ProgramFollowDetailsFull;
 
@@ -52,4 +54,8 @@ interface ProgramDetailsView extends MvpView
 	void setEventsCount(Integer eventsCount);
 
 	void showEventDetails(InvestmentEventViewModel event);
+
+	void showProgramNotificationsSettings(UUID programId, String programName);
+
+	void showFollowNotificationsSettings(UUID followId, String followName);
 }

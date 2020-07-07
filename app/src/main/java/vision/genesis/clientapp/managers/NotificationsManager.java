@@ -4,6 +4,7 @@ package vision.genesis.clientapp.managers;
 import java.util.UUID;
 
 import io.swagger.client.api.NotificationsApi;
+import io.swagger.client.model.FollowNotificationSettingList;
 import io.swagger.client.model.FundNotificationSettingList;
 import io.swagger.client.model.NotificationList;
 import io.swagger.client.model.NotificationSettingConditionType;
@@ -47,6 +48,10 @@ public class NotificationsManager
 
 	public Observable<FundNotificationSettingList> getFundNotificationsSettings(UUID fundId) {
 		return notificationsApi.getNotificationsFundSettings(fundId.toString());
+	}
+
+	public Observable<FollowNotificationSettingList> getFollowNotificationsSettings(UUID followId) {
+		return notificationsApi.getNotificationsFollowSettings(followId.toString());
 	}
 
 	public Observable<UUID> setEnabledNotificationSetting(UUID settingId, Boolean enabled) {

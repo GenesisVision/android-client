@@ -8,7 +8,6 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.widget.SwitchCompat;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import androidx.viewpager.widget.ViewPager;
 
@@ -89,8 +88,8 @@ public class WalletFragment extends BaseFragment implements WalletView, ViewPage
 	@BindView(R.id.pending)
 	public TextView pending;
 
-	@BindView(R.id.switch_using_gvt)
-	public SwitchCompat switchUsingGvt;
+	@BindView(R.id.label_gm_discount)
+	public TextView gmDiscountLabel;
 
 	@BindView(R.id.progress_bar)
 	public ProgressBar progressBar;
@@ -141,7 +140,6 @@ public class WalletFragment extends BaseFragment implements WalletView, ViewPage
 
 		initRefreshLayout();
 		setOffsetListener();
-		setSwitchListener();
 		initTabs();
 		initViewPager();
 	}
@@ -219,12 +217,6 @@ public class WalletFragment extends BaseFragment implements WalletView, ViewPage
 
 	private void updateRefreshLayoutEnabled() {
 		refreshLayout.setEnabled(verticalOffset == 0 && !isPagerDragging);
-	}
-
-	private void setSwitchListener() {
-		switchUsingGvt.setOnCheckedChangeListener((view, checked) -> {
-			presenter.onUsingGvtCheckedChanged(checked);
-		});
 	}
 
 	private void initTabs() {
@@ -325,7 +317,8 @@ public class WalletFragment extends BaseFragment implements WalletView, ViewPage
 		this.pendingPercent.setText(String.format(Locale.getDefault(), "%d%%", pendingPercent));
 		this.pending.setText(StringFormatUtil.getValueString(data.getGrandTotal().getTrading(), currency));
 
-//		this.switchUsingGvt.setChecked(data.isPayFeesWithGvt());
+		this.gmDiscountLabel.setText(String.format(Locale.getDefault(), getString(R.string.template_your_gm_discount),
+				StringFormatUtil.formatAmount(data.getGenesisMarketsDiscountPercent(), 0, 8)));
 	}
 
 	@Override

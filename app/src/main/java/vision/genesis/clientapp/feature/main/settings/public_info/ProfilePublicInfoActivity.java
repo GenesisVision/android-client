@@ -241,6 +241,11 @@ public class ProfilePublicInfoActivity extends BaseSwipeBackActivity implements 
 	}
 
 	@Override
+	public void updateLogoById(String logoId) {
+		logo.setImageURI(ImageUtils.getImageUriById(logoId));
+	}
+
+	@Override
 	public void showSnackbarMessage(String message) {
 		showSnackbar(message, title);
 	}

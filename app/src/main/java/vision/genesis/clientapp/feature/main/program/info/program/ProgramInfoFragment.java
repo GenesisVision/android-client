@@ -153,6 +153,29 @@ public class ProgramInfoFragment extends BaseFragment implements ProgramInfoView
 	@BindView(R.id.profit_label)
 	public TextView profitLabel;
 
+
+	@BindView(R.id.group_personal_commissions)
+	public ViewGroup personalCommissionsGroup;
+
+	@BindView(R.id.group_personal_success_fee)
+	public ViewGroup personalSuccessFeeGroup;
+
+	@BindView(R.id.personal_success_fee)
+	public TextView personalSuccessFee;
+
+	@BindView(R.id.label_personal_success_fee)
+	public TextView personalSuccessFeeLabel;
+
+	@BindView(R.id.group_personal_management_fee)
+	public ViewGroup personalManagementFeeGroup;
+
+	@BindView(R.id.personal_management_fee)
+	public TextView personalManagementFee;
+
+	@BindView(R.id.label_personal_management_fee)
+	public TextView personalManagementFeeLabel;
+
+
 	@BindView(R.id.switch_reinvest)
 	public SwitchCompat reinvestSwitch;
 
@@ -386,6 +409,7 @@ public class ProgramInfoFragment extends BaseFragment implements ProgramInfoView
 		stopOutLabel.setText(stopOutLabel.getText().toString().toLowerCase());
 		profitLabel.setText(profitLabel.getText().toString().toLowerCase());
 		managementFeeLabel.setText(managementFeeLabel.getText().toString().toLowerCase());
+		personalManagementFeeLabel.setText(personalManagementFeeLabel.getText().toString().toLowerCase());
 	}
 
 	@Override
@@ -481,6 +505,27 @@ public class ProgramInfoFragment extends BaseFragment implements ProgramInfoView
 					personalDetails.getValue() < personalDetails.getInvested()
 							? R.attr.colorRed
 							: R.attr.colorGreen));
+
+			int personalFeesCounter = 0;
+			if (!personalDetails.getSuccessFeePersonal().equals(details.getProgramDetails().getSuccessFeeCurrent())
+					|| !personalDetails.getSuccessFeePersonal().equals(details.getProgramDetails().getSuccessFeeSelected())) {
+				personalSuccessFeeGroup.setVisibility(View.VISIBLE);
+				personalSuccessFee.setText(String.format(Locale.getDefault(), "%s%%", StringFormatUtil.formatAmount(personalDetails.getSuccessFeePersonal(), 0, 4)));
+				personalFeesCounter++;
+			}
+			else {
+				personalSuccessFeeGroup.setVisibility(View.GONE);
+			}
+			if (!personalDetails.getManagementFeePersonal().equals(details.getProgramDetails().getManagementFeeCurrent())
+					|| !personalDetails.getManagementFeePersonal().equals(details.getProgramDetails().getManagementFeeSelected())) {
+				personalManagementFeeGroup.setVisibility(View.VISIBLE);
+				personalManagementFee.setText(String.format(Locale.getDefault(), "%s%%", StringFormatUtil.formatAmount(personalDetails.getManagementFeePersonal(), 0, 4)));
+				personalFeesCounter++;
+			}
+			else {
+				personalManagementFeeGroup.setVisibility(View.GONE);
+			}
+			personalCommissionsGroup.setVisibility(personalFeesCounter > 0 ? View.VISIBLE : View.GONE);
 
 			reinvestSwitch.setChecked(personalDetails.isIsReinvest());
 			ignoreSoSwitch.setChecked(personalDetails.isIsAutoJoin());

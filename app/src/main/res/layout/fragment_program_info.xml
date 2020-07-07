@@ -492,6 +492,59 @@
 
                 </LinearLayout>
 
+                <LinearLayout
+                    android:id="@+id/group_personal_commissions"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="32dp"
+                    android:orientation="horizontal"
+                    android:visibility="gone"
+                    tools:visibility="visible">
+
+                    <LinearLayout
+                        android:id="@+id/group_personal_success_fee"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:visibility="gone"
+                        tools:visibility="visible">
+
+                        <TextView
+                            android:id="@+id/personal_success_fee"
+                            style="@style/program_info_invest_value"
+                            tools:text="1.73%"/>
+
+                        <TextView
+                            android:id="@+id/label_personal_success_fee"
+                            style="@style/program_info_invest_label"
+                            android:text="@string/success_fee"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/group_personal_management_fee"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:visibility="gone"
+                        tools:visibility="visible">
+
+                        <TextView
+                            android:id="@+id/personal_management_fee"
+                            style="@style/program_info_invest_value"
+                            tools:text="1.73%"/>
+
+                        <TextView
+                            android:id="@+id/label_personal_management_fee"
+                            style="@style/program_info_invest_label"
+                            android:text="@string/management_fee"/>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

@@ -82,27 +82,6 @@
 
                 </LinearLayout>
 
-                <LinearLayout style="@style/fees_and_discounts_point_group">
-
-                    <TextView
-                        style="@style/fees_and_discounts_point_number"
-                        android:text="&#8226;"
-                        android:textStyle="bold"/>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical">
-
-                        <TextView
-                            style="@style/fees_and_discounts_point_text"
-                            android:alpha="0.9"
-                            android:text="@string/fees_and_discounts_point_2"/>
-
-                    </LinearLayout>
-
-                </LinearLayout>
-
             </LinearLayout>
 
             <TextView
@@ -215,106 +194,6 @@
                         <TextView
                             style="@style/fees_and_discounts_table_discount"
                             android:text="@string/fees_and_discounts_table_discount_6"/>
-
-                    </LinearLayout>
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="@dimen/padding">
-
-                <LinearLayout style="@style/fees_and_discounts_point_group">
-
-                    <TextView
-                        style="@style/fees_and_discounts_point_number"
-                        android:text="&#8226;"
-                        android:textStyle="bold"/>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical">
-
-                        <TextView
-                            style="@style/fees_and_discounts_point_text"
-                            android:alpha="0.9"
-                            android:text="@string/fees_and_discounts_point_3"/>
-
-                    </LinearLayout>
-
-                </LinearLayout>
-
-                <TextView
-                    android:id="@+id/notes"
-                    style="@style/fees_and_discounts_point_text"
-                    android:layout_marginTop="20dp"
-                    android:alpha="0.9"
-                    android:fontFamily="@font/montserrat_bold"
-                    android:text="@string/fees_and_discounts_note_title"/>
-
-                <LinearLayout style="@style/fees_and_discounts_point_group">
-
-                    <TextView
-                        style="@style/fees_and_discounts_point_number"
-                        android:text="&#8226;"/>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical">
-
-                        <TextView
-                            style="@style/fees_and_discounts_point_text"
-                            android:alpha="0.9"
-                            android:text="@string/fees_and_discounts_note_1"/>
-
-                    </LinearLayout>
-
-                </LinearLayout>
-
-                <LinearLayout style="@style/fees_and_discounts_point_group">
-
-                    <TextView
-                        style="@style/fees_and_discounts_point_number"
-                        android:text="&#8226;"/>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical">
-
-                        <TextView
-                            style="@style/fees_and_discounts_point_text"
-                            android:alpha="0.9"
-                            android:text="@string/fees_and_discounts_note_2"/>
-
-                    </LinearLayout>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    style="@style/fees_and_discounts_point_group"
-                    android:layout_marginBottom="40dp">
-
-                    <TextView
-                        style="@style/fees_and_discounts_point_number"
-                        android:text="&#8226;"/>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical">
-
-                        <TextView
-                            style="@style/fees_and_discounts_point_text"
-                            android:alpha="0.9"
-                            android:text="@string/fees_and_discounts_note_3"/>
 
                     </LinearLayout>
 

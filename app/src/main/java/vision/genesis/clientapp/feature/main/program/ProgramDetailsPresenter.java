@@ -268,4 +268,15 @@ public class ProgramDetailsPresenter extends MvpPresenter<ProgramDetailsView>
 			getViewState().showEventDetails(event.getEvent());
 		}
 	}
+
+	void onNotificationsClicked() {
+		if (model != null) {
+			if (model.getAssetType().equals(AssetType.PROGRAM)) {
+				getViewState().showProgramNotificationsSettings(model.getProgramId(), model.getProgramName());
+			}
+			else if (model.getAssetType().equals(AssetType.FOLLOW)) {
+				getViewState().showFollowNotificationsSettings(model.getProgramId(), model.getProgramName());
+			}
+		}
+	}
 }

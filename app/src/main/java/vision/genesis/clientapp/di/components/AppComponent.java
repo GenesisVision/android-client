@@ -79,6 +79,7 @@ import vision.genesis.clientapp.feature.main.manager.info.ManagerInfoPresenter;
 import vision.genesis.clientapp.feature.main.managers_list.ManagersListPresenter;
 import vision.genesis.clientapp.feature.main.notifications.NotificationsPresenter;
 import vision.genesis.clientapp.feature.main.notifications.create.CreateCustomNotificationSettingPresenter;
+import vision.genesis.clientapp.feature.main.notifications.follow.FollowNotificationsSettingsPresenter;
 import vision.genesis.clientapp.feature.main.notifications.fund.FundNotificationsSettingsPresenter;
 import vision.genesis.clientapp.feature.main.notifications.program.ProgramNotificationsSettingsPresenter;
 import vision.genesis.clientapp.feature.main.notifications.settings.NotificationsSettingsPresenter;
@@ -434,4 +435,6 @@ public interface AppComponent
 	void inject(FundsChallengePresenter fundsChallengePresenter);
 
 	void inject(EditSubscriptionPresenter editSubscriptionPresenter);
+
+	void inject(FollowNotificationsSettingsPresenter followNotificationsSettingsPresenter);
 }

@@ -69,9 +69,9 @@ public class InvestProgramPresenter extends MvpPresenter<InvestProgramView> impl
 
 	private Double availableToInvest;
 
-	private Double managementFee;
+	private Double managementFee = 0.0;
 
-	private Double gvCommission;
+	private Double gvCommission = 0.0;
 
 	private Double investmentAmount;
 
@@ -128,7 +128,9 @@ public class InvestProgramPresenter extends MvpPresenter<InvestProgramView> impl
 
 			amountBase = amount / rate;
 
-			gvCommission = amount * (gvCommissionPercent / 100);
+			if (!programRequest.isOwner()) {
+				gvCommission = amount * (gvCommissionPercent / 100);
+			}
 			investmentAmount = amountBase - gvCommission / rate;
 
 			getViewState().setAmountBase(getAmountBaseString());
@@ -290,9 +292,14 @@ public class InvestProgramPresenter extends MvpPresenter<InvestProgramView> impl
 				programRequest.getAvailableInvestment(),
 				programRequest.getProgramCurrency()));
 
-		availableToInvest = programRequest.getAvailableInvestment() < selectedWalletFrom.getAvailable() / rate
-				? programRequest.getAvailableInvestment() * rate
-				: selectedWalletFrom.getAvailable();
+		if (programRequest.isOwner()) {
+			availableToInvest = selectedWalletFrom.getAvailable();
+		}
+		else {
+			availableToInvest = programRequest.getAvailableInvestment() < selectedWalletFrom.getAvailable() / rate
+					? programRequest.getAvailableInvestment() * rate
+					: selectedWalletFrom.getAvailable();
+		}
 
 		getViewState().setMinInvestmentAmount(programCurrencyMinInvestment * rate);
 		getViewState().setAmount("");

@@ -290,12 +290,14 @@
                                 android:background="?attr/colorTextPrimary"/>
 
                             <TextView
-                                android:id="@+id/label_using_gvt"
+                                android:id="@+id/label_gm_discount"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:layout_alignParentStart="true"
                                 android:layout_centerVertical="true"
+                                android:layout_toStartOf="@+id/tooltip_using_gvt"
                                 android:fontFamily="@font/montserrat_medium"
-                                android:text="@string/using_gvt_to_pay_for_fees"
+                                android:text="@string/template_your_gm_discount"
                                 android:textColor="?attr/colorTextPrimary"
                                 android:textSize="14sp"/>
 
@@ -303,18 +305,11 @@
                                 android:id="@+id/tooltip_using_gvt"
                                 android:layout_width="40dp"
                                 android:layout_height="40dp"
+                                android:layout_alignParentEnd="true"
                                 android:layout_centerVertical="true"
                                 android:layout_marginEnd="4dp"
-                                android:layout_toEndOf="@id/label_using_gvt"
                                 android:padding="8dp"
                                 app:srcCompat="@drawable/icon_tooltip_2"/>
-
-                            <androidx.appcompat.widget.SwitchCompat
-                                android:id="@+id/switch_using_gvt"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentEnd="true"
-                                android:layout_centerVertical="true"/>
 
                         </RelativeLayout>
 

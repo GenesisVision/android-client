@@ -29,6 +29,8 @@ interface ProfilePublicInfoView extends MvpView
 
 	void updateLogo(String url);
 
+	void updateLogoById(String logoId);
+
 	void showSnackbarMessage(String message);
 
 	void setConfirmButtonEnabled(boolean enabled);

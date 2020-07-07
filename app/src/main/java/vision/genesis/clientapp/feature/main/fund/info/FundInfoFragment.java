@@ -129,6 +129,15 @@ public class FundInfoFragment extends BaseFragment implements FundInfoView, Fund
 	@BindView(R.id.profit_label)
 	public TextView profitLabel;
 
+	@BindView(R.id.group_personal_exit_fee)
+	public ViewGroup personalExitFeeGroup;
+
+	@BindView(R.id.personal_exit_fee)
+	public TextView personalExitFee;
+
+	@BindView(R.id.label_personal_exit_fee)
+	public TextView personalExitFeeLabel;
+
 	@BindView(R.id.button_withdraw)
 	public PrimaryButton withdrawButton;
 
@@ -274,6 +283,7 @@ public class FundInfoFragment extends BaseFragment implements FundInfoView, Fund
 		profitLabel.setText(profitLabel.getText().toString().toLowerCase());
 		entryFeeLabel.setText(entryFeeLabel.getText().toString().toLowerCase());
 		exitFeeLabel.setText(exitFeeLabel.getText().toString().toLowerCase());
+		personalExitFeeLabel.setText(personalExitFeeLabel.getText().toString().toLowerCase());
 	}
 
 	@Override
@@ -314,6 +324,15 @@ public class FundInfoFragment extends BaseFragment implements FundInfoView, Fund
 		if (personalDetails != null) {
 			investButton.setEnabled(personalDetails.isCanInvest());
 			withdrawButton.setEnabled(personalDetails.isCanWithdraw());
+
+			if (!personalDetails.getExitFeePersonal().equals(fundDetails.getExitFeeCurrent())
+					|| !personalDetails.getExitFeePersonal().equals(fundDetails.getExitFeeSelected())) {
+				personalExitFeeGroup.setVisibility(View.VISIBLE);
+				personalExitFee.setText(String.format(Locale.getDefault(), "%s%%", StringFormatUtil.formatAmount(personalDetails.getExitFeePersonal(), 0, 4)));
+			}
+			else {
+				personalExitFeeGroup.setVisibility(View.GONE);
+			}
 		}
 
 //		investInfo.setText(String.format(Locale.getDefault(), getString(R.string.request_info_template), DateTimeUtil.formatShortDateTime(fundDetails.getPeriodEnds())));

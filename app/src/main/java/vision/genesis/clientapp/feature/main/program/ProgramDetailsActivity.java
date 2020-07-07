@@ -30,6 +30,8 @@ import com.facebook.imagepipeline.request.ImageRequestBuilder;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.tabs.TabLayout;
 
+import java.util.UUID;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -41,6 +43,7 @@ import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseSwipeBackActivity;
 import vision.genesis.clientapp.feature.main.events.details.EventDetailsBottomSheetFragment;
+import vision.genesis.clientapp.feature.main.notifications.follow.FollowNotificationsSettingsActivity;
 import vision.genesis.clientapp.feature.main.notifications.program.ProgramNotificationsSettingsActivity;
 import vision.genesis.clientapp.feature.main.program.level.ProgramLevelBottomSheetDialog;
 import vision.genesis.clientapp.model.ProgramDetailsModel;
@@ -139,7 +142,7 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 	public View tryAgainButton;
 
 	@InjectPresenter
-	ProgramDetailsPresenter programDetailsPresenter;
+	ProgramDetailsPresenter presenter;
 
 	private ProgramFollowDetailsFull details;
 
@@ -180,7 +183,7 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 
 	@OnClick(R.id.button_try_again)
 	public void onTryAgainClicked() {
-		programDetailsPresenter.onTryAgainClicked();
+		presenter.onTryAgainClicked();
 	}
 
 	@OnClick(R.id.level)
@@ -197,7 +200,7 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 
 	@OnClick(R.id.button_notifications)
 	public void onNotificationsClicked() {
-		ProgramNotificationsSettingsActivity.startWith(this, model.getProgramId(), model.getProgramName());
+		presenter.onNotificationsClicked();
 	}
 
 	@OnClick(R.id.button_favorite)
@@ -205,12 +208,12 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 		if (details != null && details.getProgramDetails() != null) {
 			details.getProgramDetails().getPersonalDetails().setIsFavorite(!details.getProgramDetails().getPersonalDetails().isIsFavorite());
 			setFavoriteButtonImage(details.getProgramDetails().getPersonalDetails().isIsFavorite());
-			programDetailsPresenter.onFavoriteButtonClicked(details.getProgramDetails().getPersonalDetails().isIsFavorite());
+			presenter.onFavoriteButtonClicked(details.getProgramDetails().getPersonalDetails().isIsFavorite());
 		}
 		else if (details != null && details.getFollowDetails() != null) {
 			details.getFollowDetails().getPersonalDetails().setIsFavorite(!details.getFollowDetails().getPersonalDetails().isIsFavorite());
 			setFavoriteButtonImage(details.getFollowDetails().getPersonalDetails().isIsFavorite());
-			programDetailsPresenter.onFavoriteButtonClicked(details.getFollowDetails().getPersonalDetails().isIsFavorite());
+			presenter.onFavoriteButtonClicked(details.getFollowDetails().getPersonalDetails().isIsFavorite());
 		}
 	}
 
@@ -232,7 +235,7 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 				initTabs();
 				updateHeader();
 
-				programDetailsPresenter.setData(model);
+				presenter.setData(model);
 
 				setAnimations();
 				return;
@@ -245,16 +248,16 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 	@Override
 	protected void onResume() {
 		super.onResume();
-		if (programDetailsPresenter != null) {
-			programDetailsPresenter.onResume();
+		if (presenter != null) {
+			presenter.onResume();
 		}
 	}
 
 	@Override
 	protected void onPause() {
 		super.onPause();
-		if (programDetailsPresenter != null) {
-			programDetailsPresenter.onPause();
+		if (presenter != null) {
+			presenter.onPause();
 		}
 	}
 
@@ -264,7 +267,7 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 				ThemeUtil.getColorByAttrId(this, R.attr.colorTextPrimary),
 				ThemeUtil.getColorByAttrId(this, R.attr.colorTextSecondary));
 		refreshLayout.setOnRefreshListener(() -> {
-			programDetailsPresenter.onSwipeRefresh();
+			presenter.onSwipeRefresh();
 			if (pagerAdapter != null) {
 				pagerAdapter.sendSwipeRefresh();
 			}
@@ -648,5 +651,15 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 		EventDetailsBottomSheetFragment fragment = new EventDetailsBottomSheetFragment();
 		fragment.setData(event);
 		fragment.show(getSupportFragmentManager(), fragment.getTag());
+	}
+
+	@Override
+	public void showProgramNotificationsSettings(UUID programId, String programName) {
+		ProgramNotificationsSettingsActivity.startWith(this, programId, programName);
+	}
+
+	@Override
+	public void showFollowNotificationsSettings(UUID followId, String followName) {
+		FollowNotificationsSettingsActivity.startWith(this, followId, followName);
 	}
 }

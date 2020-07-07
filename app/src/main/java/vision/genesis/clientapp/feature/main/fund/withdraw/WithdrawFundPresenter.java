@@ -127,7 +127,7 @@ public class WithdrawFundPresenter extends MvpPresenter<WithdrawFundView> implem
 	}
 
 	private Double getEstimatedExitFee() {
-		return getEstimatedAmount() * withdrawInfo.getExitFee() / 100;
+		return getEstimatedAmount() * fundRequest.getExitFee() / 100;
 	}
 
 	private Double getWithdrawalAmount() {
@@ -147,7 +147,7 @@ public class WithdrawFundPresenter extends MvpPresenter<WithdrawFundView> implem
 
 	private String getExitFeeString() {
 		return String.format(Locale.getDefault(), "%s%% (≈ %s %s)",
-				StringFormatUtil.formatAmount(withdrawInfo.getExitFee(), 0, 4),
+				StringFormatUtil.formatAmount(fundRequest.getExitFee(), 0, 4),
 				StringFormatUtil.formatCurrencyAmount(getEstimatedExitFee(), selectedWalletTo.getCurrency().getValue()),
 				selectedWalletTo.getCurrency().getValue());
 	}

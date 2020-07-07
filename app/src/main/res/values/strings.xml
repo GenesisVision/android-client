@@ -832,7 +832,7 @@
     <string name="fees_and_discounts">Fees and Discounts</string>
     <string name="fees_and_discounts_text_top">Genesis Vision Token holders who select Genesis Markets as their broker will receive discounted transaction fees.</string>
     <string name="fees_and_discounts_text_title">To be eligible for a trading discount:</string>
-    <string name="fees_and_discounts_point_1">There must be more than 1 GVT stored in the wallet;</string>
+    <string name="fees_and_discounts_point_1">There must be more than 1 GVT stored in the wallet</string>
     <string name="fees_and_discounts_point_2">The \"Using GVT to pay for fees\" function must be enabled. The fee will be charged at a discount depending on the amount of GVT stored in the wallet.</string>
     <string name="fees_and_discounts_point_3">The discounted fee will be charged from the GVT wallet, not from the trading account.</string>
     <string name="fees_and_discounts_table_title">Conditions for obtaining discounts</string>
@@ -888,6 +888,9 @@
     <string name="error_title_not_valid">Latin letters and numbers only</string>
     <string name="confirm_deposit">Confirm Deposit</string>
     <string name="users">Users</string>
+    <string name="follow_notifications">Follow notifications</string>
+    <string name="follow_news_and_updates">Follow news and updates</string>
+    <string name="template_your_gm_discount">Your Genesis Markets Discount is %s%%</string>
 
 
     <plurals name="assets">

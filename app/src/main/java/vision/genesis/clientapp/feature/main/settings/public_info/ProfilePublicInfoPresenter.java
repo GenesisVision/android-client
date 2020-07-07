@@ -306,7 +306,7 @@ public class ProfilePublicInfoPresenter extends MvpPresenter<ProfilePublicInfoVi
 	private void handleUploadAvatarResponse(UploadResult response) {
 		logoUploadSubscription.unsubscribe();
 		getViewState().showLogoProgress(false);
-		getViewState().updateLogo(response.getId().toString());
+		getViewState().updateLogoById(response.getId().toString());
 
 		this.avatar = response.getId().toString();
 
