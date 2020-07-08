@@ -64,7 +64,7 @@ public class FundRequest implements Parcelable
 	private double entryFee;
 
 	@SerializedName("exit_fee")
-	private Double exitFee;
+	private double exitFee;
 
 	@SerializedName("is_own_fund")
 	private Boolean isOwnFund = false;

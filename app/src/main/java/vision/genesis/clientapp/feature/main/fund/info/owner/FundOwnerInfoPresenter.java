@@ -149,6 +149,7 @@ public class FundOwnerInfoPresenter extends MvpPresenter<FundOwnerInfoView>
 		request.setFundColor(fundDetails.getPublicInfo().getColor());
 		request.setFundName(fundDetails.getPublicInfo().getTitle());
 		request.setManagerName(fundDetails.getOwner().getUsername());
+		request.setIsOwnFund(true);
 
 		getViewState().showWithdrawFundActivity(request);
 	}

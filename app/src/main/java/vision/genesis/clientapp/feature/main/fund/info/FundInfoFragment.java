@@ -325,8 +325,8 @@ public class FundInfoFragment extends BaseFragment implements FundInfoView, Fund
 			investButton.setEnabled(personalDetails.isCanInvest());
 			withdrawButton.setEnabled(personalDetails.isCanWithdraw());
 
-			if (!personalDetails.getExitFeePersonal().equals(fundDetails.getExitFeeCurrent())
-					|| !personalDetails.getExitFeePersonal().equals(fundDetails.getExitFeeSelected())) {
+			if (personalDetails.getExitFeePersonal() != null && (!personalDetails.getExitFeePersonal().equals(fundDetails.getExitFeeCurrent())
+					|| !personalDetails.getExitFeePersonal().equals(fundDetails.getExitFeeSelected()))) {
 				personalExitFeeGroup.setVisibility(View.VISIBLE);
 				personalExitFee.setText(String.format(Locale.getDefault(), "%s%%", StringFormatUtil.formatAmount(personalDetails.getExitFeePersonal(), 0, 4)));
 			}

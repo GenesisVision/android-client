@@ -190,7 +190,9 @@ public class FundInfoPresenter extends MvpPresenter<FundInfoView>
 		request.setFundColor(fundDetails.getPublicInfo().getColor());
 		request.setFundName(fundDetails.getPublicInfo().getTitle());
 		request.setManagerName(fundDetails.getOwner().getUsername());
-		request.setExitFee(fundDetails.getPersonalDetails().getExitFeePersonal());
+		request.setExitFee(fundDetails.getPersonalDetails() != null && fundDetails.getPersonalDetails().getExitFeePersonal() != null
+				? fundDetails.getPersonalDetails().getExitFeePersonal()
+				: fundDetails.getExitFeeCurrent());
 
 		getViewState().showWithdrawFundActivity(request);
 	}

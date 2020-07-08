@@ -70,8 +70,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
-                            android:layout_marginLeft="16dp"
                             android:layout_marginStart="16dp"
+                            android:layout_marginLeft="16dp"
                             android:orientation="vertical">
 
                             <TextView
@@ -105,23 +105,31 @@
                         style="@style/confirmation_dialog_value"
                         tools:text="10.235% (≈ 1.5246 GVT)"/>
 
-                    <TextView
-                        style="@style/confirmation_dialog_label"
-                        android:text="@string/exit_fee"/>
+                    <LinearLayout
+                        android:id="@+id/group_commissions"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
 
-                    <TextView
-                        android:id="@+id/exit_fee"
-                        style="@style/confirmation_dialog_value"
-                        tools:text="5% (≈ 0.01251 GVT)"/>
+                        <TextView
+                            style="@style/confirmation_dialog_label"
+                            android:text="@string/exit_fee"/>
 
-                    <TextView
-                        style="@style/confirmation_dialog_label"
-                        android:text="@string/you_will_get_approx"/>
+                        <TextView
+                            android:id="@+id/exit_fee"
+                            style="@style/confirmation_dialog_value"
+                            tools:text="5% (≈ 0.01251 GVT)"/>
 
-                    <TextView
-                        android:id="@+id/you_will_get"
-                        style="@style/confirmation_dialog_value"
-                        tools:text="≈ 1.50984 GVT"/>
+                        <TextView
+                            style="@style/confirmation_dialog_label"
+                            android:text="@string/you_will_get_approx"/>
+
+                        <TextView
+                            android:id="@+id/you_will_get"
+                            style="@style/confirmation_dialog_value"
+                            tools:text="≈ 1.50984 GVT"/>
+
+                    </LinearLayout>
 
                 </LinearLayout>
 
@@ -144,8 +152,8 @@
                         style="?android:attr/borderlessButtonStyle"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_marginLeft="8dp"
                         android:layout_marginStart="8dp"
+                        android:layout_marginLeft="8dp"
                         android:layout_weight="1"
                         android:text="@string/confirm"/>
 

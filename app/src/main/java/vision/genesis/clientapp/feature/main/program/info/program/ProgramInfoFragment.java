@@ -469,6 +469,8 @@ public class ProgramInfoFragment extends BaseFragment implements ProgramInfoView
 		updateCurrentSelectedField(managementFee, programDetails.getManagementFeeCurrent(), programDetails.getManagementFeeSelected());
 		updateCurrentSelectedField(successFee, programDetails.getSuccessFeeCurrent(), programDetails.getSuccessFeeSelected());
 
+		managementFee.setText(String.format(Locale.getDefault(), "%s (%s)", managementFee.getText().toString(), getString(R.string.annual)));
+
 		investButton.setEnabled(programDetails.getAvailableInvestmentBase() > 0);
 
 		if (personalDetails != null) {
@@ -519,7 +521,9 @@ public class ProgramInfoFragment extends BaseFragment implements ProgramInfoView
 			if (!personalDetails.getManagementFeePersonal().equals(details.getProgramDetails().getManagementFeeCurrent())
 					|| !personalDetails.getManagementFeePersonal().equals(details.getProgramDetails().getManagementFeeSelected())) {
 				personalManagementFeeGroup.setVisibility(View.VISIBLE);
-				personalManagementFee.setText(String.format(Locale.getDefault(), "%s%%", StringFormatUtil.formatAmount(personalDetails.getManagementFeePersonal(), 0, 4)));
+				personalManagementFee.setText(String.format(Locale.getDefault(), "%s%% (%s)",
+						StringFormatUtil.formatAmount(personalDetails.getManagementFeePersonal(), 0, 4),
+						getString(R.string.annual)));
 				personalFeesCounter++;
 			}
 			else {

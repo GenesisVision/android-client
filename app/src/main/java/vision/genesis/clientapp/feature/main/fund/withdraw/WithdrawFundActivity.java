@@ -111,6 +111,8 @@ public class WithdrawFundActivity extends BaseSwipeBackActivity implements Withd
 
 	private List<WalletData> walletsTo;
 
+	private FundRequest request;
+
 	@OnClick(R.id.button_close)
 	public void onCloseClicked() {
 		finishActivity();
@@ -154,11 +156,11 @@ public class WithdrawFundActivity extends BaseSwipeBackActivity implements Withd
 		ButterKnife.bind(this);
 
 		if (getIntent().getExtras() != null) {
-			FundRequest request = getIntent().getExtras().getParcelable(EXTRA_FUND_REQUEST);
+			request = getIntent().getExtras().getParcelable(EXTRA_FUND_REQUEST);
 			if (request != null) {
 				withdrawFundPresenter.setFundRequest(request);
 
-				setFundName(request.getFundName());
+				updateView(request);
 				setFonts();
 
 				setTextListener();
@@ -171,8 +173,11 @@ public class WithdrawFundActivity extends BaseSwipeBackActivity implements Withd
 
 	}
 
-	private void setFundName(String fundName) {
-		this.fundName.setText(fundName);
+	private void updateView(FundRequest request) {
+		this.fundName.setText(request.getFundName());
+		if (request.isOwnFund()) {
+			this.commissionsGroup.setVisibility(View.GONE);
+		}
 	}
 
 	private void setTextListener() {
@@ -246,8 +251,10 @@ public class WithdrawFundActivity extends BaseSwipeBackActivity implements Withd
 	public void showAmountProgress(boolean show) {
 		investedGroup.setVisibility(show ? View.INVISIBLE : View.VISIBLE);
 		amountGroup.setVisibility(show ? View.INVISIBLE : View.VISIBLE);
-		commissionsGroup.setVisibility(show ? View.INVISIBLE : View.VISIBLE);
 		amountProgress.setVisibility(!show ? View.INVISIBLE : View.VISIBLE);
+		if (request != null && !request.isOwnFund()) {
+			commissionsGroup.setVisibility(show ? View.INVISIBLE : View.VISIBLE);
+		}
 	}
 
 	@Override

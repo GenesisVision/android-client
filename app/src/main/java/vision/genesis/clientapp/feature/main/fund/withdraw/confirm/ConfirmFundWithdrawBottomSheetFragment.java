@@ -66,6 +66,9 @@ public class ConfirmFundWithdrawBottomSheetFragment extends BottomSheetDialogFra
 	@BindView(R.id.you_will_get)
 	public TextView youWillGet;
 
+	@BindView(R.id.group_commissions)
+	public ViewGroup commissionsGroup;
+
 	@BindView(R.id.group_buttons)
 	public ViewGroup buttonsGroup;
 
@@ -167,6 +170,10 @@ public class ConfirmFundWithdrawBottomSheetFragment extends BottomSheetDialogFra
 			amountToWithdraw.setText(fundRequest.getAmountTopText());
 			exitFee.setText(fundRequest.getInfoMiddleText());
 			youWillGet.setText(fundRequest.getAmountBottomText());
+
+			if (fundRequest.isOwnFund()) {
+				commissionsGroup.setVisibility(View.GONE);
+			}
 		}
 	}
 

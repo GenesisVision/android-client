@@ -604,6 +604,8 @@ public class OwnerInfoFragment extends BaseFragment implements OwnerInfoView, Pr
 			updateCurrentSelectedField(managementFee, programDetails.getManagementFeeCurrent(), programDetails.getManagementFeeSelected());
 			updateCurrentSelectedField(successFee, programDetails.getSuccessFeeCurrent(), programDetails.getSuccessFeeSelected());
 
+			managementFee.setText(String.format(Locale.getDefault(), "%s (%s)", managementFee.getText().toString(), getString(R.string.annual)));
+
 			periodView.setData(programDetails.getPeriodDuration(), programDetails.getPeriodStarts(), programDetails.getPeriodEnds(), true, true);
 
 			depositProgramButton.setEnabled(programDetails.getAvailableInvestmentBase() > 0);
