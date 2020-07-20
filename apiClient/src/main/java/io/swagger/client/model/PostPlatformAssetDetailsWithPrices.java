@@ -73,6 +73,9 @@ public class PostPlatformAssetDetailsWithPrices implements Parcelable
 	@SerializedName("url")
 	private String url = null;
 
+	@SerializedName("provider")
+	private AssetProvider provider = null;
+
 	public PostPlatformAssetDetailsWithPrices() {
 	}
 
@@ -88,6 +91,7 @@ public class PostPlatformAssetDetailsWithPrices implements Parcelable
 		logoUrl = (String) in.readValue(null);
 		color = (String) in.readValue(null);
 		url = (String) in.readValue(null);
+		provider = (AssetProvider) in.readValue(AssetProvider.class.getClassLoader());
 	}
 
 	public PostPlatformAssetDetailsWithPrices price(Double price) {
@@ -299,6 +303,25 @@ public class PostPlatformAssetDetailsWithPrices implements Parcelable
 		this.url = url;
 	}
 
+	public PostPlatformAssetDetailsWithPrices provider(AssetProvider provider) {
+		this.provider = provider;
+		return this;
+	}
+
+	/**
+	 * Get provider
+	 *
+	 * @return provider
+	 **/
+	@Schema(description = "")
+	public AssetProvider getProvider() {
+		return provider;
+	}
+
+	public void setProvider(AssetProvider provider) {
+		this.provider = provider;
+	}
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -318,12 +341,13 @@ public class PostPlatformAssetDetailsWithPrices implements Parcelable
 				Objects.equals(this.description, postPlatformAssetDetailsWithPrices.description) &&
 				Objects.equals(this.logoUrl, postPlatformAssetDetailsWithPrices.logoUrl) &&
 				Objects.equals(this.color, postPlatformAssetDetailsWithPrices.color) &&
-				Objects.equals(this.url, postPlatformAssetDetailsWithPrices.url);
+				Objects.equals(this.url, postPlatformAssetDetailsWithPrices.url) &&
+				Objects.equals(this.provider, postPlatformAssetDetailsWithPrices.provider);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(price, priceCurrency, change24Percent, changeState, id, name, asset, description, logoUrl, color, url);
+		return Objects.hash(price, priceCurrency, change24Percent, changeState, id, name, asset, description, logoUrl, color, url, provider);
 	}
 
 	@Override
@@ -342,6 +366,7 @@ public class PostPlatformAssetDetailsWithPrices implements Parcelable
 		sb.append("    logoUrl: ").append(toIndentedString(logoUrl)).append("\n");
 		sb.append("    color: ").append(toIndentedString(color)).append("\n");
 		sb.append("    url: ").append(toIndentedString(url)).append("\n");
+		sb.append("    provider: ").append(toIndentedString(provider)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}
@@ -369,6 +394,7 @@ public class PostPlatformAssetDetailsWithPrices implements Parcelable
 		out.writeValue(logoUrl);
 		out.writeValue(color);
 		out.writeValue(url);
+		out.writeValue(provider);
 	}
 
 	public int describeContents() {

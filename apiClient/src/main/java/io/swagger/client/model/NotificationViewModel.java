@@ -73,7 +73,7 @@ public class NotificationViewModel implements Parcelable
 	private Boolean isUnread = null;
 
 	@SerializedName("assetType")
-	private InvestmentProgramType assetType = null;
+	private AssetGlobalType assetType = null;
 
 	public NotificationViewModel() {
 	}
@@ -89,7 +89,7 @@ public class NotificationViewModel implements Parcelable
 		url = (String) in.readValue(null);
 		color = (String) in.readValue(null);
 		isUnread = (Boolean) in.readValue(null);
-		assetType = (InvestmentProgramType) in.readValue(InvestmentProgramType.class.getClassLoader());
+		assetType = (AssetGlobalType) in.readValue(AssetGlobalType.class.getClassLoader());
 	}
 
 	public NotificationViewModel id(UUID id) {
@@ -282,7 +282,7 @@ public class NotificationViewModel implements Parcelable
 		this.isUnread = isUnread;
 	}
 
-	public NotificationViewModel assetType(InvestmentProgramType assetType) {
+	public NotificationViewModel assetType(AssetGlobalType assetType) {
 		this.assetType = assetType;
 		return this;
 	}
@@ -293,11 +293,11 @@ public class NotificationViewModel implements Parcelable
 	 * @return assetType
 	 **/
 	@Schema(description = "")
-	public InvestmentProgramType getAssetType() {
+	public AssetGlobalType getAssetType() {
 		return assetType;
 	}
 
-	public void setAssetType(InvestmentProgramType assetType) {
+	public void setAssetType(AssetGlobalType assetType) {
 		this.assetType = assetType;
 	}
 

@@ -47,12 +47,16 @@ public class UsersPlatformInfo implements Parcelable
 	@SerializedName("availableBetaFeatures")
 	private List<BetaTestingType> availableBetaFeatures = null;
 
+	@SerializedName("socialLinkTypes")
+	private List<UsersSocialLinkInfo> socialLinkTypes = null;
+
 	public UsersPlatformInfo() {
 	}
 
 	UsersPlatformInfo(Parcel in) {
 		tags = (List<Tag>) in.readValue(Tag.class.getClassLoader());
 		availableBetaFeatures = (List<BetaTestingType>) in.readValue(BetaTestingType.class.getClassLoader());
+		socialLinkTypes = (List<UsersSocialLinkInfo>) in.readValue(UsersSocialLinkInfo.class.getClassLoader());
 	}
 
 	public UsersPlatformInfo tags(List<Tag> tags) {
@@ -109,6 +113,33 @@ public class UsersPlatformInfo implements Parcelable
 		this.availableBetaFeatures = availableBetaFeatures;
 	}
 
+	public UsersPlatformInfo socialLinkTypes(List<UsersSocialLinkInfo> socialLinkTypes) {
+		this.socialLinkTypes = socialLinkTypes;
+		return this;
+	}
+
+	public UsersPlatformInfo addSocialLinkTypesItem(UsersSocialLinkInfo socialLinkTypesItem) {
+		if (this.socialLinkTypes == null) {
+			this.socialLinkTypes = new ArrayList<UsersSocialLinkInfo>();
+		}
+		this.socialLinkTypes.add(socialLinkTypesItem);
+		return this;
+	}
+
+	/**
+	 * Get socialLinkTypes
+	 *
+	 * @return socialLinkTypes
+	 **/
+	@Schema(description = "")
+	public List<UsersSocialLinkInfo> getSocialLinkTypes() {
+		return socialLinkTypes;
+	}
+
+	public void setSocialLinkTypes(List<UsersSocialLinkInfo> socialLinkTypes) {
+		this.socialLinkTypes = socialLinkTypes;
+	}
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -119,12 +150,13 @@ public class UsersPlatformInfo implements Parcelable
 		}
 		UsersPlatformInfo usersPlatformInfo = (UsersPlatformInfo) o;
 		return Objects.equals(this.tags, usersPlatformInfo.tags) &&
-				Objects.equals(this.availableBetaFeatures, usersPlatformInfo.availableBetaFeatures);
+				Objects.equals(this.availableBetaFeatures, usersPlatformInfo.availableBetaFeatures) &&
+				Objects.equals(this.socialLinkTypes, usersPlatformInfo.socialLinkTypes);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(tags, availableBetaFeatures);
+		return Objects.hash(tags, availableBetaFeatures, socialLinkTypes);
 	}
 
 	@Override
@@ -134,6 +166,7 @@ public class UsersPlatformInfo implements Parcelable
 
 		sb.append("    tags: ").append(toIndentedString(tags)).append("\n");
 		sb.append("    availableBetaFeatures: ").append(toIndentedString(availableBetaFeatures)).append("\n");
+		sb.append("    socialLinkTypes: ").append(toIndentedString(socialLinkTypes)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}
@@ -152,6 +185,7 @@ public class UsersPlatformInfo implements Parcelable
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(tags);
 		out.writeValue(availableBetaFeatures);
+		out.writeValue(socialLinkTypes);
 	}
 
 	public int describeContents() {

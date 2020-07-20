@@ -63,6 +63,9 @@ public class PostTag implements Parcelable
 	@SerializedName("event")
 	private PostEvent event = null;
 
+	@SerializedName("link")
+	private PostLink link = null;
+
 	public PostTag() {
 	}
 
@@ -75,6 +78,7 @@ public class PostTag implements Parcelable
 		platformAssetDetails = (PostPlatformAssetDetailsWithPrices) in.readValue(PostPlatformAssetDetailsWithPrices.class.getClassLoader());
 		post = (Post) in.readValue(Post.class.getClassLoader());
 		event = (PostEvent) in.readValue(PostEvent.class.getClassLoader());
+		link = (PostLink) in.readValue(PostLink.class.getClassLoader());
 	}
 
 	public PostTag title(String title) {
@@ -229,6 +233,25 @@ public class PostTag implements Parcelable
 		this.event = event;
 	}
 
+	public PostTag link(PostLink link) {
+		this.link = link;
+		return this;
+	}
+
+	/**
+	 * Get link
+	 *
+	 * @return link
+	 **/
+	@Schema(description = "")
+	public PostLink getLink() {
+		return link;
+	}
+
+	public void setLink(PostLink link) {
+		this.link = link;
+	}
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -245,12 +268,13 @@ public class PostTag implements Parcelable
 				Objects.equals(this.userDetails, postTag.userDetails) &&
 				Objects.equals(this.platformAssetDetails, postTag.platformAssetDetails) &&
 				Objects.equals(this.post, postTag.post) &&
-				Objects.equals(this.event, postTag.event);
+				Objects.equals(this.event, postTag.event) &&
+				Objects.equals(this.link, postTag.link);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(title, number, type, assetDetails, userDetails, platformAssetDetails, post, event);
+		return Objects.hash(title, number, type, assetDetails, userDetails, platformAssetDetails, post, event, link);
 	}
 
 	@Override
@@ -266,6 +290,7 @@ public class PostTag implements Parcelable
 		sb.append("    platformAssetDetails: ").append(toIndentedString(platformAssetDetails)).append("\n");
 		sb.append("    post: ").append(toIndentedString(post)).append("\n");
 		sb.append("    event: ").append(toIndentedString(event)).append("\n");
+		sb.append("    link: ").append(toIndentedString(link)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}
@@ -290,6 +315,7 @@ public class PostTag implements Parcelable
 		out.writeValue(platformAssetDetails);
 		out.writeValue(post);
 		out.writeValue(event);
+		out.writeValue(link);
 	}
 
 	public int describeContents() {

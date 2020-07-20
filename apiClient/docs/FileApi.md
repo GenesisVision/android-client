@@ -8,7 +8,7 @@ Method | HTTP request | Description
 
 <a name="uploadFile"></a>
 # **uploadFile**
-> UploadResult uploadFile(uploadedFile)
+> UploadResult uploadFile(uploadedFile, location)
 
 Upload file
 
@@ -31,8 +31,9 @@ Bearer.setApiKey("YOUR API KEY");
 
 FileApi apiInstance = new FileApi();
 File uploadedFile = new File("uploadedFile_example"); // File | 
+ImageLocation location = new ImageLocation(); // ImageLocation | 
 try {
-    UploadResult result = apiInstance.uploadFile(uploadedFile);
+    UploadResult result = apiInstance.uploadFile(uploadedFile, location);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling FileApi#uploadFile");
@@ -45,6 +46,7 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **uploadedFile** | **File**|  | [optional]
+ **location** | [**ImageLocation**](.md)|  | [optional]
 
 ### Return type
 

@@ -27,7 +27,8 @@ public enum ImageQuality
 {
 	LOW("Low"),
 	MEDIUM("Medium"),
-	HIGH("High");
+	HIGH("High"),
+	ORIGINAL("Original");
 
 	public static ImageQuality fromValue(String text) {
 		for (ImageQuality b : ImageQuality.values()) {

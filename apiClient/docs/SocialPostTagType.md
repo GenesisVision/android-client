@@ -10,3 +10,4 @@
 * `ASSET` (value: `"Asset"`)
 * `EVENT` (value: `"Event"`)
 * `POST` (value: `"Post"`)
+* `URL` (value: `"Url"`)

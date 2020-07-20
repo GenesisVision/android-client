@@ -25,6 +25,7 @@ public class EventsManager
 				dateRange.getFrom(), dateRange.getTo(),
 				null, null,
 				null, null,
+				null, null,
 				EventGroupType.fromValue(eventsGroup),
 				skip, take);
 	}

@@ -6,6 +6,7 @@ import java.util.UUID;
 import io.swagger.client.model.ChangeBrokerProgramRequest;
 import io.swagger.client.model.CreateSignalProvider;
 import io.swagger.client.model.FundAssetPart;
+import io.swagger.client.model.MakeExchangeAccountProgram;
 import io.swagger.client.model.MakeSignalProviderProgram;
 import io.swagger.client.model.MakeTradingAccountProgram;
 import io.swagger.client.model.MakeTradingAccountSignalProvider;
@@ -238,7 +239,7 @@ public interface AssetsApi
 	);
 
 	/**
-	 * Create an investment program
+	 * Create an investment program from trading account
 	 *
 	 * @param body (optional)
 	 * @return Call&lt;Void&gt;
@@ -278,6 +279,20 @@ public interface AssetsApi
 	@POST("v2.0/assets/tradingaccounts/{id}/demo/deposit")
 	Observable<Void> makeDemoTradingAccountDeposit(
 			@retrofit2.http.Path("id") UUID id, @retrofit2.http.Body TradingAccountDemoDeposit body
+	);
+
+	/**
+	 * Create an investment program from exchange account
+	 *
+	 * @param body (optional)
+	 * @return Call&lt;Void&gt;
+	 */
+	@Headers({
+			"Content-Type:application/json"
+	})
+	@POST("v2.0/assets/programs/fromexchangeaccount/create")
+	Observable<Void> makeExchangeAccountProgram(
+			@retrofit2.http.Body MakeExchangeAccountProgram body
 	);
 
 	/**

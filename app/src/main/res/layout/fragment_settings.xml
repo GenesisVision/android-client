@@ -178,7 +178,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/settings_item_height"
                 android:background="?attr/selectableItemBackground"
-                android:paddingStart="64dp"
+                android:paddingStart="20dp"
                 android:paddingEnd="@dimen/settings_padding">
 
                 <View
@@ -187,8 +187,15 @@
                     android:alpha="0.05"
                     android:background="?attr/colorTextPrimary"/>
 
+                <ImageView
+                    android:id="@+id/icon_social_links"
+                    style="@style/settings_icon"
+                    android:padding="2dp"
+                    app:srcCompat="@drawable/icon_social"/>
+
                 <TextView
                     style="@style/settings_text"
+                    android:layout_toEndOf="@+id/icon_social_links"
                     android:text="@string/social_links"/>
 
                 <ImageView style="@style/menu_item_arrow_right"/>

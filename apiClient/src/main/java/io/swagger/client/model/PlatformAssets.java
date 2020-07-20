@@ -44,11 +44,15 @@ public class PlatformAssets implements Parcelable
 	@SerializedName("assets")
 	private List<PlatformAsset> assets = null;
 
+	@SerializedName("providers")
+	private List<ProviderPlatformAssets> providers = null;
+
 	public PlatformAssets() {
 	}
 
 	PlatformAssets(Parcel in) {
 		assets = (List<PlatformAsset>) in.readValue(PlatformAsset.class.getClassLoader());
+		providers = (List<ProviderPlatformAssets>) in.readValue(ProviderPlatformAssets.class.getClassLoader());
 	}
 
 	public PlatformAssets assets(List<PlatformAsset> assets) {
@@ -78,6 +82,33 @@ public class PlatformAssets implements Parcelable
 		this.assets = assets;
 	}
 
+	public PlatformAssets providers(List<ProviderPlatformAssets> providers) {
+		this.providers = providers;
+		return this;
+	}
+
+	public PlatformAssets addProvidersItem(ProviderPlatformAssets providersItem) {
+		if (this.providers == null) {
+			this.providers = new ArrayList<ProviderPlatformAssets>();
+		}
+		this.providers.add(providersItem);
+		return this;
+	}
+
+	/**
+	 * Get providers
+	 *
+	 * @return providers
+	 **/
+	@Schema(description = "")
+	public List<ProviderPlatformAssets> getProviders() {
+		return providers;
+	}
+
+	public void setProviders(List<ProviderPlatformAssets> providers) {
+		this.providers = providers;
+	}
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -87,12 +118,13 @@ public class PlatformAssets implements Parcelable
 			return false;
 		}
 		PlatformAssets platformAssets = (PlatformAssets) o;
-		return Objects.equals(this.assets, platformAssets.assets);
+		return Objects.equals(this.assets, platformAssets.assets) &&
+				Objects.equals(this.providers, platformAssets.providers);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(assets);
+		return Objects.hash(assets, providers);
 	}
 
 	@Override
@@ -101,6 +133,7 @@ public class PlatformAssets implements Parcelable
 		sb.append("class PlatformAssets {\n");
 
 		sb.append("    assets: ").append(toIndentedString(assets)).append("\n");
+		sb.append("    providers: ").append(toIndentedString(providers)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}
@@ -118,6 +151,7 @@ public class PlatformAssets implements Parcelable
 
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(assets);
+		out.writeValue(providers);
 	}
 
 	public int describeContents() {

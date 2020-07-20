@@ -89,4 +89,8 @@ public interface MainView extends MvpView
 	void showEventDetails(InvestmentEventViewModel event);
 
 	void showTradingAccountDetails(TradingAccountDetailsModel tradingAccountDetailsModel);
+
+	void showFeedActivity();
+
+	void showMediaActivity();
 }

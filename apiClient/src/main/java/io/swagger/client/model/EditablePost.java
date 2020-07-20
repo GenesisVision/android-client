@@ -50,6 +50,9 @@ public class EditablePost implements Parcelable
 	@SerializedName("id")
 	private UUID id = null;
 
+	@SerializedName("url")
+	private String url = null;
+
 	@SerializedName("text")
 	private String text = null;
 
@@ -59,8 +62,14 @@ public class EditablePost implements Parcelable
 	@SerializedName("likesCount")
 	private Integer likesCount = null;
 
+	@SerializedName("likesUsers")
+	private List<ProfilePublicShort> likesUsers = null;
+
 	@SerializedName("rePostsCount")
 	private Integer rePostsCount = null;
+
+	@SerializedName("rePostsUsers")
+	private List<ProfilePublicShort> rePostsUsers = null;
 
 	@SerializedName("impressionsCount")
 	private Integer impressionsCount = null;
@@ -71,6 +80,9 @@ public class EditablePost implements Parcelable
 	@SerializedName("isDeleted")
 	private Boolean isDeleted = null;
 
+	@SerializedName("isHighlighted")
+	private Boolean isHighlighted = null;
+
 	@SerializedName("images")
 	private List<PostImage> images = null;
 
@@ -80,8 +92,8 @@ public class EditablePost implements Parcelable
 	@SerializedName("author")
 	private ProfilePublic author = null;
 
-	@SerializedName("actions")
-	private PostActions actions = null;
+	@SerializedName("personalDetails")
+	private PostPersonalDetails personalDetails = null;
 
 	@SerializedName("comments")
 	private List<Post> comments = null;
@@ -92,17 +104,21 @@ public class EditablePost implements Parcelable
 	EditablePost(Parcel in) {
 		textOriginal = (String) in.readValue(null);
 		id = (UUID) in.readValue(UUID.class.getClassLoader());
+		url = (String) in.readValue(null);
 		text = (String) in.readValue(null);
 		date = (DateTime) in.readValue(DateTime.class.getClassLoader());
 		likesCount = (Integer) in.readValue(null);
+		likesUsers = (List<ProfilePublicShort>) in.readValue(ProfilePublicShort.class.getClassLoader());
 		rePostsCount = (Integer) in.readValue(null);
+		rePostsUsers = (List<ProfilePublicShort>) in.readValue(ProfilePublicShort.class.getClassLoader());
 		impressionsCount = (Integer) in.readValue(null);
 		isPinned = (Boolean) in.readValue(null);
 		isDeleted = (Boolean) in.readValue(null);
+		isHighlighted = (Boolean) in.readValue(null);
 		images = (List<PostImage>) in.readValue(PostImage.class.getClassLoader());
 		tags = (List<PostTag>) in.readValue(PostTag.class.getClassLoader());
 		author = (ProfilePublic) in.readValue(ProfilePublic.class.getClassLoader());
-		actions = (PostActions) in.readValue(PostActions.class.getClassLoader());
+		personalDetails = (PostPersonalDetails) in.readValue(PostPersonalDetails.class.getClassLoader());
 		comments = (List<Post>) in.readValue(Post.class.getClassLoader());
 	}
 
@@ -142,6 +158,25 @@ public class EditablePost implements Parcelable
 
 	public void setId(UUID id) {
 		this.id = id;
+	}
+
+	public EditablePost url(String url) {
+		this.url = url;
+		return this;
+	}
+
+	/**
+	 * Get url
+	 *
+	 * @return url
+	 **/
+	@Schema(description = "")
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
 	}
 
 	public EditablePost text(String text) {
@@ -201,6 +236,33 @@ public class EditablePost implements Parcelable
 		this.likesCount = likesCount;
 	}
 
+	public EditablePost likesUsers(List<ProfilePublicShort> likesUsers) {
+		this.likesUsers = likesUsers;
+		return this;
+	}
+
+	public EditablePost addLikesUsersItem(ProfilePublicShort likesUsersItem) {
+		if (this.likesUsers == null) {
+			this.likesUsers = new ArrayList<ProfilePublicShort>();
+		}
+		this.likesUsers.add(likesUsersItem);
+		return this;
+	}
+
+	/**
+	 * Get likesUsers
+	 *
+	 * @return likesUsers
+	 **/
+	@Schema(description = "")
+	public List<ProfilePublicShort> getLikesUsers() {
+		return likesUsers;
+	}
+
+	public void setLikesUsers(List<ProfilePublicShort> likesUsers) {
+		this.likesUsers = likesUsers;
+	}
+
 	public EditablePost rePostsCount(Integer rePostsCount) {
 		this.rePostsCount = rePostsCount;
 		return this;
@@ -218,6 +280,33 @@ public class EditablePost implements Parcelable
 
 	public void setRePostsCount(Integer rePostsCount) {
 		this.rePostsCount = rePostsCount;
+	}
+
+	public EditablePost rePostsUsers(List<ProfilePublicShort> rePostsUsers) {
+		this.rePostsUsers = rePostsUsers;
+		return this;
+	}
+
+	public EditablePost addRePostsUsersItem(ProfilePublicShort rePostsUsersItem) {
+		if (this.rePostsUsers == null) {
+			this.rePostsUsers = new ArrayList<ProfilePublicShort>();
+		}
+		this.rePostsUsers.add(rePostsUsersItem);
+		return this;
+	}
+
+	/**
+	 * Get rePostsUsers
+	 *
+	 * @return rePostsUsers
+	 **/
+	@Schema(description = "")
+	public List<ProfilePublicShort> getRePostsUsers() {
+		return rePostsUsers;
+	}
+
+	public void setRePostsUsers(List<ProfilePublicShort> rePostsUsers) {
+		this.rePostsUsers = rePostsUsers;
 	}
 
 	public EditablePost impressionsCount(Integer impressionsCount) {
@@ -275,6 +364,25 @@ public class EditablePost implements Parcelable
 
 	public void setIsDeleted(Boolean isDeleted) {
 		this.isDeleted = isDeleted;
+	}
+
+	public EditablePost isHighlighted(Boolean isHighlighted) {
+		this.isHighlighted = isHighlighted;
+		return this;
+	}
+
+	/**
+	 * Get isHighlighted
+	 *
+	 * @return isHighlighted
+	 **/
+	@Schema(description = "")
+	public Boolean isIsHighlighted() {
+		return isHighlighted;
+	}
+
+	public void setIsHighlighted(Boolean isHighlighted) {
+		this.isHighlighted = isHighlighted;
 	}
 
 	public EditablePost images(List<PostImage> images) {
@@ -350,23 +458,23 @@ public class EditablePost implements Parcelable
 		this.author = author;
 	}
 
-	public EditablePost actions(PostActions actions) {
-		this.actions = actions;
+	public EditablePost personalDetails(PostPersonalDetails personalDetails) {
+		this.personalDetails = personalDetails;
 		return this;
 	}
 
 	/**
-	 * Get actions
+	 * Get personalDetails
 	 *
-	 * @return actions
+	 * @return personalDetails
 	 **/
 	@Schema(description = "")
-	public PostActions getActions() {
-		return actions;
+	public PostPersonalDetails getPersonalDetails() {
+		return personalDetails;
 	}
 
-	public void setActions(PostActions actions) {
-		this.actions = actions;
+	public void setPersonalDetails(PostPersonalDetails personalDetails) {
+		this.personalDetails = personalDetails;
 	}
 
 	public EditablePost comments(List<Post> comments) {
@@ -407,23 +515,27 @@ public class EditablePost implements Parcelable
 		EditablePost editablePost = (EditablePost) o;
 		return Objects.equals(this.textOriginal, editablePost.textOriginal) &&
 				Objects.equals(this.id, editablePost.id) &&
+				Objects.equals(this.url, editablePost.url) &&
 				Objects.equals(this.text, editablePost.text) &&
 				Objects.equals(this.date, editablePost.date) &&
 				Objects.equals(this.likesCount, editablePost.likesCount) &&
+				Objects.equals(this.likesUsers, editablePost.likesUsers) &&
 				Objects.equals(this.rePostsCount, editablePost.rePostsCount) &&
+				Objects.equals(this.rePostsUsers, editablePost.rePostsUsers) &&
 				Objects.equals(this.impressionsCount, editablePost.impressionsCount) &&
 				Objects.equals(this.isPinned, editablePost.isPinned) &&
 				Objects.equals(this.isDeleted, editablePost.isDeleted) &&
+				Objects.equals(this.isHighlighted, editablePost.isHighlighted) &&
 				Objects.equals(this.images, editablePost.images) &&
 				Objects.equals(this.tags, editablePost.tags) &&
 				Objects.equals(this.author, editablePost.author) &&
-				Objects.equals(this.actions, editablePost.actions) &&
+				Objects.equals(this.personalDetails, editablePost.personalDetails) &&
 				Objects.equals(this.comments, editablePost.comments);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(textOriginal, id, text, date, likesCount, rePostsCount, impressionsCount, isPinned, isDeleted, images, tags, author, actions, comments);
+		return Objects.hash(textOriginal, id, url, text, date, likesCount, likesUsers, rePostsCount, rePostsUsers, impressionsCount, isPinned, isDeleted, isHighlighted, images, tags, author, personalDetails, comments);
 	}
 
 	@Override
@@ -433,17 +545,21 @@ public class EditablePost implements Parcelable
 
 		sb.append("    textOriginal: ").append(toIndentedString(textOriginal)).append("\n");
 		sb.append("    id: ").append(toIndentedString(id)).append("\n");
+		sb.append("    url: ").append(toIndentedString(url)).append("\n");
 		sb.append("    text: ").append(toIndentedString(text)).append("\n");
 		sb.append("    date: ").append(toIndentedString(date)).append("\n");
 		sb.append("    likesCount: ").append(toIndentedString(likesCount)).append("\n");
+		sb.append("    likesUsers: ").append(toIndentedString(likesUsers)).append("\n");
 		sb.append("    rePostsCount: ").append(toIndentedString(rePostsCount)).append("\n");
+		sb.append("    rePostsUsers: ").append(toIndentedString(rePostsUsers)).append("\n");
 		sb.append("    impressionsCount: ").append(toIndentedString(impressionsCount)).append("\n");
 		sb.append("    isPinned: ").append(toIndentedString(isPinned)).append("\n");
 		sb.append("    isDeleted: ").append(toIndentedString(isDeleted)).append("\n");
+		sb.append("    isHighlighted: ").append(toIndentedString(isHighlighted)).append("\n");
 		sb.append("    images: ").append(toIndentedString(images)).append("\n");
 		sb.append("    tags: ").append(toIndentedString(tags)).append("\n");
 		sb.append("    author: ").append(toIndentedString(author)).append("\n");
-		sb.append("    actions: ").append(toIndentedString(actions)).append("\n");
+		sb.append("    personalDetails: ").append(toIndentedString(personalDetails)).append("\n");
 		sb.append("    comments: ").append(toIndentedString(comments)).append("\n");
 		sb.append("}");
 		return sb.toString();
@@ -463,17 +579,21 @@ public class EditablePost implements Parcelable
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(textOriginal);
 		out.writeValue(id);
+		out.writeValue(url);
 		out.writeValue(text);
 		out.writeValue(date);
 		out.writeValue(likesCount);
+		out.writeValue(likesUsers);
 		out.writeValue(rePostsCount);
+		out.writeValue(rePostsUsers);
 		out.writeValue(impressionsCount);
 		out.writeValue(isPinned);
 		out.writeValue(isDeleted);
+		out.writeValue(isHighlighted);
 		out.writeValue(images);
 		out.writeValue(tags);
 		out.writeValue(author);
-		out.writeValue(actions);
+		out.writeValue(personalDetails);
 		out.writeValue(comments);
 	}
 

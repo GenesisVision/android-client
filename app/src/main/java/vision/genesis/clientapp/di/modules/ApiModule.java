@@ -24,6 +24,7 @@ import io.swagger.client.api.ProgramsApi;
 import io.swagger.client.api.RateApi;
 import io.swagger.client.api.SearchApi;
 import io.swagger.client.api.SignalApi;
+import io.swagger.client.api.SocialApi;
 import io.swagger.client.api.TradingaccountApi;
 import io.swagger.client.api.UsersApi;
 import io.swagger.client.api.WalletApi;
@@ -179,6 +180,12 @@ public class ApiModule
 	@Singleton
 	public SignalApi provideSignalApi(ApiClient apiClient) {
 		return apiClient.createService(SignalApi.class);
+	}
+
+	@Provides
+	@Singleton
+	public SocialApi provideSocialApi(ApiClient apiClient) {
+		return apiClient.createService(SocialApi.class);
 	}
 
 	@Provides

@@ -8,7 +8,7 @@ Method | HTTP request | Description
 
 <a name="getEvents"></a>
 # **getEvents**
-> InvestmentEventViewModels getEvents(eventLocation, assetId, from, to, eventType, assetType, assetsIds, forceFilterByIds, eventGroup, skip, take)
+> InvestmentEventViewModels getEvents(eventLocation, assetId, from, to, dateFrom, dateTo, eventType, assetType, assetsIds, forceFilterByIds, eventGroup, skip, take)
 
 Events
 
@@ -34,6 +34,8 @@ InvestmentEventLocation eventLocation = new InvestmentEventLocation(); // Invest
 UUID assetId = new UUID(); // UUID | 
 DateTime from = new DateTime(); // DateTime | 
 DateTime to = new DateTime(); // DateTime | 
+DateTime dateFrom = new DateTime(); // DateTime | 
+DateTime dateTo = new DateTime(); // DateTime | 
 InvestmentEventType eventType = new InvestmentEventType(); // InvestmentEventType | 
 AssetFilterType assetType = new AssetFilterType(); // AssetFilterType | 
 List<UUID> assetsIds = Arrays.asList(new UUID()); // List<UUID> | 
@@ -42,7 +44,7 @@ EventGroupType eventGroup = new EventGroupType(); // EventGroupType |
 Integer skip = 56; // Integer | 
 Integer take = 56; // Integer | 
 try {
-    InvestmentEventViewModels result = apiInstance.getEvents(eventLocation, assetId, from, to, eventType, assetType, assetsIds, forceFilterByIds, eventGroup, skip, take);
+    InvestmentEventViewModels result = apiInstance.getEvents(eventLocation, assetId, from, to, dateFrom, dateTo, eventType, assetType, assetsIds, forceFilterByIds, eventGroup, skip, take);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling EventsApi#getEvents");
@@ -58,6 +60,8 @@ Name | Type | Description  | Notes
  **assetId** | [**UUID**](.md)|  | [optional]
  **from** | **DateTime**|  | [optional]
  **to** | **DateTime**|  | [optional]
+ **dateFrom** | **DateTime**|  | [optional]
+ **dateTo** | **DateTime**|  | [optional]
  **eventType** | [**InvestmentEventType**](.md)|  | [optional]
  **assetType** | [**AssetFilterType**](.md)|  | [optional]
  **assetsIds** | [**List&lt;UUID&gt;**](UUID.md)|  | [optional]

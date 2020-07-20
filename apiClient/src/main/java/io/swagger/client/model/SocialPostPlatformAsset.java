@@ -78,6 +78,9 @@ public class SocialPostPlatformAsset implements Parcelable
 	@SerializedName("url")
 	private String url = null;
 
+	@SerializedName("provider")
+	private AssetProvider provider = null;
+
 	public SocialPostPlatformAsset() {
 	}
 
@@ -94,6 +97,7 @@ public class SocialPostPlatformAsset implements Parcelable
 		logoUrl = (String) in.readValue(null);
 		color = (String) in.readValue(null);
 		url = (String) in.readValue(null);
+		provider = (AssetProvider) in.readValue(AssetProvider.class.getClassLoader());
 	}
 
 	public SocialPostPlatformAsset price(Double price) {
@@ -332,6 +336,25 @@ public class SocialPostPlatformAsset implements Parcelable
 		this.url = url;
 	}
 
+	public SocialPostPlatformAsset provider(AssetProvider provider) {
+		this.provider = provider;
+		return this;
+	}
+
+	/**
+	 * Get provider
+	 *
+	 * @return provider
+	 **/
+	@Schema(description = "")
+	public AssetProvider getProvider() {
+		return provider;
+	}
+
+	public void setProvider(AssetProvider provider) {
+		this.provider = provider;
+	}
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -352,12 +375,13 @@ public class SocialPostPlatformAsset implements Parcelable
 				Objects.equals(this.description, socialPostPlatformAsset.description) &&
 				Objects.equals(this.logoUrl, socialPostPlatformAsset.logoUrl) &&
 				Objects.equals(this.color, socialPostPlatformAsset.color) &&
-				Objects.equals(this.url, socialPostPlatformAsset.url);
+				Objects.equals(this.url, socialPostPlatformAsset.url) &&
+				Objects.equals(this.provider, socialPostPlatformAsset.provider);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(price, priceCurrency, change24Percent, changeState, chart, id, name, asset, description, logoUrl, color, url);
+		return Objects.hash(price, priceCurrency, change24Percent, changeState, chart, id, name, asset, description, logoUrl, color, url, provider);
 	}
 
 	@Override
@@ -377,6 +401,7 @@ public class SocialPostPlatformAsset implements Parcelable
 		sb.append("    logoUrl: ").append(toIndentedString(logoUrl)).append("\n");
 		sb.append("    color: ").append(toIndentedString(color)).append("\n");
 		sb.append("    url: ").append(toIndentedString(url)).append("\n");
+		sb.append("    provider: ").append(toIndentedString(provider)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}
@@ -405,6 +430,7 @@ public class SocialPostPlatformAsset implements Parcelable
 		out.writeValue(logoUrl);
 		out.writeValue(color);
 		out.writeValue(url);
+		out.writeValue(provider);
 	}
 
 	public int describeContents() {

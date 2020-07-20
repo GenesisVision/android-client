@@ -51,6 +51,9 @@ public class MediaPost implements Parcelable
 	@SerializedName("type")
 	private SocialLinkType type = null;
 
+	@SerializedName("typeLogoUrl")
+	private String typeLogoUrl = null;
+
 	@SerializedName("author")
 	private String author = null;
 
@@ -69,15 +72,6 @@ public class MediaPost implements Parcelable
 	@SerializedName("date")
 	private DateTime date = null;
 
-	@SerializedName("likesCount")
-	private Integer likesCount = null;
-
-	@SerializedName("rePostsCount")
-	private Integer rePostsCount = null;
-
-	@SerializedName("commentsCount")
-	private Integer commentsCount = null;
-
 	@SerializedName("image")
 	private PostImage image = null;
 
@@ -88,15 +82,13 @@ public class MediaPost implements Parcelable
 		id = (UUID) in.readValue(UUID.class.getClassLoader());
 		url = (String) in.readValue(null);
 		type = (SocialLinkType) in.readValue(SocialLinkType.class.getClassLoader());
+		typeLogoUrl = (String) in.readValue(null);
 		author = (String) in.readValue(null);
 		authorUrl = (String) in.readValue(null);
 		authorLogoUrl = (String) in.readValue(null);
 		title = (String) in.readValue(null);
 		text = (String) in.readValue(null);
 		date = (DateTime) in.readValue(DateTime.class.getClassLoader());
-		likesCount = (Integer) in.readValue(null);
-		rePostsCount = (Integer) in.readValue(null);
-		commentsCount = (Integer) in.readValue(null);
 		image = (PostImage) in.readValue(PostImage.class.getClassLoader());
 	}
 
@@ -155,6 +147,25 @@ public class MediaPost implements Parcelable
 
 	public void setType(SocialLinkType type) {
 		this.type = type;
+	}
+
+	public MediaPost typeLogoUrl(String typeLogoUrl) {
+		this.typeLogoUrl = typeLogoUrl;
+		return this;
+	}
+
+	/**
+	 * Get typeLogoUrl
+	 *
+	 * @return typeLogoUrl
+	 **/
+	@Schema(description = "")
+	public String getTypeLogoUrl() {
+		return typeLogoUrl;
+	}
+
+	public void setTypeLogoUrl(String typeLogoUrl) {
+		this.typeLogoUrl = typeLogoUrl;
 	}
 
 	public MediaPost author(String author) {
@@ -271,63 +282,6 @@ public class MediaPost implements Parcelable
 		this.date = date;
 	}
 
-	public MediaPost likesCount(Integer likesCount) {
-		this.likesCount = likesCount;
-		return this;
-	}
-
-	/**
-	 * Get likesCount
-	 *
-	 * @return likesCount
-	 **/
-	@Schema(description = "")
-	public Integer getLikesCount() {
-		return likesCount;
-	}
-
-	public void setLikesCount(Integer likesCount) {
-		this.likesCount = likesCount;
-	}
-
-	public MediaPost rePostsCount(Integer rePostsCount) {
-		this.rePostsCount = rePostsCount;
-		return this;
-	}
-
-	/**
-	 * Get rePostsCount
-	 *
-	 * @return rePostsCount
-	 **/
-	@Schema(description = "")
-	public Integer getRePostsCount() {
-		return rePostsCount;
-	}
-
-	public void setRePostsCount(Integer rePostsCount) {
-		this.rePostsCount = rePostsCount;
-	}
-
-	public MediaPost commentsCount(Integer commentsCount) {
-		this.commentsCount = commentsCount;
-		return this;
-	}
-
-	/**
-	 * Get commentsCount
-	 *
-	 * @return commentsCount
-	 **/
-	@Schema(description = "")
-	public Integer getCommentsCount() {
-		return commentsCount;
-	}
-
-	public void setCommentsCount(Integer commentsCount) {
-		this.commentsCount = commentsCount;
-	}
-
 	public MediaPost image(PostImage image) {
 		this.image = image;
 		return this;
@@ -359,21 +313,19 @@ public class MediaPost implements Parcelable
 		return Objects.equals(this.id, mediaPost.id) &&
 				Objects.equals(this.url, mediaPost.url) &&
 				Objects.equals(this.type, mediaPost.type) &&
+				Objects.equals(this.typeLogoUrl, mediaPost.typeLogoUrl) &&
 				Objects.equals(this.author, mediaPost.author) &&
 				Objects.equals(this.authorUrl, mediaPost.authorUrl) &&
 				Objects.equals(this.authorLogoUrl, mediaPost.authorLogoUrl) &&
 				Objects.equals(this.title, mediaPost.title) &&
 				Objects.equals(this.text, mediaPost.text) &&
 				Objects.equals(this.date, mediaPost.date) &&
-				Objects.equals(this.likesCount, mediaPost.likesCount) &&
-				Objects.equals(this.rePostsCount, mediaPost.rePostsCount) &&
-				Objects.equals(this.commentsCount, mediaPost.commentsCount) &&
 				Objects.equals(this.image, mediaPost.image);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, url, type, author, authorUrl, authorLogoUrl, title, text, date, likesCount, rePostsCount, commentsCount, image);
+		return Objects.hash(id, url, type, typeLogoUrl, author, authorUrl, authorLogoUrl, title, text, date, image);
 	}
 
 	@Override
@@ -384,15 +336,13 @@ public class MediaPost implements Parcelable
 		sb.append("    id: ").append(toIndentedString(id)).append("\n");
 		sb.append("    url: ").append(toIndentedString(url)).append("\n");
 		sb.append("    type: ").append(toIndentedString(type)).append("\n");
+		sb.append("    typeLogoUrl: ").append(toIndentedString(typeLogoUrl)).append("\n");
 		sb.append("    author: ").append(toIndentedString(author)).append("\n");
 		sb.append("    authorUrl: ").append(toIndentedString(authorUrl)).append("\n");
 		sb.append("    authorLogoUrl: ").append(toIndentedString(authorLogoUrl)).append("\n");
 		sb.append("    title: ").append(toIndentedString(title)).append("\n");
 		sb.append("    text: ").append(toIndentedString(text)).append("\n");
 		sb.append("    date: ").append(toIndentedString(date)).append("\n");
-		sb.append("    likesCount: ").append(toIndentedString(likesCount)).append("\n");
-		sb.append("    rePostsCount: ").append(toIndentedString(rePostsCount)).append("\n");
-		sb.append("    commentsCount: ").append(toIndentedString(commentsCount)).append("\n");
 		sb.append("    image: ").append(toIndentedString(image)).append("\n");
 		sb.append("}");
 		return sb.toString();
@@ -413,15 +363,13 @@ public class MediaPost implements Parcelable
 		out.writeValue(id);
 		out.writeValue(url);
 		out.writeValue(type);
+		out.writeValue(typeLogoUrl);
 		out.writeValue(author);
 		out.writeValue(authorUrl);
 		out.writeValue(authorLogoUrl);
 		out.writeValue(title);
 		out.writeValue(text);
 		out.writeValue(date);
-		out.writeValue(likesCount);
-		out.writeValue(rePostsCount);
-		out.writeValue(commentsCount);
 		out.writeValue(image);
 	}
 

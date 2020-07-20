@@ -41,6 +41,9 @@ public class PostImage implements Parcelable
 		}
 	};
 
+	@SerializedName("id")
+	private String id = null;
+
 	@SerializedName("resizes")
 	private List<PostImageResize> resizes = null;
 
@@ -48,7 +51,27 @@ public class PostImage implements Parcelable
 	}
 
 	PostImage(Parcel in) {
+		id = (String) in.readValue(null);
 		resizes = (List<PostImageResize>) in.readValue(PostImageResize.class.getClassLoader());
+	}
+
+	public PostImage id(String id) {
+		this.id = id;
+		return this;
+	}
+
+	/**
+	 * Get id
+	 *
+	 * @return id
+	 **/
+	@Schema(description = "")
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
 	}
 
 	public PostImage resizes(List<PostImageResize> resizes) {
@@ -87,12 +110,13 @@ public class PostImage implements Parcelable
 			return false;
 		}
 		PostImage postImage = (PostImage) o;
-		return Objects.equals(this.resizes, postImage.resizes);
+		return Objects.equals(this.id, postImage.id) &&
+				Objects.equals(this.resizes, postImage.resizes);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(resizes);
+		return Objects.hash(id, resizes);
 	}
 
 	@Override
@@ -100,6 +124,7 @@ public class PostImage implements Parcelable
 		StringBuilder sb = new StringBuilder();
 		sb.append("class PostImage {\n");
 
+		sb.append("    id: ").append(toIndentedString(id)).append("\n");
 		sb.append("    resizes: ").append(toIndentedString(resizes)).append("\n");
 		sb.append("}");
 		return sb.toString();
@@ -117,6 +142,7 @@ public class PostImage implements Parcelable
 	}
 
 	public void writeToParcel(Parcel out, int flags) {
+		out.writeValue(id);
 		out.writeValue(resizes);
 	}
 

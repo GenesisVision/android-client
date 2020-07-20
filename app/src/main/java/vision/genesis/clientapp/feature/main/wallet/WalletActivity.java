@@ -1,13 +1,17 @@
 package vision.genesis.clientapp.feature.main.wallet;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.animation.ValueAnimator;
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import androidx.annotation.Nullable;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import androidx.viewpager.widget.ViewPager;
 
@@ -18,33 +22,50 @@ import com.google.android.material.tabs.TabLayout;
 import java.util.Locale;
 import java.util.Objects;
 
+import butterknife.BindDimen;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import butterknife.Unbinder;
 import io.swagger.client.model.WalletSummary;
 import vision.genesis.clientapp.R;
-import vision.genesis.clientapp.feature.BaseFragment;
+import vision.genesis.clientapp.feature.BaseSwipeBackActivity;
 import vision.genesis.clientapp.feature.main.fees_and_discounts.FeesAndDiscountsActivity;
 import vision.genesis.clientapp.model.CurrencyEnum;
 import vision.genesis.clientapp.ui.common.DetailsTabView;
 import vision.genesis.clientapp.utils.StringFormatUtil;
 import vision.genesis.clientapp.utils.TabLayoutUtil;
 import vision.genesis.clientapp.utils.ThemeUtil;
-import vision.genesis.clientapp.utils.TypefaceUtil;
 
 /**
  * GenesisVision
  * Created by Vitaly on 1/19/18.
  */
 
-public class WalletFragment extends BaseFragment implements WalletView, ViewPager.OnPageChangeListener
+public class WalletActivity extends BaseSwipeBackActivity implements WalletView, ViewPager.OnPageChangeListener
 {
+	public static void startFrom(Activity activity) {
+		Intent intent = new Intent(activity.getApplicationContext(), WalletActivity.class);
+		activity.startActivity(intent);
+		activity.overridePendingTransition(R.anim.activity_slide_from_right, R.anim.hold);
+	}
+
+	@BindView(R.id.title)
+	public TextView title;
+
 	@BindView(R.id.swipe_refresh)
 	public SwipeRefreshLayout refreshLayout;
 
 	@BindView(R.id.appBarLayout)
 	public AppBarLayout appBarLayout;
+
+	@BindView(R.id.group_header_balance)
+	public ViewGroup headerBalanceGroup;
+
+	@BindView(R.id.header_balance)
+	public TextView headerBalance;
+
+	@BindView(R.id.balance)
+	public TextView balance;
 
 	@BindView(R.id.group_tabs)
 	public ViewGroup tabsGroup;
@@ -55,57 +76,24 @@ public class WalletFragment extends BaseFragment implements WalletView, ViewPage
 	@BindView(R.id.view_pager_wallet)
 	public ViewPager viewPager;
 
-	@BindView(R.id.label_balance)
-	public TextView balanceLabel;
-
-	@BindView(R.id.balance)
-	public TextView balance;
-
-	@BindView(R.id.available_share)
-	public ProgressBar availableShare;
-
-	@BindView(R.id.available_percent)
-	public TextView availablePercent;
-
-	@BindView(R.id.available)
-	public TextView available;
-
-	@BindView(R.id.invested_share)
-	public ProgressBar investedShare;
-
-	@BindView(R.id.invested_percent)
-	public TextView investedPercent;
-
-	@BindView(R.id.invested)
-	public TextView invested;
-
-	@BindView(R.id.pending_share)
-	public ProgressBar pendingShare;
-
-	@BindView(R.id.pending_percent)
-	public TextView pendingPercent;
-
-	@BindView(R.id.pending)
-	public TextView pending;
-
 	@BindView(R.id.label_gm_discount)
 	public TextView gmDiscountLabel;
 
 	@BindView(R.id.progress_bar)
 	public ProgressBar progressBar;
 
+	@BindDimen(R.dimen.toolbar_height)
+	public int toolbarHeight;
+
+
 	@InjectPresenter
 	WalletPresenter presenter;
-
-	private Unbinder unbinder;
 
 	private CurrencyEnum baseCurrency;
 
 	private TabLayout.OnTabSelectedListener tabSelectedListener;
 
 	private TabLayout.TabLayoutOnPageChangeListener tabLayoutOnPageChangeListener;
-
-	private TabLayout.Tab myWalletsTab;
 
 	private TabLayout.Tab transactionsTab;
 
@@ -117,26 +105,34 @@ public class WalletFragment extends BaseFragment implements WalletView, ViewPage
 
 	private boolean isPagerDragging;
 
+	private float titleInitialY = 0;
+
+	private float headerBalanceGroupInitialY = 0;
+
+	private long headerBalanceGroupAnimationDuration = 300;
+
+	private boolean showAnimInProcess = false;
+
+	private boolean hideAnimInProcess = false;
+
+	@OnClick(R.id.button_back)
+	public void onBackClicked() {
+		onBackPressed();
+	}
+
 	@OnClick(R.id.tooltip_using_gvt)
 	public void onTooltipUsingGvtClicked() {
-		if (getActivity() != null) {
-			FeesAndDiscountsActivity.startFrom(getActivity());
-		}
-	}
-
-	@Nullable
-	@Override
-	public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-		return inflater.inflate(R.layout.fragment_wallet, container, false);
+		FeesAndDiscountsActivity.startFrom(this);
 	}
 
 	@Override
-	public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-		super.onViewCreated(view, savedInstanceState);
+	protected void onCreate(Bundle savedInstanceState) {
+		setTheme(ThemeUtil.getCurrentThemeResource());
+		super.onCreate(savedInstanceState);
 
-		unbinder = ButterKnife.bind(this, view);
+		setContentView(R.layout.activity_wallet);
 
-		setFonts();
+		ButterKnife.bind(this);
 
 		initRefreshLayout();
 		setOffsetListener();
@@ -155,12 +151,7 @@ public class WalletFragment extends BaseFragment implements WalletView, ViewPage
 	}
 
 	@Override
-	public void onDestroyView() {
-		if (unbinder != null) {
-			unbinder.unbind();
-			unbinder = null;
-		}
-
+	public void onDestroy() {
 		if (pagerAdapter != null) {
 			pagerAdapter.destroy();
 		}
@@ -178,27 +169,24 @@ public class WalletFragment extends BaseFragment implements WalletView, ViewPage
 		}
 
 
-		super.onDestroyView();
+		super.onDestroy();
 	}
 
-	private void setFonts() {
-		balanceLabel.setTypeface(TypefaceUtil.semibold());
-		balance.setTypeface(TypefaceUtil.semibold());
+	private void finishActivity() {
+		finish();
+		overridePendingTransition(R.anim.hold, R.anim.activity_slide_to_right);
+	}
 
-		available.setTypeface(TypefaceUtil.semibold());
-		invested.setTypeface(TypefaceUtil.semibold());
-		pending.setTypeface(TypefaceUtil.semibold());
-
-		availablePercent.setTypeface(TypefaceUtil.semibold());
-		investedPercent.setTypeface(TypefaceUtil.semibold());
-		pendingPercent.setTypeface(TypefaceUtil.semibold());
+	@Override
+	public void onBackPressed() {
+		finishActivity();
 	}
 
 	private void initRefreshLayout() {
 		refreshLayout.setColorSchemeColors(
-				ThemeUtil.getColorByAttrId(Objects.requireNonNull(getContext()), R.attr.colorAccent),
-				ThemeUtil.getColorByAttrId(getContext(), R.attr.colorTextPrimary),
-				ThemeUtil.getColorByAttrId(getContext(), R.attr.colorTextSecondary));
+				ThemeUtil.getColorByAttrId(Objects.requireNonNull(this), R.attr.colorAccent),
+				ThemeUtil.getColorByAttrId(this, R.attr.colorTextPrimary),
+				ThemeUtil.getColorByAttrId(this, R.attr.colorTextSecondary));
 		refreshLayout.setOnRefreshListener(() -> {
 			presenter.onSwipeRefresh();
 			if (pagerAdapter != null) {
@@ -210,9 +198,114 @@ public class WalletFragment extends BaseFragment implements WalletView, ViewPage
 	private void setOffsetListener() {
 		appBarLayout.addOnOffsetChangedListener((appBarLayout, verticalOffset) -> {
 			this.verticalOffset = verticalOffset;
+			if (verticalOffset < -200 && !showAnimInProcess) {
+				showBalanceInHeader();
+			}
+			else if (verticalOffset > -150 && !hideAnimInProcess) {
+				hideBalanceInHeader();
+			}
 			updateRefreshLayoutEnabled();
 			pagerAdapter.onOffsetChanged(appBarLayout.getHeight() + verticalOffset - tabLayout.getHeight());
 		});
+	}
+
+	private void showBalanceInHeader() {
+		showAnimInProcess = true;
+		hideAnimInProcess = false;
+
+		ValueAnimator balanceYAnim = ValueAnimator.ofFloat(headerBalanceGroup.getY(), headerBalanceGroupInitialY);
+		ValueAnimator titleYAnim = ValueAnimator.ofFloat(title.getY(), titleInitialY - toolbarHeight);
+		ValueAnimator alphaAnim = ValueAnimator.ofFloat(headerBalanceGroup.getAlpha(), 1f);
+
+		balanceYAnim.addUpdateListener(animation -> {
+			if (headerBalanceGroup != null) {
+				headerBalanceGroup.setY((float) balanceYAnim.getAnimatedValue());
+			}
+		});
+		titleYAnim.addUpdateListener(animation -> {
+			if (title != null) {
+				title.setY((float) titleYAnim.getAnimatedValue());
+			}
+		});
+		alphaAnim.addUpdateListener(animation -> {
+			if (headerBalanceGroup != null) {
+				headerBalanceGroup.setAlpha((float) alphaAnim.getAnimatedValue());
+			}
+		});
+
+		balanceYAnim.setDuration(headerBalanceGroupAnimationDuration);
+		titleYAnim.setDuration(headerBalanceGroupAnimationDuration);
+		alphaAnim.setDuration(headerBalanceGroupAnimationDuration);
+
+		alphaAnim.addListener(new AnimatorListenerAdapter()
+		{
+			@Override
+			public void onAnimationEnd(Animator animation) {
+				super.onAnimationEnd(animation);
+				showAnimInProcess = false;
+			}
+		});
+
+		balanceYAnim.setInterpolator(new AccelerateDecelerateInterpolator());
+		titleYAnim.setInterpolator(new AccelerateDecelerateInterpolator());
+		alphaAnim.setInterpolator(new AccelerateDecelerateInterpolator());
+
+		balanceYAnim.start();
+		titleYAnim.start();
+		alphaAnim.start();
+	}
+
+	private void hideBalanceInHeader() {
+		hideAnimInProcess = true;
+		showAnimInProcess = false;
+
+		if (titleInitialY == 0) {
+			titleInitialY = title.getY();
+		}
+		if (headerBalanceGroupInitialY == 0) {
+			headerBalanceGroupInitialY = headerBalanceGroup.getY();
+		}
+
+		ValueAnimator balanceYAnim = ValueAnimator.ofFloat(headerBalanceGroup.getY(), headerBalanceGroupInitialY + toolbarHeight);
+		ValueAnimator titleYAnim = ValueAnimator.ofFloat(title.getY(), titleInitialY);
+		ValueAnimator alphaAnim = ValueAnimator.ofFloat(headerBalanceGroup.getAlpha(), 0f);
+
+		balanceYAnim.addUpdateListener(animation -> {
+			if (headerBalanceGroup != null) {
+				headerBalanceGroup.setY((float) balanceYAnim.getAnimatedValue());
+			}
+		});
+		titleYAnim.addUpdateListener(animation -> {
+			if (title != null) {
+				title.setY((float) titleYAnim.getAnimatedValue());
+			}
+		});
+		alphaAnim.addUpdateListener(animation -> {
+			if (headerBalanceGroup != null) {
+				headerBalanceGroup.setAlpha((float) alphaAnim.getAnimatedValue());
+			}
+		});
+
+		balanceYAnim.setDuration(headerBalanceGroupAnimationDuration);
+		titleYAnim.setDuration(headerBalanceGroupAnimationDuration);
+		alphaAnim.setDuration(headerBalanceGroupAnimationDuration);
+
+		alphaAnim.addListener(new AnimatorListenerAdapter()
+		{
+			@Override
+			public void onAnimationEnd(Animator animation) {
+				super.onAnimationEnd(animation);
+				hideAnimInProcess = false;
+			}
+		});
+
+		balanceYAnim.setInterpolator(new AccelerateDecelerateInterpolator());
+		titleYAnim.setInterpolator(new AccelerateDecelerateInterpolator());
+		alphaAnim.setInterpolator(new AccelerateDecelerateInterpolator());
+
+		balanceYAnim.start();
+		titleYAnim.start();
+		alphaAnim.start();
 	}
 
 	private void updateRefreshLayoutEnabled() {
@@ -220,7 +313,7 @@ public class WalletFragment extends BaseFragment implements WalletView, ViewPage
 	}
 
 	private void initTabs() {
-		myWalletsTab = tabLayout.newTab().setCustomView(getTabView(R.string.my_wallets)).setTag("my_wallets");
+		TabLayout.Tab myWalletsTab = tabLayout.newTab().setCustomView(getTabView(R.string.my_wallets)).setTag("my_wallets");
 		transactionsTab = tabLayout.newTab().setCustomView(getTabView(R.string.transactions)).setTag("transactions");
 		depositsWithdrawalsTab = tabLayout.newTab().setCustomView(getTabView(R.string.deposits_withdrawals)).setTag("deposits_withdrawals");
 
@@ -259,7 +352,7 @@ public class WalletFragment extends BaseFragment implements WalletView, ViewPage
 	}
 
 	private View getTabView(int textResId) {
-		DetailsTabView view = new DetailsTabView(getContext());
+		DetailsTabView view = new DetailsTabView(this);
 		view.setData(textResId);
 		return view;
 	}
@@ -277,15 +370,13 @@ public class WalletFragment extends BaseFragment implements WalletView, ViewPage
 	}
 
 	private void initViewPager() {
-		if (getActivity() != null) {
-			pagerAdapter = new WalletPagerAdapter(getChildFragmentManager(), tabLayout);
-			viewPager.setAdapter(pagerAdapter);
-			viewPager.setOffscreenPageLimit(3);
+		pagerAdapter = new WalletPagerAdapter(getSupportFragmentManager(), tabLayout);
+		viewPager.setAdapter(pagerAdapter);
+		viewPager.setOffscreenPageLimit(3);
 
-			tabLayoutOnPageChangeListener = new TabLayout.TabLayoutOnPageChangeListener(tabLayout);
-			viewPager.addOnPageChangeListener(tabLayoutOnPageChangeListener);
-			viewPager.addOnPageChangeListener(this);
-		}
+		tabLayoutOnPageChangeListener = new TabLayout.TabLayoutOnPageChangeListener(tabLayout);
+		viewPager.addOnPageChangeListener(tabLayoutOnPageChangeListener);
+		viewPager.addOnPageChangeListener(this);
 	}
 
 	@Override
@@ -297,25 +388,8 @@ public class WalletFragment extends BaseFragment implements WalletView, ViewPage
 	public void setBalance(WalletSummary data) {
 		String currency = data.getGrandTotal().getCurrency().getValue();
 
-		this.balance.setText(StringFormatUtil.getValueString(data.getGrandTotal().getTotal(), currency));
-//		this.balanceBase.setText(StringFormatUtil.getValueString(data.getGrandTotal().getTotalCcy(), baseCurrency.getValue()));
-
-		int availablePercent = (int) Math.round(data.getGrandTotal().getAvailable() * 100 / data.getGrandTotal().getTotal());
-		this.availableShare.setProgress(availablePercent);
-		this.availablePercent.setText(String.format(Locale.getDefault(), "%d%%", availablePercent));
-		this.available.setText(StringFormatUtil.getValueString(data.getGrandTotal().getAvailable(), currency));
-//		this.availableBase.setText(StringFormatUtil.getValueString(data.getGrandTotal().getAvailableCcy(), baseCurrency.getValue()));
-
-		int investedPercent = (int) Math.round(data.getGrandTotal().getInvested() * 100 / data.getGrandTotal().getTotal());
-		this.investedShare.setProgress(investedPercent);
-		this.investedPercent.setText(String.format(Locale.getDefault(), "%d%%", investedPercent));
-		this.invested.setText(StringFormatUtil.getValueString(data.getGrandTotal().getInvested(), currency));
-//		this.investedBase.setText(StringFormatUtil.getValueString(data.getGrandTotal().getInvestedCcy(), baseCurrency.getValue()));
-
-		int pendingPercent = (int) Math.round(data.getGrandTotal().getTrading() * 100 / data.getGrandTotal().getTotal());
-		this.pendingShare.setProgress(pendingPercent);
-		this.pendingPercent.setText(String.format(Locale.getDefault(), "%d%%", pendingPercent));
-		this.pending.setText(StringFormatUtil.getValueString(data.getGrandTotal().getTrading(), currency));
+		this.balance.setText(StringFormatUtil.getValueString(data.getGrandTotal().getAvailable(), currency));
+		this.headerBalance.setText(StringFormatUtil.getValueString(data.getGrandTotal().getAvailable(), currency));
 
 		this.gmDiscountLabel.setText(String.format(Locale.getDefault(), getString(R.string.template_your_gm_discount),
 				StringFormatUtil.formatAmount(data.getGenesisMarketsDiscountPercent(), 0, 8)));

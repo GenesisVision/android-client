@@ -53,6 +53,9 @@ public class PersonalFundDetails implements Parcelable
 	@SerializedName("canWithdraw")
 	private Boolean canWithdraw = null;
 
+	@SerializedName("canCancelRequest")
+	private Boolean canCancelRequest = null;
+
 	@SerializedName("ownerActions")
 	private FundOwnerActions ownerActions = null;
 
@@ -94,6 +97,7 @@ public class PersonalFundDetails implements Parcelable
 		isInvested = (Boolean) in.readValue(null);
 		canInvest = (Boolean) in.readValue(null);
 		canWithdraw = (Boolean) in.readValue(null);
+		canCancelRequest = (Boolean) in.readValue(null);
 		ownerActions = (FundOwnerActions) in.readValue(FundOwnerActions.class.getClassLoader());
 		hasNotifications = (Boolean) in.readValue(null);
 		value = (Double) in.readValue(null);
@@ -181,6 +185,25 @@ public class PersonalFundDetails implements Parcelable
 
 	public void setCanWithdraw(Boolean canWithdraw) {
 		this.canWithdraw = canWithdraw;
+	}
+
+	public PersonalFundDetails canCancelRequest(Boolean canCancelRequest) {
+		this.canCancelRequest = canCancelRequest;
+		return this;
+	}
+
+	/**
+	 * Get canCancelRequest
+	 *
+	 * @return canCancelRequest
+	 **/
+	@Schema(description = "")
+	public Boolean isCanCancelRequest() {
+		return canCancelRequest;
+	}
+
+	public void setCanCancelRequest(Boolean canCancelRequest) {
+		this.canCancelRequest = canCancelRequest;
 	}
 
 	public PersonalFundDetails ownerActions(FundOwnerActions ownerActions) {
@@ -405,6 +428,7 @@ public class PersonalFundDetails implements Parcelable
 				Objects.equals(this.isInvested, personalFundDetails.isInvested) &&
 				Objects.equals(this.canInvest, personalFundDetails.canInvest) &&
 				Objects.equals(this.canWithdraw, personalFundDetails.canWithdraw) &&
+				Objects.equals(this.canCancelRequest, personalFundDetails.canCancelRequest) &&
 				Objects.equals(this.ownerActions, personalFundDetails.ownerActions) &&
 				Objects.equals(this.hasNotifications, personalFundDetails.hasNotifications) &&
 				Objects.equals(this.value, personalFundDetails.value) &&
@@ -420,7 +444,7 @@ public class PersonalFundDetails implements Parcelable
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(isFavorite, isInvested, canInvest, canWithdraw, ownerActions, hasNotifications, value, status, pendingInput, pendingOutput, pendingInOutCurrency, withdrawPercent, availableReallocationPercents, nextReallocationPercents, exitFeePersonal);
+		return Objects.hash(isFavorite, isInvested, canInvest, canWithdraw, canCancelRequest, ownerActions, hasNotifications, value, status, pendingInput, pendingOutput, pendingInOutCurrency, withdrawPercent, availableReallocationPercents, nextReallocationPercents, exitFeePersonal);
 	}
 
 	@Override
@@ -432,6 +456,7 @@ public class PersonalFundDetails implements Parcelable
 		sb.append("    isInvested: ").append(toIndentedString(isInvested)).append("\n");
 		sb.append("    canInvest: ").append(toIndentedString(canInvest)).append("\n");
 		sb.append("    canWithdraw: ").append(toIndentedString(canWithdraw)).append("\n");
+		sb.append("    canCancelRequest: ").append(toIndentedString(canCancelRequest)).append("\n");
 		sb.append("    ownerActions: ").append(toIndentedString(ownerActions)).append("\n");
 		sb.append("    hasNotifications: ").append(toIndentedString(hasNotifications)).append("\n");
 		sb.append("    value: ").append(toIndentedString(value)).append("\n");
@@ -463,6 +488,7 @@ public class PersonalFundDetails implements Parcelable
 		out.writeValue(isInvested);
 		out.writeValue(canInvest);
 		out.writeValue(canWithdraw);
+		out.writeValue(canCancelRequest);
 		out.writeValue(ownerActions);
 		out.writeValue(hasNotifications);
 		out.writeValue(value);

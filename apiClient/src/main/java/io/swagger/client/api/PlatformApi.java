@@ -21,8 +21,8 @@ public interface PlatformApi
 	 *
 	 * @return Call&lt;PlatformAssets&gt;
 	 */
-	@GET("v2.0/platform/assets")
-	Observable<PlatformAssets> getAllPlatformAssets();
+	@GET("v2.0/platform/trading/assets")
+	Observable<PlatformAssets> getAllPlatformTradingAssets();
 
 
 	/**

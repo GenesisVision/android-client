@@ -48,12 +48,6 @@ public class EditPost implements Parcelable
 	@SerializedName("text")
 	private String text = null;
 
-	@SerializedName("postId")
-	private UUID postId = null;
-
-	@SerializedName("userId")
-	private UUID userId = null;
-
 	@SerializedName("images")
 	private List<NewPostImage> images = null;
 
@@ -63,8 +57,6 @@ public class EditPost implements Parcelable
 	EditPost(Parcel in) {
 		id = (UUID) in.readValue(UUID.class.getClassLoader());
 		text = (String) in.readValue(null);
-		postId = (UUID) in.readValue(UUID.class.getClassLoader());
-		userId = (UUID) in.readValue(UUID.class.getClassLoader());
 		images = (List<NewPostImage>) in.readValue(NewPostImage.class.getClassLoader());
 	}
 
@@ -106,44 +98,6 @@ public class EditPost implements Parcelable
 		this.text = text;
 	}
 
-	public EditPost postId(UUID postId) {
-		this.postId = postId;
-		return this;
-	}
-
-	/**
-	 * Get postId
-	 *
-	 * @return postId
-	 **/
-	@Schema(description = "")
-	public UUID getPostId() {
-		return postId;
-	}
-
-	public void setPostId(UUID postId) {
-		this.postId = postId;
-	}
-
-	public EditPost userId(UUID userId) {
-		this.userId = userId;
-		return this;
-	}
-
-	/**
-	 * Get userId
-	 *
-	 * @return userId
-	 **/
-	@Schema(description = "")
-	public UUID getUserId() {
-		return userId;
-	}
-
-	public void setUserId(UUID userId) {
-		this.userId = userId;
-	}
-
 	public EditPost images(List<NewPostImage> images) {
 		this.images = images;
 		return this;
@@ -182,14 +136,12 @@ public class EditPost implements Parcelable
 		EditPost editPost = (EditPost) o;
 		return Objects.equals(this.id, editPost.id) &&
 				Objects.equals(this.text, editPost.text) &&
-				Objects.equals(this.postId, editPost.postId) &&
-				Objects.equals(this.userId, editPost.userId) &&
 				Objects.equals(this.images, editPost.images);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, text, postId, userId, images);
+		return Objects.hash(id, text, images);
 	}
 
 	@Override
@@ -199,8 +151,6 @@ public class EditPost implements Parcelable
 
 		sb.append("    id: ").append(toIndentedString(id)).append("\n");
 		sb.append("    text: ").append(toIndentedString(text)).append("\n");
-		sb.append("    postId: ").append(toIndentedString(postId)).append("\n");
-		sb.append("    userId: ").append(toIndentedString(userId)).append("\n");
 		sb.append("    images: ").append(toIndentedString(images)).append("\n");
 		sb.append("}");
 		return sb.toString();
@@ -220,8 +170,6 @@ public class EditPost implements Parcelable
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(id);
 		out.writeValue(text);
-		out.writeValue(postId);
-		out.writeValue(userId);
 		out.writeValue(images);
 	}
 

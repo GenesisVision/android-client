@@ -11,3 +11,4 @@ Name | Type | Description | Notes
 **platformAssetDetails** | [**PostPlatformAssetDetailsWithPrices**](PostPlatformAssetDetailsWithPrices.md) |  |  [optional]
 **post** | [**Post**](Post.md) |  |  [optional]
 **event** | [**PostEvent**](PostEvent.md) |  |  [optional]
+**link** | [**PostLink**](PostLink.md) |  |  [optional]

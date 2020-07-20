@@ -13,3 +13,4 @@
 * `WEBSITE` (value: `"Website"`)
 * `REDDIT` (value: `"Reddit"`)
 * `GITHUB` (value: `"GitHub"`)
+* `MEDIUM` (value: `"Medium"`)

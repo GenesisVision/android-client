@@ -32,7 +32,8 @@ public enum SocialPostTagType
 	USER("User"),
 	ASSET("Asset"),
 	EVENT("Event"),
-	POST("Post");
+	POST("Post"),
+	URL("Url");
 
 	public static SocialPostTagType fromValue(String text) {
 		for (SocialPostTagType b : SocialPostTagType.values()) {

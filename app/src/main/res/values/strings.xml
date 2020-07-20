@@ -871,7 +871,7 @@
     <string name="calmar_ratio_definition">A comparison of the average annual compounded rate of return and the maximum drawdown risk of asset managers and hedge funds. The higher the score, the better the portfolio is formed.</string>
     <string name="max_drawdown_definition">The biggest drawdown of a fund during the selected date range.</string>
     <string name="profit_change_definition">How much in % has the profit changed in the current time period compared to the previous one in the same period.</string>
-    <string name="last_week_challenge_winner">Last week challenge winner</string>
+    <string name="last_week_challenge_winner">Last week\'s challenge winner</string>
 
     <string name="funds_challenge_details_url">https://blog.genesis.vision/gv-funds-weekly-challenge-58e23edc876b</string>
 
@@ -891,6 +891,12 @@
     <string name="follow_notifications">Follow notifications</string>
     <string name="follow_news_and_updates">Follow news and updates</string>
     <string name="template_your_gm_discount">Your Genesis Markets Discount is %s%%</string>
+    <string name="media">Media</string>
+    <string name="more">More</string>
+    <string name="live">Live</string>
+    <string name="hot">Hot</string>
+    <string name="feed">Feed</string>
+    <string name="social">Social</string>
 
 
     <plurals name="assets">

@@ -7,7 +7,9 @@ import io.swagger.client.model.EditPost;
 import io.swagger.client.model.EditablePost;
 import io.swagger.client.model.MediaPostItemsViewModel;
 import io.swagger.client.model.NewPost;
+import io.swagger.client.model.Post;
 import io.swagger.client.model.PostItemsViewModel;
+import io.swagger.client.model.ProfilePublicShortItemsViewModel;
 import io.swagger.client.model.RePost;
 import io.swagger.client.model.SocialLinkType;
 import io.swagger.client.model.SocialSummary;
@@ -72,32 +74,66 @@ public interface SocialApi
 	/**
 	 * Get feed
 	 *
-	 * @param userId        (optional)
-	 * @param tagContentId  (optional)
-	 * @param tagContentIds (optional)
-	 * @param userMode      (optional)
-	 * @param hashTags      (optional)
-	 * @param mask          (optional)
-	 * @param showTop       (optional)
-	 * @param showLiked     (optional)
-	 * @param skip          (optional)
-	 * @param take          (optional)
+	 * @param userId            (optional)
+	 * @param tagContentId      (optional)
+	 * @param tagContentIds     (optional)
+	 * @param userMode          (optional)
+	 * @param hashTags          (optional)
+	 * @param mask              (optional)
+	 * @param showTop           (optional)
+	 * @param showLiked         (optional)
+	 * @param showOnlyUserPosts (optional)
+	 * @param skip              (optional)
+	 * @param take              (optional)
 	 * @return Call&lt;PostItemsViewModel&gt;
 	 */
 	@GET("v2.0/social/feed")
 	Observable<PostItemsViewModel> getFeed(
-			@retrofit2.http.Query("UserId") UUID userId, @retrofit2.http.Query("TagContentId") UUID tagContentId, @retrofit2.http.Query("TagContentIds") List<UUID> tagContentIds, @retrofit2.http.Query("UserMode") UserFeedMode userMode, @retrofit2.http.Query("HashTags") List<String> hashTags, @retrofit2.http.Query("Mask") String mask, @retrofit2.http.Query("ShowTop") Boolean showTop, @retrofit2.http.Query("ShowLiked") Boolean showLiked, @retrofit2.http.Query("Skip") Integer skip, @retrofit2.http.Query("Take") Integer take
+			@retrofit2.http.Query("UserId") UUID userId, @retrofit2.http.Query("TagContentId") UUID tagContentId, @retrofit2.http.Query("TagContentIds") List<UUID> tagContentIds, @retrofit2.http.Query("UserMode") UserFeedMode userMode, @retrofit2.http.Query("HashTags") List<String> hashTags, @retrofit2.http.Query("Mask") String mask, @retrofit2.http.Query("ShowTop") Boolean showTop, @retrofit2.http.Query("ShowLiked") Boolean showLiked, @retrofit2.http.Query("ShowOnlyUserPosts") Boolean showOnlyUserPosts, @retrofit2.http.Query("Skip") Integer skip, @retrofit2.http.Query("Take") Integer take
+	);
+
+	/**
+	 * Get original post/comment
+	 *
+	 * @param id (required)
+	 * @return Call&lt;EditablePost&gt;
+	 */
+	@GET("v2.0/social/feed/{id}/original")
+	Observable<EditablePost> getOriginalPost(
+			@retrofit2.http.Path("id") String id
 	);
 
 	/**
 	 * Get post
 	 *
 	 * @param id (required)
-	 * @return Call&lt;EditablePost&gt;
+	 * @return Call&lt;Post&gt;
 	 */
 	@GET("v2.0/social/feed/{id}")
-	Observable<EditablePost> getPost(
-			@retrofit2.http.Path("id") UUID id
+	Observable<Post> getPost(
+			@retrofit2.http.Path("id") String id
+	);
+
+	/**
+	 * Get post/comment likes users
+	 *
+	 * @param id (required)
+	 * @return Call&lt;ProfilePublicShortItemsViewModel&gt;
+	 */
+	@GET("v2.0/social/feed/{id}/users/likes")
+	Observable<ProfilePublicShortItemsViewModel> getPostLikesUsers(
+			@retrofit2.http.Path("id") String id
+	);
+
+	/**
+	 * Get post/comment reposts users
+	 *
+	 * @param id (required)
+	 * @return Call&lt;ProfilePublicShortItemsViewModel&gt;
+	 */
+	@GET("v2.0/social/feed/{id}/users/reposts")
+	Observable<ProfilePublicShortItemsViewModel> getPostRepostsUsers(
+			@retrofit2.http.Path("id") String id
 	);
 
 	/**
@@ -168,6 +204,19 @@ public interface SocialApi
 	@POST("v2.0/social/feed/{id}/delete/revert")
 	Observable<Void> revertDeletingPost(
 			@retrofit2.http.Path("id") UUID id
+	);
+
+	/**
+	 * Report post/comment
+	 *
+	 * @param id     (required)
+	 * @param reason (optional)
+	 * @param text   (optional)
+	 * @return Call&lt;EditablePost&gt;
+	 */
+	@POST("v2.0/social/feed/{id}/report")
+	Observable<EditablePost> spamReport(
+			@retrofit2.http.Path("id") String id, @retrofit2.http.Query("reason") String reason, @retrofit2.http.Query("text") String text
 	);
 
 	/**

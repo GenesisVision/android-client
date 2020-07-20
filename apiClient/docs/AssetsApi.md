@@ -20,9 +20,10 @@ Method | HTTP request | Description
 [**getFavoriteSymbols**](AssetsApi.md#getFavoriteSymbols) | **GET** v2.0/assets/tradingaccounts/{id}/symbol/favorite | Get trading account favorite symbols
 [**getLevelsCalculator**](AssetsApi.md#getLevelsCalculator) | **GET** v2.0/assets/programs/{id}/levels/info | Get program data for levels calculator
 [**getProgram2FA**](AssetsApi.md#getProgram2FA) | **GET** v2.0/assets/programs/{id}/2fa/get | Get 2FA for program if needed
-[**makeAccountProgram**](AssetsApi.md#makeAccountProgram) | **POST** v2.0/assets/programs/fromaccount/create | Create an investment program
+[**makeAccountProgram**](AssetsApi.md#makeAccountProgram) | **POST** v2.0/assets/programs/fromaccount/create | Create an investment program from trading account
 [**makeAccountSignalProvider**](AssetsApi.md#makeAccountSignalProvider) | **POST** v2.0/assets/signal/create | Make account signal provider
 [**makeDemoTradingAccountDeposit**](AssetsApi.md#makeDemoTradingAccountDeposit) | **POST** v2.0/assets/tradingaccounts/{id}/demo/deposit | Make demo trading account deposit
+[**makeExchangeAccountProgram**](AssetsApi.md#makeExchangeAccountProgram) | **POST** v2.0/assets/programs/fromexchangeaccount/create | Create an investment program from exchange account
 [**makeExternalAccountSignalProvider**](AssetsApi.md#makeExternalAccountSignalProvider) | **POST** v2.0/assets/tradingaccounts/external/fromaccount/create | Make external trading account signal provider
 [**makeSignalProviderProgram**](AssetsApi.md#makeSignalProviderProgram) | **POST** v2.0/assets/programs/fromsignalprovider/create | Create an investment program
 [**removeFavoriteSymbol**](AssetsApi.md#removeFavoriteSymbol) | **POST** v2.0/assets/tradingaccounts/{id}/symbol/favorite/{symbol}/remove | Remove trading account favorite symbol
@@ -896,7 +897,7 @@ Name | Type | Description  | Notes
 # **makeAccountProgram**
 > Void makeAccountProgram(body)
 
-Create an investment program
+Create an investment program from trading account
 
 ### Example
 ```java
@@ -1039,6 +1040,59 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | [**UUID**](.md)|  |
  **body** | [**TradingAccountDemoDeposit**](TradingAccountDemoDeposit.md)|  | [optional]
+
+### Return type
+
+[**Void**](.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json, text/json, application/_*+json
+ - **Accept**: text/plain, application/json, text/json
+
+<a name="makeExchangeAccountProgram"></a>
+# **makeExchangeAccountProgram**
+> Void makeExchangeAccountProgram(body)
+
+Create an investment program from exchange account
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiClient;
+//import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
+//import io.swagger.client.api.AssetsApi;
+
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
+
+AssetsApi apiInstance = new AssetsApi();
+MakeExchangeAccountProgram body = new MakeExchangeAccountProgram(); // MakeExchangeAccountProgram | 
+try {
+    Void result = apiInstance.makeExchangeAccountProgram(body);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling AssetsApi#makeExchangeAccountProgram");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **body** | [**MakeExchangeAccountProgram**](MakeExchangeAccountProgram.md)|  | [optional]
 
 ### Return type
 

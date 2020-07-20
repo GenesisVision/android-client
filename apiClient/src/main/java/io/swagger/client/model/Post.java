@@ -47,6 +47,9 @@ public class Post implements Parcelable
 	@SerializedName("id")
 	private UUID id = null;
 
+	@SerializedName("url")
+	private String url = null;
+
 	@SerializedName("text")
 	private String text = null;
 
@@ -56,8 +59,14 @@ public class Post implements Parcelable
 	@SerializedName("likesCount")
 	private Integer likesCount = null;
 
+	@SerializedName("likesUsers")
+	private List<ProfilePublicShort> likesUsers = null;
+
 	@SerializedName("rePostsCount")
 	private Integer rePostsCount = null;
+
+	@SerializedName("rePostsUsers")
+	private List<ProfilePublicShort> rePostsUsers = null;
 
 	@SerializedName("impressionsCount")
 	private Integer impressionsCount = null;
@@ -68,6 +77,9 @@ public class Post implements Parcelable
 	@SerializedName("isDeleted")
 	private Boolean isDeleted = null;
 
+	@SerializedName("isHighlighted")
+	private Boolean isHighlighted = null;
+
 	@SerializedName("images")
 	private List<PostImage> images = null;
 
@@ -77,8 +89,8 @@ public class Post implements Parcelable
 	@SerializedName("author")
 	private ProfilePublic author = null;
 
-	@SerializedName("actions")
-	private PostActions actions = null;
+	@SerializedName("personalDetails")
+	private PostPersonalDetails personalDetails = null;
 
 	@SerializedName("comments")
 	private List<Post> comments = null;
@@ -88,17 +100,21 @@ public class Post implements Parcelable
 
 	Post(Parcel in) {
 		id = (UUID) in.readValue(UUID.class.getClassLoader());
+		url = (String) in.readValue(null);
 		text = (String) in.readValue(null);
 		date = (DateTime) in.readValue(DateTime.class.getClassLoader());
 		likesCount = (Integer) in.readValue(null);
+		likesUsers = (List<ProfilePublicShort>) in.readValue(ProfilePublicShort.class.getClassLoader());
 		rePostsCount = (Integer) in.readValue(null);
+		rePostsUsers = (List<ProfilePublicShort>) in.readValue(ProfilePublicShort.class.getClassLoader());
 		impressionsCount = (Integer) in.readValue(null);
 		isPinned = (Boolean) in.readValue(null);
 		isDeleted = (Boolean) in.readValue(null);
+		isHighlighted = (Boolean) in.readValue(null);
 		images = (List<PostImage>) in.readValue(PostImage.class.getClassLoader());
 		tags = (List<PostTag>) in.readValue(PostTag.class.getClassLoader());
 		author = (ProfilePublic) in.readValue(ProfilePublic.class.getClassLoader());
-		actions = (PostActions) in.readValue(PostActions.class.getClassLoader());
+		personalDetails = (PostPersonalDetails) in.readValue(PostPersonalDetails.class.getClassLoader());
 		comments = (List<Post>) in.readValue(Post.class.getClassLoader());
 	}
 
@@ -119,6 +135,25 @@ public class Post implements Parcelable
 
 	public void setId(UUID id) {
 		this.id = id;
+	}
+
+	public Post url(String url) {
+		this.url = url;
+		return this;
+	}
+
+	/**
+	 * Get url
+	 *
+	 * @return url
+	 **/
+	@Schema(description = "")
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
 	}
 
 	public Post text(String text) {
@@ -178,6 +213,33 @@ public class Post implements Parcelable
 		this.likesCount = likesCount;
 	}
 
+	public Post likesUsers(List<ProfilePublicShort> likesUsers) {
+		this.likesUsers = likesUsers;
+		return this;
+	}
+
+	public Post addLikesUsersItem(ProfilePublicShort likesUsersItem) {
+		if (this.likesUsers == null) {
+			this.likesUsers = new ArrayList<ProfilePublicShort>();
+		}
+		this.likesUsers.add(likesUsersItem);
+		return this;
+	}
+
+	/**
+	 * Get likesUsers
+	 *
+	 * @return likesUsers
+	 **/
+	@Schema(description = "")
+	public List<ProfilePublicShort> getLikesUsers() {
+		return likesUsers;
+	}
+
+	public void setLikesUsers(List<ProfilePublicShort> likesUsers) {
+		this.likesUsers = likesUsers;
+	}
+
 	public Post rePostsCount(Integer rePostsCount) {
 		this.rePostsCount = rePostsCount;
 		return this;
@@ -195,6 +257,33 @@ public class Post implements Parcelable
 
 	public void setRePostsCount(Integer rePostsCount) {
 		this.rePostsCount = rePostsCount;
+	}
+
+	public Post rePostsUsers(List<ProfilePublicShort> rePostsUsers) {
+		this.rePostsUsers = rePostsUsers;
+		return this;
+	}
+
+	public Post addRePostsUsersItem(ProfilePublicShort rePostsUsersItem) {
+		if (this.rePostsUsers == null) {
+			this.rePostsUsers = new ArrayList<ProfilePublicShort>();
+		}
+		this.rePostsUsers.add(rePostsUsersItem);
+		return this;
+	}
+
+	/**
+	 * Get rePostsUsers
+	 *
+	 * @return rePostsUsers
+	 **/
+	@Schema(description = "")
+	public List<ProfilePublicShort> getRePostsUsers() {
+		return rePostsUsers;
+	}
+
+	public void setRePostsUsers(List<ProfilePublicShort> rePostsUsers) {
+		this.rePostsUsers = rePostsUsers;
 	}
 
 	public Post impressionsCount(Integer impressionsCount) {
@@ -252,6 +341,25 @@ public class Post implements Parcelable
 
 	public void setIsDeleted(Boolean isDeleted) {
 		this.isDeleted = isDeleted;
+	}
+
+	public Post isHighlighted(Boolean isHighlighted) {
+		this.isHighlighted = isHighlighted;
+		return this;
+	}
+
+	/**
+	 * Get isHighlighted
+	 *
+	 * @return isHighlighted
+	 **/
+	@Schema(description = "")
+	public Boolean isIsHighlighted() {
+		return isHighlighted;
+	}
+
+	public void setIsHighlighted(Boolean isHighlighted) {
+		this.isHighlighted = isHighlighted;
 	}
 
 	public Post images(List<PostImage> images) {
@@ -327,23 +435,23 @@ public class Post implements Parcelable
 		this.author = author;
 	}
 
-	public Post actions(PostActions actions) {
-		this.actions = actions;
+	public Post personalDetails(PostPersonalDetails personalDetails) {
+		this.personalDetails = personalDetails;
 		return this;
 	}
 
 	/**
-	 * Get actions
+	 * Get personalDetails
 	 *
-	 * @return actions
+	 * @return personalDetails
 	 **/
 	@Schema(description = "")
-	public PostActions getActions() {
-		return actions;
+	public PostPersonalDetails getPersonalDetails() {
+		return personalDetails;
 	}
 
-	public void setActions(PostActions actions) {
-		this.actions = actions;
+	public void setPersonalDetails(PostPersonalDetails personalDetails) {
+		this.personalDetails = personalDetails;
 	}
 
 	public Post comments(List<Post> comments) {
@@ -383,23 +491,27 @@ public class Post implements Parcelable
 		}
 		Post post = (Post) o;
 		return Objects.equals(this.id, post.id) &&
+				Objects.equals(this.url, post.url) &&
 				Objects.equals(this.text, post.text) &&
 				Objects.equals(this.date, post.date) &&
 				Objects.equals(this.likesCount, post.likesCount) &&
+				Objects.equals(this.likesUsers, post.likesUsers) &&
 				Objects.equals(this.rePostsCount, post.rePostsCount) &&
+				Objects.equals(this.rePostsUsers, post.rePostsUsers) &&
 				Objects.equals(this.impressionsCount, post.impressionsCount) &&
 				Objects.equals(this.isPinned, post.isPinned) &&
 				Objects.equals(this.isDeleted, post.isDeleted) &&
+				Objects.equals(this.isHighlighted, post.isHighlighted) &&
 				Objects.equals(this.images, post.images) &&
 				Objects.equals(this.tags, post.tags) &&
 				Objects.equals(this.author, post.author) &&
-				Objects.equals(this.actions, post.actions) &&
+				Objects.equals(this.personalDetails, post.personalDetails) &&
 				Objects.equals(this.comments, post.comments);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, text, date, likesCount, rePostsCount, impressionsCount, isPinned, isDeleted, images, tags, author, actions, comments);
+		return Objects.hash(id, url, text, date, likesCount, likesUsers, rePostsCount, rePostsUsers, impressionsCount, isPinned, isDeleted, isHighlighted, images, tags, author, personalDetails, comments);
 	}
 
 	@Override
@@ -408,17 +520,21 @@ public class Post implements Parcelable
 		sb.append("class Post {\n");
 
 		sb.append("    id: ").append(toIndentedString(id)).append("\n");
+		sb.append("    url: ").append(toIndentedString(url)).append("\n");
 		sb.append("    text: ").append(toIndentedString(text)).append("\n");
 		sb.append("    date: ").append(toIndentedString(date)).append("\n");
 		sb.append("    likesCount: ").append(toIndentedString(likesCount)).append("\n");
+		sb.append("    likesUsers: ").append(toIndentedString(likesUsers)).append("\n");
 		sb.append("    rePostsCount: ").append(toIndentedString(rePostsCount)).append("\n");
+		sb.append("    rePostsUsers: ").append(toIndentedString(rePostsUsers)).append("\n");
 		sb.append("    impressionsCount: ").append(toIndentedString(impressionsCount)).append("\n");
 		sb.append("    isPinned: ").append(toIndentedString(isPinned)).append("\n");
 		sb.append("    isDeleted: ").append(toIndentedString(isDeleted)).append("\n");
+		sb.append("    isHighlighted: ").append(toIndentedString(isHighlighted)).append("\n");
 		sb.append("    images: ").append(toIndentedString(images)).append("\n");
 		sb.append("    tags: ").append(toIndentedString(tags)).append("\n");
 		sb.append("    author: ").append(toIndentedString(author)).append("\n");
-		sb.append("    actions: ").append(toIndentedString(actions)).append("\n");
+		sb.append("    personalDetails: ").append(toIndentedString(personalDetails)).append("\n");
 		sb.append("    comments: ").append(toIndentedString(comments)).append("\n");
 		sb.append("}");
 		return sb.toString();
@@ -437,17 +553,21 @@ public class Post implements Parcelable
 
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(id);
+		out.writeValue(url);
 		out.writeValue(text);
 		out.writeValue(date);
 		out.writeValue(likesCount);
+		out.writeValue(likesUsers);
 		out.writeValue(rePostsCount);
+		out.writeValue(rePostsUsers);
 		out.writeValue(impressionsCount);
 		out.writeValue(isPinned);
 		out.writeValue(isDeleted);
+		out.writeValue(isHighlighted);
 		out.writeValue(images);
 		out.writeValue(tags);
 		out.writeValue(author);
-		out.writeValue(actions);
+		out.writeValue(personalDetails);
 		out.writeValue(comments);
 	}
 

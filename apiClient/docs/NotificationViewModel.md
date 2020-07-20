@@ -13,4 +13,4 @@ Name | Type | Description | Notes
 **url** | **String** |  |  [optional]
 **color** | **String** |  |  [optional]
 **isUnread** | **Boolean** |  |  [optional]
-**assetType** | [**InvestmentProgramType**](InvestmentProgramType.md) |  |  [optional]
+**assetType** | [**AssetGlobalType**](AssetGlobalType.md) |  |  [optional]

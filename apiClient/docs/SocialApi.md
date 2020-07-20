@@ -9,13 +9,17 @@ Method | HTTP request | Description
 [**editPost**](SocialApi.md#editPost) | **POST** v2.0/social/feed/edit | Edit post
 [**followUser**](SocialApi.md#followUser) | **POST** v2.0/social/user/{userId}/follow | Follow user
 [**getFeed**](SocialApi.md#getFeed) | **GET** v2.0/social/feed | Get feed
+[**getOriginalPost**](SocialApi.md#getOriginalPost) | **GET** v2.0/social/feed/{id}/original | Get original post/comment
 [**getPost**](SocialApi.md#getPost) | **GET** v2.0/social/feed/{id} | Get post
+[**getPostLikesUsers**](SocialApi.md#getPostLikesUsers) | **GET** v2.0/social/feed/{id}/users/likes | Get post/comment likes users
+[**getPostRepostsUsers**](SocialApi.md#getPostRepostsUsers) | **GET** v2.0/social/feed/{id}/users/reposts | Get post/comment reposts users
 [**getSocialMedia**](SocialApi.md#getSocialMedia) | **GET** v2.0/social/feed/media | Get social media
 [**getSocialSummary**](SocialApi.md#getSocialSummary) | **GET** v2.0/social/feed/summary | Get social summary
 [**likePost**](SocialApi.md#likePost) | **POST** v2.0/social/feed/{id}/like | Like
 [**pinPost**](SocialApi.md#pinPost) | **POST** v2.0/social/feed/{id}/pin | Pin post
 [**rePost**](SocialApi.md#rePost) | **POST** v2.0/social/feed/repost | RePost
 [**revertDeletingPost**](SocialApi.md#revertDeletingPost) | **POST** v2.0/social/feed/{id}/delete/revert | Revert deleting post
+[**spamReport**](SocialApi.md#spamReport) | **POST** v2.0/social/feed/{id}/report | Report post/comment
 [**unfollowUser**](SocialApi.md#unfollowUser) | **POST** v2.0/social/user/{userId}/unfollow | Unfollow user
 [**unlikePost**](SocialApi.md#unlikePost) | **POST** v2.0/social/feed/{id}/unlike | Unlike
 [**unpinPost**](SocialApi.md#unpinPost) | **POST** v2.0/social/feed/{id}/unpin | Unpin post
@@ -234,7 +238,7 @@ Name | Type | Description  | Notes
 
 <a name="getFeed"></a>
 # **getFeed**
-> PostItemsViewModel getFeed(userId, tagContentId, tagContentIds, userMode, hashTags, mask, showTop, showLiked, skip, take)
+> PostItemsViewModel getFeed(userId, tagContentId, tagContentIds, userMode, hashTags, mask, showTop, showLiked, showOnlyUserPosts, skip, take)
 
 Get feed
 
@@ -264,10 +268,11 @@ List<String> hashTags = Arrays.asList("hashTags_example"); // List<String> |
 String mask = "mask_example"; // String | 
 Boolean showTop = true; // Boolean | 
 Boolean showLiked = true; // Boolean | 
+Boolean showOnlyUserPosts = true; // Boolean | 
 Integer skip = 56; // Integer | 
 Integer take = 56; // Integer | 
 try {
-    PostItemsViewModel result = apiInstance.getFeed(userId, tagContentId, tagContentIds, userMode, hashTags, mask, showTop, showLiked, skip, take);
+    PostItemsViewModel result = apiInstance.getFeed(userId, tagContentId, tagContentIds, userMode, hashTags, mask, showTop, showLiked, showOnlyUserPosts, skip, take);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling SocialApi#getFeed");
@@ -287,6 +292,7 @@ Name | Type | Description  | Notes
  **mask** | **String**|  | [optional]
  **showTop** | **Boolean**|  | [optional]
  **showLiked** | **Boolean**|  | [optional]
+ **showOnlyUserPosts** | **Boolean**|  | [optional]
  **skip** | **Integer**|  | [optional]
  **take** | **Integer**|  | [optional]
 
@@ -303,9 +309,62 @@ Name | Type | Description  | Notes
  - **Content-Type**: Not defined
  - **Accept**: text/plain, application/json, text/json
 
+<a name="getOriginalPost"></a>
+# **getOriginalPost**
+> EditablePost getOriginalPost(id)
+
+Get original post/comment
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiClient;
+//import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
+//import io.swagger.client.api.SocialApi;
+
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
+
+SocialApi apiInstance = new SocialApi();
+String id = "id_example"; // String | 
+try {
+    EditablePost result = apiInstance.getOriginalPost(id);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling SocialApi#getOriginalPost");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **String**|  |
+
+### Return type
+
+[**EditablePost**](EditablePost.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
+
 <a name="getPost"></a>
 # **getPost**
-> EditablePost getPost(id)
+> Post getPost(id)
 
 Get post
 
@@ -327,9 +386,9 @@ Bearer.setApiKey("YOUR API KEY");
 //Bearer.setApiKeyPrefix("Token");
 
 SocialApi apiInstance = new SocialApi();
-UUID id = new UUID(); // UUID | 
+String id = "id_example"; // String | 
 try {
-    EditablePost result = apiInstance.getPost(id);
+    Post result = apiInstance.getPost(id);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling SocialApi#getPost");
@@ -341,11 +400,117 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | [**UUID**](.md)|  |
+ **id** | **String**|  |
 
 ### Return type
 
-[**EditablePost**](EditablePost.md)
+[**Post**](Post.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
+
+<a name="getPostLikesUsers"></a>
+# **getPostLikesUsers**
+> ProfilePublicShortItemsViewModel getPostLikesUsers(id)
+
+Get post/comment likes users
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiClient;
+//import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
+//import io.swagger.client.api.SocialApi;
+
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
+
+SocialApi apiInstance = new SocialApi();
+String id = "id_example"; // String | 
+try {
+    ProfilePublicShortItemsViewModel result = apiInstance.getPostLikesUsers(id);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling SocialApi#getPostLikesUsers");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **String**|  |
+
+### Return type
+
+[**ProfilePublicShortItemsViewModel**](ProfilePublicShortItemsViewModel.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
+
+<a name="getPostRepostsUsers"></a>
+# **getPostRepostsUsers**
+> ProfilePublicShortItemsViewModel getPostRepostsUsers(id)
+
+Get post/comment reposts users
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiClient;
+//import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
+//import io.swagger.client.api.SocialApi;
+
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
+
+SocialApi apiInstance = new SocialApi();
+String id = "id_example"; // String | 
+try {
+    ProfilePublicShortItemsViewModel result = apiInstance.getPostRepostsUsers(id);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling SocialApi#getPostRepostsUsers");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **String**|  |
+
+### Return type
+
+[**ProfilePublicShortItemsViewModel**](ProfilePublicShortItemsViewModel.md)
 
 ### Authorization
 
@@ -666,6 +831,63 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**Void**](.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
+
+<a name="spamReport"></a>
+# **spamReport**
+> EditablePost spamReport(id, reason, text)
+
+Report post/comment
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiClient;
+//import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
+//import io.swagger.client.api.SocialApi;
+
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
+
+SocialApi apiInstance = new SocialApi();
+String id = "id_example"; // String | 
+String reason = "reason_example"; // String | 
+String text = "text_example"; // String | 
+try {
+    EditablePost result = apiInstance.spamReport(id, reason, text);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling SocialApi#spamReport");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **String**|  |
+ **reason** | **String**|  | [optional]
+ **text** | **String**|  | [optional]
+
+### Return type
+
+[**EditablePost**](EditablePost.md)
 
 ### Authorization
 

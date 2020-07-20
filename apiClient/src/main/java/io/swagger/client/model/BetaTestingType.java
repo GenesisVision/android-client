@@ -26,7 +26,8 @@ import java.io.IOException;
 public enum BetaTestingType
 {
 	NONE("None"),
-	SOCIAL("Social");
+	SOCIAL("Social"),
+	TRADINGTERMINAL("TradingTerminal");
 
 	public static BetaTestingType fromValue(String text) {
 		for (BetaTestingType b : BetaTestingType.values()) {

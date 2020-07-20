@@ -10,6 +10,7 @@ import vision.genesis.clientapp.di.modules.AuthModule;
 import vision.genesis.clientapp.di.modules.FilesModule;
 import vision.genesis.clientapp.di.modules.NotificationsModule;
 import vision.genesis.clientapp.di.modules.SettingsModule;
+import vision.genesis.clientapp.di.modules.SocialModule;
 import vision.genesis.clientapp.di.modules.UtilsModule;
 import vision.genesis.clientapp.feature.auth.forgot_password.ForgotPasswordPresenter;
 import vision.genesis.clientapp.feature.auth.login.LoginPresenter;
@@ -115,6 +116,12 @@ import vision.genesis.clientapp.feature.main.settings.referral_program.referral_
 import vision.genesis.clientapp.feature.main.settings.security.SecurityPresenter;
 import vision.genesis.clientapp.feature.main.settings.security.change_password.ChangePasswordPresenter;
 import vision.genesis.clientapp.feature.main.settings.social_links.SocialLinksPresenter;
+import vision.genesis.clientapp.feature.main.social.SocialPresenter;
+import vision.genesis.clientapp.feature.main.social.feed.FeedPresenter;
+import vision.genesis.clientapp.feature.main.social.feed.SocialLiveView;
+import vision.genesis.clientapp.feature.main.social.media.MediaPresenter;
+import vision.genesis.clientapp.feature.main.social.media.SocialMediaView;
+import vision.genesis.clientapp.feature.main.social.post.PostsListPresenter;
 import vision.genesis.clientapp.feature.main.trading_account.TradingAccountDetailsPresenter;
 import vision.genesis.clientapp.feature.main.trading_account.add_demo_funds.AddDemoFundsPresenter;
 import vision.genesis.clientapp.feature.main.trading_account.balance.TradingAccountBalancePresenter;
@@ -149,6 +156,7 @@ import vision.genesis.clientapp.feature.splashscreen.SplashScreenPresenter;
 import vision.genesis.clientapp.feature.two_factor.disable.DisableTfaPresenter;
 import vision.genesis.clientapp.feature.two_factor.setup.SetupTfaPresenter;
 import vision.genesis.clientapp.ui.ProgramDataView;
+import vision.genesis.clientapp.ui.SocialPostView;
 import vision.genesis.clientapp.utils.AppLifecycleTracker;
 
 /**
@@ -156,7 +164,7 @@ import vision.genesis.clientapp.utils.AppLifecycleTracker;
  * Created by Vitaly on 1/18/18.
  */
 
-@Component(modules = {ApiModule.class, AppModule.class, AssetsModule.class, AuthModule.class, FilesModule.class, NotificationsModule.class, SettingsModule.class, UtilsModule.class})
+@Component(modules = {ApiModule.class, AppModule.class, AssetsModule.class, AuthModule.class, FilesModule.class, NotificationsModule.class, SettingsModule.class, SocialModule.class, UtilsModule.class})
 @Singleton
 public interface AppComponent
 {
@@ -437,4 +445,18 @@ public interface AppComponent
 	void inject(EditSubscriptionPresenter editSubscriptionPresenter);
 
 	void inject(FollowNotificationsSettingsPresenter followNotificationsSettingsPresenter);
+
+	void inject(SocialPresenter socialPresenter);
+
+	void inject(SocialMediaView socialMediaView);
+
+	void inject(SocialLiveView socialLiveView);
+
+	void inject(FeedPresenter feedPresenter);
+
+	void inject(SocialPostView socialPostView);
+
+	void inject(PostsListPresenter postsListPresenter);
+
+	void inject(MediaPresenter mediaPresenter);
 }

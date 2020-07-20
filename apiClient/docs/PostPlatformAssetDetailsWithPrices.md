@@ -14,3 +14,4 @@ Name | Type | Description | Notes
 **logoUrl** | **String** |  |  [optional]
 **color** | **String** |  |  [optional]
 **url** | **String** |  |  [optional]
+**provider** | [**AssetProvider**](AssetProvider.md) |  |  [optional]

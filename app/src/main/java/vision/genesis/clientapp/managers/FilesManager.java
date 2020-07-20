@@ -3,6 +3,7 @@ package vision.genesis.clientapp.managers;
 import java.io.File;
 
 import io.swagger.client.api.FileApi;
+import io.swagger.client.model.ImageLocation;
 import io.swagger.client.model.UploadResult;
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
@@ -22,10 +23,10 @@ public class FilesManager
 	}
 
 	public Observable<UploadResult> uploadFile(File file) {
-		return fileApi.uploadFile(RequestBody.create(MediaType.parse("multipart/form-data"), file));
+		return fileApi.uploadFile(RequestBody.create(MediaType.parse("multipart/form-data"), file), ImageLocation.DEFAULT);
 	}
 
 	public Observable<UploadResult> uploadImage(File file) {
-		return fileApi.uploadFile(RequestBody.create(MediaType.parse("image/jpeg"), file));
+		return fileApi.uploadFile(RequestBody.create(MediaType.parse("image/jpeg"), file), ImageLocation.DEFAULT);
 	}
 }

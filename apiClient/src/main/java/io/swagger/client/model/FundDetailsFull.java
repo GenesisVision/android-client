@@ -60,6 +60,12 @@ public class FundDetailsFull implements Parcelable
 	@SerializedName("exitFeeCurrent")
 	private Double exitFeeCurrent = null;
 
+	@SerializedName("hasTradingSchedule")
+	private Boolean hasTradingSchedule = null;
+
+	@SerializedName("tradingSchedule")
+	private List<TradingScheduleViewModel> tradingSchedule = null;
+
 	@SerializedName("assetsStructure")
 	private List<FundAssetInfo> assetsStructure = null;
 
@@ -79,6 +85,8 @@ public class FundDetailsFull implements Parcelable
 		entryFeeCurrent = (Double) in.readValue(null);
 		exitFeeSelected = (Double) in.readValue(null);
 		exitFeeCurrent = (Double) in.readValue(null);
+		hasTradingSchedule = (Boolean) in.readValue(null);
+		tradingSchedule = (List<TradingScheduleViewModel>) in.readValue(TradingScheduleViewModel.class.getClassLoader());
 		assetsStructure = (List<FundAssetInfo>) in.readValue(FundAssetInfo.class.getClassLoader());
 		personalDetails = (PersonalFundDetails) in.readValue(PersonalFundDetails.class.getClassLoader());
 		owner = (ProfilePublic) in.readValue(ProfilePublic.class.getClassLoader());
@@ -198,6 +206,52 @@ public class FundDetailsFull implements Parcelable
 		this.exitFeeCurrent = exitFeeCurrent;
 	}
 
+	public FundDetailsFull hasTradingSchedule(Boolean hasTradingSchedule) {
+		this.hasTradingSchedule = hasTradingSchedule;
+		return this;
+	}
+
+	/**
+	 * Get hasTradingSchedule
+	 *
+	 * @return hasTradingSchedule
+	 **/
+	@Schema(description = "")
+	public Boolean isHasTradingSchedule() {
+		return hasTradingSchedule;
+	}
+
+	public void setHasTradingSchedule(Boolean hasTradingSchedule) {
+		this.hasTradingSchedule = hasTradingSchedule;
+	}
+
+	public FundDetailsFull tradingSchedule(List<TradingScheduleViewModel> tradingSchedule) {
+		this.tradingSchedule = tradingSchedule;
+		return this;
+	}
+
+	public FundDetailsFull addTradingScheduleItem(TradingScheduleViewModel tradingScheduleItem) {
+		if (this.tradingSchedule == null) {
+			this.tradingSchedule = new ArrayList<TradingScheduleViewModel>();
+		}
+		this.tradingSchedule.add(tradingScheduleItem);
+		return this;
+	}
+
+	/**
+	 * Get tradingSchedule
+	 *
+	 * @return tradingSchedule
+	 **/
+	@Schema(description = "")
+	public List<TradingScheduleViewModel> getTradingSchedule() {
+		return tradingSchedule;
+	}
+
+	public void setTradingSchedule(List<TradingScheduleViewModel> tradingSchedule) {
+		this.tradingSchedule = tradingSchedule;
+	}
+
 	public FundDetailsFull assetsStructure(List<FundAssetInfo> assetsStructure) {
 		this.assetsStructure = assetsStructure;
 		return this;
@@ -278,6 +332,8 @@ public class FundDetailsFull implements Parcelable
 				Objects.equals(this.entryFeeCurrent, fundDetailsFull.entryFeeCurrent) &&
 				Objects.equals(this.exitFeeSelected, fundDetailsFull.exitFeeSelected) &&
 				Objects.equals(this.exitFeeCurrent, fundDetailsFull.exitFeeCurrent) &&
+				Objects.equals(this.hasTradingSchedule, fundDetailsFull.hasTradingSchedule) &&
+				Objects.equals(this.tradingSchedule, fundDetailsFull.tradingSchedule) &&
 				Objects.equals(this.assetsStructure, fundDetailsFull.assetsStructure) &&
 				Objects.equals(this.personalDetails, fundDetailsFull.personalDetails) &&
 				Objects.equals(this.owner, fundDetailsFull.owner);
@@ -285,7 +341,7 @@ public class FundDetailsFull implements Parcelable
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, publicInfo, entryFeeSelected, entryFeeCurrent, exitFeeSelected, exitFeeCurrent, assetsStructure, personalDetails, owner);
+		return Objects.hash(id, publicInfo, entryFeeSelected, entryFeeCurrent, exitFeeSelected, exitFeeCurrent, hasTradingSchedule, tradingSchedule, assetsStructure, personalDetails, owner);
 	}
 
 	@Override
@@ -299,6 +355,8 @@ public class FundDetailsFull implements Parcelable
 		sb.append("    entryFeeCurrent: ").append(toIndentedString(entryFeeCurrent)).append("\n");
 		sb.append("    exitFeeSelected: ").append(toIndentedString(exitFeeSelected)).append("\n");
 		sb.append("    exitFeeCurrent: ").append(toIndentedString(exitFeeCurrent)).append("\n");
+		sb.append("    hasTradingSchedule: ").append(toIndentedString(hasTradingSchedule)).append("\n");
+		sb.append("    tradingSchedule: ").append(toIndentedString(tradingSchedule)).append("\n");
 		sb.append("    assetsStructure: ").append(toIndentedString(assetsStructure)).append("\n");
 		sb.append("    personalDetails: ").append(toIndentedString(personalDetails)).append("\n");
 		sb.append("    owner: ").append(toIndentedString(owner)).append("\n");
@@ -324,6 +382,8 @@ public class FundDetailsFull implements Parcelable
 		out.writeValue(entryFeeCurrent);
 		out.writeValue(exitFeeSelected);
 		out.writeValue(exitFeeCurrent);
+		out.writeValue(hasTradingSchedule);
+		out.writeValue(tradingSchedule);
 		out.writeValue(assetsStructure);
 		out.writeValue(personalDetails);
 		out.writeValue(owner);

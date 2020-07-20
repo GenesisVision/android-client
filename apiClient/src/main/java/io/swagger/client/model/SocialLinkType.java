@@ -35,7 +35,8 @@ public enum SocialLinkType
 	EMAIL("Email"),
 	WEBSITE("Website"),
 	REDDIT("Reddit"),
-	GITHUB("GitHub");
+	GITHUB("GitHub"),
+	MEDIUM("Medium");
 
 	public static SocialLinkType fromValue(String text) {
 		for (SocialLinkType b : SocialLinkType.values()) {

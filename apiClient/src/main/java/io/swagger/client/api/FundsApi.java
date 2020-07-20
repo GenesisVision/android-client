@@ -11,6 +11,8 @@ import io.swagger.client.model.FundBalanceChart;
 import io.swagger.client.model.FundDetailsFull;
 import io.swagger.client.model.FundDetailsListItem;
 import io.swagger.client.model.FundDetailsListItemItemsViewModel;
+import io.swagger.client.model.FundHistoryEventType;
+import io.swagger.client.model.FundHistoryEventViewModelItemsViewModel;
 import io.swagger.client.model.FundProfitPercentCharts;
 import io.swagger.client.model.FundsFilterSorting;
 import io.swagger.client.model.ImageQuality;
@@ -115,6 +117,22 @@ public interface FundsApi
 	@GET("v2.0/funds")
 	Observable<FundDetailsListItemItemsViewModel> getFunds(
 			@retrofit2.http.Query("Sorting") FundsFilterSorting sorting, @retrofit2.http.Query("ShowIn") Currency showIn, @retrofit2.http.Query("Assets") List<String> assets, @retrofit2.http.Query("InvestorId") UUID investorId, @retrofit2.http.Query("IncludeWithInvestments") Boolean includeWithInvestments, @retrofit2.http.Query("DateFrom") DateTime dateFrom, @retrofit2.http.Query("DateTo") DateTime dateTo, @retrofit2.http.Query("ChartPointsCount") Integer chartPointsCount, @retrofit2.http.Query("FacetId") String facetId, @retrofit2.http.Query("Mask") String mask, @retrofit2.http.Query("OwnerId") UUID ownerId, @retrofit2.http.Query("ShowFavorites") Boolean showFavorites, @retrofit2.http.Query("SkipStatistic") Boolean skipStatistic, @retrofit2.http.Query("Skip") Integer skip, @retrofit2.http.Query("Take") Integer take
+	);
+
+	/**
+	 * Get funds trading events
+	 *
+	 * @param id         (required)
+	 * @param dateFrom   (optional)
+	 * @param dateTo     (optional)
+	 * @param eventsType (optional)
+	 * @param skip       (optional)
+	 * @param take       (optional)
+	 * @return Call&lt;FundHistoryEventViewModelItemsViewModel&gt;
+	 */
+	@GET("v2.0/funds/{id}/events")
+	Observable<FundHistoryEventViewModelItemsViewModel> getFundsHistoryEvents(
+			@retrofit2.http.Path("id") UUID id, @retrofit2.http.Query("DateFrom") DateTime dateFrom, @retrofit2.http.Query("DateTo") DateTime dateTo, @retrofit2.http.Query("EventsType") FundHistoryEventType eventsType, @retrofit2.http.Query("Skip") Integer skip, @retrofit2.http.Query("Take") Integer take
 	);
 
 	/**

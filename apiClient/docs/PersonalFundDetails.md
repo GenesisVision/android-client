@@ -7,6 +7,7 @@ Name | Type | Description | Notes
 **isInvested** | **Boolean** |  |  [optional]
 **canInvest** | **Boolean** |  |  [optional]
 **canWithdraw** | **Boolean** |  |  [optional]
+**canCancelRequest** | **Boolean** |  |  [optional]
 **ownerActions** | [**FundOwnerActions**](FundOwnerActions.md) |  |  [optional]
 **hasNotifications** | **Boolean** |  |  [optional]
 **value** | **Double** |  |  [optional]

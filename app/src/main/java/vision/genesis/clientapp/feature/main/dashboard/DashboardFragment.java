@@ -41,6 +41,7 @@ import vision.genesis.clientapp.feature.main.dashboard.trading.DashboardTradingV
 import vision.genesis.clientapp.feature.main.dashboard.trading.details.TradingDetailsActivity;
 import vision.genesis.clientapp.feature.main.dashboard.wallet.DashboardWalletView;
 import vision.genesis.clientapp.feature.main.notifications.NotificationsActivity;
+import vision.genesis.clientapp.feature.main.wallet.WalletActivity;
 import vision.genesis.clientapp.model.CurrencyEnum;
 import vision.genesis.clientapp.utils.StringFormatUtil;
 import vision.genesis.clientapp.utils.ThemeUtil;
@@ -132,6 +133,13 @@ public class DashboardFragment extends BaseFragment implements DashboardView
 	public void onTradingClicked() {
 		if (getActivity() != null) {
 			TradingDetailsActivity.startWith(getActivity());
+		}
+	}
+
+	@OnClick(R.id.wallet_view)
+	public void onWalletClicked() {
+		if (getActivity() != null) {
+			WalletActivity.startFrom(getActivity());
 		}
 	}
 

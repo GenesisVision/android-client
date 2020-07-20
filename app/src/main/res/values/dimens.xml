@@ -48,7 +48,7 @@
     <dimen name="button_height">54dp</dimen>
 
     <dimen name="tabs_height">50dp</dimen>
-    <dimen name="wallet_appbar_background_height">340dp</dimen>
+    <dimen name="wallet_appbar_background_height">200dp</dimen>
     <dimen name="login_field_height">70dp</dimen>
     <dimen name="dashboard_appbar_background_height">180dp</dimen>
 
@@ -151,4 +151,10 @@
     <dimen name="social_link_height">70dp</dimen>
     <dimen name="referral_table_item_height">60dp</dimen>
     <dimen name="referral_table_date_cell_width">160dp</dimen>
+    <dimen name="media_image_height">250dp</dimen>
+    <dimen name="media_post_short_width">200dp</dimen>
+    <dimen name="media_post_short_height">280dp</dimen>
+    <dimen name="media_short_image_height">120dp</dimen>
+    <dimen name="social_post_image_height">200dp</dimen>
+    <dimen name="post_tag_height">80dp</dimen>
 </resources>

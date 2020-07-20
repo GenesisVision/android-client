@@ -17,6 +17,8 @@ import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
 
+import org.joda.time.DateTime;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -42,7 +44,7 @@ public class FundAssetsState implements Parcelable
 	};
 
 	@SerializedName("date")
-	private Long date = null;
+	private DateTime date = null;
 
 	@SerializedName("value")
 	private Double value = null;
@@ -54,12 +56,12 @@ public class FundAssetsState implements Parcelable
 	}
 
 	FundAssetsState(Parcel in) {
-		date = (Long) in.readValue(null);
+		date = (DateTime) in.readValue(DateTime.class.getClassLoader());
 		value = (Double) in.readValue(null);
 		assets = (List<FundAssetPartWithIcon>) in.readValue(FundAssetPartWithIcon.class.getClassLoader());
 	}
 
-	public FundAssetsState date(Long date) {
+	public FundAssetsState date(DateTime date) {
 		this.date = date;
 		return this;
 	}
@@ -70,11 +72,11 @@ public class FundAssetsState implements Parcelable
 	 * @return date
 	 **/
 	@Schema(description = "")
-	public Long getDate() {
+	public DateTime getDate() {
 		return date;
 	}
 
-	public void setDate(Long date) {
+	public void setDate(DateTime date) {
 		this.date = date;
 	}
 

@@ -10,6 +10,7 @@ Method | HTTP request | Description
 [**getFundDetails**](FundsApi.md#getFundDetails) | **GET** v2.0/funds/{id} | Fund details
 [**getFundProfitPercentCharts**](FundsApi.md#getFundProfitPercentCharts) | **GET** v2.0/funds/{id}/charts/profit/percent | Fund profit percent charts
 [**getFunds**](FundsApi.md#getFunds) | **GET** v2.0/funds | Funds list
+[**getFundsHistoryEvents**](FundsApi.md#getFundsHistoryEvents) | **GET** v2.0/funds/{id}/events | Get funds trading events
 [**getLastChallengeWinner**](FundsApi.md#getLastChallengeWinner) | **GET** v2.0/funds/challenge/winner | Get last weekly funds challenge winner
 [**getReallocatingHistory**](FundsApi.md#getReallocatingHistory) | **GET** v2.0/funds/{id}/reallocations | Get history of asset part update requests
 [**removeFromFavorites**](FundsApi.md#removeFromFavorites) | **POST** v2.0/funds/{id}/favorite/remove | Remove from favorites
@@ -382,6 +383,69 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**FundDetailsListItemItemsViewModel**](FundDetailsListItemItemsViewModel.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
+
+<a name="getFundsHistoryEvents"></a>
+# **getFundsHistoryEvents**
+> FundHistoryEventViewModelItemsViewModel getFundsHistoryEvents(id, dateFrom, dateTo, eventsType, skip, take)
+
+Get funds trading events
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiClient;
+//import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
+//import io.swagger.client.api.FundsApi;
+
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
+
+FundsApi apiInstance = new FundsApi();
+UUID id = new UUID(); // UUID | 
+DateTime dateFrom = new DateTime(); // DateTime | 
+DateTime dateTo = new DateTime(); // DateTime | 
+FundHistoryEventType eventsType = new FundHistoryEventType(); // FundHistoryEventType | 
+Integer skip = 56; // Integer | 
+Integer take = 56; // Integer | 
+try {
+    FundHistoryEventViewModelItemsViewModel result = apiInstance.getFundsHistoryEvents(id, dateFrom, dateTo, eventsType, skip, take);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling FundsApi#getFundsHistoryEvents");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | [**UUID**](.md)|  |
+ **dateFrom** | **DateTime**|  | [optional]
+ **dateTo** | **DateTime**|  | [optional]
+ **eventsType** | [**FundHistoryEventType**](.md)|  | [optional]
+ **skip** | **Integer**|  | [optional]
+ **take** | **Integer**|  | [optional]
+
+### Return type
+
+[**FundHistoryEventViewModelItemsViewModel**](FundHistoryEventViewModelItemsViewModel.md)
 
 ### Authorization
 

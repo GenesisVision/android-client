@@ -4,7 +4,7 @@ All URIs are relative to *https://red.genesis.vision/api*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**getAllPlatformAssets**](PlatformApi.md#getAllPlatformAssets) | **GET** v2.0/platform/assets | Get all supported assets for funds
+[**getAllPlatformTradingAssets**](PlatformApi.md#getAllPlatformTradingAssets) | **GET** v2.0/platform/trading/assets | Get all supported assets for funds
 [**getPlatformAssetInfo**](PlatformApi.md#getPlatformAssetInfo) | **GET** v2.0/platform/asset/{asset} | Get asset description
 [**getPlatformDate**](PlatformApi.md#getPlatformDate) | **POST** v2.0/platform/date | Server date
 [**getPlatformEvents**](PlatformApi.md#getPlatformEvents) | **GET** v2.0/platform/events | Get platform events
@@ -15,9 +15,9 @@ Method | HTTP request | Description
 [**getRiskControlInfo**](PlatformApi.md#getRiskControlInfo) | **GET** v2.0/platform/riskcontrol | Risk control
 [**getSitemapInfo**](PlatformApi.md#getSitemapInfo) | **GET** v2.0/platform/sitemap | Sitemap info
 
-<a name="getAllPlatformAssets"></a>
-# **getAllPlatformAssets**
-> PlatformAssets getAllPlatformAssets()
+<a name="getAllPlatformTradingAssets"></a>
+# **getAllPlatformTradingAssets**
+> PlatformAssets getAllPlatformTradingAssets()
 
 Get all supported assets for funds
 
@@ -40,10 +40,10 @@ Bearer.setApiKey("YOUR API KEY");
 
 PlatformApi apiInstance = new PlatformApi();
 try {
-    PlatformAssets result = apiInstance.getAllPlatformAssets();
+    PlatformAssets result = apiInstance.getAllPlatformTradingAssets();
     System.out.println(result);
 } catch (ApiException e) {
-    System.err.println("Exception when calling PlatformApi#getAllPlatformAssets");
+    System.err.println("Exception when calling PlatformApi#getAllPlatformTradingAssets");
     e.printStackTrace();
 }
 ```

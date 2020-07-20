@@ -20,7 +20,7 @@ import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.main.assets.AssetsFragment;
 import vision.genesis.clientapp.feature.main.dashboard.DashboardFragment;
 import vision.genesis.clientapp.feature.main.settings.SettingsFragment;
-import vision.genesis.clientapp.feature.main.wallet.WalletFragment;
+import vision.genesis.clientapp.feature.main.social.SocialFragment;
 import vision.genesis.clientapp.managers.AuthManager;
 import vision.genesis.clientapp.managers.SettingsManager;
 import vision.genesis.clientapp.model.AppUpdateModel;
@@ -30,11 +30,13 @@ import vision.genesis.clientapp.model.events.HideBottomNavigationEvent;
 import vision.genesis.clientapp.model.events.OnFollowFacetClickedEvent;
 import vision.genesis.clientapp.model.events.OnFundFacetClickedEvent;
 import vision.genesis.clientapp.model.events.OnProgramFacetClickedEvent;
+import vision.genesis.clientapp.model.events.OnShowMediaActivityEvent;
 import vision.genesis.clientapp.model.events.OnThemeChangedEvent;
 import vision.genesis.clientapp.model.events.ShowBottomNavigationEvent;
 import vision.genesis.clientapp.model.events.ShowCopytradingAccountDetailsEvent;
 import vision.genesis.clientapp.model.events.ShowDisableTfaActivityEvent;
 import vision.genesis.clientapp.model.events.ShowEventDetailsEvent;
+import vision.genesis.clientapp.model.events.ShowFeedActivityEvent;
 import vision.genesis.clientapp.model.events.ShowFundDetailsEvent;
 import vision.genesis.clientapp.model.events.ShowFundsListEvent;
 import vision.genesis.clientapp.model.events.ShowLockScreenEvent;
@@ -74,7 +76,7 @@ public class MainPresenter extends MvpPresenter<MainView>
 
 	private AssetsFragment assetsFragment;
 
-	private WalletFragment walletFragment;
+	private SocialFragment socialFragment;
 
 	private SettingsFragment settingsFragment;
 
@@ -139,7 +141,7 @@ public class MainPresenter extends MvpPresenter<MainView>
 				showAssets();
 				break;
 			case 2:
-				showWallet();
+				showSocial();
 				break;
 			case 3:
 				showSettings();
@@ -167,13 +169,13 @@ public class MainPresenter extends MvpPresenter<MainView>
 		}
 	}
 
-	private void showWallet() {
-		if (walletFragment == null) {
-			walletFragment = new WalletFragment();
-			getViewState().addFragmentToBackstack(walletFragment);
+	private void showSocial() {
+		if (socialFragment == null) {
+			socialFragment = new SocialFragment();
+			getViewState().addFragmentToBackstack(socialFragment);
 		}
 		else {
-			getViewState().showFragment(walletFragment);
+			getViewState().showFragment(socialFragment);
 		}
 	}
 
@@ -385,5 +387,15 @@ public class MainPresenter extends MvpPresenter<MainView>
 	@Subscribe
 	public void onEventMainThread(ShowFundsListEvent event) {
 		getViewState().setNavigationItemSelected(1);
+	}
+
+	@Subscribe
+	public void onEventMainThread(ShowFeedActivityEvent event) {
+		getViewState().showFeedActivity();
+	}
+
+	@Subscribe
+	public void onEventMainThread(OnShowMediaActivityEvent event) {
+		getViewState().showMediaActivity();
 	}
 }

@@ -45,6 +45,8 @@ import vision.genesis.clientapp.feature.main.message.MessageBottomSheetDialog;
 import vision.genesis.clientapp.feature.main.program.ProgramDetailsActivity;
 import vision.genesis.clientapp.feature.main.program.withdraw.WithdrawProgramActivity;
 import vision.genesis.clientapp.feature.main.rating.ProgramsRatingActivity;
+import vision.genesis.clientapp.feature.main.social.feed.FeedActivity;
+import vision.genesis.clientapp.feature.main.social.media.MediaActivity;
 import vision.genesis.clientapp.feature.main.trading_account.TradingAccountDetailsActivity;
 import vision.genesis.clientapp.feature.main.wallet.copytrading_account_details.CopytradingAccountDetailsActivity;
 import vision.genesis.clientapp.feature.main.wallet.specific_wallet.SpecificWalletActivity;
@@ -229,12 +231,12 @@ public class MainActivity extends MvpAppCompatActivity implements MainView, Bloc
 	public void initBottomNavigation() {
 		AHBottomNavigationItem dashboardItem = new AHBottomNavigationItem(null, R.drawable.icon_dashboard);
 		AHBottomNavigationItem investItem = new AHBottomNavigationItem(null, R.drawable.icon_assets);
-		AHBottomNavigationItem walletItem = new AHBottomNavigationItem(null, R.drawable.icon_wallet);
+		AHBottomNavigationItem socialItem = new AHBottomNavigationItem(null, R.drawable.icon_social);
 		AHBottomNavigationItem settingsItem = new AHBottomNavigationItem(null, R.drawable.icon_profile);
 
 		bottomNavigationView.addItem(dashboardItem);
 		bottomNavigationView.addItem(investItem);
-		bottomNavigationView.addItem(walletItem);
+		bottomNavigationView.addItem(socialItem);
 		bottomNavigationView.addItem(settingsItem);
 
 		bottomNavigationView.setAccentColor(ThemeUtil.getColorByAttrId(this, R.attr.colorAccent));
@@ -436,6 +438,16 @@ public class MainActivity extends MvpAppCompatActivity implements MainView, Bloc
 	@Override
 	public void showTradingAccountDetails(TradingAccountDetailsModel tradingAccountDetailsModel) {
 		TradingAccountDetailsActivity.startWith(this, tradingAccountDetailsModel);
+	}
+
+	@Override
+	public void showFeedActivity() {
+		FeedActivity.startFrom(this);
+	}
+
+	@Override
+	public void showMediaActivity() {
+		MediaActivity.startFrom(this);
 	}
 
 	@Override

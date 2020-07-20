@@ -22,6 +22,8 @@ public interface EventsApi
 	 * @param assetId          (optional)
 	 * @param from             (optional)
 	 * @param to               (optional)
+	 * @param dateFrom         (optional)
+	 * @param dateTo           (optional)
 	 * @param eventType        (optional)
 	 * @param assetType        (optional)
 	 * @param assetsIds        (optional)
@@ -33,7 +35,7 @@ public interface EventsApi
 	 */
 	@GET("v2.0/events")
 	Observable<InvestmentEventViewModels> getEvents(
-			@retrofit2.http.Query("EventLocation") InvestmentEventLocation eventLocation, @retrofit2.http.Query("AssetId") UUID assetId, @retrofit2.http.Query("From") DateTime from, @retrofit2.http.Query("To") DateTime to, @retrofit2.http.Query("EventType") InvestmentEventType eventType, @retrofit2.http.Query("AssetType") AssetFilterType assetType, @retrofit2.http.Query("AssetsIds") List<UUID> assetsIds, @retrofit2.http.Query("ForceFilterByIds") Boolean forceFilterByIds, @retrofit2.http.Query("EventGroup") EventGroupType eventGroup, @retrofit2.http.Query("Skip") Integer skip, @retrofit2.http.Query("Take") Integer take
+			@retrofit2.http.Query("EventLocation") InvestmentEventLocation eventLocation, @retrofit2.http.Query("AssetId") UUID assetId, @retrofit2.http.Query("From") DateTime from, @retrofit2.http.Query("To") DateTime to, @retrofit2.http.Query("DateFrom") DateTime dateFrom, @retrofit2.http.Query("DateTo") DateTime dateTo, @retrofit2.http.Query("EventType") InvestmentEventType eventType, @retrofit2.http.Query("AssetType") AssetFilterType assetType, @retrofit2.http.Query("AssetsIds") List<UUID> assetsIds, @retrofit2.http.Query("ForceFilterByIds") Boolean forceFilterByIds, @retrofit2.http.Query("EventGroup") EventGroupType eventGroup, @retrofit2.http.Query("Skip") Integer skip, @retrofit2.http.Query("Take") Integer take
 	);
 
 }
