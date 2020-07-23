@@ -95,4 +95,14 @@
 
     </LinearLayout>
 
+    <ProgressBar
+        android:id="@+id/progress_bar_bottom"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_alignParentBottom="true"
+        android:indeterminate="true"
+        android:scaleY="4"
+        android:visibility="gone"/>
+
 </RelativeLayout>

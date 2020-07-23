@@ -39,6 +39,8 @@ public class SharedPreferencesUtil
 
 	private static final String KEY_CURRENCY = "keyCurrency";
 
+	private static final String KEY_SHOW_EVENTS = "keyShowEvents";
+
 	private Context context;
 
 	public SharedPreferencesUtil(Context context) {
@@ -175,5 +177,17 @@ public class SharedPreferencesUtil
 	public String getCurrency() {
 		SharedPreferences sharedPreferences = context.getSharedPreferences(SETTINGS, Context.MODE_PRIVATE);
 		return sharedPreferences.getString(KEY_CURRENCY, "USD");
+	}
+
+	public void saveShowEvents(boolean showEvents) {
+		SharedPreferences sharedPreferences = context.getSharedPreferences(SETTINGS, Context.MODE_PRIVATE);
+		sharedPreferences.edit()
+				.putBoolean(KEY_SHOW_EVENTS, showEvents)
+				.apply();
+	}
+
+	public boolean getShowEvents() {
+		SharedPreferences sharedPreferences = context.getSharedPreferences(SETTINGS, Context.MODE_PRIVATE);
+		return sharedPreferences.getBoolean(KEY_SHOW_EVENTS, true);
 	}
 }

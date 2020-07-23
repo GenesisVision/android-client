@@ -157,4 +157,5 @@
     <dimen name="media_short_image_height">120dp</dimen>
     <dimen name="social_post_image_height">200dp</dimen>
     <dimen name="post_tag_height">80dp</dimen>
+    <dimen name="comment_padding">70dp</dimen>
 </resources>

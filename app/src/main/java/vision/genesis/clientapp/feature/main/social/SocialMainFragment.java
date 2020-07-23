@@ -28,7 +28,7 @@ import vision.genesis.clientapp.feature.main.social.media.SocialMediaView;
  * Created by Vitaly on 13/06/2020.
  */
 
-public class SocialFragment extends BaseFragment implements SocialView
+public class SocialMainFragment extends BaseFragment implements SocialMainView
 {
 	@BindView(R.id.scrollview)
 	public NestedScrollView scrollview;
@@ -43,14 +43,14 @@ public class SocialFragment extends BaseFragment implements SocialView
 	public ProgressBar progressBar;
 
 	@InjectPresenter
-	SocialPresenter presenter;
+	SocialMainPresenter presenter;
 
 	private Unbinder unbinder;
 
 	@Nullable
 	@Override
 	public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-		return inflater.inflate(R.layout.fragment_social, container, false);
+		return inflater.inflate(R.layout.fragment_social_main, container, false);
 	}
 
 	@Override

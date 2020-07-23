@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+    <vision.genesis.clientapp.ui.AvatarView
+        android:id="@+id/author_logo"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="@dimen/padding"
+        android:layout_marginTop="@dimen/padding"/>
+
+    <ImageView
+        android:id="@+id/button_menu"
+        android:layout_width="50dp"
+        android:layout_height="40dp"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="10dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:padding="14dp"
+        android:tint="?attr/colorTextPrimary"
+        app:srcCompat="@drawable/icon_menu"/>
+
+    <LinearLayout
+        android:id="@+id/body"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/padding"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/author_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/comment_padding"
+            android:ellipsize="end"
+            android:fontFamily="@font/montserrat_semibold"
+            android:maxLines="1"
+            android:textColor="?attr/colorTextPrimary"
+            android:textSize="14sp"
+            tools:text="Chainalysis Team"/>
+
+        <LinearLayout
+            android:id="@+id/message"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/comment_padding"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="@dimen/padding"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:fontFamily="@font/montserrat_regular"
+                android:lineSpacingMultiplier="1.2"
+                android:textColor="?attr/colorTextPrimary"
+                android:textSize="14sp"
+                tools:text="@string/lorem_ipsum_short"/>
+
+            <com.google.android.flexbox.FlexboxLayout
+                android:id="@+id/flex_box"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/padding"
+                android:background="?attr/colorDelimiterLight"
+                android:visibility="gone"
+                app:alignContent="stretch"
+                app:alignItems="stretch"
+                app:dividerDrawable="@drawable/divider_transparent"
+                app:flexDirection="row"
+                app:flexWrap="wrap"
+                app:showDivider="middle"
+                tools:visibility="gone"/>
+
+        </LinearLayout>
+
+        <HorizontalScrollView
+            android:id="@+id/scrollview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/padding"
+            android:scrollbars="none"
+            tools:visibility="gone">
+
+            <LinearLayout
+                android:id="@+id/group_post_tags"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"/>
+
+        </HorizontalScrollView>
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_below="@+id/body"
+        android:layout_marginStart="@dimen/comment_padding">
+
+        <TextView
+            android:id="@+id/date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:alpha="0.3"
+            android:fontFamily="@font/montserrat_regular"
+            android:textColor="?attr/colorTextPrimary"
+            android:textSize="12sp"
+            tools:text="1 aug 2018, 10:30am"/>
+
+        <TextView
+            android:id="@+id/button_reply"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="8dp"
+            android:layout_toEndOf="@+id/date"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:fontFamily="@font/montserrat_medium"
+            android:text="@string/reply"
+            android:textColor="?attr/colorAccent"
+            android:textSize="12sp"/>
+
+        <LinearLayout
+            android:id="@+id/button_like"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingStart="@dimen/padding"
+            android:paddingEnd="@dimen/padding">
+
+            <ImageView
+                android:id="@+id/icon_like"
+                android:layout_width="14dp"
+                android:layout_height="14dp"
+                android:tint="?attr/colorTextSecondary"
+                app:srcCompat="@drawable/icon_like"/>
+
+            <TextView
+                android:id="@+id/likes_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:fontFamily="@font/montserrat_semibold"
+                android:textColor="?attr/colorTextSecondary"
+                android:textSize="12sp"
+                android:visibility="gone"
+                tools:text="1230"
+                tools:visibility="visible"/>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</RelativeLayout>

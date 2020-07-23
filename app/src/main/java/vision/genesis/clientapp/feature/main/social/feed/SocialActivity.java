@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
+import androidx.appcompat.widget.SwitchCompat;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.viewpager.widget.ViewPager;
 
@@ -28,10 +29,10 @@ import vision.genesis.clientapp.utils.ThemeUtil;
  * Created by Vitaly on 13/06/2020.
  */
 
-public class FeedActivity extends BaseSwipeBackActivity implements FeedView, ViewPager.OnPageChangeListener
+public class SocialActivity extends BaseSwipeBackActivity implements SocialView, ViewPager.OnPageChangeListener
 {
 	public static void startFrom(Activity activity) {
-		Intent intent = new Intent(activity.getApplicationContext(), FeedActivity.class);
+		Intent intent = new Intent(activity.getApplicationContext(), SocialActivity.class);
 		activity.startActivity(intent);
 		activity.overridePendingTransition(R.anim.activity_slide_from_right, R.anim.hold);
 	}
@@ -45,6 +46,9 @@ public class FeedActivity extends BaseSwipeBackActivity implements FeedView, Vie
 	@BindView(R.id.group_tabs)
 	public ViewGroup tabsGroup;
 
+	@BindView(R.id.switch_show_events)
+	public SwitchCompat showEventsSwitch;
+
 	@BindView(R.id.tab_layout)
 	public TabLayout tabLayout;
 
@@ -55,13 +59,13 @@ public class FeedActivity extends BaseSwipeBackActivity implements FeedView, Vie
 	public ProgressBar progressBar;
 
 	@InjectPresenter
-	FeedPresenter presenter;
+	SocialPresenter presenter;
 
 	private TabLayout.OnTabSelectedListener tabSelectedListener;
 
 	private TabLayout.TabLayoutOnPageChangeListener tabLayoutOnPageChangeListener;
 
-	private FeedPagerAdapter pagerAdapter;
+	private SocialPagerAdapter pagerAdapter;
 
 	@OnClick(R.id.button_back)
 	public void onBackClicked() {
@@ -73,12 +77,17 @@ public class FeedActivity extends BaseSwipeBackActivity implements FeedView, Vie
 		setTheme(ThemeUtil.getCurrentThemeResource());
 		super.onCreate(savedInstanceState);
 
-		setContentView(R.layout.activity_feed);
+		setContentView(R.layout.activity_social);
 
 		ButterKnife.bind(this);
 
+		initListener();
 		initTabs();
-		initViewPager();
+	}
+
+	private void initListener() {
+		showEventsSwitch.setOnCheckedChangeListener((view, checked) ->
+				presenter.onShowEventsCheckChanged(checked));
 	}
 
 	@Override
@@ -179,14 +188,23 @@ public class FeedActivity extends BaseSwipeBackActivity implements FeedView, Vie
 		}
 	}
 
-	private void initViewPager() {
-		pagerAdapter = new FeedPagerAdapter(getSupportFragmentManager(), tabLayout);
+	@Override
+	public void initViewPager(boolean showEvents) {
+		pagerAdapter = new SocialPagerAdapter(getSupportFragmentManager(), tabLayout, showEvents);
 		viewPager.setAdapter(pagerAdapter);
 		viewPager.setOffscreenPageLimit(3);
 
 		tabLayoutOnPageChangeListener = new TabLayout.TabLayoutOnPageChangeListener(tabLayout);
 		viewPager.addOnPageChangeListener(tabLayoutOnPageChangeListener);
 		viewPager.addOnPageChangeListener(this);
+	}
+
+	@Override
+	public void setShowEventsChecked(boolean checked) {
+		showEventsSwitch.setChecked(checked);
+		if (pagerAdapter != null) {
+			pagerAdapter.setShowEvents(checked);
+		}
 	}
 
 	@Override

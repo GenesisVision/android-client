@@ -897,12 +897,23 @@
     <string name="hot">Hot</string>
     <string name="feed">Feed</string>
     <string name="social">Social</string>
+    <string name="post">Post</string>
+    <string name="reply">Reply</string>
+    <string name="expand">Expand</string>
+    <string name="today">Today</string>
+    <string name="yesterday">Yesterday</string>
+    <string name="show_events">Show events</string>
 
 
     <plurals name="assets">
         <item quantity="one">asset</item>
         <item quantity="two">assets</item>
         <item quantity="other">assets</item>
+    </plurals>
+    <plurals name="comments">
+        <item quantity="one">comment</item>
+        <item quantity="two">comments</item>
+        <item quantity="other">comments</item>
     </plurals>
 
 </resources>

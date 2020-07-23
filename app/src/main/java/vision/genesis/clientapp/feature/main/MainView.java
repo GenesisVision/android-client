@@ -2,8 +2,11 @@ package vision.genesis.clientapp.feature.main;
 
 import com.arellomobile.mvp.MvpView;
 
+import java.util.UUID;
+
 import io.swagger.client.model.AssetFacet;
 import io.swagger.client.model.InvestmentEventViewModel;
+import io.swagger.client.model.Post;
 import io.swagger.client.model.TransactionViewModel;
 import vision.genesis.clientapp.feature.BaseFragment;
 import vision.genesis.clientapp.feature.main.message.MessageBottomSheetDialog;
@@ -90,7 +93,9 @@ public interface MainView extends MvpView
 
 	void showTradingAccountDetails(TradingAccountDetailsModel tradingAccountDetailsModel);
 
-	void showFeedActivity();
+	void showSocialActivity();
 
 	void showMediaActivity();
+
+	void showPostDetails(UUID postId, Post post, boolean showComments);
 }

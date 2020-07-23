@@ -1,6 +1,7 @@
 package vision.genesis.clientapp.utils;
 
 import org.joda.time.DateTime;
+import org.joda.time.DateTimeComparator;
 import org.joda.time.Days;
 import org.joda.time.Hours;
 import org.joda.time.Minutes;
@@ -13,6 +14,9 @@ import org.joda.time.format.PeriodFormatter;
 import org.joda.time.format.PeriodFormatterBuilder;
 
 import java.util.Locale;
+
+import vision.genesis.clientapp.GenesisVisionApplication;
+import vision.genesis.clientapp.R;
 
 /**
  * GenesisVision
@@ -66,7 +70,20 @@ public class DateTimeUtil
 	}
 
 	public static String formatEventDateTime(DateTime dateTime) {
-		return eventDateTimeFormatter.withLocale(Locale.US).print(dateTime);
+//		DateTime nowMidnight = DateTime.now().withHourOfDay(0).withMinuteOfHour(0).withSecondOfMinute(0).withMillisOfSecond(0);
+		if (DateTimeComparator.getDateOnlyInstance().compare(DateTime.now(), dateTime) == 0) {
+			return String.format(Locale.getDefault(), "%s, %s",
+					GenesisVisionApplication.INSTANCE.getString(R.string.today),
+					timeShortFormatter.withLocale(Locale.US).print(dateTime));
+		}
+		else if (DateTimeComparator.getDateOnlyInstance().compare(DateTime.now().minusDays(1), dateTime) == 0) {
+			return String.format(Locale.getDefault(), "%s, %s",
+					GenesisVisionApplication.INSTANCE.getString(R.string.yesterday),
+					timeShortFormatter.withLocale(Locale.US).print(dateTime));
+		}
+		else {
+			return eventDateTimeFormatter.withLocale(Locale.US).print(dateTime);
+		}
 	}
 
 	public static int getDaysToDate(DateTime date) {

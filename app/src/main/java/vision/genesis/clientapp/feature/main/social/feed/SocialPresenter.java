@@ -7,13 +7,10 @@ import com.arellomobile.mvp.MvpPresenter;
 
 import javax.inject.Inject;
 
-import io.swagger.client.model.ProfileFullViewModel;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
-import vision.genesis.clientapp.feature.common.currency.SelectCurrencyFragment;
-import vision.genesis.clientapp.managers.AuthManager;
 import vision.genesis.clientapp.managers.ProfileManager;
 import vision.genesis.clientapp.managers.SettingsManager;
 import vision.genesis.clientapp.model.CurrencyEnum;
@@ -25,13 +22,10 @@ import vision.genesis.clientapp.net.ApiErrorResolver;
  */
 
 @InjectViewState
-public class FeedPresenter extends MvpPresenter<FeedView> implements SelectCurrencyFragment.OnCurrencyChangedListener
+public class SocialPresenter extends MvpPresenter<SocialView>
 {
 	@Inject
 	public Context context;
-
-	@Inject
-	public AuthManager authManager;
 
 	@Inject
 	public ProfileManager profileManager;
@@ -39,13 +33,13 @@ public class FeedPresenter extends MvpPresenter<FeedView> implements SelectCurre
 	@Inject
 	public SettingsManager settingsManager;
 
-	private Subscription profileSubscription;
-
 	private Subscription baseCurrencySubscription;
 
 	private Subscription publicProfileSubscription;
 
 	private CurrencyEnum baseCurrency;
+
+	private boolean showEvents = true;
 
 	@Override
 	protected void onFirstViewAttach() {
@@ -53,15 +47,19 @@ public class FeedPresenter extends MvpPresenter<FeedView> implements SelectCurre
 
 		GenesisVisionApplication.getComponent().inject(this);
 
-		getProfileInfo();
-		subscribeToBaseCurrency();
+		getShowEvents();
+//		getProfileInfo();
+//		subscribeToBaseCurrency();
+	}
+
+	private void getShowEvents() {
+		showEvents = settingsManager.getShowEvents();
+		getViewState().initViewPager(showEvents);
+		getViewState().setShowEventsChecked(showEvents);
 	}
 
 	@Override
 	public void onDestroy() {
-		if (profileSubscription != null) {
-			profileSubscription.unsubscribe();
-		}
 		if (baseCurrencySubscription != null) {
 			baseCurrencySubscription.unsubscribe();
 		}
@@ -73,11 +71,13 @@ public class FeedPresenter extends MvpPresenter<FeedView> implements SelectCurre
 	}
 
 	void onResume() {
-		getProfileInfo();
+//		getProfileInfo();
 	}
 
-	void onLogoutClicked() {
-		authManager.logout();
+	void onShowEventsCheckChanged(boolean checked) {
+		showEvents = checked;
+		settingsManager.saveShowEvents(checked);
+		getViewState().setShowEventsChecked(showEvents);
 	}
 
 	void onPublicInvestorProfileCheckedChanged(boolean checked) {
@@ -107,35 +107,36 @@ public class FeedPresenter extends MvpPresenter<FeedView> implements SelectCurre
 		ApiErrorResolver.resolveErrors(throwable, message -> getViewState().showSnackbarMessage(message));
 	}
 
-	private void getProfileInfo() {
-		profileSubscription = profileManager.getProfileFull(true)
-				.subscribeOn(Schedulers.io())
-				.observeOn(AndroidSchedulers.mainThread())
-				.subscribe(this::handleGetProfileSuccess,
-						this::handleGetProfileError);
-	}
+//	private void getProfileInfo() {
+//		profileSubscription = profileManager.getProfileFull(true)
+//				.subscribeOn(Schedulers.io())
+//				.observeOn(AndroidSchedulers.mainThread())
+//				.subscribe(this::handleGetProfileSuccess,
+//						this::handleGetProfileError);
+//	}
+//
+//	private void handleGetProfileSuccess(ProfileFullViewModel profile) {
+//		getViewState().showProgress(false);
+//	}
+//
+//	private void handleGetProfileError(Throwable throwable) {
+//		ApiErrorResolver.resolveErrors(throwable, message -> getViewState().showSnackbarMessage(message));
+//	}
 
-	private void handleGetProfileSuccess(ProfileFullViewModel profile) {
-		getViewState().showProgress(false);
-	}
+//	private void subscribeToBaseCurrency() {
+//		baseCurrencySubscription = settingsManager.getBaseCurrency()
+//				.subscribeOn(Schedulers.newThread())
+//				.observeOn(AndroidSchedulers.mainThread())
+//				.subscribe(this::baseCurrencyChangedHandler);
+//	}
+//
+//	private void baseCurrencyChangedHandler(CurrencyEnum baseCurrency) {
+//		this.baseCurrency = baseCurrency;
+//	}
+//
+//	@Override
+//	public void onCurrencyChanged(CurrencyEnum currency) {
+//		settingsManager.saveBaseCurrency(currency);
 
-	private void handleGetProfileError(Throwable throwable) {
-		ApiErrorResolver.resolveErrors(throwable, message -> getViewState().showSnackbarMessage(message));
-	}
-
-	private void subscribeToBaseCurrency() {
-		baseCurrencySubscription = settingsManager.getBaseCurrency()
-				.subscribeOn(Schedulers.newThread())
-				.observeOn(AndroidSchedulers.mainThread())
-				.subscribe(this::baseCurrencyChangedHandler);
-	}
-
-	private void baseCurrencyChangedHandler(CurrencyEnum baseCurrency) {
-		this.baseCurrency = baseCurrency;
-	}
-
-	@Override
-	public void onCurrencyChanged(CurrencyEnum currency) {
-		settingsManager.saveBaseCurrency(currency);
-	}
+//	}
 }

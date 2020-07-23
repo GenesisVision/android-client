@@ -20,7 +20,7 @@ import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.main.assets.AssetsFragment;
 import vision.genesis.clientapp.feature.main.dashboard.DashboardFragment;
 import vision.genesis.clientapp.feature.main.settings.SettingsFragment;
-import vision.genesis.clientapp.feature.main.social.SocialFragment;
+import vision.genesis.clientapp.feature.main.social.SocialMainFragment;
 import vision.genesis.clientapp.managers.AuthManager;
 import vision.genesis.clientapp.managers.SettingsManager;
 import vision.genesis.clientapp.model.AppUpdateModel;
@@ -50,6 +50,7 @@ import vision.genesis.clientapp.model.events.ShowSpecificWalletEvent;
 import vision.genesis.clientapp.model.events.ShowTradingAccountDetailsEvent;
 import vision.genesis.clientapp.model.events.ShowTransactionDetailsEvent;
 import vision.genesis.clientapp.model.events.ShowWithdrawProgramEvent;
+import vision.genesis.clientapp.ui.OnShowPostDetailsEvent;
 
 /**
  * GenesisVision
@@ -76,7 +77,7 @@ public class MainPresenter extends MvpPresenter<MainView>
 
 	private AssetsFragment assetsFragment;
 
-	private SocialFragment socialFragment;
+	private SocialMainFragment socialMainFragment;
 
 	private SettingsFragment settingsFragment;
 
@@ -170,12 +171,12 @@ public class MainPresenter extends MvpPresenter<MainView>
 	}
 
 	private void showSocial() {
-		if (socialFragment == null) {
-			socialFragment = new SocialFragment();
-			getViewState().addFragmentToBackstack(socialFragment);
+		if (socialMainFragment == null) {
+			socialMainFragment = new SocialMainFragment();
+			getViewState().addFragmentToBackstack(socialMainFragment);
 		}
 		else {
-			getViewState().showFragment(socialFragment);
+			getViewState().showFragment(socialMainFragment);
 		}
 	}
 
@@ -391,11 +392,16 @@ public class MainPresenter extends MvpPresenter<MainView>
 
 	@Subscribe
 	public void onEventMainThread(ShowFeedActivityEvent event) {
-		getViewState().showFeedActivity();
+		getViewState().showSocialActivity();
 	}
 
 	@Subscribe
 	public void onEventMainThread(OnShowMediaActivityEvent event) {
 		getViewState().showMediaActivity();
+	}
+
+	@Subscribe
+	public void onEventMainThread(OnShowPostDetailsEvent event) {
+		getViewState().showPostDetails(event.getPostId(), event.getPost(), event.isShowComments());
 	}
 }

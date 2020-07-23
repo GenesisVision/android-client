@@ -186,4 +186,12 @@ public class SettingsManager
 	public Observable<ProgramsLevelsInfo> getLevelsInfo(String currency) {
 		return platformApi.getProgramLevels(Currency.fromValue(currency));
 	}
+
+	public void saveShowEvents(boolean showEvents) {
+		sharedPreferencesUtil.saveShowEvents(showEvents);
+	}
+
+	public boolean getShowEvents() {
+		return sharedPreferencesUtil.getShowEvents();
+	}
 }

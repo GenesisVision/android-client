@@ -7,8 +7,12 @@ import com.arellomobile.mvp.MvpView;
  * Created by Vitaly on 13/06/2020.
  */
 
-interface FeedView extends MvpView
+interface SocialView extends MvpView
 {
+	void initViewPager(boolean showEvents);
+
+	void setShowEventsChecked(boolean checked);
+
 	void showProgress(boolean show);
 
 	void showSnackbarMessage(String message);

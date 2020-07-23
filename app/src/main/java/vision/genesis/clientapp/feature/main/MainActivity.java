@@ -22,11 +22,14 @@ import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.util.UUID;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.swagger.client.model.AssetFacet;
 import io.swagger.client.model.InvestmentEventViewModel;
+import io.swagger.client.model.Post;
 import io.swagger.client.model.TransactionViewModel;
 import timber.log.Timber;
 import vision.genesis.clientapp.R;
@@ -45,8 +48,9 @@ import vision.genesis.clientapp.feature.main.message.MessageBottomSheetDialog;
 import vision.genesis.clientapp.feature.main.program.ProgramDetailsActivity;
 import vision.genesis.clientapp.feature.main.program.withdraw.WithdrawProgramActivity;
 import vision.genesis.clientapp.feature.main.rating.ProgramsRatingActivity;
-import vision.genesis.clientapp.feature.main.social.feed.FeedActivity;
+import vision.genesis.clientapp.feature.main.social.feed.SocialActivity;
 import vision.genesis.clientapp.feature.main.social.media.MediaActivity;
+import vision.genesis.clientapp.feature.main.social.post.details.PostDetailsActivity;
 import vision.genesis.clientapp.feature.main.trading_account.TradingAccountDetailsActivity;
 import vision.genesis.clientapp.feature.main.wallet.copytrading_account_details.CopytradingAccountDetailsActivity;
 import vision.genesis.clientapp.feature.main.wallet.specific_wallet.SpecificWalletActivity;
@@ -441,13 +445,18 @@ public class MainActivity extends MvpAppCompatActivity implements MainView, Bloc
 	}
 
 	@Override
-	public void showFeedActivity() {
-		FeedActivity.startFrom(this);
+	public void showSocialActivity() {
+		SocialActivity.startFrom(this);
 	}
 
 	@Override
 	public void showMediaActivity() {
 		MediaActivity.startFrom(this);
+	}
+
+	@Override
+	public void showPostDetails(UUID postId, Post post, boolean showComments) {
+		PostDetailsActivity.startWith(this, postId, post, showComments);
 	}
 
 	@Override

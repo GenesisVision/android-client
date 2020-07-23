@@ -1,6 +1,5 @@
 package vision.genesis.clientapp.ui;
 
-import android.animation.ValueAnimator;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.graphics.Point;
@@ -13,9 +12,7 @@ import android.text.style.ClickableSpan;
 import android.util.AttributeSet;
 import android.view.Display;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -67,17 +64,12 @@ import vision.genesis.clientapp.utils.TypedValueFormatter;
  * Created by Vitaly on 13/06/2020.
  */
 
-public class SocialPostView extends RelativeLayout implements PostImageView.PostImageClickListener
+public class SocialCommentView extends RelativeLayout implements PostImageView.PostImageClickListener
 {
 	private final static int MAX_IMAGES = 7;
 
-	private static final int MAX_TEXT_LINES = 7;
-
 	@Inject
 	public SocialManager socialManager;
-
-	@BindView(R.id.group_main)
-	public ViewGroup mainGroup;
 
 	@BindView(R.id.author_logo)
 	public AvatarView authorLogo;
@@ -91,20 +83,11 @@ public class SocialPostView extends RelativeLayout implements PostImageView.Post
 	@BindView(R.id.button_menu)
 	public ImageView menuButton;
 
-	@BindView(R.id.view_event)
-	public PostEventView eventView;
-
 	@BindView(R.id.text)
 	public TextView text;
 
-	@BindView(R.id.button_expand)
-	public ViewGroup expandButton;
-
 	@BindView(R.id.flex_box)
 	public FlexboxLayout flexbox;
-
-//	@BindView(R.id.images_grid)
-//	public AsymmetricGridView imagesGrid;
 
 	@BindView(R.id.scrollview)
 	public HorizontalScrollView scrollview;
@@ -112,48 +95,34 @@ public class SocialPostView extends RelativeLayout implements PostImageView.Post
 	@BindView(R.id.group_post_tags)
 	public LinearLayout postTagsGroup;
 
-	@BindView(R.id.button_comments)
-	public LinearLayout commentsButton;
-
 	@BindView(R.id.likes_count)
 	public TextView likesCount;
-
-	@BindView(R.id.reposts_count)
-	public TextView repostsCount;
-
-	@BindView(R.id.comments_count)
-	public TextView commentsCount;
-
-	@BindView(R.id.views_count)
-	public TextView viewsCount;
 
 	@BindView(R.id.icon_like)
 	public ImageView likeIcon;
 
-	@BindDimen(R.dimen.padding)
-	public int padding;
+	@BindDimen(R.dimen.comment_padding)
+	public int commentPadding;
 
 	public Subscription setLikeSubscription;
 
 	private Unbinder unbinder;
 
-	private Post post;
+	private Post comment;
 
 	private ArrayList<PostImageView> imageViews = new ArrayList<>();
 
-	private boolean isDetailsMode = false;
-
-	public SocialPostView(Context context) {
+	public SocialCommentView(Context context) {
 		super(context);
 		initView();
 	}
 
-	public SocialPostView(Context context, AttributeSet attrs) {
+	public SocialCommentView(Context context, AttributeSet attrs) {
 		super(context, attrs);
 		initView();
 	}
 
-	public SocialPostView(Context context, AttributeSet attrs, int defStyleAttr) {
+	public SocialCommentView(Context context, AttributeSet attrs, int defStyleAttr) {
 		super(context, attrs, defStyleAttr);
 		initView();
 	}
@@ -170,64 +139,37 @@ public class SocialPostView extends RelativeLayout implements PostImageView.Post
 	}
 
 	private void initView() {
-		inflate(getContext(), R.layout.view_social_post, this);
+		inflate(getContext(), R.layout.view_social_comment, this);
 
 		unbinder = ButterKnife.bind(this);
 
 		GenesisVisionApplication.getComponent().inject(this);
 	}
 
-	@OnClick(R.id.group_main)
-	public void onPostClicked() {
-		showPostDetails(false);
-	}
-
-	@OnClick(R.id.text)
-	public void onTextClicked() {
-		showPostDetails(false);
-	}
-
-	@OnClick(R.id.scrollview)
-	public void onScrollViewClicked() {
-		showPostDetails(false);
-	}
-
-	@OnClick(R.id.button_expand)
-	public void onExpandClicked() {
-		this.expandButton.setVisibility(View.GONE);
-//		ValueAnimator animator = ValueAnimator.ofInt(text.getMaxLines(), text.getLineCount());
-//		animator.addUpdateListener(animation -> text.setMaxLines((int) animator.getAnimatedValue(
-		ValueAnimator animator = ValueAnimator.ofInt(text.getHeight(), text.getLineCount() * text.getLineHeight());
-		animator.addUpdateListener(animation -> text.setHeight((int) animator.getAnimatedValue()));
-		animator.setDuration(300);
-		animator.setInterpolator(new AccelerateDecelerateInterpolator());
-		animator.start();
-	}
-
 	@OnClick(R.id.button_menu)
 	public void onMenuClicked() {
-		if (post != null && post.getPersonalDetails() != null) {
+		if (comment != null && comment.getPersonalDetails() != null) {
 
 		}
 	}
 
 	@OnClick(R.id.button_like)
 	public void onLikeClicked() {
-		if (post != null && post.getPersonalDetails() != null) {
-			post.getPersonalDetails().setIsLiked(!post.getPersonalDetails().isIsLiked());
-			post.setLikesCount(post.getPersonalDetails().isIsLiked()
-					? post.getLikesCount() + 1
-					: post.getLikesCount() - 1);
-			updateData(post);
+		if (comment != null && comment.getPersonalDetails() != null) {
+			comment.getPersonalDetails().setIsLiked(!comment.getPersonalDetails().isIsLiked());
+			comment.setLikesCount(comment.getPersonalDetails().isIsLiked()
+					? comment.getLikesCount() + 1
+					: comment.getLikesCount() - 1);
+			updateData(comment);
 			setLike();
 		}
 	}
 
 	private void setLike() {
-		if (socialManager != null && post != null) {
-			setLikeSubscription = (post.getPersonalDetails().isIsLiked()
-					? socialManager.likePost(post.getId())
-					: socialManager.unlikePost(post.getId()))
+		if (socialManager != null && comment != null) {
+			setLikeSubscription = (comment.getPersonalDetails().isIsLiked()
+					? socialManager.likePost(comment.getId())
+					: socialManager.unlikePost(comment.getId()))
 					.subscribeOn(Schedulers.newThread())
 					.observeOn(AndroidSchedulers.mainThread())
 					.subscribe(response -> {
@@ -236,95 +178,40 @@ public class SocialPostView extends RelativeLayout implements PostImageView.Post
 		}
 	}
 
-	@OnClick(R.id.button_repost)
-	public void onRepostClicked() {
-
+	public void showMenuButton(boolean show) {
+		this.menuButton.setVisibility(show ? View.VISIBLE : View.GONE);
 	}
 
-	@OnClick(R.id.button_comments)
-	public void onCommentsClicked() {
-		showPostDetails(true);
+	public void setComment(Post comment) {
+		this.comment = comment;
+		updateData(comment);
 	}
 
-	public void setDetailsMode(boolean isDetailsMode) {
-		this.isDetailsMode = isDetailsMode;
-		this.menuButton.setVisibility(isDetailsMode ? View.GONE : View.VISIBLE);
-		this.commentsButton.setVisibility(isDetailsMode ? View.GONE : View.VISIBLE);
-		this.text.setMaxLines(isDetailsMode ? Integer.MAX_VALUE : MAX_TEXT_LINES);
-//		this.mainGroup.setBackgroundColor(ThemeUtil.getColorByAttrId(getContext(), isDetailsMode ? R.attr.colorBackground : R.attr.colorCard));
-	}
+	private void updateData(Post comment) {
+		this.authorLogo.setImage(comment.getAuthor().getLogoUrl(), 50, 50);
+		this.authorName.setText(comment.getAuthor().getUsername());
+		this.date.setText(DateTimeUtil.formatEventDateTime(comment.getDate()));
 
-	public void setPost(Post post) {
-		this.post = post;
-		updateData(post);
-	}
-
-	private void showPostDetails(boolean showComments) {
-		if (post != null) {
-			EventBus.getDefault().post(new OnShowPostDetailsEvent(post.getId(), post, showComments));
-		}
-	}
-
-	private void updateData(Post post) {
-		this.authorLogo.setImage(post.getAuthor().getLogoUrl(), 50, 50);
-		this.authorName.setText(post.getAuthor().getUsername());
-		this.date.setText(DateTimeUtil.formatEventDateTime(post.getDate()));
-		this.eventView.setVisibility(View.GONE);
-		this.expandButton.setVisibility(View.INVISIBLE);
-//		setTextHeight(MAX_TEXT_LINES);
-
-		if (post.getText() != null && !post.getText().isEmpty()) {
+		if (comment.getText() != null && !comment.getText().isEmpty()) {
 			this.text.setVisibility(View.VISIBLE);
-
-//			LayoutParams lp = (LayoutParams) this.text.getLayoutParams();
-//			lp.height = LayoutParams.WRAP_CONTENT;
-//			this.text.setLayoutParams(lp);
-//			this.text.setMaxLines(MAX_TEXT_LINES);
-
-			parseText(post.getText());
-			this.text.post(this::updateTextLinesCount);
+			parseText(comment.getText());
 		}
 		else {
 			this.text.setVisibility(View.GONE);
 		}
-		setImages(post);
-		setPostTags(post.getTags());
+		setImages(comment);
+		setPostTags(comment.getTags());
 
-		this.likesCount.setText(String.valueOf(post.getLikesCount()));
-		this.repostsCount.setText(String.valueOf(post.getRePostsCount()));
-		this.commentsCount.setText(String.valueOf(post.getComments().size()));
-		this.viewsCount.setText(String.valueOf(post.getImpressionsCount()));
+		this.likesCount.setText(String.valueOf(comment.getLikesCount()));
+		this.likesCount.setVisibility(comment.getLikesCount() > 0 ? View.VISIBLE : View.GONE);
 
-		this.likesCount.setVisibility(post.getLikesCount() > 0 ? View.VISIBLE : View.GONE);
-		this.repostsCount.setVisibility(post.getRePostsCount() > 0 ? View.VISIBLE : View.GONE);
-		this.commentsCount.setVisibility(post.getComments().size() > 0 ? View.VISIBLE : View.GONE);
-
-		this.likeIcon.setImageDrawable(ContextCompat.getDrawable(getContext(), post.getPersonalDetails().isIsLiked() ? R.drawable.icon_like_full : R.drawable.icon_like));
+		this.likeIcon.setImageDrawable(ContextCompat.getDrawable(getContext(), comment.getPersonalDetails().isIsLiked() ? R.drawable.icon_like_full : R.drawable.icon_like));
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-			likeIcon.setImageTintList(post.getPersonalDetails().isIsLiked()
+			likeIcon.setImageTintList(comment.getPersonalDetails().isIsLiked()
 					? ColorStateList.valueOf(ThemeUtil.getColorByAttrId(getContext(), R.attr.colorAccent))
 					: ColorStateList.valueOf(ThemeUtil.getColorByAttrId(getContext(), R.attr.colorTextSecondary)));
 			this.likesCount.setTextColor(ThemeUtil.getColorByAttrId(getContext(),
-					post.getPersonalDetails().isIsLiked() ? R.attr.colorAccent : R.attr.colorTextSecondary));
-		}
-	}
-
-	private void updateTextLinesCount() {
-		if (isDetailsMode) {
-			LayoutParams lp = (LayoutParams) this.text.getLayoutParams();
-			lp.height = LayoutParams.WRAP_CONTENT;
-			this.text.setLayoutParams(lp);
-			this.text.setMaxLines(Integer.MAX_VALUE);
-			this.expandButton.setVisibility(View.GONE);
-		}
-		else {
-			if (this.text.getLineCount() > MAX_TEXT_LINES) {
-				this.text.setHeight(MAX_TEXT_LINES * this.text.getLineHeight());
-				this.expandButton.setVisibility(View.VISIBLE);
-			}
-			else {
-				this.text.setHeight(this.text.getLineCount() * this.text.getLineHeight());
-			}
+					comment.getPersonalDetails().isIsLiked() ? R.attr.colorAccent : R.attr.colorTextSecondary));
 		}
 	}
 
@@ -345,15 +232,7 @@ public class SocialPostView extends RelativeLayout implements PostImageView.Post
 			} catch (NumberFormatException e) {
 				tagNumber = -1;
 			}
-			for (PostTag postTag : post.getTags()) {
-				if (postTag.getType().equals(SocialPostTagType.EVENT)) {
-					this.eventView.setVisibility(View.VISIBLE);
-					this.text.setVisibility(View.GONE);
-					this.eventView.setPostTag(postTag);
-				}
-				else {
-					this.eventView.setVisibility(View.GONE);
-				}
+			for (PostTag postTag : comment.getTags()) {
 				if (postTag.getNumber().equals(tagNumber)) {
 					postTagsMatches.add(new PostTagMatch(tag, getTagReplaceText(postTag), start, end, postTag, null));
 					break;
@@ -449,8 +328,8 @@ public class SocialPostView extends RelativeLayout implements PostImageView.Post
 		}
 	}
 
-	private void setImages(Post post) {
-		if (post.getImages() != null && !post.getImages().isEmpty()) {
+	private void setImages(Post comment) {
+		if (comment.getImages() != null && !comment.getImages().isEmpty()) {
 			int pos = 0;
 			int col = 1;
 			int row = 1;
@@ -462,9 +341,9 @@ public class SocialPostView extends RelativeLayout implements PostImageView.Post
 			display.getSize(size);
 
 			flexbox.removeAllViews();
-			ImageQuality requiredQuality = post.getImages().size() <= 3 ? ImageQuality.ORIGINAL : ImageQuality.LOW;
-//			List<PostImageModel> items = new ArrayList<>();
-			for (PostImage image : post.getImages()) {
+			ImageQuality requiredQuality = comment.getImages().size() <= 3 ? ImageQuality.ORIGINAL : ImageQuality.LOW;
+
+			for (PostImage image : comment.getImages()) {
 				String logoUrl = image.getResizes().get(image.getResizes().size() - 1).getLogoUrl();
 				for (PostImageResize resize : image.getResizes()) {
 					if (resize.getQuality().equals(requiredQuality)) {
@@ -472,8 +351,8 @@ public class SocialPostView extends RelativeLayout implements PostImageView.Post
 						break;
 					}
 				}
-				int maxImagesToAdd = post.getImages().size() < MAX_IMAGES ? post.getImages().size() : MAX_IMAGES;
-				if (post.getImages().size() > 1 && pos == Math.round(maxImagesToAdd / 2)) {
+				int maxImagesToAdd = comment.getImages().size() < MAX_IMAGES ? comment.getImages().size() : MAX_IMAGES;
+				if (comment.getImages().size() > 1 && pos == Math.round(maxImagesToAdd / 2)) {
 
 					newWidth = (int) ((size.x - 10 * (Math.round(maxImagesToAdd / 2) - 1)) / pos);
 					setNewSize(row, newWidth);
@@ -482,34 +361,24 @@ public class SocialPostView extends RelativeLayout implements PostImageView.Post
 				}
 
 				if (pos == maxImagesToAdd - 1) {
-//					items.add(new PostImageModel(logoUrl, pos, post.getImages().size() - pos - 1, col, row));
-					int count = post.getImages().size() - pos;
+					int count = comment.getImages().size() - pos;
 					if (count == 1) {
 						count = 0;
 					}
-					addNewPostImageView(logoUrl, pos, count, col, row, post.getId());
+					addNewPostImageView(logoUrl, pos, count, col, row, comment.getId());
 					newWidth = (int) ((size.x - 10 * (maxImagesToAdd - Math.round(maxImagesToAdd / 2) - 1)) / (maxImagesToAdd - Math.round(maxImagesToAdd / 2)));
 					setNewSize(row, newWidth);
 					break;
 				}
-//				items.add(new PostImageModel(logoUrl, pos, 0, col, row));
-				addNewPostImageView(logoUrl, pos, 0, col, row, post.getId());
+				addNewPostImageView(logoUrl, pos, 0, col, row, comment.getId());
 
 				col++;
 				pos++;
 			}
 			this.flexbox.setVisibility(View.VISIBLE);
-
-
-//			this.imagesGrid.setVisibility(View.VISIBLE);
-//			imagesGrid.setRequestedColumnCount(2);
-//			imagesGrid.setAllowReordering(true);
-//			imagesGrid.setRequestedHorizontalSpacing(TypedValueFormatter.toDp(8));
-//			imagesGrid.setAdapter(new AsymmetricGridViewAdapter(getContext(), imagesGrid, new PostImagesListAdapter(getContext(), items)));
 		}
 		else {
 			this.flexbox.setVisibility(View.GONE);
-//			this.imagesGrid.setVisibility(View.GONE);
 		}
 	}
 
@@ -544,7 +413,7 @@ public class SocialPostView extends RelativeLayout implements PostImageView.Post
 				postTagsGroup.addView(view);
 
 				LinearLayout.LayoutParams lp = (LinearLayout.LayoutParams) view.getLayoutParams();
-				lp.setMargins(index == 0 ? padding : 0, 0, TypedValueFormatter.toDp(16), 0);
+				lp.setMargins(index == 0 ? commentPadding : 0, 0, TypedValueFormatter.toDp(16), 0);
 				view.setLayoutParams(lp);
 
 				index++;
@@ -560,13 +429,12 @@ public class SocialPostView extends RelativeLayout implements PostImageView.Post
 				|| tag.getType().equals(SocialPostTagType.ASSET);
 	}
 
-
 	@Override
 	public void onPostImageClicked(ImageView imageView, String imageUrl, int position, UUID postId) {
-		if (post != null && post.getId().equals(postId)) {
+		if (comment != null && comment.getId().equals(postId)) {
 			ArrayList<String> images = new ArrayList<>();
 
-			for (PostImage image : post.getImages()) {
+			for (PostImage image : comment.getImages()) {
 				for (PostImageResize resize : image.getResizes()) {
 					if (resize.getQuality().equals(ImageQuality.ORIGINAL)) {
 						images.add(resize.getLogoUrl());

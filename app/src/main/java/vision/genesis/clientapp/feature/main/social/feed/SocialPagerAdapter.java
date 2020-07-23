@@ -15,7 +15,7 @@ import vision.genesis.clientapp.model.PostsFilter;
  * Created by Vitaly on 13/06/2020.
  */
 
-public class FeedPagerAdapter extends FragmentStatePagerAdapter
+public class SocialPagerAdapter extends FragmentStatePagerAdapter
 {
 	public interface OnPageVisibilityChanged
 	{
@@ -32,18 +32,22 @@ public class FeedPagerAdapter extends FragmentStatePagerAdapter
 
 	private TabLayout tabLayout;
 
-	FeedPagerAdapter(FragmentManager fm, TabLayout tabLayout) {
+	SocialPagerAdapter(FragmentManager fm, TabLayout tabLayout, boolean showEvents) {
 		super(fm);
 		this.tabLayout = tabLayout;
 
-		liveFragment = PostsListFragment.with(new PostsFilter());
+		PostsFilter liveFilter = new PostsFilter();
+		liveFilter.setShowOnlyUserPosts(!showEvents);
+		liveFragment = PostsListFragment.with(liveFilter);
 
 		PostsFilter hotFilter = new PostsFilter();
 		hotFilter.setShowTop(true);
+		hotFilter.setShowOnlyUserPosts(!showEvents);
 		hotFragment = PostsListFragment.with(hotFilter);
 
 		PostsFilter feedFilter = new PostsFilter();
 		feedFilter.setUserMode(UserFeedMode.FRIENDSPOSTS);
+		feedFilter.setShowOnlyUserPosts(!showEvents);
 		feedFragment = PostsListFragment.with(feedFilter);
 	}
 
@@ -70,5 +74,17 @@ public class FeedPagerAdapter extends FragmentStatePagerAdapter
 	}
 
 	public void sendUpdate() {
+	}
+
+	public void setShowEvents(boolean showEvents) {
+		if (liveFragment != null) {
+			liveFragment.setShowEvents(showEvents);
+		}
+		if (hotFragment != null) {
+			hotFragment.setShowEvents(showEvents);
+		}
+		if (feedFragment != null) {
+			feedFragment.setShowEvents(showEvents);
+		}
 	}
 }

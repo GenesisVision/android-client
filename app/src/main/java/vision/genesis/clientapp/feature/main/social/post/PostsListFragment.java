@@ -62,12 +62,17 @@ public class PostsListFragment extends BaseFragment implements PostsListView
 	@BindView(R.id.progress_bar)
 	public ProgressBar progressBar;
 
+	@BindView(R.id.progress_bar_bottom)
+	public ProgressBar bottomProgressBar;
+
 	@InjectPresenter
 	PostsListPresenter presenter;
 
 	private PostsListAdapter adapter;
 
 	private Unbinder unbinder;
+
+	private PostsFilter filter;
 
 	@Nullable
 	@Override
@@ -82,7 +87,7 @@ public class PostsListFragment extends BaseFragment implements PostsListView
 		unbinder = ButterKnife.bind(this, view);
 
 		if (getArguments() != null) {
-			PostsFilter filter = getArguments().getParcelable(EXTRA_FILTER);
+			filter = getArguments().getParcelable(EXTRA_FILTER);
 
 			initRefreshLayout();
 			initRecyclerView();
@@ -191,6 +196,13 @@ public class PostsListFragment extends BaseFragment implements PostsListView
 
 	@Override
 	public void showBottomProgress(boolean show) {
+		bottomProgressBar.setVisibility(show ? View.VISIBLE : View.GONE);
+	}
 
+	public void setShowEvents(boolean showEvents) {
+		if (filter != null) {
+			filter.setShowOnlyUserPosts(!showEvents);
+			presenter.setData(filter);
+		}
 	}
 }

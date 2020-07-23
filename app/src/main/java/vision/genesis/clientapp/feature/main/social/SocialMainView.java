@@ -7,7 +7,7 @@ import com.arellomobile.mvp.MvpView;
  * Created by Vitaly on 13/06/2020.
  */
 
-interface SocialView extends MvpView
+interface SocialMainView extends MvpView
 {
 	void updateMedia();
 

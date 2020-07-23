@@ -96,7 +96,9 @@ public class PostTagView extends RelativeLayout
 			this.platformAssetLogo.setImageURI(tag.getPlatformAssetDetails().getLogoUrl());
 			this.assetName.setText(tag.getPlatformAssetDetails().getName());
 
-			this.change.setText(StringFormatUtil.getPercentString(Math.abs(tag.getPlatformAssetDetails().getChange24Percent())));
+			if (tag.getPlatformAssetDetails().getChange24Percent() != null) {
+				this.change.setText(StringFormatUtil.getPercentString(Math.abs(tag.getPlatformAssetDetails().getChange24Percent())));
+			}
 			switch (tag.getPlatformAssetDetails().getChangeState()) {
 				case NOTCHANGED:
 					this.change.setTextColor(ThemeUtil.getColorByAttrId(getContext(), R.attr.colorTextSecondary));

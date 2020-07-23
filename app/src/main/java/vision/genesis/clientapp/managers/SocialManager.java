@@ -4,6 +4,7 @@ import java.util.UUID;
 
 import io.swagger.client.api.SocialApi;
 import io.swagger.client.model.MediaPostItemsViewModel;
+import io.swagger.client.model.Post;
 import io.swagger.client.model.PostItemsViewModel;
 import io.swagger.client.model.SocialLinkType;
 import rx.Observable;
@@ -39,5 +40,9 @@ public class SocialManager
 
 	public Observable<Void> unlikePost(UUID postId) {
 		return socialApi.unlikePost(postId);
+	}
+
+	public Observable<Post> getPost(UUID postId) {
+		return socialApi.getPost(postId.toString());
 	}
 }

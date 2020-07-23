@@ -116,12 +116,13 @@ import vision.genesis.clientapp.feature.main.settings.referral_program.referral_
 import vision.genesis.clientapp.feature.main.settings.security.SecurityPresenter;
 import vision.genesis.clientapp.feature.main.settings.security.change_password.ChangePasswordPresenter;
 import vision.genesis.clientapp.feature.main.settings.social_links.SocialLinksPresenter;
-import vision.genesis.clientapp.feature.main.social.SocialPresenter;
-import vision.genesis.clientapp.feature.main.social.feed.FeedPresenter;
+import vision.genesis.clientapp.feature.main.social.SocialMainPresenter;
 import vision.genesis.clientapp.feature.main.social.feed.SocialLiveView;
+import vision.genesis.clientapp.feature.main.social.feed.SocialPresenter;
 import vision.genesis.clientapp.feature.main.social.media.MediaPresenter;
 import vision.genesis.clientapp.feature.main.social.media.SocialMediaView;
 import vision.genesis.clientapp.feature.main.social.post.PostsListPresenter;
+import vision.genesis.clientapp.feature.main.social.post.details.PostDetailsPresenter;
 import vision.genesis.clientapp.feature.main.trading_account.TradingAccountDetailsPresenter;
 import vision.genesis.clientapp.feature.main.trading_account.add_demo_funds.AddDemoFundsPresenter;
 import vision.genesis.clientapp.feature.main.trading_account.balance.TradingAccountBalancePresenter;
@@ -156,6 +157,7 @@ import vision.genesis.clientapp.feature.splashscreen.SplashScreenPresenter;
 import vision.genesis.clientapp.feature.two_factor.disable.DisableTfaPresenter;
 import vision.genesis.clientapp.feature.two_factor.setup.SetupTfaPresenter;
 import vision.genesis.clientapp.ui.ProgramDataView;
+import vision.genesis.clientapp.ui.SocialCommentView;
 import vision.genesis.clientapp.ui.SocialPostView;
 import vision.genesis.clientapp.utils.AppLifecycleTracker;
 
@@ -446,17 +448,21 @@ public interface AppComponent
 
 	void inject(FollowNotificationsSettingsPresenter followNotificationsSettingsPresenter);
 
-	void inject(SocialPresenter socialPresenter);
+	void inject(SocialMainPresenter socialMainPresenter);
 
 	void inject(SocialMediaView socialMediaView);
 
 	void inject(SocialLiveView socialLiveView);
 
-	void inject(FeedPresenter feedPresenter);
+	void inject(SocialPresenter socialPresenter);
 
 	void inject(SocialPostView socialPostView);
 
 	void inject(PostsListPresenter postsListPresenter);
 
 	void inject(MediaPresenter mediaPresenter);
+
+	void inject(PostDetailsPresenter postDetailsPresenter);
+
+	void inject(SocialCommentView socialCommentView);
 }

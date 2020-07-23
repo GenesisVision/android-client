@@ -27,7 +27,7 @@ import vision.genesis.clientapp.net.ApiErrorResolver;
  */
 
 @InjectViewState
-public class SocialPresenter extends MvpPresenter<SocialView>
+public class SocialMainPresenter extends MvpPresenter<SocialMainView>
 {
 	@Inject
 	public Context context;

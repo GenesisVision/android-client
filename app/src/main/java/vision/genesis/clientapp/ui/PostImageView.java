@@ -9,8 +9,6 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 
-import org.greenrobot.eventbus.EventBus;
-
 import java.util.Locale;
 import java.util.UUID;
 
@@ -19,7 +17,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import vision.genesis.clientapp.R;
-import vision.genesis.clientapp.model.events.OnPostImageClickedEvent;
 
 /**
  * GenesisVisionAndroid
@@ -28,6 +25,11 @@ import vision.genesis.clientapp.model.events.OnPostImageClickedEvent;
 
 public class PostImageView extends RelativeLayout
 {
+	interface PostImageClickListener
+	{
+		void onPostImageClicked(ImageView image, String imageUrl, int position, UUID postId);
+	}
+
 	@BindView(R.id.root)
 	public View root;
 
@@ -57,6 +59,8 @@ public class PostImageView extends RelativeLayout
 
 	private int position;
 
+	private PostImageClickListener listener;
+
 	public PostImageView(Context context) {
 		super(context);
 		initView();
@@ -85,8 +89,8 @@ public class PostImageView extends RelativeLayout
 		unbinder = ButterKnife.bind(this);
 
 		setOnClickListener(v -> {
-			if (imageUrl != null) {
-				EventBus.getDefault().post(new OnPostImageClickedEvent(image, imageUrl, position, postId));
+			if (imageUrl != null && listener != null) {
+				listener.onPostImageClicked(image, imageUrl, position, postId);
 			}
 		});
 	}
@@ -105,6 +109,10 @@ public class PostImageView extends RelativeLayout
 			this.text.setVisibility(View.VISIBLE);
 			this.text.setText(String.format(Locale.getDefault(), "+%d", count));
 		}
+	}
+
+	public void setListener(PostImageClickListener listener) {
+		this.listener = listener;
 	}
 
 	public int getRow() {
