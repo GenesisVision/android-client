@@ -66,6 +66,11 @@ import vision.genesis.clientapp.utils.TypedValueFormatter;
 
 public class SocialCommentView extends RelativeLayout implements PostImageView.PostImageClickListener
 {
+	public interface Listener
+	{
+		void onReplyCommentClicked(Post comment);
+	}
+
 	private final static int MAX_IMAGES = 7;
 
 	@Inject
@@ -109,6 +114,8 @@ public class SocialCommentView extends RelativeLayout implements PostImageView.P
 	private Unbinder unbinder;
 
 	private Post comment;
+
+	private Listener listener;
 
 	private ArrayList<PostImageView> imageViews = new ArrayList<>();
 
@@ -165,6 +172,15 @@ public class SocialCommentView extends RelativeLayout implements PostImageView.P
 		}
 	}
 
+	@OnClick(R.id.button_reply)
+	public void onReplyClicked() {
+		if (comment != null) {
+			if (listener != null) {
+				listener.onReplyCommentClicked(comment);
+			}
+		}
+	}
+
 	private void setLike() {
 		if (socialManager != null && comment != null) {
 			setLikeSubscription = (comment.getPersonalDetails().isIsLiked()
@@ -185,6 +201,10 @@ public class SocialCommentView extends RelativeLayout implements PostImageView.P
 	public void setComment(Post comment) {
 		this.comment = comment;
 		updateData(comment);
+	}
+
+	public void setListener(Listener listener) {
+		this.listener = listener;
 	}
 
 	private void updateData(Post comment) {

@@ -29,4 +29,8 @@ public class FilesManager
 	public Observable<UploadResult> uploadImage(File file) {
 		return fileApi.uploadFile(RequestBody.create(MediaType.parse("image/jpeg"), file), ImageLocation.DEFAULT);
 	}
+
+	public Observable<UploadResult> uploadImage(File file, ImageLocation imageLocation) {
+		return fileApi.uploadFile(RequestBody.create(MediaType.parse("image/jpeg"), file), imageLocation);
+	}
 }

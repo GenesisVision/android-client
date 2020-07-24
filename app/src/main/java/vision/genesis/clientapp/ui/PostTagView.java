@@ -112,7 +112,9 @@ public class PostTagView extends RelativeLayout
 					this.change.setText("↓".concat(this.change.getText().toString()));
 					break;
 			}
-			this.value.setText(StringFormatUtil.getValueString(tag.getPlatformAssetDetails().getPrice(), tag.getPlatformAssetDetails().getPriceCurrency().getValue()));
+			if (tag.getPlatformAssetDetails().getPrice() != null) {
+				this.value.setText(StringFormatUtil.getValueString(tag.getPlatformAssetDetails().getPrice(), tag.getPlatformAssetDetails().getPriceCurrency().getValue()));
+			}
 		}
 		else {
 			this.assetType.setVisibility(View.VISIBLE);

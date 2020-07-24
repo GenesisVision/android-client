@@ -99,7 +99,9 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:id="@+id/group_text"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/padding">
 
                 <TextView
                     android:id="@+id/text"
@@ -154,7 +156,7 @@
                 android:id="@+id/flex_box"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/padding"
+                android:layout_marginBottom="@dimen/padding"
                 android:background="?attr/colorDelimiterLight"
                 android:visibility="gone"
                 app:alignContent="stretch"
@@ -169,7 +171,7 @@
                 android:id="@+id/scrollview"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/padding"
+                android:layout_marginBottom="@dimen/padding"
                 android:scrollbars="none">
 
                 <LinearLayout
@@ -184,8 +186,8 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginTop="@dimen/padding">
+            android:id="@+id/bottom"
+            android:layout_height="50dp">
 
             <View
                 android:layout_width="match_parent"

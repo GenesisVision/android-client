@@ -58,6 +58,7 @@ import vision.genesis.clientapp.managers.SocialManager;
 import vision.genesis.clientapp.model.PostTagMatch;
 import vision.genesis.clientapp.model.events.OnHashTagClickedEvent;
 import vision.genesis.clientapp.model.events.OnPostTagClickedEvent;
+import vision.genesis.clientapp.model.events.OnShowRepostEvent;
 import vision.genesis.clientapp.utils.DateTimeUtil;
 import vision.genesis.clientapp.utils.ThemeUtil;
 import vision.genesis.clientapp.utils.TypedValueFormatter;
@@ -94,6 +95,9 @@ public class SocialPostView extends RelativeLayout implements PostImageView.Post
 	@BindView(R.id.view_event)
 	public PostEventView eventView;
 
+	@BindView(R.id.group_text)
+	public ViewGroup textGroup;
+
 	@BindView(R.id.text)
 	public TextView text;
 
@@ -111,6 +115,9 @@ public class SocialPostView extends RelativeLayout implements PostImageView.Post
 
 	@BindView(R.id.group_post_tags)
 	public LinearLayout postTagsGroup;
+
+	@BindView(R.id.bottom)
+	public ViewGroup bottom;
 
 	@BindView(R.id.button_comments)
 	public LinearLayout commentsButton;
@@ -142,6 +149,8 @@ public class SocialPostView extends RelativeLayout implements PostImageView.Post
 	private ArrayList<PostImageView> imageViews = new ArrayList<>();
 
 	private boolean isDetailsMode = false;
+
+	private boolean isRepostMode = false;
 
 	public SocialPostView(Context context) {
 		super(context);
@@ -238,7 +247,9 @@ public class SocialPostView extends RelativeLayout implements PostImageView.Post
 
 	@OnClick(R.id.button_repost)
 	public void onRepostClicked() {
-
+		if (post != null) {
+			EventBus.getDefault().post(new OnShowRepostEvent(post));
+		}
 	}
 
 	@OnClick(R.id.button_comments)
@@ -252,6 +263,12 @@ public class SocialPostView extends RelativeLayout implements PostImageView.Post
 		this.commentsButton.setVisibility(isDetailsMode ? View.GONE : View.VISIBLE);
 		this.text.setMaxLines(isDetailsMode ? Integer.MAX_VALUE : MAX_TEXT_LINES);
 //		this.mainGroup.setBackgroundColor(ThemeUtil.getColorByAttrId(getContext(), isDetailsMode ? R.attr.colorBackground : R.attr.colorCard));
+	}
+
+	public void setRepostMode(boolean isRepostMode) {
+		this.isRepostMode = isRepostMode;
+		this.menuButton.setVisibility(isRepostMode ? View.GONE : View.VISIBLE);
+		this.bottom.setVisibility(isRepostMode ? View.GONE : View.VISIBLE);
 	}
 
 	public void setPost(Post post) {
@@ -274,7 +291,7 @@ public class SocialPostView extends RelativeLayout implements PostImageView.Post
 //		setTextHeight(MAX_TEXT_LINES);
 
 		if (post.getText() != null && !post.getText().isEmpty()) {
-			this.text.setVisibility(View.VISIBLE);
+			this.textGroup.setVisibility(View.VISIBLE);
 
 //			LayoutParams lp = (LayoutParams) this.text.getLayoutParams();
 //			lp.height = LayoutParams.WRAP_CONTENT;
@@ -285,7 +302,7 @@ public class SocialPostView extends RelativeLayout implements PostImageView.Post
 			this.text.post(this::updateTextLinesCount);
 		}
 		else {
-			this.text.setVisibility(View.GONE);
+			this.textGroup.setVisibility(View.GONE);
 		}
 		setImages(post);
 		setPostTags(post.getTags());
@@ -348,7 +365,7 @@ public class SocialPostView extends RelativeLayout implements PostImageView.Post
 			for (PostTag postTag : post.getTags()) {
 				if (postTag.getType().equals(SocialPostTagType.EVENT)) {
 					this.eventView.setVisibility(View.VISIBLE);
-					this.text.setVisibility(View.GONE);
+					this.textGroup.setVisibility(View.GONE);
 					this.eventView.setPostTag(postTag);
 				}
 				else {

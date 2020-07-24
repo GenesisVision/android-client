@@ -17,15 +17,23 @@
             android:orientation="vertical"
             android:paddingBottom="100dp">
 
-            <vision.genesis.clientapp.feature.main.social.media.SocialMediaView
-                android:id="@+id/media_view"
+            <vision.genesis.clientapp.ui.AddNewPostView
+                android:id="@+id/button_add_new_post"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/padding"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="@dimen/padding"/>
+
+            <vision.genesis.clientapp.feature.main.social.feed.SocialLiveView
+                android:id="@+id/live_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:background="?attr/selectableItemBackground"/>
 
-            <vision.genesis.clientapp.feature.main.social.feed.SocialLiveView
-                android:id="@+id/live_view"
+            <vision.genesis.clientapp.feature.main.social.media.SocialMediaView
+                android:id="@+id/media_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"

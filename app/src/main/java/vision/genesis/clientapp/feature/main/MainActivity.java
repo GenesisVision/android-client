@@ -50,6 +50,7 @@ import vision.genesis.clientapp.feature.main.program.withdraw.WithdrawProgramAct
 import vision.genesis.clientapp.feature.main.rating.ProgramsRatingActivity;
 import vision.genesis.clientapp.feature.main.social.feed.SocialActivity;
 import vision.genesis.clientapp.feature.main.social.media.MediaActivity;
+import vision.genesis.clientapp.feature.main.social.post.create.CreatePostActivity;
 import vision.genesis.clientapp.feature.main.social.post.details.PostDetailsActivity;
 import vision.genesis.clientapp.feature.main.trading_account.TradingAccountDetailsActivity;
 import vision.genesis.clientapp.feature.main.wallet.copytrading_account_details.CopytradingAccountDetailsActivity;
@@ -457,6 +458,16 @@ public class MainActivity extends MvpAppCompatActivity implements MainView, Bloc
 	@Override
 	public void showPostDetails(UUID postId, Post post, boolean showComments) {
 		PostDetailsActivity.startWith(this, postId, post, showComments);
+	}
+
+	@Override
+	public void showCreatePostActivity() {
+		CreatePostActivity.startWith(this, null);
+	}
+
+	@Override
+	public void showCreatePostActivityWithRepost(Post post) {
+		CreatePostActivity.startWith(this, post);
 	}
 
 	@Override

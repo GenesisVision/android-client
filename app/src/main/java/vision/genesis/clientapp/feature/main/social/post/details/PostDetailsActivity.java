@@ -1,10 +1,20 @@
 package vision.genesis.clientapp.feature.main.social.post.details;
 
+import android.Manifest;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.TextPaint;
+import android.text.method.LinkMovementMethod;
+import android.text.style.ClickableSpan;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -14,27 +24,48 @@ import androidx.core.widget.NestedScrollView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
+import com.bumptech.glide.Glide;
+import com.jakewharton.rxbinding.widget.RxTextView;
+import com.stfalcon.imageviewer.StfalconImageViewer;
 
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 import java.util.UUID;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.swagger.client.model.NewPostImage;
 import io.swagger.client.model.Post;
+import permissions.dispatcher.NeedsPermission;
+import permissions.dispatcher.OnNeverAskAgain;
+import permissions.dispatcher.OnPermissionDenied;
+import permissions.dispatcher.OnShowRationale;
+import permissions.dispatcher.PermissionRequest;
+import permissions.dispatcher.RuntimePermissions;
 import timber.log.Timber;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseSwipeBackActivity;
+import vision.genesis.clientapp.feature.common.image_crop.ImageCropActivity;
+import vision.genesis.clientapp.feature.main.profile.PictureChooserBottomSheetFragment;
+import vision.genesis.clientapp.ui.ImageViewerOverlayView;
+import vision.genesis.clientapp.ui.NewPostImageView;
 import vision.genesis.clientapp.ui.SocialCommentView;
 import vision.genesis.clientapp.ui.SocialPostView;
+import vision.genesis.clientapp.utils.Constants;
+import vision.genesis.clientapp.utils.ImageUtils;
 import vision.genesis.clientapp.utils.ThemeUtil;
+import vision.genesis.clientapp.utils.TypedValueFormatter;
 
 /**
  * GenesisVisionAndroid
  * Created by Vitaly on 13/06/2020.
  */
 
+@RuntimePermissions
 public class PostDetailsActivity extends BaseSwipeBackActivity implements PostDetailsView
 {
 	private static final String EXTRA_POST_ID = "extra_post_id";
@@ -70,16 +101,56 @@ public class PostDetailsActivity extends BaseSwipeBackActivity implements PostDe
 	@BindView(R.id.group_comments)
 	public LinearLayout commentsGroup;
 
+	@BindView(R.id.group_add_comment)
+	public ViewGroup addCommentGroup;
+
+	@BindView(R.id.group_reply)
+	public ViewGroup replyGroup;
+
+	@BindView(R.id.reply)
+	public TextView reply;
+
+	@BindView(R.id.group_comment_images)
+	public LinearLayout commentImagesGroup;
+
+	@BindView(R.id.button_comment_image)
+	public ImageView commentImageButton;
+
+	@BindView(R.id.button_comment_send)
+	public ImageView commentSendButton;
+
+	@BindView(R.id.text_comment)
+	public EditText commentText;
+
 	@BindView(R.id.progress_bar)
 	public ProgressBar progressBar;
 
+	@BindView(R.id.add_comment_progress_bar)
+	public ProgressBar addCommentProgressBar;
 
 	@InjectPresenter
 	PostDetailsPresenter presenter;
 
+	private ArrayList<NewPostImageView> imageViews = new ArrayList<>();
+
 	@OnClick(R.id.button_back)
 	public void onBackClicked() {
 		finishActivity();
+	}
+
+	@OnClick(R.id.button_cancel_reply)
+	public void onCancelReplyClicked() {
+		presenter.onCancelReplyClicked();
+	}
+
+	@OnClick(R.id.button_comment_image)
+	public void onCommentImageClicked() {
+		PostDetailsActivityPermissionsDispatcher.showPictureChooserWithPermissionCheck(this);
+	}
+
+	@OnClick(R.id.button_comment_send)
+	public void onCommentSendClicked() {
+		presenter.onSendCommentClicked();
 	}
 
 	@Override
@@ -92,6 +163,9 @@ public class PostDetailsActivity extends BaseSwipeBackActivity implements PostDe
 		ButterKnife.bind(this);
 
 		initRefreshLayout();
+
+		setSendCommentButtonEnabled(false);
+		setTextListener();
 
 		if (getIntent().getExtras() != null) {
 			UUID postId = (UUID) getIntent().getExtras().getSerializable(EXTRA_POST_ID);
@@ -134,11 +208,19 @@ public class PostDetailsActivity extends BaseSwipeBackActivity implements PostDe
 			for (Post comment : post.getComments()) {
 				SocialCommentView view = new SocialCommentView(this);
 				view.setComment(comment);
+				view.setListener(presenter);
 				commentsGroup.addView(view);
 			}
 		}
 		else {
 			this.commentsSection.setVisibility(View.GONE);
+		}
+
+		if (post.getPersonalDetails() != null && post.getPersonalDetails().isCanComment()) {
+			this.addCommentGroup.setVisibility(View.VISIBLE);
+		}
+		else {
+			this.addCommentGroup.setVisibility(View.GONE);
 		}
 	}
 
@@ -164,5 +246,214 @@ public class PostDetailsActivity extends BaseSwipeBackActivity implements PostDe
 	public void finishActivity() {
 		finish();
 		overridePendingTransition(R.anim.hold, R.anim.slide_to_right);
+	}
+
+	private void setTextListener() {
+		RxTextView.textChanges(commentText)
+				.subscribe(charSequence -> presenter.onCommentTextChanged(charSequence.toString()));
+	}
+
+	@Override
+	public void openCamera(ImageUtils imageUtils, File newLogoFile) {
+		imageUtils.openCameraFrom(this, newLogoFile);
+	}
+
+	@Override
+	public void openGallery(ImageUtils imageUtils) {
+		imageUtils.openGalleryFrom(this);
+	}
+
+	@Override
+	public void startImageCropActivity(String imageUri) {
+		ImageCropActivity.startForResult(this, imageUri, Constants.MIN_LOGO_WIDTH, Constants.MIN_LOGO_HEIGHT);
+	}
+
+	@Override
+	public void createNewImageView() {
+		NewPostImageView view = new NewPostImageView(this);
+		view.setListener(presenter);
+		commentImagesGroup.addView(view);
+		imageViews.add(view);
+
+		LinearLayout.LayoutParams lp = (LinearLayout.LayoutParams) view.getLayoutParams();
+		lp.setMargins(0, 0, TypedValueFormatter.toDp(10), 0);
+		view.setLayoutParams(lp);
+
+		scrollview.smoothScrollTo(-commentImagesGroup.getWidth(), 0);
+	}
+
+	@Override
+	public void updateNewImageView(String imageId) {
+		imageViews.get(imageViews.size() - 1).setData(imageId);
+	}
+
+	@Override
+	public void deleteNewImageView() {
+		NewPostImageView newImageView = imageViews.get(imageViews.size() - 1);
+		commentImagesGroup.removeView(newImageView);
+		imageViews.remove(newImageView);
+	}
+
+	@Override
+	public void deleteImageView(NewPostImageView imageView) {
+		commentImagesGroup.removeView(imageView);
+		imageViews.remove(imageView);
+	}
+
+	@Override
+	public void showImageViewer(ImageView imageView, int position, List<NewPostImage> images) {
+		ImageViewerOverlayView overlayView = new ImageViewerOverlayView(this);
+		overlayView.setImagesCount(images.size());
+
+		StfalconImageViewer imageViewer = new StfalconImageViewer.Builder<>(this, images,
+				(loadingImageView, image) -> Glide.with(this).load(ImageUtils.getImageUriById(image.getImage())).into(loadingImageView))
+				.withStartPosition(position)
+				.withHiddenStatusBar(false)
+				.withTransitionFrom(imageView)
+				.withOverlayView(overlayView)
+				.withImageChangeListener(overlayView)
+				.show();
+
+		overlayView.setImageViewer(imageViewer);
+	}
+
+	@Override
+	public void setSendCommentButtonEnabled(boolean enabled) {
+		commentSendButton.setEnabled(enabled);
+		commentSendButton.setAlpha(enabled ? 1.0f : 0.3f);
+	}
+
+	@Override
+	public void showReplyGroup(String username) {
+		this.replyGroup.setVisibility(View.VISIBLE);
+
+		SpannableString spannable = new SpannableString(String.format(Locale.getDefault(), "%s %s",
+				getString(R.string.reply_to), username));
+
+		spannable.setSpan(new ClickableSpan()
+		                  {
+			                  @Override
+			                  public void onClick(View view) {
+				                  presenter.onReplyNameClicked();
+			                  }
+
+			                  @Override
+			                  public void updateDrawState(TextPaint ds) {
+				                  super.updateDrawState(ds);
+				                  int linkColor = ContextCompat.getColor(getApplicationContext(), R.color.accent);
+				                  ds.setColor(linkColor);
+				                  ds.setUnderlineText(false);
+			                  }
+		                  },
+				getString(R.string.reply_to).length() + 1,
+				spannable.toString().length(),
+				Spannable.SPAN_INCLUSIVE_EXCLUSIVE);
+
+		this.reply.setText(spannable);
+		this.reply.setMovementMethod(LinkMovementMethod.getInstance());
+
+		showSoftKeyboard(this.reply);
+	}
+
+	@Override
+	public void hideReplyGroup() {
+		this.replyGroup.setVisibility(View.GONE);
+	}
+
+	@Override
+	public void setImageCommentButtonEnabled(boolean enabled) {
+		commentImageButton.setEnabled(enabled);
+		commentImageButton.setAlpha(enabled ? 1.0f : 0.3f);
+	}
+
+	@Override
+	public void showAddCommentProgressBar(boolean show) {
+		addCommentProgressBar.setVisibility(show ? View.VISIBLE : View.INVISIBLE);
+		commentSendButton.setVisibility(!show ? View.VISIBLE : View.INVISIBLE);
+	}
+
+	@Override
+	public void clearAddCommentSection() {
+		this.commentText.setText("");
+		this.imageViews.clear();
+		this.commentImagesGroup.removeAllViews();
+		this.commentImageButton.setEnabled(true);
+	}
+
+	@Override
+	public void showMyAddedComment() {
+		hideSoftKeyboard();
+		scrollview.post(() -> scrollview.smoothScrollTo(0, commentsSection.getBottom()));
+	}
+
+	private void showSoftKeyboard(View view) {
+		InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+		view.requestFocus();
+		if (imm != null) {
+			imm.showSoftInput(view, 0);
+		}
+	}
+
+	private void hideSoftKeyboard() {
+		InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+		commentText.clearFocus();
+		if (imm != null) {
+			imm.hideSoftInputFromWindow(commentText.getWindowToken(), 0);
+		}
+	}
+
+	@Override
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+		Timber.d("Activity result: request code: %d result code:  %d", requestCode, resultCode);
+		switch (requestCode) {
+			case ImageUtils.CAMERA_REQUEST_CODE:
+				if (resultCode == Activity.RESULT_OK) {
+					presenter.handleCameraResult();
+				}
+				else {
+					presenter.handleCameraFail();
+				}
+				break;
+			case ImageUtils.GALLERY_REQUEST_CODE:
+				if (resultCode == Activity.RESULT_OK) {
+					presenter.handleGalleryResult(data.getData());
+				}
+				else {
+					presenter.handleGalleryFail();
+				}
+				break;
+			case ImageUtils.CROP_REQUEST_CODE:
+				if (resultCode == Activity.RESULT_OK) {
+					presenter.handleImageCropResult();
+				}
+				else {
+					presenter.handleImageCropFail();
+				}
+				break;
+			default:
+				break;
+		}
+		super.onActivityResult(requestCode, resultCode, data);
+	}
+
+	@NeedsPermission({Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE})
+	void showPictureChooser() {
+		PictureChooserBottomSheetFragment bottomSheetDialog = new PictureChooserBottomSheetFragment();
+		bottomSheetDialog.show(getSupportFragmentManager(), bottomSheetDialog.getTag());
+	}
+
+	@OnShowRationale({Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE})
+	void showRationaleForStorage(PermissionRequest request) {
+		showRationaleDialog(getString(R.string.permission_picture_rationale), request);
+	}
+
+	@OnPermissionDenied({Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE})
+	void onStorageDenied() {
+		showMessageDialog(getString(R.string.permission_picture_denied));
+	}
+
+	@OnNeverAskAgain({Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE})
+	void onStorageNeverAskAgain() {
+		showMessageDialog(getString(R.string.permission_picture_never_ask_again));
 	}
 }

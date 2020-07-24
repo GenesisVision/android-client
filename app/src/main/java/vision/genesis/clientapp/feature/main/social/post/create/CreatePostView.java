@@ -1,4 +1,4 @@
-package vision.genesis.clientapp.feature.main.social.post.details;
+package vision.genesis.clientapp.feature.main.social.post.create;
 
 import android.widget.ImageView;
 
@@ -17,9 +17,9 @@ import vision.genesis.clientapp.utils.ImageUtils;
  * Created by Vitaly on 13/06/2020.
  */
 
-interface PostDetailsView extends MvpView
+interface CreatePostView extends MvpView
 {
-	void updateView(Post post);
+	void showRepost(Post repost);
 
 	void openCamera(ImageUtils imageUtils, File newLogoFile);
 
@@ -37,23 +37,13 @@ interface PostDetailsView extends MvpView
 
 	void showImageViewer(ImageView image, int position, List<NewPostImage> images);
 
-	void setSendCommentButtonEnabled(boolean enabled);
-
-	void showReplyGroup(String username);
-
-	void hideReplyGroup();
-
-	void setImageCommentButtonEnabled(boolean enabled);
-
-	void showAddCommentProgressBar(boolean show);
-
-	void clearAddCommentSection();
-
-	void showMyAddedComment();
-
-	void setRefreshing(boolean refreshing);
+	void setPublishButtonEnabled(boolean enabled);
 
 	void showProgressBar(boolean show);
 
 	void showSnackbarMessage(String message);
+
+	void showExitDialog();
+
+	void finishActivity();
 }

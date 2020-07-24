@@ -45,6 +45,10 @@ public class Constants
 
 	public static final int MAX_USER_ABOUT_LENGTH = 500;
 
+	public static final int MIN_IMAGES_COUNT_CREATE_POST = 10;
+
+	public static final int MIN_IMAGES_COUNT_ADD_COMMENT = 1;
+
 	public static ArrayList<String> getCurrenciesForProgramsListFilter() {
 		return new ArrayList<>(Arrays.asList("All", "ETH", "BTC", "USDT", "USD"));
 	}

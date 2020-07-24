@@ -48,6 +48,7 @@
         android:id="@+id/refresh_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_above="@+id/group_add_comment"
         android:layout_below="@+id/toolbar">
 
         <androidx.core.widget.NestedScrollView
@@ -100,6 +101,132 @@
         </androidx.core.widget.NestedScrollView>
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+    <RelativeLayout
+        android:id="@+id/group_add_comment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="?attr/colorBackground"
+        android:minHeight="60dp"
+        android:visibility="gone"
+        tools:visibility="visible">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="?attr/colorDelimiterLight"/>
+
+        <RelativeLayout
+            android:id="@+id/group_reply"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?attr/colorDelimiter"
+            android:visibility="gone"
+            tools:visibility="visible">
+
+            <TextView
+                android:id="@+id/reply"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="@dimen/padding"
+                android:fontFamily="@font/montserrat_regular"
+                android:paddingTop="4dp"
+                android:paddingBottom="4dp"
+                android:textColor="?attr/colorTextSecondary"
+                android:textSize="12sp"
+                tools:text="Reply to Buffett"/>
+
+            <ImageView
+                android:id="@+id/button_cancel_reply"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="2dp"
+                android:layout_toEndOf="@+id/reply"
+                android:padding="2dp"
+                android:tint="?attr/colorTextSecondary"
+                app:srcCompat="@drawable/icon_close"/>
+
+        </RelativeLayout>
+
+        <HorizontalScrollView
+            android:id="@+id/comment_images_scrollview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/group_reply"
+            android:scrollbars="none">
+
+            <LinearLayout
+                android:id="@+id/group_comment_images"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingStart="@dimen/padding"
+                android:paddingEnd="10dp"/>
+
+        </HorizontalScrollView>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/comment_images_scrollview"
+            android:gravity="bottom">
+
+            <ImageView
+                android:id="@+id/button_comment_image"
+                android:layout_width="60dp"
+                android:layout_height="50dp"
+                android:layout_alignBottom="@+id/text_comment"
+                android:layout_marginBottom="5dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:padding="14dp"
+                app:srcCompat="@drawable/icon_image"/>
+
+            <EditText
+                android:id="@+id/text_comment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_toStartOf="@+id/button_comment_send"
+                android:layout_toEndOf="@+id/button_comment_image"
+                android:background="@android:color/transparent"
+                android:fontFamily="@font/montserrat_regular"
+                android:gravity="center_vertical"
+                android:hint="@string/comment"
+                android:lineSpacingMultiplier="1.3"
+                android:maxHeight="120dp"
+                android:minHeight="60dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:textColor="?attr/colorTextPrimary"
+                android:textColorHint="?attr/colorTextSecondary"
+                android:textSize="14sp"
+                tools:text=""/>
+
+            <ImageView
+                android:id="@+id/button_comment_send"
+                android:layout_width="60dp"
+                android:layout_height="50dp"
+                android:layout_alignBottom="@+id/text_comment"
+                android:layout_alignParentEnd="true"
+                android:layout_marginBottom="5dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:padding="14dp"
+                app:srcCompat="@drawable/icon_send"/>
+
+            <ProgressBar
+                android:id="@+id/add_comment_progress_bar"
+                android:layout_width="60dp"
+                android:layout_height="50dp"
+                android:layout_alignBottom="@+id/text_comment"
+                android:layout_alignParentEnd="true"
+                android:layout_marginBottom="5dp"
+                android:visibility="invisible"/>
+
+        </RelativeLayout>
+
+    </RelativeLayout>
 
     <ProgressBar
         android:id="@+id/progress_bar"

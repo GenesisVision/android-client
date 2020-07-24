@@ -122,6 +122,7 @@ import vision.genesis.clientapp.feature.main.social.feed.SocialPresenter;
 import vision.genesis.clientapp.feature.main.social.media.MediaPresenter;
 import vision.genesis.clientapp.feature.main.social.media.SocialMediaView;
 import vision.genesis.clientapp.feature.main.social.post.PostsListPresenter;
+import vision.genesis.clientapp.feature.main.social.post.create.CreatePostPresenter;
 import vision.genesis.clientapp.feature.main.social.post.details.PostDetailsPresenter;
 import vision.genesis.clientapp.feature.main.trading_account.TradingAccountDetailsPresenter;
 import vision.genesis.clientapp.feature.main.trading_account.add_demo_funds.AddDemoFundsPresenter;
@@ -156,6 +157,7 @@ import vision.genesis.clientapp.feature.pin.set.SetPinPresenter;
 import vision.genesis.clientapp.feature.splashscreen.SplashScreenPresenter;
 import vision.genesis.clientapp.feature.two_factor.disable.DisableTfaPresenter;
 import vision.genesis.clientapp.feature.two_factor.setup.SetupTfaPresenter;
+import vision.genesis.clientapp.ui.AddNewPostView;
 import vision.genesis.clientapp.ui.ProgramDataView;
 import vision.genesis.clientapp.ui.SocialCommentView;
 import vision.genesis.clientapp.ui.SocialPostView;
@@ -465,4 +467,8 @@ public interface AppComponent
 	void inject(PostDetailsPresenter postDetailsPresenter);
 
 	void inject(SocialCommentView socialCommentView);
+
+	void inject(CreatePostPresenter createPostPresenter);
+
+	void inject(AddNewPostView addNewPostView);
 }

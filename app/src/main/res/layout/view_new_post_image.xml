@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/root"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_maxHeight="@dimen/social_post_image_height">
+
+    <RelativeLayout
+        android:id="@+id/group_image"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp">
+
+        <ImageView
+            android:id="@+id/image"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="?attr/colorCard"
+            android:scaleType="centerCrop"/>
+
+        <ProgressBar
+            android:id="@+id/progress_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"/>
+
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/button_delete"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignEnd="@+id/group_image"
+        android:layout_marginEnd="-10dp"
+        app:srcCompat="@drawable/icon_program_closed"/>
+
+</RelativeLayout>

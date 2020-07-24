@@ -27,10 +27,12 @@ import vision.genesis.clientapp.model.AppUpdateModel;
 import vision.genesis.clientapp.model.ProgramRequest;
 import vision.genesis.clientapp.model.User;
 import vision.genesis.clientapp.model.events.HideBottomNavigationEvent;
+import vision.genesis.clientapp.model.events.OnAddNewPostClickedEvent;
 import vision.genesis.clientapp.model.events.OnFollowFacetClickedEvent;
 import vision.genesis.clientapp.model.events.OnFundFacetClickedEvent;
 import vision.genesis.clientapp.model.events.OnProgramFacetClickedEvent;
 import vision.genesis.clientapp.model.events.OnShowMediaActivityEvent;
+import vision.genesis.clientapp.model.events.OnShowRepostEvent;
 import vision.genesis.clientapp.model.events.OnThemeChangedEvent;
 import vision.genesis.clientapp.model.events.ShowBottomNavigationEvent;
 import vision.genesis.clientapp.model.events.ShowCopytradingAccountDetailsEvent;
@@ -403,5 +405,15 @@ public class MainPresenter extends MvpPresenter<MainView>
 	@Subscribe
 	public void onEventMainThread(OnShowPostDetailsEvent event) {
 		getViewState().showPostDetails(event.getPostId(), event.getPost(), event.isShowComments());
+	}
+
+	@Subscribe
+	public void onEventMainThread(OnAddNewPostClickedEvent event) {
+		getViewState().showCreatePostActivity();
+	}
+
+	@Subscribe
+	public void onEventMainThread(OnShowRepostEvent event) {
+		getViewState().showCreatePostActivityWithRepost(event.getPost());
 	}
 }

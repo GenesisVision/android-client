@@ -98,4 +98,8 @@ public interface MainView extends MvpView
 	void showMediaActivity();
 
 	void showPostDetails(UUID postId, Post post, boolean showComments);
+
+	void showCreatePostActivity();
+
+	void showCreatePostActivityWithRepost(Post post);
 }

@@ -4,8 +4,10 @@ import java.util.UUID;
 
 import io.swagger.client.api.SocialApi;
 import io.swagger.client.model.MediaPostItemsViewModel;
+import io.swagger.client.model.NewPost;
 import io.swagger.client.model.Post;
 import io.swagger.client.model.PostItemsViewModel;
+import io.swagger.client.model.RePost;
 import io.swagger.client.model.SocialLinkType;
 import rx.Observable;
 import vision.genesis.clientapp.model.PostsFilter;
@@ -44,5 +46,21 @@ public class SocialManager
 
 	public Observable<Post> getPost(UUID postId) {
 		return socialApi.getPost(postId.toString());
+	}
+
+	public Observable<Void> createPost(NewPost body) {
+		return socialApi.addPost(body);
+	}
+
+	public Observable<Void> repost(NewPost newPost, UUID repostId) {
+		RePost body = new RePost();
+		body.setId(repostId);
+		body.setText(newPost.getText());
+		body.setImages(newPost.getImages());
+		return socialApi.rePost(body);
+	}
+
+	public Observable<Void> sendComment(NewPost body) {
+		return socialApi.addPost(body);
 	}
 }

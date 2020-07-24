@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/button_add_new_post_height">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/background_add_new_post_view"
+        android:fontFamily="@font/montserrat_medium"
+        android:gravity="center_vertical"
+        android:paddingStart="64dp"
+        android:paddingEnd="24dp"
+        android:text="@string/share_your_ideas"
+        android:textColor="?attr/colorTextSecondary"
+        android:textSize="14sp"/>
+
+    <vision.genesis.clientapp.ui.AvatarView
+        android:id="@+id/avatar"
+        android:layout_width="@dimen/button_add_new_post_height"
+        android:layout_height="@dimen/button_add_new_post_height"/>
+
+</RelativeLayout>

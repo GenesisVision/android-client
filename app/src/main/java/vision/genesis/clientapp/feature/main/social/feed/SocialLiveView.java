@@ -50,6 +50,7 @@ public class SocialLiveView extends RelativeLayout
 	@BindDimen(R.dimen.padding)
 	public int padding;
 
+
 	public Subscription getPostsSubscription;
 
 	private Unbinder unbinder;
@@ -73,6 +74,11 @@ public class SocialLiveView extends RelativeLayout
 
 	@OnClick(R.id.header)
 	public void onHeaderClicked() {
+		EventBus.getDefault().post(new ShowFeedActivityEvent());
+	}
+
+	@OnClick(R.id.button_more)
+	public void onMoreClicked() {
 		EventBus.getDefault().post(new ShowFeedActivityEvent());
 	}
 

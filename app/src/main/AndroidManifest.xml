@@ -510,7 +510,14 @@
             android:name=".feature.main.social.post.details.PostDetailsActivity"
             android:launchMode="singleTop"
             android:theme="@style/SwipeBackActivityTheme"
-            android:windowSoftInputMode="stateAlwaysHidden|adjustResize"/>
+            android:windowSoftInputMode="stateHidden|adjustResize"/>
+
+        <activity
+            android:name=".feature.main.social.post.create.CreatePostActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.Base"
+            android:windowSoftInputMode="adjustResize|stateAlwaysVisible"/>
 
         <provider
             android:name="androidx.core.content.FileProvider"
