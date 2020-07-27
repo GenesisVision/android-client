@@ -10,7 +10,7 @@ Method | HTTP request | Description
 [**getFundDetails**](FundsApi.md#getFundDetails) | **GET** v2.0/funds/{id} | Fund details
 [**getFundProfitPercentCharts**](FundsApi.md#getFundProfitPercentCharts) | **GET** v2.0/funds/{id}/charts/profit/percent | Fund profit percent charts
 [**getFunds**](FundsApi.md#getFunds) | **GET** v2.0/funds | Funds list
-[**getFundsHistoryEvents**](FundsApi.md#getFundsHistoryEvents) | **GET** v2.0/funds/{id}/events | Get funds trading events
+[**getFundsHistoryEvents**](FundsApi.md#getFundsHistoryEvents) | **GET** v2.0/funds/{id}/history | Get funds trading events
 [**getLastChallengeWinner**](FundsApi.md#getLastChallengeWinner) | **GET** v2.0/funds/challenge/winner | Get last weekly funds challenge winner
 [**getReallocatingHistory**](FundsApi.md#getReallocatingHistory) | **GET** v2.0/funds/{id}/reallocations | Get history of asset part update requests
 [**removeFromFavorites**](FundsApi.md#removeFromFavorites) | **POST** v2.0/funds/{id}/favorite/remove | Remove from favorites

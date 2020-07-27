@@ -30,8 +30,10 @@ import vision.genesis.clientapp.managers.SocialManager;
 import vision.genesis.clientapp.model.events.OnPictureChooserCameraClickedEvent;
 import vision.genesis.clientapp.model.events.OnPictureChooserGalleryClickedEvent;
 import vision.genesis.clientapp.net.ApiErrorResolver;
+import vision.genesis.clientapp.ui.AutoCompleteGvAssetsView;
 import vision.genesis.clientapp.ui.NewPostImageView;
 import vision.genesis.clientapp.utils.ImageUtils;
+import vision.genesis.clientapp.utils.StringFormatUtil;
 
 /**
  * GenesisVisionAndroid
@@ -39,8 +41,10 @@ import vision.genesis.clientapp.utils.ImageUtils;
  */
 
 @InjectViewState
-public class CreatePostPresenter extends MvpPresenter<CreatePostView> implements NewPostImageView.PostImageClickListener
+public class CreatePostPresenter extends MvpPresenter<CreatePostView> implements NewPostImageView.PostImageClickListener, AutoCompleteGvAssetsView.Listener
 {
+	private static final int MASK_MIN_LENGTH = 3;
+
 	@Inject
 	public Context context;
 
@@ -62,6 +66,8 @@ public class CreatePostPresenter extends MvpPresenter<CreatePostView> implements
 	private NewPost post = new NewPost();
 
 	private Post repost;
+
+	private int textSelectionPos = -1;
 
 	@Override
 	protected void onFirstViewAttach() {
@@ -93,9 +99,23 @@ public class CreatePostPresenter extends MvpPresenter<CreatePostView> implements
 		getViewState().showRepost(repost);
 	}
 
-	void onTextChanged(String text) {
+	void onTextChanged(String text, int selectionStart) {
 		this.post.setText(text);
 		updatePublishButtonEnabled();
+
+		textSelectionPos = selectionStart;
+
+		if (selectionStart != -1) {
+			int start = StringFormatUtil.getSocialAssetTagStartPos(text, selectionStart);
+			int end = StringFormatUtil.getSocialAssetTagEndPos(text, selectionStart);
+
+			if (end - start >= MASK_MIN_LENGTH) {
+				getViewState().showAutoCompleteGvAssetsView(text.substring(start, end));
+			}
+			else {
+				getViewState().hideAutoCompleteGvAssetsView();
+			}
+		}
 	}
 
 	private void updatePublishButtonEnabled() {
@@ -251,5 +271,17 @@ public class CreatePostPresenter extends MvpPresenter<CreatePostView> implements
 		}
 		getViewState().deleteImageView(imageView);
 		updatePublishButtonEnabled();
+	}
+
+	@Override
+	public void onAssetClicked(String assetTag) {
+		if (textSelectionPos != -1 && post != null) {
+			int start = StringFormatUtil.getSocialAssetTagStartPos(post.getText(), textSelectionPos);
+			int end = StringFormatUtil.getSocialAssetTagEndPos(post.getText(), textSelectionPos);
+
+			String newText = post.getText().substring(0, start).concat(assetTag).concat(" ").concat(post.getText().substring(end));
+			getViewState().setText(newText, start + assetTag.length() + 1);
+			getViewState().hideAutoCompleteGvAssetsView();
+		}
 	}
 }

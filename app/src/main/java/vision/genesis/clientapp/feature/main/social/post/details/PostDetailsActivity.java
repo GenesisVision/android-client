@@ -51,6 +51,7 @@ import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseSwipeBackActivity;
 import vision.genesis.clientapp.feature.common.image_crop.ImageCropActivity;
 import vision.genesis.clientapp.feature.main.profile.PictureChooserBottomSheetFragment;
+import vision.genesis.clientapp.ui.AutoCompleteGvAssetsView;
 import vision.genesis.clientapp.ui.ImageViewerOverlayView;
 import vision.genesis.clientapp.ui.NewPostImageView;
 import vision.genesis.clientapp.ui.SocialCommentView;
@@ -100,6 +101,9 @@ public class PostDetailsActivity extends BaseSwipeBackActivity implements PostDe
 
 	@BindView(R.id.group_comments)
 	public LinearLayout commentsGroup;
+
+	@BindView(R.id.view_autocomplete_gv_assets)
+	public AutoCompleteGvAssetsView autoCompleteGvAssetsView;
 
 	@BindView(R.id.group_add_comment)
 	public ViewGroup addCommentGroup;
@@ -166,6 +170,8 @@ public class PostDetailsActivity extends BaseSwipeBackActivity implements PostDe
 
 		setSendCommentButtonEnabled(false);
 		setTextListener();
+
+		autoCompleteGvAssetsView.setListener(presenter);
 
 		if (getIntent().getExtras() != null) {
 			UUID postId = (UUID) getIntent().getExtras().getSerializable(EXTRA_POST_ID);
@@ -250,7 +256,7 @@ public class PostDetailsActivity extends BaseSwipeBackActivity implements PostDe
 
 	private void setTextListener() {
 		RxTextView.textChanges(commentText)
-				.subscribe(charSequence -> presenter.onCommentTextChanged(charSequence.toString()));
+				.subscribe(charSequence -> presenter.onCommentTextChanged(charSequence.toString(), commentText.getSelectionStart()));
 	}
 
 	@Override
@@ -316,6 +322,25 @@ public class PostDetailsActivity extends BaseSwipeBackActivity implements PostDe
 
 		overlayView.setImageViewer(imageViewer);
 	}
+
+	@Override
+	public void showAutoCompleteGvAssetsView(String mask) {
+		autoCompleteGvAssetsView.onMaskChanged(mask);
+		autoCompleteGvAssetsView.setVisibility(View.VISIBLE);
+	}
+
+	@Override
+	public void hideAutoCompleteGvAssetsView() {
+		autoCompleteGvAssetsView.clear();
+		autoCompleteGvAssetsView.setVisibility(View.GONE);
+	}
+
+	@Override
+	public void setText(String newText, int selection) {
+		this.commentText.setText(newText);
+		this.commentText.setSelection(selection);
+	}
+
 
 	@Override
 	public void setSendCommentButtonEnabled(boolean enabled) {

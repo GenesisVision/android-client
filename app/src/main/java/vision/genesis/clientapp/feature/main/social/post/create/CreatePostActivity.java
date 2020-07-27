@@ -46,6 +46,7 @@ import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.common.image_crop.ImageCropActivity;
 import vision.genesis.clientapp.feature.main.profile.PictureChooserBottomSheetFragment;
+import vision.genesis.clientapp.ui.AutoCompleteGvAssetsView;
 import vision.genesis.clientapp.ui.ImageViewerOverlayView;
 import vision.genesis.clientapp.ui.NewPostImageView;
 import vision.genesis.clientapp.ui.PrimaryButton;
@@ -83,6 +84,9 @@ public class CreatePostActivity extends MvpAppCompatActivity implements CreatePo
 
 	@BindView(R.id.new_post_text)
 	public EditText text;
+
+	@BindView(R.id.view_autocomplete_gv_assets)
+	public AutoCompleteGvAssetsView autoCompleteGvAssetsView;
 
 	@BindView(R.id.group_images)
 	public LinearLayout imagesGroup;
@@ -143,6 +147,8 @@ public class CreatePostActivity extends MvpAppCompatActivity implements CreatePo
 
 		setTextListener();
 
+		autoCompleteGvAssetsView.setListener(presenter);
+
 		if (getIntent().getExtras() != null) {
 			Post repost = getIntent().getExtras().getParcelable(EXTRA_REPOST);
 			if (repost != null) {
@@ -153,7 +159,7 @@ public class CreatePostActivity extends MvpAppCompatActivity implements CreatePo
 
 	private void setTextListener() {
 		RxTextView.textChanges(text)
-				.subscribe(charSequence -> presenter.onTextChanged(charSequence.toString()));
+				.subscribe(charSequence -> presenter.onTextChanged(charSequence.toString(), text.getSelectionStart()));
 	}
 
 	@Override
@@ -224,6 +230,24 @@ public class CreatePostActivity extends MvpAppCompatActivity implements CreatePo
 				.show();
 
 		overlayView.setImageViewer(imageViewer);
+	}
+
+	@Override
+	public void showAutoCompleteGvAssetsView(String mask) {
+		autoCompleteGvAssetsView.onMaskChanged(mask);
+		autoCompleteGvAssetsView.setVisibility(View.VISIBLE);
+	}
+
+	@Override
+	public void hideAutoCompleteGvAssetsView() {
+		autoCompleteGvAssetsView.clear();
+		autoCompleteGvAssetsView.setVisibility(View.GONE);
+	}
+
+	@Override
+	public void setText(String newText, int selection) {
+		this.text.setText(newText);
+		this.text.setSelection(selection);
 	}
 
 	@Override

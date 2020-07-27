@@ -17,8 +17,6 @@ import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -44,19 +42,15 @@ public class ProviderPlatformAssets implements Parcelable
 	@SerializedName("type")
 	private AssetProvider type = null;
 
-	@SerializedName("hasTradingSchedule")
-	private Boolean hasTradingSchedule = null;
-
 	@SerializedName("tradingSchedule")
-	private List<TradingScheduleViewModel> tradingSchedule = null;
+	private TradingScheduleInfo tradingSchedule = null;
 
 	public ProviderPlatformAssets() {
 	}
 
 	ProviderPlatformAssets(Parcel in) {
 		type = (AssetProvider) in.readValue(AssetProvider.class.getClassLoader());
-		hasTradingSchedule = (Boolean) in.readValue(null);
-		tradingSchedule = (List<TradingScheduleViewModel>) in.readValue(TradingScheduleViewModel.class.getClassLoader());
+		tradingSchedule = (TradingScheduleInfo) in.readValue(TradingScheduleInfo.class.getClassLoader());
 	}
 
 	public ProviderPlatformAssets type(AssetProvider type) {
@@ -78,35 +72,8 @@ public class ProviderPlatformAssets implements Parcelable
 		this.type = type;
 	}
 
-	public ProviderPlatformAssets hasTradingSchedule(Boolean hasTradingSchedule) {
-		this.hasTradingSchedule = hasTradingSchedule;
-		return this;
-	}
-
-	/**
-	 * Get hasTradingSchedule
-	 *
-	 * @return hasTradingSchedule
-	 **/
-	@Schema(description = "")
-	public Boolean isHasTradingSchedule() {
-		return hasTradingSchedule;
-	}
-
-	public void setHasTradingSchedule(Boolean hasTradingSchedule) {
-		this.hasTradingSchedule = hasTradingSchedule;
-	}
-
-	public ProviderPlatformAssets tradingSchedule(List<TradingScheduleViewModel> tradingSchedule) {
+	public ProviderPlatformAssets tradingSchedule(TradingScheduleInfo tradingSchedule) {
 		this.tradingSchedule = tradingSchedule;
-		return this;
-	}
-
-	public ProviderPlatformAssets addTradingScheduleItem(TradingScheduleViewModel tradingScheduleItem) {
-		if (this.tradingSchedule == null) {
-			this.tradingSchedule = new ArrayList<TradingScheduleViewModel>();
-		}
-		this.tradingSchedule.add(tradingScheduleItem);
 		return this;
 	}
 
@@ -116,11 +83,11 @@ public class ProviderPlatformAssets implements Parcelable
 	 * @return tradingSchedule
 	 **/
 	@Schema(description = "")
-	public List<TradingScheduleViewModel> getTradingSchedule() {
+	public TradingScheduleInfo getTradingSchedule() {
 		return tradingSchedule;
 	}
 
-	public void setTradingSchedule(List<TradingScheduleViewModel> tradingSchedule) {
+	public void setTradingSchedule(TradingScheduleInfo tradingSchedule) {
 		this.tradingSchedule = tradingSchedule;
 	}
 
@@ -134,13 +101,12 @@ public class ProviderPlatformAssets implements Parcelable
 		}
 		ProviderPlatformAssets providerPlatformAssets = (ProviderPlatformAssets) o;
 		return Objects.equals(this.type, providerPlatformAssets.type) &&
-				Objects.equals(this.hasTradingSchedule, providerPlatformAssets.hasTradingSchedule) &&
 				Objects.equals(this.tradingSchedule, providerPlatformAssets.tradingSchedule);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(type, hasTradingSchedule, tradingSchedule);
+		return Objects.hash(type, tradingSchedule);
 	}
 
 	@Override
@@ -149,7 +115,6 @@ public class ProviderPlatformAssets implements Parcelable
 		sb.append("class ProviderPlatformAssets {\n");
 
 		sb.append("    type: ").append(toIndentedString(type)).append("\n");
-		sb.append("    hasTradingSchedule: ").append(toIndentedString(hasTradingSchedule)).append("\n");
 		sb.append("    tradingSchedule: ").append(toIndentedString(tradingSchedule)).append("\n");
 		sb.append("}");
 		return sb.toString();
@@ -168,7 +133,6 @@ public class ProviderPlatformAssets implements Parcelable
 
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(type);
-		out.writeValue(hasTradingSchedule);
 		out.writeValue(tradingSchedule);
 	}
 

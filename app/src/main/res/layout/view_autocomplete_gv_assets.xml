@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?attr/colorBackground">
+
+    <ScrollView
+        android:id="@+id/scroll_view_autocomplete_gv_assets"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="vertical">
+
+        <LinearLayout
+            android:id="@+id/group_assets"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="vertical"
+            android:paddingTop="@dimen/autocomplete_item_padding"
+            android:paddingBottom="@dimen/autocomplete_item_padding"
+            android:visibility="gone"/>
+
+    </ScrollView>
+
+</RelativeLayout>

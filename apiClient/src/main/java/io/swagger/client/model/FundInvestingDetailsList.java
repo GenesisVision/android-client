@@ -77,6 +77,9 @@ public class FundInvestingDetailsList implements Parcelable
 	@SerializedName("owner")
 	private ProfilePublicShort owner = null;
 
+	@SerializedName("tradingSchedule")
+	private TradingScheduleInfo tradingSchedule = null;
+
 	@SerializedName("statistic")
 	private ProfitChart statistic = null;
 
@@ -101,6 +104,7 @@ public class FundInvestingDetailsList implements Parcelable
 		totalAssetsCount = (Integer) in.readValue(null);
 		topFundAssets = (List<FundAssetPercent>) in.readValue(FundAssetPercent.class.getClassLoader());
 		owner = (ProfilePublicShort) in.readValue(ProfilePublicShort.class.getClassLoader());
+		tradingSchedule = (TradingScheduleInfo) in.readValue(TradingScheduleInfo.class.getClassLoader());
 		statistic = (ProfitChart) in.readValue(ProfitChart.class.getClassLoader());
 		personalDetails = (PersonalInvestingFundDetailsList) in.readValue(PersonalInvestingFundDetailsList.class.getClassLoader());
 		balance = (AmountWithCurrency) in.readValue(AmountWithCurrency.class.getClassLoader());
@@ -323,6 +327,25 @@ public class FundInvestingDetailsList implements Parcelable
 		this.owner = owner;
 	}
 
+	public FundInvestingDetailsList tradingSchedule(TradingScheduleInfo tradingSchedule) {
+		this.tradingSchedule = tradingSchedule;
+		return this;
+	}
+
+	/**
+	 * Get tradingSchedule
+	 *
+	 * @return tradingSchedule
+	 **/
+	@Schema(description = "")
+	public TradingScheduleInfo getTradingSchedule() {
+		return tradingSchedule;
+	}
+
+	public void setTradingSchedule(TradingScheduleInfo tradingSchedule) {
+		this.tradingSchedule = tradingSchedule;
+	}
+
 	public FundInvestingDetailsList statistic(ProfitChart statistic) {
 		this.statistic = statistic;
 		return this;
@@ -400,6 +423,7 @@ public class FundInvestingDetailsList implements Parcelable
 				Objects.equals(this.totalAssetsCount, fundInvestingDetailsList.totalAssetsCount) &&
 				Objects.equals(this.topFundAssets, fundInvestingDetailsList.topFundAssets) &&
 				Objects.equals(this.owner, fundInvestingDetailsList.owner) &&
+				Objects.equals(this.tradingSchedule, fundInvestingDetailsList.tradingSchedule) &&
 				Objects.equals(this.statistic, fundInvestingDetailsList.statistic) &&
 				Objects.equals(this.personalDetails, fundInvestingDetailsList.personalDetails) &&
 				Objects.equals(this.balance, fundInvestingDetailsList.balance);
@@ -407,7 +431,7 @@ public class FundInvestingDetailsList implements Parcelable
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, logoUrl, url, color, title, description, creationDate, investorsCount, totalAssetsCount, topFundAssets, owner, statistic, personalDetails, balance);
+		return Objects.hash(id, logoUrl, url, color, title, description, creationDate, investorsCount, totalAssetsCount, topFundAssets, owner, tradingSchedule, statistic, personalDetails, balance);
 	}
 
 	@Override
@@ -426,6 +450,7 @@ public class FundInvestingDetailsList implements Parcelable
 		sb.append("    totalAssetsCount: ").append(toIndentedString(totalAssetsCount)).append("\n");
 		sb.append("    topFundAssets: ").append(toIndentedString(topFundAssets)).append("\n");
 		sb.append("    owner: ").append(toIndentedString(owner)).append("\n");
+		sb.append("    tradingSchedule: ").append(toIndentedString(tradingSchedule)).append("\n");
 		sb.append("    statistic: ").append(toIndentedString(statistic)).append("\n");
 		sb.append("    personalDetails: ").append(toIndentedString(personalDetails)).append("\n");
 		sb.append("    balance: ").append(toIndentedString(balance)).append("\n");
@@ -456,6 +481,7 @@ public class FundInvestingDetailsList implements Parcelable
 		out.writeValue(totalAssetsCount);
 		out.writeValue(topFundAssets);
 		out.writeValue(owner);
+		out.writeValue(tradingSchedule);
 		out.writeValue(statistic);
 		out.writeValue(personalDetails);
 		out.writeValue(balance);

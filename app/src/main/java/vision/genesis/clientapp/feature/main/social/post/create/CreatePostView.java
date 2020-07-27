@@ -37,6 +37,12 @@ interface CreatePostView extends MvpView
 
 	void showImageViewer(ImageView image, int position, List<NewPostImage> images);
 
+	void showAutoCompleteGvAssetsView(String mask);
+
+	void hideAutoCompleteGvAssetsView();
+
+	void setText(String newText, int selection);
+
 	void setPublishButtonEnabled(boolean enabled);
 
 	void showProgressBar(boolean show);

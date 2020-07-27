@@ -906,11 +906,12 @@
     <string name="new_post">New post</string>
     <string name="new_post_text_hint">Share your ideas.\n- Use @ to mention a user or a GV asset\n- Use # to mention a ticker or add a hashtag</string>
     <string name="publish">Publish</string>
-    <string name="create_post_exit_message">Do you want to finish? All changes will not be saved.</string>
+    <string name="create_post_exit_message">Do you want to finish? The changes will not be saved.</string>
     <string name="finish">Finish</string>
     <string name="share_your_ideas">Share your ideas</string>
     <string name="comment">Comment</string>
     <string name="reply_to">Reply to</string>
+    <string name="user">User</string>
 
 
     <plurals name="assets">

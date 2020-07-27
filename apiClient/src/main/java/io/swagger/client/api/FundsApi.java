@@ -130,7 +130,7 @@ public interface FundsApi
 	 * @param take       (optional)
 	 * @return Call&lt;FundHistoryEventViewModelItemsViewModel&gt;
 	 */
-	@GET("v2.0/funds/{id}/events")
+	@GET("v2.0/funds/{id}/history")
 	Observable<FundHistoryEventViewModelItemsViewModel> getFundsHistoryEvents(
 			@retrofit2.http.Path("id") UUID id, @retrofit2.http.Query("DateFrom") DateTime dateFrom, @retrofit2.http.Query("DateTo") DateTime dateTo, @retrofit2.http.Query("EventsType") FundHistoryEventType eventsType, @retrofit2.http.Query("Skip") Integer skip, @retrofit2.http.Query("Take") Integer take
 	);

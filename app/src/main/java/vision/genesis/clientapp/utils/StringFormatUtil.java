@@ -21,6 +21,7 @@ import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
 import java.util.Locale;
+import java.util.regex.Pattern;
 
 import io.swagger.client.model.Currency;
 import io.swagger.client.model.TradesDelay;
@@ -219,5 +220,39 @@ public class StringFormatUtil
 		}
 
 		return options;
+	}
+
+	public static String getAssetSocialTag(String name, String type) {
+		return String.format(Locale.getDefault(), "%s (%s)", name, type.toLowerCase());
+	}
+
+	public static int getSocialAssetTagStartPos(String text, int pos) {
+		int i = pos;
+		int start = pos;
+		while (i > 0) {
+			if (!Pattern.compile("[@a-zA-Z0-9_-]").matcher(text.subSequence(i - 1, i)).find()) {
+				break;
+			}
+			if (text.charAt(i - 1) == '@') {
+				start = i;
+				break;
+			}
+			i--;
+		}
+		return start;
+	}
+
+	public static int getSocialAssetTagEndPos(String text, int pos) {
+		int i = pos;
+		int end = pos;
+		while (i < text.length() && i > 0) {
+			if (!Pattern.compile("[a-zA-Z0-9_-]").matcher(text.subSequence(i - 1, i)).find()) {
+				end = i;
+				break;
+			}
+			i++;
+		}
+
+		return end;
 	}
 }

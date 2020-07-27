@@ -158,6 +158,7 @@ import vision.genesis.clientapp.feature.splashscreen.SplashScreenPresenter;
 import vision.genesis.clientapp.feature.two_factor.disable.DisableTfaPresenter;
 import vision.genesis.clientapp.feature.two_factor.setup.SetupTfaPresenter;
 import vision.genesis.clientapp.ui.AddNewPostView;
+import vision.genesis.clientapp.ui.AutoCompleteGvAssetsView;
 import vision.genesis.clientapp.ui.ProgramDataView;
 import vision.genesis.clientapp.ui.SocialCommentView;
 import vision.genesis.clientapp.ui.SocialPostView;
@@ -471,4 +472,6 @@ public interface AppComponent
 	void inject(CreatePostPresenter createPostPresenter);
 
 	void inject(AddNewPostView addNewPostView);
+
+	void inject(AutoCompleteGvAssetsView autoCompleteGvAssetsView);
 }

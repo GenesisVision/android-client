@@ -55,11 +55,14 @@ public class FundHistoryEventViewModel implements Parcelable
 	@SerializedName("asset")
 	private BasePlatformAsset asset = null;
 
+	@SerializedName("logoUrl")
+	private String logoUrl = null;
+
 	@SerializedName("trades")
 	private List<FundTradingEventViewModel> trades = null;
 
-	@SerializedName("reallocateAssets")
-	private List<FundAssetPartWithIcon> reallocateAssets = null;
+	@SerializedName("newAssets")
+	private List<FundAssetPartWithIcon> newAssets = null;
 
 	public FundHistoryEventViewModel() {
 	}
@@ -69,8 +72,9 @@ public class FundHistoryEventViewModel implements Parcelable
 		type = (FundHistoryEventType) in.readValue(FundHistoryEventType.class.getClassLoader());
 		amount = (Double) in.readValue(null);
 		asset = (BasePlatformAsset) in.readValue(BasePlatformAsset.class.getClassLoader());
+		logoUrl = (String) in.readValue(null);
 		trades = (List<FundTradingEventViewModel>) in.readValue(FundTradingEventViewModel.class.getClassLoader());
-		reallocateAssets = (List<FundAssetPartWithIcon>) in.readValue(FundAssetPartWithIcon.class.getClassLoader());
+		newAssets = (List<FundAssetPartWithIcon>) in.readValue(FundAssetPartWithIcon.class.getClassLoader());
 	}
 
 	public FundHistoryEventViewModel date(DateTime date) {
@@ -149,6 +153,25 @@ public class FundHistoryEventViewModel implements Parcelable
 		this.asset = asset;
 	}
 
+	public FundHistoryEventViewModel logoUrl(String logoUrl) {
+		this.logoUrl = logoUrl;
+		return this;
+	}
+
+	/**
+	 * Get logoUrl
+	 *
+	 * @return logoUrl
+	 **/
+	@Schema(description = "")
+	public String getLogoUrl() {
+		return logoUrl;
+	}
+
+	public void setLogoUrl(String logoUrl) {
+		this.logoUrl = logoUrl;
+	}
+
 	public FundHistoryEventViewModel trades(List<FundTradingEventViewModel> trades) {
 		this.trades = trades;
 		return this;
@@ -176,31 +199,31 @@ public class FundHistoryEventViewModel implements Parcelable
 		this.trades = trades;
 	}
 
-	public FundHistoryEventViewModel reallocateAssets(List<FundAssetPartWithIcon> reallocateAssets) {
-		this.reallocateAssets = reallocateAssets;
+	public FundHistoryEventViewModel newAssets(List<FundAssetPartWithIcon> newAssets) {
+		this.newAssets = newAssets;
 		return this;
 	}
 
-	public FundHistoryEventViewModel addReallocateAssetsItem(FundAssetPartWithIcon reallocateAssetsItem) {
-		if (this.reallocateAssets == null) {
-			this.reallocateAssets = new ArrayList<FundAssetPartWithIcon>();
+	public FundHistoryEventViewModel addNewAssetsItem(FundAssetPartWithIcon newAssetsItem) {
+		if (this.newAssets == null) {
+			this.newAssets = new ArrayList<FundAssetPartWithIcon>();
 		}
-		this.reallocateAssets.add(reallocateAssetsItem);
+		this.newAssets.add(newAssetsItem);
 		return this;
 	}
 
 	/**
-	 * Get reallocateAssets
+	 * Reallocation/fund creation
 	 *
-	 * @return reallocateAssets
+	 * @return newAssets
 	 **/
-	@Schema(description = "")
-	public List<FundAssetPartWithIcon> getReallocateAssets() {
-		return reallocateAssets;
+	@Schema(description = "Reallocation/fund creation")
+	public List<FundAssetPartWithIcon> getNewAssets() {
+		return newAssets;
 	}
 
-	public void setReallocateAssets(List<FundAssetPartWithIcon> reallocateAssets) {
-		this.reallocateAssets = reallocateAssets;
+	public void setNewAssets(List<FundAssetPartWithIcon> newAssets) {
+		this.newAssets = newAssets;
 	}
 
 	@Override
@@ -216,13 +239,14 @@ public class FundHistoryEventViewModel implements Parcelable
 				Objects.equals(this.type, fundHistoryEventViewModel.type) &&
 				Objects.equals(this.amount, fundHistoryEventViewModel.amount) &&
 				Objects.equals(this.asset, fundHistoryEventViewModel.asset) &&
+				Objects.equals(this.logoUrl, fundHistoryEventViewModel.logoUrl) &&
 				Objects.equals(this.trades, fundHistoryEventViewModel.trades) &&
-				Objects.equals(this.reallocateAssets, fundHistoryEventViewModel.reallocateAssets);
+				Objects.equals(this.newAssets, fundHistoryEventViewModel.newAssets);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(date, type, amount, asset, trades, reallocateAssets);
+		return Objects.hash(date, type, amount, asset, logoUrl, trades, newAssets);
 	}
 
 	@Override
@@ -234,8 +258,9 @@ public class FundHistoryEventViewModel implements Parcelable
 		sb.append("    type: ").append(toIndentedString(type)).append("\n");
 		sb.append("    amount: ").append(toIndentedString(amount)).append("\n");
 		sb.append("    asset: ").append(toIndentedString(asset)).append("\n");
+		sb.append("    logoUrl: ").append(toIndentedString(logoUrl)).append("\n");
 		sb.append("    trades: ").append(toIndentedString(trades)).append("\n");
-		sb.append("    reallocateAssets: ").append(toIndentedString(reallocateAssets)).append("\n");
+		sb.append("    newAssets: ").append(toIndentedString(newAssets)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}
@@ -256,8 +281,9 @@ public class FundHistoryEventViewModel implements Parcelable
 		out.writeValue(type);
 		out.writeValue(amount);
 		out.writeValue(asset);
+		out.writeValue(logoUrl);
 		out.writeValue(trades);
-		out.writeValue(reallocateAssets);
+		out.writeValue(newAssets);
 	}
 
 	public int describeContents() {

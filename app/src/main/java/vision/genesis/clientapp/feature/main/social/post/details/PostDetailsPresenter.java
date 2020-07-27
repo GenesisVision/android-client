@@ -34,10 +34,12 @@ import vision.genesis.clientapp.model.events.OnPictureChooserCameraClickedEvent;
 import vision.genesis.clientapp.model.events.OnPictureChooserGalleryClickedEvent;
 import vision.genesis.clientapp.model.events.ShowManagerDetailsEvent;
 import vision.genesis.clientapp.net.ApiErrorResolver;
+import vision.genesis.clientapp.ui.AutoCompleteGvAssetsView;
 import vision.genesis.clientapp.ui.NewPostImageView;
 import vision.genesis.clientapp.ui.SocialCommentView;
 import vision.genesis.clientapp.utils.Constants;
 import vision.genesis.clientapp.utils.ImageUtils;
+import vision.genesis.clientapp.utils.StringFormatUtil;
 
 /**
  * GenesisVisionAndroid
@@ -45,8 +47,10 @@ import vision.genesis.clientapp.utils.ImageUtils;
  */
 
 @InjectViewState
-public class PostDetailsPresenter extends MvpPresenter<PostDetailsView> implements NewPostImageView.PostImageClickListener, SocialCommentView.Listener
+public class PostDetailsPresenter extends MvpPresenter<PostDetailsView> implements NewPostImageView.PostImageClickListener, SocialCommentView.Listener, AutoCompleteGvAssetsView.Listener
 {
+	private static final int MASK_MIN_LENGTH = 3;
+
 	@Inject
 	public Context context;
 
@@ -74,6 +78,8 @@ public class PostDetailsPresenter extends MvpPresenter<PostDetailsView> implemen
 	private NewPost newComment = new NewPost();
 
 	private Post replyComment;
+
+	private int textSelectionPos = -1;
 
 	@Override
 	protected void onFirstViewAttach() {
@@ -110,9 +116,23 @@ public class PostDetailsPresenter extends MvpPresenter<PostDetailsView> implemen
 	}
 
 
-	void onCommentTextChanged(String text) {
+	void onCommentTextChanged(String text, int selectionStart) {
 		this.newComment.setText(text);
 		updateSendCommentButtonEnabled();
+
+		textSelectionPos = selectionStart;
+
+		if (selectionStart != -1) {
+			int start = StringFormatUtil.getSocialAssetTagStartPos(text, selectionStart);
+			int end = StringFormatUtil.getSocialAssetTagEndPos(text, selectionStart);
+
+			if (end - start >= MASK_MIN_LENGTH) {
+				getViewState().showAutoCompleteGvAssetsView(text.substring(start, end));
+			}
+			else {
+				getViewState().hideAutoCompleteGvAssetsView();
+			}
+		}
 	}
 
 	private void updateSendCommentButtonEnabled() {
@@ -338,5 +358,17 @@ public class PostDetailsPresenter extends MvpPresenter<PostDetailsView> implemen
 	void onCancelReplyClicked() {
 		this.replyComment = null;
 		getViewState().hideReplyGroup();
+	}
+
+	@Override
+	public void onAssetClicked(String assetTag) {
+		if (textSelectionPos != -1 && newComment != null) {
+			int start = StringFormatUtil.getSocialAssetTagStartPos(newComment.getText(), textSelectionPos);
+			int end = StringFormatUtil.getSocialAssetTagEndPos(newComment.getText(), textSelectionPos);
+
+			String newText = newComment.getText().substring(0, start).concat(assetTag).concat(" ").concat(newComment.getText().substring(end));
+			getViewState().setText(newText, start + assetTag.length() + 1);
+			getViewState().hideAutoCompleteGvAssetsView();
+		}
 	}
 }

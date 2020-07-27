@@ -14,6 +14,7 @@ Name | Type | Description | Notes
 **totalAssetsCount** | **Integer** |  |  [optional]
 **topFundAssets** | [**List&lt;FundAssetPercent&gt;**](FundAssetPercent.md) |  |  [optional]
 **owner** | [**ProfilePublicShort**](ProfilePublicShort.md) |  |  [optional]
+**tradingSchedule** | [**TradingScheduleInfo**](TradingScheduleInfo.md) |  |  [optional]
 **statistic** | [**ProfitChart**](ProfitChart.md) |  |  [optional]
 **personalDetails** | [**PersonalInvestingFundDetailsList**](PersonalInvestingFundDetailsList.md) |  |  [optional]
 **balance** | [**AmountWithCurrency**](AmountWithCurrency.md) |  |  [optional]

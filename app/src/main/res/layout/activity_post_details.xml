@@ -102,6 +102,14 @@
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
+    <vision.genesis.clientapp.ui.AutoCompleteGvAssetsView
+        android:id="@+id/view_autocomplete_gv_assets"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/group_add_comment"
+        android:visibility="gone"
+        tools:visibility="visible"/>
+
     <RelativeLayout
         android:id="@+id/group_add_comment"
         android:layout_width="match_parent"

@@ -47,12 +47,16 @@ public class FundAssetDetails implements Parcelable
 	@SerializedName("totalAssetsCount")
 	private Integer totalAssetsCount = null;
 
+	@SerializedName("tradingSchedule")
+	private TradingScheduleInfo tradingSchedule = null;
+
 	public FundAssetDetails() {
 	}
 
 	FundAssetDetails(Parcel in) {
 		topFundAssets = (List<FundAssetPercent>) in.readValue(FundAssetPercent.class.getClassLoader());
 		totalAssetsCount = (Integer) in.readValue(null);
+		tradingSchedule = (TradingScheduleInfo) in.readValue(TradingScheduleInfo.class.getClassLoader());
 	}
 
 	public FundAssetDetails topFundAssets(List<FundAssetPercent> topFundAssets) {
@@ -101,6 +105,25 @@ public class FundAssetDetails implements Parcelable
 		this.totalAssetsCount = totalAssetsCount;
 	}
 
+	public FundAssetDetails tradingSchedule(TradingScheduleInfo tradingSchedule) {
+		this.tradingSchedule = tradingSchedule;
+		return this;
+	}
+
+	/**
+	 * Get tradingSchedule
+	 *
+	 * @return tradingSchedule
+	 **/
+	@Schema(description = "")
+	public TradingScheduleInfo getTradingSchedule() {
+		return tradingSchedule;
+	}
+
+	public void setTradingSchedule(TradingScheduleInfo tradingSchedule) {
+		this.tradingSchedule = tradingSchedule;
+	}
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -111,12 +134,13 @@ public class FundAssetDetails implements Parcelable
 		}
 		FundAssetDetails fundAssetDetails = (FundAssetDetails) o;
 		return Objects.equals(this.topFundAssets, fundAssetDetails.topFundAssets) &&
-				Objects.equals(this.totalAssetsCount, fundAssetDetails.totalAssetsCount);
+				Objects.equals(this.totalAssetsCount, fundAssetDetails.totalAssetsCount) &&
+				Objects.equals(this.tradingSchedule, fundAssetDetails.tradingSchedule);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(topFundAssets, totalAssetsCount);
+		return Objects.hash(topFundAssets, totalAssetsCount, tradingSchedule);
 	}
 
 	@Override
@@ -126,6 +150,7 @@ public class FundAssetDetails implements Parcelable
 
 		sb.append("    topFundAssets: ").append(toIndentedString(topFundAssets)).append("\n");
 		sb.append("    totalAssetsCount: ").append(toIndentedString(totalAssetsCount)).append("\n");
+		sb.append("    tradingSchedule: ").append(toIndentedString(tradingSchedule)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}
@@ -144,6 +169,7 @@ public class FundAssetDetails implements Parcelable
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(topFundAssets);
 		out.writeValue(totalAssetsCount);
+		out.writeValue(tradingSchedule);
 	}
 
 	public int describeContents() {
