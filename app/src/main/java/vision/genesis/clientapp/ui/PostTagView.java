@@ -8,15 +8,12 @@ import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 
-import org.greenrobot.eventbus.EventBus;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import io.swagger.client.model.PostTag;
 import io.swagger.client.model.SocialPostTagType;
 import vision.genesis.clientapp.R;
-import vision.genesis.clientapp.model.events.OnPostTagClickedEvent;
 import vision.genesis.clientapp.utils.StringFormatUtil;
 import vision.genesis.clientapp.utils.ThemeUtil;
 
@@ -29,6 +26,9 @@ public class PostTagView extends RelativeLayout
 {
 	@BindView(R.id.platform_asset_logo)
 	public SimpleDraweeView platformAssetLogo;
+
+	@BindView(R.id.avatar_view)
+	public AvatarView avatarView;
 
 	@BindView(R.id.asset_logo)
 	public ProgramLogoView assetLogo;
@@ -75,21 +75,15 @@ public class PostTagView extends RelativeLayout
 		inflate(getContext(), R.layout.view_post_tag, this);
 
 		unbinder = ButterKnife.bind(this);
-
-		setOnClickListener(v -> {
-			if (tag != null) {
-				EventBus.getDefault().post(new OnPostTagClickedEvent(tag));
-			}
-		});
 	}
 
 	public void setPostTag(PostTag tag) {
 		this.tag = tag;
 
-
 		if (tag.getType().equals(SocialPostTagType.ASSET)) {
 			this.assetType.setVisibility(View.GONE);
 			this.assetLogo.setVisibility(View.GONE);
+			this.avatarView.setVisibility(View.GONE);
 			this.platformAssetLogo.setVisibility(View.VISIBLE);
 			this.change.setVisibility(View.VISIBLE);
 
@@ -116,10 +110,21 @@ public class PostTagView extends RelativeLayout
 				this.value.setText(StringFormatUtil.getValueString(tag.getPlatformAssetDetails().getPrice(), tag.getPlatformAssetDetails().getPriceCurrency().getValue()));
 			}
 		}
+		else if (tag.getType().equals(SocialPostTagType.USER)) {
+			this.assetType.setVisibility(View.GONE);
+			this.assetLogo.setVisibility(View.GONE);
+			this.platformAssetLogo.setVisibility(View.GONE);
+			this.change.setVisibility(View.GONE);
+			this.avatarView.setVisibility(View.VISIBLE);
+
+			this.avatarView.setImage(tag.getUserDetails().getLogoUrl(), 50, 50);
+			this.assetName.setText(tag.getUserDetails().getUsername());
+		}
 		else {
 			this.assetType.setVisibility(View.VISIBLE);
 			this.assetLogo.setVisibility(View.VISIBLE);
 			this.platformAssetLogo.setVisibility(View.GONE);
+			this.avatarView.setVisibility(View.GONE);
 			this.change.setVisibility(View.GONE);
 
 //			if (tag.getAssetDetails().getAssetType().equals(AssetType.PROGRAM)) {

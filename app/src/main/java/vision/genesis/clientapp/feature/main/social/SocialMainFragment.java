@@ -18,10 +18,16 @@ import com.google.android.material.snackbar.Snackbar;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import io.swagger.client.model.Post;
+import io.swagger.client.model.UserFeedMode;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
 import vision.genesis.clientapp.feature.main.social.feed.SocialLiveView;
 import vision.genesis.clientapp.feature.main.social.media.SocialMediaView;
+import vision.genesis.clientapp.feature.main.social.post.actions.SocialPostActionsBottomSheetFragment;
+import vision.genesis.clientapp.feature.main.social.post.create.CreatePostActivity;
+import vision.genesis.clientapp.model.PostsFilter;
+import vision.genesis.clientapp.model.SocialPostType;
 
 /**
  * GenesisVisionAndroid
@@ -38,6 +44,12 @@ public class SocialMainFragment extends BaseFragment implements SocialMainView
 
 	@BindView(R.id.live_view)
 	public SocialLiveView liveView;
+
+	@BindView(R.id.hot_view)
+	public SocialLiveView hotView;
+
+	@BindView(R.id.feed_view)
+	public SocialLiveView feedView;
 
 	@BindView(R.id.progress_bar)
 	public ProgressBar progressBar;
@@ -58,6 +70,24 @@ public class SocialMainFragment extends BaseFragment implements SocialMainView
 		super.onViewCreated(view, savedInstanceState);
 
 		unbinder = ButterKnife.bind(this, view);
+
+		initViews();
+	}
+
+	private void initViews() {
+		PostsFilter liveFilter = new PostsFilter();
+		liveFilter.setShowOnlyUserPosts(true);
+		liveView.setData(SocialLiveView.TYPE_LIVE, liveFilter, presenter);
+
+		PostsFilter hotFilter = new PostsFilter();
+		hotFilter.setShowTop(true);
+		hotFilter.setShowOnlyUserPosts(true);
+		hotView.setData(SocialLiveView.TYPE_HOT, hotFilter, presenter);
+
+		PostsFilter feedFilter = new PostsFilter();
+		feedFilter.setUserMode(UserFeedMode.FRIENDSPOSTS);
+		feedFilter.setShowOnlyUserPosts(true);
+		feedView.setData(SocialLiveView.TYPE_FEED, feedFilter, presenter);
 	}
 
 	@Override
@@ -106,6 +136,20 @@ public class SocialMainFragment extends BaseFragment implements SocialMainView
 	}
 
 	@Override
+	public void updateHot() {
+		if (hotView != null) {
+			hotView.update();
+		}
+	}
+
+	@Override
+	public void updateFeed() {
+		if (feedView != null) {
+			feedView.update();
+		}
+	}
+
+	@Override
 	public void openMediaUrl(String url) {
 		if (getActivity() != null) {
 			try {
@@ -114,6 +158,23 @@ public class SocialMainFragment extends BaseFragment implements SocialMainView
 			} catch (ActivityNotFoundException e) {
 				Snackbar.make(scrollview, getString(R.string.error_cannot_open_link), Snackbar.LENGTH_LONG).show();
 			}
+		}
+	}
+
+	@Override
+	public void showSocialPostActions(Post post, SocialPostType type, boolean isOwnPost, SocialPostActionsBottomSheetFragment.Listener listener) {
+		if (getActivity() != null) {
+			SocialPostActionsBottomSheetFragment bottomSheetDialog = new SocialPostActionsBottomSheetFragment();
+			bottomSheetDialog.show(getActivity().getSupportFragmentManager(), bottomSheetDialog.getTag());
+			bottomSheetDialog.setData(post, type, isOwnPost);
+			bottomSheetDialog.setListener(listener);
+		}
+	}
+
+	@Override
+	public void showEditPost(Post post) {
+		if (getActivity() != null) {
+			CreatePostActivity.startWith(getActivity(), null, post);
 		}
 	}
 

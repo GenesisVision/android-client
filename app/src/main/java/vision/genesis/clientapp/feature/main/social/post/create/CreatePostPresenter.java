@@ -13,13 +13,17 @@ import org.greenrobot.eventbus.Subscribe;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.UUID;
 
 import javax.inject.Inject;
 
+import io.swagger.client.model.EditPost;
+import io.swagger.client.model.EditablePost;
 import io.swagger.client.model.ImageLocation;
 import io.swagger.client.model.NewPost;
 import io.swagger.client.model.NewPostImage;
 import io.swagger.client.model.Post;
+import io.swagger.client.model.PostImage;
 import io.swagger.client.model.UploadResult;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
@@ -59,6 +63,8 @@ public class CreatePostPresenter extends MvpPresenter<CreatePostView> implements
 
 	private File newImageFile;
 
+	private Subscription getOriginalPostSubscription;
+
 	private Subscription uploadImageSubscription;
 
 	private Subscription createPostSubscription;
@@ -66,6 +72,10 @@ public class CreatePostPresenter extends MvpPresenter<CreatePostView> implements
 	private NewPost post = new NewPost();
 
 	private Post repost;
+
+	private Post postToEdit;
+
+	private EditPost editPost;
 
 	private int textSelectionPos = -1;
 
@@ -78,10 +88,17 @@ public class CreatePostPresenter extends MvpPresenter<CreatePostView> implements
 		EventBus.getDefault().register(this);
 
 		post.setImages(new ArrayList<>());
+
+		if (postToEdit != null) {
+			getOriginalPost(postToEdit.getId());
+		}
 	}
 
 	@Override
 	public void onDestroy() {
+		if (getOriginalPostSubscription != null) {
+			getOriginalPostSubscription.unsubscribe();
+		}
 		if (uploadImageSubscription != null) {
 			uploadImageSubscription.unsubscribe();
 		}
@@ -94,9 +111,14 @@ public class CreatePostPresenter extends MvpPresenter<CreatePostView> implements
 		super.onDestroy();
 	}
 
-	void setData(Post repost) {
+	void setRepost(Post repost) {
 		this.repost = repost;
 		getViewState().showRepost(repost);
+	}
+
+	void setPostToEdit(Post postToEdit) {
+		this.postToEdit = postToEdit;
+		getOriginalPost(postToEdit.getId());
 	}
 
 	void onTextChanged(String text, int selectionStart) {
@@ -161,8 +183,54 @@ public class CreatePostPresenter extends MvpPresenter<CreatePostView> implements
 	}
 
 	void onPublishClicked() {
-		getViewState().showProgressBar(true);
-		createPost();
+		getViewState().showProgressBarButton(true);
+		if (editPost == null) {
+			createPost();
+		}
+		else {
+			editPost();
+		}
+	}
+
+	private void getOriginalPost(UUID postId) {
+		if (socialManager != null) {
+			if (getOriginalPostSubscription != null) {
+				getOriginalPostSubscription.unsubscribe();
+			}
+			getOriginalPostSubscription = socialManager.getOriginalPost(postId)
+					.subscribeOn(Schedulers.io())
+					.observeOn(AndroidSchedulers.mainThread())
+					.subscribe(this::handleGetOriginalCommentSuccess,
+							this::handleGetOriginalCommentError);
+		}
+	}
+
+	private void handleGetOriginalCommentSuccess(EditablePost post) {
+		getOriginalPostSubscription.unsubscribe();
+
+		editPost = new EditPost();
+		editPost.setId(post.getId());
+		this.post.setImages(new ArrayList<>());
+		this.post.setText(post.getTextOriginal());
+		int i = 0;
+		for (PostImage image : post.getImages()) {
+			NewPostImage newPostImage = new NewPostImage();
+			newPostImage.setImage(image.getId());
+			newPostImage.setPosition(i);
+			this.post.getImages().add(newPostImage);
+			getViewState().createNewImageView();
+			getViewState().updateNewImageView(image.getId());
+			i++;
+		}
+		updatePublishButtonEnabled();
+		getViewState().setText(this.post.getText(), this.post.getText().length());
+
+		getViewState().showProgressBar(false);
+	}
+
+	private void handleGetOriginalCommentError(Throwable throwable) {
+		getOriginalPostSubscription.unsubscribe();
+		ApiErrorResolver.resolveErrors(throwable, message -> getViewState().showSnackbarMessage(message));
 	}
 
 	private void createPost() {
@@ -185,7 +253,31 @@ public class CreatePostPresenter extends MvpPresenter<CreatePostView> implements
 
 	private void handleCreatePostError(Throwable throwable) {
 		createPostSubscription.unsubscribe();
-		getViewState().showProgressBar(false);
+		getViewState().showProgressBarButton(false);
+
+		ApiErrorResolver.resolveErrors(throwable, message -> getViewState().showSnackbarMessage(message));
+	}
+
+	private void editPost() {
+		if (socialManager != null && editPost != null) {
+			editPost.setText(post.getText());
+			editPost.setImages(post.getImages());
+			createPostSubscription = socialManager.editPost(editPost)
+					.observeOn(AndroidSchedulers.mainThread())
+					.subscribeOn(Schedulers.io())
+					.subscribe(this::handleEditPostSuccess,
+							this::handleEditPostError);
+		}
+	}
+
+	private void handleEditPostSuccess(Void response) {
+		createPostSubscription.unsubscribe();
+		getViewState().finishActivity();
+	}
+
+	private void handleEditPostError(Throwable throwable) {
+		createPostSubscription.unsubscribe();
+		getViewState().showProgressBarButton(false);
 
 		ApiErrorResolver.resolveErrors(throwable, message -> getViewState().showSnackbarMessage(message));
 	}

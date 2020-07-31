@@ -13,11 +13,11 @@ import vision.genesis.clientapp.feature.main.message.MessageBottomSheetDialog;
 import vision.genesis.clientapp.model.AppUpdateModel;
 import vision.genesis.clientapp.model.CopytradingAccountModel;
 import vision.genesis.clientapp.model.FundDetailsModel;
-import vision.genesis.clientapp.model.ManagerDetailsModel;
 import vision.genesis.clientapp.model.OpenTradeModel;
 import vision.genesis.clientapp.model.ProgramDetailsModel;
 import vision.genesis.clientapp.model.ProgramRequest;
 import vision.genesis.clientapp.model.TradingAccountDetailsModel;
+import vision.genesis.clientapp.model.UserDetailsModel;
 import vision.genesis.clientapp.model.WalletModel;
 
 /**
@@ -75,7 +75,7 @@ public interface MainView extends MvpView
 
 	void showTransactionDetails(TransactionViewModel transaction);
 
-	void showManagerDetails(ManagerDetailsModel model);
+	void showUserDetails(UserDetailsModel model);
 
 	void showProgramsRating(AssetFacet facet);
 
@@ -93,7 +93,7 @@ public interface MainView extends MvpView
 
 	void showTradingAccountDetails(TradingAccountDetailsModel tradingAccountDetailsModel);
 
-	void showSocialActivity();
+	void showSocialActivity(String showPage);
 
 	void showMediaActivity();
 
@@ -102,4 +102,6 @@ public interface MainView extends MvpView
 	void showCreatePostActivity();
 
 	void showCreatePostActivityWithRepost(Post post);
+
+	void showReportPostActivity(Post post);
 }

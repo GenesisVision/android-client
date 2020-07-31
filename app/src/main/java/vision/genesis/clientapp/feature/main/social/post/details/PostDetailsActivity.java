@@ -37,6 +37,7 @@ import java.util.UUID;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.swagger.client.model.EditablePost;
 import io.swagger.client.model.NewPostImage;
 import io.swagger.client.model.Post;
 import permissions.dispatcher.NeedsPermission;
@@ -51,6 +52,9 @@ import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseSwipeBackActivity;
 import vision.genesis.clientapp.feature.common.image_crop.ImageCropActivity;
 import vision.genesis.clientapp.feature.main.profile.PictureChooserBottomSheetFragment;
+import vision.genesis.clientapp.feature.main.social.post.actions.SocialPostActionsBottomSheetFragment;
+import vision.genesis.clientapp.feature.main.social.post.create.CreatePostActivity;
+import vision.genesis.clientapp.model.SocialPostType;
 import vision.genesis.clientapp.ui.AutoCompleteGvAssetsView;
 import vision.genesis.clientapp.ui.ImageViewerOverlayView;
 import vision.genesis.clientapp.ui.NewPostImageView;
@@ -142,6 +146,11 @@ public class PostDetailsActivity extends BaseSwipeBackActivity implements PostDe
 		finishActivity();
 	}
 
+	@OnClick(R.id.button_menu)
+	public void onMenuClicked() {
+		presenter.onPostMenuButtonClicked(postView);
+	}
+
 	@OnClick(R.id.button_cancel_reply)
 	public void onCancelReplyClicked() {
 		presenter.onCancelReplyClicked();
@@ -186,11 +195,19 @@ public class PostDetailsActivity extends BaseSwipeBackActivity implements PostDe
 				}
 				presenter.setData(postId);
 				postView.setDetailsMode(true);
+				postView.setListener(presenter);
 				return;
 			}
 		}
 		Timber.e("Passed empty data to %s", getClass().getSimpleName());
 		onBackPressed();
+	}
+
+	protected void onResume() {
+		super.onResume();
+		if (presenter != null) {
+			presenter.onResume();
+		}
 	}
 
 	private void initRefreshLayout() {
@@ -213,6 +230,7 @@ public class PostDetailsActivity extends BaseSwipeBackActivity implements PostDe
 			this.commentsGroup.removeAllViews();
 			for (Post comment : post.getComments()) {
 				SocialCommentView view = new SocialCommentView(this);
+				view.setCanCommentPost(post.getPersonalDetails() != null && post.getPersonalDetails().isCanComment());
 				view.setComment(comment);
 				view.setListener(presenter);
 				commentsGroup.addView(view);
@@ -249,6 +267,7 @@ public class PostDetailsActivity extends BaseSwipeBackActivity implements PostDe
 		finishActivity();
 	}
 
+	@Override
 	public void finishActivity() {
 		finish();
 		overridePendingTransition(R.anim.hold, R.anim.slide_to_right);
@@ -403,12 +422,32 @@ public class PostDetailsActivity extends BaseSwipeBackActivity implements PostDe
 		this.imageViews.clear();
 		this.commentImagesGroup.removeAllViews();
 		this.commentImageButton.setEnabled(true);
+		hideSoftKeyboard();
 	}
 
 	@Override
 	public void showMyAddedComment() {
-		hideSoftKeyboard();
 		scrollview.post(() -> scrollview.smoothScrollTo(0, commentsSection.getBottom()));
+	}
+
+	@Override
+	public void showSocialPostActions(Post post, SocialPostType type, boolean isOwnPost, SocialPostActionsBottomSheetFragment.Listener listener) {
+		SocialPostActionsBottomSheetFragment bottomSheetDialog = new SocialPostActionsBottomSheetFragment();
+		bottomSheetDialog.show(getSupportFragmentManager(), bottomSheetDialog.getTag());
+		bottomSheetDialog.setData(post, type, isOwnPost);
+		bottomSheetDialog.setListener(listener);
+	}
+
+	@Override
+	public void showEditPost(Post post) {
+		CreatePostActivity.startWith(this, null, post);
+	}
+
+	@Override
+	public void showEditComment(EditablePost comment) {
+		this.commentText.setText(comment.getTextOriginal());
+		this.commentText.setSelection(comment.getTextOriginal().length());
+		showSoftKeyboard(commentText);
 	}
 
 	private void showSoftKeyboard(View view) {

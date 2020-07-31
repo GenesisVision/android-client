@@ -6,6 +6,7 @@ import org.greenrobot.eventbus.Subscribe;
 import io.swagger.client.api.ProfileApi;
 import io.swagger.client.model.ProfileFullViewModel;
 import io.swagger.client.model.SocialLinksViewModel;
+import io.swagger.client.model.SocialViewMode;
 import io.swagger.client.model.UpdateProfileViewModel;
 import io.swagger.client.model.UpdateSocialLinksViewModel;
 import rx.Observable;
@@ -118,5 +119,9 @@ public class ProfileManager
 
 	public Observable<Void> updateSocialLinks(UpdateSocialLinksViewModel model) {
 		return profileApi.updateAllSocialLinks(model);
+	}
+
+	public Observable<Void> updateSocialSettings(SocialViewMode whoCanPostToMyWall, SocialViewMode whoCanViewCommentsOnMyPost, SocialViewMode whoCanCommentOnMyPost) {
+		return profileApi.updateUserSocialSettings(whoCanPostToMyWall, whoCanViewCommentsOnMyPost, whoCanCommentOnMyPost);
 	}
 }

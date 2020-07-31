@@ -34,13 +34,13 @@ import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
 import vision.genesis.clientapp.feature.auth.login.LoginActivity;
 import vision.genesis.clientapp.feature.common.requests.RequestsBottomSheetFragment;
-import vision.genesis.clientapp.feature.main.manager.ManagerDetailsActivity;
 import vision.genesis.clientapp.feature.main.message.MessageBottomSheetDialog;
 import vision.genesis.clientapp.feature.main.program.ProgramDetailsPagerAdapter;
 import vision.genesis.clientapp.feature.main.program.invest.InvestProgramActivity;
 import vision.genesis.clientapp.feature.main.program.withdraw.WithdrawProgramActivity;
-import vision.genesis.clientapp.model.ManagerDetailsModel;
+import vision.genesis.clientapp.feature.main.user.UserDetailsActivity;
 import vision.genesis.clientapp.model.ProgramRequest;
+import vision.genesis.clientapp.model.UserDetailsModel;
 import vision.genesis.clientapp.ui.AccountAgeView;
 import vision.genesis.clientapp.ui.AvatarView;
 import vision.genesis.clientapp.ui.InvestmentStatusView;
@@ -228,12 +228,12 @@ public class ProgramInfoFragment extends BaseFragment implements ProgramInfoView
 	public void onManagerClicked() {
 		if (getActivity() != null) {
 			ProfilePublic manager = details.getOwner();
-			ManagerDetailsModel model = new ManagerDetailsModel(
+			UserDetailsModel model = new UserDetailsModel(
 					manager.getId(),
 					manager.getLogoUrl(),
 					manager.getUsername(),
 					manager.getRegistrationDate());
-			ManagerDetailsActivity.startWith(getActivity(), model);
+			UserDetailsActivity.startWith(getActivity(), model);
 		}
 	}
 

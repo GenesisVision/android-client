@@ -1,8 +1,11 @@
 package vision.genesis.clientapp.managers;
 
+import java.util.UUID;
+
 import io.swagger.client.api.UsersApi;
 import io.swagger.client.model.ImageQuality;
 import io.swagger.client.model.PublicProfile;
+import io.swagger.client.model.PublicProfileFollow;
 import rx.Observable;
 
 /**
@@ -22,4 +25,7 @@ public class UsersManager
 		return usersApi.getUserProfile(userId, imageQuality);
 	}
 
+	public Observable<PublicProfileFollow> getFollow(UUID userId) {
+		return usersApi.getUserProfileFollowDetails(userId.toString());
+	}
 }

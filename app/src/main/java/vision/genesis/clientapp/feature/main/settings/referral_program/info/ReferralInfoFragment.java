@@ -88,7 +88,7 @@ public class ReferralInfoFragment extends BaseFragment implements ReferralInfoVi
 		ClipData clipData = ClipData.newPlainText("referral link", refUrl);
 		if (clipboardManager != null) {
 			clipboardManager.setPrimaryClip(clipData);
-			Toast.makeText(getContext(), getContext().getString(R.string.address_copied), Toast.LENGTH_SHORT).show();
+			Toast.makeText(getContext(), getContext().getString(R.string.copied_to_the_clipboard), Toast.LENGTH_SHORT).show();
 		}
 		else {
 			Toast.makeText(getContext(), getContext().getString(R.string.cannot_copy), Toast.LENGTH_SHORT).show();

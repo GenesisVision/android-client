@@ -128,7 +128,7 @@
     <string name="this_is_your_gvt_address">This is your GVT wallet address:</string>
     <string name="copy">Copy</string>
     <string name="for_depositing_just_send">For depositing just send the desired amount of GVT to this address. Or use the QR code below:</string>
-    <string name="address_copied">Copied to the clipboard</string>
+    <string name="copied_to_the_clipboard">Copied to the clipboard</string>
     <string name="cannot_copy">Cannot copy</string>
 
     <string name="enter_desired_amount_withdraw">Enter correct amount you would like to withdraw</string>
@@ -912,6 +912,25 @@
     <string name="comment">Comment</string>
     <string name="reply_to">Reply to</string>
     <string name="user">User</string>
+    <string name="followers">Followers</string>
+    <string name="following">Following</string>
+    <string name="my_profile">My profile</string>
+    <string name="privacy">Privacy</string>
+    <string name="who_can_post_to_my_wall">Who can post to my wall</string>
+    <string name="who_can_view_comments_on_my_post">Who can view comments on my posts</string>
+    <string name="who_can_comment_on_my_posts">Who can comment on my posts</string>
+    <string name="all_users">All users</string>
+    <string name="only_me">Only me</string>
+    <string name="pin">Pin</string>
+    <string name="copy_link">Copy link</string>
+    <string name="report">Report</string>
+    <string name="unpin">Unpin</string>
+    <string name="post_is_deleted">The post is deleted</string>
+    <string name="undo">Undo</string>
+    <string name="edit_post">Edit post</string>
+    <string name="send">Send</string>
+    <string name="please_select_reason">Please select a reason</string>
+    <string name="describe_problem_in_more_detail">Describe the problem in more detail</string>
 
 
     <plurals name="assets">

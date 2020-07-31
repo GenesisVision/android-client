@@ -3,6 +3,8 @@ package vision.genesis.clientapp.managers;
 import java.util.UUID;
 
 import io.swagger.client.api.SocialApi;
+import io.swagger.client.model.EditPost;
+import io.swagger.client.model.EditablePost;
 import io.swagger.client.model.MediaPostItemsViewModel;
 import io.swagger.client.model.NewPost;
 import io.swagger.client.model.Post;
@@ -62,5 +64,41 @@ public class SocialManager
 
 	public Observable<Void> sendComment(NewPost body) {
 		return socialApi.addPost(body);
+	}
+
+	public Observable<Void> follow(UUID userId) {
+		return socialApi.followUser(userId);
+	}
+
+	public Observable<Void> unfollow(UUID userId) {
+		return socialApi.unfollowUser(userId);
+	}
+
+	public Observable<Void> pinPost(UUID postId) {
+		return socialApi.pinPost(postId);
+	}
+
+	public Observable<Void> unpinPost(UUID postId) {
+		return socialApi.unpinPost(postId);
+	}
+
+	public Observable<EditablePost> getOriginalPost(UUID postId) {
+		return socialApi.getOriginalPost(postId.toString());
+	}
+
+	public Observable<Void> editPost(EditPost editablePost) {
+		return socialApi.editPost(editablePost);
+	}
+
+	public Observable<Void> deletePost(UUID postId) {
+		return socialApi.deletePost(postId);
+	}
+
+	public Observable<Void> revertDelete(UUID postId) {
+		return socialApi.revertDeletingPost(postId);
+	}
+
+	public Observable<Void> reportPost(UUID postId, String reason, String description) {
+		return socialApi.spamReport(postId.toString(), reason, description);
 	}
 }

@@ -10,14 +10,18 @@ import org.greenrobot.eventbus.Subscribe;
 
 import javax.inject.Inject;
 
+import io.swagger.client.model.Post;
 import io.swagger.client.model.ProfileFullViewModel;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
+import vision.genesis.clientapp.feature.main.social.feed.SocialLiveView;
+import vision.genesis.clientapp.feature.main.social.post.actions.SocialPostActionsBottomSheetFragment;
 import vision.genesis.clientapp.managers.AuthManager;
 import vision.genesis.clientapp.managers.ProfileManager;
 import vision.genesis.clientapp.managers.SettingsManager;
+import vision.genesis.clientapp.model.SocialPostType;
 import vision.genesis.clientapp.model.events.OnMediaPostClickedEvent;
 import vision.genesis.clientapp.net.ApiErrorResolver;
 
@@ -27,7 +31,7 @@ import vision.genesis.clientapp.net.ApiErrorResolver;
  */
 
 @InjectViewState
-public class SocialMainPresenter extends MvpPresenter<SocialMainView>
+public class SocialMainPresenter extends MvpPresenter<SocialMainView> implements SocialLiveView.Listener
 {
 	@Inject
 	public Context context;
@@ -79,6 +83,8 @@ public class SocialMainPresenter extends MvpPresenter<SocialMainView>
 	private void updateAll() {
 		getViewState().updateMedia();
 		getViewState().updateLive();
+		getViewState().updateHot();
+		getViewState().updateFeed();
 	}
 
 	private void getProfileInfo() {
@@ -102,5 +108,16 @@ public class SocialMainPresenter extends MvpPresenter<SocialMainView>
 		if (isActive) {
 			getViewState().openMediaUrl(event.getPost().getUrl());
 		}
+	}
+
+	@Override
+	public void onShowSocialPostActions(Post post, SocialPostType type, boolean isOwnPost, SocialPostActionsBottomSheetFragment.Listener listener) {
+		getViewState().showSocialPostActions(post, type, isOwnPost, listener);
+
+	}
+
+	@Override
+	public void onPostEditClicked(Post post) {
+		getViewState().showEditPost(post);
 	}
 }

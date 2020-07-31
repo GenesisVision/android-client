@@ -35,10 +35,10 @@ import vision.genesis.clientapp.feature.common.requests.RequestsBottomSheetFragm
 import vision.genesis.clientapp.feature.main.fund.FundDetailsPagerAdapter;
 import vision.genesis.clientapp.feature.main.fund.invest.InvestFundActivity;
 import vision.genesis.clientapp.feature.main.fund.withdraw.WithdrawFundActivity;
-import vision.genesis.clientapp.feature.main.manager.ManagerDetailsActivity;
+import vision.genesis.clientapp.feature.main.user.UserDetailsActivity;
 import vision.genesis.clientapp.model.CurrencyEnum;
 import vision.genesis.clientapp.model.FundRequest;
-import vision.genesis.clientapp.model.ManagerDetailsModel;
+import vision.genesis.clientapp.model.UserDetailsModel;
 import vision.genesis.clientapp.ui.AvatarView;
 import vision.genesis.clientapp.ui.InvestmentStatusView;
 import vision.genesis.clientapp.ui.PrimaryButton;
@@ -177,12 +177,12 @@ public class FundInfoFragment extends BaseFragment implements FundInfoView, Fund
 	public void onManagerClicked() {
 		if (getActivity() != null) {
 			ProfilePublic manager = fundDetails.getOwner();
-			ManagerDetailsModel model = new ManagerDetailsModel(
+			UserDetailsModel model = new UserDetailsModel(
 					manager.getId(),
 					manager.getLogoUrl(),
 					manager.getUsername(),
 					manager.getRegistrationDate());
-			ManagerDetailsActivity.startWith(getActivity(), model);
+			UserDetailsActivity.startWith(getActivity(), model);
 		}
 	}
 

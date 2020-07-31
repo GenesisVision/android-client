@@ -215,7 +215,7 @@ public interface SocialApi
 	 * @return Call&lt;EditablePost&gt;
 	 */
 	@POST("v2.0/social/feed/{id}/report")
-	Observable<EditablePost> spamReport(
+	Observable<Void> spamReport(
 			@retrofit2.http.Path("id") String id, @retrofit2.http.Query("reason") String reason, @retrofit2.http.Query("text") String text
 	);
 

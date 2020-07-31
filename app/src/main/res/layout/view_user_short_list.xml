@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:background="?attr/selectableItemBackground"
+                android:paddingLeft="@dimen/padding"
+                android:paddingRight="@dimen/padding">
+
+    <vision.genesis.clientapp.ui.AvatarView
+        android:id="@+id/avatar"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_centerVertical="true"/>
+
+    <TextView
+        android:id="@+id/name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="@dimen/padding"
+        android:layout_toStartOf="@+id/group_right"
+        android:layout_toEndOf="@+id/avatar"
+        android:ellipsize="end"
+        android:maxLines="2"
+        android:textColor="?attr/colorTextPrimary"
+        android:textSize="14sp"
+        tools:text="Nicholas Barton"/>
+
+    <RelativeLayout
+        android:id="@+id/group_right"
+        android:layout_width="100dp"
+        android:layout_height="40dp"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="8dp">
+
+        <RelativeLayout
+            android:id="@+id/group_buttons"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <vision.genesis.clientapp.ui.PrimaryButton
+                android:id="@+id/button_follow"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@string/follow"/>
+
+            <vision.genesis.clientapp.ui.PrimaryButton
+                android:id="@+id/button_unfollow"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@string/unfollow"/>
+
+        </RelativeLayout>
+
+        <ProgressBar
+            android:id="@+id/progress_bar"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_centerInParent="true"
+            android:visibility="gone"/>
+
+    </RelativeLayout>
+
+</RelativeLayout>

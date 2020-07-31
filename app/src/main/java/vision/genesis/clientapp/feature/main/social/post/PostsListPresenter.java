@@ -5,6 +5,9 @@ import android.content.Context;
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,14 +15,20 @@ import javax.inject.Inject;
 
 import io.swagger.client.model.Post;
 import io.swagger.client.model.PostItemsViewModel;
+import io.swagger.client.model.ProfileFullViewModel;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
+import vision.genesis.clientapp.feature.main.social.post.actions.SocialPostActionsBottomSheetFragment;
+import vision.genesis.clientapp.managers.ProfileManager;
 import vision.genesis.clientapp.managers.SocialManager;
 import vision.genesis.clientapp.model.PostsFilter;
+import vision.genesis.clientapp.model.SocialPostType;
+import vision.genesis.clientapp.model.events.SetPostDeletedEvent;
 import vision.genesis.clientapp.net.ApiErrorResolver;
+import vision.genesis.clientapp.ui.SocialPostView;
 
 /**
  * GenesisVisionAndroid
@@ -27,7 +36,7 @@ import vision.genesis.clientapp.net.ApiErrorResolver;
  */
 
 @InjectViewState
-public class PostsListPresenter extends MvpPresenter<PostsListView>
+public class PostsListPresenter extends MvpPresenter<PostsListView> implements SocialPostView.Listener
 {
 	private static int TAKE = 10;
 
@@ -35,7 +44,12 @@ public class PostsListPresenter extends MvpPresenter<PostsListView>
 	public Context context;
 
 	@Inject
+	public ProfileManager profileManager;
+
+	@Inject
 	public SocialManager socialManager;
+
+	private Subscription getProfileSubscription;
 
 	private Subscription getPostsSubscription;
 
@@ -45,21 +59,31 @@ public class PostsListPresenter extends MvpPresenter<PostsListView>
 
 	private PostsFilter filter;
 
+	private ProfileFullViewModel profile;
+
 	@Override
 	protected void onFirstViewAttach() {
 		super.onFirstViewAttach();
 
 		GenesisVisionApplication.getComponent().inject(this);
 
+		EventBus.getDefault().register(this);
+
 		getViewState().setRefreshing(true);
+		getProfileInfo();
 		getPostsList(true);
 	}
 
 	@Override
 	public void onDestroy() {
+		if (getProfileSubscription != null) {
+			getProfileSubscription.unsubscribe();
+		}
 		if (getPostsSubscription != null) {
 			getPostsSubscription.unsubscribe();
 		}
+
+		EventBus.getDefault().unregister(this);
 
 		super.onDestroy();
 	}
@@ -77,6 +101,22 @@ public class PostsListPresenter extends MvpPresenter<PostsListView>
 	void onLastListItemVisible() {
 		getViewState().showBottomProgress(true);
 		getPostsList(false);
+	}
+
+	private void getProfileInfo() {
+		getProfileSubscription = profileManager.getProfileFull(true)
+				.subscribeOn(Schedulers.io())
+				.observeOn(AndroidSchedulers.mainThread())
+				.subscribe(this::handleGetProfileSuccess,
+						this::handleGetProfileError);
+	}
+
+	private void handleGetProfileSuccess(ProfileFullViewModel profile) {
+		this.profile = profile;
+	}
+
+	private void handleGetProfileError(Throwable throwable) {
+		ApiErrorResolver.resolveErrors(throwable, message -> getViewState().showSnackbarMessage(message));
 	}
 
 	private void getPostsList(boolean forceUpdate) {
@@ -140,5 +180,30 @@ public class PostsListPresenter extends MvpPresenter<PostsListView>
 			}
 			getViewState().showSnackbarMessage(context.getResources().getString(R.string.network_error));
 		}
+	}
+
+	@Subscribe
+	public void onEventMainThread(SetPostDeletedEvent event) {
+		getViewState().setPostDeleted(event.getPost(), event.isDeleted());
+	}
+
+	@Override
+	public void onPostMenuButtonClicked(Post post, SocialPostActionsBottomSheetFragment.Listener listener) {
+		boolean isOwnPost = false;
+		if (profile != null) {
+			isOwnPost = profile.getId().toString().equals(post.getAuthor().getId().toString());
+		}
+		getViewState().showSocialPostActions(post, SocialPostType.POST, isOwnPost, listener);
+
+	}
+
+	@Override
+	public void onPostEditClicked(Post post) {
+		getViewState().showEditPost(post);
+	}
+
+	@Override
+	public void onPostDeleted(Post post) {
+
 	}
 }

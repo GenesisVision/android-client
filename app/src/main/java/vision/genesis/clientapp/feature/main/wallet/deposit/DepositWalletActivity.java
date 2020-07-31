@@ -87,7 +87,7 @@ public class DepositWalletActivity extends BaseSwipeBackActivity implements Depo
 		ClipData clipData = ClipData.newPlainText("address", model.getAddress());
 		if (clipboardManager != null) {
 			clipboardManager.setPrimaryClip(clipData);
-			Toast.makeText(this, getString(R.string.address_copied), Toast.LENGTH_SHORT).show();
+			Toast.makeText(this, getString(R.string.copied_to_the_clipboard), Toast.LENGTH_SHORT).show();
 		}
 		else {
 			Toast.makeText(this, getString(R.string.cannot_copy), Toast.LENGTH_SHORT).show();

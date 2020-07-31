@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/background_bottomsheet">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/padding"
+            android:layout_marginBottom="@dimen/padding"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/edit"
+                style="@style/text_post_action_option"
+                android:text="@string/edit"/>
+
+            <TextView
+                android:id="@+id/pin"
+                style="@style/text_post_action_option"
+                android:text="@string/pin"/>
+
+            <TextView
+                android:id="@+id/unpin"
+                style="@style/text_post_action_option"
+                android:text="@string/unpin"/>
+
+            <TextView
+                android:id="@+id/delete"
+                style="@style/text_post_action_option"
+                android:text="@string/delete"/>
+
+            <TextView
+                android:id="@+id/copy_link"
+                style="@style/text_post_action_option"
+                android:text="@string/copy_link"/>
+
+            <TextView
+                android:id="@+id/report"
+                style="@style/text_post_action_option"
+                android:text="@string/report"/>
+
+            <TextView
+                android:id="@+id/share"
+                style="@style/text_post_action_option"
+                android:text="@string/share"/>
+
+        </LinearLayout>
+
+        <RelativeLayout
+            android:id="@+id/group_progress_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentBottom="true"
+            android:clickable="true"
+            android:focusable="true"
+            android:visibility="gone"
+            tools:visibility="visible">
+
+            <ProgressBar
+                android:id="@+id/progress_bar"
+                style="?android:attr/progressBarStyleLarge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"/>
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="45dp"
+        android:layout_height="3dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/line_bottomsheet"/>
+
+</RelativeLayout>

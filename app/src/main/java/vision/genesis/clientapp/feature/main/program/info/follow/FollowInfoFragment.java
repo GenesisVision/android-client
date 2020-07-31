@@ -37,10 +37,10 @@ import vision.genesis.clientapp.feature.auth.login.LoginActivity;
 import vision.genesis.clientapp.feature.main.copytrading.edit_subscription.EditSubscriptionActivity;
 import vision.genesis.clientapp.feature.main.copytrading.follow_trades.FollowTradesActivity;
 import vision.genesis.clientapp.feature.main.copytrading.unfollow_trades.UnfollowTradesActivity;
-import vision.genesis.clientapp.feature.main.manager.ManagerDetailsActivity;
 import vision.genesis.clientapp.feature.main.program.ProgramDetailsPagerAdapter;
-import vision.genesis.clientapp.model.ManagerDetailsModel;
+import vision.genesis.clientapp.feature.main.user.UserDetailsActivity;
 import vision.genesis.clientapp.model.SubscriptionSettingsModel;
+import vision.genesis.clientapp.model.UserDetailsModel;
 import vision.genesis.clientapp.ui.AccountAgeView;
 import vision.genesis.clientapp.ui.AvatarView;
 import vision.genesis.clientapp.ui.FollowSubscriberView;
@@ -147,12 +147,12 @@ public class FollowInfoFragment extends BaseFragment implements FollowInfoView, 
 	public void onManagerClicked() {
 		if (getActivity() != null) {
 			ProfilePublic manager = details.getOwner();
-			ManagerDetailsModel model = new ManagerDetailsModel(
+			UserDetailsModel model = new UserDetailsModel(
 					manager.getId(),
 					manager.getLogoUrl(),
 					manager.getUsername(),
 					manager.getRegistrationDate());
-			ManagerDetailsActivity.startWith(getActivity(), model);
+			UserDetailsActivity.startWith(getActivity(), model);
 		}
 	}
 

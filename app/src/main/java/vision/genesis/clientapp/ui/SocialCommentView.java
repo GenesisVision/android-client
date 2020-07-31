@@ -1,6 +1,9 @@
 package vision.genesis.clientapp.ui;
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Point;
 import android.os.Build;
@@ -18,6 +21,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.core.content.ContextCompat;
 
@@ -51,24 +55,38 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
+import vision.genesis.clientapp.feature.main.social.post.actions.SocialPostActionsBottomSheetFragment;
 import vision.genesis.clientapp.managers.SocialManager;
 import vision.genesis.clientapp.model.PostTagMatch;
+import vision.genesis.clientapp.model.SocialPostType;
+import vision.genesis.clientapp.model.UserDetailsModel;
 import vision.genesis.clientapp.model.events.OnHashTagClickedEvent;
-import vision.genesis.clientapp.model.events.OnPostTagClickedEvent;
+import vision.genesis.clientapp.model.events.ShowReportPostEvent;
+import vision.genesis.clientapp.model.events.ShowUserDetailsEvent;
 import vision.genesis.clientapp.utils.DateTimeUtil;
+import vision.genesis.clientapp.utils.PostTagClickHandler;
+import vision.genesis.clientapp.utils.StringFormatUtil;
 import vision.genesis.clientapp.utils.ThemeUtil;
 import vision.genesis.clientapp.utils.TypedValueFormatter;
+
+import static android.content.Context.CLIPBOARD_SERVICE;
 
 /**
  * GenesisVisionAndroid
  * Created by Vitaly on 13/06/2020.
  */
 
-public class SocialCommentView extends RelativeLayout implements PostImageView.PostImageClickListener
+public class SocialCommentView extends RelativeLayout implements PostImageView.PostImageClickListener, SocialPostActionsBottomSheetFragment.Listener
 {
 	public interface Listener
 	{
+		void onCommentMenuButtonClicked(Post comment, SocialPostActionsBottomSheetFragment.Listener listener);
+
 		void onReplyCommentClicked(Post comment);
+
+		void onCommentEditClicked(Post comment);
+
+		void onCommentDeleted(Post comment);
 	}
 
 	private final static int MAX_IMAGES = 7;
@@ -100,6 +118,9 @@ public class SocialCommentView extends RelativeLayout implements PostImageView.P
 	@BindView(R.id.group_post_tags)
 	public LinearLayout postTagsGroup;
 
+	@BindView(R.id.button_reply)
+	public TextView replyButton;
+
 	@BindView(R.id.likes_count)
 	public TextView likesCount;
 
@@ -109,7 +130,9 @@ public class SocialCommentView extends RelativeLayout implements PostImageView.P
 	@BindDimen(R.dimen.comment_padding)
 	public int commentPadding;
 
-	public Subscription setLikeSubscription;
+	private Subscription setLikeSubscription;
+
+	private Subscription deleteSubscription;
 
 	private Unbinder unbinder;
 
@@ -118,6 +141,8 @@ public class SocialCommentView extends RelativeLayout implements PostImageView.P
 	private Listener listener;
 
 	private ArrayList<PostImageView> imageViews = new ArrayList<>();
+
+	private boolean canCommentPost;
 
 	public SocialCommentView(Context context) {
 		super(context);
@@ -138,6 +163,9 @@ public class SocialCommentView extends RelativeLayout implements PostImageView.P
 		if (setLikeSubscription != null) {
 			setLikeSubscription.unsubscribe();
 		}
+		if (deleteSubscription != null) {
+			deleteSubscription.unsubscribe();
+		}
 
 		if (unbinder != null) {
 			unbinder.unbind();
@@ -153,10 +181,31 @@ public class SocialCommentView extends RelativeLayout implements PostImageView.P
 		GenesisVisionApplication.getComponent().inject(this);
 	}
 
+	@OnClick(R.id.author_logo)
+	public void onAuthorLogoClicked() {
+		showUserDetails();
+	}
+
+	@OnClick(R.id.author_name)
+	public void onAuthorNameClicked() {
+		showUserDetails();
+	}
+
+	private void showUserDetails() {
+		if (comment != null) {
+			UserDetailsModel model = new UserDetailsModel(
+					comment.getAuthor().getId(),
+					comment.getAuthor().getLogoUrl(),
+					comment.getAuthor().getUsername(),
+					comment.getAuthor().getRegistrationDate());
+			EventBus.getDefault().post(new ShowUserDetailsEvent(model));
+		}
+	}
+
 	@OnClick(R.id.button_menu)
 	public void onMenuClicked() {
-		if (comment != null && comment.getPersonalDetails() != null) {
-
+		if (comment != null) {
+			listener.onCommentMenuButtonClicked(comment, this);
 		}
 	}
 
@@ -198,6 +247,11 @@ public class SocialCommentView extends RelativeLayout implements PostImageView.P
 		this.menuButton.setVisibility(show ? View.VISIBLE : View.GONE);
 	}
 
+	public void setCanCommentPost(boolean canCommentPost) {
+		this.canCommentPost = canCommentPost;
+		this.replyButton.setVisibility(canCommentPost ? View.VISIBLE : View.GONE);
+	}
+
 	public void setComment(Post comment) {
 		this.comment = comment;
 		updateData(comment);
@@ -221,6 +275,11 @@ public class SocialCommentView extends RelativeLayout implements PostImageView.P
 		}
 		setImages(comment);
 		setPostTags(comment.getTags());
+
+//		this.replyButton.setVisibility(comment.getPersonalDetails() != null
+//				&& comment.getPersonalDetails().isCanComment()
+//				&& canCommentPost
+//				? View.VISIBLE : View.GONE);
 
 		this.likesCount.setText(String.valueOf(comment.getLikesCount()));
 		this.likesCount.setVisibility(comment.getLikesCount() > 0 ? View.VISIBLE : View.GONE);
@@ -285,7 +344,7 @@ public class SocialCommentView extends RelativeLayout implements PostImageView.P
 				                  @Override
 				                  public void onClick(View view) {
 					                  if (match.getPostTag() != null) {
-						                  EventBus.getDefault().post(new OnPostTagClickedEvent(match.getPostTag()));
+						                  handlePostTagClick(match.getPostTag());
 					                  }
 				                  }
 
@@ -430,6 +489,7 @@ public class SocialCommentView extends RelativeLayout implements PostImageView.P
 			if (needDisplayPostTag(tag)) {
 				PostTagView view = new PostTagView(getContext());
 				view.setPostTag(tag);
+				view.setOnClickListener(view1 -> handlePostTagClick(tag));
 				postTagsGroup.addView(view);
 
 				LinearLayout.LayoutParams lp = (LinearLayout.LayoutParams) view.getLayoutParams();
@@ -442,11 +502,16 @@ public class SocialCommentView extends RelativeLayout implements PostImageView.P
 		scrollview.setVisibility(postTagsGroup.getChildCount() > 0 ? View.VISIBLE : View.GONE);
 	}
 
+	private void handlePostTagClick(PostTag tag) {
+		PostTagClickHandler.handlePostTagClick(tag);
+	}
+
 	private boolean needDisplayPostTag(PostTag tag) {
 		return tag.getType().equals(SocialPostTagType.PROGRAM)
 				|| tag.getType().equals(SocialPostTagType.FUND)
 				|| tag.getType().equals(SocialPostTagType.FOLLOW)
-				|| tag.getType().equals(SocialPostTagType.ASSET);
+				|| tag.getType().equals(SocialPostTagType.ASSET)
+				|| tag.getType().equals(SocialPostTagType.USER);
 	}
 
 	@Override
@@ -477,5 +542,66 @@ public class SocialCommentView extends RelativeLayout implements PostImageView.P
 
 			overlayView.setImageViewer(imageViewer);
 		}
+	}
+
+	@Override
+	public void onEditClicked(Post comment, SocialPostType type) {
+		if (listener != null) {
+			listener.onCommentEditClicked(comment);
+		}
+	}
+
+	@Override
+	public void onPinClicked(Post comment) {
+
+	}
+
+	@Override
+	public void onUnpinClicked(Post comment) {
+
+	}
+
+	@Override
+	public void onDeleteClicked(Post comment) {
+		if (socialManager != null && comment != null) {
+			deleteSubscription = socialManager.deletePost(comment.getId())
+					.subscribeOn(Schedulers.newThread())
+					.observeOn(AndroidSchedulers.mainThread())
+					.subscribe(response -> {
+						deleteSubscription.unsubscribe();
+						this.comment.isDeleted(true);
+						this.setVisibility(View.GONE);
+						if (listener != null) {
+							listener.onCommentDeleted(comment);
+						}
+					}, throwable -> deleteSubscription.unsubscribe());
+		}
+	}
+
+	@Override
+	public void onCopyLinkClicked(Post comment) {
+		ClipboardManager clipboardManager = (ClipboardManager) getContext().getSystemService(CLIPBOARD_SERVICE);
+		ClipData clipData = ClipData.newPlainText("link", StringFormatUtil.getCommentUrl(comment.getUrl()));
+		if (clipboardManager != null) {
+			clipboardManager.setPrimaryClip(clipData);
+			Toast.makeText(getContext(), getContext().getString(R.string.copied_to_the_clipboard), Toast.LENGTH_SHORT).show();
+		}
+		else {
+			Toast.makeText(getContext(), getContext().getString(R.string.cannot_copy), Toast.LENGTH_SHORT).show();
+		}
+	}
+
+	@Override
+	public void onReportClicked(Post comment) {
+		EventBus.getDefault().post(new ShowReportPostEvent(comment));
+	}
+
+	@Override
+	public void onShareClicked(Post comment) {
+		Intent intent = new Intent(android.content.Intent.ACTION_SEND);
+		intent.setType("text/plain");
+		intent.putExtra(android.content.Intent.EXTRA_SUBJECT, getContext().getString(R.string.share));
+		intent.putExtra(android.content.Intent.EXTRA_TEXT, StringFormatUtil.getCommentUrl(comment.getUrl()));
+		getContext().startActivity(Intent.createChooser(intent, getContext().getString(R.string.share)));
 	}
 }

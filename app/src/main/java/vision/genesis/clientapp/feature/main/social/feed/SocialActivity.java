@@ -31,8 +31,11 @@ import vision.genesis.clientapp.utils.ThemeUtil;
 
 public class SocialActivity extends BaseSwipeBackActivity implements SocialView, ViewPager.OnPageChangeListener
 {
-	public static void startFrom(Activity activity) {
+	private static final String EXTRA_SHOW_PAGE = "extra_show_page";
+
+	public static void startWith(Activity activity, String showPage) {
 		Intent intent = new Intent(activity.getApplicationContext(), SocialActivity.class);
+		intent.putExtra(EXTRA_SHOW_PAGE, showPage);
 		activity.startActivity(intent);
 		activity.overridePendingTransition(R.anim.activity_slide_from_right, R.anim.hold);
 	}
@@ -67,6 +70,8 @@ public class SocialActivity extends BaseSwipeBackActivity implements SocialView,
 
 	private SocialPagerAdapter pagerAdapter;
 
+	private String showPage;
+
 	@OnClick(R.id.button_back)
 	public void onBackClicked() {
 		onBackPressed();
@@ -80,6 +85,10 @@ public class SocialActivity extends BaseSwipeBackActivity implements SocialView,
 		setContentView(R.layout.activity_social);
 
 		ButterKnife.bind(this);
+
+		if (getIntent().getExtras() != null && !getIntent().getExtras().isEmpty()) {
+			showPage = getIntent().getExtras().getString(EXTRA_SHOW_PAGE);
+		}
 
 		initListener();
 		initTabs();
@@ -165,9 +174,31 @@ public class SocialActivity extends BaseSwipeBackActivity implements SocialView,
 
 		tabLayout.addOnTabSelectedListener(tabSelectedListener);
 
-		addPage(liveTab, true);
-		addPage(hotTab, false);
-		addPage(feedTab, false);
+		addPage(liveTab, isTabSelected(liveTab));
+		addPage(hotTab, isTabSelected(hotTab));
+		addPage(feedTab, isTabSelected(feedTab));
+	}
+
+	private boolean isTabSelected(TabLayout.Tab tab) {
+		if (tab.getTag().toString().equals("live")) {
+			if (showPage == null) {
+				return true;
+			}
+			return showPage.equals(SocialLiveView.TYPE_LIVE);
+		}
+		else if (tab.getTag().toString().equals("hot")) {
+			if (showPage == null) {
+				return false;
+			}
+			return showPage.equals(SocialLiveView.TYPE_HOT);
+		}
+		else if (tab.getTag().toString().equals("feed")) {
+			if (showPage == null) {
+				return false;
+			}
+			return showPage.equals(SocialLiveView.TYPE_FEED);
+		}
+		return false;
 	}
 
 	private View getTabView(int textResId) {
@@ -197,6 +228,24 @@ public class SocialActivity extends BaseSwipeBackActivity implements SocialView,
 		tabLayoutOnPageChangeListener = new TabLayout.TabLayoutOnPageChangeListener(tabLayout);
 		viewPager.addOnPageChangeListener(tabLayoutOnPageChangeListener);
 		viewPager.addOnPageChangeListener(this);
+
+		viewPager.setCurrentItem(getCurrentItem());
+	}
+
+	private int getCurrentItem() {
+		if (showPage == null) {
+			return 0;
+		}
+		if (showPage.equals(SocialLiveView.TYPE_LIVE)) {
+			return 0;
+		}
+		if (showPage.equals(SocialLiveView.TYPE_HOT)) {
+			return 1;
+		}
+		if (showPage.equals(SocialLiveView.TYPE_FEED)) {
+			return 2;
+		}
+		return 0;
 	}
 
 	@Override

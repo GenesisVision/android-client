@@ -43,7 +43,6 @@ import vision.genesis.clientapp.feature.main.facet.funds.FundsFacetActivity;
 import vision.genesis.clientapp.feature.main.facet.programs.ProgramsFacetActivity;
 import vision.genesis.clientapp.feature.main.fund.FundDetailsActivity;
 import vision.genesis.clientapp.feature.main.funds_challenge.FundsChallengeActivity;
-import vision.genesis.clientapp.feature.main.manager.ManagerDetailsActivity;
 import vision.genesis.clientapp.feature.main.message.MessageBottomSheetDialog;
 import vision.genesis.clientapp.feature.main.program.ProgramDetailsActivity;
 import vision.genesis.clientapp.feature.main.program.withdraw.WithdrawProgramActivity;
@@ -52,7 +51,9 @@ import vision.genesis.clientapp.feature.main.social.feed.SocialActivity;
 import vision.genesis.clientapp.feature.main.social.media.MediaActivity;
 import vision.genesis.clientapp.feature.main.social.post.create.CreatePostActivity;
 import vision.genesis.clientapp.feature.main.social.post.details.PostDetailsActivity;
+import vision.genesis.clientapp.feature.main.social.post.report.ReportPostActivity;
 import vision.genesis.clientapp.feature.main.trading_account.TradingAccountDetailsActivity;
+import vision.genesis.clientapp.feature.main.user.UserDetailsActivity;
 import vision.genesis.clientapp.feature.main.wallet.copytrading_account_details.CopytradingAccountDetailsActivity;
 import vision.genesis.clientapp.feature.main.wallet.specific_wallet.SpecificWalletActivity;
 import vision.genesis.clientapp.feature.main.wallet.transaction_details.TransactionDetailsActivity;
@@ -62,11 +63,11 @@ import vision.genesis.clientapp.feature.two_factor.setup.SetupTfaActivity;
 import vision.genesis.clientapp.model.AppUpdateModel;
 import vision.genesis.clientapp.model.CopytradingAccountModel;
 import vision.genesis.clientapp.model.FundDetailsModel;
-import vision.genesis.clientapp.model.ManagerDetailsModel;
 import vision.genesis.clientapp.model.OpenTradeModel;
 import vision.genesis.clientapp.model.ProgramDetailsModel;
 import vision.genesis.clientapp.model.ProgramRequest;
 import vision.genesis.clientapp.model.TradingAccountDetailsModel;
+import vision.genesis.clientapp.model.UserDetailsModel;
 import vision.genesis.clientapp.model.WalletModel;
 import vision.genesis.clientapp.model.events.ShowSetupTfaActivityEvent;
 import vision.genesis.clientapp.ui.common.BackButtonListener;
@@ -399,8 +400,8 @@ public class MainActivity extends MvpAppCompatActivity implements MainView, Bloc
 	}
 
 	@Override
-	public void showManagerDetails(ManagerDetailsModel model) {
-		ManagerDetailsActivity.startWith(this, model);
+	public void showUserDetails(UserDetailsModel model) {
+		UserDetailsActivity.startWith(this, model);
 	}
 
 	@Override
@@ -446,8 +447,8 @@ public class MainActivity extends MvpAppCompatActivity implements MainView, Bloc
 	}
 
 	@Override
-	public void showSocialActivity() {
-		SocialActivity.startFrom(this);
+	public void showSocialActivity(String showPage) {
+		SocialActivity.startWith(this, showPage);
 	}
 
 	@Override
@@ -462,12 +463,17 @@ public class MainActivity extends MvpAppCompatActivity implements MainView, Bloc
 
 	@Override
 	public void showCreatePostActivity() {
-		CreatePostActivity.startWith(this, null);
+		CreatePostActivity.startWith(this, null, null);
 	}
 
 	@Override
 	public void showCreatePostActivityWithRepost(Post post) {
-		CreatePostActivity.startWith(this, post);
+		CreatePostActivity.startWith(this, post, null);
+	}
+
+	@Override
+	public void showReportPostActivity(Post post) {
+		ReportPostActivity.startWith(this, post.getId());
 	}
 
 	@Override

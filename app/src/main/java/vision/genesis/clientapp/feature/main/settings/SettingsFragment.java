@@ -17,6 +17,9 @@ import androidx.appcompat.widget.SwitchCompat;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
 
+import org.greenrobot.eventbus.EventBus;
+import org.joda.time.DateTime;
+
 import java.util.Locale;
 
 import butterknife.BindView;
@@ -29,11 +32,14 @@ import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
 import vision.genesis.clientapp.feature.common.currency.SelectCurrencyFragment;
 import vision.genesis.clientapp.feature.main.message.MessageBottomSheetDialog;
+import vision.genesis.clientapp.feature.main.settings.privacy.PrivacySettingsActivity;
 import vision.genesis.clientapp.feature.main.settings.public_info.ProfilePublicInfoActivity;
 import vision.genesis.clientapp.feature.main.settings.referral_program.ReferralProgramActivity;
 import vision.genesis.clientapp.feature.main.settings.security.SecurityActivity;
 import vision.genesis.clientapp.feature.main.settings.social_links.SocialLinksActivity;
 import vision.genesis.clientapp.model.CurrencyEnum;
+import vision.genesis.clientapp.model.UserDetailsModel;
+import vision.genesis.clientapp.model.events.ShowUserDetailsEvent;
 import vision.genesis.clientapp.ui.AvatarView;
 import vision.genesis.clientapp.utils.ThemeUtil;
 import vision.genesis.clientapp.utils.TypefaceUtil;
@@ -88,6 +94,20 @@ public class SettingsFragment extends BaseFragment implements SettingsView
 
 	private CurrencyEnum baseCurrency;
 
+	private ProfileFullViewModel profile;
+
+	@OnClick(R.id.my_profile)
+	public void onMyProfileClicked() {
+		if (getActivity() != null && profile != null) {
+			UserDetailsModel model = new UserDetailsModel(
+					profile.getId(),
+					profile.getLogoUrl(),
+					profile.getUserName(),
+					DateTime.now());
+			EventBus.getDefault().post(new ShowUserDetailsEvent(model));
+		}
+	}
+
 	@OnClick(R.id.public_info)
 	public void onPublicInfoClicked() {
 		if (getActivity() != null) {
@@ -108,6 +128,13 @@ public class SettingsFragment extends BaseFragment implements SettingsView
 			MessageBottomSheetDialog dialog = new MessageBottomSheetDialog();
 			dialog.show(getActivity().getSupportFragmentManager(), dialog.getTag());
 			dialog.setData(R.drawable.icon_info, getString(R.string.public_investors_profile), getString(R.string.tooltip_public_investors_profile), false, null);
+		}
+	}
+
+	@OnClick(R.id.privacy)
+	public void onPrivacyClicked() {
+		if (getActivity() != null) {
+			PrivacySettingsActivity.startFrom(getActivity());
 		}
 	}
 
@@ -260,6 +287,7 @@ public class SettingsFragment extends BaseFragment implements SettingsView
 
 	@Override
 	public void updateProfile(ProfileFullViewModel profile) {
+		this.profile = profile;
 		avatar.setImage(profile.getLogoUrl(), 200, 200);
 		groupAvatarEmpty.setVisibility(profile.getLogoUrl() != null && !profile.getLogoUrl().isEmpty() ? View.GONE : View.VISIBLE);
 

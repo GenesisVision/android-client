@@ -23,12 +23,18 @@ import vision.genesis.clientapp.ui.SocialPostView;
 
 public class PostsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 {
+	private final SocialPostView.Listener postsListener;
+
 	private List<Post> posts = new ArrayList<>();
+
+	public PostsListAdapter(SocialPostView.Listener postsListener) {
+		this.postsListener = postsListener;
+	}
 
 	@NonNull
 	@Override
 	public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-		return new PostViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_post, parent, false));
+		return new PostViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_post, parent, false), postsListener);
 	}
 
 	@Override
@@ -59,37 +65,29 @@ public class PostsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 		notifyDataSetChanged();
 	}
 
-//	public void changeProgramIsFavorite(UUID programId, boolean isFavorite) {
-//		for (ProgramDetailsListItem program : posts) {
-//			if (program.getId().equals(programId)) {
-//				if (program.getPersonalDetails() != null && !program.getPersonalDetails().isIsFavorite().equals(isFavorite)) {
-//					program.getPersonalDetails().setIsFavorite(isFavorite);
-//					notifyItemChanged(posts.indexOf(program));
-//				}
-//				break;
-//			}
-//		}
-//	}
-//
-//	public void removeProgram(UUID programId) {
-//		for (int i = 0; i < posts.size(); i++) {
-//			if (posts.get(i).getId().equals(programId)) {
-//				posts.remove(i);
-//				notifyItemRemoved(i);
-//				break;
-//			}
-//		}
-//	}
+	public void setPostDeleted(Post deletedPost, boolean isDeleted) {
+		int i = 0;
+		for (Post post : posts) {
+			if (post.getId().toString().equals(deletedPost.getId().toString())) {
+				post.setIsDeleted(isDeleted);
+				notifyItemChanged(i);
+				break;
+			}
+			i++;
+		}
+	}
 
 	static class PostViewHolder extends RecyclerView.ViewHolder
 	{
 		@BindView(R.id.view_post)
 		public SocialPostView postView;
 
-		PostViewHolder(View itemView) {
+		PostViewHolder(View itemView, SocialPostView.Listener listener) {
 			super(itemView);
 
 			ButterKnife.bind(this, itemView);
+
+			postView.setListener(listener);
 		}
 
 		void setPost(Post post) {

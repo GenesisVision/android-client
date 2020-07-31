@@ -25,7 +25,10 @@ import timber.log.Timber;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
+import vision.genesis.clientapp.feature.main.social.post.actions.SocialPostActionsBottomSheetFragment;
+import vision.genesis.clientapp.feature.main.social.post.create.CreatePostActivity;
 import vision.genesis.clientapp.model.PostsFilter;
+import vision.genesis.clientapp.model.SocialPostType;
 
 /**
  * GenesisVisionAndroid
@@ -125,7 +128,7 @@ public class PostsListFragment extends BaseFragment implements PostsListView
 		recyclerView.setHasFixedSize(true);
 		LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
 		recyclerView.setLayoutManager(layoutManager);
-		adapter = new PostsListAdapter();
+		adapter = new PostsListAdapter(presenter);
 		adapter.setHasStableIds(true);
 		recyclerView.setAdapter(adapter);
 		recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener()
@@ -140,7 +143,7 @@ public class PostsListFragment extends BaseFragment implements PostsListView
 	private void checkIfLastItemVisible() {
 		LinearLayoutManager layoutManager = LinearLayoutManager.class.cast(recyclerView.getLayoutManager());
 		int totalItemCount = layoutManager.getItemCount();
-		int lastVisible = layoutManager.findLastCompletelyVisibleItemPosition();
+		int lastVisible = layoutManager.findLastVisibleItemPosition();
 		if (lastVisible < 0) {
 			return;
 		}
@@ -160,6 +163,28 @@ public class PostsListFragment extends BaseFragment implements PostsListView
 	@Override
 	public void addPosts(List<Post> posts) {
 		adapter.addPosts(posts);
+	}
+
+	@Override
+	public void setPostDeleted(Post post, boolean isDeleted) {
+		adapter.setPostDeleted(post, isDeleted);
+	}
+
+	@Override
+	public void showSocialPostActions(Post post, SocialPostType type, boolean isOwnPost, SocialPostActionsBottomSheetFragment.Listener listener) {
+		if (getActivity() != null) {
+			SocialPostActionsBottomSheetFragment bottomSheetDialog = new SocialPostActionsBottomSheetFragment();
+			bottomSheetDialog.show(getActivity().getSupportFragmentManager(), bottomSheetDialog.getTag());
+			bottomSheetDialog.setData(post, type, isOwnPost);
+			bottomSheetDialog.setListener(listener);
+		}
+	}
+
+	@Override
+	public void showEditPost(Post post) {
+		if (getActivity() != null) {
+			CreatePostActivity.startWith(getActivity(), null, post);
+		}
 	}
 
 	@Override
@@ -203,6 +228,12 @@ public class PostsListFragment extends BaseFragment implements PostsListView
 		if (filter != null) {
 			filter.setShowOnlyUserPosts(!showEvents);
 			presenter.setData(filter);
+		}
+	}
+
+	public void onSwipeRefresh() {
+		if (presenter != null) {
+			presenter.onSwipeRefresh();
 		}
 	}
 }

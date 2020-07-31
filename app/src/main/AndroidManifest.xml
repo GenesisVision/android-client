@@ -173,7 +173,7 @@
             android:windowSoftInputMode="adjustResize"/>
 
         <activity
-            android:name=".feature.main.manager.ManagerDetailsActivity"
+            android:name=".feature.main.user.UserDetailsActivity"
             android:launchMode="singleTop"
             android:theme="@style/SwipeBackActivityTheme"
             android:windowSoftInputMode="adjustResize"/>
@@ -515,9 +515,26 @@
         <activity
             android:name=".feature.main.social.post.create.CreatePostActivity"
             android:launchMode="singleTop"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.Base"
+            android:theme="@style/SwipeBackActivityTheme"
             android:windowSoftInputMode="adjustResize|stateAlwaysVisible"/>
+
+        <activity
+            android:name=".feature.main.user.followers.UserFollowersActivity"
+            android:launchMode="singleTop"
+            android:theme="@style/SwipeBackActivityTheme"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize"/>
+
+        <activity
+            android:name=".feature.main.settings.privacy.PrivacySettingsActivity"
+            android:launchMode="singleTop"
+            android:theme="@style/SwipeBackActivityTheme"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize"/>
+
+        <activity
+            android:name=".feature.main.social.post.report.ReportPostActivity"
+            android:launchMode="singleTop"
+            android:theme="@style/SwipeBackActivityTheme"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize"/>
 
         <provider
             android:name="androidx.core.content.FileProvider"

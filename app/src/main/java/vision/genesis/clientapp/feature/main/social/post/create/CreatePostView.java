@@ -47,6 +47,8 @@ interface CreatePostView extends MvpView
 
 	void showProgressBar(boolean show);
 
+	void showProgressBarButton(boolean show);
+
 	void showSnackbarMessage(String message);
 
 	void showExitDialog();

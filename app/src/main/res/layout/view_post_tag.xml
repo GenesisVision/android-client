@@ -27,6 +27,12 @@
                 app:placeholderImageScaleType="centerInside"
                 app:roundAsCircle="true"/>
 
+            <vision.genesis.clientapp.ui.AvatarView
+                android:id="@+id/avatar_view"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:visibility="gone"/>
+
             <vision.genesis.clientapp.ui.ProgramLogoView
                 android:id="@+id/asset_logo"
                 android:layout_width="30dp"

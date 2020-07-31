@@ -75,9 +75,6 @@ import vision.genesis.clientapp.feature.main.fund.withdraw.WithdrawFundPresenter
 import vision.genesis.clientapp.feature.main.fund.withdraw.confirm.ConfirmFundWithdrawBottomSheetFragment;
 import vision.genesis.clientapp.feature.main.funds_challenge.FundsChallengePresenter;
 import vision.genesis.clientapp.feature.main.funds_list.FundsListPresenter;
-import vision.genesis.clientapp.feature.main.manager.ManagerDetailsPresenter;
-import vision.genesis.clientapp.feature.main.manager.info.ManagerInfoPresenter;
-import vision.genesis.clientapp.feature.main.managers_list.ManagersListPresenter;
 import vision.genesis.clientapp.feature.main.notifications.NotificationsPresenter;
 import vision.genesis.clientapp.feature.main.notifications.create.CreateCustomNotificationSettingPresenter;
 import vision.genesis.clientapp.feature.main.notifications.follow.FollowNotificationsSettingsPresenter;
@@ -109,6 +106,7 @@ import vision.genesis.clientapp.feature.main.programs_list.ProgramsListPresenter
 import vision.genesis.clientapp.feature.main.rating.ProgramsRatingPresenter;
 import vision.genesis.clientapp.feature.main.search.SearchPresenter;
 import vision.genesis.clientapp.feature.main.settings.SettingsPresenter;
+import vision.genesis.clientapp.feature.main.settings.privacy.PrivacySettingsPresenter;
 import vision.genesis.clientapp.feature.main.settings.public_info.ProfilePublicInfoPresenter;
 import vision.genesis.clientapp.feature.main.settings.referral_program.history.ReferralHistoryPresenter;
 import vision.genesis.clientapp.feature.main.settings.referral_program.info.ReferralInfoPresenter;
@@ -124,6 +122,7 @@ import vision.genesis.clientapp.feature.main.social.media.SocialMediaView;
 import vision.genesis.clientapp.feature.main.social.post.PostsListPresenter;
 import vision.genesis.clientapp.feature.main.social.post.create.CreatePostPresenter;
 import vision.genesis.clientapp.feature.main.social.post.details.PostDetailsPresenter;
+import vision.genesis.clientapp.feature.main.social.post.report.ReportPostPresenter;
 import vision.genesis.clientapp.feature.main.trading_account.TradingAccountDetailsPresenter;
 import vision.genesis.clientapp.feature.main.trading_account.add_demo_funds.AddDemoFundsPresenter;
 import vision.genesis.clientapp.feature.main.trading_account.balance.TradingAccountBalancePresenter;
@@ -138,6 +137,10 @@ import vision.genesis.clientapp.feature.main.trading_account.manage.ManageTradin
 import vision.genesis.clientapp.feature.main.trading_account.open_positions.TradingAccountOpenPositionsPresenter;
 import vision.genesis.clientapp.feature.main.trading_account.profit.TradingAccountProfitPresenter;
 import vision.genesis.clientapp.feature.main.trading_account.trades.TradingAccountTradesPresenter;
+import vision.genesis.clientapp.feature.main.user.UserDetailsPresenter;
+import vision.genesis.clientapp.feature.main.user.followers.UserFollowersPresenter;
+import vision.genesis.clientapp.feature.main.user.info.UserInfoPresenter;
+import vision.genesis.clientapp.feature.main.users_list.fragment.UsersListPresenter;
 import vision.genesis.clientapp.feature.main.wallet.WalletPresenter;
 import vision.genesis.clientapp.feature.main.wallet.copytrading_account_details.CopytradingAccountDetailsPresenter;
 import vision.genesis.clientapp.feature.main.wallet.copytrading_accounts.CopytradingAccountsPresenter;
@@ -162,6 +165,7 @@ import vision.genesis.clientapp.ui.AutoCompleteGvAssetsView;
 import vision.genesis.clientapp.ui.ProgramDataView;
 import vision.genesis.clientapp.ui.SocialCommentView;
 import vision.genesis.clientapp.ui.SocialPostView;
+import vision.genesis.clientapp.ui.UserShortListView;
 import vision.genesis.clientapp.utils.AppLifecycleTracker;
 
 /**
@@ -259,9 +263,9 @@ public interface AppComponent
 
 	void inject(ConfirmWalletWithdrawBottomSheetFragment confirmWalletWithdrawBottomSheetFragment);
 
-	void inject(ManagerDetailsPresenter managerDetailsPresenter);
+	void inject(UserDetailsPresenter userDetailsPresenter);
 
-	void inject(ManagerInfoPresenter managerInfoPresenter);
+	void inject(UserInfoPresenter userInfoPresenter);
 
 	void inject(ProgramBalancePresenter programBalancePresenter);
 
@@ -307,7 +311,7 @@ public interface AppComponent
 
 	void inject(TransactionDetailsPresenter transactionDetailsPresenter);
 
-	void inject(ManagersListPresenter managersListPresenter);
+	void inject(UsersListPresenter usersListPresenter);
 
 	void inject(ProgramsRatingPresenter programsRatingPresenter);
 
@@ -474,4 +478,12 @@ public interface AppComponent
 	void inject(AddNewPostView addNewPostView);
 
 	void inject(AutoCompleteGvAssetsView autoCompleteGvAssetsView);
+
+	void inject(UserFollowersPresenter userFollowersPresenter);
+
+	void inject(UserShortListView userShortListView);
+
+	void inject(PrivacySettingsPresenter privacySettingsPresenter);
+
+	void inject(ReportPostPresenter reportPostPresenter);
 }

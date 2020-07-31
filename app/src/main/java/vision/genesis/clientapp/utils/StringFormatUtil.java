@@ -24,7 +24,9 @@ import java.util.Locale;
 import java.util.regex.Pattern;
 
 import io.swagger.client.model.Currency;
+import io.swagger.client.model.SocialViewMode;
 import io.swagger.client.model.TradesDelay;
+import vision.genesis.clientapp.BuildConfig;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.model.CurrencyEnum;
@@ -254,5 +256,33 @@ public class StringFormatUtil
 		}
 
 		return end;
+	}
+
+	public static ArrayList<String> getSocialViewModeOptions() {
+		ArrayList<String> options = new ArrayList<>();
+		for (SocialViewMode value : SocialViewMode.values()) {
+			options.add(getSocialViewModeString(value));
+		}
+
+		return options;
+	}
+
+	public static String getSocialViewModeString(SocialViewMode socialViewMode) {
+		switch (socialViewMode) {
+			case ALLUSERS:
+				return GenesisVisionApplication.INSTANCE.getResources().getString(R.string.all_users);
+			case ONLYME:
+				return GenesisVisionApplication.INSTANCE.getResources().getString(R.string.only_me);
+			default:
+				return "";
+		}
+	}
+
+	public static String getPostUrl(String url) {
+		return BuildConfig.WEB_ADDRESS.concat("posts/".concat(url));
+	}
+
+	public static String getCommentUrl(String url) {
+		return BuildConfig.WEB_ADDRESS.concat("posts/".concat(url));
 	}
 }

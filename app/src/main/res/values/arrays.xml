@@ -13,5 +13,15 @@
         <item>Account</item>
         <item>Details</item>
     </string-array>
+    <string-array name="report_reasons">
+        <item>Spam</item>
+        <item>Adult content</item>
+        <item>Misleading information</item>
+        <item>Fraud</item>
+        <item>Non-original content</item>
+        <item>False news</item>
+        <item>Hate speech</item>
+        <item>Terrorism</item>
+    </string-array>
 
 </resources>

@@ -51,7 +51,7 @@ public class ExternalAddressView extends RelativeLayout
 		ClipData clipData = ClipData.newPlainText("address", address.getText());
 		if (clipboardManager != null) {
 			clipboardManager.setPrimaryClip(clipData);
-			Toast.makeText(getContext(), getContext().getString(R.string.address_copied), Toast.LENGTH_SHORT).show();
+			Toast.makeText(getContext(), getContext().getString(R.string.copied_to_the_clipboard), Toast.LENGTH_SHORT).show();
 		}
 		else {
 			Toast.makeText(getContext(), getContext().getString(R.string.cannot_copy), Toast.LENGTH_SHORT).show();

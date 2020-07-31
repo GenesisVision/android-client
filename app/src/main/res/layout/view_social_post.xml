@@ -13,7 +13,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?attr/selectableItemBackground"
-        android:orientation="vertical">
+        android:clickable="true"
+        android:focusable="true"
+        android:orientation="vertical"
+        tools:visibility="visible">
 
         <RelativeLayout
             android:id="@+id/header"
@@ -22,14 +25,14 @@
 
             <LinearLayout
                 android:id="@+id/group_author"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
                 android:layout_centerVertical="true"
-                android:layout_toStartOf="@+id/button_menu"
+                android:layout_marginStart="@dimen/padding"
+                android:background="?attr/selectableItemBackgroundBorderless"
                 android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:paddingStart="@dimen/padding"
-                android:paddingEnd="@dimen/padding">
+                android:orientation="horizontal">
 
                 <vision.genesis.clientapp.ui.AvatarView
                     android:id="@+id/author_logo"
@@ -50,6 +53,7 @@
                         android:layout_height="wrap_content"
                         android:ellipsize="end"
                         android:fontFamily="@font/montserrat_semibold"
+                        android:maxLength="30"
                         android:maxLines="1"
                         android:textColor="?attr/colorTextPrimary"
                         android:textSize="14sp"
@@ -70,16 +74,34 @@
 
             </LinearLayout>
 
-            <ImageView
-                android:id="@+id/button_menu"
-                android:layout_width="50dp"
-                android:layout_height="40dp"
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
-                android:background="?attr/selectableItemBackgroundBorderless"
-                android:padding="12dp"
-                android:tint="?attr/colorTextPrimary"
-                app:srcCompat="@drawable/icon_menu"/>
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/pin"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:padding="12dp"
+                    android:tint="?attr/colorTextPrimary"
+                    android:visibility="gone"
+                    app:srcCompat="@drawable/icon_pin"
+                    tools:visibility="visible"/>
+
+                <ImageView
+                    android:id="@+id/button_menu"
+                    android:layout_width="50dp"
+                    android:layout_height="40dp"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:padding="12dp"
+                    android:tint="?attr/colorTextPrimary"
+                    app:srcCompat="@drawable/icon_menu"/>
+
+            </LinearLayout>
 
         </RelativeLayout>
 
@@ -87,27 +109,35 @@
             android:id="@+id/body"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:clickable="false"
+            android:focusable="false"
             android:orientation="vertical">
 
             <vision.genesis.clientapp.ui.PostEventView
                 android:id="@+id/view_event"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
                 android:paddingStart="@dimen/padding"
                 android:paddingEnd="@dimen/padding"
                 android:visibility="gone"/>
 
             <RelativeLayout
-                android:layout_width="match_parent"
                 android:id="@+id/group_text"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/padding">
+                android:layout_marginBottom="@dimen/padding"
+                android:clickable="false"
+                android:focusable="false">
 
                 <TextView
                     android:id="@+id/text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:clickable="false"
                     android:ellipsize="end"
+                    android:focusable="false"
                     android:fontFamily="@font/montserrat_regular"
                     android:lineSpacingMultiplier="1.3"
                     android:maxLines="7"
@@ -172,21 +202,50 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/padding"
+                android:clickable="false"
+                android:focusable="false"
                 android:scrollbars="none">
 
                 <LinearLayout
                     android:id="@+id/group_post_tags"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:clickable="false"
+                    android:focusable="false"
                     android:orientation="horizontal"/>
 
             </HorizontalScrollView>
 
+            <LinearLayout
+                android:id="@+id/group_repost"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/padding"
+                android:layout_marginEnd="@dimen/padding"
+                android:layout_marginBottom="@dimen/padding"
+                android:orientation="horizontal"
+                android:visibility="gone"
+                tools:visibility="visible">
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="@dimen/padding"
+                    android:background="?attr/colorDelimiterLight"/>
+
+                <FrameLayout
+                    android:id="@+id/frame_repost"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:layout_height="200dp"/>
+
+            </LinearLayout>
+
         </LinearLayout>
 
         <RelativeLayout
-            android:layout_width="match_parent"
             android:id="@+id/bottom"
+            android:layout_width="match_parent"
             android:layout_height="50dp">
 
             <View
@@ -325,5 +384,38 @@
         </RelativeLayout>
 
     </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/group_deleted"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:visibility="gone"
+        tools:visibility="gone">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:fontFamily="@font/montserrat_regular"
+            android:paddingStart="@dimen/padding"
+            android:paddingEnd="@dimen/padding"
+            android:text="@string/post_is_deleted"
+            android:textColor="?attr/colorTextPrimary"
+            android:textSize="14sp"/>
+
+        <TextView
+            android:id="@+id/button_undo_delete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:fontFamily="@font/montserrat_semibold"
+            android:padding="@dimen/padding"
+            android:text="@string/undo"
+            android:textColor="?attr/colorAccent"
+            android:textSize="14sp"/>
+
+    </RelativeLayout>
 
 </RelativeLayout>

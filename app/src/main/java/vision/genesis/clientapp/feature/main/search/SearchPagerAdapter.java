@@ -9,8 +9,8 @@ import com.google.android.material.tabs.TabLayout;
 import io.swagger.client.model.CommonPublicAssetsViewModel;
 import vision.genesis.clientapp.feature.main.follows_list.FollowsListFragment;
 import vision.genesis.clientapp.feature.main.funds_list.FundsListFragment;
-import vision.genesis.clientapp.feature.main.managers_list.ManagersListFragment;
 import vision.genesis.clientapp.feature.main.programs_list.ProgramsListFragment;
+import vision.genesis.clientapp.feature.main.users_list.fragment.UsersListFragment;
 
 /**
  * GenesisVisionAndroid
@@ -32,7 +32,7 @@ public class SearchPagerAdapter extends FragmentStatePagerAdapter
 
 	private FollowsListFragment followsFragment;
 
-	private ManagersListFragment usersFragment;
+	private UsersListFragment usersFragment;
 
 	private TabLayout tabLayout;
 
@@ -42,7 +42,7 @@ public class SearchPagerAdapter extends FragmentStatePagerAdapter
 		programsFragment = ProgramsListFragment.with(ProgramsListFragment.LOCATION_SEARCH, null);
 		fundsFragment = FundsListFragment.with(FundsListFragment.LOCATION_SEARCH, null);
 		followsFragment = FollowsListFragment.with(FollowsListFragment.LOCATION_SEARCH, null);
-		usersFragment = ManagersListFragment.with(ManagersListFragment.LOCATION_SEARCH);
+		usersFragment = UsersListFragment.with(UsersListFragment.LOCATION_SEARCH);
 	}
 
 	@Override

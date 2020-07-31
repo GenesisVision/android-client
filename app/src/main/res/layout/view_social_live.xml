@@ -15,7 +15,7 @@
         android:paddingEnd="20dp">
 
         <TextView
-            android:id="@+id/label_live"
+            android:id="@+id/title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
@@ -30,7 +30,7 @@
             android:layout_height="24dp"
             android:layout_centerVertical="true"
             android:layout_marginStart="16dp"
-            android:layout_toEndOf="@+id/label_live"
+            android:layout_toEndOf="@+id/title"
             android:indeterminate="true"/>
 
         <ImageView
@@ -57,6 +57,7 @@
         android:gravity="center"
         android:text="@string/more"
         android:textColor="?attr/colorAccent"
-        android:textSize="12sp"/>
+        android:textSize="12sp"
+        android:visibility="gone"/>
 
 </LinearLayout>

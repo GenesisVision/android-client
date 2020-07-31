@@ -42,15 +42,16 @@ import vision.genesis.clientapp.model.events.ShowFeedActivityEvent;
 import vision.genesis.clientapp.model.events.ShowFundDetailsEvent;
 import vision.genesis.clientapp.model.events.ShowFundsListEvent;
 import vision.genesis.clientapp.model.events.ShowLockScreenEvent;
-import vision.genesis.clientapp.model.events.ShowManagerDetailsEvent;
 import vision.genesis.clientapp.model.events.ShowMessageActivityEvent;
 import vision.genesis.clientapp.model.events.ShowOpenTradeDetailsEvent;
 import vision.genesis.clientapp.model.events.ShowProgramDetailsEvent;
 import vision.genesis.clientapp.model.events.ShowProgramsListEvent;
+import vision.genesis.clientapp.model.events.ShowReportPostEvent;
 import vision.genesis.clientapp.model.events.ShowSetupTfaActivityEvent;
 import vision.genesis.clientapp.model.events.ShowSpecificWalletEvent;
 import vision.genesis.clientapp.model.events.ShowTradingAccountDetailsEvent;
 import vision.genesis.clientapp.model.events.ShowTransactionDetailsEvent;
+import vision.genesis.clientapp.model.events.ShowUserDetailsEvent;
 import vision.genesis.clientapp.model.events.ShowWithdrawProgramEvent;
 import vision.genesis.clientapp.ui.OnShowPostDetailsEvent;
 
@@ -86,6 +87,8 @@ public class MainPresenter extends MvpPresenter<MainView>
 	private boolean firstCheckPin = true;
 
 	private boolean isActive = false;
+
+	private User user;
 
 	@Override
 	protected void onFirstViewAttach() {
@@ -239,6 +242,7 @@ public class MainPresenter extends MvpPresenter<MainView>
 	}
 
 	private void userUpdated(User user) {
+		this.user = user;
 		getViewState().hideSplashScreen();
 		if (user == null) {
 			userLoggedOff();
@@ -336,8 +340,8 @@ public class MainPresenter extends MvpPresenter<MainView>
 	}
 
 	@Subscribe
-	public void onEventMainThread(ShowManagerDetailsEvent event) {
-		getViewState().showManagerDetails(event.getModel());
+	public void onEventMainThread(ShowUserDetailsEvent event) {
+		getViewState().showUserDetails(event.getModel());
 	}
 
 	@Subscribe
@@ -394,7 +398,7 @@ public class MainPresenter extends MvpPresenter<MainView>
 
 	@Subscribe
 	public void onEventMainThread(ShowFeedActivityEvent event) {
-		getViewState().showSocialActivity();
+		getViewState().showSocialActivity(event.getType());
 	}
 
 	@Subscribe
@@ -415,5 +419,10 @@ public class MainPresenter extends MvpPresenter<MainView>
 	@Subscribe
 	public void onEventMainThread(OnShowRepostEvent event) {
 		getViewState().showCreatePostActivityWithRepost(event.getPost());
+	}
+
+	@Subscribe
+	public void onEventMainThread(ShowReportPostEvent event) {
+		getViewState().showReportPostActivity(event.getPost());
 	}
 }

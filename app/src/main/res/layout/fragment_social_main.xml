@@ -32,6 +32,20 @@
                 android:layout_marginTop="20dp"
                 android:background="?attr/selectableItemBackground"/>
 
+            <vision.genesis.clientapp.feature.main.social.feed.SocialLiveView
+                android:id="@+id/hot_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:background="?attr/selectableItemBackground"/>
+
+            <vision.genesis.clientapp.feature.main.social.feed.SocialLiveView
+                android:id="@+id/feed_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:background="?attr/selectableItemBackground"/>
+
             <vision.genesis.clientapp.feature.main.social.media.SocialMediaView
                 android:id="@+id/media_view"
                 android:layout_width="match_parent"

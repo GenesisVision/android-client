@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.ScrollView;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.content.ContextCompat;
@@ -66,12 +67,21 @@ public class CreatePostActivity extends MvpAppCompatActivity implements CreatePo
 {
 	private static final String EXTRA_REPOST = "extra_repost";
 
-	public static void startWith(Activity activity, Post repost) {
+	private static final String EXTRA_EDIT_POST = "extra_edit_post";
+
+	public static void startWith(Activity activity, Post repost, Post editPost) {
 		Intent intent = new Intent(activity.getApplicationContext(), CreatePostActivity.class);
 		intent.putExtra(EXTRA_REPOST, repost);
+		intent.putExtra(EXTRA_EDIT_POST, editPost);
 		activity.startActivity(intent);
 		activity.overridePendingTransition(R.anim.slide_from_right, R.anim.hold);
 	}
+
+	@BindView(R.id.title)
+	public TextView title;
+
+	@BindView(R.id.group_main)
+	public ViewGroup mainGroup;
 
 	@BindView(R.id.scrollview)
 	public ScrollView scrollview;
@@ -96,6 +106,9 @@ public class CreatePostActivity extends MvpAppCompatActivity implements CreatePo
 
 	@BindView(R.id.progress_bar)
 	public ProgressBar progressBar;
+
+	@BindView(R.id.progress_bar_button)
+	public ProgressBar progressBarButton;
 
 	@InjectPresenter
 	CreatePostPresenter presenter;
@@ -151,8 +164,16 @@ public class CreatePostActivity extends MvpAppCompatActivity implements CreatePo
 
 		if (getIntent().getExtras() != null) {
 			Post repost = getIntent().getExtras().getParcelable(EXTRA_REPOST);
+			Post editPost = getIntent().getExtras().getParcelable(EXTRA_EDIT_POST);
 			if (repost != null) {
-				presenter.setData(repost);
+				presenter.setRepost(repost);
+			}
+			if (editPost != null) {
+				this.title.setText(getString(R.string.edit_post));
+				presenter.setPostToEdit(editPost);
+			}
+			else {
+				showProgressBar(false);
 			}
 		}
 	}
@@ -258,6 +279,15 @@ public class CreatePostActivity extends MvpAppCompatActivity implements CreatePo
 	@Override
 	public void showProgressBar(boolean show) {
 		progressBar.setVisibility(show ? View.VISIBLE : View.INVISIBLE);
+		if (!show) {
+			mainGroup.setVisibility(View.VISIBLE);
+		}
+	}
+
+	@Override
+	public void showProgressBarButton(boolean show) {
+		progressBarButton.setVisibility(show ? View.VISIBLE : View.INVISIBLE);
+		publishButton.setVisibility(!show ? View.VISIBLE : View.INVISIBLE);
 	}
 
 	public void showSnackbarMessage(String message) {

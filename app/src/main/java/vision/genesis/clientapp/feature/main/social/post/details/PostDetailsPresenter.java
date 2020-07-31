@@ -18,25 +18,33 @@ import java.util.UUID;
 
 import javax.inject.Inject;
 
+import io.swagger.client.model.EditPost;
+import io.swagger.client.model.EditablePost;
 import io.swagger.client.model.ImageLocation;
 import io.swagger.client.model.NewPost;
 import io.swagger.client.model.NewPostImage;
 import io.swagger.client.model.Post;
+import io.swagger.client.model.PostImage;
+import io.swagger.client.model.ProfileFullViewModel;
 import io.swagger.client.model.UploadResult;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
+import vision.genesis.clientapp.feature.main.social.post.actions.SocialPostActionsBottomSheetFragment;
 import vision.genesis.clientapp.managers.FilesManager;
+import vision.genesis.clientapp.managers.ProfileManager;
 import vision.genesis.clientapp.managers.SocialManager;
-import vision.genesis.clientapp.model.ManagerDetailsModel;
+import vision.genesis.clientapp.model.SocialPostType;
+import vision.genesis.clientapp.model.UserDetailsModel;
 import vision.genesis.clientapp.model.events.OnPictureChooserCameraClickedEvent;
 import vision.genesis.clientapp.model.events.OnPictureChooserGalleryClickedEvent;
-import vision.genesis.clientapp.model.events.ShowManagerDetailsEvent;
+import vision.genesis.clientapp.model.events.ShowUserDetailsEvent;
 import vision.genesis.clientapp.net.ApiErrorResolver;
 import vision.genesis.clientapp.ui.AutoCompleteGvAssetsView;
 import vision.genesis.clientapp.ui.NewPostImageView;
 import vision.genesis.clientapp.ui.SocialCommentView;
+import vision.genesis.clientapp.ui.SocialPostView;
 import vision.genesis.clientapp.utils.Constants;
 import vision.genesis.clientapp.utils.ImageUtils;
 import vision.genesis.clientapp.utils.StringFormatUtil;
@@ -47,12 +55,15 @@ import vision.genesis.clientapp.utils.StringFormatUtil;
  */
 
 @InjectViewState
-public class PostDetailsPresenter extends MvpPresenter<PostDetailsView> implements NewPostImageView.PostImageClickListener, SocialCommentView.Listener, AutoCompleteGvAssetsView.Listener
+public class PostDetailsPresenter extends MvpPresenter<PostDetailsView> implements NewPostImageView.PostImageClickListener, SocialCommentView.Listener, AutoCompleteGvAssetsView.Listener, SocialPostView.Listener
 {
 	private static final int MASK_MIN_LENGTH = 3;
 
 	@Inject
 	public Context context;
+
+	@Inject
+	public ProfileManager profileManager;
 
 	@Inject
 	public SocialManager socialManager;
@@ -65,7 +76,11 @@ public class PostDetailsPresenter extends MvpPresenter<PostDetailsView> implemen
 
 	private File newImageFile;
 
+	private Subscription getProfileSubscription;
+
 	private Subscription getPostSubscription;
+
+	private Subscription getOriginalCommentSubscription;
 
 	private Subscription uploadImageSubscription;
 
@@ -81,6 +96,10 @@ public class PostDetailsPresenter extends MvpPresenter<PostDetailsView> implemen
 
 	private int textSelectionPos = -1;
 
+	private ProfileFullViewModel profile;
+
+	private EditPost editComment;
+
 	@Override
 	protected void onFirstViewAttach() {
 		super.onFirstViewAttach();
@@ -91,11 +110,15 @@ public class PostDetailsPresenter extends MvpPresenter<PostDetailsView> implemen
 
 		newComment.setImages(new ArrayList<>());
 
+		getProfileInfo();
 		getPostDetails(false);
 	}
 
 	@Override
 	public void onDestroy() {
+		if (getProfileSubscription != null) {
+			getProfileSubscription.unsubscribe();
+		}
 		if (getPostSubscription != null) {
 			getPostSubscription.unsubscribe();
 		}
@@ -104,6 +127,9 @@ public class PostDetailsPresenter extends MvpPresenter<PostDetailsView> implemen
 		}
 		if (sendCommentSubscription != null) {
 			sendCommentSubscription.unsubscribe();
+		}
+		if (getOriginalCommentSubscription != null) {
+			getOriginalCommentSubscription.unsubscribe();
 		}
 
 		EventBus.getDefault().unregister(this);
@@ -115,6 +141,9 @@ public class PostDetailsPresenter extends MvpPresenter<PostDetailsView> implemen
 		this.postId = postId;
 	}
 
+	void onResume() {
+		getPostDetails(false);
+	}
 
 	void onCommentTextChanged(String text, int selectionStart) {
 		this.newComment.setText(text);
@@ -137,6 +166,9 @@ public class PostDetailsPresenter extends MvpPresenter<PostDetailsView> implemen
 
 	private void updateSendCommentButtonEnabled() {
 		getViewState().setSendCommentButtonEnabled(!isCommentEmpty(newComment));
+		if (isCommentEmpty(newComment)) {
+			editComment = null;
+		}
 	}
 
 	private void updateImageCommentButtonEnabled() {
@@ -173,7 +205,14 @@ public class PostDetailsPresenter extends MvpPresenter<PostDetailsView> implemen
 	}
 
 	void onSendCommentClicked() {
-		sendComment();
+		if (editComment != null) {
+			editComment.setText(newComment.getText());
+			editComment.setImages(newComment.getImages());
+			editComment();
+		}
+		else {
+			sendComment();
+		}
 	}
 
 	private void sendComment() {
@@ -198,6 +237,32 @@ public class PostDetailsPresenter extends MvpPresenter<PostDetailsView> implemen
 	}
 
 	private void handleSendCommentError(Throwable throwable) {
+		sendCommentSubscription.unsubscribe();
+		getViewState().showAddCommentProgressBar(false);
+
+		ApiErrorResolver.resolveErrors(throwable, message -> getViewState().showSnackbarMessage(message));
+	}
+
+	private void editComment() {
+		if (socialManager != null && editComment != null) {
+			getViewState().showAddCommentProgressBar(true);
+			sendCommentSubscription = socialManager.editPost(editComment)
+					.observeOn(AndroidSchedulers.mainThread())
+					.subscribeOn(Schedulers.io())
+					.subscribe(this::handleEditCommentSuccess,
+							this::handleEditCommentError);
+		}
+	}
+
+	private void handleEditCommentSuccess(Void response) {
+		sendCommentSubscription.unsubscribe();
+		getPostDetails(false);
+
+		getViewState().showAddCommentProgressBar(false);
+		clearAddCommentSection();
+	}
+
+	private void handleEditCommentError(Throwable throwable) {
 		sendCommentSubscription.unsubscribe();
 		getViewState().showAddCommentProgressBar(false);
 
@@ -301,6 +366,9 @@ public class PostDetailsPresenter extends MvpPresenter<PostDetailsView> implemen
 
 	private void getPostDetails(boolean isCommentAdded) {
 		if (socialManager != null && postId != null) {
+			if (getPostSubscription != null) {
+				getPostSubscription.unsubscribe();
+			}
 			getPostSubscription = socialManager.getPost(postId)
 					.observeOn(AndroidSchedulers.mainThread())
 					.subscribeOn(Schedulers.io())
@@ -333,6 +401,64 @@ public class PostDetailsPresenter extends MvpPresenter<PostDetailsView> implemen
 		ApiErrorResolver.resolveErrors(throwable, message -> getViewState().showSnackbarMessage(message));
 	}
 
+	private void getProfileInfo() {
+		getProfileSubscription = profileManager.getProfileFull(true)
+				.subscribeOn(Schedulers.io())
+				.observeOn(AndroidSchedulers.mainThread())
+				.subscribe(this::handleGetProfileSuccess,
+						this::handleGetProfileError);
+	}
+
+	private void handleGetProfileSuccess(ProfileFullViewModel profile) {
+		this.profile = profile;
+	}
+
+	private void handleGetProfileError(Throwable throwable) {
+		ApiErrorResolver.resolveErrors(throwable, message -> getViewState().showSnackbarMessage(message));
+	}
+
+	private void getOriginalComment(Post comment) {
+		if (socialManager != null) {
+			if (getOriginalCommentSubscription != null) {
+				getOriginalCommentSubscription.unsubscribe();
+			}
+			getOriginalCommentSubscription = socialManager.getOriginalPost(comment.getId())
+					.subscribeOn(Schedulers.io())
+					.observeOn(AndroidSchedulers.mainThread())
+					.subscribe(this::handleGetOriginalCommentSuccess,
+							this::handleGetOriginalCommentError);
+		}
+	}
+
+	private void handleGetOriginalCommentSuccess(EditablePost comment) {
+		getOriginalCommentSubscription.unsubscribe();
+
+		editComment = new EditPost();
+		editComment.setId(comment.getId());
+
+		newComment = new NewPost();
+		newComment.setImages(new ArrayList<>());
+		newComment.setText(comment.getTextOriginal());
+		int i = 0;
+		for (PostImage image : comment.getImages()) {
+			NewPostImage newPostImage = new NewPostImage();
+			newPostImage.setImage(image.getId());
+			newPostImage.setPosition(i);
+			newComment.getImages().add(newPostImage);
+			getViewState().createNewImageView();
+			getViewState().updateNewImageView(image.getId());
+			i++;
+		}
+		updateImageCommentButtonEnabled();
+		updateSendCommentButtonEnabled();
+		getViewState().showEditComment(comment);
+	}
+
+	private void handleGetOriginalCommentError(Throwable throwable) {
+		getOriginalCommentSubscription.unsubscribe();
+		ApiErrorResolver.resolveErrors(throwable, message -> getViewState().showSnackbarMessage(message));
+	}
+
 	void onSwipeRefresh() {
 		getViewState().setRefreshing(true);
 		getPostDetails(false);
@@ -344,14 +470,41 @@ public class PostDetailsPresenter extends MvpPresenter<PostDetailsView> implemen
 		getViewState().showReplyGroup(comment.getAuthor().getUsername());
 	}
 
+	void onPostMenuButtonClicked(SocialPostActionsBottomSheetFragment.Listener listener) {
+		boolean isOwnPost = false;
+		if (profile != null) {
+			isOwnPost = profile.getId().toString().equals(post.getAuthor().getId().toString());
+		}
+		getViewState().showSocialPostActions(post, SocialPostType.POST, isOwnPost, listener);
+	}
+
+	@Override
+	public void onCommentMenuButtonClicked(Post comment, SocialPostActionsBottomSheetFragment.Listener listener) {
+		boolean isOwnPost = false;
+		if (profile != null) {
+			isOwnPost = profile.getId().toString().equals(comment.getAuthor().getId().toString());
+		}
+		getViewState().showSocialPostActions(comment, SocialPostType.COMMENT, isOwnPost, listener);
+	}
+
+	@Override
+	public void onCommentEditClicked(Post comment) {
+		getOriginalComment(comment);
+	}
+
+	@Override
+	public void onCommentDeleted(Post comment) {
+		getPostDetails(false);
+	}
+
 	void onReplyNameClicked() {
 		if (replyComment != null && replyComment.getAuthor() != null) {
-			ManagerDetailsModel model = new ManagerDetailsModel(
+			UserDetailsModel model = new UserDetailsModel(
 					replyComment.getAuthor().getId(),
 					replyComment.getAuthor().getLogoUrl(),
 					replyComment.getAuthor().getUsername(),
 					replyComment.getAuthor().getRegistrationDate());
-			EventBus.getDefault().post(new ShowManagerDetailsEvent(model));
+			EventBus.getDefault().post(new ShowUserDetailsEvent(model));
 		}
 	}
 
@@ -370,5 +523,19 @@ public class PostDetailsPresenter extends MvpPresenter<PostDetailsView> implemen
 			getViewState().setText(newText, start + assetTag.length() + 1);
 			getViewState().hideAutoCompleteGvAssetsView();
 		}
+	}
+
+	@Override
+	public void onPostMenuButtonClicked(Post post, SocialPostActionsBottomSheetFragment.Listener listener) {
+	}
+
+	@Override
+	public void onPostEditClicked(Post post) {
+		getViewState().showEditPost(post);
+	}
+
+	@Override
+	public void onPostDeleted(Post post) {
+		getViewState().finishActivity();
 	}
 }

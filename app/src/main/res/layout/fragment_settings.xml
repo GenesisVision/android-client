@@ -112,7 +112,7 @@
             </RelativeLayout>
 
             <RelativeLayout
-                android:id="@+id/public_info"
+                android:id="@+id/my_profile"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/settings_item_height"
                 android:background="?attr/selectableItemBackground"
@@ -120,10 +120,39 @@
                 android:paddingEnd="@dimen/settings_padding">
 
                 <ImageView
-                    android:id="@+id/icon_public_info"
+                    android:id="@+id/icon_my_profile"
                     style="@style/settings_icon"
                     android:padding="2dp"
                     app:srcCompat="@drawable/icon_profile"/>
+
+                <TextView
+                    style="@style/settings_text"
+                    android:layout_toEndOf="@+id/icon_my_profile"
+                    android:text="@string/my_profile"/>
+
+                <ImageView style="@style/menu_item_arrow_right"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/public_info"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/settings_item_height"
+                android:background="?attr/selectableItemBackground"
+                android:paddingStart="@dimen/settings_padding"
+                android:paddingEnd="@dimen/settings_padding">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:alpha="0.05"
+                    android:background="?attr/colorTextPrimary"/>
+
+                <ImageView
+                    android:id="@+id/icon_public_info"
+                    style="@style/settings_icon"
+                    android:padding="2dp"
+                    app:srcCompat="@drawable/icon_edit"/>
 
                 <TextView
                     style="@style/settings_text"
@@ -210,6 +239,36 @@
                 android:background="?attr/colorTextPrimary"/>
 
             <RelativeLayout
+                android:id="@+id/privacy"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/settings_item_height"
+                android:background="?attr/selectableItemBackground"
+                android:paddingStart="@dimen/settings_padding"
+                android:paddingEnd="@dimen/settings_padding">
+
+                <ImageView
+                    android:id="@+id/icon_privacy"
+                    style="@style/settings_icon"
+                    android:padding="2dp"
+                    app:srcCompat="@drawable/icon_view"/>
+
+                <TextView
+                    style="@style/settings_text"
+                    android:layout_toEndOf="@+id/icon_privacy"
+                    android:text="@string/privacy"/>
+
+                <ImageView style="@style/menu_item_arrow_right"/>
+
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginStart="@dimen/settings_padding"
+                android:alpha="0.05"
+                android:background="?attr/colorTextPrimary"/>
+
+            <RelativeLayout
                 android:id="@+id/security"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/settings_item_height"
@@ -245,8 +304,15 @@
                 android:paddingStart="@dimen/settings_padding"
                 android:paddingEnd="@dimen/settings_padding">
 
+                <ImageView
+                    android:id="@+id/icon_currency"
+                    style="@style/settings_icon"
+                    android:padding="2dp"
+                    app:srcCompat="@drawable/icon_wallet"/>
+
                 <TextView
                     style="@style/settings_text"
+                    android:layout_toEndOf="@+id/icon_currency"
                     android:text="@string/platform_currency"/>
 
                 <TextView
@@ -272,8 +338,14 @@
                 android:paddingStart="@dimen/settings_padding"
                 android:paddingEnd="@dimen/settings_padding">
 
+                <ImageView
+                    android:id="@+id/icon_referral"
+                    style="@style/settings_icon"
+                    app:srcCompat="@drawable/icon_referral"/>
+
                 <TextView
                     style="@style/settings_text"
+                    android:layout_toEndOf="@+id/icon_referral"
                     android:text="@string/referral_program"/>
 
 

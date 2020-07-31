@@ -7,8 +7,11 @@ import com.arellomobile.mvp.MvpView;
 import java.io.File;
 import java.util.List;
 
+import io.swagger.client.model.EditablePost;
 import io.swagger.client.model.NewPostImage;
 import io.swagger.client.model.Post;
+import vision.genesis.clientapp.feature.main.social.post.actions.SocialPostActionsBottomSheetFragment;
+import vision.genesis.clientapp.model.SocialPostType;
 import vision.genesis.clientapp.ui.NewPostImageView;
 import vision.genesis.clientapp.utils.ImageUtils;
 
@@ -57,9 +60,17 @@ interface PostDetailsView extends MvpView
 
 	void showMyAddedComment();
 
+	void showSocialPostActions(Post post, SocialPostType type, boolean isOwnPost, SocialPostActionsBottomSheetFragment.Listener listener);
+
+	void showEditPost(Post post);
+
+	void showEditComment(EditablePost comment);
+
 	void setRefreshing(boolean refreshing);
 
 	void showProgressBar(boolean show);
 
 	void showSnackbarMessage(String message);
+
+	void finishActivity();
 }
