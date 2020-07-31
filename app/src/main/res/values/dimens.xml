@@ -162,4 +162,5 @@
     <dimen name="autocomplete_item_height">40dp</dimen>
     <dimen name="autocomplete_gv_assets_view_height">150dp</dimen>
     <dimen name="autocomplete_item_padding">8dp</dimen>
+    <dimen name="view_user_short_height">100dp</dimen>
 </resources>

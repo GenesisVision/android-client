@@ -53,6 +53,13 @@
                 android:layout_marginTop="20dp"
                 android:background="?attr/selectableItemBackground"/>
 
+            <vision.genesis.clientapp.feature.main.social.users.SocialUsersView
+                android:id="@+id/users_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:background="?attr/selectableItemBackground"/>
+
         </LinearLayout>
 
     </androidx.core.widget.NestedScrollView>

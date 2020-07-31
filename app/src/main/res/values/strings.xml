@@ -943,5 +943,15 @@
         <item quantity="two">comments</item>
         <item quantity="other">comments</item>
     </plurals>
+    <plurals name="followers">
+        <item quantity="one">follower</item>
+        <item quantity="two">followers</item>
+        <item quantity="other">followers</item>
+    </plurals>
+    <plurals name="investors">
+        <item quantity="one">investor</item>
+        <item quantity="two">investors</item>
+        <item quantity="other">investors</item>
+    </plurals>
 
 </resources>

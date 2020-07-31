@@ -21,11 +21,12 @@ import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.feature.main.filters_sorting.SortingFiltersButtonsView;
 import vision.genesis.clientapp.managers.AuthManager;
-import vision.genesis.clientapp.managers.FundsManager;
+import vision.genesis.clientapp.managers.UsersManager;
 import vision.genesis.clientapp.model.DateRange;
 import vision.genesis.clientapp.model.events.ProgramsListFiltersAppliedEvent;
 import vision.genesis.clientapp.model.events.ProgramsListFiltersClearedEvent;
 import vision.genesis.clientapp.model.filter.ProgramsFilter;
+import vision.genesis.clientapp.net.ApiErrorResolver;
 
 /**
  * GenesisVisionAndroid
@@ -44,19 +45,15 @@ public class UsersListPresenter extends MvpPresenter<UsersListView> implements S
 	public AuthManager authManager;
 
 	@Inject
-	public FundsManager fundsManager;
+	public UsersManager usersManager;
 
 	private Subscription userSubscription;
 
 	private Subscription getUsersSubscription;
 
-	private Subscription favoriteSubscription;
-
 	private List<PublicProfile> usersList = new ArrayList<>();
 
 	private int skip = 0;
-
-//	private ProgramsFilter filter;
 
 	private List<PublicProfile> usersToAdd = new ArrayList<>();
 
@@ -88,9 +85,6 @@ public class UsersListPresenter extends MvpPresenter<UsersListView> implements S
 		if (getUsersSubscription != null) {
 			getUsersSubscription.unsubscribe();
 		}
-		if (favoriteSubscription != null) {
-			favoriteSubscription.unsubscribe();
-		}
 
 		EventBus.getDefault().unregister(this);
 
@@ -102,27 +96,27 @@ public class UsersListPresenter extends MvpPresenter<UsersListView> implements S
 
 		if (!location.equals(UsersListFragment.LOCATION_SEARCH)) {
 			isDataSet = true;
-//			getManagersList(true);
+			getUsersList(true);
 		}
 	}
 
 	void showSearchResults(PublicProfileItemsViewModel result) {
 		skip = 0;
-		handleGetManagersList(result);
+		handleGetUsersList(result);
 	}
 
 	void onSwipeRefresh() {
 		getViewState().setRefreshing(true);
-//		getManagersList(true);
+		getUsersList(true);
 	}
 
 	void onTryAgainClicked() {
 		getViewState().showProgressBar(true);
-//		getManagersList(true);
+		getUsersList(true);
 	}
 
 	void onLastListItemVisible() {
-//		getManagersList(false);
+		getUsersList(false);
 	}
 
 	void onFiltersClicked() {
@@ -137,7 +131,7 @@ public class UsersListPresenter extends MvpPresenter<UsersListView> implements S
 	}
 
 	private void userUpdated() {
-//		getManagersList(true);
+		getUsersList(true);
 	}
 
 	private void createFilter() {
@@ -155,24 +149,24 @@ public class UsersListPresenter extends MvpPresenter<UsersListView> implements S
 //		getManagersList(true);
 	}
 
-//	private void getManagersList(boolean forceUpdate) {
-//		if (filter != null && fundsManager != null && isDataSet) {
-//			if (forceUpdate) {
-//				skip = 0;
-//				filter.setSkip(skip);
-//			}
-//
-//			if (getUsersSubscription != null)
-//				getUsersSubscription.unsubscribe();
-//			getUsersSubscription = fundsManager.getFundsList(filter)
+	private void getUsersList(boolean forceUpdate) {
+		if (usersManager != null && isDataSet) {
+			if (forceUpdate) {
+				skip = 0;
+			}
+
+			if (getUsersSubscription != null) {
+				getUsersSubscription.unsubscribe();
+			}
+//			getUsersSubscription = usersManager.getUsers(UsersFilterSorting.BYFOLLOWERSDESC, UsersFilterTimeframe.MONTH, null, skip, TAKE)
 //					.subscribeOn(Schedulers.computation())
 //					.observeOn(AndroidSchedulers.mainThread())
-//					.subscribe(this::handleGetManagersList,
-//							this::handleGetFundsListError);
-//		}
-//	}
+//					.subscribe(this::handleGetUsersList,
+//							this::handleGetUsersListError);
+		}
+	}
 
-	private void handleGetManagersList(PublicProfileItemsViewModel response) {
+	private void handleGetUsersList(PublicProfileItemsViewModel response) {
 		getViewState().setRefreshing(false);
 		getViewState().showProgressBar(false);
 		getViewState().showNoInternet(false);
@@ -183,8 +177,6 @@ public class UsersListPresenter extends MvpPresenter<UsersListView> implements S
 		}
 
 		usersToAdd = response.getItems();
-
-//		getViewState().setFundsCount(StringFormatUtil.formatAmount(response.getSignalsCount(), 0, 0));
 
 		if (usersToAdd.size() == 0) {
 			if (skip == 0) {
@@ -202,8 +194,14 @@ public class UsersListPresenter extends MvpPresenter<UsersListView> implements S
 		}
 		usersList.addAll(usersToAdd);
 		skip += TAKE;
-//		filter.setTake(TAKE);
-//		filter.setSkip(skip);
+	}
+
+	private void handleGetUsersListError(Throwable throwable) {
+		getUsersSubscription.unsubscribe();
+		getViewState().setRefreshing(false);
+		getViewState().showProgressBar(false);
+
+		ApiErrorResolver.resolveErrors(throwable, message -> getViewState().showSnackbarMessage(message));
 	}
 
 	@Subscribe

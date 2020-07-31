@@ -21,6 +21,8 @@ interface SocialMainView extends MvpView
 
 	void updateFeed();
 
+	void updateUsers();
+
 	void openMediaUrl(String url);
 
 	void showSocialPostActions(Post post, SocialPostType type, boolean isOwnPost, SocialPostActionsBottomSheetFragment.Listener listener);

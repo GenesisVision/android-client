@@ -5,11 +5,13 @@ import android.util.AttributeSet;
 import android.widget.RelativeLayout;
 
 import org.greenrobot.eventbus.EventBus;
+import org.joda.time.DateTime;
 
 import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 import io.swagger.client.model.ProfileFullViewModel;
 import rx.Subscription;
@@ -18,7 +20,9 @@ import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.managers.ProfileManager;
+import vision.genesis.clientapp.model.UserDetailsModel;
 import vision.genesis.clientapp.model.events.OnAddNewPostClickedEvent;
+import vision.genesis.clientapp.model.events.ShowUserDetailsEvent;
 
 /**
  * GenesisVisionAndroid
@@ -37,6 +41,8 @@ public class AddNewPostView extends RelativeLayout
 
 	private Unbinder unbinder;
 
+	private ProfileFullViewModel profile;
+
 	public AddNewPostView(Context context) {
 		super(context);
 		initView();
@@ -50,6 +56,18 @@ public class AddNewPostView extends RelativeLayout
 	public AddNewPostView(Context context, AttributeSet attrs, int defStyleAttr) {
 		super(context, attrs, defStyleAttr);
 		initView();
+	}
+
+	@OnClick(R.id.avatar)
+	public void onAvatarClicked() {
+		if (profile != null) {
+			UserDetailsModel model = new UserDetailsModel(
+					profile.getId(),
+					profile.getLogoUrl(),
+					profile.getUserName(),
+					DateTime.now());
+			EventBus.getDefault().post(new ShowUserDetailsEvent(model));
+		}
 	}
 
 	public void onDestroy() {
@@ -84,6 +102,7 @@ public class AddNewPostView extends RelativeLayout
 	}
 
 	private void handleGetProfileSuccess(ProfileFullViewModel profile) {
+		this.profile = profile;
 		avatar.setImage(profile.getLogoUrl(), 50, 50);
 	}
 

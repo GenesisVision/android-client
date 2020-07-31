@@ -33,7 +33,9 @@ import vision.genesis.clientapp.model.events.OnFundFacetClickedEvent;
 import vision.genesis.clientapp.model.events.OnProgramFacetClickedEvent;
 import vision.genesis.clientapp.model.events.OnShowMediaActivityEvent;
 import vision.genesis.clientapp.model.events.OnShowRepostEvent;
+import vision.genesis.clientapp.model.events.OnShowUsersListActivityEvent;
 import vision.genesis.clientapp.model.events.OnThemeChangedEvent;
+import vision.genesis.clientapp.model.events.OpenUrlEvent;
 import vision.genesis.clientapp.model.events.ShowBottomNavigationEvent;
 import vision.genesis.clientapp.model.events.ShowCopytradingAccountDetailsEvent;
 import vision.genesis.clientapp.model.events.ShowDisableTfaActivityEvent;
@@ -407,6 +409,11 @@ public class MainPresenter extends MvpPresenter<MainView>
 	}
 
 	@Subscribe
+	public void onEventMainThread(OnShowUsersListActivityEvent event) {
+		getViewState().showUsersListActivity();
+	}
+
+	@Subscribe
 	public void onEventMainThread(OnShowPostDetailsEvent event) {
 		getViewState().showPostDetails(event.getPostId(), event.getPost(), event.isShowComments());
 	}
@@ -424,5 +431,10 @@ public class MainPresenter extends MvpPresenter<MainView>
 	@Subscribe
 	public void onEventMainThread(ShowReportPostEvent event) {
 		getViewState().showReportPostActivity(event.getPost());
+	}
+
+	@Subscribe
+	public void onEventMainThread(OpenUrlEvent event) {
+		getViewState().openUrl(event.getUrl());
 	}
 }

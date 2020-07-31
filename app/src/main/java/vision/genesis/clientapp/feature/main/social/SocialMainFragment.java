@@ -26,6 +26,7 @@ import vision.genesis.clientapp.feature.main.social.feed.SocialLiveView;
 import vision.genesis.clientapp.feature.main.social.media.SocialMediaView;
 import vision.genesis.clientapp.feature.main.social.post.actions.SocialPostActionsBottomSheetFragment;
 import vision.genesis.clientapp.feature.main.social.post.create.CreatePostActivity;
+import vision.genesis.clientapp.feature.main.social.users.SocialUsersView;
 import vision.genesis.clientapp.model.PostsFilter;
 import vision.genesis.clientapp.model.SocialPostType;
 
@@ -39,9 +40,6 @@ public class SocialMainFragment extends BaseFragment implements SocialMainView
 	@BindView(R.id.scrollview)
 	public NestedScrollView scrollview;
 
-	@BindView(R.id.media_view)
-	public SocialMediaView mediaView;
-
 	@BindView(R.id.live_view)
 	public SocialLiveView liveView;
 
@@ -50,6 +48,12 @@ public class SocialMainFragment extends BaseFragment implements SocialMainView
 
 	@BindView(R.id.feed_view)
 	public SocialLiveView feedView;
+
+	@BindView(R.id.media_view)
+	public SocialMediaView mediaView;
+
+	@BindView(R.id.users_view)
+	public SocialUsersView usersView;
 
 	@BindView(R.id.progress_bar)
 	public ProgressBar progressBar;
@@ -146,6 +150,13 @@ public class SocialMainFragment extends BaseFragment implements SocialMainView
 	public void updateFeed() {
 		if (feedView != null) {
 			feedView.update();
+		}
+	}
+
+	@Override
+	public void updateUsers() {
+		if (usersView != null) {
+			usersView.update();
 		}
 	}
 

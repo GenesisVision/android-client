@@ -42,6 +42,8 @@ public class UsersListFragment extends BaseFragment implements UsersListView
 {
 	public static final String LOCATION_SEARCH = "location_search";
 
+	public static final String LOCATION_LIST = "location_list";
+
 	private static final String EXTRA_LOCATION = "extra_location";
 
 	public static UsersListFragment with(String location) {
@@ -113,12 +115,17 @@ public class UsersListFragment extends BaseFragment implements UsersListView
 		if (getArguments() != null) {
 			String location = getArguments().getString(EXTRA_LOCATION);
 
-			if (location != null && location.equals(LOCATION_SEARCH)) {
-				filters.setVisibility(View.GONE);
-				refreshLayout.setEnabled(false);
+			if (location != null) {
+				if (location.equals(LOCATION_SEARCH)) {
+					filters.setVisibility(View.GONE);
+					refreshLayout.setEnabled(false);
+				}
+				else if (location.equals(LOCATION_LIST)) {
+					filters.setVisibility(View.GONE);
+					refreshLayout.setEnabled(true);
+				}
+				usersListPresenter.setData(location);
 			}
-
-			usersListPresenter.setData(location);
 
 			setFonts();
 			initRefreshLayout();

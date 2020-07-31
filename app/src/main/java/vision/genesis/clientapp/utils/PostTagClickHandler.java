@@ -9,6 +9,7 @@ import io.swagger.client.model.ProfilePublic;
 import vision.genesis.clientapp.model.FundDetailsModel;
 import vision.genesis.clientapp.model.ProgramDetailsModel;
 import vision.genesis.clientapp.model.UserDetailsModel;
+import vision.genesis.clientapp.model.events.OpenUrlEvent;
 import vision.genesis.clientapp.model.events.ShowFundDetailsEvent;
 import vision.genesis.clientapp.model.events.ShowProgramDetailsEvent;
 import vision.genesis.clientapp.model.events.ShowUserDetailsEvent;
@@ -23,7 +24,6 @@ public class PostTagClickHandler
 		switch (tag.getType()) {
 			case UNDEFINED:
 			case EVENT:
-			case URL:
 			case POST:
 				break;
 			case PROGRAM:
@@ -75,6 +75,9 @@ public class PostTagClickHandler
 						userDetails.getUsername(),
 						userDetails.getRegistrationDate());
 				EventBus.getDefault().post(new ShowUserDetailsEvent(userModel));
+				break;
+			case URL:
+				EventBus.getDefault().post(new OpenUrlEvent(tag.getLink().getUrl()));
 				break;
 			case ASSET:
 				break;

@@ -123,6 +123,8 @@ import vision.genesis.clientapp.feature.main.social.post.PostsListPresenter;
 import vision.genesis.clientapp.feature.main.social.post.create.CreatePostPresenter;
 import vision.genesis.clientapp.feature.main.social.post.details.PostDetailsPresenter;
 import vision.genesis.clientapp.feature.main.social.post.report.ReportPostPresenter;
+import vision.genesis.clientapp.feature.main.social.users.SocialUsersListPresenter;
+import vision.genesis.clientapp.feature.main.social.users.SocialUsersView;
 import vision.genesis.clientapp.feature.main.trading_account.TradingAccountDetailsPresenter;
 import vision.genesis.clientapp.feature.main.trading_account.add_demo_funds.AddDemoFundsPresenter;
 import vision.genesis.clientapp.feature.main.trading_account.balance.TradingAccountBalancePresenter;
@@ -486,4 +488,8 @@ public interface AppComponent
 	void inject(PrivacySettingsPresenter privacySettingsPresenter);
 
 	void inject(ReportPostPresenter reportPostPresenter);
+
+	void inject(SocialUsersView socialUsersView);
+
+	void inject(SocialUsersListPresenter socialUsersListPresenter);
 }

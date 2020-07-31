@@ -4,6 +4,7 @@ import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
@@ -52,6 +53,7 @@ import vision.genesis.clientapp.feature.main.social.media.MediaActivity;
 import vision.genesis.clientapp.feature.main.social.post.create.CreatePostActivity;
 import vision.genesis.clientapp.feature.main.social.post.details.PostDetailsActivity;
 import vision.genesis.clientapp.feature.main.social.post.report.ReportPostActivity;
+import vision.genesis.clientapp.feature.main.social.users.SocialUsersListActivity;
 import vision.genesis.clientapp.feature.main.trading_account.TradingAccountDetailsActivity;
 import vision.genesis.clientapp.feature.main.user.UserDetailsActivity;
 import vision.genesis.clientapp.feature.main.wallet.copytrading_account_details.CopytradingAccountDetailsActivity;
@@ -457,6 +459,11 @@ public class MainActivity extends MvpAppCompatActivity implements MainView, Bloc
 	}
 
 	@Override
+	public void showUsersListActivity() {
+		SocialUsersListActivity.startFrom(this);
+	}
+
+	@Override
 	public void showPostDetails(UUID postId, Post post, boolean showComments) {
 		PostDetailsActivity.startWith(this, postId, post, showComments);
 	}
@@ -474,6 +481,12 @@ public class MainActivity extends MvpAppCompatActivity implements MainView, Bloc
 	@Override
 	public void showReportPostActivity(Post post) {
 		ReportPostActivity.startWith(this, post.getId());
+	}
+
+	@Override
+	public void openUrl(String url) {
+		Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+		startActivity(browserIntent);
 	}
 
 	@Override

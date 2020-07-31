@@ -85,6 +85,7 @@ public class SocialMainPresenter extends MvpPresenter<SocialMainView> implements
 		getViewState().updateLive();
 		getViewState().updateHot();
 		getViewState().updateFeed();
+		getViewState().updateUsers();
 	}
 
 	private void getProfileInfo() {

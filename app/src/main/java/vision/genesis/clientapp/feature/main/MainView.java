@@ -97,6 +97,8 @@ public interface MainView extends MvpView
 
 	void showMediaActivity();
 
+	void showUsersListActivity();
+
 	void showPostDetails(UUID postId, Post post, boolean showComments);
 
 	void showCreatePostActivity();
@@ -104,4 +106,6 @@ public interface MainView extends MvpView
 	void showCreatePostActivityWithRepost(Post post);
 
 	void showReportPostActivity(Post post);
+
+	void openUrl(String url);
 }
