@@ -168,9 +168,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/settings_item_height"
                 android:background="?attr/selectableItemBackground"
-                android:paddingStart="64dp"
-                android:paddingEnd="@dimen/settings_padding"
-                android:visibility="gone">
+                android:paddingStart="@dimen/padding"
+                android:paddingEnd="@dimen/settings_padding">
 
                 <View
                     android:layout_width="match_parent"
@@ -178,9 +177,16 @@
                     android:alpha="0.05"
                     android:background="?attr/colorTextPrimary"/>
 
+                <ImageView
+                    android:id="@+id/icon_public_profile"
+                    style="@style/settings_icon"
+                    android:padding="2dp"
+                    app:srcCompat="@drawable/icon_users"/>
+
                 <TextView
                     android:id="@+id/public_investor_label"
                     style="@style/settings_text"
+                    android:layout_toEndOf="@+id/icon_public_profile"
                     android:text="@string/public_investors_profile"/>
 
                 <ImageView

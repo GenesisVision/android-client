@@ -600,7 +600,7 @@ public class SocialCommentView extends RelativeLayout implements PostImageView.P
 	public void onShareClicked(Post comment) {
 		Intent intent = new Intent(android.content.Intent.ACTION_SEND);
 		intent.setType("text/plain");
-		intent.putExtra(android.content.Intent.EXTRA_SUBJECT, getContext().getString(R.string.share));
+		intent.putExtra(android.content.Intent.EXTRA_SUBJECT, "");
 		intent.putExtra(android.content.Intent.EXTRA_TEXT, StringFormatUtil.getCommentUrl(comment.getUrl()));
 		getContext().startActivity(Intent.createChooser(intent, getContext().getString(R.string.share)));
 	}

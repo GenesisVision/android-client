@@ -128,7 +128,7 @@ public class PostsListFragment extends BaseFragment implements PostsListView
 		recyclerView.setHasFixedSize(true);
 		LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
 		recyclerView.setLayoutManager(layoutManager);
-		adapter = new PostsListAdapter(presenter);
+		adapter = new PostsListAdapter(presenter, filter != null ? filter.getIsOwnFeed() : false);
 		adapter.setHasStableIds(true);
 		recyclerView.setAdapter(adapter);
 		recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener()
@@ -231,9 +231,19 @@ public class PostsListFragment extends BaseFragment implements PostsListView
 		}
 	}
 
+	public void setFilter(PostsFilter filter) {
+		presenter.setData(filter);
+	}
+
 	public void onSwipeRefresh() {
 		if (presenter != null) {
 			presenter.onSwipeRefresh();
+		}
+	}
+
+	public void clearPostsList() {
+		if (presenter != null) {
+			presenter.clearPostsList();
 		}
 	}
 }

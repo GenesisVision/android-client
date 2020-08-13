@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:tools="http://schemas.android.com/tools"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="vertical">
 
     <TextView
         android:id="@+id/label"
@@ -16,16 +17,16 @@
         android:textSize="12sp"/>
 
     <RelativeLayout
+        android:id="@+id/first"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/label"
         android:layout_marginTop="12dp"
         android:background="?attr/selectableItemBackground"
         android:paddingStart="20dp"
         android:paddingEnd="20dp">
 
         <com.facebook.drawee.view.SimpleDraweeView
-            android:id="@+id/icon"
+            android:id="@+id/first_icon"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_centerVertical="true"/>
@@ -35,11 +36,11 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginStart="16dp"
-            android:layout_toEndOf="@+id/icon"
+            android:layout_toEndOf="@+id/first_icon"
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/wallet_name"
+                android:id="@+id/first_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="?attr/colorTextPrimary"
@@ -47,7 +48,7 @@
                 tools:text="Genesis Vision Token"/>
 
             <TextView
-                android:id="@+id/wallet_available"
+                android:id="@+id/first_available"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:alpha="0.3"
@@ -60,4 +61,60 @@
 
     </RelativeLayout>
 
-</RelativeLayout>
+    <ImageView
+        android:id="@+id/icon_arrow"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="@dimen/padding"
+        android:padding="10dp"
+        android:visibility="gone"
+        app:srcCompat="@drawable/ic_arrow_downward_black_24dp"
+        tools:visibility="visible"/>
+
+    <RelativeLayout
+        android:id="@+id/second"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackground"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        android:visibility="gone"
+        tools:visibility="visible">
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/second_icon"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_centerVertical="true"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="16dp"
+            android:layout_toEndOf="@+id/second_icon"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/second_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="?attr/colorTextPrimary"
+                android:textSize="16sp"
+                tools:text="Genesis Vision Token"/>
+
+            <TextView
+                android:id="@+id/second_available"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:alpha="0.3"
+                android:textColor="?attr/colorTextPrimary"
+                android:textSize="12sp"
+                android:visibility="gone"
+                tools:text="436.3938 GVT"/>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</LinearLayout>

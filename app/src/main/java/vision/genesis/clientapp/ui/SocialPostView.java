@@ -532,6 +532,7 @@ public class SocialPostView extends RelativeLayout implements PostImageView.Post
 				                  @Override
 				                  public void onClick(View view) {
 					                  if (match.getHashTag() != null) {
+						                  blockTextClick = true;
 						                  EventBus.getDefault().post(new OnHashTagClickedEvent(match.getHashTag()));
 					                  }
 				                  }
@@ -792,7 +793,7 @@ public class SocialPostView extends RelativeLayout implements PostImageView.Post
 	public void onShareClicked(Post post) {
 		Intent intent = new Intent(android.content.Intent.ACTION_SEND);
 		intent.setType("text/plain");
-		intent.putExtra(android.content.Intent.EXTRA_SUBJECT, getContext().getString(R.string.share));
+		intent.putExtra(android.content.Intent.EXTRA_SUBJECT, "");
 		intent.putExtra(android.content.Intent.EXTRA_TEXT, StringFormatUtil.getPostUrl(post.getUrl()));
 		getContext().startActivity(Intent.createChooser(intent, getContext().getString(R.string.share)));
 	}

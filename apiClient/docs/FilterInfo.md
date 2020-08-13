@@ -7,3 +7,4 @@ Name | Type | Description | Notes
 **walletExternalTransactions** | [**List&lt;FilterItemInfo&gt;**](FilterItemInfo.md) |  |  [optional]
 **events** | [**EventFilters**](EventFilters.md) |  |  [optional]
 **assets** | [**List&lt;FilterItemInfo&gt;**](FilterItemInfo.md) |  |  [optional]
+**fundsHistoryEvents** | [**List&lt;FilterItemInfo&gt;**](FilterItemInfo.md) |  |  [optional]

@@ -194,4 +194,13 @@ public class SettingsManager
 	public boolean getShowEvents() {
 		return sharedPreferencesUtil.getShowEvents();
 	}
+
+
+	public void saveShowTrendingFirstTime(boolean showTrending) {
+		sharedPreferencesUtil.saveShowTrendingFirstTime(showTrending);
+	}
+
+	public boolean getShowTrendingFirstTime() {
+		return sharedPreferencesUtil.getShowTrendingFirstTime();
+	}
 }

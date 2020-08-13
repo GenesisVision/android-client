@@ -41,6 +41,8 @@ public class SharedPreferencesUtil
 
 	private static final String KEY_SHOW_EVENTS = "keyShowEvents";
 
+	private static final String KEY_SHOW_TRENDING_FIRST_TIME = "keyShowTrendingFirstTime";
+
 	private Context context;
 
 	public SharedPreferencesUtil(Context context) {
@@ -189,5 +191,17 @@ public class SharedPreferencesUtil
 	public boolean getShowEvents() {
 		SharedPreferences sharedPreferences = context.getSharedPreferences(SETTINGS, Context.MODE_PRIVATE);
 		return sharedPreferences.getBoolean(KEY_SHOW_EVENTS, true);
+	}
+
+	public void saveShowTrendingFirstTime(boolean showTrending) {
+		SharedPreferences sharedPreferences = context.getSharedPreferences(USER_PREFS, Context.MODE_PRIVATE);
+		sharedPreferences.edit()
+				.putBoolean(KEY_SHOW_TRENDING_FIRST_TIME, showTrending)
+				.apply();
+	}
+
+	public boolean getShowTrendingFirstTime() {
+		SharedPreferences sharedPreferences = context.getSharedPreferences(USER_PREFS, Context.MODE_PRIVATE);
+		return sharedPreferences.getBoolean(KEY_SHOW_TRENDING_FIRST_TIME, true);
 	}
 }

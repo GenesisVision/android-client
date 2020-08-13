@@ -14,3 +14,4 @@
 * `REDDIT` (value: `"Reddit"`)
 * `GITHUB` (value: `"GitHub"`)
 * `MEDIUM` (value: `"Medium"`)
+* `INSTAGRAM` (value: `"Instagram"`)

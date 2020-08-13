@@ -11,7 +11,7 @@ import io.swagger.client.model.FundBalanceChart;
 import io.swagger.client.model.FundDetailsFull;
 import io.swagger.client.model.FundDetailsListItem;
 import io.swagger.client.model.FundDetailsListItemItemsViewModel;
-import io.swagger.client.model.FundHistoryEventType;
+import io.swagger.client.model.FundHistoryEventFilterType;
 import io.swagger.client.model.FundHistoryEventViewModelItemsViewModel;
 import io.swagger.client.model.FundProfitPercentCharts;
 import io.swagger.client.model.FundsFilterSorting;
@@ -132,7 +132,7 @@ public interface FundsApi
 	 */
 	@GET("v2.0/funds/{id}/history")
 	Observable<FundHistoryEventViewModelItemsViewModel> getFundsHistoryEvents(
-			@retrofit2.http.Path("id") UUID id, @retrofit2.http.Query("DateFrom") DateTime dateFrom, @retrofit2.http.Query("DateTo") DateTime dateTo, @retrofit2.http.Query("EventsType") FundHistoryEventType eventsType, @retrofit2.http.Query("Skip") Integer skip, @retrofit2.http.Query("Take") Integer take
+			@retrofit2.http.Path("id") UUID id, @retrofit2.http.Query("DateFrom") DateTime dateFrom, @retrofit2.http.Query("DateTo") DateTime dateTo, @retrofit2.http.Query("EventsType") FundHistoryEventFilterType eventsType, @retrofit2.http.Query("Skip") Integer skip, @retrofit2.http.Query("Take") Integer take
 	);
 
 	/**

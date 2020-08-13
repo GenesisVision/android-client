@@ -5,9 +5,11 @@ import org.joda.time.DateTimeComparator;
 import org.joda.time.Days;
 import org.joda.time.Hours;
 import org.joda.time.Minutes;
+import org.joda.time.Months;
 import org.joda.time.Period;
 import org.joda.time.PeriodType;
 import org.joda.time.Seconds;
+import org.joda.time.Years;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 import org.joda.time.format.PeriodFormatter;
@@ -84,6 +86,32 @@ public class DateTimeUtil
 		else {
 			return eventDateTimeFormatter.withLocale(Locale.US).print(dateTime);
 		}
+	}
+
+	public static String formatAgeDateTime(DateTime dateTime) {
+		int years = Math.abs(DateTimeUtil.getYearsToDate(dateTime));
+		if (years > 0) {
+			return (String.format(Locale.getDefault(), "%d %s", years, GenesisVisionApplication.INSTANCE.getResources().getQuantityString(R.plurals.years, years)));
+		}
+		int months = Math.abs(DateTimeUtil.getMonthsToDate(dateTime));
+		if (months > 0) {
+			return (String.format(Locale.getDefault(), "%d %s", months, GenesisVisionApplication.INSTANCE.getResources().getQuantityString(R.plurals.months, months)));
+		}
+		int days = Math.abs(DateTimeUtil.getDaysToDate(dateTime));
+		if (days > 0) {
+			return (String.format(Locale.getDefault(), "%d %s", days, GenesisVisionApplication.INSTANCE.getResources().getQuantityString(R.plurals.days, days)));
+		}
+		else {
+			return GenesisVisionApplication.INSTANCE.getResources().getString(R.string.today);
+		}
+	}
+
+	public static int getYearsToDate(DateTime date) {
+		return Years.yearsBetween(DateTime.now(), date).getYears();
+	}
+
+	public static int getMonthsToDate(DateTime date) {
+		return Months.monthsBetween(DateTime.now(), date).getMonths();
 	}
 
 	public static int getDaysToDate(DateTime date) {

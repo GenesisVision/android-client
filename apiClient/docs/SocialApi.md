@@ -843,7 +843,7 @@ Name | Type | Description  | Notes
 
 <a name="spamReport"></a>
 # **spamReport**
-> EditablePost spamReport(id, reason, text)
+> Void spamReport(id, reason, text)
 
 Report post/comment
 
@@ -869,7 +869,7 @@ String id = "id_example"; // String |
 String reason = "reason_example"; // String | 
 String text = "text_example"; // String | 
 try {
-    EditablePost result = apiInstance.spamReport(id, reason, text);
+    Void result = apiInstance.spamReport(id, reason, text);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling SocialApi#spamReport");
@@ -887,7 +887,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**EditablePost**](EditablePost.md)
+[**Void**](.md)
 
 ### Authorization
 

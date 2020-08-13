@@ -212,7 +212,7 @@ public interface SocialApi
 	 * @param id     (required)
 	 * @param reason (optional)
 	 * @param text   (optional)
-	 * @return Call&lt;EditablePost&gt;
+	 * @return Call&lt;Void&gt;
 	 */
 	@POST("v2.0/social/feed/{id}/report")
 	Observable<Void> spamReport(

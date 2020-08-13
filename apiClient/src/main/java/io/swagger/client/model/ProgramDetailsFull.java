@@ -98,6 +98,12 @@ public class ProgramDetailsFull implements Parcelable
 	@SerializedName("totalAvailableInvestment")
 	private Double totalAvailableInvestment = null;
 
+	@SerializedName("canShowPeriodHistory")
+	private Boolean canShowPeriodHistory = null;
+
+	@SerializedName("canShowFinancialStatistic")
+	private Boolean canShowFinancialStatistic = null;
+
 	@SerializedName("personalDetails")
 	private PersonalProgramDetails personalDetails = null;
 
@@ -124,6 +130,8 @@ public class ProgramDetailsFull implements Parcelable
 		availableInvestmentBase = (Double) in.readValue(null);
 		availableInvestmentLimit = (Double) in.readValue(null);
 		totalAvailableInvestment = (Double) in.readValue(null);
+		canShowPeriodHistory = (Boolean) in.readValue(null);
+		canShowFinancialStatistic = (Boolean) in.readValue(null);
 		personalDetails = (PersonalProgramDetails) in.readValue(PersonalProgramDetails.class.getClassLoader());
 	}
 
@@ -488,6 +496,44 @@ public class ProgramDetailsFull implements Parcelable
 		this.totalAvailableInvestment = totalAvailableInvestment;
 	}
 
+	public ProgramDetailsFull canShowPeriodHistory(Boolean canShowPeriodHistory) {
+		this.canShowPeriodHistory = canShowPeriodHistory;
+		return this;
+	}
+
+	/**
+	 * Get canShowPeriodHistory
+	 *
+	 * @return canShowPeriodHistory
+	 **/
+	@Schema(description = "")
+	public Boolean isCanShowPeriodHistory() {
+		return canShowPeriodHistory;
+	}
+
+	public void setCanShowPeriodHistory(Boolean canShowPeriodHistory) {
+		this.canShowPeriodHistory = canShowPeriodHistory;
+	}
+
+	public ProgramDetailsFull canShowFinancialStatistic(Boolean canShowFinancialStatistic) {
+		this.canShowFinancialStatistic = canShowFinancialStatistic;
+		return this;
+	}
+
+	/**
+	 * Get canShowFinancialStatistic
+	 *
+	 * @return canShowFinancialStatistic
+	 **/
+	@Schema(description = "")
+	public Boolean isCanShowFinancialStatistic() {
+		return canShowFinancialStatistic;
+	}
+
+	public void setCanShowFinancialStatistic(Boolean canShowFinancialStatistic) {
+		this.canShowFinancialStatistic = canShowFinancialStatistic;
+	}
+
 	public ProgramDetailsFull personalDetails(PersonalProgramDetails personalDetails) {
 		this.personalDetails = personalDetails;
 		return this;
@@ -535,12 +581,14 @@ public class ProgramDetailsFull implements Parcelable
 				Objects.equals(this.availableInvestmentBase, programDetailsFull.availableInvestmentBase) &&
 				Objects.equals(this.availableInvestmentLimit, programDetailsFull.availableInvestmentLimit) &&
 				Objects.equals(this.totalAvailableInvestment, programDetailsFull.totalAvailableInvestment) &&
+				Objects.equals(this.canShowPeriodHistory, programDetailsFull.canShowPeriodHistory) &&
+				Objects.equals(this.canShowFinancialStatistic, programDetailsFull.canShowFinancialStatistic) &&
 				Objects.equals(this.personalDetails, programDetailsFull.personalDetails);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(level, levelProgress, periodDuration, periodStarts, periodEnds, tradesDelay, ageDays, genesisRatio, investmentScale, volumeScale, managementFeeSelected, managementFeeCurrent, successFeeSelected, successFeeCurrent, stopOutLevelSelected, stopOutLevelCurrent, availableInvestmentBase, availableInvestmentLimit, totalAvailableInvestment, personalDetails);
+		return Objects.hash(level, levelProgress, periodDuration, periodStarts, periodEnds, tradesDelay, ageDays, genesisRatio, investmentScale, volumeScale, managementFeeSelected, managementFeeCurrent, successFeeSelected, successFeeCurrent, stopOutLevelSelected, stopOutLevelCurrent, availableInvestmentBase, availableInvestmentLimit, totalAvailableInvestment, canShowPeriodHistory, canShowFinancialStatistic, personalDetails);
 	}
 
 	@Override
@@ -567,6 +615,8 @@ public class ProgramDetailsFull implements Parcelable
 		sb.append("    availableInvestmentBase: ").append(toIndentedString(availableInvestmentBase)).append("\n");
 		sb.append("    availableInvestmentLimit: ").append(toIndentedString(availableInvestmentLimit)).append("\n");
 		sb.append("    totalAvailableInvestment: ").append(toIndentedString(totalAvailableInvestment)).append("\n");
+		sb.append("    canShowPeriodHistory: ").append(toIndentedString(canShowPeriodHistory)).append("\n");
+		sb.append("    canShowFinancialStatistic: ").append(toIndentedString(canShowFinancialStatistic)).append("\n");
 		sb.append("    personalDetails: ").append(toIndentedString(personalDetails)).append("\n");
 		sb.append("}");
 		return sb.toString();
@@ -603,6 +653,8 @@ public class ProgramDetailsFull implements Parcelable
 		out.writeValue(availableInvestmentBase);
 		out.writeValue(availableInvestmentLimit);
 		out.writeValue(totalAvailableInvestment);
+		out.writeValue(canShowPeriodHistory);
+		out.writeValue(canShowFinancialStatistic);
 		out.writeValue(personalDetails);
 	}
 

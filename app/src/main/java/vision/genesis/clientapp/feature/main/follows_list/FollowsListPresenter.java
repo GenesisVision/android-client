@@ -197,7 +197,7 @@ public class FollowsListPresenter extends MvpPresenter<FollowsListView>
 				skip = 0;
 				filter.setSkip(skip);
 			}
-			filter.setShowIn(baseCurrency);
+//			filter.setShowIn(baseCurrency);
 
 			if (getFollowsSubscription != null) {
 				getFollowsSubscription.unsubscribe();

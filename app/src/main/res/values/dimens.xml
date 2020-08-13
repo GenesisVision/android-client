@@ -163,4 +163,7 @@
     <dimen name="autocomplete_gv_assets_view_height">150dp</dimen>
     <dimen name="autocomplete_item_padding">8dp</dimen>
     <dimen name="view_user_short_height">100dp</dimen>
+    <dimen name="trending_bottomsheet_peek_height">60dp</dimen>
+    <dimen name="hot_topic_height">72dp</dimen>
+    <dimen name="top_strategy_height">104dp</dimen>
 </resources>

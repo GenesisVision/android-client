@@ -26,6 +26,8 @@ import vision.genesis.clientapp.managers.ProfileManager;
 import vision.genesis.clientapp.managers.SocialManager;
 import vision.genesis.clientapp.model.PostsFilter;
 import vision.genesis.clientapp.model.SocialPostType;
+import vision.genesis.clientapp.model.events.OnNewPostCreatedEvent;
+import vision.genesis.clientapp.model.events.OnNewPostEditedEvent;
 import vision.genesis.clientapp.model.events.SetPostDeletedEvent;
 import vision.genesis.clientapp.net.ApiErrorResolver;
 import vision.genesis.clientapp.ui.SocialPostView;
@@ -103,6 +105,11 @@ public class PostsListPresenter extends MvpPresenter<PostsListView> implements S
 		getPostsList(false);
 	}
 
+	void clearPostsList() {
+		getViewState().setPosts(new ArrayList<>());
+		skip = 0;
+	}
+
 	private void getProfileInfo() {
 		getProfileSubscription = profileManager.getProfileFull(true)
 				.subscribeOn(Schedulers.io())
@@ -150,7 +157,7 @@ public class PostsListPresenter extends MvpPresenter<PostsListView> implements S
 		List<Post> postsToAdd = response.getItems();
 
 		if (postsToAdd.size() == 0) {
-			if (skip == 0) {
+			if (skip == 0 && !filter.getIsOwnFeed()) {
 				getViewState().showEmptyList(true);
 			}
 			return;
@@ -185,6 +192,20 @@ public class PostsListPresenter extends MvpPresenter<PostsListView> implements S
 	@Subscribe
 	public void onEventMainThread(SetPostDeletedEvent event) {
 		getViewState().setPostDeleted(event.getPost(), event.isDeleted());
+	}
+
+	@Subscribe
+	public void onEventMainThread(OnNewPostCreatedEvent event) {
+		if (filter != null && filter.getIsOwnFeed()) {
+			getPostsList(true);
+		}
+	}
+
+	@Subscribe
+	public void onEventMainThread(OnNewPostEditedEvent event) {
+		if (filter != null && filter.getIsOwnFeed()) {
+			getPostsList(true);
+		}
 	}
 
 	@Override

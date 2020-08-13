@@ -56,7 +56,9 @@
                 android:id="@+id/value"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:lines="1"
+                android:ellipsize="end"
+                android:gravity="end"
+                android:maxLines="2"
                 android:textColor="?attr/colorGreen"
                 android:textSize="14sp"
                 tools:text="+942.12345678 GVT"/>

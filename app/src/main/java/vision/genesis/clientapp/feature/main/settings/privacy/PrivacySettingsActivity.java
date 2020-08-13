@@ -70,6 +70,8 @@ public class PrivacySettingsActivity extends BaseSwipeBackActivity implements Pr
 
 	private Integer selectedWhoCanCommentOnMyPostPosition = -1;
 
+	private boolean whoCanCommentOnMyPostEnabled;
+
 	@OnClick(R.id.button_back)
 	public void onBackClicked() {
 		onBackPressed();
@@ -102,7 +104,7 @@ public class PrivacySettingsActivity extends BaseSwipeBackActivity implements Pr
 
 	@OnClick(R.id.group_who_can_comment_on_my_posts)
 	public void onWhoCanCommentOnMyPostClicked() {
-		if (whoCanCommentOnMyPostOptions != null && whoCanCommentOnMyPostOptions.size() > 1) {
+		if (whoCanCommentOnMyPostOptions != null && whoCanCommentOnMyPostOptions.size() > 1 && whoCanCommentOnMyPostEnabled) {
 			SelectOptionBottomSheetFragment fragment = SelectOptionBottomSheetFragment.with(
 					getString(R.string.who_can_comment_on_my_posts), whoCanCommentOnMyPostOptions, selectedWhoCanCommentOnMyPostPosition);
 			fragment.setListener((position, text) -> presenter.onWhoCanCommentOnMyPostSelected(position, text));
@@ -155,6 +157,12 @@ public class PrivacySettingsActivity extends BaseSwipeBackActivity implements Pr
 	public void setWhoCanCommentOnMyPost(String text, Integer position) {
 		this.whoCanCommentOnMyPost.setText(text);
 		this.selectedWhoCanCommentOnMyPostPosition = position;
+	}
+
+	@Override
+	public void setWhoCanCommentOnMyPostEnabled(boolean enabled) {
+		this.whoCanCommentOnMyPost.setAlpha(enabled ? 1.0f : 0.4f);
+		whoCanCommentOnMyPostEnabled = enabled;
 	}
 
 	@Override

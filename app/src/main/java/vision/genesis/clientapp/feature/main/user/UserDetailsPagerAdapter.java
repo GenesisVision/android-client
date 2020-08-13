@@ -45,7 +45,7 @@ public class UserDetailsPagerAdapter extends FragmentStatePagerAdapter
 
 	private TabLayout tabLayout;
 
-	UserDetailsPagerAdapter(FragmentManager fm, TabLayout tabLayout, UUID userId) {
+	UserDetailsPagerAdapter(FragmentManager fm, TabLayout tabLayout, UUID userId, boolean isOwnFeed) {
 		super(fm);
 		this.tabLayout = tabLayout;
 
@@ -54,6 +54,7 @@ public class UserDetailsPagerAdapter extends FragmentStatePagerAdapter
 		PostsFilter feedFilter = new PostsFilter();
 		feedFilter.setUserMode(UserFeedMode.PROFILEPOSTS);
 		feedFilter.setUserId(userId);
+		feedFilter.setIsOwnFeed(isOwnFeed);
 		feedFragment = PostsListFragment.with(feedFilter);
 
 		ProgramsFilter programsFilter = new ProgramsFilter();

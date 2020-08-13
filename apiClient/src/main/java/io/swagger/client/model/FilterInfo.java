@@ -53,6 +53,9 @@ public class FilterInfo implements Parcelable
 	@SerializedName("assets")
 	private List<FilterItemInfo> assets = null;
 
+	@SerializedName("fundsHistoryEvents")
+	private List<FilterItemInfo> fundsHistoryEvents = null;
+
 	public FilterInfo() {
 	}
 
@@ -61,6 +64,7 @@ public class FilterInfo implements Parcelable
 		walletExternalTransactions = (List<FilterItemInfo>) in.readValue(FilterItemInfo.class.getClassLoader());
 		events = (EventFilters) in.readValue(EventFilters.class.getClassLoader());
 		assets = (List<FilterItemInfo>) in.readValue(FilterItemInfo.class.getClassLoader());
+		fundsHistoryEvents = (List<FilterItemInfo>) in.readValue(FilterItemInfo.class.getClassLoader());
 	}
 
 	public FilterInfo walletTransactions(List<FilterItemInfo> walletTransactions) {
@@ -163,6 +167,33 @@ public class FilterInfo implements Parcelable
 		this.assets = assets;
 	}
 
+	public FilterInfo fundsHistoryEvents(List<FilterItemInfo> fundsHistoryEvents) {
+		this.fundsHistoryEvents = fundsHistoryEvents;
+		return this;
+	}
+
+	public FilterInfo addFundsHistoryEventsItem(FilterItemInfo fundsHistoryEventsItem) {
+		if (this.fundsHistoryEvents == null) {
+			this.fundsHistoryEvents = new ArrayList<FilterItemInfo>();
+		}
+		this.fundsHistoryEvents.add(fundsHistoryEventsItem);
+		return this;
+	}
+
+	/**
+	 * Get fundsHistoryEvents
+	 *
+	 * @return fundsHistoryEvents
+	 **/
+	@Schema(description = "")
+	public List<FilterItemInfo> getFundsHistoryEvents() {
+		return fundsHistoryEvents;
+	}
+
+	public void setFundsHistoryEvents(List<FilterItemInfo> fundsHistoryEvents) {
+		this.fundsHistoryEvents = fundsHistoryEvents;
+	}
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -175,12 +206,13 @@ public class FilterInfo implements Parcelable
 		return Objects.equals(this.walletTransactions, filterInfo.walletTransactions) &&
 				Objects.equals(this.walletExternalTransactions, filterInfo.walletExternalTransactions) &&
 				Objects.equals(this.events, filterInfo.events) &&
-				Objects.equals(this.assets, filterInfo.assets);
+				Objects.equals(this.assets, filterInfo.assets) &&
+				Objects.equals(this.fundsHistoryEvents, filterInfo.fundsHistoryEvents);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(walletTransactions, walletExternalTransactions, events, assets);
+		return Objects.hash(walletTransactions, walletExternalTransactions, events, assets, fundsHistoryEvents);
 	}
 
 	@Override
@@ -192,6 +224,7 @@ public class FilterInfo implements Parcelable
 		sb.append("    walletExternalTransactions: ").append(toIndentedString(walletExternalTransactions)).append("\n");
 		sb.append("    events: ").append(toIndentedString(events)).append("\n");
 		sb.append("    assets: ").append(toIndentedString(assets)).append("\n");
+		sb.append("    fundsHistoryEvents: ").append(toIndentedString(fundsHistoryEvents)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}
@@ -212,6 +245,7 @@ public class FilterInfo implements Parcelable
 		out.writeValue(walletExternalTransactions);
 		out.writeValue(events);
 		out.writeValue(assets);
+		out.writeValue(fundsHistoryEvents);
 	}
 
 	public int describeContents() {

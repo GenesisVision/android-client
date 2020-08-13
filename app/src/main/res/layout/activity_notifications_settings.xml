@@ -45,6 +45,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:clipToPadding="false"
+            android:paddingBottom="100dp"
             android:orientation="vertical">
 
             <RelativeLayout
@@ -140,9 +142,7 @@
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/programs_recycler_view"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:clipToPadding="false"
-                        android:paddingBottom="20dp"/>
+                        android:layout_height="wrap_content"/>
 
                 </LinearLayout>
 
@@ -170,9 +170,7 @@
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/funds_recycler_view"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:clipToPadding="false"
-                        android:paddingBottom="20dp"/>
+                        android:layout_height="wrap_content"/>
 
                 </LinearLayout>
 

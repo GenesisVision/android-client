@@ -22,4 +22,6 @@ Name | Type | Description | Notes
 **availableInvestmentBase** | **Double** |  |  [optional]
 **availableInvestmentLimit** | **Double** |  |  [optional]
 **totalAvailableInvestment** | **Double** |  |  [optional]
+**canShowPeriodHistory** | **Boolean** |  |  [optional]
+**canShowFinancialStatistic** | **Boolean** |  |  [optional]
 **personalDetails** | [**PersonalProgramDetails**](PersonalProgramDetails.md) |  |  [optional]

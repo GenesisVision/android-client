@@ -1,10 +1,14 @@
 package vision.genesis.clientapp.feature.main.social.feed;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.ProgressBar;
 
 import androidx.appcompat.widget.SwitchCompat;
@@ -13,6 +17,7 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.google.android.material.appbar.AppBarLayout;
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.tabs.TabLayout;
 
 import butterknife.BindView;
@@ -20,6 +25,9 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseSwipeBackActivity;
+import vision.genesis.clientapp.feature.main.social.post.PostsListFragment;
+import vision.genesis.clientapp.feature.main.social.trending.TrendingBottomSheetView;
+import vision.genesis.clientapp.model.PostsFilter;
 import vision.genesis.clientapp.ui.common.DetailsTabView;
 import vision.genesis.clientapp.utils.TabLayoutUtil;
 import vision.genesis.clientapp.utils.ThemeUtil;
@@ -58,6 +66,12 @@ public class SocialActivity extends BaseSwipeBackActivity implements SocialView,
 	@BindView(R.id.view_pager_feed)
 	public ViewPager viewPager;
 
+	@BindView(R.id.group_filtered_posts)
+	public ViewGroup filteredPostsGroup;
+
+	@BindView(R.id.view_trending)
+	public TrendingBottomSheetView trendingView;
+
 	@BindView(R.id.progress_bar)
 	public ProgressBar progressBar;
 
@@ -72,9 +86,18 @@ public class SocialActivity extends BaseSwipeBackActivity implements SocialView,
 
 	private String showPage;
 
+	private PostsListFragment postsListFragment;
+
 	@OnClick(R.id.button_back)
 	public void onBackClicked() {
-		onBackPressed();
+		finishActivity();
+	}
+
+	@OnClick(R.id.button_close_filtered_posts)
+	public void onCloseFilteredPostsClicked() {
+		if (trendingView != null) {
+			trendingView.clearTags();
+		}
 	}
 
 	@Override
@@ -86,12 +109,23 @@ public class SocialActivity extends BaseSwipeBackActivity implements SocialView,
 
 		ButterKnife.bind(this);
 
+		if (savedInstanceState == null) {
+			postsListFragment = PostsListFragment.with(null);
+			getSupportFragmentManager()
+					.beginTransaction()
+					.add(R.id.content, postsListFragment)
+					.disallowAddToBackStack()
+					.commit();
+		}
+
 		if (getIntent().getExtras() != null && !getIntent().getExtras().isEmpty()) {
 			showPage = getIntent().getExtras().getString(EXTRA_SHOW_PAGE);
 		}
 
 		initListener();
 		initTabs();
+
+		trendingView.setListener(presenter);
 	}
 
 	private void initListener() {
@@ -103,6 +137,9 @@ public class SocialActivity extends BaseSwipeBackActivity implements SocialView,
 	public void onDestroy() {
 		if (pagerAdapter != null) {
 			pagerAdapter.destroy();
+		}
+		if (trendingView != null) {
+			trendingView.onDestroy();
 		}
 
 		if (tabSelectedListener != null && tabLayout != null) {
@@ -127,7 +164,16 @@ public class SocialActivity extends BaseSwipeBackActivity implements SocialView,
 
 	@Override
 	public void onBackPressed() {
-		finishActivity();
+		BottomSheetBehavior bottomSheetBehavior = BottomSheetBehavior.from(trendingView);
+		if (bottomSheetBehavior.getState() != BottomSheetBehavior.STATE_COLLAPSED) {
+			bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+		}
+		else if (filteredPostsGroup.getVisibility() == View.VISIBLE) {
+			onCloseFilteredPostsClicked();
+		}
+		else {
+			finishActivity();
+		}
 	}
 
 	@Override
@@ -253,6 +299,54 @@ public class SocialActivity extends BaseSwipeBackActivity implements SocialView,
 		showEventsSwitch.setChecked(checked);
 		if (pagerAdapter != null) {
 			pagerAdapter.setShowEvents(checked);
+		}
+	}
+
+	@Override
+	public void showTrendingBottomSheet() {
+		BottomSheetBehavior bottomSheetBehavior = BottomSheetBehavior.from(trendingView);
+		bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HALF_EXPANDED);
+	}
+
+	@Override
+	public void showFilteredPosts(boolean show) {
+		ValueAnimator alphaAnim = ValueAnimator.ofFloat(filteredPostsGroup.getAlpha(), show ? 1f : 0f);
+		alphaAnim.addUpdateListener(animation -> {
+			if (filteredPostsGroup != null) {
+				filteredPostsGroup.setAlpha((float) alphaAnim.getAnimatedValue());
+			}
+		});
+		alphaAnim.setDuration(300);
+		alphaAnim.addListener(new AnimatorListenerAdapter()
+		{
+			@Override
+			public void onAnimationStart(Animator animation) {
+				super.onAnimationStart(animation);
+				if (show) {
+					filteredPostsGroup.setVisibility(View.VISIBLE);
+				}
+			}
+
+			@Override
+			public void onAnimationEnd(Animator animation) {
+				super.onAnimationEnd(animation);
+				if (!show) {
+					filteredPostsGroup.setVisibility(View.GONE);
+				}
+			}
+		});
+		alphaAnim.setInterpolator(new AccelerateDecelerateInterpolator());
+		alphaAnim.start();
+
+		if (!show) {
+			postsListFragment.clearPostsList();
+		}
+	}
+
+	@Override
+	public void setFilter(PostsFilter filter) {
+		if (postsListFragment != null) {
+			postsListFragment.setFilter(filter);
 		}
 	}
 

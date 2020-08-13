@@ -109,6 +109,48 @@
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
             tools:visibility="visible"/>
 
+        <LinearLayout
+            android:id="@+id/group_filtered_posts"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:alpha="0"
+            android:orientation="vertical"
+            android:visibility="gone"
+            tools:visibility="gone">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/toolbar_height"
+                android:background="?attr/colorBackground">
+
+                <ImageView
+                    android:id="@+id/button_close_filtered_posts"
+                    android:layout_width="50dp"
+                    android:layout_height="@dimen/toolbar_height"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:padding="10dp"
+                    android:tint="?attr/colorTextPrimary"
+                    app:srcCompat="@drawable/icon_close"/>
+
+            </RelativeLayout>
+
+            <FrameLayout
+                android:id="@+id/content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+        </LinearLayout>
+
+        <vision.genesis.clientapp.feature.main.social.trending.TrendingBottomSheetView
+            android:id="@+id/view_trending"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:behavior_hideable="false"
+            app:behavior_peekHeight="@dimen/trending_bottomsheet_peek_height"
+            app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"/>
+
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
     <ProgressBar

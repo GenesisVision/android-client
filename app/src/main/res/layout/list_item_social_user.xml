@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:background="?attr/selectableItemBackground"
+              android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/group_user"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/program_details_padding"
+        android:paddingTop="12dp"
+        android:paddingRight="@dimen/program_details_padding"
+        android:paddingBottom="12dp">
+
+        <vision.genesis.clientapp.ui.AvatarView
+            android:id="@+id/avatar"
+            android:layout_width="40dp"
+            android:layout_height="40dp"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="16dp"
+            android:layout_toStartOf="@+id/group_right"
+            android:layout_toEndOf="@+id/avatar"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat_semibold"
+                android:textColor="?attr/colorTextPrimary"
+                android:textSize="14sp"
+                tools:text="Nicholas Barton"/>
+
+            <TextView
+                android:id="@+id/about"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:alpha="0.4"
+                android:ellipsize="end"
+                android:fontFamily="@font/montserrat_regular"
+                android:maxLines="3"
+                android:textColor="?attr/colorTextPrimary"
+                android:textSize="12sp"
+                tools:text="@string/lorem_ipsum_short"/>
+
+        </LinearLayout>
+
+        <RelativeLayout
+            android:id="@+id/group_right"
+            android:layout_width="100dp"
+            android:layout_height="40dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="8dp">
+
+            <RelativeLayout
+                android:id="@+id/group_buttons"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <vision.genesis.clientapp.ui.PrimaryButton
+                    android:id="@+id/button_follow"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="@string/follow"/>
+
+                <vision.genesis.clientapp.ui.PrimaryButton
+                    android:id="@+id/button_unfollow"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="@string/unfollow"/>
+
+            </RelativeLayout>
+
+            <ProgressBar
+                android:id="@+id/progress_bar"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_centerInParent="true"
+                android:visibility="gone"/>
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/padding"
+        android:layout_marginEnd="@dimen/padding"
+        android:layout_marginBottom="8dp"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/montserrat_regular"
+                    android:text="@string/age"
+                    android:textColor="?attr/colorTextSecondary"
+                    android:textSize="12sp"/>
+
+                <TextView
+                    android:id="@+id/age"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="6dp"
+                    android:fontFamily="@font/montserrat_medium"
+                    android:textColor="?attr/colorTextPrimary"
+                    tools:text="2 years"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/montserrat_regular"
+                    android:text="@string/aum"
+                    android:textColor="?attr/colorTextSecondary"
+                    android:textSize="12sp"/>
+
+                <TextView
+                    android:id="@+id/aum"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="6dp"
+                    android:fontFamily="@font/montserrat_medium"
+                    android:textColor="?attr/colorTextPrimary"
+                    tools:text="31820.54$"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="70dp"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/montserrat_regular"
+                    android:text="@string/followers"
+                    android:textColor="?attr/colorTextSecondary"
+                    android:textSize="12sp"/>
+
+                <TextView
+                    android:id="@+id/followers"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="6dp"
+                    android:fontFamily="@font/montserrat_medium"
+                    android:textColor="?attr/colorTextPrimary"
+                    tools:text="435"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="70dp"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/montserrat_regular"
+                    android:text="@string/investors"
+                    android:textColor="?attr/colorTextSecondary"
+                    android:textSize="12sp"/>
+
+                <TextView
+                    android:id="@+id/investors"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="6dp"
+                    android:fontFamily="@font/montserrat_medium"
+                    android:textColor="?attr/colorTextPrimary"
+                    tools:text="1543"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -11,6 +11,7 @@ import io.swagger.client.model.Post;
 import io.swagger.client.model.PostItemsViewModel;
 import io.swagger.client.model.RePost;
 import io.swagger.client.model.SocialLinkType;
+import io.swagger.client.model.SocialSummary;
 import rx.Observable;
 import vision.genesis.clientapp.model.PostsFilter;
 
@@ -100,5 +101,9 @@ public class SocialManager
 
 	public Observable<Void> reportPost(UUID postId, String reason, String description) {
 		return socialApi.spamReport(postId.toString(), reason, description);
+	}
+
+	public Observable<SocialSummary> getSummary() {
+		return socialApi.getSocialSummary();
 	}
 }

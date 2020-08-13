@@ -180,6 +180,18 @@
     <string name="until_end_of_period">until end of period</string>
     <string name="program_closed">program closed</string>
 
+    <plurals name="years">
+        <item quantity="one">year</item>
+        <item quantity="two">years</item>
+        <item quantity="other">years</item>
+    </plurals>
+
+    <plurals name="months">
+        <item quantity="one">month</item>
+        <item quantity="two">months</item>
+        <item quantity="other">months</item>
+    </plurals>
+
     <plurals name="days">
         <item quantity="one">day</item>
         <item quantity="two">days</item>
@@ -931,6 +943,11 @@
     <string name="send">Send</string>
     <string name="please_select_reason">Please select a reason</string>
     <string name="describe_problem_in_more_detail">Describe the problem in more detail</string>
+    <string name="top_strategies">Top strategies</string>
+    <string name="hot_topics">Hot topics</string>
+    <string name="trending_assets">Trending assets</string>
+    <string name="error_hashtag_added">This tag is already added</string>
+    <string name="error_too_many_hashtags_added">Too many tags added</string>
 
 
     <plurals name="assets">

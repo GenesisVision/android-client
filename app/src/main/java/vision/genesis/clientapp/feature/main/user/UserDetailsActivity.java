@@ -199,8 +199,6 @@ public class UserDetailsActivity extends BaseSwipeBackActivity implements UserDe
 			model = getIntent().getExtras().getParcelable(EXTRA_MODEL);
 
 			initRefreshLayout();
-			initViewPager(model.getUserId());
-			initTabs();
 			updateHeader();
 			unfollowButton.setEmpty();
 
@@ -243,7 +241,9 @@ public class UserDetailsActivity extends BaseSwipeBackActivity implements UserDe
 
 			updateRefreshLayoutEnabled();
 
-			pagerAdapter.onOffsetChanged(appBarLayout.getHeight() + verticalOffset - tabLayout.getHeight() - toolbar.getHeight());
+			if (pagerAdapter != null) {
+				pagerAdapter.onOffsetChanged(appBarLayout.getHeight() + verticalOffset - tabLayout.getHeight() - toolbar.getHeight());
+			}
 		});
 	}
 
@@ -352,16 +352,6 @@ public class UserDetailsActivity extends BaseSwipeBackActivity implements UserDe
 		}
 	}
 
-	private void initViewPager(UUID programId) {
-		pagerAdapter = new UserDetailsPagerAdapter(getSupportFragmentManager(), tabLayout, programId);
-		viewPager.setAdapter(pagerAdapter);
-		viewPager.setOffscreenPageLimit(4);
-
-		tabLayoutOnPageChangeListener = new TabLayout.TabLayoutOnPageChangeListener(tabLayout);
-		viewPager.addOnPageChangeListener(tabLayoutOnPageChangeListener);
-		viewPager.addOnPageChangeListener(this);
-	}
-
 	@Override
 	protected void onResume() {
 		super.onResume();
@@ -371,6 +361,20 @@ public class UserDetailsActivity extends BaseSwipeBackActivity implements UserDe
 	@Override
 	public void onBackPressed() {
 		finishActivity();
+	}
+
+	@Override
+	public void initViewPager(UUID userId, boolean isOwnDetails) {
+		if (pagerAdapter == null) {
+			pagerAdapter = new UserDetailsPagerAdapter(getSupportFragmentManager(), tabLayout, userId, isOwnDetails);
+			viewPager.setAdapter(pagerAdapter);
+			viewPager.setOffscreenPageLimit(4);
+
+			tabLayoutOnPageChangeListener = new TabLayout.TabLayoutOnPageChangeListener(tabLayout);
+			viewPager.addOnPageChangeListener(tabLayoutOnPageChangeListener);
+			viewPager.addOnPageChangeListener(this);
+			initTabs();
+		}
 	}
 
 	@Override

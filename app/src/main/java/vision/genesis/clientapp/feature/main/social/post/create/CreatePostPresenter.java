@@ -31,6 +31,8 @@ import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.managers.FilesManager;
 import vision.genesis.clientapp.managers.SocialManager;
+import vision.genesis.clientapp.model.events.OnNewPostCreatedEvent;
+import vision.genesis.clientapp.model.events.OnNewPostEditedEvent;
 import vision.genesis.clientapp.model.events.OnPictureChooserCameraClickedEvent;
 import vision.genesis.clientapp.model.events.OnPictureChooserGalleryClickedEvent;
 import vision.genesis.clientapp.net.ApiErrorResolver;
@@ -247,8 +249,8 @@ public class CreatePostPresenter extends MvpPresenter<CreatePostView> implements
 
 	private void handleCreatePostSuccess(Void response) {
 		createPostSubscription.unsubscribe();
+		EventBus.getDefault().post(new OnNewPostCreatedEvent());
 		getViewState().finishActivity();
-
 	}
 
 	private void handleCreatePostError(Throwable throwable) {
@@ -272,6 +274,7 @@ public class CreatePostPresenter extends MvpPresenter<CreatePostView> implements
 
 	private void handleEditPostSuccess(Void response) {
 		createPostSubscription.unsubscribe();
+		EventBus.getDefault().post(new OnNewPostEditedEvent());
 		getViewState().finishActivity();
 	}
 

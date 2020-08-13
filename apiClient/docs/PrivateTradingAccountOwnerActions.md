@@ -9,6 +9,7 @@ Name | Type | Description | Notes
 **canMakeDemoDeposit** | **Boolean** |  |  [optional]
 **canCloseOpenPositions** | **Boolean** |  |  [optional]
 **canMakeProgramFromPrivateTradingAccount** | **Boolean** |  |  [optional]
+**canMakeExchangeProgramFromPrivateTradingAccount** | **Boolean** |  |  [optional]
 **canMakeSignalProviderFromPrivateTradingAccount** | **Boolean** |  |  [optional]
 **canMakeSignalProviderFromPrivateExternalTradingAccount** | **Boolean** |  |  [optional]
 **canMakeProgramFromSignalProvider** | **Boolean** |  |  [optional]

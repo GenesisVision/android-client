@@ -8,6 +8,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -17,6 +18,7 @@ import com.arellomobile.mvp.presenter.InjectPresenter;
 
 import java.util.List;
 
+import butterknife.BindDimen;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -24,6 +26,7 @@ import io.swagger.client.model.UserDetailsList;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseSwipeBackActivity;
+import vision.genesis.clientapp.ui.DividerItemDecoration;
 import vision.genesis.clientapp.utils.ThemeUtil;
 
 /**
@@ -53,6 +56,9 @@ public class SocialUsersListActivity extends BaseSwipeBackActivity implements So
 
 	@BindView(R.id.progress_bar_bottom)
 	public ProgressBar progressBarBottom;
+
+	@BindDimen(R.dimen.padding)
+	public int padding;
 
 	@InjectPresenter
 	SocialUsersListPresenter presenter;
@@ -87,6 +93,9 @@ public class SocialUsersListActivity extends BaseSwipeBackActivity implements So
 		recyclerView.setHasFixedSize(true);
 		LinearLayoutManager layoutManager = new LinearLayoutManager(this);
 		recyclerView.setLayoutManager(layoutManager);
+		DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(this,
+				AppCompatResources.getDrawable(this, R.drawable.list_item_divider), padding, 0);
+		recyclerView.addItemDecoration(dividerItemDecoration);
 		adapter = new SocialUsersListAdapter();
 		adapter.setHasStableIds(true);
 		recyclerView.setAdapter(adapter);

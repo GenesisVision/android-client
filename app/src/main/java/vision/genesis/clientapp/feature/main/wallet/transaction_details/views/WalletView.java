@@ -2,6 +2,8 @@ package vision.genesis.clientapp.feature.main.wallet.transaction_details.views;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -18,14 +20,23 @@ import vision.genesis.clientapp.utils.ImageUtils;
  */
 public class WalletView extends RelativeLayout
 {
-	@BindView(R.id.icon)
-	public SimpleDraweeView icon;
+	@BindView(R.id.first_icon)
+	public SimpleDraweeView firstIcon;
 
-	@BindView(R.id.wallet_name)
-	public TextView walletName;
+	@BindView(R.id.first_name)
+	public TextView firstName;
 
-	@BindView(R.id.wallet_available)
-	public TextView walletAvailable;
+	@BindView(R.id.icon_arrow)
+	public View arrowIcon;
+
+	@BindView(R.id.second)
+	public ViewGroup second;
+
+	@BindView(R.id.second_icon)
+	public SimpleDraweeView secondIcon;
+
+	@BindView(R.id.second_name)
+	public TextView secondName;
 
 	public WalletView(Context context) {
 		super(context);
@@ -48,12 +59,15 @@ public class WalletView extends RelativeLayout
 		ButterKnife.bind(this);
 	}
 
-	public void setData(String logo, String walletName) {
-		this.icon.setImageURI(ImageUtils.getImageUri(logo));
-		this.walletName.setText(walletName);
-//		this.walletAvailable.setText(String.format(Locale.getDefault(), "%s %s",
-//				StringFormatUtil.formatCurrencyAmount(wallet.getAvailable(), wallet.getCurrencySecondary().getValue()),
-//				wallet.getCurrencySecondary().getValue()));
-//		this.walletAvailable.setText(walletAvailable);
+	public void setData(String firstLogo, String firstName, String secondLogo, String secondName) {
+		this.firstIcon.setImageURI(ImageUtils.getImageUri(firstLogo));
+		this.firstName.setText(firstName);
+
+		if (secondLogo != null && secondName != null) {
+			this.arrowIcon.setVisibility(View.VISIBLE);
+			this.second.setVisibility(View.VISIBLE);
+			this.secondIcon.setImageURI(ImageUtils.getImageUri(secondLogo));
+			this.secondName.setText(secondName);
+		}
 	}
 }

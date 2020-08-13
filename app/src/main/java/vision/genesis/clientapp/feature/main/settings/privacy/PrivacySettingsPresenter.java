@@ -77,6 +77,21 @@ public class PrivacySettingsPresenter extends MvpPresenter<PrivacySettingsView>
 	void onWhoCanViewCommentsOnMyPostSelected(Integer position, String text) {
 		this.whoCanViewCommentsOnMyPost = SocialViewMode.values()[position];
 		getViewState().setWhoCanViewCommentsOnMyPost(text, position);
+		if (whoCanViewCommentsOnMyPost.equals(SocialViewMode.ONLYME)) {
+			getViewState().setWhoCanCommentOnMyPostEnabled(false);
+			int pos = 0;
+			for (SocialViewMode value : SocialViewMode.values()) {
+				if (value.equals(SocialViewMode.ONLYME)) {
+					this.whoCanCommentOnMyPost = value;
+					break;
+				}
+				pos++;
+			}
+			onWhoCanCommentOnMyPostSelected(pos, SocialViewMode.ONLYME.getValue());
+		}
+		else {
+			getViewState().setWhoCanCommentOnMyPostEnabled(true);
+		}
 	}
 
 	void onWhoCanCommentOnMyPostSelected(Integer position, String text) {
@@ -107,16 +122,6 @@ public class PrivacySettingsPresenter extends MvpPresenter<PrivacySettingsView>
 		}
 		onWhoCanPostToMyWallSelected(whoCanPostToMyWallPos, StringFormatUtil.getSocialViewModeString(whoCanPostToMyWall));
 
-		int whoCanViewCommentsOnMyPostPos = 0;
-		for (SocialViewMode value : SocialViewMode.values()) {
-			if (value.getValue().equals(profile.getWhoCanViewCommentsOnMyPosts().getValue())) {
-				this.whoCanViewCommentsOnMyPost = value;
-				break;
-			}
-			whoCanViewCommentsOnMyPostPos++;
-		}
-		onWhoCanViewCommentsOnMyPostSelected(whoCanViewCommentsOnMyPostPos, StringFormatUtil.getSocialViewModeString(whoCanViewCommentsOnMyPost));
-
 		int whoCanCommentOnMyPostPos = 0;
 		for (SocialViewMode value : SocialViewMode.values()) {
 			if (value.getValue().equals(profile.getWhoCanCommentOnMyPosts().getValue())) {
@@ -126,6 +131,16 @@ public class PrivacySettingsPresenter extends MvpPresenter<PrivacySettingsView>
 			whoCanCommentOnMyPostPos++;
 		}
 		onWhoCanCommentOnMyPostSelected(whoCanCommentOnMyPostPos, StringFormatUtil.getSocialViewModeString(whoCanCommentOnMyPost));
+
+		int whoCanViewCommentsOnMyPostPos = 0;
+		for (SocialViewMode value : SocialViewMode.values()) {
+			if (value.getValue().equals(profile.getWhoCanViewCommentsOnMyPosts().getValue())) {
+				this.whoCanViewCommentsOnMyPost = value;
+				break;
+			}
+			whoCanViewCommentsOnMyPostPos++;
+		}
+		onWhoCanViewCommentsOnMyPostSelected(whoCanViewCommentsOnMyPostPos, StringFormatUtil.getSocialViewModeString(whoCanViewCommentsOnMyPost));
 
 		getViewState().showProgress(false);
 	}

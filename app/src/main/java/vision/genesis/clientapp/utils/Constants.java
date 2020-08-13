@@ -49,6 +49,8 @@ public class Constants
 
 	public static final int MIN_IMAGES_COUNT_ADD_COMMENT = 1;
 
+	public static final int MAX_SOCIAL_TAGS_FILTER = 16;
+
 	public static ArrayList<String> getCurrenciesForProgramsListFilter() {
 		return new ArrayList<>(Arrays.asList("All", "ETH", "BTC", "USDT", "USD"));
 	}

@@ -146,7 +146,7 @@ public class TransactionsListAdapter extends RecyclerView.Adapter<TransactionsLi
 				valueFirst.setTextColor(ThemeUtil.getColorByAttrId(itemView.getContext(),
 						first.getAmount() >= 0
 								? R.attr.colorGreen
-								: R.attr.colorRed));
+								: R.attr.colorTextPrimary));
 			}
 			else {
 				logoFirst.setVisibility(View.GONE);

@@ -23,6 +23,8 @@ public interface PrivacySettingsView extends MvpView
 
 	void setWhoCanCommentOnMyPost(String text, Integer position);
 
+	void setWhoCanCommentOnMyPostEnabled(boolean enabled);
+
 	void showProgress(boolean show);
 
 	void showButtonProgress(boolean show);

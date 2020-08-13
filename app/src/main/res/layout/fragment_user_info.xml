@@ -122,9 +122,9 @@
                         android:layout_marginTop="8dp"
                         android:alpha="0.9"
                         android:lineSpacingMultiplier="1.3"
-                        android:text="@string/lorem_ipsum_short"
                         android:textColor="?attr/colorTextPrimary"
-                        android:textSize="14sp"/>
+                        android:textSize="14sp"
+                        tools:text="@string/lorem_ipsum_short"/>
 
                 </RelativeLayout>
 

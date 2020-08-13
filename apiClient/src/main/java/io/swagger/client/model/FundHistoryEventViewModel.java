@@ -49,11 +49,8 @@ public class FundHistoryEventViewModel implements Parcelable
 	@SerializedName("type")
 	private FundHistoryEventType type = null;
 
-	@SerializedName("amount")
-	private Double amount = null;
-
-	@SerializedName("asset")
-	private BasePlatformAsset asset = null;
+	@SerializedName("description")
+	private String description = null;
 
 	@SerializedName("logoUrl")
 	private String logoUrl = null;
@@ -70,8 +67,7 @@ public class FundHistoryEventViewModel implements Parcelable
 	FundHistoryEventViewModel(Parcel in) {
 		date = (DateTime) in.readValue(DateTime.class.getClassLoader());
 		type = (FundHistoryEventType) in.readValue(FundHistoryEventType.class.getClassLoader());
-		amount = (Double) in.readValue(null);
-		asset = (BasePlatformAsset) in.readValue(BasePlatformAsset.class.getClassLoader());
+		description = (String) in.readValue(null);
 		logoUrl = (String) in.readValue(null);
 		trades = (List<FundTradingEventViewModel>) in.readValue(FundTradingEventViewModel.class.getClassLoader());
 		newAssets = (List<FundAssetPartWithIcon>) in.readValue(FundAssetPartWithIcon.class.getClassLoader());
@@ -115,42 +111,23 @@ public class FundHistoryEventViewModel implements Parcelable
 		this.type = type;
 	}
 
-	public FundHistoryEventViewModel amount(Double amount) {
-		this.amount = amount;
+	public FundHistoryEventViewModel description(String description) {
+		this.description = description;
 		return this;
 	}
 
 	/**
-	 * Investment/withdrawal/fund creation
+	 * Get description
 	 *
-	 * @return amount
-	 **/
-	@Schema(description = "Investment/withdrawal/fund creation")
-	public Double getAmount() {
-		return amount;
-	}
-
-	public void setAmount(Double amount) {
-		this.amount = amount;
-	}
-
-	public FundHistoryEventViewModel asset(BasePlatformAsset asset) {
-		this.asset = asset;
-		return this;
-	}
-
-	/**
-	 * Get asset
-	 *
-	 * @return asset
+	 * @return description
 	 **/
 	@Schema(description = "")
-	public BasePlatformAsset getAsset() {
-		return asset;
+	public String getDescription() {
+		return description;
 	}
 
-	public void setAsset(BasePlatformAsset asset) {
-		this.asset = asset;
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 	public FundHistoryEventViewModel logoUrl(String logoUrl) {
@@ -237,8 +214,7 @@ public class FundHistoryEventViewModel implements Parcelable
 		FundHistoryEventViewModel fundHistoryEventViewModel = (FundHistoryEventViewModel) o;
 		return Objects.equals(this.date, fundHistoryEventViewModel.date) &&
 				Objects.equals(this.type, fundHistoryEventViewModel.type) &&
-				Objects.equals(this.amount, fundHistoryEventViewModel.amount) &&
-				Objects.equals(this.asset, fundHistoryEventViewModel.asset) &&
+				Objects.equals(this.description, fundHistoryEventViewModel.description) &&
 				Objects.equals(this.logoUrl, fundHistoryEventViewModel.logoUrl) &&
 				Objects.equals(this.trades, fundHistoryEventViewModel.trades) &&
 				Objects.equals(this.newAssets, fundHistoryEventViewModel.newAssets);
@@ -246,7 +222,7 @@ public class FundHistoryEventViewModel implements Parcelable
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(date, type, amount, asset, logoUrl, trades, newAssets);
+		return Objects.hash(date, type, description, logoUrl, trades, newAssets);
 	}
 
 	@Override
@@ -256,8 +232,7 @@ public class FundHistoryEventViewModel implements Parcelable
 
 		sb.append("    date: ").append(toIndentedString(date)).append("\n");
 		sb.append("    type: ").append(toIndentedString(type)).append("\n");
-		sb.append("    amount: ").append(toIndentedString(amount)).append("\n");
-		sb.append("    asset: ").append(toIndentedString(asset)).append("\n");
+		sb.append("    description: ").append(toIndentedString(description)).append("\n");
 		sb.append("    logoUrl: ").append(toIndentedString(logoUrl)).append("\n");
 		sb.append("    trades: ").append(toIndentedString(trades)).append("\n");
 		sb.append("    newAssets: ").append(toIndentedString(newAssets)).append("\n");
@@ -279,8 +254,7 @@ public class FundHistoryEventViewModel implements Parcelable
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(date);
 		out.writeValue(type);
-		out.writeValue(amount);
-		out.writeValue(asset);
+		out.writeValue(description);
 		out.writeValue(logoUrl);
 		out.writeValue(trades);
 		out.writeValue(newAssets);

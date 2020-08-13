@@ -36,7 +36,8 @@ public enum SocialLinkType
 	WEBSITE("Website"),
 	REDDIT("Reddit"),
 	GITHUB("GitHub"),
-	MEDIUM("Medium");
+	MEDIUM("Medium"),
+	INSTAGRAM("Instagram");
 
 	public static SocialLinkType fromValue(String text) {
 		for (SocialLinkType b : SocialLinkType.values()) {

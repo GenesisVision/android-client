@@ -101,9 +101,8 @@ public class FundsNotificationsListAdapter extends RecyclerView.Adapter<FundsNot
 		void setSettings(FundNotificationSettingList settings) {
 			this.settings = settings;
 
-			fundLogo.setImage(settings.getLogoUrl(), "#ffffff", 50, 50);
+			fundLogo.setImage(settings.getLogoUrl(), settings.getColor(), 50, 50);
 			fundName.setText(settings.getTitle());
-//			managerName.setText(settings.getManagerName());
 			count.setText(String.valueOf(settings.getSettingsGeneral().size()));
 		}
 	}

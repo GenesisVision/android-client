@@ -420,7 +420,7 @@ FundsApi apiInstance = new FundsApi();
 UUID id = new UUID(); // UUID | 
 DateTime dateFrom = new DateTime(); // DateTime | 
 DateTime dateTo = new DateTime(); // DateTime | 
-FundHistoryEventType eventsType = new FundHistoryEventType(); // FundHistoryEventType | 
+FundHistoryEventFilterType eventsType = new FundHistoryEventFilterType(); // FundHistoryEventFilterType | 
 Integer skip = 56; // Integer | 
 Integer take = 56; // Integer | 
 try {
@@ -439,7 +439,7 @@ Name | Type | Description  | Notes
  **id** | [**UUID**](.md)|  |
  **dateFrom** | **DateTime**|  | [optional]
  **dateTo** | **DateTime**|  | [optional]
- **eventsType** | [**FundHistoryEventType**](.md)|  | [optional]
+ **eventsType** | [**FundHistoryEventFilterType**](.md)|  | [optional]
  **skip** | **Integer**|  | [optional]
  **take** | **Integer**|  | [optional]
 

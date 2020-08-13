@@ -5,6 +5,8 @@ import com.arellomobile.mvp.viewstate.strategy.AddToEndSingleStrategy;
 import com.arellomobile.mvp.viewstate.strategy.OneExecutionStateStrategy;
 import com.arellomobile.mvp.viewstate.strategy.StateStrategyType;
 
+import java.util.UUID;
+
 import io.swagger.client.model.PublicProfile;
 
 /**
@@ -14,6 +16,8 @@ import io.swagger.client.model.PublicProfile;
 
 interface UserDetailsView extends MvpView
 {
+	void initViewPager(UUID userId, boolean isOwnDetails);
+
 	@StateStrategyType(AddToEndSingleStrategy.class)
 	void setUserDetails(PublicProfile userDetails);
 

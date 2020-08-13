@@ -128,8 +128,6 @@ public class SocialLiveView extends RelativeLayout implements SocialPostView.Lis
 
 		EventBus.getDefault().register(this);
 
-		initRecyclerView();
-
 		getProfileInfo();
 		getPosts();
 	}
@@ -155,6 +153,7 @@ public class SocialLiveView extends RelativeLayout implements SocialPostView.Lis
 		this.filter = filter;
 		this.listener = listener;
 		updateTitle();
+		initRecyclerView();
 		getPosts();
 	}
 
@@ -176,7 +175,7 @@ public class SocialLiveView extends RelativeLayout implements SocialPostView.Lis
 		recyclerView.setHasFixedSize(true);
 		LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
 		recyclerView.setLayoutManager(layoutManager);
-		adapter = new PostsListAdapter(this);
+		adapter = new PostsListAdapter(this, filter.getIsOwnFeed());
 		adapter.setHasStableIds(true);
 		recyclerView.setAdapter(adapter);
 	}

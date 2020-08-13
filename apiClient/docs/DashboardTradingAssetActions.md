@@ -11,6 +11,7 @@ Name | Type | Description | Notes
 **canClose** | **Boolean** |  |  [optional]
 **hasTerminal** | **Boolean** |  |  [optional]
 **canMakeProgramFromPrivateTradingAccount** | **Boolean** |  |  [optional]
+**canMakeExchangeProgramFromPrivateTradingAccount** | **Boolean** |  |  [optional]
 **canMakeSignalProviderFromPrivateTradingAccount** | **Boolean** |  |  [optional]
 **canMakeSignalProviderFromPrivateExternalTradingAccount** | **Boolean** |  |  [optional]
 **canMakeProgramFromSignalProvider** | **Boolean** |  |  [optional]

@@ -23,35 +23,79 @@ import vision.genesis.clientapp.ui.SocialPostView;
 
 public class PostsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 {
+	private static final int TYPE_BUTTON = 0;
+
+	private static final int TYPE_POST = 1;
+
 	private final SocialPostView.Listener postsListener;
+
+	private final Boolean isOwnFeed;
 
 	private List<Post> posts = new ArrayList<>();
 
-	public PostsListAdapter(SocialPostView.Listener postsListener) {
+	public PostsListAdapter(SocialPostView.Listener postsListener, Boolean isOwnFeed) {
 		this.postsListener = postsListener;
+		this.isOwnFeed = isOwnFeed;
 	}
 
 	@NonNull
 	@Override
 	public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-		return new PostViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_post, parent, false), postsListener);
+		switch (viewType) {
+			case TYPE_BUTTON:
+				return new ButtonViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_add_new_post_button, parent, false));
+			case TYPE_POST:
+			default:
+				return new PostViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_post, parent, false), postsListener);
+		}
 	}
 
 	@Override
 	public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-		if (posts.get(position) != null) {
-			((PostViewHolder) holder).setPost(posts.get(position));
+		switch (holder.getItemViewType()) {
+			case TYPE_BUTTON:
+				break;
+			case TYPE_POST:
+				if (isOwnFeed) {
+					((PostViewHolder) holder).setPost(posts.get(position - 1));
+				}
+				else {
+					((PostViewHolder) holder).setPost(posts.get(position));
+				}
+				break;
 		}
 	}
 
 	@Override
 	public int getItemCount() {
-		return posts.size();
+		int count = posts.size();
+		if (isOwnFeed) {
+			count++;
+		}
+		return count;
+	}
+
+
+	@Override
+	public int getItemViewType(int position) {
+		if (isOwnFeed) {
+			return position == 0 ? TYPE_BUTTON : TYPE_POST;
+		}
+		else {
+			return TYPE_POST;
+		}
 	}
 
 	@Override
 	public long getItemId(int position) {
-		return position == 0 ? 0 : posts.get(position - 1).hashCode();
+		if (isOwnFeed) {
+			return position == 0 ? 0 : posts.get(position - 1).hashCode();
+		}
+		else {
+			return posts.get(position) != null
+					? posts.get(position).hashCode()
+					: RecyclerView.NO_ID;
+		}
 	}
 
 	public void setPosts(List<Post> posts) {
@@ -74,6 +118,17 @@ public class PostsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 				break;
 			}
 			i++;
+		}
+	}
+
+	public void addAddNewPostView() {
+
+	}
+
+	static class ButtonViewHolder extends RecyclerView.ViewHolder
+	{
+		ButtonViewHolder(View itemView) {
+			super(itemView);
 		}
 	}
 

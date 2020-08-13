@@ -31,7 +31,6 @@ import vision.genesis.clientapp.feature.main.wallet.transaction_details.views.St
 import vision.genesis.clientapp.feature.main.wallet.transaction_details.views.ValueView;
 import vision.genesis.clientapp.feature.main.wallet.transaction_details.views.WalletView;
 import vision.genesis.clientapp.utils.DateTimeUtil;
-import vision.genesis.clientapp.utils.StringFormatUtil;
 import vision.genesis.clientapp.utils.ThemeUtil;
 import vision.genesis.clientapp.utils.TypefaceUtil;
 
@@ -116,13 +115,13 @@ public class TransactionDetailsActivity extends BaseSwipeBackActivity implements
 		AmountItem first = details.getAmount().getFirst();
 		AmountItem second = details.getAmount().getSecond();
 
-		if (first != null) {
-			addWallet(first.getLogoUrl(), first.getCurrency().getValue());
-			addValue(details.getAmount().getTitle(), StringFormatUtil.getValueString(first.getAmount(), first.getCurrency().getValue()));
+		if (first != null && second != null) {
+			addTwoWallets(first.getLogoUrl(), first.getCurrency().getValue(), second.getLogoUrl(), second.getCurrency().getValue());
+//			addValue(details.getAmount().getTitle(), StringFormatUtil.getValueString(first.getAmount(), first.getCurrency().getValue()));
 		}
-		if (second != null) {
-			addWallet(second.getLogoUrl(), second.getCurrency().getValue());
-			addValue(details.getAmount().getTitle(), StringFormatUtil.getValueString(second.getAmount(), second.getCurrency().getValue()));
+		else if (first != null) {
+			addWallet(first.getLogoUrl(), first.getCurrency().getValue());
+//			addValue(details.getAmount().getTitle(), StringFormatUtil.getValueString(second.getAmount(), second.getCurrency().getValue()));
 		}
 
 		if (details.getDetails() != null && !details.getDetails().isEmpty()) {
@@ -152,9 +151,15 @@ public class TransactionDetailsActivity extends BaseSwipeBackActivity implements
 		addView(view);
 	}
 
+	private void addTwoWallets(String firstLogo, String firstName, String secondLogo, String secondName) {
+		WalletView view = new WalletView(this);
+		view.setData(firstLogo, firstName, secondLogo, secondName);
+		addView(view);
+	}
+
 	private void addWallet(String logo, String name) {
 		WalletView view = new WalletView(this);
-		view.setData(logo, name);
+		view.setData(logo, name, null, null);
 		addView(view);
 	}
 
@@ -186,7 +191,7 @@ public class TransactionDetailsActivity extends BaseSwipeBackActivity implements
 		content.addView(view);
 		LinearLayout.LayoutParams lp = (LinearLayout.LayoutParams) view.getLayoutParams();
 		lp.setMargins(0,
-				(int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 30,
+				(int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 20,
 						GenesisVisionApplication.INSTANCE.getResources().getDisplayMetrics()),
 				0,
 				0);
