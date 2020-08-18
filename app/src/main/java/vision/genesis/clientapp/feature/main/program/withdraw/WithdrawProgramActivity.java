@@ -62,6 +62,9 @@ public class WithdrawProgramActivity extends BaseSwipeBackActivity implements Wi
 	@BindView(R.id.currency)
 	public TextView currency;
 
+	@BindView(R.id.max)
+	public TextView max;
+
 	@BindView(R.id.withdraw_all_switch)
 	public SwitchCompat withdrawAllSwitch;
 
@@ -100,6 +103,10 @@ public class WithdrawProgramActivity extends BaseSwipeBackActivity implements Wi
 		presenter.onAvailableToWithdrawClicked();
 	}
 
+	@OnClick(R.id.max)
+	public void onMaxClicked() {
+		presenter.onAvailableToWithdrawClicked();
+	}
 
 	@OnClick(R.id.button_continue)
 	public void onContinueClicked() {
@@ -123,6 +130,7 @@ public class WithdrawProgramActivity extends BaseSwipeBackActivity implements Wi
 				presenter.setProgramRequest(request);
 				setListeners();
 				withdrawAllSwitch.setVisibility(request.isOwner() ? View.GONE : View.VISIBLE);
+				max.setVisibility(request.isOwner() ? View.VISIBLE : View.GONE);
 				return;
 			}
 		}

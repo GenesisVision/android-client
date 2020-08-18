@@ -43,6 +43,8 @@ public class SettingsPresenter extends MvpPresenter<SettingsView> implements Sel
 
 	private Subscription baseCurrencySubscription;
 
+	private Subscription sendPlatformCurrencySubscription;
+
 	private Subscription publicProfileSubscription;
 
 	private CurrencyEnum baseCurrency;
@@ -64,6 +66,9 @@ public class SettingsPresenter extends MvpPresenter<SettingsView> implements Sel
 		}
 		if (baseCurrencySubscription != null) {
 			baseCurrencySubscription.unsubscribe();
+		}
+		if (sendPlatformCurrencySubscription != null) {
+			sendPlatformCurrencySubscription.unsubscribe();
 		}
 		if (publicProfileSubscription != null) {
 			publicProfileSubscription.unsubscribe();
@@ -139,5 +144,16 @@ public class SettingsPresenter extends MvpPresenter<SettingsView> implements Sel
 	@Override
 	public void onCurrencyChanged(CurrencyEnum currency) {
 		settingsManager.saveBaseCurrency(currency);
+		sendPlatformCurrency(currency);
+	}
+
+	private void sendPlatformCurrency(CurrencyEnum currency) {
+		if (profileManager != null) {
+			sendPlatformCurrencySubscription = profileManager.updatePlatformCurrency(currency.getValue())
+					.subscribeOn(Schedulers.newThread())
+					.observeOn(AndroidSchedulers.mainThread())
+					.subscribe(response -> sendPlatformCurrencySubscription.unsubscribe(),
+							throwable -> sendPlatformCurrencySubscription.unsubscribe());
+		}
 	}
 }

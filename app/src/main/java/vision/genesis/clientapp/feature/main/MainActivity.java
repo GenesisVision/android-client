@@ -469,13 +469,13 @@ public class MainActivity extends MvpAppCompatActivity implements MainView, Bloc
 	}
 
 	@Override
-	public void showCreatePostActivity() {
-		CreatePostActivity.startWith(this, null, null);
+	public void showCreatePostActivity(UUID userId) {
+		CreatePostActivity.startWith(this, null, null, userId);
 	}
 
 	@Override
 	public void showCreatePostActivityWithRepost(Post post) {
-		CreatePostActivity.startWith(this, post, null);
+		CreatePostActivity.startWith(this, post, null, null);
 	}
 
 	@Override

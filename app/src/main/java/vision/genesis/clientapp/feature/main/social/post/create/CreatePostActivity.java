@@ -30,6 +30,7 @@ import com.stfalcon.imageviewer.StfalconImageViewer;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -69,10 +70,13 @@ public class CreatePostActivity extends MvpAppCompatActivity implements CreatePo
 
 	private static final String EXTRA_EDIT_POST = "extra_edit_post";
 
-	public static void startWith(Activity activity, Post repost, Post editPost) {
+	private static final String EXTRA_USER_ID = "extra_user_id";
+
+	public static void startWith(Activity activity, Post repost, Post editPost, UUID userId) {
 		Intent intent = new Intent(activity.getApplicationContext(), CreatePostActivity.class);
 		intent.putExtra(EXTRA_REPOST, repost);
 		intent.putExtra(EXTRA_EDIT_POST, editPost);
+		intent.putExtra(EXTRA_USER_ID, userId);
 		activity.startActivity(intent);
 		activity.overridePendingTransition(R.anim.slide_from_right, R.anim.hold);
 	}
@@ -165,6 +169,7 @@ public class CreatePostActivity extends MvpAppCompatActivity implements CreatePo
 		if (getIntent().getExtras() != null) {
 			Post repost = getIntent().getExtras().getParcelable(EXTRA_REPOST);
 			Post editPost = getIntent().getExtras().getParcelable(EXTRA_EDIT_POST);
+			UUID userId = (UUID) getIntent().getExtras().getSerializable(EXTRA_USER_ID);
 			if (repost != null) {
 				presenter.setRepost(repost);
 			}
@@ -174,6 +179,9 @@ public class CreatePostActivity extends MvpAppCompatActivity implements CreatePo
 			}
 			else {
 				showProgressBar(false);
+			}
+			if (userId != null) {
+				presenter.setUserId(userId);
 			}
 		}
 	}

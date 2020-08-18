@@ -509,8 +509,9 @@ public class ProgramInfoFragment extends BaseFragment implements ProgramInfoView
 							: R.attr.colorGreen));
 
 			int personalFeesCounter = 0;
-			if (!personalDetails.getSuccessFeePersonal().equals(details.getProgramDetails().getSuccessFeeCurrent())
-					|| !personalDetails.getSuccessFeePersonal().equals(details.getProgramDetails().getSuccessFeeSelected())) {
+			if (personalDetails.getSuccessFeePersonal() != null &&
+					(!personalDetails.getSuccessFeePersonal().equals(details.getProgramDetails().getSuccessFeeCurrent())
+							|| !personalDetails.getSuccessFeePersonal().equals(details.getProgramDetails().getSuccessFeeSelected()))) {
 				personalSuccessFeeGroup.setVisibility(View.VISIBLE);
 				personalSuccessFee.setText(String.format(Locale.getDefault(), "%s%%", StringFormatUtil.formatAmount(personalDetails.getSuccessFeePersonal(), 0, 4)));
 				personalFeesCounter++;

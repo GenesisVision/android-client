@@ -175,7 +175,7 @@ public class SocialLiveView extends RelativeLayout implements SocialPostView.Lis
 		recyclerView.setHasFixedSize(true);
 		LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
 		recyclerView.setLayoutManager(layoutManager);
-		adapter = new PostsListAdapter(this, filter.getIsOwnFeed());
+		adapter = new PostsListAdapter(this, false, null);
 		adapter.setHasStableIds(true);
 		recyclerView.setAdapter(adapter);
 	}

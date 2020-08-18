@@ -5,6 +5,7 @@ import javax.inject.Singleton;
 import dagger.Module;
 import dagger.Provides;
 import io.swagger.client.api.PlatformApi;
+import io.swagger.client.api.ProfileApi;
 import vision.genesis.clientapp.managers.SettingsManager;
 import vision.genesis.clientapp.utils.SharedPreferencesUtil;
 
@@ -18,7 +19,7 @@ public class SettingsModule
 {
 	@Provides
 	@Singleton
-	public SettingsManager provideSettingsManager(PlatformApi platformApi, SharedPreferencesUtil sharedPreferencesUtil) {
-		return new SettingsManager(platformApi, sharedPreferencesUtil);
+	public SettingsManager provideSettingsManager(PlatformApi platformApi, ProfileApi profileApi, SharedPreferencesUtil sharedPreferencesUtil) {
+		return new SettingsManager(platformApi, profileApi, sharedPreferencesUtil);
 	}
 }

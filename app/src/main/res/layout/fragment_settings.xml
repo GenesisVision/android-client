@@ -169,7 +169,9 @@
                 android:layout_height="@dimen/settings_item_height"
                 android:background="?attr/selectableItemBackground"
                 android:paddingStart="@dimen/padding"
-                android:paddingEnd="@dimen/settings_padding">
+                android:paddingEnd="@dimen/settings_padding"
+                android:visibility="gone"
+                tools:visibility="visible">
 
                 <View
                     android:layout_width="match_parent"

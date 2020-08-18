@@ -107,6 +107,19 @@
                     android:textColor="?attr/colorTextPrimary"
                     android:textSize="18sp"/>
 
+                <TextView
+                    android:id="@+id/max"
+                    android:layout_width="50dp"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentEnd="true"
+                    android:fontFamily="@font/montserrat_semibold"
+                    android:gravity="center_vertical|end"
+                    android:text="@string/max"
+                    android:textColor="?attr/colorTextPrimary"
+                    android:textSize="12sp"
+                    android:visibility="gone"
+                    tools:visibility="visible"/>
+
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"

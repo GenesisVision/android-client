@@ -1,7 +1,10 @@
 package vision.genesis.clientapp.managers;
 
 
+import java.util.Objects;
+
 import io.swagger.client.api.PlatformApi;
+import io.swagger.client.api.ProfileApi;
 import io.swagger.client.model.Currency;
 import io.swagger.client.model.PlatformInfo;
 import io.swagger.client.model.ProgramsLevelsInfo;
@@ -27,6 +30,8 @@ public class SettingsManager
 {
 	private PlatformApi platformApi;
 
+	private ProfileApi profileApi;
+
 	private BehaviorSubject<SettingsModel> settingsSubject = BehaviorSubject.create();
 
 	private BehaviorSubject<CurrencyEnum> baseCurrencySubject = BehaviorSubject.create();
@@ -39,8 +44,9 @@ public class SettingsManager
 
 	private SharedPreferencesUtil sharedPreferencesUtil;
 
-	public SettingsManager(PlatformApi platformApi, SharedPreferencesUtil sharedPreferencesUtil) {
+	public SettingsManager(PlatformApi platformApi, ProfileApi profileApi, SharedPreferencesUtil sharedPreferencesUtil) {
 		this.platformApi = platformApi;
+		this.profileApi = profileApi;
 		this.sharedPreferencesUtil = sharedPreferencesUtil;
 		settingsSubject.onNext(new SettingsModel());
 		getSettings();
@@ -173,7 +179,19 @@ public class SettingsManager
 
 	public BehaviorSubject<CurrencyEnum> getBaseCurrency() {
 		if (baseCurrencySubject.getValue() == null) {
-			baseCurrencySubject.onNext(CurrencyEnum.fromValue(sharedPreferencesUtil.getCurrency()));
+			profileApi.getProfileFull()
+					.observeOn(Schedulers.newThread())
+					.subscribeOn(Schedulers.newThread())
+					.subscribe(profile -> {
+								if (profile.getPlatformCurrency() == null || profile.getPlatformCurrency().equals(Currency.UNDEFINED)) {
+									baseCurrencySubject.onNext(CurrencyEnum.fromValue(sharedPreferencesUtil.getCurrency()));
+								}
+								else {
+									saveBaseCurrency(Objects.requireNonNull(CurrencyEnum.fromValue(profile.getPlatformCurrency().getValue())));
+								}
+							},
+							throwable -> {
+							});
 		}
 		return baseCurrencySubject;
 	}

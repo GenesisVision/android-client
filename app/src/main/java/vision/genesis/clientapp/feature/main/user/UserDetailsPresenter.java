@@ -13,7 +13,6 @@ import java.util.UUID;
 import javax.inject.Inject;
 
 import io.swagger.client.model.ImageQuality;
-import io.swagger.client.model.ProfileFullViewModel;
 import io.swagger.client.model.PublicProfile;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
@@ -21,7 +20,6 @@ import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.managers.AuthManager;
-import vision.genesis.clientapp.managers.ProfileManager;
 import vision.genesis.clientapp.managers.SocialManager;
 import vision.genesis.clientapp.managers.UsersManager;
 import vision.genesis.clientapp.model.User;
@@ -47,15 +45,15 @@ public class UserDetailsPresenter extends MvpPresenter<UserDetailsView>
 	@Inject
 	public UsersManager usersManager;
 
-	@Inject
-	public ProfileManager profileManager;
+//	@Inject
+//	public ProfileManager profileManager;
 
 	@Inject
 	public SocialManager socialManager;
 
 	private Subscription userSubscription;
 
-	private Subscription getProfileSubscription;
+//	private Subscription getProfileSubscription;
 
 	private Subscription userDetailsSubscription;
 
@@ -66,6 +64,8 @@ public class UserDetailsPresenter extends MvpPresenter<UserDetailsView>
 	private PublicProfile userDetails;
 
 	private User loggedUser;
+
+//	private ProfileFullViewModel profile;
 
 	@Override
 	protected void onFirstViewAttach() {
@@ -83,9 +83,9 @@ public class UserDetailsPresenter extends MvpPresenter<UserDetailsView>
 		if (userSubscription != null) {
 			userSubscription.unsubscribe();
 		}
-		if (getProfileSubscription != null) {
-			getProfileSubscription.unsubscribe();
-		}
+//		if (getProfileSubscription != null) {
+//			getProfileSubscription.unsubscribe();
+//		}
 		if (userDetailsSubscription != null) {
 			userDetailsSubscription.unsubscribe();
 		}
@@ -142,6 +142,8 @@ public class UserDetailsPresenter extends MvpPresenter<UserDetailsView>
 		getViewState().setRefreshing(false);
 
 		this.userDetails = userDetails;
+//		initViewPagerMaybe();
+		getViewState().initViewPager(userId, userDetails.getPersonalDetails().isCanWritePost());
 		getViewState().setUserDetails(userDetails);
 	}
 
@@ -180,7 +182,7 @@ public class UserDetailsPresenter extends MvpPresenter<UserDetailsView>
 
 	private void userLoggedOn() {
 		getViewState().showToolbarButtons(false);
-		getProfileInfo();
+//		getProfileInfo();
 	}
 
 	private void userLoggedOff() {
@@ -191,21 +193,28 @@ public class UserDetailsPresenter extends MvpPresenter<UserDetailsView>
 		userLoggedOff();
 	}
 
-	private void getProfileInfo() {
-		getProfileSubscription = profileManager.getProfileFull(true)
-				.subscribeOn(Schedulers.io())
-				.observeOn(AndroidSchedulers.mainThread())
-				.subscribe(this::handleGetProfileSuccess,
-						this::handleGetProfileError);
-	}
-
-	private void handleGetProfileSuccess(ProfileFullViewModel profile) {
-		getViewState().initViewPager(userId, profile.getId().toString().equals(userId.toString()));
-	}
-
-	private void handleGetProfileError(Throwable throwable) {
-		ApiErrorResolver.resolveErrors(throwable, message -> getViewState().showSnackbarMessage(message));
-	}
+//	private void getProfileInfo() {
+//		getProfileSubscription = profileManager.getProfileFull(true)
+//				.subscribeOn(Schedulers.io())
+//				.observeOn(AndroidSchedulers.mainThread())
+//				.subscribe(this::handleGetProfileSuccess,
+//						this::handleGetProfileError);
+//	}
+//
+//	private void handleGetProfileSuccess(ProfileFullViewModel profile) {
+//		this.profile = profile;
+//		initViewPagerMaybe();
+//	}
+//
+//	private void initViewPagerMaybe() {
+//		if (userId != null && profile != null && userDetails != null) {
+//			getViewState().initViewPager(userId, profile.getId().toString().equals(userId.toString()) || userDetails.getPersonalDetails().isCanWritePost());
+//		}
+//	}
+//
+//	private void handleGetProfileError(Throwable throwable) {
+//		ApiErrorResolver.resolveErrors(throwable, message -> getViewState().showSnackbarMessage(message));
+//	}
 
 	private void changeFollowStatus() {
 		if (socialManager != null && userDetails != null) {

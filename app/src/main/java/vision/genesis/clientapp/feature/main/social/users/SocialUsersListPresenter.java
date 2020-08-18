@@ -12,7 +12,6 @@ import javax.inject.Inject;
 
 import io.swagger.client.model.UserDetailsList;
 import io.swagger.client.model.UserDetailsListItemsViewModel;
-import io.swagger.client.model.UsersFilterSorting;
 import io.swagger.client.model.UsersFilterTimeframe;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
@@ -104,7 +103,7 @@ public class SocialUsersListPresenter extends MvpPresenter<SocialUsersListView>
 			if (getUsersSubscription != null) {
 				getUsersSubscription.unsubscribe();
 			}
-			getUsersSubscription = usersManager.getUsers(UsersFilterSorting.BYFOLLOWERSDESC, UsersFilterTimeframe.MONTH, null, skip, TAKE)
+			getUsersSubscription = usersManager.getUsers(null, UsersFilterTimeframe.MONTH, null, skip, TAKE)
 					.subscribeOn(Schedulers.computation())
 					.observeOn(AndroidSchedulers.mainThread())
 					.subscribe(this::handleGetUsersList,
