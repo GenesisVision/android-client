@@ -7,6 +7,8 @@ import android.widget.RelativeLayout;
 import org.greenrobot.eventbus.EventBus;
 import org.joda.time.DateTime;
 
+import java.util.UUID;
+
 import javax.inject.Inject;
 
 import butterknife.BindView;
@@ -42,6 +44,8 @@ public class AddNewPostView extends RelativeLayout
 	private Unbinder unbinder;
 
 	private ProfileFullViewModel profile;
+
+	private UUID userId;
 
 	public AddNewPostView(Context context) {
 		super(context);
@@ -88,7 +92,7 @@ public class AddNewPostView extends RelativeLayout
 
 		GenesisVisionApplication.getComponent().inject(this);
 
-		setOnClickListener(v -> EventBus.getDefault().post(new OnAddNewPostClickedEvent()));
+		setOnClickListener(v -> EventBus.getDefault().post(new OnAddNewPostClickedEvent(userId)));
 
 		getProfileInfo();
 	}
@@ -108,5 +112,9 @@ public class AddNewPostView extends RelativeLayout
 
 	private void handleGetProfileError(Throwable throwable) {
 		throwable.printStackTrace();
+	}
+
+	public void setData(UUID userId) {
+		this.userId = userId;
 	}
 }

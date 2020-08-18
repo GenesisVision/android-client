@@ -420,7 +420,7 @@ public class MainPresenter extends MvpPresenter<MainView>
 
 	@Subscribe
 	public void onEventMainThread(OnAddNewPostClickedEvent event) {
-		getViewState().showCreatePostActivity();
+		getViewState().showCreatePostActivity(event.getUserId());
 	}
 
 	@Subscribe

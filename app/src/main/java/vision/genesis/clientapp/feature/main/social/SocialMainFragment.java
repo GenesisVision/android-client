@@ -185,7 +185,7 @@ public class SocialMainFragment extends BaseFragment implements SocialMainView
 	@Override
 	public void showEditPost(Post post) {
 		if (getActivity() != null) {
-			CreatePostActivity.startWith(getActivity(), null, post);
+			CreatePostActivity.startWith(getActivity(), null, post, null);
 		}
 	}
 

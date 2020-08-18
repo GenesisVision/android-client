@@ -16,7 +16,7 @@ import io.swagger.client.model.PublicProfile;
 
 interface UserDetailsView extends MvpView
 {
-	void initViewPager(UUID userId, boolean isOwnDetails);
+	void initViewPager(UUID userId, boolean canAddNewPost);
 
 	@StateStrategyType(AddToEndSingleStrategy.class)
 	void setUserDetails(PublicProfile userDetails);

@@ -4,6 +4,7 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import io.swagger.client.api.ProfileApi;
+import io.swagger.client.model.Currency;
 import io.swagger.client.model.ProfileFullViewModel;
 import io.swagger.client.model.SocialLinksViewModel;
 import io.swagger.client.model.SocialViewMode;
@@ -123,5 +124,9 @@ public class ProfileManager
 
 	public Observable<Void> updateSocialSettings(SocialViewMode whoCanPostToMyWall, SocialViewMode whoCanViewCommentsOnMyPost, SocialViewMode whoCanCommentOnMyPost) {
 		return profileApi.updateUserSocialSettings(whoCanPostToMyWall, whoCanViewCommentsOnMyPost, whoCanCommentOnMyPost);
+	}
+
+	public Observable<Void> updatePlatformCurrency(String currency) {
+		return profileApi.updateUserPlatformCurrency(Currency.fromValue(currency));
 	}
 }

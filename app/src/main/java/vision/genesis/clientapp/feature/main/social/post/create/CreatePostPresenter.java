@@ -379,4 +379,8 @@ public class CreatePostPresenter extends MvpPresenter<CreatePostView> implements
 			getViewState().hideAutoCompleteGvAssetsView();
 		}
 	}
+
+	public void setUserId(UUID userId) {
+		post.setUserId(userId);
+	}
 }

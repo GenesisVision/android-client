@@ -157,7 +157,7 @@ public class PostsListPresenter extends MvpPresenter<PostsListView> implements S
 		List<Post> postsToAdd = response.getItems();
 
 		if (postsToAdd.size() == 0) {
-			if (skip == 0 && !filter.getIsOwnFeed()) {
+			if (skip == 0 && !filter.isCanAddNewPost()) {
 				getViewState().showEmptyList(true);
 			}
 			return;
@@ -196,14 +196,14 @@ public class PostsListPresenter extends MvpPresenter<PostsListView> implements S
 
 	@Subscribe
 	public void onEventMainThread(OnNewPostCreatedEvent event) {
-		if (filter != null && filter.getIsOwnFeed()) {
+		if (filter != null && filter.isCanAddNewPost()) {
 			getPostsList(true);
 		}
 	}
 
 	@Subscribe
 	public void onEventMainThread(OnNewPostEditedEvent event) {
-		if (filter != null && filter.getIsOwnFeed()) {
+		if (filter != null && filter.isCanAddNewPost()) {
 			getPostsList(true);
 		}
 	}

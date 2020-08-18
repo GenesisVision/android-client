@@ -45,7 +45,7 @@ public class PostsFilter implements Parcelable
 
 	private boolean showOnlyUserPosts;
 
-	private boolean isOwnFeed;
+	private boolean canAddNewPost;
 
 	public PostsFilter() {
 	}
@@ -61,7 +61,7 @@ public class PostsFilter implements Parcelable
 		showTop = in.readByte() != 0;
 		showLiked = in.readByte() != 0;
 		showOnlyUserPosts = in.readByte() != 0;
-		isOwnFeed = in.readByte() != 0;
+		canAddNewPost = in.readByte() != 0;
 	}
 
 	@Override
@@ -75,7 +75,7 @@ public class PostsFilter implements Parcelable
 		parcel.writeByte((byte) (showTop ? 1 : 0));
 		parcel.writeByte((byte) (showLiked ? 1 : 0));
 		parcel.writeByte((byte) (showOnlyUserPosts ? 1 : 0));
-		parcel.writeByte((byte) (isOwnFeed ? 1 : 0));
+		parcel.writeByte((byte) (canAddNewPost ? 1 : 0));
 	}
 
 	public UUID getUserId() {
@@ -150,12 +150,12 @@ public class PostsFilter implements Parcelable
 		this.showOnlyUserPosts = showOnlyUserPosts;
 	}
 
-	public Boolean getIsOwnFeed() {
-		return isOwnFeed;
+	public Boolean isCanAddNewPost() {
+		return canAddNewPost;
 	}
 
-	public void setIsOwnFeed(Boolean isOwnFeed) {
-		this.isOwnFeed = isOwnFeed;
+	public void setCanAddNewPost(Boolean canAddNewPost) {
+		this.canAddNewPost = canAddNewPost;
 	}
 
 	@Override

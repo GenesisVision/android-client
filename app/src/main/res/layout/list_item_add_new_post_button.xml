@@ -6,6 +6,7 @@
                 android:padding="@dimen/padding">
 
     <vision.genesis.clientapp.ui.AddNewPostView
+        android:id="@+id/view_add_new_post"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 

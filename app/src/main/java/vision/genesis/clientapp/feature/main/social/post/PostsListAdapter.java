@@ -9,11 +9,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.swagger.client.model.Post;
 import vision.genesis.clientapp.R;
+import vision.genesis.clientapp.ui.AddNewPostView;
 import vision.genesis.clientapp.ui.SocialPostView;
 
 /**
@@ -29,13 +31,16 @@ public class PostsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
 	private final SocialPostView.Listener postsListener;
 
-	private final Boolean isOwnFeed;
+	private final Boolean canAddNewPost;
+
+	private final UUID userId;
 
 	private List<Post> posts = new ArrayList<>();
 
-	public PostsListAdapter(SocialPostView.Listener postsListener, Boolean isOwnFeed) {
+	public PostsListAdapter(SocialPostView.Listener postsListener, Boolean canAddNewPost, UUID userId) {
 		this.postsListener = postsListener;
-		this.isOwnFeed = isOwnFeed;
+		this.canAddNewPost = canAddNewPost;
+		this.userId = userId;
 	}
 
 	@NonNull
@@ -43,7 +48,7 @@ public class PostsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 	public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 		switch (viewType) {
 			case TYPE_BUTTON:
-				return new ButtonViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_add_new_post_button, parent, false));
+				return new ButtonViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_add_new_post_button, parent, false), userId);
 			case TYPE_POST:
 			default:
 				return new PostViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_post, parent, false), postsListener);
@@ -56,7 +61,7 @@ public class PostsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 			case TYPE_BUTTON:
 				break;
 			case TYPE_POST:
-				if (isOwnFeed) {
+				if (canAddNewPost) {
 					((PostViewHolder) holder).setPost(posts.get(position - 1));
 				}
 				else {
@@ -69,7 +74,7 @@ public class PostsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 	@Override
 	public int getItemCount() {
 		int count = posts.size();
-		if (isOwnFeed) {
+		if (canAddNewPost) {
 			count++;
 		}
 		return count;
@@ -78,7 +83,7 @@ public class PostsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
 	@Override
 	public int getItemViewType(int position) {
-		if (isOwnFeed) {
+		if (canAddNewPost) {
 			return position == 0 ? TYPE_BUTTON : TYPE_POST;
 		}
 		else {
@@ -88,7 +93,7 @@ public class PostsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
 	@Override
 	public long getItemId(int position) {
-		if (isOwnFeed) {
+		if (canAddNewPost) {
 			return position == 0 ? 0 : posts.get(position - 1).hashCode();
 		}
 		else {
@@ -121,14 +126,17 @@ public class PostsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 		}
 	}
 
-	public void addAddNewPostView() {
-
-	}
-
 	static class ButtonViewHolder extends RecyclerView.ViewHolder
 	{
-		ButtonViewHolder(View itemView) {
+		@BindView(R.id.view_add_new_post)
+		public AddNewPostView addNewPostView;
+
+		ButtonViewHolder(View itemView, UUID userId) {
 			super(itemView);
+
+			ButterKnife.bind(this, itemView);
+
+			addNewPostView.setData(userId);
 		}
 	}
 

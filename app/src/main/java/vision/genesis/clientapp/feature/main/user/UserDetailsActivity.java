@@ -364,9 +364,9 @@ public class UserDetailsActivity extends BaseSwipeBackActivity implements UserDe
 	}
 
 	@Override
-	public void initViewPager(UUID userId, boolean isOwnDetails) {
+	public void initViewPager(UUID userId, boolean canAddNewPost) {
 		if (pagerAdapter == null) {
-			pagerAdapter = new UserDetailsPagerAdapter(getSupportFragmentManager(), tabLayout, userId, isOwnDetails);
+			pagerAdapter = new UserDetailsPagerAdapter(getSupportFragmentManager(), tabLayout, userId, canAddNewPost);
 			viewPager.setAdapter(pagerAdapter);
 			viewPager.setOffscreenPageLimit(4);
 

@@ -440,7 +440,7 @@ public class PostDetailsActivity extends BaseSwipeBackActivity implements PostDe
 
 	@Override
 	public void showEditPost(Post post) {
-		CreatePostActivity.startWith(this, null, post);
+		CreatePostActivity.startWith(this, null, post, null);
 	}
 
 	@Override
