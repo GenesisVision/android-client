@@ -167,11 +167,19 @@ public class SocialPostActionsBottomSheetFragment extends BottomSheetDialogFragm
 	}
 
 	private void updateView() {
-		if (post != null && post.getPersonalDetails() != null) {
-			this.edit.setVisibility(post.getPersonalDetails().isCanEdit() ? View.VISIBLE : View.GONE);
-			this.pin.setVisibility(post.getPersonalDetails().isCanPin() && !post.isIsPinned() ? View.VISIBLE : View.GONE);
-			this.unpin.setVisibility(post.getPersonalDetails().isCanPin() && post.isIsPinned() ? View.VISIBLE : View.GONE);
-			this.delete.setVisibility(post.getPersonalDetails().isCanDelete() ? View.VISIBLE : View.GONE);
+		if (post != null) {
+			if (post.getPersonalDetails() != null) {
+				this.edit.setVisibility(post.getPersonalDetails().isCanEdit() ? View.VISIBLE : View.GONE);
+				this.pin.setVisibility(post.getPersonalDetails().isCanPin() && !post.isIsPinned() ? View.VISIBLE : View.GONE);
+				this.unpin.setVisibility(post.getPersonalDetails().isCanPin() && post.isIsPinned() ? View.VISIBLE : View.GONE);
+				this.delete.setVisibility(post.getPersonalDetails().isCanDelete() ? View.VISIBLE : View.GONE);
+			}
+			else {
+				this.edit.setVisibility(View.GONE);
+				this.pin.setVisibility(View.GONE);
+				this.unpin.setVisibility(View.GONE);
+				this.delete.setVisibility(View.GONE);
+			}
 
 			this.report.setVisibility(!isOwnPost ? View.VISIBLE : View.GONE);
 		}

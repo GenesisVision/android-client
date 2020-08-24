@@ -519,8 +519,9 @@ public class ProgramInfoFragment extends BaseFragment implements ProgramInfoView
 			else {
 				personalSuccessFeeGroup.setVisibility(View.GONE);
 			}
-			if (!personalDetails.getManagementFeePersonal().equals(details.getProgramDetails().getManagementFeeCurrent())
-					|| !personalDetails.getManagementFeePersonal().equals(details.getProgramDetails().getManagementFeeSelected())) {
+			if (personalDetails.getManagementFeePersonal() != null &&
+					(!personalDetails.getManagementFeePersonal().equals(details.getProgramDetails().getManagementFeeCurrent())
+							|| !personalDetails.getManagementFeePersonal().equals(details.getProgramDetails().getManagementFeeSelected()))) {
 				personalManagementFeeGroup.setVisibility(View.VISIBLE);
 				personalManagementFee.setText(String.format(Locale.getDefault(), "%s%% (%s)",
 						StringFormatUtil.formatAmount(personalDetails.getManagementFeePersonal(), 0, 4),

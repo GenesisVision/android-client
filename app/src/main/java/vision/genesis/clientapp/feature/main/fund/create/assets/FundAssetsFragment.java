@@ -214,10 +214,12 @@ public class FundAssetsFragment extends BaseFragment implements FundAssetsView
 
 		ValueAnimator animator = ValueAnimator.ofFloat(lp1.weight, (float) newShare);
 		animator.addUpdateListener(animation -> {
-			lp1.weight = (float) animator.getAnimatedValue();
-			lineView.setLayoutParams(lp1);
-			lp2.weight = originalRemainingShare + originalShare - (float) animator.getAnimatedValue();
-			remainingAllocationLine.setLayoutParams(lp2);
+			if (remainingAllocationLine != null) {
+				lp1.weight = (float) animator.getAnimatedValue();
+				lineView.setLayoutParams(lp1);
+				lp2.weight = originalRemainingShare + originalShare - (float) animator.getAnimatedValue();
+				remainingAllocationLine.setLayoutParams(lp2);
+			}
 		});
 		if (newShare == 0) {
 			animator.addListener(new AnimatorListenerAdapter()

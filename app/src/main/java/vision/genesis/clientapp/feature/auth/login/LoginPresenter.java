@@ -89,13 +89,21 @@ public class LoginPresenter extends MvpPresenter<LoginView>
 	}
 
 	void onSignInClicked(String email, String password) {
-		getViewState().showProgress();
 		this.email = email.trim();
 		this.password = password;
-		checkRiskControl(email);
+		if (this.email.isEmpty()) {
+			getViewState().showSnackbarMessage(context.getString(R.string.error_enter_email));
+		}
+		else if (this.password.isEmpty()) {
+			getViewState().showSnackbarMessage(context.getString(R.string.error_enter_password));
+		}
+		else {
+			checkRiskControl(email);
+		}
 	}
 
 	private void checkRiskControl(String route) {
+		getViewState().showProgress();
 		riskControlSubscription = authManager.checkRiskControl(route)
 				.observeOn(AndroidSchedulers.mainThread())
 				.subscribeOn(Schedulers.io())

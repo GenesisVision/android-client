@@ -284,13 +284,14 @@ public class SocialCommentView extends RelativeLayout implements PostImageView.P
 		this.likesCount.setText(String.valueOf(comment.getLikesCount()));
 		this.likesCount.setVisibility(comment.getLikesCount() > 0 ? View.VISIBLE : View.GONE);
 
-		this.likeIcon.setImageDrawable(ContextCompat.getDrawable(getContext(), comment.getPersonalDetails().isIsLiked() ? R.drawable.icon_like_full : R.drawable.icon_like));
+		this.likeIcon.setImageDrawable(ContextCompat.getDrawable(getContext(),
+				comment.getPersonalDetails() != null && comment.getPersonalDetails().isIsLiked() ? R.drawable.icon_like_full : R.drawable.icon_like));
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-			likeIcon.setImageTintList(comment.getPersonalDetails().isIsLiked()
+			likeIcon.setImageTintList(comment.getPersonalDetails() != null && comment.getPersonalDetails().isIsLiked()
 					? ColorStateList.valueOf(ThemeUtil.getColorByAttrId(getContext(), R.attr.colorAccent))
 					: ColorStateList.valueOf(ThemeUtil.getColorByAttrId(getContext(), R.attr.colorTextSecondary)));
 			this.likesCount.setTextColor(ThemeUtil.getColorByAttrId(getContext(),
-					comment.getPersonalDetails().isIsLiked() ? R.attr.colorAccent : R.attr.colorTextSecondary));
+					comment.getPersonalDetails() != null && comment.getPersonalDetails().isIsLiked() ? R.attr.colorAccent : R.attr.colorTextSecondary));
 		}
 	}
 

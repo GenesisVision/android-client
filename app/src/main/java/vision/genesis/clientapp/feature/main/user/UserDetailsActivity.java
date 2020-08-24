@@ -384,7 +384,7 @@ public class UserDetailsActivity extends BaseSwipeBackActivity implements UserDe
 		model.update(userDetails);
 		updateHeader();
 
-		if (userDetails.getPersonalDetails().isAllowFollow()) {
+		if (userDetails.getPersonalDetails() != null && userDetails.getPersonalDetails().isAllowFollow()) {
 			buttonsGroup.setVisibility(View.VISIBLE);
 
 			followButton.setVisibility(!userDetails.getPersonalDetails().isIsFollow() ? View.VISIBLE : View.GONE);

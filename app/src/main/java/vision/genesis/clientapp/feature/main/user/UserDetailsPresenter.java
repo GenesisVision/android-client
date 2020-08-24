@@ -143,7 +143,7 @@ public class UserDetailsPresenter extends MvpPresenter<UserDetailsView>
 
 		this.userDetails = userDetails;
 //		initViewPagerMaybe();
-		getViewState().initViewPager(userId, userDetails.getPersonalDetails().isCanWritePost());
+		getViewState().initViewPager(userId, userDetails.getPersonalDetails() != null ? userDetails.getPersonalDetails().isCanWritePost() : false);
 		getViewState().setUserDetails(userDetails);
 	}
 

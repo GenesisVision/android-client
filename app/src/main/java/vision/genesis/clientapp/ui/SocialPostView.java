@@ -414,13 +414,14 @@ public class SocialPostView extends RelativeLayout implements PostImageView.Post
 		this.repostsCount.setVisibility(post.getRePostsCount() > 0 ? View.VISIBLE : View.GONE);
 		this.commentsCount.setVisibility(post.getComments().size() > 0 ? View.VISIBLE : View.GONE);
 
-		this.likeIcon.setImageDrawable(ContextCompat.getDrawable(getContext(), post.getPersonalDetails().isIsLiked() ? R.drawable.icon_like_full : R.drawable.icon_like));
+		this.likeIcon.setImageDrawable(ContextCompat.getDrawable(getContext(),
+				post.getPersonalDetails() != null && post.getPersonalDetails().isIsLiked() ? R.drawable.icon_like_full : R.drawable.icon_like));
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-			likeIcon.setImageTintList(post.getPersonalDetails().isIsLiked()
+			likeIcon.setImageTintList(post.getPersonalDetails() != null && post.getPersonalDetails().isIsLiked()
 					? ColorStateList.valueOf(ThemeUtil.getColorByAttrId(getContext(), R.attr.colorAccent))
 					: ColorStateList.valueOf(ThemeUtil.getColorByAttrId(getContext(), R.attr.colorTextSecondary)));
 			this.likesCount.setTextColor(ThemeUtil.getColorByAttrId(getContext(),
-					post.getPersonalDetails().isIsLiked() ? R.attr.colorAccent : R.attr.colorTextSecondary));
+					post.getPersonalDetails() != null && post.getPersonalDetails().isIsLiked() ? R.attr.colorAccent : R.attr.colorTextSecondary));
 		}
 	}
 

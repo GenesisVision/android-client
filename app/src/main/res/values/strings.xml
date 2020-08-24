@@ -948,6 +948,8 @@
     <string name="trending_assets">Trending assets</string>
     <string name="error_hashtag_added">This tag is already added</string>
     <string name="error_too_many_hashtags_added">Too many tags added</string>
+    <string name="error_enter_email">Please enter email</string>
+    <string name="error_enter_password">Please enter password</string>
 
 
     <plurals name="assets">

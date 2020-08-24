@@ -75,11 +75,11 @@ public class UserInfoPresenter extends MvpPresenter<UserInfoView>
 		}
 	}
 
-	private void handleUserDetailsSuccess(PublicProfile managerDetails) {
+	private void handleUserDetailsSuccess(PublicProfile userDetails) {
 		userDetailsSubscription.unsubscribe();
 		getViewState().showProgress(false);
 
-		getViewState().setUserDetails(managerDetails);
+		getViewState().setUserDetails(userDetails);
 	}
 
 	private void handleUserDetailsError(Throwable throwable) {

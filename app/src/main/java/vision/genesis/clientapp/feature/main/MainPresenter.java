@@ -425,7 +425,9 @@ public class MainPresenter extends MvpPresenter<MainView>
 
 	@Subscribe
 	public void onEventMainThread(OnShowRepostEvent event) {
-		getViewState().showCreatePostActivityWithRepost(event.getPost());
+		if (user != null) {
+			getViewState().showCreatePostActivityWithRepost(event.getPost());
+		}
 	}
 
 	@Subscribe

@@ -28,7 +28,7 @@ public class CaptchaUtils
 		}
 		try {
 			while (true) {
-				str = prefix.toString().concat(captchaDetails.getPow().getNonce()).concat(captchaDetails.getRoute());
+				str = prefix.toString().concat(captchaDetails.getPow().getNonce()).concat(captchaDetails.getRoute() != null ? captchaDetails.getRoute() : "");
 				hash = HashGeneratorUtil.generateSHA256(str);
 				if (hash.compareTo(diffString) < 0) {
 					break;

@@ -184,13 +184,14 @@ public class SettingsManager
 					.subscribeOn(Schedulers.newThread())
 					.subscribe(profile -> {
 								if (profile.getPlatformCurrency() == null || profile.getPlatformCurrency().equals(Currency.UNDEFINED)) {
-									baseCurrencySubject.onNext(CurrencyEnum.fromValue(sharedPreferencesUtil.getCurrency()));
+									saveBaseCurrency(Objects.requireNonNull(CurrencyEnum.fromValue(sharedPreferencesUtil.getCurrency())));
 								}
 								else {
 									saveBaseCurrency(Objects.requireNonNull(CurrencyEnum.fromValue(profile.getPlatformCurrency().getValue())));
 								}
 							},
 							throwable -> {
+								saveBaseCurrency(Objects.requireNonNull(CurrencyEnum.fromValue(sharedPreferencesUtil.getCurrency())));
 							});
 		}
 		return baseCurrencySubject;
