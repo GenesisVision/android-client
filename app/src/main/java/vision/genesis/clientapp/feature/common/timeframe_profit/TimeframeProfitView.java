@@ -10,8 +10,6 @@ import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import java.util.Locale;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -74,6 +72,8 @@ public class TimeframeProfitView extends RelativeLayout
 	private Listener listener;
 
 	private Timeframe selectedTimeframe = Timeframe.DAY;
+
+	private String baseCurrency;
 
 	public TimeframeProfitView(Context context) {
 		super(context);
@@ -144,19 +144,30 @@ public class TimeframeProfitView extends RelativeLayout
 		onClicked(selectedTimeframe);
 	}
 
-	public void setData(DashboardProfits data) {
+	public void setData(DashboardProfits data, String baseCurrency) {
+		this.baseCurrency = baseCurrency;
 		setChangePercent(dayValue, data.getDay());
 		setChangePercent(weekValue, data.getWeek());
 		setChangePercent(monthValue, data.getMonth());
 	}
 
+//	private void setChangePercent(TextView view, DashboardTimeframeProfit model) {
+//		view.setText(String.format(Locale.getDefault(), "%s%%",
+//				StringFormatUtil.formatAmount(model.getProfitPercent(), 0, 2)));
+//		view.setTextColor(ThemeUtil.getColorByAttrId(getContext(),
+//				model.getProfitPercent() > 0
+//						? R.attr.colorGreen
+//						: model.getProfitPercent() < 0
+//						? R.attr.colorRed
+//						: R.attr.colorTextPrimary));
+//	}
+
 	private void setChangePercent(TextView view, DashboardTimeframeProfit model) {
-		view.setText(String.format(Locale.getDefault(), "%s%%",
-				StringFormatUtil.formatAmount(model.getProfitPercent(), 0, 2)));
+		view.setText(StringFormatUtil.getValueString(model.getProfit(), baseCurrency));
 		view.setTextColor(ThemeUtil.getColorByAttrId(getContext(),
-				model.getProfitPercent() > 0
+				model.getProfit() > 0
 						? R.attr.colorGreen
-						: model.getProfitPercent() < 0
+						: model.getProfit() < 0
 						? R.attr.colorRed
 						: R.attr.colorTextPrimary));
 	}

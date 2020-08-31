@@ -328,7 +328,7 @@ public class DashboardFragment extends BaseFragment implements DashboardView
 			total.setText(StringFormatUtil.getValueString(summary.getTotal(), baseCurrency.getValue()));
 			headerTotal.setText(StringFormatUtil.getValueString(summary.getTotal(), baseCurrency.getValue()));
 
-			timeframeProfit.setData(summary.getProfits());
+			timeframeProfit.setData(summary.getProfits(), baseCurrency.getValue());
 
 			investmentsView.setShare((int) Math.round(summary.getInvested() / summary.getTotal() * 100));
 			tradingView.setShare((int) Math.round(summary.getTrading() / summary.getTotal() * 100));
@@ -348,9 +348,11 @@ public class DashboardFragment extends BaseFragment implements DashboardView
 				sign,
 				StringFormatUtil.getValueString(model.getProfit(), baseCurrency.getValue()));
 
-		headerChangeValue.setText(String.format(Locale.getDefault(), "%s (%s%%)",
-				changeValueText,
-				StringFormatUtil.formatAmount(model.getProfitPercent(), 0, 2)));
+//		headerChangeValue.setText(String.format(Locale.getDefault(), "%s (%s%%)",
+//				changeValueText,
+//				StringFormatUtil.formatAmount(model.getProfitPercent(), 0, 2)));
+		headerChangeValue.setText(String.format(Locale.getDefault(), "%s",
+				changeValueText));
 		headerChangeValue.setTextColor(changeColor);
 
 		change.setText(changeValueText);

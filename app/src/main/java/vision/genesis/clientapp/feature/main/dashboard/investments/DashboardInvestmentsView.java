@@ -212,10 +212,13 @@ public class DashboardInvestmentsView extends RelativeLayout
 
 	private void updateChangeText(double profit, double profitPercent) {
 		String sign = profit > 0 ? "+" : "";
-		change.setText(String.format(Locale.getDefault(), "%s%s (%s%%)",
+//		change.setText(String.format(Locale.getDefault(), "%s%s (%s%%)",
+//				sign,
+//				StringFormatUtil.getValueString(profit, baseCurrency.getValue()),
+//				StringFormatUtil.formatAmount(profitPercent, 0, 2)));
+		change.setText(String.format(Locale.getDefault(), "%s%s",
 				sign,
-				StringFormatUtil.getValueString(profit, baseCurrency.getValue()),
-				StringFormatUtil.formatAmount(profitPercent, 0, 2)));
+				StringFormatUtil.getValueString(profit, baseCurrency.getValue())));
 		this.change.setTextColor(ThemeUtil.getColorByAttrId(getContext(),
 				profitPercent > 0
 						? R.attr.colorGreen

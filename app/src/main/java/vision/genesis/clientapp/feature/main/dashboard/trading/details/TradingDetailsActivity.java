@@ -422,7 +422,7 @@ public class TradingDetailsActivity extends BaseSwipeBackActivity implements Tra
 			total.setText(StringFormatUtil.getValueString(details.getEquity(), baseCurrency.getValue()));
 			headerTotal.setText(StringFormatUtil.getValueString(details.getEquity(), baseCurrency.getValue()));
 
-			timeframeProfit.setData(details.getProfits());
+			timeframeProfit.setData(details.getProfits(), baseCurrency.getValue());
 		}
 	}
 
@@ -438,9 +438,11 @@ public class TradingDetailsActivity extends BaseSwipeBackActivity implements Tra
 				sign,
 				StringFormatUtil.getValueString(model.getProfit(), baseCurrency.getValue()));
 
-		headerChangeValue.setText(String.format(Locale.getDefault(), "%s (%s%%)",
-				changeValueText,
-				StringFormatUtil.formatAmount(model.getProfitPercent(), 0, 2)));
+//		headerChangeValue.setText(String.format(Locale.getDefault(), "%s (%s%%)",
+//				changeValueText,
+//				StringFormatUtil.formatAmount(model.getProfitPercent(), 0, 2)));
+		headerChangeValue.setText(String.format(Locale.getDefault(), "%s",
+				changeValueText));
 		headerChangeValue.setTextColor(changeColor);
 
 		change.setText(changeValueText);
