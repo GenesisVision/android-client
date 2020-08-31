@@ -33,17 +33,19 @@ public interface MainView extends MvpView
 
 	void hideFragment(BaseFragment fragment);
 
+	void removeFragment(BaseFragment fragment);
+
 	void removeFragmentFromBackstack();
 
-	void showBottomNavigation(Boolean animate);
+//	void showBottomNavigation(Boolean animate);
 
-	void hideBottomNavigation();
+//	void hideBottomNavigation();
 
 	void setNavigationItemSelected(int position);
 
-	void showSignInButton();
+//	void showSignInButton();
 
-	void hideSignInButton();
+//	void hideSignInButton();
 
 	void showLoginActivity();
 

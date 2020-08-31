@@ -21,12 +21,13 @@ import vision.genesis.clientapp.feature.main.assets.AssetsFragment;
 import vision.genesis.clientapp.feature.main.dashboard.DashboardFragment;
 import vision.genesis.clientapp.feature.main.settings.SettingsFragment;
 import vision.genesis.clientapp.feature.main.social.SocialMainFragment;
+import vision.genesis.clientapp.feature.main.unregistered.dashboard.UnregisteredDashboardFragment;
+import vision.genesis.clientapp.feature.main.unregistered.settings.UnregisteredSettingsFragment;
 import vision.genesis.clientapp.managers.AuthManager;
 import vision.genesis.clientapp.managers.SettingsManager;
 import vision.genesis.clientapp.model.AppUpdateModel;
 import vision.genesis.clientapp.model.ProgramRequest;
 import vision.genesis.clientapp.model.User;
-import vision.genesis.clientapp.model.events.HideBottomNavigationEvent;
 import vision.genesis.clientapp.model.events.OnAddNewPostClickedEvent;
 import vision.genesis.clientapp.model.events.OnFollowFacetClickedEvent;
 import vision.genesis.clientapp.model.events.OnFundFacetClickedEvent;
@@ -78,6 +79,10 @@ public class MainPresenter extends MvpPresenter<MainView>
 
 	private Subscription platformStatusSubscription;
 
+	private UnregisteredDashboardFragment unregisteredDashboardFragment;
+
+	private UnregisteredSettingsFragment unregisteredSettingsFragment;
+
 	private DashboardFragment dashboardFragment;
 
 	private AssetsFragment assetsFragment;
@@ -107,7 +112,7 @@ public class MainPresenter extends MvpPresenter<MainView>
 			onCheckPinPassed();
 		}
 
-		getViewState().setNavigationItemSelected(1);
+		getViewState().setNavigationItemSelected(0);
 	}
 
 	@Override
@@ -140,20 +145,69 @@ public class MainPresenter extends MvpPresenter<MainView>
 		}
 	}
 
-	void onBottomMenuSelectionChanged(int position) {
+	boolean onBottomMenuSelectionChanged(int position, boolean wasSelected) {
 		switch (position) {
 			case 0:
-				showDashboard();
+				if (user == null) {
+					if (wasSelected && unregisteredDashboardFragment != null) {
+						return false;
+					}
+					showUnregisteredDashboard();
+				}
+				else {
+					if (wasSelected && dashboardFragment != null) {
+						return false;
+					}
+					showDashboard();
+				}
 				break;
 			case 1:
+				if (wasSelected && assetsFragment != null) {
+					return false;
+				}
 				showAssets();
 				break;
 			case 2:
+				if (wasSelected && socialMainFragment != null) {
+					return false;
+				}
 				showSocial();
 				break;
 			case 3:
-				showSettings();
+				if (user == null) {
+					if (wasSelected && unregisteredSettingsFragment != null) {
+						return false;
+					}
+					showUnregisteredSettings();
+				}
+				else {
+					if (wasSelected && settingsFragment != null) {
+						return false;
+					}
+					showSettings();
+				}
 				break;
+		}
+		return true;
+	}
+
+	private void showUnregisteredDashboard() {
+		if (unregisteredDashboardFragment == null) {
+			unregisteredDashboardFragment = new UnregisteredDashboardFragment();
+			getViewState().addFragmentToBackstack(unregisteredDashboardFragment);
+		}
+		else {
+			getViewState().showFragment(unregisteredDashboardFragment);
+		}
+	}
+
+	private void showUnregisteredSettings() {
+		if (unregisteredSettingsFragment == null) {
+			unregisteredSettingsFragment = new UnregisteredSettingsFragment();
+			getViewState().addFragmentToBackstack(unregisteredSettingsFragment);
+		}
+		else {
+			getViewState().showFragment(unregisteredSettingsFragment);
 		}
 	}
 
@@ -195,10 +249,6 @@ public class MainPresenter extends MvpPresenter<MainView>
 		else {
 			getViewState().showFragment(settingsFragment);
 		}
-	}
-
-	void onSignInButtonClicked() {
-		getViewState().showLoginActivity();
 	}
 
 	private void getPlatformStatus() {
@@ -244,13 +294,20 @@ public class MainPresenter extends MvpPresenter<MainView>
 	}
 
 	private void userUpdated(User user) {
-		this.user = user;
 		getViewState().hideSplashScreen();
+		if (user == null && this.user == null) {
+			return;
+		}
+		boolean userWasLoggedOff = false;
+		if (this.user == null) {
+			userWasLoggedOff = true;
+		}
+		this.user = user;
 		if (user == null) {
 			userLoggedOff();
 		}
 		else {
-			userLoggedOn();
+			userLoggedOn(userWasLoggedOff);
 			if (authManager.isNeedShowEnableTwoFactor()) {
 				getViewState().showEnableTwoFactor();
 				authManager.setEnableTwoFactorAlreadyShown(true);
@@ -258,16 +315,48 @@ public class MainPresenter extends MvpPresenter<MainView>
 		}
 	}
 
-	private void userLoggedOn() {
-		getViewState().setNavigationItemSelected(0);
-		getViewState().showBottomNavigation(true);
-		getViewState().hideSignInButton();
+	private void userLoggedOn(boolean userWasLoggedOff) {
+		if (unregisteredDashboardFragment != null) {
+			getViewState().removeFragment(unregisteredDashboardFragment);
+		}
+		if (assetsFragment != null) {
+			getViewState().removeFragment(assetsFragment);
+		}
+		if (socialMainFragment != null) {
+			getViewState().removeFragment(socialMainFragment);
+		}
+		if (unregisteredSettingsFragment != null) {
+			getViewState().removeFragment(unregisteredSettingsFragment);
+		}
+		unregisteredDashboardFragment = null;
+		assetsFragment = null;
+		socialMainFragment = null;
+		unregisteredSettingsFragment = null;
+
+		if (userWasLoggedOff) {
+			getViewState().setNavigationItemSelected(0);
+		}
 	}
 
 	private void userLoggedOff() {
-		getViewState().setNavigationItemSelected(1);
-		getViewState().showSignInButton();
-		getViewState().hideBottomNavigation();
+		if (dashboardFragment != null) {
+			getViewState().removeFragment(dashboardFragment);
+		}
+		if (assetsFragment != null) {
+			getViewState().removeFragment(assetsFragment);
+		}
+		if (socialMainFragment != null) {
+			getViewState().removeFragment(socialMainFragment);
+		}
+		if (settingsFragment != null) {
+			getViewState().removeFragment(settingsFragment);
+		}
+		dashboardFragment = null;
+		assetsFragment = null;
+		socialMainFragment = null;
+		settingsFragment = null;
+
+		getViewState().setNavigationItemSelected(0);
 
 	}
 
@@ -313,12 +402,7 @@ public class MainPresenter extends MvpPresenter<MainView>
 
 	@Subscribe
 	public void onEventMainThread(ShowBottomNavigationEvent event) {
-		getViewState().showBottomNavigation(event.getAnimate());
-	}
-
-	@Subscribe
-	public void onEventMainThread(HideBottomNavigationEvent event) {
-		getViewState().hideBottomNavigation();
+//		getViewState().showBottomNavigation(event.getAnimate());
 	}
 
 	@Subscribe

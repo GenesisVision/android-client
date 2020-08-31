@@ -176,8 +176,9 @@ public class RequestsAdapter extends RecyclerView.Adapter<RequestsAdapter.Reques
 						this.value.setText(itemView.getContext().getString(R.string.withdraw_all));
 					}
 					else {
-						this.value.setText(String.format(Locale.getDefault(), "%s %s %s", request.getType().equals(InvestmentRequestType.INVEST) ? "+" : "-",
-								StringFormatUtil.formatCurrencyAmount(request.getAmount(), request.getCurrency().getValue()), request.getCurrency().getValue()));
+						this.value.setText(String.format(Locale.getDefault(), "%s %s",
+								StringFormatUtil.formatCurrencyAmount(request.getAmount(), request.getCurrency().getValue()),
+								request.getCurrency().getValue()));
 					}
 				}
 				else if (details.getAssetType().equals(AssetType.FUND)) {
@@ -187,7 +188,7 @@ public class RequestsAdapter extends RecyclerView.Adapter<RequestsAdapter.Reques
 								StringFormatUtil.formatCurrencyAmount(request.getAmount(), CurrencyEnum.GVT.getValue())));
 					}
 					else {
-						this.value.setText(String.format(Locale.getDefault(), "+ %s %s",
+						this.value.setText(String.format(Locale.getDefault(), "%s %s",
 								StringFormatUtil.formatCurrencyAmount(request.getAmount(), request.getCurrency().getValue()),
 								request.getCurrency().getValue()));
 					}

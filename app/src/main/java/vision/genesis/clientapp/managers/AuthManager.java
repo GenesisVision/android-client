@@ -84,7 +84,6 @@ public class AuthManager
 
 		EventBus.getDefault().register(this);
 
-		userSubject.onNext(null);
 		tryGetSavedToken();
 	}
 
@@ -94,6 +93,9 @@ public class AuthManager
 			Timber.d("TOKEN: %s", token);
 			AuthManager.token.onNext(token);
 			getTwoFactorStatus();
+		}
+		else {
+			userSubject.onNext(null);
 		}
 	}
 
@@ -138,7 +140,6 @@ public class AuthManager
 		sharedPreferencesUtil.saveToken(newToken);
 		AuthManager.token.onNext(newToken);
 		Timber.d("TOKEN: %s", newToken);
-		getTokenResponseSubject.onNext(newToken);
 	}
 
 	private void getTwoFactorStatus() {
@@ -151,6 +152,7 @@ public class AuthManager
 							user.setTwoFactorStatus(response.isTwoFactorEnabled());
 							settingsManager.setTwoFactorEnabled(response.isTwoFactorEnabled());
 							userSubject.onNext(user);
+							getTokenResponseSubject.onNext("");
 						},
 						error -> {
 							getTwoFactorStatusSubscription.unsubscribe();
@@ -190,8 +192,9 @@ public class AuthManager
 		return authApi.disableTwoStepAuth(model);
 	}
 
-	public Observable<Void> register(String email, String password, String confirmPassword, CaptchaCheckResult captchaCheckResult) {
+	public Observable<Void> register(String username, String email, String password, String confirmPassword, CaptchaCheckResult captchaCheckResult) {
 		RegisterViewModel model = new RegisterViewModel();
+		model.setUserName(username);
 		model.setEmail(email);
 		model.setPassword(password);
 		model.setConfirmPassword(confirmPassword);

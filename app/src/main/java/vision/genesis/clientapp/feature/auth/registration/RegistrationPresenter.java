@@ -45,11 +45,11 @@ public class RegistrationPresenter extends MvpPresenter<RegistrationView>
 
 	private boolean termsConditionsAccepted;
 
+	private String userName;
+
 	private String email;
 
 	private String password;
-
-	private String confirmPassword;
 
 	private CaptchaCheckResult captchaCheckResult;
 
@@ -90,12 +90,11 @@ public class RegistrationPresenter extends MvpPresenter<RegistrationView>
 		getViewState().showLoginActivity();
 	}
 
-	//	void onSignUpClicked(String userName, String email, String password, String confirmPassword) {
-	void onSignUpClicked(String email, String password, String confirmPassword) {
+	void onSignUpClicked(String username, String email, String password) {
 		if (privacyPolicyAccepted && termsConditionsAccepted) {
+			this.userName = username.trim();
 			this.email = email.trim();
 			this.password = password;
-			this.confirmPassword = confirmPassword;
 
 			checkRiskControl(email);
 		}
@@ -147,8 +146,7 @@ public class RegistrationPresenter extends MvpPresenter<RegistrationView>
 		getViewState().clearErrors();
 		getViewState().showProgress(true);
 
-//		registrationSubscription = getRegisterObservable(userName, email, password, confirmPassword)
-		registrationSubscription = getRegisterObservable(null, email, password, confirmPassword, captchaCheckResult)
+		registrationSubscription = getRegisterObservable(userName, email, password, password, captchaCheckResult)
 				.observeOn(AndroidSchedulers.mainThread())
 				.subscribeOn(Schedulers.io())
 				.subscribe(this::onRegisterResponse,
@@ -156,7 +154,7 @@ public class RegistrationPresenter extends MvpPresenter<RegistrationView>
 	}
 
 	private Observable<Void> getRegisterObservable(String userName, String email, String password, String confirmPassword, CaptchaCheckResult captchaCheckResult) {
-		return authManager.register(email, password, confirmPassword, captchaCheckResult);
+		return authManager.register(userName, email, password, confirmPassword, captchaCheckResult);
 	}
 
 	private void onRegisterResponse(Void response) {
@@ -193,9 +191,6 @@ public class RegistrationPresenter extends MvpPresenter<RegistrationView>
 								break;
 							case "password":
 								getViewState().setPasswordError(error.message);
-								break;
-							case "confirmpassword":
-								getViewState().setConfirmPasswordError(error.message);
 								break;
 							default:
 								getViewState().showSnackbarMessage(error.message);

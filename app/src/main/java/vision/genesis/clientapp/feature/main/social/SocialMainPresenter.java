@@ -11,7 +11,6 @@ import org.greenrobot.eventbus.Subscribe;
 import javax.inject.Inject;
 
 import io.swagger.client.model.Post;
-import io.swagger.client.model.ProfileFullViewModel;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -19,11 +18,10 @@ import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.feature.main.social.feed.SocialLiveView;
 import vision.genesis.clientapp.feature.main.social.post.actions.SocialPostActionsBottomSheetFragment;
 import vision.genesis.clientapp.managers.AuthManager;
-import vision.genesis.clientapp.managers.ProfileManager;
 import vision.genesis.clientapp.managers.SettingsManager;
 import vision.genesis.clientapp.model.SocialPostType;
+import vision.genesis.clientapp.model.User;
 import vision.genesis.clientapp.model.events.OnMediaPostClickedEvent;
-import vision.genesis.clientapp.net.ApiErrorResolver;
 
 /**
  * GenesisVisionAndroid
@@ -40,12 +38,10 @@ public class SocialMainPresenter extends MvpPresenter<SocialMainView> implements
 	public AuthManager authManager;
 
 	@Inject
-	public ProfileManager profileManager;
-
-	@Inject
 	public SettingsManager settingsManager;
 
-	private Subscription profileSubscription;
+	private Subscription userSubscription;
+
 
 	private boolean isActive;
 
@@ -57,13 +53,13 @@ public class SocialMainPresenter extends MvpPresenter<SocialMainView> implements
 
 		EventBus.getDefault().register(this);
 
-		getProfileInfo();
+		subscribeToUser();
 	}
 
 	@Override
 	public void onDestroy() {
-		if (profileSubscription != null) {
-			profileSubscription.unsubscribe();
+		if (userSubscription != null) {
+			userSubscription.unsubscribe();
 		}
 
 		EventBus.getDefault().unregister(this);
@@ -88,20 +84,19 @@ public class SocialMainPresenter extends MvpPresenter<SocialMainView> implements
 		getViewState().updateUsers();
 	}
 
-	private void getProfileInfo() {
-		profileSubscription = profileManager.getProfileFull(true)
-				.subscribeOn(Schedulers.io())
+	private void subscribeToUser() {
+		userSubscription = authManager.userSubject
 				.observeOn(AndroidSchedulers.mainThread())
-				.subscribe(this::handleGetProfileSuccess,
-						this::handleGetProfileError);
+				.subscribeOn(Schedulers.newThread())
+				.subscribe(this::userUpdated, this::handleUserError);
 	}
 
-	private void handleGetProfileSuccess(ProfileFullViewModel profile) {
-		getViewState().showProgress(false);
+	private void userUpdated(User user) {
+		getViewState().showAddNewPostButton(user != null);
 	}
 
-	private void handleGetProfileError(Throwable throwable) {
-		ApiErrorResolver.resolveErrors(throwable, message -> getViewState().showSnackbarMessage(message));
+	private void handleUserError(Throwable throwable) {
+		getViewState().showAddNewPostButton(false);
 	}
 
 	@Subscribe

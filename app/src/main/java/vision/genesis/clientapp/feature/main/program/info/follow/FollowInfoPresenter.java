@@ -47,7 +47,7 @@ public class FollowInfoPresenter extends MvpPresenter<FollowInfoView>
 
 	private UUID followId;
 
-	private Boolean userLoggedOn;
+	private boolean userLoggedOn;
 
 	private ProgramFollowDetailsFull details;
 

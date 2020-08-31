@@ -143,12 +143,6 @@ public class FundsListFragment extends BaseFragment implements FundsListView
 
 			if (location != null) {
 				switch (location) {
-					case LOCATION_ASSETS:
-						filtersMarginBottom = assetsFiltersMarginBottom;
-						break;
-					case LOCATION_MANAGER:
-						filtersMarginBottom = dateRangeMarginBottom;
-						break;
 					case LOCATION_SEARCH:
 						filters.setVisibility(View.GONE);
 						refreshLayout.setEnabled(false);
@@ -156,8 +150,10 @@ public class FundsListFragment extends BaseFragment implements FundsListView
 					case LOCATION_FACET:
 						filters.setVisibility(View.GONE);
 						break;
+					case LOCATION_ASSETS:
+					case LOCATION_MANAGER:
 					default:
-						filtersMarginBottom = assetsFiltersMarginBottom;
+						filtersMarginBottom = dateRangeMarginBottom;
 						break;
 				}
 			}

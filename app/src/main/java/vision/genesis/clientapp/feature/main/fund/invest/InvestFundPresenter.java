@@ -136,8 +136,8 @@ public class InvestFundPresenter extends MvpPresenter<InvestFundView> implements
 			amountBase = amount / rate;
 
 			if (!fundRequest.isOwnFund()) {
-				entryFee = amount * (fundRequest.getEntryFee() / 100);
 				gvCommission = amount * (gvCommissionPercent / 100);
+				entryFee = (amount - gvCommission) * (fundRequest.getEntryFee() / 100);
 			}
 			investmentAmount = amount - entryFee - gvCommission;
 
@@ -178,9 +178,11 @@ public class InvestFundPresenter extends MvpPresenter<InvestFundView> implements
 	}
 
 	private String getFeesAndCommissionsString() {
-		return String.format(Locale.getDefault(), "%s%% (%s)",
-				StringFormatUtil.formatAmount(fundRequest.getEntryFee() + gvCommissionPercent, 0, 5),
-				StringFormatUtil.getValueString(entryFee + gvCommission, selectedWalletFrom.getCurrency().getValue()));
+		return String.format(Locale.getDefault(), "%s%% (%s)\n%s%% (%s)",
+				StringFormatUtil.formatAmount(gvCommissionPercent, 0, 5),
+				StringFormatUtil.getValueString(gvCommission, selectedWalletFrom.getCurrency().getValue()),
+				StringFormatUtil.formatAmount(fundRequest.getEntryFee(), 0, 5),
+				StringFormatUtil.getValueString(entryFee, selectedWalletFrom.getCurrency().getValue()));
 	}
 
 	void onMaxClicked() {

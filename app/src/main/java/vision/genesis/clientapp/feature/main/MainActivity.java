@@ -7,9 +7,6 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
-import android.view.animation.AccelerateDecelerateInterpolator;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
@@ -27,7 +24,6 @@ import java.util.UUID;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 import io.swagger.client.model.AssetFacet;
 import io.swagger.client.model.InvestmentEventViewModel;
 import io.swagger.client.model.Post;
@@ -97,8 +93,8 @@ public class MainActivity extends MvpAppCompatActivity implements MainView, Bloc
 	@BindView(R.id.splashscreen)
 	public View splashScreen;
 
-	@BindView(R.id.group_sign_in)
-	public View signInGroup;
+//	@BindView(R.id.group_sign_in)
+//	public View signInGroup;
 
 	@BindView(R.id.block_screen)
 	public View blockScreen;
@@ -111,10 +107,10 @@ public class MainActivity extends MvpAppCompatActivity implements MainView, Bloc
 
 	private BaseFragment currentFragment;
 
-	@OnClick(R.id.button_sign_in)
-	public void onSignInButtonClicked() {
-		mainPresenter.onSignInButtonClicked();
-	}
+//	@OnClick(R.id.button_sign_in)
+//	public void onSignInButtonClicked() {
+//		mainPresenter.onSignInButtonClicked();
+//	}
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -202,6 +198,14 @@ public class MainActivity extends MvpAppCompatActivity implements MainView, Bloc
 	}
 
 	@Override
+	public void removeFragment(BaseFragment fragment) {
+		getSupportFragmentManager()
+				.beginTransaction()
+				.remove(fragment)
+				.commit();
+	}
+
+	@Override
 	public void removeFragmentFromBackstack() {
 		currentFragment.onHide();
 		BaseFragment previousFragment = getPreviousFragment();
@@ -253,53 +257,45 @@ public class MainActivity extends MvpAppCompatActivity implements MainView, Bloc
 
 		bottomNavigationView.setTitleState(AHBottomNavigation.TitleState.ALWAYS_HIDE);
 
-		bottomNavigationView.setOnTabSelectedListener((position, wasSelected) -> {
-			if (!wasSelected) {
-				mainPresenter.onBottomMenuSelectionChanged(position);
-				return true;
-			}
-			else {
-				return false;
-			}
-		});
+		bottomNavigationView.setOnTabSelectedListener(mainPresenter::onBottomMenuSelectionChanged);
 	}
 
-	private void showSignInButtonWithAnimation() {
-		Animation signInAnimation = AnimationUtils.loadAnimation(this, R.anim.sign_in_button_slide);
-		signInAnimation.setInterpolator(new AccelerateDecelerateInterpolator());
-		signInGroup.startAnimation(signInAnimation);
-		signInGroup.setVisibility(View.VISIBLE);
-	}
+//	private void showSignInButtonWithAnimation() {
+//		Animation signInAnimation = AnimationUtils.loadAnimation(this, R.anim.sign_in_button_slide);
+//		signInAnimation.setInterpolator(new AccelerateDecelerateInterpolator());
+//		signInGroup.startAnimation(signInAnimation);
+//		signInGroup.setVisibility(View.VISIBLE);
+//	}
 
 	@Override
 	public void setNavigationItemSelected(int position) {
 		bottomNavigationView.setCurrentItem(position);
 	}
 
-	@Override
-	public void showBottomNavigation(Boolean animate) {
-		if (animate) {
-			Animation signInAnimation = AnimationUtils.loadAnimation(this, R.anim.sign_in_button_slide);
-			signInAnimation.setInterpolator(new AccelerateDecelerateInterpolator());
-			bottomNavigationView.startAnimation(signInAnimation);
-		}
-		bottomNavigationView.setVisibility(View.VISIBLE);
-	}
+//	@Override
+//	public void showBottomNavigation(Boolean animate) {
+//		if (animate) {
+//			Animation signInAnimation = AnimationUtils.loadAnimation(this, R.anim.sign_in_button_slide);
+//			signInAnimation.setInterpolator(new AccelerateDecelerateInterpolator());
+//			bottomNavigationView.startAnimation(signInAnimation);
+//		}
+//		bottomNavigationView.setVisibility(View.VISIBLE);
+//	}
 
-	@Override
-	public void hideBottomNavigation() {
-		bottomNavigationView.setVisibility(View.GONE);
-	}
+//	@Override
+//	public void hideBottomNavigation() {
+//		bottomNavigationView.setVisibility(View.GONE);
+//	}
 
-	@Override
-	public void showSignInButton() {
-		showSignInButtonWithAnimation();
-	}
+//	@Override
+//	public void showSignInButton() {
+//		showSignInButtonWithAnimation();
+//	}
 
-	@Override
-	public void hideSignInButton() {
-		signInGroup.setVisibility(View.GONE);
-	}
+//	@Override
+//	public void hideSignInButton() {
+//		signInGroup.setVisibility(View.GONE);
+//	}
 
 	@Override
 	public void showLoginActivity() {

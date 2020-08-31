@@ -29,6 +29,7 @@ import vision.genesis.clientapp.feature.main.social.post.create.CreatePostActivi
 import vision.genesis.clientapp.feature.main.social.users.SocialUsersView;
 import vision.genesis.clientapp.model.PostsFilter;
 import vision.genesis.clientapp.model.SocialPostType;
+import vision.genesis.clientapp.ui.AddNewPostView;
 
 /**
  * GenesisVisionAndroid
@@ -39,6 +40,9 @@ public class SocialMainFragment extends BaseFragment implements SocialMainView
 {
 	@BindView(R.id.scrollview)
 	public NestedScrollView scrollview;
+
+	@BindView(R.id.button_add_new_post)
+	public AddNewPostView addNewPostView;
 
 	@BindView(R.id.live_view)
 	public SocialLiveView liveView;
@@ -170,6 +174,11 @@ public class SocialMainFragment extends BaseFragment implements SocialMainView
 				Snackbar.make(scrollview, getString(R.string.error_cannot_open_link), Snackbar.LENGTH_LONG).show();
 			}
 		}
+	}
+
+	@Override
+	public void showAddNewPostButton(boolean show) {
+		addNewPostView.setVisibility(show ? View.VISIBLE : View.GONE);
 	}
 
 	@Override

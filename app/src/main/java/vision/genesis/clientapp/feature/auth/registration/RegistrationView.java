@@ -19,8 +19,6 @@ interface RegistrationView extends MvpView
 
 	void setPasswordError(String message);
 
-	void setConfirmPasswordError(String message);
-
 	void clearErrors();
 
 	void setSignUpButtonEnabled(boolean enabled);

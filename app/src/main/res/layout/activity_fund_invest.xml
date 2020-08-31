@@ -93,8 +93,8 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginStart="16dp"
-                    android:layout_toEndOf="@+id/icon_from"
                     android:layout_toStartOf="@+id/arrow"
+                    android:layout_toEndOf="@+id/icon_from"
                     android:textColor="?attr/colorTextPrimary"
                     android:textColorHint="?attr/colorTextPrimary"
                     android:textSize="14sp"
@@ -237,30 +237,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:alpha="0.4"
-                    android:text="@string/entry_fee"
-                    android:textColor="?attr/colorTextPrimary"
-                    android:textSize="14sp"/>
-
-                <TextView
-                    android:id="@+id/entry_fee"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:textColor="?attr/colorTextPrimary"
-                    android:textSize="14sp"
-                    tools:text="10% (0.498 GVT)"/>
-
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="12dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:alpha="0.4"
                     android:text="@string/gv_commission"
                     android:textColor="?attr/colorTextPrimary"
                     android:textSize="14sp"/>
@@ -273,6 +249,30 @@
                     android:textColor="?attr/colorTextPrimary"
                     android:textSize="14sp"
                     tools:text="0.005% (0.008 GVT)"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:alpha="0.4"
+                    android:text="@string/entry_fee"
+                    android:textColor="?attr/colorTextPrimary"
+                    android:textSize="14sp"/>
+
+                <TextView
+                    android:id="@+id/entry_fee"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:textColor="?attr/colorTextPrimary"
+                    android:textSize="14sp"
+                    tools:text="10% (0.498 GVT)"/>
 
             </RelativeLayout>
 

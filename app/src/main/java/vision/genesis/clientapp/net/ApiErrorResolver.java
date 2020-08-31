@@ -35,7 +35,7 @@ public class ApiErrorResolver
 		}
 		else {
 			ErrorResponse response = ErrorResponseConverter.createFromThrowable(throwable);
-			if (response != null) {
+			if (response != null && response.errors != null) {
 				for (Error error : response.errors) {
 					if (error.message != null) {
 						listener.onResult(error.message);

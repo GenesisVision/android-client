@@ -102,7 +102,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="@dimen/assets_filters_margin_bottom"
+        android:layout_marginBottom="0dp"
         android:visibility="visible"
         tools:visibility="visible">
 

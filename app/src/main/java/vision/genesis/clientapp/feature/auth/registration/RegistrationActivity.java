@@ -44,6 +44,9 @@ public class RegistrationActivity extends BaseSwipeBackActivity implements Regis
 	@BindView(R.id.button_sign_in)
 	public TextView signInButton;
 
+	@BindView(R.id.username)
+	public EditText userName;
+
 	@BindView(R.id.email)
 	public EditText email;
 
@@ -52,12 +55,6 @@ public class RegistrationActivity extends BaseSwipeBackActivity implements Regis
 
 	@BindView(R.id.password_input_layout)
 	public TextInputLayout passwordInputLayout;
-
-	@BindView(R.id.confirm_password)
-	public EditText confirmPassword;
-
-	@BindView(R.id.confirm_password_input_layout)
-	public TextInputLayout confirmPasswordInputLayout;
 
 	@BindView(R.id.button_sign_up)
 	public PrimaryButton signUpButton;
@@ -68,8 +65,8 @@ public class RegistrationActivity extends BaseSwipeBackActivity implements Regis
 	@InjectPresenter
 	RegistrationPresenter registrationPresenter;
 
-	@OnEditorAction(R.id.confirm_password)
-	protected boolean onConfirmPasswordEditorAction(int actionId) {
+	@OnEditorAction(R.id.password)
+	protected boolean onPasswordEditorAction(int actionId) {
 		if (actionId == EditorInfo.IME_ACTION_DONE) {
 			signUp();
 		}
@@ -122,29 +119,23 @@ public class RegistrationActivity extends BaseSwipeBackActivity implements Regis
 
 		ButterKnife.bind(this);
 
-//		userName.setVisibility(Constants.IS_INVESTOR ? View.GONE : View.VISIBLE);
-
 		setFonts();
 	}
 
 	private void setFonts() {
-		title.setTypeface(TypefaceUtil.bold());
-		signInButton.setTypeface(TypefaceUtil.bold());
 		passwordInputLayout.setTypeface(TypefaceUtil.regular());
-		confirmPasswordInputLayout.setTypeface(TypefaceUtil.regular());
 	}
 
 	private void signUp() {
 		registrationPresenter.onSignUpClicked(
-//				userName.getText().toString(),
+				userName.getText().toString(),
 				email.getText().toString(),
-				password.getText().toString(),
-				confirmPassword.getText().toString());
+				password.getText().toString());
 	}
 
 	@Override
 	public void setUserNameError(String message) {
-//		userName.setError(message);
+		userName.setError(message);
 	}
 
 	@Override
@@ -158,16 +149,10 @@ public class RegistrationActivity extends BaseSwipeBackActivity implements Regis
 	}
 
 	@Override
-	public void setConfirmPasswordError(String message) {
-		confirmPassword.setError(message);
-	}
-
-	@Override
 	public void clearErrors() {
-//		userName.setError(null);
+		userName.setError(null);
 		email.setError(null);
 		password.setError(null);
-		confirmPassword.setError(null);
 	}
 
 	@Override

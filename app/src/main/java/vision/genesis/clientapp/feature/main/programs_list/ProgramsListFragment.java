@@ -146,9 +146,6 @@ public class ProgramsListFragment extends BaseFragment implements ProgramsListVi
 
 			if (location != null) {
 				switch (location) {
-					case LOCATION_ASSETS:
-						filtersMarginBottom = assetsFiltersMarginBottom;
-						break;
 					case LOCATION_MANAGER:
 						filtersMarginBottom = dateRangeMarginBottom;
 						filter = data != null ? data.getParcelable(EXTRA_FILTER) : null;
@@ -165,8 +162,9 @@ public class ProgramsListFragment extends BaseFragment implements ProgramsListVi
 						filters.setVisibility(View.GONE);
 						filter = data != null ? data.getParcelable(EXTRA_FILTER) : null;
 						break;
+					case LOCATION_ASSETS:
 					default:
-						filtersMarginBottom = assetsFiltersMarginBottom;
+						filtersMarginBottom = dateRangeMarginBottom;
 						break;
 				}
 			}

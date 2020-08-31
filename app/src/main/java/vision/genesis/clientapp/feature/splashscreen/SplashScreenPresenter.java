@@ -13,6 +13,7 @@ import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
+import vision.genesis.clientapp.managers.AuthManager;
 import vision.genesis.clientapp.managers.SettingsManager;
 import vision.genesis.clientapp.net.ApiErrorResolver;
 import vision.genesis.clientapp.net.NetworkManager;
@@ -36,6 +37,8 @@ public class SplashScreenPresenter extends MvpPresenter<SplashScreenView>
 
 	private Subscription platformStatusSubscription;
 
+	private Subscription baseCurrencySubscription;
+
 	private Subscription networkAvailabilitySubscription;
 
 	private Subscription serverAvailabilitySubscription;
@@ -53,6 +56,9 @@ public class SplashScreenPresenter extends MvpPresenter<SplashScreenView>
 	public void onDestroy() {
 		if (platformStatusSubscription != null) {
 			platformStatusSubscription.unsubscribe();
+		}
+		if (baseCurrencySubscription != null) {
+			baseCurrencySubscription.unsubscribe();
 		}
 		if (networkAvailabilitySubscription != null) {
 			networkAvailabilitySubscription.unsubscribe();
@@ -81,7 +87,7 @@ public class SplashScreenPresenter extends MvpPresenter<SplashScreenView>
 		if (platformStatusSubscription != null) {
 			platformStatusSubscription.unsubscribe();
 		}
-		getViewState().showMainActivity();
+		initBaseCurrency();
 	}
 
 	private void onPlatformStatusError(Throwable error) {
@@ -93,6 +99,19 @@ public class SplashScreenPresenter extends MvpPresenter<SplashScreenView>
 		else {
 			getViewState().showServerError();
 			subscribeToServerAvailability();
+		}
+	}
+
+	private void initBaseCurrency() {
+		if (AuthManager.token.getValue() != null) {
+			baseCurrencySubscription = settingsManager.getBaseCurrency()
+					.subscribeOn(Schedulers.newThread())
+					.observeOn(AndroidSchedulers.mainThread())
+					.subscribe(response -> getViewState().showMainActivity(),
+							throwable -> getViewState().showMainActivity());
+		}
+		else {
+			getViewState().showMainActivity();
 		}
 	}
 

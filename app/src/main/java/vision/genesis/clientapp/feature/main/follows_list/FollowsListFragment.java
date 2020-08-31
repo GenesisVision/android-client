@@ -144,9 +144,6 @@ public class FollowsListFragment extends BaseFragment implements FollowsListView
 
 			if (location != null) {
 				switch (location) {
-					case LOCATION_ASSETS:
-						filtersMarginBottom = assetsFiltersMarginBottom;
-						break;
 					case LOCATION_MANAGER:
 						filtersMarginBottom = dateRangeMarginBottom;
 						filter = data != null ? data.getParcelable(EXTRA_FILTER) : null;
@@ -159,8 +156,9 @@ public class FollowsListFragment extends BaseFragment implements FollowsListView
 						filters.setVisibility(View.GONE);
 						filter = data != null ? data.getParcelable(EXTRA_FILTER) : null;
 						break;
+					case LOCATION_ASSETS:
 					default:
-						filtersMarginBottom = assetsFiltersMarginBottom;
+						filtersMarginBottom = dateRangeMarginBottom;
 						break;
 				}
 			}
