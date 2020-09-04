@@ -19,6 +19,7 @@ import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.managers.SettingsManager;
 import vision.genesis.clientapp.managers.WalletManager;
 import vision.genesis.clientapp.model.CurrencyEnum;
+import vision.genesis.clientapp.model.events.OnCardDepositFinishedEvent;
 import vision.genesis.clientapp.model.events.SetSpecificWalletDepositsWithdrawalsCountEvent;
 import vision.genesis.clientapp.model.events.SetSpecificWalletTransactionsCountEvent;
 import vision.genesis.clientapp.net.ApiErrorResolver;
@@ -75,17 +76,17 @@ public class SpecificWalletPresenter extends MvpPresenter<SpecificWalletView>
 	}
 
 	void onResume() {
-		subscribeToWallet();
+		getWalletDetails();
 	}
 
 	void onSwipeRefresh() {
 		getViewState().setRefreshing(true);
-		subscribeToWallet();
+		getWalletDetails();
 	}
 
 	void setWalletId(UUID walletId) {
 		this.walletId = walletId;
-		subscribeToWallet();
+		getWalletDetails();
 	}
 
 	private void subscribeToBaseCurrency() {
@@ -98,10 +99,10 @@ public class SpecificWalletPresenter extends MvpPresenter<SpecificWalletView>
 	private void baseCurrencyChangedHandler(CurrencyEnum baseCurrency) {
 		this.baseCurrency = baseCurrency;
 		getViewState().showProgress(true);
-		subscribeToWallet();
+		getWalletDetails();
 	}
 
-	private void subscribeToWallet() {
+	private void getWalletDetails() {
 		if (walletManager != null && walletId != null && baseCurrency != null) {
 			if (walletSubscription != null) {
 				walletSubscription.unsubscribe();
@@ -143,5 +144,10 @@ public class SpecificWalletPresenter extends MvpPresenter<SpecificWalletView>
 	@Subscribe
 	public void onEventMainThread(SetSpecificWalletDepositsWithdrawalsCountEvent event) {
 		getViewState().setDepositsWithdrawalsCount(event.getDepositsWithdrawalsCount());
+	}
+
+	@Subscribe
+	public void onEventMainThread(OnCardDepositFinishedEvent event) {
+		getWalletDetails();
 	}
 }

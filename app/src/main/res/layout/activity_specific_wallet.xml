@@ -74,8 +74,8 @@
                             android:layout_below="@+id/group_balance"
                             android:layout_marginTop="20dp"
                             android:orientation="vertical"
-                            android:paddingEnd="20dp"
-                            android:paddingStart="20dp">
+                            android:paddingStart="20dp"
+                            android:paddingEnd="20dp">
 
                             <LinearLayout
                                 android:id="@+id/group_available"
@@ -280,8 +280,8 @@
                             android:layout_below="@+id/group_available_invested"
                             android:layout_marginTop="20dp"
                             android:orientation="horizontal"
-                            android:paddingEnd="20dp"
-                            android:paddingStart="20dp">
+                            android:paddingStart="20dp"
+                            android:paddingEnd="20dp">
 
                             <LinearLayout
                                 android:id="@+id/withdraw"
@@ -337,13 +337,43 @@
                         </LinearLayout>
 
                         <LinearLayout
-                            android:id="@+id/transfer"
+                            android:id="@+id/buy_with_card"
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/button_height"
                             android:layout_below="@+id/group_deposit_withdraw_buttons"
-                            android:layout_marginEnd="20dp"
                             android:layout_marginStart="20dp"
                             android:layout_marginTop="10dp"
+                            android:layout_marginEnd="20dp"
+                            android:background="@drawable/button_primary"
+                            android:gravity="center"
+                            android:orientation="horizontal"
+                            android:visibility="gone"
+                            tools:visibility="visible">
+
+                            <ImageView
+                                android:layout_width="16dp"
+                                android:layout_height="16dp"
+                                android:src="@drawable/icon_wallet"/>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="10dp"
+                                android:fontFamily="@font/montserrat_semibold"
+                                android:text="@string/buy_with_card"
+                                android:textColor="?attr/colorTextPrimary"
+                                android:textSize="14sp"/>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/transfer"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/button_height"
+                            android:layout_below="@+id/buy_with_card"
+                            android:layout_marginStart="20dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginEnd="20dp"
                             android:background="@drawable/button_wallet_empty"
                             android:gravity="center"
                             android:orientation="horizontal">

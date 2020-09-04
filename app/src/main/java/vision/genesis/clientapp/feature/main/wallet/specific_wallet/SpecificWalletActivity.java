@@ -2,6 +2,7 @@ package vision.genesis.clientapp.feature.main.wallet.specific_wallet;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
@@ -118,6 +119,9 @@ public class SpecificWalletActivity extends BaseSwipeBackActivity implements Spe
 	@BindView(R.id.add_funds)
 	public ViewGroup addFunds;
 
+	@BindView(R.id.buy_with_card)
+	public ViewGroup buyWithCard;
+
 	@BindView(R.id.label_transfer)
 	public TextView transferLabel;
 
@@ -146,6 +150,8 @@ public class SpecificWalletActivity extends BaseSwipeBackActivity implements Spe
 
 	private int verticalOffset;
 
+	private WalletData wallet;
+
 	@OnClick(R.id.button_back)
 	public void onBackClicked() {
 		onBackPressed();
@@ -157,6 +163,16 @@ public class SpecificWalletActivity extends BaseSwipeBackActivity implements Spe
 		transferFundsModel.setAssetType(InternalTransferRequestType.WALLET);
 		transferFundsModel.setTransferDirection(TransferFundsModel.TransferDirection.WITHDRAW);
 		TransferFundsActivity.startWith(this, transferFundsModel);
+	}
+
+	@OnClick(R.id.buy_with_card)
+	public void onBuyWithCardClicked() {
+		if (wallet != null && wallet.getDepositUrlCoindirect() != null && !wallet.getDepositUrlCoindirect().isEmpty()) {
+//			BuyWithCardActivity.startWith(this, wallet.getDepositUrlCoindirect());
+
+			Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(wallet.getDepositUrlCoindirect()));
+			startActivity(browserIntent);
+		}
 	}
 
 	@OnClick(R.id.withdraw)
@@ -351,6 +367,8 @@ public class SpecificWalletActivity extends BaseSwipeBackActivity implements Spe
 
 	@Override
 	public void setWalletData(WalletData data) {
+		this.wallet = data;
+
 		String currency = data.getCurrency().getValue();
 
 		this.balance.setText(StringFormatUtil.getValueString(data.getTotal(), data.getCurrency().getValue()));
@@ -375,6 +393,11 @@ public class SpecificWalletActivity extends BaseSwipeBackActivity implements Spe
 
 		this.addFunds.setVisibility(data.isIsDepositEnabled() ? View.VISIBLE : View.GONE);
 		this.withdraw.setVisibility(data.isIsWithdrawalEnabled() ? View.VISIBLE : View.GONE);
+
+		this.buyWithCard.setVisibility(
+				data.getDepositUrlCoindirect() != null && !data.getDepositUrlCoindirect().isEmpty()
+						? View.VISIBLE
+						: View.GONE);
 	}
 
 	@Override

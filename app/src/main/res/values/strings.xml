@@ -953,6 +953,7 @@
     <string name="get_started">Get started</string>
     <string name="delay">delay</string>
     <string name="template_manager_trades_delay">This manager makes trades and open positions public with a %s delay.</string>
+    <string name="buy_with_card">Buy with card</string>
 
 
     <plurals name="assets">
