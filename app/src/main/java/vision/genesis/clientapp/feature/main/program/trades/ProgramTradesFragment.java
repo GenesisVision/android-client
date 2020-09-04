@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -13,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.arellomobile.mvp.presenter.InjectPresenter;
 
 import java.util.List;
+import java.util.Locale;
 import java.util.UUID;
 
 import butterknife.BindDimen;
@@ -21,14 +23,17 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 import io.swagger.client.model.OrderSignalModel;
+import io.swagger.client.model.TradesDelay;
 import timber.log.Timber;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
 import vision.genesis.clientapp.feature.common.date_range.DateRangeBottomSheetFragment;
+import vision.genesis.clientapp.feature.main.message.MessageBottomSheetDialog;
 import vision.genesis.clientapp.feature.main.program.ProgramDetailsPagerAdapter;
 import vision.genesis.clientapp.model.DateRange;
 import vision.genesis.clientapp.ui.DateRangeView;
 import vision.genesis.clientapp.ui.common.SimpleSectionedRecyclerViewAdapter;
+import vision.genesis.clientapp.utils.StringFormatUtil;
 
 /**
  * GenesisVision
@@ -49,6 +54,12 @@ public class ProgramTradesFragment extends BaseFragment implements ProgramTrades
 
 	@BindView(R.id.root)
 	public ViewGroup root;
+
+	@BindView(R.id.group_delay)
+	public ViewGroup delayGroup;
+
+	@BindView(R.id.text_delay)
+	public TextView delayText;
 
 	@BindView(R.id.progress_bar)
 	public ProgressBar progressBar;
@@ -78,6 +89,20 @@ public class ProgramTradesFragment extends BaseFragment implements ProgramTrades
 	private Unbinder unbinder;
 
 	private DateRange dateRange = DateRange.createFromEnum(DateRange.DateRangeEnum.ALL_TIME);
+
+	private TradesDelay tradesDelay;
+
+	@OnClick(R.id.delay_tooltip)
+	public void onDelayTooltipClicked() {
+		if (getActivity() != null && tradesDelay != null) {
+			MessageBottomSheetDialog dialog = new MessageBottomSheetDialog();
+			dialog.show(getActivity().getSupportFragmentManager(), dialog.getTag());
+			dialog.setData(R.drawable.icon_info,
+					getString(R.string.trades_delay).toUpperCase(),
+					String.format(Locale.getDefault(), getString(R.string.template_manager_trades_delay), StringFormatUtil.getTradesDelayString(tradesDelay)),
+					false, null);
+		}
+	}
 
 	@OnClick(R.id.date_range)
 	public void onDateRangeClicked() {
@@ -129,9 +154,6 @@ public class ProgramTradesFragment extends BaseFragment implements ProgramTrades
 	private void initRecyclerView() {
 		LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
 		recyclerView.setLayoutManager(layoutManager);
-//		DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(getContext(),
-//				AppCompatResources.getDrawable(getContext(), R.drawable.list_item_divider), paddingLeft, 0);
-//		recyclerView.addItemDecoration(dividerItemDecoration);
 
 		tradesListAdapter = new TradesListAdapter();
 		sectionedAdapter = new SimpleSectionedRecyclerViewAdapter(getContext(), R.layout.list_item_trades_date_section, R.id.text, tradesListAdapter);
@@ -166,6 +188,20 @@ public class ProgramTradesFragment extends BaseFragment implements ProgramTrades
 	public void setDateRange(DateRange dateRange) {
 		this.dateRange = dateRange;
 		dateRangeView.setDateRange(dateRange);
+	}
+
+	@Override
+	public void setTradesDelay(TradesDelay tradesDelay) {
+		this.tradesDelay = tradesDelay;
+		if (tradesDelay == null || tradesDelay.equals(TradesDelay.NONE)) {
+			delayGroup.setVisibility(View.GONE);
+		}
+		else {
+			delayGroup.setVisibility(View.VISIBLE);
+			delayText.setText(String.format(Locale.getDefault(), "%s %s",
+					StringFormatUtil.getTradesDelayString(tradesDelay),
+					getString(R.string.delay)));
+		}
 	}
 
 	@Override

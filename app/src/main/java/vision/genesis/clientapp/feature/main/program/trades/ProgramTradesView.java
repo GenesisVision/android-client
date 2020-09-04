@@ -7,6 +7,7 @@ import com.arellomobile.mvp.viewstate.strategy.StateStrategyType;
 import java.util.List;
 
 import io.swagger.client.model.OrderSignalModel;
+import io.swagger.client.model.TradesDelay;
 import vision.genesis.clientapp.model.DateRange;
 import vision.genesis.clientapp.ui.common.SimpleSectionedRecyclerViewAdapter;
 
@@ -21,6 +22,8 @@ interface ProgramTradesView extends MvpView
 	void showProgress(boolean show);
 
 	void setDateRange(DateRange dateRange);
+
+	void setTradesDelay(TradesDelay tradesDelay);
 
 	void setTrades(List<OrderSignalModel> trades, List<SimpleSectionedRecyclerViewAdapter.Section> sections);
 

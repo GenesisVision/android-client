@@ -131,6 +131,8 @@ public class ProgramTradesPresenter extends MvpPresenter<ProgramTradesView> impl
 		tradesSubscription.unsubscribe();
 		getViewState().showProgress(false);
 
+		getViewState().setTradesDelay(model.getTradesDelay());
+
 		if (skip == 0) {
 			trades.clear();
 			sections.clear();

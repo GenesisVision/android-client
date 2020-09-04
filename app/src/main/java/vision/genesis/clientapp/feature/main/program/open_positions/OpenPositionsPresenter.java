@@ -108,6 +108,8 @@ public class OpenPositionsPresenter extends MvpPresenter<OpenPositionsView>
 		positionsSubscription.unsubscribe();
 		getViewState().showProgress(false);
 
+		getViewState().setTradesDelay(model.getTradesDelay());
+
 		sections.clear();
 
 		EventBus.getDefault().post(new SetProgramDetailsOpenPositionsCountEvent(model.getTotal()));

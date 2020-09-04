@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -13,18 +14,23 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.arellomobile.mvp.presenter.InjectPresenter;
 
 import java.util.List;
+import java.util.Locale;
 import java.util.UUID;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 import io.swagger.client.model.OrderModel;
+import io.swagger.client.model.TradesDelay;
 import io.swagger.client.model.TradesViewModel;
 import timber.log.Timber;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
+import vision.genesis.clientapp.feature.main.message.MessageBottomSheetDialog;
 import vision.genesis.clientapp.feature.main.program.ProgramDetailsPagerAdapter;
 import vision.genesis.clientapp.ui.common.SimpleSectionedRecyclerViewAdapter;
+import vision.genesis.clientapp.utils.StringFormatUtil;
 
 /**
  * GenesisVisionAndroid
@@ -46,6 +52,13 @@ public class OpenPositionsFragment extends BaseFragment implements OpenPositions
 	@BindView(R.id.root)
 	public ViewGroup root;
 
+	@BindView(R.id.group_delay)
+	public ViewGroup delayGroup;
+
+	@BindView(R.id.text_delay)
+	public TextView delayText;
+
+
 	@BindView(R.id.progress_bar)
 	public ProgressBar progressBar;
 
@@ -63,6 +76,20 @@ public class OpenPositionsFragment extends BaseFragment implements OpenPositions
 	private SimpleSectionedRecyclerViewAdapter sectionedAdapter;
 
 	private Unbinder unbinder;
+
+	private TradesDelay tradesDelay;
+
+	@OnClick(R.id.delay_tooltip)
+	public void onDelayTooltipClicked() {
+		if (getActivity() != null && tradesDelay != null) {
+			MessageBottomSheetDialog dialog = new MessageBottomSheetDialog();
+			dialog.show(getActivity().getSupportFragmentManager(), dialog.getTag());
+			dialog.setData(R.drawable.icon_info,
+					getString(R.string.trades_delay).toUpperCase(),
+					String.format(Locale.getDefault(), getString(R.string.template_manager_trades_delay), StringFormatUtil.getTradesDelayString(tradesDelay)),
+					false, null);
+		}
+	}
 
 	@Nullable
 	@Override
@@ -115,6 +142,20 @@ public class OpenPositionsFragment extends BaseFragment implements OpenPositions
 		progressBar.setVisibility(show ? View.VISIBLE : View.GONE);
 		if (!show) {
 			recyclerView.setVisibility(View.VISIBLE);
+		}
+	}
+
+	@Override
+	public void setTradesDelay(TradesDelay tradesDelay) {
+		this.tradesDelay = tradesDelay;
+		if (tradesDelay == null || tradesDelay.equals(TradesDelay.NONE)) {
+			delayGroup.setVisibility(View.GONE);
+		}
+		else {
+			delayGroup.setVisibility(View.VISIBLE);
+			delayText.setText(String.format(Locale.getDefault(), "%s %s",
+					StringFormatUtil.getTradesDelayString(tradesDelay),
+					getString(R.string.delay)));
 		}
 	}
 
