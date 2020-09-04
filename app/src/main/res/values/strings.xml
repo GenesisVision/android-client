@@ -954,6 +954,8 @@
     <string name="delay">delay</string>
     <string name="template_manager_trades_delay">This manager makes trades and open positions public with a %s delay.</string>
     <string name="buy_with_card">Buy with card</string>
+    <string name="header_target_current">Target (Current)</string>
+    <string name="asset">Asset</string>
 
 
     <plurals name="assets">

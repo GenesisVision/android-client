@@ -23,11 +23,10 @@
             android:id="@+id/name"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_marginLeft="12dp"
             android:layout_marginStart="12dp"
             android:ellipsize="end"
             android:gravity="center_vertical"
-            android:lines="1"
+            android:maxLines="2"
             android:text="@string/header_holding"
             android:textColor="?attr/colorTextPrimary"
             android:textSize="14sp"
@@ -36,27 +35,25 @@
     </LinearLayout>
 
     <TextView
-        android:id="@+id/target"
+        android:id="@+id/amount"
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:gravity="center_vertical"
-        android:text="@string/header_target"
-        android:textColor="?attr/colorTextPrimary"
-        android:textSize="14sp"
-        tools:text="50.00%"/>
-
-    <TextView
-        android:id="@+id/current"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
+        android:layout_weight="2.1"
         android:ellipsize="end"
         android:gravity="center_vertical"
         android:lines="1"
-        android:text="@string/header_current"
         android:textColor="?attr/colorTextPrimary"
         android:textSize="14sp"
-        tools:text="54.95%"/>
+        tools:text="123.12345678"/>
+
+    <TextView
+        android:id="@+id/target_current"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1.1"
+        android:gravity="center_vertical"
+        android:textColor="?attr/colorTextPrimary"
+        android:textSize="14sp"
+        tools:text="50.00% (54.95%)"/>
 
 </LinearLayout>

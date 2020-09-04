@@ -11,7 +11,7 @@
         android:layout_height="60dp"
         android:orientation="horizontal"
         android:paddingLeft="20dp"
-        android:paddingTop="20dp"
+        android:paddingTop="10dp"
         android:paddingRight="20dp"
         android:paddingBottom="10dp"
         android:visibility="gone"
@@ -22,27 +22,27 @@
             android:layout_height="match_parent"
             android:layout_weight="3"
             android:gravity="center_vertical"
-            android:text="@string/header_holding"
+            android:text="@string/asset"
             android:textColor="?attr/colorTextSecondary"
             android:textSize="12sp"/>
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1"
+            android:layout_weight="2.1"
             android:gravity="center_vertical"
-            android:text="@string/header_target"
+            android:text="@string/amount"
             android:textColor="?attr/colorTextSecondary"
             android:textSize="12sp"/>
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1"
+            android:layout_weight="1.1"
             android:ellipsize="end"
             android:gravity="center_vertical"
-            android:lines="1"
-            android:text="@string/header_current"
+            android:maxLines="2"
+            android:text="@string/header_target_current"
             android:textColor="?attr/colorTextSecondary"
             android:textSize="12sp"/>
 

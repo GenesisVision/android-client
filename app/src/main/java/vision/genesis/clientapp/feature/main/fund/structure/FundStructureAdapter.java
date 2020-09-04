@@ -59,13 +59,11 @@ public class FundStructureAdapter extends RecyclerView.Adapter<FundStructureAdap
 		@BindView(R.id.name)
 		public TextView name;
 
-		@BindView(R.id.target)
-		public TextView target;
+		@BindView(R.id.amount)
+		public TextView amount;
 
-		@BindView(R.id.current)
-		public TextView current;
-
-		private FundAssetInfo asset;
+		@BindView(R.id.target_current)
+		public TextView targetCurrent;
 
 		AssetViewHolder(View itemView) {
 			super(itemView);
@@ -74,12 +72,12 @@ public class FundStructureAdapter extends RecyclerView.Adapter<FundStructureAdap
 		}
 
 		void setAsset(FundAssetInfo asset) {
-			this.asset = asset;
-
 			icon.setImageURI(ImageUtils.getImageUri(asset.getLogoUrl()));
 			name.setText(asset.getAsset());
-			target.setText(String.format(Locale.getDefault(), "%s %%", StringFormatUtil.formatAmount(asset.getTarget(), 2, 2)));
-			current.setText(String.format(Locale.getDefault(), "%s %%", StringFormatUtil.formatAmount(asset.getCurrent(), 2, 2)));
+			amount.setText(String.format(Locale.getDefault(), "%s", StringFormatUtil.formatAmount(asset.getCurrentAmount(), 2, 8)));
+			targetCurrent.setText(String.format(Locale.getDefault(), "%s %% (%s %%)",
+					StringFormatUtil.formatAmount(asset.getTarget(), 2, 2),
+					StringFormatUtil.formatAmount(asset.getCurrent(), 2, 2)));
 		}
 	}
 }
