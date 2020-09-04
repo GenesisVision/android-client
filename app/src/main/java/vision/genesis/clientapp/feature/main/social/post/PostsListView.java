@@ -29,6 +29,8 @@ interface PostsListView extends MvpView
 
 	void setRefreshing(boolean refreshing);
 
+	void setShowEventsChecked(boolean checked);
+
 	@StateStrategyType(OneExecutionStateStrategy.class)
 	void showSnackbarMessage(String message);
 

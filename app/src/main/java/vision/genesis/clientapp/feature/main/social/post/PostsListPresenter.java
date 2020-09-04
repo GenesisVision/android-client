@@ -23,6 +23,7 @@ import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.main.social.post.actions.SocialPostActionsBottomSheetFragment;
 import vision.genesis.clientapp.managers.ProfileManager;
+import vision.genesis.clientapp.managers.SettingsManager;
 import vision.genesis.clientapp.managers.SocialManager;
 import vision.genesis.clientapp.model.PostsFilter;
 import vision.genesis.clientapp.model.SocialPostType;
@@ -51,6 +52,11 @@ public class PostsListPresenter extends MvpPresenter<PostsListView> implements S
 	@Inject
 	public SocialManager socialManager;
 
+	@Inject
+	public SettingsManager settingsManager;
+
+	private boolean showEvents = true;
+
 	private Subscription getProfileSubscription;
 
 	private Subscription getPostsSubscription;
@@ -72,8 +78,8 @@ public class PostsListPresenter extends MvpPresenter<PostsListView> implements S
 		EventBus.getDefault().register(this);
 
 		getViewState().setRefreshing(true);
+		getShowEvents();
 		getProfileInfo();
-		getPostsList(true);
 	}
 
 	@Override
@@ -92,7 +98,7 @@ public class PostsListPresenter extends MvpPresenter<PostsListView> implements S
 
 	void setData(PostsFilter filter) {
 		this.filter = filter;
-		getPostsList(true);
+		getShowEvents();
 	}
 
 	void onSwipeRefresh() {
@@ -226,5 +232,26 @@ public class PostsListPresenter extends MvpPresenter<PostsListView> implements S
 	@Override
 	public void onPostDeleted(Post post) {
 
+	}
+
+	private void getShowEvents() {
+		if (settingsManager != null) {
+			showEvents = settingsManager.getShowEvents();
+			getViewState().setShowEventsChecked(showEvents);
+			if (filter != null) {
+				filter.setShowOnlyUserPosts(!showEvents);
+				getPostsList(true);
+			}
+		}
+	}
+
+	void onShowEventsCheckChanged(boolean checked) {
+		showEvents = checked;
+		settingsManager.saveShowEvents(checked);
+		getViewState().setShowEventsChecked(showEvents);
+		if (filter != null) {
+			filter.setShowOnlyUserPosts(!showEvents);
+			getPostsList(true);
+		}
 	}
 }

@@ -8,6 +8,7 @@ import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.SwitchCompat;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -21,6 +22,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import io.swagger.client.model.Post;
+import io.swagger.client.model.UserFeedMode;
 import timber.log.Timber;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
@@ -49,6 +51,12 @@ public class PostsListFragment extends BaseFragment implements PostsListView
 
 	@BindView(R.id.root)
 	public ViewGroup root;
+
+	@BindView(R.id.group_show_events)
+	public ViewGroup showEventsGroup;
+
+	@BindView(R.id.switch_show_events)
+	public SwitchCompat showEventsSwitch;
 
 	@BindView(R.id.refresh_layout)
 	public SwipeRefreshLayout refreshLayout;
@@ -92,6 +100,7 @@ public class PostsListFragment extends BaseFragment implements PostsListView
 		if (getArguments() != null) {
 			filter = getArguments().getParcelable(EXTRA_FILTER);
 
+			initSwitch();
 			initRefreshLayout();
 			initRecyclerView();
 
@@ -115,6 +124,17 @@ public class PostsListFragment extends BaseFragment implements PostsListView
 		}
 
 		super.onDestroyView();
+	}
+
+	private void initSwitch() {
+		if (filter != null && filter.getUserMode() != null && filter.getUserMode().equals(UserFeedMode.PROFILEPOSTS)) {
+			showEventsGroup.setVisibility(View.VISIBLE);
+			showEventsSwitch.setOnCheckedChangeListener((view, checked) ->
+					presenter.onShowEventsCheckChanged(checked));
+		}
+		else {
+			showEventsGroup.setVisibility(View.GONE);
+		}
 	}
 
 	private void initRefreshLayout() {
@@ -192,6 +212,11 @@ public class PostsListFragment extends BaseFragment implements PostsListView
 	@Override
 	public void setRefreshing(boolean refreshing) {
 		refreshLayout.setRefreshing(refreshing);
+	}
+
+	@Override
+	public void setShowEventsChecked(boolean checked) {
+		showEventsSwitch.setChecked(checked);
 	}
 
 	@Override
