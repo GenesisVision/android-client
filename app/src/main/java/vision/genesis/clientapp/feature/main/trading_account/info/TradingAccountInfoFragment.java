@@ -22,6 +22,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+import io.swagger.client.model.DashboardTradingAssetStatus;
 import io.swagger.client.model.PrivateTradingAccountFull;
 import io.swagger.client.model.SignalSubscription;
 import timber.log.Timber;
@@ -34,6 +35,7 @@ import vision.genesis.clientapp.feature.main.program.create.CreateProgramActivit
 import vision.genesis.clientapp.feature.main.settings.public_info.ProfilePublicInfoActivity;
 import vision.genesis.clientapp.feature.main.trading_account.TradingAccountDetailsPagerAdapter;
 import vision.genesis.clientapp.feature.main.trading_account.add_demo_funds.AddDemoFundsActivity;
+import vision.genesis.clientapp.feature.main.trading_account.manage.ManageTradingAccountActivity;
 import vision.genesis.clientapp.feature.main.wallet.transfer_funds.TransferFundsActivity;
 import vision.genesis.clientapp.model.CreateProgramModel;
 import vision.genesis.clientapp.model.ProgramRequest;
@@ -326,6 +328,8 @@ public class TradingAccountInfoFragment extends BaseFragment implements TradingA
 			this.currency.setText(details.getTradingAccountInfo().getCurrency().getValue());
 			this.leverage.setText(String.format(Locale.getDefault(), "1:%d", details.getTradingAccountInfo().getLeverage()));
 		}
+		manageAccountButton.setVisibility(!details.getPublicInfo().getStatus().equals(DashboardTradingAssetStatus.DISABLED)
+				? View.VISIBLE : View.GONE);
 	}
 
 	@Override
@@ -397,6 +401,13 @@ public class TradingAccountInfoFragment extends BaseFragment implements TradingA
 	@Override
 	public void showSnackbarMessage(String message) {
 		showSnackbar(message, scrollView);
+	}
+
+	@Override
+	public void showManageAccountActivity(TradingAccountDetailsModel model) {
+		if (getActivity() != null) {
+			ManageTradingAccountActivity.startFrom(getActivity(), model);
+		}
 	}
 
 	@Override

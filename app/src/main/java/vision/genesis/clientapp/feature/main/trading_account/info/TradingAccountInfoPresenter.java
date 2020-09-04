@@ -108,17 +108,22 @@ public class TradingAccountInfoPresenter extends MvpPresenter<TradingAccountInfo
 	}
 
 	void onManageAccountClicked() {
-//		TradingAccountDetailsModel model = new TradingAccountDetailsModel(
-//				accountId,
-//				accountDetails.getTitle(),
-//				accountDetails.getBrokerDetails().getLogoUrl(),
-//				accountDetails.getCreationDate(),
-//				accountDetails.getLeverage(),
-//				accountDetails.getCurrency(),
-//				accountDetails.getP
-//
-//		);
-//		getViewState().showManageAccountActivity(model);
+		TradingAccountDetailsModel model = new TradingAccountDetailsModel(
+				accountId,
+				accountId,
+				accountDetails.getPublicInfo().getTitle(),
+				accountDetails.getBrokerDetails().getName(),
+				accountDetails.getBrokerDetails().getLogoUrl(),
+				accountDetails.getPublicInfo().getCreationDate(),
+				accountDetails.getTradingAccountInfo().getLeverage(),
+				accountDetails.getTradingAccountInfo().getCurrency() != null
+						? accountDetails.getTradingAccountInfo().getCurrency().getValue()
+						: null,
+				null,
+				false,
+				accountDetails.getPublicInfo().getStatus().getValue()
+		);
+		getViewState().showManageAccountActivity(model);
 	}
 
 	void onWithdrawClicked() {

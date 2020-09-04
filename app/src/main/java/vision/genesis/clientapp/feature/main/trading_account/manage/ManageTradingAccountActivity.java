@@ -8,6 +8,8 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AlertDialog;
+
 import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.facebook.drawee.view.SimpleDraweeView;
 
@@ -62,6 +64,9 @@ public class ManageTradingAccountActivity extends BaseSwipeBackActivity implemen
 	@BindView(R.id.broker_logo)
 	public SimpleDraweeView brokerLogo;
 
+	@BindView(R.id.group_currency)
+	public ViewGroup currencyGroup;
+
 	@BindView(R.id.currency)
 	public TextView currency;
 
@@ -114,6 +119,12 @@ public class ManageTradingAccountActivity extends BaseSwipeBackActivity implemen
 	@BindView(R.id.label_age)
 	public TextView labelAge;
 
+	@BindView(R.id.button_close_account)
+	public PrimaryButton closeAccountButton;
+
+	@BindView(R.id.progress_bar)
+	public ProgressBar progressBar;
+
 
 	@InjectPresenter
 	ManageTradingAccountPresenter presenter;
@@ -138,6 +149,21 @@ public class ManageTradingAccountActivity extends BaseSwipeBackActivity implemen
 		presenter.onChangePasswordClicked();
 	}
 
+
+	@OnClick(R.id.button_close_account)
+	public void onCloseAccountClicked() {
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		builder.setCancelable(true);
+		builder.setTitle(getString(R.string.close_trading_account));
+		builder.setMessage(getString(R.string.close_account_alert_message));
+		builder.setPositiveButton(getString(R.string.confirm), (dialog, which) -> {
+			presenter.onCloseAccountClicked();
+			dialog.dismiss();
+		});
+		builder.setNegativeButton(getString(R.string.cancel), (dialog, which) -> dialog.dismiss());
+		builder.show();
+	}
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		setTheme(ThemeUtil.getCurrentThemeResource());
@@ -148,6 +174,8 @@ public class ManageTradingAccountActivity extends BaseSwipeBackActivity implemen
 		ButterKnife.bind(this);
 
 		setFonts();
+
+		closeAccountButton.setRed();
 
 		if (getIntent().getExtras() != null && !getIntent().getExtras().isEmpty()) {
 			TradingAccountDetailsModel model = getIntent().getExtras().getParcelable(EXTRA_MODEL);
@@ -184,7 +212,13 @@ public class ManageTradingAccountActivity extends BaseSwipeBackActivity implemen
 	@Override
 	public void updateView(TradingAccountDetailsModel model) {
 		this.brokerLogo.setImageURI(ImageUtils.getImageUri(model.getBrokerLogo()));
-		this.currency.setText(model.getCurrency());
+		if (model.getCurrency() != null) {
+			this.currency.setText(model.getCurrency());
+			this.currencyGroup.setVisibility(View.VISIBLE);
+		}
+		else {
+			this.currencyGroup.setVisibility(View.GONE);
+		}
 		this.leverage.setText(String.format(Locale.getDefault(), "1:%d", model.getLeverage()));
 		this.creationDate.setText(DateTimeUtil.formatEventDateTime(model.getCreationDate()));
 		this.agePeriod.setCreationDate(model.getCreationDate());
@@ -218,6 +252,13 @@ public class ManageTradingAccountActivity extends BaseSwipeBackActivity implemen
 			groupMigration.setVisibility(View.GONE);
 			buttonChange.setVisibility(model.isCanChangeBroker() ? View.VISIBLE : View.GONE);
 		}
+
+		if (model.getAssetId().equals(model.getAccountId())) {
+			closeAccountButton.setVisibility(View.VISIBLE);
+		}
+		else {
+			closeAccountButton.setVisibility(View.GONE);
+		}
 	}
 
 	@Override
@@ -239,6 +280,11 @@ public class ManageTradingAccountActivity extends BaseSwipeBackActivity implemen
 	public void showCancelProgress(boolean show) {
 		migrationProgressBar.setVisibility(show ? View.VISIBLE : View.GONE);
 		buttonCancelMigration.setVisibility(!show ? View.VISIBLE : View.GONE);
+	}
+
+	@Override
+	public void showProgress(boolean show) {
+		progressBar.setVisibility(show ? View.VISIBLE : View.GONE);
 	}
 
 	@Override

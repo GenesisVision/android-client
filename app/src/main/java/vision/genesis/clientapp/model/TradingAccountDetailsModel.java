@@ -54,6 +54,8 @@ public class TradingAccountDetailsModel implements Parcelable
 
 	private PrivateTradingAccountType type;
 
+	private String status;
+
 
 	public TradingAccountDetailsModel(UUID accountId, String accountName, String brokerLogo) {
 		this.accountId = accountId;
@@ -69,7 +71,7 @@ public class TradingAccountDetailsModel implements Parcelable
 	}
 
 	public TradingAccountDetailsModel(UUID assetId, UUID accountId, String accountName, String brokerName, String brokerLogo, DateTime creationDate,
-	                                  Integer leverage, String currency, MigrationRequest migration, Boolean canChangeBroker) {
+	                                  Integer leverage, String currency, MigrationRequest migration, Boolean canChangeBroker, String status) {
 		this.assetId = assetId;
 		this.accountId = accountId;
 		this.accountName = accountName;
@@ -80,6 +82,7 @@ public class TradingAccountDetailsModel implements Parcelable
 		this.currency = currency;
 		this.migration = migration;
 		this.canChangeBroker = canChangeBroker;
+		this.status = status;
 	}
 
 	protected TradingAccountDetailsModel(Parcel in) {
@@ -105,6 +108,8 @@ public class TradingAccountDetailsModel implements Parcelable
 		else {
 			type = (PrivateTradingAccountType) in.readSerializable();
 		}
+
+		status = in.readString();
 	}
 
 	@Override
@@ -133,6 +138,7 @@ public class TradingAccountDetailsModel implements Parcelable
 		parcel.writeByte(isDemo ? (byte) 1 : (byte) 0);
 		parcel.writeByte(type != null ? (byte) 1 : (byte) 0);
 		parcel.writeSerializable(type);
+		parcel.writeString(status);
 	}
 
 	public UUID getAssetId() {
@@ -189,5 +195,9 @@ public class TradingAccountDetailsModel implements Parcelable
 
 	public PrivateTradingAccountType getType() {
 		return type;
+	}
+
+	public String getStatus() {
+		return status;
 	}
 }

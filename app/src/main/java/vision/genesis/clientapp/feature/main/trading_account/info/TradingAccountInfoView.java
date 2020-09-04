@@ -34,6 +34,8 @@ interface TradingAccountInfoView extends MvpView
 
 	void showSnackbarMessage(String message);
 
+	void showManageAccountActivity(TradingAccountDetailsModel model);
+
 	void showLoginActivity();
 
 	void showTransferFundsActivity(TransferFundsModel model);

@@ -23,6 +23,8 @@ interface ManageTradingAccountView extends MvpView
 
 	void showCancelProgress(boolean show);
 
+	void showProgress(boolean show);
+
 	@StateStrategyType(OneExecutionStateStrategy.class)
 	void finishActivity();
 }

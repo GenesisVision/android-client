@@ -36,6 +36,8 @@ public class ManageTradingAccountPresenter extends MvpPresenter<ManageTradingAcc
 
 	private Subscription cancelMigrationSubscription;
 
+	private Subscription closeAccountSubscription;
+
 	private TradingAccountDetailsModel model;
 
 	@Override
@@ -52,6 +54,9 @@ public class ManageTradingAccountPresenter extends MvpPresenter<ManageTradingAcc
 		if (cancelMigrationSubscription != null) {
 			cancelMigrationSubscription.unsubscribe();
 		}
+		if (closeAccountSubscription != null) {
+			closeAccountSubscription.unsubscribe();
+		}
 
 		EventBus.getDefault().unregister(this);
 		super.onDestroy();
@@ -67,6 +72,10 @@ public class ManageTradingAccountPresenter extends MvpPresenter<ManageTradingAcc
 
 	void onChangePasswordClicked() {
 		getViewState().showChangePasswordActivity(model);
+	}
+
+	void onCloseAccountClicked() {
+		closeAccount();
 	}
 
 	void onCancelMigrationClicked() {
@@ -95,6 +104,30 @@ public class ManageTradingAccountPresenter extends MvpPresenter<ManageTradingAcc
 	private void handleCancelMigrationError(Throwable throwable) {
 		cancelMigrationSubscription.unsubscribe();
 		getViewState().showCancelProgress(false);
+
+		ApiErrorResolver.resolveErrors(throwable, message -> getViewState().showSnackbarMessage(message));
+	}
+
+	private void closeAccount() {
+		if (model != null && assetsManager != null) {
+			getViewState().showProgress(true);
+			closeAccountSubscription = assetsManager.closeTradingAccount(model.getAccountId())
+					.observeOn(AndroidSchedulers.mainThread())
+					.subscribeOn(Schedulers.io())
+					.subscribe(this::handleCloseAccountSuccess,
+							this::handleCloseAccountError);
+		}
+	}
+
+	private void handleCloseAccountSuccess(Void response) {
+		closeAccountSubscription.unsubscribe();
+		getViewState().showProgress(false);
+		getViewState().finishActivity();
+	}
+
+	private void handleCloseAccountError(Throwable throwable) {
+		closeAccountSubscription.unsubscribe();
+		getViewState().showProgress(false);
 
 		ApiErrorResolver.resolveErrors(throwable, message -> getViewState().showSnackbarMessage(message));
 	}

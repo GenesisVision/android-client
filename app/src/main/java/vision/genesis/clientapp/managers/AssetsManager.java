@@ -111,4 +111,8 @@ public class AssetsManager
 		model.setAmount(amount);
 		return assetsApi.makeDemoTradingAccountDeposit(accountId, model);
 	}
+
+	public Observable<Void> closeTradingAccount(UUID accountId) {
+		return assetsApi.closeTradingAccount(accountId);
+	}
 }

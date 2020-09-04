@@ -62,8 +62,7 @@
                         android:paddingEnd="20dp"
                         android:text="@string/manage"
                         android:textColor="?attr/colorAccent"
-                        android:textSize="14sp"
-                        android:visibility="gone"/>
+                        android:textSize="14sp"/>
 
                 </RelativeLayout>
 

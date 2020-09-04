@@ -86,6 +86,7 @@
                         </LinearLayout>
 
                         <LinearLayout
+                            android:id="@+id/group_currency"
                             android:layout_width="wrap_content"
                             android:layout_height="@dimen/button_height"
                             android:orientation="horizontal">
@@ -369,8 +370,28 @@
 
             </RelativeLayout>
 
+            <vision.genesis.clientapp.ui.PrimaryButton
+                android:id="@+id/button_close_account"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/button_height"
+                android:layout_margin="20dp"
+                android:text="@string/close_trading_account"
+                android:visibility="gone"
+                tools:visibility="visible"/>
+
         </LinearLayout>
 
     </ScrollView>
+
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_below="@+id/toolbar"
+        android:indeterminate="true"
+        android:scaleY="4"
+        android:visibility="gone"
+        tools:visibility="visible"/>
 
 </RelativeLayout>
