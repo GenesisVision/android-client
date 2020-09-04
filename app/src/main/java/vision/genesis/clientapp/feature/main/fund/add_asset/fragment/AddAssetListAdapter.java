@@ -1,4 +1,4 @@
-package vision.genesis.clientapp.feature.main.fund.add_asset;
+package vision.genesis.clientapp.feature.main.fund.add_asset.fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;

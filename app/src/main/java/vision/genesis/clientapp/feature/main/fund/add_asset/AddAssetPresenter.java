@@ -1,6 +1,7 @@
 package vision.genesis.clientapp.feature.main.fund.add_asset;
 
 import android.content.Context;
+import android.util.Pair;
 
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
@@ -9,10 +10,12 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import javax.inject.Inject;
 
+import io.swagger.client.model.AssetProvider;
 import io.swagger.client.model.PlatformAsset;
 import io.swagger.client.model.PlatformInfo;
 import rx.Subscription;
@@ -24,6 +27,8 @@ import vision.genesis.clientapp.model.events.OnAddAssetAssetSelectedEvent;
 import vision.genesis.clientapp.model.events.OnAddAssetClickedEvent;
 import vision.genesis.clientapp.model.events.OnFinishAddAssetActivityEvent;
 import vision.genesis.clientapp.net.ApiErrorResolver;
+import vision.genesis.clientapp.utils.PlatformAssetsComparator;
+import vision.genesis.clientapp.utils.PlatformAssetsPairsComparator;
 
 /**
  * GenesisVisionAndroid
@@ -41,9 +46,7 @@ public class AddAssetPresenter extends MvpPresenter<AddAssetView>
 
 	private Subscription platformInfoSubscription;
 
-	private List<PlatformAsset> allAssets = new ArrayList<>();
-
-	private boolean finishAfterAssetSelected = true;
+	private ArrayList<Pair<String, List<PlatformAsset>>> sortedAssets = new ArrayList<>();
 
 	@Override
 	protected void onFirstViewAttach() {
@@ -68,27 +71,30 @@ public class AddAssetPresenter extends MvpPresenter<AddAssetView>
 		super.onDestroy();
 	}
 
-	void setNeedFinish(boolean finishAfterAssetSelected) {
-		this.finishAfterAssetSelected = finishAfterAssetSelected;
-	}
-
 	void onMaskChanged(String mask) {
 		if (mask != null && !mask.trim().isEmpty()) {
 			filterAssets(mask.trim().toLowerCase());
 		}
 		else {
-			getViewState().setAssets(allAssets);
+			getViewState().setAssets(sortedAssets);
 		}
 	}
 
 	private void filterAssets(String mask) {
-		List<PlatformAsset> assetsToShow = new ArrayList<>();
-		for (PlatformAsset asset : allAssets) {
-			if (asset.getAsset().toLowerCase().contains(mask)
-					|| asset.getName().toLowerCase().contains(mask)) {
-				assetsToShow.add(asset);
+		ArrayList<Pair<String, List<PlatformAsset>>> assetsToShow = new ArrayList<>();
+
+		for (Pair<String, List<PlatformAsset>> pair : sortedAssets) {
+			List<PlatformAsset> newList = new ArrayList<>();
+			for (PlatformAsset asset : pair.second) {
+				if (asset.getAsset().toLowerCase().contains(mask)
+						|| asset.getName().toLowerCase().contains(mask)) {
+					newList.add(asset);
+				}
 			}
+			Pair<String, List<PlatformAsset>> newPair = new Pair<>(pair.first, newList);
+			assetsToShow.add(newPair);
 		}
+
 		getViewState().setAssets(assetsToShow);
 	}
 
@@ -103,8 +109,33 @@ public class AddAssetPresenter extends MvpPresenter<AddAssetView>
 	private void handleGetPlatformInfoSuccess(PlatformInfo platformInfo) {
 		platformInfoSubscription.unsubscribe();
 		getViewState().showProgress(false);
-		allAssets = platformInfo.getAssetInfo().getFundInfo().getAssets();
-		getViewState().setAssets(allAssets);
+		List<PlatformAsset> allAssets = platformInfo.getAssetInfo().getFundInfo().getAssets();
+
+		int i;
+		for (PlatformAsset asset : allAssets) {
+			if (asset.getProvider() != null && !asset.getProvider().equals(AssetProvider.UNDEFINED)) {
+				i = 0;
+				for (Pair<String, List<PlatformAsset>> pair : sortedAssets) {
+					if (pair.first.equals(asset.getProvider().getValue())) {
+						pair.second.add(asset);
+						break;
+					}
+					i++;
+				}
+				if (i == sortedAssets.size()) {
+					ArrayList<PlatformAsset> providerAssets = new ArrayList<>();
+					providerAssets.add(asset);
+					sortedAssets.add(new Pair<>(asset.getProvider().getValue(), providerAssets));
+				}
+			}
+		}
+
+		for (Pair<String, List<PlatformAsset>> pair : sortedAssets) {
+			Collections.sort(pair.second, new PlatformAssetsComparator());
+		}
+		Collections.sort(sortedAssets, new PlatformAssetsPairsComparator());
+
+		getViewState().setAssets(sortedAssets);
 	}
 
 	private void handleGetPlatformInfoError(Throwable throwable) {
@@ -116,9 +147,7 @@ public class AddAssetPresenter extends MvpPresenter<AddAssetView>
 	@Subscribe
 	public void onEventMainThread(OnAddAssetClickedEvent event) {
 		EventBus.getDefault().post(new OnAddAssetAssetSelectedEvent(event.getAsset()));
-//		if (finishAfterAssetSelected) {
 		getViewState().finishActivity();
-//		}
 	}
 
 	@Subscribe

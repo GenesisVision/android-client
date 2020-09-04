@@ -94,6 +94,12 @@ public class CustomTabView extends RelativeLayout
 		}
 	}
 
+	public void setText(String text) {
+		this.icon.setVisibility(View.GONE);
+		this.text.setVisibility(View.VISIBLE);
+		this.text.setText(text);
+	}
+
 	public void setSelectedState(boolean selected) {
 		icon.setColorFilter(ThemeUtil.getColorByAttrId(getContext(), selected ? R.attr.colorTextPrimary : R.attr.colorTextSecondary));
 		text.setTextColor(ThemeUtil.getColorByAttrId(getContext(), selected ? R.attr.colorTextPrimary : R.attr.colorTextSecondary));

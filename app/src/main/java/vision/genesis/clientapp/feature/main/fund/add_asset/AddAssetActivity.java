@@ -3,18 +3,22 @@ package vision.genesis.clientapp.feature.main.fund.add_asset;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Pair;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager.widget.ViewPager;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
+import com.google.android.material.tabs.TabLayout;
 import com.jakewharton.rxbinding.widget.RxTextView;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -23,8 +27,9 @@ import io.swagger.client.model.PlatformAsset;
 import timber.log.Timber;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseSwipeBackActivity;
+import vision.genesis.clientapp.ui.CustomTabView;
+import vision.genesis.clientapp.utils.TabLayoutUtil;
 import vision.genesis.clientapp.utils.ThemeUtil;
-import vision.genesis.clientapp.utils.TypefaceUtil;
 
 /**
  * GenesisVisionAndroid
@@ -51,16 +56,22 @@ public class AddAssetActivity extends BaseSwipeBackActivity implements AddAssetV
 	@BindView(R.id.edittext_search)
 	public EditText searchEditText;
 
-	@BindView(R.id.recycler_view)
-	public RecyclerView recyclerView;
 
-	@BindView(R.id.text_no_assets)
-	public TextView noAssetsText;
+	@BindView(R.id.group_results)
+	public ViewGroup resultsGroup;
+
+	@BindView(R.id.view_pager_add_asset)
+	public ViewPager viewPager;
+
+	@BindView(R.id.tab_layout)
+	public TabLayout tabLayout;
 
 	@InjectPresenter
 	AddAssetPresenter presenter;
 
-	private AddAssetListAdapter adapter;
+	private AddAssetPagerAdapter pagerAdapter;
+
+	private ArrayList<TabLayout.Tab> tabs = new ArrayList<>();
 
 	@OnClick(R.id.button_back)
 	public void onBackClicked() {
@@ -77,10 +88,6 @@ public class AddAssetActivity extends BaseSwipeBackActivity implements AddAssetV
 		ButterKnife.bind(this);
 
 		if (getIntent().getExtras() != null) {
-			presenter.setNeedFinish(getIntent().getExtras().getBoolean(EXTRA_NEED_FINISH, true));
-
-			setFonts();
-			initRecyclerView();
 			setTextListener();
 
 			return;
@@ -89,18 +96,6 @@ public class AddAssetActivity extends BaseSwipeBackActivity implements AddAssetV
 		onBackPressed();
 	}
 
-	private void setFonts() {
-		title.setTypeface(TypefaceUtil.semibold());
-	}
-
-	private void initRecyclerView() {
-		LinearLayoutManager layoutManager = new LinearLayoutManager(this);
-		recyclerView.setLayoutManager(layoutManager);
-		recyclerView.setNestedScrollingEnabled(false);
-
-		adapter = new AddAssetListAdapter();
-		recyclerView.setAdapter(adapter);
-	}
 
 	private void setTextListener() {
 		RxTextView.textChanges(searchEditText)
@@ -117,11 +112,85 @@ public class AddAssetActivity extends BaseSwipeBackActivity implements AddAssetV
 		finishActivity();
 	}
 
+	private void initTabs(ArrayList<Pair<String, List<PlatformAsset>>> assets) {
+		tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+
+		TabLayout.OnTabSelectedListener tabSelectedListener = new TabLayout.OnTabSelectedListener()
+		{
+			@Override
+			public void onTabSelected(TabLayout.Tab tab) {
+				viewPager.setCurrentItem(tab.getPosition());
+				if (tab.getCustomView() != null && tab.getCustomView().getClass().equals(CustomTabView.class)) {
+					((CustomTabView) tab.getCustomView()).setSelectedState(true);
+				}
+			}
+
+			@Override
+			public void onTabUnselected(TabLayout.Tab tab) {
+				if (tab.getCustomView() != null && tab.getCustomView().getClass().equals(CustomTabView.class)) {
+					((CustomTabView) tab.getCustomView()).setSelectedState(false);
+				}
+			}
+
+			@Override
+			public void onTabReselected(TabLayout.Tab tab) {
+				if (tab.getCustomView() != null && tab.getCustomView().getClass().equals(CustomTabView.class)) {
+					((CustomTabView) tab.getCustomView()).setSelectedState(true);
+				}
+			}
+		};
+
+		tabLayout.addOnTabSelectedListener(tabSelectedListener);
+
+		boolean isFirst = true;
+		for (Pair<String, List<PlatformAsset>> pair : assets) {
+			TabLayout.Tab newTab = tabLayout.newTab().setCustomView(getTabView(pair.first.toUpperCase())).setTag(pair.first);
+			tabs.add(newTab);
+			addPage(newTab, isFirst);
+			isFirst = false;
+		}
+	}
+
+	private View getTabView(String text) {
+		CustomTabView view = new CustomTabView(this);
+		view.setText(text);
+		return view;
+	}
+
+	private void addPage(TabLayout.Tab tab, boolean selected) {
+		if (tab.getPosition() != TabLayout.Tab.INVALID_POSITION) {
+			return;
+		}
+
+		tabLayout.addTab(tab, selected);
+		TabLayoutUtil.wrapTabIndicatorToTitle(tabLayout, 20, 10);
+		if (pagerAdapter != null) {
+			pagerAdapter.notifyDataSetChanged();
+		}
+	}
+
+	private void initViewPager(ArrayList<Pair<String, List<PlatformAsset>>> assets) {
+		pagerAdapter = new AddAssetPagerAdapter(getSupportFragmentManager(), tabLayout, assets);
+		viewPager.setAdapter(pagerAdapter);
+		viewPager.setOffscreenPageLimit(3);
+
+		TabLayout.TabLayoutOnPageChangeListener tabLayoutOnPageChangeListener = new TabLayout.TabLayoutOnPageChangeListener(tabLayout);
+		viewPager.addOnPageChangeListener(tabLayoutOnPageChangeListener);
+	}
+
 	@Override
-	public void setAssets(List<PlatformAsset> assets) {
-		noAssetsText.setVisibility(assets.isEmpty() ? View.VISIBLE : View.GONE);
-		recyclerView.setVisibility(assets.isEmpty() ? View.GONE : View.VISIBLE);
-		adapter.setAssets(assets);
+	public void setAssets(ArrayList<Pair<String, List<PlatformAsset>>> assets) {
+		if (pagerAdapter == null && assets != null && !assets.isEmpty()) {
+			initTabs(assets);
+			initViewPager(assets);
+		}
+		if (pagerAdapter != null) {
+			resultsGroup.setVisibility(View.VISIBLE);
+			pagerAdapter.sendSearchResults(assets);
+			for (int i = 0; i < tabs.size(); i++) {
+				((CustomTabView) Objects.requireNonNull(tabs.get(i).getCustomView())).setCount(assets.get(i).second.size());
+			}
+		}
 	}
 
 	@Override
@@ -131,7 +200,7 @@ public class AddAssetActivity extends BaseSwipeBackActivity implements AddAssetV
 
 	@Override
 	public void showSnackbarMessage(String message) {
-		showSnackbar(message, recyclerView);
+		showSnackbar(message, viewPager);
 	}
 
 	@Override

@@ -1,9 +1,12 @@
 package vision.genesis.clientapp.feature.main.fund.add_asset;
 
+import android.util.Pair;
+
 import com.arellomobile.mvp.MvpView;
 import com.arellomobile.mvp.viewstate.strategy.AddToEndSingleStrategy;
 import com.arellomobile.mvp.viewstate.strategy.StateStrategyType;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import io.swagger.client.model.PlatformAsset;
@@ -15,7 +18,7 @@ import io.swagger.client.model.PlatformAsset;
 
 interface AddAssetView extends MvpView
 {
-	void setAssets(List<PlatformAsset> assets);
+	void setAssets(ArrayList<Pair<String, List<PlatformAsset>>> assets);
 
 	@StateStrategyType(AddToEndSingleStrategy.class)
 	void showProgress(boolean show);
