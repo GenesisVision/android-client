@@ -29,6 +29,7 @@ import vision.genesis.clientapp.model.PostsFilter;
 import vision.genesis.clientapp.model.SocialPostType;
 import vision.genesis.clientapp.model.events.OnNewPostCreatedEvent;
 import vision.genesis.clientapp.model.events.OnNewPostEditedEvent;
+import vision.genesis.clientapp.model.events.OnShowEventsCheckedChangedEvent;
 import vision.genesis.clientapp.model.events.SetPostDeletedEvent;
 import vision.genesis.clientapp.net.ApiErrorResolver;
 import vision.genesis.clientapp.ui.SocialPostView;
@@ -249,6 +250,7 @@ public class PostsListPresenter extends MvpPresenter<PostsListView> implements S
 		showEvents = checked;
 		settingsManager.saveShowEvents(checked);
 		getViewState().setShowEventsChecked(showEvents);
+		EventBus.getDefault().post(new OnShowEventsCheckedChangedEvent(showEvents));
 		if (filter != null) {
 			filter.setShowOnlyUserPosts(!showEvents);
 			getPostsList(true);

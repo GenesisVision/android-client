@@ -5,6 +5,9 @@ import android.content.Context;
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+
 import java.util.List;
 import java.util.UUID;
 
@@ -15,6 +18,7 @@ import vision.genesis.clientapp.feature.main.social.trending.TrendingBottomSheet
 import vision.genesis.clientapp.managers.ProfileManager;
 import vision.genesis.clientapp.managers.SettingsManager;
 import vision.genesis.clientapp.model.PostsFilter;
+import vision.genesis.clientapp.model.events.OnShowEventsCheckedChangedEvent;
 
 /**
  * GenesisVisionAndroid
@@ -41,6 +45,8 @@ public class SocialPresenter extends MvpPresenter<SocialView> implements Trendin
 
 		GenesisVisionApplication.getComponent().inject(this);
 
+		EventBus.getDefault().register(this);
+
 		getShowEvents();
 	}
 
@@ -52,6 +58,7 @@ public class SocialPresenter extends MvpPresenter<SocialView> implements Trendin
 
 	@Override
 	public void onDestroy() {
+		EventBus.getDefault().unregister(this);
 		super.onDestroy();
 	}
 
@@ -87,5 +94,10 @@ public class SocialPresenter extends MvpPresenter<SocialView> implements Trendin
 			filter.setShowOnlyUserPosts(true);
 			getViewState().setFilter(filter);
 		}
+	}
+
+	@Subscribe
+	public void onEventMainThread(OnShowEventsCheckedChangedEvent event) {
+		onShowEventsCheckChanged(event.isShowEvents());
 	}
 }

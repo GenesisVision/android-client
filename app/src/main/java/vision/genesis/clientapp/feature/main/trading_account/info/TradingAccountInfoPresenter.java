@@ -121,7 +121,9 @@ public class TradingAccountInfoPresenter extends MvpPresenter<TradingAccountInfo
 						: null,
 				null,
 				false,
-				accountDetails.getPublicInfo().getStatus().getValue()
+				accountDetails.getPublicInfo().getStatus().getValue(),
+				accountDetails.getOwnerActions().isCanClose(),
+				accountDetails.getOwnerActions().isCanChangePassword()
 		);
 		getViewState().showManageAccountActivity(model);
 	}

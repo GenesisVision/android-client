@@ -56,6 +56,10 @@ public class TradingAccountDetailsModel implements Parcelable
 
 	private String status;
 
+	private Boolean canClose = false;
+
+	private Boolean canChangePassword = false;
+
 
 	public TradingAccountDetailsModel(UUID accountId, String accountName, String brokerLogo) {
 		this.accountId = accountId;
@@ -71,7 +75,8 @@ public class TradingAccountDetailsModel implements Parcelable
 	}
 
 	public TradingAccountDetailsModel(UUID assetId, UUID accountId, String accountName, String brokerName, String brokerLogo, DateTime creationDate,
-	                                  Integer leverage, String currency, MigrationRequest migration, Boolean canChangeBroker, String status) {
+	                                  Integer leverage, String currency, MigrationRequest migration, Boolean canChangeBroker, String status,
+	                                  Boolean canClose, Boolean canChangePassword) {
 		this.assetId = assetId;
 		this.accountId = accountId;
 		this.accountName = accountName;
@@ -83,6 +88,8 @@ public class TradingAccountDetailsModel implements Parcelable
 		this.migration = migration;
 		this.canChangeBroker = canChangeBroker;
 		this.status = status;
+		this.canClose = canClose;
+		this.canChangePassword = canChangePassword;
 	}
 
 	protected TradingAccountDetailsModel(Parcel in) {
@@ -101,6 +108,9 @@ public class TradingAccountDetailsModel implements Parcelable
 		currency = in.readString();
 		migration = in.readParcelable(MigrationRequest.class.getClassLoader());
 		canChangeBroker = in.readByte() == 1;
+		status = in.readString();
+		canClose = in.readByte() == 1;
+		canChangePassword = in.readByte() == 1;
 		isDemo = in.readByte() == 1;
 		if (in.readByte() == 0) {
 			type = null;
@@ -108,8 +118,6 @@ public class TradingAccountDetailsModel implements Parcelable
 		else {
 			type = (PrivateTradingAccountType) in.readSerializable();
 		}
-
-		status = in.readString();
 	}
 
 	@Override
@@ -135,10 +143,17 @@ public class TradingAccountDetailsModel implements Parcelable
 		parcel.writeString(currency);
 		parcel.writeParcelable(migration, flags);
 		parcel.writeByte(canChangeBroker ? (byte) 1 : (byte) 0);
-		parcel.writeByte(isDemo ? (byte) 1 : (byte) 0);
-		parcel.writeByte(type != null ? (byte) 1 : (byte) 0);
-		parcel.writeSerializable(type);
 		parcel.writeString(status);
+		parcel.writeByte(canClose ? (byte) 1 : (byte) 0);
+		parcel.writeByte(canChangePassword ? (byte) 1 : (byte) 0);
+		parcel.writeByte(isDemo ? (byte) 1 : (byte) 0);
+		if (type != null) {
+			parcel.writeByte((byte) 1);
+			parcel.writeSerializable(type);
+		}
+		else {
+			parcel.writeByte((byte) 0);
+		}
 	}
 
 	public UUID getAssetId() {
@@ -199,5 +214,13 @@ public class TradingAccountDetailsModel implements Parcelable
 
 	public String getStatus() {
 		return status;
+	}
+
+	public Boolean isCanClose() {
+		return canClose;
+	}
+
+	public Boolean isCanChangePassword() {
+		return canChangePassword;
 	}
 }

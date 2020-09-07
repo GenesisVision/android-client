@@ -143,7 +143,9 @@ public class OwnerInfoPresenter extends MvpPresenter<OwnerInfoView>
 						? details.getProgramDetails().getPersonalDetails().getMigration()
 						: null,
 				details.getProgramDetails() != null,
-				details.getPublicInfo().getStatus());
+				details.getPublicInfo().getStatus(),
+				details.getOwnerActions().isCanClose(),
+				details.getOwnerActions().isCanChangePassword());
 		getViewState().showManageAccountActivity(model);
 	}
 

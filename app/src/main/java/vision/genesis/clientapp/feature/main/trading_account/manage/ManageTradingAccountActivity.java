@@ -119,6 +119,9 @@ public class ManageTradingAccountActivity extends BaseSwipeBackActivity implemen
 	@BindView(R.id.label_age)
 	public TextView labelAge;
 
+	@BindView(R.id.button_change_password)
+	public ViewGroup changePasswordButton;
+
 	@BindView(R.id.button_close_account)
 	public PrimaryButton closeAccountButton;
 
@@ -253,12 +256,15 @@ public class ManageTradingAccountActivity extends BaseSwipeBackActivity implemen
 			buttonChange.setVisibility(model.isCanChangeBroker() ? View.VISIBLE : View.GONE);
 		}
 
-		if (model.getAssetId().equals(model.getAccountId())) {
-			closeAccountButton.setVisibility(View.VISIBLE);
-		}
-		else {
-			closeAccountButton.setVisibility(View.GONE);
-		}
+		this.changePasswordButton.setVisibility(model.isCanChangePassword() ? View.VISIBLE : View.GONE);
+		this.closeAccountButton.setVisibility(model.isCanClose() ? View.VISIBLE : View.GONE);
+
+//		if (model.getAssetId().equals(model.getAccountId())) {
+//			closeAccountButton.setVisibility(View.VISIBLE);
+//		}
+//		else {
+//			closeAccountButton.setVisibility(View.GONE);
+//		}
 	}
 
 	@Override

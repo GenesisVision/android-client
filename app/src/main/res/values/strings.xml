@@ -958,6 +958,7 @@
     <string name="asset">Asset</string>
     <string name="close_trading_account">Close trading account</string>
     <string name="close_account_alert_message">Do you really want to close the trading account?</string>
+    <string name="no_history_for_selected_period">No history for the selected period</string>
 
 
     <plurals name="assets">

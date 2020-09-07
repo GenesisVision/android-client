@@ -40,31 +40,45 @@ interface OwnerInfoView extends MvpView
 	@StateStrategyType(OneExecutionStateStrategy.class)
 	void showWithdrawProgramActivity(ProgramRequest request);
 
+	@StateStrategyType(OneExecutionStateStrategy.class)
 	void showCopytrading(List<SignalSubscription> masters);
 
+	@StateStrategyType(OneExecutionStateStrategy.class)
 	void showRequestsBottomSheet();
 
+	@StateStrategyType(OneExecutionStateStrategy.class)
 	void showSnackbarMessage(String message);
 
+	@StateStrategyType(OneExecutionStateStrategy.class)
 	void showLoginActivity();
 
+	@StateStrategyType(OneExecutionStateStrategy.class)
 	void showCreateProgram(CreateProgramModel createProgramModel);
 
+	@StateStrategyType(OneExecutionStateStrategy.class)
 	void showCreateFollow(CreateProgramModel createProgramModel);
 
+	@StateStrategyType(OneExecutionStateStrategy.class)
 	void showEditPublicInfoActivity(UUID assetId, ProgramUpdate model);
 
+	@StateStrategyType(OneExecutionStateStrategy.class)
 	void showManageAccountActivity(TradingAccountDetailsModel model);
 
+	@StateStrategyType(OneExecutionStateStrategy.class)
 	void showManageProgramActivity(ProgramFollowDetailsFull details);
 
+	@StateStrategyType(OneExecutionStateStrategy.class)
 	void showEditFollowSettingsActivity(CreateSignalProvider model);
 
+	@StateStrategyType(OneExecutionStateStrategy.class)
 	void showUnfollowTradesActivity(UUID followId, UUID tradingAccountId, String followName, Boolean isExternal);
 
+	@StateStrategyType(OneExecutionStateStrategy.class)
 	void showCopytradingDetailsActivity(TradingAccountDetailsModel model);
 
+	@StateStrategyType(OneExecutionStateStrategy.class)
 	void showTransferFundsActivity(TransferFundsModel model);
 
+	@StateStrategyType(OneExecutionStateStrategy.class)
 	void showEditSubscriptionActivity(SubscriptionSettingsModel model, UUID followId, UUID tradingAccountId, Boolean external);
 }
