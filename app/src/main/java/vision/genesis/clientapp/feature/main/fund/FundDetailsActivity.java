@@ -308,7 +308,7 @@ public class FundDetailsActivity extends BaseSwipeBackActivity implements FundDe
 		infoTab = tabLayout.newTab().setCustomView(getTabView(R.string.info)).setTag("info");
 		ownerInfoTab = tabLayout.newTab().setCustomView(getTabView(R.string.info)).setTag("owner_info");
 		structureTab = tabLayout.newTab().setCustomView(getTabView(R.string.structure)).setTag("structure");
-		reallocateHistoryTab = tabLayout.newTab().setCustomView(getTabView(R.string.reallocate_history)).setTag("reallocate_history");
+		reallocateHistoryTab = tabLayout.newTab().setCustomView(getTabView(R.string.history)).setTag("reallocate_history");
 		profitTab = tabLayout.newTab().setCustomView(getTabView(R.string.profit)).setTag("profit");
 		balanceTab = tabLayout.newTab().setCustomView(getTabView(R.string.balance)).setTag("balance");
 		eventsTab = tabLayout.newTab().setCustomView(getTabView(R.string.my_history)).setTag("events");

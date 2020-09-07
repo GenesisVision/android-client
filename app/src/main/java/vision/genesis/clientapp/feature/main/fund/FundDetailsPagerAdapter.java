@@ -15,7 +15,7 @@ import vision.genesis.clientapp.feature.main.fund.balance.FundBalanceFragment;
 import vision.genesis.clientapp.feature.main.fund.info.FundInfoFragment;
 import vision.genesis.clientapp.feature.main.fund.info.owner.FundOwnerInfoFragment;
 import vision.genesis.clientapp.feature.main.fund.profit.FundProfitFragment;
-import vision.genesis.clientapp.feature.main.fund.reallocate_history.ReallocateHistoryFragment;
+import vision.genesis.clientapp.feature.main.fund.reallocate_history.FundHistoryFragment;
 import vision.genesis.clientapp.feature.main.fund.structure.FundStructureFragment;
 import vision.genesis.clientapp.feature.main.program.events.ProgramEventsFragment;
 
@@ -39,7 +39,7 @@ public class FundDetailsPagerAdapter extends FragmentStatePagerAdapter
 
 	private FundStructureFragment fundStructureFragment;
 
-	private ReallocateHistoryFragment reallocateHistoryFragment;
+	private FundHistoryFragment fundHistoryFragment;
 
 	private FundProfitFragment fundProfitFragment;
 
@@ -62,7 +62,7 @@ public class FundDetailsPagerAdapter extends FragmentStatePagerAdapter
 			fundInfoFragment = FundInfoFragment.with(fundId);
 		}
 		fundStructureFragment = FundStructureFragment.with();
-		reallocateHistoryFragment = ReallocateHistoryFragment.with(fundId);
+		fundHistoryFragment = FundHistoryFragment.with(fundId);
 		fundProfitFragment = FundProfitFragment.with(fundId);
 		fundBalanceFragment = FundBalanceFragment.with(fundId);
 		fundEventsFragment = ProgramEventsFragment.with(ProgramEventsFragment.LOCATION_FUND, fundId);
@@ -78,7 +78,7 @@ public class FundDetailsPagerAdapter extends FragmentStatePagerAdapter
 			case "structure":
 				return fundStructureFragment;
 			case "reallocate_history":
-				return reallocateHistoryFragment;
+				return fundHistoryFragment;
 			case "profit":
 				return fundProfitFragment;
 			case "balance":
@@ -108,8 +108,8 @@ public class FundDetailsPagerAdapter extends FragmentStatePagerAdapter
 		if (fundInfoFragment != null) {
 			fundInfoFragment.pagerShow();
 		}
-		if (reallocateHistoryFragment != null) {
-			reallocateHistoryFragment.pagerShow();
+		if (fundHistoryFragment != null) {
+			fundHistoryFragment.pagerShow();
 		}
 		if (fundProfitFragment != null) {
 			fundProfitFragment.pagerShow();
@@ -123,8 +123,8 @@ public class FundDetailsPagerAdapter extends FragmentStatePagerAdapter
 	}
 
 	public void sendSwipeRefresh() {
-		if (reallocateHistoryFragment != null) {
-			reallocateHistoryFragment.onSwipeRefresh();
+		if (fundHistoryFragment != null) {
+			fundHistoryFragment.onSwipeRefresh();
 		}
 		if (fundEventsFragment != null) {
 			fundEventsFragment.onSwipeRefresh();
@@ -132,8 +132,8 @@ public class FundDetailsPagerAdapter extends FragmentStatePagerAdapter
 	}
 
 	public void onOffsetChanged(int verticalOffset) {
-		if (reallocateHistoryFragment != null) {
-			reallocateHistoryFragment.onOffsetChanged(verticalOffset);
+		if (fundHistoryFragment != null) {
+			fundHistoryFragment.onOffsetChanged(verticalOffset);
 		}
 		if (fundProfitFragment != null) {
 			fundProfitFragment.onOffsetChanged(verticalOffset);

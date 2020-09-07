@@ -959,6 +959,12 @@
     <string name="close_trading_account">Close trading account</string>
     <string name="close_account_alert_message">Do you really want to close the trading account?</string>
     <string name="no_history_for_selected_period">No history for the selected period</string>
+    <string name="creation">Creation</string>
+    <string name="investment">Investment</string>
+    <string name="withdrawal">Withdrawal</string>
+    <string name="rebalance">Rebalance</string>
+    <string name="reallocation">Reallocation</string>
+    <string name="challenge_winner">Challenge winner</string>
 
 
     <plurals name="assets">

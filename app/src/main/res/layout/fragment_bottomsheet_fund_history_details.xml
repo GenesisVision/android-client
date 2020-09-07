@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
                 xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
@@ -18,28 +19,48 @@
             android:background="@drawable/line_bottomsheet"/>
 
         <RelativeLayout
+            android:id="@+id/top"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:layout_marginTop="12dp"
-            android:layout_marginEnd="20dp">
+            android:layout_marginEnd="24dp">
 
             <TextView
                 android:id="@+id/date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:fontFamily="@font/montserrat_semibold"
                 android:textColor="?attr/colorTextPrimary"
                 android:textSize="14sp"
                 tools:text="16 Aug, 2019 04:20pm"/>
 
-            <TextView
-                android:id="@+id/count"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
-                android:textColor="?attr/colorTextSecondary"
-                android:textSize="14sp"
-                tools:text="32 assets"/>
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/type"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:fontFamily="@font/montserrat_medium"
+                    android:textColor="?attr/colorTextSecondary"
+                    android:textSize="14sp"
+                    tools:text="Withdrawal"/>
+
+                <com.facebook.drawee.view.SimpleDraweeView
+                    android:id="@+id/action"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="10dp"
+                    app:roundAsCircle="true"/>
+
+            </LinearLayout>
 
         </RelativeLayout>
 

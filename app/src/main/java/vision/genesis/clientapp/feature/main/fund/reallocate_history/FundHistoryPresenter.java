@@ -14,8 +14,8 @@ import java.util.UUID;
 
 import javax.inject.Inject;
 
-import io.swagger.client.model.ReallocationModel;
-import io.swagger.client.model.ReallocationModelItemsViewModel;
+import io.swagger.client.model.FundHistoryEventViewModel;
+import io.swagger.client.model.FundHistoryEventViewModelItemsViewModel;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -25,7 +25,7 @@ import vision.genesis.clientapp.feature.common.date_range.DateRangeBottomSheetFr
 import vision.genesis.clientapp.managers.FundsManager;
 import vision.genesis.clientapp.model.DateRange;
 import vision.genesis.clientapp.model.events.SetFundDetailsReallocatesCountEvent;
-import vision.genesis.clientapp.model.events.ShowReallocationDetailsEvent;
+import vision.genesis.clientapp.model.events.ShowFundEventDetailsEvent;
 import vision.genesis.clientapp.net.ApiErrorResolver;
 
 /**
@@ -34,7 +34,7 @@ import vision.genesis.clientapp.net.ApiErrorResolver;
  */
 
 @InjectViewState
-public class ReallocateHistoryPresenter extends MvpPresenter<ReallocateHistoryView> implements DateRangeBottomSheetFragment.OnDateRangeChangedListener
+public class FundHistoryPresenter extends MvpPresenter<FundHistoryView> implements DateRangeBottomSheetFragment.OnDateRangeChangedListener
 {
 	private static final int TAKE = 20;
 
@@ -52,7 +52,7 @@ public class ReallocateHistoryPresenter extends MvpPresenter<ReallocateHistoryVi
 
 	private DateRange dateRange = DateRange.createFromEnum(DateRange.DateRangeEnum.ALL_TIME);
 
-	private List<ReallocationModel> reallocates = new ArrayList<>();
+	private List<FundHistoryEventViewModel> historyItems = new ArrayList<>();
 
 	@Override
 	protected void onFirstViewAttach() {
@@ -111,7 +111,7 @@ public class ReallocateHistoryPresenter extends MvpPresenter<ReallocateHistoryVi
 			if (historySubscription != null) {
 				historySubscription.unsubscribe();
 			}
-			historySubscription = fundsManager.getReallocateHistory(fundId, dateRange, skip, TAKE)
+			historySubscription = fundsManager.getHistory(fundId, dateRange, skip, TAKE)
 					.observeOn(AndroidSchedulers.mainThread())
 					.subscribeOn(Schedulers.io())
 					.subscribe(this::handleGetHistoryResponse,
@@ -119,25 +119,25 @@ public class ReallocateHistoryPresenter extends MvpPresenter<ReallocateHistoryVi
 		}
 	}
 
-	private void handleGetHistoryResponse(ReallocationModelItemsViewModel response) {
+	private void handleGetHistoryResponse(FundHistoryEventViewModelItemsViewModel response) {
 		historySubscription.unsubscribe();
 		getViewState().showProgress(false);
 
 		if (skip == 0) {
-			reallocates.clear();
+			historyItems.clear();
 		}
 
 		EventBus.getDefault().post(new SetFundDetailsReallocatesCountEvent(response.getTotal()));
 
-		List<ReallocationModel> newReallocates = response.getItems();
+		List<FundHistoryEventViewModel> newHistoryItems = response.getItems();
 
-		reallocates.addAll(newReallocates);
+		historyItems.addAll(newHistoryItems);
 
 		if (skip == 0) {
-			getViewState().setReallocates(newReallocates);
+			getViewState().setHistory(newHistoryItems);
 		}
 		else {
-			getViewState().addReallocates(newReallocates);
+			getViewState().addHistory(newHistoryItems);
 		}
 
 		skip += TAKE;
@@ -161,7 +161,7 @@ public class ReallocateHistoryPresenter extends MvpPresenter<ReallocateHistoryVi
 	}
 
 	@Subscribe
-	public void onEventMainThread(ShowReallocationDetailsEvent event) {
-		getViewState().showReallocationDetails(event.getReallocation());
+	public void onEventMainThread(ShowFundEventDetailsEvent event) {
+		getViewState().showEventDetails(event.getEvent());
 	}
 }

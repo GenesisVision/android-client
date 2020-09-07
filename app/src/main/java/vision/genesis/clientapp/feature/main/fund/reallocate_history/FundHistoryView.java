@@ -6,7 +6,7 @@ import com.arellomobile.mvp.viewstate.strategy.StateStrategyType;
 
 import java.util.List;
 
-import io.swagger.client.model.ReallocationModel;
+import io.swagger.client.model.FundHistoryEventViewModel;
 import vision.genesis.clientapp.model.DateRange;
 
 /**
@@ -14,13 +14,13 @@ import vision.genesis.clientapp.model.DateRange;
  * Created by Vitaly on 27/09/2019.
  */
 
-interface ReallocateHistoryView extends MvpView
+interface FundHistoryView extends MvpView
 {
-	void setReallocates(List<ReallocationModel> reallocates);
+	void setHistory(List<FundHistoryEventViewModel> history);
 
-	void addReallocates(List<ReallocationModel> reallocates);
+	void addHistory(List<FundHistoryEventViewModel> history);
 
-	void showReallocationDetails(ReallocationModel reallocation);
+	void showEventDetails(FundHistoryEventViewModel event);
 
 	@StateStrategyType(AddToEndSingleStrategy.class)
 	void showProgress(boolean show);

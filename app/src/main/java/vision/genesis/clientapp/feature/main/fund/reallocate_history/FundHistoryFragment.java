@@ -20,12 +20,12 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
-import io.swagger.client.model.ReallocationModel;
+import io.swagger.client.model.FundHistoryEventViewModel;
 import timber.log.Timber;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
 import vision.genesis.clientapp.feature.common.date_range.DateRangeBottomSheetFragment;
-import vision.genesis.clientapp.feature.main.fund.reallocate_history.details.FundReallocationDetailsBottomSheetFragment;
+import vision.genesis.clientapp.feature.main.fund.reallocate_history.details.FundHistoryDetailsBottomSheetFragment;
 import vision.genesis.clientapp.feature.main.program.ProgramDetailsPagerAdapter;
 import vision.genesis.clientapp.model.DateRange;
 import vision.genesis.clientapp.ui.DateRangeView;
@@ -35,12 +35,12 @@ import vision.genesis.clientapp.ui.DateRangeView;
  * Created by Vitaly on 27/09/2019.
  */
 
-public class ReallocateHistoryFragment extends BaseFragment implements ReallocateHistoryView, ProgramDetailsPagerAdapter.OnPageVisibilityChanged
+public class FundHistoryFragment extends BaseFragment implements FundHistoryView, ProgramDetailsPagerAdapter.OnPageVisibilityChanged
 {
 	private static final String EXTRA_FUND_ID = "extra_fund_id";
 
-	public static ReallocateHistoryFragment with(UUID fundId) {
-		ReallocateHistoryFragment periodHistoryFragment = new ReallocateHistoryFragment();
+	public static FundHistoryFragment with(UUID fundId) {
+		FundHistoryFragment periodHistoryFragment = new FundHistoryFragment();
 		Bundle arguments = new Bundle(1);
 		arguments.putSerializable(EXTRA_FUND_ID, fundId);
 		periodHistoryFragment.setArguments(arguments);
@@ -57,7 +57,7 @@ public class ReallocateHistoryFragment extends BaseFragment implements Reallocat
 	public DateRangeView dateRangeView;
 
 	@BindView(R.id.group_no_reallocates)
-	public View groupNoReallocates;
+	public View groupNoHistory;
 
 	@BindView(R.id.recycler_view)
 	public RecyclerView recyclerView;
@@ -66,9 +66,9 @@ public class ReallocateHistoryFragment extends BaseFragment implements Reallocat
 	public int dateRangeMarginBottom;
 
 	@InjectPresenter
-	public ReallocateHistoryPresenter reallocateHistoryPresenter;
+	public FundHistoryPresenter presenter;
 
-	private ReallocateHistoryAdapter reallocateHistoryAdapter;
+	private FundHistoryAdapter fundHistoryAdapter;
 
 	private Unbinder unbinder;
 
@@ -80,14 +80,14 @@ public class ReallocateHistoryFragment extends BaseFragment implements Reallocat
 			DateRangeBottomSheetFragment bottomSheetDialog = new DateRangeBottomSheetFragment();
 			bottomSheetDialog.show(getActivity().getSupportFragmentManager(), bottomSheetDialog.getTag());
 			bottomSheetDialog.setDateRange(dateRange);
-			bottomSheetDialog.setListener(reallocateHistoryPresenter);
+			bottomSheetDialog.setListener(presenter);
 		}
 	}
 
 	@Nullable
 	@Override
 	public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-		return inflater.inflate(R.layout.fragment_reallocate_history, container, false);
+		return inflater.inflate(R.layout.fragment_fund_history, container, false);
 	}
 
 	@Override
@@ -99,7 +99,7 @@ public class ReallocateHistoryFragment extends BaseFragment implements Reallocat
 		setFonts();
 
 		if (getArguments() != null) {
-			reallocateHistoryPresenter.setFundId((UUID) getArguments().getSerializable(EXTRA_FUND_ID));
+			presenter.setFundId((UUID) getArguments().getSerializable(EXTRA_FUND_ID));
 
 			initRecyclerView();
 		}
@@ -126,8 +126,8 @@ public class ReallocateHistoryFragment extends BaseFragment implements Reallocat
 		LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
 		recyclerView.setLayoutManager(layoutManager);
 
-		reallocateHistoryAdapter = new ReallocateHistoryAdapter();
-		recyclerView.setAdapter(reallocateHistoryAdapter);
+		fundHistoryAdapter = new FundHistoryAdapter();
+		recyclerView.setAdapter(fundHistoryAdapter);
 
 		recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener()
 		{
@@ -139,36 +139,36 @@ public class ReallocateHistoryFragment extends BaseFragment implements Reallocat
 
 				boolean endHasBeenReached = lastVisible + 1 >= totalItemCount;
 				if (totalItemCount > 0 && endHasBeenReached) {
-					reallocateHistoryPresenter.onLastListItemVisible();
+					presenter.onLastListItemVisible();
 				}
 			}
 		});
 	}
 
 	@Override
-	public void setReallocates(List<ReallocationModel> reallocates) {
-		if (reallocates.isEmpty()) {
-			groupNoReallocates.setVisibility(View.VISIBLE);
+	public void setHistory(List<FundHistoryEventViewModel> history) {
+		if (history.isEmpty()) {
+			groupNoHistory.setVisibility(View.VISIBLE);
 			recyclerView.setVisibility(View.GONE);
 			return;
 		}
 
-		reallocateHistoryAdapter.setReallocates(reallocates);
-		groupNoReallocates.setVisibility(View.GONE);
+		fundHistoryAdapter.setHistory(history);
+		groupNoHistory.setVisibility(View.GONE);
 		recyclerView.setVisibility(View.VISIBLE);
 	}
 
 	@Override
-	public void addReallocates(List<ReallocationModel> reallocates) {
-		reallocateHistoryAdapter.addReallocates(reallocates);
+	public void addHistory(List<FundHistoryEventViewModel> history) {
+		fundHistoryAdapter.addHistory(history);
 	}
 
 	@Override
-	public void showReallocationDetails(ReallocationModel reallocation) {
+	public void showEventDetails(FundHistoryEventViewModel event) {
 		if (getActivity() != null) {
-			FundReallocationDetailsBottomSheetFragment bottomSheetFragment = new FundReallocationDetailsBottomSheetFragment();
+			FundHistoryDetailsBottomSheetFragment bottomSheetFragment = new FundHistoryDetailsBottomSheetFragment();
 			bottomSheetFragment.show(getActivity().getSupportFragmentManager(), bottomSheetFragment.getTag());
-			bottomSheetFragment.setData(reallocation);
+			bottomSheetFragment.setData(event);
 		}
 	}
 
@@ -194,8 +194,8 @@ public class ReallocateHistoryFragment extends BaseFragment implements Reallocat
 
 	@Override
 	public void pagerShow() {
-		if (reallocateHistoryPresenter != null) {
-			reallocateHistoryPresenter.onShow();
+		if (presenter != null) {
+			presenter.onShow();
 		}
 	}
 
@@ -204,8 +204,8 @@ public class ReallocateHistoryFragment extends BaseFragment implements Reallocat
 	}
 
 	public void onSwipeRefresh() {
-		if (reallocateHistoryPresenter != null) {
-			reallocateHistoryPresenter.onSwipeRefresh();
+		if (presenter != null) {
+			presenter.onSwipeRefresh();
 		}
 	}
 
