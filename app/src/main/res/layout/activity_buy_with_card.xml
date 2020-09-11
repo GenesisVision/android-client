@@ -26,7 +26,7 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:fontFamily="@font/montserrat_semibold"
-            android:text="@string/buy_with_card"
+            android:text="@string/top_up"
             android:textColor="?attr/colorTextPrimary"
             android:textSize="18sp"/>
 

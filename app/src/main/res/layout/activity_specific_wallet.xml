@@ -360,7 +360,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="10dp"
                                 android:fontFamily="@font/montserrat_semibold"
-                                android:text="@string/buy_with_card"
+                                android:text="@string/top_up"
                                 android:textColor="?attr/colorTextPrimary"
                                 android:textSize="14sp"/>
 

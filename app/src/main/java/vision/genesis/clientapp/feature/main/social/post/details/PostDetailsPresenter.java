@@ -8,7 +8,6 @@ import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 
 import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
 
 import java.io.File;
 import java.io.IOException;
@@ -31,14 +30,13 @@ import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
+import vision.genesis.clientapp.feature.main.profile.PictureChooserBottomSheetFragment;
 import vision.genesis.clientapp.feature.main.social.post.actions.SocialPostActionsBottomSheetFragment;
 import vision.genesis.clientapp.managers.FilesManager;
 import vision.genesis.clientapp.managers.ProfileManager;
 import vision.genesis.clientapp.managers.SocialManager;
 import vision.genesis.clientapp.model.SocialPostType;
 import vision.genesis.clientapp.model.UserDetailsModel;
-import vision.genesis.clientapp.model.events.OnPictureChooserCameraClickedEvent;
-import vision.genesis.clientapp.model.events.OnPictureChooserGalleryClickedEvent;
 import vision.genesis.clientapp.model.events.ShowUserDetailsEvent;
 import vision.genesis.clientapp.net.ApiErrorResolver;
 import vision.genesis.clientapp.ui.AutoCompleteGvAssetsView;
@@ -55,7 +53,7 @@ import vision.genesis.clientapp.utils.StringFormatUtil;
  */
 
 @InjectViewState
-public class PostDetailsPresenter extends MvpPresenter<PostDetailsView> implements NewPostImageView.PostImageClickListener, SocialCommentView.Listener, AutoCompleteGvAssetsView.Listener, SocialPostView.Listener
+public class PostDetailsPresenter extends MvpPresenter<PostDetailsView> implements NewPostImageView.PostImageClickListener, SocialCommentView.Listener, AutoCompleteGvAssetsView.Listener, SocialPostView.Listener, PictureChooserBottomSheetFragment.Listener
 {
 	private static final int MASK_MIN_LENGTH = 3;
 
@@ -106,8 +104,6 @@ public class PostDetailsPresenter extends MvpPresenter<PostDetailsView> implemen
 
 		GenesisVisionApplication.getComponent().inject(this);
 
-		EventBus.getDefault().register(this);
-
 		newComment.setImages(new ArrayList<>());
 
 		getProfileInfo();
@@ -131,8 +127,6 @@ public class PostDetailsPresenter extends MvpPresenter<PostDetailsView> implemen
 		if (getOriginalCommentSubscription != null) {
 			getOriginalCommentSubscription.unsubscribe();
 		}
-
-		EventBus.getDefault().unregister(this);
 
 		super.onDestroy();
 	}
@@ -315,28 +309,6 @@ public class PostDetailsPresenter extends MvpPresenter<PostDetailsView> implemen
 
 		ApiErrorResolver.resolveErrors(throwable,
 				message -> getViewState().showSnackbarMessage(message));
-	}
-
-	@Subscribe
-	public void onEventMainThread(OnPictureChooserCameraClickedEvent event) {
-		try {
-			newImageFile = imageUtils.createImageFile();
-			getViewState().openCamera(imageUtils, newImageFile);
-		} catch (IOException e) {
-			e.printStackTrace();
-			getViewState().showSnackbarMessage(e.getMessage());
-		}
-	}
-
-	@Subscribe
-	public void onEventMainThread(OnPictureChooserGalleryClickedEvent event) {
-		try {
-			newImageFile = imageUtils.createImageFile();
-			getViewState().openGallery(imageUtils);
-		} catch (IOException e) {
-			e.printStackTrace();
-			getViewState().showSnackbarMessage(e.getMessage());
-		}
 	}
 
 	@Override
@@ -537,5 +509,27 @@ public class PostDetailsPresenter extends MvpPresenter<PostDetailsView> implemen
 	@Override
 	public void onPostDeleted(Post post) {
 		getViewState().finishActivity();
+	}
+
+	@Override
+	public void onPictureChooserCameraClicked() {
+		try {
+			newImageFile = imageUtils.createImageFile();
+			getViewState().openCamera(imageUtils, newImageFile);
+		} catch (IOException e) {
+			e.printStackTrace();
+			getViewState().showSnackbarMessage(e.getMessage());
+		}
+	}
+
+	@Override
+	public void onPictureChooserGalleryClicked() {
+		try {
+			newImageFile = imageUtils.createImageFile();
+			getViewState().openGallery(imageUtils);
+		} catch (IOException e) {
+			e.printStackTrace();
+			getViewState().showSnackbarMessage(e.getMessage());
+		}
 	}
 }

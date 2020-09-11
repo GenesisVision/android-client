@@ -8,7 +8,6 @@ import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 
 import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
 
 import java.io.File;
 import java.io.IOException;
@@ -29,12 +28,11 @@ import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
+import vision.genesis.clientapp.feature.main.profile.PictureChooserBottomSheetFragment;
 import vision.genesis.clientapp.managers.FilesManager;
 import vision.genesis.clientapp.managers.SocialManager;
 import vision.genesis.clientapp.model.events.OnNewPostCreatedEvent;
 import vision.genesis.clientapp.model.events.OnNewPostEditedEvent;
-import vision.genesis.clientapp.model.events.OnPictureChooserCameraClickedEvent;
-import vision.genesis.clientapp.model.events.OnPictureChooserGalleryClickedEvent;
 import vision.genesis.clientapp.net.ApiErrorResolver;
 import vision.genesis.clientapp.ui.AutoCompleteGvAssetsView;
 import vision.genesis.clientapp.ui.NewPostImageView;
@@ -47,7 +45,7 @@ import vision.genesis.clientapp.utils.StringFormatUtil;
  */
 
 @InjectViewState
-public class CreatePostPresenter extends MvpPresenter<CreatePostView> implements NewPostImageView.PostImageClickListener, AutoCompleteGvAssetsView.Listener
+public class CreatePostPresenter extends MvpPresenter<CreatePostView> implements NewPostImageView.PostImageClickListener, AutoCompleteGvAssetsView.Listener, PictureChooserBottomSheetFragment.Listener
 {
 	private static final int MASK_MIN_LENGTH = 3;
 
@@ -87,8 +85,6 @@ public class CreatePostPresenter extends MvpPresenter<CreatePostView> implements
 
 		GenesisVisionApplication.getComponent().inject(this);
 
-		EventBus.getDefault().register(this);
-
 		post.setImages(new ArrayList<>());
 
 		if (postToEdit != null) {
@@ -108,14 +104,13 @@ public class CreatePostPresenter extends MvpPresenter<CreatePostView> implements
 			createPostSubscription.unsubscribe();
 		}
 
-		EventBus.getDefault().unregister(this);
-
 		super.onDestroy();
 	}
 
 	void setRepost(Post repost) {
 		this.repost = repost;
 		getViewState().showRepost(repost);
+		updatePublishButtonEnabled();
 	}
 
 	void setPostToEdit(Post postToEdit) {
@@ -202,12 +197,12 @@ public class CreatePostPresenter extends MvpPresenter<CreatePostView> implements
 			getOriginalPostSubscription = socialManager.getOriginalPost(postId)
 					.subscribeOn(Schedulers.io())
 					.observeOn(AndroidSchedulers.mainThread())
-					.subscribe(this::handleGetOriginalCommentSuccess,
-							this::handleGetOriginalCommentError);
+					.subscribe(this::handleGetOriginalPostSuccess,
+							this::handleGetOriginalPostError);
 		}
 	}
 
-	private void handleGetOriginalCommentSuccess(EditablePost post) {
+	private void handleGetOriginalPostSuccess(EditablePost post) {
 		getOriginalPostSubscription.unsubscribe();
 
 		editPost = new EditPost();
@@ -230,7 +225,7 @@ public class CreatePostPresenter extends MvpPresenter<CreatePostView> implements
 		getViewState().showProgressBar(false);
 	}
 
-	private void handleGetOriginalCommentError(Throwable throwable) {
+	private void handleGetOriginalPostError(Throwable throwable) {
 		getOriginalPostSubscription.unsubscribe();
 		ApiErrorResolver.resolveErrors(throwable, message -> getViewState().showSnackbarMessage(message));
 	}
@@ -287,7 +282,8 @@ public class CreatePostPresenter extends MvpPresenter<CreatePostView> implements
 
 	private boolean isPostEmpty(NewPost post) {
 		return (post.getText() == null || post.getText().isEmpty())
-				&& (post.getImages() == null || post.getImages().isEmpty());
+				&& (post.getImages() == null || post.getImages().isEmpty())
+				&& repost == null;
 	}
 
 	private void uploadImage() {
@@ -302,7 +298,6 @@ public class CreatePostPresenter extends MvpPresenter<CreatePostView> implements
 	private void handleUploadImageResponse(UploadResult response) {
 		uploadImageSubscription.unsubscribe();
 		getViewState().updateNewImageView(response.getId().toString());
-		updatePublishButtonEnabled();
 
 		NewPostImage newPostImage = new NewPostImage();
 		newPostImage.setImage(response.getId().toString());
@@ -310,6 +305,8 @@ public class CreatePostPresenter extends MvpPresenter<CreatePostView> implements
 		post.getImages().add(newPostImage);
 
 		ImageUtils.deleteTempFile(newImageFile);
+
+		updatePublishButtonEnabled();
 	}
 
 	private void handleUploadImageError(Throwable throwable) {
@@ -320,28 +317,6 @@ public class CreatePostPresenter extends MvpPresenter<CreatePostView> implements
 
 		ApiErrorResolver.resolveErrors(throwable,
 				message -> getViewState().showSnackbarMessage(message));
-	}
-
-	@Subscribe
-	public void onEventMainThread(OnPictureChooserCameraClickedEvent event) {
-		try {
-			newImageFile = imageUtils.createImageFile();
-			getViewState().openCamera(imageUtils, newImageFile);
-		} catch (IOException e) {
-			e.printStackTrace();
-			getViewState().showSnackbarMessage(e.getMessage());
-		}
-	}
-
-	@Subscribe
-	public void onEventMainThread(OnPictureChooserGalleryClickedEvent event) {
-		try {
-			newImageFile = imageUtils.createImageFile();
-			getViewState().openGallery(imageUtils);
-		} catch (IOException e) {
-			e.printStackTrace();
-			getViewState().showSnackbarMessage(e.getMessage());
-		}
 	}
 
 	@Override
@@ -382,5 +357,27 @@ public class CreatePostPresenter extends MvpPresenter<CreatePostView> implements
 
 	public void setUserId(UUID userId) {
 		post.setUserId(userId);
+	}
+
+	@Override
+	public void onPictureChooserCameraClicked() {
+		try {
+			newImageFile = imageUtils.createImageFile();
+			getViewState().openCamera(imageUtils, newImageFile);
+		} catch (IOException e) {
+			e.printStackTrace();
+			getViewState().showSnackbarMessage(e.getMessage());
+		}
+	}
+
+	@Override
+	public void onPictureChooserGalleryClicked() {
+		try {
+			newImageFile = imageUtils.createImageFile();
+			getViewState().openGallery(imageUtils);
+		} catch (IOException e) {
+			e.printStackTrace();
+			getViewState().showSnackbarMessage(e.getMessage());
+		}
 	}
 }

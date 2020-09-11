@@ -5,11 +5,7 @@ import android.view.View;
 
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
-import org.greenrobot.eventbus.EventBus;
-
 import vision.genesis.clientapp.R;
-import vision.genesis.clientapp.model.events.OnPictureChooserCameraClickedEvent;
-import vision.genesis.clientapp.model.events.OnPictureChooserGalleryClickedEvent;
 
 /**
  * GenesisVisionAndroid
@@ -18,6 +14,15 @@ import vision.genesis.clientapp.model.events.OnPictureChooserGalleryClickedEvent
 
 public class PictureChooserBottomSheetFragment extends BottomSheetDialogFragment
 {
+	public interface Listener
+	{
+		void onPictureChooserCameraClicked();
+
+		void onPictureChooserGalleryClicked();
+	}
+
+	private Listener listener;
+
 	@Override
 	public void setupDialog(Dialog dialog, int style) {
 		super.setupDialog(dialog, style);
@@ -25,12 +30,20 @@ public class PictureChooserBottomSheetFragment extends BottomSheetDialogFragment
 		dialog.setContentView(contentView);
 
 		contentView.findViewById(R.id.camera).setOnClickListener(v -> {
-			EventBus.getDefault().post(new OnPictureChooserCameraClickedEvent());
+			if (listener != null) {
+				listener.onPictureChooserCameraClicked();
+			}
 			this.dismiss();
 		});
 		contentView.findViewById(R.id.gallery).setOnClickListener(v -> {
-			EventBus.getDefault().post(new OnPictureChooserGalleryClickedEvent());
+			if (listener != null) {
+				listener.onPictureChooserGalleryClicked();
+			}
 			this.dismiss();
 		});
+	}
+
+	public void setListener(Listener listener) {
+		this.listener = listener;
 	}
 }

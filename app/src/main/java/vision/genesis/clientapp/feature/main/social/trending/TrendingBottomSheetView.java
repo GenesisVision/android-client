@@ -204,7 +204,7 @@ public class TrendingBottomSheetView extends RelativeLayout implements SocialTag
 		addTag("#".concat(topAsset.getAsset()), null);
 	}
 
-	private void addTag(String hashTag, UUID contentId) {
+	public void addTag(String hashTag, UUID contentId) {
 		for (String tag : hashTags) {
 			if (tag.equals(hashTag)) {
 				showToast(getContext().getString(R.string.error_hashtag_added));

@@ -31,6 +31,7 @@ import vision.genesis.clientapp.model.User;
 import vision.genesis.clientapp.model.events.OnAddNewPostClickedEvent;
 import vision.genesis.clientapp.model.events.OnFollowFacetClickedEvent;
 import vision.genesis.clientapp.model.events.OnFundFacetClickedEvent;
+import vision.genesis.clientapp.model.events.OnHashTagClickedEvent;
 import vision.genesis.clientapp.model.events.OnProgramFacetClickedEvent;
 import vision.genesis.clientapp.model.events.OnShowMediaActivityEvent;
 import vision.genesis.clientapp.model.events.OnShowRepostEvent;
@@ -485,6 +486,11 @@ public class MainPresenter extends MvpPresenter<MainView>
 	@Subscribe
 	public void onEventMainThread(ShowFeedActivityEvent event) {
 		getViewState().showSocialActivity(event.getType());
+	}
+
+	@Subscribe
+	public void onEventMainThread(OnHashTagClickedEvent event) {
+		getViewState().showSocialActivityWithTag(event.getHashTag());
 	}
 
 	@Subscribe

@@ -97,6 +97,8 @@ public interface MainView extends MvpView
 
 	void showSocialActivity(String showPage);
 
+	void showSocialActivityWithTag(String hashTag);
+
 	void showMediaActivity();
 
 	void showUsersListActivity();

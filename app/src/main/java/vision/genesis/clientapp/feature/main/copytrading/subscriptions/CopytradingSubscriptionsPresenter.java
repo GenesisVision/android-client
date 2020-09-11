@@ -20,6 +20,8 @@ import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.managers.FollowsManager;
 import vision.genesis.clientapp.model.events.ShowCopytradingCommissionsEvent;
+import vision.genesis.clientapp.model.events.ShowEditSubscriptionEvent;
+import vision.genesis.clientapp.model.events.ShowUnfollowTradesEvent;
 import vision.genesis.clientapp.net.ApiErrorResolver;
 
 /**
@@ -38,6 +40,8 @@ public class CopytradingSubscriptionsPresenter extends MvpPresenter<CopytradingS
 	private Subscription getSubscriptionsSubscription;
 
 	private UUID accountId;
+
+	private boolean isActive = true;
 
 	@Override
 	protected void onFirstViewAttach() {
@@ -70,7 +74,12 @@ public class CopytradingSubscriptionsPresenter extends MvpPresenter<CopytradingS
 	}
 
 	void onShow() {
+		isActive = true;
 		getSubscriptions();
+	}
+
+	void onHide() {
+		isActive = false;
 	}
 
 	void onSwipeRefresh() {
@@ -120,5 +129,19 @@ public class CopytradingSubscriptionsPresenter extends MvpPresenter<CopytradingS
 	@Subscribe
 	public void onEventMainThread(ShowCopytradingCommissionsEvent event) {
 
+	}
+
+	@Subscribe
+	public void onEventMainThread(ShowEditSubscriptionEvent event) {
+		if (isActive) {
+			getViewState().showEditSubscriptionActivity(event.getModel(), event.getFollowId(), event.getTradingAccountId(), event.getExternal());
+		}
+	}
+
+	@Subscribe
+	public void onEventMainThread(ShowUnfollowTradesEvent event) {
+		if (isActive) {
+			getViewState().showUnfollowTradesActivity(event.getFollowId(), event.getTradingAccountId(), event.getFollowName(), event.isExternal());
+		}
 	}
 }

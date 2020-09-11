@@ -446,7 +446,12 @@ public class MainActivity extends MvpAppCompatActivity implements MainView, Bloc
 
 	@Override
 	public void showSocialActivity(String showPage) {
-		SocialActivity.startWith(this, showPage);
+		SocialActivity.startWith(this, showPage, null);
+	}
+
+	@Override
+	public void showSocialActivityWithTag(String hashTag) {
+		SocialActivity.startWith(this, null, hashTag);
 	}
 
 	@Override

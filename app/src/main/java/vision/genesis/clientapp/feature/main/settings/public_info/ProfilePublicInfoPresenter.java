@@ -7,7 +7,6 @@ import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 
 import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
 
 import java.io.File;
 import java.io.IOException;
@@ -22,10 +21,9 @@ import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
+import vision.genesis.clientapp.feature.main.profile.PictureChooserBottomSheetFragment;
 import vision.genesis.clientapp.managers.FilesManager;
 import vision.genesis.clientapp.managers.ProfileManager;
-import vision.genesis.clientapp.model.events.OnPictureChooserCameraClickedEvent;
-import vision.genesis.clientapp.model.events.OnPictureChooserGalleryClickedEvent;
 import vision.genesis.clientapp.model.events.OnProfilePublicInfoFilledEvent;
 import vision.genesis.clientapp.net.ApiErrorResolver;
 import vision.genesis.clientapp.utils.Constants;
@@ -37,7 +35,7 @@ import vision.genesis.clientapp.utils.ImageUtils;
  */
 
 @InjectViewState
-public class ProfilePublicInfoPresenter extends MvpPresenter<ProfilePublicInfoView>
+public class ProfilePublicInfoPresenter extends MvpPresenter<ProfilePublicInfoView> implements PictureChooserBottomSheetFragment.Listener
 {
 	@Inject
 	public Context context;
@@ -79,8 +77,6 @@ public class ProfilePublicInfoPresenter extends MvpPresenter<ProfilePublicInfoVi
 
 		GenesisVisionApplication.getComponent().inject(this);
 
-		EventBus.getDefault().register(this);
-
 		getProfileInfo();
 	}
 
@@ -98,8 +94,6 @@ public class ProfilePublicInfoPresenter extends MvpPresenter<ProfilePublicInfoVi
 		if (updateAvatarSubscription != null) {
 			updateAvatarSubscription.unsubscribe();
 		}
-
-		EventBus.getDefault().unregister(this);
 
 		super.onDestroy();
 	}
@@ -325,9 +319,8 @@ public class ProfilePublicInfoPresenter extends MvpPresenter<ProfilePublicInfoVi
 				message -> getViewState().showSnackbarMessage(message));
 	}
 
-
-	@Subscribe
-	public void onEventMainThread(OnPictureChooserCameraClickedEvent event) {
+	@Override
+	public void onPictureChooserCameraClicked() {
 		try {
 			newLogoFile = imageUtils.createImageFile();
 			getViewState().openCamera(imageUtils, newLogoFile);
@@ -337,8 +330,8 @@ public class ProfilePublicInfoPresenter extends MvpPresenter<ProfilePublicInfoVi
 		}
 	}
 
-	@Subscribe
-	public void onEventMainThread(OnPictureChooserGalleryClickedEvent event) {
+	@Override
+	public void onPictureChooserGalleryClicked() {
 		try {
 			newLogoFile = imageUtils.createImageFile();
 			getViewState().openGallery(imageUtils);

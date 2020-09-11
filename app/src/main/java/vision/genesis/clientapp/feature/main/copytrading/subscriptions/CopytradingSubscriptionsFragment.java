@@ -21,7 +21,10 @@ import io.swagger.client.model.SignalSubscription;
 import timber.log.Timber;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
-import vision.genesis.clientapp.feature.main.dashboard.old.investor.DashboardPagerAdapter;
+import vision.genesis.clientapp.feature.main.copytrading.details.CopytradingDetailsPagerAdapter;
+import vision.genesis.clientapp.feature.main.copytrading.edit_subscription.EditSubscriptionActivity;
+import vision.genesis.clientapp.feature.main.copytrading.unfollow_trades.UnfollowTradesActivity;
+import vision.genesis.clientapp.model.SubscriptionSettingsModel;
 import vision.genesis.clientapp.ui.SignalProviderView;
 import vision.genesis.clientapp.utils.TypefaceUtil;
 
@@ -30,7 +33,7 @@ import vision.genesis.clientapp.utils.TypefaceUtil;
  * Created by Vitaly on 20/12/2019.
  */
 
-public class CopytradingSubscriptionsFragment extends BaseFragment implements CopytradingSubscriptionsView, DashboardPagerAdapter.OnPageVisibilityChanged
+public class CopytradingSubscriptionsFragment extends BaseFragment implements CopytradingSubscriptionsView, CopytradingDetailsPagerAdapter.OnPageVisibilityChanged
 {
 	private static final String EXTRA_ACCOUNT_ID = "extra_account_id";
 
@@ -147,6 +150,20 @@ public class CopytradingSubscriptionsFragment extends BaseFragment implements Co
 	}
 
 	@Override
+	public void showEditSubscriptionActivity(SubscriptionSettingsModel model, UUID followId, UUID tradingAccountId, Boolean isExternal) {
+		if (getActivity() != null) {
+			EditSubscriptionActivity.startWith(getActivity(), model, followId, tradingAccountId, isExternal);
+		}
+	}
+
+	@Override
+	public void showUnfollowTradesActivity(UUID followId, UUID tradingAccountId, String followName, Boolean isExternal) {
+		if (getActivity() != null) {
+			UnfollowTradesActivity.startWith(getActivity(), followId, tradingAccountId, followName, isExternal);
+		}
+	}
+
+	@Override
 	public void showProgress(boolean show) {
 		if (progressBar != null) {
 			progressBar.setVisibility(show ? View.VISIBLE : View.INVISIBLE);
@@ -171,6 +188,9 @@ public class CopytradingSubscriptionsFragment extends BaseFragment implements Co
 
 	@Override
 	public void pagerHide() {
+		if (presenter != null) {
+			presenter.onHide();
+		}
 	}
 
 	public void onSwipeRefresh() {

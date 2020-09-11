@@ -17,7 +17,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import io.swagger.client.model.AssetDetails;
-import io.swagger.client.model.InvestmentEventItemViewModel;
 import io.swagger.client.model.InvestmentEventViewModel;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.model.events.ShowEventDetailsEvent;
@@ -137,12 +136,13 @@ public class PortfolioEventDashboardView extends RelativeLayout
 
 		value.setVisibility(View.VISIBLE);
 		valueLabel.setVisibility(View.VISIBLE);
-		if (event.getExtendedInfo() != null && event.getExtendedInfo().size() > 0) {
-			InvestmentEventItemViewModel info = event.getExtendedInfo().get(0);
-			value.setText(StringFormatUtil.getValueString(info.getAmount(), info.getCurrency().getValue()));
-			valueLabel.setText(info.getTitle());
-		}
-		else if (event.getAmount() != null) {
+//		if (event.getExtendedInfo() != null && event.getExtendedInfo().size() > 0) {
+//			InvestmentEventItemViewModel info = event.getExtendedInfo().get(0);
+//			value.setText(StringFormatUtil.getValueString(info.getAmount(), info.getCurrency().getValue()));
+//			valueLabel.setText(info.getTitle());
+//		}
+//		else if (event.getAmount() != null) {
+		if (event.getAmount() != null) {
 			value.setText(StringFormatUtil.getValueString(event.getAmount(), event.getCurrency().getValue()));
 			valueLabel.setVisibility(View.GONE);
 		}

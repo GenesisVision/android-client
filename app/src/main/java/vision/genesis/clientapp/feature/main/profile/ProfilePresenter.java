@@ -6,9 +6,6 @@ import android.net.Uri;
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-
 import java.io.File;
 import java.io.IOException;
 
@@ -27,8 +24,6 @@ import vision.genesis.clientapp.managers.ProfileManager;
 import vision.genesis.clientapp.model.User;
 import vision.genesis.clientapp.model.api.Error;
 import vision.genesis.clientapp.model.api.ErrorResponse;
-import vision.genesis.clientapp.model.events.OnPictureChooserCameraClickedEvent;
-import vision.genesis.clientapp.model.events.OnPictureChooserGalleryClickedEvent;
 import vision.genesis.clientapp.net.ApiErrorResolver;
 import vision.genesis.clientapp.net.ErrorResponseConverter;
 import vision.genesis.clientapp.utils.ImageUtils;
@@ -39,7 +34,7 @@ import vision.genesis.clientapp.utils.ImageUtils;
  */
 
 @InjectViewState
-public class ProfilePresenter extends MvpPresenter<ProfileView>
+public class ProfilePresenter extends MvpPresenter<ProfileView> implements PictureChooserBottomSheetFragment.Listener
 {
 	@Inject
 	public Context context;
@@ -78,16 +73,12 @@ public class ProfilePresenter extends MvpPresenter<ProfileView>
 
 		GenesisVisionApplication.getComponent().inject(this);
 
-		EventBus.getDefault().register(this);
-
 		subscribeToUser();
 		getProfile();
 	}
 
 	@Override
 	public void onDestroy() {
-		EventBus.getDefault().unregister(this);
-
 		if (userSubscription != null) {
 			userSubscription.unsubscribe();
 		}
@@ -302,8 +293,8 @@ public class ProfilePresenter extends MvpPresenter<ProfileView>
 		return newProfile;
 	}
 
-	@Subscribe
-	public void onEventMainThread(OnPictureChooserCameraClickedEvent event) {
+	@Override
+	public void onPictureChooserCameraClicked() {
 		try {
 			newAvatarFile = imageUtils.createImageFile();
 			getViewState().openCamera(imageUtils, newAvatarFile);
@@ -313,8 +304,8 @@ public class ProfilePresenter extends MvpPresenter<ProfileView>
 		}
 	}
 
-	@Subscribe
-	public void onEventMainThread(OnPictureChooserGalleryClickedEvent event) {
+	@Override
+	public void onPictureChooserGalleryClicked() {
 		try {
 			newAvatarFile = imageUtils.createImageFile();
 			getViewState().openGallery(imageUtils);

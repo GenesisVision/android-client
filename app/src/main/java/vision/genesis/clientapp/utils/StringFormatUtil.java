@@ -81,7 +81,10 @@ public class StringFormatUtil
 			shortenedAmount.amount = formatAmount(amountValue / 1000, 0, 1);
 			shortenedAmount.modifier = "k";
 		}
-		else if (Math.abs(amountValue) < 1) {
+		else if (Math.abs(amountValue) < 10) {
+			shortenedAmount.amount = formatAmount(amountValue, 0, 4);
+		}
+		else if (Math.abs(amountValue) >= 10 && Math.abs(amountValue) < 1000) {
 			shortenedAmount.amount = formatAmount(amountValue, 0, 2);
 		}
 		else {

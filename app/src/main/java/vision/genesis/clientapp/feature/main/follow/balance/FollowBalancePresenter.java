@@ -6,7 +6,6 @@ import com.arellomobile.mvp.MvpPresenter;
 import javax.inject.Inject;
 
 import io.swagger.client.model.AccountBalanceChart;
-import io.swagger.client.model.Currency;
 import io.swagger.client.model.ProgramFollowDetailsFull;
 import io.swagger.client.model.SimpleChartPoint;
 import rx.Subscription;
@@ -47,7 +46,7 @@ public class FollowBalancePresenter extends MvpPresenter<FollowBalanceView> impl
 
 	private DateRange chartDateRange = DateRange.createFromEnum(DateRange.DateRangeEnum.MONTH);
 
-	private Currency baseCurrency;
+//	private Currency baseCurrency;
 
 	private ProgramFollowDetailsFull details;
 
@@ -59,7 +58,8 @@ public class FollowBalancePresenter extends MvpPresenter<FollowBalanceView> impl
 
 		getViewState().setDateRange(chartDateRange);
 		getViewState().showProgress(true);
-		subscribeToBaseCurrency();
+//		subscribeToBaseCurrency();
+		getChartData();
 	}
 
 	@Override
@@ -93,17 +93,17 @@ public class FollowBalancePresenter extends MvpPresenter<FollowBalanceView> impl
 	}
 
 	private void baseCurrencyChangedHandler(CurrencyEnum baseCurrency) {
-		this.baseCurrency = Currency.fromValue(baseCurrency.getValue());
+//		this.baseCurrency = Currency.fromValue(baseCurrency.getValue());
 		getChartData();
 	}
 
 	private void getChartData() {
-		if (baseCurrency != null && details != null && followsManager != null) {
+		if (details != null && followsManager != null) {
 			if (chartDataSubscription != null) {
 				chartDataSubscription.unsubscribe();
 			}
 
-			chartDataSubscription = followsManager.getBalanceChart(details.getId(), chartDateRange, 30, baseCurrency)
+			chartDataSubscription = followsManager.getBalanceChart(details.getId(), chartDateRange, 30, details.getTradingAccountInfo().getCurrency())
 					.observeOn(AndroidSchedulers.mainThread())
 					.subscribeOn(Schedulers.io())
 					.subscribe(this::handleGetFollowChartDataSuccess,
@@ -117,7 +117,7 @@ public class FollowBalancePresenter extends MvpPresenter<FollowBalanceView> impl
 
 		this.chartData = response;
 
-		getViewState().setAmount(StringFormatUtil.getValueString(chartData.getBalance(), baseCurrency.getValue()));
+		getViewState().setAmount(StringFormatUtil.getValueString(chartData.getBalance(), details.getTradingAccountInfo().getCurrency().getValue()));
 		getViewState().setChartData(chartData.getChart());
 
 		resetValuesSelection();
@@ -162,7 +162,7 @@ public class FollowBalancePresenter extends MvpPresenter<FollowBalanceView> impl
 		getViewState().setChange(changeValue < 0,
 				StringFormatUtil.getChangePercentString(first, selected),
 				StringFormatUtil.getChangeValueString(changeValue),
-				StringFormatUtil.getValueString(changeValue, baseCurrency.getValue()));
+				StringFormatUtil.getValueString(changeValue, details.getTradingAccountInfo().getCurrency().getValue()));
 	}
 
 	@Override

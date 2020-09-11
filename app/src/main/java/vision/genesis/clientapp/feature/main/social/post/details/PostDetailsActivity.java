@@ -503,6 +503,7 @@ public class PostDetailsActivity extends BaseSwipeBackActivity implements PostDe
 	@NeedsPermission({Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE})
 	void showPictureChooser() {
 		PictureChooserBottomSheetFragment bottomSheetDialog = new PictureChooserBottomSheetFragment();
+		bottomSheetDialog.setListener(presenter);
 		bottomSheetDialog.show(getSupportFragmentManager(), bottomSheetDialog.getTag());
 	}
 

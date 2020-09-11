@@ -399,6 +399,7 @@ public class ProfileActivity extends BaseSwipeBackActivity implements ProfileVie
 	@NeedsPermission({Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE})
 	void showPictureChooser() {
 		PictureChooserBottomSheetFragment bottomSheetDialog = new PictureChooserBottomSheetFragment();
+		bottomSheetDialog.setListener(profilePresenter);
 		bottomSheetDialog.show(this.getSupportFragmentManager(), bottomSheetDialog.getTag());
 	}
 

@@ -41,9 +41,14 @@ public class SocialActivity extends BaseSwipeBackActivity implements SocialView,
 {
 	private static final String EXTRA_SHOW_PAGE = "extra_show_page";
 
-	public static void startWith(Activity activity, String showPage) {
+	private static final String EXTRA_HASH_TAG = "extra_hash_tag";
+
+	public static void startWith(Activity activity, String showPage, String hashTag) {
 		Intent intent = new Intent(activity.getApplicationContext(), SocialActivity.class);
 		intent.putExtra(EXTRA_SHOW_PAGE, showPage);
+		intent.putExtra(EXTRA_HASH_TAG, hashTag);
+		intent.addFlags(Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT);
+		intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 		activity.startActivity(intent);
 		activity.overridePendingTransition(R.anim.activity_slide_from_right, R.anim.hold);
 	}
@@ -86,6 +91,8 @@ public class SocialActivity extends BaseSwipeBackActivity implements SocialView,
 
 	private String showPage;
 
+	private String hashTag;
+
 	private PostsListFragment postsListFragment;
 
 	@OnClick(R.id.button_back)
@@ -120,12 +127,16 @@ public class SocialActivity extends BaseSwipeBackActivity implements SocialView,
 
 		if (getIntent().getExtras() != null && !getIntent().getExtras().isEmpty()) {
 			showPage = getIntent().getExtras().getString(EXTRA_SHOW_PAGE);
+			hashTag = getIntent().getExtras().getString(EXTRA_HASH_TAG);
 		}
 
 		initListener();
 		initTabs();
 
 		trendingView.setListener(presenter);
+		if (hashTag != null && !hashTag.isEmpty()) {
+			trendingView.addTag(hashTag, null);
+		}
 	}
 
 	private void initListener() {

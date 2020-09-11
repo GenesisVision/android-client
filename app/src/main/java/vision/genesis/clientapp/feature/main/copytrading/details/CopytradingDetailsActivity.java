@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.fragment.app.Fragment;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import androidx.viewpager.widget.ViewPager;
 
@@ -81,6 +82,8 @@ public class CopytradingDetailsActivity extends BaseSwipeBackActivity implements
 	private TradingAccountDetailsModel model;
 
 	private boolean isPagerDragging;
+
+	private Fragment currentFragment;
 
 	@OnClick(R.id.button_back)
 	public void onBackClicked() {
@@ -251,6 +254,13 @@ public class CopytradingDetailsActivity extends BaseSwipeBackActivity implements
 
 	@Override
 	public void onPageSelected(int position) {
+		if (currentFragment != null && currentFragment instanceof CopytradingDetailsPagerAdapter.OnPageVisibilityChanged) {
+			((CopytradingDetailsPagerAdapter.OnPageVisibilityChanged) currentFragment).pagerHide();
+		}
+		currentFragment = pagerAdapter.getItem(position);
+		if (pagerAdapter.getItem(position) instanceof CopytradingDetailsPagerAdapter.OnPageVisibilityChanged) {
+			((CopytradingDetailsPagerAdapter.OnPageVisibilityChanged) pagerAdapter.getItem(position)).pagerShow();
+		}
 	}
 
 	@Override
