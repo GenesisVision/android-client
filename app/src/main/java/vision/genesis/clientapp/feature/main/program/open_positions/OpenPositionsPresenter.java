@@ -57,10 +57,7 @@ public class OpenPositionsPresenter extends MvpPresenter<OpenPositionsView>
 		EventBus.getDefault().register(this);
 
 		getViewState().showProgress(true);
-
-		if (programId != null) {
-			getOpenPositions();
-		}
+		getOpenPositions();
 	}
 
 	@Override
@@ -76,9 +73,7 @@ public class OpenPositionsPresenter extends MvpPresenter<OpenPositionsView>
 
 	void setProgramId(UUID programId) {
 		this.programId = programId;
-		if (programsManager != null) {
-			getOpenPositions();
-		}
+		getOpenPositions();
 	}
 
 	void onShow() {
@@ -91,8 +86,7 @@ public class OpenPositionsPresenter extends MvpPresenter<OpenPositionsView>
 	}
 
 	private void getOpenPositions() {
-		if (programId != null) {
-
+		if (programsManager != null && programId != null) {
 			if (positionsSubscription != null) {
 				positionsSubscription.unsubscribe();
 			}

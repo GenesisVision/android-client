@@ -30,8 +30,8 @@ android {
         targetSdkVersion 29
         multiDexEnabled true
 
-        versionCode 20091101
-        versionName "2.2.1.4"
+        versionCode 20092201
+        versionName "2.3.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
         renderscriptTargetApi 29
@@ -148,7 +148,7 @@ dependencies {
     annotationProcessor 'tech.schoolhelper:moxy-x-compiler:1.7.0'
 
     implementation "com.jakewharton:butterknife:10.1.0"
-    implementation "com.jakewharton.timber:timber:4.1.0"
+    implementation "com.jakewharton.timber:timber:4.7.1"
     implementation "com.jakewharton.rxbinding:rxbinding-appcompat-v7:0.3.0"
 
     implementation "com.google.dagger:dagger:2.11"

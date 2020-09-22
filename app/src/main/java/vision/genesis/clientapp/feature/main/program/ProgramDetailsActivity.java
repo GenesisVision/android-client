@@ -479,8 +479,6 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 			addPage(tradesTab, false);
 			addPage(periodHistoryTab, false);
 		}
-
-		finishInit();
 	}
 
 	@Override
@@ -494,8 +492,6 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 			addPage(openPositionsTab, false);
 			addPage(tradesTab, false);
 		}
-
-		finishInit();
 	}
 
 	@Override
@@ -510,15 +506,11 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 		if (this.details != null && details.getProgramDetails() != null) {
 			addPage(periodHistoryTab, false);
 		}
-
-		finishInit();
 	}
 
-	private void finishInit() {
-		if (details != null && (details.getPublicInfo().isIsOwnAsset() ||
-				(details.getProgramDetails() != null
-						&& details.getProgramDetails().getPersonalDetails() != null
-						&& details.getProgramDetails().getPersonalDetails().isIsInvested()))) {
+	@Override
+	public void finishInit(boolean showEvents) {
+		if (showEvents) {
 			addPage(eventsTab, false);
 		}
 		if (pagerAdapter == null) {
@@ -643,7 +635,9 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 
 	@Override
 	public void setEventsCount(Integer eventsCount) {
-		((DetailsTabView) eventsTab.getCustomView()).setCount(eventsCount);
+		if (eventsTab != null) {
+			((DetailsTabView) eventsTab.getCustomView()).setCount(eventsCount);
+		}
 	}
 
 	@Override

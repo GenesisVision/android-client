@@ -13,6 +13,7 @@ import java.util.UUID;
 import javax.inject.Inject;
 
 import io.swagger.client.model.AssetType;
+import io.swagger.client.model.InvestmentEventViewModels;
 import io.swagger.client.model.ProgramFollowDetailsFull;
 import rx.Observable;
 import rx.Subscription;
@@ -23,6 +24,7 @@ import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.managers.AuthManager;
 import vision.genesis.clientapp.managers.FollowsManager;
 import vision.genesis.clientapp.managers.ProgramsManager;
+import vision.genesis.clientapp.model.DateRange;
 import vision.genesis.clientapp.model.ProgramDetailsModel;
 import vision.genesis.clientapp.model.User;
 import vision.genesis.clientapp.model.events.OnFollowFavoriteChangedEvent;
@@ -58,6 +60,8 @@ public class ProgramDetailsPresenter extends MvpPresenter<ProgramDetailsView>
 
 	private Subscription programFollowDetailsSubscription;
 
+	private Subscription eventsSubscription;
+
 	private Subscription setProgramFavoriteSubscription;
 
 	private ProgramDetailsModel model;
@@ -84,6 +88,9 @@ public class ProgramDetailsPresenter extends MvpPresenter<ProgramDetailsView>
 		}
 		if (programFollowDetailsSubscription != null) {
 			programFollowDetailsSubscription.unsubscribe();
+		}
+		if (eventsSubscription != null) {
+			eventsSubscription.unsubscribe();
 		}
 		if (setProgramFavoriteSubscription != null) {
 			setProgramFavoriteSubscription.unsubscribe();
@@ -144,7 +151,6 @@ public class ProgramDetailsPresenter extends MvpPresenter<ProgramDetailsView>
 
 	private void handleProgramFollowDetailsSuccess(ProgramFollowDetailsFull details) {
 		programFollowDetailsSubscription.unsubscribe();
-		hideProgress();
 
 		this.details = details;
 
@@ -159,6 +165,7 @@ public class ProgramDetailsPresenter extends MvpPresenter<ProgramDetailsView>
 				getViewState().showFollow(details);
 			}
 		}
+		getEvents();
 	}
 
 	private void handleProgramFollowDetailsError(Throwable throwable) {
@@ -178,6 +185,34 @@ public class ProgramDetailsPresenter extends MvpPresenter<ProgramDetailsView>
 		else {
 			ApiErrorResolver.resolveErrors(throwable, message -> getViewState().showSnackbarMessage(message));
 		}
+	}
+
+	private void getEvents() {
+		if (model != null) {
+			if (eventsSubscription != null) {
+				eventsSubscription.unsubscribe();
+			}
+			eventsSubscription = programsManager.getEvents(model.getProgramId(), DateRange.createFromEnum(DateRange.DateRangeEnum.ALL_TIME), 0, 1)
+					.observeOn(AndroidSchedulers.mainThread())
+					.subscribeOn(Schedulers.io())
+					.subscribe(this::handleGetEventsResponse,
+							this::handleGetEventsError);
+		}
+	}
+
+	private void handleGetEventsResponse(InvestmentEventViewModels response) {
+		eventsSubscription.unsubscribe();
+		hideProgress();
+
+		getViewState().finishInit(response.getTotal() > 0);
+		getViewState().setEventsCount(response.getTotal());
+	}
+
+	private void handleGetEventsError(Throwable throwable) {
+		eventsSubscription.unsubscribe();
+		hideProgress();
+
+		getViewState().finishInit(false);
 	}
 
 	private void hideProgress() {

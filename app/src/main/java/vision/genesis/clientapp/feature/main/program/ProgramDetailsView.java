@@ -27,6 +27,9 @@ interface ProgramDetailsView extends MvpView
 	void showOwner(ProgramFollowDetailsFull details);
 
 	@StateStrategyType(OneExecutionStateStrategy.class)
+	void finishInit(boolean showEvents);
+
+	@StateStrategyType(OneExecutionStateStrategy.class)
 	void finishActivity();
 
 	void showToast(String message);
