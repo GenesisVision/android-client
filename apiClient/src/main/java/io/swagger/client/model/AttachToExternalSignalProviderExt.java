@@ -40,9 +40,6 @@ public class AttachToExternalSignalProviderExt implements Parcelable
 		}
 	};
 
-	@SerializedName("tradingAccountId")
-	private UUID tradingAccountId = null;
-
 	@SerializedName("mode")
 	private SubscriptionMode mode = null;
 
@@ -58,35 +55,19 @@ public class AttachToExternalSignalProviderExt implements Parcelable
 	@SerializedName("fixedCurrency")
 	private Currency fixedCurrency = null;
 
+	@SerializedName("tradingAccountId")
+	private UUID tradingAccountId = null;
+
 	public AttachToExternalSignalProviderExt() {
 	}
 
 	AttachToExternalSignalProviderExt(Parcel in) {
-		tradingAccountId = (UUID) in.readValue(UUID.class.getClassLoader());
 		mode = (SubscriptionMode) in.readValue(SubscriptionMode.class.getClassLoader());
 		percent = (Double) in.readValue(null);
 		openTolerancePercent = (Double) in.readValue(null);
 		fixedVolume = (Double) in.readValue(null);
 		fixedCurrency = (Currency) in.readValue(Currency.class.getClassLoader());
-	}
-
-	public AttachToExternalSignalProviderExt tradingAccountId(UUID tradingAccountId) {
-		this.tradingAccountId = tradingAccountId;
-		return this;
-	}
-
-	/**
-	 * Get tradingAccountId
-	 *
-	 * @return tradingAccountId
-	 **/
-	@Schema(description = "")
-	public UUID getTradingAccountId() {
-		return tradingAccountId;
-	}
-
-	public void setTradingAccountId(UUID tradingAccountId) {
-		this.tradingAccountId = tradingAccountId;
+		tradingAccountId = (UUID) in.readValue(UUID.class.getClassLoader());
 	}
 
 	public AttachToExternalSignalProviderExt mode(SubscriptionMode mode) {
@@ -184,6 +165,25 @@ public class AttachToExternalSignalProviderExt implements Parcelable
 		this.fixedCurrency = fixedCurrency;
 	}
 
+	public AttachToExternalSignalProviderExt tradingAccountId(UUID tradingAccountId) {
+		this.tradingAccountId = tradingAccountId;
+		return this;
+	}
+
+	/**
+	 * Get tradingAccountId
+	 *
+	 * @return tradingAccountId
+	 **/
+	@Schema(description = "")
+	public UUID getTradingAccountId() {
+		return tradingAccountId;
+	}
+
+	public void setTradingAccountId(UUID tradingAccountId) {
+		this.tradingAccountId = tradingAccountId;
+	}
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -193,17 +193,17 @@ public class AttachToExternalSignalProviderExt implements Parcelable
 			return false;
 		}
 		AttachToExternalSignalProviderExt attachToExternalSignalProviderExt = (AttachToExternalSignalProviderExt) o;
-		return Objects.equals(this.tradingAccountId, attachToExternalSignalProviderExt.tradingAccountId) &&
-				Objects.equals(this.mode, attachToExternalSignalProviderExt.mode) &&
+		return Objects.equals(this.mode, attachToExternalSignalProviderExt.mode) &&
 				Objects.equals(this.percent, attachToExternalSignalProviderExt.percent) &&
 				Objects.equals(this.openTolerancePercent, attachToExternalSignalProviderExt.openTolerancePercent) &&
 				Objects.equals(this.fixedVolume, attachToExternalSignalProviderExt.fixedVolume) &&
-				Objects.equals(this.fixedCurrency, attachToExternalSignalProviderExt.fixedCurrency);
+				Objects.equals(this.fixedCurrency, attachToExternalSignalProviderExt.fixedCurrency) &&
+				Objects.equals(this.tradingAccountId, attachToExternalSignalProviderExt.tradingAccountId);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(tradingAccountId, mode, percent, openTolerancePercent, fixedVolume, fixedCurrency);
+		return Objects.hash(mode, percent, openTolerancePercent, fixedVolume, fixedCurrency, tradingAccountId);
 	}
 
 	@Override
@@ -211,12 +211,12 @@ public class AttachToExternalSignalProviderExt implements Parcelable
 		StringBuilder sb = new StringBuilder();
 		sb.append("class AttachToExternalSignalProviderExt {\n");
 
-		sb.append("    tradingAccountId: ").append(toIndentedString(tradingAccountId)).append("\n");
 		sb.append("    mode: ").append(toIndentedString(mode)).append("\n");
 		sb.append("    percent: ").append(toIndentedString(percent)).append("\n");
 		sb.append("    openTolerancePercent: ").append(toIndentedString(openTolerancePercent)).append("\n");
 		sb.append("    fixedVolume: ").append(toIndentedString(fixedVolume)).append("\n");
 		sb.append("    fixedCurrency: ").append(toIndentedString(fixedCurrency)).append("\n");
+		sb.append("    tradingAccountId: ").append(toIndentedString(tradingAccountId)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}
@@ -233,12 +233,12 @@ public class AttachToExternalSignalProviderExt implements Parcelable
 	}
 
 	public void writeToParcel(Parcel out, int flags) {
-		out.writeValue(tradingAccountId);
 		out.writeValue(mode);
 		out.writeValue(percent);
 		out.writeValue(openTolerancePercent);
 		out.writeValue(fixedVolume);
 		out.writeValue(fixedCurrency);
+		out.writeValue(tradingAccountId);
 	}
 
 	public int describeContents() {

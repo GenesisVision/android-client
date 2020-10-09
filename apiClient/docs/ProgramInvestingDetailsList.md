@@ -4,6 +4,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | [**UUID**](UUID.md) |  |  [optional]
+**type** | [**ProgramType**](ProgramType.md) |  |  [optional]
 **logoUrl** | **String** |  |  [optional]
 **url** | **String** |  |  [optional]
 **color** | **String** |  |  [optional]
@@ -17,9 +18,14 @@ Name | Type | Description | Notes
 **investorsCount** | **Integer** |  |  [optional]
 **periodStarts** | [**DateTime**](DateTime.md) |  |  [optional]
 **periodEnds** | [**DateTime**](DateTime.md) |  |  [optional]
+**managementFeeSelected** | **Double** |  |  [optional]
+**managementFeeCurrent** | **Double** |  |  [optional]
+**successFeeSelected** | **Double** |  |  [optional]
+**successFeeCurrent** | **Double** |  |  [optional]
 **owner** | [**ProfilePublicShort**](ProfilePublicShort.md) |  |  [optional]
 **brokerDetails** | [**BrokerDetails**](BrokerDetails.md) |  |  [optional]
 **personalDetails** | [**PersonalInvestingProgramDetailsList**](PersonalInvestingProgramDetailsList.md) |  |  [optional]
 **tags** | [**List&lt;Tag&gt;**](Tag.md) |  |  [optional]
 **statistic** | [**ProfitChart**](ProfitChart.md) |  |  [optional]
 **balance** | [**AmountWithCurrency**](AmountWithCurrency.md) |  |  [optional]
+**dailyPeriodDetails** | [**ProgramDailyPeriodDetails**](ProgramDailyPeriodDetails.md) |  |  [optional]

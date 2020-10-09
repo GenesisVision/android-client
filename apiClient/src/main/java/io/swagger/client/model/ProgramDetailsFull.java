@@ -41,6 +41,9 @@ public class ProgramDetailsFull implements Parcelable
 		}
 	};
 
+	@SerializedName("type")
+	private ProgramType type = null;
+
 	@SerializedName("level")
 	private Integer level = null;
 
@@ -104,6 +107,9 @@ public class ProgramDetailsFull implements Parcelable
 	@SerializedName("canShowFinancialStatistic")
 	private Boolean canShowFinancialStatistic = null;
 
+	@SerializedName("dailyPeriodDetails")
+	private ProgramDailyPeriodDetails dailyPeriodDetails = null;
+
 	@SerializedName("personalDetails")
 	private PersonalProgramDetails personalDetails = null;
 
@@ -111,6 +117,7 @@ public class ProgramDetailsFull implements Parcelable
 	}
 
 	ProgramDetailsFull(Parcel in) {
+		type = (ProgramType) in.readValue(ProgramType.class.getClassLoader());
 		level = (Integer) in.readValue(null);
 		levelProgress = (Double) in.readValue(null);
 		periodDuration = (Integer) in.readValue(null);
@@ -132,7 +139,27 @@ public class ProgramDetailsFull implements Parcelable
 		totalAvailableInvestment = (Double) in.readValue(null);
 		canShowPeriodHistory = (Boolean) in.readValue(null);
 		canShowFinancialStatistic = (Boolean) in.readValue(null);
+		dailyPeriodDetails = (ProgramDailyPeriodDetails) in.readValue(ProgramDailyPeriodDetails.class.getClassLoader());
 		personalDetails = (PersonalProgramDetails) in.readValue(PersonalProgramDetails.class.getClassLoader());
+	}
+
+	public ProgramDetailsFull type(ProgramType type) {
+		this.type = type;
+		return this;
+	}
+
+	/**
+	 * Get type
+	 *
+	 * @return type
+	 **/
+	@Schema(description = "")
+	public ProgramType getType() {
+		return type;
+	}
+
+	public void setType(ProgramType type) {
+		this.type = type;
 	}
 
 	public ProgramDetailsFull level(Integer level) {
@@ -534,6 +561,25 @@ public class ProgramDetailsFull implements Parcelable
 		this.canShowFinancialStatistic = canShowFinancialStatistic;
 	}
 
+	public ProgramDetailsFull dailyPeriodDetails(ProgramDailyPeriodDetails dailyPeriodDetails) {
+		this.dailyPeriodDetails = dailyPeriodDetails;
+		return this;
+	}
+
+	/**
+	 * Get dailyPeriodDetails
+	 *
+	 * @return dailyPeriodDetails
+	 **/
+	@Schema(description = "")
+	public ProgramDailyPeriodDetails getDailyPeriodDetails() {
+		return dailyPeriodDetails;
+	}
+
+	public void setDailyPeriodDetails(ProgramDailyPeriodDetails dailyPeriodDetails) {
+		this.dailyPeriodDetails = dailyPeriodDetails;
+	}
+
 	public ProgramDetailsFull personalDetails(PersonalProgramDetails personalDetails) {
 		this.personalDetails = personalDetails;
 		return this;
@@ -562,7 +608,8 @@ public class ProgramDetailsFull implements Parcelable
 			return false;
 		}
 		ProgramDetailsFull programDetailsFull = (ProgramDetailsFull) o;
-		return Objects.equals(this.level, programDetailsFull.level) &&
+		return Objects.equals(this.type, programDetailsFull.type) &&
+				Objects.equals(this.level, programDetailsFull.level) &&
 				Objects.equals(this.levelProgress, programDetailsFull.levelProgress) &&
 				Objects.equals(this.periodDuration, programDetailsFull.periodDuration) &&
 				Objects.equals(this.periodStarts, programDetailsFull.periodStarts) &&
@@ -583,12 +630,13 @@ public class ProgramDetailsFull implements Parcelable
 				Objects.equals(this.totalAvailableInvestment, programDetailsFull.totalAvailableInvestment) &&
 				Objects.equals(this.canShowPeriodHistory, programDetailsFull.canShowPeriodHistory) &&
 				Objects.equals(this.canShowFinancialStatistic, programDetailsFull.canShowFinancialStatistic) &&
+				Objects.equals(this.dailyPeriodDetails, programDetailsFull.dailyPeriodDetails) &&
 				Objects.equals(this.personalDetails, programDetailsFull.personalDetails);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(level, levelProgress, periodDuration, periodStarts, periodEnds, tradesDelay, ageDays, genesisRatio, investmentScale, volumeScale, managementFeeSelected, managementFeeCurrent, successFeeSelected, successFeeCurrent, stopOutLevelSelected, stopOutLevelCurrent, availableInvestmentBase, availableInvestmentLimit, totalAvailableInvestment, canShowPeriodHistory, canShowFinancialStatistic, personalDetails);
+		return Objects.hash(type, level, levelProgress, periodDuration, periodStarts, periodEnds, tradesDelay, ageDays, genesisRatio, investmentScale, volumeScale, managementFeeSelected, managementFeeCurrent, successFeeSelected, successFeeCurrent, stopOutLevelSelected, stopOutLevelCurrent, availableInvestmentBase, availableInvestmentLimit, totalAvailableInvestment, canShowPeriodHistory, canShowFinancialStatistic, dailyPeriodDetails, personalDetails);
 	}
 
 	@Override
@@ -596,6 +644,7 @@ public class ProgramDetailsFull implements Parcelable
 		StringBuilder sb = new StringBuilder();
 		sb.append("class ProgramDetailsFull {\n");
 
+		sb.append("    type: ").append(toIndentedString(type)).append("\n");
 		sb.append("    level: ").append(toIndentedString(level)).append("\n");
 		sb.append("    levelProgress: ").append(toIndentedString(levelProgress)).append("\n");
 		sb.append("    periodDuration: ").append(toIndentedString(periodDuration)).append("\n");
@@ -617,6 +666,7 @@ public class ProgramDetailsFull implements Parcelable
 		sb.append("    totalAvailableInvestment: ").append(toIndentedString(totalAvailableInvestment)).append("\n");
 		sb.append("    canShowPeriodHistory: ").append(toIndentedString(canShowPeriodHistory)).append("\n");
 		sb.append("    canShowFinancialStatistic: ").append(toIndentedString(canShowFinancialStatistic)).append("\n");
+		sb.append("    dailyPeriodDetails: ").append(toIndentedString(dailyPeriodDetails)).append("\n");
 		sb.append("    personalDetails: ").append(toIndentedString(personalDetails)).append("\n");
 		sb.append("}");
 		return sb.toString();
@@ -634,6 +684,7 @@ public class ProgramDetailsFull implements Parcelable
 	}
 
 	public void writeToParcel(Parcel out, int flags) {
+		out.writeValue(type);
 		out.writeValue(level);
 		out.writeValue(levelProgress);
 		out.writeValue(periodDuration);
@@ -655,6 +706,7 @@ public class ProgramDetailsFull implements Parcelable
 		out.writeValue(totalAvailableInvestment);
 		out.writeValue(canShowPeriodHistory);
 		out.writeValue(canShowFinancialStatistic);
+		out.writeValue(dailyPeriodDetails);
 		out.writeValue(personalDetails);
 	}
 

@@ -7,5 +7,5 @@ Name | Type | Description | Notes
 **periodLength** | **Integer** |  |  [optional]
 **stopOutLevel** | **Double** |  |  [optional]
 **investmentLimit** | **Double** |  |  [optional]
-**entryFee** | **Double** |  |  [optional]
 **successFee** | **Double** |  |  [optional]
+**managementFee** | **Double** |  |  [optional]

@@ -285,14 +285,17 @@ public class FundDetailsActivity extends BaseSwipeBackActivity implements FundDe
 		GenericDraweeHierarchy hierarchy = fundLogo.getHierarchy();
 		hierarchy.setBackgroundImage(new ColorDrawable(Color.parseColor(model.getFundColor())));
 		fundLogo.setHierarchy(hierarchy);
-		ImageRequest request = ImageRequestBuilder.newBuilderWithSource(Uri.parse(ImageUtils.getImageUri(model.getLogo())))
-				.setResizeOptions(new ResizeOptions(300, 300))
-				.build();
-		PipelineDraweeController controller = (PipelineDraweeController) Fresco.newDraweeControllerBuilder()
-				.setOldController(fundLogo.getController())
-				.setImageRequest(request)
-				.build();
-		fundLogo.setController(controller);
+
+		if (model.getLogo() != null && !model.getLogo().isEmpty()) {
+			ImageRequest request = ImageRequestBuilder.newBuilderWithSource(Uri.parse(ImageUtils.getImageUri(model.getLogo())))
+					.setResizeOptions(new ResizeOptions(300, 300))
+					.build();
+			PipelineDraweeController controller = (PipelineDraweeController) Fresco.newDraweeControllerBuilder()
+					.setOldController(fundLogo.getController())
+					.setImageRequest(request)
+					.build();
+			fundLogo.setController(controller);
+		}
 
 		toolbarFundLogo.setImage(model.getLogo(), model.getFundColor(), 50, 50);
 		toolbarFundLogo.hideLevel();
@@ -386,8 +389,6 @@ public class FundDetailsActivity extends BaseSwipeBackActivity implements FundDe
 		if (ownerInfoTab.getPosition() == TabLayout.Tab.INVALID_POSITION) {
 			addPage(infoTab, true);
 		}
-
-		finishInit();
 	}
 
 	@Override
@@ -397,17 +398,16 @@ public class FundDetailsActivity extends BaseSwipeBackActivity implements FundDe
 		if (infoTab.getPosition() == TabLayout.Tab.INVALID_POSITION) {
 			addPage(ownerInfoTab, true);
 		}
-
-		finishInit();
 	}
 
-	private void finishInit() {
+	@Override
+	public void finishInit(boolean showEvents) {
 		addPage(structureTab, false);
 		addPage(reallocateHistoryTab, false);
 		addPage(profitTab, false);
 		addPage(balanceTab, false);
 
-		if (fundDetails.getPersonalDetails() != null && fundDetails.getPersonalDetails().isIsInvested()) {
+		if (showEvents) {
 			addPage(eventsTab, false);
 		}
 
@@ -517,7 +517,9 @@ public class FundDetailsActivity extends BaseSwipeBackActivity implements FundDe
 
 	@Override
 	public void setEventsCount(Integer eventsCount) {
-		((DetailsTabView) eventsTab.getCustomView()).setCount(eventsCount);
+		if (eventsTab != null) {
+			((DetailsTabView) eventsTab.getCustomView()).setCount(eventsCount);
+		}
 	}
 
 	@Override

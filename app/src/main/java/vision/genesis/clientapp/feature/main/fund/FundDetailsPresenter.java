@@ -13,6 +13,7 @@ import java.util.UUID;
 import javax.inject.Inject;
 
 import io.swagger.client.model.FundDetailsFull;
+import io.swagger.client.model.InvestmentEventViewModels;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -21,6 +22,7 @@ import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.managers.AuthManager;
 import vision.genesis.clientapp.managers.FundsManager;
 import vision.genesis.clientapp.model.CurrencyEnum;
+import vision.genesis.clientapp.model.DateRange;
 import vision.genesis.clientapp.model.FundDetailsModel;
 import vision.genesis.clientapp.model.User;
 import vision.genesis.clientapp.model.events.OnFundFavoriteChangedEvent;
@@ -50,6 +52,8 @@ public class FundDetailsPresenter extends MvpPresenter<FundDetailsView>
 
 	private Subscription fundDetailsSubscription;
 
+	private Subscription eventsSubscription;
+
 	private Subscription setFundFavoriteSubscription;
 
 	private FundDetailsFull fundDetails;
@@ -74,16 +78,18 @@ public class FundDetailsPresenter extends MvpPresenter<FundDetailsView>
 		if (userSubscription != null) {
 			userSubscription.unsubscribe();
 		}
-
 		if (fundDetailsSubscription != null) {
 			fundDetailsSubscription.unsubscribe();
 		}
-
+		if (eventsSubscription != null) {
+			eventsSubscription.unsubscribe();
+		}
 		if (setFundFavoriteSubscription != null) {
 			setFundFavoriteSubscription.unsubscribe();
 		}
 
 		EventBus.getDefault().unregister(this);
+
 		super.onDestroy();
 	}
 
@@ -128,7 +134,6 @@ public class FundDetailsPresenter extends MvpPresenter<FundDetailsView>
 		fundDetailsSubscription.unsubscribe();
 		getViewState().showNoInternet(false);
 		getViewState().showNoInternetProgress(false);
-		getViewState().showProgress(false);
 		getViewState().setRefreshing(false);
 
 		this.fundDetails = fundDetails;
@@ -138,6 +143,8 @@ public class FundDetailsPresenter extends MvpPresenter<FundDetailsView>
 		else {
 			getViewState().showGuest(fundDetails);
 		}
+
+		getEvents();
 	}
 
 	private void handleFundDetailsError(Throwable throwable) {
@@ -154,6 +161,34 @@ public class FundDetailsPresenter extends MvpPresenter<FundDetailsView>
 				getViewState().showSnackbarMessage(context.getResources().getString(R.string.network_error));
 			}
 		}
+	}
+
+	private void getEvents() {
+		if (model != null) {
+			if (eventsSubscription != null) {
+				eventsSubscription.unsubscribe();
+			}
+			eventsSubscription = fundsManager.getEvents(model.getFundId(), DateRange.createFromEnum(DateRange.DateRangeEnum.ALL_TIME), 0, 1)
+					.observeOn(AndroidSchedulers.mainThread())
+					.subscribeOn(Schedulers.io())
+					.subscribe(this::handleGetEventsResponse,
+							this::handleGetEventsError);
+		}
+	}
+
+	private void handleGetEventsResponse(InvestmentEventViewModels response) {
+		eventsSubscription.unsubscribe();
+		getViewState().showProgress(false);
+
+		getViewState().finishInit(response.getTotal() > 0);
+		getViewState().setEventsCount(response.getTotal());
+	}
+
+	private void handleGetEventsError(Throwable throwable) {
+		eventsSubscription.unsubscribe();
+		getViewState().showProgress(false);
+
+		getViewState().finishInit(false);
 	}
 
 	private void setFundFavorite(boolean isFavorite) {

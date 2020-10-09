@@ -5,6 +5,7 @@ import java.util.UUID;
 import io.swagger.client.api.SocialApi;
 import io.swagger.client.model.EditPost;
 import io.swagger.client.model.EditablePost;
+import io.swagger.client.model.MediaPost;
 import io.swagger.client.model.MediaPostItemsViewModel;
 import io.swagger.client.model.NewPost;
 import io.swagger.client.model.Post;
@@ -105,5 +106,9 @@ public class SocialManager
 
 	public Observable<SocialSummary> getSummary() {
 		return socialApi.getSocialSummary();
+	}
+
+	public Observable<MediaPost> getMediaPost(UUID postId) {
+		return socialApi.getSocialMediaPost(postId.toString());
 	}
 }

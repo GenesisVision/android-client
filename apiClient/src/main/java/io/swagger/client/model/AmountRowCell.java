@@ -39,22 +39,41 @@ public class AmountRowCell implements Parcelable
 		}
 	};
 
+	@SerializedName("title")
+	private String title = null;
+
 	@SerializedName("first")
 	private AmountItem first = null;
 
 	@SerializedName("second")
 	private AmountItem second = null;
 
-	@SerializedName("title")
-	private String title = null;
-
 	public AmountRowCell() {
 	}
 
 	AmountRowCell(Parcel in) {
+		title = (String) in.readValue(null);
 		first = (AmountItem) in.readValue(AmountItem.class.getClassLoader());
 		second = (AmountItem) in.readValue(AmountItem.class.getClassLoader());
-		title = (String) in.readValue(null);
+	}
+
+	public AmountRowCell title(String title) {
+		this.title = title;
+		return this;
+	}
+
+	/**
+	 * Get title
+	 *
+	 * @return title
+	 **/
+	@Schema(description = "")
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
 	}
 
 	public AmountRowCell first(AmountItem first) {
@@ -95,25 +114,6 @@ public class AmountRowCell implements Parcelable
 		this.second = second;
 	}
 
-	public AmountRowCell title(String title) {
-		this.title = title;
-		return this;
-	}
-
-	/**
-	 * Get title
-	 *
-	 * @return title
-	 **/
-	@Schema(description = "")
-	public String getTitle() {
-		return title;
-	}
-
-	public void setTitle(String title) {
-		this.title = title;
-	}
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -123,14 +123,14 @@ public class AmountRowCell implements Parcelable
 			return false;
 		}
 		AmountRowCell amountRowCell = (AmountRowCell) o;
-		return Objects.equals(this.first, amountRowCell.first) &&
-				Objects.equals(this.second, amountRowCell.second) &&
-				Objects.equals(this.title, amountRowCell.title);
+		return Objects.equals(this.title, amountRowCell.title) &&
+				Objects.equals(this.first, amountRowCell.first) &&
+				Objects.equals(this.second, amountRowCell.second);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(first, second, title);
+		return Objects.hash(title, first, second);
 	}
 
 	@Override
@@ -138,9 +138,9 @@ public class AmountRowCell implements Parcelable
 		StringBuilder sb = new StringBuilder();
 		sb.append("class AmountRowCell {\n");
 
+		sb.append("    title: ").append(toIndentedString(title)).append("\n");
 		sb.append("    first: ").append(toIndentedString(first)).append("\n");
 		sb.append("    second: ").append(toIndentedString(second)).append("\n");
-		sb.append("    title: ").append(toIndentedString(title)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}
@@ -157,9 +157,9 @@ public class AmountRowCell implements Parcelable
 	}
 
 	public void writeToParcel(Parcel out, int flags) {
+		out.writeValue(title);
 		out.writeValue(first);
 		out.writeValue(second);
-		out.writeValue(title);
 	}
 
 	public int describeContents() {

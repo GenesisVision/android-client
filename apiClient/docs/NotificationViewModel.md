@@ -14,3 +14,5 @@ Name | Type | Description | Notes
 **color** | **String** |  |  [optional]
 **isUnread** | **Boolean** |  |  [optional]
 **assetType** | [**AssetGlobalType**](AssetGlobalType.md) |  |  [optional]
+**imageUrl** | **String** |  |  [optional]
+**location** | [**NotificationLocationViewModel**](NotificationLocationViewModel.md) |  |  [optional]

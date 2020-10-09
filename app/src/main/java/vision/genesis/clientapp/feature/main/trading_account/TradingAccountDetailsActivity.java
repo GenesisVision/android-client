@@ -289,6 +289,9 @@ public class TradingAccountDetailsActivity extends BaseSwipeBackActivity impleme
 	public void setDetails(PrivateTradingAccountFull accountDetails) {
 		this.accountDetails = accountDetails;
 
+		toolbarBrokerLogo.setImageURI(ImageUtils.getImageUri(accountDetails.getBrokerDetails().getLogoUrl()));
+		toolbarAccountName.setText(accountDetails.getPublicInfo().getTitle());
+
 		if (pagerAdapter == null) {
 			addPage(infoTab, true);
 			addPage(profitTab, false);

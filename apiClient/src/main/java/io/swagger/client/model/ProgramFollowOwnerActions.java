@@ -39,21 +39,6 @@ public class ProgramFollowOwnerActions implements Parcelable
 		}
 	};
 
-	@SerializedName("canClose")
-	private Boolean canClose = null;
-
-	@SerializedName("canClosePeriod")
-	private Boolean canClosePeriod = null;
-
-	@SerializedName("canChangePassword")
-	private Boolean canChangePassword = null;
-
-	@SerializedName("canTransferMoney")
-	private Boolean canTransferMoney = null;
-
-	@SerializedName("canCloseOpenPositions")
-	private Boolean canCloseOpenPositions = null;
-
 	@SerializedName("canMakeProgramFromPrivateTradingAccount")
 	private Boolean canMakeProgramFromPrivateTradingAccount = null;
 
@@ -81,15 +66,25 @@ public class ProgramFollowOwnerActions implements Parcelable
 	@SerializedName("canConfirm2FA")
 	private Boolean canConfirm2FA = null;
 
+	@SerializedName("canClose")
+	private Boolean canClose = null;
+
+	@SerializedName("canClosePeriod")
+	private Boolean canClosePeriod = null;
+
+	@SerializedName("canChangePassword")
+	private Boolean canChangePassword = null;
+
+	@SerializedName("canTransferMoney")
+	private Boolean canTransferMoney = null;
+
+	@SerializedName("canCloseOpenPositions")
+	private Boolean canCloseOpenPositions = null;
+
 	public ProgramFollowOwnerActions() {
 	}
 
 	ProgramFollowOwnerActions(Parcel in) {
-		canClose = (Boolean) in.readValue(null);
-		canClosePeriod = (Boolean) in.readValue(null);
-		canChangePassword = (Boolean) in.readValue(null);
-		canTransferMoney = (Boolean) in.readValue(null);
-		canCloseOpenPositions = (Boolean) in.readValue(null);
 		canMakeProgramFromPrivateTradingAccount = (Boolean) in.readValue(null);
 		canMakeExchangeProgramFromPrivateTradingAccount = (Boolean) in.readValue(null);
 		canMakeSignalProviderFromPrivateTradingAccount = (Boolean) in.readValue(null);
@@ -99,101 +94,11 @@ public class ProgramFollowOwnerActions implements Parcelable
 		canEditSignalProviderSettings = (Boolean) in.readValue(null);
 		isEnoughMoneyToCreateProgram = (Boolean) in.readValue(null);
 		canConfirm2FA = (Boolean) in.readValue(null);
-	}
-
-	public ProgramFollowOwnerActions canClose(Boolean canClose) {
-		this.canClose = canClose;
-		return this;
-	}
-
-	/**
-	 * Get canClose
-	 *
-	 * @return canClose
-	 **/
-	@Schema(description = "")
-	public Boolean isCanClose() {
-		return canClose;
-	}
-
-	public void setCanClose(Boolean canClose) {
-		this.canClose = canClose;
-	}
-
-	public ProgramFollowOwnerActions canClosePeriod(Boolean canClosePeriod) {
-		this.canClosePeriod = canClosePeriod;
-		return this;
-	}
-
-	/**
-	 * Get canClosePeriod
-	 *
-	 * @return canClosePeriod
-	 **/
-	@Schema(description = "")
-	public Boolean isCanClosePeriod() {
-		return canClosePeriod;
-	}
-
-	public void setCanClosePeriod(Boolean canClosePeriod) {
-		this.canClosePeriod = canClosePeriod;
-	}
-
-	public ProgramFollowOwnerActions canChangePassword(Boolean canChangePassword) {
-		this.canChangePassword = canChangePassword;
-		return this;
-	}
-
-	/**
-	 * Get canChangePassword
-	 *
-	 * @return canChangePassword
-	 **/
-	@Schema(description = "")
-	public Boolean isCanChangePassword() {
-		return canChangePassword;
-	}
-
-	public void setCanChangePassword(Boolean canChangePassword) {
-		this.canChangePassword = canChangePassword;
-	}
-
-	public ProgramFollowOwnerActions canTransferMoney(Boolean canTransferMoney) {
-		this.canTransferMoney = canTransferMoney;
-		return this;
-	}
-
-	/**
-	 * Get canTransferMoney
-	 *
-	 * @return canTransferMoney
-	 **/
-	@Schema(description = "")
-	public Boolean isCanTransferMoney() {
-		return canTransferMoney;
-	}
-
-	public void setCanTransferMoney(Boolean canTransferMoney) {
-		this.canTransferMoney = canTransferMoney;
-	}
-
-	public ProgramFollowOwnerActions canCloseOpenPositions(Boolean canCloseOpenPositions) {
-		this.canCloseOpenPositions = canCloseOpenPositions;
-		return this;
-	}
-
-	/**
-	 * Get canCloseOpenPositions
-	 *
-	 * @return canCloseOpenPositions
-	 **/
-	@Schema(description = "")
-	public Boolean isCanCloseOpenPositions() {
-		return canCloseOpenPositions;
-	}
-
-	public void setCanCloseOpenPositions(Boolean canCloseOpenPositions) {
-		this.canCloseOpenPositions = canCloseOpenPositions;
+		canClose = (Boolean) in.readValue(null);
+		canClosePeriod = (Boolean) in.readValue(null);
+		canChangePassword = (Boolean) in.readValue(null);
+		canTransferMoney = (Boolean) in.readValue(null);
+		canCloseOpenPositions = (Boolean) in.readValue(null);
 	}
 
 	public ProgramFollowOwnerActions canMakeProgramFromPrivateTradingAccount(Boolean canMakeProgramFromPrivateTradingAccount) {
@@ -367,6 +272,101 @@ public class ProgramFollowOwnerActions implements Parcelable
 		this.canConfirm2FA = canConfirm2FA;
 	}
 
+	public ProgramFollowOwnerActions canClose(Boolean canClose) {
+		this.canClose = canClose;
+		return this;
+	}
+
+	/**
+	 * Get canClose
+	 *
+	 * @return canClose
+	 **/
+	@Schema(description = "")
+	public Boolean isCanClose() {
+		return canClose;
+	}
+
+	public void setCanClose(Boolean canClose) {
+		this.canClose = canClose;
+	}
+
+	public ProgramFollowOwnerActions canClosePeriod(Boolean canClosePeriod) {
+		this.canClosePeriod = canClosePeriod;
+		return this;
+	}
+
+	/**
+	 * Get canClosePeriod
+	 *
+	 * @return canClosePeriod
+	 **/
+	@Schema(description = "")
+	public Boolean isCanClosePeriod() {
+		return canClosePeriod;
+	}
+
+	public void setCanClosePeriod(Boolean canClosePeriod) {
+		this.canClosePeriod = canClosePeriod;
+	}
+
+	public ProgramFollowOwnerActions canChangePassword(Boolean canChangePassword) {
+		this.canChangePassword = canChangePassword;
+		return this;
+	}
+
+	/**
+	 * Get canChangePassword
+	 *
+	 * @return canChangePassword
+	 **/
+	@Schema(description = "")
+	public Boolean isCanChangePassword() {
+		return canChangePassword;
+	}
+
+	public void setCanChangePassword(Boolean canChangePassword) {
+		this.canChangePassword = canChangePassword;
+	}
+
+	public ProgramFollowOwnerActions canTransferMoney(Boolean canTransferMoney) {
+		this.canTransferMoney = canTransferMoney;
+		return this;
+	}
+
+	/**
+	 * Get canTransferMoney
+	 *
+	 * @return canTransferMoney
+	 **/
+	@Schema(description = "")
+	public Boolean isCanTransferMoney() {
+		return canTransferMoney;
+	}
+
+	public void setCanTransferMoney(Boolean canTransferMoney) {
+		this.canTransferMoney = canTransferMoney;
+	}
+
+	public ProgramFollowOwnerActions canCloseOpenPositions(Boolean canCloseOpenPositions) {
+		this.canCloseOpenPositions = canCloseOpenPositions;
+		return this;
+	}
+
+	/**
+	 * Get canCloseOpenPositions
+	 *
+	 * @return canCloseOpenPositions
+	 **/
+	@Schema(description = "")
+	public Boolean isCanCloseOpenPositions() {
+		return canCloseOpenPositions;
+	}
+
+	public void setCanCloseOpenPositions(Boolean canCloseOpenPositions) {
+		this.canCloseOpenPositions = canCloseOpenPositions;
+	}
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -376,12 +376,7 @@ public class ProgramFollowOwnerActions implements Parcelable
 			return false;
 		}
 		ProgramFollowOwnerActions programFollowOwnerActions = (ProgramFollowOwnerActions) o;
-		return Objects.equals(this.canClose, programFollowOwnerActions.canClose) &&
-				Objects.equals(this.canClosePeriod, programFollowOwnerActions.canClosePeriod) &&
-				Objects.equals(this.canChangePassword, programFollowOwnerActions.canChangePassword) &&
-				Objects.equals(this.canTransferMoney, programFollowOwnerActions.canTransferMoney) &&
-				Objects.equals(this.canCloseOpenPositions, programFollowOwnerActions.canCloseOpenPositions) &&
-				Objects.equals(this.canMakeProgramFromPrivateTradingAccount, programFollowOwnerActions.canMakeProgramFromPrivateTradingAccount) &&
+		return Objects.equals(this.canMakeProgramFromPrivateTradingAccount, programFollowOwnerActions.canMakeProgramFromPrivateTradingAccount) &&
 				Objects.equals(this.canMakeExchangeProgramFromPrivateTradingAccount, programFollowOwnerActions.canMakeExchangeProgramFromPrivateTradingAccount) &&
 				Objects.equals(this.canMakeSignalProviderFromPrivateTradingAccount, programFollowOwnerActions.canMakeSignalProviderFromPrivateTradingAccount) &&
 				Objects.equals(this.canMakeSignalProviderFromPrivateExternalTradingAccount, programFollowOwnerActions.canMakeSignalProviderFromPrivateExternalTradingAccount) &&
@@ -389,12 +384,17 @@ public class ProgramFollowOwnerActions implements Parcelable
 				Objects.equals(this.canMakeSignalProviderFromProgram, programFollowOwnerActions.canMakeSignalProviderFromProgram) &&
 				Objects.equals(this.canEditSignalProviderSettings, programFollowOwnerActions.canEditSignalProviderSettings) &&
 				Objects.equals(this.isEnoughMoneyToCreateProgram, programFollowOwnerActions.isEnoughMoneyToCreateProgram) &&
-				Objects.equals(this.canConfirm2FA, programFollowOwnerActions.canConfirm2FA);
+				Objects.equals(this.canConfirm2FA, programFollowOwnerActions.canConfirm2FA) &&
+				Objects.equals(this.canClose, programFollowOwnerActions.canClose) &&
+				Objects.equals(this.canClosePeriod, programFollowOwnerActions.canClosePeriod) &&
+				Objects.equals(this.canChangePassword, programFollowOwnerActions.canChangePassword) &&
+				Objects.equals(this.canTransferMoney, programFollowOwnerActions.canTransferMoney) &&
+				Objects.equals(this.canCloseOpenPositions, programFollowOwnerActions.canCloseOpenPositions);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(canClose, canClosePeriod, canChangePassword, canTransferMoney, canCloseOpenPositions, canMakeProgramFromPrivateTradingAccount, canMakeExchangeProgramFromPrivateTradingAccount, canMakeSignalProviderFromPrivateTradingAccount, canMakeSignalProviderFromPrivateExternalTradingAccount, canMakeProgramFromSignalProvider, canMakeSignalProviderFromProgram, canEditSignalProviderSettings, isEnoughMoneyToCreateProgram, canConfirm2FA);
+		return Objects.hash(canMakeProgramFromPrivateTradingAccount, canMakeExchangeProgramFromPrivateTradingAccount, canMakeSignalProviderFromPrivateTradingAccount, canMakeSignalProviderFromPrivateExternalTradingAccount, canMakeProgramFromSignalProvider, canMakeSignalProviderFromProgram, canEditSignalProviderSettings, isEnoughMoneyToCreateProgram, canConfirm2FA, canClose, canClosePeriod, canChangePassword, canTransferMoney, canCloseOpenPositions);
 	}
 
 	@Override
@@ -402,11 +402,6 @@ public class ProgramFollowOwnerActions implements Parcelable
 		StringBuilder sb = new StringBuilder();
 		sb.append("class ProgramFollowOwnerActions {\n");
 
-		sb.append("    canClose: ").append(toIndentedString(canClose)).append("\n");
-		sb.append("    canClosePeriod: ").append(toIndentedString(canClosePeriod)).append("\n");
-		sb.append("    canChangePassword: ").append(toIndentedString(canChangePassword)).append("\n");
-		sb.append("    canTransferMoney: ").append(toIndentedString(canTransferMoney)).append("\n");
-		sb.append("    canCloseOpenPositions: ").append(toIndentedString(canCloseOpenPositions)).append("\n");
 		sb.append("    canMakeProgramFromPrivateTradingAccount: ").append(toIndentedString(canMakeProgramFromPrivateTradingAccount)).append("\n");
 		sb.append("    canMakeExchangeProgramFromPrivateTradingAccount: ").append(toIndentedString(canMakeExchangeProgramFromPrivateTradingAccount)).append("\n");
 		sb.append("    canMakeSignalProviderFromPrivateTradingAccount: ").append(toIndentedString(canMakeSignalProviderFromPrivateTradingAccount)).append("\n");
@@ -416,6 +411,11 @@ public class ProgramFollowOwnerActions implements Parcelable
 		sb.append("    canEditSignalProviderSettings: ").append(toIndentedString(canEditSignalProviderSettings)).append("\n");
 		sb.append("    isEnoughMoneyToCreateProgram: ").append(toIndentedString(isEnoughMoneyToCreateProgram)).append("\n");
 		sb.append("    canConfirm2FA: ").append(toIndentedString(canConfirm2FA)).append("\n");
+		sb.append("    canClose: ").append(toIndentedString(canClose)).append("\n");
+		sb.append("    canClosePeriod: ").append(toIndentedString(canClosePeriod)).append("\n");
+		sb.append("    canChangePassword: ").append(toIndentedString(canChangePassword)).append("\n");
+		sb.append("    canTransferMoney: ").append(toIndentedString(canTransferMoney)).append("\n");
+		sb.append("    canCloseOpenPositions: ").append(toIndentedString(canCloseOpenPositions)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}
@@ -432,11 +432,6 @@ public class ProgramFollowOwnerActions implements Parcelable
 	}
 
 	public void writeToParcel(Parcel out, int flags) {
-		out.writeValue(canClose);
-		out.writeValue(canClosePeriod);
-		out.writeValue(canChangePassword);
-		out.writeValue(canTransferMoney);
-		out.writeValue(canCloseOpenPositions);
 		out.writeValue(canMakeProgramFromPrivateTradingAccount);
 		out.writeValue(canMakeExchangeProgramFromPrivateTradingAccount);
 		out.writeValue(canMakeSignalProviderFromPrivateTradingAccount);
@@ -446,6 +441,11 @@ public class ProgramFollowOwnerActions implements Parcelable
 		out.writeValue(canEditSignalProviderSettings);
 		out.writeValue(isEnoughMoneyToCreateProgram);
 		out.writeValue(canConfirm2FA);
+		out.writeValue(canClose);
+		out.writeValue(canClosePeriod);
+		out.writeValue(canChangePassword);
+		out.writeValue(canTransferMoney);
+		out.writeValue(canCloseOpenPositions);
 	}
 
 	public int describeContents() {

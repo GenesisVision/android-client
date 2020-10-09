@@ -40,24 +40,6 @@ public class AssetRequestDetails implements Parcelable
 		}
 	};
 
-	@SerializedName("entryFee")
-	private Double entryFee = null;
-
-	@SerializedName("managementFee")
-	private Double managementFee = null;
-
-	@SerializedName("exitFee")
-	private Double exitFee = null;
-
-	@SerializedName("withdrawPercent")
-	private Double withdrawPercent = null;
-
-	@SerializedName("isWithdrawAll")
-	private Boolean isWithdrawAll = null;
-
-	@SerializedName("successFee")
-	private Double successFee = null;
-
 	@SerializedName("id")
 	private UUID id = null;
 
@@ -79,16 +61,28 @@ public class AssetRequestDetails implements Parcelable
 	@SerializedName("programDetails")
 	private ProgramAssetDetails programDetails = null;
 
+	@SerializedName("entryFee")
+	private Double entryFee = null;
+
+	@SerializedName("managementFee")
+	private Double managementFee = null;
+
+	@SerializedName("exitFee")
+	private Double exitFee = null;
+
+	@SerializedName("withdrawPercent")
+	private Double withdrawPercent = null;
+
+	@SerializedName("isWithdrawAll")
+	private Boolean isWithdrawAll = null;
+
+	@SerializedName("successFee")
+	private Double successFee = null;
+
 	public AssetRequestDetails() {
 	}
 
 	AssetRequestDetails(Parcel in) {
-		entryFee = (Double) in.readValue(null);
-		managementFee = (Double) in.readValue(null);
-		exitFee = (Double) in.readValue(null);
-		withdrawPercent = (Double) in.readValue(null);
-		isWithdrawAll = (Boolean) in.readValue(null);
-		successFee = (Double) in.readValue(null);
 		id = (UUID) in.readValue(UUID.class.getClassLoader());
 		logoUrl = (String) in.readValue(null);
 		color = (String) in.readValue(null);
@@ -96,120 +90,12 @@ public class AssetRequestDetails implements Parcelable
 		url = (String) in.readValue(null);
 		assetType = (AssetType) in.readValue(AssetType.class.getClassLoader());
 		programDetails = (ProgramAssetDetails) in.readValue(ProgramAssetDetails.class.getClassLoader());
-	}
-
-	public AssetRequestDetails entryFee(Double entryFee) {
-		this.entryFee = entryFee;
-		return this;
-	}
-
-	/**
-	 * Get entryFee
-	 *
-	 * @return entryFee
-	 **/
-	@Schema(description = "")
-	public Double getEntryFee() {
-		return entryFee;
-	}
-
-	public void setEntryFee(Double entryFee) {
-		this.entryFee = entryFee;
-	}
-
-	public AssetRequestDetails managementFee(Double managementFee) {
-		this.managementFee = managementFee;
-		return this;
-	}
-
-	/**
-	 * Get managementFee
-	 *
-	 * @return managementFee
-	 **/
-	@Schema(description = "")
-	public Double getManagementFee() {
-		return managementFee;
-	}
-
-	public void setManagementFee(Double managementFee) {
-		this.managementFee = managementFee;
-	}
-
-	public AssetRequestDetails exitFee(Double exitFee) {
-		this.exitFee = exitFee;
-		return this;
-	}
-
-	/**
-	 * Get exitFee
-	 *
-	 * @return exitFee
-	 **/
-	@Schema(description = "")
-	public Double getExitFee() {
-		return exitFee;
-	}
-
-	public void setExitFee(Double exitFee) {
-		this.exitFee = exitFee;
-	}
-
-	public AssetRequestDetails withdrawPercent(Double withdrawPercent) {
-		this.withdrawPercent = withdrawPercent;
-		return this;
-	}
-
-	/**
-	 * Get withdrawPercent
-	 *
-	 * @return withdrawPercent
-	 **/
-	@Schema(description = "")
-	public Double getWithdrawPercent() {
-		return withdrawPercent;
-	}
-
-	public void setWithdrawPercent(Double withdrawPercent) {
-		this.withdrawPercent = withdrawPercent;
-	}
-
-	public AssetRequestDetails isWithdrawAll(Boolean isWithdrawAll) {
-		this.isWithdrawAll = isWithdrawAll;
-		return this;
-	}
-
-	/**
-	 * Get isWithdrawAll
-	 *
-	 * @return isWithdrawAll
-	 **/
-	@Schema(description = "")
-	public Boolean isIsWithdrawAll() {
-		return isWithdrawAll;
-	}
-
-	public void setIsWithdrawAll(Boolean isWithdrawAll) {
-		this.isWithdrawAll = isWithdrawAll;
-	}
-
-	public AssetRequestDetails successFee(Double successFee) {
-		this.successFee = successFee;
-		return this;
-	}
-
-	/**
-	 * Get successFee
-	 *
-	 * @return successFee
-	 **/
-	@Schema(description = "")
-	public Double getSuccessFee() {
-		return successFee;
-	}
-
-	public void setSuccessFee(Double successFee) {
-		this.successFee = successFee;
+		entryFee = (Double) in.readValue(null);
+		managementFee = (Double) in.readValue(null);
+		exitFee = (Double) in.readValue(null);
+		withdrawPercent = (Double) in.readValue(null);
+		isWithdrawAll = (Boolean) in.readValue(null);
+		successFee = (Double) in.readValue(null);
 	}
 
 	public AssetRequestDetails id(UUID id) {
@@ -345,6 +231,120 @@ public class AssetRequestDetails implements Parcelable
 		this.programDetails = programDetails;
 	}
 
+	public AssetRequestDetails entryFee(Double entryFee) {
+		this.entryFee = entryFee;
+		return this;
+	}
+
+	/**
+	 * Get entryFee
+	 *
+	 * @return entryFee
+	 **/
+	@Schema(description = "")
+	public Double getEntryFee() {
+		return entryFee;
+	}
+
+	public void setEntryFee(Double entryFee) {
+		this.entryFee = entryFee;
+	}
+
+	public AssetRequestDetails managementFee(Double managementFee) {
+		this.managementFee = managementFee;
+		return this;
+	}
+
+	/**
+	 * Get managementFee
+	 *
+	 * @return managementFee
+	 **/
+	@Schema(description = "")
+	public Double getManagementFee() {
+		return managementFee;
+	}
+
+	public void setManagementFee(Double managementFee) {
+		this.managementFee = managementFee;
+	}
+
+	public AssetRequestDetails exitFee(Double exitFee) {
+		this.exitFee = exitFee;
+		return this;
+	}
+
+	/**
+	 * Get exitFee
+	 *
+	 * @return exitFee
+	 **/
+	@Schema(description = "")
+	public Double getExitFee() {
+		return exitFee;
+	}
+
+	public void setExitFee(Double exitFee) {
+		this.exitFee = exitFee;
+	}
+
+	public AssetRequestDetails withdrawPercent(Double withdrawPercent) {
+		this.withdrawPercent = withdrawPercent;
+		return this;
+	}
+
+	/**
+	 * Get withdrawPercent
+	 *
+	 * @return withdrawPercent
+	 **/
+	@Schema(description = "")
+	public Double getWithdrawPercent() {
+		return withdrawPercent;
+	}
+
+	public void setWithdrawPercent(Double withdrawPercent) {
+		this.withdrawPercent = withdrawPercent;
+	}
+
+	public AssetRequestDetails isWithdrawAll(Boolean isWithdrawAll) {
+		this.isWithdrawAll = isWithdrawAll;
+		return this;
+	}
+
+	/**
+	 * Get isWithdrawAll
+	 *
+	 * @return isWithdrawAll
+	 **/
+	@Schema(description = "")
+	public Boolean isIsWithdrawAll() {
+		return isWithdrawAll;
+	}
+
+	public void setIsWithdrawAll(Boolean isWithdrawAll) {
+		this.isWithdrawAll = isWithdrawAll;
+	}
+
+	public AssetRequestDetails successFee(Double successFee) {
+		this.successFee = successFee;
+		return this;
+	}
+
+	/**
+	 * Get successFee
+	 *
+	 * @return successFee
+	 **/
+	@Schema(description = "")
+	public Double getSuccessFee() {
+		return successFee;
+	}
+
+	public void setSuccessFee(Double successFee) {
+		this.successFee = successFee;
+	}
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -354,24 +354,24 @@ public class AssetRequestDetails implements Parcelable
 			return false;
 		}
 		AssetRequestDetails assetRequestDetails = (AssetRequestDetails) o;
-		return Objects.equals(this.entryFee, assetRequestDetails.entryFee) &&
-				Objects.equals(this.managementFee, assetRequestDetails.managementFee) &&
-				Objects.equals(this.exitFee, assetRequestDetails.exitFee) &&
-				Objects.equals(this.withdrawPercent, assetRequestDetails.withdrawPercent) &&
-				Objects.equals(this.isWithdrawAll, assetRequestDetails.isWithdrawAll) &&
-				Objects.equals(this.successFee, assetRequestDetails.successFee) &&
-				Objects.equals(this.id, assetRequestDetails.id) &&
+		return Objects.equals(this.id, assetRequestDetails.id) &&
 				Objects.equals(this.logoUrl, assetRequestDetails.logoUrl) &&
 				Objects.equals(this.color, assetRequestDetails.color) &&
 				Objects.equals(this.title, assetRequestDetails.title) &&
 				Objects.equals(this.url, assetRequestDetails.url) &&
 				Objects.equals(this.assetType, assetRequestDetails.assetType) &&
-				Objects.equals(this.programDetails, assetRequestDetails.programDetails);
+				Objects.equals(this.programDetails, assetRequestDetails.programDetails) &&
+				Objects.equals(this.entryFee, assetRequestDetails.entryFee) &&
+				Objects.equals(this.managementFee, assetRequestDetails.managementFee) &&
+				Objects.equals(this.exitFee, assetRequestDetails.exitFee) &&
+				Objects.equals(this.withdrawPercent, assetRequestDetails.withdrawPercent) &&
+				Objects.equals(this.isWithdrawAll, assetRequestDetails.isWithdrawAll) &&
+				Objects.equals(this.successFee, assetRequestDetails.successFee);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(entryFee, managementFee, exitFee, withdrawPercent, isWithdrawAll, successFee, id, logoUrl, color, title, url, assetType, programDetails);
+		return Objects.hash(id, logoUrl, color, title, url, assetType, programDetails, entryFee, managementFee, exitFee, withdrawPercent, isWithdrawAll, successFee);
 	}
 
 	@Override
@@ -379,12 +379,6 @@ public class AssetRequestDetails implements Parcelable
 		StringBuilder sb = new StringBuilder();
 		sb.append("class AssetRequestDetails {\n");
 
-		sb.append("    entryFee: ").append(toIndentedString(entryFee)).append("\n");
-		sb.append("    managementFee: ").append(toIndentedString(managementFee)).append("\n");
-		sb.append("    exitFee: ").append(toIndentedString(exitFee)).append("\n");
-		sb.append("    withdrawPercent: ").append(toIndentedString(withdrawPercent)).append("\n");
-		sb.append("    isWithdrawAll: ").append(toIndentedString(isWithdrawAll)).append("\n");
-		sb.append("    successFee: ").append(toIndentedString(successFee)).append("\n");
 		sb.append("    id: ").append(toIndentedString(id)).append("\n");
 		sb.append("    logoUrl: ").append(toIndentedString(logoUrl)).append("\n");
 		sb.append("    color: ").append(toIndentedString(color)).append("\n");
@@ -392,6 +386,12 @@ public class AssetRequestDetails implements Parcelable
 		sb.append("    url: ").append(toIndentedString(url)).append("\n");
 		sb.append("    assetType: ").append(toIndentedString(assetType)).append("\n");
 		sb.append("    programDetails: ").append(toIndentedString(programDetails)).append("\n");
+		sb.append("    entryFee: ").append(toIndentedString(entryFee)).append("\n");
+		sb.append("    managementFee: ").append(toIndentedString(managementFee)).append("\n");
+		sb.append("    exitFee: ").append(toIndentedString(exitFee)).append("\n");
+		sb.append("    withdrawPercent: ").append(toIndentedString(withdrawPercent)).append("\n");
+		sb.append("    isWithdrawAll: ").append(toIndentedString(isWithdrawAll)).append("\n");
+		sb.append("    successFee: ").append(toIndentedString(successFee)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}
@@ -408,12 +408,6 @@ public class AssetRequestDetails implements Parcelable
 	}
 
 	public void writeToParcel(Parcel out, int flags) {
-		out.writeValue(entryFee);
-		out.writeValue(managementFee);
-		out.writeValue(exitFee);
-		out.writeValue(withdrawPercent);
-		out.writeValue(isWithdrawAll);
-		out.writeValue(successFee);
 		out.writeValue(id);
 		out.writeValue(logoUrl);
 		out.writeValue(color);
@@ -421,6 +415,12 @@ public class AssetRequestDetails implements Parcelable
 		out.writeValue(url);
 		out.writeValue(assetType);
 		out.writeValue(programDetails);
+		out.writeValue(entryFee);
+		out.writeValue(managementFee);
+		out.writeValue(exitFee);
+		out.writeValue(withdrawPercent);
+		out.writeValue(isWithdrawAll);
+		out.writeValue(successFee);
 	}
 
 	public int describeContents() {

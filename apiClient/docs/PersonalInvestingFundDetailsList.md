@@ -9,4 +9,5 @@ Name | Type | Description | Notes
 **canWithdraw** | **Boolean** |  |  [optional]
 **share** | **Double** |  |  [optional]
 **value** | **Double** |  |  [optional]
+**exitFeePersonal** | **Double** |  |  [optional]
 **status** | [**AssetInvestmentStatus**](AssetInvestmentStatus.md) |  |  [optional]

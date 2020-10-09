@@ -14,6 +14,7 @@ Method | HTTP request | Description
 [**getPostLikesUsers**](SocialApi.md#getPostLikesUsers) | **GET** v2.0/social/feed/{id}/users/likes | Get post/comment likes users
 [**getPostRepostsUsers**](SocialApi.md#getPostRepostsUsers) | **GET** v2.0/social/feed/{id}/users/reposts | Get post/comment reposts users
 [**getSocialMedia**](SocialApi.md#getSocialMedia) | **GET** v2.0/social/feed/media | Get social media
+[**getSocialMediaPost**](SocialApi.md#getSocialMediaPost) | **GET** v2.0/social/feed/media/{id} | Get social media post
 [**getSocialSummary**](SocialApi.md#getSocialSummary) | **GET** v2.0/social/feed/summary | Get social summary
 [**likePost**](SocialApi.md#likePost) | **POST** v2.0/social/feed/{id}/like | Like
 [**pinPost**](SocialApi.md#pinPost) | **POST** v2.0/social/feed/{id}/pin | Pin post
@@ -570,6 +571,59 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**MediaPostItemsViewModel**](MediaPostItemsViewModel.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
+
+<a name="getSocialMediaPost"></a>
+# **getSocialMediaPost**
+> MediaPost getSocialMediaPost(id)
+
+Get social media post
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiClient;
+//import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
+//import io.swagger.client.api.SocialApi;
+
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
+
+SocialApi apiInstance = new SocialApi();
+String id = "id_example"; // String | 
+try {
+    MediaPost result = apiInstance.getSocialMediaPost(id);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling SocialApi#getSocialMediaPost");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **String**|  |
+
+### Return type
+
+[**MediaPost**](MediaPost.md)
 
 ### Authorization
 

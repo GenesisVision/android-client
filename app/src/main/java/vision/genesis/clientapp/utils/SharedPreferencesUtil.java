@@ -18,6 +18,8 @@ public class SharedPreferencesUtil
 
 	private static final String KEY_ENABLE_TWO_FACTOR_ALREADY_SHOWN = "keyEnableTwoFactorAlreadyShown";
 
+	private static final String KEY_FCM_TOKEN = "keyFcmToken";
+
 
 	private static final String SETTINGS = "settings";
 
@@ -203,5 +205,17 @@ public class SharedPreferencesUtil
 	public boolean getShowTrendingFirstTime() {
 		SharedPreferences sharedPreferences = context.getSharedPreferences(USER_PREFS, Context.MODE_PRIVATE);
 		return sharedPreferences.getBoolean(KEY_SHOW_TRENDING_FIRST_TIME, true);
+	}
+
+	public void saveFcmToken(String fcmToken) {
+		SharedPreferences sharedPreferences = context.getSharedPreferences(USER_PREFS, Context.MODE_PRIVATE);
+		sharedPreferences.edit()
+				.putString(KEY_FCM_TOKEN, fcmToken)
+				.apply();
+	}
+
+	public String getFcmToken() {
+		SharedPreferences sharedPreferences = context.getSharedPreferences(USER_PREFS, Context.MODE_PRIVATE);
+		return sharedPreferences.getString(KEY_FCM_TOKEN, null);
 	}
 }

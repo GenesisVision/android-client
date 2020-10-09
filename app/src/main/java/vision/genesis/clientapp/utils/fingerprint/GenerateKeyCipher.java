@@ -8,8 +8,6 @@ import android.security.keystore.KeyProperties;
 
 import androidx.annotation.RequiresApi;
 
-import com.crashlytics.android.Crashlytics;
-
 import java.io.IOException;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
@@ -19,7 +17,6 @@ import java.security.NoSuchAlgorithmException;
 import java.security.NoSuchProviderException;
 import java.security.UnrecoverableKeyException;
 import java.security.cert.CertificateException;
-import java.util.Locale;
 
 import javax.crypto.Cipher;
 import javax.crypto.KeyGenerator;
@@ -93,7 +90,7 @@ public class GenerateKeyCipher
 			cipher = Cipher.getInstance(KeyProperties.KEY_ALGORITHM_AES + "/" + KeyProperties.BLOCK_MODE_CBC + "/" + KeyProperties.ENCRYPTION_PADDING_PKCS7);
 		} catch (NoSuchAlgorithmException | NoSuchPaddingException e) {
 			Timber.e("Failed to get Cipher");
-			Crashlytics.log(String.format(Locale.getDefault(), "Failed to get Cipher\n%s", e.toString()));
+//			Crashlytics.log(String.format(Locale.getDefault(), "Failed to get Cipher\n%s", e.toString()));
 			e.printStackTrace();
 			return false;
 		}
@@ -109,7 +106,7 @@ public class GenerateKeyCipher
 			return false;
 		} catch (KeyStoreException | CertificateException | UnrecoverableKeyException | IOException | NoSuchAlgorithmException | InvalidKeyException e) {
 			Timber.e("Failed to init Cipher");
-			Crashlytics.log(String.format(Locale.getDefault(), "Failed to init Cipher\n%s", e.toString()));
+//			Crashlytics.log(String.format(Locale.getDefault(), "Failed to init Cipher\n%s", e.toString()));
 			e.printStackTrace();
 			return false;
 		}

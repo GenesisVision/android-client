@@ -41,9 +41,6 @@ public class EventTradingItemFilters implements Parcelable
 		}
 	};
 
-	@SerializedName("follow")
-	private List<FilterItemInfo> follow = null;
-
 	@SerializedName("all")
 	private List<FilterItemInfo> all = null;
 
@@ -53,41 +50,17 @@ public class EventTradingItemFilters implements Parcelable
 	@SerializedName("fund")
 	private List<FilterItemInfo> fund = null;
 
+	@SerializedName("follow")
+	private List<FilterItemInfo> follow = null;
+
 	public EventTradingItemFilters() {
 	}
 
 	EventTradingItemFilters(Parcel in) {
-		follow = (List<FilterItemInfo>) in.readValue(FilterItemInfo.class.getClassLoader());
 		all = (List<FilterItemInfo>) in.readValue(FilterItemInfo.class.getClassLoader());
 		program = (List<FilterItemInfo>) in.readValue(FilterItemInfo.class.getClassLoader());
 		fund = (List<FilterItemInfo>) in.readValue(FilterItemInfo.class.getClassLoader());
-	}
-
-	public EventTradingItemFilters follow(List<FilterItemInfo> follow) {
-		this.follow = follow;
-		return this;
-	}
-
-	public EventTradingItemFilters addFollowItem(FilterItemInfo followItem) {
-		if (this.follow == null) {
-			this.follow = new ArrayList<FilterItemInfo>();
-		}
-		this.follow.add(followItem);
-		return this;
-	}
-
-	/**
-	 * Get follow
-	 *
-	 * @return follow
-	 **/
-	@Schema(description = "")
-	public List<FilterItemInfo> getFollow() {
-		return follow;
-	}
-
-	public void setFollow(List<FilterItemInfo> follow) {
-		this.follow = follow;
+		follow = (List<FilterItemInfo>) in.readValue(FilterItemInfo.class.getClassLoader());
 	}
 
 	public EventTradingItemFilters all(List<FilterItemInfo> all) {
@@ -171,6 +144,33 @@ public class EventTradingItemFilters implements Parcelable
 		this.fund = fund;
 	}
 
+	public EventTradingItemFilters follow(List<FilterItemInfo> follow) {
+		this.follow = follow;
+		return this;
+	}
+
+	public EventTradingItemFilters addFollowItem(FilterItemInfo followItem) {
+		if (this.follow == null) {
+			this.follow = new ArrayList<FilterItemInfo>();
+		}
+		this.follow.add(followItem);
+		return this;
+	}
+
+	/**
+	 * Get follow
+	 *
+	 * @return follow
+	 **/
+	@Schema(description = "")
+	public List<FilterItemInfo> getFollow() {
+		return follow;
+	}
+
+	public void setFollow(List<FilterItemInfo> follow) {
+		this.follow = follow;
+	}
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -180,15 +180,15 @@ public class EventTradingItemFilters implements Parcelable
 			return false;
 		}
 		EventTradingItemFilters eventTradingItemFilters = (EventTradingItemFilters) o;
-		return Objects.equals(this.follow, eventTradingItemFilters.follow) &&
-				Objects.equals(this.all, eventTradingItemFilters.all) &&
+		return Objects.equals(this.all, eventTradingItemFilters.all) &&
 				Objects.equals(this.program, eventTradingItemFilters.program) &&
-				Objects.equals(this.fund, eventTradingItemFilters.fund);
+				Objects.equals(this.fund, eventTradingItemFilters.fund) &&
+				Objects.equals(this.follow, eventTradingItemFilters.follow);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(follow, all, program, fund);
+		return Objects.hash(all, program, fund, follow);
 	}
 
 	@Override
@@ -196,10 +196,10 @@ public class EventTradingItemFilters implements Parcelable
 		StringBuilder sb = new StringBuilder();
 		sb.append("class EventTradingItemFilters {\n");
 
-		sb.append("    follow: ").append(toIndentedString(follow)).append("\n");
 		sb.append("    all: ").append(toIndentedString(all)).append("\n");
 		sb.append("    program: ").append(toIndentedString(program)).append("\n");
 		sb.append("    fund: ").append(toIndentedString(fund)).append("\n");
+		sb.append("    follow: ").append(toIndentedString(follow)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}
@@ -216,10 +216,10 @@ public class EventTradingItemFilters implements Parcelable
 	}
 
 	public void writeToParcel(Parcel out, int flags) {
-		out.writeValue(follow);
 		out.writeValue(all);
 		out.writeValue(program);
 		out.writeValue(fund);
+		out.writeValue(follow);
 	}
 
 	public int describeContents() {

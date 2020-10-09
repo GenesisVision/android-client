@@ -42,15 +42,6 @@ public class ProgramNotificationSettingList implements Parcelable
 		}
 	};
 
-	@SerializedName("level")
-	private Integer level = null;
-
-	@SerializedName("levelProgress")
-	private Double levelProgress = null;
-
-	@SerializedName("settingsCustom")
-	private List<NotificationSettingViewModel> settingsCustom = null;
-
 	@SerializedName("assetId")
 	private UUID assetId = null;
 
@@ -69,84 +60,28 @@ public class ProgramNotificationSettingList implements Parcelable
 	@SerializedName("settingsGeneral")
 	private List<NotificationSettingViewModel> settingsGeneral = null;
 
+	@SerializedName("level")
+	private Integer level = null;
+
+	@SerializedName("levelProgress")
+	private Double levelProgress = null;
+
+	@SerializedName("settingsCustom")
+	private List<NotificationSettingViewModel> settingsCustom = null;
+
 	public ProgramNotificationSettingList() {
 	}
 
 	ProgramNotificationSettingList(Parcel in) {
-		level = (Integer) in.readValue(null);
-		levelProgress = (Double) in.readValue(null);
-		settingsCustom = (List<NotificationSettingViewModel>) in.readValue(NotificationSettingViewModel.class.getClassLoader());
 		assetId = (UUID) in.readValue(UUID.class.getClassLoader());
 		title = (String) in.readValue(null);
 		url = (String) in.readValue(null);
 		logoUrl = (String) in.readValue(null);
 		color = (String) in.readValue(null);
 		settingsGeneral = (List<NotificationSettingViewModel>) in.readValue(NotificationSettingViewModel.class.getClassLoader());
-	}
-
-	public ProgramNotificationSettingList level(Integer level) {
-		this.level = level;
-		return this;
-	}
-
-	/**
-	 * Get level
-	 *
-	 * @return level
-	 **/
-	@Schema(description = "")
-	public Integer getLevel() {
-		return level;
-	}
-
-	public void setLevel(Integer level) {
-		this.level = level;
-	}
-
-	public ProgramNotificationSettingList levelProgress(Double levelProgress) {
-		this.levelProgress = levelProgress;
-		return this;
-	}
-
-	/**
-	 * Get levelProgress
-	 *
-	 * @return levelProgress
-	 **/
-	@Schema(description = "")
-	public Double getLevelProgress() {
-		return levelProgress;
-	}
-
-	public void setLevelProgress(Double levelProgress) {
-		this.levelProgress = levelProgress;
-	}
-
-	public ProgramNotificationSettingList settingsCustom(List<NotificationSettingViewModel> settingsCustom) {
-		this.settingsCustom = settingsCustom;
-		return this;
-	}
-
-	public ProgramNotificationSettingList addSettingsCustomItem(NotificationSettingViewModel settingsCustomItem) {
-		if (this.settingsCustom == null) {
-			this.settingsCustom = new ArrayList<NotificationSettingViewModel>();
-		}
-		this.settingsCustom.add(settingsCustomItem);
-		return this;
-	}
-
-	/**
-	 * Get settingsCustom
-	 *
-	 * @return settingsCustom
-	 **/
-	@Schema(description = "")
-	public List<NotificationSettingViewModel> getSettingsCustom() {
-		return settingsCustom;
-	}
-
-	public void setSettingsCustom(List<NotificationSettingViewModel> settingsCustom) {
-		this.settingsCustom = settingsCustom;
+		level = (Integer) in.readValue(null);
+		levelProgress = (Double) in.readValue(null);
+		settingsCustom = (List<NotificationSettingViewModel>) in.readValue(NotificationSettingViewModel.class.getClassLoader());
 	}
 
 	public ProgramNotificationSettingList assetId(UUID assetId) {
@@ -271,6 +206,71 @@ public class ProgramNotificationSettingList implements Parcelable
 		this.settingsGeneral = settingsGeneral;
 	}
 
+	public ProgramNotificationSettingList level(Integer level) {
+		this.level = level;
+		return this;
+	}
+
+	/**
+	 * Get level
+	 *
+	 * @return level
+	 **/
+	@Schema(description = "")
+	public Integer getLevel() {
+		return level;
+	}
+
+	public void setLevel(Integer level) {
+		this.level = level;
+	}
+
+	public ProgramNotificationSettingList levelProgress(Double levelProgress) {
+		this.levelProgress = levelProgress;
+		return this;
+	}
+
+	/**
+	 * Get levelProgress
+	 *
+	 * @return levelProgress
+	 **/
+	@Schema(description = "")
+	public Double getLevelProgress() {
+		return levelProgress;
+	}
+
+	public void setLevelProgress(Double levelProgress) {
+		this.levelProgress = levelProgress;
+	}
+
+	public ProgramNotificationSettingList settingsCustom(List<NotificationSettingViewModel> settingsCustom) {
+		this.settingsCustom = settingsCustom;
+		return this;
+	}
+
+	public ProgramNotificationSettingList addSettingsCustomItem(NotificationSettingViewModel settingsCustomItem) {
+		if (this.settingsCustom == null) {
+			this.settingsCustom = new ArrayList<NotificationSettingViewModel>();
+		}
+		this.settingsCustom.add(settingsCustomItem);
+		return this;
+	}
+
+	/**
+	 * Get settingsCustom
+	 *
+	 * @return settingsCustom
+	 **/
+	@Schema(description = "")
+	public List<NotificationSettingViewModel> getSettingsCustom() {
+		return settingsCustom;
+	}
+
+	public void setSettingsCustom(List<NotificationSettingViewModel> settingsCustom) {
+		this.settingsCustom = settingsCustom;
+	}
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -280,20 +280,20 @@ public class ProgramNotificationSettingList implements Parcelable
 			return false;
 		}
 		ProgramNotificationSettingList programNotificationSettingList = (ProgramNotificationSettingList) o;
-		return Objects.equals(this.level, programNotificationSettingList.level) &&
-				Objects.equals(this.levelProgress, programNotificationSettingList.levelProgress) &&
-				Objects.equals(this.settingsCustom, programNotificationSettingList.settingsCustom) &&
-				Objects.equals(this.assetId, programNotificationSettingList.assetId) &&
+		return Objects.equals(this.assetId, programNotificationSettingList.assetId) &&
 				Objects.equals(this.title, programNotificationSettingList.title) &&
 				Objects.equals(this.url, programNotificationSettingList.url) &&
 				Objects.equals(this.logoUrl, programNotificationSettingList.logoUrl) &&
 				Objects.equals(this.color, programNotificationSettingList.color) &&
-				Objects.equals(this.settingsGeneral, programNotificationSettingList.settingsGeneral);
+				Objects.equals(this.settingsGeneral, programNotificationSettingList.settingsGeneral) &&
+				Objects.equals(this.level, programNotificationSettingList.level) &&
+				Objects.equals(this.levelProgress, programNotificationSettingList.levelProgress) &&
+				Objects.equals(this.settingsCustom, programNotificationSettingList.settingsCustom);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(level, levelProgress, settingsCustom, assetId, title, url, logoUrl, color, settingsGeneral);
+		return Objects.hash(assetId, title, url, logoUrl, color, settingsGeneral, level, levelProgress, settingsCustom);
 	}
 
 	@Override
@@ -301,15 +301,15 @@ public class ProgramNotificationSettingList implements Parcelable
 		StringBuilder sb = new StringBuilder();
 		sb.append("class ProgramNotificationSettingList {\n");
 
-		sb.append("    level: ").append(toIndentedString(level)).append("\n");
-		sb.append("    levelProgress: ").append(toIndentedString(levelProgress)).append("\n");
-		sb.append("    settingsCustom: ").append(toIndentedString(settingsCustom)).append("\n");
 		sb.append("    assetId: ").append(toIndentedString(assetId)).append("\n");
 		sb.append("    title: ").append(toIndentedString(title)).append("\n");
 		sb.append("    url: ").append(toIndentedString(url)).append("\n");
 		sb.append("    logoUrl: ").append(toIndentedString(logoUrl)).append("\n");
 		sb.append("    color: ").append(toIndentedString(color)).append("\n");
 		sb.append("    settingsGeneral: ").append(toIndentedString(settingsGeneral)).append("\n");
+		sb.append("    level: ").append(toIndentedString(level)).append("\n");
+		sb.append("    levelProgress: ").append(toIndentedString(levelProgress)).append("\n");
+		sb.append("    settingsCustom: ").append(toIndentedString(settingsCustom)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}
@@ -326,15 +326,15 @@ public class ProgramNotificationSettingList implements Parcelable
 	}
 
 	public void writeToParcel(Parcel out, int flags) {
-		out.writeValue(level);
-		out.writeValue(levelProgress);
-		out.writeValue(settingsCustom);
 		out.writeValue(assetId);
 		out.writeValue(title);
 		out.writeValue(url);
 		out.writeValue(logoUrl);
 		out.writeValue(color);
 		out.writeValue(settingsGeneral);
+		out.writeValue(level);
+		out.writeValue(levelProgress);
+		out.writeValue(settingsCustom);
 	}
 
 	public int describeContents() {

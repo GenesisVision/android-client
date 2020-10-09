@@ -47,7 +47,10 @@ public class UserDetailsModel implements Parcelable
 		userId = (UUID) in.readSerializable();
 		avatar = in.readString();
 		name = in.readString();
-		registrationDate = DateTime.parse(in.readString());
+		String dateString = in.readString();
+		if (dateString != null && !dateString.isEmpty()) {
+			registrationDate = DateTime.parse(dateString);
+		}
 	}
 
 	public UUID getUserId() {

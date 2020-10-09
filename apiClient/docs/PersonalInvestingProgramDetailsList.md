@@ -15,4 +15,6 @@ Name | Type | Description | Notes
 **profit** | **Double** |  |  [optional]
 **profitPercent** | **Double** |  |  [optional]
 **invested** | **Double** |  |  [optional]
+**successFeePersonal** | **Double** |  |  [optional]
+**managementFeePersonal** | **Double** |  |  [optional]
 **status** | [**AssetInvestmentStatus**](AssetInvestmentStatus.md) |  |  [optional]

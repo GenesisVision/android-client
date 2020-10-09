@@ -30,7 +30,8 @@ public enum AssetTypeExt
 	SIGNALPROGRAM("SignalProgram"),
 	FUND("Fund"),
 	SIGNALTRADINGACCOUNT("SignalTradingAccount"),
-	EXTERNALSIGNALTRADINGACCOUNT("ExternalSignalTradingAccount");
+	EXTERNALSIGNALTRADINGACCOUNT("ExternalSignalTradingAccount"),
+	SELFMANAGEDFUND("SelfManagedFund");
 
 	public static AssetTypeExt fromValue(String text) {
 		for (AssetTypeExt b : AssetTypeExt.values()) {

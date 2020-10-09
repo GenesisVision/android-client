@@ -47,6 +47,9 @@ public class ProgramDetailsListItem implements Parcelable
 	@SerializedName("id")
 	private UUID id = null;
 
+	@SerializedName("type")
+	private ProgramType type = null;
+
 	@SerializedName("logoUrl")
 	private String logoUrl = null;
 
@@ -121,6 +124,7 @@ public class ProgramDetailsListItem implements Parcelable
 
 	ProgramDetailsListItem(Parcel in) {
 		id = (UUID) in.readValue(UUID.class.getClassLoader());
+		type = (ProgramType) in.readValue(ProgramType.class.getClassLoader());
 		logoUrl = (String) in.readValue(null);
 		url = (String) in.readValue(null);
 		description = (String) in.readValue(null);
@@ -163,6 +167,25 @@ public class ProgramDetailsListItem implements Parcelable
 
 	public void setId(UUID id) {
 		this.id = id;
+	}
+
+	public ProgramDetailsListItem type(ProgramType type) {
+		this.type = type;
+		return this;
+	}
+
+	/**
+	 * Get type
+	 *
+	 * @return type
+	 **/
+	@Schema(description = "")
+	public ProgramType getType() {
+		return type;
+	}
+
+	public void setType(ProgramType type) {
+		this.type = type;
 	}
 
 	public ProgramDetailsListItem logoUrl(String logoUrl) {
@@ -620,6 +643,7 @@ public class ProgramDetailsListItem implements Parcelable
 		}
 		ProgramDetailsListItem programDetailsListItem = (ProgramDetailsListItem) o;
 		return Objects.equals(this.id, programDetailsListItem.id) &&
+				Objects.equals(this.type, programDetailsListItem.type) &&
 				Objects.equals(this.logoUrl, programDetailsListItem.logoUrl) &&
 				Objects.equals(this.url, programDetailsListItem.url) &&
 				Objects.equals(this.description, programDetailsListItem.description) &&
@@ -647,7 +671,7 @@ public class ProgramDetailsListItem implements Parcelable
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, logoUrl, url, description, color, title, creationDate, currency, level, levelProgress, periodDuration, availableToInvest, investorsCount, periodStarts, periodEnds, status, entryFeeSelected, entryFeeCurrent, brokerId, owner, personalDetails, tags, statistic, balance);
+		return Objects.hash(id, type, logoUrl, url, description, color, title, creationDate, currency, level, levelProgress, periodDuration, availableToInvest, investorsCount, periodStarts, periodEnds, status, entryFeeSelected, entryFeeCurrent, brokerId, owner, personalDetails, tags, statistic, balance);
 	}
 
 	@Override
@@ -656,6 +680,7 @@ public class ProgramDetailsListItem implements Parcelable
 		sb.append("class ProgramDetailsListItem {\n");
 
 		sb.append("    id: ").append(toIndentedString(id)).append("\n");
+		sb.append("    type: ").append(toIndentedString(type)).append("\n");
 		sb.append("    logoUrl: ").append(toIndentedString(logoUrl)).append("\n");
 		sb.append("    url: ").append(toIndentedString(url)).append("\n");
 		sb.append("    description: ").append(toIndentedString(description)).append("\n");
@@ -696,6 +721,7 @@ public class ProgramDetailsListItem implements Parcelable
 
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(id);
+		out.writeValue(type);
 		out.writeValue(logoUrl);
 		out.writeValue(url);
 		out.writeValue(description);

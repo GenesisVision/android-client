@@ -18,7 +18,6 @@ import android.os.Parcelable;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.Objects;
-import java.util.UUID;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 
@@ -43,15 +42,11 @@ public class TradingAccountDemoDeposit implements Parcelable
 	@SerializedName("amount")
 	private Double amount = null;
 
-	@SerializedName("id")
-	private UUID id = null;
-
 	public TradingAccountDemoDeposit() {
 	}
 
 	TradingAccountDemoDeposit(Parcel in) {
 		amount = (Double) in.readValue(null);
-		id = (UUID) in.readValue(UUID.class.getClassLoader());
 	}
 
 	public TradingAccountDemoDeposit amount(Double amount) {
@@ -73,25 +68,6 @@ public class TradingAccountDemoDeposit implements Parcelable
 		this.amount = amount;
 	}
 
-	public TradingAccountDemoDeposit id(UUID id) {
-		this.id = id;
-		return this;
-	}
-
-	/**
-	 * Get id
-	 *
-	 * @return id
-	 **/
-	@Schema(description = "")
-	public UUID getId() {
-		return id;
-	}
-
-	public void setId(UUID id) {
-		this.id = id;
-	}
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -101,13 +77,12 @@ public class TradingAccountDemoDeposit implements Parcelable
 			return false;
 		}
 		TradingAccountDemoDeposit tradingAccountDemoDeposit = (TradingAccountDemoDeposit) o;
-		return Objects.equals(this.amount, tradingAccountDemoDeposit.amount) &&
-				Objects.equals(this.id, tradingAccountDemoDeposit.id);
+		return Objects.equals(this.amount, tradingAccountDemoDeposit.amount);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(amount, id);
+		return Objects.hash(amount);
 	}
 
 	@Override
@@ -116,7 +91,6 @@ public class TradingAccountDemoDeposit implements Parcelable
 		sb.append("class TradingAccountDemoDeposit {\n");
 
 		sb.append("    amount: ").append(toIndentedString(amount)).append("\n");
-		sb.append("    id: ").append(toIndentedString(id)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}
@@ -134,7 +108,6 @@ public class TradingAccountDemoDeposit implements Parcelable
 
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(amount);
-		out.writeValue(id);
 	}
 
 	public int describeContents() {

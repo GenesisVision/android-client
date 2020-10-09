@@ -22,8 +22,8 @@ public class AuthModule
 {
 	@Provides
 	@Singleton
-	public AuthManager provideAuthManager(AuthApi authApi, PlatformApi platformApi, SharedPreferencesUtil sharedPreferencesUtil, SettingsManager settingsManager) {
-		return new AuthManager(authApi, platformApi, sharedPreferencesUtil, settingsManager);
+	public AuthManager provideAuthManager(AuthApi authApi, ProfileApi profileApi, PlatformApi platformApi, SharedPreferencesUtil sharedPreferencesUtil, SettingsManager settingsManager) {
+		return new AuthManager(authApi, profileApi, platformApi, sharedPreferencesUtil, settingsManager);
 	}
 
 	@Provides

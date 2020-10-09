@@ -39,22 +39,41 @@ public class TwoFactorCodeWithPassword implements Parcelable
 		}
 	};
 
+	@SerializedName("password")
+	private String password = null;
+
 	@SerializedName("twoFactorCode")
 	private String twoFactorCode = null;
 
 	@SerializedName("recoveryCode")
 	private String recoveryCode = null;
 
-	@SerializedName("password")
-	private String password = null;
-
 	public TwoFactorCodeWithPassword() {
 	}
 
 	TwoFactorCodeWithPassword(Parcel in) {
+		password = (String) in.readValue(null);
 		twoFactorCode = (String) in.readValue(null);
 		recoveryCode = (String) in.readValue(null);
-		password = (String) in.readValue(null);
+	}
+
+	public TwoFactorCodeWithPassword password(String password) {
+		this.password = password;
+		return this;
+	}
+
+	/**
+	 * Get password
+	 *
+	 * @return password
+	 **/
+	@Schema(required = true, description = "")
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 	public TwoFactorCodeWithPassword twoFactorCode(String twoFactorCode) {
@@ -95,25 +114,6 @@ public class TwoFactorCodeWithPassword implements Parcelable
 		this.recoveryCode = recoveryCode;
 	}
 
-	public TwoFactorCodeWithPassword password(String password) {
-		this.password = password;
-		return this;
-	}
-
-	/**
-	 * Get password
-	 *
-	 * @return password
-	 **/
-	@Schema(required = true, description = "")
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -123,14 +123,14 @@ public class TwoFactorCodeWithPassword implements Parcelable
 			return false;
 		}
 		TwoFactorCodeWithPassword twoFactorCodeWithPassword = (TwoFactorCodeWithPassword) o;
-		return Objects.equals(this.twoFactorCode, twoFactorCodeWithPassword.twoFactorCode) &&
-				Objects.equals(this.recoveryCode, twoFactorCodeWithPassword.recoveryCode) &&
-				Objects.equals(this.password, twoFactorCodeWithPassword.password);
+		return Objects.equals(this.password, twoFactorCodeWithPassword.password) &&
+				Objects.equals(this.twoFactorCode, twoFactorCodeWithPassword.twoFactorCode) &&
+				Objects.equals(this.recoveryCode, twoFactorCodeWithPassword.recoveryCode);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(twoFactorCode, recoveryCode, password);
+		return Objects.hash(password, twoFactorCode, recoveryCode);
 	}
 
 	@Override
@@ -138,9 +138,9 @@ public class TwoFactorCodeWithPassword implements Parcelable
 		StringBuilder sb = new StringBuilder();
 		sb.append("class TwoFactorCodeWithPassword {\n");
 
+		sb.append("    password: ").append(toIndentedString(password)).append("\n");
 		sb.append("    twoFactorCode: ").append(toIndentedString(twoFactorCode)).append("\n");
 		sb.append("    recoveryCode: ").append(toIndentedString(recoveryCode)).append("\n");
-		sb.append("    password: ").append(toIndentedString(password)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}
@@ -157,9 +157,9 @@ public class TwoFactorCodeWithPassword implements Parcelable
 	}
 
 	public void writeToParcel(Parcel out, int flags) {
+		out.writeValue(password);
 		out.writeValue(twoFactorCode);
 		out.writeValue(recoveryCode);
-		out.writeValue(password);
 	}
 
 	public int describeContents() {

@@ -8,3 +8,4 @@
 * `FUND` (value: `"Fund"`)
 * `SIGNALTRADINGACCOUNT` (value: `"SignalTradingAccount"`)
 * `EXTERNALSIGNALTRADINGACCOUNT` (value: `"ExternalSignalTradingAccount"`)
+* `SELFMANAGEDFUND` (value: `"SelfManagedFund"`)

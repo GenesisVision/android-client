@@ -41,12 +41,6 @@ public class FundChartStatistic implements Parcelable
 		}
 	};
 
-	@SerializedName("investors")
-	private Integer investors = null;
-
-	@SerializedName("creationDate")
-	private DateTime creationDate = null;
-
 	@SerializedName("balance")
 	private Double balance = null;
 
@@ -65,56 +59,24 @@ public class FundChartStatistic implements Parcelable
 	@SerializedName("maxDrawdown")
 	private Double maxDrawdown = null;
 
+	@SerializedName("investors")
+	private Integer investors = null;
+
+	@SerializedName("creationDate")
+	private DateTime creationDate = null;
+
 	public FundChartStatistic() {
 	}
 
 	FundChartStatistic(Parcel in) {
-		investors = (Integer) in.readValue(null);
-		creationDate = (DateTime) in.readValue(DateTime.class.getClassLoader());
 		balance = (Double) in.readValue(null);
 		profitPercent = (Double) in.readValue(null);
 		sharpeRatio = (Double) in.readValue(null);
 		sortinoRatio = (Double) in.readValue(null);
 		calmarRatio = (Double) in.readValue(null);
 		maxDrawdown = (Double) in.readValue(null);
-	}
-
-	public FundChartStatistic investors(Integer investors) {
-		this.investors = investors;
-		return this;
-	}
-
-	/**
-	 * Get investors
-	 *
-	 * @return investors
-	 **/
-	@Schema(description = "")
-	public Integer getInvestors() {
-		return investors;
-	}
-
-	public void setInvestors(Integer investors) {
-		this.investors = investors;
-	}
-
-	public FundChartStatistic creationDate(DateTime creationDate) {
-		this.creationDate = creationDate;
-		return this;
-	}
-
-	/**
-	 * Get creationDate
-	 *
-	 * @return creationDate
-	 **/
-	@Schema(description = "")
-	public DateTime getCreationDate() {
-		return creationDate;
-	}
-
-	public void setCreationDate(DateTime creationDate) {
-		this.creationDate = creationDate;
+		investors = (Integer) in.readValue(null);
+		creationDate = (DateTime) in.readValue(DateTime.class.getClassLoader());
 	}
 
 	public FundChartStatistic balance(Double balance) {
@@ -231,6 +193,44 @@ public class FundChartStatistic implements Parcelable
 		this.maxDrawdown = maxDrawdown;
 	}
 
+	public FundChartStatistic investors(Integer investors) {
+		this.investors = investors;
+		return this;
+	}
+
+	/**
+	 * Get investors
+	 *
+	 * @return investors
+	 **/
+	@Schema(description = "")
+	public Integer getInvestors() {
+		return investors;
+	}
+
+	public void setInvestors(Integer investors) {
+		this.investors = investors;
+	}
+
+	public FundChartStatistic creationDate(DateTime creationDate) {
+		this.creationDate = creationDate;
+		return this;
+	}
+
+	/**
+	 * Get creationDate
+	 *
+	 * @return creationDate
+	 **/
+	@Schema(description = "")
+	public DateTime getCreationDate() {
+		return creationDate;
+	}
+
+	public void setCreationDate(DateTime creationDate) {
+		this.creationDate = creationDate;
+	}
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -240,19 +240,19 @@ public class FundChartStatistic implements Parcelable
 			return false;
 		}
 		FundChartStatistic fundChartStatistic = (FundChartStatistic) o;
-		return Objects.equals(this.investors, fundChartStatistic.investors) &&
-				Objects.equals(this.creationDate, fundChartStatistic.creationDate) &&
-				Objects.equals(this.balance, fundChartStatistic.balance) &&
+		return Objects.equals(this.balance, fundChartStatistic.balance) &&
 				Objects.equals(this.profitPercent, fundChartStatistic.profitPercent) &&
 				Objects.equals(this.sharpeRatio, fundChartStatistic.sharpeRatio) &&
 				Objects.equals(this.sortinoRatio, fundChartStatistic.sortinoRatio) &&
 				Objects.equals(this.calmarRatio, fundChartStatistic.calmarRatio) &&
-				Objects.equals(this.maxDrawdown, fundChartStatistic.maxDrawdown);
+				Objects.equals(this.maxDrawdown, fundChartStatistic.maxDrawdown) &&
+				Objects.equals(this.investors, fundChartStatistic.investors) &&
+				Objects.equals(this.creationDate, fundChartStatistic.creationDate);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(investors, creationDate, balance, profitPercent, sharpeRatio, sortinoRatio, calmarRatio, maxDrawdown);
+		return Objects.hash(balance, profitPercent, sharpeRatio, sortinoRatio, calmarRatio, maxDrawdown, investors, creationDate);
 	}
 
 	@Override
@@ -260,14 +260,14 @@ public class FundChartStatistic implements Parcelable
 		StringBuilder sb = new StringBuilder();
 		sb.append("class FundChartStatistic {\n");
 
-		sb.append("    investors: ").append(toIndentedString(investors)).append("\n");
-		sb.append("    creationDate: ").append(toIndentedString(creationDate)).append("\n");
 		sb.append("    balance: ").append(toIndentedString(balance)).append("\n");
 		sb.append("    profitPercent: ").append(toIndentedString(profitPercent)).append("\n");
 		sb.append("    sharpeRatio: ").append(toIndentedString(sharpeRatio)).append("\n");
 		sb.append("    sortinoRatio: ").append(toIndentedString(sortinoRatio)).append("\n");
 		sb.append("    calmarRatio: ").append(toIndentedString(calmarRatio)).append("\n");
 		sb.append("    maxDrawdown: ").append(toIndentedString(maxDrawdown)).append("\n");
+		sb.append("    investors: ").append(toIndentedString(investors)).append("\n");
+		sb.append("    creationDate: ").append(toIndentedString(creationDate)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}
@@ -284,14 +284,14 @@ public class FundChartStatistic implements Parcelable
 	}
 
 	public void writeToParcel(Parcel out, int flags) {
-		out.writeValue(investors);
-		out.writeValue(creationDate);
 		out.writeValue(balance);
 		out.writeValue(profitPercent);
 		out.writeValue(sharpeRatio);
 		out.writeValue(sortinoRatio);
 		out.writeValue(calmarRatio);
 		out.writeValue(maxDrawdown);
+		out.writeValue(investors);
+		out.writeValue(creationDate);
 	}
 
 	public int describeContents() {

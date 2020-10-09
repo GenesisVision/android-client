@@ -52,10 +52,10 @@ public class DashboardTradingAssetPublicDetails implements Parcelable
 	private String url = null;
 
 	@SerializedName("programDetails")
-	private ProgramAssetDetails programDetails = null;
+	private DashboardProgramDetails programDetails = null;
 
 	@SerializedName("fundDetails")
-	private FundAssetDetails fundDetails = null;
+	private DashboardFundDetails fundDetails = null;
 
 	public DashboardTradingAssetPublicDetails() {
 	}
@@ -65,8 +65,8 @@ public class DashboardTradingAssetPublicDetails implements Parcelable
 		color = (String) in.readValue(null);
 		title = (String) in.readValue(null);
 		url = (String) in.readValue(null);
-		programDetails = (ProgramAssetDetails) in.readValue(ProgramAssetDetails.class.getClassLoader());
-		fundDetails = (FundAssetDetails) in.readValue(FundAssetDetails.class.getClassLoader());
+		programDetails = (DashboardProgramDetails) in.readValue(DashboardProgramDetails.class.getClassLoader());
+		fundDetails = (DashboardFundDetails) in.readValue(DashboardFundDetails.class.getClassLoader());
 	}
 
 	public DashboardTradingAssetPublicDetails logoUrl(String logoUrl) {
@@ -145,7 +145,7 @@ public class DashboardTradingAssetPublicDetails implements Parcelable
 		this.url = url;
 	}
 
-	public DashboardTradingAssetPublicDetails programDetails(ProgramAssetDetails programDetails) {
+	public DashboardTradingAssetPublicDetails programDetails(DashboardProgramDetails programDetails) {
 		this.programDetails = programDetails;
 		return this;
 	}
@@ -156,15 +156,15 @@ public class DashboardTradingAssetPublicDetails implements Parcelable
 	 * @return programDetails
 	 **/
 	@Schema(description = "")
-	public ProgramAssetDetails getProgramDetails() {
+	public DashboardProgramDetails getProgramDetails() {
 		return programDetails;
 	}
 
-	public void setProgramDetails(ProgramAssetDetails programDetails) {
+	public void setProgramDetails(DashboardProgramDetails programDetails) {
 		this.programDetails = programDetails;
 	}
 
-	public DashboardTradingAssetPublicDetails fundDetails(FundAssetDetails fundDetails) {
+	public DashboardTradingAssetPublicDetails fundDetails(DashboardFundDetails fundDetails) {
 		this.fundDetails = fundDetails;
 		return this;
 	}
@@ -175,11 +175,11 @@ public class DashboardTradingAssetPublicDetails implements Parcelable
 	 * @return fundDetails
 	 **/
 	@Schema(description = "")
-	public FundAssetDetails getFundDetails() {
+	public DashboardFundDetails getFundDetails() {
 		return fundDetails;
 	}
 
-	public void setFundDetails(FundAssetDetails fundDetails) {
+	public void setFundDetails(DashboardFundDetails fundDetails) {
 		this.fundDetails = fundDetails;
 	}
 

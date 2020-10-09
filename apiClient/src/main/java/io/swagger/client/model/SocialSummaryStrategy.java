@@ -40,15 +40,6 @@ public class SocialSummaryStrategy implements Parcelable
 		}
 	};
 
-	@SerializedName("investorsCount")
-	private Integer investorsCount = null;
-
-	@SerializedName("subscribersCount")
-	private Integer subscribersCount = null;
-
-	@SerializedName("profitPercent")
-	private Double profitPercent = null;
-
 	@SerializedName("id")
 	private UUID id = null;
 
@@ -70,13 +61,19 @@ public class SocialSummaryStrategy implements Parcelable
 	@SerializedName("programDetails")
 	private ProgramAssetDetails programDetails = null;
 
+	@SerializedName("investorsCount")
+	private Integer investorsCount = null;
+
+	@SerializedName("subscribersCount")
+	private Integer subscribersCount = null;
+
+	@SerializedName("profitPercent")
+	private Double profitPercent = null;
+
 	public SocialSummaryStrategy() {
 	}
 
 	SocialSummaryStrategy(Parcel in) {
-		investorsCount = (Integer) in.readValue(null);
-		subscribersCount = (Integer) in.readValue(null);
-		profitPercent = (Double) in.readValue(null);
 		id = (UUID) in.readValue(UUID.class.getClassLoader());
 		logoUrl = (String) in.readValue(null);
 		color = (String) in.readValue(null);
@@ -84,63 +81,9 @@ public class SocialSummaryStrategy implements Parcelable
 		url = (String) in.readValue(null);
 		assetType = (AssetType) in.readValue(AssetType.class.getClassLoader());
 		programDetails = (ProgramAssetDetails) in.readValue(ProgramAssetDetails.class.getClassLoader());
-	}
-
-	public SocialSummaryStrategy investorsCount(Integer investorsCount) {
-		this.investorsCount = investorsCount;
-		return this;
-	}
-
-	/**
-	 * Get investorsCount
-	 *
-	 * @return investorsCount
-	 **/
-	@Schema(description = "")
-	public Integer getInvestorsCount() {
-		return investorsCount;
-	}
-
-	public void setInvestorsCount(Integer investorsCount) {
-		this.investorsCount = investorsCount;
-	}
-
-	public SocialSummaryStrategy subscribersCount(Integer subscribersCount) {
-		this.subscribersCount = subscribersCount;
-		return this;
-	}
-
-	/**
-	 * Get subscribersCount
-	 *
-	 * @return subscribersCount
-	 **/
-	@Schema(description = "")
-	public Integer getSubscribersCount() {
-		return subscribersCount;
-	}
-
-	public void setSubscribersCount(Integer subscribersCount) {
-		this.subscribersCount = subscribersCount;
-	}
-
-	public SocialSummaryStrategy profitPercent(Double profitPercent) {
-		this.profitPercent = profitPercent;
-		return this;
-	}
-
-	/**
-	 * Get profitPercent
-	 *
-	 * @return profitPercent
-	 **/
-	@Schema(description = "")
-	public Double getProfitPercent() {
-		return profitPercent;
-	}
-
-	public void setProfitPercent(Double profitPercent) {
-		this.profitPercent = profitPercent;
+		investorsCount = (Integer) in.readValue(null);
+		subscribersCount = (Integer) in.readValue(null);
+		profitPercent = (Double) in.readValue(null);
 	}
 
 	public SocialSummaryStrategy id(UUID id) {
@@ -276,6 +219,63 @@ public class SocialSummaryStrategy implements Parcelable
 		this.programDetails = programDetails;
 	}
 
+	public SocialSummaryStrategy investorsCount(Integer investorsCount) {
+		this.investorsCount = investorsCount;
+		return this;
+	}
+
+	/**
+	 * Get investorsCount
+	 *
+	 * @return investorsCount
+	 **/
+	@Schema(description = "")
+	public Integer getInvestorsCount() {
+		return investorsCount;
+	}
+
+	public void setInvestorsCount(Integer investorsCount) {
+		this.investorsCount = investorsCount;
+	}
+
+	public SocialSummaryStrategy subscribersCount(Integer subscribersCount) {
+		this.subscribersCount = subscribersCount;
+		return this;
+	}
+
+	/**
+	 * Get subscribersCount
+	 *
+	 * @return subscribersCount
+	 **/
+	@Schema(description = "")
+	public Integer getSubscribersCount() {
+		return subscribersCount;
+	}
+
+	public void setSubscribersCount(Integer subscribersCount) {
+		this.subscribersCount = subscribersCount;
+	}
+
+	public SocialSummaryStrategy profitPercent(Double profitPercent) {
+		this.profitPercent = profitPercent;
+		return this;
+	}
+
+	/**
+	 * Get profitPercent
+	 *
+	 * @return profitPercent
+	 **/
+	@Schema(description = "")
+	public Double getProfitPercent() {
+		return profitPercent;
+	}
+
+	public void setProfitPercent(Double profitPercent) {
+		this.profitPercent = profitPercent;
+	}
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -285,21 +285,21 @@ public class SocialSummaryStrategy implements Parcelable
 			return false;
 		}
 		SocialSummaryStrategy socialSummaryStrategy = (SocialSummaryStrategy) o;
-		return Objects.equals(this.investorsCount, socialSummaryStrategy.investorsCount) &&
-				Objects.equals(this.subscribersCount, socialSummaryStrategy.subscribersCount) &&
-				Objects.equals(this.profitPercent, socialSummaryStrategy.profitPercent) &&
-				Objects.equals(this.id, socialSummaryStrategy.id) &&
+		return Objects.equals(this.id, socialSummaryStrategy.id) &&
 				Objects.equals(this.logoUrl, socialSummaryStrategy.logoUrl) &&
 				Objects.equals(this.color, socialSummaryStrategy.color) &&
 				Objects.equals(this.title, socialSummaryStrategy.title) &&
 				Objects.equals(this.url, socialSummaryStrategy.url) &&
 				Objects.equals(this.assetType, socialSummaryStrategy.assetType) &&
-				Objects.equals(this.programDetails, socialSummaryStrategy.programDetails);
+				Objects.equals(this.programDetails, socialSummaryStrategy.programDetails) &&
+				Objects.equals(this.investorsCount, socialSummaryStrategy.investorsCount) &&
+				Objects.equals(this.subscribersCount, socialSummaryStrategy.subscribersCount) &&
+				Objects.equals(this.profitPercent, socialSummaryStrategy.profitPercent);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(investorsCount, subscribersCount, profitPercent, id, logoUrl, color, title, url, assetType, programDetails);
+		return Objects.hash(id, logoUrl, color, title, url, assetType, programDetails, investorsCount, subscribersCount, profitPercent);
 	}
 
 	@Override
@@ -307,9 +307,6 @@ public class SocialSummaryStrategy implements Parcelable
 		StringBuilder sb = new StringBuilder();
 		sb.append("class SocialSummaryStrategy {\n");
 
-		sb.append("    investorsCount: ").append(toIndentedString(investorsCount)).append("\n");
-		sb.append("    subscribersCount: ").append(toIndentedString(subscribersCount)).append("\n");
-		sb.append("    profitPercent: ").append(toIndentedString(profitPercent)).append("\n");
 		sb.append("    id: ").append(toIndentedString(id)).append("\n");
 		sb.append("    logoUrl: ").append(toIndentedString(logoUrl)).append("\n");
 		sb.append("    color: ").append(toIndentedString(color)).append("\n");
@@ -317,6 +314,9 @@ public class SocialSummaryStrategy implements Parcelable
 		sb.append("    url: ").append(toIndentedString(url)).append("\n");
 		sb.append("    assetType: ").append(toIndentedString(assetType)).append("\n");
 		sb.append("    programDetails: ").append(toIndentedString(programDetails)).append("\n");
+		sb.append("    investorsCount: ").append(toIndentedString(investorsCount)).append("\n");
+		sb.append("    subscribersCount: ").append(toIndentedString(subscribersCount)).append("\n");
+		sb.append("    profitPercent: ").append(toIndentedString(profitPercent)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}
@@ -333,9 +333,6 @@ public class SocialSummaryStrategy implements Parcelable
 	}
 
 	public void writeToParcel(Parcel out, int flags) {
-		out.writeValue(investorsCount);
-		out.writeValue(subscribersCount);
-		out.writeValue(profitPercent);
 		out.writeValue(id);
 		out.writeValue(logoUrl);
 		out.writeValue(color);
@@ -343,6 +340,9 @@ public class SocialSummaryStrategy implements Parcelable
 		out.writeValue(url);
 		out.writeValue(assetType);
 		out.writeValue(programDetails);
+		out.writeValue(investorsCount);
+		out.writeValue(subscribersCount);
+		out.writeValue(profitPercent);
 	}
 
 	public int describeContents() {

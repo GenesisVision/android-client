@@ -39,12 +39,6 @@ public class AttachToExternalSignalProviderCommon implements Parcelable
 		}
 	};
 
-	@SerializedName("initialDepositCurrency")
-	private Currency initialDepositCurrency = null;
-
-	@SerializedName("initialDepositAmount")
-	private Double initialDepositAmount = null;
-
 	@SerializedName("mode")
 	private SubscriptionMode mode = null;
 
@@ -60,55 +54,23 @@ public class AttachToExternalSignalProviderCommon implements Parcelable
 	@SerializedName("fixedCurrency")
 	private Currency fixedCurrency = null;
 
+	@SerializedName("initialDepositCurrency")
+	private Currency initialDepositCurrency = null;
+
+	@SerializedName("initialDepositAmount")
+	private Double initialDepositAmount = null;
+
 	public AttachToExternalSignalProviderCommon() {
 	}
 
 	AttachToExternalSignalProviderCommon(Parcel in) {
-		initialDepositCurrency = (Currency) in.readValue(Currency.class.getClassLoader());
-		initialDepositAmount = (Double) in.readValue(null);
 		mode = (SubscriptionMode) in.readValue(SubscriptionMode.class.getClassLoader());
 		percent = (Double) in.readValue(null);
 		openTolerancePercent = (Double) in.readValue(null);
 		fixedVolume = (Double) in.readValue(null);
 		fixedCurrency = (Currency) in.readValue(Currency.class.getClassLoader());
-	}
-
-	public AttachToExternalSignalProviderCommon initialDepositCurrency(Currency initialDepositCurrency) {
-		this.initialDepositCurrency = initialDepositCurrency;
-		return this;
-	}
-
-	/**
-	 * Get initialDepositCurrency
-	 *
-	 * @return initialDepositCurrency
-	 **/
-	@Schema(description = "")
-	public Currency getInitialDepositCurrency() {
-		return initialDepositCurrency;
-	}
-
-	public void setInitialDepositCurrency(Currency initialDepositCurrency) {
-		this.initialDepositCurrency = initialDepositCurrency;
-	}
-
-	public AttachToExternalSignalProviderCommon initialDepositAmount(Double initialDepositAmount) {
-		this.initialDepositAmount = initialDepositAmount;
-		return this;
-	}
-
-	/**
-	 * Get initialDepositAmount
-	 *
-	 * @return initialDepositAmount
-	 **/
-	@Schema(description = "")
-	public Double getInitialDepositAmount() {
-		return initialDepositAmount;
-	}
-
-	public void setInitialDepositAmount(Double initialDepositAmount) {
-		this.initialDepositAmount = initialDepositAmount;
+		initialDepositCurrency = (Currency) in.readValue(Currency.class.getClassLoader());
+		initialDepositAmount = (Double) in.readValue(null);
 	}
 
 	public AttachToExternalSignalProviderCommon mode(SubscriptionMode mode) {
@@ -206,6 +168,44 @@ public class AttachToExternalSignalProviderCommon implements Parcelable
 		this.fixedCurrency = fixedCurrency;
 	}
 
+	public AttachToExternalSignalProviderCommon initialDepositCurrency(Currency initialDepositCurrency) {
+		this.initialDepositCurrency = initialDepositCurrency;
+		return this;
+	}
+
+	/**
+	 * Get initialDepositCurrency
+	 *
+	 * @return initialDepositCurrency
+	 **/
+	@Schema(description = "")
+	public Currency getInitialDepositCurrency() {
+		return initialDepositCurrency;
+	}
+
+	public void setInitialDepositCurrency(Currency initialDepositCurrency) {
+		this.initialDepositCurrency = initialDepositCurrency;
+	}
+
+	public AttachToExternalSignalProviderCommon initialDepositAmount(Double initialDepositAmount) {
+		this.initialDepositAmount = initialDepositAmount;
+		return this;
+	}
+
+	/**
+	 * Get initialDepositAmount
+	 *
+	 * @return initialDepositAmount
+	 **/
+	@Schema(description = "")
+	public Double getInitialDepositAmount() {
+		return initialDepositAmount;
+	}
+
+	public void setInitialDepositAmount(Double initialDepositAmount) {
+		this.initialDepositAmount = initialDepositAmount;
+	}
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -215,18 +215,18 @@ public class AttachToExternalSignalProviderCommon implements Parcelable
 			return false;
 		}
 		AttachToExternalSignalProviderCommon attachToExternalSignalProviderCommon = (AttachToExternalSignalProviderCommon) o;
-		return Objects.equals(this.initialDepositCurrency, attachToExternalSignalProviderCommon.initialDepositCurrency) &&
-				Objects.equals(this.initialDepositAmount, attachToExternalSignalProviderCommon.initialDepositAmount) &&
-				Objects.equals(this.mode, attachToExternalSignalProviderCommon.mode) &&
+		return Objects.equals(this.mode, attachToExternalSignalProviderCommon.mode) &&
 				Objects.equals(this.percent, attachToExternalSignalProviderCommon.percent) &&
 				Objects.equals(this.openTolerancePercent, attachToExternalSignalProviderCommon.openTolerancePercent) &&
 				Objects.equals(this.fixedVolume, attachToExternalSignalProviderCommon.fixedVolume) &&
-				Objects.equals(this.fixedCurrency, attachToExternalSignalProviderCommon.fixedCurrency);
+				Objects.equals(this.fixedCurrency, attachToExternalSignalProviderCommon.fixedCurrency) &&
+				Objects.equals(this.initialDepositCurrency, attachToExternalSignalProviderCommon.initialDepositCurrency) &&
+				Objects.equals(this.initialDepositAmount, attachToExternalSignalProviderCommon.initialDepositAmount);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(initialDepositCurrency, initialDepositAmount, mode, percent, openTolerancePercent, fixedVolume, fixedCurrency);
+		return Objects.hash(mode, percent, openTolerancePercent, fixedVolume, fixedCurrency, initialDepositCurrency, initialDepositAmount);
 	}
 
 	@Override
@@ -234,13 +234,13 @@ public class AttachToExternalSignalProviderCommon implements Parcelable
 		StringBuilder sb = new StringBuilder();
 		sb.append("class AttachToExternalSignalProviderCommon {\n");
 
-		sb.append("    initialDepositCurrency: ").append(toIndentedString(initialDepositCurrency)).append("\n");
-		sb.append("    initialDepositAmount: ").append(toIndentedString(initialDepositAmount)).append("\n");
 		sb.append("    mode: ").append(toIndentedString(mode)).append("\n");
 		sb.append("    percent: ").append(toIndentedString(percent)).append("\n");
 		sb.append("    openTolerancePercent: ").append(toIndentedString(openTolerancePercent)).append("\n");
 		sb.append("    fixedVolume: ").append(toIndentedString(fixedVolume)).append("\n");
 		sb.append("    fixedCurrency: ").append(toIndentedString(fixedCurrency)).append("\n");
+		sb.append("    initialDepositCurrency: ").append(toIndentedString(initialDepositCurrency)).append("\n");
+		sb.append("    initialDepositAmount: ").append(toIndentedString(initialDepositAmount)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}
@@ -257,13 +257,13 @@ public class AttachToExternalSignalProviderCommon implements Parcelable
 	}
 
 	public void writeToParcel(Parcel out, int flags) {
-		out.writeValue(initialDepositCurrency);
-		out.writeValue(initialDepositAmount);
 		out.writeValue(mode);
 		out.writeValue(percent);
 		out.writeValue(openTolerancePercent);
 		out.writeValue(fixedVolume);
 		out.writeValue(fixedCurrency);
+		out.writeValue(initialDepositCurrency);
+		out.writeValue(initialDepositAmount);
 	}
 
 	public int describeContents() {

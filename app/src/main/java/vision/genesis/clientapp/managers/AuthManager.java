@@ -16,9 +16,12 @@ import org.greenrobot.eventbus.Subscribe;
 
 import io.swagger.client.api.AuthApi;
 import io.swagger.client.api.PlatformApi;
+import io.swagger.client.api.ProfileApi;
+import io.swagger.client.model.AppPlatform;
 import io.swagger.client.model.CaptchaCheckResult;
 import io.swagger.client.model.CaptchaDetails;
 import io.swagger.client.model.ChangePasswordViewModel;
+import io.swagger.client.model.FcmTokenViewModel;
 import io.swagger.client.model.ForgotPasswordViewModel;
 import io.swagger.client.model.LoginViewModel;
 import io.swagger.client.model.RecoveryCodesViewModel;
@@ -61,7 +64,15 @@ public class AuthManager
 
 	private Subscription getTokenSubscription;
 
+	private Subscription updateFcmTokenSubscription;
+
+	private Subscription disableFcmTokenSubscription;
+
+	private Subscription getTwoFactorStatusSubscription;
+
 	private AuthApi authApi;
+
+	private ProfileApi profileApi;
 
 	private PlatformApi platformApi;
 
@@ -69,10 +80,11 @@ public class AuthManager
 
 	private SettingsManager settingsManager;
 
-	private Subscription getTwoFactorStatusSubscription;
+	private String fcmToken = "";
 
-	public AuthManager(AuthApi authApi, PlatformApi platformApi, SharedPreferencesUtil sharedPreferencesUtil, SettingsManager settingsManager) {
+	public AuthManager(AuthApi authApi, ProfileApi profileApi, PlatformApi platformApi, SharedPreferencesUtil sharedPreferencesUtil, SettingsManager settingsManager) {
 		this.authApi = authApi;
+		this.profileApi = profileApi;
 		this.platformApi = platformApi;
 		this.sharedPreferencesUtil = sharedPreferencesUtil;
 		this.settingsManager = settingsManager;
@@ -84,6 +96,7 @@ public class AuthManager
 
 		EventBus.getDefault().register(this);
 
+		fcmToken = sharedPreferencesUtil.getFcmToken();
 		tryGetSavedToken();
 	}
 
@@ -132,6 +145,9 @@ public class AuthManager
 
 	private void handleGetTokenResponse(String token) {
 		saveNewToken(token);
+		if (fcmToken != null && !fcmToken.isEmpty()) {
+			updateFcmTokenMaybe(fcmToken);
+		}
 		getTwoFactorStatus();
 	}
 
@@ -140,6 +156,52 @@ public class AuthManager
 		sharedPreferencesUtil.saveToken(newToken);
 		AuthManager.token.onNext(newToken);
 		Timber.d("TOKEN: %s", newToken);
+	}
+
+	public void updateFcmTokenMaybe(String token) {
+		this.fcmToken = token;
+		saveNewFcmToken(token);
+
+		if (AuthManager.token.getValue() != null) {
+
+			FcmTokenViewModel model = new FcmTokenViewModel();
+			model.setToken(token);
+			model.setPlatform(AppPlatform.ANDROID);
+
+			if (updateFcmTokenSubscription != null) {
+				updateFcmTokenSubscription.unsubscribe();
+			}
+
+			updateFcmTokenSubscription = profileApi.updateFcmToken(model)
+					.observeOn(Schedulers.newThread())
+					.subscribeOn(Schedulers.io())
+					.subscribe(response -> updateFcmTokenSubscription.unsubscribe(),
+							throwable -> updateFcmTokenSubscription.unsubscribe());
+
+		}
+	}
+
+	private void disableFcmToken() {
+		if (AuthManager.token.getValue() != null && fcmToken != null && !fcmToken.isEmpty()) {
+			if (disableFcmTokenSubscription != null) {
+				disableFcmTokenSubscription.unsubscribe();
+			}
+
+			FcmTokenViewModel model = new FcmTokenViewModel();
+			model.setToken(fcmToken);
+			model.setPlatform(AppPlatform.ANDROID);
+
+			disableFcmTokenSubscription = profileApi.removeFcmToken(model)
+					.observeOn(Schedulers.newThread())
+					.subscribeOn(Schedulers.io())
+					.subscribe(response -> disableFcmTokenSubscription.unsubscribe(),
+							throwable -> disableFcmTokenSubscription.unsubscribe());
+		}
+	}
+
+	private void saveNewFcmToken(String newFcmToken) {
+		sharedPreferencesUtil.saveFcmToken(newFcmToken);
+		Timber.d("FCM_TOKEN: %s", newFcmToken);
 	}
 
 	private void getTwoFactorStatus() {
@@ -226,6 +288,7 @@ public class AuthManager
 	}
 
 	public void logout() {
+		disableFcmToken();
 		sharedPreferencesUtil.saveToken(null);
 		AuthManager.token.onNext(null);
 		settingsManager.logout();

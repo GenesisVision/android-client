@@ -4,6 +4,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | [**UUID**](UUID.md) |  |  [optional]
+**type** | [**ProgramType**](ProgramType.md) |  |  [optional]
 **logoUrl** | **String** |  |  [optional]
 **url** | **String** |  |  [optional]
 **description** | **String** |  |  [optional]

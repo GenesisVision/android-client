@@ -40,9 +40,6 @@ public class DashboardChartAsset implements Parcelable
 		}
 	};
 
-	@SerializedName("isPrivateAccount")
-	private Boolean isPrivateAccount = null;
-
 	@SerializedName("id")
 	private UUID id = null;
 
@@ -64,11 +61,13 @@ public class DashboardChartAsset implements Parcelable
 	@SerializedName("programDetails")
 	private ProgramAssetDetails programDetails = null;
 
+	@SerializedName("isPrivateAccount")
+	private Boolean isPrivateAccount = null;
+
 	public DashboardChartAsset() {
 	}
 
 	DashboardChartAsset(Parcel in) {
-		isPrivateAccount = (Boolean) in.readValue(null);
 		id = (UUID) in.readValue(UUID.class.getClassLoader());
 		logoUrl = (String) in.readValue(null);
 		color = (String) in.readValue(null);
@@ -76,25 +75,7 @@ public class DashboardChartAsset implements Parcelable
 		url = (String) in.readValue(null);
 		assetType = (AssetType) in.readValue(AssetType.class.getClassLoader());
 		programDetails = (ProgramAssetDetails) in.readValue(ProgramAssetDetails.class.getClassLoader());
-	}
-
-	public DashboardChartAsset isPrivateAccount(Boolean isPrivateAccount) {
-		this.isPrivateAccount = isPrivateAccount;
-		return this;
-	}
-
-	/**
-	 * Get isPrivateAccount
-	 *
-	 * @return isPrivateAccount
-	 **/
-	@Schema(description = "")
-	public Boolean isIsPrivateAccount() {
-		return isPrivateAccount;
-	}
-
-	public void setIsPrivateAccount(Boolean isPrivateAccount) {
-		this.isPrivateAccount = isPrivateAccount;
+		isPrivateAccount = (Boolean) in.readValue(null);
 	}
 
 	public DashboardChartAsset id(UUID id) {
@@ -230,6 +211,25 @@ public class DashboardChartAsset implements Parcelable
 		this.programDetails = programDetails;
 	}
 
+	public DashboardChartAsset isPrivateAccount(Boolean isPrivateAccount) {
+		this.isPrivateAccount = isPrivateAccount;
+		return this;
+	}
+
+	/**
+	 * Get isPrivateAccount
+	 *
+	 * @return isPrivateAccount
+	 **/
+	@Schema(description = "")
+	public Boolean isIsPrivateAccount() {
+		return isPrivateAccount;
+	}
+
+	public void setIsPrivateAccount(Boolean isPrivateAccount) {
+		this.isPrivateAccount = isPrivateAccount;
+	}
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -239,19 +239,19 @@ public class DashboardChartAsset implements Parcelable
 			return false;
 		}
 		DashboardChartAsset dashboardChartAsset = (DashboardChartAsset) o;
-		return Objects.equals(this.isPrivateAccount, dashboardChartAsset.isPrivateAccount) &&
-				Objects.equals(this.id, dashboardChartAsset.id) &&
+		return Objects.equals(this.id, dashboardChartAsset.id) &&
 				Objects.equals(this.logoUrl, dashboardChartAsset.logoUrl) &&
 				Objects.equals(this.color, dashboardChartAsset.color) &&
 				Objects.equals(this.title, dashboardChartAsset.title) &&
 				Objects.equals(this.url, dashboardChartAsset.url) &&
 				Objects.equals(this.assetType, dashboardChartAsset.assetType) &&
-				Objects.equals(this.programDetails, dashboardChartAsset.programDetails);
+				Objects.equals(this.programDetails, dashboardChartAsset.programDetails) &&
+				Objects.equals(this.isPrivateAccount, dashboardChartAsset.isPrivateAccount);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(isPrivateAccount, id, logoUrl, color, title, url, assetType, programDetails);
+		return Objects.hash(id, logoUrl, color, title, url, assetType, programDetails, isPrivateAccount);
 	}
 
 	@Override
@@ -259,7 +259,6 @@ public class DashboardChartAsset implements Parcelable
 		StringBuilder sb = new StringBuilder();
 		sb.append("class DashboardChartAsset {\n");
 
-		sb.append("    isPrivateAccount: ").append(toIndentedString(isPrivateAccount)).append("\n");
 		sb.append("    id: ").append(toIndentedString(id)).append("\n");
 		sb.append("    logoUrl: ").append(toIndentedString(logoUrl)).append("\n");
 		sb.append("    color: ").append(toIndentedString(color)).append("\n");
@@ -267,6 +266,7 @@ public class DashboardChartAsset implements Parcelable
 		sb.append("    url: ").append(toIndentedString(url)).append("\n");
 		sb.append("    assetType: ").append(toIndentedString(assetType)).append("\n");
 		sb.append("    programDetails: ").append(toIndentedString(programDetails)).append("\n");
+		sb.append("    isPrivateAccount: ").append(toIndentedString(isPrivateAccount)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}
@@ -283,7 +283,6 @@ public class DashboardChartAsset implements Parcelable
 	}
 
 	public void writeToParcel(Parcel out, int flags) {
-		out.writeValue(isPrivateAccount);
 		out.writeValue(id);
 		out.writeValue(logoUrl);
 		out.writeValue(color);
@@ -291,6 +290,7 @@ public class DashboardChartAsset implements Parcelable
 		out.writeValue(url);
 		out.writeValue(assetType);
 		out.writeValue(programDetails);
+		out.writeValue(isPrivateAccount);
 	}
 
 	public int describeContents() {

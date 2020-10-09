@@ -17,6 +17,7 @@ Method | HTTP request | Description
 [**getPrivateTradingAssets**](DashboardApi.md#getPrivateTradingAssets) | **GET** v2.0/dashboard/trading/private | 
 [**getPublicTradingAssets**](DashboardApi.md#getPublicTradingAssets) | **GET** v2.0/dashboard/trading/public | 
 [**getRecommendations**](DashboardApi.md#getRecommendations) | **GET** v2.0/dashboard/recommendations | Recommended assets to invest (programs, funds and follows). Funds in passed currency
+[**getSelfManagedFunds**](DashboardApi.md#getSelfManagedFunds) | **GET** v2.0/dashboard/trading/private/selfmanaged | 
 [**getTradingDetails**](DashboardApi.md#getTradingDetails) | **GET** v2.0/dashboard/trading | 
 
 <a name="getChart"></a>
@@ -792,6 +793,73 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**CommonPublicAssetsViewModel**](CommonPublicAssetsViewModel.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
+
+<a name="getSelfManagedFunds"></a>
+# **getSelfManagedFunds**
+> DashboardTradingAssetItemsViewModel getSelfManagedFunds(dateFrom, dateTo, chartPointsCount, showIn, status, skipStatistic, skip, take)
+
+
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiClient;
+//import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
+//import io.swagger.client.api.DashboardApi;
+
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
+
+DashboardApi apiInstance = new DashboardApi();
+DateTime dateFrom = new DateTime(); // DateTime | 
+DateTime dateTo = new DateTime(); // DateTime | 
+Integer chartPointsCount = 56; // Integer | 
+Currency showIn = new Currency(); // Currency | 
+DashboardAssetStatus status = new DashboardAssetStatus(); // DashboardAssetStatus | 
+Boolean skipStatistic = true; // Boolean | 
+Integer skip = 56; // Integer | 
+Integer take = 56; // Integer | 
+try {
+    DashboardTradingAssetItemsViewModel result = apiInstance.getSelfManagedFunds(dateFrom, dateTo, chartPointsCount, showIn, status, skipStatistic, skip, take);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling DashboardApi#getSelfManagedFunds");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **dateFrom** | **DateTime**|  | [optional]
+ **dateTo** | **DateTime**|  | [optional]
+ **chartPointsCount** | **Integer**|  | [optional]
+ **showIn** | [**Currency**](.md)|  | [optional]
+ **status** | [**DashboardAssetStatus**](.md)|  | [optional]
+ **skipStatistic** | **Boolean**|  | [optional]
+ **skip** | **Integer**|  | [optional]
+ **take** | **Integer**|  | [optional]
+
+### Return type
+
+[**DashboardTradingAssetItemsViewModel**](DashboardTradingAssetItemsViewModel.md)
 
 ### Authorization
 

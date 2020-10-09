@@ -40,6 +40,12 @@ public class TradesSignalViewModel implements Parcelable
 		}
 	};
 
+	@SerializedName("items")
+	private List<OrderSignalModel> items = null;
+
+	@SerializedName("total")
+	private Integer total = null;
+
 	@SerializedName("showSwaps")
 	private Boolean showSwaps = null;
 
@@ -49,21 +55,35 @@ public class TradesSignalViewModel implements Parcelable
 	@SerializedName("tradesDelay")
 	private TradesDelay tradesDelay = null;
 
-	@SerializedName("items")
-	private List<OrderSignalModel> items = null;
-
-	@SerializedName("total")
-	private Integer total = null;
-
 	public TradesSignalViewModel() {
 	}
 
 	TradesSignalViewModel(Parcel in) {
+		items = (List<OrderSignalModel>) in.readValue(OrderSignalModel.class.getClassLoader());
+		total = (Integer) in.readValue(null);
 		showSwaps = (Boolean) in.readValue(null);
 		showTickets = (Boolean) in.readValue(null);
 		tradesDelay = (TradesDelay) in.readValue(TradesDelay.class.getClassLoader());
-		items = (List<OrderSignalModel>) in.readValue(OrderSignalModel.class.getClassLoader());
-		total = (Integer) in.readValue(null);
+	}
+
+	/**
+	 * Get items
+	 *
+	 * @return items
+	 **/
+	@Schema(description = "")
+	public List<OrderSignalModel> getItems() {
+		return items;
+	}
+
+	/**
+	 * Get total
+	 *
+	 * @return total
+	 **/
+	@Schema(description = "")
+	public Integer getTotal() {
+		return total;
 	}
 
 	public TradesSignalViewModel showSwaps(Boolean showSwaps) {
@@ -123,26 +143,6 @@ public class TradesSignalViewModel implements Parcelable
 		this.tradesDelay = tradesDelay;
 	}
 
-	/**
-	 * Get items
-	 *
-	 * @return items
-	 **/
-	@Schema(description = "")
-	public List<OrderSignalModel> getItems() {
-		return items;
-	}
-
-	/**
-	 * Get total
-	 *
-	 * @return total
-	 **/
-	@Schema(description = "")
-	public Integer getTotal() {
-		return total;
-	}
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -152,16 +152,16 @@ public class TradesSignalViewModel implements Parcelable
 			return false;
 		}
 		TradesSignalViewModel tradesSignalViewModel = (TradesSignalViewModel) o;
-		return Objects.equals(this.showSwaps, tradesSignalViewModel.showSwaps) &&
+		return Objects.equals(this.items, tradesSignalViewModel.items) &&
+				Objects.equals(this.total, tradesSignalViewModel.total) &&
+				Objects.equals(this.showSwaps, tradesSignalViewModel.showSwaps) &&
 				Objects.equals(this.showTickets, tradesSignalViewModel.showTickets) &&
-				Objects.equals(this.tradesDelay, tradesSignalViewModel.tradesDelay) &&
-				Objects.equals(this.items, tradesSignalViewModel.items) &&
-				Objects.equals(this.total, tradesSignalViewModel.total);
+				Objects.equals(this.tradesDelay, tradesSignalViewModel.tradesDelay);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(showSwaps, showTickets, tradesDelay, items, total);
+		return Objects.hash(items, total, showSwaps, showTickets, tradesDelay);
 	}
 
 	@Override
@@ -169,11 +169,11 @@ public class TradesSignalViewModel implements Parcelable
 		StringBuilder sb = new StringBuilder();
 		sb.append("class TradesSignalViewModel {\n");
 
+		sb.append("    items: ").append(toIndentedString(items)).append("\n");
+		sb.append("    total: ").append(toIndentedString(total)).append("\n");
 		sb.append("    showSwaps: ").append(toIndentedString(showSwaps)).append("\n");
 		sb.append("    showTickets: ").append(toIndentedString(showTickets)).append("\n");
 		sb.append("    tradesDelay: ").append(toIndentedString(tradesDelay)).append("\n");
-		sb.append("    items: ").append(toIndentedString(items)).append("\n");
-		sb.append("    total: ").append(toIndentedString(total)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}
@@ -190,11 +190,11 @@ public class TradesSignalViewModel implements Parcelable
 	}
 
 	public void writeToParcel(Parcel out, int flags) {
+		out.writeValue(items);
+		out.writeValue(total);
 		out.writeValue(showSwaps);
 		out.writeValue(showTickets);
 		out.writeValue(tradesDelay);
-		out.writeValue(items);
-		out.writeValue(total);
 	}
 
 	public int describeContents() {

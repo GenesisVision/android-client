@@ -49,6 +49,9 @@ public class TradingAccountCreateResult implements Parcelable
 	@SerializedName("twoFactor")
 	private TwoFactorAuthenticator twoFactor = null;
 
+	@SerializedName("startDeposit")
+	private Double startDeposit = null;
+
 	public TradingAccountCreateResult() {
 	}
 
@@ -56,6 +59,7 @@ public class TradingAccountCreateResult implements Parcelable
 		id = (UUID) in.readValue(UUID.class.getClassLoader());
 		twoFactorRequired = (Boolean) in.readValue(null);
 		twoFactor = (TwoFactorAuthenticator) in.readValue(TwoFactorAuthenticator.class.getClassLoader());
+		startDeposit = (Double) in.readValue(null);
 	}
 
 	public TradingAccountCreateResult id(UUID id) {
@@ -115,6 +119,25 @@ public class TradingAccountCreateResult implements Parcelable
 		this.twoFactor = twoFactor;
 	}
 
+	public TradingAccountCreateResult startDeposit(Double startDeposit) {
+		this.startDeposit = startDeposit;
+		return this;
+	}
+
+	/**
+	 * Get startDeposit
+	 *
+	 * @return startDeposit
+	 **/
+	@Schema(description = "")
+	public Double getStartDeposit() {
+		return startDeposit;
+	}
+
+	public void setStartDeposit(Double startDeposit) {
+		this.startDeposit = startDeposit;
+	}
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -126,12 +149,13 @@ public class TradingAccountCreateResult implements Parcelable
 		TradingAccountCreateResult tradingAccountCreateResult = (TradingAccountCreateResult) o;
 		return Objects.equals(this.id, tradingAccountCreateResult.id) &&
 				Objects.equals(this.twoFactorRequired, tradingAccountCreateResult.twoFactorRequired) &&
-				Objects.equals(this.twoFactor, tradingAccountCreateResult.twoFactor);
+				Objects.equals(this.twoFactor, tradingAccountCreateResult.twoFactor) &&
+				Objects.equals(this.startDeposit, tradingAccountCreateResult.startDeposit);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, twoFactorRequired, twoFactor);
+		return Objects.hash(id, twoFactorRequired, twoFactor, startDeposit);
 	}
 
 	@Override
@@ -142,6 +166,7 @@ public class TradingAccountCreateResult implements Parcelable
 		sb.append("    id: ").append(toIndentedString(id)).append("\n");
 		sb.append("    twoFactorRequired: ").append(toIndentedString(twoFactorRequired)).append("\n");
 		sb.append("    twoFactor: ").append(toIndentedString(twoFactor)).append("\n");
+		sb.append("    startDeposit: ").append(toIndentedString(startDeposit)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}
@@ -161,6 +186,7 @@ public class TradingAccountCreateResult implements Parcelable
 		out.writeValue(id);
 		out.writeValue(twoFactorRequired);
 		out.writeValue(twoFactor);
+		out.writeValue(startDeposit);
 	}
 
 	public int describeContents() {

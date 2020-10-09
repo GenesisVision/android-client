@@ -40,12 +40,6 @@ public class NotificationSettingViewModel implements Parcelable
 		}
 	};
 
-	@SerializedName("id")
-	private UUID id = null;
-
-	@SerializedName("isEnabled")
-	private Boolean isEnabled = null;
-
 	@SerializedName("assetId")
 	private UUID assetId = null;
 
@@ -61,55 +55,23 @@ public class NotificationSettingViewModel implements Parcelable
 	@SerializedName("conditionAmount")
 	private Double conditionAmount = null;
 
+	@SerializedName("id")
+	private UUID id = null;
+
+	@SerializedName("isEnabled")
+	private Boolean isEnabled = null;
+
 	public NotificationSettingViewModel() {
 	}
 
 	NotificationSettingViewModel(Parcel in) {
-		id = (UUID) in.readValue(UUID.class.getClassLoader());
-		isEnabled = (Boolean) in.readValue(null);
 		assetId = (UUID) in.readValue(UUID.class.getClassLoader());
 		managerId = (UUID) in.readValue(UUID.class.getClassLoader());
 		type = (NotificationType) in.readValue(NotificationType.class.getClassLoader());
 		conditionType = (NotificationSettingConditionType) in.readValue(NotificationSettingConditionType.class.getClassLoader());
 		conditionAmount = (Double) in.readValue(null);
-	}
-
-	public NotificationSettingViewModel id(UUID id) {
-		this.id = id;
-		return this;
-	}
-
-	/**
-	 * Get id
-	 *
-	 * @return id
-	 **/
-	@Schema(description = "")
-	public UUID getId() {
-		return id;
-	}
-
-	public void setId(UUID id) {
-		this.id = id;
-	}
-
-	public NotificationSettingViewModel isEnabled(Boolean isEnabled) {
-		this.isEnabled = isEnabled;
-		return this;
-	}
-
-	/**
-	 * Get isEnabled
-	 *
-	 * @return isEnabled
-	 **/
-	@Schema(description = "")
-	public Boolean isIsEnabled() {
-		return isEnabled;
-	}
-
-	public void setIsEnabled(Boolean isEnabled) {
-		this.isEnabled = isEnabled;
+		id = (UUID) in.readValue(UUID.class.getClassLoader());
+		isEnabled = (Boolean) in.readValue(null);
 	}
 
 	public NotificationSettingViewModel assetId(UUID assetId) {
@@ -207,6 +169,44 @@ public class NotificationSettingViewModel implements Parcelable
 		this.conditionAmount = conditionAmount;
 	}
 
+	public NotificationSettingViewModel id(UUID id) {
+		this.id = id;
+		return this;
+	}
+
+	/**
+	 * Get id
+	 *
+	 * @return id
+	 **/
+	@Schema(description = "")
+	public UUID getId() {
+		return id;
+	}
+
+	public void setId(UUID id) {
+		this.id = id;
+	}
+
+	public NotificationSettingViewModel isEnabled(Boolean isEnabled) {
+		this.isEnabled = isEnabled;
+		return this;
+	}
+
+	/**
+	 * Get isEnabled
+	 *
+	 * @return isEnabled
+	 **/
+	@Schema(description = "")
+	public Boolean isIsEnabled() {
+		return isEnabled;
+	}
+
+	public void setIsEnabled(Boolean isEnabled) {
+		this.isEnabled = isEnabled;
+	}
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -216,18 +216,18 @@ public class NotificationSettingViewModel implements Parcelable
 			return false;
 		}
 		NotificationSettingViewModel notificationSettingViewModel = (NotificationSettingViewModel) o;
-		return Objects.equals(this.id, notificationSettingViewModel.id) &&
-				Objects.equals(this.isEnabled, notificationSettingViewModel.isEnabled) &&
-				Objects.equals(this.assetId, notificationSettingViewModel.assetId) &&
+		return Objects.equals(this.assetId, notificationSettingViewModel.assetId) &&
 				Objects.equals(this.managerId, notificationSettingViewModel.managerId) &&
 				Objects.equals(this.type, notificationSettingViewModel.type) &&
 				Objects.equals(this.conditionType, notificationSettingViewModel.conditionType) &&
-				Objects.equals(this.conditionAmount, notificationSettingViewModel.conditionAmount);
+				Objects.equals(this.conditionAmount, notificationSettingViewModel.conditionAmount) &&
+				Objects.equals(this.id, notificationSettingViewModel.id) &&
+				Objects.equals(this.isEnabled, notificationSettingViewModel.isEnabled);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, isEnabled, assetId, managerId, type, conditionType, conditionAmount);
+		return Objects.hash(assetId, managerId, type, conditionType, conditionAmount, id, isEnabled);
 	}
 
 	@Override
@@ -235,13 +235,13 @@ public class NotificationSettingViewModel implements Parcelable
 		StringBuilder sb = new StringBuilder();
 		sb.append("class NotificationSettingViewModel {\n");
 
-		sb.append("    id: ").append(toIndentedString(id)).append("\n");
-		sb.append("    isEnabled: ").append(toIndentedString(isEnabled)).append("\n");
 		sb.append("    assetId: ").append(toIndentedString(assetId)).append("\n");
 		sb.append("    managerId: ").append(toIndentedString(managerId)).append("\n");
 		sb.append("    type: ").append(toIndentedString(type)).append("\n");
 		sb.append("    conditionType: ").append(toIndentedString(conditionType)).append("\n");
 		sb.append("    conditionAmount: ").append(toIndentedString(conditionAmount)).append("\n");
+		sb.append("    id: ").append(toIndentedString(id)).append("\n");
+		sb.append("    isEnabled: ").append(toIndentedString(isEnabled)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}
@@ -258,13 +258,13 @@ public class NotificationSettingViewModel implements Parcelable
 	}
 
 	public void writeToParcel(Parcel out, int flags) {
-		out.writeValue(id);
-		out.writeValue(isEnabled);
 		out.writeValue(assetId);
 		out.writeValue(managerId);
 		out.writeValue(type);
 		out.writeValue(conditionType);
 		out.writeValue(conditionAmount);
+		out.writeValue(id);
+		out.writeValue(isEnabled);
 	}
 
 	public int describeContents() {

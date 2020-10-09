@@ -75,6 +75,12 @@ public class PersonalInvestingProgramDetailsList implements Parcelable
 	@SerializedName("invested")
 	private Double invested = null;
 
+	@SerializedName("successFeePersonal")
+	private Double successFeePersonal = null;
+
+	@SerializedName("managementFeePersonal")
+	private Double managementFeePersonal = null;
+
 	@SerializedName("status")
 	private AssetInvestmentStatus status = null;
 
@@ -94,6 +100,8 @@ public class PersonalInvestingProgramDetailsList implements Parcelable
 		profit = (Double) in.readValue(null);
 		profitPercent = (Double) in.readValue(null);
 		invested = (Double) in.readValue(null);
+		successFeePersonal = (Double) in.readValue(null);
+		managementFeePersonal = (Double) in.readValue(null);
 		status = (AssetInvestmentStatus) in.readValue(AssetInvestmentStatus.class.getClassLoader());
 	}
 
@@ -325,6 +333,44 @@ public class PersonalInvestingProgramDetailsList implements Parcelable
 		this.invested = invested;
 	}
 
+	public PersonalInvestingProgramDetailsList successFeePersonal(Double successFeePersonal) {
+		this.successFeePersonal = successFeePersonal;
+		return this;
+	}
+
+	/**
+	 * Get successFeePersonal
+	 *
+	 * @return successFeePersonal
+	 **/
+	@Schema(description = "")
+	public Double getSuccessFeePersonal() {
+		return successFeePersonal;
+	}
+
+	public void setSuccessFeePersonal(Double successFeePersonal) {
+		this.successFeePersonal = successFeePersonal;
+	}
+
+	public PersonalInvestingProgramDetailsList managementFeePersonal(Double managementFeePersonal) {
+		this.managementFeePersonal = managementFeePersonal;
+		return this;
+	}
+
+	/**
+	 * Get managementFeePersonal
+	 *
+	 * @return managementFeePersonal
+	 **/
+	@Schema(description = "")
+	public Double getManagementFeePersonal() {
+		return managementFeePersonal;
+	}
+
+	public void setManagementFeePersonal(Double managementFeePersonal) {
+		this.managementFeePersonal = managementFeePersonal;
+	}
+
 	public PersonalInvestingProgramDetailsList status(AssetInvestmentStatus status) {
 		this.status = status;
 		return this;
@@ -365,12 +411,14 @@ public class PersonalInvestingProgramDetailsList implements Parcelable
 				Objects.equals(this.profit, personalInvestingProgramDetailsList.profit) &&
 				Objects.equals(this.profitPercent, personalInvestingProgramDetailsList.profitPercent) &&
 				Objects.equals(this.invested, personalInvestingProgramDetailsList.invested) &&
+				Objects.equals(this.successFeePersonal, personalInvestingProgramDetailsList.successFeePersonal) &&
+				Objects.equals(this.managementFeePersonal, personalInvestingProgramDetailsList.managementFeePersonal) &&
 				Objects.equals(this.status, personalInvestingProgramDetailsList.status);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(isOwnAsset, isFavorite, isReinvest, isAutoJoin, canInvest, canWithdraw, canChangeReinvest, share, value, profit, profitPercent, invested, status);
+		return Objects.hash(isOwnAsset, isFavorite, isReinvest, isAutoJoin, canInvest, canWithdraw, canChangeReinvest, share, value, profit, profitPercent, invested, successFeePersonal, managementFeePersonal, status);
 	}
 
 	@Override
@@ -390,6 +438,8 @@ public class PersonalInvestingProgramDetailsList implements Parcelable
 		sb.append("    profit: ").append(toIndentedString(profit)).append("\n");
 		sb.append("    profitPercent: ").append(toIndentedString(profitPercent)).append("\n");
 		sb.append("    invested: ").append(toIndentedString(invested)).append("\n");
+		sb.append("    successFeePersonal: ").append(toIndentedString(successFeePersonal)).append("\n");
+		sb.append("    managementFeePersonal: ").append(toIndentedString(managementFeePersonal)).append("\n");
 		sb.append("    status: ").append(toIndentedString(status)).append("\n");
 		sb.append("}");
 		return sb.toString();
@@ -419,6 +469,8 @@ public class PersonalInvestingProgramDetailsList implements Parcelable
 		out.writeValue(profit);
 		out.writeValue(profitPercent);
 		out.writeValue(invested);
+		out.writeValue(successFeePersonal);
+		out.writeValue(managementFeePersonal);
 		out.writeValue(status);
 	}
 

@@ -41,11 +41,13 @@ import vision.genesis.clientapp.feature.main.facet.programs.ProgramsFacetActivit
 import vision.genesis.clientapp.feature.main.fund.FundDetailsActivity;
 import vision.genesis.clientapp.feature.main.funds_challenge.FundsChallengeActivity;
 import vision.genesis.clientapp.feature.main.message.MessageBottomSheetDialog;
+import vision.genesis.clientapp.feature.main.notifications.NotificationsActivity;
 import vision.genesis.clientapp.feature.main.program.ProgramDetailsActivity;
 import vision.genesis.clientapp.feature.main.program.withdraw.WithdrawProgramActivity;
 import vision.genesis.clientapp.feature.main.rating.ProgramsRatingActivity;
 import vision.genesis.clientapp.feature.main.social.feed.SocialActivity;
 import vision.genesis.clientapp.feature.main.social.media.MediaActivity;
+import vision.genesis.clientapp.feature.main.social.media.details.MediaPostDetailsActivity;
 import vision.genesis.clientapp.feature.main.social.post.create.CreatePostActivity;
 import vision.genesis.clientapp.feature.main.social.post.details.PostDetailsActivity;
 import vision.genesis.clientapp.feature.main.social.post.report.ReportPostActivity;
@@ -79,10 +81,18 @@ import vision.genesis.clientapp.utils.ThemeUtil;
 
 public class MainActivity extends MvpAppCompatActivity implements MainView, BlockScreenHolder
 {
-	public static void startFrom(Activity activity) {
+	private static final String EXTRA_PUSH_BUNDLE = "extra_push_bundle";
+
+	private static final String EXTRA_DATA_STRING = "extra_data_string";
+
+	public static boolean isActive = false;
+
+	public static void startFrom(Activity activity, Bundle extras, String dataString) {
 		Intent mainActivityIntent = new Intent(activity, MainActivity.class);
 		mainActivityIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 		mainActivityIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+		mainActivityIntent.putExtra(EXTRA_PUSH_BUNDLE, extras);
+		mainActivityIntent.putExtra(EXTRA_DATA_STRING, dataString);
 		activity.startActivity(mainActivityIntent);
 		activity.overridePendingTransition(R.anim.hold, R.anim.hold);
 	}
@@ -90,11 +100,11 @@ public class MainActivity extends MvpAppCompatActivity implements MainView, Bloc
 	@BindView(R.id.root)
 	public View root;
 
-	@BindView(R.id.splashscreen)
-	public View splashScreen;
-
 //	@BindView(R.id.group_sign_in)
 //	public View signInGroup;
+
+	@BindView(R.id.splashscreen)
+	public View splashScreen;
 
 	@BindView(R.id.block_screen)
 	public View blockScreen;
@@ -120,6 +130,14 @@ public class MainActivity extends MvpAppCompatActivity implements MainView, Bloc
 
 		ButterKnife.bind(this);
 
+		if (getIntent().getExtras() != null) {
+			Bundle data = getIntent().getExtras().getBundle(EXTRA_PUSH_BUNDLE);
+			String dataString = getIntent().getExtras().getString(EXTRA_DATA_STRING);
+			if (data != null) {
+				mainPresenter.setData(data, dataString);
+			}
+		}
+
 		initBottomNavigation();
 	}
 
@@ -137,6 +155,18 @@ public class MainActivity extends MvpAppCompatActivity implements MainView, Bloc
 		if (mainPresenter != null) {
 			mainPresenter.onPause();
 		}
+	}
+
+	@Override
+	public void onStart() {
+		super.onStart();
+		isActive = true;
+	}
+
+	@Override
+	public void onStop() {
+		super.onStop();
+		isActive = false;
 	}
 
 	@Override
@@ -488,6 +518,16 @@ public class MainActivity extends MvpAppCompatActivity implements MainView, Bloc
 	public void openUrl(String url) {
 		Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
 		startActivity(browserIntent);
+	}
+
+	@Override
+	public void showNotificationsActivity() {
+		NotificationsActivity.startWith(this);
+	}
+
+	@Override
+	public void showMediaPostDetails(UUID mediaPostId) {
+		MediaPostDetailsActivity.startWith(this, mediaPostId);
 	}
 
 	@Override

@@ -75,6 +75,12 @@ public class NotificationViewModel implements Parcelable
 	@SerializedName("assetType")
 	private AssetGlobalType assetType = null;
 
+	@SerializedName("imageUrl")
+	private String imageUrl = null;
+
+	@SerializedName("location")
+	private NotificationLocationViewModel location = null;
+
 	public NotificationViewModel() {
 	}
 
@@ -90,6 +96,8 @@ public class NotificationViewModel implements Parcelable
 		color = (String) in.readValue(null);
 		isUnread = (Boolean) in.readValue(null);
 		assetType = (AssetGlobalType) in.readValue(AssetGlobalType.class.getClassLoader());
+		imageUrl = (String) in.readValue(null);
+		location = (NotificationLocationViewModel) in.readValue(NotificationLocationViewModel.class.getClassLoader());
 	}
 
 	public NotificationViewModel id(UUID id) {
@@ -301,6 +309,44 @@ public class NotificationViewModel implements Parcelable
 		this.assetType = assetType;
 	}
 
+	public NotificationViewModel imageUrl(String imageUrl) {
+		this.imageUrl = imageUrl;
+		return this;
+	}
+
+	/**
+	 * Get imageUrl
+	 *
+	 * @return imageUrl
+	 **/
+	@Schema(description = "")
+	public String getImageUrl() {
+		return imageUrl;
+	}
+
+	public void setImageUrl(String imageUrl) {
+		this.imageUrl = imageUrl;
+	}
+
+	public NotificationViewModel location(NotificationLocationViewModel location) {
+		this.location = location;
+		return this;
+	}
+
+	/**
+	 * Get location
+	 *
+	 * @return location
+	 **/
+	@Schema(description = "")
+	public NotificationLocationViewModel getLocation() {
+		return location;
+	}
+
+	public void setLocation(NotificationLocationViewModel location) {
+		this.location = location;
+	}
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -320,12 +366,14 @@ public class NotificationViewModel implements Parcelable
 				Objects.equals(this.url, notificationViewModel.url) &&
 				Objects.equals(this.color, notificationViewModel.color) &&
 				Objects.equals(this.isUnread, notificationViewModel.isUnread) &&
-				Objects.equals(this.assetType, notificationViewModel.assetType);
+				Objects.equals(this.assetType, notificationViewModel.assetType) &&
+				Objects.equals(this.imageUrl, notificationViewModel.imageUrl) &&
+				Objects.equals(this.location, notificationViewModel.location);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, text, date, type, assetId, managerId, logoUrl, url, color, isUnread, assetType);
+		return Objects.hash(id, text, date, type, assetId, managerId, logoUrl, url, color, isUnread, assetType, imageUrl, location);
 	}
 
 	@Override
@@ -344,6 +392,8 @@ public class NotificationViewModel implements Parcelable
 		sb.append("    color: ").append(toIndentedString(color)).append("\n");
 		sb.append("    isUnread: ").append(toIndentedString(isUnread)).append("\n");
 		sb.append("    assetType: ").append(toIndentedString(assetType)).append("\n");
+		sb.append("    imageUrl: ").append(toIndentedString(imageUrl)).append("\n");
+		sb.append("    location: ").append(toIndentedString(location)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}
@@ -371,6 +421,8 @@ public class NotificationViewModel implements Parcelable
 		out.writeValue(color);
 		out.writeValue(isUnread);
 		out.writeValue(assetType);
+		out.writeValue(imageUrl);
+		out.writeValue(location);
 	}
 
 	public int describeContents() {

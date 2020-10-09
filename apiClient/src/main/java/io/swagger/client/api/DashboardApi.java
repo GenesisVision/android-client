@@ -197,6 +197,22 @@ public interface DashboardApi
 	);
 
 	/**
+	 * @param dateFrom         (optional)
+	 * @param dateTo           (optional)
+	 * @param chartPointsCount (optional)
+	 * @param showIn           (optional)
+	 * @param status           (optional)
+	 * @param skipStatistic    (optional)
+	 * @param skip             (optional)
+	 * @param take             (optional)
+	 * @return Call&lt;DashboardTradingAssetItemsViewModel&gt;
+	 */
+	@GET("v2.0/dashboard/trading/private/selfmanaged")
+	Observable<DashboardTradingAssetItemsViewModel> getSelfManagedFunds(
+			@retrofit2.http.Query("DateFrom") DateTime dateFrom, @retrofit2.http.Query("DateTo") DateTime dateTo, @retrofit2.http.Query("ChartPointsCount") Integer chartPointsCount, @retrofit2.http.Query("ShowIn") Currency showIn, @retrofit2.http.Query("Status") DashboardAssetStatus status, @retrofit2.http.Query("SkipStatistic") Boolean skipStatistic, @retrofit2.http.Query("Skip") Integer skip, @retrofit2.http.Query("Take") Integer take
+	);
+
+	/**
 	 * @param currency   (optional)
 	 * @param eventsTake (optional)
 	 * @return Call&lt;DashboardTradingDetails&gt;

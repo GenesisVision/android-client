@@ -40,18 +40,6 @@ public class PostAssetDetailsWithPrices implements Parcelable
 		}
 	};
 
-	@SerializedName("price")
-	private Double price = null;
-
-	@SerializedName("priceCurrency")
-	private Currency priceCurrency = null;
-
-	@SerializedName("change24Percent")
-	private Double change24Percent = null;
-
-	@SerializedName("changeState")
-	private ChangeState changeState = null;
-
 	@SerializedName("id")
 	private UUID id = null;
 
@@ -73,14 +61,22 @@ public class PostAssetDetailsWithPrices implements Parcelable
 	@SerializedName("programDetails")
 	private ProgramAssetDetails programDetails = null;
 
+	@SerializedName("price")
+	private Double price = null;
+
+	@SerializedName("priceCurrency")
+	private Currency priceCurrency = null;
+
+	@SerializedName("change24Percent")
+	private Double change24Percent = null;
+
+	@SerializedName("changeState")
+	private ChangeState changeState = null;
+
 	public PostAssetDetailsWithPrices() {
 	}
 
 	PostAssetDetailsWithPrices(Parcel in) {
-		price = (Double) in.readValue(null);
-		priceCurrency = (Currency) in.readValue(Currency.class.getClassLoader());
-		change24Percent = (Double) in.readValue(null);
-		changeState = (ChangeState) in.readValue(ChangeState.class.getClassLoader());
 		id = (UUID) in.readValue(UUID.class.getClassLoader());
 		logoUrl = (String) in.readValue(null);
 		color = (String) in.readValue(null);
@@ -88,82 +84,10 @@ public class PostAssetDetailsWithPrices implements Parcelable
 		url = (String) in.readValue(null);
 		assetType = (AssetType) in.readValue(AssetType.class.getClassLoader());
 		programDetails = (ProgramAssetDetails) in.readValue(ProgramAssetDetails.class.getClassLoader());
-	}
-
-	public PostAssetDetailsWithPrices price(Double price) {
-		this.price = price;
-		return this;
-	}
-
-	/**
-	 * Get price
-	 *
-	 * @return price
-	 **/
-	@Schema(description = "")
-	public Double getPrice() {
-		return price;
-	}
-
-	public void setPrice(Double price) {
-		this.price = price;
-	}
-
-	public PostAssetDetailsWithPrices priceCurrency(Currency priceCurrency) {
-		this.priceCurrency = priceCurrency;
-		return this;
-	}
-
-	/**
-	 * Get priceCurrency
-	 *
-	 * @return priceCurrency
-	 **/
-	@Schema(description = "")
-	public Currency getPriceCurrency() {
-		return priceCurrency;
-	}
-
-	public void setPriceCurrency(Currency priceCurrency) {
-		this.priceCurrency = priceCurrency;
-	}
-
-	public PostAssetDetailsWithPrices change24Percent(Double change24Percent) {
-		this.change24Percent = change24Percent;
-		return this;
-	}
-
-	/**
-	 * Get change24Percent
-	 *
-	 * @return change24Percent
-	 **/
-	@Schema(description = "")
-	public Double getChange24Percent() {
-		return change24Percent;
-	}
-
-	public void setChange24Percent(Double change24Percent) {
-		this.change24Percent = change24Percent;
-	}
-
-	public PostAssetDetailsWithPrices changeState(ChangeState changeState) {
-		this.changeState = changeState;
-		return this;
-	}
-
-	/**
-	 * Get changeState
-	 *
-	 * @return changeState
-	 **/
-	@Schema(description = "")
-	public ChangeState getChangeState() {
-		return changeState;
-	}
-
-	public void setChangeState(ChangeState changeState) {
-		this.changeState = changeState;
+		price = (Double) in.readValue(null);
+		priceCurrency = (Currency) in.readValue(Currency.class.getClassLoader());
+		change24Percent = (Double) in.readValue(null);
+		changeState = (ChangeState) in.readValue(ChangeState.class.getClassLoader());
 	}
 
 	public PostAssetDetailsWithPrices id(UUID id) {
@@ -299,6 +223,82 @@ public class PostAssetDetailsWithPrices implements Parcelable
 		this.programDetails = programDetails;
 	}
 
+	public PostAssetDetailsWithPrices price(Double price) {
+		this.price = price;
+		return this;
+	}
+
+	/**
+	 * Get price
+	 *
+	 * @return price
+	 **/
+	@Schema(description = "")
+	public Double getPrice() {
+		return price;
+	}
+
+	public void setPrice(Double price) {
+		this.price = price;
+	}
+
+	public PostAssetDetailsWithPrices priceCurrency(Currency priceCurrency) {
+		this.priceCurrency = priceCurrency;
+		return this;
+	}
+
+	/**
+	 * Get priceCurrency
+	 *
+	 * @return priceCurrency
+	 **/
+	@Schema(description = "")
+	public Currency getPriceCurrency() {
+		return priceCurrency;
+	}
+
+	public void setPriceCurrency(Currency priceCurrency) {
+		this.priceCurrency = priceCurrency;
+	}
+
+	public PostAssetDetailsWithPrices change24Percent(Double change24Percent) {
+		this.change24Percent = change24Percent;
+		return this;
+	}
+
+	/**
+	 * Get change24Percent
+	 *
+	 * @return change24Percent
+	 **/
+	@Schema(description = "")
+	public Double getChange24Percent() {
+		return change24Percent;
+	}
+
+	public void setChange24Percent(Double change24Percent) {
+		this.change24Percent = change24Percent;
+	}
+
+	public PostAssetDetailsWithPrices changeState(ChangeState changeState) {
+		this.changeState = changeState;
+		return this;
+	}
+
+	/**
+	 * Get changeState
+	 *
+	 * @return changeState
+	 **/
+	@Schema(description = "")
+	public ChangeState getChangeState() {
+		return changeState;
+	}
+
+	public void setChangeState(ChangeState changeState) {
+		this.changeState = changeState;
+	}
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -308,22 +308,22 @@ public class PostAssetDetailsWithPrices implements Parcelable
 			return false;
 		}
 		PostAssetDetailsWithPrices postAssetDetailsWithPrices = (PostAssetDetailsWithPrices) o;
-		return Objects.equals(this.price, postAssetDetailsWithPrices.price) &&
-				Objects.equals(this.priceCurrency, postAssetDetailsWithPrices.priceCurrency) &&
-				Objects.equals(this.change24Percent, postAssetDetailsWithPrices.change24Percent) &&
-				Objects.equals(this.changeState, postAssetDetailsWithPrices.changeState) &&
-				Objects.equals(this.id, postAssetDetailsWithPrices.id) &&
+		return Objects.equals(this.id, postAssetDetailsWithPrices.id) &&
 				Objects.equals(this.logoUrl, postAssetDetailsWithPrices.logoUrl) &&
 				Objects.equals(this.color, postAssetDetailsWithPrices.color) &&
 				Objects.equals(this.title, postAssetDetailsWithPrices.title) &&
 				Objects.equals(this.url, postAssetDetailsWithPrices.url) &&
 				Objects.equals(this.assetType, postAssetDetailsWithPrices.assetType) &&
-				Objects.equals(this.programDetails, postAssetDetailsWithPrices.programDetails);
+				Objects.equals(this.programDetails, postAssetDetailsWithPrices.programDetails) &&
+				Objects.equals(this.price, postAssetDetailsWithPrices.price) &&
+				Objects.equals(this.priceCurrency, postAssetDetailsWithPrices.priceCurrency) &&
+				Objects.equals(this.change24Percent, postAssetDetailsWithPrices.change24Percent) &&
+				Objects.equals(this.changeState, postAssetDetailsWithPrices.changeState);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(price, priceCurrency, change24Percent, changeState, id, logoUrl, color, title, url, assetType, programDetails);
+		return Objects.hash(id, logoUrl, color, title, url, assetType, programDetails, price, priceCurrency, change24Percent, changeState);
 	}
 
 	@Override
@@ -331,10 +331,6 @@ public class PostAssetDetailsWithPrices implements Parcelable
 		StringBuilder sb = new StringBuilder();
 		sb.append("class PostAssetDetailsWithPrices {\n");
 
-		sb.append("    price: ").append(toIndentedString(price)).append("\n");
-		sb.append("    priceCurrency: ").append(toIndentedString(priceCurrency)).append("\n");
-		sb.append("    change24Percent: ").append(toIndentedString(change24Percent)).append("\n");
-		sb.append("    changeState: ").append(toIndentedString(changeState)).append("\n");
 		sb.append("    id: ").append(toIndentedString(id)).append("\n");
 		sb.append("    logoUrl: ").append(toIndentedString(logoUrl)).append("\n");
 		sb.append("    color: ").append(toIndentedString(color)).append("\n");
@@ -342,6 +338,10 @@ public class PostAssetDetailsWithPrices implements Parcelable
 		sb.append("    url: ").append(toIndentedString(url)).append("\n");
 		sb.append("    assetType: ").append(toIndentedString(assetType)).append("\n");
 		sb.append("    programDetails: ").append(toIndentedString(programDetails)).append("\n");
+		sb.append("    price: ").append(toIndentedString(price)).append("\n");
+		sb.append("    priceCurrency: ").append(toIndentedString(priceCurrency)).append("\n");
+		sb.append("    change24Percent: ").append(toIndentedString(change24Percent)).append("\n");
+		sb.append("    changeState: ").append(toIndentedString(changeState)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}
@@ -358,10 +358,6 @@ public class PostAssetDetailsWithPrices implements Parcelable
 	}
 
 	public void writeToParcel(Parcel out, int flags) {
-		out.writeValue(price);
-		out.writeValue(priceCurrency);
-		out.writeValue(change24Percent);
-		out.writeValue(changeState);
 		out.writeValue(id);
 		out.writeValue(logoUrl);
 		out.writeValue(color);
@@ -369,6 +365,10 @@ public class PostAssetDetailsWithPrices implements Parcelable
 		out.writeValue(url);
 		out.writeValue(assetType);
 		out.writeValue(programDetails);
+		out.writeValue(price);
+		out.writeValue(priceCurrency);
+		out.writeValue(change24Percent);
+		out.writeValue(changeState);
 	}
 
 	public int describeContents() {

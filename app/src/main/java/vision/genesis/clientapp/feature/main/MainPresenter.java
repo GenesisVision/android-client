@@ -1,22 +1,30 @@
 package vision.genesis.clientapp.feature.main;
 
 import android.content.Context;
+import android.os.Bundle;
 
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
+import java.lang.reflect.Type;
+
 import javax.inject.Inject;
 
+import io.swagger.client.model.AssetType;
 import io.swagger.client.model.FacetSortType;
+import io.swagger.client.model.NotificationViewModel;
 import io.swagger.client.model.PlatformInfo;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
+import vision.genesis.clientapp.fcm.GvFirebaseMessagingService;
 import vision.genesis.clientapp.feature.main.assets.AssetsFragment;
 import vision.genesis.clientapp.feature.main.dashboard.DashboardFragment;
 import vision.genesis.clientapp.feature.main.settings.SettingsFragment;
@@ -26,8 +34,14 @@ import vision.genesis.clientapp.feature.main.unregistered.settings.UnregisteredS
 import vision.genesis.clientapp.managers.AuthManager;
 import vision.genesis.clientapp.managers.SettingsManager;
 import vision.genesis.clientapp.model.AppUpdateModel;
+import vision.genesis.clientapp.model.FundDetailsModel;
+import vision.genesis.clientapp.model.NotificationLocation;
+import vision.genesis.clientapp.model.ProgramDetailsModel;
 import vision.genesis.clientapp.model.ProgramRequest;
+import vision.genesis.clientapp.model.TradingAccountDetailsModel;
 import vision.genesis.clientapp.model.User;
+import vision.genesis.clientapp.model.UserDetailsModel;
+import vision.genesis.clientapp.model.events.HandlePushEvent;
 import vision.genesis.clientapp.model.events.OnAddNewPostClickedEvent;
 import vision.genesis.clientapp.model.events.OnFollowFacetClickedEvent;
 import vision.genesis.clientapp.model.events.OnFundFacetClickedEvent;
@@ -98,6 +112,8 @@ public class MainPresenter extends MvpPresenter<MainView>
 
 	private User user;
 
+	private Bundle pushData;
+
 	@Override
 	protected void onFirstViewAttach() {
 		super.onFirstViewAttach();
@@ -136,6 +152,75 @@ public class MainPresenter extends MvpPresenter<MainView>
 
 	void onPause() {
 		isActive = false;
+	}
+
+	void setData(Bundle data, String dataString) {
+		pushData = data;
+	}
+
+	private void handlePushData(Bundle data) {
+		if (data != null) {
+			Gson gson = new Gson();
+			Type typeToken = new TypeToken<NotificationViewModel>()
+			{
+			}.getType();
+
+			NotificationViewModel notification = data.getParcelable(GvFirebaseMessagingService.KEY_NOTIFICATION);
+			if (notification == null) {
+				notification = gson.fromJson(data.getString(GvFirebaseMessagingService.KEY_RESULT), typeToken);
+			}
+
+			if (notification != null) {
+				if (notification.getLocation() != null && notification.getLocation().getLocation() != null) {
+					switch (notification.getLocation().getLocation()) {
+						case NotificationLocation.USER:
+							UserDetailsModel userDetailsModel = new UserDetailsModel(notification.getLocation().getId(), null, null, null);
+							getViewState().showUserDetails(userDetailsModel);
+							break;
+						case NotificationLocation.PROGRAM:
+							ProgramDetailsModel programDetailsModel = new ProgramDetailsModel();
+							programDetailsModel.setProgramId(notification.getLocation().getId());
+							programDetailsModel.setAssetType(AssetType.PROGRAM);
+							getViewState().showProgramDetails(programDetailsModel);
+							break;
+						case NotificationLocation.FUND:
+							FundDetailsModel fundDetailsModel = new FundDetailsModel();
+							fundDetailsModel.setFundId(notification.getLocation().getId());
+							getViewState().showFundDetails(fundDetailsModel);
+							break;
+						case NotificationLocation.FOLLOW:
+							ProgramDetailsModel followDetailsModel = new ProgramDetailsModel();
+							followDetailsModel.setProgramId(notification.getLocation().getId());
+							followDetailsModel.setAssetType(AssetType.FOLLOW);
+							getViewState().showProgramDetails(followDetailsModel);
+							break;
+						case NotificationLocation.TRADING_ACCOUNT:
+							TradingAccountDetailsModel tradingAccountDetailsModel = new TradingAccountDetailsModel();
+							tradingAccountDetailsModel.setTradingAccountId(notification.getLocation().getId());
+							getViewState().showTradingAccountDetails(tradingAccountDetailsModel);
+							break;
+						case NotificationLocation.SOCIAL_POST:
+							getViewState().showPostDetails(notification.getLocation().getId(), null, false);
+							break;
+						case NotificationLocation.SOCIAL_MEDIA_POST:
+							getViewState().showMediaPostDetails(notification.getLocation().getId());
+							break;
+						case NotificationLocation.DASHBOARD:
+							break;
+						case NotificationLocation.EXTERNAL_URL:
+							getViewState().openUrl(notification.getLocation().getExternalUrl());
+							break;
+						default:
+							getViewState().showNotificationsActivity();
+							break;
+					}
+				}
+				else {
+					getViewState().showNotificationsActivity();
+				}
+			}
+			pushData = null;
+		}
 	}
 
 	void onCheckPinPassed() {
@@ -334,6 +419,8 @@ public class MainPresenter extends MvpPresenter<MainView>
 		socialMainFragment = null;
 		unregisteredSettingsFragment = null;
 
+		handlePushData(pushData);
+
 		if (userWasLoggedOff) {
 			getViewState().setNavigationItemSelected(0);
 		}
@@ -528,5 +615,11 @@ public class MainPresenter extends MvpPresenter<MainView>
 	@Subscribe
 	public void onEventMainThread(OpenUrlEvent event) {
 		getViewState().openUrl(event.getUrl());
+	}
+
+	@Subscribe
+	public void onEventMainThread(HandlePushEvent event) {
+		pushData = event.getPushData();
+		handlePushData(pushData);
 	}
 }

@@ -18,7 +18,6 @@ import android.os.Parcelable;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.Objects;
-import java.util.UUID;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 
@@ -46,16 +45,12 @@ public class TradingAccountPwdUpdate implements Parcelable
 	@SerializedName("twoFactorCode")
 	private String twoFactorCode = null;
 
-	@SerializedName("id")
-	private UUID id = null;
-
 	public TradingAccountPwdUpdate() {
 	}
 
 	TradingAccountPwdUpdate(Parcel in) {
 		password = (String) in.readValue(null);
 		twoFactorCode = (String) in.readValue(null);
-		id = (UUID) in.readValue(UUID.class.getClassLoader());
 	}
 
 	public TradingAccountPwdUpdate password(String password) {
@@ -96,25 +91,6 @@ public class TradingAccountPwdUpdate implements Parcelable
 		this.twoFactorCode = twoFactorCode;
 	}
 
-	public TradingAccountPwdUpdate id(UUID id) {
-		this.id = id;
-		return this;
-	}
-
-	/**
-	 * Get id
-	 *
-	 * @return id
-	 **/
-	@Schema(description = "")
-	public UUID getId() {
-		return id;
-	}
-
-	public void setId(UUID id) {
-		this.id = id;
-	}
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -125,13 +101,12 @@ public class TradingAccountPwdUpdate implements Parcelable
 		}
 		TradingAccountPwdUpdate tradingAccountPwdUpdate = (TradingAccountPwdUpdate) o;
 		return Objects.equals(this.password, tradingAccountPwdUpdate.password) &&
-				Objects.equals(this.twoFactorCode, tradingAccountPwdUpdate.twoFactorCode) &&
-				Objects.equals(this.id, tradingAccountPwdUpdate.id);
+				Objects.equals(this.twoFactorCode, tradingAccountPwdUpdate.twoFactorCode);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(password, twoFactorCode, id);
+		return Objects.hash(password, twoFactorCode);
 	}
 
 	@Override
@@ -141,7 +116,6 @@ public class TradingAccountPwdUpdate implements Parcelable
 
 		sb.append("    password: ").append(toIndentedString(password)).append("\n");
 		sb.append("    twoFactorCode: ").append(toIndentedString(twoFactorCode)).append("\n");
-		sb.append("    id: ").append(toIndentedString(id)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}
@@ -160,7 +134,6 @@ public class TradingAccountPwdUpdate implements Parcelable
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(password);
 		out.writeValue(twoFactorCode);
-		out.writeValue(id);
 	}
 
 	public int describeContents() {

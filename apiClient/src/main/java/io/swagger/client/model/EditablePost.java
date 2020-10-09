@@ -44,9 +44,6 @@ public class EditablePost implements Parcelable
 		}
 	};
 
-	@SerializedName("textOriginal")
-	private String textOriginal = null;
-
 	@SerializedName("id")
 	private UUID id = null;
 
@@ -98,11 +95,13 @@ public class EditablePost implements Parcelable
 	@SerializedName("comments")
 	private List<Post> comments = null;
 
+	@SerializedName("textOriginal")
+	private String textOriginal = null;
+
 	public EditablePost() {
 	}
 
 	EditablePost(Parcel in) {
-		textOriginal = (String) in.readValue(null);
 		id = (UUID) in.readValue(UUID.class.getClassLoader());
 		url = (String) in.readValue(null);
 		text = (String) in.readValue(null);
@@ -120,25 +119,7 @@ public class EditablePost implements Parcelable
 		author = (ProfilePublic) in.readValue(ProfilePublic.class.getClassLoader());
 		personalDetails = (PostPersonalDetails) in.readValue(PostPersonalDetails.class.getClassLoader());
 		comments = (List<Post>) in.readValue(Post.class.getClassLoader());
-	}
-
-	public EditablePost textOriginal(String textOriginal) {
-		this.textOriginal = textOriginal;
-		return this;
-	}
-
-	/**
-	 * Get textOriginal
-	 *
-	 * @return textOriginal
-	 **/
-	@Schema(description = "")
-	public String getTextOriginal() {
-		return textOriginal;
-	}
-
-	public void setTextOriginal(String textOriginal) {
-		this.textOriginal = textOriginal;
+		textOriginal = (String) in.readValue(null);
 	}
 
 	public EditablePost id(UUID id) {
@@ -504,6 +485,25 @@ public class EditablePost implements Parcelable
 		this.comments = comments;
 	}
 
+	public EditablePost textOriginal(String textOriginal) {
+		this.textOriginal = textOriginal;
+		return this;
+	}
+
+	/**
+	 * Get textOriginal
+	 *
+	 * @return textOriginal
+	 **/
+	@Schema(description = "")
+	public String getTextOriginal() {
+		return textOriginal;
+	}
+
+	public void setTextOriginal(String textOriginal) {
+		this.textOriginal = textOriginal;
+	}
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -513,8 +513,7 @@ public class EditablePost implements Parcelable
 			return false;
 		}
 		EditablePost editablePost = (EditablePost) o;
-		return Objects.equals(this.textOriginal, editablePost.textOriginal) &&
-				Objects.equals(this.id, editablePost.id) &&
+		return Objects.equals(this.id, editablePost.id) &&
 				Objects.equals(this.url, editablePost.url) &&
 				Objects.equals(this.text, editablePost.text) &&
 				Objects.equals(this.date, editablePost.date) &&
@@ -530,12 +529,13 @@ public class EditablePost implements Parcelable
 				Objects.equals(this.tags, editablePost.tags) &&
 				Objects.equals(this.author, editablePost.author) &&
 				Objects.equals(this.personalDetails, editablePost.personalDetails) &&
-				Objects.equals(this.comments, editablePost.comments);
+				Objects.equals(this.comments, editablePost.comments) &&
+				Objects.equals(this.textOriginal, editablePost.textOriginal);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(textOriginal, id, url, text, date, likesCount, likesUsers, rePostsCount, rePostsUsers, impressionsCount, isPinned, isDeleted, isHighlighted, images, tags, author, personalDetails, comments);
+		return Objects.hash(id, url, text, date, likesCount, likesUsers, rePostsCount, rePostsUsers, impressionsCount, isPinned, isDeleted, isHighlighted, images, tags, author, personalDetails, comments, textOriginal);
 	}
 
 	@Override
@@ -543,7 +543,6 @@ public class EditablePost implements Parcelable
 		StringBuilder sb = new StringBuilder();
 		sb.append("class EditablePost {\n");
 
-		sb.append("    textOriginal: ").append(toIndentedString(textOriginal)).append("\n");
 		sb.append("    id: ").append(toIndentedString(id)).append("\n");
 		sb.append("    url: ").append(toIndentedString(url)).append("\n");
 		sb.append("    text: ").append(toIndentedString(text)).append("\n");
@@ -561,6 +560,7 @@ public class EditablePost implements Parcelable
 		sb.append("    author: ").append(toIndentedString(author)).append("\n");
 		sb.append("    personalDetails: ").append(toIndentedString(personalDetails)).append("\n");
 		sb.append("    comments: ").append(toIndentedString(comments)).append("\n");
+		sb.append("    textOriginal: ").append(toIndentedString(textOriginal)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}
@@ -577,7 +577,6 @@ public class EditablePost implements Parcelable
 	}
 
 	public void writeToParcel(Parcel out, int flags) {
-		out.writeValue(textOriginal);
 		out.writeValue(id);
 		out.writeValue(url);
 		out.writeValue(text);
@@ -595,6 +594,7 @@ public class EditablePost implements Parcelable
 		out.writeValue(author);
 		out.writeValue(personalDetails);
 		out.writeValue(comments);
+		out.writeValue(textOriginal);
 	}
 
 	public int describeContents() {

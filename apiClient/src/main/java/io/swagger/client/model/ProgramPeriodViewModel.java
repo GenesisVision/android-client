@@ -92,6 +92,9 @@ public class ProgramPeriodViewModel implements Parcelable
 	@SerializedName("managerStatistic")
 	private ManagerFinancialStatistic managerStatistic = null;
 
+	@SerializedName("investorStatistic")
+	private InvestorFinancialStatistic investorStatistic = null;
+
 	public ProgramPeriodViewModel() {
 	}
 
@@ -113,6 +116,7 @@ public class ProgramPeriodViewModel implements Parcelable
 		investorsProfitWithdraw = (Double) in.readValue(null);
 		platformSuccessFee = (Double) in.readValue(null);
 		managerStatistic = (ManagerFinancialStatistic) in.readValue(ManagerFinancialStatistic.class.getClassLoader());
+		investorStatistic = (InvestorFinancialStatistic) in.readValue(InvestorFinancialStatistic.class.getClassLoader());
 	}
 
 	public ProgramPeriodViewModel dateFrom(DateTime dateFrom) {
@@ -438,6 +442,25 @@ public class ProgramPeriodViewModel implements Parcelable
 		this.managerStatistic = managerStatistic;
 	}
 
+	public ProgramPeriodViewModel investorStatistic(InvestorFinancialStatistic investorStatistic) {
+		this.investorStatistic = investorStatistic;
+		return this;
+	}
+
+	/**
+	 * Get investorStatistic
+	 *
+	 * @return investorStatistic
+	 **/
+	@Schema(description = "")
+	public InvestorFinancialStatistic getInvestorStatistic() {
+		return investorStatistic;
+	}
+
+	public void setInvestorStatistic(InvestorFinancialStatistic investorStatistic) {
+		this.investorStatistic = investorStatistic;
+	}
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -463,12 +486,13 @@ public class ProgramPeriodViewModel implements Parcelable
 				Objects.equals(this.investorsWithdraw, programPeriodViewModel.investorsWithdraw) &&
 				Objects.equals(this.investorsProfitWithdraw, programPeriodViewModel.investorsProfitWithdraw) &&
 				Objects.equals(this.platformSuccessFee, programPeriodViewModel.platformSuccessFee) &&
-				Objects.equals(this.managerStatistic, programPeriodViewModel.managerStatistic);
+				Objects.equals(this.managerStatistic, programPeriodViewModel.managerStatistic) &&
+				Objects.equals(this.investorStatistic, programPeriodViewModel.investorStatistic);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(dateFrom, dateTo, periodLength, status, number, profit, profitPercent, balance, investors, managerDeposit, managerWithdraw, managerCommissionRebate, investorsDeposit, investorsWithdraw, investorsProfitWithdraw, platformSuccessFee, managerStatistic);
+		return Objects.hash(dateFrom, dateTo, periodLength, status, number, profit, profitPercent, balance, investors, managerDeposit, managerWithdraw, managerCommissionRebate, investorsDeposit, investorsWithdraw, investorsProfitWithdraw, platformSuccessFee, managerStatistic, investorStatistic);
 	}
 
 	@Override
@@ -493,6 +517,7 @@ public class ProgramPeriodViewModel implements Parcelable
 		sb.append("    investorsProfitWithdraw: ").append(toIndentedString(investorsProfitWithdraw)).append("\n");
 		sb.append("    platformSuccessFee: ").append(toIndentedString(platformSuccessFee)).append("\n");
 		sb.append("    managerStatistic: ").append(toIndentedString(managerStatistic)).append("\n");
+		sb.append("    investorStatistic: ").append(toIndentedString(investorStatistic)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}
@@ -526,6 +551,7 @@ public class ProgramPeriodViewModel implements Parcelable
 		out.writeValue(investorsProfitWithdraw);
 		out.writeValue(platformSuccessFee);
 		out.writeValue(managerStatistic);
+		out.writeValue(investorStatistic);
 	}
 
 	public int describeContents() {

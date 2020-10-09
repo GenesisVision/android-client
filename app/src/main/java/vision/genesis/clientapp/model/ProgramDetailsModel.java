@@ -30,13 +30,13 @@ public class ProgramDetailsModel implements Parcelable
 
 	private UUID programId;
 
-	private String avatar;
+	private String avatar = "";
 
-	private String programColor;
+	private String programColor = "#131e26";
 
-	private Integer level;
+	private Integer level = 0;
 
-	private Double levelProgress;
+	private Double levelProgress = 0.0;
 
 	private String programName;
 
@@ -49,6 +49,9 @@ public class ProgramDetailsModel implements Parcelable
 	private boolean hasNotifications;
 
 	private AssetType assetType;
+
+	public ProgramDetailsModel() {
+	}
 
 	public ProgramDetailsModel(UUID programId, String avatar, String programColor, Integer level, Double levelProgress,
 	                           String programName, String managerName, String currency, boolean isFavorite, boolean hasNotifications,
@@ -82,6 +85,10 @@ public class ProgramDetailsModel implements Parcelable
 
 	public UUID getProgramId() {
 		return programId;
+	}
+
+	public void setProgramId(UUID programId) {
+		this.programId = programId;
 	}
 
 	public String getAvatar() {
@@ -122,6 +129,10 @@ public class ProgramDetailsModel implements Parcelable
 
 	public AssetType getAssetType() {
 		return assetType;
+	}
+
+	public void setAssetType(AssetType assetType) {
+		this.assetType = assetType;
 	}
 
 	@Override

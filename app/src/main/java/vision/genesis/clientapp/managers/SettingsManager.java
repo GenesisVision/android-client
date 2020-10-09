@@ -42,6 +42,8 @@ public class SettingsManager
 
 	private Subscription getPlatformInfoSubscription;
 
+	private Subscription getProfileSubscription;
+
 	private SharedPreferencesUtil sharedPreferencesUtil;
 
 	public SettingsManager(PlatformApi platformApi, ProfileApi profileApi, SharedPreferencesUtil sharedPreferencesUtil) {
@@ -178,11 +180,12 @@ public class SettingsManager
 	}
 
 	public BehaviorSubject<CurrencyEnum> getBaseCurrency() {
-		if (baseCurrencySubject.getValue() == null) {
-			profileApi.getProfileFull()
+		if (baseCurrencySubject.getValue() == null && (getProfileSubscription == null || getProfileSubscription.isUnsubscribed())) {
+			getProfileSubscription = profileApi.getProfileFull()
 					.observeOn(Schedulers.newThread())
 					.subscribeOn(Schedulers.newThread())
 					.subscribe(profile -> {
+								getProfileSubscription.unsubscribe();
 								if (profile.getPlatformCurrency() == null || profile.getPlatformCurrency().equals(Currency.UNDEFINED)) {
 									saveBaseCurrency(Objects.requireNonNull(CurrencyEnum.fromValue(sharedPreferencesUtil.getCurrency())));
 								}
@@ -191,6 +194,7 @@ public class SettingsManager
 								}
 							},
 							throwable -> {
+								getProfileSubscription.unsubscribe();
 								saveBaseCurrency(Objects.requireNonNull(CurrencyEnum.fromValue(sharedPreferencesUtil.getCurrency())));
 							});
 		}

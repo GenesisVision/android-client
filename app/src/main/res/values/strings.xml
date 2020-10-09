@@ -965,6 +965,12 @@
     <string name="rebalance">Rebalance</string>
     <string name="reallocation">Reallocation</string>
     <string name="challenge_winner">Challenge winner</string>
+    <string name="notification_channel_name_platform">Platform news and updates</string>
+    <string name="notification_channel_name_profile">Profile</string>
+    <string name="notification_channel_name_assets">Assets notifications</string>
+    <string name="notification_channel_name_manager">Managers notifications</string>
+    <string name="notification_channel_name_signals">Signals</string>
+    <string name="notification_channel_name_other">Other</string>
 
 
     <plurals name="assets">

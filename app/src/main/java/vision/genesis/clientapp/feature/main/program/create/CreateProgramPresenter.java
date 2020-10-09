@@ -155,7 +155,7 @@ public class CreateProgramPresenter extends MvpPresenter<CreateProgramView>
 			accountRequest.setPeriodLength(periodLength);
 			accountRequest.setStopOutLevel(stopOutLevel);
 			accountRequest.setInvestmentLimit(investmentLimit);
-			accountRequest.setEntryFee(entryFee);
+			accountRequest.setManagementFee(entryFee);
 			accountRequest.setSuccessFee(successFee);
 
 			apiRequest = assetsManager.createProgramFromTradingAccount(accountRequest);
@@ -168,7 +168,7 @@ public class CreateProgramPresenter extends MvpPresenter<CreateProgramView>
 			followRequest.setPeriodLength(periodLength);
 			followRequest.setStopOutLevel(stopOutLevel);
 			followRequest.setInvestmentLimit(investmentLimit);
-			followRequest.setEntryFee(entryFee);
+			followRequest.setManagementFee(entryFee);
 			followRequest.setSuccessFee(successFee);
 
 			apiRequest = assetsManager.createProgramFromSignalProvider(followRequest);

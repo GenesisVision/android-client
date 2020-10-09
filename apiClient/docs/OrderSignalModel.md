@@ -3,11 +3,6 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**providers** | [**List&lt;OrderSignalProgramInfo&gt;**](OrderSignalProgramInfo.md) |  |  [optional]
-**totalCommission** | **Double** |  |  [optional]
-**totalCommissionByType** | [**List&lt;FeeDetails&gt;**](FeeDetails.md) |  |  [optional]
-**tradingAccountId** | [**UUID**](UUID.md) |  |  [optional]
-**currency** | [**Currency**](Currency.md) |  |  [optional]
 **id** | [**UUID**](UUID.md) |  |  [optional]
 **login** | **String** |  |  [optional]
 **ticket** | **String** |  |  [optional]
@@ -28,3 +23,8 @@ Name | Type | Description | Notes
 **showOriginalCommission** | **Boolean** |  |  [optional]
 **assetData** | [**TradeAssetData**](TradeAssetData.md) |  |  [optional]
 **signalData** | [**OrderModelSignalData**](OrderModelSignalData.md) |  |  [optional]
+**providers** | [**List&lt;OrderSignalProgramInfo&gt;**](OrderSignalProgramInfo.md) |  |  [optional]
+**totalCommission** | **Double** |  |  [optional]
+**totalCommissionByType** | [**List&lt;FeeDetails&gt;**](FeeDetails.md) |  |  [optional]
+**tradingAccountId** | [**UUID**](UUID.md) |  |  [optional]
+**currency** | [**Currency**](Currency.md) |  |  [optional]

@@ -39,6 +39,12 @@ public class RegisterViewModel implements Parcelable
 		}
 	};
 
+	@SerializedName("email")
+	private String email = null;
+
+	@SerializedName("captchaCheckResult")
+	private CaptchaCheckResult captchaCheckResult = null;
+
 	@SerializedName("password")
 	private String password = null;
 
@@ -57,24 +63,56 @@ public class RegisterViewModel implements Parcelable
 	@SerializedName("utmSource")
 	private UtmSource utmSource = null;
 
-	@SerializedName("email")
-	private String email = null;
-
-	@SerializedName("captchaCheckResult")
-	private CaptchaCheckResult captchaCheckResult = null;
-
 	public RegisterViewModel() {
 	}
 
 	RegisterViewModel(Parcel in) {
+		email = (String) in.readValue(null);
+		captchaCheckResult = (CaptchaCheckResult) in.readValue(CaptchaCheckResult.class.getClassLoader());
 		password = (String) in.readValue(null);
 		confirmPassword = (String) in.readValue(null);
 		userName = (String) in.readValue(null);
 		refCode = (String) in.readValue(null);
 		isAuto = (Boolean) in.readValue(null);
 		utmSource = (UtmSource) in.readValue(UtmSource.class.getClassLoader());
-		email = (String) in.readValue(null);
-		captchaCheckResult = (CaptchaCheckResult) in.readValue(CaptchaCheckResult.class.getClassLoader());
+	}
+
+	public RegisterViewModel email(String email) {
+		this.email = email;
+		return this;
+	}
+
+	/**
+	 * Get email
+	 *
+	 * @return email
+	 **/
+	@Schema(required = true, description = "")
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public RegisterViewModel captchaCheckResult(CaptchaCheckResult captchaCheckResult) {
+		this.captchaCheckResult = captchaCheckResult;
+		return this;
+	}
+
+	/**
+	 * Get captchaCheckResult
+	 *
+	 * @return captchaCheckResult
+	 **/
+	@Schema(description = "")
+	public CaptchaCheckResult getCaptchaCheckResult() {
+		return captchaCheckResult;
+	}
+
+	public void setCaptchaCheckResult(CaptchaCheckResult captchaCheckResult) {
+		this.captchaCheckResult = captchaCheckResult;
 	}
 
 	public RegisterViewModel password(String password) {
@@ -191,44 +229,6 @@ public class RegisterViewModel implements Parcelable
 		this.utmSource = utmSource;
 	}
 
-	public RegisterViewModel email(String email) {
-		this.email = email;
-		return this;
-	}
-
-	/**
-	 * Get email
-	 *
-	 * @return email
-	 **/
-	@Schema(required = true, description = "")
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public RegisterViewModel captchaCheckResult(CaptchaCheckResult captchaCheckResult) {
-		this.captchaCheckResult = captchaCheckResult;
-		return this;
-	}
-
-	/**
-	 * Get captchaCheckResult
-	 *
-	 * @return captchaCheckResult
-	 **/
-	@Schema(description = "")
-	public CaptchaCheckResult getCaptchaCheckResult() {
-		return captchaCheckResult;
-	}
-
-	public void setCaptchaCheckResult(CaptchaCheckResult captchaCheckResult) {
-		this.captchaCheckResult = captchaCheckResult;
-	}
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -238,19 +238,19 @@ public class RegisterViewModel implements Parcelable
 			return false;
 		}
 		RegisterViewModel registerViewModel = (RegisterViewModel) o;
-		return Objects.equals(this.password, registerViewModel.password) &&
+		return Objects.equals(this.email, registerViewModel.email) &&
+				Objects.equals(this.captchaCheckResult, registerViewModel.captchaCheckResult) &&
+				Objects.equals(this.password, registerViewModel.password) &&
 				Objects.equals(this.confirmPassword, registerViewModel.confirmPassword) &&
 				Objects.equals(this.userName, registerViewModel.userName) &&
 				Objects.equals(this.refCode, registerViewModel.refCode) &&
 				Objects.equals(this.isAuto, registerViewModel.isAuto) &&
-				Objects.equals(this.utmSource, registerViewModel.utmSource) &&
-				Objects.equals(this.email, registerViewModel.email) &&
-				Objects.equals(this.captchaCheckResult, registerViewModel.captchaCheckResult);
+				Objects.equals(this.utmSource, registerViewModel.utmSource);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(password, confirmPassword, userName, refCode, isAuto, utmSource, email, captchaCheckResult);
+		return Objects.hash(email, captchaCheckResult, password, confirmPassword, userName, refCode, isAuto, utmSource);
 	}
 
 	@Override
@@ -258,14 +258,14 @@ public class RegisterViewModel implements Parcelable
 		StringBuilder sb = new StringBuilder();
 		sb.append("class RegisterViewModel {\n");
 
+		sb.append("    email: ").append(toIndentedString(email)).append("\n");
+		sb.append("    captchaCheckResult: ").append(toIndentedString(captchaCheckResult)).append("\n");
 		sb.append("    password: ").append(toIndentedString(password)).append("\n");
 		sb.append("    confirmPassword: ").append(toIndentedString(confirmPassword)).append("\n");
 		sb.append("    userName: ").append(toIndentedString(userName)).append("\n");
 		sb.append("    refCode: ").append(toIndentedString(refCode)).append("\n");
 		sb.append("    isAuto: ").append(toIndentedString(isAuto)).append("\n");
 		sb.append("    utmSource: ").append(toIndentedString(utmSource)).append("\n");
-		sb.append("    email: ").append(toIndentedString(email)).append("\n");
-		sb.append("    captchaCheckResult: ").append(toIndentedString(captchaCheckResult)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}
@@ -282,14 +282,14 @@ public class RegisterViewModel implements Parcelable
 	}
 
 	public void writeToParcel(Parcel out, int flags) {
+		out.writeValue(email);
+		out.writeValue(captchaCheckResult);
 		out.writeValue(password);
 		out.writeValue(confirmPassword);
 		out.writeValue(userName);
 		out.writeValue(refCode);
 		out.writeValue(isAuto);
 		out.writeValue(utmSource);
-		out.writeValue(email);
-		out.writeValue(captchaCheckResult);
 	}
 
 	public int describeContents() {

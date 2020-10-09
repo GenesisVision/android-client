@@ -7,5 +7,5 @@ Name | Type | Description | Notes
 **color** | **String** |  |  [optional]
 **title** | **String** |  |  [optional]
 **url** | **String** |  |  [optional]
-**programDetails** | [**ProgramAssetDetails**](ProgramAssetDetails.md) |  |  [optional]
-**fundDetails** | [**FundAssetDetails**](FundAssetDetails.md) |  |  [optional]
+**programDetails** | [**DashboardProgramDetails**](DashboardProgramDetails.md) |  |  [optional]
+**fundDetails** | [**DashboardFundDetails**](DashboardFundDetails.md) |  |  [optional]

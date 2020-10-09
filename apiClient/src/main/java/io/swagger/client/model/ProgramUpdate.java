@@ -18,7 +18,6 @@ import android.os.Parcelable;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.Objects;
-import java.util.UUID;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 
@@ -67,8 +66,11 @@ public class ProgramUpdate implements Parcelable
 	@SerializedName("tradesDelay")
 	private TradesDelay tradesDelay = null;
 
-	@SerializedName("id")
-	private UUID id = null;
+	@SerializedName("hourProcessing")
+	private Integer hourProcessing = null;
+
+	@SerializedName("isProcessingRealTime")
+	private Boolean isProcessingRealTime = null;
 
 	public ProgramUpdate() {
 	}
@@ -83,7 +85,8 @@ public class ProgramUpdate implements Parcelable
 		stopOutLevel = (Double) in.readValue(null);
 		investmentLimit = (Double) in.readValue(null);
 		tradesDelay = (TradesDelay) in.readValue(TradesDelay.class.getClassLoader());
-		id = (UUID) in.readValue(UUID.class.getClassLoader());
+		hourProcessing = (Integer) in.readValue(null);
+		isProcessingRealTime = (Boolean) in.readValue(null);
 	}
 
 	public ProgramUpdate title(String title) {
@@ -257,23 +260,42 @@ public class ProgramUpdate implements Parcelable
 		this.tradesDelay = tradesDelay;
 	}
 
-	public ProgramUpdate id(UUID id) {
-		this.id = id;
+	public ProgramUpdate hourProcessing(Integer hourProcessing) {
+		this.hourProcessing = hourProcessing;
 		return this;
 	}
 
 	/**
-	 * Get id
+	 * Get hourProcessing
 	 *
-	 * @return id
+	 * @return hourProcessing
 	 **/
 	@Schema(description = "")
-	public UUID getId() {
-		return id;
+	public Integer getHourProcessing() {
+		return hourProcessing;
 	}
 
-	public void setId(UUID id) {
-		this.id = id;
+	public void setHourProcessing(Integer hourProcessing) {
+		this.hourProcessing = hourProcessing;
+	}
+
+	public ProgramUpdate isProcessingRealTime(Boolean isProcessingRealTime) {
+		this.isProcessingRealTime = isProcessingRealTime;
+		return this;
+	}
+
+	/**
+	 * Get isProcessingRealTime
+	 *
+	 * @return isProcessingRealTime
+	 **/
+	@Schema(description = "")
+	public Boolean isIsProcessingRealTime() {
+		return isProcessingRealTime;
+	}
+
+	public void setIsProcessingRealTime(Boolean isProcessingRealTime) {
+		this.isProcessingRealTime = isProcessingRealTime;
 	}
 
 	@Override
@@ -294,12 +316,13 @@ public class ProgramUpdate implements Parcelable
 				Objects.equals(this.stopOutLevel, programUpdate.stopOutLevel) &&
 				Objects.equals(this.investmentLimit, programUpdate.investmentLimit) &&
 				Objects.equals(this.tradesDelay, programUpdate.tradesDelay) &&
-				Objects.equals(this.id, programUpdate.id);
+				Objects.equals(this.hourProcessing, programUpdate.hourProcessing) &&
+				Objects.equals(this.isProcessingRealTime, programUpdate.isProcessingRealTime);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(title, description, logo, entryFee, exitFee, successFee, stopOutLevel, investmentLimit, tradesDelay, id);
+		return Objects.hash(title, description, logo, entryFee, exitFee, successFee, stopOutLevel, investmentLimit, tradesDelay, hourProcessing, isProcessingRealTime);
 	}
 
 	@Override
@@ -316,7 +339,8 @@ public class ProgramUpdate implements Parcelable
 		sb.append("    stopOutLevel: ").append(toIndentedString(stopOutLevel)).append("\n");
 		sb.append("    investmentLimit: ").append(toIndentedString(investmentLimit)).append("\n");
 		sb.append("    tradesDelay: ").append(toIndentedString(tradesDelay)).append("\n");
-		sb.append("    id: ").append(toIndentedString(id)).append("\n");
+		sb.append("    hourProcessing: ").append(toIndentedString(hourProcessing)).append("\n");
+		sb.append("    isProcessingRealTime: ").append(toIndentedString(isProcessingRealTime)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}
@@ -342,7 +366,8 @@ public class ProgramUpdate implements Parcelable
 		out.writeValue(stopOutLevel);
 		out.writeValue(investmentLimit);
 		out.writeValue(tradesDelay);
-		out.writeValue(id);
+		out.writeValue(hourProcessing);
+		out.writeValue(isProcessingRealTime);
 	}
 
 	public int describeContents() {

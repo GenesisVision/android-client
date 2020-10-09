@@ -3,13 +3,6 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**canAddRequestInvest** | **Boolean** |  |  [optional]
-**canAddRequestWithdraw** | **Boolean** |  |  [optional]
-**canTransferMoney** | **Boolean** |  |  [optional]
-**canMakeDemoDeposit** | **Boolean** |  |  [optional]
-**canChangePassword** | **Boolean** |  |  [optional]
-**canClose** | **Boolean** |  |  [optional]
-**hasTerminal** | **Boolean** |  |  [optional]
 **canMakeProgramFromPrivateTradingAccount** | **Boolean** |  |  [optional]
 **canMakeExchangeProgramFromPrivateTradingAccount** | **Boolean** |  |  [optional]
 **canMakeSignalProviderFromPrivateTradingAccount** | **Boolean** |  |  [optional]
@@ -19,3 +12,10 @@ Name | Type | Description | Notes
 **canEditSignalProviderSettings** | **Boolean** |  |  [optional]
 **isEnoughMoneyToCreateProgram** | **Boolean** |  |  [optional]
 **canConfirm2FA** | **Boolean** |  |  [optional]
+**canAddRequestInvest** | **Boolean** |  |  [optional]
+**canAddRequestWithdraw** | **Boolean** |  |  [optional]
+**canTransferMoney** | **Boolean** |  |  [optional]
+**canMakeDemoDeposit** | **Boolean** |  |  [optional]
+**canChangePassword** | **Boolean** |  |  [optional]
+**canClose** | **Boolean** |  |  [optional]
+**hasTerminal** | **Boolean** |  |  [optional]

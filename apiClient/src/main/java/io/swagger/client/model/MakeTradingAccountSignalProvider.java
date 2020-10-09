@@ -40,15 +40,6 @@ public class MakeTradingAccountSignalProvider implements Parcelable
 		}
 	};
 
-	@SerializedName("id")
-	private UUID id = null;
-
-	@SerializedName("volumeFee")
-	private Double volumeFee = null;
-
-	@SerializedName("successFee")
-	private Double successFee = null;
-
 	@SerializedName("title")
 	private String title = null;
 
@@ -58,73 +49,25 @@ public class MakeTradingAccountSignalProvider implements Parcelable
 	@SerializedName("logo")
 	private String logo = null;
 
+	@SerializedName("id")
+	private UUID id = null;
+
+	@SerializedName("volumeFee")
+	private Double volumeFee = null;
+
+	@SerializedName("successFee")
+	private Double successFee = null;
+
 	public MakeTradingAccountSignalProvider() {
 	}
 
 	MakeTradingAccountSignalProvider(Parcel in) {
-		id = (UUID) in.readValue(UUID.class.getClassLoader());
-		volumeFee = (Double) in.readValue(null);
-		successFee = (Double) in.readValue(null);
 		title = (String) in.readValue(null);
 		description = (String) in.readValue(null);
 		logo = (String) in.readValue(null);
-	}
-
-	public MakeTradingAccountSignalProvider id(UUID id) {
-		this.id = id;
-		return this;
-	}
-
-	/**
-	 * Get id
-	 *
-	 * @return id
-	 **/
-	@Schema(description = "")
-	public UUID getId() {
-		return id;
-	}
-
-	public void setId(UUID id) {
-		this.id = id;
-	}
-
-	public MakeTradingAccountSignalProvider volumeFee(Double volumeFee) {
-		this.volumeFee = volumeFee;
-		return this;
-	}
-
-	/**
-	 * Get volumeFee
-	 *
-	 * @return volumeFee
-	 **/
-	@Schema(description = "")
-	public Double getVolumeFee() {
-		return volumeFee;
-	}
-
-	public void setVolumeFee(Double volumeFee) {
-		this.volumeFee = volumeFee;
-	}
-
-	public MakeTradingAccountSignalProvider successFee(Double successFee) {
-		this.successFee = successFee;
-		return this;
-	}
-
-	/**
-	 * Get successFee
-	 *
-	 * @return successFee
-	 **/
-	@Schema(description = "")
-	public Double getSuccessFee() {
-		return successFee;
-	}
-
-	public void setSuccessFee(Double successFee) {
-		this.successFee = successFee;
+		id = (UUID) in.readValue(UUID.class.getClassLoader());
+		volumeFee = (Double) in.readValue(null);
+		successFee = (Double) in.readValue(null);
 	}
 
 	public MakeTradingAccountSignalProvider title(String title) {
@@ -184,6 +127,63 @@ public class MakeTradingAccountSignalProvider implements Parcelable
 		this.logo = logo;
 	}
 
+	public MakeTradingAccountSignalProvider id(UUID id) {
+		this.id = id;
+		return this;
+	}
+
+	/**
+	 * Get id
+	 *
+	 * @return id
+	 **/
+	@Schema(description = "")
+	public UUID getId() {
+		return id;
+	}
+
+	public void setId(UUID id) {
+		this.id = id;
+	}
+
+	public MakeTradingAccountSignalProvider volumeFee(Double volumeFee) {
+		this.volumeFee = volumeFee;
+		return this;
+	}
+
+	/**
+	 * Get volumeFee
+	 *
+	 * @return volumeFee
+	 **/
+	@Schema(description = "")
+	public Double getVolumeFee() {
+		return volumeFee;
+	}
+
+	public void setVolumeFee(Double volumeFee) {
+		this.volumeFee = volumeFee;
+	}
+
+	public MakeTradingAccountSignalProvider successFee(Double successFee) {
+		this.successFee = successFee;
+		return this;
+	}
+
+	/**
+	 * Get successFee
+	 *
+	 * @return successFee
+	 **/
+	@Schema(description = "")
+	public Double getSuccessFee() {
+		return successFee;
+	}
+
+	public void setSuccessFee(Double successFee) {
+		this.successFee = successFee;
+	}
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -193,17 +193,17 @@ public class MakeTradingAccountSignalProvider implements Parcelable
 			return false;
 		}
 		MakeTradingAccountSignalProvider makeTradingAccountSignalProvider = (MakeTradingAccountSignalProvider) o;
-		return Objects.equals(this.id, makeTradingAccountSignalProvider.id) &&
-				Objects.equals(this.volumeFee, makeTradingAccountSignalProvider.volumeFee) &&
-				Objects.equals(this.successFee, makeTradingAccountSignalProvider.successFee) &&
-				Objects.equals(this.title, makeTradingAccountSignalProvider.title) &&
+		return Objects.equals(this.title, makeTradingAccountSignalProvider.title) &&
 				Objects.equals(this.description, makeTradingAccountSignalProvider.description) &&
-				Objects.equals(this.logo, makeTradingAccountSignalProvider.logo);
+				Objects.equals(this.logo, makeTradingAccountSignalProvider.logo) &&
+				Objects.equals(this.id, makeTradingAccountSignalProvider.id) &&
+				Objects.equals(this.volumeFee, makeTradingAccountSignalProvider.volumeFee) &&
+				Objects.equals(this.successFee, makeTradingAccountSignalProvider.successFee);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, volumeFee, successFee, title, description, logo);
+		return Objects.hash(title, description, logo, id, volumeFee, successFee);
 	}
 
 	@Override
@@ -211,12 +211,12 @@ public class MakeTradingAccountSignalProvider implements Parcelable
 		StringBuilder sb = new StringBuilder();
 		sb.append("class MakeTradingAccountSignalProvider {\n");
 
-		sb.append("    id: ").append(toIndentedString(id)).append("\n");
-		sb.append("    volumeFee: ").append(toIndentedString(volumeFee)).append("\n");
-		sb.append("    successFee: ").append(toIndentedString(successFee)).append("\n");
 		sb.append("    title: ").append(toIndentedString(title)).append("\n");
 		sb.append("    description: ").append(toIndentedString(description)).append("\n");
 		sb.append("    logo: ").append(toIndentedString(logo)).append("\n");
+		sb.append("    id: ").append(toIndentedString(id)).append("\n");
+		sb.append("    volumeFee: ").append(toIndentedString(volumeFee)).append("\n");
+		sb.append("    successFee: ").append(toIndentedString(successFee)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}
@@ -233,12 +233,12 @@ public class MakeTradingAccountSignalProvider implements Parcelable
 	}
 
 	public void writeToParcel(Parcel out, int flags) {
-		out.writeValue(id);
-		out.writeValue(volumeFee);
-		out.writeValue(successFee);
 		out.writeValue(title);
 		out.writeValue(description);
 		out.writeValue(logo);
+		out.writeValue(id);
+		out.writeValue(volumeFee);
+		out.writeValue(successFee);
 	}
 
 	public int describeContents() {

@@ -39,22 +39,41 @@ public class TwoFactorAuthenticatorConfirm implements Parcelable
 		}
 	};
 
+	@SerializedName("password")
+	private String password = null;
+
 	@SerializedName("code")
 	private String code = null;
 
 	@SerializedName("sharedKey")
 	private String sharedKey = null;
 
-	@SerializedName("password")
-	private String password = null;
-
 	public TwoFactorAuthenticatorConfirm() {
 	}
 
 	TwoFactorAuthenticatorConfirm(Parcel in) {
+		password = (String) in.readValue(null);
 		code = (String) in.readValue(null);
 		sharedKey = (String) in.readValue(null);
-		password = (String) in.readValue(null);
+	}
+
+	public TwoFactorAuthenticatorConfirm password(String password) {
+		this.password = password;
+		return this;
+	}
+
+	/**
+	 * Get password
+	 *
+	 * @return password
+	 **/
+	@Schema(required = true, description = "")
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 	public TwoFactorAuthenticatorConfirm code(String code) {
@@ -95,25 +114,6 @@ public class TwoFactorAuthenticatorConfirm implements Parcelable
 		this.sharedKey = sharedKey;
 	}
 
-	public TwoFactorAuthenticatorConfirm password(String password) {
-		this.password = password;
-		return this;
-	}
-
-	/**
-	 * Get password
-	 *
-	 * @return password
-	 **/
-	@Schema(required = true, description = "")
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -123,14 +123,14 @@ public class TwoFactorAuthenticatorConfirm implements Parcelable
 			return false;
 		}
 		TwoFactorAuthenticatorConfirm twoFactorAuthenticatorConfirm = (TwoFactorAuthenticatorConfirm) o;
-		return Objects.equals(this.code, twoFactorAuthenticatorConfirm.code) &&
-				Objects.equals(this.sharedKey, twoFactorAuthenticatorConfirm.sharedKey) &&
-				Objects.equals(this.password, twoFactorAuthenticatorConfirm.password);
+		return Objects.equals(this.password, twoFactorAuthenticatorConfirm.password) &&
+				Objects.equals(this.code, twoFactorAuthenticatorConfirm.code) &&
+				Objects.equals(this.sharedKey, twoFactorAuthenticatorConfirm.sharedKey);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(code, sharedKey, password);
+		return Objects.hash(password, code, sharedKey);
 	}
 
 	@Override
@@ -138,9 +138,9 @@ public class TwoFactorAuthenticatorConfirm implements Parcelable
 		StringBuilder sb = new StringBuilder();
 		sb.append("class TwoFactorAuthenticatorConfirm {\n");
 
+		sb.append("    password: ").append(toIndentedString(password)).append("\n");
 		sb.append("    code: ").append(toIndentedString(code)).append("\n");
 		sb.append("    sharedKey: ").append(toIndentedString(sharedKey)).append("\n");
-		sb.append("    password: ").append(toIndentedString(password)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}
@@ -157,9 +157,9 @@ public class TwoFactorAuthenticatorConfirm implements Parcelable
 	}
 
 	public void writeToParcel(Parcel out, int flags) {
+		out.writeValue(password);
 		out.writeValue(code);
 		out.writeValue(sharedKey);
-		out.writeValue(password);
 	}
 
 	public int describeContents() {

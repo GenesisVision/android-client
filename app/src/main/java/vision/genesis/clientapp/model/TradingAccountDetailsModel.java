@@ -120,6 +120,10 @@ public class TradingAccountDetailsModel implements Parcelable
 		}
 	}
 
+	public TradingAccountDetailsModel() {
+
+	}
+
 	@Override
 	public int describeContents() {
 		return 0;
@@ -222,5 +226,9 @@ public class TradingAccountDetailsModel implements Parcelable
 
 	public Boolean isCanChangePassword() {
 		return canChangePassword;
+	}
+
+	public void setTradingAccountId(UUID accountId) {
+		this.accountId = accountId;
 	}
 }

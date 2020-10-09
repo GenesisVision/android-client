@@ -22,6 +22,9 @@ interface FundDetailsView extends MvpView
 	void showOwner(FundDetailsFull fundDetails);
 
 	@StateStrategyType(OneExecutionStateStrategy.class)
+	void finishInit(boolean showEvents);
+
+	@StateStrategyType(OneExecutionStateStrategy.class)
 	void finishActivity();
 
 	void showToast(String message);

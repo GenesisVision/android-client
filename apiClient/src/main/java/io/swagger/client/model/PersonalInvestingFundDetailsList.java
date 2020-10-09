@@ -57,6 +57,9 @@ public class PersonalInvestingFundDetailsList implements Parcelable
 	@SerializedName("value")
 	private Double value = null;
 
+	@SerializedName("exitFeePersonal")
+	private Double exitFeePersonal = null;
+
 	@SerializedName("status")
 	private AssetInvestmentStatus status = null;
 
@@ -70,6 +73,7 @@ public class PersonalInvestingFundDetailsList implements Parcelable
 		canWithdraw = (Boolean) in.readValue(null);
 		share = (Double) in.readValue(null);
 		value = (Double) in.readValue(null);
+		exitFeePersonal = (Double) in.readValue(null);
 		status = (AssetInvestmentStatus) in.readValue(AssetInvestmentStatus.class.getClassLoader());
 	}
 
@@ -187,6 +191,25 @@ public class PersonalInvestingFundDetailsList implements Parcelable
 		this.value = value;
 	}
 
+	public PersonalInvestingFundDetailsList exitFeePersonal(Double exitFeePersonal) {
+		this.exitFeePersonal = exitFeePersonal;
+		return this;
+	}
+
+	/**
+	 * Get exitFeePersonal
+	 *
+	 * @return exitFeePersonal
+	 **/
+	@Schema(description = "")
+	public Double getExitFeePersonal() {
+		return exitFeePersonal;
+	}
+
+	public void setExitFeePersonal(Double exitFeePersonal) {
+		this.exitFeePersonal = exitFeePersonal;
+	}
+
 	public PersonalInvestingFundDetailsList status(AssetInvestmentStatus status) {
 		this.status = status;
 		return this;
@@ -221,12 +244,13 @@ public class PersonalInvestingFundDetailsList implements Parcelable
 				Objects.equals(this.canWithdraw, personalInvestingFundDetailsList.canWithdraw) &&
 				Objects.equals(this.share, personalInvestingFundDetailsList.share) &&
 				Objects.equals(this.value, personalInvestingFundDetailsList.value) &&
+				Objects.equals(this.exitFeePersonal, personalInvestingFundDetailsList.exitFeePersonal) &&
 				Objects.equals(this.status, personalInvestingFundDetailsList.status);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(isOwnAsset, isFavorite, canInvest, canWithdraw, share, value, status);
+		return Objects.hash(isOwnAsset, isFavorite, canInvest, canWithdraw, share, value, exitFeePersonal, status);
 	}
 
 	@Override
@@ -240,6 +264,7 @@ public class PersonalInvestingFundDetailsList implements Parcelable
 		sb.append("    canWithdraw: ").append(toIndentedString(canWithdraw)).append("\n");
 		sb.append("    share: ").append(toIndentedString(share)).append("\n");
 		sb.append("    value: ").append(toIndentedString(value)).append("\n");
+		sb.append("    exitFeePersonal: ").append(toIndentedString(exitFeePersonal)).append("\n");
 		sb.append("    status: ").append(toIndentedString(status)).append("\n");
 		sb.append("}");
 		return sb.toString();
@@ -263,6 +288,7 @@ public class PersonalInvestingFundDetailsList implements Parcelable
 		out.writeValue(canWithdraw);
 		out.writeValue(share);
 		out.writeValue(value);
+		out.writeValue(exitFeePersonal);
 		out.writeValue(status);
 	}
 

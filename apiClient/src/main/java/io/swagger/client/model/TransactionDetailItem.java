@@ -39,6 +39,9 @@ public class TransactionDetailItem implements Parcelable
 		}
 	};
 
+	@SerializedName("title")
+	private String title = null;
+
 	@SerializedName("details")
 	private String details = null;
 
@@ -48,17 +51,33 @@ public class TransactionDetailItem implements Parcelable
 	@SerializedName("canCopy")
 	private Boolean canCopy = null;
 
-	@SerializedName("title")
-	private String title = null;
-
 	public TransactionDetailItem() {
 	}
 
 	TransactionDetailItem(Parcel in) {
+		title = (String) in.readValue(null);
 		details = (String) in.readValue(null);
 		url = (String) in.readValue(null);
 		canCopy = (Boolean) in.readValue(null);
-		title = (String) in.readValue(null);
+	}
+
+	public TransactionDetailItem title(String title) {
+		this.title = title;
+		return this;
+	}
+
+	/**
+	 * Get title
+	 *
+	 * @return title
+	 **/
+	@Schema(description = "")
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
 	}
 
 	public TransactionDetailItem details(String details) {
@@ -118,25 +137,6 @@ public class TransactionDetailItem implements Parcelable
 		this.canCopy = canCopy;
 	}
 
-	public TransactionDetailItem title(String title) {
-		this.title = title;
-		return this;
-	}
-
-	/**
-	 * Get title
-	 *
-	 * @return title
-	 **/
-	@Schema(description = "")
-	public String getTitle() {
-		return title;
-	}
-
-	public void setTitle(String title) {
-		this.title = title;
-	}
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -146,15 +146,15 @@ public class TransactionDetailItem implements Parcelable
 			return false;
 		}
 		TransactionDetailItem transactionDetailItem = (TransactionDetailItem) o;
-		return Objects.equals(this.details, transactionDetailItem.details) &&
+		return Objects.equals(this.title, transactionDetailItem.title) &&
+				Objects.equals(this.details, transactionDetailItem.details) &&
 				Objects.equals(this.url, transactionDetailItem.url) &&
-				Objects.equals(this.canCopy, transactionDetailItem.canCopy) &&
-				Objects.equals(this.title, transactionDetailItem.title);
+				Objects.equals(this.canCopy, transactionDetailItem.canCopy);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(details, url, canCopy, title);
+		return Objects.hash(title, details, url, canCopy);
 	}
 
 	@Override
@@ -162,10 +162,10 @@ public class TransactionDetailItem implements Parcelable
 		StringBuilder sb = new StringBuilder();
 		sb.append("class TransactionDetailItem {\n");
 
+		sb.append("    title: ").append(toIndentedString(title)).append("\n");
 		sb.append("    details: ").append(toIndentedString(details)).append("\n");
 		sb.append("    url: ").append(toIndentedString(url)).append("\n");
 		sb.append("    canCopy: ").append(toIndentedString(canCopy)).append("\n");
-		sb.append("    title: ").append(toIndentedString(title)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}
@@ -182,10 +182,10 @@ public class TransactionDetailItem implements Parcelable
 	}
 
 	public void writeToParcel(Parcel out, int flags) {
+		out.writeValue(title);
 		out.writeValue(details);
 		out.writeValue(url);
 		out.writeValue(canCopy);
-		out.writeValue(title);
 	}
 
 	public int describeContents() {

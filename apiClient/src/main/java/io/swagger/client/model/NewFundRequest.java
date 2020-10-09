@@ -42,6 +42,15 @@ public class NewFundRequest implements Parcelable
 		}
 	};
 
+	@SerializedName("title")
+	private String title = null;
+
+	@SerializedName("description")
+	private String description = null;
+
+	@SerializedName("logo")
+	private String logo = null;
+
 	@SerializedName("assets")
 	private List<FundAssetPart> assets = null;
 
@@ -57,27 +66,75 @@ public class NewFundRequest implements Parcelable
 	@SerializedName("depositWalletId")
 	private UUID depositWalletId = null;
 
-	@SerializedName("title")
-	private String title = null;
-
-	@SerializedName("description")
-	private String description = null;
-
-	@SerializedName("logo")
-	private String logo = null;
-
 	public NewFundRequest() {
 	}
 
 	NewFundRequest(Parcel in) {
+		title = (String) in.readValue(null);
+		description = (String) in.readValue(null);
+		logo = (String) in.readValue(null);
 		assets = (List<FundAssetPart>) in.readValue(FundAssetPart.class.getClassLoader());
 		entryFee = (Double) in.readValue(null);
 		exitFee = (Double) in.readValue(null);
 		depositAmount = (Double) in.readValue(null);
 		depositWalletId = (UUID) in.readValue(UUID.class.getClassLoader());
-		title = (String) in.readValue(null);
-		description = (String) in.readValue(null);
-		logo = (String) in.readValue(null);
+	}
+
+	public NewFundRequest title(String title) {
+		this.title = title;
+		return this;
+	}
+
+	/**
+	 * Get title
+	 *
+	 * @return title
+	 **/
+	@Schema(description = "")
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public NewFundRequest description(String description) {
+		this.description = description;
+		return this;
+	}
+
+	/**
+	 * Get description
+	 *
+	 * @return description
+	 **/
+	@Schema(description = "")
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public NewFundRequest logo(String logo) {
+		this.logo = logo;
+		return this;
+	}
+
+	/**
+	 * Get logo
+	 *
+	 * @return logo
+	 **/
+	@Schema(description = "")
+	public String getLogo() {
+		return logo;
+	}
+
+	public void setLogo(String logo) {
+		this.logo = logo;
 	}
 
 	public NewFundRequest assets(List<FundAssetPart> assets) {
@@ -183,63 +240,6 @@ public class NewFundRequest implements Parcelable
 		this.depositWalletId = depositWalletId;
 	}
 
-	public NewFundRequest title(String title) {
-		this.title = title;
-		return this;
-	}
-
-	/**
-	 * Get title
-	 *
-	 * @return title
-	 **/
-	@Schema(description = "")
-	public String getTitle() {
-		return title;
-	}
-
-	public void setTitle(String title) {
-		this.title = title;
-	}
-
-	public NewFundRequest description(String description) {
-		this.description = description;
-		return this;
-	}
-
-	/**
-	 * Get description
-	 *
-	 * @return description
-	 **/
-	@Schema(description = "")
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
-	public NewFundRequest logo(String logo) {
-		this.logo = logo;
-		return this;
-	}
-
-	/**
-	 * Get logo
-	 *
-	 * @return logo
-	 **/
-	@Schema(description = "")
-	public String getLogo() {
-		return logo;
-	}
-
-	public void setLogo(String logo) {
-		this.logo = logo;
-	}
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -249,19 +249,19 @@ public class NewFundRequest implements Parcelable
 			return false;
 		}
 		NewFundRequest newFundRequest = (NewFundRequest) o;
-		return Objects.equals(this.assets, newFundRequest.assets) &&
+		return Objects.equals(this.title, newFundRequest.title) &&
+				Objects.equals(this.description, newFundRequest.description) &&
+				Objects.equals(this.logo, newFundRequest.logo) &&
+				Objects.equals(this.assets, newFundRequest.assets) &&
 				Objects.equals(this.entryFee, newFundRequest.entryFee) &&
 				Objects.equals(this.exitFee, newFundRequest.exitFee) &&
 				Objects.equals(this.depositAmount, newFundRequest.depositAmount) &&
-				Objects.equals(this.depositWalletId, newFundRequest.depositWalletId) &&
-				Objects.equals(this.title, newFundRequest.title) &&
-				Objects.equals(this.description, newFundRequest.description) &&
-				Objects.equals(this.logo, newFundRequest.logo);
+				Objects.equals(this.depositWalletId, newFundRequest.depositWalletId);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(assets, entryFee, exitFee, depositAmount, depositWalletId, title, description, logo);
+		return Objects.hash(title, description, logo, assets, entryFee, exitFee, depositAmount, depositWalletId);
 	}
 
 	@Override
@@ -269,14 +269,14 @@ public class NewFundRequest implements Parcelable
 		StringBuilder sb = new StringBuilder();
 		sb.append("class NewFundRequest {\n");
 
+		sb.append("    title: ").append(toIndentedString(title)).append("\n");
+		sb.append("    description: ").append(toIndentedString(description)).append("\n");
+		sb.append("    logo: ").append(toIndentedString(logo)).append("\n");
 		sb.append("    assets: ").append(toIndentedString(assets)).append("\n");
 		sb.append("    entryFee: ").append(toIndentedString(entryFee)).append("\n");
 		sb.append("    exitFee: ").append(toIndentedString(exitFee)).append("\n");
 		sb.append("    depositAmount: ").append(toIndentedString(depositAmount)).append("\n");
 		sb.append("    depositWalletId: ").append(toIndentedString(depositWalletId)).append("\n");
-		sb.append("    title: ").append(toIndentedString(title)).append("\n");
-		sb.append("    description: ").append(toIndentedString(description)).append("\n");
-		sb.append("    logo: ").append(toIndentedString(logo)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}
@@ -293,14 +293,14 @@ public class NewFundRequest implements Parcelable
 	}
 
 	public void writeToParcel(Parcel out, int flags) {
+		out.writeValue(title);
+		out.writeValue(description);
+		out.writeValue(logo);
 		out.writeValue(assets);
 		out.writeValue(entryFee);
 		out.writeValue(exitFee);
 		out.writeValue(depositAmount);
 		out.writeValue(depositWalletId);
-		out.writeValue(title);
-		out.writeValue(description);
-		out.writeValue(logo);
 	}
 
 	public int describeContents() {

@@ -112,4 +112,8 @@ public interface MainView extends MvpView
 	void showReportPostActivity(Post post);
 
 	void openUrl(String url);
+
+	void showNotificationsActivity();
+
+	void showMediaPostDetails(UUID mediaPostId);
 }

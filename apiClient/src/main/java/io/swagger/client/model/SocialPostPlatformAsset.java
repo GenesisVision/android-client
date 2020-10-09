@@ -42,21 +42,6 @@ public class SocialPostPlatformAsset implements Parcelable
 		}
 	};
 
-	@SerializedName("price")
-	private Double price = null;
-
-	@SerializedName("priceCurrency")
-	private Currency priceCurrency = null;
-
-	@SerializedName("change24Percent")
-	private Double change24Percent = null;
-
-	@SerializedName("changeState")
-	private ChangeState changeState = null;
-
-	@SerializedName("chart")
-	private List<SimpleChartPoint> chart = null;
-
 	@SerializedName("id")
 	private UUID id = null;
 
@@ -81,15 +66,25 @@ public class SocialPostPlatformAsset implements Parcelable
 	@SerializedName("provider")
 	private AssetProvider provider = null;
 
+	@SerializedName("price")
+	private Double price = null;
+
+	@SerializedName("priceCurrency")
+	private Currency priceCurrency = null;
+
+	@SerializedName("change24Percent")
+	private Double change24Percent = null;
+
+	@SerializedName("changeState")
+	private ChangeState changeState = null;
+
+	@SerializedName("chart")
+	private List<SimpleChartPoint> chart = null;
+
 	public SocialPostPlatformAsset() {
 	}
 
 	SocialPostPlatformAsset(Parcel in) {
-		price = (Double) in.readValue(null);
-		priceCurrency = (Currency) in.readValue(Currency.class.getClassLoader());
-		change24Percent = (Double) in.readValue(null);
-		changeState = (ChangeState) in.readValue(ChangeState.class.getClassLoader());
-		chart = (List<SimpleChartPoint>) in.readValue(SimpleChartPoint.class.getClassLoader());
 		id = (UUID) in.readValue(UUID.class.getClassLoader());
 		name = (String) in.readValue(null);
 		asset = (String) in.readValue(null);
@@ -98,109 +93,11 @@ public class SocialPostPlatformAsset implements Parcelable
 		color = (String) in.readValue(null);
 		url = (String) in.readValue(null);
 		provider = (AssetProvider) in.readValue(AssetProvider.class.getClassLoader());
-	}
-
-	public SocialPostPlatformAsset price(Double price) {
-		this.price = price;
-		return this;
-	}
-
-	/**
-	 * Get price
-	 *
-	 * @return price
-	 **/
-	@Schema(description = "")
-	public Double getPrice() {
-		return price;
-	}
-
-	public void setPrice(Double price) {
-		this.price = price;
-	}
-
-	public SocialPostPlatformAsset priceCurrency(Currency priceCurrency) {
-		this.priceCurrency = priceCurrency;
-		return this;
-	}
-
-	/**
-	 * Get priceCurrency
-	 *
-	 * @return priceCurrency
-	 **/
-	@Schema(description = "")
-	public Currency getPriceCurrency() {
-		return priceCurrency;
-	}
-
-	public void setPriceCurrency(Currency priceCurrency) {
-		this.priceCurrency = priceCurrency;
-	}
-
-	public SocialPostPlatformAsset change24Percent(Double change24Percent) {
-		this.change24Percent = change24Percent;
-		return this;
-	}
-
-	/**
-	 * Get change24Percent
-	 *
-	 * @return change24Percent
-	 **/
-	@Schema(description = "")
-	public Double getChange24Percent() {
-		return change24Percent;
-	}
-
-	public void setChange24Percent(Double change24Percent) {
-		this.change24Percent = change24Percent;
-	}
-
-	public SocialPostPlatformAsset changeState(ChangeState changeState) {
-		this.changeState = changeState;
-		return this;
-	}
-
-	/**
-	 * Get changeState
-	 *
-	 * @return changeState
-	 **/
-	@Schema(description = "")
-	public ChangeState getChangeState() {
-		return changeState;
-	}
-
-	public void setChangeState(ChangeState changeState) {
-		this.changeState = changeState;
-	}
-
-	public SocialPostPlatformAsset chart(List<SimpleChartPoint> chart) {
-		this.chart = chart;
-		return this;
-	}
-
-	public SocialPostPlatformAsset addChartItem(SimpleChartPoint chartItem) {
-		if (this.chart == null) {
-			this.chart = new ArrayList<SimpleChartPoint>();
-		}
-		this.chart.add(chartItem);
-		return this;
-	}
-
-	/**
-	 * Get chart
-	 *
-	 * @return chart
-	 **/
-	@Schema(description = "")
-	public List<SimpleChartPoint> getChart() {
-		return chart;
-	}
-
-	public void setChart(List<SimpleChartPoint> chart) {
-		this.chart = chart;
+		price = (Double) in.readValue(null);
+		priceCurrency = (Currency) in.readValue(Currency.class.getClassLoader());
+		change24Percent = (Double) in.readValue(null);
+		changeState = (ChangeState) in.readValue(ChangeState.class.getClassLoader());
+		chart = (List<SimpleChartPoint>) in.readValue(SimpleChartPoint.class.getClassLoader());
 	}
 
 	public SocialPostPlatformAsset id(UUID id) {
@@ -355,6 +252,109 @@ public class SocialPostPlatformAsset implements Parcelable
 		this.provider = provider;
 	}
 
+	public SocialPostPlatformAsset price(Double price) {
+		this.price = price;
+		return this;
+	}
+
+	/**
+	 * Get price
+	 *
+	 * @return price
+	 **/
+	@Schema(description = "")
+	public Double getPrice() {
+		return price;
+	}
+
+	public void setPrice(Double price) {
+		this.price = price;
+	}
+
+	public SocialPostPlatformAsset priceCurrency(Currency priceCurrency) {
+		this.priceCurrency = priceCurrency;
+		return this;
+	}
+
+	/**
+	 * Get priceCurrency
+	 *
+	 * @return priceCurrency
+	 **/
+	@Schema(description = "")
+	public Currency getPriceCurrency() {
+		return priceCurrency;
+	}
+
+	public void setPriceCurrency(Currency priceCurrency) {
+		this.priceCurrency = priceCurrency;
+	}
+
+	public SocialPostPlatformAsset change24Percent(Double change24Percent) {
+		this.change24Percent = change24Percent;
+		return this;
+	}
+
+	/**
+	 * Get change24Percent
+	 *
+	 * @return change24Percent
+	 **/
+	@Schema(description = "")
+	public Double getChange24Percent() {
+		return change24Percent;
+	}
+
+	public void setChange24Percent(Double change24Percent) {
+		this.change24Percent = change24Percent;
+	}
+
+	public SocialPostPlatformAsset changeState(ChangeState changeState) {
+		this.changeState = changeState;
+		return this;
+	}
+
+	/**
+	 * Get changeState
+	 *
+	 * @return changeState
+	 **/
+	@Schema(description = "")
+	public ChangeState getChangeState() {
+		return changeState;
+	}
+
+	public void setChangeState(ChangeState changeState) {
+		this.changeState = changeState;
+	}
+
+	public SocialPostPlatformAsset chart(List<SimpleChartPoint> chart) {
+		this.chart = chart;
+		return this;
+	}
+
+	public SocialPostPlatformAsset addChartItem(SimpleChartPoint chartItem) {
+		if (this.chart == null) {
+			this.chart = new ArrayList<SimpleChartPoint>();
+		}
+		this.chart.add(chartItem);
+		return this;
+	}
+
+	/**
+	 * Get chart
+	 *
+	 * @return chart
+	 **/
+	@Schema(description = "")
+	public List<SimpleChartPoint> getChart() {
+		return chart;
+	}
+
+	public void setChart(List<SimpleChartPoint> chart) {
+		this.chart = chart;
+	}
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -364,24 +364,24 @@ public class SocialPostPlatformAsset implements Parcelable
 			return false;
 		}
 		SocialPostPlatformAsset socialPostPlatformAsset = (SocialPostPlatformAsset) o;
-		return Objects.equals(this.price, socialPostPlatformAsset.price) &&
-				Objects.equals(this.priceCurrency, socialPostPlatformAsset.priceCurrency) &&
-				Objects.equals(this.change24Percent, socialPostPlatformAsset.change24Percent) &&
-				Objects.equals(this.changeState, socialPostPlatformAsset.changeState) &&
-				Objects.equals(this.chart, socialPostPlatformAsset.chart) &&
-				Objects.equals(this.id, socialPostPlatformAsset.id) &&
+		return Objects.equals(this.id, socialPostPlatformAsset.id) &&
 				Objects.equals(this.name, socialPostPlatformAsset.name) &&
 				Objects.equals(this.asset, socialPostPlatformAsset.asset) &&
 				Objects.equals(this.description, socialPostPlatformAsset.description) &&
 				Objects.equals(this.logoUrl, socialPostPlatformAsset.logoUrl) &&
 				Objects.equals(this.color, socialPostPlatformAsset.color) &&
 				Objects.equals(this.url, socialPostPlatformAsset.url) &&
-				Objects.equals(this.provider, socialPostPlatformAsset.provider);
+				Objects.equals(this.provider, socialPostPlatformAsset.provider) &&
+				Objects.equals(this.price, socialPostPlatformAsset.price) &&
+				Objects.equals(this.priceCurrency, socialPostPlatformAsset.priceCurrency) &&
+				Objects.equals(this.change24Percent, socialPostPlatformAsset.change24Percent) &&
+				Objects.equals(this.changeState, socialPostPlatformAsset.changeState) &&
+				Objects.equals(this.chart, socialPostPlatformAsset.chart);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(price, priceCurrency, change24Percent, changeState, chart, id, name, asset, description, logoUrl, color, url, provider);
+		return Objects.hash(id, name, asset, description, logoUrl, color, url, provider, price, priceCurrency, change24Percent, changeState, chart);
 	}
 
 	@Override
@@ -389,11 +389,6 @@ public class SocialPostPlatformAsset implements Parcelable
 		StringBuilder sb = new StringBuilder();
 		sb.append("class SocialPostPlatformAsset {\n");
 
-		sb.append("    price: ").append(toIndentedString(price)).append("\n");
-		sb.append("    priceCurrency: ").append(toIndentedString(priceCurrency)).append("\n");
-		sb.append("    change24Percent: ").append(toIndentedString(change24Percent)).append("\n");
-		sb.append("    changeState: ").append(toIndentedString(changeState)).append("\n");
-		sb.append("    chart: ").append(toIndentedString(chart)).append("\n");
 		sb.append("    id: ").append(toIndentedString(id)).append("\n");
 		sb.append("    name: ").append(toIndentedString(name)).append("\n");
 		sb.append("    asset: ").append(toIndentedString(asset)).append("\n");
@@ -402,6 +397,11 @@ public class SocialPostPlatformAsset implements Parcelable
 		sb.append("    color: ").append(toIndentedString(color)).append("\n");
 		sb.append("    url: ").append(toIndentedString(url)).append("\n");
 		sb.append("    provider: ").append(toIndentedString(provider)).append("\n");
+		sb.append("    price: ").append(toIndentedString(price)).append("\n");
+		sb.append("    priceCurrency: ").append(toIndentedString(priceCurrency)).append("\n");
+		sb.append("    change24Percent: ").append(toIndentedString(change24Percent)).append("\n");
+		sb.append("    changeState: ").append(toIndentedString(changeState)).append("\n");
+		sb.append("    chart: ").append(toIndentedString(chart)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}
@@ -418,11 +418,6 @@ public class SocialPostPlatformAsset implements Parcelable
 	}
 
 	public void writeToParcel(Parcel out, int flags) {
-		out.writeValue(price);
-		out.writeValue(priceCurrency);
-		out.writeValue(change24Percent);
-		out.writeValue(changeState);
-		out.writeValue(chart);
 		out.writeValue(id);
 		out.writeValue(name);
 		out.writeValue(asset);
@@ -431,6 +426,11 @@ public class SocialPostPlatformAsset implements Parcelable
 		out.writeValue(color);
 		out.writeValue(url);
 		out.writeValue(provider);
+		out.writeValue(price);
+		out.writeValue(priceCurrency);
+		out.writeValue(change24Percent);
+		out.writeValue(changeState);
+		out.writeValue(chart);
 	}
 
 	public int describeContents() {

@@ -3,7 +3,6 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**mandatoryFundPercent** | **Double** |  |  [optional]
 **id** | [**UUID**](UUID.md) |  |  [optional]
 **name** | **String** |  |  [optional]
 **asset** | **String** |  |  [optional]
@@ -12,3 +11,4 @@ Name | Type | Description | Notes
 **color** | **String** |  |  [optional]
 **url** | **String** |  |  [optional]
 **provider** | [**AssetProvider**](AssetProvider.md) |  |  [optional]
+**mandatoryFundPercent** | **Double** |  |  [optional]

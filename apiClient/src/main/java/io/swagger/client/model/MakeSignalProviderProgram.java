@@ -52,11 +52,11 @@ public class MakeSignalProviderProgram implements Parcelable
 	@SerializedName("investmentLimit")
 	private Double investmentLimit = null;
 
-	@SerializedName("entryFee")
-	private Double entryFee = null;
-
 	@SerializedName("successFee")
 	private Double successFee = null;
+
+	@SerializedName("managementFee")
+	private Double managementFee = null;
 
 	public MakeSignalProviderProgram() {
 	}
@@ -66,8 +66,8 @@ public class MakeSignalProviderProgram implements Parcelable
 		periodLength = (Integer) in.readValue(null);
 		stopOutLevel = (Double) in.readValue(null);
 		investmentLimit = (Double) in.readValue(null);
-		entryFee = (Double) in.readValue(null);
 		successFee = (Double) in.readValue(null);
+		managementFee = (Double) in.readValue(null);
 	}
 
 	public MakeSignalProviderProgram id(UUID id) {
@@ -146,25 +146,6 @@ public class MakeSignalProviderProgram implements Parcelable
 		this.investmentLimit = investmentLimit;
 	}
 
-	public MakeSignalProviderProgram entryFee(Double entryFee) {
-		this.entryFee = entryFee;
-		return this;
-	}
-
-	/**
-	 * Get entryFee
-	 *
-	 * @return entryFee
-	 **/
-	@Schema(description = "")
-	public Double getEntryFee() {
-		return entryFee;
-	}
-
-	public void setEntryFee(Double entryFee) {
-		this.entryFee = entryFee;
-	}
-
 	public MakeSignalProviderProgram successFee(Double successFee) {
 		this.successFee = successFee;
 		return this;
@@ -184,6 +165,25 @@ public class MakeSignalProviderProgram implements Parcelable
 		this.successFee = successFee;
 	}
 
+	public MakeSignalProviderProgram managementFee(Double managementFee) {
+		this.managementFee = managementFee;
+		return this;
+	}
+
+	/**
+	 * Get managementFee
+	 *
+	 * @return managementFee
+	 **/
+	@Schema(description = "")
+	public Double getManagementFee() {
+		return managementFee;
+	}
+
+	public void setManagementFee(Double managementFee) {
+		this.managementFee = managementFee;
+	}
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -197,13 +197,13 @@ public class MakeSignalProviderProgram implements Parcelable
 				Objects.equals(this.periodLength, makeSignalProviderProgram.periodLength) &&
 				Objects.equals(this.stopOutLevel, makeSignalProviderProgram.stopOutLevel) &&
 				Objects.equals(this.investmentLimit, makeSignalProviderProgram.investmentLimit) &&
-				Objects.equals(this.entryFee, makeSignalProviderProgram.entryFee) &&
-				Objects.equals(this.successFee, makeSignalProviderProgram.successFee);
+				Objects.equals(this.successFee, makeSignalProviderProgram.successFee) &&
+				Objects.equals(this.managementFee, makeSignalProviderProgram.managementFee);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, periodLength, stopOutLevel, investmentLimit, entryFee, successFee);
+		return Objects.hash(id, periodLength, stopOutLevel, investmentLimit, successFee, managementFee);
 	}
 
 	@Override
@@ -215,8 +215,8 @@ public class MakeSignalProviderProgram implements Parcelable
 		sb.append("    periodLength: ").append(toIndentedString(periodLength)).append("\n");
 		sb.append("    stopOutLevel: ").append(toIndentedString(stopOutLevel)).append("\n");
 		sb.append("    investmentLimit: ").append(toIndentedString(investmentLimit)).append("\n");
-		sb.append("    entryFee: ").append(toIndentedString(entryFee)).append("\n");
 		sb.append("    successFee: ").append(toIndentedString(successFee)).append("\n");
+		sb.append("    managementFee: ").append(toIndentedString(managementFee)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}
@@ -237,8 +237,8 @@ public class MakeSignalProviderProgram implements Parcelable
 		out.writeValue(periodLength);
 		out.writeValue(stopOutLevel);
 		out.writeValue(investmentLimit);
-		out.writeValue(entryFee);
 		out.writeValue(successFee);
+		out.writeValue(managementFee);
 	}
 
 	public int describeContents() {

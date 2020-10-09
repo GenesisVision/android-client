@@ -68,6 +68,18 @@ public class FundInvestingDetailsList implements Parcelable
 	@SerializedName("investorsCount")
 	private Integer investorsCount = null;
 
+	@SerializedName("entryFeeCurrent")
+	private Double entryFeeCurrent = null;
+
+	@SerializedName("entryFeeSelected")
+	private Double entryFeeSelected = null;
+
+	@SerializedName("exitFeeCurrent")
+	private Double exitFeeCurrent = null;
+
+	@SerializedName("exitFeeSelected")
+	private Double exitFeeSelected = null;
+
 	@SerializedName("totalAssetsCount")
 	private Integer totalAssetsCount = null;
 
@@ -101,6 +113,10 @@ public class FundInvestingDetailsList implements Parcelable
 		description = (String) in.readValue(null);
 		creationDate = (DateTime) in.readValue(DateTime.class.getClassLoader());
 		investorsCount = (Integer) in.readValue(null);
+		entryFeeCurrent = (Double) in.readValue(null);
+		entryFeeSelected = (Double) in.readValue(null);
+		exitFeeCurrent = (Double) in.readValue(null);
+		exitFeeSelected = (Double) in.readValue(null);
 		totalAssetsCount = (Integer) in.readValue(null);
 		topFundAssets = (List<FundAssetPercent>) in.readValue(FundAssetPercent.class.getClassLoader());
 		owner = (ProfilePublicShort) in.readValue(ProfilePublicShort.class.getClassLoader());
@@ -262,6 +278,82 @@ public class FundInvestingDetailsList implements Parcelable
 		this.investorsCount = investorsCount;
 	}
 
+	public FundInvestingDetailsList entryFeeCurrent(Double entryFeeCurrent) {
+		this.entryFeeCurrent = entryFeeCurrent;
+		return this;
+	}
+
+	/**
+	 * Get entryFeeCurrent
+	 *
+	 * @return entryFeeCurrent
+	 **/
+	@Schema(description = "")
+	public Double getEntryFeeCurrent() {
+		return entryFeeCurrent;
+	}
+
+	public void setEntryFeeCurrent(Double entryFeeCurrent) {
+		this.entryFeeCurrent = entryFeeCurrent;
+	}
+
+	public FundInvestingDetailsList entryFeeSelected(Double entryFeeSelected) {
+		this.entryFeeSelected = entryFeeSelected;
+		return this;
+	}
+
+	/**
+	 * Get entryFeeSelected
+	 *
+	 * @return entryFeeSelected
+	 **/
+	@Schema(description = "")
+	public Double getEntryFeeSelected() {
+		return entryFeeSelected;
+	}
+
+	public void setEntryFeeSelected(Double entryFeeSelected) {
+		this.entryFeeSelected = entryFeeSelected;
+	}
+
+	public FundInvestingDetailsList exitFeeCurrent(Double exitFeeCurrent) {
+		this.exitFeeCurrent = exitFeeCurrent;
+		return this;
+	}
+
+	/**
+	 * Get exitFeeCurrent
+	 *
+	 * @return exitFeeCurrent
+	 **/
+	@Schema(description = "")
+	public Double getExitFeeCurrent() {
+		return exitFeeCurrent;
+	}
+
+	public void setExitFeeCurrent(Double exitFeeCurrent) {
+		this.exitFeeCurrent = exitFeeCurrent;
+	}
+
+	public FundInvestingDetailsList exitFeeSelected(Double exitFeeSelected) {
+		this.exitFeeSelected = exitFeeSelected;
+		return this;
+	}
+
+	/**
+	 * Get exitFeeSelected
+	 *
+	 * @return exitFeeSelected
+	 **/
+	@Schema(description = "")
+	public Double getExitFeeSelected() {
+		return exitFeeSelected;
+	}
+
+	public void setExitFeeSelected(Double exitFeeSelected) {
+		this.exitFeeSelected = exitFeeSelected;
+	}
+
 	public FundInvestingDetailsList totalAssetsCount(Integer totalAssetsCount) {
 		this.totalAssetsCount = totalAssetsCount;
 		return this;
@@ -420,6 +512,10 @@ public class FundInvestingDetailsList implements Parcelable
 				Objects.equals(this.description, fundInvestingDetailsList.description) &&
 				Objects.equals(this.creationDate, fundInvestingDetailsList.creationDate) &&
 				Objects.equals(this.investorsCount, fundInvestingDetailsList.investorsCount) &&
+				Objects.equals(this.entryFeeCurrent, fundInvestingDetailsList.entryFeeCurrent) &&
+				Objects.equals(this.entryFeeSelected, fundInvestingDetailsList.entryFeeSelected) &&
+				Objects.equals(this.exitFeeCurrent, fundInvestingDetailsList.exitFeeCurrent) &&
+				Objects.equals(this.exitFeeSelected, fundInvestingDetailsList.exitFeeSelected) &&
 				Objects.equals(this.totalAssetsCount, fundInvestingDetailsList.totalAssetsCount) &&
 				Objects.equals(this.topFundAssets, fundInvestingDetailsList.topFundAssets) &&
 				Objects.equals(this.owner, fundInvestingDetailsList.owner) &&
@@ -431,7 +527,7 @@ public class FundInvestingDetailsList implements Parcelable
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, logoUrl, url, color, title, description, creationDate, investorsCount, totalAssetsCount, topFundAssets, owner, tradingSchedule, statistic, personalDetails, balance);
+		return Objects.hash(id, logoUrl, url, color, title, description, creationDate, investorsCount, entryFeeCurrent, entryFeeSelected, exitFeeCurrent, exitFeeSelected, totalAssetsCount, topFundAssets, owner, tradingSchedule, statistic, personalDetails, balance);
 	}
 
 	@Override
@@ -447,6 +543,10 @@ public class FundInvestingDetailsList implements Parcelable
 		sb.append("    description: ").append(toIndentedString(description)).append("\n");
 		sb.append("    creationDate: ").append(toIndentedString(creationDate)).append("\n");
 		sb.append("    investorsCount: ").append(toIndentedString(investorsCount)).append("\n");
+		sb.append("    entryFeeCurrent: ").append(toIndentedString(entryFeeCurrent)).append("\n");
+		sb.append("    entryFeeSelected: ").append(toIndentedString(entryFeeSelected)).append("\n");
+		sb.append("    exitFeeCurrent: ").append(toIndentedString(exitFeeCurrent)).append("\n");
+		sb.append("    exitFeeSelected: ").append(toIndentedString(exitFeeSelected)).append("\n");
 		sb.append("    totalAssetsCount: ").append(toIndentedString(totalAssetsCount)).append("\n");
 		sb.append("    topFundAssets: ").append(toIndentedString(topFundAssets)).append("\n");
 		sb.append("    owner: ").append(toIndentedString(owner)).append("\n");
@@ -478,6 +578,10 @@ public class FundInvestingDetailsList implements Parcelable
 		out.writeValue(description);
 		out.writeValue(creationDate);
 		out.writeValue(investorsCount);
+		out.writeValue(entryFeeCurrent);
+		out.writeValue(entryFeeSelected);
+		out.writeValue(exitFeeCurrent);
+		out.writeValue(exitFeeSelected);
 		out.writeValue(totalAssetsCount);
 		out.writeValue(topFundAssets);
 		out.writeValue(owner);

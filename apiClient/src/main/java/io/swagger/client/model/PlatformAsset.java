@@ -40,9 +40,6 @@ public class PlatformAsset implements Parcelable
 		}
 	};
 
-	@SerializedName("mandatoryFundPercent")
-	private Double mandatoryFundPercent = null;
-
 	@SerializedName("id")
 	private UUID id = null;
 
@@ -67,11 +64,13 @@ public class PlatformAsset implements Parcelable
 	@SerializedName("provider")
 	private AssetProvider provider = null;
 
+	@SerializedName("mandatoryFundPercent")
+	private Double mandatoryFundPercent = null;
+
 	public PlatformAsset() {
 	}
 
 	PlatformAsset(Parcel in) {
-		mandatoryFundPercent = (Double) in.readValue(null);
 		id = (UUID) in.readValue(UUID.class.getClassLoader());
 		name = (String) in.readValue(null);
 		asset = (String) in.readValue(null);
@@ -80,25 +79,7 @@ public class PlatformAsset implements Parcelable
 		color = (String) in.readValue(null);
 		url = (String) in.readValue(null);
 		provider = (AssetProvider) in.readValue(AssetProvider.class.getClassLoader());
-	}
-
-	public PlatformAsset mandatoryFundPercent(Double mandatoryFundPercent) {
-		this.mandatoryFundPercent = mandatoryFundPercent;
-		return this;
-	}
-
-	/**
-	 * Get mandatoryFundPercent
-	 *
-	 * @return mandatoryFundPercent
-	 **/
-	@Schema(description = "")
-	public Double getMandatoryFundPercent() {
-		return mandatoryFundPercent;
-	}
-
-	public void setMandatoryFundPercent(Double mandatoryFundPercent) {
-		this.mandatoryFundPercent = mandatoryFundPercent;
+		mandatoryFundPercent = (Double) in.readValue(null);
 	}
 
 	public PlatformAsset id(UUID id) {
@@ -253,6 +234,25 @@ public class PlatformAsset implements Parcelable
 		this.provider = provider;
 	}
 
+	public PlatformAsset mandatoryFundPercent(Double mandatoryFundPercent) {
+		this.mandatoryFundPercent = mandatoryFundPercent;
+		return this;
+	}
+
+	/**
+	 * Get mandatoryFundPercent
+	 *
+	 * @return mandatoryFundPercent
+	 **/
+	@Schema(description = "")
+	public Double getMandatoryFundPercent() {
+		return mandatoryFundPercent;
+	}
+
+	public void setMandatoryFundPercent(Double mandatoryFundPercent) {
+		this.mandatoryFundPercent = mandatoryFundPercent;
+	}
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -262,20 +262,20 @@ public class PlatformAsset implements Parcelable
 			return false;
 		}
 		PlatformAsset platformAsset = (PlatformAsset) o;
-		return Objects.equals(this.mandatoryFundPercent, platformAsset.mandatoryFundPercent) &&
-				Objects.equals(this.id, platformAsset.id) &&
+		return Objects.equals(this.id, platformAsset.id) &&
 				Objects.equals(this.name, platformAsset.name) &&
 				Objects.equals(this.asset, platformAsset.asset) &&
 				Objects.equals(this.description, platformAsset.description) &&
 				Objects.equals(this.logoUrl, platformAsset.logoUrl) &&
 				Objects.equals(this.color, platformAsset.color) &&
 				Objects.equals(this.url, platformAsset.url) &&
-				Objects.equals(this.provider, platformAsset.provider);
+				Objects.equals(this.provider, platformAsset.provider) &&
+				Objects.equals(this.mandatoryFundPercent, platformAsset.mandatoryFundPercent);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(mandatoryFundPercent, id, name, asset, description, logoUrl, color, url, provider);
+		return Objects.hash(id, name, asset, description, logoUrl, color, url, provider, mandatoryFundPercent);
 	}
 
 	@Override
@@ -283,7 +283,6 @@ public class PlatformAsset implements Parcelable
 		StringBuilder sb = new StringBuilder();
 		sb.append("class PlatformAsset {\n");
 
-		sb.append("    mandatoryFundPercent: ").append(toIndentedString(mandatoryFundPercent)).append("\n");
 		sb.append("    id: ").append(toIndentedString(id)).append("\n");
 		sb.append("    name: ").append(toIndentedString(name)).append("\n");
 		sb.append("    asset: ").append(toIndentedString(asset)).append("\n");
@@ -292,6 +291,7 @@ public class PlatformAsset implements Parcelable
 		sb.append("    color: ").append(toIndentedString(color)).append("\n");
 		sb.append("    url: ").append(toIndentedString(url)).append("\n");
 		sb.append("    provider: ").append(toIndentedString(provider)).append("\n");
+		sb.append("    mandatoryFundPercent: ").append(toIndentedString(mandatoryFundPercent)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}
@@ -308,7 +308,6 @@ public class PlatformAsset implements Parcelable
 	}
 
 	public void writeToParcel(Parcel out, int flags) {
-		out.writeValue(mandatoryFundPercent);
 		out.writeValue(id);
 		out.writeValue(name);
 		out.writeValue(asset);
@@ -317,6 +316,7 @@ public class PlatformAsset implements Parcelable
 		out.writeValue(color);
 		out.writeValue(url);
 		out.writeValue(provider);
+		out.writeValue(mandatoryFundPercent);
 	}
 
 	public int describeContents() {

@@ -264,7 +264,7 @@ public class DashboardFragment extends BaseFragment implements DashboardView
 	private void hideBalanceInHeader() {
 		hideAnimInProcess = true;
 		showAnimInProcess = false;
-		if (headerBalanceGroupInitialY == 0) {
+		if (headerBalanceGroupInitialY == 0 && headerBalanceGroup != null) {
 			headerBalanceGroupInitialY = headerBalanceGroup.getY();
 		}
 		ValueAnimator yAnim = ValueAnimator.ofFloat(headerBalanceGroup.getY(), headerBalanceGroupInitialY + toolbarHeight);

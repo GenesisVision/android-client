@@ -54,17 +54,6 @@ public interface WalletApi
 	);
 
 	/**
-	 * Accounts available
-	 *
-	 * @param currency (required)
-	 * @return Call&lt;WalletMultiAvailable&gt;
-	 */
-	@GET("v2.0/wallet/accounts/{currency}/available")
-	Observable<WalletMultiAvailable> getAccountsAvailable(
-			@retrofit2.http.Path("currency") Currency currency
-	);
-
-	/**
 	 * GenesisMarkets commission data
 	 *
 	 * @return Call&lt;UserCommissionData&gt;

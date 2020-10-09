@@ -5,6 +5,7 @@ import java.util.UUID;
 
 import io.swagger.client.model.EditPost;
 import io.swagger.client.model.EditablePost;
+import io.swagger.client.model.MediaPost;
 import io.swagger.client.model.MediaPostItemsViewModel;
 import io.swagger.client.model.NewPost;
 import io.swagger.client.model.Post;
@@ -148,6 +149,17 @@ public interface SocialApi
 	@GET("v2.0/social/feed/media")
 	Observable<MediaPostItemsViewModel> getSocialMedia(
 			@retrofit2.http.Query("Mask") String mask, @retrofit2.http.Query("Type") SocialLinkType type, @retrofit2.http.Query("Skip") Integer skip, @retrofit2.http.Query("Take") Integer take
+	);
+
+	/**
+	 * Get social media post
+	 *
+	 * @param id (required)
+	 * @return Call&lt;MediaPost&gt;
+	 */
+	@GET("v2.0/social/feed/media/{id}")
+	Observable<MediaPost> getSocialMediaPost(
+			@retrofit2.http.Path("id") String id
 	);
 
 	/**

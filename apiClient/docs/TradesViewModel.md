@@ -3,6 +3,8 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**items** | [**List&lt;OrderModel&gt;**](OrderModel.md) |  |  [optional]
+**total** | **Integer** |  |  [optional]
 **showSwaps** | **Boolean** |  |  [optional]
 **showTickets** | **Boolean** |  |  [optional]
 **showDate** | **Boolean** |  |  [optional]
@@ -11,5 +13,3 @@ Name | Type | Description | Notes
 **showPriceOpen** | **Boolean** |  |  [optional]
 **showProfit** | **Boolean** |  |  [optional]
 **tradesDelay** | [**TradesDelay**](TradesDelay.md) |  |  [optional]
-**items** | [**List&lt;OrderModel&gt;**](OrderModel.md) |  |  [optional]
-**total** | **Integer** |  |  [optional]

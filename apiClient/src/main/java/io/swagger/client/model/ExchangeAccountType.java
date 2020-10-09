@@ -17,7 +17,9 @@ import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.UUID;
@@ -54,6 +56,9 @@ public class ExchangeAccountType implements Parcelable
 	@SerializedName("type")
 	private BrokerTradeServerType type = null;
 
+	@SerializedName("currencies")
+	private List<String> currencies = null;
+
 	@SerializedName("minimumDepositsAmount")
 	private Map<String, Double> minimumDepositsAmount = null;
 
@@ -77,6 +82,7 @@ public class ExchangeAccountType implements Parcelable
 		name = (String) in.readValue(null);
 		description = (String) in.readValue(null);
 		type = (BrokerTradeServerType) in.readValue(BrokerTradeServerType.class.getClassLoader());
+		currencies = (List<String>) in.readValue(null);
 		minimumDepositsAmount = (Map<String, Double>) in.readValue(null);
 		isKycRequired = (Boolean) in.readValue(null);
 		isCountryNotUSRequired = (Boolean) in.readValue(null);
@@ -158,6 +164,33 @@ public class ExchangeAccountType implements Parcelable
 
 	public void setType(BrokerTradeServerType type) {
 		this.type = type;
+	}
+
+	public ExchangeAccountType currencies(List<String> currencies) {
+		this.currencies = currencies;
+		return this;
+	}
+
+	public ExchangeAccountType addCurrenciesItem(String currenciesItem) {
+		if (this.currencies == null) {
+			this.currencies = new ArrayList<String>();
+		}
+		this.currencies.add(currenciesItem);
+		return this;
+	}
+
+	/**
+	 * Get currencies
+	 *
+	 * @return currencies
+	 **/
+	@Schema(description = "")
+	public List<String> getCurrencies() {
+		return currencies;
+	}
+
+	public void setCurrencies(List<String> currencies) {
+		this.currencies = currencies;
 	}
 
 	public ExchangeAccountType minimumDepositsAmount(Map<String, Double> minimumDepositsAmount) {
@@ -276,6 +309,7 @@ public class ExchangeAccountType implements Parcelable
 				Objects.equals(this.name, exchangeAccountType.name) &&
 				Objects.equals(this.description, exchangeAccountType.description) &&
 				Objects.equals(this.type, exchangeAccountType.type) &&
+				Objects.equals(this.currencies, exchangeAccountType.currencies) &&
 				Objects.equals(this.minimumDepositsAmount, exchangeAccountType.minimumDepositsAmount) &&
 				Objects.equals(this.isKycRequired, exchangeAccountType.isKycRequired) &&
 				Objects.equals(this.isCountryNotUSRequired, exchangeAccountType.isCountryNotUSRequired) &&
@@ -285,7 +319,7 @@ public class ExchangeAccountType implements Parcelable
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, name, description, type, minimumDepositsAmount, isKycRequired, isCountryNotUSRequired, isSignalsAvailable, isDepositRequired);
+		return Objects.hash(id, name, description, type, currencies, minimumDepositsAmount, isKycRequired, isCountryNotUSRequired, isSignalsAvailable, isDepositRequired);
 	}
 
 	@Override
@@ -297,6 +331,7 @@ public class ExchangeAccountType implements Parcelable
 		sb.append("    name: ").append(toIndentedString(name)).append("\n");
 		sb.append("    description: ").append(toIndentedString(description)).append("\n");
 		sb.append("    type: ").append(toIndentedString(type)).append("\n");
+		sb.append("    currencies: ").append(toIndentedString(currencies)).append("\n");
 		sb.append("    minimumDepositsAmount: ").append(toIndentedString(minimumDepositsAmount)).append("\n");
 		sb.append("    isKycRequired: ").append(toIndentedString(isKycRequired)).append("\n");
 		sb.append("    isCountryNotUSRequired: ").append(toIndentedString(isCountryNotUSRequired)).append("\n");
@@ -322,6 +357,7 @@ public class ExchangeAccountType implements Parcelable
 		out.writeValue(name);
 		out.writeValue(description);
 		out.writeValue(type);
+		out.writeValue(currencies);
 		out.writeValue(minimumDepositsAmount);
 		out.writeValue(isKycRequired);
 		out.writeValue(isCountryNotUSRequired);

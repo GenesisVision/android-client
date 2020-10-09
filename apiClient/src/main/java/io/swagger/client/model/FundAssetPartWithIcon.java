@@ -39,15 +39,6 @@ public class FundAssetPartWithIcon implements Parcelable
 		}
 	};
 
-	@SerializedName("logoUrl")
-	private String logoUrl = null;
-
-	@SerializedName("color")
-	private String color = null;
-
-	@SerializedName("url")
-	private String url = null;
-
 	@SerializedName("name")
 	private String name = null;
 
@@ -57,73 +48,25 @@ public class FundAssetPartWithIcon implements Parcelable
 	@SerializedName("percent")
 	private Double percent = null;
 
+	@SerializedName("logoUrl")
+	private String logoUrl = null;
+
+	@SerializedName("color")
+	private String color = null;
+
+	@SerializedName("url")
+	private String url = null;
+
 	public FundAssetPartWithIcon() {
 	}
 
 	FundAssetPartWithIcon(Parcel in) {
-		logoUrl = (String) in.readValue(null);
-		color = (String) in.readValue(null);
-		url = (String) in.readValue(null);
 		name = (String) in.readValue(null);
 		asset = (String) in.readValue(null);
 		percent = (Double) in.readValue(null);
-	}
-
-	public FundAssetPartWithIcon logoUrl(String logoUrl) {
-		this.logoUrl = logoUrl;
-		return this;
-	}
-
-	/**
-	 * Get logoUrl
-	 *
-	 * @return logoUrl
-	 **/
-	@Schema(description = "")
-	public String getLogoUrl() {
-		return logoUrl;
-	}
-
-	public void setLogoUrl(String logoUrl) {
-		this.logoUrl = logoUrl;
-	}
-
-	public FundAssetPartWithIcon color(String color) {
-		this.color = color;
-		return this;
-	}
-
-	/**
-	 * Get color
-	 *
-	 * @return color
-	 **/
-	@Schema(description = "")
-	public String getColor() {
-		return color;
-	}
-
-	public void setColor(String color) {
-		this.color = color;
-	}
-
-	public FundAssetPartWithIcon url(String url) {
-		this.url = url;
-		return this;
-	}
-
-	/**
-	 * Get url
-	 *
-	 * @return url
-	 **/
-	@Schema(description = "")
-	public String getUrl() {
-		return url;
-	}
-
-	public void setUrl(String url) {
-		this.url = url;
+		logoUrl = (String) in.readValue(null);
+		color = (String) in.readValue(null);
+		url = (String) in.readValue(null);
 	}
 
 	public FundAssetPartWithIcon name(String name) {
@@ -183,6 +126,63 @@ public class FundAssetPartWithIcon implements Parcelable
 		this.percent = percent;
 	}
 
+	public FundAssetPartWithIcon logoUrl(String logoUrl) {
+		this.logoUrl = logoUrl;
+		return this;
+	}
+
+	/**
+	 * Get logoUrl
+	 *
+	 * @return logoUrl
+	 **/
+	@Schema(description = "")
+	public String getLogoUrl() {
+		return logoUrl;
+	}
+
+	public void setLogoUrl(String logoUrl) {
+		this.logoUrl = logoUrl;
+	}
+
+	public FundAssetPartWithIcon color(String color) {
+		this.color = color;
+		return this;
+	}
+
+	/**
+	 * Get color
+	 *
+	 * @return color
+	 **/
+	@Schema(description = "")
+	public String getColor() {
+		return color;
+	}
+
+	public void setColor(String color) {
+		this.color = color;
+	}
+
+	public FundAssetPartWithIcon url(String url) {
+		this.url = url;
+		return this;
+	}
+
+	/**
+	 * Get url
+	 *
+	 * @return url
+	 **/
+	@Schema(description = "")
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -192,17 +192,17 @@ public class FundAssetPartWithIcon implements Parcelable
 			return false;
 		}
 		FundAssetPartWithIcon fundAssetPartWithIcon = (FundAssetPartWithIcon) o;
-		return Objects.equals(this.logoUrl, fundAssetPartWithIcon.logoUrl) &&
-				Objects.equals(this.color, fundAssetPartWithIcon.color) &&
-				Objects.equals(this.url, fundAssetPartWithIcon.url) &&
-				Objects.equals(this.name, fundAssetPartWithIcon.name) &&
+		return Objects.equals(this.name, fundAssetPartWithIcon.name) &&
 				Objects.equals(this.asset, fundAssetPartWithIcon.asset) &&
-				Objects.equals(this.percent, fundAssetPartWithIcon.percent);
+				Objects.equals(this.percent, fundAssetPartWithIcon.percent) &&
+				Objects.equals(this.logoUrl, fundAssetPartWithIcon.logoUrl) &&
+				Objects.equals(this.color, fundAssetPartWithIcon.color) &&
+				Objects.equals(this.url, fundAssetPartWithIcon.url);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(logoUrl, color, url, name, asset, percent);
+		return Objects.hash(name, asset, percent, logoUrl, color, url);
 	}
 
 	@Override
@@ -210,12 +210,12 @@ public class FundAssetPartWithIcon implements Parcelable
 		StringBuilder sb = new StringBuilder();
 		sb.append("class FundAssetPartWithIcon {\n");
 
-		sb.append("    logoUrl: ").append(toIndentedString(logoUrl)).append("\n");
-		sb.append("    color: ").append(toIndentedString(color)).append("\n");
-		sb.append("    url: ").append(toIndentedString(url)).append("\n");
 		sb.append("    name: ").append(toIndentedString(name)).append("\n");
 		sb.append("    asset: ").append(toIndentedString(asset)).append("\n");
 		sb.append("    percent: ").append(toIndentedString(percent)).append("\n");
+		sb.append("    logoUrl: ").append(toIndentedString(logoUrl)).append("\n");
+		sb.append("    color: ").append(toIndentedString(color)).append("\n");
+		sb.append("    url: ").append(toIndentedString(url)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}
@@ -232,12 +232,12 @@ public class FundAssetPartWithIcon implements Parcelable
 	}
 
 	public void writeToParcel(Parcel out, int flags) {
-		out.writeValue(logoUrl);
-		out.writeValue(color);
-		out.writeValue(url);
 		out.writeValue(name);
 		out.writeValue(asset);
 		out.writeValue(percent);
+		out.writeValue(logoUrl);
+		out.writeValue(color);
+		out.writeValue(url);
 	}
 
 	public int describeContents() {

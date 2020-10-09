@@ -331,14 +331,16 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 		GenericDraweeHierarchy hierarchy = programLogo.getHierarchy();
 		hierarchy.setBackgroundImage(new ColorDrawable(Color.parseColor(model.getProgramColor())));
 		programLogo.setHierarchy(hierarchy);
-		ImageRequest request = ImageRequestBuilder.newBuilderWithSource(Uri.parse(ImageUtils.getImageUri(model.getAvatar())))
-				.setResizeOptions(new ResizeOptions(300, 300))
-				.build();
-		PipelineDraweeController controller = (PipelineDraweeController) Fresco.newDraweeControllerBuilder()
-				.setOldController(programLogo.getController())
-				.setImageRequest(request)
-				.build();
-		programLogo.setController(controller);
+		if (model.getAvatar() != null && !model.getAvatar().isEmpty()) {
+			ImageRequest request = ImageRequestBuilder.newBuilderWithSource(Uri.parse(ImageUtils.getImageUri(model.getAvatar())))
+					.setResizeOptions(new ResizeOptions(300, 300))
+					.build();
+			PipelineDraweeController controller = (PipelineDraweeController) Fresco.newDraweeControllerBuilder()
+					.setOldController(programLogo.getController())
+					.setImageRequest(request)
+					.build();
+			programLogo.setController(controller);
+		}
 
 		toolbarProgramLogo.setImage(model.getAvatar(), model.getProgramColor(), 50, 50);
 		toolbarProgramLogo.hideLevel();

@@ -40,12 +40,6 @@ public class TransactionAssetDetails implements Parcelable
 		}
 	};
 
-	@SerializedName("description")
-	private String description = null;
-
-	@SerializedName("manager")
-	private String manager = null;
-
 	@SerializedName("id")
 	private UUID id = null;
 
@@ -67,12 +61,16 @@ public class TransactionAssetDetails implements Parcelable
 	@SerializedName("programDetails")
 	private ProgramAssetDetails programDetails = null;
 
+	@SerializedName("description")
+	private String description = null;
+
+	@SerializedName("manager")
+	private String manager = null;
+
 	public TransactionAssetDetails() {
 	}
 
 	TransactionAssetDetails(Parcel in) {
-		description = (String) in.readValue(null);
-		manager = (String) in.readValue(null);
 		id = (UUID) in.readValue(UUID.class.getClassLoader());
 		logoUrl = (String) in.readValue(null);
 		color = (String) in.readValue(null);
@@ -80,44 +78,8 @@ public class TransactionAssetDetails implements Parcelable
 		url = (String) in.readValue(null);
 		assetType = (AssetType) in.readValue(AssetType.class.getClassLoader());
 		programDetails = (ProgramAssetDetails) in.readValue(ProgramAssetDetails.class.getClassLoader());
-	}
-
-	public TransactionAssetDetails description(String description) {
-		this.description = description;
-		return this;
-	}
-
-	/**
-	 * Get description
-	 *
-	 * @return description
-	 **/
-	@Schema(description = "")
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
-	public TransactionAssetDetails manager(String manager) {
-		this.manager = manager;
-		return this;
-	}
-
-	/**
-	 * Get manager
-	 *
-	 * @return manager
-	 **/
-	@Schema(description = "")
-	public String getManager() {
-		return manager;
-	}
-
-	public void setManager(String manager) {
-		this.manager = manager;
+		description = (String) in.readValue(null);
+		manager = (String) in.readValue(null);
 	}
 
 	public TransactionAssetDetails id(UUID id) {
@@ -253,6 +215,44 @@ public class TransactionAssetDetails implements Parcelable
 		this.programDetails = programDetails;
 	}
 
+	public TransactionAssetDetails description(String description) {
+		this.description = description;
+		return this;
+	}
+
+	/**
+	 * Get description
+	 *
+	 * @return description
+	 **/
+	@Schema(description = "")
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public TransactionAssetDetails manager(String manager) {
+		this.manager = manager;
+		return this;
+	}
+
+	/**
+	 * Get manager
+	 *
+	 * @return manager
+	 **/
+	@Schema(description = "")
+	public String getManager() {
+		return manager;
+	}
+
+	public void setManager(String manager) {
+		this.manager = manager;
+	}
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -262,20 +262,20 @@ public class TransactionAssetDetails implements Parcelable
 			return false;
 		}
 		TransactionAssetDetails transactionAssetDetails = (TransactionAssetDetails) o;
-		return Objects.equals(this.description, transactionAssetDetails.description) &&
-				Objects.equals(this.manager, transactionAssetDetails.manager) &&
-				Objects.equals(this.id, transactionAssetDetails.id) &&
+		return Objects.equals(this.id, transactionAssetDetails.id) &&
 				Objects.equals(this.logoUrl, transactionAssetDetails.logoUrl) &&
 				Objects.equals(this.color, transactionAssetDetails.color) &&
 				Objects.equals(this.title, transactionAssetDetails.title) &&
 				Objects.equals(this.url, transactionAssetDetails.url) &&
 				Objects.equals(this.assetType, transactionAssetDetails.assetType) &&
-				Objects.equals(this.programDetails, transactionAssetDetails.programDetails);
+				Objects.equals(this.programDetails, transactionAssetDetails.programDetails) &&
+				Objects.equals(this.description, transactionAssetDetails.description) &&
+				Objects.equals(this.manager, transactionAssetDetails.manager);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(description, manager, id, logoUrl, color, title, url, assetType, programDetails);
+		return Objects.hash(id, logoUrl, color, title, url, assetType, programDetails, description, manager);
 	}
 
 	@Override
@@ -283,8 +283,6 @@ public class TransactionAssetDetails implements Parcelable
 		StringBuilder sb = new StringBuilder();
 		sb.append("class TransactionAssetDetails {\n");
 
-		sb.append("    description: ").append(toIndentedString(description)).append("\n");
-		sb.append("    manager: ").append(toIndentedString(manager)).append("\n");
 		sb.append("    id: ").append(toIndentedString(id)).append("\n");
 		sb.append("    logoUrl: ").append(toIndentedString(logoUrl)).append("\n");
 		sb.append("    color: ").append(toIndentedString(color)).append("\n");
@@ -292,6 +290,8 @@ public class TransactionAssetDetails implements Parcelable
 		sb.append("    url: ").append(toIndentedString(url)).append("\n");
 		sb.append("    assetType: ").append(toIndentedString(assetType)).append("\n");
 		sb.append("    programDetails: ").append(toIndentedString(programDetails)).append("\n");
+		sb.append("    description: ").append(toIndentedString(description)).append("\n");
+		sb.append("    manager: ").append(toIndentedString(manager)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}
@@ -308,8 +308,6 @@ public class TransactionAssetDetails implements Parcelable
 	}
 
 	public void writeToParcel(Parcel out, int flags) {
-		out.writeValue(description);
-		out.writeValue(manager);
 		out.writeValue(id);
 		out.writeValue(logoUrl);
 		out.writeValue(color);
@@ -317,6 +315,8 @@ public class TransactionAssetDetails implements Parcelable
 		out.writeValue(url);
 		out.writeValue(assetType);
 		out.writeValue(programDetails);
+		out.writeValue(description);
+		out.writeValue(manager);
 	}
 
 	public int describeContents() {

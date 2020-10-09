@@ -71,6 +71,9 @@ public class AssetPublicDetails implements Parcelable
 	@SerializedName("typeExt")
 	private AssetTypeExt typeExt = null;
 
+	@SerializedName("systemUrl")
+	private String systemUrl = null;
+
 	public AssetPublicDetails() {
 	}
 
@@ -85,6 +88,7 @@ public class AssetPublicDetails implements Parcelable
 		status = (String) in.readValue(null);
 		isOwnAsset = (Boolean) in.readValue(null);
 		typeExt = (AssetTypeExt) in.readValue(AssetTypeExt.class.getClassLoader());
+		systemUrl = (String) in.readValue(null);
 	}
 
 	public AssetPublicDetails title(String title) {
@@ -277,6 +281,25 @@ public class AssetPublicDetails implements Parcelable
 		this.typeExt = typeExt;
 	}
 
+	public AssetPublicDetails systemUrl(String systemUrl) {
+		this.systemUrl = systemUrl;
+		return this;
+	}
+
+	/**
+	 * Get systemUrl
+	 *
+	 * @return systemUrl
+	 **/
+	@Schema(description = "")
+	public String getSystemUrl() {
+		return systemUrl;
+	}
+
+	public void setSystemUrl(String systemUrl) {
+		this.systemUrl = systemUrl;
+	}
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -295,12 +318,13 @@ public class AssetPublicDetails implements Parcelable
 				Objects.equals(this.creationDate, assetPublicDetails.creationDate) &&
 				Objects.equals(this.status, assetPublicDetails.status) &&
 				Objects.equals(this.isOwnAsset, assetPublicDetails.isOwnAsset) &&
-				Objects.equals(this.typeExt, assetPublicDetails.typeExt);
+				Objects.equals(this.typeExt, assetPublicDetails.typeExt) &&
+				Objects.equals(this.systemUrl, assetPublicDetails.systemUrl);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(title, description, logo, logoUrl, url, color, creationDate, status, isOwnAsset, typeExt);
+		return Objects.hash(title, description, logo, logoUrl, url, color, creationDate, status, isOwnAsset, typeExt, systemUrl);
 	}
 
 	@Override
@@ -318,6 +342,7 @@ public class AssetPublicDetails implements Parcelable
 		sb.append("    status: ").append(toIndentedString(status)).append("\n");
 		sb.append("    isOwnAsset: ").append(toIndentedString(isOwnAsset)).append("\n");
 		sb.append("    typeExt: ").append(toIndentedString(typeExt)).append("\n");
+		sb.append("    systemUrl: ").append(toIndentedString(systemUrl)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}
@@ -344,6 +369,7 @@ public class AssetPublicDetails implements Parcelable
 		out.writeValue(status);
 		out.writeValue(isOwnAsset);
 		out.writeValue(typeExt);
+		out.writeValue(systemUrl);
 	}
 
 	public int describeContents() {

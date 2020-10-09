@@ -35,6 +35,11 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
 
+            <intent-filter>
+                <action android:name=".feature.splashscreen.SplashScreenActivity"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+
         </activity>
 
         <activity
@@ -42,6 +47,21 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Base"
             android:windowSoftInputMode="adjustPan|stateAlwaysHidden"/>
+
+        <service
+            android:name=".fcm.GvFirebaseMessagingService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
+            </intent-filter>
+        </service>
+
+        <service android:name=".fcm.FcmPushClickHandlerService"/>
+
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_icon"
+            android:resource="@drawable/ic_stat_logo"/>
 
         <activity
             android:name=".feature.main.program.ProgramDetailsActivity"
@@ -544,6 +564,12 @@
 
         <activity
             android:name=".feature.main.wallet.buy_with_card.BuyWithCardActivity"
+            android:launchMode="singleTop"
+            android:theme="@style/SwipeBackActivityTheme"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize"/>
+
+        <activity
+            android:name=".feature.main.social.media.details.MediaPostDetailsActivity"
             android:launchMode="singleTop"
             android:theme="@style/SwipeBackActivityTheme"
             android:windowSoftInputMode="stateAlwaysHidden|adjustResize"/>

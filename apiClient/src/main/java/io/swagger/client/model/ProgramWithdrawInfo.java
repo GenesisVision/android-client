@@ -41,12 +41,6 @@ public class ProgramWithdrawInfo implements Parcelable
 		}
 	};
 
-	@SerializedName("periodEnds")
-	private DateTime periodEnds = null;
-
-	@SerializedName("withdrawInPercent")
-	private Boolean withdrawInPercent = null;
-
 	@SerializedName("title")
 	private String title = null;
 
@@ -59,54 +53,22 @@ public class ProgramWithdrawInfo implements Parcelable
 	@SerializedName("withheldInvestment")
 	private Double withheldInvestment = null;
 
+	@SerializedName("periodEnds")
+	private DateTime periodEnds = null;
+
+	@SerializedName("withdrawInPercent")
+	private Boolean withdrawInPercent = null;
+
 	public ProgramWithdrawInfo() {
 	}
 
 	ProgramWithdrawInfo(Parcel in) {
-		periodEnds = (DateTime) in.readValue(DateTime.class.getClassLoader());
-		withdrawInPercent = (Boolean) in.readValue(null);
 		title = (String) in.readValue(null);
 		availableToWithdraw = (Double) in.readValue(null);
 		isOwner = (Boolean) in.readValue(null);
 		withheldInvestment = (Double) in.readValue(null);
-	}
-
-	public ProgramWithdrawInfo periodEnds(DateTime periodEnds) {
-		this.periodEnds = periodEnds;
-		return this;
-	}
-
-	/**
-	 * Get periodEnds
-	 *
-	 * @return periodEnds
-	 **/
-	@Schema(description = "")
-	public DateTime getPeriodEnds() {
-		return periodEnds;
-	}
-
-	public void setPeriodEnds(DateTime periodEnds) {
-		this.periodEnds = periodEnds;
-	}
-
-	public ProgramWithdrawInfo withdrawInPercent(Boolean withdrawInPercent) {
-		this.withdrawInPercent = withdrawInPercent;
-		return this;
-	}
-
-	/**
-	 * Get withdrawInPercent
-	 *
-	 * @return withdrawInPercent
-	 **/
-	@Schema(description = "")
-	public Boolean isWithdrawInPercent() {
-		return withdrawInPercent;
-	}
-
-	public void setWithdrawInPercent(Boolean withdrawInPercent) {
-		this.withdrawInPercent = withdrawInPercent;
+		periodEnds = (DateTime) in.readValue(DateTime.class.getClassLoader());
+		withdrawInPercent = (Boolean) in.readValue(null);
 	}
 
 	public ProgramWithdrawInfo title(String title) {
@@ -185,6 +147,44 @@ public class ProgramWithdrawInfo implements Parcelable
 		this.withheldInvestment = withheldInvestment;
 	}
 
+	public ProgramWithdrawInfo periodEnds(DateTime periodEnds) {
+		this.periodEnds = periodEnds;
+		return this;
+	}
+
+	/**
+	 * Get periodEnds
+	 *
+	 * @return periodEnds
+	 **/
+	@Schema(description = "")
+	public DateTime getPeriodEnds() {
+		return periodEnds;
+	}
+
+	public void setPeriodEnds(DateTime periodEnds) {
+		this.periodEnds = periodEnds;
+	}
+
+	public ProgramWithdrawInfo withdrawInPercent(Boolean withdrawInPercent) {
+		this.withdrawInPercent = withdrawInPercent;
+		return this;
+	}
+
+	/**
+	 * Get withdrawInPercent
+	 *
+	 * @return withdrawInPercent
+	 **/
+	@Schema(description = "")
+	public Boolean isWithdrawInPercent() {
+		return withdrawInPercent;
+	}
+
+	public void setWithdrawInPercent(Boolean withdrawInPercent) {
+		this.withdrawInPercent = withdrawInPercent;
+	}
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -194,17 +194,17 @@ public class ProgramWithdrawInfo implements Parcelable
 			return false;
 		}
 		ProgramWithdrawInfo programWithdrawInfo = (ProgramWithdrawInfo) o;
-		return Objects.equals(this.periodEnds, programWithdrawInfo.periodEnds) &&
-				Objects.equals(this.withdrawInPercent, programWithdrawInfo.withdrawInPercent) &&
-				Objects.equals(this.title, programWithdrawInfo.title) &&
+		return Objects.equals(this.title, programWithdrawInfo.title) &&
 				Objects.equals(this.availableToWithdraw, programWithdrawInfo.availableToWithdraw) &&
 				Objects.equals(this.isOwner, programWithdrawInfo.isOwner) &&
-				Objects.equals(this.withheldInvestment, programWithdrawInfo.withheldInvestment);
+				Objects.equals(this.withheldInvestment, programWithdrawInfo.withheldInvestment) &&
+				Objects.equals(this.periodEnds, programWithdrawInfo.periodEnds) &&
+				Objects.equals(this.withdrawInPercent, programWithdrawInfo.withdrawInPercent);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(periodEnds, withdrawInPercent, title, availableToWithdraw, isOwner, withheldInvestment);
+		return Objects.hash(title, availableToWithdraw, isOwner, withheldInvestment, periodEnds, withdrawInPercent);
 	}
 
 	@Override
@@ -212,12 +212,12 @@ public class ProgramWithdrawInfo implements Parcelable
 		StringBuilder sb = new StringBuilder();
 		sb.append("class ProgramWithdrawInfo {\n");
 
-		sb.append("    periodEnds: ").append(toIndentedString(periodEnds)).append("\n");
-		sb.append("    withdrawInPercent: ").append(toIndentedString(withdrawInPercent)).append("\n");
 		sb.append("    title: ").append(toIndentedString(title)).append("\n");
 		sb.append("    availableToWithdraw: ").append(toIndentedString(availableToWithdraw)).append("\n");
 		sb.append("    isOwner: ").append(toIndentedString(isOwner)).append("\n");
 		sb.append("    withheldInvestment: ").append(toIndentedString(withheldInvestment)).append("\n");
+		sb.append("    periodEnds: ").append(toIndentedString(periodEnds)).append("\n");
+		sb.append("    withdrawInPercent: ").append(toIndentedString(withdrawInPercent)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}
@@ -234,12 +234,12 @@ public class ProgramWithdrawInfo implements Parcelable
 	}
 
 	public void writeToParcel(Parcel out, int flags) {
-		out.writeValue(periodEnds);
-		out.writeValue(withdrawInPercent);
 		out.writeValue(title);
 		out.writeValue(availableToWithdraw);
 		out.writeValue(isOwner);
 		out.writeValue(withheldInvestment);
+		out.writeValue(periodEnds);
+		out.writeValue(withdrawInPercent);
 	}
 
 	public int describeContents() {

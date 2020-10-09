@@ -47,6 +47,9 @@ public class ProgramInvestingDetailsList implements Parcelable
 	@SerializedName("id")
 	private UUID id = null;
 
+	@SerializedName("type")
+	private ProgramType type = null;
+
 	@SerializedName("logoUrl")
 	private String logoUrl = null;
 
@@ -86,6 +89,18 @@ public class ProgramInvestingDetailsList implements Parcelable
 	@SerializedName("periodEnds")
 	private DateTime periodEnds = null;
 
+	@SerializedName("managementFeeSelected")
+	private Double managementFeeSelected = null;
+
+	@SerializedName("managementFeeCurrent")
+	private Double managementFeeCurrent = null;
+
+	@SerializedName("successFeeSelected")
+	private Double successFeeSelected = null;
+
+	@SerializedName("successFeeCurrent")
+	private Double successFeeCurrent = null;
+
 	@SerializedName("owner")
 	private ProfilePublicShort owner = null;
 
@@ -104,11 +119,15 @@ public class ProgramInvestingDetailsList implements Parcelable
 	@SerializedName("balance")
 	private AmountWithCurrency balance = null;
 
+	@SerializedName("dailyPeriodDetails")
+	private ProgramDailyPeriodDetails dailyPeriodDetails = null;
+
 	public ProgramInvestingDetailsList() {
 	}
 
 	ProgramInvestingDetailsList(Parcel in) {
 		id = (UUID) in.readValue(UUID.class.getClassLoader());
+		type = (ProgramType) in.readValue(ProgramType.class.getClassLoader());
 		logoUrl = (String) in.readValue(null);
 		url = (String) in.readValue(null);
 		color = (String) in.readValue(null);
@@ -122,12 +141,17 @@ public class ProgramInvestingDetailsList implements Parcelable
 		investorsCount = (Integer) in.readValue(null);
 		periodStarts = (DateTime) in.readValue(DateTime.class.getClassLoader());
 		periodEnds = (DateTime) in.readValue(DateTime.class.getClassLoader());
+		managementFeeSelected = (Double) in.readValue(null);
+		managementFeeCurrent = (Double) in.readValue(null);
+		successFeeSelected = (Double) in.readValue(null);
+		successFeeCurrent = (Double) in.readValue(null);
 		owner = (ProfilePublicShort) in.readValue(ProfilePublicShort.class.getClassLoader());
 		brokerDetails = (BrokerDetails) in.readValue(BrokerDetails.class.getClassLoader());
 		personalDetails = (PersonalInvestingProgramDetailsList) in.readValue(PersonalInvestingProgramDetailsList.class.getClassLoader());
 		tags = (List<Tag>) in.readValue(Tag.class.getClassLoader());
 		statistic = (ProfitChart) in.readValue(ProfitChart.class.getClassLoader());
 		balance = (AmountWithCurrency) in.readValue(AmountWithCurrency.class.getClassLoader());
+		dailyPeriodDetails = (ProgramDailyPeriodDetails) in.readValue(ProgramDailyPeriodDetails.class.getClassLoader());
 	}
 
 	public ProgramInvestingDetailsList id(UUID id) {
@@ -147,6 +171,25 @@ public class ProgramInvestingDetailsList implements Parcelable
 
 	public void setId(UUID id) {
 		this.id = id;
+	}
+
+	public ProgramInvestingDetailsList type(ProgramType type) {
+		this.type = type;
+		return this;
+	}
+
+	/**
+	 * Get type
+	 *
+	 * @return type
+	 **/
+	@Schema(description = "")
+	public ProgramType getType() {
+		return type;
+	}
+
+	public void setType(ProgramType type) {
+		this.type = type;
 	}
 
 	public ProgramInvestingDetailsList logoUrl(String logoUrl) {
@@ -396,6 +439,82 @@ public class ProgramInvestingDetailsList implements Parcelable
 		this.periodEnds = periodEnds;
 	}
 
+	public ProgramInvestingDetailsList managementFeeSelected(Double managementFeeSelected) {
+		this.managementFeeSelected = managementFeeSelected;
+		return this;
+	}
+
+	/**
+	 * Get managementFeeSelected
+	 *
+	 * @return managementFeeSelected
+	 **/
+	@Schema(description = "")
+	public Double getManagementFeeSelected() {
+		return managementFeeSelected;
+	}
+
+	public void setManagementFeeSelected(Double managementFeeSelected) {
+		this.managementFeeSelected = managementFeeSelected;
+	}
+
+	public ProgramInvestingDetailsList managementFeeCurrent(Double managementFeeCurrent) {
+		this.managementFeeCurrent = managementFeeCurrent;
+		return this;
+	}
+
+	/**
+	 * Get managementFeeCurrent
+	 *
+	 * @return managementFeeCurrent
+	 **/
+	@Schema(description = "")
+	public Double getManagementFeeCurrent() {
+		return managementFeeCurrent;
+	}
+
+	public void setManagementFeeCurrent(Double managementFeeCurrent) {
+		this.managementFeeCurrent = managementFeeCurrent;
+	}
+
+	public ProgramInvestingDetailsList successFeeSelected(Double successFeeSelected) {
+		this.successFeeSelected = successFeeSelected;
+		return this;
+	}
+
+	/**
+	 * Get successFeeSelected
+	 *
+	 * @return successFeeSelected
+	 **/
+	@Schema(description = "")
+	public Double getSuccessFeeSelected() {
+		return successFeeSelected;
+	}
+
+	public void setSuccessFeeSelected(Double successFeeSelected) {
+		this.successFeeSelected = successFeeSelected;
+	}
+
+	public ProgramInvestingDetailsList successFeeCurrent(Double successFeeCurrent) {
+		this.successFeeCurrent = successFeeCurrent;
+		return this;
+	}
+
+	/**
+	 * Get successFeeCurrent
+	 *
+	 * @return successFeeCurrent
+	 **/
+	@Schema(description = "")
+	public Double getSuccessFeeCurrent() {
+		return successFeeCurrent;
+	}
+
+	public void setSuccessFeeCurrent(Double successFeeCurrent) {
+		this.successFeeCurrent = successFeeCurrent;
+	}
+
 	public ProgramInvestingDetailsList owner(ProfilePublicShort owner) {
 		this.owner = owner;
 		return this;
@@ -518,6 +637,25 @@ public class ProgramInvestingDetailsList implements Parcelable
 		this.balance = balance;
 	}
 
+	public ProgramInvestingDetailsList dailyPeriodDetails(ProgramDailyPeriodDetails dailyPeriodDetails) {
+		this.dailyPeriodDetails = dailyPeriodDetails;
+		return this;
+	}
+
+	/**
+	 * Get dailyPeriodDetails
+	 *
+	 * @return dailyPeriodDetails
+	 **/
+	@Schema(description = "")
+	public ProgramDailyPeriodDetails getDailyPeriodDetails() {
+		return dailyPeriodDetails;
+	}
+
+	public void setDailyPeriodDetails(ProgramDailyPeriodDetails dailyPeriodDetails) {
+		this.dailyPeriodDetails = dailyPeriodDetails;
+	}
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -528,6 +666,7 @@ public class ProgramInvestingDetailsList implements Parcelable
 		}
 		ProgramInvestingDetailsList programInvestingDetailsList = (ProgramInvestingDetailsList) o;
 		return Objects.equals(this.id, programInvestingDetailsList.id) &&
+				Objects.equals(this.type, programInvestingDetailsList.type) &&
 				Objects.equals(this.logoUrl, programInvestingDetailsList.logoUrl) &&
 				Objects.equals(this.url, programInvestingDetailsList.url) &&
 				Objects.equals(this.color, programInvestingDetailsList.color) &&
@@ -541,17 +680,22 @@ public class ProgramInvestingDetailsList implements Parcelable
 				Objects.equals(this.investorsCount, programInvestingDetailsList.investorsCount) &&
 				Objects.equals(this.periodStarts, programInvestingDetailsList.periodStarts) &&
 				Objects.equals(this.periodEnds, programInvestingDetailsList.periodEnds) &&
+				Objects.equals(this.managementFeeSelected, programInvestingDetailsList.managementFeeSelected) &&
+				Objects.equals(this.managementFeeCurrent, programInvestingDetailsList.managementFeeCurrent) &&
+				Objects.equals(this.successFeeSelected, programInvestingDetailsList.successFeeSelected) &&
+				Objects.equals(this.successFeeCurrent, programInvestingDetailsList.successFeeCurrent) &&
 				Objects.equals(this.owner, programInvestingDetailsList.owner) &&
 				Objects.equals(this.brokerDetails, programInvestingDetailsList.brokerDetails) &&
 				Objects.equals(this.personalDetails, programInvestingDetailsList.personalDetails) &&
 				Objects.equals(this.tags, programInvestingDetailsList.tags) &&
 				Objects.equals(this.statistic, programInvestingDetailsList.statistic) &&
-				Objects.equals(this.balance, programInvestingDetailsList.balance);
+				Objects.equals(this.balance, programInvestingDetailsList.balance) &&
+				Objects.equals(this.dailyPeriodDetails, programInvestingDetailsList.dailyPeriodDetails);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, logoUrl, url, color, title, creationDate, currency, availableToInvest, level, levelProgress, periodDuration, investorsCount, periodStarts, periodEnds, owner, brokerDetails, personalDetails, tags, statistic, balance);
+		return Objects.hash(id, type, logoUrl, url, color, title, creationDate, currency, availableToInvest, level, levelProgress, periodDuration, investorsCount, periodStarts, periodEnds, managementFeeSelected, managementFeeCurrent, successFeeSelected, successFeeCurrent, owner, brokerDetails, personalDetails, tags, statistic, balance, dailyPeriodDetails);
 	}
 
 	@Override
@@ -560,6 +704,7 @@ public class ProgramInvestingDetailsList implements Parcelable
 		sb.append("class ProgramInvestingDetailsList {\n");
 
 		sb.append("    id: ").append(toIndentedString(id)).append("\n");
+		sb.append("    type: ").append(toIndentedString(type)).append("\n");
 		sb.append("    logoUrl: ").append(toIndentedString(logoUrl)).append("\n");
 		sb.append("    url: ").append(toIndentedString(url)).append("\n");
 		sb.append("    color: ").append(toIndentedString(color)).append("\n");
@@ -573,12 +718,17 @@ public class ProgramInvestingDetailsList implements Parcelable
 		sb.append("    investorsCount: ").append(toIndentedString(investorsCount)).append("\n");
 		sb.append("    periodStarts: ").append(toIndentedString(periodStarts)).append("\n");
 		sb.append("    periodEnds: ").append(toIndentedString(periodEnds)).append("\n");
+		sb.append("    managementFeeSelected: ").append(toIndentedString(managementFeeSelected)).append("\n");
+		sb.append("    managementFeeCurrent: ").append(toIndentedString(managementFeeCurrent)).append("\n");
+		sb.append("    successFeeSelected: ").append(toIndentedString(successFeeSelected)).append("\n");
+		sb.append("    successFeeCurrent: ").append(toIndentedString(successFeeCurrent)).append("\n");
 		sb.append("    owner: ").append(toIndentedString(owner)).append("\n");
 		sb.append("    brokerDetails: ").append(toIndentedString(brokerDetails)).append("\n");
 		sb.append("    personalDetails: ").append(toIndentedString(personalDetails)).append("\n");
 		sb.append("    tags: ").append(toIndentedString(tags)).append("\n");
 		sb.append("    statistic: ").append(toIndentedString(statistic)).append("\n");
 		sb.append("    balance: ").append(toIndentedString(balance)).append("\n");
+		sb.append("    dailyPeriodDetails: ").append(toIndentedString(dailyPeriodDetails)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}
@@ -596,6 +746,7 @@ public class ProgramInvestingDetailsList implements Parcelable
 
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(id);
+		out.writeValue(type);
 		out.writeValue(logoUrl);
 		out.writeValue(url);
 		out.writeValue(color);
@@ -609,12 +760,17 @@ public class ProgramInvestingDetailsList implements Parcelable
 		out.writeValue(investorsCount);
 		out.writeValue(periodStarts);
 		out.writeValue(periodEnds);
+		out.writeValue(managementFeeSelected);
+		out.writeValue(managementFeeCurrent);
+		out.writeValue(successFeeSelected);
+		out.writeValue(successFeeCurrent);
 		out.writeValue(owner);
 		out.writeValue(brokerDetails);
 		out.writeValue(personalDetails);
 		out.writeValue(tags);
 		out.writeValue(statistic);
 		out.writeValue(balance);
+		out.writeValue(dailyPeriodDetails);
 	}
 
 	public int describeContents() {

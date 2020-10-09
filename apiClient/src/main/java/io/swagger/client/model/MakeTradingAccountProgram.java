@@ -40,6 +40,15 @@ public class MakeTradingAccountProgram implements Parcelable
 		}
 	};
 
+	@SerializedName("title")
+	private String title = null;
+
+	@SerializedName("description")
+	private String description = null;
+
+	@SerializedName("logo")
+	private String logo = null;
+
 	@SerializedName("id")
 	private UUID id = null;
 
@@ -55,35 +64,83 @@ public class MakeTradingAccountProgram implements Parcelable
 	@SerializedName("tradesDelay")
 	private TradesDelay tradesDelay = null;
 
-	@SerializedName("entryFee")
-	private Double entryFee = null;
-
 	@SerializedName("successFee")
 	private Double successFee = null;
 
-	@SerializedName("title")
-	private String title = null;
-
-	@SerializedName("description")
-	private String description = null;
-
-	@SerializedName("logo")
-	private String logo = null;
+	@SerializedName("managementFee")
+	private Double managementFee = null;
 
 	public MakeTradingAccountProgram() {
 	}
 
 	MakeTradingAccountProgram(Parcel in) {
+		title = (String) in.readValue(null);
+		description = (String) in.readValue(null);
+		logo = (String) in.readValue(null);
 		id = (UUID) in.readValue(UUID.class.getClassLoader());
 		periodLength = (Integer) in.readValue(null);
 		stopOutLevel = (Double) in.readValue(null);
 		investmentLimit = (Double) in.readValue(null);
 		tradesDelay = (TradesDelay) in.readValue(TradesDelay.class.getClassLoader());
-		entryFee = (Double) in.readValue(null);
 		successFee = (Double) in.readValue(null);
-		title = (String) in.readValue(null);
-		description = (String) in.readValue(null);
-		logo = (String) in.readValue(null);
+		managementFee = (Double) in.readValue(null);
+	}
+
+	public MakeTradingAccountProgram title(String title) {
+		this.title = title;
+		return this;
+	}
+
+	/**
+	 * Get title
+	 *
+	 * @return title
+	 **/
+	@Schema(description = "")
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public MakeTradingAccountProgram description(String description) {
+		this.description = description;
+		return this;
+	}
+
+	/**
+	 * Get description
+	 *
+	 * @return description
+	 **/
+	@Schema(description = "")
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public MakeTradingAccountProgram logo(String logo) {
+		this.logo = logo;
+		return this;
+	}
+
+	/**
+	 * Get logo
+	 *
+	 * @return logo
+	 **/
+	@Schema(description = "")
+	public String getLogo() {
+		return logo;
+	}
+
+	public void setLogo(String logo) {
+		this.logo = logo;
 	}
 
 	public MakeTradingAccountProgram id(UUID id) {
@@ -181,25 +238,6 @@ public class MakeTradingAccountProgram implements Parcelable
 		this.tradesDelay = tradesDelay;
 	}
 
-	public MakeTradingAccountProgram entryFee(Double entryFee) {
-		this.entryFee = entryFee;
-		return this;
-	}
-
-	/**
-	 * Get entryFee
-	 *
-	 * @return entryFee
-	 **/
-	@Schema(description = "")
-	public Double getEntryFee() {
-		return entryFee;
-	}
-
-	public void setEntryFee(Double entryFee) {
-		this.entryFee = entryFee;
-	}
-
 	public MakeTradingAccountProgram successFee(Double successFee) {
 		this.successFee = successFee;
 		return this;
@@ -219,61 +257,23 @@ public class MakeTradingAccountProgram implements Parcelable
 		this.successFee = successFee;
 	}
 
-	public MakeTradingAccountProgram title(String title) {
-		this.title = title;
+	public MakeTradingAccountProgram managementFee(Double managementFee) {
+		this.managementFee = managementFee;
 		return this;
 	}
 
 	/**
-	 * Get title
+	 * Get managementFee
 	 *
-	 * @return title
+	 * @return managementFee
 	 **/
 	@Schema(description = "")
-	public String getTitle() {
-		return title;
+	public Double getManagementFee() {
+		return managementFee;
 	}
 
-	public void setTitle(String title) {
-		this.title = title;
-	}
-
-	public MakeTradingAccountProgram description(String description) {
-		this.description = description;
-		return this;
-	}
-
-	/**
-	 * Get description
-	 *
-	 * @return description
-	 **/
-	@Schema(description = "")
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
-	public MakeTradingAccountProgram logo(String logo) {
-		this.logo = logo;
-		return this;
-	}
-
-	/**
-	 * Get logo
-	 *
-	 * @return logo
-	 **/
-	@Schema(description = "")
-	public String getLogo() {
-		return logo;
-	}
-
-	public void setLogo(String logo) {
-		this.logo = logo;
+	public void setManagementFee(Double managementFee) {
+		this.managementFee = managementFee;
 	}
 
 	@Override
@@ -285,21 +285,21 @@ public class MakeTradingAccountProgram implements Parcelable
 			return false;
 		}
 		MakeTradingAccountProgram makeTradingAccountProgram = (MakeTradingAccountProgram) o;
-		return Objects.equals(this.id, makeTradingAccountProgram.id) &&
+		return Objects.equals(this.title, makeTradingAccountProgram.title) &&
+				Objects.equals(this.description, makeTradingAccountProgram.description) &&
+				Objects.equals(this.logo, makeTradingAccountProgram.logo) &&
+				Objects.equals(this.id, makeTradingAccountProgram.id) &&
 				Objects.equals(this.periodLength, makeTradingAccountProgram.periodLength) &&
 				Objects.equals(this.stopOutLevel, makeTradingAccountProgram.stopOutLevel) &&
 				Objects.equals(this.investmentLimit, makeTradingAccountProgram.investmentLimit) &&
 				Objects.equals(this.tradesDelay, makeTradingAccountProgram.tradesDelay) &&
-				Objects.equals(this.entryFee, makeTradingAccountProgram.entryFee) &&
 				Objects.equals(this.successFee, makeTradingAccountProgram.successFee) &&
-				Objects.equals(this.title, makeTradingAccountProgram.title) &&
-				Objects.equals(this.description, makeTradingAccountProgram.description) &&
-				Objects.equals(this.logo, makeTradingAccountProgram.logo);
+				Objects.equals(this.managementFee, makeTradingAccountProgram.managementFee);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, periodLength, stopOutLevel, investmentLimit, tradesDelay, entryFee, successFee, title, description, logo);
+		return Objects.hash(title, description, logo, id, periodLength, stopOutLevel, investmentLimit, tradesDelay, successFee, managementFee);
 	}
 
 	@Override
@@ -307,16 +307,16 @@ public class MakeTradingAccountProgram implements Parcelable
 		StringBuilder sb = new StringBuilder();
 		sb.append("class MakeTradingAccountProgram {\n");
 
+		sb.append("    title: ").append(toIndentedString(title)).append("\n");
+		sb.append("    description: ").append(toIndentedString(description)).append("\n");
+		sb.append("    logo: ").append(toIndentedString(logo)).append("\n");
 		sb.append("    id: ").append(toIndentedString(id)).append("\n");
 		sb.append("    periodLength: ").append(toIndentedString(periodLength)).append("\n");
 		sb.append("    stopOutLevel: ").append(toIndentedString(stopOutLevel)).append("\n");
 		sb.append("    investmentLimit: ").append(toIndentedString(investmentLimit)).append("\n");
 		sb.append("    tradesDelay: ").append(toIndentedString(tradesDelay)).append("\n");
-		sb.append("    entryFee: ").append(toIndentedString(entryFee)).append("\n");
 		sb.append("    successFee: ").append(toIndentedString(successFee)).append("\n");
-		sb.append("    title: ").append(toIndentedString(title)).append("\n");
-		sb.append("    description: ").append(toIndentedString(description)).append("\n");
-		sb.append("    logo: ").append(toIndentedString(logo)).append("\n");
+		sb.append("    managementFee: ").append(toIndentedString(managementFee)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}
@@ -333,16 +333,16 @@ public class MakeTradingAccountProgram implements Parcelable
 	}
 
 	public void writeToParcel(Parcel out, int flags) {
+		out.writeValue(title);
+		out.writeValue(description);
+		out.writeValue(logo);
 		out.writeValue(id);
 		out.writeValue(periodLength);
 		out.writeValue(stopOutLevel);
 		out.writeValue(investmentLimit);
 		out.writeValue(tradesDelay);
-		out.writeValue(entryFee);
 		out.writeValue(successFee);
-		out.writeValue(title);
-		out.writeValue(description);
-		out.writeValue(logo);
+		out.writeValue(managementFee);
 	}
 
 	public int describeContents() {

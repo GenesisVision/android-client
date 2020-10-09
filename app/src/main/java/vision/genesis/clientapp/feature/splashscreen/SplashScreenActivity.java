@@ -69,7 +69,7 @@ public class SplashScreenActivity extends MvpAppCompatActivity implements Splash
 
 	@Override
 	public void showMainActivity() {
-		MainActivity.startFrom(this);
+		MainActivity.startFrom(this, getIntent().getExtras(), getIntent().getDataString());
 		finish();
 	}
 

@@ -167,7 +167,7 @@ public class SocialUsersListAdapter extends RecyclerView.Adapter<SocialUsersList
 			investors.setText(String.valueOf(user.getInvestorsCount()));
 			followers.setText(String.valueOf(user.getFollowersCount()));
 
-			if (user.getPersonalDetails().isAllowFollow()) {
+			if (user.getPersonalDetails() != null && user.getPersonalDetails().isAllowFollow()) {
 				buttonsGroup.setVisibility(View.VISIBLE);
 
 				followButton.setVisibility(!user.getPersonalDetails().isIsFollow() ? View.VISIBLE : View.GONE);

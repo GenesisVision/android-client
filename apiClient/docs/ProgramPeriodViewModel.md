@@ -20,3 +20,4 @@ Name | Type | Description | Notes
 **investorsProfitWithdraw** | **Double** |  |  [optional]
 **platformSuccessFee** | **Double** |  |  [optional]
 **managerStatistic** | [**ManagerFinancialStatistic**](ManagerFinancialStatistic.md) |  |  [optional]
+**investorStatistic** | [**InvestorFinancialStatistic**](InvestorFinancialStatistic.md) |  |  [optional]

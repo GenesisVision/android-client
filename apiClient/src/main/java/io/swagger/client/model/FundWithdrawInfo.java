@@ -39,9 +39,6 @@ public class FundWithdrawInfo implements Parcelable
 		}
 	};
 
-	@SerializedName("exitFee")
-	private Double exitFee = null;
-
 	@SerializedName("title")
 	private String title = null;
 
@@ -54,34 +51,18 @@ public class FundWithdrawInfo implements Parcelable
 	@SerializedName("withheldInvestment")
 	private Double withheldInvestment = null;
 
+	@SerializedName("exitFee")
+	private Double exitFee = null;
+
 	public FundWithdrawInfo() {
 	}
 
 	FundWithdrawInfo(Parcel in) {
-		exitFee = (Double) in.readValue(null);
 		title = (String) in.readValue(null);
 		availableToWithdraw = (Double) in.readValue(null);
 		isOwner = (Boolean) in.readValue(null);
 		withheldInvestment = (Double) in.readValue(null);
-	}
-
-	public FundWithdrawInfo exitFee(Double exitFee) {
-		this.exitFee = exitFee;
-		return this;
-	}
-
-	/**
-	 * Get exitFee
-	 *
-	 * @return exitFee
-	 **/
-	@Schema(description = "")
-	public Double getExitFee() {
-		return exitFee;
-	}
-
-	public void setExitFee(Double exitFee) {
-		this.exitFee = exitFee;
+		exitFee = (Double) in.readValue(null);
 	}
 
 	public FundWithdrawInfo title(String title) {
@@ -160,6 +141,25 @@ public class FundWithdrawInfo implements Parcelable
 		this.withheldInvestment = withheldInvestment;
 	}
 
+	public FundWithdrawInfo exitFee(Double exitFee) {
+		this.exitFee = exitFee;
+		return this;
+	}
+
+	/**
+	 * Get exitFee
+	 *
+	 * @return exitFee
+	 **/
+	@Schema(description = "")
+	public Double getExitFee() {
+		return exitFee;
+	}
+
+	public void setExitFee(Double exitFee) {
+		this.exitFee = exitFee;
+	}
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -169,16 +169,16 @@ public class FundWithdrawInfo implements Parcelable
 			return false;
 		}
 		FundWithdrawInfo fundWithdrawInfo = (FundWithdrawInfo) o;
-		return Objects.equals(this.exitFee, fundWithdrawInfo.exitFee) &&
-				Objects.equals(this.title, fundWithdrawInfo.title) &&
+		return Objects.equals(this.title, fundWithdrawInfo.title) &&
 				Objects.equals(this.availableToWithdraw, fundWithdrawInfo.availableToWithdraw) &&
 				Objects.equals(this.isOwner, fundWithdrawInfo.isOwner) &&
-				Objects.equals(this.withheldInvestment, fundWithdrawInfo.withheldInvestment);
+				Objects.equals(this.withheldInvestment, fundWithdrawInfo.withheldInvestment) &&
+				Objects.equals(this.exitFee, fundWithdrawInfo.exitFee);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(exitFee, title, availableToWithdraw, isOwner, withheldInvestment);
+		return Objects.hash(title, availableToWithdraw, isOwner, withheldInvestment, exitFee);
 	}
 
 	@Override
@@ -186,11 +186,11 @@ public class FundWithdrawInfo implements Parcelable
 		StringBuilder sb = new StringBuilder();
 		sb.append("class FundWithdrawInfo {\n");
 
-		sb.append("    exitFee: ").append(toIndentedString(exitFee)).append("\n");
 		sb.append("    title: ").append(toIndentedString(title)).append("\n");
 		sb.append("    availableToWithdraw: ").append(toIndentedString(availableToWithdraw)).append("\n");
 		sb.append("    isOwner: ").append(toIndentedString(isOwner)).append("\n");
 		sb.append("    withheldInvestment: ").append(toIndentedString(withheldInvestment)).append("\n");
+		sb.append("    exitFee: ").append(toIndentedString(exitFee)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}
@@ -207,11 +207,11 @@ public class FundWithdrawInfo implements Parcelable
 	}
 
 	public void writeToParcel(Parcel out, int flags) {
-		out.writeValue(exitFee);
 		out.writeValue(title);
 		out.writeValue(availableToWithdraw);
 		out.writeValue(isOwner);
 		out.writeValue(withheldInvestment);
+		out.writeValue(exitFee);
 	}
 
 	public int describeContents() {

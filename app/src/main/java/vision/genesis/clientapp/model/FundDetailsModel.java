@@ -28,9 +28,9 @@ public class FundDetailsModel implements Parcelable
 
 	private UUID fundId;
 
-	private String logo;
+	private String logo = "";
 
-	private String fundColor;
+	private String fundColor = "#131e26";
 
 	private String fundName;
 
@@ -60,8 +60,15 @@ public class FundDetailsModel implements Parcelable
 		hasNotifications = in.readByte() != 0;
 	}
 
+	public FundDetailsModel() {
+	}
+
 	public UUID getFundId() {
 		return fundId;
+	}
+
+	public void setFundId(UUID fundId) {
+		this.fundId = fundId;
 	}
 
 	public String getLogo() {

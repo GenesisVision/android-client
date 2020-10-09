@@ -6,6 +6,9 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**addToFavorites**](ProgramsApi.md#addToFavorites) | **POST** v2.0/programs/{id}/favorite/add | Add to favorites
 [**closeAssetTrade**](ProgramsApi.md#closeAssetTrade) | **POST** v2.0/programs/{id}/trades/close | Manually close trade by symbol for asset
+[**exportDailyProgramAnalytics**](ProgramsApi.md#exportDailyProgramAnalytics) | **GET** v2.0/programs/{id}/periods/export/analytics | Export daily program analytics
+[**exportDailyProgramFinancialStatistic**](ProgramsApi.md#exportDailyProgramFinancialStatistic) | **GET** v2.0/programs/{id}/periods/export/financialstatistic | Export daily program financial statistic
+[**exportDailyProgramInvestorReport**](ProgramsApi.md#exportDailyProgramInvestorReport) | **GET** v2.0/programs/{id}/periods/export/investorreport | Export daily program investor report
 [**exportProgramPeriods**](ProgramsApi.md#exportProgramPeriods) | **GET** v2.0/programs/{id}/periods/export | Export periods
 [**exportProgramPeriodsFinStatistic**](ProgramsApi.md#exportProgramPeriodsFinStatistic) | **GET** v2.0/programs/{id}/periods/export/statistic | Export period financial statistic
 [**exportProgramTrades**](ProgramsApi.md#exportProgramTrades) | **GET** v2.0/programs/{id}/trades/export | Export trade history
@@ -128,9 +131,222 @@ Name | Type | Description  | Notes
  - **Content-Type**: Not defined
  - **Accept**: text/plain, application/json, text/json
 
+<a name="exportDailyProgramAnalytics"></a>
+# **exportDailyProgramAnalytics**
+> byte[] exportDailyProgramAnalytics(id, dateFrom, dateTo, numberMin, numberMax, status, timeframe, showInvestorReport, skip, take)
+
+Export daily program analytics
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiClient;
+//import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
+//import io.swagger.client.api.ProgramsApi;
+
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
+
+ProgramsApi apiInstance = new ProgramsApi();
+String id = "id_example"; // String | 
+DateTime dateFrom = new DateTime(); // DateTime | 
+DateTime dateTo = new DateTime(); // DateTime | 
+Integer numberMin = 56; // Integer | 
+Integer numberMax = 56; // Integer | 
+PeriodStatus status = new PeriodStatus(); // PeriodStatus | 
+Timeframe timeframe = new Timeframe(); // Timeframe | 
+Boolean showInvestorReport = true; // Boolean | 
+Integer skip = 56; // Integer | 
+Integer take = 56; // Integer | 
+try {
+    byte[] result = apiInstance.exportDailyProgramAnalytics(id, dateFrom, dateTo, numberMin, numberMax, status, timeframe, showInvestorReport, skip, take);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling ProgramsApi#exportDailyProgramAnalytics");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **String**|  |
+ **dateFrom** | **DateTime**|  | [optional]
+ **dateTo** | **DateTime**|  | [optional]
+ **numberMin** | **Integer**|  | [optional]
+ **numberMax** | **Integer**|  | [optional]
+ **status** | [**PeriodStatus**](.md)|  | [optional]
+ **timeframe** | [**Timeframe**](.md)|  | [optional]
+ **showInvestorReport** | **Boolean**|  | [optional]
+ **skip** | **Integer**|  | [optional]
+ **take** | **Integer**|  | [optional]
+
+### Return type
+
+**byte[]**
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
+
+<a name="exportDailyProgramFinancialStatistic"></a>
+# **exportDailyProgramFinancialStatistic**
+> byte[] exportDailyProgramFinancialStatistic(id, dateFrom, dateTo, numberMin, numberMax, status, timeframe, showInvestorReport, skip, take)
+
+Export daily program financial statistic
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiClient;
+//import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
+//import io.swagger.client.api.ProgramsApi;
+
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
+
+ProgramsApi apiInstance = new ProgramsApi();
+String id = "id_example"; // String | 
+DateTime dateFrom = new DateTime(); // DateTime | 
+DateTime dateTo = new DateTime(); // DateTime | 
+Integer numberMin = 56; // Integer | 
+Integer numberMax = 56; // Integer | 
+PeriodStatus status = new PeriodStatus(); // PeriodStatus | 
+Timeframe timeframe = new Timeframe(); // Timeframe | 
+Boolean showInvestorReport = true; // Boolean | 
+Integer skip = 56; // Integer | 
+Integer take = 56; // Integer | 
+try {
+    byte[] result = apiInstance.exportDailyProgramFinancialStatistic(id, dateFrom, dateTo, numberMin, numberMax, status, timeframe, showInvestorReport, skip, take);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling ProgramsApi#exportDailyProgramFinancialStatistic");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **String**|  |
+ **dateFrom** | **DateTime**|  | [optional]
+ **dateTo** | **DateTime**|  | [optional]
+ **numberMin** | **Integer**|  | [optional]
+ **numberMax** | **Integer**|  | [optional]
+ **status** | [**PeriodStatus**](.md)|  | [optional]
+ **timeframe** | [**Timeframe**](.md)|  | [optional]
+ **showInvestorReport** | **Boolean**|  | [optional]
+ **skip** | **Integer**|  | [optional]
+ **take** | **Integer**|  | [optional]
+
+### Return type
+
+**byte[]**
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
+
+<a name="exportDailyProgramInvestorReport"></a>
+# **exportDailyProgramInvestorReport**
+> byte[] exportDailyProgramInvestorReport(id, dateFrom, dateTo, numberMin, numberMax, status, timeframe, showInvestorReport, skip, take)
+
+Export daily program investor report
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiClient;
+//import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
+//import io.swagger.client.api.ProgramsApi;
+
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
+
+ProgramsApi apiInstance = new ProgramsApi();
+String id = "id_example"; // String | 
+DateTime dateFrom = new DateTime(); // DateTime | 
+DateTime dateTo = new DateTime(); // DateTime | 
+Integer numberMin = 56; // Integer | 
+Integer numberMax = 56; // Integer | 
+PeriodStatus status = new PeriodStatus(); // PeriodStatus | 
+Timeframe timeframe = new Timeframe(); // Timeframe | 
+Boolean showInvestorReport = true; // Boolean | 
+Integer skip = 56; // Integer | 
+Integer take = 56; // Integer | 
+try {
+    byte[] result = apiInstance.exportDailyProgramInvestorReport(id, dateFrom, dateTo, numberMin, numberMax, status, timeframe, showInvestorReport, skip, take);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling ProgramsApi#exportDailyProgramInvestorReport");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **String**|  |
+ **dateFrom** | **DateTime**|  | [optional]
+ **dateTo** | **DateTime**|  | [optional]
+ **numberMin** | **Integer**|  | [optional]
+ **numberMax** | **Integer**|  | [optional]
+ **status** | [**PeriodStatus**](.md)|  | [optional]
+ **timeframe** | [**Timeframe**](.md)|  | [optional]
+ **showInvestorReport** | **Boolean**|  | [optional]
+ **skip** | **Integer**|  | [optional]
+ **take** | **Integer**|  | [optional]
+
+### Return type
+
+**byte[]**
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
+
 <a name="exportProgramPeriods"></a>
 # **exportProgramPeriods**
-> byte[] exportProgramPeriods(id, dateFrom, dateTo, numberMin, numberMax, status, skip, take)
+> byte[] exportProgramPeriods(id, dateFrom, dateTo, numberMin, numberMax, status, timeframe, showInvestorReport, skip, take)
 
 Export periods
 
@@ -158,10 +374,12 @@ DateTime dateTo = new DateTime(); // DateTime |
 Integer numberMin = 56; // Integer | 
 Integer numberMax = 56; // Integer | 
 PeriodStatus status = new PeriodStatus(); // PeriodStatus | 
+Timeframe timeframe = new Timeframe(); // Timeframe | 
+Boolean showInvestorReport = true; // Boolean | 
 Integer skip = 56; // Integer | 
 Integer take = 56; // Integer | 
 try {
-    byte[] result = apiInstance.exportProgramPeriods(id, dateFrom, dateTo, numberMin, numberMax, status, skip, take);
+    byte[] result = apiInstance.exportProgramPeriods(id, dateFrom, dateTo, numberMin, numberMax, status, timeframe, showInvestorReport, skip, take);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling ProgramsApi#exportProgramPeriods");
@@ -179,6 +397,8 @@ Name | Type | Description  | Notes
  **numberMin** | **Integer**|  | [optional]
  **numberMax** | **Integer**|  | [optional]
  **status** | [**PeriodStatus**](.md)|  | [optional]
+ **timeframe** | [**Timeframe**](.md)|  | [optional]
+ **showInvestorReport** | **Boolean**|  | [optional]
  **skip** | **Integer**|  | [optional]
  **take** | **Integer**|  | [optional]
 
@@ -197,7 +417,7 @@ Name | Type | Description  | Notes
 
 <a name="exportProgramPeriodsFinStatistic"></a>
 # **exportProgramPeriodsFinStatistic**
-> byte[] exportProgramPeriodsFinStatistic(id, dateFrom, dateTo, numberMin, numberMax, status, skip, take)
+> byte[] exportProgramPeriodsFinStatistic(id, dateFrom, dateTo, numberMin, numberMax, status, timeframe, showInvestorReport, skip, take)
 
 Export period financial statistic
 
@@ -225,10 +445,12 @@ DateTime dateTo = new DateTime(); // DateTime |
 Integer numberMin = 56; // Integer | 
 Integer numberMax = 56; // Integer | 
 PeriodStatus status = new PeriodStatus(); // PeriodStatus | 
+Timeframe timeframe = new Timeframe(); // Timeframe | 
+Boolean showInvestorReport = true; // Boolean | 
 Integer skip = 56; // Integer | 
 Integer take = 56; // Integer | 
 try {
-    byte[] result = apiInstance.exportProgramPeriodsFinStatistic(id, dateFrom, dateTo, numberMin, numberMax, status, skip, take);
+    byte[] result = apiInstance.exportProgramPeriodsFinStatistic(id, dateFrom, dateTo, numberMin, numberMax, status, timeframe, showInvestorReport, skip, take);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling ProgramsApi#exportProgramPeriodsFinStatistic");
@@ -246,6 +468,8 @@ Name | Type | Description  | Notes
  **numberMin** | **Integer**|  | [optional]
  **numberMax** | **Integer**|  | [optional]
  **status** | [**PeriodStatus**](.md)|  | [optional]
+ **timeframe** | [**Timeframe**](.md)|  | [optional]
+ **showInvestorReport** | **Boolean**|  | [optional]
  **skip** | **Integer**|  | [optional]
  **take** | **Integer**|  | [optional]
 
@@ -648,7 +872,7 @@ Name | Type | Description  | Notes
 
 <a name="getProgramPeriods"></a>
 # **getProgramPeriods**
-> ProgramPeriodsViewModel getProgramPeriods(id, dateFrom, dateTo, numberMin, numberMax, status, skip, take)
+> ProgramPeriodsViewModel getProgramPeriods(id, dateFrom, dateTo, numberMin, numberMax, status, timeframe, showInvestorReport, skip, take)
 
 Program periods
 
@@ -676,10 +900,12 @@ DateTime dateTo = new DateTime(); // DateTime |
 Integer numberMin = 56; // Integer | 
 Integer numberMax = 56; // Integer | 
 PeriodStatus status = new PeriodStatus(); // PeriodStatus | 
+Timeframe timeframe = new Timeframe(); // Timeframe | 
+Boolean showInvestorReport = true; // Boolean | 
 Integer skip = 56; // Integer | 
 Integer take = 56; // Integer | 
 try {
-    ProgramPeriodsViewModel result = apiInstance.getProgramPeriods(id, dateFrom, dateTo, numberMin, numberMax, status, skip, take);
+    ProgramPeriodsViewModel result = apiInstance.getProgramPeriods(id, dateFrom, dateTo, numberMin, numberMax, status, timeframe, showInvestorReport, skip, take);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling ProgramsApi#getProgramPeriods");
@@ -697,6 +923,8 @@ Name | Type | Description  | Notes
  **numberMin** | **Integer**|  | [optional]
  **numberMax** | **Integer**|  | [optional]
  **status** | [**PeriodStatus**](.md)|  | [optional]
+ **timeframe** | [**Timeframe**](.md)|  | [optional]
+ **showInvestorReport** | **Boolean**|  | [optional]
  **skip** | **Integer**|  | [optional]
  **take** | **Integer**|  | [optional]
 

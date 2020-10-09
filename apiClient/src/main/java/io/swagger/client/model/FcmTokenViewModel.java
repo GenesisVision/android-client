@@ -42,11 +42,15 @@ public class FcmTokenViewModel implements Parcelable
 	@SerializedName("token")
 	private String token = null;
 
+	@SerializedName("platform")
+	private AppPlatform platform = null;
+
 	public FcmTokenViewModel() {
 	}
 
 	FcmTokenViewModel(Parcel in) {
 		token = (String) in.readValue(null);
+		platform = (AppPlatform) in.readValue(AppPlatform.class.getClassLoader());
 	}
 
 	public FcmTokenViewModel token(String token) {
@@ -68,6 +72,25 @@ public class FcmTokenViewModel implements Parcelable
 		this.token = token;
 	}
 
+	public FcmTokenViewModel platform(AppPlatform platform) {
+		this.platform = platform;
+		return this;
+	}
+
+	/**
+	 * Get platform
+	 *
+	 * @return platform
+	 **/
+	@Schema(description = "")
+	public AppPlatform getPlatform() {
+		return platform;
+	}
+
+	public void setPlatform(AppPlatform platform) {
+		this.platform = platform;
+	}
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -77,12 +100,13 @@ public class FcmTokenViewModel implements Parcelable
 			return false;
 		}
 		FcmTokenViewModel fcmTokenViewModel = (FcmTokenViewModel) o;
-		return Objects.equals(this.token, fcmTokenViewModel.token);
+		return Objects.equals(this.token, fcmTokenViewModel.token) &&
+				Objects.equals(this.platform, fcmTokenViewModel.platform);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(token);
+		return Objects.hash(token, platform);
 	}
 
 	@Override
@@ -91,6 +115,7 @@ public class FcmTokenViewModel implements Parcelable
 		sb.append("class FcmTokenViewModel {\n");
 
 		sb.append("    token: ").append(toIndentedString(token)).append("\n");
+		sb.append("    platform: ").append(toIndentedString(platform)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}
@@ -108,6 +133,7 @@ public class FcmTokenViewModel implements Parcelable
 
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(token);
+		out.writeValue(platform);
 	}
 
 	public int describeContents() {

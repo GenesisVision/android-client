@@ -12,4 +12,5 @@ Name | Type | Description | Notes
 **stopOutLevel** | **Double** |  |  [optional]
 **investmentLimit** | **Double** |  |  [optional]
 **tradesDelay** | [**TradesDelay**](TradesDelay.md) |  |  [optional]
-**id** | [**UUID**](UUID.md) |  |  [optional]
+**hourProcessing** | **Integer** |  |  [optional]
+**isProcessingRealTime** | **Boolean** |  |  [optional]

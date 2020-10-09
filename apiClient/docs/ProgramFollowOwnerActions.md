@@ -3,11 +3,6 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**canClose** | **Boolean** |  |  [optional]
-**canClosePeriod** | **Boolean** |  |  [optional]
-**canChangePassword** | **Boolean** |  |  [optional]
-**canTransferMoney** | **Boolean** |  |  [optional]
-**canCloseOpenPositions** | **Boolean** |  |  [optional]
 **canMakeProgramFromPrivateTradingAccount** | **Boolean** |  |  [optional]
 **canMakeExchangeProgramFromPrivateTradingAccount** | **Boolean** |  |  [optional]
 **canMakeSignalProviderFromPrivateTradingAccount** | **Boolean** |  |  [optional]
@@ -17,3 +12,8 @@ Name | Type | Description | Notes
 **canEditSignalProviderSettings** | **Boolean** |  |  [optional]
 **isEnoughMoneyToCreateProgram** | **Boolean** |  |  [optional]
 **canConfirm2FA** | **Boolean** |  |  [optional]
+**canClose** | **Boolean** |  |  [optional]
+**canClosePeriod** | **Boolean** |  |  [optional]
+**canChangePassword** | **Boolean** |  |  [optional]
+**canTransferMoney** | **Boolean** |  |  [optional]
+**canCloseOpenPositions** | **Boolean** |  |  [optional]

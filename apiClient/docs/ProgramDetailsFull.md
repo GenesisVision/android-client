@@ -3,6 +3,7 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**type** | [**ProgramType**](ProgramType.md) |  |  [optional]
 **level** | **Integer** |  |  [optional]
 **levelProgress** | **Double** |  |  [optional]
 **periodDuration** | **Integer** |  |  [optional]
@@ -24,4 +25,5 @@ Name | Type | Description | Notes
 **totalAvailableInvestment** | **Double** |  |  [optional]
 **canShowPeriodHistory** | **Boolean** |  |  [optional]
 **canShowFinancialStatistic** | **Boolean** |  |  [optional]
+**dailyPeriodDetails** | [**ProgramDailyPeriodDetails**](ProgramDailyPeriodDetails.md) |  |  [optional]
 **personalDetails** | [**PersonalProgramDetails**](PersonalProgramDetails.md) |  |  [optional]

@@ -145,6 +145,7 @@ public class ProgramsManager
 	public Observable<ProgramPeriodsViewModel> getPeriodHistory(UUID programId, DateRange dateRange, int skip, int take) {
 		return programsApi.getProgramPeriods(programId.toString(),
 				dateRange.getFrom(), dateRange.getTo(),
+				null, null,
 				null, null, null,
 				skip, take);
 	}

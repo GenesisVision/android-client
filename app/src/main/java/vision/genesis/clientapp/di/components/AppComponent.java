@@ -12,6 +12,7 @@ import vision.genesis.clientapp.di.modules.NotificationsModule;
 import vision.genesis.clientapp.di.modules.SettingsModule;
 import vision.genesis.clientapp.di.modules.SocialModule;
 import vision.genesis.clientapp.di.modules.UtilsModule;
+import vision.genesis.clientapp.fcm.GvFirebaseMessagingService;
 import vision.genesis.clientapp.feature.auth.forgot_password.ForgotPasswordPresenter;
 import vision.genesis.clientapp.feature.auth.login.LoginPresenter;
 import vision.genesis.clientapp.feature.auth.registration.RegistrationPresenter;
@@ -119,6 +120,7 @@ import vision.genesis.clientapp.feature.main.social.feed.SocialLiveView;
 import vision.genesis.clientapp.feature.main.social.feed.SocialPresenter;
 import vision.genesis.clientapp.feature.main.social.media.MediaPresenter;
 import vision.genesis.clientapp.feature.main.social.media.SocialMediaView;
+import vision.genesis.clientapp.feature.main.social.media.details.MediaPostDetailsPresenter;
 import vision.genesis.clientapp.feature.main.social.post.PostsListPresenter;
 import vision.genesis.clientapp.feature.main.social.post.create.CreatePostPresenter;
 import vision.genesis.clientapp.feature.main.social.post.details.PostDetailsPresenter;
@@ -501,4 +503,8 @@ public interface AppComponent
 	void inject(SocialUsersListAdapter.UserViewHolder userViewHolder);
 
 	void inject(UnregisteredDashboardPresenter unregisteredDashboardPresenter);
+
+	void inject(GvFirebaseMessagingService gvFirebaseMessagingService);
+
+	void inject(MediaPostDetailsPresenter mediaPostDetailsPresenter);
 }

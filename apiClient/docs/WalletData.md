@@ -3,6 +3,10 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**currency** | [**Currency**](Currency.md) |  |  [optional]
+**available** | **Double** |  |  [optional]
+**invested** | **Double** |  |  [optional]
+**trading** | **Double** |  |  [optional]
 **pending** | **Double** |  |  [optional]
 **total** | **Double** |  |  [optional]
 **availableCcy** | **Double** |  |  [optional]
@@ -18,7 +22,3 @@ Name | Type | Description | Notes
 **withdrawalCommission** | **Double** |  |  [optional]
 **depositAddress** | **String** |  |  [optional]
 **depositUrlCoindirect** | **String** |  |  [optional]
-**currency** | [**Currency**](Currency.md) |  |  [optional]
-**available** | **Double** |  |  [optional]
-**invested** | **Double** |  |  [optional]
-**trading** | **Double** |  |  [optional]

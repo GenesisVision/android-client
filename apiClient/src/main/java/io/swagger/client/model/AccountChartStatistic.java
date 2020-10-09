@@ -39,18 +39,6 @@ public class AccountChartStatistic implements Parcelable
 		}
 	};
 
-	@SerializedName("tradingVolume")
-	private Double tradingVolume = null;
-
-	@SerializedName("trades")
-	private Integer trades = null;
-
-	@SerializedName("successTradesPercent")
-	private Double successTradesPercent = null;
-
-	@SerializedName("profitFactor")
-	private Double profitFactor = null;
-
 	@SerializedName("balance")
 	private Double balance = null;
 
@@ -69,96 +57,32 @@ public class AccountChartStatistic implements Parcelable
 	@SerializedName("maxDrawdown")
 	private Double maxDrawdown = null;
 
+	@SerializedName("tradingVolume")
+	private Double tradingVolume = null;
+
+	@SerializedName("trades")
+	private Integer trades = null;
+
+	@SerializedName("successTradesPercent")
+	private Double successTradesPercent = null;
+
+	@SerializedName("profitFactor")
+	private Double profitFactor = null;
+
 	public AccountChartStatistic() {
 	}
 
 	AccountChartStatistic(Parcel in) {
-		tradingVolume = (Double) in.readValue(null);
-		trades = (Integer) in.readValue(null);
-		successTradesPercent = (Double) in.readValue(null);
-		profitFactor = (Double) in.readValue(null);
 		balance = (Double) in.readValue(null);
 		profitPercent = (Double) in.readValue(null);
 		sharpeRatio = (Double) in.readValue(null);
 		sortinoRatio = (Double) in.readValue(null);
 		calmarRatio = (Double) in.readValue(null);
 		maxDrawdown = (Double) in.readValue(null);
-	}
-
-	public AccountChartStatistic tradingVolume(Double tradingVolume) {
-		this.tradingVolume = tradingVolume;
-		return this;
-	}
-
-	/**
-	 * Get tradingVolume
-	 *
-	 * @return tradingVolume
-	 **/
-	@Schema(description = "")
-	public Double getTradingVolume() {
-		return tradingVolume;
-	}
-
-	public void setTradingVolume(Double tradingVolume) {
-		this.tradingVolume = tradingVolume;
-	}
-
-	public AccountChartStatistic trades(Integer trades) {
-		this.trades = trades;
-		return this;
-	}
-
-	/**
-	 * Get trades
-	 *
-	 * @return trades
-	 **/
-	@Schema(description = "")
-	public Integer getTrades() {
-		return trades;
-	}
-
-	public void setTrades(Integer trades) {
-		this.trades = trades;
-	}
-
-	public AccountChartStatistic successTradesPercent(Double successTradesPercent) {
-		this.successTradesPercent = successTradesPercent;
-		return this;
-	}
-
-	/**
-	 * Get successTradesPercent
-	 *
-	 * @return successTradesPercent
-	 **/
-	@Schema(description = "")
-	public Double getSuccessTradesPercent() {
-		return successTradesPercent;
-	}
-
-	public void setSuccessTradesPercent(Double successTradesPercent) {
-		this.successTradesPercent = successTradesPercent;
-	}
-
-	public AccountChartStatistic profitFactor(Double profitFactor) {
-		this.profitFactor = profitFactor;
-		return this;
-	}
-
-	/**
-	 * Get profitFactor
-	 *
-	 * @return profitFactor
-	 **/
-	@Schema(description = "")
-	public Double getProfitFactor() {
-		return profitFactor;
-	}
-
-	public void setProfitFactor(Double profitFactor) {
-		this.profitFactor = profitFactor;
+		tradingVolume = (Double) in.readValue(null);
+		trades = (Integer) in.readValue(null);
+		successTradesPercent = (Double) in.readValue(null);
+		profitFactor = (Double) in.readValue(null);
 	}
 
 	public AccountChartStatistic balance(Double balance) {
@@ -275,6 +199,82 @@ public class AccountChartStatistic implements Parcelable
 		this.maxDrawdown = maxDrawdown;
 	}
 
+	public AccountChartStatistic tradingVolume(Double tradingVolume) {
+		this.tradingVolume = tradingVolume;
+		return this;
+	}
+
+	/**
+	 * Get tradingVolume
+	 *
+	 * @return tradingVolume
+	 **/
+	@Schema(description = "")
+	public Double getTradingVolume() {
+		return tradingVolume;
+	}
+
+	public void setTradingVolume(Double tradingVolume) {
+		this.tradingVolume = tradingVolume;
+	}
+
+	public AccountChartStatistic trades(Integer trades) {
+		this.trades = trades;
+		return this;
+	}
+
+	/**
+	 * Get trades
+	 *
+	 * @return trades
+	 **/
+	@Schema(description = "")
+	public Integer getTrades() {
+		return trades;
+	}
+
+	public void setTrades(Integer trades) {
+		this.trades = trades;
+	}
+
+	public AccountChartStatistic successTradesPercent(Double successTradesPercent) {
+		this.successTradesPercent = successTradesPercent;
+		return this;
+	}
+
+	/**
+	 * Get successTradesPercent
+	 *
+	 * @return successTradesPercent
+	 **/
+	@Schema(description = "")
+	public Double getSuccessTradesPercent() {
+		return successTradesPercent;
+	}
+
+	public void setSuccessTradesPercent(Double successTradesPercent) {
+		this.successTradesPercent = successTradesPercent;
+	}
+
+	public AccountChartStatistic profitFactor(Double profitFactor) {
+		this.profitFactor = profitFactor;
+		return this;
+	}
+
+	/**
+	 * Get profitFactor
+	 *
+	 * @return profitFactor
+	 **/
+	@Schema(description = "")
+	public Double getProfitFactor() {
+		return profitFactor;
+	}
+
+	public void setProfitFactor(Double profitFactor) {
+		this.profitFactor = profitFactor;
+	}
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -284,21 +284,21 @@ public class AccountChartStatistic implements Parcelable
 			return false;
 		}
 		AccountChartStatistic accountChartStatistic = (AccountChartStatistic) o;
-		return Objects.equals(this.tradingVolume, accountChartStatistic.tradingVolume) &&
-				Objects.equals(this.trades, accountChartStatistic.trades) &&
-				Objects.equals(this.successTradesPercent, accountChartStatistic.successTradesPercent) &&
-				Objects.equals(this.profitFactor, accountChartStatistic.profitFactor) &&
-				Objects.equals(this.balance, accountChartStatistic.balance) &&
+		return Objects.equals(this.balance, accountChartStatistic.balance) &&
 				Objects.equals(this.profitPercent, accountChartStatistic.profitPercent) &&
 				Objects.equals(this.sharpeRatio, accountChartStatistic.sharpeRatio) &&
 				Objects.equals(this.sortinoRatio, accountChartStatistic.sortinoRatio) &&
 				Objects.equals(this.calmarRatio, accountChartStatistic.calmarRatio) &&
-				Objects.equals(this.maxDrawdown, accountChartStatistic.maxDrawdown);
+				Objects.equals(this.maxDrawdown, accountChartStatistic.maxDrawdown) &&
+				Objects.equals(this.tradingVolume, accountChartStatistic.tradingVolume) &&
+				Objects.equals(this.trades, accountChartStatistic.trades) &&
+				Objects.equals(this.successTradesPercent, accountChartStatistic.successTradesPercent) &&
+				Objects.equals(this.profitFactor, accountChartStatistic.profitFactor);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(tradingVolume, trades, successTradesPercent, profitFactor, balance, profitPercent, sharpeRatio, sortinoRatio, calmarRatio, maxDrawdown);
+		return Objects.hash(balance, profitPercent, sharpeRatio, sortinoRatio, calmarRatio, maxDrawdown, tradingVolume, trades, successTradesPercent, profitFactor);
 	}
 
 	@Override
@@ -306,16 +306,16 @@ public class AccountChartStatistic implements Parcelable
 		StringBuilder sb = new StringBuilder();
 		sb.append("class AccountChartStatistic {\n");
 
-		sb.append("    tradingVolume: ").append(toIndentedString(tradingVolume)).append("\n");
-		sb.append("    trades: ").append(toIndentedString(trades)).append("\n");
-		sb.append("    successTradesPercent: ").append(toIndentedString(successTradesPercent)).append("\n");
-		sb.append("    profitFactor: ").append(toIndentedString(profitFactor)).append("\n");
 		sb.append("    balance: ").append(toIndentedString(balance)).append("\n");
 		sb.append("    profitPercent: ").append(toIndentedString(profitPercent)).append("\n");
 		sb.append("    sharpeRatio: ").append(toIndentedString(sharpeRatio)).append("\n");
 		sb.append("    sortinoRatio: ").append(toIndentedString(sortinoRatio)).append("\n");
 		sb.append("    calmarRatio: ").append(toIndentedString(calmarRatio)).append("\n");
 		sb.append("    maxDrawdown: ").append(toIndentedString(maxDrawdown)).append("\n");
+		sb.append("    tradingVolume: ").append(toIndentedString(tradingVolume)).append("\n");
+		sb.append("    trades: ").append(toIndentedString(trades)).append("\n");
+		sb.append("    successTradesPercent: ").append(toIndentedString(successTradesPercent)).append("\n");
+		sb.append("    profitFactor: ").append(toIndentedString(profitFactor)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}
@@ -332,16 +332,16 @@ public class AccountChartStatistic implements Parcelable
 	}
 
 	public void writeToParcel(Parcel out, int flags) {
-		out.writeValue(tradingVolume);
-		out.writeValue(trades);
-		out.writeValue(successTradesPercent);
-		out.writeValue(profitFactor);
 		out.writeValue(balance);
 		out.writeValue(profitPercent);
 		out.writeValue(sharpeRatio);
 		out.writeValue(sortinoRatio);
 		out.writeValue(calmarRatio);
 		out.writeValue(maxDrawdown);
+		out.writeValue(tradingVolume);
+		out.writeValue(trades);
+		out.writeValue(successTradesPercent);
+		out.writeValue(profitFactor);
 	}
 
 	public int describeContents() {

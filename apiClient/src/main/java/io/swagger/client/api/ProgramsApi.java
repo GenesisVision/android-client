@@ -17,6 +17,7 @@ import io.swagger.client.model.ProgramPeriodsViewModel;
 import io.swagger.client.model.ProgramProfitPercentCharts;
 import io.swagger.client.model.ProgramsFilterSorting;
 import io.swagger.client.model.SignalProviderSubscribers;
+import io.swagger.client.model.Timeframe;
 import io.swagger.client.model.TradeSorting;
 import io.swagger.client.model.TradesSignalViewModel;
 import io.swagger.client.model.TradesViewModel;
@@ -50,39 +51,103 @@ public interface ProgramsApi
 	);
 
 	/**
+	 * Export daily program analytics
+	 *
+	 * @param id                 (required)
+	 * @param dateFrom           (optional)
+	 * @param dateTo             (optional)
+	 * @param numberMin          (optional)
+	 * @param numberMax          (optional)
+	 * @param status             (optional)
+	 * @param timeframe          (optional)
+	 * @param showInvestorReport (optional)
+	 * @param skip               (optional)
+	 * @param take               (optional)
+	 * @return Call&lt;byte[]&gt;
+	 */
+	@GET("v2.0/programs/{id}/periods/export/analytics")
+	Observable<byte[]> exportDailyProgramAnalytics(
+			@retrofit2.http.Path("id") String id, @retrofit2.http.Query("DateFrom") DateTime dateFrom, @retrofit2.http.Query("DateTo") DateTime dateTo, @retrofit2.http.Query("NumberMin") Integer numberMin, @retrofit2.http.Query("NumberMax") Integer numberMax, @retrofit2.http.Query("Status") PeriodStatus status, @retrofit2.http.Query("Timeframe") Timeframe timeframe, @retrofit2.http.Query("ShowInvestorReport") Boolean showInvestorReport, @retrofit2.http.Query("Skip") Integer skip, @retrofit2.http.Query("Take") Integer take
+	);
+
+	/**
+	 * Export daily program financial statistic
+	 *
+	 * @param id                 (required)
+	 * @param dateFrom           (optional)
+	 * @param dateTo             (optional)
+	 * @param numberMin          (optional)
+	 * @param numberMax          (optional)
+	 * @param status             (optional)
+	 * @param timeframe          (optional)
+	 * @param showInvestorReport (optional)
+	 * @param skip               (optional)
+	 * @param take               (optional)
+	 * @return Call&lt;byte[]&gt;
+	 */
+	@GET("v2.0/programs/{id}/periods/export/financialstatistic")
+	Observable<byte[]> exportDailyProgramFinancialStatistic(
+			@retrofit2.http.Path("id") String id, @retrofit2.http.Query("DateFrom") DateTime dateFrom, @retrofit2.http.Query("DateTo") DateTime dateTo, @retrofit2.http.Query("NumberMin") Integer numberMin, @retrofit2.http.Query("NumberMax") Integer numberMax, @retrofit2.http.Query("Status") PeriodStatus status, @retrofit2.http.Query("Timeframe") Timeframe timeframe, @retrofit2.http.Query("ShowInvestorReport") Boolean showInvestorReport, @retrofit2.http.Query("Skip") Integer skip, @retrofit2.http.Query("Take") Integer take
+	);
+
+	/**
+	 * Export daily program investor report
+	 *
+	 * @param id                 (required)
+	 * @param dateFrom           (optional)
+	 * @param dateTo             (optional)
+	 * @param numberMin          (optional)
+	 * @param numberMax          (optional)
+	 * @param status             (optional)
+	 * @param timeframe          (optional)
+	 * @param showInvestorReport (optional)
+	 * @param skip               (optional)
+	 * @param take               (optional)
+	 * @return Call&lt;byte[]&gt;
+	 */
+	@GET("v2.0/programs/{id}/periods/export/investorreport")
+	Observable<byte[]> exportDailyProgramInvestorReport(
+			@retrofit2.http.Path("id") String id, @retrofit2.http.Query("DateFrom") DateTime dateFrom, @retrofit2.http.Query("DateTo") DateTime dateTo, @retrofit2.http.Query("NumberMin") Integer numberMin, @retrofit2.http.Query("NumberMax") Integer numberMax, @retrofit2.http.Query("Status") PeriodStatus status, @retrofit2.http.Query("Timeframe") Timeframe timeframe, @retrofit2.http.Query("ShowInvestorReport") Boolean showInvestorReport, @retrofit2.http.Query("Skip") Integer skip, @retrofit2.http.Query("Take") Integer take
+	);
+
+	/**
 	 * Export periods
 	 *
-	 * @param id        (required)
-	 * @param dateFrom  (optional)
-	 * @param dateTo    (optional)
-	 * @param numberMin (optional)
-	 * @param numberMax (optional)
-	 * @param status    (optional)
-	 * @param skip      (optional)
-	 * @param take      (optional)
+	 * @param id                 (required)
+	 * @param dateFrom           (optional)
+	 * @param dateTo             (optional)
+	 * @param numberMin          (optional)
+	 * @param numberMax          (optional)
+	 * @param status             (optional)
+	 * @param timeframe          (optional)
+	 * @param showInvestorReport (optional)
+	 * @param skip               (optional)
+	 * @param take               (optional)
 	 * @return Call&lt;byte[]&gt;
 	 */
 	@GET("v2.0/programs/{id}/periods/export")
 	Observable<byte[]> exportProgramPeriods(
-			@retrofit2.http.Path("id") String id, @retrofit2.http.Query("DateFrom") DateTime dateFrom, @retrofit2.http.Query("DateTo") DateTime dateTo, @retrofit2.http.Query("NumberMin") Integer numberMin, @retrofit2.http.Query("NumberMax") Integer numberMax, @retrofit2.http.Query("Status") PeriodStatus status, @retrofit2.http.Query("Skip") Integer skip, @retrofit2.http.Query("Take") Integer take
+			@retrofit2.http.Path("id") String id, @retrofit2.http.Query("DateFrom") DateTime dateFrom, @retrofit2.http.Query("DateTo") DateTime dateTo, @retrofit2.http.Query("NumberMin") Integer numberMin, @retrofit2.http.Query("NumberMax") Integer numberMax, @retrofit2.http.Query("Status") PeriodStatus status, @retrofit2.http.Query("Timeframe") Timeframe timeframe, @retrofit2.http.Query("ShowInvestorReport") Boolean showInvestorReport, @retrofit2.http.Query("Skip") Integer skip, @retrofit2.http.Query("Take") Integer take
 	);
 
 	/**
 	 * Export period financial statistic
 	 *
-	 * @param id        (required)
-	 * @param dateFrom  (optional)
-	 * @param dateTo    (optional)
-	 * @param numberMin (optional)
-	 * @param numberMax (optional)
-	 * @param status    (optional)
-	 * @param skip      (optional)
-	 * @param take      (optional)
+	 * @param id                 (required)
+	 * @param dateFrom           (optional)
+	 * @param dateTo             (optional)
+	 * @param numberMin          (optional)
+	 * @param numberMax          (optional)
+	 * @param status             (optional)
+	 * @param timeframe          (optional)
+	 * @param showInvestorReport (optional)
+	 * @param skip               (optional)
+	 * @param take               (optional)
 	 * @return Call&lt;byte[]&gt;
 	 */
 	@GET("v2.0/programs/{id}/periods/export/statistic")
 	Observable<byte[]> exportProgramPeriodsFinStatistic(
-			@retrofit2.http.Path("id") String id, @retrofit2.http.Query("DateFrom") DateTime dateFrom, @retrofit2.http.Query("DateTo") DateTime dateTo, @retrofit2.http.Query("NumberMin") Integer numberMin, @retrofit2.http.Query("NumberMax") Integer numberMax, @retrofit2.http.Query("Status") PeriodStatus status, @retrofit2.http.Query("Skip") Integer skip, @retrofit2.http.Query("Take") Integer take
+			@retrofit2.http.Path("id") String id, @retrofit2.http.Query("DateFrom") DateTime dateFrom, @retrofit2.http.Query("DateTo") DateTime dateTo, @retrofit2.http.Query("NumberMin") Integer numberMin, @retrofit2.http.Query("NumberMax") Integer numberMax, @retrofit2.http.Query("Status") PeriodStatus status, @retrofit2.http.Query("Timeframe") Timeframe timeframe, @retrofit2.http.Query("ShowInvestorReport") Boolean showInvestorReport, @retrofit2.http.Query("Skip") Integer skip, @retrofit2.http.Query("Take") Integer take
 	);
 
 	/**
@@ -187,19 +252,21 @@ public interface ProgramsApi
 	/**
 	 * Program periods
 	 *
-	 * @param id        (required)
-	 * @param dateFrom  (optional)
-	 * @param dateTo    (optional)
-	 * @param numberMin (optional)
-	 * @param numberMax (optional)
-	 * @param status    (optional)
-	 * @param skip      (optional)
-	 * @param take      (optional)
+	 * @param id                 (required)
+	 * @param dateFrom           (optional)
+	 * @param dateTo             (optional)
+	 * @param numberMin          (optional)
+	 * @param numberMax          (optional)
+	 * @param status             (optional)
+	 * @param timeframe          (optional)
+	 * @param showInvestorReport (optional)
+	 * @param skip               (optional)
+	 * @param take               (optional)
 	 * @return Call&lt;ProgramPeriodsViewModel&gt;
 	 */
 	@GET("v2.0/programs/{id}/periods")
 	Observable<ProgramPeriodsViewModel> getProgramPeriods(
-			@retrofit2.http.Path("id") String id, @retrofit2.http.Query("DateFrom") DateTime dateFrom, @retrofit2.http.Query("DateTo") DateTime dateTo, @retrofit2.http.Query("NumberMin") Integer numberMin, @retrofit2.http.Query("NumberMax") Integer numberMax, @retrofit2.http.Query("Status") PeriodStatus status, @retrofit2.http.Query("Skip") Integer skip, @retrofit2.http.Query("Take") Integer take
+			@retrofit2.http.Path("id") String id, @retrofit2.http.Query("DateFrom") DateTime dateFrom, @retrofit2.http.Query("DateTo") DateTime dateTo, @retrofit2.http.Query("NumberMin") Integer numberMin, @retrofit2.http.Query("NumberMax") Integer numberMax, @retrofit2.http.Query("Status") PeriodStatus status, @retrofit2.http.Query("Timeframe") Timeframe timeframe, @retrofit2.http.Query("ShowInvestorReport") Boolean showInvestorReport, @retrofit2.http.Query("Skip") Integer skip, @retrofit2.http.Query("Take") Integer take
 	);
 
 	/**

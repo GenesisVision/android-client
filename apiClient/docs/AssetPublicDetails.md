@@ -13,3 +13,4 @@ Name | Type | Description | Notes
 **status** | **String** |  |  [optional]
 **isOwnAsset** | **Boolean** |  |  [optional]
 **typeExt** | [**AssetTypeExt**](AssetTypeExt.md) |  |  [optional]
+**systemUrl** | **String** |  |  [optional]

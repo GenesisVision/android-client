@@ -44,21 +44,6 @@ public class OrderSignalModel implements Parcelable
 		}
 	};
 
-	@SerializedName("providers")
-	private List<OrderSignalProgramInfo> providers = null;
-
-	@SerializedName("totalCommission")
-	private Double totalCommission = null;
-
-	@SerializedName("totalCommissionByType")
-	private List<FeeDetails> totalCommissionByType = null;
-
-	@SerializedName("tradingAccountId")
-	private UUID tradingAccountId = null;
-
-	@SerializedName("currency")
-	private Currency currency = null;
-
 	@SerializedName("id")
 	private UUID id = null;
 
@@ -119,15 +104,25 @@ public class OrderSignalModel implements Parcelable
 	@SerializedName("signalData")
 	private OrderModelSignalData signalData = null;
 
+	@SerializedName("providers")
+	private List<OrderSignalProgramInfo> providers = null;
+
+	@SerializedName("totalCommission")
+	private Double totalCommission = null;
+
+	@SerializedName("totalCommissionByType")
+	private List<FeeDetails> totalCommissionByType = null;
+
+	@SerializedName("tradingAccountId")
+	private UUID tradingAccountId = null;
+
+	@SerializedName("currency")
+	private Currency currency = null;
+
 	public OrderSignalModel() {
 	}
 
 	OrderSignalModel(Parcel in) {
-		providers = (List<OrderSignalProgramInfo>) in.readValue(OrderSignalProgramInfo.class.getClassLoader());
-		totalCommission = (Double) in.readValue(null);
-		totalCommissionByType = (List<FeeDetails>) in.readValue(FeeDetails.class.getClassLoader());
-		tradingAccountId = (UUID) in.readValue(UUID.class.getClassLoader());
-		currency = (Currency) in.readValue(Currency.class.getClassLoader());
 		id = (UUID) in.readValue(UUID.class.getClassLoader());
 		login = (String) in.readValue(null);
 		ticket = (String) in.readValue(null);
@@ -148,117 +143,11 @@ public class OrderSignalModel implements Parcelable
 		showOriginalCommission = (Boolean) in.readValue(null);
 		assetData = (TradeAssetData) in.readValue(TradeAssetData.class.getClassLoader());
 		signalData = (OrderModelSignalData) in.readValue(OrderModelSignalData.class.getClassLoader());
-	}
-
-	public OrderSignalModel providers(List<OrderSignalProgramInfo> providers) {
-		this.providers = providers;
-		return this;
-	}
-
-	public OrderSignalModel addProvidersItem(OrderSignalProgramInfo providersItem) {
-		if (this.providers == null) {
-			this.providers = new ArrayList<OrderSignalProgramInfo>();
-		}
-		this.providers.add(providersItem);
-		return this;
-	}
-
-	/**
-	 * Get providers
-	 *
-	 * @return providers
-	 **/
-	@Schema(description = "")
-	public List<OrderSignalProgramInfo> getProviders() {
-		return providers;
-	}
-
-	public void setProviders(List<OrderSignalProgramInfo> providers) {
-		this.providers = providers;
-	}
-
-	public OrderSignalModel totalCommission(Double totalCommission) {
-		this.totalCommission = totalCommission;
-		return this;
-	}
-
-	/**
-	 * Get totalCommission
-	 *
-	 * @return totalCommission
-	 **/
-	@Schema(description = "")
-	public Double getTotalCommission() {
-		return totalCommission;
-	}
-
-	public void setTotalCommission(Double totalCommission) {
-		this.totalCommission = totalCommission;
-	}
-
-	public OrderSignalModel totalCommissionByType(List<FeeDetails> totalCommissionByType) {
-		this.totalCommissionByType = totalCommissionByType;
-		return this;
-	}
-
-	public OrderSignalModel addTotalCommissionByTypeItem(FeeDetails totalCommissionByTypeItem) {
-		if (this.totalCommissionByType == null) {
-			this.totalCommissionByType = new ArrayList<FeeDetails>();
-		}
-		this.totalCommissionByType.add(totalCommissionByTypeItem);
-		return this;
-	}
-
-	/**
-	 * Get totalCommissionByType
-	 *
-	 * @return totalCommissionByType
-	 **/
-	@Schema(description = "")
-	public List<FeeDetails> getTotalCommissionByType() {
-		return totalCommissionByType;
-	}
-
-	public void setTotalCommissionByType(List<FeeDetails> totalCommissionByType) {
-		this.totalCommissionByType = totalCommissionByType;
-	}
-
-	public OrderSignalModel tradingAccountId(UUID tradingAccountId) {
-		this.tradingAccountId = tradingAccountId;
-		return this;
-	}
-
-	/**
-	 * Get tradingAccountId
-	 *
-	 * @return tradingAccountId
-	 **/
-	@Schema(description = "")
-	public UUID getTradingAccountId() {
-		return tradingAccountId;
-	}
-
-	public void setTradingAccountId(UUID tradingAccountId) {
-		this.tradingAccountId = tradingAccountId;
-	}
-
-	public OrderSignalModel currency(Currency currency) {
-		this.currency = currency;
-		return this;
-	}
-
-	/**
-	 * Get currency
-	 *
-	 * @return currency
-	 **/
-	@Schema(description = "")
-	public Currency getCurrency() {
-		return currency;
-	}
-
-	public void setCurrency(Currency currency) {
-		this.currency = currency;
+		providers = (List<OrderSignalProgramInfo>) in.readValue(OrderSignalProgramInfo.class.getClassLoader());
+		totalCommission = (Double) in.readValue(null);
+		totalCommissionByType = (List<FeeDetails>) in.readValue(FeeDetails.class.getClassLoader());
+		tradingAccountId = (UUID) in.readValue(UUID.class.getClassLoader());
+		currency = (Currency) in.readValue(Currency.class.getClassLoader());
 	}
 
 	public OrderSignalModel id(UUID id) {
@@ -641,6 +530,117 @@ public class OrderSignalModel implements Parcelable
 		this.signalData = signalData;
 	}
 
+	public OrderSignalModel providers(List<OrderSignalProgramInfo> providers) {
+		this.providers = providers;
+		return this;
+	}
+
+	public OrderSignalModel addProvidersItem(OrderSignalProgramInfo providersItem) {
+		if (this.providers == null) {
+			this.providers = new ArrayList<OrderSignalProgramInfo>();
+		}
+		this.providers.add(providersItem);
+		return this;
+	}
+
+	/**
+	 * Get providers
+	 *
+	 * @return providers
+	 **/
+	@Schema(description = "")
+	public List<OrderSignalProgramInfo> getProviders() {
+		return providers;
+	}
+
+	public void setProviders(List<OrderSignalProgramInfo> providers) {
+		this.providers = providers;
+	}
+
+	public OrderSignalModel totalCommission(Double totalCommission) {
+		this.totalCommission = totalCommission;
+		return this;
+	}
+
+	/**
+	 * Get totalCommission
+	 *
+	 * @return totalCommission
+	 **/
+	@Schema(description = "")
+	public Double getTotalCommission() {
+		return totalCommission;
+	}
+
+	public void setTotalCommission(Double totalCommission) {
+		this.totalCommission = totalCommission;
+	}
+
+	public OrderSignalModel totalCommissionByType(List<FeeDetails> totalCommissionByType) {
+		this.totalCommissionByType = totalCommissionByType;
+		return this;
+	}
+
+	public OrderSignalModel addTotalCommissionByTypeItem(FeeDetails totalCommissionByTypeItem) {
+		if (this.totalCommissionByType == null) {
+			this.totalCommissionByType = new ArrayList<FeeDetails>();
+		}
+		this.totalCommissionByType.add(totalCommissionByTypeItem);
+		return this;
+	}
+
+	/**
+	 * Get totalCommissionByType
+	 *
+	 * @return totalCommissionByType
+	 **/
+	@Schema(description = "")
+	public List<FeeDetails> getTotalCommissionByType() {
+		return totalCommissionByType;
+	}
+
+	public void setTotalCommissionByType(List<FeeDetails> totalCommissionByType) {
+		this.totalCommissionByType = totalCommissionByType;
+	}
+
+	public OrderSignalModel tradingAccountId(UUID tradingAccountId) {
+		this.tradingAccountId = tradingAccountId;
+		return this;
+	}
+
+	/**
+	 * Get tradingAccountId
+	 *
+	 * @return tradingAccountId
+	 **/
+	@Schema(description = "")
+	public UUID getTradingAccountId() {
+		return tradingAccountId;
+	}
+
+	public void setTradingAccountId(UUID tradingAccountId) {
+		this.tradingAccountId = tradingAccountId;
+	}
+
+	public OrderSignalModel currency(Currency currency) {
+		this.currency = currency;
+		return this;
+	}
+
+	/**
+	 * Get currency
+	 *
+	 * @return currency
+	 **/
+	@Schema(description = "")
+	public Currency getCurrency() {
+		return currency;
+	}
+
+	public void setCurrency(Currency currency) {
+		this.currency = currency;
+	}
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -650,12 +650,7 @@ public class OrderSignalModel implements Parcelable
 			return false;
 		}
 		OrderSignalModel orderSignalModel = (OrderSignalModel) o;
-		return Objects.equals(this.providers, orderSignalModel.providers) &&
-				Objects.equals(this.totalCommission, orderSignalModel.totalCommission) &&
-				Objects.equals(this.totalCommissionByType, orderSignalModel.totalCommissionByType) &&
-				Objects.equals(this.tradingAccountId, orderSignalModel.tradingAccountId) &&
-				Objects.equals(this.currency, orderSignalModel.currency) &&
-				Objects.equals(this.id, orderSignalModel.id) &&
+		return Objects.equals(this.id, orderSignalModel.id) &&
 				Objects.equals(this.login, orderSignalModel.login) &&
 				Objects.equals(this.ticket, orderSignalModel.ticket) &&
 				Objects.equals(this.symbol, orderSignalModel.symbol) &&
@@ -674,12 +669,17 @@ public class OrderSignalModel implements Parcelable
 				Objects.equals(this.swap, orderSignalModel.swap) &&
 				Objects.equals(this.showOriginalCommission, orderSignalModel.showOriginalCommission) &&
 				Objects.equals(this.assetData, orderSignalModel.assetData) &&
-				Objects.equals(this.signalData, orderSignalModel.signalData);
+				Objects.equals(this.signalData, orderSignalModel.signalData) &&
+				Objects.equals(this.providers, orderSignalModel.providers) &&
+				Objects.equals(this.totalCommission, orderSignalModel.totalCommission) &&
+				Objects.equals(this.totalCommissionByType, orderSignalModel.totalCommissionByType) &&
+				Objects.equals(this.tradingAccountId, orderSignalModel.tradingAccountId) &&
+				Objects.equals(this.currency, orderSignalModel.currency);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(providers, totalCommission, totalCommissionByType, tradingAccountId, currency, id, login, ticket, symbol, volume, profit, profitCurrency, direction, date, price, priceCurrent, entry, baseVolume, originalCommission, originalCommissionCurrency, commission, swap, showOriginalCommission, assetData, signalData);
+		return Objects.hash(id, login, ticket, symbol, volume, profit, profitCurrency, direction, date, price, priceCurrent, entry, baseVolume, originalCommission, originalCommissionCurrency, commission, swap, showOriginalCommission, assetData, signalData, providers, totalCommission, totalCommissionByType, tradingAccountId, currency);
 	}
 
 	@Override
@@ -687,11 +687,6 @@ public class OrderSignalModel implements Parcelable
 		StringBuilder sb = new StringBuilder();
 		sb.append("class OrderSignalModel {\n");
 
-		sb.append("    providers: ").append(toIndentedString(providers)).append("\n");
-		sb.append("    totalCommission: ").append(toIndentedString(totalCommission)).append("\n");
-		sb.append("    totalCommissionByType: ").append(toIndentedString(totalCommissionByType)).append("\n");
-		sb.append("    tradingAccountId: ").append(toIndentedString(tradingAccountId)).append("\n");
-		sb.append("    currency: ").append(toIndentedString(currency)).append("\n");
 		sb.append("    id: ").append(toIndentedString(id)).append("\n");
 		sb.append("    login: ").append(toIndentedString(login)).append("\n");
 		sb.append("    ticket: ").append(toIndentedString(ticket)).append("\n");
@@ -712,6 +707,11 @@ public class OrderSignalModel implements Parcelable
 		sb.append("    showOriginalCommission: ").append(toIndentedString(showOriginalCommission)).append("\n");
 		sb.append("    assetData: ").append(toIndentedString(assetData)).append("\n");
 		sb.append("    signalData: ").append(toIndentedString(signalData)).append("\n");
+		sb.append("    providers: ").append(toIndentedString(providers)).append("\n");
+		sb.append("    totalCommission: ").append(toIndentedString(totalCommission)).append("\n");
+		sb.append("    totalCommissionByType: ").append(toIndentedString(totalCommissionByType)).append("\n");
+		sb.append("    tradingAccountId: ").append(toIndentedString(tradingAccountId)).append("\n");
+		sb.append("    currency: ").append(toIndentedString(currency)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}
@@ -728,11 +728,6 @@ public class OrderSignalModel implements Parcelable
 	}
 
 	public void writeToParcel(Parcel out, int flags) {
-		out.writeValue(providers);
-		out.writeValue(totalCommission);
-		out.writeValue(totalCommissionByType);
-		out.writeValue(tradingAccountId);
-		out.writeValue(currency);
 		out.writeValue(id);
 		out.writeValue(login);
 		out.writeValue(ticket);
@@ -753,6 +748,11 @@ public class OrderSignalModel implements Parcelable
 		out.writeValue(showOriginalCommission);
 		out.writeValue(assetData);
 		out.writeValue(signalData);
+		out.writeValue(providers);
+		out.writeValue(totalCommission);
+		out.writeValue(totalCommissionByType);
+		out.writeValue(tradingAccountId);
+		out.writeValue(currency);
 	}
 
 	public int describeContents() {

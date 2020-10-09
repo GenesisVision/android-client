@@ -40,6 +40,15 @@ public class MakeExchangeAccountProgram implements Parcelable
 		}
 	};
 
+	@SerializedName("title")
+	private String title = null;
+
+	@SerializedName("description")
+	private String description = null;
+
+	@SerializedName("logo")
+	private String logo = null;
+
 	@SerializedName("id")
 	private UUID id = null;
 
@@ -49,8 +58,8 @@ public class MakeExchangeAccountProgram implements Parcelable
 	@SerializedName("hourProcessing")
 	private Integer hourProcessing = null;
 
-	@SerializedName("stopOutLevel")
-	private Double stopOutLevel = null;
+	@SerializedName("isProcessingRealTime")
+	private Boolean isProcessingRealTime = null;
 
 	@SerializedName("tradesDelay")
 	private TradesDelay tradesDelay = null;
@@ -64,30 +73,78 @@ public class MakeExchangeAccountProgram implements Parcelable
 	@SerializedName("investmentLimit")
 	private Double investmentLimit = null;
 
-	@SerializedName("title")
-	private String title = null;
-
-	@SerializedName("description")
-	private String description = null;
-
-	@SerializedName("logo")
-	private String logo = null;
-
 	public MakeExchangeAccountProgram() {
 	}
 
 	MakeExchangeAccountProgram(Parcel in) {
+		title = (String) in.readValue(null);
+		description = (String) in.readValue(null);
+		logo = (String) in.readValue(null);
 		id = (UUID) in.readValue(UUID.class.getClassLoader());
 		currency = (Currency) in.readValue(Currency.class.getClassLoader());
 		hourProcessing = (Integer) in.readValue(null);
-		stopOutLevel = (Double) in.readValue(null);
+		isProcessingRealTime = (Boolean) in.readValue(null);
 		tradesDelay = (TradesDelay) in.readValue(TradesDelay.class.getClassLoader());
 		managementFee = (Double) in.readValue(null);
 		successFee = (Double) in.readValue(null);
 		investmentLimit = (Double) in.readValue(null);
-		title = (String) in.readValue(null);
-		description = (String) in.readValue(null);
-		logo = (String) in.readValue(null);
+	}
+
+	public MakeExchangeAccountProgram title(String title) {
+		this.title = title;
+		return this;
+	}
+
+	/**
+	 * Get title
+	 *
+	 * @return title
+	 **/
+	@Schema(description = "")
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public MakeExchangeAccountProgram description(String description) {
+		this.description = description;
+		return this;
+	}
+
+	/**
+	 * Get description
+	 *
+	 * @return description
+	 **/
+	@Schema(description = "")
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public MakeExchangeAccountProgram logo(String logo) {
+		this.logo = logo;
+		return this;
+	}
+
+	/**
+	 * Get logo
+	 *
+	 * @return logo
+	 **/
+	@Schema(description = "")
+	public String getLogo() {
+		return logo;
+	}
+
+	public void setLogo(String logo) {
+		this.logo = logo;
 	}
 
 	public MakeExchangeAccountProgram id(UUID id) {
@@ -147,23 +204,23 @@ public class MakeExchangeAccountProgram implements Parcelable
 		this.hourProcessing = hourProcessing;
 	}
 
-	public MakeExchangeAccountProgram stopOutLevel(Double stopOutLevel) {
-		this.stopOutLevel = stopOutLevel;
+	public MakeExchangeAccountProgram isProcessingRealTime(Boolean isProcessingRealTime) {
+		this.isProcessingRealTime = isProcessingRealTime;
 		return this;
 	}
 
 	/**
-	 * Get stopOutLevel
+	 * Get isProcessingRealTime
 	 *
-	 * @return stopOutLevel
+	 * @return isProcessingRealTime
 	 **/
 	@Schema(description = "")
-	public Double getStopOutLevel() {
-		return stopOutLevel;
+	public Boolean isIsProcessingRealTime() {
+		return isProcessingRealTime;
 	}
 
-	public void setStopOutLevel(Double stopOutLevel) {
-		this.stopOutLevel = stopOutLevel;
+	public void setIsProcessingRealTime(Boolean isProcessingRealTime) {
+		this.isProcessingRealTime = isProcessingRealTime;
 	}
 
 	public MakeExchangeAccountProgram tradesDelay(TradesDelay tradesDelay) {
@@ -242,63 +299,6 @@ public class MakeExchangeAccountProgram implements Parcelable
 		this.investmentLimit = investmentLimit;
 	}
 
-	public MakeExchangeAccountProgram title(String title) {
-		this.title = title;
-		return this;
-	}
-
-	/**
-	 * Get title
-	 *
-	 * @return title
-	 **/
-	@Schema(description = "")
-	public String getTitle() {
-		return title;
-	}
-
-	public void setTitle(String title) {
-		this.title = title;
-	}
-
-	public MakeExchangeAccountProgram description(String description) {
-		this.description = description;
-		return this;
-	}
-
-	/**
-	 * Get description
-	 *
-	 * @return description
-	 **/
-	@Schema(description = "")
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
-	public MakeExchangeAccountProgram logo(String logo) {
-		this.logo = logo;
-		return this;
-	}
-
-	/**
-	 * Get logo
-	 *
-	 * @return logo
-	 **/
-	@Schema(description = "")
-	public String getLogo() {
-		return logo;
-	}
-
-	public void setLogo(String logo) {
-		this.logo = logo;
-	}
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -308,22 +308,22 @@ public class MakeExchangeAccountProgram implements Parcelable
 			return false;
 		}
 		MakeExchangeAccountProgram makeExchangeAccountProgram = (MakeExchangeAccountProgram) o;
-		return Objects.equals(this.id, makeExchangeAccountProgram.id) &&
+		return Objects.equals(this.title, makeExchangeAccountProgram.title) &&
+				Objects.equals(this.description, makeExchangeAccountProgram.description) &&
+				Objects.equals(this.logo, makeExchangeAccountProgram.logo) &&
+				Objects.equals(this.id, makeExchangeAccountProgram.id) &&
 				Objects.equals(this.currency, makeExchangeAccountProgram.currency) &&
 				Objects.equals(this.hourProcessing, makeExchangeAccountProgram.hourProcessing) &&
-				Objects.equals(this.stopOutLevel, makeExchangeAccountProgram.stopOutLevel) &&
+				Objects.equals(this.isProcessingRealTime, makeExchangeAccountProgram.isProcessingRealTime) &&
 				Objects.equals(this.tradesDelay, makeExchangeAccountProgram.tradesDelay) &&
 				Objects.equals(this.managementFee, makeExchangeAccountProgram.managementFee) &&
 				Objects.equals(this.successFee, makeExchangeAccountProgram.successFee) &&
-				Objects.equals(this.investmentLimit, makeExchangeAccountProgram.investmentLimit) &&
-				Objects.equals(this.title, makeExchangeAccountProgram.title) &&
-				Objects.equals(this.description, makeExchangeAccountProgram.description) &&
-				Objects.equals(this.logo, makeExchangeAccountProgram.logo);
+				Objects.equals(this.investmentLimit, makeExchangeAccountProgram.investmentLimit);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, currency, hourProcessing, stopOutLevel, tradesDelay, managementFee, successFee, investmentLimit, title, description, logo);
+		return Objects.hash(title, description, logo, id, currency, hourProcessing, isProcessingRealTime, tradesDelay, managementFee, successFee, investmentLimit);
 	}
 
 	@Override
@@ -331,17 +331,17 @@ public class MakeExchangeAccountProgram implements Parcelable
 		StringBuilder sb = new StringBuilder();
 		sb.append("class MakeExchangeAccountProgram {\n");
 
+		sb.append("    title: ").append(toIndentedString(title)).append("\n");
+		sb.append("    description: ").append(toIndentedString(description)).append("\n");
+		sb.append("    logo: ").append(toIndentedString(logo)).append("\n");
 		sb.append("    id: ").append(toIndentedString(id)).append("\n");
 		sb.append("    currency: ").append(toIndentedString(currency)).append("\n");
 		sb.append("    hourProcessing: ").append(toIndentedString(hourProcessing)).append("\n");
-		sb.append("    stopOutLevel: ").append(toIndentedString(stopOutLevel)).append("\n");
+		sb.append("    isProcessingRealTime: ").append(toIndentedString(isProcessingRealTime)).append("\n");
 		sb.append("    tradesDelay: ").append(toIndentedString(tradesDelay)).append("\n");
 		sb.append("    managementFee: ").append(toIndentedString(managementFee)).append("\n");
 		sb.append("    successFee: ").append(toIndentedString(successFee)).append("\n");
 		sb.append("    investmentLimit: ").append(toIndentedString(investmentLimit)).append("\n");
-		sb.append("    title: ").append(toIndentedString(title)).append("\n");
-		sb.append("    description: ").append(toIndentedString(description)).append("\n");
-		sb.append("    logo: ").append(toIndentedString(logo)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}
@@ -358,17 +358,17 @@ public class MakeExchangeAccountProgram implements Parcelable
 	}
 
 	public void writeToParcel(Parcel out, int flags) {
+		out.writeValue(title);
+		out.writeValue(description);
+		out.writeValue(logo);
 		out.writeValue(id);
 		out.writeValue(currency);
 		out.writeValue(hourProcessing);
-		out.writeValue(stopOutLevel);
+		out.writeValue(isProcessingRealTime);
 		out.writeValue(tradesDelay);
 		out.writeValue(managementFee);
 		out.writeValue(successFee);
 		out.writeValue(investmentLimit);
-		out.writeValue(title);
-		out.writeValue(description);
-		out.writeValue(logo);
 	}
 
 	public int describeContents() {

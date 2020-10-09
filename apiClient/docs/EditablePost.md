@@ -3,7 +3,6 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**textOriginal** | **String** |  |  [optional]
 **id** | [**UUID**](UUID.md) |  |  [optional]
 **url** | **String** |  |  [optional]
 **text** | **String** |  |  [optional]
@@ -21,3 +20,4 @@ Name | Type | Description | Notes
 **author** | [**ProfilePublic**](ProfilePublic.md) |  |  [optional]
 **personalDetails** | [**PostPersonalDetails**](PostPersonalDetails.md) |  |  [optional]
 **comments** | [**List&lt;Post&gt;**](Post.md) |  |  [optional]
+**textOriginal** | **String** |  |  [optional]

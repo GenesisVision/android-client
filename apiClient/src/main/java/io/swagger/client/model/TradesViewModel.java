@@ -40,6 +40,12 @@ public class TradesViewModel implements Parcelable
 		}
 	};
 
+	@SerializedName("items")
+	private List<OrderModel> items = null;
+
+	@SerializedName("total")
+	private Integer total = null;
+
 	@SerializedName("showSwaps")
 	private Boolean showSwaps = null;
 
@@ -64,16 +70,12 @@ public class TradesViewModel implements Parcelable
 	@SerializedName("tradesDelay")
 	private TradesDelay tradesDelay = null;
 
-	@SerializedName("items")
-	private List<OrderModel> items = null;
-
-	@SerializedName("total")
-	private Integer total = null;
-
 	public TradesViewModel() {
 	}
 
 	TradesViewModel(Parcel in) {
+		items = (List<OrderModel>) in.readValue(OrderModel.class.getClassLoader());
+		total = (Integer) in.readValue(null);
 		showSwaps = (Boolean) in.readValue(null);
 		showTickets = (Boolean) in.readValue(null);
 		showDate = (Boolean) in.readValue(null);
@@ -82,8 +84,26 @@ public class TradesViewModel implements Parcelable
 		showPriceOpen = (Boolean) in.readValue(null);
 		showProfit = (Boolean) in.readValue(null);
 		tradesDelay = (TradesDelay) in.readValue(TradesDelay.class.getClassLoader());
-		items = (List<OrderModel>) in.readValue(OrderModel.class.getClassLoader());
-		total = (Integer) in.readValue(null);
+	}
+
+	/**
+	 * Get items
+	 *
+	 * @return items
+	 **/
+	@Schema(description = "")
+	public List<OrderModel> getItems() {
+		return items;
+	}
+
+	/**
+	 * Get total
+	 *
+	 * @return total
+	 **/
+	@Schema(description = "")
+	public Integer getTotal() {
+		return total;
 	}
 
 	public TradesViewModel showSwaps(Boolean showSwaps) {
@@ -238,26 +258,6 @@ public class TradesViewModel implements Parcelable
 		this.tradesDelay = tradesDelay;
 	}
 
-	/**
-	 * Get items
-	 *
-	 * @return items
-	 **/
-	@Schema(description = "")
-	public List<OrderModel> getItems() {
-		return items;
-	}
-
-	/**
-	 * Get total
-	 *
-	 * @return total
-	 **/
-	@Schema(description = "")
-	public Integer getTotal() {
-		return total;
-	}
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -267,21 +267,21 @@ public class TradesViewModel implements Parcelable
 			return false;
 		}
 		TradesViewModel tradesViewModel = (TradesViewModel) o;
-		return Objects.equals(this.showSwaps, tradesViewModel.showSwaps) &&
+		return Objects.equals(this.items, tradesViewModel.items) &&
+				Objects.equals(this.total, tradesViewModel.total) &&
+				Objects.equals(this.showSwaps, tradesViewModel.showSwaps) &&
 				Objects.equals(this.showTickets, tradesViewModel.showTickets) &&
 				Objects.equals(this.showDate, tradesViewModel.showDate) &&
 				Objects.equals(this.showDirection, tradesViewModel.showDirection) &&
 				Objects.equals(this.showPrice, tradesViewModel.showPrice) &&
 				Objects.equals(this.showPriceOpen, tradesViewModel.showPriceOpen) &&
 				Objects.equals(this.showProfit, tradesViewModel.showProfit) &&
-				Objects.equals(this.tradesDelay, tradesViewModel.tradesDelay) &&
-				Objects.equals(this.items, tradesViewModel.items) &&
-				Objects.equals(this.total, tradesViewModel.total);
+				Objects.equals(this.tradesDelay, tradesViewModel.tradesDelay);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(showSwaps, showTickets, showDate, showDirection, showPrice, showPriceOpen, showProfit, tradesDelay, items, total);
+		return Objects.hash(items, total, showSwaps, showTickets, showDate, showDirection, showPrice, showPriceOpen, showProfit, tradesDelay);
 	}
 
 	@Override
@@ -289,6 +289,8 @@ public class TradesViewModel implements Parcelable
 		StringBuilder sb = new StringBuilder();
 		sb.append("class TradesViewModel {\n");
 
+		sb.append("    items: ").append(toIndentedString(items)).append("\n");
+		sb.append("    total: ").append(toIndentedString(total)).append("\n");
 		sb.append("    showSwaps: ").append(toIndentedString(showSwaps)).append("\n");
 		sb.append("    showTickets: ").append(toIndentedString(showTickets)).append("\n");
 		sb.append("    showDate: ").append(toIndentedString(showDate)).append("\n");
@@ -297,8 +299,6 @@ public class TradesViewModel implements Parcelable
 		sb.append("    showPriceOpen: ").append(toIndentedString(showPriceOpen)).append("\n");
 		sb.append("    showProfit: ").append(toIndentedString(showProfit)).append("\n");
 		sb.append("    tradesDelay: ").append(toIndentedString(tradesDelay)).append("\n");
-		sb.append("    items: ").append(toIndentedString(items)).append("\n");
-		sb.append("    total: ").append(toIndentedString(total)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}
@@ -315,6 +315,8 @@ public class TradesViewModel implements Parcelable
 	}
 
 	public void writeToParcel(Parcel out, int flags) {
+		out.writeValue(items);
+		out.writeValue(total);
 		out.writeValue(showSwaps);
 		out.writeValue(showTickets);
 		out.writeValue(showDate);
@@ -323,8 +325,6 @@ public class TradesViewModel implements Parcelable
 		out.writeValue(showPriceOpen);
 		out.writeValue(showProfit);
 		out.writeValue(tradesDelay);
-		out.writeValue(items);
-		out.writeValue(total);
 	}
 
 	public int describeContents() {
