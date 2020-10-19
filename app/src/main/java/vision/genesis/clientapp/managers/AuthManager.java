@@ -11,6 +11,8 @@ import android.os.CancellationSignal;
 import androidx.annotation.RequiresApi;
 import androidx.core.app.ActivityCompat;
 
+import com.google.firebase.iid.FirebaseInstanceId;
+
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
@@ -96,8 +98,27 @@ public class AuthManager
 
 		EventBus.getDefault().register(this);
 
-		fcmToken = sharedPreferencesUtil.getFcmToken();
+		tryGetFcmToken();
 		tryGetSavedToken();
+	}
+
+	private void tryGetFcmToken() {
+		fcmToken = sharedPreferencesUtil.getFcmToken();
+		if (fcmToken == null || fcmToken.isEmpty()) {
+			FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(instanceIdResult -> {
+				if (instanceIdResult != null) {
+					fcmToken = instanceIdResult.getToken();
+					if (!fcmToken.isEmpty()) {
+						Timber.d("FCM_TOKEN: %s", fcmToken);
+						updateFcmTokenMaybe(fcmToken);
+					}
+				}
+			});
+		}
+		else {
+			Timber.d("FCM_TOKEN: %s", fcmToken);
+			updateFcmTokenMaybe(fcmToken);
+		}
 	}
 
 	private void tryGetSavedToken() {
@@ -194,9 +215,14 @@ public class AuthManager
 			disableFcmTokenSubscription = profileApi.removeFcmToken(model)
 					.observeOn(Schedulers.newThread())
 					.subscribeOn(Schedulers.io())
-					.subscribe(response -> disableFcmTokenSubscription.unsubscribe(),
-							throwable -> disableFcmTokenSubscription.unsubscribe());
+					.subscribe(response -> finishLogout(),
+							throwable -> finishLogout());
 		}
+	}
+
+	private void finishLogout() {
+		disableFcmTokenSubscription.unsubscribe();
+		AuthManager.token.onNext(null);
 	}
 
 	private void saveNewFcmToken(String newFcmToken) {
@@ -290,13 +316,13 @@ public class AuthManager
 	public void logout() {
 		disableFcmToken();
 		sharedPreferencesUtil.saveToken(null);
-		AuthManager.token.onNext(null);
 		settingsManager.logout();
 		userSubject.onNext(null);
 	}
 
 	@Subscribe
 	public void onEventMainThread(OnUnauthorizedResponseGetEvent event) {
+		AuthManager.token.onNext(null);
 		logout();
 	}
 

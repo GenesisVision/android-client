@@ -95,8 +95,7 @@ public class StringFormatUtil
 	}
 
 	public static int getCurrencyMaxFraction(String currency) {
-		if (currency.equals(CurrencyEnum.USD.toString()) ||
-				currency.equals(CurrencyEnum.EUR.toString())) {
+		if (currency.equals(CurrencyEnum.USD.toString())) {
 			return 2;
 		}
 		if (currency.equals(CurrencyEnum.USDT.toString())) {
@@ -133,9 +132,6 @@ public class StringFormatUtil
 	public static String getValueString(Double baseValue, String currency) {
 		if (currency.equals(Currency.USD.getValue())) {
 			return String.format(Locale.getDefault(), "%s $", StringFormatUtil.formatCurrencyAmount(baseValue, currency));
-		}
-		else if (currency.equals(Currency.EUR.getValue())) {
-			return String.format(Locale.getDefault(), "%s €", StringFormatUtil.formatCurrencyAmount(baseValue, currency));
 		}
 		return String.format(Locale.getDefault(), "%s %s", StringFormatUtil.formatCurrencyAmount(baseValue, currency), currency);
 	}

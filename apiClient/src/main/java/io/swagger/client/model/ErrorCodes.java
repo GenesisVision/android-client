@@ -28,7 +28,8 @@ public enum ErrorCodes
 	INTERNALSERVERERROR("InternalServerError"),
 	VALIDATIONERROR("ValidationError"),
 	REQUIRESTWOFACTOR("RequiresTwoFactor"),
-	WRONGCAPTCHA("WrongCaptcha");
+	WRONGCAPTCHA("WrongCaptcha"),
+	REQUIRESEMAILCONFIRMATION("RequiresEmailConfirmation");
 
 	public static ErrorCodes fromValue(String text) {
 		for (ErrorCodes b : ErrorCodes.values()) {

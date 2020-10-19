@@ -26,3 +26,5 @@
 * `MANAGERNEWSIGNALPROVIDER` (value: `"ManagerNewSignalProvider"`)
 * `SIGNALS` (value: `"Signals"`)
 * `EXTERNALSIGNALS` (value: `"ExternalSignals"`)
+* `SOCIAL` (value: `"Social"`)
+* `PLATFORMASSET` (value: `"PlatformAsset"`)

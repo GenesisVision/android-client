@@ -48,38 +48,29 @@ public class NotificationViewModel implements Parcelable
 	@SerializedName("text")
 	private String text = null;
 
+	@SerializedName("type")
+	private String type = null;
+
 	@SerializedName("date")
 	private DateTime date = null;
-
-	@SerializedName("type")
-	private NotificationType type = null;
-
-	@SerializedName("assetId")
-	private UUID assetId = null;
-
-	@SerializedName("managerId")
-	private UUID managerId = null;
-
-	@SerializedName("logoUrl")
-	private String logoUrl = null;
-
-	@SerializedName("url")
-	private String url = null;
-
-	@SerializedName("color")
-	private String color = null;
-
-	@SerializedName("isUnread")
-	private Boolean isUnread = null;
-
-	@SerializedName("assetType")
-	private AssetGlobalType assetType = null;
 
 	@SerializedName("imageUrl")
 	private String imageUrl = null;
 
+	@SerializedName("isUnread")
+	private Boolean isUnread = null;
+
 	@SerializedName("location")
 	private NotificationLocationViewModel location = null;
+
+	@SerializedName("assetDetails")
+	private AssetDetails assetDetails = null;
+
+	@SerializedName("userDetails")
+	private ProfilePublic userDetails = null;
+
+	@SerializedName("platformAssetDetails")
+	private BasePlatformAsset platformAssetDetails = null;
 
 	public NotificationViewModel() {
 	}
@@ -87,17 +78,14 @@ public class NotificationViewModel implements Parcelable
 	NotificationViewModel(Parcel in) {
 		id = (UUID) in.readValue(UUID.class.getClassLoader());
 		text = (String) in.readValue(null);
+		type = (String) in.readValue(null);
 		date = (DateTime) in.readValue(DateTime.class.getClassLoader());
-		type = (NotificationType) in.readValue(NotificationType.class.getClassLoader());
-		assetId = (UUID) in.readValue(UUID.class.getClassLoader());
-		managerId = (UUID) in.readValue(UUID.class.getClassLoader());
-		logoUrl = (String) in.readValue(null);
-		url = (String) in.readValue(null);
-		color = (String) in.readValue(null);
-		isUnread = (Boolean) in.readValue(null);
-		assetType = (AssetGlobalType) in.readValue(AssetGlobalType.class.getClassLoader());
 		imageUrl = (String) in.readValue(null);
+		isUnread = (Boolean) in.readValue(null);
 		location = (NotificationLocationViewModel) in.readValue(NotificationLocationViewModel.class.getClassLoader());
+		assetDetails = (AssetDetails) in.readValue(AssetDetails.class.getClassLoader());
+		userDetails = (ProfilePublic) in.readValue(ProfilePublic.class.getClassLoader());
+		platformAssetDetails = (BasePlatformAsset) in.readValue(BasePlatformAsset.class.getClassLoader());
 	}
 
 	public NotificationViewModel id(UUID id) {
@@ -138,6 +126,25 @@ public class NotificationViewModel implements Parcelable
 		this.text = text;
 	}
 
+	public NotificationViewModel type(String type) {
+		this.type = type;
+		return this;
+	}
+
+	/**
+	 * Notification type  &lt;br&gt;Platform&lt;br&gt;Profile&lt;br&gt;Asset&lt;br&gt;TradingAccount&lt;br&gt;User&lt;br&gt;Signal&lt;br&gt;Social&lt;br&gt;PlatformAsset  Enum: GenesisVision.Core.DataModel.Attributes.NotificationGroup
+	 *
+	 * @return type
+	 **/
+	@Schema(description = "Notification type  <br>Platform<br>Profile<br>Asset<br>TradingAccount<br>User<br>Signal<br>Social<br>PlatformAsset  Enum: GenesisVision.Core.DataModel.Attributes.NotificationGroup")
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
 	public NotificationViewModel date(DateTime date) {
 		this.date = date;
 		return this;
@@ -155,158 +162,6 @@ public class NotificationViewModel implements Parcelable
 
 	public void setDate(DateTime date) {
 		this.date = date;
-	}
-
-	public NotificationViewModel type(NotificationType type) {
-		this.type = type;
-		return this;
-	}
-
-	/**
-	 * Get type
-	 *
-	 * @return type
-	 **/
-	@Schema(description = "")
-	public NotificationType getType() {
-		return type;
-	}
-
-	public void setType(NotificationType type) {
-		this.type = type;
-	}
-
-	public NotificationViewModel assetId(UUID assetId) {
-		this.assetId = assetId;
-		return this;
-	}
-
-	/**
-	 * Get assetId
-	 *
-	 * @return assetId
-	 **/
-	@Schema(description = "")
-	public UUID getAssetId() {
-		return assetId;
-	}
-
-	public void setAssetId(UUID assetId) {
-		this.assetId = assetId;
-	}
-
-	public NotificationViewModel managerId(UUID managerId) {
-		this.managerId = managerId;
-		return this;
-	}
-
-	/**
-	 * Get managerId
-	 *
-	 * @return managerId
-	 **/
-	@Schema(description = "")
-	public UUID getManagerId() {
-		return managerId;
-	}
-
-	public void setManagerId(UUID managerId) {
-		this.managerId = managerId;
-	}
-
-	public NotificationViewModel logoUrl(String logoUrl) {
-		this.logoUrl = logoUrl;
-		return this;
-	}
-
-	/**
-	 * Get logoUrl
-	 *
-	 * @return logoUrl
-	 **/
-	@Schema(description = "")
-	public String getLogoUrl() {
-		return logoUrl;
-	}
-
-	public void setLogoUrl(String logoUrl) {
-		this.logoUrl = logoUrl;
-	}
-
-	public NotificationViewModel url(String url) {
-		this.url = url;
-		return this;
-	}
-
-	/**
-	 * Get url
-	 *
-	 * @return url
-	 **/
-	@Schema(description = "")
-	public String getUrl() {
-		return url;
-	}
-
-	public void setUrl(String url) {
-		this.url = url;
-	}
-
-	public NotificationViewModel color(String color) {
-		this.color = color;
-		return this;
-	}
-
-	/**
-	 * Get color
-	 *
-	 * @return color
-	 **/
-	@Schema(description = "")
-	public String getColor() {
-		return color;
-	}
-
-	public void setColor(String color) {
-		this.color = color;
-	}
-
-	public NotificationViewModel isUnread(Boolean isUnread) {
-		this.isUnread = isUnread;
-		return this;
-	}
-
-	/**
-	 * Get isUnread
-	 *
-	 * @return isUnread
-	 **/
-	@Schema(description = "")
-	public Boolean isIsUnread() {
-		return isUnread;
-	}
-
-	public void setIsUnread(Boolean isUnread) {
-		this.isUnread = isUnread;
-	}
-
-	public NotificationViewModel assetType(AssetGlobalType assetType) {
-		this.assetType = assetType;
-		return this;
-	}
-
-	/**
-	 * Get assetType
-	 *
-	 * @return assetType
-	 **/
-	@Schema(description = "")
-	public AssetGlobalType getAssetType() {
-		return assetType;
-	}
-
-	public void setAssetType(AssetGlobalType assetType) {
-		this.assetType = assetType;
 	}
 
 	public NotificationViewModel imageUrl(String imageUrl) {
@@ -328,6 +183,25 @@ public class NotificationViewModel implements Parcelable
 		this.imageUrl = imageUrl;
 	}
 
+	public NotificationViewModel isUnread(Boolean isUnread) {
+		this.isUnread = isUnread;
+		return this;
+	}
+
+	/**
+	 * Get isUnread
+	 *
+	 * @return isUnread
+	 **/
+	@Schema(description = "")
+	public Boolean isIsUnread() {
+		return isUnread;
+	}
+
+	public void setIsUnread(Boolean isUnread) {
+		this.isUnread = isUnread;
+	}
+
 	public NotificationViewModel location(NotificationLocationViewModel location) {
 		this.location = location;
 		return this;
@@ -347,6 +221,63 @@ public class NotificationViewModel implements Parcelable
 		this.location = location;
 	}
 
+	public NotificationViewModel assetDetails(AssetDetails assetDetails) {
+		this.assetDetails = assetDetails;
+		return this;
+	}
+
+	/**
+	 * Get assetDetails
+	 *
+	 * @return assetDetails
+	 **/
+	@Schema(description = "")
+	public AssetDetails getAssetDetails() {
+		return assetDetails;
+	}
+
+	public void setAssetDetails(AssetDetails assetDetails) {
+		this.assetDetails = assetDetails;
+	}
+
+	public NotificationViewModel userDetails(ProfilePublic userDetails) {
+		this.userDetails = userDetails;
+		return this;
+	}
+
+	/**
+	 * Get userDetails
+	 *
+	 * @return userDetails
+	 **/
+	@Schema(description = "")
+	public ProfilePublic getUserDetails() {
+		return userDetails;
+	}
+
+	public void setUserDetails(ProfilePublic userDetails) {
+		this.userDetails = userDetails;
+	}
+
+	public NotificationViewModel platformAssetDetails(BasePlatformAsset platformAssetDetails) {
+		this.platformAssetDetails = platformAssetDetails;
+		return this;
+	}
+
+	/**
+	 * Get platformAssetDetails
+	 *
+	 * @return platformAssetDetails
+	 **/
+	@Schema(description = "")
+	public BasePlatformAsset getPlatformAssetDetails() {
+		return platformAssetDetails;
+	}
+
+	public void setPlatformAssetDetails(BasePlatformAsset platformAssetDetails) {
+		this.platformAssetDetails = platformAssetDetails;
+	}
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -358,22 +289,19 @@ public class NotificationViewModel implements Parcelable
 		NotificationViewModel notificationViewModel = (NotificationViewModel) o;
 		return Objects.equals(this.id, notificationViewModel.id) &&
 				Objects.equals(this.text, notificationViewModel.text) &&
-				Objects.equals(this.date, notificationViewModel.date) &&
 				Objects.equals(this.type, notificationViewModel.type) &&
-				Objects.equals(this.assetId, notificationViewModel.assetId) &&
-				Objects.equals(this.managerId, notificationViewModel.managerId) &&
-				Objects.equals(this.logoUrl, notificationViewModel.logoUrl) &&
-				Objects.equals(this.url, notificationViewModel.url) &&
-				Objects.equals(this.color, notificationViewModel.color) &&
-				Objects.equals(this.isUnread, notificationViewModel.isUnread) &&
-				Objects.equals(this.assetType, notificationViewModel.assetType) &&
+				Objects.equals(this.date, notificationViewModel.date) &&
 				Objects.equals(this.imageUrl, notificationViewModel.imageUrl) &&
-				Objects.equals(this.location, notificationViewModel.location);
+				Objects.equals(this.isUnread, notificationViewModel.isUnread) &&
+				Objects.equals(this.location, notificationViewModel.location) &&
+				Objects.equals(this.assetDetails, notificationViewModel.assetDetails) &&
+				Objects.equals(this.userDetails, notificationViewModel.userDetails) &&
+				Objects.equals(this.platformAssetDetails, notificationViewModel.platformAssetDetails);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, text, date, type, assetId, managerId, logoUrl, url, color, isUnread, assetType, imageUrl, location);
+		return Objects.hash(id, text, type, date, imageUrl, isUnread, location, assetDetails, userDetails, platformAssetDetails);
 	}
 
 	@Override
@@ -383,17 +311,14 @@ public class NotificationViewModel implements Parcelable
 
 		sb.append("    id: ").append(toIndentedString(id)).append("\n");
 		sb.append("    text: ").append(toIndentedString(text)).append("\n");
-		sb.append("    date: ").append(toIndentedString(date)).append("\n");
 		sb.append("    type: ").append(toIndentedString(type)).append("\n");
-		sb.append("    assetId: ").append(toIndentedString(assetId)).append("\n");
-		sb.append("    managerId: ").append(toIndentedString(managerId)).append("\n");
-		sb.append("    logoUrl: ").append(toIndentedString(logoUrl)).append("\n");
-		sb.append("    url: ").append(toIndentedString(url)).append("\n");
-		sb.append("    color: ").append(toIndentedString(color)).append("\n");
-		sb.append("    isUnread: ").append(toIndentedString(isUnread)).append("\n");
-		sb.append("    assetType: ").append(toIndentedString(assetType)).append("\n");
+		sb.append("    date: ").append(toIndentedString(date)).append("\n");
 		sb.append("    imageUrl: ").append(toIndentedString(imageUrl)).append("\n");
+		sb.append("    isUnread: ").append(toIndentedString(isUnread)).append("\n");
 		sb.append("    location: ").append(toIndentedString(location)).append("\n");
+		sb.append("    assetDetails: ").append(toIndentedString(assetDetails)).append("\n");
+		sb.append("    userDetails: ").append(toIndentedString(userDetails)).append("\n");
+		sb.append("    platformAssetDetails: ").append(toIndentedString(platformAssetDetails)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}
@@ -412,17 +337,14 @@ public class NotificationViewModel implements Parcelable
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(id);
 		out.writeValue(text);
-		out.writeValue(date);
 		out.writeValue(type);
-		out.writeValue(assetId);
-		out.writeValue(managerId);
-		out.writeValue(logoUrl);
-		out.writeValue(url);
-		out.writeValue(color);
-		out.writeValue(isUnread);
-		out.writeValue(assetType);
+		out.writeValue(date);
 		out.writeValue(imageUrl);
+		out.writeValue(isUnread);
 		out.writeValue(location);
+		out.writeValue(assetDetails);
+		out.writeValue(userDetails);
+		out.writeValue(platformAssetDetails);
 	}
 
 	public int describeContents() {

@@ -162,7 +162,12 @@ public class CreateFundAssetView extends RelativeLayout
 	}
 
 	public void select(boolean selected) {
-		int assetColor = Color.parseColor(asset.getColor());
+		int assetColor = Color.parseColor("#00bdaf");
+		try {
+			Color.parseColor(asset.getColor());
+		} catch (IllegalArgumentException e) {
+			e.printStackTrace();
+		}
 		int unselectedColor = ThemeUtil.getColorByAttrId(getContext(), R.attr.colorTextPrimary);
 		ViewCompat.setBackgroundTintList(background, ColorStateList.valueOf(selected ? assetColor : unselectedColor));
 		background.setAlpha(selected ? 0.5f : 0.02f);

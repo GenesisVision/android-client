@@ -29,7 +29,6 @@ import io.swagger.client.model.AssetType;
 import io.swagger.client.model.InvestmentRequestType;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
-import vision.genesis.clientapp.model.CurrencyEnum;
 import vision.genesis.clientapp.model.FundDetailsModel;
 import vision.genesis.clientapp.model.ProgramDetailsModel;
 import vision.genesis.clientapp.model.events.OnCancelRequestClickedEvent;
@@ -183,9 +182,9 @@ public class RequestsAdapter extends RecyclerView.Adapter<RequestsAdapter.Reques
 				}
 				else if (details.getAssetType().equals(AssetType.FUND)) {
 					if (request.getType().equals(InvestmentRequestType.WITHDRAWAL)) {
-						this.value.setText(String.format(Locale.getDefault(), "%s%% (≈ %s GVT)",
+						this.value.setText(String.format(Locale.getDefault(), "%s%% (≈ %s)",
 								StringFormatUtil.formatAmount(request.getAssetDetails().getWithdrawPercent(), 0, 2),
-								StringFormatUtil.formatCurrencyAmount(request.getAmount(), CurrencyEnum.GVT.getValue())));
+								StringFormatUtil.getValueString(request.getAmount(), request.getCurrency().getValue())));
 					}
 					else {
 						this.value.setText(String.format(Locale.getDefault(), "%s %s",

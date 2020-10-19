@@ -10,6 +10,7 @@ Method | HTTP request | Description
 [**getPlatformEvents**](PlatformApi.md#getPlatformEvents) | **GET** v2.0/platform/events | Get platform events
 [**getPlatformInfo**](PlatformApi.md#getPlatformInfo) | **GET** v2.0/platform/info | Platform info
 [**getPlatformLandingInfo**](PlatformApi.md#getPlatformLandingInfo) | **GET** v2.0/platform/landing | Platform landing info
+[**getPlatformTime**](PlatformApi.md#getPlatformTime) | **POST** v2.0/platform/time | Server time
 [**getProgramLevels**](PlatformApi.md#getProgramLevels) | **GET** v2.0/platform/levels | Investment programs levels
 [**getProgramLevelsParams**](PlatformApi.md#getProgramLevelsParams) | **GET** v2.0/platform/levels/parameters | Investment programs levels parameters
 [**getRiskControlInfo**](PlatformApi.md#getRiskControlInfo) | **GET** v2.0/platform/riskcontrol | Risk control
@@ -319,6 +320,55 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**LandingInfo**](LandingInfo.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
+
+<a name="getPlatformTime"></a>
+# **getPlatformTime**
+> PushNotificationViewModel getPlatformTime()
+
+Server time
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiClient;
+//import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
+//import io.swagger.client.api.PlatformApi;
+
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
+
+PlatformApi apiInstance = new PlatformApi();
+try {
+    PushNotificationViewModel result = apiInstance.getPlatformTime();
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling PlatformApi#getPlatformTime");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+[**PushNotificationViewModel**](PushNotificationViewModel.md)
 
 ### Authorization
 

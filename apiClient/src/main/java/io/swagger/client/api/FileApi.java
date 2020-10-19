@@ -11,14 +11,15 @@ public interface FileApi
 	/**
 	 * Upload file
 	 *
-	 * @param uploadedFile (optional)
-	 * @param location     (optional)
+	 * @param uploadedFile  (optional)
+	 * @param location      (optional)
+	 * @param waitForResize (optional)
 	 * @return Call&lt;UploadResult&gt;
 	 */
 	@retrofit2.http.Multipart
 	@POST("v2.0/file/upload")
 	Observable<UploadResult> uploadFile(
-			@retrofit2.http.Part("uploadedFile\"; filename=\"uploadedFile") RequestBody uploadedFile, @retrofit2.http.Query("location") ImageLocation location
+			@retrofit2.http.Part("uploadedFile\"; filename=\"uploadedFile") RequestBody uploadedFile, @retrofit2.http.Query("location") ImageLocation location, @retrofit2.http.Query("waitForResize") Boolean waitForResize
 	);
 
 }

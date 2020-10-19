@@ -6,10 +6,10 @@ import java.util.UUID;
 import io.swagger.client.api.NotificationsApi;
 import io.swagger.client.model.FollowNotificationSettingList;
 import io.swagger.client.model.FundNotificationSettingList;
-import io.swagger.client.model.NotificationList;
 import io.swagger.client.model.NotificationSettingConditionType;
 import io.swagger.client.model.NotificationSettingList;
 import io.swagger.client.model.NotificationType;
+import io.swagger.client.model.NotificationViewModelItemsViewModel;
 import io.swagger.client.model.ProgramNotificationSettingList;
 import rx.Observable;
 
@@ -26,7 +26,7 @@ public class NotificationsManager
 		this.notificationsApi = notificationsApi;
 	}
 
-	public Observable<NotificationList> getNotifications(Integer skip, Integer take) {
+	public Observable<NotificationViewModelItemsViewModel> getNotifications(Integer skip, Integer take) {
 		return notificationsApi.getNotifications(skip, take);
 	}
 

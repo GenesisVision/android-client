@@ -9,6 +9,7 @@ import io.swagger.client.model.PlatformAssets;
 import io.swagger.client.model.PlatformEvents;
 import io.swagger.client.model.PlatformInfo;
 import io.swagger.client.model.ProgramsLevelsInfo;
+import io.swagger.client.model.PushNotificationViewModel;
 import io.swagger.client.model.SiteMapInfo;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
@@ -79,6 +80,15 @@ public interface PlatformApi
 	Observable<LandingInfo> getPlatformLandingInfo(
 			@retrofit2.http.Query("eventsTake") Integer eventsTake, @retrofit2.http.Query("followTake") Integer followTake, @retrofit2.http.Query("programsTake") Integer programsTake, @retrofit2.http.Query("fundsTake") Integer fundsTake, @retrofit2.http.Query("newsTake") Integer newsTake
 	);
+
+	/**
+	 * Server time
+	 *
+	 * @return Call&lt;PushNotificationViewModel&gt;
+	 */
+	@POST("v2.0/platform/time")
+	Observable<PushNotificationViewModel> getPlatformTime();
+
 
 	/**
 	 * Investment programs levels

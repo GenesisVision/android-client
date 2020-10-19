@@ -33,6 +33,8 @@ public class FcmPushClickHandlerService extends Service
 			else {
 				Intent splashScreenIntent = new Intent(this, SplashScreenActivity.class);
 				splashScreenIntent.putExtras(intent.getExtras());
+				splashScreenIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+				splashScreenIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 				getApplicationContext().startActivity(splashScreenIntent);
 			}
 		}

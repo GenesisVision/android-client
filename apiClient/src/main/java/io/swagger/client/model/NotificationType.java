@@ -48,7 +48,9 @@ public enum NotificationType
 	MANAGERNEWEXTERNALSIGNALACCOUNT("ManagerNewExternalSignalAccount"),
 	MANAGERNEWSIGNALPROVIDER("ManagerNewSignalProvider"),
 	SIGNALS("Signals"),
-	EXTERNALSIGNALS("ExternalSignals");
+	EXTERNALSIGNALS("ExternalSignals"),
+	SOCIAL("Social"),
+	PLATFORMASSET("PlatformAsset");
 
 	public static NotificationType fromValue(String text) {
 		for (NotificationType b : NotificationType.values()) {

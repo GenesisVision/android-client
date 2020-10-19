@@ -320,7 +320,12 @@ public class FundAssetsFragment extends BaseFragment implements FundAssetsView
 
 	private void addAssetLine(PlatformAsset asset, double share) {
 		View view = new View(getContext());
-		view.setBackgroundColor(Color.parseColor(asset.getColor()));
+		try {
+			view.setBackgroundColor(Color.parseColor(asset.getColor()));
+		} catch (IllegalArgumentException e) {
+			e.printStackTrace();
+			view.setBackgroundColor(Color.parseColor("#00bdaf"));
+		}
 		lineGroup.addView(view);
 		LinearLayout.LayoutParams lp = (LinearLayout.LayoutParams) view.getLayoutParams();
 		lp.weight = (float) share;

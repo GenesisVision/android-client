@@ -29,15 +29,9 @@ public enum Currency
 	GVT("GVT"),
 	ETH("ETH"),
 	BTC("BTC"),
-	ADA("ADA"),
 	USDT("USDT"),
-	XRP("XRP"),
-	BCH("BCH"),
-	LTC("LTC"),
-	DOGE("DOGE"),
-	BNB("BNB"),
-	USD("USD"),
-	EUR("EUR");
+	USDC("USDC"),
+	USD("USD");
 
 	public static Currency fromValue(String text) {
 		for (Currency b : Currency.values()) {

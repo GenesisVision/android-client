@@ -12,8 +12,8 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import io.swagger.client.model.NotificationList;
 import io.swagger.client.model.NotificationViewModel;
+import io.swagger.client.model.NotificationViewModelItemsViewModel;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -94,7 +94,7 @@ public class NotificationsPresenter extends MvpPresenter<NotificationsView>
 						this::handleGetNotificationsError);
 	}
 
-	private void handleGetNotificationsResponse(NotificationList response) {
+	private void handleGetNotificationsResponse(NotificationViewModelItemsViewModel response) {
 		notificationsSubscription.unsubscribe();
 		getViewState().showProgress(false);
 		getViewState().setRefreshing(false);
@@ -104,7 +104,7 @@ public class NotificationsPresenter extends MvpPresenter<NotificationsView>
 			sections.clear();
 		}
 
-		List<NotificationViewModel> newNotifications = response.getNotifications();
+		List<NotificationViewModel> newNotifications = response.getItems();
 
 		int index = notifications.size();
 		for (NotificationViewModel newNotification : newNotifications) {

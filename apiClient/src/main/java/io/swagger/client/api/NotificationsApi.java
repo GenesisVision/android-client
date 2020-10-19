@@ -5,10 +5,10 @@ import java.util.UUID;
 import io.swagger.client.model.FollowNotificationSettingList;
 import io.swagger.client.model.FundNotificationSettingList;
 import io.swagger.client.model.ManagerNotificationSettingList;
-import io.swagger.client.model.NotificationList;
 import io.swagger.client.model.NotificationSettingConditionType;
 import io.swagger.client.model.NotificationSettingList;
 import io.swagger.client.model.NotificationType;
+import io.swagger.client.model.NotificationViewModelItemsViewModel;
 import io.swagger.client.model.ProgramNotificationSettingList;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
@@ -45,11 +45,11 @@ public interface NotificationsApi
 	 *
 	 * @param skip (optional)
 	 * @param take (optional)
-	 * @return Call&lt;NotificationList&gt;
+     * @return Call&lt;NotificationViewModelItemsViewModel&gt;
 	 */
-	@GET("v2.0/notifications")
-	Observable<NotificationList> getNotifications(
-			@retrofit2.http.Query("skip") Integer skip, @retrofit2.http.Query("take") Integer take
+    @GET("v2.1/notifications")
+    Observable<NotificationViewModelItemsViewModel> getNotifications(
+            @retrofit2.http.Query("Skip") Integer skip, @retrofit2.http.Query("Take") Integer take
 	);
 
 	/**

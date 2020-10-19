@@ -101,39 +101,34 @@ public class NotificationsListAdapter extends RecyclerView.Adapter<Notifications
 
 			setFonts();
 			itemView.setOnClickListener(v -> {
-				switch (notification.getType()) {
-					case PROGRAMNEWSANDUPDATES:
-					case PROGRAMENDOFPERIOD:
-					case PROGRAMCONDITION:
-					case MANAGERNEWPROGRAM:
-						if (notification.getAssetType() != null) {
-							if (notification.getAssetType().equals(InvestmentProgramType.PROGRAM)) {
-								ProgramDetailsModel programDetailsModel = new ProgramDetailsModel(notification.getAssetId(),
-										notification.getLogoUrl(),
-										notification.getColor(),
-										0,
-										0.0,
-										"",
-										"",
-										"",
-										false,
-										false,
-										//TODO: replace to notification.getAssetType()
-										AssetType.PROGRAM);
-								EventBus.getDefault().post(new ShowProgramDetailsEvent(programDetailsModel));
-							}
-							else if (notification.getAssetType().equals(InvestmentProgramType.FUND)) {
-								FundDetailsModel fundDetailsModel = new FundDetailsModel(notification.getAssetId(),
-										notification.getLogoUrl(),
-										notification.getColor(),
-										"",
-										"",
-										false,
-										false);
-								EventBus.getDefault().post(new ShowFundDetailsEvent(fundDetailsModel));
-							}
+				if (notification.getAssetDetails() != null) {
+					if (notification.getAssetDetails().getAssetType() != null) {
+						if (notification.getAssetDetails().getAssetType().equals(InvestmentProgramType.PROGRAM)) {
+							ProgramDetailsModel programDetailsModel = new ProgramDetailsModel(notification.getAssetDetails().getId(),
+									notification.getAssetDetails().getLogoUrl(),
+									notification.getAssetDetails().getColor(),
+									0,
+									0.0,
+									"",
+									"",
+									"",
+									false,
+									false,
+									//TODO: replace to notification.getAssetType()
+									AssetType.PROGRAM);
+							EventBus.getDefault().post(new ShowProgramDetailsEvent(programDetailsModel));
 						}
-						break;
+						else if (notification.getAssetDetails().getAssetType().equals(InvestmentProgramType.FUND)) {
+							FundDetailsModel fundDetailsModel = new FundDetailsModel(notification.getAssetDetails().getId(),
+									notification.getAssetDetails().getLogoUrl(),
+									notification.getAssetDetails().getColor(),
+									"",
+									"",
+									false,
+									false);
+							EventBus.getDefault().post(new ShowFundDetailsEvent(fundDetailsModel));
+						}
+					}
 				}
 			});
 		}
@@ -146,44 +141,11 @@ public class NotificationsListAdapter extends RecyclerView.Adapter<Notifications
 		void setNotification(NotificationViewModel notification) {
 			this.notification = notification;
 
-//			notRead.setVisibility(notification.);
 			text.setText(notification.getText());
 			time.setText(DateTimeUtil.formatShortTime(notification.getDate()));
 
 			int iconResId = R.drawable.icon_notification_star;
-			String logo = null;
-			switch (notification.getType()) {
-				case PLATFORMNEWSANDUPDATES:
-					break;
-				case PLATFORMEMERGENCY:
-					break;
-				case PLATFORMOTHER:
-					break;
-				case PROFILEUPDATED:
-					break;
-				case PROFILEPWDUPDATED:
-					break;
-				case PROFILEVERIFICATION:
-					iconResId = R.drawable.icon_notification_person;
-					action.setText(itemView.getContext().getString(R.string.get_verified));
-					break;
-				case PROFILE2FA:
-					break;
-				case PROFILESECURITY:
-					break;
-				case PROGRAMNEWSANDUPDATES:
-					logo = notification.getLogoUrl();
-					break;
-				case PROGRAMENDOFPERIOD:
-					logo = notification.getLogoUrl();
-					break;
-				case PROGRAMCONDITION:
-					logo = notification.getLogoUrl();
-					break;
-				case MANAGERNEWPROGRAM:
-					logo = notification.getLogoUrl();
-					break;
-			}
+			String logo = notification.getImageUrl();
 
 			if (logo == null || logo.isEmpty()) {
 				GenericDraweeHierarchy hierarchy = icon.getHierarchy();

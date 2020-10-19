@@ -19,6 +19,7 @@ import io.swagger.client.model.AssetType;
 import io.swagger.client.model.FacetSortType;
 import io.swagger.client.model.NotificationViewModel;
 import io.swagger.client.model.PlatformInfo;
+import io.swagger.client.model.PushNotificationViewModel;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -165,50 +166,50 @@ public class MainPresenter extends MvpPresenter<MainView>
 			{
 			}.getType();
 
-			NotificationViewModel notification = data.getParcelable(GvFirebaseMessagingService.KEY_NOTIFICATION);
-			if (notification == null) {
-				notification = gson.fromJson(data.getString(GvFirebaseMessagingService.KEY_RESULT), typeToken);
+			PushNotificationViewModel push = data.getParcelable(GvFirebaseMessagingService.KEY_NOTIFICATION);
+			if (push == null) {
+				push = gson.fromJson(data.getString(GvFirebaseMessagingService.KEY_RESULT), typeToken);
 			}
 
-			if (notification != null) {
-				if (notification.getLocation() != null && notification.getLocation().getLocation() != null) {
-					switch (notification.getLocation().getLocation()) {
+			if (push != null) {
+				if (push.getLocation() != null && push.getLocation().getLocation() != null) {
+					switch (push.getLocation().getLocation()) {
 						case NotificationLocation.USER:
-							UserDetailsModel userDetailsModel = new UserDetailsModel(notification.getLocation().getId(), null, null, null);
+							UserDetailsModel userDetailsModel = new UserDetailsModel(push.getLocation().getId(), null, null, null);
 							getViewState().showUserDetails(userDetailsModel);
 							break;
 						case NotificationLocation.PROGRAM:
 							ProgramDetailsModel programDetailsModel = new ProgramDetailsModel();
-							programDetailsModel.setProgramId(notification.getLocation().getId());
+							programDetailsModel.setProgramId(push.getLocation().getId());
 							programDetailsModel.setAssetType(AssetType.PROGRAM);
 							getViewState().showProgramDetails(programDetailsModel);
 							break;
 						case NotificationLocation.FUND:
 							FundDetailsModel fundDetailsModel = new FundDetailsModel();
-							fundDetailsModel.setFundId(notification.getLocation().getId());
+							fundDetailsModel.setFundId(push.getLocation().getId());
 							getViewState().showFundDetails(fundDetailsModel);
 							break;
 						case NotificationLocation.FOLLOW:
 							ProgramDetailsModel followDetailsModel = new ProgramDetailsModel();
-							followDetailsModel.setProgramId(notification.getLocation().getId());
+							followDetailsModel.setProgramId(push.getLocation().getId());
 							followDetailsModel.setAssetType(AssetType.FOLLOW);
 							getViewState().showProgramDetails(followDetailsModel);
 							break;
 						case NotificationLocation.TRADING_ACCOUNT:
 							TradingAccountDetailsModel tradingAccountDetailsModel = new TradingAccountDetailsModel();
-							tradingAccountDetailsModel.setTradingAccountId(notification.getLocation().getId());
+							tradingAccountDetailsModel.setTradingAccountId(push.getLocation().getId());
 							getViewState().showTradingAccountDetails(tradingAccountDetailsModel);
 							break;
 						case NotificationLocation.SOCIAL_POST:
-							getViewState().showPostDetails(notification.getLocation().getId(), null, false);
+							getViewState().showPostDetails(push.getLocation().getId(), null, false);
 							break;
 						case NotificationLocation.SOCIAL_MEDIA_POST:
-							getViewState().showMediaPostDetails(notification.getLocation().getId());
+							getViewState().showMediaPostDetails(push.getLocation().getId());
 							break;
 						case NotificationLocation.DASHBOARD:
 							break;
 						case NotificationLocation.EXTERNAL_URL:
-							getViewState().openUrl(notification.getLocation().getExternalUrl());
+							getViewState().openUrl(push.getLocation().getExternalUrl());
 							break;
 						default:
 							getViewState().showNotificationsActivity();

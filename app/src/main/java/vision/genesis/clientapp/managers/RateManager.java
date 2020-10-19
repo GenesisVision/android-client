@@ -3,12 +3,12 @@ package vision.genesis.clientapp.managers;
 import android.util.Pair;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import io.swagger.client.api.RateApi;
+import io.swagger.client.model.Currency;
 import io.swagger.client.model.RateItem;
 import io.swagger.client.model.RateModel;
 import io.swagger.client.model.RatesModel;
@@ -24,13 +24,15 @@ import vision.genesis.clientapp.model.CurrencyEnum;
 
 public class RateManager
 {
-	public static List<String> baseCurrenciesList = new ArrayList<>(Arrays.asList(
-			CurrencyEnum.BTC.getValue(),
-			CurrencyEnum.ETH.getValue(),
-			CurrencyEnum.GVT.getValue(),
-			CurrencyEnum.USDT.getValue(),
-			CurrencyEnum.USD.getValue(),
-			CurrencyEnum.EUR.getValue()));
+	private static List<String> baseCurrenciesList = new ArrayList<>();
+
+	static {
+		for (Currency currency : Currency.values()) {
+			if (currency != Currency.UNDEFINED) {
+				baseCurrenciesList.add(currency.getValue());
+			}
+		}
+	}
 
 	private RateApi rateApi;
 

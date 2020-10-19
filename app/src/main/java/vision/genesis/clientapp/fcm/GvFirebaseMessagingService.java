@@ -31,8 +31,8 @@ import java.util.concurrent.ExecutionException;
 
 import javax.inject.Inject;
 
-import io.swagger.client.model.NotificationType;
-import io.swagger.client.model.NotificationViewModel;
+import io.swagger.client.model.PushNotificationChannel;
+import io.swagger.client.model.PushNotificationViewModel;
 import timber.log.Timber;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
@@ -45,19 +45,6 @@ import vision.genesis.clientapp.managers.AuthManager;
 
 public class GvFirebaseMessagingService extends FirebaseMessagingService
 {
-	public static final String PLATFORM_CHANNEL_ID = "platform";
-
-	public static final String PROFILE_CHANNEL_ID = "profile";
-
-	public static final String ASSETS_CHANNEL_ID = "assets";
-
-	public static final String MANAGER_CHANNEL_ID = "manager";
-
-	public static final String SIGNALS_CHANNEL_ID = "signals";
-
-	public static final String OTHER_CHANNEL_ID = "other";
-
-
 	public static final String KEY_RESULT = "result";
 
 	public static final String KEY_NOTIFICATION = "key_notification";
@@ -79,12 +66,13 @@ public class GvFirebaseMessagingService extends FirebaseMessagingService
 
 	@RequiresApi(api = Build.VERSION_CODES.O)
 	private void createNotificationChannels() {
-		createChannel(PLATFORM_CHANNEL_ID, GenesisVisionApplication.INSTANCE.getString(R.string.notification_channel_name_platform), NotificationManager.IMPORTANCE_DEFAULT);
-		createChannel(PROFILE_CHANNEL_ID, GenesisVisionApplication.INSTANCE.getString(R.string.notification_channel_name_profile), NotificationManager.IMPORTANCE_DEFAULT);
-		createChannel(ASSETS_CHANNEL_ID, GenesisVisionApplication.INSTANCE.getString(R.string.notification_channel_name_assets), NotificationManager.IMPORTANCE_DEFAULT);
-		createChannel(MANAGER_CHANNEL_ID, GenesisVisionApplication.INSTANCE.getString(R.string.notification_channel_name_manager), NotificationManager.IMPORTANCE_DEFAULT);
-		createChannel(SIGNALS_CHANNEL_ID, GenesisVisionApplication.INSTANCE.getString(R.string.notification_channel_name_signals), NotificationManager.IMPORTANCE_DEFAULT);
-		createChannel(OTHER_CHANNEL_ID, GenesisVisionApplication.INSTANCE.getString(R.string.notification_channel_name_other), NotificationManager.IMPORTANCE_DEFAULT);
+		createChannel(PushNotificationChannel.PLATFORM.getValue(), GenesisVisionApplication.INSTANCE.getString(R.string.notification_channel_name_platform), NotificationManager.IMPORTANCE_DEFAULT);
+		createChannel(PushNotificationChannel.PROFILE.getValue(), GenesisVisionApplication.INSTANCE.getString(R.string.notification_channel_name_profile), NotificationManager.IMPORTANCE_DEFAULT);
+		createChannel(PushNotificationChannel.ASSET.getValue(), GenesisVisionApplication.INSTANCE.getString(R.string.notification_channel_name_assets), NotificationManager.IMPORTANCE_DEFAULT);
+		createChannel(PushNotificationChannel.USER.getValue(), GenesisVisionApplication.INSTANCE.getString(R.string.notification_channel_name_user), NotificationManager.IMPORTANCE_DEFAULT);
+		createChannel(PushNotificationChannel.SOCIAL.getValue(), GenesisVisionApplication.INSTANCE.getString(R.string.notification_channel_name_social), NotificationManager.IMPORTANCE_DEFAULT);
+		createChannel(PushNotificationChannel.SIGNAL.getValue(), GenesisVisionApplication.INSTANCE.getString(R.string.notification_channel_name_signals), NotificationManager.IMPORTANCE_DEFAULT);
+		createChannel(PushNotificationChannel.OTHER.getValue(), GenesisVisionApplication.INSTANCE.getString(R.string.notification_channel_name_other), NotificationManager.IMPORTANCE_DEFAULT);
 	}
 
 	@RequiresApi(api = Build.VERSION_CODES.O)
@@ -92,7 +80,7 @@ public class GvFirebaseMessagingService extends FirebaseMessagingService
 		if (notificationManager != null) {
 			NotificationChannel notificationChannel = new NotificationChannel(channelId, channelName, importanceLevel);
 			notificationChannel.enableLights(true);
-			notificationChannel.setVibrationPattern(new long[]{0, 1000, 500, 1000});
+			notificationChannel.setVibrationPattern(new long[]{0, 300, 100, 300});
 			notificationChannel.enableVibration(true);
 
 			notificationManager.createNotificationChannel(notificationChannel);
@@ -101,7 +89,7 @@ public class GvFirebaseMessagingService extends FirebaseMessagingService
 
 	@Override
 	public void onNewToken(@NonNull String token) {
-		Timber.d("FCM_TOKEN: %s", token);
+		Timber.d("FCM_TOKEN_ON_NEW_TOKEN: %s", token);
 		sendFcmToken(token);
 		FirebaseMessaging.getInstance().subscribeToTopic("all");
 	}
@@ -126,11 +114,11 @@ public class GvFirebaseMessagingService extends FirebaseMessagingService
 				)
 				.create();
 
-		Type typeToken = new TypeToken<NotificationViewModel>()
+		Type typeToken = new TypeToken<PushNotificationViewModel>()
 		{
 		}.getType();
 
-		NotificationViewModel data = null;
+		PushNotificationViewModel data = null;
 		try {
 			data = gson.fromJson(payload, typeToken);
 		} catch (Exception e) {
@@ -138,58 +126,60 @@ public class GvFirebaseMessagingService extends FirebaseMessagingService
 		}
 
 		if (data != null) {
-			NotificationType type = data.getType();
+			String type = data.getType();
 			if (type != null) {
 				Intent intent = new Intent(this, FcmPushClickHandlerService.class);
+				intent.setAction(data.getId().toString());
 				intent.putExtra(KEY_NOTIFICATION, data);
 
-				switch (type) {
-					case PLATFORMNEWSANDUPDATES:
-					case PLATFORMEMERGENCY:
-					case PLATFORMOTHER:
-						showNotification(data, PLATFORM_CHANNEL_ID, intent);
-						break;
-					case PROFILEUPDATED:
-					case PROFILEPWDUPDATED:
-					case PROFILEVERIFICATION:
-					case PROFILE2FA:
-					case PROFILESECURITY:
-						showNotification(data, PROFILE_CHANNEL_ID, intent);
-						break;
-					case TRADINGACCOUNTPWDUPDATED:
-					case TRADINGACCOUNTUPDATED:
-					case PROGRAMNEWSANDUPDATES:
-					case PROGRAMENDOFPERIOD:
-					case PROGRAMCONDITION:
-					case PROGRAMEXCEEDINVESTMENTLIMIT:
-					case FOLLOWNEWSANDUPDATES:
-					case FUNDNEWSANDUPDATES:
-					case FUNDENDOFPERIOD:
-					case FUNDREBALANCING:
-						showNotification(data, ASSETS_CHANNEL_ID, intent);
-						break;
-					case MANAGERNEWPROGRAM:
-					case MANAGERNEWFUND:
-					case MANAGERNEWEXTERNALSIGNALACCOUNT:
-					case MANAGERNEWSIGNALPROVIDER:
-						showNotification(data, MANAGER_CHANNEL_ID, intent);
-						break;
-					case SIGNALS:
-					case EXTERNALSIGNALS:
-						showNotification(data, SIGNALS_CHANNEL_ID, intent);
-						break;
-					default:
-						showNotification(data, OTHER_CHANNEL_ID, intent);
-						break;
-				}
+//				switch (type) {
+//					case NotificationType.PLATFORMNEWSANDUPDATES:
+//					case NotificationType.PLATFORMEMERGENCY:
+//					case NotificationType.PLATFORMOTHER:
+//						showNotification(data, PLATFORM_CHANNEL_ID, intent);
+//						break;
+//					case NotificationType.PROFILEUPDATED:
+//					case NotificationType.PROFILEPWDUPDATED:
+//					case NotificationType.PROFILEVERIFICATION:
+//					case NotificationType.PROFILE2FA:
+//					case NotificationType.PROFILESECURITY:
+//						showNotification(data, PROFILE_CHANNEL_ID, intent);
+//						break;
+//					case NotificationType.TRADINGACCOUNTPWDUPDATED:
+//					case NotificationType.TRADINGACCOUNTUPDATED:
+//					case NotificationType.PROGRAMNEWSANDUPDATES:
+//					case NotificationType.PROGRAMENDOFPERIOD:
+//					case NotificationType.PROGRAMCONDITION:
+//					case NotificationType.PROGRAMEXCEEDINVESTMENTLIMIT:
+//					case NotificationType.FOLLOWNEWSANDUPDATES:
+//					case NotificationType.FUNDNEWSANDUPDATES:
+//					case NotificationType.FUNDENDOFPERIOD:
+//					case NotificationType.FUNDREBALANCING:
+//						showNotification(data, ASSETS_CHANNEL_ID, intent);
+//						break;
+//					case NotificationType.MANAGERNEWPROGRAM:
+//					case NotificationType.MANAGERNEWFUND:
+//					case NotificationType.MANAGERNEWEXTERNALSIGNALACCOUNT:
+//					case NotificationType.MANAGERNEWSIGNALPROVIDER:
+//						showNotification(data, MANAGER_CHANNEL_ID, intent);
+//						break;
+//					case NotificationType.SIGNALS:
+//					case NotificationType.EXTERNALSIGNALS.get:
+//						showNotification(data, SIGNALS_CHANNEL_ID, intent);
+//						break;
+//					default:
+//						showNotification(data, OTHER_CHANNEL_ID, intent);
+//						break;
+//				}
+				showNotification(data, data.getChannel(), intent);
 			}
 		}
 	}
 
-	private void showNotification(NotificationViewModel notification, String notificationChannel, Intent intent) {
-		PendingIntent pendingIntent = PendingIntent.getService(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+	private void showNotification(PushNotificationViewModel notification, PushNotificationChannel notificationChannel, Intent intent) {
+		PendingIntent pendingIntent = PendingIntent.getService(this, 0, intent, 0);
 
-		NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this, notificationChannel)
+		NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this, notificationChannel.getValue())
 				.setWhen(System.currentTimeMillis())
 				.setAutoCancel(true)
 				.setSound(Settings.System.DEFAULT_NOTIFICATION_URI)

@@ -6,7 +6,7 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**addNotificationsSettings**](NotificationsApi.md#addNotificationsSettings) | **POST** v2.0/notifications/settings/add | Add new setting
 [**getNewNotificationsCount**](NotificationsApi.md#getNewNotificationsCount) | **GET** v2.0/notifications/new | Unread notifications count
-[**getNotifications**](NotificationsApi.md#getNotifications) | **GET** v2.0/notifications | User notifications
+[**getNotifications**](NotificationsApi.md#getNotifications) | **GET** v2.1/notifications | User notifications
 [**getNotificationsFollowSettings**](NotificationsApi.md#getNotificationsFollowSettings) | **GET** v2.0/notifications/settings/follow/{id} | User settings for follow
 [**getNotificationsFundSettings**](NotificationsApi.md#getNotificationsFundSettings) | **GET** v2.0/notifications/settings/funds/{id} | User settings for fund
 [**getNotificationsManagerSettings**](NotificationsApi.md#getNotificationsManagerSettings) | **GET** v2.0/notifications/settings/managers/{id} | User settings for manager
@@ -129,7 +129,7 @@ This endpoint does not need any parameter.
 
 <a name="getNotifications"></a>
 # **getNotifications**
-> NotificationList getNotifications(skip, take)
+> NotificationViewModelItemsViewModel getNotifications(skip, take)
 
 User notifications
 
@@ -154,7 +154,7 @@ NotificationsApi apiInstance = new NotificationsApi();
 Integer skip = 56; // Integer | 
 Integer take = 56; // Integer | 
 try {
-    NotificationList result = apiInstance.getNotifications(skip, take);
+    NotificationViewModelItemsViewModel result = apiInstance.getNotifications(skip, take);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling NotificationsApi#getNotifications");
@@ -171,7 +171,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**NotificationList**](NotificationList.md)
+[**NotificationViewModelItemsViewModel**](NotificationViewModelItemsViewModel.md)
 
 ### Authorization
 

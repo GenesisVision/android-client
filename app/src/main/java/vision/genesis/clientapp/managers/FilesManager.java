@@ -23,14 +23,14 @@ public class FilesManager
 	}
 
 	public Observable<UploadResult> uploadFile(File file) {
-		return fileApi.uploadFile(RequestBody.create(MediaType.parse("multipart/form-data"), file), ImageLocation.DEFAULT);
+		return fileApi.uploadFile(RequestBody.create(MediaType.parse("multipart/form-data"), file), ImageLocation.DEFAULT, false);
 	}
 
 	public Observable<UploadResult> uploadImage(File file) {
-		return fileApi.uploadFile(RequestBody.create(MediaType.parse("image/jpeg"), file), ImageLocation.DEFAULT);
+		return fileApi.uploadFile(RequestBody.create(MediaType.parse("image/jpeg"), file), ImageLocation.DEFAULT, false);
 	}
 
 	public Observable<UploadResult> uploadImage(File file, ImageLocation imageLocation) {
-		return fileApi.uploadFile(RequestBody.create(MediaType.parse("image/jpeg"), file), imageLocation);
+		return fileApi.uploadFile(RequestBody.create(MediaType.parse("image/jpeg"), file), imageLocation, false);
 	}
 }
