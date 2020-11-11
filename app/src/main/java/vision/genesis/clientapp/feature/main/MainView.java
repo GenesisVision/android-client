@@ -5,11 +5,14 @@ import com.arellomobile.mvp.MvpView;
 import java.util.UUID;
 
 import io.swagger.client.model.AssetFacet;
+import io.swagger.client.model.ExternalKycAccessToken;
 import io.swagger.client.model.InvestmentEventViewModel;
 import io.swagger.client.model.Post;
 import io.swagger.client.model.TransactionViewModel;
+import io.swagger.client.model.UserVerificationStatus;
 import vision.genesis.clientapp.feature.BaseFragment;
 import vision.genesis.clientapp.feature.main.message.MessageBottomSheetDialog;
+import vision.genesis.clientapp.managers.KycVerificationManager;
 import vision.genesis.clientapp.model.AppUpdateModel;
 import vision.genesis.clientapp.model.CopytradingAccountModel;
 import vision.genesis.clientapp.model.FundDetailsModel;
@@ -116,4 +119,10 @@ public interface MainView extends MvpView
 	void showNotificationsActivity();
 
 	void showMediaPostDetails(UUID mediaPostId);
+
+	void showVerificationInfoActivity(UserVerificationStatus verificationStatus);
+
+	void startKycProcess(KycVerificationManager manager, ExternalKycAccessToken model);
+
+	void showSnackbarMessage(String message);
 }

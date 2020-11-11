@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/toolbar_height">
+
+        <ImageView
+            android:id="@+id/button_back"
+            android:layout_width="50dp"
+            android:layout_height="@dimen/toolbar_height"
+            android:layout_centerVertical="true"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:padding="20dp"
+            android:tint="?attr/colorTextPrimary"
+            app:srcCompat="@drawable/icon_back"/>
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:ellipsize="end"
+            android:fontFamily="@font/montserrat_semibold"
+            android:gravity="center"
+            android:text="@string/about_kyc"
+            android:textColor="?attr/colorTextPrimary"
+            android:textSize="18sp"/>
+
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/toolbar">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="20dp">
+
+            <TextView
+                style="@style/about_kyc_point_text"
+                android:alpha="0.9"
+                android:text="@string/about_kyc_note"/>
+
+            <TextView
+                style="@style/about_kyc_point_text"
+                android:layout_marginTop="20dp"
+                android:alpha="0.9"
+                android:fontFamily="@font/montserrat_semibold"
+                android:text="@string/about_kyc_without_title"/>
+
+            <LinearLayout style="@style/about_kyc_point_group">
+
+                <TextView style="@style/about_kyc_point_number"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/about_kyc_point_text"
+                        android:alpha="0.9"
+                        android:text="@string/about_kyc_without_text_1"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout style="@style/about_kyc_point_group">
+
+                <TextView style="@style/about_kyc_point_number"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/about_kyc_point_text"
+                        android:alpha="0.9"
+                        android:text="@string/about_kyc_without_text_2"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout style="@style/about_kyc_point_group">
+
+                <TextView style="@style/about_kyc_point_number"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/about_kyc_point_text"
+                        android:alpha="0.9"
+                        android:text="@string/about_kyc_without_text_3"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout style="@style/about_kyc_point_group">
+
+                <TextView style="@style/about_kyc_point_number"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/about_kyc_point_text"
+                        android:alpha="0.9"
+                        android:text="@string/about_kyc_without_text_4"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout style="@style/about_kyc_point_group">
+
+                <TextView style="@style/about_kyc_point_number"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/about_kyc_point_text"
+                        android:alpha="0.9"
+                        android:text="@string/about_kyc_without_text_5"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout style="@style/about_kyc_point_group">
+
+                <TextView style="@style/about_kyc_point_number"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/about_kyc_point_text"
+                        android:alpha="0.9"
+                        android:text="@string/about_kyc_without_text_6"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <TextView
+                style="@style/about_kyc_point_text"
+                android:layout_marginTop="20dp"
+                android:alpha="0.9"
+                android:fontFamily="@font/montserrat_semibold"
+                android:text="@string/about_kyc_with_title"/>
+
+            <LinearLayout style="@style/about_kyc_point_group">
+
+                <TextView style="@style/about_kyc_point_number"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/about_kyc_point_text"
+                        android:alpha="0.9"
+                        android:text="@string/about_kyc_with_text_1"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout style="@style/about_kyc_point_group">
+
+                <TextView style="@style/about_kyc_point_number"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/about_kyc_point_text"
+                        android:alpha="0.9"
+                        android:text="@string/about_kyc_with_text_2"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout style="@style/about_kyc_point_group">
+
+                <TextView style="@style/about_kyc_point_number"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/about_kyc_point_text"
+                        android:alpha="0.9"
+                        android:text="@string/about_kyc_with_text_3"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <vision.genesis.clientapp.ui.PrimaryButton
+                android:id="@+id/button_verify"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/button_height"
+                android:layout_marginTop="20dp"
+                android:text="@string/verify_to_remove_limit"
+                android:visibility="gone"
+                tools:visibility="visible"/>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</RelativeLayout>

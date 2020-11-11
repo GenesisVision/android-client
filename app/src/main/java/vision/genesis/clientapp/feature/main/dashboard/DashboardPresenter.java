@@ -8,13 +8,16 @@ import com.arellomobile.mvp.MvpPresenter;
 import javax.inject.Inject;
 
 import io.swagger.client.model.DashboardSummary;
+import io.swagger.client.model.ProfileFullViewModel;
 import io.swagger.client.model.Timeframe;
+import io.swagger.client.model.UserVerificationStatus;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.feature.common.timeframe_profit.TimeframeProfitView;
 import vision.genesis.clientapp.managers.DashboardManager;
+import vision.genesis.clientapp.managers.ProfileManager;
 import vision.genesis.clientapp.managers.SettingsManager;
 import vision.genesis.clientapp.model.CurrencyEnum;
 import vision.genesis.clientapp.net.ApiErrorResolver;
@@ -34,9 +37,14 @@ public class DashboardPresenter extends MvpPresenter<DashboardView> implements T
 	public DashboardManager dashboardManager;
 
 	@Inject
+	public ProfileManager profileManager;
+
+	@Inject
 	public SettingsManager settingsManager;
 
 	private Subscription baseCurrencySubscription;
+
+	private Subscription profileSubscription;
 
 	private Subscription summarySubscription;
 
@@ -60,6 +68,9 @@ public class DashboardPresenter extends MvpPresenter<DashboardView> implements T
 		if (baseCurrencySubscription != null) {
 			baseCurrencySubscription.unsubscribe();
 		}
+		if (profileSubscription != null) {
+			profileSubscription.unsubscribe();
+		}
 		if (summarySubscription != null) {
 			summarySubscription.unsubscribe();
 		}
@@ -79,6 +90,7 @@ public class DashboardPresenter extends MvpPresenter<DashboardView> implements T
 	}
 
 	private void updateAll() {
+		getProfile();
 		getSummary();
 		getViewState().updateInvesting();
 		getViewState().updateTrading();
@@ -97,6 +109,25 @@ public class DashboardPresenter extends MvpPresenter<DashboardView> implements T
 		getViewState().setBaseCurrency(baseCurrency);
 		getViewState().showProgressBar(true);
 		updateAll();
+	}
+
+	private void getProfile() {
+		profileSubscription = profileManager.getProfileFull(true)
+				.subscribeOn(Schedulers.io())
+				.observeOn(AndroidSchedulers.mainThread())
+				.subscribe(this::handleGetProfileSuccess,
+						this::handleGetProfileError);
+	}
+
+	private void handleGetProfileSuccess(ProfileFullViewModel profile) {
+		if (profile != null && profile.getVerificationStatus() != null) {
+			getViewState().setLimitViewVisibility(!profile.getVerificationStatus().equals(UserVerificationStatus.VERIFIED));
+			getViewState().setLimitViewButtonStatus(profile.getVerificationStatus());
+		}
+	}
+
+	private void handleGetProfileError(Throwable throwable) {
+		ApiErrorResolver.resolveErrors(throwable, message -> getViewState().showSnackbarMessage(message));
 	}
 
 	private void getSummary() {

@@ -89,6 +89,7 @@
             </RelativeLayout>
 
             <RelativeLayout
+                android:id="@+id/verification"
                 android:layout_width="match_parent"
                 android:layout_height="70dp">
 
@@ -108,6 +109,11 @@
                     android:textColor="?attr/colorRed"
                     android:textSize="14sp"
                     tools:text="Not verified"/>
+
+                <ImageView
+                    android:id="@+id/verification_arrow"
+                    style="@style/menu_item_arrow_right"
+                    android:layout_marginEnd="@dimen/settings_padding"/>
 
             </RelativeLayout>
 

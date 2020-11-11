@@ -7,3 +7,4 @@ Name | Type | Description | Notes
 **free** | **Double** |  |  [optional]
 **locked** | **Double** |  |  [optional]
 **total** | **Double** |  |  [optional]
+**amountInCurrency** | **Double** |  |  [optional]

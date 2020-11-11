@@ -45,11 +45,11 @@ public interface NotificationsApi
 	 *
 	 * @param skip (optional)
 	 * @param take (optional)
-     * @return Call&lt;NotificationViewModelItemsViewModel&gt;
+	 * @return Call&lt;NotificationViewModelItemsViewModel&gt;
 	 */
-    @GET("v2.1/notifications")
-    Observable<NotificationViewModelItemsViewModel> getNotifications(
-            @retrofit2.http.Query("Skip") Integer skip, @retrofit2.http.Query("Take") Integer take
+	@GET("v2.1/notifications")
+	Observable<NotificationViewModelItemsViewModel> getNotifications(
+			@retrofit2.http.Query("Skip") Integer skip, @retrofit2.http.Query("Take") Integer take
 	);
 
 	/**

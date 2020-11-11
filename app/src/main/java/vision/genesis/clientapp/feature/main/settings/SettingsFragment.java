@@ -72,6 +72,9 @@ public class SettingsFragment extends BaseFragment implements SettingsView
 	@BindView(R.id.verification_status_background)
 	public View verificationStatusBackground;
 
+	@BindView(R.id.verification_arrow)
+	public View verificationArrow;
+
 	@BindView(R.id.public_investor)
 	public ViewGroup publicInvestor;
 
@@ -95,6 +98,11 @@ public class SettingsFragment extends BaseFragment implements SettingsView
 	private CurrencyEnum baseCurrency;
 
 	private ProfileFullViewModel profile;
+
+	@OnClick(R.id.verification)
+	public void onVerificationClicked() {
+		presenter.onVerificationClicked();
+	}
 
 	@OnClick(R.id.my_profile)
 	public void onMyProfileClicked() {
@@ -312,21 +320,25 @@ public class SettingsFragment extends BaseFragment implements SettingsView
 				verificationStatus.setText(getString(R.string.not_verified));
 				verificationStatus.setTextColor(ThemeUtil.getColorByAttrId(getContext(), R.attr.colorRed));
 				verificationStatusBackground.setBackgroundColor(ThemeUtil.getColorByAttrId(getContext(), R.attr.colorRed));
+				verificationArrow.setVisibility(View.VISIBLE);
 				break;
 			case VERIFIED:
 				verificationStatus.setText(getString(R.string.verified));
 				verificationStatus.setTextColor(ThemeUtil.getColorByAttrId(getContext(), R.attr.colorAccent));
 				verificationStatusBackground.setBackgroundColor(ThemeUtil.getColorByAttrId(getContext(), R.attr.colorAccent));
+				verificationArrow.setVisibility(View.GONE);
 				break;
 			case UNDERREVIEW:
 				verificationStatus.setText(getString(R.string.under_review));
 				verificationStatus.setTextColor(ThemeUtil.getColorByAttrId(getContext(), R.attr.colorPending));
 				verificationStatusBackground.setBackgroundColor(ThemeUtil.getColorByAttrId(getContext(), R.attr.colorPending));
+				verificationArrow.setVisibility(View.VISIBLE);
 				break;
 			case REJECTED:
 				verificationStatus.setText(getString(R.string.rejected));
 				verificationStatus.setTextColor(ThemeUtil.getColorByAttrId(getContext(), R.attr.colorRed));
 				verificationStatusBackground.setBackgroundColor(ThemeUtil.getColorByAttrId(getContext(), R.attr.colorRed));
+				verificationArrow.setVisibility(View.GONE);
 				break;
 		}
 

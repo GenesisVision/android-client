@@ -8,8 +8,10 @@ import io.swagger.client.api.AuthApi;
 import io.swagger.client.api.PlatformApi;
 import io.swagger.client.api.ProfileApi;
 import vision.genesis.clientapp.managers.AuthManager;
+import vision.genesis.clientapp.managers.KycVerificationManager;
 import vision.genesis.clientapp.managers.ProfileManager;
 import vision.genesis.clientapp.managers.SettingsManager;
+import vision.genesis.clientapp.net.kyc.KycApi;
 import vision.genesis.clientapp.utils.SharedPreferencesUtil;
 
 /**
@@ -30,5 +32,11 @@ public class AuthModule
 	@Singleton
 	public ProfileManager provideProfileManager(ProfileApi profileApi) {
 		return new ProfileManager(profileApi);
+	}
+
+	@Provides
+	@Singleton
+	public KycVerificationManager provideKycVerificationManager(ProfileApi profileApi, KycApi kycApi) {
+		return new KycVerificationManager(profileApi, kycApi);
 	}
 }

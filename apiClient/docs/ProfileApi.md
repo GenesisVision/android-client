@@ -4,10 +4,11 @@ All URIs are relative to *https://red.genesis.vision/api*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**getMobileVerificationToken**](ProfileApi.md#getMobileVerificationToken) | **POST** v2.0/profile/verification/mobile/token | 
 [**getProfileFull**](ProfileApi.md#getProfileFull) | **GET** v2.0/profile | Get full profile
 [**getProfileHeader**](ProfileApi.md#getProfileHeader) | **GET** v2.0/profile/header | Get header profile
 [**getSocialLinks**](ProfileApi.md#getSocialLinks) | **GET** v2.0/profile/sociallinks | Get social links
-[**getVerificationToken**](ProfileApi.md#getVerificationToken) | **POST** v2.0/profile/verification/token | 
+[**getWebVerificationToken**](ProfileApi.md#getWebVerificationToken) | **POST** v2.0/profile/verification/web/token | 
 [**removeAvatar**](ProfileApi.md#removeAvatar) | **POST** v2.0/profile/avatar/remove | Remove avatar
 [**removeFcmToken**](ProfileApi.md#removeFcmToken) | **POST** v2.0/profile/push/token/remove | 
 [**switchBetaFeatureOff**](ProfileApi.md#switchBetaFeatureOff) | **POST** v2.0/profile/beta/off | Disable beta feature
@@ -22,6 +23,55 @@ Method | HTTP request | Description
 [**updateSocialLinks**](ProfileApi.md#updateSocialLinks) | **POST** v2.0/profile/sociallinks/update | Add or update social links
 [**updateUserPlatformCurrency**](ProfileApi.md#updateUserPlatformCurrency) | **POST** v2.0/profile/currency/update | Update platform currency
 [**updateUserSocialSettings**](ProfileApi.md#updateUserSocialSettings) | **POST** v2.0/profile/social/settings/update | Update user social settings
+
+<a name="getMobileVerificationToken"></a>
+# **getMobileVerificationToken**
+> ExternalKycAccessToken getMobileVerificationToken()
+
+
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiClient;
+//import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
+//import io.swagger.client.api.ProfileApi;
+
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
+
+ProfileApi apiInstance = new ProfileApi();
+try {
+    ExternalKycAccessToken result = apiInstance.getMobileVerificationToken();
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling ProfileApi#getMobileVerificationToken");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+[**ExternalKycAccessToken**](ExternalKycAccessToken.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
 
 <a name="getProfileFull"></a>
 # **getProfileFull**
@@ -170,9 +220,9 @@ This endpoint does not need any parameter.
  - **Content-Type**: Not defined
  - **Accept**: text/plain, application/json, text/json
 
-<a name="getVerificationToken"></a>
-# **getVerificationToken**
-> String getVerificationToken()
+<a name="getWebVerificationToken"></a>
+# **getWebVerificationToken**
+> ExternalKycAccessToken getWebVerificationToken()
 
 
 
@@ -195,10 +245,10 @@ Bearer.setApiKey("YOUR API KEY");
 
 ProfileApi apiInstance = new ProfileApi();
 try {
-    String result = apiInstance.getVerificationToken();
+    ExternalKycAccessToken result = apiInstance.getWebVerificationToken();
     System.out.println(result);
 } catch (ApiException e) {
-    System.err.println("Exception when calling ProfileApi#getVerificationToken");
+    System.err.println("Exception when calling ProfileApi#getWebVerificationToken");
     e.printStackTrace();
 }
 ```
@@ -208,7 +258,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-**String**
+[**ExternalKycAccessToken**](ExternalKycAccessToken.md)
 
 ### Authorization
 

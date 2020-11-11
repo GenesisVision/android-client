@@ -5,9 +5,10 @@ All URIs are relative to *https://red.genesis.vision/api*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**addFavoriteSymbol**](TradingplatformApi.md#addFavoriteSymbol) | **POST** v2.0/tradingplatform/accounts/{id}/symbols/favorite/{symbol}/add | Add account favorite symbol
-[**cancelAllOrders**](TradingplatformApi.md#cancelAllOrders) | **POST** v2.0/tradingplatform/binance/spot/orders/close/all | Cancel all orders
-[**cancelOrder**](TradingplatformApi.md#cancelOrder) | **POST** v2.0/tradingplatform/binance/spot/orders/close | Cancel order
+[**cancelAllOrders**](TradingplatformApi.md#cancelAllOrders) | **POST** v2.0/tradingplatform/binance/spot/orders/cancel/all | Cancel all orders
+[**cancelOrder**](TradingplatformApi.md#cancelOrder) | **POST** v2.0/tradingplatform/binance/spot/orders/cancel | Cancel order
 [**get24HPrice**](TradingplatformApi.md#get24HPrice) | **GET** v2.0/tradingplatform/binance/market/{symbol}/ticker/24hr | Get 24H price
+[**get24HPrices**](TradingplatformApi.md#get24HPrices) | **GET** v2.0/tradingplatform/binance/market/ticker/24hr | Get 24H prices
 [**getAccountInfo**](TradingplatformApi.md#getAccountInfo) | **GET** v2.0/tradingplatform/binance/account | 
 [**getExchangeInfo**](TradingplatformApi.md#getExchangeInfo) | **GET** v2.0/tradingplatform/binance/server/info | Exchange info
 [**getExchangeTime**](TradingplatformApi.md#getExchangeTime) | **GET** v2.0/tradingplatform/binance/server/time | Server time
@@ -15,6 +16,7 @@ Method | HTTP request | Description
 [**getKlines**](TradingplatformApi.md#getKlines) | **GET** v2.0/tradingplatform/binance/market/{symbol}/klines | Get klines
 [**getOpenOrders**](TradingplatformApi.md#getOpenOrders) | **GET** v2.0/tradingplatform/binance/spot/orders | Open positions
 [**getOrderBook**](TradingplatformApi.md#getOrderBook) | **GET** v2.0/tradingplatform/binance/market/{symbol}/depth | Get order book
+[**getSymbolRecentTrades**](TradingplatformApi.md#getSymbolRecentTrades) | **GET** v2.0/tradingplatform/binance/market/{symbol}/trades/recent | Get symbol recent trades
 [**getTradesHistory**](TradingplatformApi.md#getTradesHistory) | **GET** v2.0/tradingplatform/binance/spot/trades | Account history
 [**keepAliveAccountStream**](TradingplatformApi.md#keepAliveAccountStream) | **POST** v2.0/tradingplatform/binance/spot/stream/ping | Ping account stream
 [**placeOrder**](TradingplatformApi.md#placeOrder) | **POST** v2.0/tradingplatform/binance/spot/orders/place | Place order
@@ -79,7 +81,7 @@ Name | Type | Description  | Notes
 
 <a name="cancelAllOrders"></a>
 # **cancelAllOrders**
-> Void cancelAllOrders(accountId, symbol)
+> List&lt;BinanceRawCancelOrderId&gt; cancelAllOrders(accountId, symbol)
 
 Cancel all orders
 
@@ -104,7 +106,7 @@ TradingplatformApi apiInstance = new TradingplatformApi();
 UUID accountId = new UUID(); // UUID | 
 String symbol = "symbol_example"; // String | 
 try {
-    Void result = apiInstance.cancelAllOrders(accountId, symbol);
+    List<BinanceRawCancelOrderId> result = apiInstance.cancelAllOrders(accountId, symbol);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling TradingplatformApi#cancelAllOrders");
@@ -121,7 +123,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**Void**](.md)
+[**List&lt;BinanceRawCancelOrderId&gt;**](BinanceRawCancelOrderId.md)
 
 ### Authorization
 
@@ -134,7 +136,7 @@ Name | Type | Description  | Notes
 
 <a name="cancelOrder"></a>
 # **cancelOrder**
-> Void cancelOrder(accountId, symbol, orderId)
+> BinanceRawCancelOrder cancelOrder(accountId, symbol, orderId)
 
 Cancel order
 
@@ -160,7 +162,7 @@ UUID accountId = new UUID(); // UUID |
 String symbol = "symbol_example"; // String | 
 String orderId = "orderId_example"; // String | 
 try {
-    Void result = apiInstance.cancelOrder(accountId, symbol, orderId);
+    BinanceRawCancelOrder result = apiInstance.cancelOrder(accountId, symbol, orderId);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling TradingplatformApi#cancelOrder");
@@ -178,7 +180,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**Void**](.md)
+[**BinanceRawCancelOrder**](BinanceRawCancelOrder.md)
 
 ### Authorization
 
@@ -242,9 +244,58 @@ Name | Type | Description  | Notes
  - **Content-Type**: Not defined
  - **Accept**: text/plain, application/json, text/json
 
+<a name="get24HPrices"></a>
+# **get24HPrices**
+> List&lt;BinanceRaw24HPrice&gt; get24HPrices()
+
+Get 24H prices
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiClient;
+//import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
+//import io.swagger.client.api.TradingplatformApi;
+
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
+
+TradingplatformApi apiInstance = new TradingplatformApi();
+try {
+    List<BinanceRaw24HPrice> result = apiInstance.get24HPrices();
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling TradingplatformApi#get24HPrices");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+[**List&lt;BinanceRaw24HPrice&gt;**](BinanceRaw24HPrice.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
+
 <a name="getAccountInfo"></a>
 # **getAccountInfo**
-> BinanceRawAccountInfo getAccountInfo(accountId)
+> BinanceRawAccountInfo getAccountInfo(accountId, currency)
 
 
 
@@ -267,8 +318,9 @@ Bearer.setApiKey("YOUR API KEY");
 
 TradingplatformApi apiInstance = new TradingplatformApi();
 UUID accountId = new UUID(); // UUID | 
+Currency currency = new Currency(); // Currency | 
 try {
-    BinanceRawAccountInfo result = apiInstance.getAccountInfo(accountId);
+    BinanceRawAccountInfo result = apiInstance.getAccountInfo(accountId, currency);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling TradingplatformApi#getAccountInfo");
@@ -281,6 +333,7 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **accountId** | [**UUID**](.md)|  | [optional]
+ **currency** | [**Currency**](.md)|  | [optional]
 
 ### Return type
 
@@ -346,7 +399,7 @@ This endpoint does not need any parameter.
 
 <a name="getExchangeTime"></a>
 # **getExchangeTime**
-> DateTime getExchangeTime()
+> TimestampDate getExchangeTime()
 
 Server time
 
@@ -369,7 +422,7 @@ Bearer.setApiKey("YOUR API KEY");
 
 TradingplatformApi apiInstance = new TradingplatformApi();
 try {
-    DateTime result = apiInstance.getExchangeTime();
+    TimestampDate result = apiInstance.getExchangeTime();
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling TradingplatformApi#getExchangeTime");
@@ -382,7 +435,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-[**DateTime**](DateTime.md)
+[**TimestampDate**](TimestampDate.md)
 
 ### Authorization
 
@@ -605,6 +658,61 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**BinanceRawOrderBook**](BinanceRawOrderBook.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
+
+<a name="getSymbolRecentTrades"></a>
+# **getSymbolRecentTrades**
+> List&lt;BinanceRawRecentTrade&gt; getSymbolRecentTrades(symbol, limit)
+
+Get symbol recent trades
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiClient;
+//import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
+//import io.swagger.client.api.TradingplatformApi;
+
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
+
+TradingplatformApi apiInstance = new TradingplatformApi();
+String symbol = "symbol_example"; // String | 
+Integer limit = 56; // Integer | 
+try {
+    List<BinanceRawRecentTrade> result = apiInstance.getSymbolRecentTrades(symbol, limit);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling TradingplatformApi#getSymbolRecentTrades");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **symbol** | **String**|  |
+ **limit** | **Integer**|  | [optional]
+
+### Return type
+
+[**List&lt;BinanceRawRecentTrade&gt;**](BinanceRawRecentTrade.md)
 
 ### Authorization
 

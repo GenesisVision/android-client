@@ -51,6 +51,9 @@ public class BinanceRawBinanceBalance implements Parcelable
 	@SerializedName("total")
 	private Double total = null;
 
+	@SerializedName("amountInCurrency")
+	private Double amountInCurrency = null;
+
 	public BinanceRawBinanceBalance() {
 	}
 
@@ -59,6 +62,7 @@ public class BinanceRawBinanceBalance implements Parcelable
 		free = (Double) in.readValue(null);
 		locked = (Double) in.readValue(null);
 		total = (Double) in.readValue(null);
+		amountInCurrency = (Double) in.readValue(null);
 	}
 
 	public BinanceRawBinanceBalance asset(String asset) {
@@ -128,6 +132,25 @@ public class BinanceRawBinanceBalance implements Parcelable
 		return total;
 	}
 
+	public BinanceRawBinanceBalance amountInCurrency(Double amountInCurrency) {
+		this.amountInCurrency = amountInCurrency;
+		return this;
+	}
+
+	/**
+	 * Get amountInCurrency
+	 *
+	 * @return amountInCurrency
+	 **/
+	@Schema(description = "")
+	public Double getAmountInCurrency() {
+		return amountInCurrency;
+	}
+
+	public void setAmountInCurrency(Double amountInCurrency) {
+		this.amountInCurrency = amountInCurrency;
+	}
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -140,12 +163,13 @@ public class BinanceRawBinanceBalance implements Parcelable
 		return Objects.equals(this.asset, binanceRawBinanceBalance.asset) &&
 				Objects.equals(this.free, binanceRawBinanceBalance.free) &&
 				Objects.equals(this.locked, binanceRawBinanceBalance.locked) &&
-				Objects.equals(this.total, binanceRawBinanceBalance.total);
+				Objects.equals(this.total, binanceRawBinanceBalance.total) &&
+				Objects.equals(this.amountInCurrency, binanceRawBinanceBalance.amountInCurrency);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(asset, free, locked, total);
+		return Objects.hash(asset, free, locked, total, amountInCurrency);
 	}
 
 	@Override
@@ -157,6 +181,7 @@ public class BinanceRawBinanceBalance implements Parcelable
 		sb.append("    free: ").append(toIndentedString(free)).append("\n");
 		sb.append("    locked: ").append(toIndentedString(locked)).append("\n");
 		sb.append("    total: ").append(toIndentedString(total)).append("\n");
+		sb.append("    amountInCurrency: ").append(toIndentedString(amountInCurrency)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}
@@ -177,6 +202,7 @@ public class BinanceRawBinanceBalance implements Parcelable
 		out.writeValue(free);
 		out.writeValue(locked);
 		out.writeValue(total);
+		out.writeValue(amountInCurrency);
 	}
 
 	public int describeContents() {

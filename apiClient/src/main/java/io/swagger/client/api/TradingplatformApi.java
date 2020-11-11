@@ -2,17 +2,23 @@ package io.swagger.client.api;
 
 import org.joda.time.DateTime;
 
+import java.util.List;
 import java.util.UUID;
 
 import io.swagger.client.model.BinanceRaw24HPrice;
 import io.swagger.client.model.BinanceRawAccountInfo;
+import io.swagger.client.model.BinanceRawCancelOrder;
+import io.swagger.client.model.BinanceRawCancelOrderId;
 import io.swagger.client.model.BinanceRawExchangeInfo;
 import io.swagger.client.model.BinanceRawKlineInterval;
 import io.swagger.client.model.BinanceRawKlineItemsViewModel;
 import io.swagger.client.model.BinanceRawOrderBook;
 import io.swagger.client.model.BinanceRawOrderItemsViewModel;
 import io.swagger.client.model.BinanceRawPlaceOrder;
+import io.swagger.client.model.BinanceRawRecentTrade;
+import io.swagger.client.model.Currency;
 import io.swagger.client.model.StringItemsViewModel;
+import io.swagger.client.model.TimestampDate;
 import io.swagger.client.model.TradingPlatformBinanceOrdersMode;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
@@ -38,10 +44,10 @@ public interface TradingplatformApi
 	 *
 	 * @param accountId (optional)
 	 * @param symbol    (optional)
-	 * @return Call&lt;Void&gt;
+	 * @return Call&lt;List&lt;BinanceRawCancelOrderId&gt;&gt;
 	 */
-	@POST("v2.0/tradingplatform/binance/spot/orders/close/all")
-	Observable<Void> cancelAllOrders(
+	@POST("v2.0/tradingplatform/binance/spot/orders/cancel/all")
+	Observable<List<BinanceRawCancelOrderId>> cancelAllOrders(
 			@retrofit2.http.Query("accountId") UUID accountId, @retrofit2.http.Query("symbol") String symbol
 	);
 
@@ -51,10 +57,10 @@ public interface TradingplatformApi
 	 * @param accountId (optional)
 	 * @param symbol    (optional)
 	 * @param orderId   (optional)
-	 * @return Call&lt;Void&gt;
+	 * @return Call&lt;BinanceRawCancelOrder&gt;
 	 */
-	@POST("v2.0/tradingplatform/binance/spot/orders/close")
-	Observable<Void> cancelOrder(
+	@POST("v2.0/tradingplatform/binance/spot/orders/cancel")
+	Observable<BinanceRawCancelOrder> cancelOrder(
 			@retrofit2.http.Query("accountId") UUID accountId, @retrofit2.http.Query("symbol") String symbol, @retrofit2.http.Query("orderId") String orderId
 	);
 
@@ -70,12 +76,22 @@ public interface TradingplatformApi
 	);
 
 	/**
+	 * Get 24H prices
+	 *
+	 * @return Call&lt;List&lt;BinanceRaw24HPrice&gt;&gt;
+	 */
+	@GET("v2.0/tradingplatform/binance/market/ticker/24hr")
+	Observable<List<BinanceRaw24HPrice>> get24HPrices();
+
+
+	/**
 	 * @param accountId (optional)
+	 * @param currency  (optional)
 	 * @return Call&lt;BinanceRawAccountInfo&gt;
 	 */
 	@GET("v2.0/tradingplatform/binance/account")
 	Observable<BinanceRawAccountInfo> getAccountInfo(
-			@retrofit2.http.Query("accountId") UUID accountId
+			@retrofit2.http.Query("accountId") UUID accountId, @retrofit2.http.Query("currency") Currency currency
 	);
 
 	/**
@@ -90,10 +106,10 @@ public interface TradingplatformApi
 	/**
 	 * Server time
 	 *
-	 * @return Call&lt;DateTime&gt;
+	 * @return Call&lt;TimestampDate&gt;
 	 */
 	@GET("v2.0/tradingplatform/binance/server/time")
-	Observable<DateTime> getExchangeTime();
+	Observable<TimestampDate> getExchangeTime();
 
 
 	/**
@@ -142,6 +158,18 @@ public interface TradingplatformApi
 	 */
 	@GET("v2.0/tradingplatform/binance/market/{symbol}/depth")
 	Observable<BinanceRawOrderBook> getOrderBook(
+			@retrofit2.http.Path("symbol") String symbol, @retrofit2.http.Query("limit") Integer limit
+	);
+
+	/**
+	 * Get symbol recent trades
+	 *
+	 * @param symbol (required)
+	 * @param limit  (optional)
+	 * @return Call&lt;List&lt;BinanceRawRecentTrade&gt;&gt;
+	 */
+	@GET("v2.0/tradingplatform/binance/market/{symbol}/trades/recent")
+	Observable<List<BinanceRawRecentTrade>> getSymbolRecentTrades(
 			@retrofit2.http.Path("symbol") String symbol, @retrofit2.http.Query("limit") Integer limit
 	);
 

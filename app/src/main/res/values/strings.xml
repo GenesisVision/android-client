@@ -973,6 +973,23 @@
     <string name="notification_channel_name_signals">Signals</string>
     <string name="notification_channel_name_other">Other</string>
 
+    <string name="about_kyc">About KYC</string>
+    <string name="about_kyc_without_title">Without KYC you can:</string>
+    <string name="about_kyc_without_text_1">Deposit and withdraw crypto without limits</string>
+    <string name="about_kyc_without_text_2">Exchange cryptocurrencies</string>
+    <string name="about_kyc_without_text_3">Create crypto trading accounts</string>
+    <string name="about_kyc_without_text_4">Create Programs (with a maximum investment amount equivalent to $1,000) and Funds</string>
+    <string name="about_kyc_without_text_5">Bind your external trading account and use copy trading functionality (Follow)</string>
+    <string name="about_kyc_without_text_6">Invest in Programs and Funds up to $1,000 in total</string>
+    <string name="about_kyc_with_title">After you pass KYC you also can:</string>
+    <string name="about_kyc_with_text_1">Create Forex trading accounts</string>
+    <string name="about_kyc_with_text_2">Invest in Programs and Funds without limits</string>
+    <string name="about_kyc_with_text_3">Attract investments in your Programs beyond the KYC limit</string>
+    <string name="about_kyc_note">KYC is an authentication mechanism required in the financial industry to help ensure companies are compliant with anti money laundering regulations.</string>
+    <string name="verify_to_remove_limit">Verify to remove the limit</string>
+    <string name="spent">Spent</string>
+    <string name="remove_limit">Remove the limit</string>
+
 
     <plurals name="assets">
         <item quantity="one">asset</item>

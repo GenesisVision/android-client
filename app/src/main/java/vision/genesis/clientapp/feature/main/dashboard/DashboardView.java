@@ -6,6 +6,7 @@ import com.arellomobile.mvp.viewstate.strategy.StateStrategyType;
 
 import io.swagger.client.model.DashboardSummary;
 import io.swagger.client.model.Timeframe;
+import io.swagger.client.model.UserVerificationStatus;
 import vision.genesis.clientapp.model.CurrencyEnum;
 
 
@@ -17,6 +18,10 @@ import vision.genesis.clientapp.model.CurrencyEnum;
 interface DashboardView extends MvpView
 {
 	void setBaseCurrency(CurrencyEnum baseCurrency);
+
+	void setLimitViewVisibility(boolean visible);
+
+	void setLimitViewButtonStatus(UserVerificationStatus verificationStatus);
 
 	void setSummary(DashboardSummary summary);
 

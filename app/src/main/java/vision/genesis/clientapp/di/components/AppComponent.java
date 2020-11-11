@@ -41,6 +41,7 @@ import vision.genesis.clientapp.feature.main.copytrading.unfollow_trades.Unfollo
 import vision.genesis.clientapp.feature.main.dashboard.DashboardPresenter;
 import vision.genesis.clientapp.feature.main.dashboard.investments.DashboardInvestmentsView;
 import vision.genesis.clientapp.feature.main.dashboard.investments.details.InvestmentsDetailsPresenter;
+import vision.genesis.clientapp.feature.main.dashboard.limit.DashboardLimitView;
 import vision.genesis.clientapp.feature.main.dashboard.old.investor.copytrading.DashboardCopytradingPresenter;
 import vision.genesis.clientapp.feature.main.dashboard.old.investor.funds.DashboardFundsPresenter;
 import vision.genesis.clientapp.feature.main.dashboard.old.investor.header.InvestorDashboardHeaderPortfolioPresenter;
@@ -148,6 +149,7 @@ import vision.genesis.clientapp.feature.main.user.UserDetailsPresenter;
 import vision.genesis.clientapp.feature.main.user.followers.UserFollowersPresenter;
 import vision.genesis.clientapp.feature.main.user.info.UserInfoPresenter;
 import vision.genesis.clientapp.feature.main.users_list.fragment.UsersListPresenter;
+import vision.genesis.clientapp.feature.main.verification.VerificationInfoPresenter;
 import vision.genesis.clientapp.feature.main.wallet.WalletPresenter;
 import vision.genesis.clientapp.feature.main.wallet.copytrading_account_details.CopytradingAccountDetailsPresenter;
 import vision.genesis.clientapp.feature.main.wallet.copytrading_accounts.CopytradingAccountsPresenter;
@@ -507,4 +509,8 @@ public interface AppComponent
 	void inject(GvFirebaseMessagingService gvFirebaseMessagingService);
 
 	void inject(MediaPostDetailsPresenter mediaPostDetailsPresenter);
+
+	void inject(VerificationInfoPresenter verificationInfoPresenter);
+
+	void inject(DashboardLimitView dashboardLimitView);
 }

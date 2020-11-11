@@ -2,6 +2,7 @@ package io.swagger.client.api;
 
 import io.swagger.client.model.BetaTestingType;
 import io.swagger.client.model.Currency;
+import io.swagger.client.model.ExternalKycAccessToken;
 import io.swagger.client.model.FcmTokenViewModel;
 import io.swagger.client.model.ProfileFullViewModel;
 import io.swagger.client.model.ProfileHeaderViewModel;
@@ -18,6 +19,13 @@ import rx.Observable;
 
 public interface ProfileApi
 {
+	/**
+	 * @return Call&lt;ExternalKycAccessToken&gt;
+	 */
+	@POST("v2.0/profile/verification/mobile/token")
+	Observable<ExternalKycAccessToken> getMobileVerificationToken();
+
+
 	/**
 	 * Get full profile
 	 *
@@ -46,10 +54,10 @@ public interface ProfileApi
 
 
 	/**
-	 * @return Call&lt;String&gt;
+	 * @return Call&lt;ExternalKycAccessToken&gt;
 	 */
-	@POST("v2.0/profile/verification/token")
-	Observable<String> getVerificationToken();
+	@POST("v2.0/profile/verification/web/token")
+	Observable<ExternalKycAccessToken> getWebVerificationToken();
 
 
 	/**

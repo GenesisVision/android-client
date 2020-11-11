@@ -16,6 +16,7 @@ import java.lang.reflect.Type;
 import javax.inject.Inject;
 
 import io.swagger.client.model.AssetType;
+import io.swagger.client.model.ExternalKycAccessToken;
 import io.swagger.client.model.FacetSortType;
 import io.swagger.client.model.NotificationViewModel;
 import io.swagger.client.model.PlatformInfo;
@@ -33,6 +34,7 @@ import vision.genesis.clientapp.feature.main.social.SocialMainFragment;
 import vision.genesis.clientapp.feature.main.unregistered.dashboard.UnregisteredDashboardFragment;
 import vision.genesis.clientapp.feature.main.unregistered.settings.UnregisteredSettingsFragment;
 import vision.genesis.clientapp.managers.AuthManager;
+import vision.genesis.clientapp.managers.KycVerificationManager;
 import vision.genesis.clientapp.managers.SettingsManager;
 import vision.genesis.clientapp.model.AppUpdateModel;
 import vision.genesis.clientapp.model.FundDetailsModel;
@@ -51,6 +53,7 @@ import vision.genesis.clientapp.model.events.OnProgramFacetClickedEvent;
 import vision.genesis.clientapp.model.events.OnShowMediaActivityEvent;
 import vision.genesis.clientapp.model.events.OnShowRepostEvent;
 import vision.genesis.clientapp.model.events.OnShowUsersListActivityEvent;
+import vision.genesis.clientapp.model.events.OnStartKycClickedEvent;
 import vision.genesis.clientapp.model.events.OnThemeChangedEvent;
 import vision.genesis.clientapp.model.events.OpenUrlEvent;
 import vision.genesis.clientapp.model.events.ShowBottomNavigationEvent;
@@ -71,7 +74,9 @@ import vision.genesis.clientapp.model.events.ShowSpecificWalletEvent;
 import vision.genesis.clientapp.model.events.ShowTradingAccountDetailsEvent;
 import vision.genesis.clientapp.model.events.ShowTransactionDetailsEvent;
 import vision.genesis.clientapp.model.events.ShowUserDetailsEvent;
+import vision.genesis.clientapp.model.events.ShowVerificationInfoActivityEvent;
 import vision.genesis.clientapp.model.events.ShowWithdrawProgramEvent;
+import vision.genesis.clientapp.net.ApiErrorResolver;
 import vision.genesis.clientapp.ui.OnShowPostDetailsEvent;
 
 /**
@@ -91,9 +96,14 @@ public class MainPresenter extends MvpPresenter<MainView>
 	@Inject
 	public SettingsManager settingsManager;
 
+	@Inject
+	public KycVerificationManager kycManager;
+
 	private Subscription userSubscription;
 
 	private Subscription platformStatusSubscription;
+
+	private Subscription kycSubscription;
 
 	private UnregisteredDashboardFragment unregisteredDashboardFragment;
 
@@ -140,6 +150,9 @@ public class MainPresenter extends MvpPresenter<MainView>
 		}
 		if (platformStatusSubscription != null) {
 			platformStatusSubscription.unsubscribe();
+		}
+		if (kycSubscription != null) {
+			kycSubscription.unsubscribe();
 		}
 
 		EventBus.getDefault().unregister(this);
@@ -453,6 +466,28 @@ public class MainPresenter extends MvpPresenter<MainView>
 		userLoggedOff();
 	}
 
+	private void startKyc() {
+		if (kycManager != null) {
+			kycSubscription = kycManager.getKycVerificationData()
+					.observeOn(AndroidSchedulers.mainThread())
+					.subscribeOn(Schedulers.newThread())
+					.subscribe(this::handleKycDataSuccess, this::handleKycDataError);
+		}
+	}
+
+	private void handleKycDataSuccess(ExternalKycAccessToken model) {
+		kycSubscription.unsubscribe();
+
+		getViewState().startKycProcess(kycManager, model);
+	}
+
+	private void handleKycDataError(Throwable throwable) {
+		kycSubscription.unsubscribe();
+
+		ApiErrorResolver.resolveErrors(throwable,
+				message -> getViewState().showSnackbarMessage(message));
+	}
+
 	@Subscribe
 	public void onEventMainThread(ShowProgramDetailsEvent event) {
 		getViewState().showProgramDetails(event.programDetailsModel);
@@ -622,5 +657,15 @@ public class MainPresenter extends MvpPresenter<MainView>
 	public void onEventMainThread(HandlePushEvent event) {
 		pushData = event.getPushData();
 		handlePushData(pushData);
+	}
+
+	@Subscribe
+	public void onEventMainThread(ShowVerificationInfoActivityEvent event) {
+		getViewState().showVerificationInfoActivity(event.getVerificationStatus());
+	}
+
+	@Subscribe
+	public void onEventMainThread(OnStartKycClickedEvent event) {
+		startKyc();
 	}
 }

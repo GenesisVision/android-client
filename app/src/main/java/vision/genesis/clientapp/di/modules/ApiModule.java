@@ -36,6 +36,7 @@ import vision.genesis.clientapp.BuildConfig;
 import vision.genesis.clientapp.net.AuthenticationInterceptor;
 import vision.genesis.clientapp.net.LogJsonInterceptor;
 import vision.genesis.clientapp.net.UnauthorizedInterceptor;
+import vision.genesis.clientapp.net.kyc.KycApi;
 
 /**
  * GenesisVision
@@ -132,6 +133,12 @@ public class ApiModule
 	@Singleton
 	public InvestmentsApi provideInvestmentsApi(ApiClient apiClient) {
 		return apiClient.createService(InvestmentsApi.class);
+	}
+
+	@Provides
+	@Singleton
+	public KycApi provideKycApi(ApiClient apiClient) {
+		return apiClient.createService(KycApi.class);
 	}
 
 	@Provides

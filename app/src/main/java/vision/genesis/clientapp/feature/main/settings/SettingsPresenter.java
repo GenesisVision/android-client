@@ -5,9 +5,12 @@ import android.content.Context;
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 
+import org.greenrobot.eventbus.EventBus;
+
 import javax.inject.Inject;
 
 import io.swagger.client.model.ProfileFullViewModel;
+import io.swagger.client.model.UserVerificationStatus;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -17,6 +20,7 @@ import vision.genesis.clientapp.managers.AuthManager;
 import vision.genesis.clientapp.managers.ProfileManager;
 import vision.genesis.clientapp.managers.SettingsManager;
 import vision.genesis.clientapp.model.CurrencyEnum;
+import vision.genesis.clientapp.model.events.ShowVerificationInfoActivityEvent;
 import vision.genesis.clientapp.net.ApiErrorResolver;
 
 /**
@@ -48,6 +52,8 @@ public class SettingsPresenter extends MvpPresenter<SettingsView> implements Sel
 	private Subscription publicProfileSubscription;
 
 	private CurrencyEnum baseCurrency;
+
+	private ProfileFullViewModel profile;
 
 	@Override
 	protected void onFirstViewAttach() {
@@ -89,6 +95,15 @@ public class SettingsPresenter extends MvpPresenter<SettingsView> implements Sel
 		setPublicInvestorProfile(checked);
 	}
 
+	void onVerificationClicked() {
+		if (profile != null) {
+			if (!profile.getVerificationStatus().equals(UserVerificationStatus.VERIFIED)
+					&& !profile.getVerificationStatus().equals(UserVerificationStatus.REJECTED)) {
+				EventBus.getDefault().post(new ShowVerificationInfoActivityEvent(profile.getVerificationStatus()));
+			}
+		}
+	}
+
 	private void setPublicInvestorProfile(boolean on) {
 		if (profileManager != null) {
 			if (publicProfileSubscription != null) {
@@ -121,8 +136,10 @@ public class SettingsPresenter extends MvpPresenter<SettingsView> implements Sel
 	}
 
 	private void handleGetProfileSuccess(ProfileFullViewModel profile) {
-		getViewState().updateProfile(profile);
 		getViewState().showProgress(false);
+
+		this.profile = profile;
+		getViewState().updateProfile(profile);
 	}
 
 	private void handleGetProfileError(Throwable throwable) {

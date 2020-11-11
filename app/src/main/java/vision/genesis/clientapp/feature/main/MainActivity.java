@@ -17,17 +17,23 @@ import com.arellomobile.mvp.MvpAppCompatActivity;
 import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
+import com.google.android.material.snackbar.Snackbar;
+import com.sumsub.sns.core.SNSMobileSDK;
+import com.sumsub.sns.liveness3d.SNSLiveness3d;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.util.Collections;
 import java.util.UUID;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.swagger.client.model.AssetFacet;
+import io.swagger.client.model.ExternalKycAccessToken;
 import io.swagger.client.model.InvestmentEventViewModel;
 import io.swagger.client.model.Post;
 import io.swagger.client.model.TransactionViewModel;
+import io.swagger.client.model.UserVerificationStatus;
 import timber.log.Timber;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
@@ -54,12 +60,14 @@ import vision.genesis.clientapp.feature.main.social.post.report.ReportPostActivi
 import vision.genesis.clientapp.feature.main.social.users.SocialUsersListActivity;
 import vision.genesis.clientapp.feature.main.trading_account.TradingAccountDetailsActivity;
 import vision.genesis.clientapp.feature.main.user.UserDetailsActivity;
+import vision.genesis.clientapp.feature.main.verification.VerificationInfoActivity;
 import vision.genesis.clientapp.feature.main.wallet.copytrading_account_details.CopytradingAccountDetailsActivity;
 import vision.genesis.clientapp.feature.main.wallet.specific_wallet.SpecificWalletActivity;
 import vision.genesis.clientapp.feature.main.wallet.transaction_details.TransactionDetailsActivity;
 import vision.genesis.clientapp.feature.pin.check.CheckPinActivity;
 import vision.genesis.clientapp.feature.two_factor.disable.DisableTfaActivity;
 import vision.genesis.clientapp.feature.two_factor.setup.SetupTfaActivity;
+import vision.genesis.clientapp.managers.KycVerificationManager;
 import vision.genesis.clientapp.model.AppUpdateModel;
 import vision.genesis.clientapp.model.CopytradingAccountModel;
 import vision.genesis.clientapp.model.FundDetailsModel;
@@ -528,6 +536,26 @@ public class MainActivity extends MvpAppCompatActivity implements MainView, Bloc
 	@Override
 	public void showMediaPostDetails(UUID mediaPostId) {
 		MediaPostDetailsActivity.startWith(this, mediaPostId);
+	}
+
+	@Override
+	public void showVerificationInfoActivity(UserVerificationStatus verificationStatus) {
+		VerificationInfoActivity.startWith(this, verificationStatus);
+	}
+
+	@Override
+	public void startKycProcess(KycVerificationManager manager, ExternalKycAccessToken model) {
+		SNSMobileSDK.SDK snsSdk = new SNSMobileSDK.Builder(this, model.getBaseAddress(), model.getFlowName())
+				.withAccessToken(model.getAccessToken(), manager.getTokenExpirationHandler())
+				.withModules(Collections.singletonList(new SNSLiveness3d()))
+				.build();
+
+		snsSdk.launch();
+	}
+
+	@Override
+	public void showSnackbarMessage(String message) {
+		Snackbar.make(root, message, Snackbar.LENGTH_LONG).show();
 	}
 
 	@Override

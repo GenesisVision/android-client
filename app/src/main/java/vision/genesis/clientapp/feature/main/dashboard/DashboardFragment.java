@@ -31,12 +31,14 @@ import butterknife.Unbinder;
 import io.swagger.client.model.DashboardSummary;
 import io.swagger.client.model.DashboardTimeframeProfit;
 import io.swagger.client.model.Timeframe;
+import io.swagger.client.model.UserVerificationStatus;
 import timber.log.Timber;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
 import vision.genesis.clientapp.feature.common.timeframe_profit.TimeframeProfitView;
 import vision.genesis.clientapp.feature.main.dashboard.investments.DashboardInvestmentsView;
 import vision.genesis.clientapp.feature.main.dashboard.investments.details.InvestmentsDetailsActivity;
+import vision.genesis.clientapp.feature.main.dashboard.limit.DashboardLimitView;
 import vision.genesis.clientapp.feature.main.dashboard.trading.DashboardTradingView;
 import vision.genesis.clientapp.feature.main.dashboard.trading.details.TradingDetailsActivity;
 import vision.genesis.clientapp.feature.main.dashboard.wallet.DashboardWalletView;
@@ -82,6 +84,10 @@ public class DashboardFragment extends BaseFragment implements DashboardView
 
 	@BindView(R.id.view_timeframe_profit)
 	public TimeframeProfitView timeframeProfit;
+
+
+	@BindView(R.id.limit_view)
+	public DashboardLimitView limitView;
 
 
 	@BindView(R.id.investments_view)
@@ -321,6 +327,16 @@ public class DashboardFragment extends BaseFragment implements DashboardView
 	}
 
 	@Override
+	public void setLimitViewVisibility(boolean visible) {
+		limitView.setVisibility(visible ? View.VISIBLE : View.GONE);
+	}
+
+	@Override
+	public void setLimitViewButtonStatus(UserVerificationStatus verificationStatus) {
+		limitView.setButtonStatus(verificationStatus);
+	}
+
+	@Override
 	public void setSummary(DashboardSummary summary) {
 		this.summary = summary;
 
@@ -329,6 +345,8 @@ public class DashboardFragment extends BaseFragment implements DashboardView
 			headerTotal.setText(StringFormatUtil.getValueString(summary.getTotal(), baseCurrency.getValue()));
 
 			timeframeProfit.setData(summary.getProfits(), baseCurrency.getValue());
+
+			limitView.setData(summary.getLimitWithoutKyc());
 
 			investmentsView.setShare((int) Math.round(summary.getInvested() / summary.getTotal() * 100));
 			tradingView.setShare((int) Math.round(summary.getTrading() / summary.getTotal() * 100));
