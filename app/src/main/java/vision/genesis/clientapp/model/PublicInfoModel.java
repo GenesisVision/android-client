@@ -31,6 +31,8 @@ public class PublicInfoModel implements Parcelable
 
 	private Boolean needWarningInfo;
 
+	private Boolean showDescription;
+
 	private String buttonText;
 
 	private String title;
@@ -40,12 +42,13 @@ public class PublicInfoModel implements Parcelable
 	private String logo;
 
 	public PublicInfoModel(Boolean needStep, String stepNumber, String stepTitle,
-	                       Boolean needWarningInfo, String buttonText,
+	                       Boolean needWarningInfo, Boolean showDescription, String buttonText,
 	                       String title, String description, String logo) {
 		this.needStep = needStep;
 		this.stepNumber = stepNumber;
 		this.stepTitle = stepTitle;
 		this.needWarningInfo = needWarningInfo;
+		this.showDescription = showDescription;
 		this.buttonText = buttonText;
 		this.title = title;
 		this.description = description;
@@ -59,6 +62,8 @@ public class PublicInfoModel implements Parcelable
 		stepTitle = in.readString();
 		byte tmpNeedWarningInfo = in.readByte();
 		needWarningInfo = tmpNeedWarningInfo == 0 ? null : tmpNeedWarningInfo == 1;
+		byte tmpShowDescription = in.readByte();
+		showDescription = tmpShowDescription == 0 ? null : tmpShowDescription == 1;
 		buttonText = in.readString();
 		title = in.readString();
 		description = in.readString();
@@ -79,6 +84,10 @@ public class PublicInfoModel implements Parcelable
 
 	public Boolean isNeedWarningInfo() {
 		return needWarningInfo;
+	}
+
+	public Boolean isShowDescription() {
+		return showDescription;
 	}
 
 	public String getButtonText() {
@@ -108,6 +117,7 @@ public class PublicInfoModel implements Parcelable
 		parcel.writeString(stepNumber);
 		parcel.writeString(stepTitle);
 		parcel.writeByte((byte) (needWarningInfo == null ? 0 : needWarningInfo ? 1 : 2));
+		parcel.writeByte((byte) (showDescription == null ? 0 : showDescription ? 1 : 2));
 		parcel.writeString(buttonText);
 		parcel.writeString(title);
 		parcel.writeString(description);

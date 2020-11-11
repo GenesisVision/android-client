@@ -1,4 +1,4 @@
-package vision.genesis.clientapp.feature.main.fund.create;
+package vision.genesis.clientapp.feature.main.fund.self_managed.create;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -25,13 +25,13 @@ import vision.genesis.clientapp.utils.TypefaceUtil;
 
 /**
  * GenesisVisionAndroid
- * Created by Vitaly on 14/10/2019.
+ * Created by Vitaly on 10/11/2020.
  */
 
-public class CreateFundActivity extends BaseSwipeBackActivity implements CreateFundView
+public class CreateSelfManagedFundActivity extends BaseSwipeBackActivity implements CreateSelfManagedFundView
 {
 	public static void startFrom(Activity activity) {
-		Intent intent = new Intent(activity.getApplicationContext(), CreateFundActivity.class);
+		Intent intent = new Intent(activity.getApplicationContext(), CreateSelfManagedFundActivity.class);
 		activity.startActivity(intent);
 		activity.overridePendingTransition(R.anim.activity_slide_from_right, R.anim.hold);
 	}
@@ -39,16 +39,16 @@ public class CreateFundActivity extends BaseSwipeBackActivity implements CreateF
 	@BindView(R.id.title)
 	public TextView title;
 
-	@BindView(R.id.create_fund_view_pager)
+	@BindView(R.id.create_self_managed_fund_view_pager)
 	public NonSwipeableViewPager viewPager;
 
 	@BindView(R.id.progress_bar_group)
 	public ViewGroup progressBarGroup;
 
 	@InjectPresenter
-	CreateFundPresenter createFundPresenter;
+	CreateSelfManagedFundPresenter presenter;
 
-	private CreateFundPagerAdapter adapter;
+	private CreateSelfManagedFundPagerAdapter adapter;
 
 	@OnClick(R.id.button_back)
 	public void onBackClicked() {
@@ -59,7 +59,7 @@ public class CreateFundActivity extends BaseSwipeBackActivity implements CreateF
 	protected void onCreate(Bundle savedInstanceState) {
 		setTheme(ThemeUtil.getCurrentThemeResource());
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_create_fund);
+		setContentView(R.layout.activity_create_self_managed_fund);
 
 		ButterKnife.bind(this);
 
@@ -75,10 +75,10 @@ public class CreateFundActivity extends BaseSwipeBackActivity implements CreateF
 	}
 
 	private void initViewPager() {
-		this.adapter = new CreateFundPagerAdapter(getSupportFragmentManager());
+		this.adapter = new CreateSelfManagedFundPagerAdapter(getSupportFragmentManager());
 		viewPager.setAdapter(adapter);
 		viewPager.setEnabled(false);
-		viewPager.setOffscreenPageLimit(4);
+		viewPager.setOffscreenPageLimit(3);
 	}
 
 	@Override
@@ -89,7 +89,6 @@ public class CreateFundActivity extends BaseSwipeBackActivity implements CreateF
 				break;
 			case 1:
 			case 2:
-			case 3:
 				viewPager.setCurrentItem(viewPager.getCurrentItem() - 1);
 				break;
 		}

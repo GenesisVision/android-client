@@ -11,7 +11,9 @@ import java.util.UUID;
 import javax.inject.Inject;
 
 import io.swagger.client.model.AssetInvestmentStatus;
+import io.swagger.client.model.AssetTypeExt;
 import io.swagger.client.model.FundDetailsFull;
+import io.swagger.client.model.MakeSelfManagedFundPublicRequest;
 import io.swagger.client.model.ProgramUpdate;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
@@ -93,11 +95,22 @@ public class FundOwnerInfoPresenter extends MvpPresenter<FundOwnerInfoView>
 		model.setLogo(fundDetails.getPublicInfo().getLogo());
 		model.setEntryFee(fundDetails.getEntryFeeCurrent());
 		model.setExitFee(fundDetails.getExitFeeCurrent());
-		getViewState().showEditPublicInfoActivity(fundId, model);
+		boolean showDescription = true;
+		if (fundDetails.getPublicInfo().getTypeExt() != null) {
+			showDescription = !fundDetails.getPublicInfo().getTypeExt().equals(AssetTypeExt.SELFMANAGEDFUND);
+		}
+		getViewState().showEditPublicInfoActivity(fundId, model, showDescription);
 	}
 
 	void onManageFundClicked() {
 		getViewState().showManageFundActivity(fundDetails);
+	}
+
+	void onMakePublicFundClicked() {
+		MakeSelfManagedFundPublicRequest request = new MakeSelfManagedFundPublicRequest();
+		request.setId(fundDetails.getId());
+		request.setTitle(fundDetails.getPublicInfo().getTitle());
+		getViewState().showMakePublicFundActivity(request);
 	}
 
 	void onStatusClicked() {

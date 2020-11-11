@@ -63,19 +63,27 @@ public class DashboardManager
 		return investmentsApi.cancelRequest(requestId);
 	}
 
-	public Observable<DashboardTradingAssetItemsViewModel> getPrivate(DateRange dateRange, String baseCurrency, int skip, int take) {
+	public Observable<DashboardTradingAssetItemsViewModel> getPrivateAccounts(DateRange dateRange, String baseCurrency, DashboardAssetStatus status, int skip, int take) {
 		return dashboardApi.getPrivateTradingAssets(
 				dateRange != null ? dateRange.getFrom() : null, dateRange != null ? dateRange.getTo() : null,
 				10, Currency.fromValue(baseCurrency),
-				null, false,
+				status, false,
 				skip, take);
 	}
 
-	public Observable<DashboardTradingAssetItemsViewModel> getPublic(DateRange dateRange, String baseCurrency, int skip, int take) {
+	public Observable<DashboardTradingAssetItemsViewModel> getPrivateFunds(DateRange dateRange, String baseCurrency, DashboardAssetStatus status, int skip, int take) {
+		return dashboardApi.getSelfManagedFunds(
+				dateRange != null ? dateRange.getFrom() : null, dateRange != null ? dateRange.getTo() : null,
+				10, Currency.fromValue(baseCurrency),
+				status, false,
+				skip, take);
+	}
+
+	public Observable<DashboardTradingAssetItemsViewModel> getPublic(DateRange dateRange, String baseCurrency, DashboardAssetStatus status, int skip, int take) {
 		return dashboardApi.getPublicTradingAssets(
 				dateRange != null ? dateRange.getFrom() : null, dateRange != null ? dateRange.getTo() : null,
 				10, Currency.fromValue(baseCurrency),
-				null, false,
+				status, false,
 				skip, take);
 	}
 

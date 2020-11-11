@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="?attr/colorBackground"
+                android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/toolbar_height"
+        android:background="?attr/colorBackground">
+
+        <ImageView
+            android:id="@+id/button_back"
+            android:layout_width="50dp"
+            android:layout_height="@dimen/toolbar_height"
+            android:layout_centerVertical="true"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:padding="20dp"
+            android:tint="?attr/colorTextPrimary"
+            app:srcCompat="@drawable/icon_back"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:fontFamily="@font/montserrat_semibold"
+            android:text="@string/make_public_fund"
+            android:textColor="?attr/colorTextPrimary"
+            android:textSize="18sp"/>
+
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/toolbar">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/padding">
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/text_input_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="bottom"
+                    android:textColor="?attr/colorTextPrimary"
+                    android:textColorHint="?attr/colorTextSecondary"
+                    app:counterEnabled="true"
+                    app:counterMaxLength="20"
+                    app:counterOverflowTextAppearance="@style/TextLimitError"
+                    app:counterTextAppearance="@style/TextLimitStyle">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/title"
+                        style="@style/edittext"
+                        android:hint="@string/title"
+                        android:imeOptions="actionNext"
+                        android:inputType="text"/>
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <TextView
+                    android:id="@+id/title_minimum"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/text_input_title"
+                    android:layout_marginStart="4dp"
+                    android:textColor="?attr/colorTextSecondary"
+                    android:textSize="12sp"
+                    tools:text="Minimum 4 symbols"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/group_description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/text_input_description"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:gravity="bottom"
+                    android:minHeight="@dimen/text_input_layout_height"
+                    android:textColor="?attr/colorTextPrimary"
+                    android:textColorHint="?attr/colorTextSecondary"
+                    app:counterEnabled="true"
+                    app:counterMaxLength="500"
+                    app:counterOverflowTextAppearance="@style/TextLimitError"
+                    app:counterTextAppearance="@style/TextLimitStyle">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/description"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/description"
+                        android:imeOptions="actionDone"
+                        android:inputType="textMultiLine"
+                        android:minHeight="60dp"
+                        android:textColor="?attr/colorTextPrimary"
+                        android:textSize="16sp"/>
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <TextView
+                    android:id="@+id/description_minimum"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/text_input_description"
+                    android:layout_marginStart="4dp"
+                    android:textColor="?attr/colorTextSecondary"
+                    android:textSize="12sp"
+                    tools:text="Minimum 20 symbols"/>
+
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:alpha="0.4"
+                android:text="@string/entry_fee"
+                android:textColor="?attr/colorTextPrimary"
+                android:textSize="12sp"/>
+
+            <RelativeLayout
+                android:id="@+id/group_entry_fee"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/text_input_height">
+
+                <EditText
+                    android:id="@+id/entry_fee"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:background="@android:color/transparent"
+                    android:hint="0"
+                    android:inputType="numberDecimal"
+                    android:textColor="?attr/colorTextPrimary"
+                    android:textColorHint="?attr/colorTextPrimary"
+                    android:textSize="18sp"
+                    tools:text="10"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="8dp"
+                    android:layout_toEndOf="@+id/entry_fee"
+                    android:alpha="0.4"
+                    android:gravity="center"
+                    android:text="%"
+                    android:textColor="?attr/colorTextPrimary"
+                    android:textSize="18sp"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_alignParentBottom="true"
+                    android:alpha="0.2"
+                    android:background="?attr/colorTextPrimary"/>
+
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/entry_fee_description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="8dp"
+                android:text="@string/template_create_fund_entry_fee_description"
+                android:textColor="?attr/colorTextSecondary"
+                android:textSize="12sp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:alpha="0.4"
+                android:text="@string/exit_fee"
+                android:textColor="?attr/colorTextPrimary"
+                android:textSize="12sp"/>
+
+            <RelativeLayout
+                android:id="@+id/group_exit_fee"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/text_input_height">
+
+                <EditText
+                    android:id="@+id/exit_fee"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:background="@android:color/transparent"
+                    android:hint="0"
+                    android:inputType="numberDecimal"
+                    android:textColor="?attr/colorTextPrimary"
+                    android:textColorHint="?attr/colorTextPrimary"
+                    android:textSize="18sp"
+                    tools:text="10"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="8dp"
+                    android:layout_toEndOf="@+id/exit_fee"
+                    android:alpha="0.4"
+                    android:gravity="center"
+                    android:text="%"
+                    android:textColor="?attr/colorTextPrimary"
+                    android:textSize="18sp"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_alignParentBottom="true"
+                    android:alpha="0.2"
+                    android:background="?attr/colorTextPrimary"/>
+
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/exit_fee_description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="8dp"
+                android:text="@string/template_create_fund_exit_fee_description"
+                android:textColor="?attr/colorTextSecondary"
+                android:textSize="12sp"/>
+
+            <vision.genesis.clientapp.ui.PrimaryButton
+                android:id="@+id/button_make_public_fund"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/button_height"
+                android:layout_marginTop="32dp"
+                android:text="@string/make_public_fund"/>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <RelativeLayout
+        android:id="@+id/progress_bar_group"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clickable="true"
+        android:focusable="true"
+        android:visibility="gone"
+        tools:visibility="gone">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:alpha="0.7"
+            android:background="?attr/colorBackground"/>
+
+        <ProgressBar
+            android:id="@+id/progress_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:indeterminate="true"/>
+
+    </RelativeLayout>
+
+</RelativeLayout>

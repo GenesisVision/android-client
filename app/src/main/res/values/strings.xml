@@ -726,7 +726,7 @@
     <string name="aum">AUM</string>
     <string name="public_title">Public</string>
     <string name="private_title">Private</string>
-    <string name="private_assets_empty_text">You have no trading accounts yet. Let\'s fix this.</string>
+    <string name="private_accounts_empty_text">You have no trading accounts yet. Let\'s fix this.</string>
     <string name="public_assets_empty_text">You have no public assets yet. You can make one of your private accounts a program or a GV Follow.\n Or you can create your own GV Fund.</string>
     <string name="create_trading_account">Create trading account</string>
     <string name="attach_external_account">Attach external account</string>
@@ -791,7 +791,8 @@
     <string name="close_fund_info">The fund will be closed after pressing the button.</string>
     <string name="close_fund_alert_message">The fund will be closed after pressing the button. Are you sure?</string>
     <string name="reallocate">Reallocate</string>
-    <string name="template_reallocation_info">Reallocation available — %d%%\nYou are able to reallocate 3%% of the Fund per day (cumulative). Example: you will be able to change 30%% of the Fund’s allocation after 10 days.</string>
+    <string name="template_reallocation_available">Reallocation available — %d%%</string>
+    <string name="reallocation_info">You are able to reallocate 3%% of the Fund per day (cumulative). Example: you will be able to change 30%% of the Fund’s allocation after 10 days.</string>
     <string name="unfollow">Unfollow</string>
     <string name="tolerance">Tolerance</string>
     <string name="select_account">Select account</string>
@@ -989,6 +990,13 @@
     <string name="verify_to_remove_limit">Verify to remove the limit</string>
     <string name="spent">Spent</string>
     <string name="remove_limit">Remove the limit</string>
+
+    <string name="create_self_managed_fund">Create Self-managed Fund</string>
+    <string name="private_funds_empty_text">You have no self-managed funds yet. Let\'s fix this.</string>
+    <string name="trading_accounts">Trading accounts</string>
+    <string name="self_managed_funds">Self-managed Funds</string>
+    <string name="self_managed_fund">Self-managed Fund</string>
+    <string name="make_public_fund">Make a public fund</string>
 
 
     <plurals name="assets">

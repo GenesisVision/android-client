@@ -23,9 +23,11 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+import io.swagger.client.model.AssetTypeExt;
 import io.swagger.client.model.Currency;
 import io.swagger.client.model.FundChartStatistic;
 import io.swagger.client.model.FundDetailsFull;
+import io.swagger.client.model.MakeSelfManagedFundPublicRequest;
 import io.swagger.client.model.PersonalFundDetails;
 import io.swagger.client.model.ProgramUpdate;
 import timber.log.Timber;
@@ -37,6 +39,7 @@ import vision.genesis.clientapp.feature.common.requests.RequestsBottomSheetFragm
 import vision.genesis.clientapp.feature.main.fund.FundDetailsPagerAdapter;
 import vision.genesis.clientapp.feature.main.fund.invest.InvestFundActivity;
 import vision.genesis.clientapp.feature.main.fund.manage.ManageFundActivity;
+import vision.genesis.clientapp.feature.main.fund.self_managed.make_public.MakePublicFundActivity;
 import vision.genesis.clientapp.feature.main.fund.withdraw.WithdrawFundActivity;
 import vision.genesis.clientapp.model.FundRequest;
 import vision.genesis.clientapp.ui.InvestmentStatusView;
@@ -74,6 +77,10 @@ public class FundOwnerInfoFragment extends BaseFragment implements FundOwnerInfo
 	@BindView(R.id.button_edit_public_info)
 	public TextView editPublicInfoButton;
 
+
+	@BindView(R.id.group_strategy)
+	public ViewGroup strategyGroup;
+
 	@BindView(R.id.strategy)
 	public TextView strategy;
 
@@ -86,6 +93,9 @@ public class FundOwnerInfoFragment extends BaseFragment implements FundOwnerInfo
 
 	@BindView(R.id.label_balance)
 	public TextView balanceLabel;
+
+	@BindView(R.id.group_investors)
+	public ViewGroup investorsGroup;
 
 	@BindView(R.id.investors)
 	public TextView investors;
@@ -134,6 +144,9 @@ public class FundOwnerInfoFragment extends BaseFragment implements FundOwnerInfo
 	@BindView(R.id.button_manage_fund)
 	public TextView manageFundButton;
 
+	@BindView(R.id.group_fees)
+	public ViewGroup feesGroup;
+
 	@BindView(R.id.entry_fee)
 	public TextView entryFee;
 
@@ -145,6 +158,9 @@ public class FundOwnerInfoFragment extends BaseFragment implements FundOwnerInfo
 
 	@BindView(R.id.label_exit_fee)
 	public TextView exitFeeLabel;
+
+	@BindView(R.id.button_make_public_fund)
+	public PrimaryButton makePublicFundButton;
 
 
 	@InjectPresenter
@@ -170,6 +186,11 @@ public class FundOwnerInfoFragment extends BaseFragment implements FundOwnerInfo
 		else if (strategy.getHeight() > strategyMaxHeight) {
 			collapseStrategy();
 		}
+	}
+
+	@OnClick({R.id.button_make_public_fund})
+	public void onMakePublicFundClicked() {
+		presenter.onMakePublicFundClicked();
 	}
 
 	private void expandStrategy() {
@@ -304,6 +325,19 @@ public class FundOwnerInfoFragment extends BaseFragment implements FundOwnerInfo
 				investButton.setEnabled(personalDetails.isCanInvest());
 				withdrawButton.setEnabled(personalDetails.isCanWithdraw());
 			}
+
+			if (fundDetails.getPublicInfo().getTypeExt() != null && fundDetails.getPublicInfo().getTypeExt().equals(AssetTypeExt.SELFMANAGEDFUND)) {
+				strategyGroup.setVisibility(View.GONE);
+				investorsGroup.setVisibility(View.GONE);
+				feesGroup.setVisibility(View.GONE);
+				makePublicFundButton.setVisibility(View.VISIBLE);
+			}
+			else {
+				strategyGroup.setVisibility(View.VISIBLE);
+				investorsGroup.setVisibility(View.VISIBLE);
+				feesGroup.setVisibility(View.VISIBLE);
+				makePublicFundButton.setVisibility(View.GONE);
+			}
 		}
 	}
 
@@ -403,9 +437,9 @@ public class FundOwnerInfoFragment extends BaseFragment implements FundOwnerInfo
 
 
 	@Override
-	public void showEditPublicInfoActivity(UUID assetId, ProgramUpdate model) {
+	public void showEditPublicInfoActivity(UUID assetId, ProgramUpdate model, Boolean showDescription) {
 		if (getActivity() != null) {
-			EditPublicInfoActivity.startFrom(getActivity(), assetId, model);
+			EditPublicInfoActivity.startFrom(getActivity(), assetId, model, showDescription);
 		}
 	}
 
@@ -413,6 +447,13 @@ public class FundOwnerInfoFragment extends BaseFragment implements FundOwnerInfo
 	public void showManageFundActivity(FundDetailsFull fundDetails) {
 		if (getActivity() != null) {
 			ManageFundActivity.startFrom(getActivity(), fundDetails);
+		}
+	}
+
+	@Override
+	public void showMakePublicFundActivity(MakeSelfManagedFundPublicRequest request) {
+		if (getActivity() != null) {
+			MakePublicFundActivity.startWith(getActivity(), request);
 		}
 	}
 

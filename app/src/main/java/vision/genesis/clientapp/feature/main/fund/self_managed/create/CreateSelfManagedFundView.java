@@ -1,13 +1,13 @@
-package vision.genesis.clientapp.feature.main.fund.create;
+package vision.genesis.clientapp.feature.main.fund.self_managed.create;
 
 import com.arellomobile.mvp.MvpView;
 
 /**
  * GenesisVisionAndroid
- * Created by Vitaly on 14/10/2019.
+ * Created by Vitaly on 10/11/2020.
  */
 
-public interface CreateFundView extends MvpView
+public interface CreateSelfManagedFundView extends MvpView
 {
 	void setMinDepositAmount(Double minDepositAmount);
 

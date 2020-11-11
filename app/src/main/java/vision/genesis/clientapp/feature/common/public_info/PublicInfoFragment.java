@@ -91,6 +91,9 @@ public class PublicInfoFragment extends BaseFragment implements PublicInfoView
 	@BindView(R.id.title)
 	public EditText title;
 
+	@BindView(R.id.group_description)
+	public ViewGroup descriptionGroup;
+
 	@BindView(R.id.description)
 	public EditText description;
 
@@ -200,6 +203,7 @@ public class PublicInfoFragment extends BaseFragment implements PublicInfoView
 		stepTitle.setText(model.getStepTitle());
 
 		warningInfoGroup.setVisibility(model.isNeedWarningInfo() ? View.VISIBLE : View.GONE);
+		descriptionGroup.setVisibility(model.isShowDescription() ? View.VISIBLE : View.GONE);
 
 		confirmButton.setText(model.getButtonText());
 		confirmButton.setEnabled(false);

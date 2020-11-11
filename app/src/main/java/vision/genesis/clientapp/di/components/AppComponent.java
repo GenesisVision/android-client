@@ -73,6 +73,8 @@ import vision.genesis.clientapp.feature.main.fund.manage.ManageFundPresenter;
 import vision.genesis.clientapp.feature.main.fund.profit.FundProfitPresenter;
 import vision.genesis.clientapp.feature.main.fund.reallocate.ReallocateFundPresenter;
 import vision.genesis.clientapp.feature.main.fund.reallocate_history.FundHistoryPresenter;
+import vision.genesis.clientapp.feature.main.fund.self_managed.create.CreateSelfManagedFundPresenter;
+import vision.genesis.clientapp.feature.main.fund.self_managed.make_public.MakePublicFundPresenter;
 import vision.genesis.clientapp.feature.main.fund.withdraw.WithdrawFundPresenter;
 import vision.genesis.clientapp.feature.main.fund.withdraw.confirm.ConfirmFundWithdrawBottomSheetFragment;
 import vision.genesis.clientapp.feature.main.funds_challenge.FundsChallengePresenter;
@@ -513,4 +515,8 @@ public interface AppComponent
 	void inject(VerificationInfoPresenter verificationInfoPresenter);
 
 	void inject(DashboardLimitView dashboardLimitView);
+
+	void inject(CreateSelfManagedFundPresenter createSelfManagedFundPresenter);
+
+	void inject(MakePublicFundPresenter makePublicFundPresenter);
 }

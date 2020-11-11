@@ -23,12 +23,13 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
-import io.swagger.client.model.NewFundRequest;
 import io.swagger.client.model.WalletData;
+import timber.log.Timber;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
 import vision.genesis.clientapp.feature.common.select_wallet.SelectWalletBottomSheetFragment;
 import vision.genesis.clientapp.model.CurrencyEnum;
+import vision.genesis.clientapp.model.FundDepositModel;
 import vision.genesis.clientapp.ui.PrimaryButton;
 import vision.genesis.clientapp.utils.ImageUtils;
 import vision.genesis.clientapp.utils.StringFormatUtil;
@@ -36,11 +37,24 @@ import vision.genesis.clientapp.utils.TypefaceUtil;
 
 /**
  * GenesisVisionAndroid
- * Created by Vitaly on 14/10/2019.
+ * Created by Vitaly on 10/11/2020.
  */
 
 public class CreateFundDepositFragment extends BaseFragment implements CreateFundDepositView
 {
+	private static String EXTRA_MODEL = "extra_model";
+
+	public static CreateFundDepositFragment with(FundDepositModel model) {
+		CreateFundDepositFragment fragment = new CreateFundDepositFragment();
+		Bundle arguments = new Bundle(1);
+		arguments.putParcelable(EXTRA_MODEL, model);
+		fragment.setArguments(arguments);
+		return fragment;
+	}
+
+	@BindView(R.id.group_step)
+	public ViewGroup stepGroup;
+
 	@BindView(R.id.step_number)
 	public TextView stepNumber;
 
@@ -96,8 +110,6 @@ public class CreateFundDepositFragment extends BaseFragment implements CreateFun
 
 	private Unbinder unbinder;
 
-	private NewFundRequest request;
-
 	private Double minDepositAmount;
 
 	@OnClick(R.id.group_wallet)
@@ -146,15 +158,20 @@ public class CreateFundDepositFragment extends BaseFragment implements CreateFun
 		setFonts();
 
 		setTextListener();
-		updateDepositNotification();
+		if (getArguments() != null) {
+			FundDepositModel model = getArguments().getParcelable(EXTRA_MODEL);
+			if (model != null) {
+				updateDepositNotification();
 
-		if (request != null) {
-			presenter.setRequest(request);
+				if (minDepositAmount != null) {
+					presenter.setMinDepositAmount(minDepositAmount);
+				}
+				updateView(model);
+				return;
+			}
 		}
-
-		if (minDepositAmount != null) {
-			presenter.setMinDepositAmount(minDepositAmount);
-		}
+		Timber.e("Passed empty arguments to %s", getClass().getSimpleName());
+		onBackPressed();
 	}
 
 	@Override
@@ -176,6 +193,14 @@ public class CreateFundDepositFragment extends BaseFragment implements CreateFun
 	private void setTextListener() {
 		RxTextView.textChanges(amount)
 				.subscribe(charSequence -> presenter.onAmountChanged(charSequence.toString()));
+	}
+
+	private void updateView(FundDepositModel model) {
+		stepGroup.setVisibility(model.isNeedStep() ? View.VISIBLE : View.GONE);
+		stepNumber.setText(model.getStepNumber());
+		stepTitle.setText(model.getStepTitle());
+
+		createFundButton.setText(model.getButtonText());
 	}
 
 	@Override
@@ -237,13 +262,6 @@ public class CreateFundDepositFragment extends BaseFragment implements CreateFun
 	@Override
 	public void showSnackbarMessage(String message) {
 		showSnackbar(message, stepNumber);
-	}
-
-	public void setRequest(NewFundRequest request) {
-		this.request = request;
-		if (presenter != null) {
-			presenter.setRequest(request);
-		}
 	}
 
 	public void setMinDepositAmount(Double minDepositAmount) {

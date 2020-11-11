@@ -36,10 +36,13 @@ public class EditPublicInfoActivity extends BaseSwipeBackActivity implements Edi
 
 	private static final String EXTRA_MODEL = "extra_model";
 
-	public static void startFrom(Activity activity, UUID assetId, ProgramUpdate model) {
+	private static final String EXTRA_SHOW_DESCRIPTION = "extra_show_description";
+
+	public static void startFrom(Activity activity, UUID assetId, ProgramUpdate model, Boolean showDescription) {
 		Intent intent = new Intent(activity.getApplicationContext(), EditPublicInfoActivity.class);
 		intent.putExtra(EXTRA_ASSET_ID, assetId);
 		intent.putExtra(EXTRA_MODEL, model);
+		intent.putExtra(EXTRA_SHOW_DESCRIPTION, showDescription);
 		activity.startActivity(intent);
 		activity.overridePendingTransition(R.anim.activity_slide_from_right, R.anim.hold);
 	}
@@ -71,6 +74,7 @@ public class EditPublicInfoActivity extends BaseSwipeBackActivity implements Edi
 		if (getIntent().getExtras() != null && !getIntent().getExtras().isEmpty()) {
 			UUID assetId = (UUID) getIntent().getExtras().getSerializable(EXTRA_ASSET_ID);
 			ProgramUpdate model = getIntent().getExtras().getParcelable(EXTRA_MODEL);
+			Boolean showDescription = getIntent().getExtras().getBoolean(EXTRA_SHOW_DESCRIPTION);
 			if (model != null) {
 				presenter.setData(assetId, model);
 
@@ -79,7 +83,7 @@ public class EditPublicInfoActivity extends BaseSwipeBackActivity implements Edi
 							.beginTransaction()
 							.add(R.id.content, PublicInfoFragment.with(new PublicInfoModel(
 									false, null, null, false,
-									getString(R.string.update_public_info),
+									showDescription, getString(R.string.update_public_info),
 									model.getTitle(), model.getDescription(), model.getLogo())))
 							.disallowAddToBackStack()
 							.commit();

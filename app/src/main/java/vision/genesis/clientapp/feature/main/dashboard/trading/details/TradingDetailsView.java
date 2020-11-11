@@ -30,7 +30,9 @@ interface TradingDetailsView extends MvpView
 
 	void setEvents(List<InvestmentEventViewModel> items);
 
-	void setPrivate(List<DashboardTradingAsset> items);
+	void setPrivateAccounts(List<DashboardTradingAsset> items);
+
+	void setPrivateFunds(List<DashboardTradingAsset> items);
 
 	void setPublic(List<DashboardTradingAsset> items);
 
@@ -45,6 +47,8 @@ interface TradingDetailsView extends MvpView
 	void showCreateTradingAccountActivity();
 
 	void showAttachAccountActivity();
+
+	void showCreateSelfManagedFundActivity();
 
 	void showCreateFundActivity();
 

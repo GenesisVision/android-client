@@ -11,7 +11,6 @@ import java.util.Locale;
 import javax.inject.Inject;
 
 import io.swagger.client.model.Currency;
-import io.swagger.client.model.NewFundRequest;
 import io.swagger.client.model.WalletData;
 import io.swagger.client.model.WalletSummary;
 import rx.Subscription;
@@ -43,8 +42,6 @@ public class CreateFundDepositPresenter extends MvpPresenter<CreateFundDepositVi
 
 	private Subscription walletsSubscription;
 
-	private NewFundRequest request;
-
 	private WalletData selectedWallet;
 
 	private Double availableInWallet;
@@ -75,10 +72,6 @@ public class CreateFundDepositPresenter extends MvpPresenter<CreateFundDepositVi
 		}
 
 		super.onDestroy();
-	}
-
-	void setRequest(NewFundRequest request) {
-		this.request = request;
 	}
 
 	void setMinDepositAmount(Double minDepositAmount) {
@@ -122,9 +115,7 @@ public class CreateFundDepositPresenter extends MvpPresenter<CreateFundDepositVi
 
 	void onCreateFundClicked() {
 		if (selectedWallet != null) {
-			request.setDepositAmount(amount);
-			request.setDepositWalletId(selectedWallet.getId());
-			EventBus.getDefault().post(new OnCreateFundCreateButtonClickedEvent());
+			EventBus.getDefault().post(new OnCreateFundCreateButtonClickedEvent(amount, selectedWallet.getId()));
 		}
 	}
 

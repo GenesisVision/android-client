@@ -281,56 +281,120 @@
 
                     </RelativeLayout>
 
-                    <LinearLayout
-                        android:id="@+id/private_assets"
+                    <com.google.android.material.tabs.TabLayout
+                        android:id="@+id/tab_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:minHeight="?attr/actionBarSize"
+                        app:tabGravity="fill"
+                        app:tabIndicatorColor="?attr/colorAccent"
+                        app:tabMaxWidth="0dp"
+                        app:tabMode="scrollable"
+                        app:tabSelectedTextColor="?attr/colorTextPrimary"
+                        app:tabTextColor="?attr/colorTextSecondary"/>
+
+                    <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="20dp"
-                        android:orientation="vertical"/>
+                        android:layout_marginBottom="20dp">
 
-                    <LinearLayout
-                        android:id="@+id/group_private_empty"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center_horizontal"
-                        android:orientation="vertical"
-                        android:paddingStart="20dp"
-                        android:paddingEnd="20dp"
-                        android:paddingBottom="20dp"
-                        android:visibility="gone">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:text="@string/private_assets_empty_text"
-                            android:textColor="?attr/colorTextSecondary"
-                            android:textSize="14sp"/>
-
-                        <vision.genesis.clientapp.ui.PrimaryButton
-                            android:id="@+id/button_create_trading_account"
+                        <RelativeLayout
+                            android:id="@+id/group_private_accounts"
                             android:layout_width="match_parent"
-                            android:layout_height="@dimen/button_height"
-                            android:layout_marginTop="20dp"
-                            android:text="@string/create_trading_account"/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="10dp"
-                            android:layout_marginBottom="10dp"
-                            android:gravity="center"
-                            android:text="@string/or"
-                            android:textColor="?attr/colorTextSecondary"
-                            android:textSize="14sp"/>
+                            android:visibility="gone">
 
-                        <vision.genesis.clientapp.ui.PrimaryButton
-                            android:id="@+id/button_attach_external_account"
+                            <LinearLayout
+                                android:id="@+id/private_accounts"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"/>
+
+                            <LinearLayout
+                                android:id="@+id/group_private_accounts_empty"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="center_horizontal"
+                                android:orientation="vertical"
+                                android:padding="@dimen/padding"
+                                android:visibility="gone">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center"
+                                    android:text="@string/private_accounts_empty_text"
+                                    android:textColor="?attr/colorTextSecondary"
+                                    android:textSize="14sp"/>
+
+                                <vision.genesis.clientapp.ui.PrimaryButton
+                                    android:id="@+id/button_create_trading_account"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="@dimen/button_height"
+                                    android:layout_marginTop="20dp"
+                                    android:text="@string/create_trading_account"/>
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="10dp"
+                                    android:layout_marginBottom="10dp"
+                                    android:gravity="center"
+                                    android:text="@string/or"
+                                    android:textColor="?attr/colorTextSecondary"
+                                    android:textSize="14sp"/>
+
+                                <vision.genesis.clientapp.ui.PrimaryButton
+                                    android:id="@+id/button_attach_external_account"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="@dimen/button_height"
+                                    android:text="@string/attach_external_account"/>
+
+                            </LinearLayout>
+
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:id="@+id/group_private_funds"
                             android:layout_width="match_parent"
-                            android:layout_height="@dimen/button_height"
-                            android:text="@string/attach_external_account"/>
+                            android:layout_height="wrap_content"
+                            android:visibility="gone">
 
-                    </LinearLayout>
+                            <LinearLayout
+                                android:id="@+id/private_funds"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"/>
+
+                            <LinearLayout
+                                android:id="@+id/group_private_funds_empty"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="center_horizontal"
+                                android:orientation="vertical"
+                                android:padding="@dimen/padding"
+                                android:visibility="gone">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center"
+                                    android:text="@string/private_funds_empty_text"
+                                    android:textColor="?attr/colorTextSecondary"
+                                    android:textSize="14sp"/>
+
+                                <vision.genesis.clientapp.ui.PrimaryButton
+                                    android:id="@+id/button_create_self_managed_fund"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="@dimen/button_height"
+                                    android:layout_marginTop="20dp"
+                                    android:text="@string/create_self_managed_fund"/>
+
+                            </LinearLayout>
+
+                        </RelativeLayout>
+
+                    </RelativeLayout>
 
                 </LinearLayout>
 

@@ -94,6 +94,10 @@ public class CustomTabView extends RelativeLayout
 		}
 	}
 
+	public void setTextSize(int sizeSp) {
+		this.text.setTextSize(sizeSp);
+	}
+
 	public void setText(String text) {
 		this.icon.setVisibility(View.GONE);
 		this.text.setVisibility(View.VISIBLE);

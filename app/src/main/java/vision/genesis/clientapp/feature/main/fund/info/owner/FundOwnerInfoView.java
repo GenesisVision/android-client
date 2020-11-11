@@ -9,6 +9,7 @@ import java.util.UUID;
 
 import io.swagger.client.model.FundChartStatistic;
 import io.swagger.client.model.FundDetailsFull;
+import io.swagger.client.model.MakeSelfManagedFundPublicRequest;
 import io.swagger.client.model.ProgramUpdate;
 import vision.genesis.clientapp.model.FundRequest;
 
@@ -40,7 +41,9 @@ interface FundOwnerInfoView extends MvpView
 
 	void showRequestsBottomSheet();
 
-	void showEditPublicInfoActivity(UUID assetId, ProgramUpdate model);
+	void showEditPublicInfoActivity(UUID assetId, ProgramUpdate model, Boolean showDescription);
 
 	void showManageFundActivity(FundDetailsFull fundDetails);
+
+	void showMakePublicFundActivity(MakeSelfManagedFundPublicRequest request);
 }

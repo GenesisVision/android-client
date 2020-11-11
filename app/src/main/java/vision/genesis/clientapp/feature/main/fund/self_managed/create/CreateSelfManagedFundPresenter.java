@@ -1,4 +1,4 @@
-package vision.genesis.clientapp.feature.main.fund.create;
+package vision.genesis.clientapp.feature.main.fund.self_managed.create;
 
 import android.content.Context;
 
@@ -12,7 +12,7 @@ import java.util.ArrayList;
 
 import javax.inject.Inject;
 
-import io.swagger.client.model.NewFundRequest;
+import io.swagger.client.model.NewSelfManagedFundRequest;
 import io.swagger.client.model.PlatformInfo;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
@@ -22,17 +22,16 @@ import vision.genesis.clientapp.managers.AssetsManager;
 import vision.genesis.clientapp.managers.SettingsManager;
 import vision.genesis.clientapp.model.events.OnCreateFundCreateButtonClickedEvent;
 import vision.genesis.clientapp.model.events.OnFundAssetsConfirmClickedEvent;
-import vision.genesis.clientapp.model.events.OnFundFeesConfirmEvent;
 import vision.genesis.clientapp.model.events.OnPublicInfoConfirmButtonClickedEvent;
 import vision.genesis.clientapp.net.ApiErrorResolver;
 
 /**
  * GenesisVisionAndroid
- * Created by Vitaly on 14/10/2019.
+ * Created by Vitaly on 10/11/2020.
  */
 
 @InjectViewState
-public class CreateFundPresenter extends MvpPresenter<CreateFundView>
+public class CreateSelfManagedFundPresenter extends MvpPresenter<CreateSelfManagedFundView>
 {
 	@Inject
 	public Context context;
@@ -43,7 +42,7 @@ public class CreateFundPresenter extends MvpPresenter<CreateFundView>
 	@Inject
 	public AssetsManager assetsManager;
 
-	private NewFundRequest request = new NewFundRequest();
+	private NewSelfManagedFundRequest request = new NewSelfManagedFundRequest();
 
 	private Subscription platformInfoSubscription;
 
@@ -98,7 +97,7 @@ public class CreateFundPresenter extends MvpPresenter<CreateFundView>
 	private void sendCreateFundRequest() {
 		getViewState().showProgress(true);
 
-		createFundSubscription = assetsManager.createFund(request)
+		createFundSubscription = assetsManager.createSelfManagedFund(request)
 				.subscribeOn(Schedulers.io())
 				.observeOn(AndroidSchedulers.mainThread())
 				.subscribe(this::handleCreateFundSuccess, this::handleCreateFundError);
@@ -119,7 +118,6 @@ public class CreateFundPresenter extends MvpPresenter<CreateFundView>
 	public void onEventMainThread(OnPublicInfoConfirmButtonClickedEvent event) {
 		if (request != null) {
 			request.setTitle(event.getTitle());
-			request.setDescription(event.getDescription());
 			request.setLogo(event.getLogo());
 
 			getViewState().showNextStep();
@@ -129,13 +127,6 @@ public class CreateFundPresenter extends MvpPresenter<CreateFundView>
 	@Subscribe
 	public void onEventMainThread(OnFundAssetsConfirmClickedEvent event) {
 		request.setAssets(event.getRequestAssets());
-		getViewState().showNextStep();
-	}
-
-	@Subscribe
-	public void onEventMainThread(OnFundFeesConfirmEvent event) {
-		request.setEntryFee(event.getModel().getEntryFee());
-		request.setExitFee(event.getModel().getExitFee());
 		getViewState().showNextStep();
 	}
 

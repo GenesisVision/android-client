@@ -13,6 +13,7 @@ import java.util.UUID;
 import javax.inject.Inject;
 
 import io.swagger.client.model.AssetInvestmentRequestItemsViewModel;
+import io.swagger.client.model.DashboardAssetStatus;
 import io.swagger.client.model.DashboardInvestingDetails;
 import io.swagger.client.model.FundInvestingDetailsListItemsViewModel;
 import io.swagger.client.model.ProgramInvestingDetailsListItemsViewModel;
@@ -212,7 +213,7 @@ public class InvestmentsDetailsPresenter extends MvpPresenter<InvestmentsDetails
 			ProgramsFilter filter = new ProgramsFilter();
 			filter.setSkip(0);
 			filter.setTake(TAKE);
-			filter.setStatus("Active");
+			filter.setStatus(DashboardAssetStatus.ACTIVE.getValue());
 			filter.setDateRange(dateRange);
 			filter.setChartPointsCount(10);
 			filter.setShowIn(CurrencyEnum.fromValue(baseCurrency.getValue()));
@@ -248,7 +249,7 @@ public class InvestmentsDetailsPresenter extends MvpPresenter<InvestmentsDetails
 			ProgramsFilter filter = new ProgramsFilter();
 			filter.setSkip(0);
 			filter.setTake(TAKE);
-			filter.setStatus("Active");
+			filter.setStatus(DashboardAssetStatus.ACTIVE.getValue());
 			filter.setDateRange(dateRange);
 			filter.setChartPointsCount(10);
 			filter.setShowIn(CurrencyEnum.fromValue(baseCurrency.getValue()));

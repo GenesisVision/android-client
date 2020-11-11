@@ -95,11 +95,13 @@ public class DashboardLimitView extends RelativeLayout
 	}
 
 	public void setData(LimitWithoutKyc limit) {
-		this.spent.setText(StringFormatUtil.getValueString(limit.getInvested(), limit.getCurrency().getValue()));
-		this.limit.setText(StringFormatUtil.getValueString(limit.getLimit(), limit.getCurrency().getValue()));
+		if (limit != null) {
+			this.spent.setText(StringFormatUtil.getValueString(limit.getInvested(), limit.getCurrency().getValue()));
+			this.limit.setText(StringFormatUtil.getValueString(limit.getLimit(), limit.getCurrency().getValue()));
 
-		this.progressBar.setMax(limit.getLimit().intValue());
-		this.progressBar.setProgress(limit.getInvested().intValue());
+			this.progressBar.setMax(limit.getLimit().intValue());
+			this.progressBar.setProgress(limit.getInvested().intValue());
+		}
 	}
 
 	public void setButtonStatus(UserVerificationStatus verificationStatus) {

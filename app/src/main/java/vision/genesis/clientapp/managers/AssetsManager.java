@@ -8,11 +8,13 @@ import io.swagger.client.api.AssetsApi;
 import io.swagger.client.model.ChangeBrokerProgramRequest;
 import io.swagger.client.model.CreateSignalProvider;
 import io.swagger.client.model.FundAssetPart;
+import io.swagger.client.model.MakeSelfManagedFundPublicRequest;
 import io.swagger.client.model.MakeSignalProviderProgram;
 import io.swagger.client.model.MakeTradingAccountProgram;
 import io.swagger.client.model.MakeTradingAccountSignalProvider;
 import io.swagger.client.model.NewExternalTradingAccountRequest;
 import io.swagger.client.model.NewFundRequest;
+import io.swagger.client.model.NewSelfManagedFundRequest;
 import io.swagger.client.model.NewTradingAccountRequest;
 import io.swagger.client.model.ProgramUpdate;
 import io.swagger.client.model.TradingAccountCreateResult;
@@ -36,6 +38,10 @@ public class AssetsManager
 
 	public Observable<Void> createFund(NewFundRequest request) {
 		return assetsApi.createFund(request);
+	}
+
+	public Observable<Void> createSelfManagedFund(NewSelfManagedFundRequest request) {
+		return assetsApi.createSelfManagedFund(request);
 	}
 
 	public Observable<TradingAccountCreateResult> createTradingAccount(NewTradingAccountRequest request) {
@@ -114,5 +120,9 @@ public class AssetsManager
 
 	public Observable<Void> closeTradingAccount(UUID accountId) {
 		return assetsApi.closeTradingAccount(accountId);
+	}
+
+	public Observable<Void> makePublicFund(MakeSelfManagedFundPublicRequest request) {
+		return assetsApi.makeSelfManagedFundPublic(request);
 	}
 }

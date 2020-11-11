@@ -18,6 +18,7 @@ import androidx.core.widget.NestedScrollView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
+import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,12 +40,15 @@ import vision.genesis.clientapp.feature.common.timeframe_profit.TimeframeProfitV
 import vision.genesis.clientapp.feature.main.events.EventsActivity;
 import vision.genesis.clientapp.feature.main.external.attach.AttachExternalAccountActivity;
 import vision.genesis.clientapp.feature.main.fund.create.CreateFundActivity;
+import vision.genesis.clientapp.feature.main.fund.self_managed.create.CreateSelfManagedFundActivity;
 import vision.genesis.clientapp.feature.main.settings.public_info.ProfilePublicInfoActivity;
 import vision.genesis.clientapp.feature.main.trading_account.create.CreateAccountActivity;
 import vision.genesis.clientapp.model.CurrencyEnum;
+import vision.genesis.clientapp.ui.CustomTabView;
 import vision.genesis.clientapp.ui.PortfolioEventDashboardView;
 import vision.genesis.clientapp.ui.TradingAssetDashboardShortView;
 import vision.genesis.clientapp.utils.StringFormatUtil;
+import vision.genesis.clientapp.utils.TabLayoutUtil;
 import vision.genesis.clientapp.utils.ThemeUtil;
 import vision.genesis.clientapp.utils.TypefaceUtil;
 
@@ -119,11 +123,29 @@ public class TradingDetailsActivity extends BaseSwipeBackActivity implements Tra
 	@BindView(R.id.private_progress_bar)
 	public ProgressBar privateProgressBar;
 
-	@BindView(R.id.group_private_empty)
-	public ViewGroup privateEmptyGroup;
 
-	@BindView(R.id.private_assets)
-	public LinearLayout privateAssetsGroup;
+	@BindView(R.id.group_private_accounts)
+	public ViewGroup privateAccountsGroup;
+
+	@BindView(R.id.group_private_accounts_empty)
+	public ViewGroup privateAccountsEmptyGroup;
+
+	@BindView(R.id.private_accounts)
+	public LinearLayout privateAccounts;
+
+
+	@BindView(R.id.tab_layout)
+	public TabLayout tabLayout;
+
+
+	@BindView(R.id.group_private_funds)
+	public ViewGroup privateFundsGroup;
+
+	@BindView(R.id.group_private_funds_empty)
+	public ViewGroup privateFundsEmptyGroup;
+
+	@BindView(R.id.private_funds)
+	public LinearLayout privateFunds;
 
 
 	@BindView(R.id.label_public)
@@ -189,6 +211,11 @@ public class TradingDetailsActivity extends BaseSwipeBackActivity implements Tra
 		showAttachAccountActivity();
 	}
 
+	@OnClick(R.id.button_create_self_managed_fund)
+	public void onCreateSelfManagedFundClicked() {
+		showCreateSelfManagedFundActivity();
+	}
+
 	@OnClick(R.id.button_create_fund)
 	public void onCreateFundClicked() {
 		presenter.onCreateFundClicked();
@@ -228,6 +255,7 @@ public class TradingDetailsActivity extends BaseSwipeBackActivity implements Tra
 
 		initRefreshLayout();
 		setScrollListener();
+		initPrivateTabs();
 
 		timeframeProfit.setListener(presenter);
 		new Handler().postDelayed(this::hideBalanceInHeader, 100);
@@ -365,6 +393,71 @@ public class TradingDetailsActivity extends BaseSwipeBackActivity implements Tra
 		alphaAnim.start();
 	}
 
+	private void initPrivateTabs() {
+		tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+		tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener()
+		{
+			@Override
+			public void onTabSelected(TabLayout.Tab tab) {
+				switch (tab.getPosition()) {
+					case 0:
+						showPrivateAccounts();
+						break;
+					case 1:
+						showPrivateFunds();
+						break;
+				}
+
+				if (tab.getCustomView() != null && tab.getCustomView().getClass().equals(CustomTabView.class)) {
+					((CustomTabView) tab.getCustomView()).setSelectedState(true);
+				}
+			}
+
+			@Override
+			public void onTabUnselected(TabLayout.Tab tab) {
+				if (tab.getCustomView() != null && tab.getCustomView().getClass().equals(CustomTabView.class)) {
+					((CustomTabView) tab.getCustomView()).setSelectedState(false);
+				}
+			}
+
+			@Override
+			public void onTabReselected(TabLayout.Tab tab) {
+				if (tab.getCustomView() != null && tab.getCustomView().getClass().equals(CustomTabView.class)) {
+					((CustomTabView) tab.getCustomView()).setSelectedState(true);
+				}
+			}
+		});
+
+		addTab(tabLayout.newTab().setCustomView(getTabView(R.string.trading_accounts)), true);
+		addTab(tabLayout.newTab().setCustomView(getTabView(R.string.self_managed_funds)), false);
+	}
+
+	private View getTabView(int textResId) {
+		CustomTabView view = new CustomTabView(this);
+		view.setData(0, textResId);
+		view.setTextSize(14);
+		return view;
+	}
+
+	private void addTab(TabLayout.Tab tab, boolean selected) {
+		if (tab.getPosition() != TabLayout.Tab.INVALID_POSITION) {
+			return;
+		}
+
+		tabLayout.addTab(tab, selected);
+		TabLayoutUtil.wrapTabIndicatorToTitle(tabLayout, 20, 10);
+	}
+
+	private void showPrivateAccounts() {
+		privateAccountsGroup.setVisibility(View.VISIBLE);
+		privateFundsGroup.setVisibility(View.GONE);
+	}
+
+	private void showPrivateFunds() {
+		privateAccountsGroup.setVisibility(View.GONE);
+		privateFundsGroup.setVisibility(View.VISIBLE);
+	}
+
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
@@ -465,26 +558,49 @@ public class TradingDetailsActivity extends BaseSwipeBackActivity implements Tra
 	}
 
 	@Override
-	public void setPrivate(List<DashboardTradingAsset> items) {
+	public void setPrivateAccounts(List<DashboardTradingAsset> items) {
 		if (baseCurrency != null) {
-			privateAssetsGroup.removeAllViews();
+			privateAccounts.removeAllViews();
 			int index = 0;
 			for (DashboardTradingAsset asset : items) {
 				TradingAssetDashboardShortView assetView = new TradingAssetDashboardShortView(this);
 				assetView.setData(asset, baseCurrency.getValue());
-				privateAssetsGroup.addView(assetView);
+				privateAccounts.addView(assetView);
 				if (index == items.size() - 1) {
 					assetView.removeDelimiter();
 				}
 				index++;
 			}
-			showPrivateEmpty(items.isEmpty());
+			showPrivateAccountsEmpty(items.isEmpty());
 		}
 	}
 
-	private void showPrivateEmpty(boolean show) {
-		privateEmptyGroup.setVisibility(show ? View.VISIBLE : View.GONE);
-		privateAssetsGroup.setVisibility(!show ? View.VISIBLE : View.GONE);
+	@Override
+	public void setPrivateFunds(List<DashboardTradingAsset> items) {
+		if (baseCurrency != null) {
+			privateFunds.removeAllViews();
+			int index = 0;
+			for (DashboardTradingAsset asset : items) {
+				TradingAssetDashboardShortView assetView = new TradingAssetDashboardShortView(this);
+				assetView.setData(asset, baseCurrency.getValue());
+				privateFunds.addView(assetView);
+				if (index == items.size() - 1) {
+					assetView.removeDelimiter();
+				}
+				index++;
+			}
+			showPrivateFundsEmpty(items.isEmpty());
+		}
+	}
+
+	private void showPrivateAccountsEmpty(boolean show) {
+		privateAccountsEmptyGroup.setVisibility(show ? View.VISIBLE : View.GONE);
+		privateAccounts.setVisibility(!show ? View.VISIBLE : View.GONE);
+	}
+
+	private void showPrivateFundsEmpty(boolean show) {
+		privateFundsEmptyGroup.setVisibility(show ? View.VISIBLE : View.GONE);
+		privateFunds.setVisibility(!show ? View.VISIBLE : View.GONE);
 	}
 
 	@Override
@@ -546,6 +662,11 @@ public class TradingDetailsActivity extends BaseSwipeBackActivity implements Tra
 	@Override
 	public void showAttachAccountActivity() {
 		AttachExternalAccountActivity.startFrom(this);
+	}
+
+	@Override
+	public void showCreateSelfManagedFundActivity() {
+		CreateSelfManagedFundActivity.startFrom(this);
 	}
 
 	@Override

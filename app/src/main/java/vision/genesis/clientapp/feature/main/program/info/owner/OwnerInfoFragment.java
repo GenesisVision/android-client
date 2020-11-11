@@ -801,7 +801,7 @@ public class OwnerInfoFragment extends BaseFragment implements OwnerInfoView, Pr
 	@Override
 	public void showEditPublicInfoActivity(UUID assetId, ProgramUpdate model) {
 		if (getActivity() != null) {
-			EditPublicInfoActivity.startFrom(getActivity(), assetId, model);
+			EditPublicInfoActivity.startFrom(getActivity(), assetId, model, true);
 		}
 	}
 

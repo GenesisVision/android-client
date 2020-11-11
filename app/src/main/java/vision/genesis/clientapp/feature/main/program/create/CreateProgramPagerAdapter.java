@@ -54,7 +54,7 @@ public class CreateProgramPagerAdapter extends FragmentStatePagerAdapter
 		if (needPublicInfo) {
 			publicInfoFragment = PublicInfoFragment.with(new PublicInfoModel(true, "01",
 					GenesisVisionApplication.INSTANCE.getString(R.string.public_info), false,
-					String.format(Locale.getDefault(), "%s (1/%d)", GenesisVisionApplication.INSTANCE.getString(R.string.next), stepsCount),
+					true, String.format(Locale.getDefault(), "%s (1/%d)", GenesisVisionApplication.INSTANCE.getString(R.string.next), stepsCount),
 					null, null, null));
 			fragments.add(publicInfoFragment);
 		}

@@ -278,6 +278,9 @@ public class TradingAssetDashboardShortView extends RelativeLayout
 			case EXTERNALSIGNALTRADINGACCOUNT:
 				typeStringResId = R.string.external_trading_account;
 				break;
+			case SELFMANAGEDFUND:
+				typeStringResId = R.string.self_managed_fund;
+				break;
 		}
 
 		if (typeStringResId != 0) {

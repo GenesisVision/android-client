@@ -56,6 +56,8 @@ public class PublicInfoPresenter extends MvpPresenter<PublicInfoView> implements
 
 	private String logo = null;
 
+	private PublicInfoModel model;
+
 	@Override
 	protected void onFirstViewAttach() {
 		super.onFirstViewAttach();
@@ -73,6 +75,7 @@ public class PublicInfoPresenter extends MvpPresenter<PublicInfoView> implements
 	}
 
 	void setModel(PublicInfoModel model) {
+		this.model = model;
 		if (model.getTitle() != null) {
 			getViewState().setTitle(model.getTitle());
 		}
@@ -178,11 +181,22 @@ public class PublicInfoPresenter extends MvpPresenter<PublicInfoView> implements
 	}
 
 	private void checkButtonAvailability() {
-		getViewState().setConfirmButtonEnabled(this.title.length() >= Constants.MIN_ASSET_NAME_LENGTH
+		boolean titleOk = this.title.length() >= Constants.MIN_ASSET_NAME_LENGTH
 				&& this.title.length() <= Constants.MAX_ASSET_NAME_LENGTH
-				&& ValidatorUtil.isTitleValid(this.title)
-				&& this.description.length() >= Constants.MIN_ASSET_DESCRIPTION_LENGTH
-				&& this.description.length() <= Constants.MAX_ASSET_DESCRIPTION_LENGTH);
+				&& ValidatorUtil.isTitleValid(this.title);
+
+		boolean descriptionOk = false;
+		if (model != null) {
+			if (model.isShowDescription()) {
+				descriptionOk = this.description.length() >= Constants.MIN_ASSET_DESCRIPTION_LENGTH
+						&& this.description.length() <= Constants.MAX_ASSET_DESCRIPTION_LENGTH;
+			}
+			else {
+				descriptionOk = true;
+			}
+		}
+
+		getViewState().setConfirmButtonEnabled(titleOk && descriptionOk);
 	}
 
 	private void uploadLogo() {

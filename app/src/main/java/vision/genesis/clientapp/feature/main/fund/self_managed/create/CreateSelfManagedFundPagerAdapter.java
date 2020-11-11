@@ -1,4 +1,4 @@
-package vision.genesis.clientapp.feature.main.fund.create;
+package vision.genesis.clientapp.feature.main.fund.self_managed.create;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -11,10 +11,8 @@ import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.common.public_info.PublicInfoFragment;
 import vision.genesis.clientapp.feature.main.fund.create.assets.FundAssetsFragment;
 import vision.genesis.clientapp.feature.main.fund.create.deposit.CreateFundDepositFragment;
-import vision.genesis.clientapp.feature.main.fund.create.fees.FundFeesFragment;
 import vision.genesis.clientapp.model.FundAssetsModel;
 import vision.genesis.clientapp.model.FundDepositModel;
-import vision.genesis.clientapp.model.FundSettingsModel;
 import vision.genesis.clientapp.model.PublicInfoModel;
 
 /**
@@ -22,7 +20,7 @@ import vision.genesis.clientapp.model.PublicInfoModel;
  * Created by Vitaly on 14/10/2019.
  */
 
-public class CreateFundPagerAdapter extends FragmentStatePagerAdapter
+public class CreateSelfManagedFundPagerAdapter extends FragmentStatePagerAdapter
 {
 	public interface OnPageVisibilityChanged
 	{
@@ -35,26 +33,22 @@ public class CreateFundPagerAdapter extends FragmentStatePagerAdapter
 
 	private FundAssetsFragment assetsFragment;
 
-	private FundFeesFragment feesFragment;
-
 	private CreateFundDepositFragment depositFragment;
 
-	CreateFundPagerAdapter(FragmentManager fm) {
+	CreateSelfManagedFundPagerAdapter(FragmentManager fm) {
 		super(fm);
 
 		publicInfoFragment = PublicInfoFragment.with(new PublicInfoModel(true, "01",
-				GenesisVisionApplication.INSTANCE.getString(R.string.public_info), true,
-				true, String.format(Locale.getDefault(), "%s (1/4)", GenesisVisionApplication.INSTANCE.getString(R.string.next)),
+				GenesisVisionApplication.INSTANCE.getString(R.string.public_info), true, false,
+				String.format(Locale.getDefault(), "%s (1/3)", GenesisVisionApplication.INSTANCE.getString(R.string.next)),
 				null, null, null));
 		assetsFragment = FundAssetsFragment.with(new FundAssetsModel(true, "02",
 				GenesisVisionApplication.INSTANCE.getString(R.string.assets_selection), "",
-				String.format(Locale.getDefault(), "%s (2/4)", GenesisVisionApplication.INSTANCE.getString(R.string.next)),
+				String.format(Locale.getDefault(), "%s (2/3)", GenesisVisionApplication.INSTANCE.getString(R.string.next)),
 				null, true));
-		feesFragment = FundFeesFragment.with(new FundSettingsModel(true, "03", GenesisVisionApplication.INSTANCE.getString(R.string.fees_settings),
-				String.format(Locale.getDefault(), "%s (3/4)", GenesisVisionApplication.INSTANCE.getString(R.string.next)), null, null, false));
-		depositFragment = CreateFundDepositFragment.with(new FundDepositModel(true, "04",
+		depositFragment = CreateFundDepositFragment.with(new FundDepositModel(true, "03",
 				GenesisVisionApplication.INSTANCE.getString(R.string.deposit_details),
-				GenesisVisionApplication.INSTANCE.getString(R.string.create_fund)));
+				GenesisVisionApplication.INSTANCE.getString(R.string.create_self_managed_fund)));
 	}
 
 	@Override
@@ -63,8 +57,6 @@ public class CreateFundPagerAdapter extends FragmentStatePagerAdapter
 			case 1:
 				return assetsFragment;
 			case 2:
-				return feesFragment;
-			case 3:
 				return depositFragment;
 			case 0:
 			default:
@@ -74,7 +66,7 @@ public class CreateFundPagerAdapter extends FragmentStatePagerAdapter
 
 	@Override
 	public int getCount() {
-		return 4;
+		return 3;
 	}
 
 	public void setMinDepositAmount(Double minDepositAmount, String warningInfo) {

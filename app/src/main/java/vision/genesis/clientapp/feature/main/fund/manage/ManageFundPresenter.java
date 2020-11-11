@@ -12,6 +12,7 @@ import java.util.Locale;
 
 import javax.inject.Inject;
 
+import io.swagger.client.model.AssetTypeExt;
 import io.swagger.client.model.FundDetailsFull;
 import io.swagger.client.model.ProgramUpdate;
 import io.swagger.client.model.TwoFactorCodeModel;
@@ -79,7 +80,11 @@ public class ManageFundPresenter extends MvpPresenter<ManageFundView>
 	}
 
 	void onChangeAssetsClicked() {
-		String reallocationInfo = String.format(Locale.getDefault(), context.getString(R.string.template_reallocation_info), details.getPersonalDetails().getAvailableReallocationPercents());
+		String reallocationInfo = String.format(Locale.getDefault(), context.getString(R.string.template_reallocation_available), details.getPersonalDetails().getAvailableReallocationPercents());
+		if (details.getPublicInfo().getTypeExt() != null && !details.getPublicInfo().getTypeExt().equals(AssetTypeExt.SELFMANAGEDFUND)) {
+			reallocationInfo = reallocationInfo.concat("\n").concat(context.getString(R.string.reallocation_info));
+		}
+
 		getViewState().showReallocateFundActivity(details.getId(), reallocationInfo, details.getAssetsStructure());
 	}
 

@@ -580,6 +580,18 @@
             android:theme="@style/SwipeBackActivityTheme"
             android:windowSoftInputMode="stateAlwaysHidden|adjustResize"/>
 
+        <activity
+            android:name=".feature.main.fund.self_managed.create.CreateSelfManagedFundActivity"
+            android:launchMode="singleTop"
+            android:theme="@style/SwipeBackActivityTheme"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize"/>
+
+        <activity
+            android:name=".feature.main.fund.self_managed.make_public.MakePublicFundActivity"
+            android:launchMode="singleTop"
+            android:theme="@style/SwipeBackActivityTheme"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize"/>
+
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="${applicationId}.provider"

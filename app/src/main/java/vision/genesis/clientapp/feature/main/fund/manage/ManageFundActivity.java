@@ -21,6 +21,7 @@ import java.util.UUID;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.swagger.client.model.AssetTypeExt;
 import io.swagger.client.model.FundAssetInfo;
 import io.swagger.client.model.FundDetailsFull;
 import io.swagger.client.model.ProgramUpdate;
@@ -55,6 +56,9 @@ public class ManageFundActivity extends BaseSwipeBackActivity implements ManageF
 
 	@BindView(R.id.title)
 	public TextView title;
+
+	@BindView(R.id.group_fees)
+	public ViewGroup feesGroup;
 
 	@BindView(R.id.label_entry_fee)
 	public TextView labelEntryFee;
@@ -193,6 +197,13 @@ public class ManageFundActivity extends BaseSwipeBackActivity implements ManageF
 			FlexboxLayout.LayoutParams lp = (FlexboxLayout.LayoutParams) view.getLayoutParams();
 			lp.setMargins(0, 0, 0, TypedValueFormatter.toDp(20));
 			view.setLayoutParams(lp);
+		}
+
+		if (fundDetails.getPublicInfo().getTypeExt() != null && fundDetails.getPublicInfo().getTypeExt().equals(AssetTypeExt.SELFMANAGEDFUND)) {
+			feesGroup.setVisibility(View.GONE);
+		}
+		else {
+			feesGroup.setVisibility(View.VISIBLE);
 		}
 	}
 

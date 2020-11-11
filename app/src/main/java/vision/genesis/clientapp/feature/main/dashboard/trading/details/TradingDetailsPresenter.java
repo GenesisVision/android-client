@@ -12,6 +12,7 @@ import java.util.ArrayList;
 
 import javax.inject.Inject;
 
+import io.swagger.client.model.DashboardAssetStatus;
 import io.swagger.client.model.DashboardTradingAssetItemsViewModel;
 import io.swagger.client.model.DashboardTradingDetails;
 import io.swagger.client.model.ProfileFullViewModel;
@@ -68,7 +69,9 @@ public class TradingDetailsPresenter extends MvpPresenter<TradingDetailsView> im
 
 	private Subscription getTradingSubscription;
 
-	private Subscription privateSubscription;
+	private Subscription privateAccountsSubscription;
+
+	private Subscription privateFundsSubscription;
 
 	private Subscription publicSubscription;
 
@@ -83,6 +86,10 @@ public class TradingDetailsPresenter extends MvpPresenter<TradingDetailsView> im
 	private boolean isUsernameFilled = false;
 
 	private boolean isWaitingFillProfileToCreateFund = false;
+
+	private DashboardTradingAssetItemsViewModel privateAccountsModel;
+
+	private DashboardTradingAssetItemsViewModel privateFundsModel;
 
 	@Override
 	protected void onFirstViewAttach() {
@@ -109,8 +116,11 @@ public class TradingDetailsPresenter extends MvpPresenter<TradingDetailsView> im
 		if (getTradingSubscription != null) {
 			getTradingSubscription.unsubscribe();
 		}
-		if (privateSubscription != null) {
-			privateSubscription.unsubscribe();
+		if (privateAccountsSubscription != null) {
+			privateAccountsSubscription.unsubscribe();
+		}
+		if (privateFundsSubscription != null) {
+			privateFundsSubscription.unsubscribe();
 		}
 		if (publicSubscription != null) {
 			publicSubscription.unsubscribe();
@@ -137,6 +147,9 @@ public class TradingDetailsPresenter extends MvpPresenter<TradingDetailsView> im
 				break;
 			case 1:
 				getViewState().showAttachAccountActivity();
+				break;
+			case 2:
+				getViewState().showCreateSelfManagedFundActivity();
 				break;
 		}
 	}
@@ -169,6 +182,7 @@ public class TradingDetailsPresenter extends MvpPresenter<TradingDetailsView> im
 
 		createPrivateOptions.add(context.getString(R.string.create_trading_account));
 		createPrivateOptions.add(context.getString(R.string.attach_external_account));
+		createPrivateOptions.add(context.getString(R.string.create_self_managed_fund));
 
 		createPublicOptions.add(context.getString(R.string.create_fund));
 
@@ -238,34 +252,79 @@ public class TradingDetailsPresenter extends MvpPresenter<TradingDetailsView> im
 	}
 
 	private void getPrivate() {
+		getPrivateAccounts();
+		getPrivateFunds();
+	}
+
+	private void getPrivateAccounts() {
 		if (dashboardManager != null && baseCurrency != null) {
-			if (privateSubscription != null) {
-				privateSubscription.unsubscribe();
+			if (privateAccountsSubscription != null) {
+				privateAccountsSubscription.unsubscribe();
 			}
 
-			privateSubscription = dashboardManager.getPrivate(dateRange, baseCurrency.getValue(), 0, TAKE)
+			privateAccountsSubscription = dashboardManager.getPrivateAccounts(dateRange, baseCurrency.getValue(), DashboardAssetStatus.ALL, 0, TAKE)
 					.observeOn(AndroidSchedulers.mainThread())
 					.subscribeOn(Schedulers.newThread())
-					.subscribe(this::handleGetPrivateResponse,
-							this::handleGetPrivateError);
+					.subscribe(this::handleGetPrivateAccountsResponse,
+							this::handleGetPrivateAccountsError);
 		}
 	}
 
-	private void handleGetPrivateResponse(DashboardTradingAssetItemsViewModel response) {
-		privateSubscription.unsubscribe();
+	private void handleGetPrivateAccountsResponse(DashboardTradingAssetItemsViewModel response) {
+		privateAccountsSubscription.unsubscribe();
 		getViewState().hidePrivateProgress();
 
-		getViewState().setPrivateCount(response.getTotal());
-		getViewState().setPrivate(response.getItems());
+		this.privateAccountsModel = response;
+
+		updatePrivateCount();
+		getViewState().setPrivateAccounts(response.getItems());
 	}
 
-	private void handleGetPrivateError(Throwable throwable) {
-		privateSubscription.unsubscribe();
+	private void handleGetPrivateAccountsError(Throwable throwable) {
+		privateAccountsSubscription.unsubscribe();
 		getViewState().hidePrivateProgress();
 
 		ApiErrorResolver.resolveErrors(throwable,
 				message -> getViewState().showSnackbarMessage(message));
 	}
+
+	private void getPrivateFunds() {
+		if (dashboardManager != null && baseCurrency != null) {
+			if (privateFundsSubscription != null) {
+				privateFundsSubscription.unsubscribe();
+			}
+
+			privateFundsSubscription = dashboardManager.getPrivateFunds(dateRange, baseCurrency.getValue(), DashboardAssetStatus.ALL, 0, TAKE)
+					.observeOn(AndroidSchedulers.mainThread())
+					.subscribeOn(Schedulers.newThread())
+					.subscribe(this::handleGetPrivateFundsResponse,
+							this::handleGetPrivateFundsError);
+		}
+	}
+
+	private void handleGetPrivateFundsResponse(DashboardTradingAssetItemsViewModel response) {
+		privateFundsSubscription.unsubscribe();
+
+		this.privateFundsModel = response;
+
+		updatePrivateCount();
+		getViewState().setPrivateFunds(response.getItems());
+	}
+
+	private void updatePrivateCount() {
+		if (privateAccountsModel != null && privateFundsModel != null) {
+			getViewState().setPrivateCount(privateAccountsModel.getTotal() + privateFundsModel.getTotal());
+		}
+	}
+
+	private void handleGetPrivateFundsError(Throwable throwable) {
+		privateFundsSubscription.unsubscribe();
+		getViewState().hidePrivateProgress();
+
+		ApiErrorResolver.resolveErrors(throwable,
+				message -> getViewState().showSnackbarMessage(message));
+	}
+
 
 	private void getPublic() {
 		if (dashboardManager != null && baseCurrency != null) {
@@ -273,7 +332,7 @@ public class TradingDetailsPresenter extends MvpPresenter<TradingDetailsView> im
 				publicSubscription.unsubscribe();
 			}
 
-			publicSubscription = dashboardManager.getPublic(dateRange, baseCurrency.getValue(), 0, TAKE)
+			publicSubscription = dashboardManager.getPublic(dateRange, baseCurrency.getValue(), DashboardAssetStatus.ALL, 0, TAKE)
 					.observeOn(AndroidSchedulers.mainThread())
 					.subscribeOn(Schedulers.newThread())
 					.subscribe(this::handleGetPublicResponse,
