@@ -338,7 +338,7 @@ public class SettingsFragment extends BaseFragment implements SettingsView
 				verificationStatus.setText(getString(R.string.rejected));
 				verificationStatus.setTextColor(ThemeUtil.getColorByAttrId(getContext(), R.attr.colorRed));
 				verificationStatusBackground.setBackgroundColor(ThemeUtil.getColorByAttrId(getContext(), R.attr.colorRed));
-				verificationArrow.setVisibility(View.GONE);
+				verificationArrow.setVisibility(View.VISIBLE);
 				break;
 		}
 

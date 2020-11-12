@@ -41,8 +41,8 @@ public class VerificationInfoPresenter extends MvpPresenter<VerificationInfoView
 	private void updateButton() {
 		if (verificationStatus != null && context != null) {
 			switch (verificationStatus) {
-
 				case NOTVERIFIED:
+				case REJECTED:
 					getViewState().setVerifyButtonVisible(true);
 					getViewState().setVerifyButtonEnabled(true);
 					getViewState().setVerifyButtonText(context.getString(R.string.verify_to_remove_limit));
@@ -53,7 +53,6 @@ public class VerificationInfoPresenter extends MvpPresenter<VerificationInfoView
 					getViewState().setVerifyButtonText(context.getString(R.string.under_review));
 					break;
 				case VERIFIED:
-				case REJECTED:
 					getViewState().setVerifyButtonVisible(false);
 					break;
 			}

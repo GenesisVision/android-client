@@ -509,16 +509,16 @@ public class PostDetailsActivity extends BaseSwipeBackActivity implements PostDe
 
 	@OnShowRationale({Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE})
 	void showRationaleForStorage(PermissionRequest request) {
-		showRationaleDialog(getString(R.string.permission_picture_rationale), request);
+		showRationaleDialog(getString(R.string.permission_storage_rationale), request);
 	}
 
 	@OnPermissionDenied({Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE})
 	void onStorageDenied() {
-		showMessageDialog(getString(R.string.permission_picture_denied));
+		showMessageDialog(getString(R.string.permission_storage_denied));
 	}
 
 	@OnNeverAskAgain({Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE})
 	void onStorageNeverAskAgain() {
-		showMessageDialog(getString(R.string.permission_picture_never_ask_again));
+		showMessageDialog(getString(R.string.permission_storage_never_ask_again));
 	}
 }

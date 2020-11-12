@@ -108,6 +108,7 @@ public class DashboardLimitView extends RelativeLayout
 		this.verificationStatus = verificationStatus;
 		switch (verificationStatus) {
 			case NOTVERIFIED:
+			case REJECTED:
 				this.removeLimitButton.setVisibility(View.VISIBLE);
 				this.removeLimitButton.setEnabled(true);
 				this.removeLimitButton.setText(getContext().getString(R.string.remove_limit));
@@ -118,7 +119,6 @@ public class DashboardLimitView extends RelativeLayout
 				this.removeLimitButton.setText(getContext().getString(R.string.under_review));
 				break;
 			case VERIFIED:
-			case REJECTED:
 				this.removeLimitButton.setVisibility(View.GONE);
 				break;
 		}

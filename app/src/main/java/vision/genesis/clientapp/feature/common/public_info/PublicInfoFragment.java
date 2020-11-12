@@ -256,13 +256,13 @@ public class PublicInfoFragment extends BaseFragment implements PublicInfoView
 	}
 
 	@Override
-	public void openCamera(ImageUtils imageUtils, File newLogoFile) {
-		imageUtils.openCameraFrom(this, newLogoFile);
+	public void openCameraChosen(ImageUtils imageUtils, File newLogoFile) {
+		PublicInfoFragmentPermissionsDispatcher.openCameraWithPermissionCheck(this, imageUtils, newLogoFile);
 	}
 
 	@Override
-	public void openGallery(ImageUtils imageUtils) {
-		imageUtils.openGalleryFrom(this);
+	public void openGalleryChosen(ImageUtils imageUtils) {
+		PublicInfoFragmentPermissionsDispatcher.openGalleryWithPermissionCheck(this, imageUtils);
 	}
 
 	@Override
@@ -371,19 +371,44 @@ public class PublicInfoFragment extends BaseFragment implements PublicInfoView
 		bottomSheetDialog.show(getChildFragmentManager(), bottomSheetDialog.getTag());
 	}
 
+	@NeedsPermission({Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE})
+	void openGallery(ImageUtils imageUtils) {
+		imageUtils.openGalleryFrom(this);
+	}
+
 	@OnShowRationale({Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE})
 	void showRationaleForStorage(PermissionRequest request) {
-		showRationaleDialog(getString(R.string.permission_picture_rationale), request, null);
+		showRationaleDialog(getString(R.string.permission_storage_rationale), request, null);
 	}
 
 	@OnPermissionDenied({Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE})
 	void onStorageDenied() {
-		showMessageDialog(getString(R.string.permission_picture_denied));
+		showMessageDialog(getString(R.string.permission_storage_denied));
 	}
 
 	@OnNeverAskAgain({Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE})
 	void onStorageNeverAskAgain() {
-		showMessageDialog(getString(R.string.permission_picture_never_ask_again));
+		showMessageDialog(getString(R.string.permission_storage_never_ask_again));
+	}
+
+	@NeedsPermission({Manifest.permission.CAMERA})
+	void openCamera(ImageUtils imageUtils, File newLogoFile) {
+		imageUtils.openCameraFrom(this, newLogoFile);
+	}
+
+	@OnShowRationale({Manifest.permission.CAMERA})
+	void showRationaleForCamera(PermissionRequest request) {
+		showRationaleDialog(getString(R.string.permission_camera_rationale), request, null);
+	}
+
+	@OnPermissionDenied({Manifest.permission.CAMERA})
+	void onCameraDenied() {
+		showMessageDialog(getString(R.string.permission_camera_denied));
+	}
+
+	@OnNeverAskAgain({Manifest.permission.CAMERA})
+	void onCameraNeverAskAgain() {
+		showMessageDialog(getString(R.string.permission_camera_never_ask_again));
 	}
 
 	private void hideSoftKeyboard() {

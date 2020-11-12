@@ -136,6 +136,9 @@ public class PublicInfoPresenter extends MvpPresenter<PublicInfoView> implements
 	void onTitleChanged(String title) {
 		this.title = title.trim();
 		checkTitleError();
+		if (model != null && !model.isShowDescription()) {
+			checkIfTitleOk();
+		}
 		checkButtonAvailability();
 	}
 
@@ -146,6 +149,10 @@ public class PublicInfoPresenter extends MvpPresenter<PublicInfoView> implements
 	}
 
 	void onTitleFocusLost() {
+		checkIfTitleOk();
+	}
+
+	private void checkIfTitleOk() {
 		if (this.title.length() < Constants.MIN_ASSET_NAME_LENGTH && context != null) {
 			getViewState().showTitleError(String.format(Locale.getDefault(), context.getString(R.string.template_minimum_symbols), Constants.MIN_ASSET_NAME_LENGTH));
 		}
@@ -234,7 +241,7 @@ public class PublicInfoPresenter extends MvpPresenter<PublicInfoView> implements
 	public void onPictureChooserCameraClicked() {
 		try {
 			newLogoFile = imageUtils.createImageFile();
-			getViewState().openCamera(imageUtils, newLogoFile);
+			getViewState().openCameraChosen(imageUtils, newLogoFile);
 		} catch (IOException e) {
 			e.printStackTrace();
 			getViewState().showSnackbarMessage(e.getMessage());
@@ -245,7 +252,7 @@ public class PublicInfoPresenter extends MvpPresenter<PublicInfoView> implements
 	public void onPictureChooserGalleryClicked() {
 		try {
 			newLogoFile = imageUtils.createImageFile();
-			getViewState().openGallery(imageUtils);
+			getViewState().openGalleryChosen(imageUtils);
 		} catch (IOException e) {
 			e.printStackTrace();
 			getViewState().showSnackbarMessage(e.getMessage());

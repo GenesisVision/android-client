@@ -391,9 +391,13 @@
     <string name="program_title">Program Title</string>
     <string name="add_program_logo">Add program logo</string>
 
-    <string name="permission_picture_rationale">Please grant the Storage permission in order to be able to choose the picture</string>
-    <string name="permission_picture_denied">The app is not able to set the picture until you grant the Storage permission</string>
-    <string name="permission_picture_never_ask_again"><![CDATA[The app is not able to set the picture until you grant the Storage permission in Settings -> Apps]]></string>
+    <string name="permission_storage_rationale">Please grant the Storage permission in order to be able to choose the picture</string>
+    <string name="permission_storage_denied">The app is not able to set the picture until you grant the Storage permission</string>
+    <string name="permission_storage_never_ask_again"><![CDATA[The app is not able to set the picture until you grant the Storage permission in Settings -> Apps]]></string>
+
+    <string name="permission_camera_rationale">Please grant the Camera permission in order to be able to take a photo</string>
+    <string name="permission_camera_denied">The app is not able to take a photo until you grant the Camera permission</string>
+    <string name="permission_camera_never_ask_again"><![CDATA[The app is not able to take a photo until you grant the Camera permission in Settings -> Apps]]></string>
 
     <string name="leverages">Leverages</string>
     <string name="leverage">Leverage</string>

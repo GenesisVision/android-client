@@ -127,4 +127,8 @@
 
     <color name="lightTextPrimary">#1c232a</color>
     <color name="lightTextSecondary">#bbbdbf</color>
+
+    <color name="sns_black">@color/darkTextPrimary</color>
+    <color name="sns_black_2">@color/darkTextSecondary</color>
+    <color name="sns_white">@color/darkBackground</color>
 </resources>

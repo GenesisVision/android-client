@@ -39,7 +39,7 @@ import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.managers.AuthManager;
 
 /**
- * BABB
+ * GenesisVisionAndroid
  * Created on 11/11/2019.
  */
 

@@ -97,8 +97,7 @@ public class SettingsPresenter extends MvpPresenter<SettingsView> implements Sel
 
 	void onVerificationClicked() {
 		if (profile != null) {
-			if (!profile.getVerificationStatus().equals(UserVerificationStatus.VERIFIED)
-					&& !profile.getVerificationStatus().equals(UserVerificationStatus.REJECTED)) {
+			if (!profile.getVerificationStatus().equals(UserVerificationStatus.VERIFIED)) {
 				EventBus.getDefault().post(new ShowVerificationInfoActivityEvent(profile.getVerificationStatus()));
 			}
 		}

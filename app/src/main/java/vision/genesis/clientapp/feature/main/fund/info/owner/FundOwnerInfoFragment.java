@@ -46,6 +46,7 @@ import vision.genesis.clientapp.ui.InvestmentStatusView;
 import vision.genesis.clientapp.ui.PrimaryButton;
 import vision.genesis.clientapp.utils.DateTimeUtil;
 import vision.genesis.clientapp.utils.StringFormatUtil;
+import vision.genesis.clientapp.utils.ThemeUtil;
 import vision.genesis.clientapp.utils.TypefaceUtil;
 
 /**
@@ -337,6 +338,22 @@ public class FundOwnerInfoFragment extends BaseFragment implements FundOwnerInfo
 				investorsGroup.setVisibility(View.VISIBLE);
 				feesGroup.setVisibility(View.VISIBLE);
 				makePublicFundButton.setVisibility(View.GONE);
+			}
+
+			if (fundDetails.getPublicInfo().getStatus() != null && fundDetails.getPublicInfo().getStatus().toLowerCase().equals("closed")) {
+				makePublicFundButton.setEnabled(false);
+				editPublicInfoButton.setEnabled(false);
+				manageFundButton.setEnabled(false);
+				editPublicInfoButton.setTextColor(ThemeUtil.getColorByAttrId(getContext(), R.attr.colorTextSecondary));
+				manageFundButton.setTextColor(ThemeUtil.getColorByAttrId(getContext(), R.attr.colorTextSecondary));
+
+			}
+			else {
+				makePublicFundButton.setEnabled(true);
+				editPublicInfoButton.setEnabled(true);
+				manageFundButton.setEnabled(true);
+				editPublicInfoButton.setTextColor(ThemeUtil.getColorByAttrId(getContext(), R.attr.colorAccent));
+				manageFundButton.setTextColor(ThemeUtil.getColorByAttrId(getContext(), R.attr.colorAccent));
 			}
 		}
 	}

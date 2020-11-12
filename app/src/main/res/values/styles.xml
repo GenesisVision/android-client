@@ -705,4 +705,15 @@
         <item name="android:orientation">horizontal</item>
     </style>
 
+    <style name="Widget.SNSOverlay.Progress.Root" parent="Widget.SNSTextView">
+        <item name="android:background">@color/darkBackground</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="Widget.SNSOverlay.Progress.Message" parent="Widget.SNSTextView">
+        <item name="android:textColor">@color/darkTextPrimary</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:gravity">center</item>
+    </style>
+
 </resources>
