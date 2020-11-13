@@ -85,7 +85,6 @@ import vision.genesis.clientapp.feature.main.notifications.follow.FollowNotifica
 import vision.genesis.clientapp.feature.main.notifications.fund.FundNotificationsSettingsPresenter;
 import vision.genesis.clientapp.feature.main.notifications.program.ProgramNotificationsSettingsPresenter;
 import vision.genesis.clientapp.feature.main.notifications.settings.NotificationsSettingsPresenter;
-import vision.genesis.clientapp.feature.main.profile.ProfilePresenter;
 import vision.genesis.clientapp.feature.main.program.ProgramDetailsPresenter;
 import vision.genesis.clientapp.feature.main.program.balance.ProgramBalancePresenter;
 import vision.genesis.clientapp.feature.main.program.change_settings.ChangeProgramSettingsPresenter;
@@ -201,8 +200,6 @@ public interface AppComponent
 	void inject(ProgramsListPresenter programsListPresenter);
 
 	void inject(WalletPresenter walletPresenter);
-
-	void inject(ProfilePresenter profilePresenter);
 
 	void inject(ProgramDetailsPresenter programDetailsPresenter);
 

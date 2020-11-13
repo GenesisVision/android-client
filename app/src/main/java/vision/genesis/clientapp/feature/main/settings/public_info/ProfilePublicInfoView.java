@@ -17,9 +17,9 @@ interface ProfilePublicInfoView extends MvpView
 
 	void setAbout(String description);
 
-	void openCamera(ImageUtils imageUtils, File newLogoFile);
+	void openCameraChosen(ImageUtils imageUtils, File newLogoFile);
 
-	void openGallery(ImageUtils imageUtils);
+	void openGalleryChosen(ImageUtils imageUtils);
 
 	void startImageCropActivity(String imageUri);
 

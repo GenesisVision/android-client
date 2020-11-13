@@ -1,4 +1,4 @@
-package vision.genesis.clientapp.feature.main.profile;
+package vision.genesis.clientapp.feature.common.picture_chooser;
 
 import android.app.Dialog;
 import android.view.View;

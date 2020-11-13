@@ -20,7 +20,7 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
-import vision.genesis.clientapp.feature.main.profile.PictureChooserBottomSheetFragment;
+import vision.genesis.clientapp.feature.common.picture_chooser.PictureChooserBottomSheetFragment;
 import vision.genesis.clientapp.managers.FilesManager;
 import vision.genesis.clientapp.model.PublicInfoModel;
 import vision.genesis.clientapp.model.events.OnPublicInfoConfirmButtonClickedEvent;

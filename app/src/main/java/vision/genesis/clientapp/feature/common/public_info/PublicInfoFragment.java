@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
@@ -39,7 +40,7 @@ import timber.log.Timber;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
 import vision.genesis.clientapp.feature.common.image_crop.ImageCropActivity;
-import vision.genesis.clientapp.feature.main.profile.PictureChooserBottomSheetFragment;
+import vision.genesis.clientapp.feature.common.picture_chooser.PictureChooserBottomSheetFragment;
 import vision.genesis.clientapp.model.PublicInfoModel;
 import vision.genesis.clientapp.ui.PrimaryButton;
 import vision.genesis.clientapp.utils.Constants;
@@ -409,6 +410,12 @@ public class PublicInfoFragment extends BaseFragment implements PublicInfoView
 	@OnNeverAskAgain({Manifest.permission.CAMERA})
 	void onCameraNeverAskAgain() {
 		showMessageDialog(getString(R.string.permission_camera_never_ask_again));
+	}
+
+	@Override
+	public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+		super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+		PublicInfoFragmentPermissionsDispatcher.onRequestPermissionsResult(this, requestCode, grantResults);
 	}
 
 	private void hideSoftKeyboard() {

@@ -13,6 +13,8 @@ import android.widget.ProgressBar;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+
 import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.google.android.material.textfield.TextInputLayout;
@@ -35,7 +37,7 @@ import timber.log.Timber;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseSwipeBackActivity;
 import vision.genesis.clientapp.feature.common.image_crop.ImageCropActivity;
-import vision.genesis.clientapp.feature.main.profile.PictureChooserBottomSheetFragment;
+import vision.genesis.clientapp.feature.common.picture_chooser.PictureChooserBottomSheetFragment;
 import vision.genesis.clientapp.ui.PrimaryButton;
 import vision.genesis.clientapp.utils.Constants;
 import vision.genesis.clientapp.utils.ImageUtils;
@@ -208,13 +210,13 @@ public class ProfilePublicInfoActivity extends BaseSwipeBackActivity implements 
 	}
 
 	@Override
-	public void openCamera(ImageUtils imageUtils, File newLogoFile) {
-		imageUtils.openCameraFrom(this, newLogoFile);
+	public void openCameraChosen(ImageUtils imageUtils, File newLogoFile) {
+		ProfilePublicInfoActivityPermissionsDispatcher.openCameraWithPermissionCheck(this, imageUtils, newLogoFile);
 	}
 
 	@Override
-	public void openGallery(ImageUtils imageUtils) {
-		imageUtils.openGalleryFrom(this);
+	public void openGalleryChosen(ImageUtils imageUtils) {
+		ProfilePublicInfoActivityPermissionsDispatcher.openGalleryWithPermissionCheck(this, imageUtils);
 	}
 
 	@Override
@@ -312,6 +314,7 @@ public class ProfilePublicInfoActivity extends BaseSwipeBackActivity implements 
 			default:
 				break;
 		}
+		super.onActivityResult(requestCode, resultCode, data);
 	}
 
 	@NeedsPermission({Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE})
@@ -319,6 +322,11 @@ public class ProfilePublicInfoActivity extends BaseSwipeBackActivity implements 
 		PictureChooserBottomSheetFragment bottomSheetDialog = new PictureChooserBottomSheetFragment();
 		bottomSheetDialog.setListener(presenter);
 		bottomSheetDialog.show(getSupportFragmentManager(), bottomSheetDialog.getTag());
+	}
+
+	@NeedsPermission({Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE})
+	void openGallery(ImageUtils imageUtils) {
+		imageUtils.openGalleryFrom(this);
 	}
 
 	@OnShowRationale({Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE})
@@ -334,6 +342,32 @@ public class ProfilePublicInfoActivity extends BaseSwipeBackActivity implements 
 	@OnNeverAskAgain({Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE})
 	void onStorageNeverAskAgain() {
 		showMessageDialog(getString(R.string.permission_storage_never_ask_again));
+	}
+
+	@NeedsPermission({Manifest.permission.CAMERA})
+	void openCamera(ImageUtils imageUtils, File newLogoFile) {
+		imageUtils.openCameraFrom(this, newLogoFile);
+	}
+
+	@OnShowRationale({Manifest.permission.CAMERA})
+	void showRationaleForCamera(PermissionRequest request) {
+		showRationaleDialog(getString(R.string.permission_camera_rationale), request);
+	}
+
+	@OnPermissionDenied({Manifest.permission.CAMERA})
+	void onCameraDenied() {
+		showMessageDialog(getString(R.string.permission_camera_denied));
+	}
+
+	@OnNeverAskAgain({Manifest.permission.CAMERA})
+	void onCameraNeverAskAgain() {
+		showMessageDialog(getString(R.string.permission_camera_never_ask_again));
+	}
+
+	@Override
+	public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+		super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+		ProfilePublicInfoActivityPermissionsDispatcher.onRequestPermissionsResult(this, requestCode, grantResults);
 	}
 
 	private void hideSoftKeyboard() {

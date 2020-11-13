@@ -28,7 +28,7 @@ import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
-import vision.genesis.clientapp.feature.main.profile.PictureChooserBottomSheetFragment;
+import vision.genesis.clientapp.feature.common.picture_chooser.PictureChooserBottomSheetFragment;
 import vision.genesis.clientapp.managers.FilesManager;
 import vision.genesis.clientapp.managers.SocialManager;
 import vision.genesis.clientapp.model.events.OnNewPostCreatedEvent;
@@ -363,7 +363,7 @@ public class CreatePostPresenter extends MvpPresenter<CreatePostView> implements
 	public void onPictureChooserCameraClicked() {
 		try {
 			newImageFile = imageUtils.createImageFile();
-			getViewState().openCamera(imageUtils, newImageFile);
+			getViewState().openCameraChosen(imageUtils, newImageFile);
 		} catch (IOException e) {
 			e.printStackTrace();
 			getViewState().showSnackbarMessage(e.getMessage());
@@ -374,7 +374,7 @@ public class CreatePostPresenter extends MvpPresenter<CreatePostView> implements
 	public void onPictureChooserGalleryClicked() {
 		try {
 			newImageFile = imageUtils.createImageFile();
-			getViewState().openGallery(imageUtils);
+			getViewState().openGalleryChosen(imageUtils);
 		} catch (IOException e) {
 			e.printStackTrace();
 			getViewState().showSnackbarMessage(e.getMessage());

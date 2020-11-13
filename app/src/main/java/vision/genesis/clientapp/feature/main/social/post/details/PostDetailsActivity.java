@@ -19,6 +19,7 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.core.widget.NestedScrollView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -51,7 +52,7 @@ import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseSwipeBackActivity;
 import vision.genesis.clientapp.feature.common.image_crop.ImageCropActivity;
-import vision.genesis.clientapp.feature.main.profile.PictureChooserBottomSheetFragment;
+import vision.genesis.clientapp.feature.common.picture_chooser.PictureChooserBottomSheetFragment;
 import vision.genesis.clientapp.feature.main.social.post.actions.SocialPostActionsBottomSheetFragment;
 import vision.genesis.clientapp.feature.main.social.post.create.CreatePostActivity;
 import vision.genesis.clientapp.model.SocialPostType;
@@ -279,13 +280,13 @@ public class PostDetailsActivity extends BaseSwipeBackActivity implements PostDe
 	}
 
 	@Override
-	public void openCamera(ImageUtils imageUtils, File newLogoFile) {
-		imageUtils.openCameraFrom(this, newLogoFile);
+	public void openCameraChosen(ImageUtils imageUtils, File newLogoFile) {
+		PostDetailsActivityPermissionsDispatcher.openCameraWithPermissionCheck(this, imageUtils, newLogoFile);
 	}
 
 	@Override
-	public void openGallery(ImageUtils imageUtils) {
-		imageUtils.openGalleryFrom(this);
+	public void openGalleryChosen(ImageUtils imageUtils) {
+		PostDetailsActivityPermissionsDispatcher.openGalleryWithPermissionCheck(this, imageUtils);
 	}
 
 	@Override
@@ -507,6 +508,11 @@ public class PostDetailsActivity extends BaseSwipeBackActivity implements PostDe
 		bottomSheetDialog.show(getSupportFragmentManager(), bottomSheetDialog.getTag());
 	}
 
+	@NeedsPermission({Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE})
+	void openGallery(ImageUtils imageUtils) {
+		imageUtils.openGalleryFrom(this);
+	}
+
 	@OnShowRationale({Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE})
 	void showRationaleForStorage(PermissionRequest request) {
 		showRationaleDialog(getString(R.string.permission_storage_rationale), request);
@@ -520,5 +526,31 @@ public class PostDetailsActivity extends BaseSwipeBackActivity implements PostDe
 	@OnNeverAskAgain({Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE})
 	void onStorageNeverAskAgain() {
 		showMessageDialog(getString(R.string.permission_storage_never_ask_again));
+	}
+
+	@NeedsPermission({Manifest.permission.CAMERA})
+	void openCamera(ImageUtils imageUtils, File newLogoFile) {
+		imageUtils.openCameraFrom(this, newLogoFile);
+	}
+
+	@OnShowRationale({Manifest.permission.CAMERA})
+	void showRationaleForCamera(PermissionRequest request) {
+		showRationaleDialog(getString(R.string.permission_camera_rationale), request);
+	}
+
+	@OnPermissionDenied({Manifest.permission.CAMERA})
+	void onCameraDenied() {
+		showMessageDialog(getString(R.string.permission_camera_denied));
+	}
+
+	@OnNeverAskAgain({Manifest.permission.CAMERA})
+	void onCameraNeverAskAgain() {
+		showMessageDialog(getString(R.string.permission_camera_never_ask_again));
+	}
+
+	@Override
+	public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+		super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+		PostDetailsActivityPermissionsDispatcher.onRequestPermissionsResult(this, requestCode, grantResults);
 	}
 }

@@ -156,12 +156,6 @@
             android:windowSoftInputMode="adjustResize|stateAlwaysHidden"/>
 
         <activity
-            android:name=".feature.main.profile.ProfileActivity"
-            android:launchMode="singleTop"
-            android:theme="@style/SwipeBackActivityTheme"
-            android:windowSoftInputMode="adjustResize|stateAlwaysHidden"/>
-
-        <activity
             android:name=".feature.pin.check.CheckPinActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
