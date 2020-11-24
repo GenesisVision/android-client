@@ -57,7 +57,7 @@ public class EventAmountView extends RelativeLayout
 
 	public void setData(String title, Double amount, String currency) {
 		this.label.setText(title);
-		this.value.setText(StringFormatUtil.formatCurrencyAmount(amount, currency));
+		this.value.setText(StringFormatUtil.formatAmount(amount));
 		this.currency.setText(currency);
 	}
 }

@@ -8,10 +8,10 @@ import org.greenrobot.eventbus.EventBus;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
-import java.util.UUID;
 
 import javax.inject.Inject;
 
+import io.swagger.client.model.ProgramFollowDetailsFull;
 import io.swagger.client.model.TradingAccountDetails;
 import io.swagger.client.model.TradingAccountDetailsItemsViewModel;
 import rx.Subscription;
@@ -37,7 +37,7 @@ public class SelectSubscriptionAccountPresenter extends MvpPresenter<SelectSubsc
 
 	private Subscription getAccountsSubscription;
 
-	private UUID followId;
+	private ProgramFollowDetailsFull followDetails;
 
 	private List<TradingAccountDetails> accounts = new ArrayList<>();
 
@@ -65,8 +65,8 @@ public class SelectSubscriptionAccountPresenter extends MvpPresenter<SelectSubsc
 		getAccounts();
 	}
 
-	void setData(UUID followId) {
-		this.followId = followId;
+	void setData(ProgramFollowDetailsFull followDetails) {
+		this.followDetails = followDetails;
 
 		getAccounts();
 	}
@@ -80,11 +80,11 @@ public class SelectSubscriptionAccountPresenter extends MvpPresenter<SelectSubsc
 	}
 
 	private void getAccounts() {
-		if (followsManager != null && followId != null) {
+		if (followsManager != null && followDetails != null) {
 			if (getAccountsSubscription != null) {
 				getAccountsSubscription.unsubscribe();
 			}
-			getAccountsSubscription = followsManager.getSubscriberAccounts(followId)
+			getAccountsSubscription = followsManager.getSubscriberAccounts(followDetails.getId())
 					.observeOn(AndroidSchedulers.mainThread())
 					.subscribeOn(Schedulers.newThread())
 					.subscribe(this::handleGetAccountsSuccess,

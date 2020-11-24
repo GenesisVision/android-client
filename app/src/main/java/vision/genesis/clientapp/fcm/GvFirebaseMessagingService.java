@@ -194,9 +194,9 @@ public class GvFirebaseMessagingService extends FirebaseMessagingService
 					.load(notification.getImageUrl())
 					.submit();
 			try {
-//				notificationBuilder.setLargeIcon((Bitmap) target.get());
-				notificationBuilder.setStyle(new NotificationCompat.BigPictureStyle()
-						.bigPicture((Bitmap) target.get()));
+				notificationBuilder.setLargeIcon((Bitmap) target.get());
+//				notificationBuilder.setStyle(new NotificationCompat.BigPictureStyle()
+//						.bigPicture((Bitmap) target.get()));
 			} catch (ExecutionException e) {
 				e.printStackTrace();
 			} catch (InterruptedException e) {

@@ -22,6 +22,8 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.managers.FollowsManager;
+import vision.genesis.clientapp.model.events.OnAttachExternalAccountSuccessEvent;
+import vision.genesis.clientapp.model.events.OnCreateAccountSuccessEvent;
 import vision.genesis.clientapp.model.events.OnSelectSubscriptionTradingAccountConfirmEvent;
 import vision.genesis.clientapp.model.events.OnSubscriptionSettingsConfirmEvent;
 import vision.genesis.clientapp.net.ApiErrorResolver;
@@ -72,7 +74,7 @@ public class FollowTradesPresenter extends MvpPresenter<FollowTradesView>
 
 	void setData(ProgramFollowDetailsFull details) {
 		this.details = details;
-		getViewState().initViewPager(details.getId());
+		getViewState().initViewPager(details);
 	}
 
 	private void attachToFollow() {
@@ -103,6 +105,20 @@ public class FollowTradesPresenter extends MvpPresenter<FollowTradesView>
 	@Subscribe
 	public void onEventMainThread(OnSelectSubscriptionTradingAccountConfirmEvent event) {
 		this.tradingAccountId = event.getTradingAccountId();
+
+		getViewState().showSettings();
+	}
+
+	@Subscribe
+	public void onEventMainThread(OnAttachExternalAccountSuccessEvent event) {
+		this.tradingAccountId = event.getAccountId();
+
+		getViewState().showSettings();
+	}
+
+	@Subscribe
+	public void onEventMainThread(OnCreateAccountSuccessEvent event) {
+		this.tradingAccountId = event.getAccountId();
 
 		getViewState().showSettings();
 	}

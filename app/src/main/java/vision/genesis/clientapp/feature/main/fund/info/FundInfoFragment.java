@@ -287,7 +287,7 @@ public class FundInfoFragment extends BaseFragment implements FundInfoView, Fund
 	}
 
 	@Override
-	public void setFundDetails(FundDetailsFull fundDetails) {
+	public void setFundDetails(FundDetailsFull fundDetails, CurrencyEnum baseCurrency) {
 		this.fundDetails = fundDetails;
 
 		scrollView.setVisibility(View.VISIBLE);
@@ -309,7 +309,7 @@ public class FundInfoFragment extends BaseFragment implements FundInfoView, Fund
 			status.setStatus(personalDetails.getStatus().getValue());
 //		invested.setText(String.format(Locale.getDefault(), "%s GVT", StringFormatUtil.getShortenedAmount(fundDetails.getPersonalProgramDetails().getInvested()).toString()));
 //			invested.setText(String.format(Locale.getDefault(), "%s GVT", StringFormatUtil.formatCurrencyAmount(personalDetails.getInvested(), CurrencyEnum.GVT.toString())));
-			value.setText(String.format(Locale.getDefault(), "%s GVT", StringFormatUtil.formatCurrencyAmount(personalDetails.getValue(), CurrencyEnum.GVT.toString())));
+			value.setText(StringFormatUtil.getValueString(personalDetails.getValue(), baseCurrency.toString()));
 //			profit.setText(String.format(Locale.getDefault(), "%s%%", StringFormatUtil.formatAmount(personalDetails.getProfit(), 0, 4)));
 			profit.setText(String.format(Locale.getDefault(), "%s%%", StringFormatUtil.formatAmount(getProfitPercent(personalDetails), 0, 4)));
 //			profit.setTextColor(ThemeUtil.getColorByAttrId(getContext(), personalDetails.getProfit() < 0 ? R.attr.colorRed : R.attr.colorGreen));

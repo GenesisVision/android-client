@@ -24,7 +24,6 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 import io.swagger.client.model.AssetTypeExt;
-import io.swagger.client.model.Currency;
 import io.swagger.client.model.FundChartStatistic;
 import io.swagger.client.model.FundDetailsFull;
 import io.swagger.client.model.MakeSelfManagedFundPublicRequest;
@@ -41,6 +40,7 @@ import vision.genesis.clientapp.feature.main.fund.invest.InvestFundActivity;
 import vision.genesis.clientapp.feature.main.fund.manage.ManageFundActivity;
 import vision.genesis.clientapp.feature.main.fund.self_managed.make_public.MakePublicFundActivity;
 import vision.genesis.clientapp.feature.main.fund.withdraw.WithdrawFundActivity;
+import vision.genesis.clientapp.model.CurrencyEnum;
 import vision.genesis.clientapp.model.FundRequest;
 import vision.genesis.clientapp.ui.InvestmentStatusView;
 import vision.genesis.clientapp.ui.PrimaryButton;
@@ -271,7 +271,7 @@ public class FundOwnerInfoFragment extends BaseFragment implements FundOwnerInfo
 		if (presenter != null) {
 			presenter.setDetails(fundDetails);
 		}
-		setFundDetails(fundDetails);
+//		setFundDetails(fundDetails, baseCurrency);
 	}
 
 	@Override
@@ -307,15 +307,15 @@ public class FundOwnerInfoFragment extends BaseFragment implements FundOwnerInfo
 	}
 
 	@Override
-	public void setFundDetails(FundDetailsFull fundDetails) {
+	public void setFundDetails(FundDetailsFull fundDetails, CurrencyEnum baseCurrency) {
 		this.fundDetails = fundDetails;
 
-		if (fundDetails != null) {
+		if (fundDetails != null && scrollView != null) {
 
 			scrollView.setVisibility(View.VISIBLE);
 
 			updatePublicInfo(fundDetails.getPublicInfo().getDescription());
-			updateYourDeposit(fundDetails.getPersonalDetails());
+			updateYourDeposit(fundDetails.getPersonalDetails(), baseCurrency);
 
 			PersonalFundDetails personalDetails = fundDetails.getPersonalDetails();
 
@@ -375,11 +375,11 @@ public class FundOwnerInfoFragment extends BaseFragment implements FundOwnerInfo
 		}
 	}
 
-	private void updateYourDeposit(PersonalFundDetails personalDetails) {
+	private void updateYourDeposit(PersonalFundDetails personalDetails, CurrencyEnum baseCurrency) {
 		yourInvestmentGroup.setVisibility(View.VISIBLE);
 		status.setVisibility(View.VISIBLE);
 		status.setStatus(personalDetails.getStatus().getValue());
-		value.setText(StringFormatUtil.getValueString(personalDetails.getValue(), Currency.GVT.getValue()));
+		value.setText(StringFormatUtil.getValueString(personalDetails.getValue(), baseCurrency.toString()));
 		profit.setVisibility(View.GONE);
 //			profit.setText(String.format(Locale.getDefault(), "%s%%", StringFormatUtil.formatAmount(getProfitPercent(), 0, 4)));
 //			profit.setTextColor(ThemeUtil.getColorByAttrId(getContext(),

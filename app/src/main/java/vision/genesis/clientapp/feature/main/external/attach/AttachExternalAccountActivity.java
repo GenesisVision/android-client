@@ -13,11 +13,12 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.swagger.client.model.Broker;
+import io.swagger.client.model.BrokerDetails;
+import timber.log.Timber;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseSwipeBackActivity;
 import vision.genesis.clientapp.ui.NonSwipeableViewPager;
 import vision.genesis.clientapp.utils.ThemeUtil;
-import vision.genesis.clientapp.utils.TypefaceUtil;
 
 /**
  * GenesisVisionAndroid
@@ -26,8 +27,11 @@ import vision.genesis.clientapp.utils.TypefaceUtil;
 
 public class AttachExternalAccountActivity extends BaseSwipeBackActivity implements AttachExternalAccountView
 {
-	public static void startFrom(Activity activity) {
+	public static final String EXTRA_BROKER = "extra_broker";
+
+	public static void startWith(Activity activity, BrokerDetails selectedBroker) {
 		Intent intent = new Intent(activity.getApplicationContext(), AttachExternalAccountActivity.class);
+		intent.putExtra(EXTRA_BROKER, selectedBroker);
 		activity.startActivity(intent);
 		activity.overridePendingTransition(R.anim.activity_slide_from_right, R.anim.hold);
 	}
@@ -42,7 +46,7 @@ public class AttachExternalAccountActivity extends BaseSwipeBackActivity impleme
 	public ViewGroup progressBarGroup;
 
 	@InjectPresenter
-	AttachExternalAccountPresenter attachExternalAccountPresenter;
+	AttachExternalAccountPresenter presenter;
 
 	private AttachExternalAccountPagerAdapter adapter;
 
@@ -61,17 +65,22 @@ public class AttachExternalAccountActivity extends BaseSwipeBackActivity impleme
 
 		viewPager.setAllowSwipe(false);
 
-		setFonts();
+		if (getIntent().getExtras() != null) {
+			BrokerDetails selectedBroker = getIntent().getExtras().getParcelable(EXTRA_BROKER);
+			if (selectedBroker != null) {
+				presenter.setData(selectedBroker);
+			}
 
-		initViewPager();
+			initViewPager(selectedBroker);
+
+			return;
+		}
+		Timber.e("Passed empty model to %s", getClass().getSimpleName());
+		onBackPressed();
 	}
 
-	private void setFonts() {
-		title.setTypeface(TypefaceUtil.semibold());
-	}
-
-	private void initViewPager() {
-		this.adapter = new AttachExternalAccountPagerAdapter(getSupportFragmentManager());
+	private void initViewPager(BrokerDetails selectedBroker) {
+		this.adapter = new AttachExternalAccountPagerAdapter(getSupportFragmentManager(), selectedBroker);
 		viewPager.setAdapter(adapter);
 		viewPager.setEnabled(false);
 		viewPager.setOffscreenPageLimit(3);

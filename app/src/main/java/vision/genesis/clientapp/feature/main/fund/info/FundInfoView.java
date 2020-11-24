@@ -7,6 +7,7 @@ import com.arellomobile.mvp.viewstate.strategy.StateStrategyType;
 
 import io.swagger.client.model.FundChartStatistic;
 import io.swagger.client.model.FundDetailsFull;
+import vision.genesis.clientapp.model.CurrencyEnum;
 import vision.genesis.clientapp.model.FundRequest;
 
 /**
@@ -17,7 +18,7 @@ import vision.genesis.clientapp.model.FundRequest;
 interface FundInfoView extends MvpView
 {
 	@StateStrategyType(AddToEndSingleStrategy.class)
-	void setFundDetails(FundDetailsFull fundDetails);
+	void setFundDetails(FundDetailsFull fundDetails, CurrencyEnum baseCurrency);
 
 	void updateStatistics(FundChartStatistic statistic, String baseCurrency);
 

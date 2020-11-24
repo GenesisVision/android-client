@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:padding="@dimen/padding">
@@ -20,6 +22,7 @@
                 android:id="@+id/step_number"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat_semibold"
                 android:text="02"
                 android:textColor="?attr/colorTextPrimary"
                 android:textSize="18sp"/>
@@ -29,11 +32,22 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
+                android:fontFamily="@font/montserrat_semibold"
                 android:text="@string/api"
                 android:textColor="?attr/colorTextPrimary"
                 android:textSize="18sp"/>
 
         </LinearLayout>
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/broker_logo"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:layout_marginBottom="24dp"
+            android:scaleType="centerInside"
+            android:visibility="gone"
+            app:actualImageScaleType="centerInside"
+            tools:visibility="visible"/>
 
         <TextView
             android:id="@+id/description"

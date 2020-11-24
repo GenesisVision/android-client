@@ -4,6 +4,9 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 
+import java.util.ArrayList;
+
+import io.swagger.client.model.BrokerDetails;
 import vision.genesis.clientapp.feature.main.external.attach.api_key.ExternalApiKeyFragment;
 import vision.genesis.clientapp.feature.main.trading_account.create.broker.SelectBrokerFragment;
 
@@ -21,34 +24,30 @@ public class AttachExternalAccountPagerAdapter extends FragmentStatePagerAdapter
 		void pagerHide();
 	}
 
-	private SelectBrokerFragment brokerFragment;
+	private ArrayList<Fragment> fragments;
 
-	private ExternalApiKeyFragment apiKeyFragment;
-
-	AttachExternalAccountPagerAdapter(FragmentManager fm) {
+	AttachExternalAccountPagerAdapter(FragmentManager fm, BrokerDetails selectedBroker) {
 		super(fm);
 
-		createFragments();
+		createFragments(selectedBroker);
 	}
 
-	private void createFragments() {
-		brokerFragment = SelectBrokerFragment.with(null, null, true);
-		apiKeyFragment = new ExternalApiKeyFragment();
+	private void createFragments(BrokerDetails selectedBroker) {
+		fragments = new ArrayList<>();
+
+		if (selectedBroker == null) {
+			fragments.add(SelectBrokerFragment.with(null, null, true));
+		}
+		fragments.add(ExternalApiKeyFragment.with(selectedBroker));
 	}
 
 	@Override
 	public Fragment getItem(int position) {
-		switch (position) {
-			case 1:
-				return apiKeyFragment;
-			case 0:
-			default:
-				return brokerFragment;
-		}
+		return fragments.get(position);
 	}
 
 	@Override
 	public int getCount() {
-		return 2;
+		return fragments.size();
 	}
 }

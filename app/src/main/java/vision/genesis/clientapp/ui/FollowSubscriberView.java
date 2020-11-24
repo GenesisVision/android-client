@@ -13,11 +13,16 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+import io.swagger.client.model.AssetDetails;
 import io.swagger.client.model.SignalSubscription;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
+import vision.genesis.clientapp.model.ProgramDetailsModel;
 import vision.genesis.clientapp.model.SubscriptionSettingsModel;
+import vision.genesis.clientapp.model.TradingAccountDetailsModel;
 import vision.genesis.clientapp.model.events.ShowEditSubscriptionEvent;
+import vision.genesis.clientapp.model.events.ShowProgramDetailsEvent;
+import vision.genesis.clientapp.model.events.ShowTradingAccountDetailsEvent;
 import vision.genesis.clientapp.model.events.ShowUnfollowTradesEvent;
 import vision.genesis.clientapp.utils.StringFormatUtil;
 import vision.genesis.clientapp.utils.TypefaceUtil;
@@ -131,30 +136,30 @@ public class FollowSubscriberView extends RelativeLayout
 
 		unfollowButton.setEmpty();
 
-//		setOnClickListener(v -> {
-//			if (data != null) {
-//				AssetDetails assetDetails = data.getAsset();
-//				if (assetDetails != null) {
-//					ProgramDetailsModel programDetailsModel = new ProgramDetailsModel(assetDetails.getId(),
-//							assetDetails.getLogoUrl(),
-//							assetDetails.getColor(),
-//							assetDetails.getProgramDetails() != null ? assetDetails.getProgramDetails().getLevel() : 0,
-//							assetDetails.getProgramDetails() != null ? assetDetails.getProgramDetails().getLevelProgress() : 0.0,
-//							assetDetails.getTitle(),
-//							"",
-//							"",
-//							false,
-//							false,
-//							assetDetails.getAssetType());
-//					EventBus.getDefault().post(new ShowProgramDetailsEvent(programDetailsModel));
-//				}
-//				else {
-//					TradingAccountDetailsModel tradingAccountDetailsModel = new TradingAccountDetailsModel(
-//							data.getSubscriberInfo().getTradingAccountId(), null, null);
-//					EventBus.getDefault().post(new ShowTradingAccountDetailsEvent(tradingAccountDetailsModel));
-//				}
-//			}
-//		});
+		setOnClickListener(v -> {
+			if (data != null && data.getSubscriberInfo() != null) {
+				AssetDetails assetDetails = data.getSubscriberInfo().getAsset();
+				if (assetDetails != null) {
+					ProgramDetailsModel programDetailsModel = new ProgramDetailsModel(assetDetails.getId(),
+							assetDetails.getLogoUrl(),
+							assetDetails.getColor(),
+							assetDetails.getProgramDetails() != null ? assetDetails.getProgramDetails().getLevel() : 0,
+							assetDetails.getProgramDetails() != null ? assetDetails.getProgramDetails().getLevelProgress() : 0.0,
+							assetDetails.getTitle(),
+							"",
+							"",
+							false,
+							false,
+							assetDetails.getAssetType());
+					EventBus.getDefault().post(new ShowProgramDetailsEvent(programDetailsModel));
+				}
+				else {
+					TradingAccountDetailsModel tradingAccountDetailsModel = new TradingAccountDetailsModel(
+							data.getSubscriberInfo().getTradingAccountId(), null, null);
+					EventBus.getDefault().post(new ShowTradingAccountDetailsEvent(tradingAccountDetailsModel));
+				}
+			}
+		});
 	}
 
 	private void setFonts() {

@@ -5,8 +5,8 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 
 import java.util.ArrayList;
-import java.util.UUID;
 
+import io.swagger.client.model.ProgramFollowDetailsFull;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.main.copytrading.select_account.SelectSubscriptionAccountFragment;
@@ -33,12 +33,12 @@ public class FollowTradesPagerAdapter extends FragmentStatePagerAdapter
 
 	private ArrayList<Fragment> fragments;
 
-	FollowTradesPagerAdapter(FragmentManager fm, UUID followId) {
+	FollowTradesPagerAdapter(FragmentManager fm, ProgramFollowDetailsFull followDetails) {
 		super(fm);
 
 		fragments = new ArrayList<>();
 
-		selectAccountFragment = SelectSubscriptionAccountFragment.with(followId);
+		selectAccountFragment = SelectSubscriptionAccountFragment.with(followDetails);
 		fragments.add(selectAccountFragment);
 
 

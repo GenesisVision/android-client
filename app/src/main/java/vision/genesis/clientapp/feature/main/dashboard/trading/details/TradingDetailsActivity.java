@@ -656,12 +656,12 @@ public class TradingDetailsActivity extends BaseSwipeBackActivity implements Tra
 
 	@Override
 	public void showCreateTradingAccountActivity() {
-		CreateAccountActivity.startFrom(this);
+		CreateAccountActivity.startWith(this, null);
 	}
 
 	@Override
 	public void showAttachAccountActivity() {
-		AttachExternalAccountActivity.startFrom(this);
+		AttachExternalAccountActivity.startWith(this, null);
 	}
 
 	@Override

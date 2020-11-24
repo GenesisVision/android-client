@@ -227,8 +227,10 @@ public class FundAssetsFragment extends BaseFragment implements FundAssetsView
 				@Override
 				public void onAnimationEnd(Animator animation) {
 					super.onAnimationEnd(animation);
-					lineGroup.removeViewAt(index);
-					lineViews.remove(index);
+					if (lineGroup != null) {
+						lineGroup.removeViewAt(index);
+						lineViews.remove(index);
+					}
 				}
 			});
 		}
@@ -286,21 +288,23 @@ public class FundAssetsFragment extends BaseFragment implements FundAssetsView
 			@Override
 			public void onAnimationEnd(Animator animation) {
 				super.onAnimationEnd(animation);
-				selectedAssetText.setText(String.format(Locale.getDefault(), "%s %s%%",
-						selectedAssetView.getAsset().getName(),
-						StringFormatUtil.formatAmount(selectedAssetView.getShare(), 0, 4)));
-				new Handler().postDelayed(() -> {
-					float x = selectedLineView.getX() + (float) selectedLineView.getWidth() / 2 - (float) selectedAssetText.getWidth() / 2;
+				if (lineGroup != null) {
+					selectedAssetText.setText(String.format(Locale.getDefault(), "%s %s%%",
+							selectedAssetView.getAsset().getName(),
+							StringFormatUtil.formatAmount(selectedAssetView.getShare(), 0, 4)));
+					new Handler().postDelayed(() -> {
+						float x = selectedLineView.getX() + (float) selectedLineView.getWidth() / 2 - (float) selectedAssetText.getWidth() / 2;
 
-					if (x < 0) {
-						x = 0;
-					}
-					if (x > lineGroup.getWidth() - selectedAssetText.getWidth()) {
-						x = lineGroup.getWidth() - selectedAssetText.getWidth();
-					}
-					selectedAssetText.setX(x);
-					fadeInAnim.start();
-				}, 50);
+						if (x < 0) {
+							x = 0;
+						}
+						if (x > lineGroup.getWidth() - selectedAssetText.getWidth()) {
+							x = lineGroup.getWidth() - selectedAssetText.getWidth();
+						}
+						selectedAssetText.setX(x);
+						fadeInAnim.start();
+					}, 50);
+				}
 			}
 		});
 		fadeOutAnim.start();

@@ -21,6 +21,7 @@ import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.managers.AuthManager;
 import vision.genesis.clientapp.managers.FundsManager;
+import vision.genesis.clientapp.managers.SettingsManager;
 import vision.genesis.clientapp.model.CurrencyEnum;
 import vision.genesis.clientapp.model.FundRequest;
 import vision.genesis.clientapp.model.User;
@@ -41,7 +42,12 @@ public class FundOwnerInfoPresenter extends MvpPresenter<FundOwnerInfoView>
 	@Inject
 	public FundsManager fundsManager;
 
+	@Inject
+	public SettingsManager settingsManager;
+
 	private Subscription userSubscription;
+
+	private Subscription baseCurrencySubscription;
 
 	private Subscription fundDetailsSubscription;
 
@@ -50,6 +56,8 @@ public class FundOwnerInfoPresenter extends MvpPresenter<FundOwnerInfoView>
 	private Boolean userLoggedOn;
 
 	private FundDetailsFull fundDetails;
+
+	private CurrencyEnum baseCurrency;
 
 	@Override
 	protected void onFirstViewAttach() {
@@ -60,12 +68,15 @@ public class FundOwnerInfoPresenter extends MvpPresenter<FundOwnerInfoView>
 		EventBus.getDefault().register(this);
 
 		subscribeToUser();
+		subscribeToBaseCurrency();
 		getViewState().showProgress(true);
-		getFundDetails();
 	}
 
 	@Override
 	public void onDestroy() {
+		if (baseCurrencySubscription != null) {
+			baseCurrencySubscription.unsubscribe();
+		}
 		if (userSubscription != null) {
 			userSubscription.unsubscribe();
 		}
@@ -82,6 +93,8 @@ public class FundOwnerInfoPresenter extends MvpPresenter<FundOwnerInfoView>
 	void setDetails(FundDetailsFull fundDetails) {
 		this.fundId = fundDetails.getId();
 		this.fundDetails = fundDetails;
+
+		getFundDetails();
 	}
 
 	void onShow() {
@@ -167,12 +180,26 @@ public class FundOwnerInfoPresenter extends MvpPresenter<FundOwnerInfoView>
 		getViewState().showWithdrawFundActivity(request);
 	}
 
+	private void subscribeToBaseCurrency() {
+		if (settingsManager != null) {
+			baseCurrencySubscription = settingsManager.getBaseCurrency()
+					.subscribeOn(Schedulers.newThread())
+					.observeOn(AndroidSchedulers.mainThread())
+					.subscribe(this::baseCurrencyChangedHandler);
+		}
+	}
+
+	private void baseCurrencyChangedHandler(CurrencyEnum baseCurrency) {
+		this.baseCurrency = baseCurrency;
+		getFundDetails();
+	}
+
 	private void getFundDetails() {
-		if (fundId != null && fundsManager != null) {
+		if (fundId != null && fundsManager != null && baseCurrency != null) {
 			if (fundDetailsSubscription != null) {
 				fundDetailsSubscription.unsubscribe();
 			}
-			fundDetailsSubscription = fundsManager.getFundDetails(fundId, CurrencyEnum.GVT)
+			fundDetailsSubscription = fundsManager.getFundDetails(fundId, baseCurrency)
 					.observeOn(AndroidSchedulers.mainThread())
 					.subscribeOn(Schedulers.io())
 					.subscribe(this::handleFundDetailsSuccess,
@@ -186,7 +213,7 @@ public class FundOwnerInfoPresenter extends MvpPresenter<FundOwnerInfoView>
 
 		this.fundDetails = fundDetails;
 
-		getViewState().setFundDetails(fundDetails);
+		getViewState().setFundDetails(fundDetails, baseCurrency);
 	}
 
 	private void handleFundDetailsError(Throwable throwable) {

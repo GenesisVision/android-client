@@ -5,11 +5,7 @@
               android:layout_width="match_parent"
               android:layout_height="@dimen/item_dashboard_signal_height"
               android:layout_marginBottom="@dimen/dashboard_padding"
-              android:layout_marginEnd="@dimen/dashboard_padding"
-              android:layout_marginLeft="@dimen/dashboard_padding"
-              android:layout_marginRight="@dimen/dashboard_padding"
-              android:layout_marginStart="@dimen/dashboard_padding"
-              android:background="@drawable/program_list_item_background"
+              android:background="?attr/colorCard"
               android:gravity="center_vertical"
               android:orientation="vertical"
               android:padding="@dimen/dashboard_padding">
@@ -67,6 +63,7 @@
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
+            android:layout_marginEnd="4dp"
             android:layout_weight="1.5"
             android:gravity="bottom"
             android:orientation="vertical">
@@ -74,6 +71,9 @@
             <TextView
                 android:id="@+id/symbol"
                 style="@style/text_value"
+                app:autoSizeMaxTextSize="16sp"
+                app:autoSizeMinTextSize="12sp"
+                app:autoSizeTextType="uniform"
                 tools:text="BTCETH"/>
 
             <TextView
@@ -115,6 +115,7 @@
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
+            android:layout_marginEnd="4dp"
             android:layout_weight="1.5"
             android:gravity="bottom"
             android:orientation="vertical">
@@ -170,6 +171,7 @@
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
+            android:layout_marginEnd="4dp"
             android:layout_weight="1.5"
             android:gravity="bottom"
             android:orientation="vertical">

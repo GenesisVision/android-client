@@ -11,6 +11,7 @@ import io.swagger.client.model.FundChartStatistic;
 import io.swagger.client.model.FundDetailsFull;
 import io.swagger.client.model.MakeSelfManagedFundPublicRequest;
 import io.swagger.client.model.ProgramUpdate;
+import vision.genesis.clientapp.model.CurrencyEnum;
 import vision.genesis.clientapp.model.FundRequest;
 
 /**
@@ -21,7 +22,7 @@ import vision.genesis.clientapp.model.FundRequest;
 interface FundOwnerInfoView extends MvpView
 {
 	@StateStrategyType(AddToEndSingleStrategy.class)
-	void setFundDetails(FundDetailsFull fundDetails);
+	void setFundDetails(FundDetailsFull fundDetails, CurrencyEnum baseCurrency);
 
 	void updateStatistics(FundChartStatistic statistic, String baseCurrency);
 

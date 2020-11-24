@@ -3,36 +3,39 @@
                 xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/commission_height"
-                android:gravity="center_vertical"
                 android:orientation="vertical">
 
     <TextView
         android:id="@+id/label"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
         android:layout_marginEnd="8dp"
         android:layout_toStartOf="@+id/value"
         android:alpha="0.5"
         android:ellipsize="end"
+        android:gravity="center_vertical"
         android:maxLines="2"
         android:textColor="?attr/colorTextPrimary"
         android:textSize="16sp"
-        tools:text="Manager Success fee"/>
+        tools:text="Manager Success feeManager Success fee"/>
 
     <TextView
         android:id="@+id/value"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
         android:layout_toStartOf="@+id/currency"
         android:textColor="?attr/colorTextPrimary"
         android:textSize="16sp"
-        tools:text="5.2321"/>
+        tools:text="5.2234234321"/>
 
     <TextView
         android:id="@+id/currency"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
         android:layout_marginStart="6dp"
         android:textColor="?attr/colorTextPrimary"
         android:textSize="16sp"

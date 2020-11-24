@@ -286,6 +286,13 @@ public class OwnerInfoFragment extends BaseFragment implements OwnerInfoView, Pr
 	public LinearLayout mySubscriptionsGroup;
 
 
+	@BindView(R.id.button_create_program)
+	public PrimaryButton createProgramButton;
+
+	@BindView(R.id.button_create_follow)
+	public PrimaryButton createFollowButton;
+
+
 	@InjectPresenter
 	public OwnerInfoPresenter presenter;
 
@@ -530,7 +537,7 @@ public class OwnerInfoFragment extends BaseFragment implements OwnerInfoView, Pr
 	public void setDetails(ProgramFollowDetailsFull details) {
 		this.details = details;
 
-		if (details != null) {
+		if (details != null && scrollView != null) {
 			scrollView.setVisibility(View.VISIBLE);
 
 			updatePublicInfo(details.getPublicInfo().getDescription());
@@ -540,6 +547,41 @@ public class OwnerInfoFragment extends BaseFragment implements OwnerInfoView, Pr
 
 			updateProgramDetails(details.getProgramDetails());
 			updateFollowDetails(details.getFollowDetails());
+
+			updateButtons(details.getPublicInfo().getStatus());
+		}
+	}
+
+	private void updateButtons(String status) {
+		if (status.toLowerCase().equals("closed")) {
+			yourDepositGroup.setVisibility(View.GONE);
+
+			createProgramButton.setEnabled(false);
+			createFollowButton.setEnabled(false);
+			editPublicInfoButton.setEnabled(false);
+			manageAccountButton.setEnabled(false);
+			manageProgramButton.setEnabled(false);
+			manageFollowButton.setEnabled(false);
+
+			editPublicInfoButton.setTextColor(ThemeUtil.getColorByAttrId(getContext(), R.attr.colorTextSecondary));
+			manageAccountButton.setTextColor(ThemeUtil.getColorByAttrId(getContext(), R.attr.colorTextSecondary));
+			manageProgramButton.setTextColor(ThemeUtil.getColorByAttrId(getContext(), R.attr.colorTextSecondary));
+			manageFollowButton.setTextColor(ThemeUtil.getColorByAttrId(getContext(), R.attr.colorTextSecondary));
+		}
+		else {
+			yourDepositGroup.setVisibility(View.GONE);
+
+			createProgramButton.setEnabled(true);
+			createFollowButton.setEnabled(true);
+			editPublicInfoButton.setEnabled(true);
+			manageAccountButton.setEnabled(true);
+			manageProgramButton.setEnabled(true);
+			manageFollowButton.setEnabled(true);
+
+			editPublicInfoButton.setTextColor(ThemeUtil.getColorByAttrId(getContext(), R.attr.colorAccent));
+			manageAccountButton.setTextColor(ThemeUtil.getColorByAttrId(getContext(), R.attr.colorAccent));
+			manageProgramButton.setTextColor(ThemeUtil.getColorByAttrId(getContext(), R.attr.colorAccent));
+			manageFollowButton.setTextColor(ThemeUtil.getColorByAttrId(getContext(), R.attr.colorAccent));
 		}
 	}
 

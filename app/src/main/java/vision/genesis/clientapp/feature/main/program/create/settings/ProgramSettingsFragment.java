@@ -143,7 +143,7 @@ public class ProgramSettingsFragment extends BaseFragment implements ProgramSett
 	}
 
 	@OnClick(R.id.group_stop_out)
-	public void onStopOutlicked() {
+	public void onStopOutClicked() {
 		showSoftKeyboard(stopOut);
 	}
 

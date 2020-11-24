@@ -6,9 +6,11 @@ import com.arellomobile.mvp.MvpPresenter;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
+import java.util.UUID;
+
 import javax.inject.Inject;
 
-import io.swagger.client.model.Broker;
+import io.swagger.client.model.BrokerDetails;
 import io.swagger.client.model.NewExternalTradingAccountRequest;
 import io.swagger.client.model.TradingAccountCreateResult;
 import rx.Subscription;
@@ -16,6 +18,7 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.managers.AssetsManager;
+import vision.genesis.clientapp.model.events.OnAttachExternalAccountSuccessEvent;
 import vision.genesis.clientapp.model.events.OnBrokerSelectedEvent;
 import vision.genesis.clientapp.model.events.OnExternalApiKeyConfirmEvent;
 import vision.genesis.clientapp.net.ApiErrorResolver;
@@ -33,7 +36,7 @@ public class AttachExternalAccountPresenter extends MvpPresenter<AttachExternalA
 
 	private Subscription createAccountSubscription;
 
-	private Broker selectedBroker;
+	private UUID selectedBrokerId;
 
 	@Override
 	protected void onFirstViewAttach() {
@@ -55,11 +58,15 @@ public class AttachExternalAccountPresenter extends MvpPresenter<AttachExternalA
 		super.onDestroy();
 	}
 
+	void setData(BrokerDetails selectedBroker) {
+		this.selectedBrokerId = selectedBroker.getId();
+	}
+
 	private void sendAttachAccountRequest(String apiKey, String apiSecret) {
 		getViewState().showProgress(true);
 
 		NewExternalTradingAccountRequest request = new NewExternalTradingAccountRequest();
-		request.setBrokerAccountTypeId(selectedBroker.getAccountTypes().get(0).getId());
+		request.setBrokerAccountTypeId(selectedBrokerId);
 		request.setKey(apiKey);
 		request.setSecret(apiSecret);
 
@@ -74,6 +81,7 @@ public class AttachExternalAccountPresenter extends MvpPresenter<AttachExternalA
 		createAccountSubscription.unsubscribe();
 		//TODO:
 //		if (response.isTwoFactorRequired())
+		EventBus.getDefault().post(new OnAttachExternalAccountSuccessEvent(response.getId()));
 		getViewState().finishActivity();
 	}
 
@@ -85,7 +93,7 @@ public class AttachExternalAccountPresenter extends MvpPresenter<AttachExternalA
 
 	@Subscribe
 	public void onEventMainThread(OnBrokerSelectedEvent event) {
-		this.selectedBroker = event.getSelectedBroker();
+		this.selectedBrokerId = event.getSelectedBroker().getAccountTypes().get(0).getId();
 		getViewState().showApiKey(event.getSelectedBroker());
 	}
 

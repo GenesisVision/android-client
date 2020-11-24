@@ -12,16 +12,19 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.jakewharton.rxbinding.widget.RxTextView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+import io.swagger.client.model.BrokerDetails;
+import timber.log.Timber;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
 import vision.genesis.clientapp.ui.PrimaryButton;
-import vision.genesis.clientapp.utils.TypefaceUtil;
+import vision.genesis.clientapp.utils.ImageUtils;
 
 /**
  * GenesisVisionAndroid
@@ -30,6 +33,16 @@ import vision.genesis.clientapp.utils.TypefaceUtil;
 
 public class ExternalApiKeyFragment extends BaseFragment implements ExternalApiKeyView
 {
+	private static final String EXTRA_SELECTED_BROKER = "extra_selected_broker";
+
+	public static ExternalApiKeyFragment with(BrokerDetails selectedBroker) {
+		ExternalApiKeyFragment fragment = new ExternalApiKeyFragment();
+		Bundle arguments = new Bundle(1);
+		arguments.putParcelable(EXTRA_SELECTED_BROKER, selectedBroker);
+		fragment.setArguments(arguments);
+		return fragment;
+	}
+
 	@BindView(R.id.group_step)
 	public ViewGroup stepGroup;
 
@@ -38,6 +51,9 @@ public class ExternalApiKeyFragment extends BaseFragment implements ExternalApiK
 
 	@BindView(R.id.step_title)
 	public TextView stepTitle;
+
+	@BindView(R.id.broker_logo)
+	public SimpleDraweeView brokerLogo;
 
 	@BindView(R.id.api_key)
 	public EditText apiKey;
@@ -71,11 +87,30 @@ public class ExternalApiKeyFragment extends BaseFragment implements ExternalApiK
 
 		unbinder = ButterKnife.bind(this, view);
 
-		setFonts();
-
 		confirmButton.setEnabled(false);
 
 		setTextListeners();
+
+		if (getArguments() != null) {
+			BrokerDetails selectedBroker = getArguments().getParcelable(EXTRA_SELECTED_BROKER);
+			updateView(selectedBroker);
+			return;
+		}
+		Timber.e("Passed empty arguments to %s", getClass().getSimpleName());
+		onBackPressed();
+	}
+
+	private void updateView(BrokerDetails selectedBroker) {
+		if (selectedBroker != null) {
+			this.stepGroup.setVisibility(View.GONE);
+			this.brokerLogo.setVisibility(View.VISIBLE);
+
+			this.brokerLogo.setImageURI(ImageUtils.getImageUri(selectedBroker.getLogoUrl()));
+		}
+		else {
+			this.stepGroup.setVisibility(View.VISIBLE);
+			this.brokerLogo.setVisibility(View.GONE);
+		}
 	}
 
 	@Override
@@ -93,11 +128,6 @@ public class ExternalApiKeyFragment extends BaseFragment implements ExternalApiK
 				.subscribe(charSequence -> presenter.onApiKeyChanged(charSequence.toString()));
 		RxTextView.textChanges(apiSecret)
 				.subscribe(charSequence -> presenter.onApiSecretChanged(charSequence.toString()));
-	}
-
-	private void setFonts() {
-		stepNumber.setTypeface(TypefaceUtil.semibold());
-		stepTitle.setTypeface(TypefaceUtil.semibold());
 	}
 
 	@Override

@@ -25,13 +25,14 @@ import butterknife.OnClick;
 import butterknife.Unbinder;
 import io.swagger.client.model.NewTradingAccountRequest;
 import io.swagger.client.model.WalletData;
+import timber.log.Timber;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
 import vision.genesis.clientapp.feature.common.select_wallet.SelectWalletBottomSheetFragment;
+import vision.genesis.clientapp.model.CreateAccountModel;
 import vision.genesis.clientapp.ui.PrimaryButton;
 import vision.genesis.clientapp.utils.ImageUtils;
 import vision.genesis.clientapp.utils.StringFormatUtil;
-import vision.genesis.clientapp.utils.TypefaceUtil;
 
 /**
  * GenesisVisionAndroid
@@ -40,11 +41,38 @@ import vision.genesis.clientapp.utils.TypefaceUtil;
 
 public class CreateAccountDepositFragment extends BaseFragment implements CreateAccountDepositView
 {
+	private static final String EXTRA_MODEL = "extra_model";
+
+	public static CreateAccountDepositFragment with(CreateAccountModel model) {
+		CreateAccountDepositFragment fragment = new CreateAccountDepositFragment();
+		Bundle arguments = new Bundle(1);
+		arguments.putParcelable(EXTRA_MODEL, model);
+		fragment.setArguments(arguments);
+		return fragment;
+	}
+
+	@BindView(R.id.group_step)
+	public ViewGroup stepGroup;
+
 	@BindView(R.id.step_number)
 	public TextView stepNumber;
 
 	@BindView(R.id.step_title)
 	public TextView stepTitle;
+
+
+	@BindView(R.id.group_account_info)
+	public ViewGroup accountInfoGroup;
+
+	@BindView(R.id.broker_logo)
+	public SimpleDraweeView brokerLogo;
+
+	@BindView(R.id.account_currency)
+	public TextView accountCurrency;
+
+	@BindView(R.id.leverage)
+	public TextView leverage;
+
 
 	@BindView(R.id.deposit_notification)
 	public TextView depositNotification;
@@ -119,7 +147,6 @@ public class CreateAccountDepositFragment extends BaseFragment implements Create
 		presenter.onMinClicked();
 	}
 
-
 	@OnClick(R.id.max)
 	public void onMaxClicked() {
 		presenter.onMaxClicked();
@@ -144,8 +171,6 @@ public class CreateAccountDepositFragment extends BaseFragment implements Create
 
 		createAccountButton.setEnabled(false);
 
-		setFonts();
-
 		setTextListener();
 
 		if (request != null) {
@@ -155,6 +180,14 @@ public class CreateAccountDepositFragment extends BaseFragment implements Create
 		if (minDepositAmount != null) {
 			presenter.setMinDeposit(minDepositAmount, minDepositCurrency);
 		}
+
+		if (getArguments() != null) {
+			CreateAccountModel model = getArguments().getParcelable(EXTRA_MODEL);
+			updateView(model);
+			return;
+		}
+		Timber.e("Passed empty arguments to %s", getClass().getSimpleName());
+		onBackPressed();
 	}
 
 	@Override
@@ -167,10 +200,20 @@ public class CreateAccountDepositFragment extends BaseFragment implements Create
 		super.onDestroyView();
 	}
 
-	private void setFonts() {
-		stepNumber.setTypeface(TypefaceUtil.semibold());
-		stepTitle.setTypeface(TypefaceUtil.semibold());
-		max.setTypeface(TypefaceUtil.semibold());
+	private void updateView(CreateAccountModel model) {
+		if (model != null) {
+			this.stepGroup.setVisibility(View.GONE);
+			this.brokerLogo.setVisibility(View.VISIBLE);
+
+			this.brokerLogo.setImageURI(ImageUtils.getImageUri(model.getBroker().getLogoUrl()));
+			this.accountCurrency.setText(model.getCurrency().getValue());
+			this.leverage.setText(String.format(Locale.getDefault(), "1:%d", model.getLeverage()));
+
+		}
+		else {
+			this.stepGroup.setVisibility(View.VISIBLE);
+			this.brokerLogo.setVisibility(View.GONE);
+		}
 	}
 
 	private void setTextListener() {

@@ -237,68 +237,72 @@ public class DashboardFragment extends BaseFragment implements DashboardView
 	}
 
 	private void showBalanceInHeader() {
-		showAnimInProcess = true;
-		hideAnimInProcess = false;
-		ValueAnimator yAnim = ValueAnimator.ofFloat(headerBalanceGroup.getY(), headerBalanceGroupInitialY);
-		ValueAnimator alphaAnim = ValueAnimator.ofFloat(headerBalanceGroup.getAlpha(), 1f);
-		yAnim.addUpdateListener(animation -> {
-			if (headerBalanceGroup != null) {
-				headerBalanceGroup.setY((float) yAnim.getAnimatedValue());
-			}
-		});
-		alphaAnim.addUpdateListener(animation -> {
-			if (headerBalanceGroup != null) {
-				headerBalanceGroup.setAlpha((float) alphaAnim.getAnimatedValue());
-			}
-		});
-		yAnim.setDuration(headerBalanceGroupAnimationDuration);
-		alphaAnim.setDuration(headerBalanceGroupAnimationDuration);
-		alphaAnim.addListener(new AnimatorListenerAdapter()
-		{
-			@Override
-			public void onAnimationEnd(Animator animation) {
-				super.onAnimationEnd(animation);
-				showAnimInProcess = false;
-			}
-		});
-		yAnim.setInterpolator(new AccelerateDecelerateInterpolator());
-		alphaAnim.setInterpolator(new AccelerateDecelerateInterpolator());
-		yAnim.start();
-		alphaAnim.start();
+		if (headerBalanceGroup != null) {
+			showAnimInProcess = true;
+			hideAnimInProcess = false;
+			ValueAnimator yAnim = ValueAnimator.ofFloat(headerBalanceGroup.getY(), headerBalanceGroupInitialY);
+			ValueAnimator alphaAnim = ValueAnimator.ofFloat(headerBalanceGroup.getAlpha(), 1f);
+			yAnim.addUpdateListener(animation -> {
+				if (headerBalanceGroup != null) {
+					headerBalanceGroup.setY((float) yAnim.getAnimatedValue());
+				}
+			});
+			alphaAnim.addUpdateListener(animation -> {
+				if (headerBalanceGroup != null) {
+					headerBalanceGroup.setAlpha((float) alphaAnim.getAnimatedValue());
+				}
+			});
+			yAnim.setDuration(headerBalanceGroupAnimationDuration);
+			alphaAnim.setDuration(headerBalanceGroupAnimationDuration);
+			alphaAnim.addListener(new AnimatorListenerAdapter()
+			{
+				@Override
+				public void onAnimationEnd(Animator animation) {
+					super.onAnimationEnd(animation);
+					showAnimInProcess = false;
+				}
+			});
+			yAnim.setInterpolator(new AccelerateDecelerateInterpolator());
+			alphaAnim.setInterpolator(new AccelerateDecelerateInterpolator());
+			yAnim.start();
+			alphaAnim.start();
+		}
 	}
 
 	private void hideBalanceInHeader() {
-		hideAnimInProcess = true;
-		showAnimInProcess = false;
-		if (headerBalanceGroupInitialY == 0 && headerBalanceGroup != null) {
-			headerBalanceGroupInitialY = headerBalanceGroup.getY();
+		if (headerBalanceGroup != null) {
+			hideAnimInProcess = true;
+			showAnimInProcess = false;
+			if (headerBalanceGroupInitialY == 0) {
+				headerBalanceGroupInitialY = headerBalanceGroup.getY();
+			}
+			ValueAnimator yAnim = ValueAnimator.ofFloat(headerBalanceGroup.getY(), headerBalanceGroupInitialY + toolbarHeight);
+			ValueAnimator alphaAnim = ValueAnimator.ofFloat(headerBalanceGroup.getAlpha(), 0f);
+			yAnim.addUpdateListener(animation -> {
+				if (headerBalanceGroup != null) {
+					headerBalanceGroup.setY((float) yAnim.getAnimatedValue());
+				}
+			});
+			alphaAnim.addUpdateListener(animation -> {
+				if (headerBalanceGroup != null) {
+					headerBalanceGroup.setAlpha((float) alphaAnim.getAnimatedValue());
+				}
+			});
+			yAnim.setDuration(headerBalanceGroupAnimationDuration);
+			alphaAnim.setDuration(headerBalanceGroupAnimationDuration);
+			alphaAnim.addListener(new AnimatorListenerAdapter()
+			{
+				@Override
+				public void onAnimationEnd(Animator animation) {
+					super.onAnimationEnd(animation);
+					hideAnimInProcess = false;
+				}
+			});
+			yAnim.setInterpolator(new AccelerateDecelerateInterpolator());
+			alphaAnim.setInterpolator(new AccelerateDecelerateInterpolator());
+			yAnim.start();
+			alphaAnim.start();
 		}
-		ValueAnimator yAnim = ValueAnimator.ofFloat(headerBalanceGroup.getY(), headerBalanceGroupInitialY + toolbarHeight);
-		ValueAnimator alphaAnim = ValueAnimator.ofFloat(headerBalanceGroup.getAlpha(), 0f);
-		yAnim.addUpdateListener(animation -> {
-			if (headerBalanceGroup != null) {
-				headerBalanceGroup.setY((float) yAnim.getAnimatedValue());
-			}
-		});
-		alphaAnim.addUpdateListener(animation -> {
-			if (headerBalanceGroup != null) {
-				headerBalanceGroup.setAlpha((float) alphaAnim.getAnimatedValue());
-			}
-		});
-		yAnim.setDuration(headerBalanceGroupAnimationDuration);
-		alphaAnim.setDuration(headerBalanceGroupAnimationDuration);
-		alphaAnim.addListener(new AnimatorListenerAdapter()
-		{
-			@Override
-			public void onAnimationEnd(Animator animation) {
-				super.onAnimationEnd(animation);
-				hideAnimInProcess = false;
-			}
-		});
-		yAnim.setInterpolator(new AccelerateDecelerateInterpolator());
-		alphaAnim.setInterpolator(new AccelerateDecelerateInterpolator());
-		yAnim.start();
-		alphaAnim.start();
 	}
 //
 //	private void setScrollable(View bottomSheet, RecyclerView recyclerView) {

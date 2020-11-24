@@ -11,8 +11,6 @@ import androidx.annotation.Nullable;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
 
-import java.util.UUID;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -94,8 +92,8 @@ public class FollowTradesActivity extends BaseSwipeBackActivity implements Follo
 	}
 
 	@Override
-	public void initViewPager(UUID followId) {
-		this.adapter = new FollowTradesPagerAdapter(getSupportFragmentManager(), followId);
+	public void initViewPager(ProgramFollowDetailsFull details) {
+		this.adapter = new FollowTradesPagerAdapter(getSupportFragmentManager(), details);
 		viewPager.setAdapter(adapter);
 		viewPager.setEnabled(false);
 		viewPager.setOffscreenPageLimit(2);

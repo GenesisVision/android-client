@@ -2,7 +2,7 @@ package vision.genesis.clientapp.feature.main.copytrading.follow_trades;
 
 import com.arellomobile.mvp.MvpView;
 
-import java.util.UUID;
+import io.swagger.client.model.ProgramFollowDetailsFull;
 
 /**
  * GenesisVisionAndroid
@@ -11,7 +11,7 @@ import java.util.UUID;
 
 public interface FollowTradesView extends MvpView
 {
-	void initViewPager(UUID followId);
+	void initViewPager(ProgramFollowDetailsFull details);
 
 	void showSettings();
 

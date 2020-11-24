@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
                 xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
@@ -18,6 +19,7 @@
             android:orientation="vertical">
 
             <LinearLayout
+                android:id="@+id/group_step"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
@@ -26,6 +28,7 @@
                     android:id="@+id/step_number"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/montserrat_semibold"
                     android:text="03"
                     android:textColor="?attr/colorTextPrimary"
                     android:textSize="18sp"/>
@@ -35,9 +38,77 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="12dp"
+                    android:fontFamily="@font/montserrat_semibold"
                     android:text="@string/deposit_details"
                     android:textColor="?attr/colorTextPrimary"
                     android:textSize="18sp"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/group_account_info"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="24dp"
+                android:gravity="bottom"
+                android:orientation="horizontal"
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp"
+                android:visibility="gone"
+                tools:visibility="visible">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <com.facebook.drawee.view.SimpleDraweeView
+                        android:id="@+id/broker_logo"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_marginEnd="@dimen/padding"
+                        android:scaleType="centerInside"
+                        app:actualImageScaleType="centerInside"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/account_currency"
+                        style="@style/program_info_invest_value"
+                        tools:text="USD"/>
+
+                    <TextView
+                        android:id="@+id/label_currency"
+                        style="@style/program_info_invest_label"
+                        android:text="@string/currency"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/group_leverage"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/leverage"
+                        style="@style/program_info_invest_value"
+                        tools:text="1:1"/>
+
+                    <TextView
+                        android:id="@+id/label_leverage"
+                        style="@style/program_info_invest_label"
+                        android:text="@string/leverage"/>
+
+                </LinearLayout>
 
             </LinearLayout>
 
@@ -184,6 +255,7 @@
                         android:layout_width="50dp"
                         android:layout_height="match_parent"
                         android:layout_alignParentEnd="true"
+                        android:fontFamily="@font/montserrat_semibold"
                         android:gravity="center_vertical|end"
                         android:text="@string/max"
                         android:textColor="?attr/colorTextPrimary"

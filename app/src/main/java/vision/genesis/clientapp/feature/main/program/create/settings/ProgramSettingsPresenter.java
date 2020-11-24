@@ -113,13 +113,11 @@ public class ProgramSettingsPresenter extends MvpPresenter<ProgramSettingsView>
 		} catch (NumberFormatException e) {
 			stopOut = 0;
 		}
-		if (stopOut > Constants.MAX_STOP_OUT_LEVEL) {
-			getViewState().setStopOutLevel(Constants.MAX_STOP_OUT_LEVEL);
-			return;
-		}
-		else if (stopOut > maxStopOutLevel) {
+		if (stopOut > maxStopOutLevel) {
 			getViewState().setStopOutLevel(maxStopOutLevel);
-			getViewState().showStopOutError(context.getString(R.string.error_stop_out_max));
+			if (maxStopOutLevel != Constants.MAX_STOP_OUT_LEVEL) {
+				getViewState().showStopOutError(context.getString(R.string.error_stop_out_max));
+			}
 			return;
 		}
 		else if (stopOut < Constants.MIN_STOP_OUT_LEVEL) {
@@ -194,7 +192,7 @@ public class ProgramSettingsPresenter extends MvpPresenter<ProgramSettingsView>
 		getViewState().updateManagementFeeDescription(maxManagementFee);
 		getViewState().updateSuccessFeeDescription(maxSuccessFee);
 
-		this.maxStopOutLevel = model.getStopOutLevel() == null ? 100 : model.getStopOutLevel();
+		this.maxStopOutLevel = model.getStopOutLevel() == null ? Constants.MAX_STOP_OUT_LEVEL : model.getStopOutLevel();
 
 		if (model.getInvestmentLimit() != null) {
 			getViewState().setInvestmentLimit(model.getInvestmentLimit());

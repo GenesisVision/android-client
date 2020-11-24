@@ -190,27 +190,28 @@ public class TradingAssetDashboardShortView extends RelativeLayout
 			this.brokerLogo.setImageURI(ImageUtils.getImageUri(asset.getBroker().getLogoUrl()));
 
 			this.name.setText(asset.getAccountInfo().getTitle());
-			if (asset.getAccountInfo().getBalance() != null) {
-				if (asset.getAccountInfo().getCurrency() != null) {
-					this.value.setText(StringFormatUtil.getValueString(asset.getAccountInfo().getBalance(), asset.getAccountInfo().getCurrency().getValue()));
-				}
-				else {
-					this.value.setText(StringFormatUtil.formatAmount(asset.getAccountInfo().getBalance()));
-				}
-			}
 
-			if ((asset.getAccountInfo().getStatus().equals(DashboardTradingAssetStatus.PENDING))) {
-				this.status.setText(getContext().getString(R.string.pending));
-				this.status.setTextColor(ThemeUtil.getColorByAttrId(getContext(), R.attr.colorPending));
-				this.statusProgress.setVisibility(View.VISIBLE);
-
-				statusGroup.setVisibility(ViewGroup.VISIBLE);
-				valueGroup.setVisibility(ViewGroup.GONE);
-			}
-			else {
-				valueGroup.setVisibility(ViewGroup.VISIBLE);
-				statusGroup.setVisibility(ViewGroup.GONE);
-			}
+//			if (asset.getAccountInfo().getBalance() != null) {
+//				if (asset.getAccountInfo().getCurrency() != null) {
+//					this.value.setText(StringFormatUtil.getValueString(asset.getAccountInfo().getBalance(), asset.getAccountInfo().getCurrency().getValue()));
+//				}
+//				else {
+//					this.value.setText(StringFormatUtil.formatAmount(asset.getAccountInfo().getBalance()));
+//				}
+//			}
+//
+//			if ((asset.getAccountInfo().getStatus().equals(DashboardTradingAssetStatus.PENDING))) {
+//				this.status.setText(getContext().getString(R.string.pending));
+//				this.status.setTextColor(ThemeUtil.getColorByAttrId(getContext(), R.attr.colorPending));
+//				this.statusProgress.setVisibility(View.VISIBLE);
+//
+//				statusGroup.setVisibility(ViewGroup.VISIBLE);
+//				valueGroup.setVisibility(ViewGroup.GONE);
+//			}
+//			else {
+//				valueGroup.setVisibility(ViewGroup.VISIBLE);
+//				statusGroup.setVisibility(ViewGroup.GONE);
+//			}
 
 			this.change.setVisibility(ViewGroup.GONE);
 
@@ -226,34 +227,34 @@ public class TradingAssetDashboardShortView extends RelativeLayout
 			this.logo.hideLevel();
 
 			this.name.setText(asset.getPublicInfo().getTitle());
+		}
 
-			if (asset.getAccountInfo().getStatus().equals(DashboardTradingAssetStatus.ACTIVE)) {
-				if (asset.getAccountInfo().getBalance() != null) {
-					if (asset.getAccountInfo().getCurrency() != null) {
-						this.value.setText(StringFormatUtil.getValueString(value, asset.getAccountInfo().getCurrency().getValue()));
-					}
-					else {
-						this.value.setText(StringFormatUtil.formatAmount(asset.getAccountInfo().getBalance()));
-					}
-					updateChangeText(value, profitPercent);
+		if (asset.getAccountInfo().getStatus().equals(DashboardTradingAssetStatus.ACTIVE)) {
+			if (asset.getAccountInfo().getBalance() != null) {
+				if (asset.getAccountInfo().getCurrency() != null) {
+					this.value.setText(StringFormatUtil.getValueString(value, asset.getAccountInfo().getCurrency().getValue()));
 				}
-				valueGroup.setVisibility(ViewGroup.VISIBLE);
-				statusGroup.setVisibility(ViewGroup.GONE);
+				else {
+					this.value.setText(StringFormatUtil.formatAmount(asset.getAccountInfo().getBalance()));
+				}
+				updateChangeText(value, profitPercent);
 			}
-			else {
-				if ((asset.getAccountInfo().getStatus().equals(DashboardTradingAssetStatus.PENDING))) {
-					this.status.setText(getContext().getString(R.string.pending));
-					this.status.setTextColor(ThemeUtil.getColorByAttrId(getContext(), R.attr.colorPending));
-					this.statusProgress.setVisibility(View.VISIBLE);
-				}
-				else if ((asset.getAccountInfo().getStatus().equals(DashboardTradingAssetStatus.DISABLED))) {
-					this.status.setText(getContext().getString(R.string.disabled));
-					this.status.setTextColor(ThemeUtil.getColorByAttrId(getContext(), R.attr.colorRed));
-					this.statusProgress.setVisibility(View.GONE);
-				}
-				statusGroup.setVisibility(ViewGroup.VISIBLE);
-				valueGroup.setVisibility(ViewGroup.GONE);
+			valueGroup.setVisibility(ViewGroup.VISIBLE);
+			statusGroup.setVisibility(ViewGroup.GONE);
+		}
+		else {
+			if ((asset.getAccountInfo().getStatus().equals(DashboardTradingAssetStatus.PENDING))) {
+				this.status.setText(getContext().getString(R.string.pending));
+				this.status.setTextColor(ThemeUtil.getColorByAttrId(getContext(), R.attr.colorPending));
+				this.statusProgress.setVisibility(View.VISIBLE);
 			}
+			else if ((asset.getAccountInfo().getStatus().equals(DashboardTradingAssetStatus.DISABLED))) {
+				this.status.setText(getContext().getString(R.string.disabled));
+				this.status.setTextColor(ThemeUtil.getColorByAttrId(getContext(), R.attr.colorRed));
+				this.statusProgress.setVisibility(View.GONE);
+			}
+			statusGroup.setVisibility(ViewGroup.VISIBLE);
+			valueGroup.setVisibility(ViewGroup.GONE);
 		}
 	}
 

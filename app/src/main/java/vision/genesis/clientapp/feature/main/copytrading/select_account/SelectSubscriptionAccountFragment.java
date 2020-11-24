@@ -13,18 +13,21 @@ import com.arellomobile.mvp.presenter.InjectPresenter;
 
 import java.util.ArrayList;
 import java.util.Locale;
-import java.util.UUID;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+import io.swagger.client.model.BrokerTradeServerType;
+import io.swagger.client.model.ProgramFollowDetailsFull;
 import timber.log.Timber;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
 import vision.genesis.clientapp.feature.common.option.SelectOptionBottomSheetFragment;
+import vision.genesis.clientapp.feature.main.external.attach.AttachExternalAccountActivity;
 import vision.genesis.clientapp.feature.main.trading_account.create.CreateAccountActivity;
+import vision.genesis.clientapp.model.CreateAccountModel;
 import vision.genesis.clientapp.ui.PrimaryButton;
 import vision.genesis.clientapp.utils.TypefaceUtil;
 
@@ -35,12 +38,12 @@ import vision.genesis.clientapp.utils.TypefaceUtil;
 
 public class SelectSubscriptionAccountFragment extends BaseFragment implements SelectSubscriptionAccountView
 {
-	private static final String EXTRA_FOLLOW_ID = "extra_follow_id";
+	private static final String EXTRA_FOLLOW = "extra_follow";
 
-	public static SelectSubscriptionAccountFragment with(UUID followId) {
+	public static SelectSubscriptionAccountFragment with(ProgramFollowDetailsFull followDetails) {
 		SelectSubscriptionAccountFragment fragment = new SelectSubscriptionAccountFragment();
 		Bundle arguments = new Bundle(1);
-		arguments.putSerializable(EXTRA_FOLLOW_ID, followId);
+		arguments.putParcelable(EXTRA_FOLLOW, followDetails);
 		fragment.setArguments(arguments);
 		return fragment;
 	}
@@ -66,6 +69,9 @@ public class SelectSubscriptionAccountFragment extends BaseFragment implements S
 	@BindView(R.id.progress_bar)
 	public ProgressBar progressBar;
 
+	@BindView(R.id.button_create_trading_account)
+	public PrimaryButton createTradingAccountButton;
+
 	@BindView(R.id.button_confirm)
 	public PrimaryButton confirmButton;
 
@@ -77,6 +83,8 @@ public class SelectSubscriptionAccountFragment extends BaseFragment implements S
 	private ArrayList<String> accountOptions;
 
 	private Integer selectedAccountPosition;
+
+	private ProgramFollowDetailsFull followDetails;
 
 	@OnClick(R.id.group_account)
 	public void onAccountClicked() {
@@ -91,7 +99,15 @@ public class SelectSubscriptionAccountFragment extends BaseFragment implements S
 	@OnClick(R.id.button_create_trading_account)
 	public void onCreateTradingAccountClicked() {
 		if (getActivity() != null) {
-			CreateAccountActivity.startFrom(getActivity());
+			if (followDetails.getBrokerDetails().getType().equals(BrokerTradeServerType.BINANCEFOLLOW)) {
+				AttachExternalAccountActivity.startWith(getActivity(), followDetails.getBrokerDetails());
+			}
+			else {
+				CreateAccountActivity.startWith(getActivity(),
+						new CreateAccountModel(followDetails.getBrokerDetails(),
+								followDetails.getTradingAccountInfo().getCurrency(),
+								followDetails.getTradingAccountInfo().getLeverageMax()));
+			}
 		}
 	}
 
@@ -118,14 +134,24 @@ public class SelectSubscriptionAccountFragment extends BaseFragment implements S
 		this.confirmButton.setEnabled(false);
 
 		if (getArguments() != null) {
-			UUID followId = (UUID) getArguments().getSerializable(EXTRA_FOLLOW_ID);
-			if (followId != null) {
-				presenter.setData(followId);
+			followDetails = getArguments().getParcelable(EXTRA_FOLLOW);
+			if (followDetails != null) {
+				presenter.setData(followDetails);
+				updateView(followDetails);
 				return;
 			}
 		}
 		Timber.e("Passed empty arguments to %s", getClass().getSimpleName());
 		onBackPressed();
+	}
+
+	private void updateView(ProgramFollowDetailsFull followDetails) {
+		if (followDetails.getBrokerDetails().getType().equals(BrokerTradeServerType.BINANCEFOLLOW)) {
+			this.createTradingAccountButton.setText(getString(R.string.attach_external_account));
+		}
+		else {
+			this.createTradingAccountButton.setText(getString(R.string.create_trading_account));
+		}
 	}
 
 	@Override

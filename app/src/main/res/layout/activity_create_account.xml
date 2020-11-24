@@ -28,6 +28,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
+            android:fontFamily="@font/montserrat_semibold"
             android:text="@string/create_trading_account"
             android:textColor="?attr/colorTextPrimary"
             android:textSize="18sp"/>

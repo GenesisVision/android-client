@@ -113,12 +113,16 @@
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
+            android:layout_marginEnd="4dp"
             android:layout_weight="1"
             android:orientation="vertical">
 
             <TextView
                 android:id="@+id/equity"
                 style="@style/text_value"
+                app:autoSizeMaxTextSize="16sp"
+                app:autoSizeMinTextSize="10sp"
+                app:autoSizeTextType="uniform"
                 tools:text="235k GVT"/>
 
             <TextView
@@ -132,12 +136,16 @@
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
+            android:layout_marginEnd="4dp"
             android:layout_weight="1"
             android:orientation="vertical">
 
             <TextView
                 android:id="@+id/subscribers"
                 style="@style/text_value"
+                app:autoSizeMaxTextSize="16sp"
+                app:autoSizeMinTextSize="10sp"
+                app:autoSizeTextType="uniform"
                 tools:text="34"/>
 
             <TextView
@@ -157,6 +165,9 @@
             <TextView
                 android:id="@+id/drawdown"
                 style="@style/text_value"
+                app:autoSizeMaxTextSize="16sp"
+                app:autoSizeMinTextSize="10sp"
+                app:autoSizeTextType="uniform"
                 tools:text="0.71%"/>
 
             <TextView
