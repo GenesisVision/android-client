@@ -279,6 +279,36 @@
 
                         </RelativeLayout>
 
+                        <LinearLayout
+                            android:id="@+id/group_private_status"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_alignParentEnd="true"
+                            android:layout_marginEnd="@dimen/padding"
+                            android:background="?attr/selectableItemBackgroundBorderless"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/private_status"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/montserrat_regular"
+                                android:textColor="?attr/colorTextPrimary"
+                                android:textSize="14sp"
+                                tools:text="Active"/>
+
+                            <ImageView
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:layout_marginTop="2dp"
+                                android:padding="2dp"
+                                android:scaleType="centerCrop"
+                                android:tint="?attr/colorAccent"
+                                app:srcCompat="@drawable/ic_keyboard_arrow_down_black_24dp"/>
+
+                        </LinearLayout>
+
                     </RelativeLayout>
 
                     <com.google.android.material.tabs.TabLayout
@@ -485,6 +515,36 @@
                                 app:srcCompat="@drawable/ic_chevron_right_black_24dp"/>
 
                         </RelativeLayout>
+
+                        <LinearLayout
+                            android:id="@+id/group_public_status"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_alignParentEnd="true"
+                            android:layout_marginEnd="@dimen/padding"
+                            android:background="?attr/selectableItemBackgroundBorderless"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/public_status"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/montserrat_regular"
+                                android:textColor="?attr/colorTextPrimary"
+                                android:textSize="14sp"
+                                tools:text="Active"/>
+
+                            <ImageView
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:layout_marginTop="2dp"
+                                android:padding="2dp"
+                                android:scaleType="centerCrop"
+                                android:tint="?attr/colorAccent"
+                                app:srcCompat="@drawable/ic_keyboard_arrow_down_black_24dp"/>
+
+                        </LinearLayout>
 
                     </RelativeLayout>
 

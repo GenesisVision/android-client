@@ -22,6 +22,12 @@ interface TradingDetailsView extends MvpView
 {
 	void setCreateOptions(ArrayList<String> createPrivateOptions, ArrayList<String> createPublicOptions);
 
+	void setStatusOptions(ArrayList<String> statusPrivateOptions, ArrayList<String> statusPublicOptions);
+
+	void setPrivateStatus(String text, Integer position);
+
+	void setPublicStatus(String text, Integer position);
+
 	void setBaseCurrency(CurrencyEnum baseCurrency);
 
 	void setTimeframe(Timeframe timeframe);
@@ -39,6 +45,10 @@ interface TradingDetailsView extends MvpView
 	void setPrivateCount(int count);
 
 	void setPublicCount(int count);
+
+	void showPrivateProgress();
+
+	void showPublicProgress();
 
 	void hidePrivateProgress();
 

@@ -3,6 +3,8 @@ package vision.genesis.clientapp.utils;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import io.swagger.client.model.DashboardAssetStatus;
+
 /**
  * GenesisVision
  * Created by Vitaly on 1/29/18.
@@ -44,6 +46,10 @@ public class SharedPreferencesUtil
 	private static final String KEY_SHOW_EVENTS = "keyShowEvents";
 
 	private static final String KEY_SHOW_TRENDING_FIRST_TIME = "keyShowTrendingFirstTime";
+
+	private static final String KEY_TRADING_PRIVATE_STATUS = "keyTradingPrivateStatus";
+
+	private static final String KEY_TRADING_PUBLIC_STATUS = "keyTradingPublicStatus";
 
 	private Context context;
 
@@ -217,5 +223,29 @@ public class SharedPreferencesUtil
 	public String getFcmToken() {
 		SharedPreferences sharedPreferences = context.getSharedPreferences(USER_PREFS, Context.MODE_PRIVATE);
 		return sharedPreferences.getString(KEY_FCM_TOKEN, null);
+	}
+
+	public void saveTradingPrivateStatus(String tradingPrivateStatus) {
+		SharedPreferences sharedPreferences = context.getSharedPreferences(USER_PREFS, Context.MODE_PRIVATE);
+		sharedPreferences.edit()
+				.putString(KEY_TRADING_PRIVATE_STATUS, tradingPrivateStatus)
+				.apply();
+	}
+
+	public String getTradingPrivateStatus() {
+		SharedPreferences sharedPreferences = context.getSharedPreferences(USER_PREFS, Context.MODE_PRIVATE);
+		return sharedPreferences.getString(KEY_TRADING_PRIVATE_STATUS, DashboardAssetStatus.ACTIVE.getValue());
+	}
+
+	public void saveTradingPublicStatus(String tradingPublicStatus) {
+		SharedPreferences sharedPreferences = context.getSharedPreferences(USER_PREFS, Context.MODE_PRIVATE);
+		sharedPreferences.edit()
+				.putString(KEY_TRADING_PUBLIC_STATUS, tradingPublicStatus)
+				.apply();
+	}
+
+	public String getTradingPublicStatus() {
+		SharedPreferences sharedPreferences = context.getSharedPreferences(USER_PREFS, Context.MODE_PRIVATE);
+		return sharedPreferences.getString(KEY_TRADING_PUBLIC_STATUS, DashboardAssetStatus.ACTIVE.getValue());
 	}
 }

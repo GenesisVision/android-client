@@ -6,6 +6,7 @@ import java.util.Objects;
 import io.swagger.client.api.PlatformApi;
 import io.swagger.client.api.ProfileApi;
 import io.swagger.client.model.Currency;
+import io.swagger.client.model.DashboardAssetStatus;
 import io.swagger.client.model.PlatformInfo;
 import io.swagger.client.model.ProgramsLevelsInfo;
 import rx.Observable;
@@ -177,6 +178,22 @@ public class SettingsManager
 				dateRange.getFrom().getMillis(),
 				dateRange.getTo().getMillis());
 		dateRangeSubject.onNext(dateRange);
+	}
+
+	public DashboardAssetStatus getSavedTradingPrivateStatus() {
+		return DashboardAssetStatus.fromValue(sharedPreferencesUtil.getTradingPrivateStatus());
+	}
+
+	public void saveTradingPrivateStatus(DashboardAssetStatus tradingPrivateStatus) {
+		sharedPreferencesUtil.saveTradingPrivateStatus(tradingPrivateStatus.getValue());
+	}
+
+	public DashboardAssetStatus getSavedTradingPublicStatus() {
+		return DashboardAssetStatus.fromValue(sharedPreferencesUtil.getTradingPublicStatus());
+	}
+
+	public void saveTradingPublicStatus(DashboardAssetStatus tradingPublicStatus) {
+		sharedPreferencesUtil.saveTradingPublicStatus(tradingPublicStatus.getValue());
 	}
 
 	public BehaviorSubject<CurrencyEnum> getBaseCurrency() {

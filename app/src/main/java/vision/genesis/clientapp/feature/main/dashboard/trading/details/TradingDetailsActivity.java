@@ -117,8 +117,14 @@ public class TradingDetailsActivity extends BaseSwipeBackActivity implements Tra
 	@BindView(R.id.group_private_actions)
 	public ViewGroup privateActionsGroup;
 
+	@BindView(R.id.private_count_background)
+	public ViewGroup privateCountGroup;
+
 	@BindView(R.id.private_count)
 	public TextView privateCount;
+
+	@BindView(R.id.private_status)
+	public TextView privateStatus;
 
 	@BindView(R.id.private_progress_bar)
 	public ProgressBar privateProgressBar;
@@ -154,8 +160,14 @@ public class TradingDetailsActivity extends BaseSwipeBackActivity implements Tra
 	@BindView(R.id.group_public_actions)
 	public ViewGroup publicActionsGroup;
 
+	@BindView(R.id.public_count_background)
+	public ViewGroup publicCountGroup;
+
 	@BindView(R.id.public_count)
 	public TextView publicCount;
+
+	@BindView(R.id.public_status)
+	public TextView publicStatus;
 
 	@BindView(R.id.public_progress_bar)
 	public ProgressBar publicProgressBar;
@@ -190,6 +202,14 @@ public class TradingDetailsActivity extends BaseSwipeBackActivity implements Tra
 	private boolean showAnimInProcess = false;
 
 	private boolean hideAnimInProcess = false;
+
+	private ArrayList<String> statusPrivateOptions;
+
+	private ArrayList<String> statusPublicOptions;
+
+	private Integer selectedPrivateStatusPosition = -1;
+
+	private Integer selectedPublicStatusPosition = -1;
 
 	@OnClick(R.id.button_back)
 	public void onBackClicked() {
@@ -231,13 +251,32 @@ public class TradingDetailsActivity extends BaseSwipeBackActivity implements Tra
 		}
 	}
 
-
 	@OnClick(R.id.button_create_public)
 	public void onCreatePublicClicked() {
 		if (createPublicOptions != null) {
 			SelectOptionBottomSheetFragment fragment = SelectOptionBottomSheetFragment.with(
 					"", createPublicOptions, -1);
 			fragment.setListener((position, text) -> presenter.onCreatePublicOptionSelected(position, text));
+			fragment.show(getSupportFragmentManager(), fragment.getTag());
+		}
+	}
+
+	@OnClick(R.id.group_private_status)
+	public void onPrivateStatusClicked() {
+		if (statusPrivateOptions != null) {
+			SelectOptionBottomSheetFragment fragment = SelectOptionBottomSheetFragment.with(
+					"", statusPrivateOptions, selectedPrivateStatusPosition);
+			fragment.setListener((position, text) -> presenter.onPrivateStatusOptionSelected(position, text));
+			fragment.show(getSupportFragmentManager(), fragment.getTag());
+		}
+	}
+
+	@OnClick(R.id.group_public_status)
+	public void onPublicStatusClicked() {
+		if (statusPublicOptions != null) {
+			SelectOptionBottomSheetFragment fragment = SelectOptionBottomSheetFragment.with(
+					"", statusPublicOptions, selectedPublicStatusPosition);
+			fragment.setListener((position, text) -> presenter.onPublicStatusOptionSelected(position, text));
 			fragment.show(getSupportFragmentManager(), fragment.getTag());
 		}
 	}
@@ -486,6 +525,24 @@ public class TradingDetailsActivity extends BaseSwipeBackActivity implements Tra
 	}
 
 	@Override
+	public void setStatusOptions(ArrayList<String> statusPrivateOptions, ArrayList<String> statusPublicOptions) {
+		this.statusPrivateOptions = statusPrivateOptions;
+		this.statusPublicOptions = statusPublicOptions;
+	}
+
+	@Override
+	public void setPrivateStatus(String text, Integer position) {
+		this.selectedPrivateStatusPosition = position;
+		this.privateStatus.setText(text);
+	}
+
+	@Override
+	public void setPublicStatus(String text, Integer position) {
+		this.selectedPublicStatusPosition = position;
+		this.publicStatus.setText(text);
+	}
+
+	@Override
 	public void setBaseCurrency(CurrencyEnum baseCurrency) {
 		this.baseCurrency = baseCurrency;
 	}
@@ -630,6 +687,7 @@ public class TradingDetailsActivity extends BaseSwipeBackActivity implements Tra
 	public void setPrivateCount(int count) {
 		if (count > 0) {
 			privateActionsGroup.setVisibility(View.VISIBLE);
+			privateCountGroup.setVisibility(View.VISIBLE);
 			privateCount.setText(String.valueOf(count));
 			hidePrivateProgress();
 		}
@@ -639,9 +697,22 @@ public class TradingDetailsActivity extends BaseSwipeBackActivity implements Tra
 	public void setPublicCount(int count) {
 		if (count > 0) {
 			publicActionsGroup.setVisibility(View.VISIBLE);
+			publicCountGroup.setVisibility(View.VISIBLE);
 			publicCount.setText(String.valueOf(count));
 			hidePublicProgress();
 		}
+	}
+
+	@Override
+	public void showPrivateProgress() {
+		privateProgressBar.setVisibility(View.VISIBLE);
+		privateCountGroup.setVisibility(View.INVISIBLE);
+	}
+
+	@Override
+	public void showPublicProgress() {
+		publicProgressBar.setVisibility(View.VISIBLE);
+		publicCountGroup.setVisibility(View.INVISIBLE);
 	}
 
 	@Override

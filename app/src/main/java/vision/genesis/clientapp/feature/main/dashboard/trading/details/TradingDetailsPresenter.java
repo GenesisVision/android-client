@@ -91,6 +91,10 @@ public class TradingDetailsPresenter extends MvpPresenter<TradingDetailsView> im
 
 	private DashboardTradingAssetItemsViewModel privateFundsModel;
 
+	private DashboardAssetStatus privateStatus;
+
+	private DashboardAssetStatus publicStatus;
+
 	@Override
 	protected void onFirstViewAttach() {
 		super.onFirstViewAttach();
@@ -99,7 +103,11 @@ public class TradingDetailsPresenter extends MvpPresenter<TradingDetailsView> im
 
 		EventBus.getDefault().register(this);
 
+		getViewState().showProgress(true);
+
 		initCreateOptions();
+		initStatusOptions();
+
 		getViewState().showProgress(true);
 		subscribeToBaseCurrency();
 		getProfile();
@@ -189,6 +197,35 @@ public class TradingDetailsPresenter extends MvpPresenter<TradingDetailsView> im
 		getViewState().setCreateOptions(createPrivateOptions, createPublicOptions);
 	}
 
+	private void initStatusOptions() {
+		ArrayList<String> statusPrivateOptions = new ArrayList<>();
+		ArrayList<String> statusPublicOptions = new ArrayList<>();
+
+		statusPrivateOptions.add(context.getString(R.string.active));
+		statusPrivateOptions.add(context.getString(R.string.all));
+
+		statusPublicOptions.add(context.getString(R.string.active));
+		statusPublicOptions.add(context.getString(R.string.all));
+
+		getViewState().setStatusOptions(statusPrivateOptions, statusPublicOptions);
+
+		int privatePosition = getStatusPosition(settingsManager.getSavedTradingPrivateStatus());
+		onPrivateStatusOptionSelected(privatePosition, statusPrivateOptions.get(privatePosition));
+
+		int publicPosition = getStatusPosition(settingsManager.getSavedTradingPublicStatus());
+		onPublicStatusOptionSelected(publicPosition, statusPublicOptions.get(publicPosition));
+	}
+
+	private int getStatusPosition(DashboardAssetStatus status) {
+		switch (status) {
+			case ALL:
+				return 1;
+			default:
+			case ACTIVE:
+				return 0;
+		}
+	}
+
 	private void subscribeToBaseCurrency() {
 		baseCurrencySubscription = settingsManager.getBaseCurrency()
 				.subscribeOn(Schedulers.newThread())
@@ -253,16 +290,16 @@ public class TradingDetailsPresenter extends MvpPresenter<TradingDetailsView> im
 
 	private void getPrivate() {
 		getPrivateAccounts();
-		getPrivateFunds();
 	}
 
 	private void getPrivateAccounts() {
-		if (dashboardManager != null && baseCurrency != null) {
+		if (dashboardManager != null && baseCurrency != null && privateStatus != null) {
 			if (privateAccountsSubscription != null) {
 				privateAccountsSubscription.unsubscribe();
 			}
 
-			privateAccountsSubscription = dashboardManager.getPrivateAccounts(dateRange, baseCurrency.getValue(), DashboardAssetStatus.ALL, 0, TAKE)
+			getViewState().showPrivateProgress();
+			privateAccountsSubscription = dashboardManager.getPrivateAccounts(dateRange, baseCurrency.getValue(), privateStatus, 0, TAKE)
 					.observeOn(AndroidSchedulers.mainThread())
 					.subscribeOn(Schedulers.newThread())
 					.subscribe(this::handleGetPrivateAccountsResponse,
@@ -272,12 +309,12 @@ public class TradingDetailsPresenter extends MvpPresenter<TradingDetailsView> im
 
 	private void handleGetPrivateAccountsResponse(DashboardTradingAssetItemsViewModel response) {
 		privateAccountsSubscription.unsubscribe();
-		getViewState().hidePrivateProgress();
 
 		this.privateAccountsModel = response;
 
-		updatePrivateCount();
 		getViewState().setPrivateAccounts(response.getItems());
+
+		getPrivateFunds();
 	}
 
 	private void handleGetPrivateAccountsError(Throwable throwable) {
@@ -289,12 +326,13 @@ public class TradingDetailsPresenter extends MvpPresenter<TradingDetailsView> im
 	}
 
 	private void getPrivateFunds() {
-		if (dashboardManager != null && baseCurrency != null) {
+		if (dashboardManager != null && baseCurrency != null && privateStatus != null) {
 			if (privateFundsSubscription != null) {
 				privateFundsSubscription.unsubscribe();
 			}
 
-			privateFundsSubscription = dashboardManager.getPrivateFunds(dateRange, baseCurrency.getValue(), DashboardAssetStatus.ALL, 0, TAKE)
+			getViewState().showPrivateProgress();
+			privateFundsSubscription = dashboardManager.getPrivateFunds(dateRange, baseCurrency.getValue(), privateStatus, 0, TAKE)
 					.observeOn(AndroidSchedulers.mainThread())
 					.subscribeOn(Schedulers.newThread())
 					.subscribe(this::handleGetPrivateFundsResponse,
@@ -304,6 +342,7 @@ public class TradingDetailsPresenter extends MvpPresenter<TradingDetailsView> im
 
 	private void handleGetPrivateFundsResponse(DashboardTradingAssetItemsViewModel response) {
 		privateFundsSubscription.unsubscribe();
+		getViewState().hidePrivateProgress();
 
 		this.privateFundsModel = response;
 
@@ -327,12 +366,13 @@ public class TradingDetailsPresenter extends MvpPresenter<TradingDetailsView> im
 
 
 	private void getPublic() {
-		if (dashboardManager != null && baseCurrency != null) {
+		if (dashboardManager != null && baseCurrency != null && publicStatus != null) {
 			if (publicSubscription != null) {
 				publicSubscription.unsubscribe();
 			}
 
-			publicSubscription = dashboardManager.getPublic(dateRange, baseCurrency.getValue(), DashboardAssetStatus.ALL, 0, TAKE)
+			getViewState().showPublicProgress();
+			publicSubscription = dashboardManager.getPublic(dateRange, baseCurrency.getValue(), publicStatus, 0, TAKE)
 					.observeOn(AndroidSchedulers.mainThread())
 					.subscribeOn(Schedulers.newThread())
 					.subscribe(this::handleGetPublicResponse,
@@ -371,5 +411,33 @@ public class TradingDetailsPresenter extends MvpPresenter<TradingDetailsView> im
 			isWaitingFillProfileToCreateFund = false;
 			getViewState().showCreateFundActivity();
 		}
+	}
+
+	void onPrivateStatusOptionSelected(Integer position, String text) {
+		switch (position) {
+			case 0:
+				this.privateStatus = DashboardAssetStatus.ACTIVE;
+				break;
+			case 1:
+				this.privateStatus = DashboardAssetStatus.ALL;
+				break;
+		}
+		settingsManager.saveTradingPrivateStatus(privateStatus);
+		getViewState().setPrivateStatus(text, position);
+		getPrivate();
+	}
+
+	void onPublicStatusOptionSelected(Integer position, String text) {
+		switch (position) {
+			case 0:
+				this.publicStatus = DashboardAssetStatus.ACTIVE;
+				break;
+			case 1:
+				this.publicStatus = DashboardAssetStatus.ALL;
+				break;
+		}
+		settingsManager.saveTradingPublicStatus(publicStatus);
+		getViewState().setPublicStatus(text, position);
+		getPublic();
 	}
 }
