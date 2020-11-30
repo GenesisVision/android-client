@@ -7,14 +7,20 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Build;
+import android.os.Handler;
+import android.os.Looper;
 import android.provider.Settings;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.core.app.NotificationCompat;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.FutureTarget;
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
@@ -27,7 +33,6 @@ import org.joda.time.DateTime;
 import org.joda.time.format.ISODateTimeFormat;
 
 import java.lang.reflect.Type;
-import java.util.concurrent.ExecutionException;
 
 import javax.inject.Inject;
 
@@ -183,31 +188,51 @@ public class GvFirebaseMessagingService extends FirebaseMessagingService
 				.setWhen(System.currentTimeMillis())
 				.setAutoCancel(true)
 				.setSound(Settings.System.DEFAULT_NOTIFICATION_URI)
-				.setContentTitle(getString(R.string.app_name))
 				.setContentText(notification.getText())
-				.setStyle(new NotificationCompat.BigTextStyle())
-				.setContentIntent(pendingIntent);
+				.setStyle(new NotificationCompat.BigTextStyle().bigText(notification.getText()))
+				.setContentIntent(pendingIntent)
+				.setSmallIcon(Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP
+						? R.mipmap.icon_investor
+						: R.drawable.ic_stat_logo);
 
 		if (notification.getImageUrl() != null && !notification.getImageUrl().isEmpty()) {
-			FutureTarget target = Glide.with(this)
-					.asBitmap()
-					.load(notification.getImageUrl())
-					.submit();
-			try {
-				notificationBuilder.setLargeIcon((Bitmap) target.get());
+			new Handler(Looper.getMainLooper()).post(() -> {
+				Glide.get(getApplicationContext()).clearMemory();
+				Glide.with(getApplicationContext())
+						.asBitmap()
+						.load(notification.getImageUrl())
+						.listener(new RequestListener<Bitmap>()
+						{
+							@Override
+							public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Bitmap> target, boolean isFirstResource) {
+								notificationManager.notify(notification.getId().toString(), 101, notificationBuilder.build());
+								return false;
+							}
+
+							@Override
+							public boolean onResourceReady(Bitmap resource, Object model, Target<Bitmap> target, DataSource dataSource, boolean isFirstResource) {
+								notificationBuilder.setLargeIcon(resource);
+								notificationManager.notify(notification.getId().toString(), 101, notificationBuilder.build());
+								return false;
+							}
+						})
+						.submit();
+			});
+//			try {
+//				notificationBuilder.setLargeIcon(Bitmap.createScaledBitmap(((Bitmap) target.get()), 256, 256, true));
+//				notificationBuilder.setLargeIcon((Bitmap) target.get());
 //				notificationBuilder.setStyle(new NotificationCompat.BigPictureStyle()
-//						.bigPicture((Bitmap) target.get()));
-			} catch (ExecutionException e) {
-				e.printStackTrace();
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
+//						.bigPicture((Bitmap) target.get())
+//						.bigLargeIcon((Bitmap) target.get())
+//						.setSummaryText(notification.getText()));
+//			} catch (ExecutionException e) {
+//				e.printStackTrace();
+//			} catch (InterruptedException e) {
+//				e.printStackTrace();
+//			}
 		}
-
-		notificationBuilder.setSmallIcon(Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP
-				? R.mipmap.icon_investor
-				: R.drawable.ic_stat_logo);
-
-		notificationManager.notify(notification.getId().toString(), 101, notificationBuilder.build());
+		else {
+			notificationManager.notify(notification.getId().toString(), 101, notificationBuilder.build());
+		}
 	}
 }

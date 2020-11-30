@@ -50,7 +50,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="24dp"
-                android:gravity="bottom"
+                android:gravity="center_vertical"
                 android:orientation="horizontal"
                 android:paddingStart="20dp"
                 android:paddingEnd="20dp"
@@ -60,7 +60,7 @@
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:layout_weight="4"
                     android:orientation="vertical">
 
                     <com.facebook.drawee.view.SimpleDraweeView
@@ -76,7 +76,7 @@
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:layout_weight="2"
                     android:orientation="vertical">
 
                     <TextView
@@ -95,7 +95,7 @@
                     android:id="@+id/group_leverage"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:layout_weight="2"
                     android:orientation="vertical">
 
                     <TextView

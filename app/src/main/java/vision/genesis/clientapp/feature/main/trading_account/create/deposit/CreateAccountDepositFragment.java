@@ -203,7 +203,7 @@ public class CreateAccountDepositFragment extends BaseFragment implements Create
 	private void updateView(CreateAccountModel model) {
 		if (model != null) {
 			this.stepGroup.setVisibility(View.GONE);
-			this.brokerLogo.setVisibility(View.VISIBLE);
+			this.accountInfoGroup.setVisibility(View.VISIBLE);
 
 			this.brokerLogo.setImageURI(ImageUtils.getImageUri(model.getBroker().getLogoUrl()));
 			this.accountCurrency.setText(model.getCurrency().getValue());
@@ -212,7 +212,7 @@ public class CreateAccountDepositFragment extends BaseFragment implements Create
 		}
 		else {
 			this.stepGroup.setVisibility(View.VISIBLE);
-			this.brokerLogo.setVisibility(View.GONE);
+			this.accountInfoGroup.setVisibility(View.GONE);
 		}
 	}
 
