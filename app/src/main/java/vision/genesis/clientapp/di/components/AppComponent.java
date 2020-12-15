@@ -86,6 +86,7 @@ import vision.genesis.clientapp.feature.main.notifications.fund.FundNotification
 import vision.genesis.clientapp.feature.main.notifications.program.ProgramNotificationsSettingsPresenter;
 import vision.genesis.clientapp.feature.main.notifications.settings.NotificationsSettingsPresenter;
 import vision.genesis.clientapp.feature.main.program.ProgramDetailsPresenter;
+import vision.genesis.clientapp.feature.main.program.analytics.ProgramAnalyticsPresenter;
 import vision.genesis.clientapp.feature.main.program.balance.ProgramBalancePresenter;
 import vision.genesis.clientapp.feature.main.program.change_settings.ChangeProgramSettingsPresenter;
 import vision.genesis.clientapp.feature.main.program.create.CreateProgramPresenter;
@@ -516,4 +517,6 @@ public interface AppComponent
 	void inject(CreateSelfManagedFundPresenter createSelfManagedFundPresenter);
 
 	void inject(MakePublicFundPresenter makePublicFundPresenter);
+
+	void inject(ProgramAnalyticsPresenter programAnalyticsPresenter);
 }

@@ -1002,6 +1002,16 @@
     <string name="self_managed_fund">Self-managed Fund</string>
     <string name="make_public_fund">Make a public fund</string>
 
+    <string name="request_info_exchange_template">Your request will be processed at %s</string>
+
+    <string name="no_data_for_selected_period">No data for the selected period.</string>
+    <string name="investors_max">Investors (max)</string>
+    <string name="program_balance">Program balance</string>
+    <string name="manager_investment">Manager Investment</string>
+    <string name="manager_withdrawal">Manager Withdrawal</string>
+    <string name="analytics">Analytics</string>
+    <string name="interval">Interval</string>
+    <string name="select_interval">Select interval</string>
 
     <plurals name="assets">
         <item quantity="one">asset</item>

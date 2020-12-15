@@ -52,6 +52,8 @@ interface ProgramDetailsView extends MvpView
 
 	void setTradesCount(Integer tradesCount);
 
+	void setProgramAnalyticsCount(Integer programAnayticsCount);
+
 	void setPeriodHistoryCount(Integer periodHistoryCount);
 
 	void setEventsCount(Integer eventsCount);

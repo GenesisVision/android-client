@@ -37,6 +37,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.swagger.client.model.InvestmentEventViewModel;
 import io.swagger.client.model.ProgramFollowDetailsFull;
+import io.swagger.client.model.ProgramType;
 import io.swagger.client.model.Tag;
 import timber.log.Timber;
 import vision.genesis.clientapp.GenesisVisionApplication;
@@ -163,6 +164,8 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 	private TabLayout.Tab equityTab;
 
 	private TabLayout.Tab tradesTab;
+
+	private TabLayout.Tab programAnalyticsTab;
 
 	private TabLayout.Tab periodHistoryTab;
 
@@ -403,6 +406,7 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 		equityTab = tabLayout.newTab().setCustomView(getTabView(R.string.equity)).setTag("equity");
 		openPositionsTab = tabLayout.newTab().setCustomView(getTabView(R.string.open_positions)).setTag("open_positions");
 		tradesTab = tabLayout.newTab().setCustomView(getTabView(R.string.trades)).setTag("trades");
+		programAnalyticsTab = tabLayout.newTab().setCustomView(getTabView(R.string.analytics)).setTag("program_analytics");
 		periodHistoryTab = tabLayout.newTab().setCustomView(getTabView(R.string.period_history)).setTag("period_history");
 		eventsTab = tabLayout.newTab().setCustomView(getTabView(R.string.my_history)).setTag("events");
 
@@ -479,7 +483,12 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 			addPage(equityTab, false);
 			addPage(openPositionsTab, false);
 			addPage(tradesTab, false);
-			addPage(periodHistoryTab, false);
+			if (details.getProgramDetails().getType().equals(ProgramType.DAILYPERIOD)) {
+				addPage(programAnalyticsTab, false);
+			}
+			else {
+				addPage(periodHistoryTab, false);
+			}
 		}
 	}
 
@@ -506,7 +515,12 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 		addPage(openPositionsTab, false);
 		addPage(tradesTab, false);
 		if (this.details != null && details.getProgramDetails() != null) {
-			addPage(periodHistoryTab, false);
+			if (details.getProgramDetails().getType().equals(ProgramType.DAILYPERIOD)) {
+				addPage(programAnalyticsTab, false);
+			}
+			else {
+				addPage(periodHistoryTab, false);
+			}
 		}
 	}
 
@@ -628,6 +642,11 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 	@Override
 	public void setTradesCount(Integer tradesCount) {
 		((DetailsTabView) tradesTab.getCustomView()).setCount(tradesCount);
+	}
+
+	@Override
+	public void setProgramAnalyticsCount(Integer programAnayticsCount) {
+		((DetailsTabView) programAnalyticsTab.getCustomView()).setCount(programAnayticsCount);
 	}
 
 	@Override

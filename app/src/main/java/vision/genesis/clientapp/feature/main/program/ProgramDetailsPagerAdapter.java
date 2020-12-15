@@ -11,7 +11,9 @@ import java.util.UUID;
 import io.swagger.client.model.FollowDetailsFull;
 import io.swagger.client.model.ProgramDetailsFull;
 import io.swagger.client.model.ProgramFollowDetailsFull;
+import io.swagger.client.model.ProgramType;
 import vision.genesis.clientapp.feature.main.follow.balance.FollowBalanceFragment;
+import vision.genesis.clientapp.feature.main.program.analytics.ProgramAnalyticsFragment;
 import vision.genesis.clientapp.feature.main.program.balance.ProgramBalanceFragment;
 import vision.genesis.clientapp.feature.main.program.events.ProgramEventsFragment;
 import vision.genesis.clientapp.feature.main.program.info.follow.FollowInfoFragment;
@@ -52,6 +54,8 @@ public class ProgramDetailsPagerAdapter extends FragmentStatePagerAdapter
 
 	private ProgramTradesFragment programTradesFragment;
 
+	private ProgramAnalyticsFragment programAnalyticsFragment;
+
 	private PeriodHistoryFragment periodHistoryFragment;
 
 	private ProgramEventsFragment programEventsFragment;
@@ -73,7 +77,12 @@ public class ProgramDetailsPagerAdapter extends FragmentStatePagerAdapter
 			programTradesFragment = ProgramTradesFragment.with(assetId);
 			if (programDetails != null) {
 				programEquityFragment = ProgramBalanceFragment.with(details);
-				periodHistoryFragment = PeriodHistoryFragment.with(assetId, details.getTradingAccountInfo().getCurrency().getValue(), programDetails.getPeriodDuration());
+				if (programDetails.getType().equals(ProgramType.DAILYPERIOD)) {
+					programAnalyticsFragment = ProgramAnalyticsFragment.with(assetId, details.getTradingAccountInfo().getCurrency().getValue(), programDetails.getPeriodDuration());
+				}
+				else {
+					periodHistoryFragment = PeriodHistoryFragment.with(assetId, details.getTradingAccountInfo().getCurrency().getValue(), programDetails.getPeriodDuration());
+				}
 			}
 			else {
 				followEquityFragment = FollowBalanceFragment.with(details);
@@ -86,7 +95,12 @@ public class ProgramDetailsPagerAdapter extends FragmentStatePagerAdapter
 			programProfitFragment = ProgramProfitFragment.with(details);
 			programEquityFragment = ProgramBalanceFragment.with(details);
 			programTradesFragment = ProgramTradesFragment.with(assetId);
-			periodHistoryFragment = PeriodHistoryFragment.with(assetId, details.getTradingAccountInfo().getCurrency().getValue(), programDetails.getPeriodDuration());
+			if (programDetails.getType().equals(ProgramType.DAILYPERIOD)) {
+				programAnalyticsFragment = ProgramAnalyticsFragment.with(assetId, details.getTradingAccountInfo().getCurrency().getValue(), programDetails.getPeriodDuration());
+			}
+			else {
+				periodHistoryFragment = PeriodHistoryFragment.with(assetId, details.getTradingAccountInfo().getCurrency().getValue(), programDetails.getPeriodDuration());
+			}
 			programEventsFragment = ProgramEventsFragment.with(ProgramEventsFragment.LOCATION_PROGRAM, assetId);
 		}
 		else if (followDetails != null) {
@@ -116,6 +130,8 @@ public class ProgramDetailsPagerAdapter extends FragmentStatePagerAdapter
 				return programEquityFragment != null ? programEquityFragment : followEquityFragment;
 			case "trades":
 				return programTradesFragment;
+			case "program_analytics":
+				return programAnalyticsFragment;
 			case "period_history":
 				return periodHistoryFragment;
 			case "events":
@@ -158,6 +174,9 @@ public class ProgramDetailsPagerAdapter extends FragmentStatePagerAdapter
 		if (programTradesFragment != null) {
 			programTradesFragment.pagerShow();
 		}
+		if (programAnalyticsFragment != null) {
+			programAnalyticsFragment.pagerShow();
+		}
 		if (periodHistoryFragment != null) {
 			periodHistoryFragment.pagerShow();
 		}
@@ -172,6 +191,9 @@ public class ProgramDetailsPagerAdapter extends FragmentStatePagerAdapter
 		}
 		if (programTradesFragment != null) {
 			programTradesFragment.onSwipeRefresh();
+		}
+		if (programAnalyticsFragment != null) {
+			programAnalyticsFragment.onSwipeRefresh();
 		}
 		if (periodHistoryFragment != null) {
 			periodHistoryFragment.onSwipeRefresh();
@@ -193,6 +215,9 @@ public class ProgramDetailsPagerAdapter extends FragmentStatePagerAdapter
 		}
 		if (programTradesFragment != null) {
 			programTradesFragment.onOffsetChanged(verticalOffset);
+		}
+		if (programAnalyticsFragment != null) {
+			programAnalyticsFragment.onOffsetChanged(verticalOffset);
 		}
 		if (periodHistoryFragment != null) {
 			periodHistoryFragment.onOffsetChanged(verticalOffset);

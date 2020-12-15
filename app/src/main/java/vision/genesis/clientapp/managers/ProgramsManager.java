@@ -18,6 +18,7 @@ import io.swagger.client.model.ProgramPeriodsViewModel;
 import io.swagger.client.model.ProgramProfitPercentCharts;
 import io.swagger.client.model.ProgramWithdrawInfo;
 import io.swagger.client.model.ProgramsFilterSorting;
+import io.swagger.client.model.Timeframe;
 import io.swagger.client.model.TradeSorting;
 import io.swagger.client.model.TradesSignalViewModel;
 import io.swagger.client.model.TradesViewModel;
@@ -142,11 +143,11 @@ public class ProgramsManager
 //		return programsApi.v10ProgramsLevelupSummaryGet(AuthManager.token.getValue());
 //	}
 
-	public Observable<ProgramPeriodsViewModel> getPeriodHistory(UUID programId, DateRange dateRange, int skip, int take) {
+	public Observable<ProgramPeriodsViewModel> getPeriodHistory(UUID programId, DateRange dateRange, Timeframe timeframe, int skip, int take) {
 		return programsApi.getProgramPeriods(programId.toString(),
 				dateRange.getFrom(), dateRange.getTo(),
 				null, null,
-				null, null, null,
+				null, timeframe, null,
 				skip, take);
 	}
 }

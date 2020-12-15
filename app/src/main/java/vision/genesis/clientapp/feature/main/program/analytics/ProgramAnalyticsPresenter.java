@@ -1,4 +1,4 @@
-package vision.genesis.clientapp.feature.main.program.period_history;
+package vision.genesis.clientapp.feature.main.program.analytics;
 
 import android.content.Context;
 
@@ -7,6 +7,7 @@ import com.arellomobile.mvp.MvpPresenter;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
+import org.joda.time.Days;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,6 +17,7 @@ import javax.inject.Inject;
 
 import io.swagger.client.model.ProgramPeriodViewModel;
 import io.swagger.client.model.ProgramPeriodsViewModel;
+import io.swagger.client.model.Timeframe;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -24,17 +26,17 @@ import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.common.date_range.DateRangeBottomSheetFragment;
 import vision.genesis.clientapp.managers.ProgramsManager;
 import vision.genesis.clientapp.model.DateRange;
-import vision.genesis.clientapp.model.events.SetProgramDetailsPeriodHistoryCountEvent;
+import vision.genesis.clientapp.model.events.SetProgramDetailsAnalyticsCountEvent;
 import vision.genesis.clientapp.model.events.ShowPeriodDetailsEvent;
 import vision.genesis.clientapp.net.ApiErrorResolver;
 
 /**
  * GenesisVisionAndroid
- * Created by Vitaly on 21/08/2019.
+ * Created by Vitaly on 10/12/2020.
  */
 
 @InjectViewState
-public class PeriodHistoryPresenter extends MvpPresenter<PeriodHistoryView> implements DateRangeBottomSheetFragment.OnDateRangeChangedListener
+public class ProgramAnalyticsPresenter extends MvpPresenter<ProgramAnalyticsView> implements DateRangeBottomSheetFragment.OnDateRangeChangedListener
 {
 	private static final int TAKE = 20;
 
@@ -54,6 +56,12 @@ public class PeriodHistoryPresenter extends MvpPresenter<PeriodHistoryView> impl
 
 	private List<ProgramPeriodViewModel> periods = new ArrayList<>();
 
+	private ArrayList<Timeframe> intervals = new ArrayList<>();
+
+	private Timeframe interval;
+
+	private Integer selectedIntervalPosition = -1;
+
 	@Override
 	protected void onFirstViewAttach() {
 		super.onFirstViewAttach();
@@ -62,12 +70,9 @@ public class PeriodHistoryPresenter extends MvpPresenter<PeriodHistoryView> impl
 
 		EventBus.getDefault().register(this);
 
-		getViewState().showProgress(true);
-		getViewState().setDateRange(dateRange);
+		onDateRangeChanged(dateRange);
 
-		if (programId != null) {
-			getHistory(true);
-		}
+		getData(true);
 	}
 
 	@Override
@@ -83,27 +88,25 @@ public class PeriodHistoryPresenter extends MvpPresenter<PeriodHistoryView> impl
 
 	void setProgramId(UUID programId) {
 		this.programId = programId;
-		if (programsManager != null) {
-			getHistory(true);
-		}
+		getData(true);
 	}
 
 	void onShow() {
-		getHistory(false);
+		getData(false);
 	}
 
 	void onSwipeRefresh() {
 		getViewState().showProgress(true);
-		getHistory(true);
+		getData(true);
 	}
 
 	void onLastListItemVisible() {
 		getViewState().showProgress(true);
-		getHistory(false);
+		getData(false);
 	}
 
-	private void getHistory(boolean forceUpdate) {
-		if (dateRange != null && programId != null) {
+	private void getData(boolean forceUpdate) {
+		if (programsManager != null && dateRange != null && programId != null) {
 			if (forceUpdate) {
 				skip = 0;
 			}
@@ -111,7 +114,7 @@ public class PeriodHistoryPresenter extends MvpPresenter<PeriodHistoryView> impl
 			if (historySubscription != null) {
 				historySubscription.unsubscribe();
 			}
-			historySubscription = programsManager.getPeriodHistory(programId, dateRange, null, skip, TAKE)
+			historySubscription = programsManager.getPeriodHistory(programId, dateRange, interval, skip, TAKE)
 					.observeOn(AndroidSchedulers.mainThread())
 					.subscribeOn(Schedulers.io())
 					.subscribe(this::handleGetHistoryResponse,
@@ -127,17 +130,17 @@ public class PeriodHistoryPresenter extends MvpPresenter<PeriodHistoryView> impl
 			periods.clear();
 		}
 
-		EventBus.getDefault().post(new SetProgramDetailsPeriodHistoryCountEvent(response.getTotal()));
+		EventBus.getDefault().post(new SetProgramDetailsAnalyticsCountEvent(response.getTotal()));
 
 		List<ProgramPeriodViewModel> newPeriods = response.getPeriods();
 
 		periods.addAll(newPeriods);
 
 		if (skip == 0) {
-			getViewState().setPeriods(newPeriods);
+			getViewState().setData(newPeriods);
 		}
 		else {
-			getViewState().addPeriods(newPeriods);
+			getViewState().addData(newPeriods);
 		}
 
 		skip += TAKE;
@@ -156,12 +159,61 @@ public class PeriodHistoryPresenter extends MvpPresenter<PeriodHistoryView> impl
 	public void onDateRangeChanged(DateRange dateRange) {
 		this.dateRange = dateRange;
 		getViewState().setDateRange(dateRange);
-		getViewState().showProgress(true);
-		getHistory(true);
+		if (updateIntervals()) {
+			getViewState().showProgress(true);
+			getData(true);
+		}
+	}
+
+	private boolean updateIntervals() {
+		intervals = new ArrayList<>();
+		ArrayList<String> intervalOptions = new ArrayList<>();
+
+		if (Days.daysBetween(dateRange.getFrom(), dateRange.getTo()).getDays() < 7) {
+			intervals.add(Timeframe.DAY);
+
+			intervalOptions.add(context.getString(R.string.day));
+		}
+		else if (dateRange.getSelectedRange().equals(DateRange.DateRangeEnum.WEEK)) {
+			intervals.add(Timeframe.DAY);
+			intervals.add(Timeframe.WEEK);
+
+			intervalOptions.add(context.getString(R.string.day));
+			intervalOptions.add(context.getString(R.string.week));
+		}
+		else {
+			intervals.add(Timeframe.DAY);
+			intervals.add(Timeframe.WEEK);
+			intervals.add(Timeframe.MONTH);
+
+			intervalOptions.add(context.getString(R.string.day));
+			intervalOptions.add(context.getString(R.string.week));
+			intervalOptions.add(context.getString(R.string.month));
+		}
+
+		getViewState().setIntervalOptions(intervalOptions);
+
+		if (selectedIntervalPosition > intervals.size() - 1 || selectedIntervalPosition == -1) {
+			selectedIntervalPosition = intervals.size() - 1;
+			onIntervalOptionSelected(selectedIntervalPosition, intervalOptions.get(selectedIntervalPosition));
+			return false;
+		}
+		else {
+			return true;
+		}
 	}
 
 	@Subscribe
 	public void onEventMainThread(ShowPeriodDetailsEvent event) {
-		getViewState().showPeriodDetails(event.getPeriod());
+		getViewState().showAnalyticsDetails(event.getPeriod());
+	}
+
+	void onIntervalOptionSelected(Integer position, String text) {
+		this.selectedIntervalPosition = position;
+		this.interval = intervals.get(position);
+		getViewState().setInterval(text, position);
+
+		getViewState().showProgress(true);
+		getData(true);
 	}
 }
