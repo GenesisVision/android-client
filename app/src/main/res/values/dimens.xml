@@ -167,4 +167,5 @@
     <dimen name="hot_topic_height">72dp</dimen>
     <dimen name="top_strategy_height">104dp</dimen>
     <dimen name="item_program_analytics_height">110dp</dimen>
+    <dimen name="item_program_report_height">140dp</dimen>
 </resources>

@@ -143,11 +143,11 @@ public class ProgramsManager
 //		return programsApi.v10ProgramsLevelupSummaryGet(AuthManager.token.getValue());
 //	}
 
-	public Observable<ProgramPeriodsViewModel> getPeriodHistory(UUID programId, DateRange dateRange, Timeframe timeframe, int skip, int take) {
+	public Observable<ProgramPeriodsViewModel> getPeriodHistory(UUID programId, DateRange dateRange, Timeframe timeframe, Boolean showInvestorReport, int skip, int take) {
 		return programsApi.getProgramPeriods(programId.toString(),
 				dateRange.getFrom(), dateRange.getTo(),
 				null, null,
-				null, timeframe, null,
+				null, timeframe, showInvestorReport,
 				skip, take);
 	}
 }

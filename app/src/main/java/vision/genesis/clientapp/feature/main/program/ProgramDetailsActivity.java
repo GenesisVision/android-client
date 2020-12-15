@@ -169,6 +169,8 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 
 	private TabLayout.Tab periodHistoryTab;
 
+	private TabLayout.Tab reportsTab;
+
 	private TabLayout.Tab eventsTab;
 
 	private ProgramDetailsPagerAdapter pagerAdapter;
@@ -408,6 +410,7 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 		tradesTab = tabLayout.newTab().setCustomView(getTabView(R.string.trades)).setTag("trades");
 		programAnalyticsTab = tabLayout.newTab().setCustomView(getTabView(R.string.analytics)).setTag("program_analytics");
 		periodHistoryTab = tabLayout.newTab().setCustomView(getTabView(R.string.period_history)).setTag("period_history");
+		reportsTab = tabLayout.newTab().setCustomView(getTabView(R.string.reports)).setTag("reports");
 		eventsTab = tabLayout.newTab().setCustomView(getTabView(R.string.my_history)).setTag("events");
 
 		tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
@@ -461,7 +464,7 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 	private void initViewPager(ProgramFollowDetailsFull details) {
 		pagerAdapter = new ProgramDetailsPagerAdapter(getSupportFragmentManager(), tabLayout, details);
 		viewPager.setAdapter(pagerAdapter);
-		viewPager.setOffscreenPageLimit(5);
+		viewPager.setOffscreenPageLimit(6);
 
 		tabLayoutOnPageChangeListener = new TabLayout.TabLayoutOnPageChangeListener(tabLayout);
 		viewPager.addOnPageChangeListener(tabLayoutOnPageChangeListener);
@@ -488,6 +491,10 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 			}
 			else {
 				addPage(periodHistoryTab, false);
+			}
+			if (details.getProgramDetails().getPersonalDetails() != null
+					&& details.getProgramDetails().getPersonalDetails().isIsInvested()) {
+				addPage(reportsTab, false);
 			}
 		}
 	}
@@ -652,6 +659,11 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 	@Override
 	public void setPeriodHistoryCount(Integer periodHistoryCount) {
 		((DetailsTabView) periodHistoryTab.getCustomView()).setCount(periodHistoryCount);
+	}
+
+	@Override
+	public void setReportsCount(Integer reportsCount) {
+		((DetailsTabView) reportsTab.getCustomView()).setCount(reportsCount);
 	}
 
 	@Override

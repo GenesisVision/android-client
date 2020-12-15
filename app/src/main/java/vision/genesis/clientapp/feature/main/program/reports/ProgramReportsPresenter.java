@@ -1,4 +1,4 @@
-package vision.genesis.clientapp.feature.main.program.analytics;
+package vision.genesis.clientapp.feature.main.program.reports;
 
 import android.content.Context;
 
@@ -26,8 +26,8 @@ import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.common.date_range.DateRangeBottomSheetFragment;
 import vision.genesis.clientapp.managers.ProgramsManager;
 import vision.genesis.clientapp.model.DateRange;
-import vision.genesis.clientapp.model.events.SetProgramDetailsAnalyticsCountEvent;
-import vision.genesis.clientapp.model.events.ShowAnalyticsDetailsEvent;
+import vision.genesis.clientapp.model.events.SetProgramDetailsReportsCountEvent;
+import vision.genesis.clientapp.model.events.ShowReportDetailsEvent;
 import vision.genesis.clientapp.net.ApiErrorResolver;
 
 /**
@@ -36,7 +36,7 @@ import vision.genesis.clientapp.net.ApiErrorResolver;
  */
 
 @InjectViewState
-public class ProgramAnalyticsPresenter extends MvpPresenter<ProgramAnalyticsView> implements DateRangeBottomSheetFragment.OnDateRangeChangedListener
+public class ProgramReportsPresenter extends MvpPresenter<ProgramReportsView> implements DateRangeBottomSheetFragment.OnDateRangeChangedListener
 {
 	private static final int TAKE = 20;
 
@@ -114,7 +114,7 @@ public class ProgramAnalyticsPresenter extends MvpPresenter<ProgramAnalyticsView
 			if (historySubscription != null) {
 				historySubscription.unsubscribe();
 			}
-			historySubscription = programsManager.getPeriodHistory(programId, dateRange, interval, false, skip, TAKE)
+			historySubscription = programsManager.getPeriodHistory(programId, dateRange, interval, true, skip, TAKE)
 					.observeOn(AndroidSchedulers.mainThread())
 					.subscribeOn(Schedulers.io())
 					.subscribe(this::handleGetHistoryResponse,
@@ -130,7 +130,7 @@ public class ProgramAnalyticsPresenter extends MvpPresenter<ProgramAnalyticsView
 			periods.clear();
 		}
 
-		EventBus.getDefault().post(new SetProgramDetailsAnalyticsCountEvent(response.getTotal()));
+		EventBus.getDefault().post(new SetProgramDetailsReportsCountEvent(response.getTotal()));
 
 		List<ProgramPeriodViewModel> newPeriods = response.getPeriods();
 
@@ -204,8 +204,8 @@ public class ProgramAnalyticsPresenter extends MvpPresenter<ProgramAnalyticsView
 	}
 
 	@Subscribe
-	public void onEventMainThread(ShowAnalyticsDetailsEvent event) {
-		getViewState().showAnalyticsDetails(event.getPeriod());
+	public void onEventMainThread(ShowReportDetailsEvent event) {
+		getViewState().showReportDetails(event.getPeriod());
 	}
 
 	void onIntervalOptionSelected(Integer position, String text) {

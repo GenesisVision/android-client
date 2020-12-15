@@ -22,6 +22,7 @@ import vision.genesis.clientapp.feature.main.program.info.program.ProgramInfoFra
 import vision.genesis.clientapp.feature.main.program.open_positions.OpenPositionsFragment;
 import vision.genesis.clientapp.feature.main.program.period_history.PeriodHistoryFragment;
 import vision.genesis.clientapp.feature.main.program.profit.ProgramProfitFragment;
+import vision.genesis.clientapp.feature.main.program.reports.ProgramReportsFragment;
 import vision.genesis.clientapp.feature.main.program.trades.ProgramTradesFragment;
 
 /**
@@ -57,6 +58,8 @@ public class ProgramDetailsPagerAdapter extends FragmentStatePagerAdapter
 	private ProgramAnalyticsFragment programAnalyticsFragment;
 
 	private PeriodHistoryFragment periodHistoryFragment;
+
+	private ProgramReportsFragment reportsFragment;
 
 	private ProgramEventsFragment programEventsFragment;
 
@@ -101,6 +104,10 @@ public class ProgramDetailsPagerAdapter extends FragmentStatePagerAdapter
 			else {
 				periodHistoryFragment = PeriodHistoryFragment.with(assetId, details.getTradingAccountInfo().getCurrency().getValue(), programDetails.getPeriodDuration());
 			}
+			if (details.getProgramDetails().getPersonalDetails() != null
+					&& details.getProgramDetails().getPersonalDetails().isIsInvested()) {
+				reportsFragment = ProgramReportsFragment.with(assetId, details.getTradingAccountInfo().getCurrency().getValue(), programDetails.getPeriodDuration());
+			}
 			programEventsFragment = ProgramEventsFragment.with(ProgramEventsFragment.LOCATION_PROGRAM, assetId);
 		}
 		else if (followDetails != null) {
@@ -134,6 +141,8 @@ public class ProgramDetailsPagerAdapter extends FragmentStatePagerAdapter
 				return programAnalyticsFragment;
 			case "period_history":
 				return periodHistoryFragment;
+			case "reports":
+				return reportsFragment;
 			case "events":
 				return programEventsFragment;
 			default:
@@ -180,6 +189,9 @@ public class ProgramDetailsPagerAdapter extends FragmentStatePagerAdapter
 		if (periodHistoryFragment != null) {
 			periodHistoryFragment.pagerShow();
 		}
+		if (reportsFragment != null) {
+			reportsFragment.pagerShow();
+		}
 		if (programEventsFragment != null) {
 			programEventsFragment.pagerShow();
 		}
@@ -197,6 +209,9 @@ public class ProgramDetailsPagerAdapter extends FragmentStatePagerAdapter
 		}
 		if (periodHistoryFragment != null) {
 			periodHistoryFragment.onSwipeRefresh();
+		}
+		if (reportsFragment != null) {
+			reportsFragment.onSwipeRefresh();
 		}
 		if (programEventsFragment != null) {
 			programEventsFragment.onSwipeRefresh();
@@ -221,6 +236,9 @@ public class ProgramDetailsPagerAdapter extends FragmentStatePagerAdapter
 		}
 		if (periodHistoryFragment != null) {
 			periodHistoryFragment.onOffsetChanged(verticalOffset);
+		}
+		if (reportsFragment != null) {
+			reportsFragment.onOffsetChanged(verticalOffset);
 		}
 		if (programEventsFragment != null) {
 			programEventsFragment.onOffsetChanged(verticalOffset);

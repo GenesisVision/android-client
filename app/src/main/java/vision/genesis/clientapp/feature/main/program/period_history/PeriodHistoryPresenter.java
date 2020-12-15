@@ -111,7 +111,7 @@ public class PeriodHistoryPresenter extends MvpPresenter<PeriodHistoryView> impl
 			if (historySubscription != null) {
 				historySubscription.unsubscribe();
 			}
-			historySubscription = programsManager.getPeriodHistory(programId, dateRange, null, skip, TAKE)
+			historySubscription = programsManager.getPeriodHistory(programId, dateRange, null, false, skip, TAKE)
 					.observeOn(AndroidSchedulers.mainThread())
 					.subscribeOn(Schedulers.io())
 					.subscribe(this::handleGetHistoryResponse,

@@ -1,4 +1,4 @@
-package vision.genesis.clientapp.feature.main.program.analytics;
+package vision.genesis.clientapp.feature.main.program.reports;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,9 +16,10 @@ import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.swagger.client.model.InvestorFinancialStatistic;
 import io.swagger.client.model.ProgramPeriodViewModel;
 import vision.genesis.clientapp.R;
-import vision.genesis.clientapp.model.events.ShowAnalyticsDetailsEvent;
+import vision.genesis.clientapp.model.events.ShowReportDetailsEvent;
 import vision.genesis.clientapp.utils.DateTimeUtil;
 import vision.genesis.clientapp.utils.StringFormatUtil;
 import vision.genesis.clientapp.utils.ThemeUtil;
@@ -28,7 +29,7 @@ import vision.genesis.clientapp.utils.ThemeUtil;
  * Created by Vitaly on 10/12/2020.
  */
 
-public class ProgramAnalyticsAdapter extends RecyclerView.Adapter<ProgramAnalyticsAdapter.PeriodHistoryViewHolder>
+public class ProgramReportsAdapter extends RecyclerView.Adapter<ProgramReportsAdapter.PeriodHistoryViewHolder>
 {
 	private List<ProgramPeriodViewModel> periods = new ArrayList<>();
 
@@ -36,7 +37,7 @@ public class ProgramAnalyticsAdapter extends RecyclerView.Adapter<ProgramAnalyti
 
 	private int periodDurationDays;
 
-	ProgramAnalyticsAdapter(String programCurrency, int periodDurationDays) {
+	ProgramReportsAdapter(String programCurrency, int periodDurationDays) {
 		this.programCurrency = programCurrency;
 		this.periodDurationDays = periodDurationDays;
 	}
@@ -44,7 +45,7 @@ public class ProgramAnalyticsAdapter extends RecyclerView.Adapter<ProgramAnalyti
 	@NonNull
 	@Override
 	public PeriodHistoryViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-		View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_program_analytics, parent, false);
+		View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_program_reports, parent, false);
 		PeriodHistoryViewHolder viewHolder = new PeriodHistoryViewHolder(itemView);
 		viewHolder.setData(programCurrency, periodDurationDays);
 		return viewHolder;
@@ -82,26 +83,30 @@ public class ProgramAnalyticsAdapter extends RecyclerView.Adapter<ProgramAnalyti
 		@BindView(R.id.balance)
 		public TextView balance;
 
-		@BindView(R.id.investors)
-		public TextView investors;
-
 		@BindView(R.id.profit)
 		public TextView profit;
+
+		@BindView(R.id.commissions)
+		public TextView commissions;
+
+		@BindView(R.id.deposit_withdraw)
+		public TextView depositWithdraw;
 
 		@BindView(R.id.balance_label)
 		public TextView balanceLabel;
 
-		@BindView(R.id.investors_label)
-		public TextView investorsLabel;
-
 		@BindView(R.id.profit_label)
 		public TextView profitLabel;
+
+		@BindView(R.id.commissions_label)
+		public TextView commissionsLabel;
+
+		@BindView(R.id.deposit_withdraw_label)
+		public TextView depositWithdrawLabel;
 
 		private ProgramPeriodViewModel period;
 
 		private String programCurrency;
-
-		private int periodDurationDays;
 
 		PeriodHistoryViewHolder(View itemView) {
 			super(itemView);
@@ -110,39 +115,47 @@ public class ProgramAnalyticsAdapter extends RecyclerView.Adapter<ProgramAnalyti
 
 			setFonts();
 
-			itemView.setOnClickListener(view -> EventBus.getDefault().post(new ShowAnalyticsDetailsEvent(period)));
+			itemView.setOnClickListener(view -> EventBus.getDefault().post(new ShowReportDetailsEvent(period)));
 		}
 
 		private void setFonts() {
-			balanceLabel.setText(itemView.getContext().getString(R.string.program_balance).toLowerCase());
-			investorsLabel.setText(itemView.getContext().getString(R.string.investors_max).toLowerCase());
+			balanceLabel.setText(itemView.getContext().getString(R.string.balance).toLowerCase());
 			profitLabel.setText(itemView.getContext().getString(R.string.profit).toLowerCase());
+			commissionsLabel.setText(itemView.getContext().getString(R.string.commissions).toLowerCase());
+			depositWithdrawLabel.setText(itemView.getContext().getString(R.string.deposit_withdraw).toLowerCase());
 		}
 
 		private void setData(String programCurrency, int periodDurationDays) {
 			this.programCurrency = programCurrency;
-			this.periodDurationDays = periodDurationDays;
 		}
 
 		private void setPeriod(ProgramPeriodViewModel period) {
 			this.period = period;
 
 			dateStarted.setText(DateTimeUtil.formatEventDateTime(period.getDateFrom()));
-
-			if (period.getBalance() != null) {
-				balance.setText(StringFormatUtil.getValueString(period.getBalance(), programCurrency));
-			}
-			if (period.getInvestors() != null) {
-				investors.setText(String.valueOf(period.getInvestors()));
-			}
-			if (period.getProfit() != null) {
-				String profitValue = StringFormatUtil.getValueString(period.getProfit(), programCurrency);
-				profit.setText(profitValue);
-				profit.setTextColor(ThemeUtil.getColorByAttrId(itemView.getContext(),
-						period.getProfit() >= 0 ? (period.getProfit() == 0 ? R.attr.colorTextPrimary : R.attr.colorGreen) : R.attr.colorRed));
-			}
-
 			updateProgress();
+
+			InvestorFinancialStatistic statistics = period.getInvestorStatistic();
+			if (statistics != null) {
+				if (statistics.getBalance() != null) {
+					balance.setText(StringFormatUtil.getValueString(statistics.getBalance(), programCurrency));
+				}
+
+				if (statistics.getProfit() != null) {
+					String profitValue = StringFormatUtil.getValueString(statistics.getProfit(), programCurrency);
+					profit.setText(profitValue);
+					profit.setTextColor(ThemeUtil.getColorByAttrId(itemView.getContext(),
+							statistics.getProfit() >= 0 ? (statistics.getProfit() == 0 ? R.attr.colorTextPrimary : R.attr.colorGreen) : R.attr.colorRed));
+				}
+
+				commissions.setText(StringFormatUtil.getValueString(
+						statistics.getPlatformSuccessFee() + statistics.getManagerManagementFee() + statistics.getManagerSuccessFee(),
+						programCurrency));
+
+				depositWithdraw.setText(StringFormatUtil.getValueString(
+						statistics.getDeposits() - statistics.getWithdrawals(),
+						programCurrency));
+			}
 		}
 
 		private void updateProgress() {

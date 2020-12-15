@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/background_bottomsheet"
+        android:orientation="vertical">
+
+        <View
+            android:layout_width="45dp"
+            android:layout_height="3dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/line_bottomsheet"/>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="20dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/date_start_label"
+                        style="@style/text_label_period_details"
+                        android:text="@string/date_start"/>
+
+                    <TextView
+                        android:id="@+id/period_length_label"
+                        style="@style/text_label_period_details"
+                        android:text="@string/period_length"/>
+
+                    <TextView
+                        android:id="@+id/balance_label"
+                        style="@style/text_label_period_details"
+                        android:text="@string/balance"/>
+
+                    <TextView
+                        android:id="@+id/profit_label"
+                        style="@style/text_label_period_details"
+                        android:text="@string/profit"/>
+
+                    <TextView
+                        android:id="@+id/success_fee_label"
+                        style="@style/text_label_period_details"
+                        android:text="@string/success_fee"/>
+
+                    <TextView
+                        android:id="@+id/platform_success_fee_label"
+                        style="@style/text_label_period_details"
+                        android:text="@string/platform_success_fee"/>
+
+                    <TextView
+                        android:id="@+id/management_fee_label"
+                        style="@style/text_label_period_details"
+                        android:text="@string/management_fee"/>
+
+                    <TextView
+                        android:id="@+id/deposits_label"
+                        style="@style/text_label_period_details"
+                        android:text="@string/deposits"/>
+
+                    <TextView
+                        android:id="@+id/withdrawals_label"
+                        style="@style/text_label_period_details"
+                        android:text="@string/withdrawals"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/date_start"
+                        style="@style/text_value_period_details"
+                        tools:text="03 Jul 2019, 04:54pm"/>
+
+                    <TextView
+                        android:id="@+id/period_length"
+                        style="@style/text_value_period_details"
+                        tools:text="30d"/>
+
+                    <TextView
+                        android:id="@+id/balance"
+                        style="@style/text_value_period_details"
+                        tools:text="235k GVT"/>
+
+                    <TextView
+                        android:id="@+id/profit"
+                        style="@style/text_value_period_details"
+                        tools:text="12k GVT"/>
+
+                    <TextView
+                        android:id="@+id/success_fee"
+                        style="@style/text_value_period_details"
+                        tools:text="12k GVT"/>
+
+                    <TextView
+                        android:id="@+id/platform_success_fee"
+                        style="@style/text_value_period_details"
+                        tools:text="12k GVT"/>
+
+                    <TextView
+                        android:id="@+id/management_fee"
+                        style="@style/text_value_period_details"
+                        tools:text="12k GVT"/>
+
+                    <TextView
+                        android:id="@+id/deposits"
+                        style="@style/text_value_period_details"
+                        tools:text="12k GVT"/>
+
+                    <TextView
+                        android:id="@+id/withdrawals"
+                        style="@style/text_value_period_details"
+                        tools:text="12k GVT"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </ScrollView>
+
+    </LinearLayout>
+
+</RelativeLayout>

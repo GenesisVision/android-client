@@ -56,6 +56,8 @@ interface ProgramDetailsView extends MvpView
 
 	void setPeriodHistoryCount(Integer periodHistoryCount);
 
+	void setReportsCount(Integer reportsCount);
+
 	void setEventsCount(Integer eventsCount);
 
 	void showEventDetails(InvestmentEventViewModel event);

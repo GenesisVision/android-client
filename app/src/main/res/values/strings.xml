@@ -1012,6 +1012,10 @@
     <string name="analytics">Analytics</string>
     <string name="interval">Interval</string>
     <string name="select_interval">Select interval</string>
+    <string name="reports">Reports</string>
+    <string name="deposit_withdraw">Deposit/Withdraw</string>
+    <string name="deposits">Deposits</string>
+    <string name="withdrawals">Withdrawals</string>
 
     <plurals name="assets">
         <item quantity="one">asset</item>

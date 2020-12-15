@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:id="@+id/root"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="?attr/colorBackground">
+
+    <RelativeLayout
+        android:id="@+id/group_top"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="?attr/colorCard">
+
+        <LinearLayout
+            android:id="@+id/group_interval"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginStart="@dimen/padding"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat_regular"
+                android:text="@string/interval"
+                android:textColor="?attr/colorTextSecondary"
+                android:textSize="14sp"/>
+
+            <TextView
+                android:id="@+id/interval"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:fontFamily="@font/montserrat_semibold"
+                android:textColor="?attr/colorTextPrimary"
+                android:textSize="14sp"
+                tools:text="Month"/>
+
+            <ImageView
+                android:id="@+id/delay_tooltip"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:tint="?attr/colorAccent"
+                app:srcCompat="@drawable/ic_keyboard_arrow_down_black_24dp"/>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/group_top"
+        android:clipToPadding="false"
+        android:paddingBottom="100dp"
+        android:visibility="gone"/>
+
+    <LinearLayout
+        android:id="@+id/group_no_data"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/group_top"
+        android:layout_centerHorizontal="true"
+        android:orientation="vertical"
+        android:padding="32dp"
+        android:visibility="gone"
+        tools:visibility="visible">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="8dp"
+            android:alpha="0.3"
+            android:gravity="center"
+            android:text="@string/no_data_for_selected_period"
+            android:textColor="?attr/colorTextPrimary"
+            android:textSize="16sp"/>
+
+    </LinearLayout>
+
+    <vision.genesis.clientapp.ui.DateRangeView
+        android:id="@+id/date_range"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="10dp"
+        android:visibility="gone"
+        tools:visibility="visible"/>
+
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:indeterminate="true"
+        android:scaleY="4"
+        android:visibility="visible"/>
+
+</RelativeLayout>

@@ -103,6 +103,7 @@ import vision.genesis.clientapp.feature.main.program.manage.ManageProgramPresent
 import vision.genesis.clientapp.feature.main.program.open_positions.OpenPositionsPresenter;
 import vision.genesis.clientapp.feature.main.program.period_history.PeriodHistoryPresenter;
 import vision.genesis.clientapp.feature.main.program.profit.ProgramProfitPresenter;
+import vision.genesis.clientapp.feature.main.program.reports.ProgramReportsPresenter;
 import vision.genesis.clientapp.feature.main.program.trades.ProgramTradesPresenter;
 import vision.genesis.clientapp.feature.main.program.withdraw.WithdrawProgramPresenter;
 import vision.genesis.clientapp.feature.main.program.withdraw.confirm.ConfirmProgramWithdrawBottomSheetFragment;
@@ -519,4 +520,6 @@ public interface AppComponent
 	void inject(MakePublicFundPresenter makePublicFundPresenter);
 
 	void inject(ProgramAnalyticsPresenter programAnalyticsPresenter);
+
+	void inject(ProgramReportsPresenter programReportsPresenter);
 }
