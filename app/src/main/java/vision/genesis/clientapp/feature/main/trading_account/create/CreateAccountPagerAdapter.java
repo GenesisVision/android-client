@@ -81,4 +81,10 @@ public class CreateAccountPagerAdapter extends FragmentStatePagerAdapter
 			depositFragment.setMinDepositAmount(minDepositAmount, currency);
 		}
 	}
+
+	public void setDepositStepNumber(String stepNumber) {
+		if (depositFragment != null) {
+			depositFragment.setStepNumber(stepNumber);
+		}
+	}
 }

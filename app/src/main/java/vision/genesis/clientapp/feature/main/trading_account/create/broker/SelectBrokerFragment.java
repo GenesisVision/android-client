@@ -31,6 +31,8 @@ import butterknife.OnClick;
 import butterknife.Unbinder;
 import io.swagger.client.model.Broker;
 import io.swagger.client.model.BrokerAccountType;
+import io.swagger.client.model.ExchangeAccountType;
+import io.swagger.client.model.ExchangeInfo;
 import io.swagger.client.model.Tag;
 import timber.log.Timber;
 import vision.genesis.clientapp.GenesisVisionApplication;
@@ -49,11 +51,11 @@ import vision.genesis.clientapp.utils.TypefaceUtil;
 
 public class SelectBrokerFragment extends BaseFragment implements SelectBrokerView
 {
-	private static String EXTRA_ASSET_ID = "extra_asset_id";
+	private static final String EXTRA_ASSET_ID = "extra_asset_id";
 
-	private static String EXTRA_BROKER_NAME = "extra_broker_name";
+	private static final String EXTRA_BROKER_NAME = "extra_broker_name";
 
-	private static String EXTRA_IS_EXTERNAL = "extra_is_external";
+	private static final String EXTRA_IS_EXTERNAL = "extra_is_external";
 
 	public static SelectBrokerFragment with(UUID assetId, String brokerName, Boolean isExternal) {
 		SelectBrokerFragment fragment = new SelectBrokerFragment();
@@ -95,6 +97,9 @@ public class SelectBrokerFragment extends BaseFragment implements SelectBrokerVi
 	@BindView(R.id.about)
 	public TextView about;
 
+	@BindView(R.id.label_account_type)
+	public TextView accountTypeLabel;
+
 	@BindView(R.id.account_type)
 	public TextView accountType;
 
@@ -103,6 +108,9 @@ public class SelectBrokerFragment extends BaseFragment implements SelectBrokerVi
 
 	@BindView(R.id.assets)
 	public TextView assets;
+
+	@BindView(R.id.label_leverage)
+	public TextView leverageLabel;
 
 	@BindView(R.id.leverage)
 	public TextView leverage;
@@ -124,7 +132,11 @@ public class SelectBrokerFragment extends BaseFragment implements SelectBrokerVi
 
 	private Unbinder unbinder;
 
+	private ExchangeInfo selectedExchange;
+
 	private Broker selectedBroker;
+
+	private ArrayList<BrokerView> exchangeViews = new ArrayList<>();
 
 	private ArrayList<BrokerView> brokerViews = new ArrayList<>();
 
@@ -132,9 +144,10 @@ public class SelectBrokerFragment extends BaseFragment implements SelectBrokerVi
 
 	@OnClick(R.id.read_terms)
 	public void onReadTermsClicked() {
-		if (selectedBroker != null && getActivity() != null) {
+		if ((selectedBroker != null || selectedExchange != null) && getActivity() != null) {
 			try {
-				Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(selectedBroker.getTerms()));
+				String terms = selectedExchange != null ? selectedExchange.getTerms() : selectedBroker.getTerms();
+				Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(terms));
 				getActivity().startActivity(browserIntent);
 			} catch (ActivityNotFoundException e) {
 				Snackbar.make(scrollView, getString(R.string.error_cannot_open_link), Snackbar.LENGTH_LONG).show();
@@ -195,12 +208,31 @@ public class SelectBrokerFragment extends BaseFragment implements SelectBrokerVi
 	}
 
 	@Override
+	public void setExchanges(List<ExchangeInfo> exchanges) {
+		exchangeViews = new ArrayList<>();
+		flexBox.removeAllViews();
+		for (ExchangeInfo exchange : exchanges) {
+			BrokerView view = new BrokerView(getContext());
+			view.setExchange(exchange);
+			view.setOnClickListener(view1 -> presenter.onExchangeSelected(exchange));
+			exchangeViews.add(view);
+			flexBox.addView(view);
+
+			FlexboxLayout.LayoutParams lp = (FlexboxLayout.LayoutParams) view.getLayoutParams();
+			lp.setMargins(0,
+					0,
+					TypedValueFormatter.toDp(10),
+					TypedValueFormatter.toDp(10));
+			view.setLayoutParams(lp);
+		}
+	}
+
+	@Override
 	public void setBrokers(List<Broker> brokers) {
 		brokerViews = new ArrayList<>();
-		flexBox.removeAllViews();
 		for (Broker broker : brokers) {
 			BrokerView view = new BrokerView(getContext());
-			view.setData(broker);
+			view.setBroker(broker);
 			view.setOnClickListener(view1 -> presenter.onBrokerSelected(broker));
 			brokerViews.add(view);
 			flexBox.addView(view);
@@ -215,14 +247,67 @@ public class SelectBrokerFragment extends BaseFragment implements SelectBrokerVi
 	}
 
 	@Override
+	public void selectExchange(ExchangeInfo selectedExchange, int position) {
+		this.selectedExchange = selectedExchange;
+		this.selectedBroker = null;
+		updateSelections(position);
+		brokersScrollView.smoothScrollTo(position * (brokerViewWidth + TypedValueFormatter.toDp(10)), 0);
+	}
+
+	@Override
 	public void selectBroker(Broker selectedBroker, int position) {
 		this.selectedBroker = selectedBroker;
+		this.selectedExchange = null;
+		updateSelections(position);
+		brokersScrollView.smoothScrollTo(position * (brokerViewWidth + TypedValueFormatter.toDp(10)), 0);
+	}
+
+	private void updateSelections(int position) {
 		int index = 0;
+		for (BrokerView exchangeView : exchangeViews) {
+			exchangeView.select(index == position);
+			index++;
+		}
 		for (BrokerView brokerView : brokerViews) {
 			brokerView.select(index == position);
 			index++;
 		}
-		brokersScrollView.smoothScrollTo(position * (brokerViewWidth + TypedValueFormatter.toDp(10)), 0);
+	}
+
+	@Override
+	public void showExchangeInfo(ExchangeInfo exchange) {
+		this.brokerName.setText(exchange.getName());
+		this.about.setText(exchange.getDescription());
+		this.assets.setText(exchange.getAssets());
+
+		if (currentBrokerName != null
+				&& currentBrokerName.toLowerCase().equals("genesis markets")
+				&& exchange.getName().toLowerCase().equals("huobi")) {
+			warningInfo.setVisibility(View.VISIBLE);
+			warningInfo.setText(getString(R.string.warning_info_switch_gm_to_huobi));
+		}
+		else {
+			warningInfo.setVisibility(View.GONE);
+		}
+
+		setTags(exchange.getTags());
+
+		this.accountTypeLabel.setVisibility(View.GONE);
+		this.accountType.setVisibility(View.GONE);
+
+		String platforms = "";
+		for (ExchangeAccountType type : exchange.getAccountTypes()) {
+			platforms = platforms.concat(type.getTypeTitle()).concat(", ");
+		}
+		if (platforms.length() >= 2) {
+			platforms = platforms.substring(0, platforms.length() - 2);
+		}
+		this.tradingPlatform.setText(platforms);
+
+		this.leverageLabel.setVisibility(View.GONE);
+		this.leverage.setVisibility(View.GONE);
+
+		readTerms.setVisibility(selectedExchange.getTerms() == null ? View.GONE : View.VISIBLE);
 	}
 
 	@Override
@@ -246,7 +331,7 @@ public class SelectBrokerFragment extends BaseFragment implements SelectBrokerVi
 		String types = "";
 		String platforms = "";
 		for (BrokerAccountType type : broker.getAccountTypes()) {
-			platforms = platforms.concat(type.getType().getValue()).concat(", ");
+			platforms = platforms.concat(type.getTypeTitle()).concat(", ");
 			for (String currency : type.getCurrencies()) {
 				types = types.concat(currency).concat(", ");
 			}
@@ -260,8 +345,14 @@ public class SelectBrokerFragment extends BaseFragment implements SelectBrokerVi
 			types = types.substring(0, types.length() - 2);
 		}
 
+		this.accountTypeLabel.setVisibility(View.VISIBLE);
+		this.accountType.setVisibility(View.VISIBLE);
+
 		this.accountType.setText(types);
 		this.tradingPlatform.setText(platforms);
+
+		this.leverageLabel.setVisibility(View.VISIBLE);
+		this.leverage.setVisibility(View.VISIBLE);
 
 		if (broker.getLeverageMin().equals(broker.getLeverageMax())) {
 			this.leverage.setText(String.format(Locale.getDefault(), "1:%d",

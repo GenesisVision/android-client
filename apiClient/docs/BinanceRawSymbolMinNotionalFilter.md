@@ -3,7 +3,7 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**filterType** | [**BinanceRawSymbolFilterType**](BinanceRawSymbolFilterType.md) |  |  [optional]
+**filterType** | [**BinanceSymbolFilterType**](BinanceSymbolFilterType.md) |  |  [optional]
 **minNotional** | **Double** |  |  [optional]
 **applyToMarketOrders** | **Boolean** |  |  [optional]
 **averagePriceMinutes** | **Integer** |  |  [optional]

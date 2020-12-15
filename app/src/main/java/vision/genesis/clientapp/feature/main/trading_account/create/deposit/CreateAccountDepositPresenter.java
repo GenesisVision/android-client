@@ -111,7 +111,7 @@ public class CreateAccountDepositPresenter extends MvpPresenter<CreateAccountDep
 			double minAmount = selectedWallet.getAvailable() > minDepositSelectedCurrencyAmount
 					? minDepositSelectedCurrencyAmount
 					: selectedWallet.getAvailable();
-			getViewState().setAmount(StringFormatUtil.formatAmountWithoutGrouping(minAmount));
+			getViewState().setAmount(StringFormatUtil.formatMinAmountWithoutGrouping(minAmount));
 		}
 	}
 

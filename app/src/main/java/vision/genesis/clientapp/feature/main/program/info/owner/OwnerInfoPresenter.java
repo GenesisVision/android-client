@@ -17,8 +17,10 @@ import io.swagger.client.model.AssetType;
 import io.swagger.client.model.CreateSignalProvider;
 import io.swagger.client.model.FollowDetailsFull;
 import io.swagger.client.model.InternalTransferRequestType;
+import io.swagger.client.model.PrivateTradingAccountType;
 import io.swagger.client.model.ProgramDetailsFull;
 import io.swagger.client.model.ProgramFollowDetailsFull;
+import io.swagger.client.model.ProgramType;
 import io.swagger.client.model.ProgramUpdate;
 import io.swagger.client.model.SignalSubscription;
 import io.swagger.client.model.SignalSubscriptionItemsViewModel;
@@ -143,6 +145,8 @@ public class OwnerInfoPresenter extends MvpPresenter<OwnerInfoView>
 						? details.getProgramDetails().getPersonalDetails().getMigration()
 						: null,
 				details.getProgramDetails() != null,
+				details.getProgramDetails().getType().equals(ProgramType.DAILYPERIOD)
+						? PrivateTradingAccountType.EXCHANGEACCOUNT : PrivateTradingAccountType.NONE,
 				details.getPublicInfo().getStatus(),
 				false,
 				details.getOwnerActions().isCanChangePassword());
@@ -181,7 +185,7 @@ public class OwnerInfoPresenter extends MvpPresenter<OwnerInfoView>
 
 		ProgramDetailsFull programDetails = details.getProgramDetails();
 
-		if (programDetails == null || programDetails.getAvailableInvestmentBase() == 0) {
+		if (programDetails == null) {
 			return;
 		}
 
@@ -199,6 +203,9 @@ public class OwnerInfoPresenter extends MvpPresenter<OwnerInfoView>
 		request.setManagementFee(programDetails.getManagementFeeCurrent());
 		request.setBrokerType(details.getBrokerDetails().getType());
 		request.setIsOwner(details.getPublicInfo().isIsOwnAsset());
+		request.setIsExchangeProgram(details.getProgramDetails().getType().equals(ProgramType.DAILYPERIOD));
+		request.setIsProcessingRealTime(details.getProgramDetails().getDailyPeriodDetails() != null
+				&& details.getProgramDetails().getDailyPeriodDetails().isIsProcessingRealTime());
 
 		getViewState().showInvestProgramActivity(request);
 	}
@@ -219,6 +226,9 @@ public class OwnerInfoPresenter extends MvpPresenter<OwnerInfoView>
 		request.setProgramName(details.getPublicInfo().getTitle());
 		request.setManagerName(details.getOwner().getUsername());
 		request.setIsOwner(details.getPublicInfo().isIsOwnAsset());
+		request.setIsExchangeProgram(details.getProgramDetails().getType().equals(ProgramType.DAILYPERIOD));
+		request.setIsProcessingRealTime(details.getProgramDetails().getDailyPeriodDetails() != null
+				&& details.getProgramDetails().getDailyPeriodDetails().isIsProcessingRealTime());
 
 		getViewState().showWithdrawProgramActivity(request);
 	}

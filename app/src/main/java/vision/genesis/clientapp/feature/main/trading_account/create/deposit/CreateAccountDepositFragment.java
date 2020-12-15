@@ -233,7 +233,7 @@ public class CreateAccountDepositFragment extends BaseFragment implements Create
 	public void setMinDepositWalletCurrencyAmount(Double minDepositAmount, String currency) {
 		amountToDepositLabel.setText(String.format(Locale.getDefault(), "%s (min %s)",
 				getString(R.string.amount_to_deposit),
-				StringFormatUtil.getValueString(minDepositAmount, currency)));
+				StringFormatUtil.getMinAmountValueString(minDepositAmount, currency)));
 	}
 
 	@Override
@@ -298,6 +298,10 @@ public class CreateAccountDepositFragment extends BaseFragment implements Create
 		depositNotification.setText(String.format(Locale.getDefault(),
 				getString(R.string.template_create_trading_account_deposit_notification),
 				StringFormatUtil.getValueString(minDepositAmount, minDepositCurrency)));
+	}
+
+	public void setStepNumber(String stepNumber) {
+		this.stepNumber.setText(stepNumber);
 	}
 
 	private void showSoftKeyboard() {

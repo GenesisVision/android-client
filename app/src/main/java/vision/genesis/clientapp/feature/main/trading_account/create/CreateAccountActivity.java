@@ -51,6 +51,8 @@ public class CreateAccountActivity extends BaseSwipeBackActivity implements Crea
 
 	private CreateAccountPagerAdapter adapter;
 
+	private boolean isPassSettings = false;
+
 	@OnClick(R.id.button_back)
 	public void onBackClicked() {
 		onBackPressed();
@@ -94,8 +96,11 @@ public class CreateAccountActivity extends BaseSwipeBackActivity implements Crea
 				finishActivity();
 				break;
 			case 1:
-			case 2:
 				viewPager.setCurrentItem(viewPager.getCurrentItem() - 1);
+			case 2:
+				viewPager.setCurrentItem(isPassSettings
+						? viewPager.getCurrentItem() - 2
+						: viewPager.getCurrentItem() - 1);
 				break;
 		}
 	}
@@ -118,7 +123,17 @@ public class CreateAccountActivity extends BaseSwipeBackActivity implements Crea
 	}
 
 	@Override
-	public void showAccountDeposit(Double minDepositAmount, String currency) {
+	public void showExchangeAccountDeposit(Double minDepositAmount, String currency) {
+		if (adapter != null) {
+			this.isPassSettings = true;
+			adapter.setDepositStepNumber("02");
+			adapter.setMinDepositAmount(minDepositAmount, currency);
+			viewPager.setCurrentItem(2);
+		}
+	}
+
+	@Override
+	public void showBrokerAccountDeposit(Double minDepositAmount, String currency) {
 		if (adapter != null) {
 			adapter.setMinDepositAmount(minDepositAmount, currency);
 			viewPager.setCurrentItem(2);
@@ -128,6 +143,8 @@ public class CreateAccountActivity extends BaseSwipeBackActivity implements Crea
 	@Override
 	public void showAccountSettings(Broker selectedBroker) {
 		if (adapter != null) {
+			this.isPassSettings = false;
+			adapter.setDepositStepNumber("03");
 			adapter.setSelectedBroker(selectedBroker);
 			viewPager.setCurrentItem(1);
 		}

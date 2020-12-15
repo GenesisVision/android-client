@@ -3,5 +3,5 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**currency** | [**Currency**](Currency.md) |  |  [optional]
+**currency** | **String** |  |  [optional]
 **rate** | **Double** |  |  [optional]

@@ -56,6 +56,9 @@ public class BrokerAccountType implements Parcelable
 	@SerializedName("type")
 	private BrokerTradeServerType type = null;
 
+	@SerializedName("typeTitle")
+	private String typeTitle = null;
+
 	@SerializedName("leverages")
 	private List<Integer> leverages = null;
 
@@ -85,6 +88,7 @@ public class BrokerAccountType implements Parcelable
 		name = (String) in.readValue(null);
 		description = (String) in.readValue(null);
 		type = (BrokerTradeServerType) in.readValue(BrokerTradeServerType.class.getClassLoader());
+		typeTitle = (String) in.readValue(null);
 		leverages = (List<Integer>) in.readValue(null);
 		currencies = (List<String>) in.readValue(null);
 		minimumDepositsAmount = (Map<String, Double>) in.readValue(null);
@@ -168,6 +172,25 @@ public class BrokerAccountType implements Parcelable
 
 	public void setType(BrokerTradeServerType type) {
 		this.type = type;
+	}
+
+	public BrokerAccountType typeTitle(String typeTitle) {
+		this.typeTitle = typeTitle;
+		return this;
+	}
+
+	/**
+	 * Get typeTitle
+	 *
+	 * @return typeTitle
+	 **/
+	@Schema(description = "")
+	public String getTypeTitle() {
+		return typeTitle;
+	}
+
+	public void setTypeTitle(String typeTitle) {
+		this.typeTitle = typeTitle;
 	}
 
 	public BrokerAccountType leverages(List<Integer> leverages) {
@@ -340,6 +363,7 @@ public class BrokerAccountType implements Parcelable
 				Objects.equals(this.name, brokerAccountType.name) &&
 				Objects.equals(this.description, brokerAccountType.description) &&
 				Objects.equals(this.type, brokerAccountType.type) &&
+				Objects.equals(this.typeTitle, brokerAccountType.typeTitle) &&
 				Objects.equals(this.leverages, brokerAccountType.leverages) &&
 				Objects.equals(this.currencies, brokerAccountType.currencies) &&
 				Objects.equals(this.minimumDepositsAmount, brokerAccountType.minimumDepositsAmount) &&
@@ -351,7 +375,7 @@ public class BrokerAccountType implements Parcelable
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, name, description, type, leverages, currencies, minimumDepositsAmount, isKycRequired, isCountryNotUSRequired, isSignalsAvailable, isDepositRequired);
+		return Objects.hash(id, name, description, type, typeTitle, leverages, currencies, minimumDepositsAmount, isKycRequired, isCountryNotUSRequired, isSignalsAvailable, isDepositRequired);
 	}
 
 	@Override
@@ -363,6 +387,7 @@ public class BrokerAccountType implements Parcelable
 		sb.append("    name: ").append(toIndentedString(name)).append("\n");
 		sb.append("    description: ").append(toIndentedString(description)).append("\n");
 		sb.append("    type: ").append(toIndentedString(type)).append("\n");
+		sb.append("    typeTitle: ").append(toIndentedString(typeTitle)).append("\n");
 		sb.append("    leverages: ").append(toIndentedString(leverages)).append("\n");
 		sb.append("    currencies: ").append(toIndentedString(currencies)).append("\n");
 		sb.append("    minimumDepositsAmount: ").append(toIndentedString(minimumDepositsAmount)).append("\n");
@@ -390,6 +415,7 @@ public class BrokerAccountType implements Parcelable
 		out.writeValue(name);
 		out.writeValue(description);
 		out.writeValue(type);
+		out.writeValue(typeTitle);
 		out.writeValue(leverages);
 		out.writeValue(currencies);
 		out.writeValue(minimumDepositsAmount);

@@ -445,6 +445,8 @@ public class DashboardFragment extends BaseFragment implements DashboardView
 
 	@Override
 	public void onShow() {
-		presenter.onResume();
+		if (presenter != null) {
+			presenter.onResume();
+		}
 	}
 }

@@ -178,13 +178,16 @@ public interface TradingplatformApi
 	 *
 	 * @param accountId (optional)
 	 * @param mode      (optional)
+	 * @param dateFrom  (optional)
+	 * @param dateTo    (optional)
+	 * @param symbol    (optional)
 	 * @param skip      (optional)
 	 * @param take      (optional)
 	 * @return Call&lt;BinanceRawOrderItemsViewModel&gt;
 	 */
 	@GET("v2.0/tradingplatform/binance/spot/trades")
 	Observable<BinanceRawOrderItemsViewModel> getTradesHistory(
-			@retrofit2.http.Query("AccountId") UUID accountId, @retrofit2.http.Query("Mode") TradingPlatformBinanceOrdersMode mode, @retrofit2.http.Query("Skip") Integer skip, @retrofit2.http.Query("Take") Integer take
+			@retrofit2.http.Query("AccountId") UUID accountId, @retrofit2.http.Query("Mode") TradingPlatformBinanceOrdersMode mode, @retrofit2.http.Query("DateFrom") DateTime dateFrom, @retrofit2.http.Query("DateTo") DateTime dateTo, @retrofit2.http.Query("Symbol") String symbol, @retrofit2.http.Query("Skip") Integer skip, @retrofit2.http.Query("Take") Integer take
 	);
 
 	/**

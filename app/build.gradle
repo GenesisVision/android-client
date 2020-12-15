@@ -3,7 +3,7 @@ apply plugin: "com.google.gms.google-services"
 apply plugin: 'com.google.firebase.crashlytics'
 
 android {
-    compileSdkVersion 29
+    compileSdkVersion 30
 
     signingConfigs {
         release {
@@ -28,14 +28,14 @@ android {
     defaultConfig {
         applicationId "vision.genesis.clientapp"
         minSdkVersion 19
-        targetSdkVersion 29
+        targetSdkVersion 30
         multiDexEnabled true
 
         versionCode 20112701
         versionName "2.4.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
-        renderscriptTargetApi 29
+        renderscriptTargetApi 30
         renderscriptSupportModeEnabled true
 
         buildConfigField "boolean", "PROD", "false"
@@ -185,7 +185,7 @@ dependencies {
         exclude module: "support-compat"
     }
 
-    implementation "com.shuhart.stepview:stepview:1.2.7"
+    implementation "com.shuhart.stepview:stepview:1.5.1"
 
     implementation "ru.tinkoff.scrollingpagerindicator:scrollingpagerindicator:1.0.4"
 

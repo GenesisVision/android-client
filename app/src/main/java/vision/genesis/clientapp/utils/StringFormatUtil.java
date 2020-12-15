@@ -71,6 +71,18 @@ public class StringFormatUtil
 		return df.format(decimal);
 	}
 
+	public static String formatMinAmountWithoutGrouping(double amountValue) {
+		BigDecimal decimal = BigDecimal.valueOf(amountValue);
+		DecimalFormatSymbols dfs = new DecimalFormatSymbols(Locale.US);
+		dfs.setGroupingSeparator('.');
+		DecimalFormat df = new DecimalFormat("0.########", dfs);
+		df.setMinimumFractionDigits(0);
+		df.setMaximumFractionDigits(8);
+		df.setGroupingUsed(false);
+		df.setRoundingMode(RoundingMode.CEILING);
+		return df.format(decimal);
+	}
+
 	public static ShortenedAmount getShortenedAmount(double amountValue) {
 		ShortenedAmount shortenedAmount = new ShortenedAmount();
 		if (Math.abs(amountValue) >= 1000000) {
@@ -134,6 +146,13 @@ public class StringFormatUtil
 			return String.format(Locale.getDefault(), "%s $", StringFormatUtil.formatCurrencyAmount(baseValue, currency));
 		}
 		return String.format(Locale.getDefault(), "%s %s", StringFormatUtil.formatCurrencyAmount(baseValue, currency), currency);
+	}
+
+	public static String getMinAmountValueString(Double baseValue, String currency) {
+		if (currency.equals(Currency.USD.getValue())) {
+			return String.format(Locale.getDefault(), "%s $", formatAmount(baseValue, 2, getCurrencyMaxFraction(currency)));
+		}
+		return String.format(Locale.getDefault(), "%s %s", formatAmount(baseValue, 2, getCurrencyMaxFraction(currency)), currency);
 	}
 
 	public static String getPercentString(Double percent) {

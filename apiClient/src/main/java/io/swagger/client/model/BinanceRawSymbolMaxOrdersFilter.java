@@ -40,7 +40,7 @@ public class BinanceRawSymbolMaxOrdersFilter implements Parcelable
 	};
 
 	@SerializedName("filterType")
-	private BinanceRawSymbolFilterType filterType = null;
+	private BinanceSymbolFilterType filterType = null;
 
 	@SerializedName("maxNumberOrders")
 	private Integer maxNumberOrders = null;
@@ -49,11 +49,11 @@ public class BinanceRawSymbolMaxOrdersFilter implements Parcelable
 	}
 
 	BinanceRawSymbolMaxOrdersFilter(Parcel in) {
-		filterType = (BinanceRawSymbolFilterType) in.readValue(BinanceRawSymbolFilterType.class.getClassLoader());
+		filterType = (BinanceSymbolFilterType) in.readValue(BinanceSymbolFilterType.class.getClassLoader());
 		maxNumberOrders = (Integer) in.readValue(null);
 	}
 
-	public BinanceRawSymbolMaxOrdersFilter filterType(BinanceRawSymbolFilterType filterType) {
+	public BinanceRawSymbolMaxOrdersFilter filterType(BinanceSymbolFilterType filterType) {
 		this.filterType = filterType;
 		return this;
 	}
@@ -64,11 +64,11 @@ public class BinanceRawSymbolMaxOrdersFilter implements Parcelable
 	 * @return filterType
 	 **/
 	@Schema(description = "")
-	public BinanceRawSymbolFilterType getFilterType() {
+	public BinanceSymbolFilterType getFilterType() {
 		return filterType;
 	}
 
-	public void setFilterType(BinanceRawSymbolFilterType filterType) {
+	public void setFilterType(BinanceSymbolFilterType filterType) {
 		this.filterType = filterType;
 	}
 

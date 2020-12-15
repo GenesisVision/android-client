@@ -75,7 +75,8 @@ public class TradingAccountDetailsModel implements Parcelable
 	}
 
 	public TradingAccountDetailsModel(UUID assetId, UUID accountId, String accountName, String brokerName, String brokerLogo, DateTime creationDate,
-	                                  Integer leverage, String currency, MigrationRequest migration, Boolean canChangeBroker, String status,
+	                                  Integer leverage, String currency, MigrationRequest migration, Boolean canChangeBroker,
+	                                  PrivateTradingAccountType type, String status,
 	                                  Boolean canClose, Boolean canChangePassword) {
 		this.assetId = assetId;
 		this.accountId = accountId;
@@ -87,6 +88,7 @@ public class TradingAccountDetailsModel implements Parcelable
 		this.currency = currency;
 		this.migration = migration;
 		this.canChangeBroker = canChangeBroker;
+		this.type = type;
 		this.status = status;
 		this.canClose = canClose;
 		this.canChangePassword = canChangePassword;

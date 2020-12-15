@@ -47,6 +47,9 @@ public class PeriodLeftView extends RelativeLayout
 	@BindView(R.id.text_program_closed)
 	public TextView programClosedText;
 
+	@BindView(R.id.text_no_period)
+	public TextView noPeriodText;
+
 	protected DateTime dateFrom;
 
 	protected DateTime dateTo;
@@ -191,5 +194,10 @@ public class PeriodLeftView extends RelativeLayout
 		this.programClosed = closed;
 		programClosedText.setVisibility(closed ? View.VISIBLE : View.GONE);
 		periodGroup.setVisibility(!closed ? View.VISIBLE : View.GONE);
+	}
+
+	public void setNoPeriod(boolean noPeriod) {
+		noPeriodText.setVisibility(noPeriod ? View.VISIBLE : View.GONE);
+		periodGroup.setVisibility(!noPeriod ? View.VISIBLE : View.GONE);
 	}
 }

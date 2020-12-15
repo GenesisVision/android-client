@@ -40,7 +40,7 @@ public class BinanceRawSymbolLotSizeFilter implements Parcelable
 	};
 
 	@SerializedName("filterType")
-	private BinanceRawSymbolFilterType filterType = null;
+	private BinanceSymbolFilterType filterType = null;
 
 	@SerializedName("minQuantity")
 	private Double minQuantity = null;
@@ -55,13 +55,13 @@ public class BinanceRawSymbolLotSizeFilter implements Parcelable
 	}
 
 	BinanceRawSymbolLotSizeFilter(Parcel in) {
-		filterType = (BinanceRawSymbolFilterType) in.readValue(BinanceRawSymbolFilterType.class.getClassLoader());
+		filterType = (BinanceSymbolFilterType) in.readValue(BinanceSymbolFilterType.class.getClassLoader());
 		minQuantity = (Double) in.readValue(null);
 		maxQuantity = (Double) in.readValue(null);
 		stepSize = (Double) in.readValue(null);
 	}
 
-	public BinanceRawSymbolLotSizeFilter filterType(BinanceRawSymbolFilterType filterType) {
+	public BinanceRawSymbolLotSizeFilter filterType(BinanceSymbolFilterType filterType) {
 		this.filterType = filterType;
 		return this;
 	}
@@ -72,11 +72,11 @@ public class BinanceRawSymbolLotSizeFilter implements Parcelable
 	 * @return filterType
 	 **/
 	@Schema(description = "")
-	public BinanceRawSymbolFilterType getFilterType() {
+	public BinanceSymbolFilterType getFilterType() {
 		return filterType;
 	}
 
-	public void setFilterType(BinanceRawSymbolFilterType filterType) {
+	public void setFilterType(BinanceSymbolFilterType filterType) {
 		this.filterType = filterType;
 	}
 

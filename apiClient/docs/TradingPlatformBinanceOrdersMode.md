@@ -2,5 +2,5 @@
 
 ## Enum
 
-* `HISTORY` (value: `"History"`)
-* `OPENORDERS` (value: `"OpenOrders"`)
+* `TRADEHISTORY` (value: `"TradeHistory"`)
+* `ORDERHISTORY` (value: `"OrderHistory"`)

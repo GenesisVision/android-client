@@ -7,7 +7,7 @@ Method | HTTP request | Description
 [**getChart**](DashboardApi.md#getChart) | **GET** v2.0/dashboard/chart | 
 [**getChartAssets**](DashboardApi.md#getChartAssets) | **GET** v2.0/dashboard/chart/assets | Active assets for chart
 [**getDashboardSummary**](DashboardApi.md#getDashboardSummary) | **GET** v2.0/dashboard/summary | 
-[**getExchangeAccountCredentials**](DashboardApi.md#getExchangeAccountCredentials) | **GET** v2.0/dashboard/trading/exchange/credentials | 
+[**getExchangeAccountsCredentials**](DashboardApi.md#getExchangeAccountsCredentials) | **GET** v2.0/dashboard/trading/exchange/credentials/all | 
 [**getHoldings**](DashboardApi.md#getHoldings) | **GET** v2.0/dashboard/holdings | 
 [**getInvestingDetails**](DashboardApi.md#getInvestingDetails) | **GET** v2.0/dashboard/investing | 
 [**getInvestingFunds**](DashboardApi.md#getInvestingFunds) | **GET** v2.0/dashboard/investing/funds | 
@@ -185,9 +185,9 @@ Name | Type | Description  | Notes
  - **Content-Type**: Not defined
  - **Accept**: text/plain, application/json, text/json
 
-<a name="getExchangeAccountCredentials"></a>
-# **getExchangeAccountCredentials**
-> DashboardExchangeTradingAsset getExchangeAccountCredentials(exchangeAccountId, brokerId)
+<a name="getExchangeAccountsCredentials"></a>
+# **getExchangeAccountsCredentials**
+> ExchangeAssetItemsViewModel getExchangeAccountsCredentials(brokerId)
 
 
 
@@ -209,13 +209,12 @@ Bearer.setApiKey("YOUR API KEY");
 //Bearer.setApiKeyPrefix("Token");
 
 DashboardApi apiInstance = new DashboardApi();
-UUID exchangeAccountId = new UUID(); // UUID | 
 UUID brokerId = new UUID(); // UUID | 
 try {
-    DashboardExchangeTradingAsset result = apiInstance.getExchangeAccountCredentials(exchangeAccountId, brokerId);
+    ExchangeAssetItemsViewModel result = apiInstance.getExchangeAccountsCredentials(brokerId);
     System.out.println(result);
 } catch (ApiException e) {
-    System.err.println("Exception when calling DashboardApi#getExchangeAccountCredentials");
+    System.err.println("Exception when calling DashboardApi#getExchangeAccountsCredentials");
     e.printStackTrace();
 }
 ```
@@ -224,12 +223,11 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **exchangeAccountId** | [**UUID**](.md)|  | [optional]
  **brokerId** | [**UUID**](.md)|  | [optional]
 
 ### Return type
 
-[**DashboardExchangeTradingAsset**](DashboardExchangeTradingAsset.md)
+[**ExchangeAssetItemsViewModel**](ExchangeAssetItemsViewModel.md)
 
 ### Authorization
 

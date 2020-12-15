@@ -14,6 +14,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import io.swagger.client.model.Broker;
+import io.swagger.client.model.ExchangeInfo;
 import io.swagger.client.model.Tag;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
@@ -65,7 +66,25 @@ public class BrokerView extends RelativeLayout
 		}
 	}
 
-	public void setData(Broker broker) {
+	public void setExchange(ExchangeInfo exchange) {
+		this.logo.setImageURI(ImageUtils.getImageUri(exchange.getLogoUrl()));
+
+		groupTags.removeAllViews();
+		int position = 0;
+		Tag emptyTag = new Tag();
+		emptyTag.setName("...");
+		emptyTag.setColor("#00bdaf");
+		for (Tag tag : exchange.getTags()) {
+			if (position > 0) {
+				addTag(createTagView(emptyTag), groupTags);
+				break;
+			}
+			addTag(createTagView(tag), groupTags);
+			position++;
+		}
+	}
+
+	public void setBroker(Broker broker) {
 		this.logo.setImageURI(ImageUtils.getImageUri(broker.getLogoUrl()));
 
 		groupTags.removeAllViews();

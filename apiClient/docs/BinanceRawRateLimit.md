@@ -3,7 +3,7 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**interval** | [**BinanceRawRateLimitInterval**](BinanceRawRateLimitInterval.md) |  |  [optional]
-**type** | [**BinanceRawRateLimitType**](BinanceRawRateLimitType.md) |  |  [optional]
+**interval** | [**BinanceRateLimitInterval**](BinanceRateLimitInterval.md) |  |  [optional]
+**type** | [**BinanceRateLimitType**](BinanceRateLimitType.md) |  |  [optional]
 **intervalNumber** | **Integer** |  |  [optional]
 **limit** | **Integer** |  |  [optional]

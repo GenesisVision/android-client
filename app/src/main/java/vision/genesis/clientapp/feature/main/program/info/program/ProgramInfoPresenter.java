@@ -12,6 +12,7 @@ import javax.inject.Inject;
 
 import io.swagger.client.model.AssetInvestmentStatus;
 import io.swagger.client.model.ProgramFollowDetailsFull;
+import io.swagger.client.model.ProgramType;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -143,6 +144,9 @@ public class ProgramInfoPresenter extends MvpPresenter<ProgramInfoView>
 				? details.getProgramDetails().getPersonalDetails().getManagementFeePersonal()
 				: details.getProgramDetails().getManagementFeeCurrent());
 		request.setBrokerType(details.getBrokerDetails().getType());
+		request.setIsExchangeProgram(details.getProgramDetails().getType().equals(ProgramType.DAILYPERIOD));
+		request.setIsProcessingRealTime(details.getProgramDetails().getDailyPeriodDetails() != null
+				&& details.getProgramDetails().getDailyPeriodDetails().isIsProcessingRealTime());
 
 		getViewState().showInvestProgramActivity(request);
 	}
@@ -167,6 +171,9 @@ public class ProgramInfoPresenter extends MvpPresenter<ProgramInfoView>
 		request.setLevel(details.getProgramDetails().getLevel());
 		request.setLevelProgress(details.getProgramDetails().getLevelProgress());
 		request.setManagerName(details.getOwner().getUsername());
+		request.setIsExchangeProgram(details.getProgramDetails().getType().equals(ProgramType.DAILYPERIOD));
+		request.setIsProcessingRealTime(details.getProgramDetails().getDailyPeriodDetails() != null
+				&& details.getProgramDetails().getDailyPeriodDetails().isIsProcessingRealTime());
 
 		getViewState().showWithdrawProgramActivity(request);
 	}

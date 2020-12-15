@@ -18,6 +18,7 @@ import java.util.Locale;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.swagger.client.model.PrivateTradingAccountType;
 import timber.log.Timber;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseSwipeBackActivity;
@@ -69,6 +70,9 @@ public class ManageTradingAccountActivity extends BaseSwipeBackActivity implemen
 
 	@BindView(R.id.currency)
 	public TextView currency;
+
+	@BindView(R.id.group_leverage)
+	public ViewGroup leverageGroup;
 
 	@BindView(R.id.leverage)
 	public TextView leverage;
@@ -222,6 +226,7 @@ public class ManageTradingAccountActivity extends BaseSwipeBackActivity implemen
 		else {
 			this.currencyGroup.setVisibility(View.GONE);
 		}
+		this.leverageGroup.setVisibility(model.getType().equals(PrivateTradingAccountType.EXCHANGEACCOUNT) ? View.GONE : View.VISIBLE);
 		this.leverage.setText(String.format(Locale.getDefault(), "1:%d", model.getLeverage()));
 		this.creationDate.setText(DateTimeUtil.formatEventDateTime(model.getCreationDate()));
 		this.agePeriod.setCreationDate(model.getCreationDate());

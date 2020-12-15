@@ -43,10 +43,10 @@ public class BinanceRawPlaceOrder implements Parcelable
 	private String symbol = null;
 
 	@SerializedName("side")
-	private BinanceRawOrderSide side = null;
+	private BinanceOrderSide side = null;
 
 	@SerializedName("type")
-	private BinanceRawOrderType type = null;
+	private BinanceOrderType type = null;
 
 	@SerializedName("quantity")
 	private Double quantity = null;
@@ -61,7 +61,7 @@ public class BinanceRawPlaceOrder implements Parcelable
 	private Double price = null;
 
 	@SerializedName("timeInForce")
-	private BinanceRawTimeInForce timeInForce = null;
+	private BinanceTimeInForce timeInForce = null;
 
 	@SerializedName("stopPrice")
 	private Double stopPrice = null;
@@ -70,23 +70,23 @@ public class BinanceRawPlaceOrder implements Parcelable
 	private Double icebergQuantity = null;
 
 	@SerializedName("orderResponseType")
-	private BinanceRawOrderResponseType orderResponseType = null;
+	private BinanceOrderResponseType orderResponseType = null;
 
 	public BinanceRawPlaceOrder() {
 	}
 
 	BinanceRawPlaceOrder(Parcel in) {
 		symbol = (String) in.readValue(null);
-		side = (BinanceRawOrderSide) in.readValue(BinanceRawOrderSide.class.getClassLoader());
-		type = (BinanceRawOrderType) in.readValue(BinanceRawOrderType.class.getClassLoader());
+		side = (BinanceOrderSide) in.readValue(BinanceOrderSide.class.getClassLoader());
+		type = (BinanceOrderType) in.readValue(BinanceOrderType.class.getClassLoader());
 		quantity = (Double) in.readValue(null);
 		quoteOrderQuantity = (Double) in.readValue(null);
 		newClientOrderId = (String) in.readValue(null);
 		price = (Double) in.readValue(null);
-		timeInForce = (BinanceRawTimeInForce) in.readValue(BinanceRawTimeInForce.class.getClassLoader());
+		timeInForce = (BinanceTimeInForce) in.readValue(BinanceTimeInForce.class.getClassLoader());
 		stopPrice = (Double) in.readValue(null);
 		icebergQuantity = (Double) in.readValue(null);
-		orderResponseType = (BinanceRawOrderResponseType) in.readValue(BinanceRawOrderResponseType.class.getClassLoader());
+		orderResponseType = (BinanceOrderResponseType) in.readValue(BinanceOrderResponseType.class.getClassLoader());
 	}
 
 	public BinanceRawPlaceOrder symbol(String symbol) {
@@ -108,7 +108,7 @@ public class BinanceRawPlaceOrder implements Parcelable
 		this.symbol = symbol;
 	}
 
-	public BinanceRawPlaceOrder side(BinanceRawOrderSide side) {
+	public BinanceRawPlaceOrder side(BinanceOrderSide side) {
 		this.side = side;
 		return this;
 	}
@@ -119,15 +119,15 @@ public class BinanceRawPlaceOrder implements Parcelable
 	 * @return side
 	 **/
 	@Schema(description = "")
-	public BinanceRawOrderSide getSide() {
+	public BinanceOrderSide getSide() {
 		return side;
 	}
 
-	public void setSide(BinanceRawOrderSide side) {
+	public void setSide(BinanceOrderSide side) {
 		this.side = side;
 	}
 
-	public BinanceRawPlaceOrder type(BinanceRawOrderType type) {
+	public BinanceRawPlaceOrder type(BinanceOrderType type) {
 		this.type = type;
 		return this;
 	}
@@ -138,11 +138,11 @@ public class BinanceRawPlaceOrder implements Parcelable
 	 * @return type
 	 **/
 	@Schema(description = "")
-	public BinanceRawOrderType getType() {
+	public BinanceOrderType getType() {
 		return type;
 	}
 
-	public void setType(BinanceRawOrderType type) {
+	public void setType(BinanceOrderType type) {
 		this.type = type;
 	}
 
@@ -222,7 +222,7 @@ public class BinanceRawPlaceOrder implements Parcelable
 		this.price = price;
 	}
 
-	public BinanceRawPlaceOrder timeInForce(BinanceRawTimeInForce timeInForce) {
+	public BinanceRawPlaceOrder timeInForce(BinanceTimeInForce timeInForce) {
 		this.timeInForce = timeInForce;
 		return this;
 	}
@@ -233,11 +233,11 @@ public class BinanceRawPlaceOrder implements Parcelable
 	 * @return timeInForce
 	 **/
 	@Schema(description = "")
-	public BinanceRawTimeInForce getTimeInForce() {
+	public BinanceTimeInForce getTimeInForce() {
 		return timeInForce;
 	}
 
-	public void setTimeInForce(BinanceRawTimeInForce timeInForce) {
+	public void setTimeInForce(BinanceTimeInForce timeInForce) {
 		this.timeInForce = timeInForce;
 	}
 
@@ -279,7 +279,7 @@ public class BinanceRawPlaceOrder implements Parcelable
 		this.icebergQuantity = icebergQuantity;
 	}
 
-	public BinanceRawPlaceOrder orderResponseType(BinanceRawOrderResponseType orderResponseType) {
+	public BinanceRawPlaceOrder orderResponseType(BinanceOrderResponseType orderResponseType) {
 		this.orderResponseType = orderResponseType;
 		return this;
 	}
@@ -290,11 +290,11 @@ public class BinanceRawPlaceOrder implements Parcelable
 	 * @return orderResponseType
 	 **/
 	@Schema(description = "")
-	public BinanceRawOrderResponseType getOrderResponseType() {
+	public BinanceOrderResponseType getOrderResponseType() {
 		return orderResponseType;
 	}
 
-	public void setOrderResponseType(BinanceRawOrderResponseType orderResponseType) {
+	public void setOrderResponseType(BinanceOrderResponseType orderResponseType) {
 		this.orderResponseType = orderResponseType;
 	}
 

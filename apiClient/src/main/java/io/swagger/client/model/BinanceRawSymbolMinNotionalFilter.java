@@ -40,7 +40,7 @@ public class BinanceRawSymbolMinNotionalFilter implements Parcelable
 	};
 
 	@SerializedName("filterType")
-	private BinanceRawSymbolFilterType filterType = null;
+	private BinanceSymbolFilterType filterType = null;
 
 	@SerializedName("minNotional")
 	private Double minNotional = null;
@@ -55,13 +55,13 @@ public class BinanceRawSymbolMinNotionalFilter implements Parcelable
 	}
 
 	BinanceRawSymbolMinNotionalFilter(Parcel in) {
-		filterType = (BinanceRawSymbolFilterType) in.readValue(BinanceRawSymbolFilterType.class.getClassLoader());
+		filterType = (BinanceSymbolFilterType) in.readValue(BinanceSymbolFilterType.class.getClassLoader());
 		minNotional = (Double) in.readValue(null);
 		applyToMarketOrders = (Boolean) in.readValue(null);
 		averagePriceMinutes = (Integer) in.readValue(null);
 	}
 
-	public BinanceRawSymbolMinNotionalFilter filterType(BinanceRawSymbolFilterType filterType) {
+	public BinanceRawSymbolMinNotionalFilter filterType(BinanceSymbolFilterType filterType) {
 		this.filterType = filterType;
 		return this;
 	}
@@ -72,11 +72,11 @@ public class BinanceRawSymbolMinNotionalFilter implements Parcelable
 	 * @return filterType
 	 **/
 	@Schema(description = "")
-	public BinanceRawSymbolFilterType getFilterType() {
+	public BinanceSymbolFilterType getFilterType() {
 		return filterType;
 	}
 
-	public void setFilterType(BinanceRawSymbolFilterType filterType) {
+	public void setFilterType(BinanceSymbolFilterType filterType) {
 		this.filterType = filterType;
 	}
 

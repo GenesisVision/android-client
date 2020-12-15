@@ -23,6 +23,7 @@ import butterknife.OnClick;
 import io.swagger.client.model.AssetFacet;
 import io.swagger.client.model.AssetType;
 import io.swagger.client.model.ProgramDetailsListItem;
+import io.swagger.client.model.ProgramType;
 import io.swagger.client.model.Tag;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
@@ -311,7 +312,13 @@ public class ProgramsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 					profitValue > 0 ? "+" : "",
 					StringFormatUtil.formatAmount(profitValue, 0, 4)));
 
-			this.period.setData(program.getPeriodDuration(), program.getPeriodStarts(), program.getPeriodEnds(), true, false);
+			if (program.getType().equals(ProgramType.FIXEDPERIOD)) {
+				this.period.setData(program.getPeriodDuration(), program.getPeriodStarts(), program.getPeriodEnds(), true, false);
+				this.period.setNoPeriod(false);
+			}
+			else if (program.getType().equals(ProgramType.DAILYPERIOD)) {
+				this.period.setNoPeriod(true);
+			}
 
 			this.balance.setText(String.format(Locale.getDefault(), "%s %s",
 					StringFormatUtil.getShortenedAmount(program.getBalance().getAmount()), program.getCurrency().getValue()));

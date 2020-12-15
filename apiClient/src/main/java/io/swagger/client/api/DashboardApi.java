@@ -11,12 +11,12 @@ import io.swagger.client.model.DashboardAssetStatus;
 import io.swagger.client.model.DashboardAssets;
 import io.swagger.client.model.DashboardChart;
 import io.swagger.client.model.DashboardChartAssets;
-import io.swagger.client.model.DashboardExchangeTradingAsset;
 import io.swagger.client.model.DashboardInvestingDetails;
 import io.swagger.client.model.DashboardPortfolio;
 import io.swagger.client.model.DashboardSummary;
 import io.swagger.client.model.DashboardTradingAssetItemsViewModel;
 import io.swagger.client.model.DashboardTradingDetails;
+import io.swagger.client.model.ExchangeAssetItemsViewModel;
 import io.swagger.client.model.FundInvestingDetailsListItemsViewModel;
 import io.swagger.client.model.FundsFilterSorting;
 import io.swagger.client.model.ProgramInvestingDetailsListItemsViewModel;
@@ -59,13 +59,12 @@ public interface DashboardApi
 	);
 
 	/**
-	 * @param exchangeAccountId (optional)
-	 * @param brokerId          (optional)
-	 * @return Call&lt;DashboardExchangeTradingAsset&gt;
+	 * @param brokerId (optional)
+	 * @return Call&lt;ExchangeAssetItemsViewModel&gt;
 	 */
-	@GET("v2.0/dashboard/trading/exchange/credentials")
-	Observable<DashboardExchangeTradingAsset> getExchangeAccountCredentials(
-			@retrofit2.http.Query("exchangeAccountId") UUID exchangeAccountId, @retrofit2.http.Query("brokerId") UUID brokerId
+	@GET("v2.0/dashboard/trading/exchange/credentials/all")
+	Observable<ExchangeAssetItemsViewModel> getExchangeAccountsCredentials(
+			@retrofit2.http.Query("brokerId") UUID brokerId
 	);
 
 	/**

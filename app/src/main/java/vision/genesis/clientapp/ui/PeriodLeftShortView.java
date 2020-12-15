@@ -33,6 +33,9 @@ public class PeriodLeftShortView extends PeriodLeftView
 	@BindView(R.id.text_program_closed)
 	public TextView programClosedText;
 
+	@BindView(R.id.text_no_period)
+	public TextView noPeriodText;
+
 	public PeriodLeftShortView(Context context) {
 		super(context);
 	}

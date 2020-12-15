@@ -65,4 +65,15 @@
         android:textSize="14sp"
         android:visibility="gone"/>
 
+    <TextView
+        android:id="@+id/text_no_period"
+        style="@style/text_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:fontFamily="sans-serif-medium"
+        android:text="—"
+        android:visibility="gone"
+        tools:visibility="visible"/>
+
 </RelativeLayout>

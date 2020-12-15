@@ -29,6 +29,7 @@ import io.swagger.client.model.PersonalProgramDetails;
 import io.swagger.client.model.ProfilePublic;
 import io.swagger.client.model.ProgramDetailsFull;
 import io.swagger.client.model.ProgramFollowDetailsFull;
+import io.swagger.client.model.ProgramType;
 import timber.log.Timber;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
@@ -94,6 +95,10 @@ public class ProgramInfoFragment extends BaseFragment implements ProgramInfoView
 	@BindView(R.id.strategy_shadow)
 	public View strategyShadow;
 
+
+	@BindView(R.id.group_period)
+	public ViewGroup periodGroup;
+
 	@BindView(R.id.view_period)
 	public PeriodLeftDetailsView periodView;
 
@@ -103,6 +108,9 @@ public class ProgramInfoFragment extends BaseFragment implements ProgramInfoView
 
 	@BindView(R.id.currency)
 	public TextView accountCurrency;
+
+	@BindView(R.id.group_leverage)
+	public ViewGroup groupLeverage;
 
 	@BindView(R.id.leverage)
 	public TextView leverage;
@@ -176,11 +184,18 @@ public class ProgramInfoFragment extends BaseFragment implements ProgramInfoView
 	public TextView personalManagementFeeLabel;
 
 
+	@BindView(R.id.group_reinvest)
+	public ViewGroup reinvestGroup;
+
 	@BindView(R.id.switch_reinvest)
 	public SwitchCompat reinvestSwitch;
 
+	@BindView(R.id.group_ignore_so)
+	public ViewGroup ignoreSoGroup;
+
 	@BindView(R.id.switch_ignore_so)
 	public SwitchCompat ignoreSoSwitch;
+
 
 	@BindView(R.id.button_withdraw)
 	public PrimaryButton withdrawButton;
@@ -190,6 +205,9 @@ public class ProgramInfoFragment extends BaseFragment implements ProgramInfoView
 
 	@BindView(R.id.available_to_invest)
 	public TextView availableToInvest;
+
+	@BindView(R.id.group_stop_out)
+	public ViewGroup stopOutGroup;
 
 	@BindView(R.id.stop_out)
 	public TextView stopOut;
@@ -441,6 +459,10 @@ public class ProgramInfoFragment extends BaseFragment implements ProgramInfoView
 
 		ProgramDetailsFull programDetails = details.getProgramDetails();
 		periodView.setData(programDetails.getPeriodDuration(), programDetails.getPeriodStarts(), programDetails.getPeriodEnds(), true, true);
+
+		periodGroup.setVisibility(programDetails.getType().equals(ProgramType.FIXEDPERIOD) ? View.VISIBLE : View.GONE);
+		reinvestGroup.setVisibility(programDetails.getType().equals(ProgramType.FIXEDPERIOD) ? View.VISIBLE : View.GONE);
+		ignoreSoGroup.setVisibility(programDetails.getType().equals(ProgramType.FIXEDPERIOD) ? View.VISIBLE : View.GONE);
 	}
 
 	private void updateAccountInfo(ProgramFollowDetailsFull details) {
@@ -456,9 +478,15 @@ public class ProgramInfoFragment extends BaseFragment implements ProgramInfoView
 		this.genesisRatio.setText(StringFormatUtil.formatAmount(details.getProgramDetails().getGenesisRatio(), 0, 2));
 		this.investScale.setText(StringFormatUtil.formatAmount(details.getProgramDetails().getInvestmentScale(), 0, 2));
 		this.volumeScale.setText(StringFormatUtil.formatAmount(details.getProgramDetails().getVolumeScale(), 0, 2));
+
+		if (details.getProgramDetails() != null && details.getProgramDetails().getType() != null) {
+			groupLeverage.setVisibility(details.getProgramDetails().getType().equals(ProgramType.FIXEDPERIOD) ? View.VISIBLE : View.INVISIBLE);
+		}
 	}
 
 	private void updateInvestNow(ProgramDetailsFull programDetails) {
+		stopOutGroup.setVisibility(programDetails.getType().equals(ProgramType.FIXEDPERIOD) ? View.VISIBLE : View.GONE);
+
 		PersonalProgramDetails personalDetails = programDetails.getPersonalDetails();
 
 		availableToInvest.setText(String.format(Locale.getDefault(), "%s %s",
@@ -478,7 +506,13 @@ public class ProgramInfoFragment extends BaseFragment implements ProgramInfoView
 			withdrawButton.setEnabled(personalDetails.isCanWithdraw());
 		}
 
-		investInfo.setText(String.format(Locale.getDefault(), getString(R.string.request_info_template), DateTimeUtil.formatShortDateTime(programDetails.getPeriodEnds())));
+		if (programDetails.getType().equals(ProgramType.FIXEDPERIOD)) {
+			investInfo.setVisibility(View.VISIBLE);
+			investInfo.setText(String.format(Locale.getDefault(), getString(R.string.request_info_template), DateTimeUtil.formatShortDateTime(programDetails.getPeriodEnds())));
+		}
+		else {
+			investInfo.setVisibility(View.GONE);
+		}
 	}
 
 	private void updateCurrentSelectedField(TextView textView, Double current, Double selected) {
@@ -490,7 +524,6 @@ public class ProgramInfoFragment extends BaseFragment implements ProgramInfoView
 	}
 
 	private void updateYourInvestment(PersonalProgramDetails personalDetails) {
-
 		if (personalDetails != null && personalDetails.isIsInvested() && !personalDetails.getStatus().equals(AssetInvestmentStatus.ENDED)) {
 			yourInvestmentGroup.setVisibility(View.VISIBLE);
 			status.setStatus(personalDetails.getStatus().getValue());

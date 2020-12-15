@@ -725,7 +725,7 @@ Name | Type | Description  | Notes
 
 <a name="getTradesHistory"></a>
 # **getTradesHistory**
-> BinanceRawOrderItemsViewModel getTradesHistory(accountId, mode, skip, take)
+> BinanceRawOrderItemsViewModel getTradesHistory(accountId, mode, dateFrom, dateTo, symbol, skip, take)
 
 Account history
 
@@ -749,10 +749,13 @@ Bearer.setApiKey("YOUR API KEY");
 TradingplatformApi apiInstance = new TradingplatformApi();
 UUID accountId = new UUID(); // UUID | 
 TradingPlatformBinanceOrdersMode mode = new TradingPlatformBinanceOrdersMode(); // TradingPlatformBinanceOrdersMode | 
+DateTime dateFrom = new DateTime(); // DateTime | 
+DateTime dateTo = new DateTime(); // DateTime | 
+String symbol = "symbol_example"; // String | 
 Integer skip = 56; // Integer | 
 Integer take = 56; // Integer | 
 try {
-    BinanceRawOrderItemsViewModel result = apiInstance.getTradesHistory(accountId, mode, skip, take);
+    BinanceRawOrderItemsViewModel result = apiInstance.getTradesHistory(accountId, mode, dateFrom, dateTo, symbol, skip, take);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling TradingplatformApi#getTradesHistory");
@@ -766,6 +769,9 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **accountId** | [**UUID**](.md)|  | [optional]
  **mode** | [**TradingPlatformBinanceOrdersMode**](.md)|  | [optional]
+ **dateFrom** | **DateTime**|  | [optional]
+ **dateTo** | **DateTime**|  | [optional]
+ **symbol** | **String**|  | [optional]
  **skip** | **Integer**|  | [optional]
  **take** | **Integer**|  | [optional]
 

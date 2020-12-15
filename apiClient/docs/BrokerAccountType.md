@@ -7,6 +7,7 @@ Name | Type | Description | Notes
 **name** | **String** |  |  [optional]
 **description** | **String** |  |  [optional]
 **type** | [**BrokerTradeServerType**](BrokerTradeServerType.md) |  |  [optional]
+**typeTitle** | **String** |  |  [optional]
 **leverages** | **List&lt;Integer&gt;** |  |  [optional]
 **currencies** | **List&lt;String&gt;** |  |  [optional]
 **minimumDepositsAmount** | **Map&lt;String, Double&gt;** |  |  [optional]

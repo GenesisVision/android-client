@@ -248,7 +248,9 @@ public class PostsListPresenter extends MvpPresenter<PostsListView> implements S
 
 	void onShowEventsCheckChanged(boolean checked) {
 		showEvents = checked;
-		settingsManager.saveShowEvents(checked);
+		if (settingsManager != null) {
+			settingsManager.saveShowEvents(checked);
+		}
 		getViewState().setShowEventsChecked(showEvents);
 		EventBus.getDefault().post(new OnShowEventsCheckedChangedEvent(showEvents));
 		if (filter != null) {

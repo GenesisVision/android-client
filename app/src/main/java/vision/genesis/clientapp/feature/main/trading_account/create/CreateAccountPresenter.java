@@ -6,24 +6,35 @@ import com.arellomobile.mvp.MvpPresenter;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
+import io.swagger.client.model.AmountWithCurrency;
 import io.swagger.client.model.Broker;
 import io.swagger.client.model.BrokerAccountType;
 import io.swagger.client.model.BrokersInfo;
+import io.swagger.client.model.Currency;
+import io.swagger.client.model.ExchangeAccountType;
+import io.swagger.client.model.ExchangeInfo;
+import io.swagger.client.model.NewExchangeAccountRequest;
 import io.swagger.client.model.NewTradingAccountRequest;
+import io.swagger.client.model.PlatformInfo;
 import io.swagger.client.model.TradingAccountCreateResult;
+import io.swagger.client.model.TradingAccountMinCreateAmount;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.managers.AssetsManager;
 import vision.genesis.clientapp.managers.BrokersManager;
+import vision.genesis.clientapp.managers.SettingsManager;
 import vision.genesis.clientapp.model.CreateAccountModel;
 import vision.genesis.clientapp.model.events.OnAccountBrokerSettingsSelectedEvent;
 import vision.genesis.clientapp.model.events.OnBrokerSelectedEvent;
 import vision.genesis.clientapp.model.events.OnCreateAccountCreateButtonClickedEvent;
 import vision.genesis.clientapp.model.events.OnCreateAccountSuccessEvent;
+import vision.genesis.clientapp.model.events.OnExchangeSelectedEvent;
 import vision.genesis.clientapp.model.events.OnSelectBrokerNextClickedEvent;
 import vision.genesis.clientapp.net.ApiErrorResolver;
 
@@ -41,15 +52,24 @@ public class CreateAccountPresenter extends MvpPresenter<CreateAccountView>
 	@Inject
 	public BrokersManager brokersManager;
 
+	@Inject
+	public SettingsManager settingsManager;
+
 	private NewTradingAccountRequest request = new NewTradingAccountRequest();
+
+	private Subscription platformInfoSubscription;
 
 	private Subscription getBrokersSubscription;
 
 	private Subscription createAccountSubscription;
 
+	private ExchangeInfo selectedExchange;
+
 	private Broker selectedBroker;
 
 	private CreateAccountModel model;
+
+	private List<TradingAccountMinCreateAmount> minAmounts;
 
 	@Override
 	protected void onFirstViewAttach() {
@@ -60,11 +80,15 @@ public class CreateAccountPresenter extends MvpPresenter<CreateAccountView>
 		EventBus.getDefault().register(this);
 
 		getViewState().setRequestObjectToFragments(request);
+		getPlatformInfo();
 		getBrokers();
 	}
 
 	@Override
 	public void onDestroy() {
+		if (platformInfoSubscription != null) {
+			platformInfoSubscription.unsubscribe();
+		}
 		if (getBrokersSubscription != null) {
 			getBrokersSubscription.unsubscribe();
 		}
@@ -81,6 +105,28 @@ public class CreateAccountPresenter extends MvpPresenter<CreateAccountView>
 		this.model = model;
 
 		getBrokers();
+	}
+
+	private void getPlatformInfo() {
+		if (settingsManager != null) {
+			platformInfoSubscription = settingsManager.getPlatformInfo()
+					.observeOn(AndroidSchedulers.mainThread())
+					.subscribeOn(Schedulers.newThread())
+					.subscribe(this::handleGetPlatformInfoSuccess,
+							this::handleGetPlatformInfoError);
+		}
+	}
+
+	private void handleGetPlatformInfoSuccess(PlatformInfo platformInfo) {
+		platformInfoSubscription.unsubscribe();
+
+		minAmounts = platformInfo.getAssetInfo().getTradingAccountInfo().getMinAmounts();
+	}
+
+	private void handleGetPlatformInfoError(Throwable throwable) {
+		platformInfoSubscription.unsubscribe();
+
+		ApiErrorResolver.resolveErrors(throwable, message -> getViewState().showSnackbarMessage(message));
 	}
 
 	private void getBrokers() {
@@ -108,7 +154,7 @@ public class CreateAccountPresenter extends MvpPresenter<CreateAccountView>
 						request.setLeverage(model.getLeverage());
 
 						this.selectedBroker = broker;
-						showAccountDepositOrCreateAccount(accountType);
+						showBrokerAccountDepositOrCreateAccount(accountType);
 						getViewState().showProgress(false);
 						break brokersLoop;
 					}
@@ -130,7 +176,14 @@ public class CreateAccountPresenter extends MvpPresenter<CreateAccountView>
 	private void sendCreateAccountRequest() {
 		getViewState().showProgress(true);
 
-		createAccountSubscription = assetsManager.createTradingAccount(request)
+		NewExchangeAccountRequest exchangeRequest = new NewExchangeAccountRequest();
+		exchangeRequest.setBrokerAccountTypeId(request.getBrokerAccountTypeId());
+		exchangeRequest.setDepositAmount(request.getDepositAmount());
+		exchangeRequest.setDepositWalletId(request.getDepositWalletId());
+
+		createAccountSubscription = (selectedExchange != null
+				? assetsManager.createExchangeAccount(exchangeRequest)
+				: assetsManager.createTradingAccount(request))
 				.subscribeOn(Schedulers.io())
 				.observeOn(AndroidSchedulers.mainThread())
 				.subscribe(this::handleCreateAccountSuccess, this::handleCreateAccountError);
@@ -151,6 +204,40 @@ public class CreateAccountPresenter extends MvpPresenter<CreateAccountView>
 	}
 
 	@Subscribe
+	public void onEventMainThread(OnExchangeSelectedEvent event) {
+		this.selectedExchange = event.getSelectedExchange();
+		request.setBrokerAccountTypeId(event.getSelectedAccountType().getId());
+		request.setCurrency(Currency.USDT);
+
+		showExchangeAccountDepositOrCreateAccount(event.getSelectedAccountType());
+	}
+
+	private void showExchangeAccountDepositOrCreateAccount(ExchangeAccountType exchangeAccountType) {
+		Double minDepositAmount = 0.0;
+
+		if (selectedExchange != null && exchangeAccountType != null) {
+			exchangeLoop:
+			for (TradingAccountMinCreateAmount minAmount : minAmounts) {
+				if (minAmount.getServerType().equals(exchangeAccountType.getType())) {
+					for (AmountWithCurrency amountWithCurrency : minAmount.getMinDepositCreateAsset()) {
+						if (amountWithCurrency.getCurrency().equals(request.getCurrency())) {
+							minDepositAmount = amountWithCurrency.getAmount();
+							break exchangeLoop;
+						}
+					}
+				}
+			}
+
+			if (exchangeAccountType.isIsDepositRequired()) {
+				getViewState().showExchangeAccountDeposit(minDepositAmount, request.getCurrency().getValue());
+			}
+			else {
+				sendCreateAccountRequest();
+			}
+		}
+	}
+
+	@Subscribe
 	public void onEventMainThread(OnBrokerSelectedEvent event) {
 		this.selectedBroker = event.getSelectedBroker();
 		getViewState().showAccountSettings(event.getSelectedBroker());
@@ -167,22 +254,21 @@ public class CreateAccountPresenter extends MvpPresenter<CreateAccountView>
 		request.setCurrency(event.getCurrency());
 		request.setLeverage(event.getLeverage());
 
-		showAccountDepositOrCreateAccount(event.getBrokerAccountType());
+		showBrokerAccountDepositOrCreateAccount(event.getBrokerAccountType());
 	}
 
-	private void showAccountDepositOrCreateAccount(BrokerAccountType brokerAccountType) {
+	private void showBrokerAccountDepositOrCreateAccount(BrokerAccountType brokerAccountType) {
 		Double minDepositAmount = 0.0;
-		for (BrokerAccountType accountType : selectedBroker.getAccountTypes()) {
-			if (accountType.getId().equals(request.getBrokerAccountTypeId())) {
-				minDepositAmount = accountType.getMinimumDepositsAmount().get(request.getCurrency().getValue());
-				break;
+
+		if (selectedBroker != null && brokerAccountType != null) {
+			minDepositAmount = brokerAccountType.getMinimumDepositsAmount().get(request.getCurrency().getValue());
+
+			if (brokerAccountType.isIsDepositRequired()) {
+				getViewState().showBrokerAccountDeposit(minDepositAmount, request.getCurrency().getValue());
 			}
-		}
-		if (brokerAccountType.isIsDepositRequired()) {
-			getViewState().showAccountDeposit(minDepositAmount, request.getCurrency().getValue());
-		}
-		else {
-			sendCreateAccountRequest();
+			else {
+				sendCreateAccountRequest();
+			}
 		}
 	}
 

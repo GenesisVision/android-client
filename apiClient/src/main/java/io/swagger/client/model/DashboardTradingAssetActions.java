@@ -84,6 +84,9 @@ public class DashboardTradingAssetActions implements Parcelable
 	@SerializedName("canClose")
 	private Boolean canClose = null;
 
+	@SerializedName("canClosePeriod")
+	private Boolean canClosePeriod = null;
+
 	@SerializedName("hasTerminal")
 	private Boolean hasTerminal = null;
 
@@ -106,6 +109,7 @@ public class DashboardTradingAssetActions implements Parcelable
 		canMakeDemoDeposit = (Boolean) in.readValue(null);
 		canChangePassword = (Boolean) in.readValue(null);
 		canClose = (Boolean) in.readValue(null);
+		canClosePeriod = (Boolean) in.readValue(null);
 		hasTerminal = (Boolean) in.readValue(null);
 	}
 
@@ -394,6 +398,25 @@ public class DashboardTradingAssetActions implements Parcelable
 		this.canClose = canClose;
 	}
 
+	public DashboardTradingAssetActions canClosePeriod(Boolean canClosePeriod) {
+		this.canClosePeriod = canClosePeriod;
+		return this;
+	}
+
+	/**
+	 * Get canClosePeriod
+	 *
+	 * @return canClosePeriod
+	 **/
+	@Schema(description = "")
+	public Boolean isCanClosePeriod() {
+		return canClosePeriod;
+	}
+
+	public void setCanClosePeriod(Boolean canClosePeriod) {
+		this.canClosePeriod = canClosePeriod;
+	}
+
 	public DashboardTradingAssetActions hasTerminal(Boolean hasTerminal) {
 		this.hasTerminal = hasTerminal;
 		return this;
@@ -437,12 +460,13 @@ public class DashboardTradingAssetActions implements Parcelable
 				Objects.equals(this.canMakeDemoDeposit, dashboardTradingAssetActions.canMakeDemoDeposit) &&
 				Objects.equals(this.canChangePassword, dashboardTradingAssetActions.canChangePassword) &&
 				Objects.equals(this.canClose, dashboardTradingAssetActions.canClose) &&
+				Objects.equals(this.canClosePeriod, dashboardTradingAssetActions.canClosePeriod) &&
 				Objects.equals(this.hasTerminal, dashboardTradingAssetActions.hasTerminal);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(canMakeProgramFromPrivateTradingAccount, canMakeExchangeProgramFromPrivateTradingAccount, canMakeSignalProviderFromPrivateTradingAccount, canMakeSignalProviderFromPrivateExternalTradingAccount, canMakeProgramFromSignalProvider, canMakeSignalProviderFromProgram, canEditSignalProviderSettings, isEnoughMoneyToCreateProgram, canConfirm2FA, canAddRequestInvest, canAddRequestWithdraw, canTransferMoney, canMakeDemoDeposit, canChangePassword, canClose, hasTerminal);
+		return Objects.hash(canMakeProgramFromPrivateTradingAccount, canMakeExchangeProgramFromPrivateTradingAccount, canMakeSignalProviderFromPrivateTradingAccount, canMakeSignalProviderFromPrivateExternalTradingAccount, canMakeProgramFromSignalProvider, canMakeSignalProviderFromProgram, canEditSignalProviderSettings, isEnoughMoneyToCreateProgram, canConfirm2FA, canAddRequestInvest, canAddRequestWithdraw, canTransferMoney, canMakeDemoDeposit, canChangePassword, canClose, canClosePeriod, hasTerminal);
 	}
 
 	@Override
@@ -465,6 +489,7 @@ public class DashboardTradingAssetActions implements Parcelable
 		sb.append("    canMakeDemoDeposit: ").append(toIndentedString(canMakeDemoDeposit)).append("\n");
 		sb.append("    canChangePassword: ").append(toIndentedString(canChangePassword)).append("\n");
 		sb.append("    canClose: ").append(toIndentedString(canClose)).append("\n");
+		sb.append("    canClosePeriod: ").append(toIndentedString(canClosePeriod)).append("\n");
 		sb.append("    hasTerminal: ").append(toIndentedString(hasTerminal)).append("\n");
 		sb.append("}");
 		return sb.toString();
@@ -497,6 +522,7 @@ public class DashboardTradingAssetActions implements Parcelable
 		out.writeValue(canMakeDemoDeposit);
 		out.writeValue(canChangePassword);
 		out.writeValue(canClose);
+		out.writeValue(canClosePeriod);
 		out.writeValue(hasTerminal);
 	}
 

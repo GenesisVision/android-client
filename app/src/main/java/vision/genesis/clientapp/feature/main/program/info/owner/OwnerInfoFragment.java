@@ -33,6 +33,7 @@ import io.swagger.client.model.FollowDetailsFull;
 import io.swagger.client.model.PersonalProgramDetails;
 import io.swagger.client.model.ProgramDetailsFull;
 import io.swagger.client.model.ProgramFollowDetailsFull;
+import io.swagger.client.model.ProgramType;
 import io.swagger.client.model.ProgramUpdate;
 import io.swagger.client.model.SignalSubscription;
 import timber.log.Timber;
@@ -217,6 +218,9 @@ public class OwnerInfoFragment extends BaseFragment implements OwnerInfoView, Pr
 	@BindView(R.id.available_to_invest)
 	public TextView availableToInvest;
 
+	@BindView(R.id.group_stop_out)
+	public ViewGroup stopOutGroup;
+
 	@BindView(R.id.stop_out)
 	public TextView stopOut;
 
@@ -231,6 +235,9 @@ public class OwnerInfoFragment extends BaseFragment implements OwnerInfoView, Pr
 
 	@BindView(R.id.success_fee)
 	public TextView successFee;
+
+	@BindView(R.id.group_period)
+	public ViewGroup periodGroup;
 
 	@BindView(R.id.view_period)
 	public PeriodLeftDetailsView periodView;
@@ -569,7 +576,7 @@ public class OwnerInfoFragment extends BaseFragment implements OwnerInfoView, Pr
 			manageFollowButton.setTextColor(ThemeUtil.getColorByAttrId(getContext(), R.attr.colorTextSecondary));
 		}
 		else {
-			yourDepositGroup.setVisibility(View.GONE);
+			yourDepositGroup.setVisibility(View.VISIBLE);
 
 			createProgramButton.setEnabled(true);
 			createFollowButton.setEnabled(true);
@@ -622,6 +629,10 @@ public class OwnerInfoFragment extends BaseFragment implements OwnerInfoView, Pr
 				this.investScale.setText(StringFormatUtil.formatAmount(details.getProgramDetails().getInvestmentScale(), 0, 2));
 				this.volumeScale.setText(StringFormatUtil.formatAmount(details.getProgramDetails().getVolumeScale(), 0, 2));
 			}
+
+			if (details.getProgramDetails() != null && details.getProgramDetails().getType() != null) {
+				groupLeverage.setVisibility(details.getProgramDetails().getType().equals(ProgramType.FIXEDPERIOD) ? View.VISIBLE : View.INVISIBLE);
+			}
 		}
 	}
 
@@ -635,6 +646,9 @@ public class OwnerInfoFragment extends BaseFragment implements OwnerInfoView, Pr
 			programInfoGroup.setVisibility(View.VISIBLE);
 			manageProgramButton.setVisibility(View.VISIBLE);
 			createProgramGroup.setVisibility(View.GONE);
+
+			periodGroup.setVisibility(programDetails.getType().equals(ProgramType.FIXEDPERIOD) ? View.VISIBLE : View.GONE);
+			stopOutGroup.setVisibility(details.getProgramDetails().getType().equals(ProgramType.FIXEDPERIOD) ? View.VISIBLE : View.GONE);
 
 			PersonalProgramDetails personalDetails = programDetails.getPersonalDetails();
 
@@ -650,10 +664,8 @@ public class OwnerInfoFragment extends BaseFragment implements OwnerInfoView, Pr
 
 			periodView.setData(programDetails.getPeriodDuration(), programDetails.getPeriodStarts(), programDetails.getPeriodEnds(), true, true);
 
-			depositProgramButton.setEnabled(programDetails.getAvailableInvestmentBase() > 0);
-
 			if (personalDetails != null) {
-				depositProgramButton.setEnabled(programDetails.getAvailableInvestmentBase() > 0 && personalDetails.isCanInvest());
+				depositProgramButton.setEnabled(personalDetails.isCanInvest());
 				withdrawProgramButton.setEnabled(personalDetails.isCanWithdraw());
 			}
 

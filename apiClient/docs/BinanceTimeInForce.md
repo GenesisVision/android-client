@@ -6,3 +6,4 @@
 * `IMMEDIATEORCANCEL` (value: `"ImmediateOrCancel"`)
 * `FILLORKILL` (value: `"FillOrKill"`)
 * `GOODTILLCROSSING` (value: `"GoodTillCrossing"`)
+* `GOODTILLEXPIREDORCANCELED` (value: `"GoodTillExpiredOrCanceled"`)

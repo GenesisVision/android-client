@@ -18,4 +18,5 @@ Name | Type | Description | Notes
 **canMakeDemoDeposit** | **Boolean** |  |  [optional]
 **canChangePassword** | **Boolean** |  |  [optional]
 **canClose** | **Boolean** |  |  [optional]
+**canClosePeriod** | **Boolean** |  |  [optional]
 **hasTerminal** | **Boolean** |  |  [optional]

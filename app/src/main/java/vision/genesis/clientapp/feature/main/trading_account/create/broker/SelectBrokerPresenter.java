@@ -15,12 +15,16 @@ import javax.inject.Inject;
 import io.swagger.client.model.Broker;
 import io.swagger.client.model.BrokersInfo;
 import io.swagger.client.model.BrokersProgramInfo;
+import io.swagger.client.model.ExchangeAccountType;
+import io.swagger.client.model.ExchangeInfo;
+import io.swagger.client.model.ExchangeInfoItemsViewModel;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.managers.BrokersManager;
 import vision.genesis.clientapp.model.events.OnBrokerSelectedEvent;
+import vision.genesis.clientapp.model.events.OnExchangeSelectedEvent;
 import vision.genesis.clientapp.net.ApiErrorResolver;
 
 /**
@@ -37,9 +41,17 @@ public class SelectBrokerPresenter extends MvpPresenter<SelectBrokerView>
 	@Inject
 	public BrokersManager brokersManager;
 
+	private Subscription getExchangesSubscription;
+
 	private Subscription getBrokersSubscription;
 
+	private List<ExchangeInfo> exchanges;
+
 	private List<Broker> brokers;
+
+	private ExchangeInfo selectedExchange;
+
+	private ExchangeAccountType selectedAccountType;
 
 	private Broker selectedBroker;
 
@@ -60,6 +72,9 @@ public class SelectBrokerPresenter extends MvpPresenter<SelectBrokerView>
 
 	@Override
 	public void onDestroy() {
+		if (getExchangesSubscription != null) {
+			getExchangesSubscription.unsubscribe();
+		}
 		if (getBrokersSubscription != null) {
 			getBrokersSubscription.unsubscribe();
 		}
@@ -73,9 +88,31 @@ public class SelectBrokerPresenter extends MvpPresenter<SelectBrokerView>
 		isAssetIdSet = true;
 	}
 
+	void onExchangeSelected(ExchangeInfo selectedExchange) {
+		this.selectedExchange = selectedExchange;
+		this.selectedAccountType = selectedExchange != null
+				&& selectedExchange.getAccountTypes() != null
+				&& !selectedExchange.getAccountTypes().isEmpty()
+				? selectedExchange.getAccountTypes().get(0)
+				: null;
+		this.selectedBroker = null;
+		int position = 0;
+		for (ExchangeInfo exchange : exchanges) {
+			if (exchange.equals(selectedExchange)) {
+				break;
+			}
+			position++;
+		}
+		getViewState().selectExchange(selectedExchange, position);
+		getViewState().showExchangeInfo(selectedExchange);
+
+		getViewState().setNextButtonEnabled(true);
+	}
+
 	void onBrokerSelected(Broker selectedBroker) {
 		this.selectedBroker = selectedBroker;
-		int position = 0;
+		this.selectedExchange = null;
+		int position = exchanges != null ? exchanges.size() : 0;
 		for (Broker broker : brokers) {
 			if (broker.equals(selectedBroker)) {
 				break;
@@ -89,7 +126,10 @@ public class SelectBrokerPresenter extends MvpPresenter<SelectBrokerView>
 	}
 
 	void onNextClicked() {
-		if (selectedBroker != null) {
+		if (selectedExchange != null) {
+			EventBus.getDefault().post(new OnExchangeSelectedEvent(selectedExchange, selectedAccountType));
+		}
+		else if (selectedBroker != null) {
 			EventBus.getDefault().post(new OnBrokerSelectedEvent(selectedBroker));
 		}
 	}
@@ -103,7 +143,7 @@ public class SelectBrokerPresenter extends MvpPresenter<SelectBrokerView>
 				getExternalBrokers();
 			}
 			else {
-				getAllBrokers();
+				getExchangesAndBrokers();
 			}
 		}
 	}
@@ -121,27 +161,53 @@ public class SelectBrokerPresenter extends MvpPresenter<SelectBrokerView>
 		}
 	}
 
-	private void getAllBrokers() {
+	private void getExchangesAndBrokers() {
 		if (brokersManager != null && isAssetIdSet) {
-			if (getBrokersSubscription != null) {
-				getBrokersSubscription.unsubscribe();
-			}
-			getBrokersSubscription = brokersManager.getAllBrokers()
-					.observeOn(AndroidSchedulers.mainThread())
-					.subscribeOn(Schedulers.newThread())
-					.subscribe(this::handleGetBrokersSuccess,
-							this::handleGetBrokersError);
+			getExchanges();
 		}
+	}
+
+	private void getExchanges() {
+		if (getExchangesSubscription != null) {
+			getExchangesSubscription.unsubscribe();
+		}
+		getExchangesSubscription = brokersManager.getExchanges()
+				.observeOn(AndroidSchedulers.mainThread())
+				.subscribeOn(Schedulers.newThread())
+				.subscribe(this::handleGetExchangesSuccess,
+						this::handleGetBrokersError);
+	}
+
+	private void handleGetExchangesSuccess(ExchangeInfoItemsViewModel response) {
+		getExchangesSubscription.unsubscribe();
+		if (!response.getItems().isEmpty()) {
+			this.exchanges = response.getItems();
+			getViewState().setExchanges(response.getItems());
+			onExchangeSelected(response.getItems().get(0));
+		}
+		getAllBrokers();
+	}
+
+	private void getAllBrokers() {
+		if (getBrokersSubscription != null) {
+			getBrokersSubscription.unsubscribe();
+		}
+		getBrokersSubscription = brokersManager.getAllBrokers()
+				.observeOn(AndroidSchedulers.mainThread())
+				.subscribeOn(Schedulers.newThread())
+				.subscribe(this::handleGetBrokersSuccess,
+						this::handleGetBrokersError);
 	}
 
 	private void handleGetBrokersSuccess(BrokersInfo response) {
 		getBrokersSubscription.unsubscribe();
+		getViewState().showProgress(false);
 		if (!response.getBrokers().isEmpty()) {
-			getViewState().showProgress(false);
-
 			this.brokers = response.getBrokers();
 			getViewState().setBrokers(brokers);
-			onBrokerSelected(response.getBrokers().get(0));
+			if (selectedExchange == null) {
+				onBrokerSelected(response.getBrokers().get(0));
+			}
 		}
 	}
 

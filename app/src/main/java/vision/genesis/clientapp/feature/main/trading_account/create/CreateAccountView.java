@@ -14,7 +14,9 @@ public interface CreateAccountView extends MvpView
 {
 	void setRequestObjectToFragments(NewTradingAccountRequest request);
 
-	void showAccountDeposit(Double minDepositAmount, String currency);
+	void showExchangeAccountDeposit(Double minDepositAmount, String currency);
+
+	void showBrokerAccountDeposit(Double minDepositAmount, String currency);
 
 	void showAccountSettings(Broker selectedBroker);
 

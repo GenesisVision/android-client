@@ -45,7 +45,7 @@ public class BinanceRawSymbol implements Parcelable
 	private String name = null;
 
 	@SerializedName("status")
-	private BinanceRawSymbolStatus status = null;
+	private BinanceSymbolStatus status = null;
 
 	@SerializedName("baseAsset")
 	private String baseAsset = null;
@@ -60,7 +60,7 @@ public class BinanceRawSymbol implements Parcelable
 	private Integer quoteAssetPrecision = null;
 
 	@SerializedName("orderTypes")
-	private List<BinanceRawOrderType> orderTypes = null;
+	private List<BinanceOrderType> orderTypes = null;
 
 	@SerializedName("iceBergAllowed")
 	private Boolean iceBergAllowed = null;
@@ -84,7 +84,7 @@ public class BinanceRawSymbol implements Parcelable
 	private Integer quoteCommissionPrecision = null;
 
 	@SerializedName("permissions")
-	private List<BinanceRawAccountType> permissions = null;
+	private List<BinanceAccountType> permissions = null;
 
 	@SerializedName("iceBergPartsFilter")
 	private BinanceRawSymbolIcebergPartsFilter iceBergPartsFilter = null;
@@ -110,17 +110,20 @@ public class BinanceRawSymbol implements Parcelable
 	@SerializedName("pricePercentFilter")
 	private BinanceRawSymbolPercentPriceFilter pricePercentFilter = null;
 
+	@SerializedName("maxPositionFilter")
+	private BinanceRawSymbolMaxPositionFilter maxPositionFilter = null;
+
 	public BinanceRawSymbol() {
 	}
 
 	BinanceRawSymbol(Parcel in) {
 		name = (String) in.readValue(null);
-		status = (BinanceRawSymbolStatus) in.readValue(BinanceRawSymbolStatus.class.getClassLoader());
+		status = (BinanceSymbolStatus) in.readValue(BinanceSymbolStatus.class.getClassLoader());
 		baseAsset = (String) in.readValue(null);
 		baseAssetPrecision = (Integer) in.readValue(null);
 		quoteAsset = (String) in.readValue(null);
 		quoteAssetPrecision = (Integer) in.readValue(null);
-		orderTypes = (List<BinanceRawOrderType>) in.readValue(BinanceRawOrderType.class.getClassLoader());
+		orderTypes = (List<BinanceOrderType>) in.readValue(BinanceOrderType.class.getClassLoader());
 		iceBergAllowed = (Boolean) in.readValue(null);
 		isSpotTradingAllowed = (Boolean) in.readValue(null);
 		isMarginTradingAllowed = (Boolean) in.readValue(null);
@@ -128,7 +131,7 @@ public class BinanceRawSymbol implements Parcelable
 		quoteOrderQuantityMarketAllowed = (Boolean) in.readValue(null);
 		baseCommissionPrecision = (Integer) in.readValue(null);
 		quoteCommissionPrecision = (Integer) in.readValue(null);
-		permissions = (List<BinanceRawAccountType>) in.readValue(BinanceRawAccountType.class.getClassLoader());
+		permissions = (List<BinanceAccountType>) in.readValue(BinanceAccountType.class.getClassLoader());
 		iceBergPartsFilter = (BinanceRawSymbolIcebergPartsFilter) in.readValue(BinanceRawSymbolIcebergPartsFilter.class.getClassLoader());
 		lotSizeFilter = (BinanceRawSymbolLotSizeFilter) in.readValue(BinanceRawSymbolLotSizeFilter.class.getClassLoader());
 		marketLotSizeFilter = (BinanceRawSymbolMarketLotSizeFilter) in.readValue(BinanceRawSymbolMarketLotSizeFilter.class.getClassLoader());
@@ -137,6 +140,7 @@ public class BinanceRawSymbol implements Parcelable
 		minNotionalFilter = (BinanceRawSymbolMinNotionalFilter) in.readValue(BinanceRawSymbolMinNotionalFilter.class.getClassLoader());
 		priceFilter = (BinanceRawSymbolPriceFilter) in.readValue(BinanceRawSymbolPriceFilter.class.getClassLoader());
 		pricePercentFilter = (BinanceRawSymbolPercentPriceFilter) in.readValue(BinanceRawSymbolPercentPriceFilter.class.getClassLoader());
+		maxPositionFilter = (BinanceRawSymbolMaxPositionFilter) in.readValue(BinanceRawSymbolMaxPositionFilter.class.getClassLoader());
 	}
 
 	public BinanceRawSymbol name(String name) {
@@ -158,7 +162,7 @@ public class BinanceRawSymbol implements Parcelable
 		this.name = name;
 	}
 
-	public BinanceRawSymbol status(BinanceRawSymbolStatus status) {
+	public BinanceRawSymbol status(BinanceSymbolStatus status) {
 		this.status = status;
 		return this;
 	}
@@ -169,11 +173,11 @@ public class BinanceRawSymbol implements Parcelable
 	 * @return status
 	 **/
 	@Schema(description = "")
-	public BinanceRawSymbolStatus getStatus() {
+	public BinanceSymbolStatus getStatus() {
 		return status;
 	}
 
-	public void setStatus(BinanceRawSymbolStatus status) {
+	public void setStatus(BinanceSymbolStatus status) {
 		this.status = status;
 	}
 
@@ -253,14 +257,14 @@ public class BinanceRawSymbol implements Parcelable
 		this.quoteAssetPrecision = quoteAssetPrecision;
 	}
 
-	public BinanceRawSymbol orderTypes(List<BinanceRawOrderType> orderTypes) {
+	public BinanceRawSymbol orderTypes(List<BinanceOrderType> orderTypes) {
 		this.orderTypes = orderTypes;
 		return this;
 	}
 
-	public BinanceRawSymbol addOrderTypesItem(BinanceRawOrderType orderTypesItem) {
+	public BinanceRawSymbol addOrderTypesItem(BinanceOrderType orderTypesItem) {
 		if (this.orderTypes == null) {
-			this.orderTypes = new ArrayList<BinanceRawOrderType>();
+			this.orderTypes = new ArrayList<BinanceOrderType>();
 		}
 		this.orderTypes.add(orderTypesItem);
 		return this;
@@ -272,11 +276,11 @@ public class BinanceRawSymbol implements Parcelable
 	 * @return orderTypes
 	 **/
 	@Schema(description = "")
-	public List<BinanceRawOrderType> getOrderTypes() {
+	public List<BinanceOrderType> getOrderTypes() {
 		return orderTypes;
 	}
 
-	public void setOrderTypes(List<BinanceRawOrderType> orderTypes) {
+	public void setOrderTypes(List<BinanceOrderType> orderTypes) {
 		this.orderTypes = orderTypes;
 	}
 
@@ -413,14 +417,14 @@ public class BinanceRawSymbol implements Parcelable
 		this.quoteCommissionPrecision = quoteCommissionPrecision;
 	}
 
-	public BinanceRawSymbol permissions(List<BinanceRawAccountType> permissions) {
+	public BinanceRawSymbol permissions(List<BinanceAccountType> permissions) {
 		this.permissions = permissions;
 		return this;
 	}
 
-	public BinanceRawSymbol addPermissionsItem(BinanceRawAccountType permissionsItem) {
+	public BinanceRawSymbol addPermissionsItem(BinanceAccountType permissionsItem) {
 		if (this.permissions == null) {
-			this.permissions = new ArrayList<BinanceRawAccountType>();
+			this.permissions = new ArrayList<BinanceAccountType>();
 		}
 		this.permissions.add(permissionsItem);
 		return this;
@@ -432,11 +436,11 @@ public class BinanceRawSymbol implements Parcelable
 	 * @return permissions
 	 **/
 	@Schema(description = "")
-	public List<BinanceRawAccountType> getPermissions() {
+	public List<BinanceAccountType> getPermissions() {
 		return permissions;
 	}
 
-	public void setPermissions(List<BinanceRawAccountType> permissions) {
+	public void setPermissions(List<BinanceAccountType> permissions) {
 		this.permissions = permissions;
 	}
 
@@ -592,6 +596,25 @@ public class BinanceRawSymbol implements Parcelable
 		this.pricePercentFilter = pricePercentFilter;
 	}
 
+	public BinanceRawSymbol maxPositionFilter(BinanceRawSymbolMaxPositionFilter maxPositionFilter) {
+		this.maxPositionFilter = maxPositionFilter;
+		return this;
+	}
+
+	/**
+	 * Get maxPositionFilter
+	 *
+	 * @return maxPositionFilter
+	 **/
+	@Schema(description = "")
+	public BinanceRawSymbolMaxPositionFilter getMaxPositionFilter() {
+		return maxPositionFilter;
+	}
+
+	public void setMaxPositionFilter(BinanceRawSymbolMaxPositionFilter maxPositionFilter) {
+		this.maxPositionFilter = maxPositionFilter;
+	}
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -623,12 +646,13 @@ public class BinanceRawSymbol implements Parcelable
 				Objects.equals(this.maxAlgorithmicOrdersFilter, binanceRawSymbol.maxAlgorithmicOrdersFilter) &&
 				Objects.equals(this.minNotionalFilter, binanceRawSymbol.minNotionalFilter) &&
 				Objects.equals(this.priceFilter, binanceRawSymbol.priceFilter) &&
-				Objects.equals(this.pricePercentFilter, binanceRawSymbol.pricePercentFilter);
+				Objects.equals(this.pricePercentFilter, binanceRawSymbol.pricePercentFilter) &&
+				Objects.equals(this.maxPositionFilter, binanceRawSymbol.maxPositionFilter);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(name, status, baseAsset, baseAssetPrecision, quoteAsset, quoteAssetPrecision, orderTypes, iceBergAllowed, isSpotTradingAllowed, isMarginTradingAllowed, ocoAllowed, quoteOrderQuantityMarketAllowed, baseCommissionPrecision, quoteCommissionPrecision, permissions, iceBergPartsFilter, lotSizeFilter, marketLotSizeFilter, maxOrdersFilter, maxAlgorithmicOrdersFilter, minNotionalFilter, priceFilter, pricePercentFilter);
+		return Objects.hash(name, status, baseAsset, baseAssetPrecision, quoteAsset, quoteAssetPrecision, orderTypes, iceBergAllowed, isSpotTradingAllowed, isMarginTradingAllowed, ocoAllowed, quoteOrderQuantityMarketAllowed, baseCommissionPrecision, quoteCommissionPrecision, permissions, iceBergPartsFilter, lotSizeFilter, marketLotSizeFilter, maxOrdersFilter, maxAlgorithmicOrdersFilter, minNotionalFilter, priceFilter, pricePercentFilter, maxPositionFilter);
 	}
 
 	@Override
@@ -659,6 +683,7 @@ public class BinanceRawSymbol implements Parcelable
 		sb.append("    minNotionalFilter: ").append(toIndentedString(minNotionalFilter)).append("\n");
 		sb.append("    priceFilter: ").append(toIndentedString(priceFilter)).append("\n");
 		sb.append("    pricePercentFilter: ").append(toIndentedString(pricePercentFilter)).append("\n");
+		sb.append("    maxPositionFilter: ").append(toIndentedString(maxPositionFilter)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}
@@ -698,6 +723,7 @@ public class BinanceRawSymbol implements Parcelable
 		out.writeValue(minNotionalFilter);
 		out.writeValue(priceFilter);
 		out.writeValue(pricePercentFilter);
+		out.writeValue(maxPositionFilter);
 	}
 
 	public int describeContents() {

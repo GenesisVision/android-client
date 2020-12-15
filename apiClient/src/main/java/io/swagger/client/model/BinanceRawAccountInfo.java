@@ -68,10 +68,10 @@ public class BinanceRawAccountInfo implements Parcelable
 	private DateTime updateTime = null;
 
 	@SerializedName("accountType")
-	private BinanceRawAccountType accountType = null;
+	private BinanceAccountType accountType = null;
 
 	@SerializedName("permissions")
-	private List<BinanceRawAccountType> permissions = null;
+	private List<BinanceAccountType> permissions = null;
 
 	@SerializedName("balances")
 	private List<BinanceRawBinanceBalance> balances = null;
@@ -88,8 +88,8 @@ public class BinanceRawAccountInfo implements Parcelable
 		canWithdraw = (Boolean) in.readValue(null);
 		canDeposit = (Boolean) in.readValue(null);
 		updateTime = (DateTime) in.readValue(DateTime.class.getClassLoader());
-		accountType = (BinanceRawAccountType) in.readValue(BinanceRawAccountType.class.getClassLoader());
-		permissions = (List<BinanceRawAccountType>) in.readValue(BinanceRawAccountType.class.getClassLoader());
+		accountType = (BinanceAccountType) in.readValue(BinanceAccountType.class.getClassLoader());
+		permissions = (List<BinanceAccountType>) in.readValue(BinanceAccountType.class.getClassLoader());
 		balances = (List<BinanceRawBinanceBalance>) in.readValue(BinanceRawBinanceBalance.class.getClassLoader());
 	}
 
@@ -245,7 +245,7 @@ public class BinanceRawAccountInfo implements Parcelable
 		this.updateTime = updateTime;
 	}
 
-	public BinanceRawAccountInfo accountType(BinanceRawAccountType accountType) {
+	public BinanceRawAccountInfo accountType(BinanceAccountType accountType) {
 		this.accountType = accountType;
 		return this;
 	}
@@ -256,22 +256,22 @@ public class BinanceRawAccountInfo implements Parcelable
 	 * @return accountType
 	 **/
 	@Schema(description = "")
-	public BinanceRawAccountType getAccountType() {
+	public BinanceAccountType getAccountType() {
 		return accountType;
 	}
 
-	public void setAccountType(BinanceRawAccountType accountType) {
+	public void setAccountType(BinanceAccountType accountType) {
 		this.accountType = accountType;
 	}
 
-	public BinanceRawAccountInfo permissions(List<BinanceRawAccountType> permissions) {
+	public BinanceRawAccountInfo permissions(List<BinanceAccountType> permissions) {
 		this.permissions = permissions;
 		return this;
 	}
 
-	public BinanceRawAccountInfo addPermissionsItem(BinanceRawAccountType permissionsItem) {
+	public BinanceRawAccountInfo addPermissionsItem(BinanceAccountType permissionsItem) {
 		if (this.permissions == null) {
-			this.permissions = new ArrayList<BinanceRawAccountType>();
+			this.permissions = new ArrayList<BinanceAccountType>();
 		}
 		this.permissions.add(permissionsItem);
 		return this;
@@ -283,11 +283,11 @@ public class BinanceRawAccountInfo implements Parcelable
 	 * @return permissions
 	 **/
 	@Schema(description = "")
-	public List<BinanceRawAccountType> getPermissions() {
+	public List<BinanceAccountType> getPermissions() {
 		return permissions;
 	}
 
-	public void setPermissions(List<BinanceRawAccountType> permissions) {
+	public void setPermissions(List<BinanceAccountType> permissions) {
 		this.permissions = permissions;
 	}
 

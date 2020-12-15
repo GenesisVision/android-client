@@ -7,6 +7,7 @@ import io.swagger.client.model.ChangeBrokerProgramRequest;
 import io.swagger.client.model.CreateSignalProvider;
 import io.swagger.client.model.FundAssetPart;
 import io.swagger.client.model.MakeExchangeAccountProgram;
+import io.swagger.client.model.MakeExchangeProgram;
 import io.swagger.client.model.MakeProgram;
 import io.swagger.client.model.MakeSelfManagedFundPublicRequest;
 import io.swagger.client.model.MakeSignalProviderProgram;
@@ -297,6 +298,20 @@ public interface AssetsApi
 	@POST("v2.0/assets/programs/fromexchangeaccount/create")
 	Observable<Void> makeExchangeAccountProgram(
 			@retrofit2.http.Body MakeExchangeAccountProgram body
+	);
+
+	/**
+	 * Create an exchange investment program
+	 *
+	 * @param body (optional)
+	 * @return Call&lt;TradingAccountCreateResult&gt;
+	 */
+	@Headers({
+			"Content-Type:application/json"
+	})
+	@POST("v2.0/assets/programs/exchange/create")
+	Observable<TradingAccountCreateResult> makeExchangeProgram(
+			@retrofit2.http.Body MakeExchangeProgram body
 	);
 
 	/**

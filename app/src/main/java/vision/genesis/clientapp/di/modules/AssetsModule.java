@@ -9,6 +9,7 @@ import io.swagger.client.api.BrokersApi;
 import io.swagger.client.api.CopytradingApi;
 import io.swagger.client.api.DashboardApi;
 import io.swagger.client.api.EventsApi;
+import io.swagger.client.api.ExchangesApi;
 import io.swagger.client.api.FollowApi;
 import io.swagger.client.api.FundsApi;
 import io.swagger.client.api.InvestmentsApi;
@@ -56,8 +57,8 @@ public class AssetsModule
 
 	@Provides
 	@Singleton
-	public BrokersManager provideBrokersManager(BrokersApi brokersApi) {
-		return new BrokersManager(brokersApi);
+	public BrokersManager provideBrokersManager(BrokersApi brokersApi, ExchangesApi exchangesApi) {
+		return new BrokersManager(brokersApi, exchangesApi);
 	}
 
 	@Provides

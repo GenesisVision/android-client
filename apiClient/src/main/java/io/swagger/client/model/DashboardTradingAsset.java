@@ -60,9 +60,6 @@ public class DashboardTradingAsset implements Parcelable
 	@SerializedName("accountInfo")
 	private DashboardTradingAssetCommonDetails accountInfo = null;
 
-	@SerializedName("credentials")
-	private DashboardTradingAssetCredentials credentials = null;
-
 	@SerializedName("signalInfo")
 	private DashboardTradingAssetSignalDetails signalInfo = null;
 
@@ -85,7 +82,6 @@ public class DashboardTradingAsset implements Parcelable
 		statistic = (ProfitChart) in.readValue(ProfitChart.class.getClassLoader());
 		publicInfo = (DashboardTradingAssetPublicDetails) in.readValue(DashboardTradingAssetPublicDetails.class.getClassLoader());
 		accountInfo = (DashboardTradingAssetCommonDetails) in.readValue(DashboardTradingAssetCommonDetails.class.getClassLoader());
-		credentials = (DashboardTradingAssetCredentials) in.readValue(DashboardTradingAssetCredentials.class.getClassLoader());
 		signalInfo = (DashboardTradingAssetSignalDetails) in.readValue(DashboardTradingAssetSignalDetails.class.getClassLoader());
 		broker = (DashboardTradingAssetBrokerDetails) in.readValue(DashboardTradingAssetBrokerDetails.class.getClassLoader());
 		actions = (DashboardTradingAssetActions) in.readValue(DashboardTradingAssetActions.class.getClassLoader());
@@ -206,25 +202,6 @@ public class DashboardTradingAsset implements Parcelable
 		this.accountInfo = accountInfo;
 	}
 
-	public DashboardTradingAsset credentials(DashboardTradingAssetCredentials credentials) {
-		this.credentials = credentials;
-		return this;
-	}
-
-	/**
-	 * Get credentials
-	 *
-	 * @return credentials
-	 **/
-	@Schema(description = "")
-	public DashboardTradingAssetCredentials getCredentials() {
-		return credentials;
-	}
-
-	public void setCredentials(DashboardTradingAssetCredentials credentials) {
-		this.credentials = credentials;
-	}
-
 	public DashboardTradingAsset signalInfo(DashboardTradingAssetSignalDetails signalInfo) {
 		this.signalInfo = signalInfo;
 		return this;
@@ -324,7 +301,6 @@ public class DashboardTradingAsset implements Parcelable
 				Objects.equals(this.statistic, dashboardTradingAsset.statistic) &&
 				Objects.equals(this.publicInfo, dashboardTradingAsset.publicInfo) &&
 				Objects.equals(this.accountInfo, dashboardTradingAsset.accountInfo) &&
-				Objects.equals(this.credentials, dashboardTradingAsset.credentials) &&
 				Objects.equals(this.signalInfo, dashboardTradingAsset.signalInfo) &&
 				Objects.equals(this.broker, dashboardTradingAsset.broker) &&
 				Objects.equals(this.actions, dashboardTradingAsset.actions) &&
@@ -333,7 +309,7 @@ public class DashboardTradingAsset implements Parcelable
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, assetType, assetTypeExt, statistic, publicInfo, accountInfo, credentials, signalInfo, broker, actions, tags);
+		return Objects.hash(id, assetType, assetTypeExt, statistic, publicInfo, accountInfo, signalInfo, broker, actions, tags);
 	}
 
 	@Override
@@ -347,7 +323,6 @@ public class DashboardTradingAsset implements Parcelable
 		sb.append("    statistic: ").append(toIndentedString(statistic)).append("\n");
 		sb.append("    publicInfo: ").append(toIndentedString(publicInfo)).append("\n");
 		sb.append("    accountInfo: ").append(toIndentedString(accountInfo)).append("\n");
-		sb.append("    credentials: ").append(toIndentedString(credentials)).append("\n");
 		sb.append("    signalInfo: ").append(toIndentedString(signalInfo)).append("\n");
 		sb.append("    broker: ").append(toIndentedString(broker)).append("\n");
 		sb.append("    actions: ").append(toIndentedString(actions)).append("\n");
@@ -374,7 +349,6 @@ public class DashboardTradingAsset implements Parcelable
 		out.writeValue(statistic);
 		out.writeValue(publicInfo);
 		out.writeValue(accountInfo);
-		out.writeValue(credentials);
 		out.writeValue(signalInfo);
 		out.writeValue(broker);
 		out.writeValue(actions);

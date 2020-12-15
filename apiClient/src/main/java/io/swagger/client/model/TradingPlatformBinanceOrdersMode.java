@@ -25,8 +25,8 @@ import java.io.IOException;
 @JsonAdapter(TradingPlatformBinanceOrdersMode.Adapter.class)
 public enum TradingPlatformBinanceOrdersMode
 {
-	HISTORY("History"),
-	OPENORDERS("OpenOrders");
+	TRADEHISTORY("TradeHistory"),
+	ORDERHISTORY("OrderHistory");
 
 	public static TradingPlatformBinanceOrdersMode fromValue(String text) {
 		for (TradingPlatformBinanceOrdersMode b : TradingPlatformBinanceOrdersMode.values()) {

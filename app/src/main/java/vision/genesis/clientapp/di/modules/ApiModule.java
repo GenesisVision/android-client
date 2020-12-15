@@ -12,6 +12,7 @@ import io.swagger.client.api.BrokersApi;
 import io.swagger.client.api.CopytradingApi;
 import io.swagger.client.api.DashboardApi;
 import io.swagger.client.api.EventsApi;
+import io.swagger.client.api.ExchangesApi;
 import io.swagger.client.api.FileApi;
 import io.swagger.client.api.FollowApi;
 import io.swagger.client.api.FundsApi;
@@ -109,6 +110,12 @@ public class ApiModule
 	@Singleton
 	public EventsApi provideEventsApi(ApiClient apiClient) {
 		return apiClient.createService(EventsApi.class);
+	}
+
+	@Provides
+	@Singleton
+	public ExchangesApi provideExchangesApi(ApiClient apiClient) {
+		return apiClient.createService(ExchangesApi.class);
 	}
 
 	@Provides

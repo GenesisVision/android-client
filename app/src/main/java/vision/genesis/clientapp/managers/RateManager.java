@@ -89,8 +89,8 @@ public class RateManager
 		Map<String, List<RateItem>> rates = response.getRates();
 		//TODO:
 		for (RateItem rateItem : rates.get("GVT")) {
-			getRateSubject(CurrencyEnum.GVT.getValue(), rateItem.getCurrency().getValue()).onNext(rateItem.getRate());
-			responseMap.put(CurrencyEnum.fromValue(rateItem.getCurrency().getValue()), rateItem.getRate());
+			getRateSubject(CurrencyEnum.GVT.getValue(), rateItem.getCurrency()).onNext(rateItem.getRate());
+			responseMap.put(CurrencyEnum.fromValue(rateItem.getCurrency()), rateItem.getRate());
 		}
 		baseRatesSubject.onNext(responseMap);
 	}

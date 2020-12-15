@@ -28,7 +28,8 @@ public enum BinanceTimeInForce
 	GOODTILLCANCEL("GoodTillCancel"),
 	IMMEDIATEORCANCEL("ImmediateOrCancel"),
 	FILLORKILL("FillOrKill"),
-	GOODTILLCROSSING("GoodTillCrossing");
+	GOODTILLCROSSING("GoodTillCrossing"),
+	GOODTILLEXPIREDORCANCELED("GoodTillExpiredOrCanceled");
 
 	public static BinanceTimeInForce fromValue(String text) {
 		for (BinanceTimeInForce b : BinanceTimeInForce.values()) {

@@ -33,9 +33,9 @@
             android:id="@+id/period_left"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/period_progress_bar"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
-            android:layout_below="@+id/period_progress_bar"
             android:layout_marginTop="12dp"
             android:textColor="?attr/colorTextPrimary"
             android:textSize="16sp"
@@ -55,5 +55,16 @@
         android:textColor="@color/colorMedium"
         android:textSize="14sp"
         android:visibility="gone"/>
+
+    <TextView
+        android:id="@+id/text_no_period"
+        style="@style/text_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:fontFamily="sans-serif-medium"
+        android:text="—"
+        android:visibility="gone"
+        tools:visibility="visible"/>
 
 </RelativeLayout>

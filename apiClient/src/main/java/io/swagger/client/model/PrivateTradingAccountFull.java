@@ -52,9 +52,6 @@ public class PrivateTradingAccountFull implements Parcelable
 	@SerializedName("brokerDetails")
 	private BrokerDetails brokerDetails = null;
 
-	@SerializedName("credentials")
-	private DashboardTradingAssetCredentials credentials = null;
-
 	@SerializedName("ownerActions")
 	private PrivateTradingAccountOwnerActions ownerActions = null;
 
@@ -66,7 +63,6 @@ public class PrivateTradingAccountFull implements Parcelable
 		publicInfo = (PrivateTradingAccountFullPublicDetails) in.readValue(PrivateTradingAccountFullPublicDetails.class.getClassLoader());
 		tradingAccountInfo = (PrivateTradingAccountFullTradingAccountDetails) in.readValue(PrivateTradingAccountFullTradingAccountDetails.class.getClassLoader());
 		brokerDetails = (BrokerDetails) in.readValue(BrokerDetails.class.getClassLoader());
-		credentials = (DashboardTradingAssetCredentials) in.readValue(DashboardTradingAssetCredentials.class.getClassLoader());
 		ownerActions = (PrivateTradingAccountOwnerActions) in.readValue(PrivateTradingAccountOwnerActions.class.getClassLoader());
 	}
 
@@ -146,25 +142,6 @@ public class PrivateTradingAccountFull implements Parcelable
 		this.brokerDetails = brokerDetails;
 	}
 
-	public PrivateTradingAccountFull credentials(DashboardTradingAssetCredentials credentials) {
-		this.credentials = credentials;
-		return this;
-	}
-
-	/**
-	 * Get credentials
-	 *
-	 * @return credentials
-	 **/
-	@Schema(description = "")
-	public DashboardTradingAssetCredentials getCredentials() {
-		return credentials;
-	}
-
-	public void setCredentials(DashboardTradingAssetCredentials credentials) {
-		this.credentials = credentials;
-	}
-
 	public PrivateTradingAccountFull ownerActions(PrivateTradingAccountOwnerActions ownerActions) {
 		this.ownerActions = ownerActions;
 		return this;
@@ -197,13 +174,12 @@ public class PrivateTradingAccountFull implements Parcelable
 				Objects.equals(this.publicInfo, privateTradingAccountFull.publicInfo) &&
 				Objects.equals(this.tradingAccountInfo, privateTradingAccountFull.tradingAccountInfo) &&
 				Objects.equals(this.brokerDetails, privateTradingAccountFull.brokerDetails) &&
-				Objects.equals(this.credentials, privateTradingAccountFull.credentials) &&
 				Objects.equals(this.ownerActions, privateTradingAccountFull.ownerActions);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, publicInfo, tradingAccountInfo, brokerDetails, credentials, ownerActions);
+		return Objects.hash(id, publicInfo, tradingAccountInfo, brokerDetails, ownerActions);
 	}
 
 	@Override
@@ -215,7 +191,6 @@ public class PrivateTradingAccountFull implements Parcelable
 		sb.append("    publicInfo: ").append(toIndentedString(publicInfo)).append("\n");
 		sb.append("    tradingAccountInfo: ").append(toIndentedString(tradingAccountInfo)).append("\n");
 		sb.append("    brokerDetails: ").append(toIndentedString(brokerDetails)).append("\n");
-		sb.append("    credentials: ").append(toIndentedString(credentials)).append("\n");
 		sb.append("    ownerActions: ").append(toIndentedString(ownerActions)).append("\n");
 		sb.append("}");
 		return sb.toString();
@@ -237,7 +212,6 @@ public class PrivateTradingAccountFull implements Parcelable
 		out.writeValue(publicInfo);
 		out.writeValue(tradingAccountInfo);
 		out.writeValue(brokerDetails);
-		out.writeValue(credentials);
 		out.writeValue(ownerActions);
 	}
 

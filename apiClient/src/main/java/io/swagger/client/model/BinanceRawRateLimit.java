@@ -40,10 +40,10 @@ public class BinanceRawRateLimit implements Parcelable
 	};
 
 	@SerializedName("interval")
-	private BinanceRawRateLimitInterval interval = null;
+	private BinanceRateLimitInterval interval = null;
 
 	@SerializedName("type")
-	private BinanceRawRateLimitType type = null;
+	private BinanceRateLimitType type = null;
 
 	@SerializedName("intervalNumber")
 	private Integer intervalNumber = null;
@@ -55,13 +55,13 @@ public class BinanceRawRateLimit implements Parcelable
 	}
 
 	BinanceRawRateLimit(Parcel in) {
-		interval = (BinanceRawRateLimitInterval) in.readValue(BinanceRawRateLimitInterval.class.getClassLoader());
-		type = (BinanceRawRateLimitType) in.readValue(BinanceRawRateLimitType.class.getClassLoader());
+		interval = (BinanceRateLimitInterval) in.readValue(BinanceRateLimitInterval.class.getClassLoader());
+		type = (BinanceRateLimitType) in.readValue(BinanceRateLimitType.class.getClassLoader());
 		intervalNumber = (Integer) in.readValue(null);
 		limit = (Integer) in.readValue(null);
 	}
 
-	public BinanceRawRateLimit interval(BinanceRawRateLimitInterval interval) {
+	public BinanceRawRateLimit interval(BinanceRateLimitInterval interval) {
 		this.interval = interval;
 		return this;
 	}
@@ -72,15 +72,15 @@ public class BinanceRawRateLimit implements Parcelable
 	 * @return interval
 	 **/
 	@Schema(description = "")
-	public BinanceRawRateLimitInterval getInterval() {
+	public BinanceRateLimitInterval getInterval() {
 		return interval;
 	}
 
-	public void setInterval(BinanceRawRateLimitInterval interval) {
+	public void setInterval(BinanceRateLimitInterval interval) {
 		this.interval = interval;
 	}
 
-	public BinanceRawRateLimit type(BinanceRawRateLimitType type) {
+	public BinanceRawRateLimit type(BinanceRateLimitType type) {
 		this.type = type;
 		return this;
 	}
@@ -91,11 +91,11 @@ public class BinanceRawRateLimit implements Parcelable
 	 * @return type
 	 **/
 	@Schema(description = "")
-	public BinanceRawRateLimitType getType() {
+	public BinanceRateLimitType getType() {
 		return type;
 	}
 
-	public void setType(BinanceRawRateLimitType type) {
+	public void setType(BinanceRateLimitType type) {
 		this.type = type;
 	}
 

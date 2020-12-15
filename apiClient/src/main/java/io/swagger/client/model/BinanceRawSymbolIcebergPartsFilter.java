@@ -40,7 +40,7 @@ public class BinanceRawSymbolIcebergPartsFilter implements Parcelable
 	};
 
 	@SerializedName("filterType")
-	private BinanceRawSymbolFilterType filterType = null;
+	private BinanceSymbolFilterType filterType = null;
 
 	@SerializedName("limit")
 	private Integer limit = null;
@@ -49,11 +49,11 @@ public class BinanceRawSymbolIcebergPartsFilter implements Parcelable
 	}
 
 	BinanceRawSymbolIcebergPartsFilter(Parcel in) {
-		filterType = (BinanceRawSymbolFilterType) in.readValue(BinanceRawSymbolFilterType.class.getClassLoader());
+		filterType = (BinanceSymbolFilterType) in.readValue(BinanceSymbolFilterType.class.getClassLoader());
 		limit = (Integer) in.readValue(null);
 	}
 
-	public BinanceRawSymbolIcebergPartsFilter filterType(BinanceRawSymbolFilterType filterType) {
+	public BinanceRawSymbolIcebergPartsFilter filterType(BinanceSymbolFilterType filterType) {
 		this.filterType = filterType;
 		return this;
 	}
@@ -64,11 +64,11 @@ public class BinanceRawSymbolIcebergPartsFilter implements Parcelable
 	 * @return filterType
 	 **/
 	@Schema(description = "")
-	public BinanceRawSymbolFilterType getFilterType() {
+	public BinanceSymbolFilterType getFilterType() {
 		return filterType;
 	}
 
-	public void setFilterType(BinanceRawSymbolFilterType filterType) {
+	public void setFilterType(BinanceSymbolFilterType filterType) {
 		this.filterType = filterType;
 	}
 

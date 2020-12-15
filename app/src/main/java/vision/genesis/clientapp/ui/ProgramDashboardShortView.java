@@ -15,6 +15,7 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import io.swagger.client.model.AssetType;
 import io.swagger.client.model.ProgramInvestingDetailsList;
+import io.swagger.client.model.ProgramType;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.model.ProgramDetailsModel;
 import vision.genesis.clientapp.model.events.ShowProgramDetailsEvent;
@@ -119,6 +120,7 @@ public class ProgramDashboardShortView extends RelativeLayout
 		this.programLogo.setLevel(program.getLevel(), program.getLevelProgress());
 		this.programName.setText(program.getTitle());
 		this.timeLeft.setData(program.getPeriodDuration(), program.getPeriodStarts(), program.getPeriodEnds(), false, true);
+		this.timeLeft.setVisibility(program.getType().equals(ProgramType.FIXEDPERIOD) ? View.VISIBLE : View.GONE);
 
 //		double value = Math.random() * 1000000;
 		double value = program.getPersonalDetails().getValue();
@@ -127,7 +129,11 @@ public class ProgramDashboardShortView extends RelativeLayout
 
 		this.value.setText(StringFormatUtil.getValueString(value, baseCurrency));
 		if (value != 0) {
+			this.change.setVisibility(View.VISIBLE);
 			updateChangeText(value, change);
+		}
+		else {
+			this.change.setVisibility(View.GONE);
 		}
 	}
 

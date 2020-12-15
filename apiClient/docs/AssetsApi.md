@@ -24,6 +24,7 @@ Method | HTTP request | Description
 [**makeAccountSignalProvider**](AssetsApi.md#makeAccountSignalProvider) | **POST** v2.0/assets/signal/create | Make account signal provider
 [**makeDemoTradingAccountDeposit**](AssetsApi.md#makeDemoTradingAccountDeposit) | **POST** v2.0/assets/tradingaccounts/{id}/demo/deposit | Make demo trading account deposit
 [**makeExchangeAccountProgram**](AssetsApi.md#makeExchangeAccountProgram) | **POST** v2.0/assets/programs/fromexchangeaccount/create | Create an investment program from exchange account
+[**makeExchangeProgram**](AssetsApi.md#makeExchangeProgram) | **POST** v2.0/assets/programs/exchange/create | Create an exchange investment program
 [**makeExternalAccountSignalProvider**](AssetsApi.md#makeExternalAccountSignalProvider) | **POST** v2.0/assets/tradingaccounts/external/fromaccount/create | Make external trading account signal provider
 [**makeProgram**](AssetsApi.md#makeProgram) | **POST** v2.0/assets/programs/create | Create an investment program
 [**makeSelfManagedFundPublic**](AssetsApi.md#makeSelfManagedFundPublic) | **POST** v2.0/assets/funds/selfmanaged/makepublic | Make self managed fund public
@@ -1096,6 +1097,59 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**Void**](.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json, text/json, application/_*+json
+ - **Accept**: text/plain, application/json, text/json
+
+<a name="makeExchangeProgram"></a>
+# **makeExchangeProgram**
+> TradingAccountCreateResult makeExchangeProgram(body)
+
+Create an exchange investment program
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiClient;
+//import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
+//import io.swagger.client.api.AssetsApi;
+
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
+
+AssetsApi apiInstance = new AssetsApi();
+MakeExchangeProgram body = new MakeExchangeProgram(); // MakeExchangeProgram | 
+try {
+    TradingAccountCreateResult result = apiInstance.makeExchangeProgram(body);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling AssetsApi#makeExchangeProgram");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **body** | [**MakeExchangeProgram**](MakeExchangeProgram.md)|  | [optional]
+
+### Return type
+
+[**TradingAccountCreateResult**](TradingAccountCreateResult.md)
 
 ### Authorization
 

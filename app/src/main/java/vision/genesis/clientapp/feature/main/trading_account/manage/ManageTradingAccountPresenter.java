@@ -11,6 +11,8 @@ import org.greenrobot.eventbus.Subscribe;
 import javax.inject.Inject;
 
 import io.swagger.client.model.MigrationRequest;
+import io.swagger.client.model.PrivateTradingAccountType;
+import rx.Observable;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -111,12 +113,18 @@ public class ManageTradingAccountPresenter extends MvpPresenter<ManageTradingAcc
 	private void closeAccount() {
 		if (model != null && assetsManager != null) {
 			getViewState().showProgress(true);
-			closeAccountSubscription = assetsManager.closeTradingAccount(model.getAccountId())
+			closeAccountSubscription = getCloseAccountObservable()
 					.observeOn(AndroidSchedulers.mainThread())
 					.subscribeOn(Schedulers.io())
 					.subscribe(this::handleCloseAccountSuccess,
 							this::handleCloseAccountError);
 		}
+	}
+
+	private Observable<Void> getCloseAccountObservable() {
+		return model.getType().equals(PrivateTradingAccountType.EXCHANGEACCOUNT)
+				? assetsManager.closeExchangeTradingAccount(model.getAccountId())
+				: assetsManager.closeTradingAccount(model.getAccountId());
 	}
 
 	private void handleCloseAccountSuccess(Void response) {

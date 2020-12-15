@@ -9,7 +9,6 @@ Name | Type | Description | Notes
 **statistic** | [**ProfitChart**](ProfitChart.md) |  |  [optional]
 **publicInfo** | [**DashboardTradingAssetPublicDetails**](DashboardTradingAssetPublicDetails.md) |  |  [optional]
 **accountInfo** | [**DashboardTradingAssetCommonDetails**](DashboardTradingAssetCommonDetails.md) |  |  [optional]
-**credentials** | [**DashboardTradingAssetCredentials**](DashboardTradingAssetCredentials.md) |  |  [optional]
 **signalInfo** | [**DashboardTradingAssetSignalDetails**](DashboardTradingAssetSignalDetails.md) |  |  [optional]
 **broker** | [**DashboardTradingAssetBrokerDetails**](DashboardTradingAssetBrokerDetails.md) |  |  [optional]
 **actions** | [**DashboardTradingAssetActions**](DashboardTradingAssetActions.md) |  |  [optional]

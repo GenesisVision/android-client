@@ -131,6 +131,7 @@
                     tools:text="Genesis Markets is a crypto broker that aggregates data from multiple exchanges"/>
 
                 <TextView
+                    android:id="@+id/label_account_type"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
@@ -165,6 +166,7 @@
                     tools:text="MetaTrader5"/>
 
                 <TextView
+                    android:id="@+id/label_leverage"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"

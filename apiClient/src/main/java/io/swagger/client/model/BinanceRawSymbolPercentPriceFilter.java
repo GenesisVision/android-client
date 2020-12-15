@@ -40,7 +40,7 @@ public class BinanceRawSymbolPercentPriceFilter implements Parcelable
 	};
 
 	@SerializedName("filterType")
-	private BinanceRawSymbolFilterType filterType = null;
+	private BinanceSymbolFilterType filterType = null;
 
 	@SerializedName("multiplierUp")
 	private Double multiplierUp = null;
@@ -55,13 +55,13 @@ public class BinanceRawSymbolPercentPriceFilter implements Parcelable
 	}
 
 	BinanceRawSymbolPercentPriceFilter(Parcel in) {
-		filterType = (BinanceRawSymbolFilterType) in.readValue(BinanceRawSymbolFilterType.class.getClassLoader());
+		filterType = (BinanceSymbolFilterType) in.readValue(BinanceSymbolFilterType.class.getClassLoader());
 		multiplierUp = (Double) in.readValue(null);
 		multiplierDown = (Double) in.readValue(null);
 		averagePriceMinutes = (Integer) in.readValue(null);
 	}
 
-	public BinanceRawSymbolPercentPriceFilter filterType(BinanceRawSymbolFilterType filterType) {
+	public BinanceRawSymbolPercentPriceFilter filterType(BinanceSymbolFilterType filterType) {
 		this.filterType = filterType;
 		return this;
 	}
@@ -72,11 +72,11 @@ public class BinanceRawSymbolPercentPriceFilter implements Parcelable
 	 * @return filterType
 	 **/
 	@Schema(description = "")
-	public BinanceRawSymbolFilterType getFilterType() {
+	public BinanceSymbolFilterType getFilterType() {
 		return filterType;
 	}
 
-	public void setFilterType(BinanceRawSymbolFilterType filterType) {
+	public void setFilterType(BinanceSymbolFilterType filterType) {
 		this.filterType = filterType;
 	}
 

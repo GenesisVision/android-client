@@ -5,6 +5,7 @@ import com.arellomobile.mvp.MvpView;
 import java.util.List;
 
 import io.swagger.client.model.Broker;
+import io.swagger.client.model.ExchangeInfo;
 
 /**
  * GenesisVisionAndroid
@@ -13,9 +14,15 @@ import io.swagger.client.model.Broker;
 
 interface SelectBrokerView extends MvpView
 {
+	void setExchanges(List<ExchangeInfo> exchanges);
+
 	void setBrokers(List<Broker> brokers);
 
+	void selectExchange(ExchangeInfo selectedExchange, int position);
+
 	void selectBroker(Broker selectedBroker, int position);
+
+	void showExchangeInfo(ExchangeInfo exchange);
 
 	void showBrokerInfo(Broker broker);
 

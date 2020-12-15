@@ -40,7 +40,7 @@ public class RateItem implements Parcelable
 	};
 
 	@SerializedName("currency")
-	private Currency currency = null;
+	private String currency = null;
 
 	@SerializedName("rate")
 	private Double rate = null;
@@ -49,11 +49,11 @@ public class RateItem implements Parcelable
 	}
 
 	RateItem(Parcel in) {
-		currency = (Currency) in.readValue(Currency.class.getClassLoader());
+		currency = (String) in.readValue(null);
 		rate = (Double) in.readValue(null);
 	}
 
-	public RateItem currency(Currency currency) {
+	public RateItem currency(String currency) {
 		this.currency = currency;
 		return this;
 	}
@@ -64,11 +64,11 @@ public class RateItem implements Parcelable
 	 * @return currency
 	 **/
 	@Schema(description = "")
-	public Currency getCurrency() {
+	public String getCurrency() {
 		return currency;
 	}
 
-	public void setCurrency(Currency currency) {
+	public void setCurrency(String currency) {
 		this.currency = currency;
 	}
 

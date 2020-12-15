@@ -89,6 +89,12 @@ public class ProgramRequest implements Parcelable
 	@SerializedName("is_owner")
 	private Boolean isOwner = false;
 
+	@SerializedName("is_exchange_program")
+	private Boolean isExchangeProgram = false;
+
+	@SerializedName("is_processing_real_time")
+	private Boolean isProcessingRealTime = false;
+
 	public ProgramRequest() {
 
 	}
@@ -134,6 +140,8 @@ public class ProgramRequest implements Parcelable
 			managementFee = in.readDouble();
 		}
 		isOwner = in.readByte() != 0;
+		isExchangeProgram = in.readByte() != 0;
+		isProcessingRealTime = in.readByte() != 0;
 	}
 
 	@Override
@@ -187,6 +195,8 @@ public class ProgramRequest implements Parcelable
 			dest.writeDouble(managementFee);
 		}
 		dest.writeByte((byte) (isOwner ? 1 : 0));
+		dest.writeByte((byte) (isExchangeProgram ? 1 : 0));
+		dest.writeByte((byte) (isProcessingRealTime ? 1 : 0));
 	}
 
 	public UUID getProgramId() {
@@ -347,5 +357,21 @@ public class ProgramRequest implements Parcelable
 
 	public void setIsOwner(Boolean isOwner) {
 		this.isOwner = isOwner;
+	}
+
+	public Boolean isExchangeProgram() {
+		return isExchangeProgram;
+	}
+
+	public void setIsExchangeProgram(Boolean isExchangeProgram) {
+		this.isExchangeProgram = isExchangeProgram;
+	}
+
+	public boolean getIsProcessingRealTime() {
+		return isProcessingRealTime;
+	}
+
+	public void setIsProcessingRealTime(boolean isProcessingRealTime) {
+		this.isProcessingRealTime = isProcessingRealTime;
 	}
 }
