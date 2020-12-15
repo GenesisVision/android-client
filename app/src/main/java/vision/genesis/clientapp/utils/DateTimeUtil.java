@@ -43,6 +43,8 @@ public class DateTimeUtil
 
 	private static DateTimeFormatter eventDateTimeFormatter = DateTimeFormat.forPattern("dd MMM YYYY, KK:mmaa");
 
+	private static DateTimeFormatter requestInfoDateTimeFormatter = DateTimeFormat.forPattern("KK:mmaa 'on' MMMM dd");
+
 	public static String formatDate(DateTime dateTime) {
 		return dateFormatter.withLocale(Locale.US).print(dateTime);
 	}
@@ -104,6 +106,10 @@ public class DateTimeUtil
 		else {
 			return GenesisVisionApplication.INSTANCE.getResources().getString(R.string.today);
 		}
+	}
+
+	public static String formatRequestInfoDateTime(DateTime dateTime) {
+		return requestInfoDateTimeFormatter.withLocale(Locale.US).print(dateTime);
 	}
 
 	public static int getYearsToDate(DateTime date) {

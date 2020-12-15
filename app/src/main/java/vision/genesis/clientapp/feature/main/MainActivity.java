@@ -49,7 +49,6 @@ import vision.genesis.clientapp.feature.main.funds_challenge.FundsChallengeActiv
 import vision.genesis.clientapp.feature.main.message.MessageBottomSheetDialog;
 import vision.genesis.clientapp.feature.main.notifications.NotificationsActivity;
 import vision.genesis.clientapp.feature.main.program.ProgramDetailsActivity;
-import vision.genesis.clientapp.feature.main.program.withdraw.WithdrawProgramActivity;
 import vision.genesis.clientapp.feature.main.rating.ProgramsRatingActivity;
 import vision.genesis.clientapp.feature.main.social.feed.SocialActivity;
 import vision.genesis.clientapp.feature.main.social.media.MediaActivity;
@@ -73,7 +72,6 @@ import vision.genesis.clientapp.model.CopytradingAccountModel;
 import vision.genesis.clientapp.model.FundDetailsModel;
 import vision.genesis.clientapp.model.OpenTradeModel;
 import vision.genesis.clientapp.model.ProgramDetailsModel;
-import vision.genesis.clientapp.model.ProgramRequest;
 import vision.genesis.clientapp.model.TradingAccountDetailsModel;
 import vision.genesis.clientapp.model.UserDetailsModel;
 import vision.genesis.clientapp.model.WalletModel;
@@ -348,11 +346,6 @@ public class MainActivity extends MvpAppCompatActivity implements MainView, Bloc
 	@Override
 	public void showFundDetails(FundDetailsModel fundDetailsModel) {
 		FundDetailsActivity.startWith(this, fundDetailsModel);
-	}
-
-	@Override
-	public void showWithdrawProgram(ProgramRequest request) {
-		WithdrawProgramActivity.startWith(this, request);
 	}
 
 	@Override

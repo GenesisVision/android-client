@@ -55,12 +55,6 @@ public class WithdrawFundPresenter extends MvpPresenter<WithdrawFundView> implem
 
 	private FundWithdrawInfo withdrawInfo;
 
-	private Double availableToWithdraw;
-
-	private Double exitFee;
-
-	private Double withdrawalAmount;
-
 	private WalletData selectedWalletTo;
 
 	private Double rate = 0.0;
@@ -121,9 +115,7 @@ public class WithdrawFundPresenter extends MvpPresenter<WithdrawFundView> implem
 	}
 
 	private Double getEstimatedAmount() {
-		//TODO:
 		return withdrawInfo.getAvailableToWithdraw() / 100 * amount;
-//		return withdrawInfo.getAvailableToWithdraw() * 2 * amount / 100;
 	}
 
 	private Double getEstimatedExitFee() {

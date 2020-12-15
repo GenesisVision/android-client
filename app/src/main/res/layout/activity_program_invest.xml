@@ -120,8 +120,8 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginStart="16dp"
-                    android:layout_toEndOf="@+id/icon_from"
                     android:layout_toStartOf="@+id/arrow"
+                    android:layout_toEndOf="@+id/icon_from"
                     android:textColor="?attr/colorTextPrimary"
                     android:textColorHint="?attr/colorTextPrimary"
                     android:textSize="14sp"
@@ -247,6 +247,19 @@
                 tools:text="= 0.234901 BTC"/>
 
         </LinearLayout>
+
+        <TextView
+            android:id="@+id/request_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/group_commissions"
+            android:layout_marginBottom="40dp"
+            android:alpha="0.4"
+            android:text="@string/request_info_exchange_template"
+            android:textColor="?attr/colorTextPrimary"
+            android:textSize="14sp"
+            android:visibility="gone"
+            tools:visibility="visible"/>
 
         <LinearLayout
             android:id="@+id/group_commissions"

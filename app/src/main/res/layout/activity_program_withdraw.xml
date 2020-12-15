@@ -129,6 +129,55 @@
 
             </RelativeLayout>
 
+            <RelativeLayout
+                android:id="@+id/group_percent_amount"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/text_input_height"
+                android:visibility="gone"
+                tools:visibility="gone">
+
+                <EditText
+                    android:id="@+id/edittext_percent_amount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:background="@android:color/transparent"
+                    android:hint="0"
+                    android:inputType="numberDecimal"
+                    android:textColor="?attr/colorTextPrimary"
+                    android:textColorHint="?attr/colorTextPrimary"
+                    android:textSize="18sp"
+                    tools:text="10.235"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="8dp"
+                    android:layout_toEndOf="@+id/edittext_percent_amount"
+                    android:alpha="0.4"
+                    android:gravity="center"
+                    android:text="%"
+                    android:textColor="?attr/colorTextPrimary"
+                    android:textSize="18sp"/>
+
+                <TextView
+                    android:id="@+id/max_percent"
+                    android:layout_width="50dp"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentEnd="true"
+                    android:gravity="center_vertical|end"
+                    android:text="@string/max"
+                    android:textColor="?attr/colorTextPrimary"
+                    android:textSize="12sp"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_alignParentBottom="true"
+                    android:alpha="0.2"
+                    android:background="?attr/colorTextPrimary"/>
+
+            </RelativeLayout>
+
             <TextView
                 android:id="@+id/base_currency_amount"
                 android:layout_width="wrap_content"

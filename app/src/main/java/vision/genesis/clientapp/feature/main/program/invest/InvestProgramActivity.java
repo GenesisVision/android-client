@@ -15,6 +15,8 @@ import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.jakewharton.rxbinding.widget.RxTextView;
 
+import org.joda.time.DateTime;
+
 import java.util.List;
 import java.util.Locale;
 
@@ -29,6 +31,7 @@ import vision.genesis.clientapp.feature.common.select_wallet.SelectWalletBottomS
 import vision.genesis.clientapp.feature.main.program.invest.confirm.ConfirmProgramInvestBottomSheetFragment;
 import vision.genesis.clientapp.model.ProgramRequest;
 import vision.genesis.clientapp.ui.PrimaryButton;
+import vision.genesis.clientapp.utils.DateTimeUtil;
 import vision.genesis.clientapp.utils.ImageUtils;
 import vision.genesis.clientapp.utils.StringFormatUtil;
 import vision.genesis.clientapp.utils.ThemeUtil;
@@ -91,6 +94,9 @@ public class InvestProgramActivity extends BaseSwipeBackActivity implements Inve
 
 	@BindView(R.id.base_currency_amount)
 	public TextView baseCurrencyAmount;
+
+	@BindView(R.id.request_info)
+	public TextView requestInfo;
 
 	@BindView(R.id.group_commissions)
 	public ViewGroup commissionsGroup;
@@ -232,6 +238,12 @@ public class InvestProgramActivity extends BaseSwipeBackActivity implements Inve
 	@Override
 	public void setAmountBase(String amountBaseString) {
 		this.baseCurrencyAmount.setText(amountBaseString);
+	}
+
+	@Override
+	public void setRequestInfo(DateTime periodEnds) {
+		this.requestInfo.setVisibility(View.VISIBLE);
+		this.requestInfo.setText(String.format(Locale.getDefault(), getString(R.string.request_info_exchange_template), DateTimeUtil.formatRequestInfoDateTime(periodEnds)));
 	}
 
 	@Override

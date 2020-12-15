@@ -18,7 +18,6 @@ import vision.genesis.clientapp.model.CopytradingAccountModel;
 import vision.genesis.clientapp.model.FundDetailsModel;
 import vision.genesis.clientapp.model.OpenTradeModel;
 import vision.genesis.clientapp.model.ProgramDetailsModel;
-import vision.genesis.clientapp.model.ProgramRequest;
 import vision.genesis.clientapp.model.TradingAccountDetailsModel;
 import vision.genesis.clientapp.model.UserDetailsModel;
 import vision.genesis.clientapp.model.WalletModel;
@@ -55,8 +54,6 @@ public interface MainView extends MvpView
 	void showProgramDetails(ProgramDetailsModel programDetailsModel);
 
 	void showFundDetails(FundDetailsModel fundDetailsModel);
-
-	void showWithdrawProgram(ProgramRequest request);
 
 	void showMessageDialog(int imageResourceId, String title, String message, boolean mustRead, MessageBottomSheetDialog.OnButtonClickListener listener);
 

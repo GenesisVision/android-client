@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.InputFilter;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
@@ -25,6 +26,7 @@ import vision.genesis.clientapp.feature.BaseSwipeBackActivity;
 import vision.genesis.clientapp.feature.main.program.withdraw.confirm.ConfirmProgramWithdrawBottomSheetFragment;
 import vision.genesis.clientapp.model.ProgramRequest;
 import vision.genesis.clientapp.ui.PrimaryButton;
+import vision.genesis.clientapp.utils.DigitsInputFilter;
 import vision.genesis.clientapp.utils.ThemeUtil;
 import vision.genesis.clientapp.utils.TypefaceUtil;
 
@@ -56,14 +58,26 @@ public class WithdrawProgramActivity extends BaseSwipeBackActivity implements Wi
 	@BindView(R.id.group_amount_to_withdraw)
 	public ViewGroup amountToWithdrawGroup;
 
+	@BindView(R.id.group_amount)
+	public ViewGroup amountGroup;
+
+	@BindView(R.id.group_percent_amount)
+	public ViewGroup percentAmountGroup;
+
 	@BindView(R.id.edittext_amount)
 	public EditText amount;
+
+	@BindView(R.id.edittext_percent_amount)
+	public EditText percentAmount;
 
 	@BindView(R.id.currency)
 	public TextView currency;
 
 	@BindView(R.id.max)
 	public TextView max;
+
+	@BindView(R.id.max_percent)
+	public TextView maxPercent;
 
 	@BindView(R.id.withdraw_all_switch)
 	public SwitchCompat withdrawAllSwitch;
@@ -108,6 +122,11 @@ public class WithdrawProgramActivity extends BaseSwipeBackActivity implements Wi
 		presenter.onAvailableToWithdrawClicked();
 	}
 
+	@OnClick(R.id.max_percent)
+	public void onMaxPercentClicked() {
+		presenter.onAvailableToWithdrawClicked();
+	}
+
 	@OnClick(R.id.button_continue)
 	public void onContinueClicked() {
 		presenter.onContinueClicked();
@@ -128,9 +147,17 @@ public class WithdrawProgramActivity extends BaseSwipeBackActivity implements Wi
 			ProgramRequest request = getIntent().getExtras().getParcelable(EXTRA_PROGRAM_REQUEST);
 			if (request != null) {
 				presenter.setProgramRequest(request);
+
 				setListeners();
+				percentAmount.setFilters(new InputFilter[]{new DigitsInputFilter(3, 2, 1000)});
+
 				withdrawAllSwitch.setVisibility(request.isOwner() ? View.GONE : View.VISIBLE);
 				max.setVisibility(request.isOwner() ? View.VISIBLE : View.GONE);
+				maxPercent.setVisibility(request.isOwner() ? View.VISIBLE : View.GONE);
+
+				amountGroup.setVisibility(request.isExchangeProgram() ? View.GONE : View.VISIBLE);
+				percentAmountGroup.setVisibility(request.isExchangeProgram() ? View.VISIBLE : View.GONE);
+
 				return;
 			}
 		}
@@ -141,6 +168,8 @@ public class WithdrawProgramActivity extends BaseSwipeBackActivity implements Wi
 	private void setListeners() {
 		RxTextView.textChanges(amount)
 				.subscribe(charSequence -> presenter.onAmountChanged(charSequence.toString()));
+		RxTextView.textChanges(percentAmount)
+				.subscribe(charSequence -> presenter.onPercentAmountChanged(charSequence.toString()));
 
 		withdrawAllSwitch.setOnCheckedChangeListener((view, checked) -> {
 			presenter.onWithdrawAllCheckedChanged(checked);

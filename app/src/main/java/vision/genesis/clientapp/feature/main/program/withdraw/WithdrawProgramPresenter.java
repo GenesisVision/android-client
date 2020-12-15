@@ -57,6 +57,8 @@ public class WithdrawProgramPresenter extends MvpPresenter<WithdrawProgramView> 
 
 	private Boolean isWithdrawAll = false;
 
+	private double amountPercent = 0.0;
+
 	@Override
 	protected void onFirstViewAttach() {
 		super.onFirstViewAttach();
@@ -77,6 +79,11 @@ public class WithdrawProgramPresenter extends MvpPresenter<WithdrawProgramView> 
 		}
 
 		super.onDestroy();
+	}
+
+	void setProgramRequest(ProgramRequest programRequest) {
+		this.programRequest = programRequest;
+		getWithdrawInfo();
 	}
 
 	void onWithdrawAllCheckedChanged(boolean checked) {
@@ -114,6 +121,24 @@ public class WithdrawProgramPresenter extends MvpPresenter<WithdrawProgramView> 
 		}
 	}
 
+	void onPercentAmountChanged(String newAmount) {
+		try {
+			amountPercent = Double.parseDouble(newAmount);
+		} catch (NumberFormatException e) {
+			amountPercent = 0.0;
+		}
+
+		if (withdrawInfo != null) {
+			if (amountPercent > 100) {
+				getViewState().setAmount("100");
+				return;
+			}
+
+			updateRemainingInvestment();
+			updateContinueButtonEnabled();
+		}
+	}
+
 	private void updateRemainingInvestment() {
 		getViewState().setRemainingInvestment(getRemainingInvestmentString());
 	}
@@ -129,16 +154,40 @@ public class WithdrawProgramPresenter extends MvpPresenter<WithdrawProgramView> 
 	}
 
 	private String getAmountToWithdrawString() {
-		return isWithdrawAll
-				? context.getString(R.string.withdraw_all)
-				: String.format(Locale.getDefault(), "%s %s",
-				StringFormatUtil.formatCurrencyAmount(amount, programRequest.getProgramCurrency()),
-				programRequest.getProgramCurrency());
+		if (isWithdrawAll) {
+			return context.getString(R.string.withdraw_all);
+		}
+		else if (programRequest.isExchangeProgram()) {
+			return getEstimatedAmountString();
+		}
+		else {
+			return String.format(Locale.getDefault(), "%s %s",
+					StringFormatUtil.formatCurrencyAmount(amount, programRequest.getProgramCurrency()),
+					programRequest.getProgramCurrency());
+		}
+	}
+
+	private String getEstimatedAmountString() {
+		return String.format(Locale.getDefault(), "≈ %s",
+				StringFormatUtil.getValueString(getEstimatedAmount(), programRequest.getProgramCurrency()));
+	}
+
+	private Double getEstimatedAmount() {
+		return availableToWithdraw / 100 * amountPercent;
 	}
 
 	private String getRemainingInvestmentString() {
+		double remainingInvestment = availableToWithdraw;
+		if (programRequest != null) {
+			if (programRequest.isExchangeProgram()) {
+				remainingInvestment = getEstimatedAmount();
+			}
+			else {
+				remainingInvestment = availableToWithdraw - amount;
+			}
+		}
 		return String.format(Locale.getDefault(), "%s %s",
-				StringFormatUtil.formatCurrencyAmount(isWithdrawAll ? 0 : availableToWithdraw - amount, programRequest.getProgramCurrency()),
+				StringFormatUtil.formatCurrencyAmount(isWithdrawAll ? 0 : remainingInvestment, programRequest.getProgramCurrency()),
 				programRequest.getProgramCurrency());
 	}
 
@@ -155,11 +204,22 @@ public class WithdrawProgramPresenter extends MvpPresenter<WithdrawProgramView> 
 
 	void onContinueClicked() {
 		programRequest.setWithdrawAll(isWithdrawAll);
-		programRequest.setAmount(amount);
 		programRequest.setAmountTopText(getAmountToWithdrawString());
 		programRequest.setInfoMiddleText(getPayoutDateString());
 		programRequest.setAmountBottomText(getRemainingInvestmentString());
-		programRequest.setPeriodEndsText(context.getString(R.string.program_withdraw_warning));
+
+		if (programRequest.isExchangeProgram()) {
+			programRequest.setAmount(amountPercent);
+			if (programRequest.getIsProcessingRealTime()) {
+				programRequest.setPeriodEndsText(String.format(Locale.getDefault(),
+						context.getString(R.string.request_info_exchange_template),
+						DateTimeUtil.formatRequestInfoDateTime(withdrawInfo.getPeriodEnds())));
+			}
+			else {
+				programRequest.setAmount(amount);
+				programRequest.setPeriodEndsText(context.getString(R.string.program_withdraw_warning));
+			}
+		}
 		getViewState().showConfirmDialog(programRequest);
 	}
 
@@ -208,11 +268,6 @@ public class WithdrawProgramPresenter extends MvpPresenter<WithdrawProgramView> 
 
 		ApiErrorResolver.resolveErrors(throwable,
 				message -> getViewState().showSnackbarMessage(message));
-	}
-
-	public void setProgramRequest(ProgramRequest programRequest) {
-		this.programRequest = programRequest;
-		getWithdrawInfo();
 	}
 
 	@Override

@@ -40,7 +40,6 @@ import vision.genesis.clientapp.model.AppUpdateModel;
 import vision.genesis.clientapp.model.FundDetailsModel;
 import vision.genesis.clientapp.model.NotificationLocation;
 import vision.genesis.clientapp.model.ProgramDetailsModel;
-import vision.genesis.clientapp.model.ProgramRequest;
 import vision.genesis.clientapp.model.TradingAccountDetailsModel;
 import vision.genesis.clientapp.model.User;
 import vision.genesis.clientapp.model.UserDetailsModel;
@@ -75,7 +74,6 @@ import vision.genesis.clientapp.model.events.ShowTradingAccountDetailsEvent;
 import vision.genesis.clientapp.model.events.ShowTransactionDetailsEvent;
 import vision.genesis.clientapp.model.events.ShowUserDetailsEvent;
 import vision.genesis.clientapp.model.events.ShowVerificationInfoActivityEvent;
-import vision.genesis.clientapp.model.events.ShowWithdrawProgramEvent;
 import vision.genesis.clientapp.net.ApiErrorResolver;
 import vision.genesis.clientapp.ui.OnShowPostDetailsEvent;
 
@@ -491,12 +489,6 @@ public class MainPresenter extends MvpPresenter<MainView>
 	@Subscribe
 	public void onEventMainThread(ShowProgramDetailsEvent event) {
 		getViewState().showProgramDetails(event.programDetailsModel);
-	}
-
-	@Subscribe
-	public void onEventMainThread(ShowWithdrawProgramEvent event) {
-		ProgramRequest withdrawalRequest = new ProgramRequest();
-		getViewState().showWithdrawProgram(withdrawalRequest);
 	}
 
 	@Subscribe

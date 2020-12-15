@@ -2,6 +2,8 @@ package vision.genesis.clientapp.feature.main.program.invest;
 
 import com.arellomobile.mvp.MvpView;
 
+import org.joda.time.DateTime;
+
 import java.util.List;
 
 import io.swagger.client.model.WalletData;
@@ -25,6 +27,8 @@ interface InvestProgramView extends MvpView
 	void setAmount(String amountText);
 
 	void setAmountBase(String amountBaseString);
+
+	void setRequestInfo(DateTime periodEnds);
 
 	void setManagementFee(String entryFeeText);
 

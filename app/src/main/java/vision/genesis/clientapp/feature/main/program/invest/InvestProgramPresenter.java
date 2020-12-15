@@ -13,6 +13,7 @@ import javax.inject.Inject;
 import io.swagger.client.model.AmountWithCurrency;
 import io.swagger.client.model.PlatformInfo;
 import io.swagger.client.model.ProgramMinInvestAmount;
+import io.swagger.client.model.ProgramWithdrawInfo;
 import io.swagger.client.model.WalletData;
 import io.swagger.client.model.WalletSummary;
 import rx.Subscription;
@@ -59,6 +60,8 @@ public class InvestProgramPresenter extends MvpPresenter<InvestProgramView> impl
 
 	private Subscription walletsSubscription;
 
+	private Subscription withdrawInfoSubscription;
+
 	private Subscription platformInfoSubscription;
 
 	private ProgramRequest programRequest;
@@ -93,12 +96,16 @@ public class InvestProgramPresenter extends MvpPresenter<InvestProgramView> impl
 
 		subscribeToWallets();
 		getPlatformInfo();
+		getWithdrawInfo();
 	}
 
 	@Override
 	public void onDestroy() {
 		if (walletsSubscription != null) {
 			walletsSubscription.unsubscribe();
+		}
+		if (withdrawInfoSubscription != null) {
+			withdrawInfoSubscription.unsubscribe();
 		}
 		if (platformInfoSubscription != null) {
 			platformInfoSubscription.unsubscribe();
@@ -111,6 +118,7 @@ public class InvestProgramPresenter extends MvpPresenter<InvestProgramView> impl
 		this.programRequest = programRequest;
 		subscribeToWallets();
 		getPlatformInfo();
+		getWithdrawInfo();
 	}
 
 	void onAmountChanged(String newAmount) {
@@ -228,6 +236,29 @@ public class InvestProgramPresenter extends MvpPresenter<InvestProgramView> impl
 	}
 
 	private void handleWalletUpdateError(Throwable throwable) {
+		ApiErrorResolver.resolveErrors(throwable,
+				message -> getViewState().showSnackbarMessage(message));
+	}
+
+	private void getWithdrawInfo() {
+		if (programsManager != null && programRequest != null && programRequest.isExchangeProgram() && !programRequest.getIsProcessingRealTime()) {
+			withdrawInfoSubscription = programsManager.getWithdrawInfo(programRequest.getProgramId())
+					.observeOn(AndroidSchedulers.mainThread())
+					.subscribeOn(Schedulers.io())
+					.subscribe(this::handleWithdrawInfoResponse,
+							this::handleWithdrawInfoError);
+		}
+	}
+
+	private void handleWithdrawInfoResponse(ProgramWithdrawInfo response) {
+		withdrawInfoSubscription.unsubscribe();
+
+		getViewState().setRequestInfo(response.getPeriodEnds());
+	}
+
+	private void handleWithdrawInfoError(Throwable throwable) {
+		withdrawInfoSubscription.unsubscribe();
+
 		ApiErrorResolver.resolveErrors(throwable,
 				message -> getViewState().showSnackbarMessage(message));
 	}
