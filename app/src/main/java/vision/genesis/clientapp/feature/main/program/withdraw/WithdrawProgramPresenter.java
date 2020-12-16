@@ -57,7 +57,7 @@ public class WithdrawProgramPresenter extends MvpPresenter<WithdrawProgramView> 
 
 	private Boolean isWithdrawAll = false;
 
-	private double amountPercent = 0.0;
+	private Double amountPercent = 0.0;
 
 	@Override
 	protected void onFirstViewAttach() {
@@ -94,7 +94,7 @@ public class WithdrawProgramPresenter extends MvpPresenter<WithdrawProgramView> 
 	}
 
 	private void updateContinueButtonEnabled() {
-		getViewState().setContinueButtonEnabled((amount > 0 && amount <= availableToWithdraw) || isWithdrawAll);
+		getViewState().setContinueButtonEnabled((amount > 0 && amount <= availableToWithdraw) || (amountPercent > 0) || isWithdrawAll);
 	}
 
 	void onAmountChanged(String newAmount) {
@@ -114,9 +114,9 @@ public class WithdrawProgramPresenter extends MvpPresenter<WithdrawProgramView> 
 				return;
 			}
 
+			getViewState().setAmountBase(getAmountBaseString());
 			updateRemainingInvestment();
 
-//			getViewState().setAmountBase(getAmountBaseString());
 			updateContinueButtonEnabled();
 		}
 	}
@@ -130,11 +130,13 @@ public class WithdrawProgramPresenter extends MvpPresenter<WithdrawProgramView> 
 
 		if (withdrawInfo != null) {
 			if (amountPercent > 100) {
-				getViewState().setAmount("100");
+				getViewState().setPercentAmount("100");
 				return;
 			}
 
+			getViewState().setAmountBase(getAmountBaseString());
 			updateRemainingInvestment();
+
 			updateContinueButtonEnabled();
 		}
 	}
@@ -144,13 +146,12 @@ public class WithdrawProgramPresenter extends MvpPresenter<WithdrawProgramView> 
 	}
 
 	private String getAmountBaseString() {
-		//TODO:
-//		return String.format(Locale.getDefault(), "= %s %s",
-//				StringFormatUtil.formatCurrencyAmount(amount * withdrawInfo.getRate(), baseCurrency.getValue()),
-//				baseCurrency.getValue());
-		return String.format(Locale.getDefault(), "= %s %s",
-				StringFormatUtil.formatCurrencyAmount(amount * 2, baseCurrency.getValue()),
-				baseCurrency.getValue());
+		if (programRequest != null && programRequest.isExchangeProgram()) {
+			return getEstimatedAmountString();
+		}
+		else {
+			return "";
+		}
 	}
 
 	private String getAmountToWithdrawString() {
@@ -158,7 +159,8 @@ public class WithdrawProgramPresenter extends MvpPresenter<WithdrawProgramView> 
 			return context.getString(R.string.withdraw_all);
 		}
 		else if (programRequest.isExchangeProgram()) {
-			return getEstimatedAmountString();
+			return String.format(Locale.getDefault(), "%s%% (%s)",
+					StringFormatUtil.formatAmount(amountPercent, 0, 4), getEstimatedAmountString());
 		}
 		else {
 			return String.format(Locale.getDefault(), "%s %s",
@@ -177,28 +179,43 @@ public class WithdrawProgramPresenter extends MvpPresenter<WithdrawProgramView> 
 	}
 
 	private String getRemainingInvestmentString() {
-		double remainingInvestment = availableToWithdraw;
+		String remainingInvestment = StringFormatUtil.formatCurrencyAmount(availableToWithdraw, programRequest.getProgramCurrency());
 		if (programRequest != null) {
 			if (programRequest.isExchangeProgram()) {
-				remainingInvestment = getEstimatedAmount();
+				remainingInvestment = (amountPercent > 0 ? "≈ " : "").concat(StringFormatUtil.formatCurrencyAmount(availableToWithdraw - getEstimatedAmount(), programRequest.getProgramCurrency()));
 			}
 			else {
-				remainingInvestment = availableToWithdraw - amount;
+				remainingInvestment = StringFormatUtil.formatCurrencyAmount(availableToWithdraw - amount, programRequest.getProgramCurrency());
 			}
 		}
-		return String.format(Locale.getDefault(), "%s %s",
-				StringFormatUtil.formatCurrencyAmount(isWithdrawAll ? 0 : remainingInvestment, programRequest.getProgramCurrency()),
-				programRequest.getProgramCurrency());
+		return String.format(Locale.getDefault(), "%s %s", isWithdrawAll ? 0 : remainingInvestment, programRequest.getProgramCurrency());
 	}
 
 	private String getPayoutDateString() {
-		return DateTimeUtil.formatEventDateTime(withdrawInfo.getPeriodEnds());
+		if (withdrawInfo != null && programRequest != null) {
+			if (programRequest.getIsProcessingRealTime()) {
+				return context.getString(R.string.now);
+			}
+			else {
+				return DateTimeUtil.formatEventDateTime(withdrawInfo.getPeriodEnds());
+			}
+		}
+		else {
+			return "";
+		}
 	}
 
 	void onAvailableToWithdrawClicked() {
 		if (withdrawInfo != null) {
-			getViewState().setAmount(StringFormatUtil.formatCurrencyAmount(availableToWithdraw, programRequest.getProgramCurrency()));
-			getViewState().setWithdrawAllChecked(false);
+			if (programRequest != null) {
+				if (programRequest.isExchangeProgram()) {
+					getViewState().setPercentAmount("100");
+				}
+				else {
+					getViewState().setAmount(StringFormatUtil.formatAmountWithoutGrouping(availableToWithdraw));
+				}
+				getViewState().setWithdrawAllChecked(false);
+			}
 		}
 	}
 

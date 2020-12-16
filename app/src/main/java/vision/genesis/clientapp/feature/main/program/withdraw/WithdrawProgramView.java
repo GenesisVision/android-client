@@ -15,6 +15,8 @@ interface WithdrawProgramView extends MvpView
 
 	void setAmount(String amountText);
 
+	void setPercentAmount(String percentAmountText);
+
 	void setAmountBase(String amountBaseString);
 
 	void setCurrency(String programCurrency);

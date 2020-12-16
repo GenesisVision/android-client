@@ -49,6 +49,9 @@ public class WithdrawProgramActivity extends BaseSwipeBackActivity implements Wi
 	@BindView(R.id.title)
 	public TextView title;
 
+	@BindView(R.id.program_name)
+	public TextView programName;
+
 	@BindView(R.id.content)
 	public ViewGroup content;
 
@@ -82,6 +85,9 @@ public class WithdrawProgramActivity extends BaseSwipeBackActivity implements Wi
 	@BindView(R.id.withdraw_all_switch)
 	public SwitchCompat withdrawAllSwitch;
 
+	@BindView(R.id.program_withdraw_all_info)
+	public TextView programWithdrawAllInfo;
+
 	@BindView(R.id.base_currency_amount)
 	public TextView baseCurrencyAmount;
 
@@ -108,7 +114,14 @@ public class WithdrawProgramActivity extends BaseSwipeBackActivity implements Wi
 	@OnClick(R.id.group_amount)
 	public void onAmountClicked() {
 		if (amount.isEnabled()) {
-			showSoftKeyboard();
+			showSoftKeyboard(amount);
+		}
+	}
+
+	@OnClick(R.id.group_percent_amount)
+	public void onPercentAmountClicked() {
+		if (percentAmount.isEnabled()) {
+			showSoftKeyboard(percentAmount);
 		}
 	}
 
@@ -151,12 +164,7 @@ public class WithdrawProgramActivity extends BaseSwipeBackActivity implements Wi
 				setListeners();
 				percentAmount.setFilters(new InputFilter[]{new DigitsInputFilter(3, 2, 1000)});
 
-				withdrawAllSwitch.setVisibility(request.isOwner() ? View.GONE : View.VISIBLE);
-				max.setVisibility(request.isOwner() ? View.VISIBLE : View.GONE);
-				maxPercent.setVisibility(request.isOwner() ? View.VISIBLE : View.GONE);
-
-				amountGroup.setVisibility(request.isExchangeProgram() ? View.GONE : View.VISIBLE);
-				percentAmountGroup.setVisibility(request.isExchangeProgram() ? View.VISIBLE : View.GONE);
+				updateView(request);
 
 				return;
 			}
@@ -164,6 +172,17 @@ public class WithdrawProgramActivity extends BaseSwipeBackActivity implements Wi
 		Timber.e("Passed empty request to %s", getClass().getSimpleName());
 		onBackPressed();
 	}
+
+	private void updateView(ProgramRequest request) {
+		programName.setText(request.getProgramName());
+		withdrawAllSwitch.setVisibility(request.isOwner() ? View.GONE : View.VISIBLE);
+		max.setVisibility(request.isOwner() ? View.VISIBLE : View.GONE);
+		maxPercent.setVisibility(request.isOwner() ? View.VISIBLE : View.GONE);
+
+		amountGroup.setVisibility(request.isExchangeProgram() ? View.GONE : View.VISIBLE);
+		percentAmountGroup.setVisibility(request.isExchangeProgram() ? View.VISIBLE : View.GONE);
+	}
+
 
 	private void setListeners() {
 		RxTextView.textChanges(amount)
@@ -173,6 +192,7 @@ public class WithdrawProgramActivity extends BaseSwipeBackActivity implements Wi
 
 		withdrawAllSwitch.setOnCheckedChangeListener((view, checked) -> {
 			presenter.onWithdrawAllCheckedChanged(checked);
+			programWithdrawAllInfo.setVisibility(checked ? View.VISIBLE : View.GONE);
 		});
 	}
 
@@ -189,6 +209,12 @@ public class WithdrawProgramActivity extends BaseSwipeBackActivity implements Wi
 	public void setAmount(String amountText) {
 		this.amount.setText(amountText);
 		this.amount.setSelection(amountText.length(), amountText.length());
+	}
+
+	@Override
+	public void setPercentAmount(String percentAmountText) {
+		this.percentAmount.setText(percentAmountText);
+		this.percentAmount.setSelection(percentAmountText.length(), percentAmountText.length());
 	}
 
 	@Override
@@ -252,6 +278,7 @@ public class WithdrawProgramActivity extends BaseSwipeBackActivity implements Wi
 	public void setAmountEnabled(boolean enabled) {
 		amountToWithdrawGroup.setAlpha(enabled ? 1 : 0.5f);
 		amount.setEnabled(enabled);
+		percentAmount.setEnabled(enabled);
 	}
 
 	@Override
@@ -259,11 +286,11 @@ public class WithdrawProgramActivity extends BaseSwipeBackActivity implements Wi
 		withdrawAllSwitch.setChecked(checked);
 	}
 
-	private void showSoftKeyboard() {
+	private void showSoftKeyboard(EditText view) {
 		InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-		amount.requestFocus();
+		view.requestFocus();
 		if (imm != null) {
-			imm.showSoftInput(amount, 0);
+			imm.showSoftInput(view, 0);
 		}
 	}
 }

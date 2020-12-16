@@ -1016,6 +1016,8 @@
     <string name="deposit_withdraw">Deposit/Withdraw</string>
     <string name="deposits">Deposits</string>
     <string name="withdrawals">Withdrawals</string>
+    <string name="program_withdraw_all_info">You are withdrawing the entire amount that will be available in the program at the end of the period.</string>
+    <string name="now">Now</string>
 
     <plurals name="assets">
         <item quantity="one">asset</item>
