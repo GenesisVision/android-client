@@ -3,8 +3,11 @@ package vision.genesis.clientapp.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
+import io.swagger.client.model.AmountWithCurrency;
 import io.swagger.client.model.InternalTransferRequestType;
 import io.swagger.client.model.PrivateTradingAccountFull;
 import io.swagger.client.model.ProgramFollowDetailsFull;
@@ -39,6 +42,19 @@ public class TransferFundsModel implements Parcelable
 				account.getTradingAccountInfo().getCurrency().getValue(), account.getTradingAccountInfo().getBalance());
 	}
 
+	public static TransferFundsModel createFromExchangeAccount(PrivateTradingAccountFull account) {
+		String currency = account.getTradingAccountInfo().getCurrency() != null ? account.getTradingAccountInfo().getCurrency().getValue() : null;
+		Double balance = account.getTradingAccountInfo().getBalance();
+		List<AmountWithCurrency> balances = account.getTradingAccountInfo().getBalances();
+		if (balances != null && !balances.isEmpty()) {
+			currency = balances.get(0).getCurrency().getValue();
+			balance = balances.get(0).getAmount();
+		}
+		TransferFundsModel model = new TransferFundsModel(account.getId(), account.getBrokerDetails().getLogoUrl(), account.getPublicInfo().getTitle(), currency, balance);
+		model.setBalances(account.getTradingAccountInfo().getBalances());
+		return model;
+	}
+
 	public static TransferFundsModel createFromFollow(ProgramFollowDetailsFull follow) {
 		TransferFundsModel model = new TransferFundsModel(follow.getId(), follow.getPublicInfo().getLogoUrl(), follow.getPublicInfo().getTitle(),
 				follow.getTradingAccountInfo().getCurrency().getValue(), follow.getTradingAccountInfo().getBalance());
@@ -62,6 +78,8 @@ public class TransferFundsModel implements Parcelable
 
 	private InternalTransferRequestType assetType;
 
+	private List<AmountWithCurrency> balances = new ArrayList<>();
+
 	private TransferFundsModel(Parcel in) {
 		id = (UUID) in.readSerializable();
 		logo = in.readString();
@@ -71,6 +89,7 @@ public class TransferFundsModel implements Parcelable
 		available = in.readDouble();
 		transferDirection = (TransferDirection) in.readSerializable();
 		assetType = (InternalTransferRequestType) in.readSerializable();
+		in.readTypedList(balances, AmountWithCurrency.CREATOR);
 	}
 
 	private TransferFundsModel(UUID id, String logo, String title, String currency, Double available) {
@@ -125,6 +144,10 @@ public class TransferFundsModel implements Parcelable
 		return available;
 	}
 
+	public void setAvailable(Double available) {
+		this.available = available;
+	}
+
 	public TransferDirection getTransferDirection() {
 		return transferDirection;
 	}
@@ -156,6 +179,15 @@ public class TransferFundsModel implements Parcelable
 		parcel.writeDouble(available);
 		parcel.writeSerializable(transferDirection);
 		parcel.writeSerializable(assetType);
+		parcel.writeTypedList(balances);
+	}
+
+	public List<AmountWithCurrency> getBalances() {
+		return balances;
+	}
+
+	public void setBalances(List<AmountWithCurrency> balances) {
+		this.balances = balances;
 	}
 
 	public enum TransferDirection

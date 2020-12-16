@@ -26,6 +26,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
+            android:fontFamily="@font/montserrat_semibold"
             android:text="@string/transfer"
             android:textColor="?attr/colorTextPrimary"
             android:textSize="18sp"/>
@@ -221,6 +222,7 @@
                         android:layout_width="50dp"
                         android:layout_height="match_parent"
                         android:layout_alignParentEnd="true"
+                        android:fontFamily="@font/montserrat_semibold"
                         android:gravity="center_vertical|end"
                         android:text="@string/max"
                         android:textColor="?attr/colorTextPrimary"
@@ -345,12 +347,6 @@
         </RelativeLayout>
 
     </ScrollView>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="20dp"
-        android:layout_alignParentBottom="true"
-        android:background="@drawable/shadow_up_card_light"/>
 
     <ProgressBar
         android:id="@+id/progress_bar"

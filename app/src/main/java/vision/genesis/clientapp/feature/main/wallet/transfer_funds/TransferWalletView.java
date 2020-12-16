@@ -5,6 +5,7 @@ import com.arellomobile.mvp.MvpView;
 import java.util.List;
 
 import io.swagger.client.model.WalletData;
+import vision.genesis.clientapp.model.TransferFundsModel;
 
 /**
  * GenesisVisionAndroid
@@ -13,6 +14,8 @@ import io.swagger.client.model.WalletData;
 
 interface TransferWalletView extends MvpView
 {
+	void updateView(TransferFundsModel model);
+
 	void setWallets(List<WalletData> wallets);
 
 	void setWallet(WalletData wallet);

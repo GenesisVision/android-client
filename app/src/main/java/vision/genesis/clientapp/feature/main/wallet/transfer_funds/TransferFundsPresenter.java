@@ -11,6 +11,7 @@ import java.util.Locale;
 
 import javax.inject.Inject;
 
+import io.swagger.client.model.AmountWithCurrency;
 import io.swagger.client.model.InternalTransferRequest;
 import io.swagger.client.model.InternalTransferRequestType;
 import io.swagger.client.model.WalletData;
@@ -177,15 +178,21 @@ public class TransferFundsPresenter extends MvpPresenter<TransferWalletView> imp
 	private void setWallets() {
 		List<WalletData> walletsToSecond = new ArrayList<>();
 
+		WalletData walletToSelect = wallets.get(0);
 		for (WalletData wallet : wallets) {
 			if (model.getAssetType().equals(InternalTransferRequestType.WALLET)
 					&& wallet.getCurrency().getValue().equals(model.getCurrency())) {
 				continue;
 			}
+			if (model.getAssetType().equals(InternalTransferRequestType.EXCHANGEACCOUNT)) {
+				if (model.getCurrency().equals(wallet.getCurrency().getValue())) {
+					walletToSelect = wallet;
+				}
+			}
 			walletsToSecond.add(wallet);
 		}
 		getViewState().setWallets(walletsToSecond);
-		onWalletSelected(walletsToSecond.get(0));
+		onWalletSelected(walletToSelect);
 	}
 
 	private void updateRate() {
@@ -271,6 +278,19 @@ public class TransferFundsPresenter extends MvpPresenter<TransferWalletView> imp
 		if (model.getTransferDirection().equals(TransferFundsModel.TransferDirection.DEPOSIT)) {
 			available = selectedWallet.getAvailable();
 			getViewState().setAmount("");
+		}
+		if (model.getAssetType().equals(InternalTransferRequestType.EXCHANGEACCOUNT)) {
+			for (AmountWithCurrency balance : model.getBalances()) {
+				if (balance.getCurrency().equals(selectedWallet.getCurrency())) {
+					if (model.getTransferDirection().equals(TransferFundsModel.TransferDirection.WITHDRAW)) {
+						available = balance.getAmount();
+					}
+					model.setAvailable(balance.getAmount());
+					model.setCurrency(balance.getCurrency().getValue());
+					getViewState().updateView(model);
+					break;
+				}
+			}
 		}
 		getViewState().setWallet(selectedWallet);
 		updateRate();

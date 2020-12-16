@@ -14,6 +14,7 @@ import javax.inject.Inject;
 import io.swagger.client.model.AssetType;
 import io.swagger.client.model.InternalTransferRequestType;
 import io.swagger.client.model.PrivateTradingAccountFull;
+import io.swagger.client.model.PrivateTradingAccountType;
 import io.swagger.client.model.ProfileFullViewModel;
 import io.swagger.client.model.SignalSubscription;
 import io.swagger.client.model.SignalSubscriptionItemsViewModel;
@@ -130,15 +131,29 @@ public class TradingAccountInfoPresenter extends MvpPresenter<TradingAccountInfo
 	}
 
 	void onWithdrawClicked() {
-		TransferFundsModel model = TransferFundsModel.createFrom(accountDetails);
-		model.setAssetType(InternalTransferRequestType.PRIVATETRADINGACCOUNT);
+		TransferFundsModel model;
+		if (accountDetails.getTradingAccountInfo().getType().equals(PrivateTradingAccountType.EXCHANGEACCOUNT)) {
+			model = TransferFundsModel.createFromExchangeAccount(accountDetails);
+			model.setAssetType(InternalTransferRequestType.EXCHANGEACCOUNT);
+		}
+		else {
+			model = TransferFundsModel.createFrom(accountDetails);
+			model.setAssetType(InternalTransferRequestType.PRIVATETRADINGACCOUNT);
+		}
 		model.setTransferDirection(TransferFundsModel.TransferDirection.WITHDRAW);
 		getViewState().showTransferFundsActivity(model);
 	}
 
 	void onAddFundsClicked() {
-		TransferFundsModel model = TransferFundsModel.createFrom(accountDetails);
-		model.setAssetType(InternalTransferRequestType.PRIVATETRADINGACCOUNT);
+		TransferFundsModel model;
+		if (accountDetails.getTradingAccountInfo().getType().equals(PrivateTradingAccountType.EXCHANGEACCOUNT)) {
+			model = TransferFundsModel.createFromExchangeAccount(accountDetails);
+			model.setAssetType(InternalTransferRequestType.EXCHANGEACCOUNT);
+		}
+		else {
+			model = TransferFundsModel.createFrom(accountDetails);
+			model.setAssetType(InternalTransferRequestType.PRIVATETRADINGACCOUNT);
+		}
 		model.setTransferDirection(TransferFundsModel.TransferDirection.DEPOSIT);
 		getViewState().showTransferFundsActivity(model);
 	}

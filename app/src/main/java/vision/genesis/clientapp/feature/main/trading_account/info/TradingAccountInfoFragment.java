@@ -284,7 +284,7 @@ public class TradingAccountInfoFragment extends BaseFragment implements TradingA
 
 			if (accountDetails.getTradingAccountInfo().isIsExternal()) {
 				value.setText(StringFormatUtil.formatAmount(accountDetails.getTradingAccountInfo().getBalance()));
-				depositButtonsGroup.setVisibility(View.GONE);
+				depositButtonsGroup.setVisibility(View.VISIBLE);
 			}
 			else {
 				value.setText(StringFormatUtil.getValueString(accountDetails.getTradingAccountInfo().getBalance(),

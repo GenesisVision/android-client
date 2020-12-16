@@ -33,7 +33,6 @@ import vision.genesis.clientapp.ui.ProgramLogoView;
 import vision.genesis.clientapp.utils.ImageUtils;
 import vision.genesis.clientapp.utils.StringFormatUtil;
 import vision.genesis.clientapp.utils.ThemeUtil;
-import vision.genesis.clientapp.utils.TypefaceUtil;
 
 /**
  * GenesisVisionAndroid
@@ -169,9 +168,8 @@ public class TransferFundsActivity extends BaseSwipeBackActivity implements Tran
 			if (model != null) {
 				presenter.setModel(model);
 
-				updateView();
+				updateView(model);
 
-				setFonts();
 				setTextListener();
 
 				return;
@@ -181,17 +179,13 @@ public class TransferFundsActivity extends BaseSwipeBackActivity implements Tran
 		onBackPressed();
 	}
 
-	private void setFonts() {
-		title.setTypeface(TypefaceUtil.semibold());
-		max.setTypeface(TypefaceUtil.semibold());
-	}
-
 	private void setTextListener() {
 		RxTextView.textChanges(amount)
 				.subscribe(charSequence -> presenter.onAmountChanged(charSequence.toString()));
 	}
 
-	private void updateView() {
+	@Override
+	public void updateView(TransferFundsModel model) {
 		if (model.getColor() != null) {
 			this.firstIconLogo.setImage(model.getLogo(), model.getColor(), 50, 50);
 			this.firstIconLogo.hideLevel();
