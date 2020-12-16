@@ -760,10 +760,13 @@
     <string name="program_settings_stop_out_description">Stop out is the maximum drawdown level for the reporting period at which the program is stopped, and all investments return to investors.</string>
     <string name="program_settings_period_length_description"/>
     <string name="investment_limit">Investment limit</string>
+    <string name="program_settings_processing_description">Managers have the opportunity to choose when requests for investment / withdrawal of funds in the Program will be processed. This can be in real time or every day at a scheduled time (for example, you can set an investment/withdrawal at 5 pm).</string>
     <string name="program_settings_investment_limit_description">At any time you can enter or cancel certain limitations on av. to invest, or even prohibit new investments if your Investment limit is 0. If the investment limit you\'ve entered is larger than the av. to invest value calculated for your current level, then you will only be able to attract the av. to invest value.</string>
     <string name="template_program_settings_entry_fee_description">An entry fee is a fee charged to investors upon their investment to a program. The maximum entry fee is %s%%</string>
     <string name="template_program_settings_management_fee_description">A fee charged for the actual asset management period. Management fee is defined in annual percentage and is charged at the end of each reporting period. The maximum management fee is %s%%</string>
+    <string name="template_program_settings_exchange_management_fee_description">A fee charged for the actual asset management period. Management fee is defined in annual percentage. The maximum management fee is %s%%</string>
     <string name="template_program_settings_success_fee_description">A fee charged upon the total profit made within the reporting period. The maximum success fee is %s%%</string>
+    <string name="template_program_settings_exchange_success_fee_description">A fee charged upon the total profit. The maximum success fee is %s%%</string>
     <string name="error_stop_out_max">A new stop out level cannot be greater than the original value</string>
     <string name="error_stop_out_min">A stop out level cannot be less than %s</string>
     <string name="template_create_program_deposit">The minimal program deposit is %s. You must deposit additional %s (or the equivalent) to your trading account to satisfy this condition.</string>
@@ -784,12 +787,14 @@
     <string name="danger_zone">Danger zone</string>
     <string name="close_period_info">The current period of the program will end in one hour.</string>
     <string name="close_program_info">The investment program will be closed after this reporting period. Current investment requests will be cancelled, and new requests won’t be accepted. Profit and funds from the trading account will be distributed between investors and manager according to their shares within the aforementioned program.</string>
+    <string name="close_exchange_program_info">The investment program will be closed after pressing the button. Current investment requests will be cancelled, and new requests won’t be accepted. Profit and funds from the trading account will be distributed between investors and manager according to their shares within the aforementioned program.</string>
     <string name="close_program">Close program</string>
     <string name="no_limit">no limit</string>
     <string name="no_delay">no delay</string>
     <string name="program_settings_trades_delay_description">Managers have the ability to delay the public display of their trades and open positions to protect their strategy.</string>
     <string name="close_period_alert_message">Do you really want to restart current period?</string>
     <string name="close_program_alert_message">Investment program will be closed after this reporting period. Current investment requests will be cancelled, and new requests won’t be accepted. Profit and funds from the trading account will be deposited to investors and manager according to their shares.\n\nWARNING: This action cannot be undone! Are you sure?</string>
+    <string name="close_exchange_program_alert_message">Investment program will be closed after pressing the button. Current investment requests will be cancelled, and new requests won’t be accepted. Profit and funds from the trading account will be deposited to investors and manager according to their shares.\n\nWARNING: This action cannot be undone! Are you sure?</string>
     <string name="close_fund">Close fund</string>
     <string name="manage_fund">Manage fund</string>
     <string name="close_fund_info">The fund will be closed after pressing the button.</string>
@@ -1018,6 +1023,9 @@
     <string name="withdrawals">Withdrawals</string>
     <string name="program_withdraw_all_info">You are withdrawing the entire amount that will be available in the program at the end of the period.</string>
     <string name="now">Now</string>
+    <string name="real_time">Real time</string>
+    <string name="processing">Processing</string>
+    <string name="processing_time">Processing time</string>
 
     <plurals name="assets">
         <item quantity="one">asset</item>

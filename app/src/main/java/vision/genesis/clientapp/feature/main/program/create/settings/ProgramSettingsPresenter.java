@@ -61,9 +61,18 @@ public class ProgramSettingsPresenter extends MvpPresenter<ProgramSettingsView>
 
 	private double maxSuccessFee = 0;
 
+
 	private ProgramSettingsModel model;
 
 	private List<Integer> periods;
+
+	private boolean isRealTimeEnabled;
+
+	private int hourProcessing;
+
+	private ArrayList<String> currencies;
+
+	private String currency;
 
 	private boolean isInvestmentLimitEnabled;
 
@@ -91,6 +100,10 @@ public class ProgramSettingsPresenter extends MvpPresenter<ProgramSettingsView>
 		this.model = model;
 
 		getPlatformInfo();
+	}
+
+	void onRealTimeCheckedChanged(boolean checked) {
+		isRealTimeEnabled = checked;
 	}
 
 	void onInvestmentLimitCheckedChanged(boolean checked) {
@@ -163,6 +176,11 @@ public class ProgramSettingsPresenter extends MvpPresenter<ProgramSettingsView>
 		ProgramSettingsModel newModel = new ProgramSettingsModel();
 		newModel.setPeriodLength(periodLength);
 		newModel.setInvestmentLimit(!isInvestmentLimitEnabled ? null : investmentLimit);
+		if (model.isExchange()) {
+			newModel.setIsProcessingRealTime(isRealTimeEnabled);
+			newModel.setHourProcessing(hourProcessing);
+		}
+		newModel.setCurrency(currency);
 		newModel.setStopOutLevel(stopOut);
 		newModel.setEntryFee(managementFee);
 		newModel.setSuccessFee(successFee);
@@ -186,18 +204,75 @@ public class ProgramSettingsPresenter extends MvpPresenter<ProgramSettingsView>
 
 	private void handleGetPlatformInfoSuccess(PlatformInfo platformInfo) {
 		platformInfoSubscription.unsubscribe();
-		ProgramCreateAssetPlatformInfo info = platformInfo.getAssetInfo().getProgramInfo().getCreateProgramInfo();
-		maxManagementFee = info.getMaxManagementFee();
-		maxSuccessFee = info.getMaxSuccessFee();
-		getViewState().updateManagementFeeDescription(maxManagementFee);
-		getViewState().updateSuccessFeeDescription(maxSuccessFee);
 
-		this.maxStopOutLevel = model.getStopOutLevel() == null ? Constants.MAX_STOP_OUT_LEVEL : model.getStopOutLevel();
+		initPeriods(platformInfo);
+		initProcessing();
+		initCurrencies();
+		initInvestmentLimit();
+		initTradesDelay();
+		initStopOut();
+		initFees(platformInfo);
+	}
 
+	private void initPeriods(PlatformInfo platformInfo) {
+		periods = platformInfo.getAssetInfo().getProgramInfo().getPeriods();
+
+		ArrayList<String> periodLengthOptions = new ArrayList<>();
+		for (Integer period : periods) {
+			periodLengthOptions.add(String.format(Locale.getDefault(), "%d %s", period, context.getResources().getQuantityString(R.plurals.days, period)));
+		}
+		getViewState().setPeriodLengthOptions(periodLengthOptions);
+
+		int periodPos = 0;
+		if (model.getPeriodLength() != null) {
+			periodPos = periods.indexOf(model.getPeriodLength());
+		}
+		onPeriodLengthOptionSelected(periodPos, periodLengthOptions.get(periodPos));
+	}
+
+	private void initProcessing() {
+		getViewState().setProcessingRealTimeChecked(model.isProcessingRealTime() != null ? model.isProcessingRealTime() : false);
+
+		ArrayList<String> processingHours = new ArrayList<>();
+
+		for (int i = 0; i < 24; i++) {
+			processingHours.add((i < 10 ? "0" : "").concat(String.valueOf(i).concat(":00")));
+		}
+		getViewState().setProcessingTimeOptions(processingHours);
+
+		int hourProcessing = 0;
+		if (model.getHourProcessing() != null) {
+			hourProcessing = model.getHourProcessing();
+		}
+		onProcessingTimeOptionSelected(hourProcessing, processingHours.get(hourProcessing));
+	}
+
+	private void initCurrencies() {
+		currencies = new ArrayList<>();
+		currencies.add("BTC");
+		currencies.add("USDT");
+		getViewState().setCurrencyOptions(currencies);
+
+		int currencyPos = 0;
+		if (model.getCurrency() != null) {
+			for (String currency : currencies) {
+				if (currency.equals(model.getCurrency())) {
+					this.currency = currency;
+					break;
+				}
+				currencyPos++;
+			}
+		}
+		onCurrencyOptionSelected(currencyPos, currencies.get(currencyPos));
+	}
+
+	private void initInvestmentLimit() {
 		if (model.getInvestmentLimit() != null) {
 			getViewState().setInvestmentLimit(model.getInvestmentLimit());
 		}
+	}
 
+	private void initTradesDelay() {
 		getViewState().setTradesDelayOptions(StringFormatUtil.getTradesDelayOptions());
 		int tradesDelayPos = 0;
 		if (model.getTradesDelay() != null) {
@@ -212,31 +287,28 @@ public class ProgramSettingsPresenter extends MvpPresenter<ProgramSettingsView>
 		}
 		onTradesDelayOptionSelected(tradesDelayPos, StringFormatUtil.getTradesDelayString(TradesDelay.values()[tradesDelayPos]));
 
+	}
 
+	private void initStopOut() {
+		this.maxStopOutLevel = model.getStopOutLevel() == null ? Constants.MAX_STOP_OUT_LEVEL : model.getStopOutLevel();
 		if (model.getStopOutLevel() != null) {
 			getViewState().setStopOutLevel(model.getStopOutLevel());
 		}
+	}
+
+	private void initFees(PlatformInfo platformInfo) {
+		ProgramCreateAssetPlatformInfo info = platformInfo.getAssetInfo().getProgramInfo().getCreateProgramInfo();
+		maxManagementFee = info.getMaxManagementFee();
+		maxSuccessFee = info.getMaxSuccessFee();
+		getViewState().updateManagementFeeDescription(maxManagementFee);
+		getViewState().updateSuccessFeeDescription(maxSuccessFee);
+
 		if (model.getEntryFee() != null) {
 			getViewState().setManagementFee(model.getEntryFee());
 		}
 		if (model.getSuccessFee() != null) {
 			getViewState().setSuccessFee(model.getSuccessFee());
 		}
-
-		periods = platformInfo.getAssetInfo().getProgramInfo().getPeriods();
-
-		ArrayList<String> periodLengthOptions = new ArrayList<>();
-		for (Integer period : periods) {
-			periodLengthOptions.add(String.format(Locale.getDefault(), "%d %s", period, context.getResources().getQuantityString(R.plurals.days, period)));
-		}
-		getViewState().setPeriodLengthOptions(periodLengthOptions);
-
-		int periodPos = 0;
-		if (model.getPeriodLength() != null) {
-			periodPos = periods.indexOf(model.getPeriodLength());
-		}
-		onPeriodLengthOptionSelected(periodPos, periodLengthOptions.get(periodPos));
-
 	}
 
 	private void handleGetPlatformInfoError(Throwable throwable) {
@@ -248,6 +320,20 @@ public class ProgramSettingsPresenter extends MvpPresenter<ProgramSettingsView>
 	void onPeriodLengthOptionSelected(Integer position, String text) {
 		this.periodLength = periods.get(position);
 		getViewState().setPeriodLength(text, position);
+
+		updateConfirmButtonAvailability();
+	}
+
+	void onProcessingTimeOptionSelected(Integer position, String text) {
+		this.hourProcessing = position;
+		getViewState().setProcessingTime(text, position);
+
+		updateConfirmButtonAvailability();
+	}
+
+	void onCurrencyOptionSelected(Integer position, String text) {
+		this.currency = currencies.get(position);
+		getViewState().setCurrency(text, position);
 
 		updateConfirmButtonAvailability();
 	}

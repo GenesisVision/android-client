@@ -126,6 +126,10 @@ public class OwnerInfoPresenter extends MvpPresenter<OwnerInfoView>
 				model.setInvestmentLimit(programDetails.getAvailableInvestmentLimit());
 				model.setStopOutLevel(programDetails.getStopOutLevelCurrent());
 				model.setTradesDelay(TradesDelay.fromValue(programDetails.getTradesDelay().getValue()));
+				if (programDetails.getDailyPeriodDetails() != null) {
+					model.setIsProcessingRealTime(programDetails.getDailyPeriodDetails().isIsProcessingRealTime());
+					model.setHourProcessing(programDetails.getDailyPeriodDetails().getHourProcessing());
+				}
 			}
 			getViewState().showEditPublicInfoActivity(assetId, model);
 		}
@@ -144,8 +148,10 @@ public class OwnerInfoPresenter extends MvpPresenter<OwnerInfoView>
 				details.getProgramDetails() != null
 						? details.getProgramDetails().getPersonalDetails().getMigration()
 						: null,
-				details.getProgramDetails() != null,
-				details.getProgramDetails().getType().equals(ProgramType.DAILYPERIOD)
+				details.getProgramDetails() != null &&
+						details.getProgramDetails().getType().equals(ProgramType.FIXEDPERIOD),
+				details.getProgramDetails() != null &&
+						details.getProgramDetails().getType().equals(ProgramType.DAILYPERIOD)
 						? PrivateTradingAccountType.EXCHANGEACCOUNT : PrivateTradingAccountType.NONE,
 				details.getPublicInfo().getStatus(),
 				false,
@@ -254,7 +260,8 @@ public class OwnerInfoPresenter extends MvpPresenter<OwnerInfoView>
 					details.getBrokerDetails().getType(),
 					details.getTradingAccountInfo().getBalance(),
 					details.getTradingAccountInfo().getCurrency().getValue(),
-					false));
+					false,
+					details.getProgramDetails().getType().equals(ProgramType.DAILYPERIOD)));
 		}
 	}
 
@@ -265,7 +272,8 @@ public class OwnerInfoPresenter extends MvpPresenter<OwnerInfoView>
 					details.getBrokerDetails().getType(),
 					details.getProgramDetails().getPersonalDetails().getInvested(),
 					details.getTradingAccountInfo().getCurrency().getValue(),
-					false));
+					false,
+					details.getProgramDetails().getType().equals(ProgramType.DAILYPERIOD)));
 		}
 	}
 

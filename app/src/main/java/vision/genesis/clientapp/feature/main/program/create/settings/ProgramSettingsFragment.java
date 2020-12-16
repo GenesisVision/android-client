@@ -31,7 +31,6 @@ import vision.genesis.clientapp.model.ProgramSettingsModel;
 import vision.genesis.clientapp.ui.PrimaryButton;
 import vision.genesis.clientapp.utils.DigitsInputFilter;
 import vision.genesis.clientapp.utils.StringFormatUtil;
-import vision.genesis.clientapp.utils.TypefaceUtil;
 
 /**
  * GenesisVisionAndroid
@@ -65,6 +64,24 @@ public class ProgramSettingsFragment extends BaseFragment implements ProgramSett
 	@BindView(R.id.group_period)
 	public ViewGroup periodGroup;
 
+	@BindView(R.id.group_processing)
+	public ViewGroup processingGroup;
+
+	@BindView(R.id.realtime_switch)
+	public SwitchCompat realTimeSwitch;
+
+	@BindView(R.id.group_processing_time)
+	public ViewGroup processingTimeGroup;
+
+	@BindView(R.id.processing_time)
+	public TextView processingTime;
+
+	@BindView(R.id.group_currency)
+	public ViewGroup currencyGroup;
+
+	@BindView(R.id.currency)
+	public TextView currency;
+
 	@BindView(R.id.investment_limit_switch)
 	public SwitchCompat investmentLimitSwitch;
 
@@ -79,6 +96,9 @@ public class ProgramSettingsFragment extends BaseFragment implements ProgramSett
 
 	@BindView(R.id.trades_delay)
 	public TextView tradesDelay;
+
+	@BindView(R.id.group_stop_out)
+	public ViewGroup stopOutGroup;
 
 	@BindView(R.id.stop_out)
 	public EditText stopOut;
@@ -113,9 +133,19 @@ public class ProgramSettingsFragment extends BaseFragment implements ProgramSett
 
 	private Integer selectedPeriodLengthPosition = -1;
 
+	private ArrayList<String> processingTimeOptions;
+
+	private Integer selectedProcessingTimePosition = -1;
+
+	private ArrayList<String> currencyOptions;
+
+	private Integer selectedCurrencyPosition = -1;
+
 	private ArrayList<String> tradesDelayOptions;
 
 	private Integer selectedTradesDelayPosition = -1;
+
+	private ProgramSettingsModel model;
 
 	@OnClick(R.id.group_period_length)
 	public void onPeriodLengthClicked() {
@@ -123,6 +153,26 @@ public class ProgramSettingsFragment extends BaseFragment implements ProgramSett
 			SelectOptionBottomSheetFragment fragment = SelectOptionBottomSheetFragment.with(
 					getString(R.string.period_length), periodLengthOptions, selectedPeriodLengthPosition);
 			fragment.setListener((position, text) -> presenter.onPeriodLengthOptionSelected(position, text));
+			fragment.show(getActivity().getSupportFragmentManager(), fragment.getTag());
+		}
+	}
+
+	@OnClick(R.id.group_processing_time)
+	public void onProcessingTimeClicked() {
+		if (getActivity() != null && processingTimeOptions != null && processingTimeOptions.size() > 1) {
+			SelectOptionBottomSheetFragment fragment = SelectOptionBottomSheetFragment.with(
+					getString(R.string.processing_time), processingTimeOptions, selectedProcessingTimePosition);
+			fragment.setListener((position, text) -> presenter.onProcessingTimeOptionSelected(position, text));
+			fragment.show(getActivity().getSupportFragmentManager(), fragment.getTag());
+		}
+	}
+
+	@OnClick(R.id.group_choose_currency)
+	public void onCurrencyClicked() {
+		if (getActivity() != null && currencyOptions != null && currencyOptions.size() > 1) {
+			SelectOptionBottomSheetFragment fragment = SelectOptionBottomSheetFragment.with(
+					getString(R.string.currency), currencyOptions, selectedCurrencyPosition);
+			fragment.setListener((position, text) -> presenter.onCurrencyOptionSelected(position, text));
 			fragment.show(getActivity().getSupportFragmentManager(), fragment.getTag());
 		}
 	}
@@ -142,7 +192,7 @@ public class ProgramSettingsFragment extends BaseFragment implements ProgramSett
 		showSoftKeyboard(investmentLimit);
 	}
 
-	@OnClick(R.id.group_stop_out)
+	@OnClick(R.id.group_stop_out_edittext)
 	public void onStopOutClicked() {
 		showSoftKeyboard(stopOut);
 	}
@@ -178,7 +228,7 @@ public class ProgramSettingsFragment extends BaseFragment implements ProgramSett
 		setFonts();
 
 		if (getArguments() != null) {
-			ProgramSettingsModel model = getArguments().getParcelable(EXTRA_MODEL);
+			model = getArguments().getParcelable(EXTRA_MODEL);
 			if (model != null) {
 				updateView(model);
 				setListeners();
@@ -207,7 +257,10 @@ public class ProgramSettingsFragment extends BaseFragment implements ProgramSett
 		stepNumber.setText(model.getStepNumber());
 		stepTitle.setText(model.getStepTitle());
 
-		periodGroup.setVisibility(model.isNew() ? View.VISIBLE : View.GONE);
+		periodGroup.setVisibility(model.isNew() && !model.isExchange() ? View.VISIBLE : View.GONE);
+		processingGroup.setVisibility(model.isExchange() ? View.VISIBLE : View.GONE);
+		currencyGroup.setVisibility(model.isNew() && model.isExchange() ? View.VISIBLE : View.GONE);
+		stopOutGroup.setVisibility(!model.isExchange() ? View.VISIBLE : View.GONE);
 
 		investmentLimitCurrency.setText(model.getCurrency());
 
@@ -216,6 +269,11 @@ public class ProgramSettingsFragment extends BaseFragment implements ProgramSett
 	}
 
 	private void setListeners() {
+		realTimeSwitch.setOnCheckedChangeListener((view, checked) -> {
+			presenter.onRealTimeCheckedChanged(checked);
+			processingTimeGroup.setVisibility(!checked ? View.VISIBLE : View.GONE);
+		});
+
 		investmentLimitSwitch.setOnCheckedChangeListener((view, checked) -> {
 			presenter.onInvestmentLimitCheckedChanged(checked);
 			investmentLimitGroup.setVisibility(checked ? View.VISIBLE : View.GONE);
@@ -238,9 +296,6 @@ public class ProgramSettingsFragment extends BaseFragment implements ProgramSett
 	}
 
 	private void setFonts() {
-		stepNumber.setTypeface(TypefaceUtil.semibold());
-		stepTitle.setTypeface(TypefaceUtil.semibold());
-
 		successFeeLabel.setText(StringFormatUtil.capitalize(successFeeLabel.getText().toString()));
 	}
 
@@ -253,6 +308,33 @@ public class ProgramSettingsFragment extends BaseFragment implements ProgramSett
 	public void setPeriodLength(String periodLength, Integer position) {
 		this.periodLength.setText(periodLength);
 		this.selectedPeriodLengthPosition = position;
+	}
+
+	@Override
+	public void setProcessingRealTimeChecked(Boolean checked) {
+		realTimeSwitch.setChecked(checked);
+	}
+
+	@Override
+	public void setProcessingTimeOptions(ArrayList<String> processingTimeOptions) {
+		this.processingTimeOptions = processingTimeOptions;
+	}
+
+	@Override
+	public void setProcessingTime(String processingTime, Integer position) {
+		this.processingTime.setText(processingTime);
+		this.selectedProcessingTimePosition = position;
+	}
+
+	@Override
+	public void setCurrencyOptions(ArrayList<String> currencyOptions) {
+		this.currencyOptions = currencyOptions;
+	}
+
+	@Override
+	public void setCurrency(String currency, Integer position) {
+		this.currency.setText(currency);
+		this.selectedCurrencyPosition = position;
 	}
 
 	@Override
@@ -328,16 +410,30 @@ public class ProgramSettingsFragment extends BaseFragment implements ProgramSett
 
 	@Override
 	public void updateManagementFeeDescription(Double maxManagementFee) {
-		this.managementFeeDescription.setText(String.format(Locale.getDefault(),
-				getString(R.string.template_program_settings_management_fee_description),
-				StringFormatUtil.formatAmount(maxManagementFee, 0, 4)));
+		if (model.isExchange()) {
+			this.managementFeeDescription.setText(String.format(Locale.getDefault(),
+					getString(R.string.template_program_settings_exchange_management_fee_description),
+					StringFormatUtil.formatAmount(maxManagementFee, 0, 4)));
+		}
+		else {
+			this.managementFeeDescription.setText(String.format(Locale.getDefault(),
+					getString(R.string.template_program_settings_management_fee_description),
+					StringFormatUtil.formatAmount(maxManagementFee, 0, 4)));
+		}
 	}
 
 	@Override
 	public void updateSuccessFeeDescription(Double maxSuccessFee) {
-		this.successFeeDescription.setText(String.format(Locale.getDefault(),
-				getString(R.string.template_program_settings_success_fee_description),
-				StringFormatUtil.formatAmount(maxSuccessFee, 0, 4)));
+		if (model.isExchange()) {
+			this.successFeeDescription.setText(String.format(Locale.getDefault(),
+					getString(R.string.template_program_settings_exchange_success_fee_description),
+					StringFormatUtil.formatAmount(maxSuccessFee, 0, 4)));
+		}
+		else {
+			this.successFeeDescription.setText(String.format(Locale.getDefault(),
+					getString(R.string.template_program_settings_success_fee_description),
+					StringFormatUtil.formatAmount(maxSuccessFee, 0, 4)));
+		}
 	}
 
 	@Override

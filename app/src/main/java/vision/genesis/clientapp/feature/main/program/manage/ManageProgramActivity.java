@@ -18,8 +18,10 @@ import java.util.UUID;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.swagger.client.model.ProgramDailyPeriodDetails;
 import io.swagger.client.model.ProgramDetailsFull;
 import io.swagger.client.model.ProgramFollowDetailsFull;
+import io.swagger.client.model.ProgramType;
 import io.swagger.client.model.ProgramUpdate;
 import io.swagger.client.model.TradesDelay;
 import timber.log.Timber;
@@ -52,6 +54,9 @@ public class ManageProgramActivity extends BaseSwipeBackActivity implements Mana
 	@BindView(R.id.title)
 	public TextView title;
 
+	@BindView(R.id.label_processing)
+	public TextView labelProcessing;
+
 	@BindView(R.id.label_investment_limit)
 	public TextView labelInvestmentLimit;
 
@@ -67,6 +72,9 @@ public class ManageProgramActivity extends BaseSwipeBackActivity implements Mana
 	@BindView(R.id.label_success_fee)
 	public TextView labelSuccessFee;
 
+
+	@BindView(R.id.processing)
+	public TextView processing;
 
 	@BindView(R.id.investment_limit)
 	public TextView investmentLimit;
@@ -84,11 +92,21 @@ public class ManageProgramActivity extends BaseSwipeBackActivity implements Mana
 	public TextView successFee;
 
 
+	@BindView(R.id.group_processing)
+	public ViewGroup groupProcessing;
+
+	@BindView(R.id.group_stop_out)
+	public ViewGroup groupStopOut;
+
+
 	@BindView(R.id.label_available_to_invest)
 	public TextView labelAvailableToInvest;
 
 	@BindView(R.id.available_to_invest)
 	public TextView availableToInvest;
+
+	@BindView(R.id.group_period)
+	public ViewGroup groupPeriod;
 
 	@BindView(R.id.view_period)
 	public PeriodLeftDetailsView periodView;
@@ -102,6 +120,12 @@ public class ManageProgramActivity extends BaseSwipeBackActivity implements Mana
 
 	@BindView(R.id.group_danger_zone)
 	public ViewGroup groupDangerZone;
+
+	@BindView(R.id.group_close_period)
+	public ViewGroup groupClosePeriod;
+
+	@BindView(R.id.close_program_info)
+	public TextView closeProgramInfo;
 
 	@BindView(R.id.button_close_program)
 	public PrimaryButton closeProgramButton;
@@ -147,7 +171,8 @@ public class ManageProgramActivity extends BaseSwipeBackActivity implements Mana
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
 		builder.setCancelable(true);
 		builder.setTitle(getString(R.string.close_program));
-		builder.setMessage(getString(R.string.close_program_alert_message));
+		builder.setMessage(getString(details.getProgramDetails().getType().equals(ProgramType.DAILYPERIOD)
+				? R.string.close_exchange_program_alert_message : R.string.close_program_alert_message));
 		builder.setPositiveButton(getString(R.string.confirm), (dialog, which) -> {
 			presenter.onCloseProgramClicked();
 			dialog.dismiss();
@@ -200,6 +225,7 @@ public class ManageProgramActivity extends BaseSwipeBackActivity implements Mana
 		availableToInvest.setTypeface(TypefaceUtil.semibold());
 		labelDangerZone.setTypeface(TypefaceUtil.semibold());
 
+		labelProcessing.setText(labelProcessing.getText().toString().toLowerCase());
 		labelInvestmentLimit.setText(labelInvestmentLimit.getText().toString().toLowerCase());
 		labelTradesDelay.setText(labelTradesDelay.getText().toString().toLowerCase());
 		labelStopOut.setText(labelStopOut.getText().toString().toLowerCase());
@@ -228,13 +254,33 @@ public class ManageProgramActivity extends BaseSwipeBackActivity implements Mana
 				currency));
 		periodView.setData(programDetails.getPeriodDuration(), programDetails.getPeriodStarts(), programDetails.getPeriodEnds(), true, true);
 
+		if (programDetails.getType().equals(ProgramType.DAILYPERIOD)) {
+			groupProcessing.setVisibility(View.VISIBLE);
+			groupStopOut.setVisibility(View.GONE);
+			groupPeriod.setVisibility(View.GONE);
+			groupClosePeriod.setVisibility(View.GONE);
+
+			if (programDetails.getDailyPeriodDetails() != null) {
+				processing.setText(getProcessingText(programDetails.getDailyPeriodDetails()));
+			}
+
+			closeProgramInfo.setText(getString(R.string.close_exchange_program_info));
+		}
+	}
+
+	private String getProcessingText(ProgramDailyPeriodDetails dailyPeriodDetails) {
+		if (dailyPeriodDetails.isIsProcessingRealTime()) {
+			return getString(R.string.real_time);
+		}
+		else {
+			return (dailyPeriodDetails.getHourProcessing() < 10 ? "0" : "").concat(String.valueOf(dailyPeriodDetails.getHourProcessing()).concat(":00"));
+		}
 	}
 
 	@Override
-	public void showChangeSettingsActivity(UUID programId, String currency, ProgramUpdate model) {
-		ChangeProgramSettingsActivity.startFrom(this, programId, currency, model);
+	public void showChangeSettingsActivity(UUID programId, String currency, ProgramUpdate model, Boolean isExchange) {
+		ChangeProgramSettingsActivity.startFrom(this, programId, currency, model, isExchange);
 	}
-
 
 	@Override
 	public void showSnackbarMessage(String message) {

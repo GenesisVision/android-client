@@ -12,6 +12,8 @@ import javax.inject.Inject;
 
 import io.swagger.client.model.AmountWithCurrency;
 import io.swagger.client.model.AssetType;
+import io.swagger.client.model.Currency;
+import io.swagger.client.model.MakeExchangeAccountProgram;
 import io.swagger.client.model.MakeSignalProviderProgram;
 import io.swagger.client.model.MakeTradingAccountProgram;
 import io.swagger.client.model.PlatformInfo;
@@ -62,6 +64,12 @@ public class CreateProgramPresenter extends MvpPresenter<CreateProgramView>
 	private Integer periodLength;
 
 	private Double stopOutLevel;
+
+	private Boolean isProcessingRealTime;
+
+	private Integer hourProcessing;
+
+	private String currency;
 
 	private Double investmentLimit;
 
@@ -117,16 +125,23 @@ public class CreateProgramPresenter extends MvpPresenter<CreateProgramView>
 	private void handleGetPlatformInfoSuccess(PlatformInfo platformInfo) {
 		platformInfoSubscription.unsubscribe();
 
-		for (ProgramMinInvestAmount info : platformInfo.getAssetInfo().getProgramInfo().getMinInvestAmounts()) {
-			if (info.getServerType().equals(model.getServerType())) {
-				for (AmountWithCurrency amountWithCurrency : info.getMinDepositCreateAsset()) {
-					if (amountWithCurrency.getCurrency().getValue().equals(model.getCurrency())) {
-						Double minDeposit = amountWithCurrency.getAmount();
-						model.setMinDeposit(minDeposit);
-						needPublicInfo = model.getAssetType().equals(AssetType.NONE);
-						needDeposit = model.getCurrentBalance() < minDeposit;
-						getViewState().initViewPager(needPublicInfo, needDeposit, model);
-						break;
+		if (model.isExchange()) {
+			needPublicInfo = model.getAssetType().equals(AssetType.NONE);
+			needDeposit = false;
+			getViewState().initViewPager(needPublicInfo, needDeposit, model);
+		}
+		else {
+			for (ProgramMinInvestAmount info : platformInfo.getAssetInfo().getProgramInfo().getMinInvestAmounts()) {
+				if (info.getServerType().equals(model.getServerType())) {
+					for (AmountWithCurrency amountWithCurrency : info.getMinDepositCreateAsset()) {
+						if (amountWithCurrency.getCurrency().getValue().equals(model.getCurrency())) {
+							Double minDeposit = amountWithCurrency.getAmount();
+							model.setMinDeposit(minDeposit);
+							needPublicInfo = model.getAssetType().equals(AssetType.NONE);
+							needDeposit = model.getCurrentBalance() < minDeposit;
+							getViewState().initViewPager(needPublicInfo, needDeposit, model);
+							break;
+						}
 					}
 				}
 			}
@@ -144,7 +159,24 @@ public class CreateProgramPresenter extends MvpPresenter<CreateProgramView>
 
 		Observable<Void> apiRequest = null;
 
-		if (model.getAssetType().equals(AssetType.NONE)) {
+		if (model.isExchange()) {
+			MakeExchangeAccountProgram accountRequest = new MakeExchangeAccountProgram();
+
+			accountRequest.setId(model.getAssetId());
+			accountRequest.setTitle(this.title);
+			accountRequest.setDescription(this.description);
+			accountRequest.setLogo(this.logo);
+
+			accountRequest.setIsProcessingRealTime(isProcessingRealTime);
+			accountRequest.setHourProcessing(hourProcessing);
+			accountRequest.setCurrency(Currency.fromValue(currency));
+			accountRequest.setInvestmentLimit(investmentLimit);
+			accountRequest.setManagementFee(entryFee);
+			accountRequest.setSuccessFee(successFee);
+
+			apiRequest = assetsManager.createProgramFromExchangeAccount(accountRequest);
+		}
+		else if (model.getAssetType().equals(AssetType.NONE)) {
 			MakeTradingAccountProgram accountRequest = new MakeTradingAccountProgram();
 
 			accountRequest.setId(model.getAssetId());
@@ -207,6 +239,9 @@ public class CreateProgramPresenter extends MvpPresenter<CreateProgramView>
 	@Subscribe
 	public void onEventMainThread(OnProgramSettingsConfirmEvent event) {
 		this.periodLength = event.getModel().getPeriodLength();
+		this.isProcessingRealTime = event.getModel().isProcessingRealTime();
+		this.hourProcessing = event.getModel().getHourProcessing();
+		this.currency = event.getModel().getCurrency();
 		this.stopOutLevel = event.getModel().getStopOutLevel();
 		this.investmentLimit = event.getModel().getInvestmentLimit();
 		this.entryFee = event.getModel().getEntryFee();

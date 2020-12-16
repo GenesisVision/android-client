@@ -38,11 +38,14 @@ public class ChangeProgramSettingsActivity extends BaseSwipeBackActivity impleme
 
 	private static final String EXTRA_MODEL = "extra_model";
 
-	public static void startFrom(Activity activity, UUID assetId, String currency, ProgramUpdate model) {
+	private static final String EXTRA_IS_EXCHANGE = "extra_is_exchange";
+
+	public static void startFrom(Activity activity, UUID assetId, String currency, ProgramUpdate model, Boolean isExchange) {
 		Intent intent = new Intent(activity.getApplicationContext(), ChangeProgramSettingsActivity.class);
 		intent.putExtra(EXTRA_ASSET_ID, assetId);
 		intent.putExtra(EXTRA_CURRENCY, currency);
 		intent.putExtra(EXTRA_MODEL, model);
+		intent.putExtra(EXTRA_IS_EXCHANGE, isExchange);
 		activity.startActivity(intent);
 		activity.overridePendingTransition(R.anim.activity_slide_from_right, R.anim.hold);
 	}
@@ -75,6 +78,7 @@ public class ChangeProgramSettingsActivity extends BaseSwipeBackActivity impleme
 			UUID assetId = (UUID) getIntent().getExtras().getSerializable(EXTRA_ASSET_ID);
 			String currency = getIntent().getExtras().getString(EXTRA_CURRENCY);
 			ProgramUpdate model = getIntent().getExtras().getParcelable(EXTRA_MODEL);
+			Boolean isExchange = getIntent().getExtras().getBoolean(EXTRA_IS_EXCHANGE);
 			if (model != null) {
 				presenter.setData(assetId, model);
 
@@ -84,7 +88,8 @@ public class ChangeProgramSettingsActivity extends BaseSwipeBackActivity impleme
 							.add(R.id.content, ProgramSettingsFragment.with(new ProgramSettingsModel(false, "", "", false,
 									getString(R.string.update), currency,
 									null, model.getStopOutLevel(), model.getInvestmentLimit(),
-									model.getEntryFee(), model.getSuccessFee(), model.getTradesDelay(), false)))
+									model.getEntryFee(), model.getSuccessFee(), model.getTradesDelay(),
+									isExchange, false, model.isIsProcessingRealTime(), model.getHourProcessing())))
 							.disallowAddToBackStack()
 							.commit();
 				}

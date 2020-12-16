@@ -11,6 +11,7 @@ import org.greenrobot.eventbus.Subscribe;
 import javax.inject.Inject;
 
 import io.swagger.client.model.ProgramFollowDetailsFull;
+import io.swagger.client.model.ProgramType;
 import io.swagger.client.model.ProgramUpdate;
 import io.swagger.client.model.TradesDelay;
 import io.swagger.client.model.TwoFactorCodeModel;
@@ -79,8 +80,12 @@ public class ManageProgramPresenter extends MvpPresenter<ManageProgramView>
 		model.setInvestmentLimit(details.getProgramDetails().getAvailableInvestmentLimit());
 		model.setStopOutLevel(details.getProgramDetails().getStopOutLevelSelected());
 		model.setTradesDelay(TradesDelay.fromValue(details.getProgramDetails().getTradesDelay().getValue()));
+		if (details.getProgramDetails().getDailyPeriodDetails() != null) {
+			model.setIsProcessingRealTime(details.getProgramDetails().getDailyPeriodDetails().isIsProcessingRealTime());
+			model.setHourProcessing(details.getProgramDetails().getDailyPeriodDetails().getHourProcessing());
+		}
 
-		getViewState().showChangeSettingsActivity(details.getId(), details.getTradingAccountInfo().getCurrency().getValue(), model);
+		getViewState().showChangeSettingsActivity(details.getId(), details.getTradingAccountInfo().getCurrency().getValue(), model, details.getProgramDetails().getType().equals(ProgramType.DAILYPERIOD));
 	}
 
 	void onClosePeriodClicked() {
@@ -145,6 +150,10 @@ public class ManageProgramPresenter extends MvpPresenter<ManageProgramView>
 		details.getProgramDetails().setStopOutLevelSelected(event.getModel().getStopOutLevel());
 		details.getProgramDetails().setManagementFeeSelected(event.getModel().getEntryFee());
 		details.getProgramDetails().setSuccessFeeSelected(event.getModel().getSuccessFee());
+		if (details.getProgramDetails().getDailyPeriodDetails() != null) {
+			details.getProgramDetails().getDailyPeriodDetails().isProcessingRealTime(event.getModel().isIsProcessingRealTime());
+			details.getProgramDetails().getDailyPeriodDetails().setHourProcessing(event.getModel().getHourProcessing());
+		}
 		getViewState().updateView(details.getProgramDetails());
 	}
 }

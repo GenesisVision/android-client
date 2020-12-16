@@ -24,6 +24,7 @@ import butterknife.OnClick;
 import butterknife.Unbinder;
 import io.swagger.client.model.DashboardTradingAssetStatus;
 import io.swagger.client.model.PrivateTradingAccountFull;
+import io.swagger.client.model.PrivateTradingAccountType;
 import io.swagger.client.model.SignalSubscription;
 import timber.log.Timber;
 import vision.genesis.clientapp.R;
@@ -308,8 +309,14 @@ public class TradingAccountInfoFragment extends BaseFragment implements TradingA
 			if (accountDetails.getOwnerActions() != null) {
 				withdrawButton.setEnabled(accountDetails.getOwnerActions().isCanTransferMoney());
 				addFundsButton.setEnabled(accountDetails.getOwnerActions().isCanTransferMoney());
-				createProgramButton.setEnabled(accountDetails.getOwnerActions().isCanMakeProgramFromPrivateTradingAccount());
-				createFollowButton.setEnabled(accountDetails.getOwnerActions().isCanMakeSignalProviderFromPrivateTradingAccount());
+				if (accountDetails.getTradingAccountInfo().getType().equals(PrivateTradingAccountType.EXCHANGEACCOUNT)) {
+					createProgramButton.setEnabled(accountDetails.getOwnerActions().isCanMakeExchangeProgramFromPrivateTradingAccount());
+					createFollowButton.setEnabled(accountDetails.getOwnerActions().isCanMakeSignalProviderFromPrivateExternalTradingAccount());
+				}
+				else {
+					createProgramButton.setEnabled(accountDetails.getOwnerActions().isCanMakeProgramFromPrivateTradingAccount());
+					createFollowButton.setEnabled(accountDetails.getOwnerActions().isCanMakeSignalProviderFromPrivateTradingAccount());
+				}
 			}
 		}
 	}

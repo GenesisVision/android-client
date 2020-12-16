@@ -8,6 +8,7 @@ import io.swagger.client.api.AssetsApi;
 import io.swagger.client.model.ChangeBrokerProgramRequest;
 import io.swagger.client.model.CreateSignalProvider;
 import io.swagger.client.model.FundAssetPart;
+import io.swagger.client.model.MakeExchangeAccountProgram;
 import io.swagger.client.model.MakeSelfManagedFundPublicRequest;
 import io.swagger.client.model.MakeSignalProviderProgram;
 import io.swagger.client.model.MakeTradingAccountProgram;
@@ -59,6 +60,10 @@ public class AssetsManager
 
 	public Observable<Void> createProgramFromTradingAccount(MakeTradingAccountProgram request) {
 		return assetsApi.makeAccountProgram(request);
+	}
+
+	public Observable<Void> createProgramFromExchangeAccount(MakeExchangeAccountProgram request) {
+		return assetsApi.makeExchangeAccountProgram(request);
 	}
 
 	public Observable<Void> createProgramFromSignalProvider(MakeSignalProviderProgram followRequest) {

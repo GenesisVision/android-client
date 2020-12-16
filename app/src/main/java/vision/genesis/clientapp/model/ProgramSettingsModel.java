@@ -47,9 +47,15 @@ public class ProgramSettingsModel implements Parcelable
 
 	private Double successFee;
 
+	private Boolean isExchange = false;
+
 	private Boolean isNew;
 
 	private TradesDelay tradesDelay;
+
+	private Boolean isProcessingRealTime = false;
+
+	private Integer hourProcessing;
 
 	public ProgramSettingsModel() {
 
@@ -59,7 +65,7 @@ public class ProgramSettingsModel implements Parcelable
 	                            Boolean needWarningInfo, String buttonText, String currency,
 	                            Integer periodLength, Double stopOutLevel, Double investmentLimit,
 	                            Double entryFee, Double successFee, TradesDelay tradesDelay,
-	                            Boolean isNew) {
+	                            Boolean isExchange, Boolean isNew, Boolean isProcessingRealTime, Integer hourProcessing) {
 		this.needStep = needStep;
 		this.stepNumber = stepNumber;
 		this.stepTitle = stepTitle;
@@ -72,7 +78,10 @@ public class ProgramSettingsModel implements Parcelable
 		this.entryFee = entryFee;
 		this.successFee = successFee;
 		this.tradesDelay = tradesDelay;
+		this.isExchange = isExchange;
 		this.isNew = isNew;
+		this.isProcessingRealTime = isProcessingRealTime;
+		this.hourProcessing = hourProcessing;
 	}
 
 	protected ProgramSettingsModel(Parcel in) {
@@ -115,8 +124,18 @@ public class ProgramSettingsModel implements Parcelable
 			successFee = in.readDouble();
 		}
 		tradesDelay = (TradesDelay) in.readSerializable();
+		byte tmpIsExchange = in.readByte();
+		isExchange = tmpIsExchange == 0 ? null : tmpIsExchange == 1;
 		byte tmpIsNew = in.readByte();
 		isNew = tmpIsNew == 0 ? null : tmpIsNew == 1;
+		byte tmpIsProcessingRealTime = in.readByte();
+		isProcessingRealTime = tmpIsProcessingRealTime == 0 ? null : tmpIsProcessingRealTime == 1;
+		if (in.readByte() == 0) {
+			hourProcessing = null;
+		}
+		else {
+			hourProcessing = in.readInt();
+		}
 	}
 
 	public Boolean isNeedStep() {
@@ -141,6 +160,10 @@ public class ProgramSettingsModel implements Parcelable
 
 	public String getCurrency() {
 		return currency;
+	}
+
+	public void setCurrency(String currency) {
+		this.currency = currency;
 	}
 
 	public Integer getPeriodLength() {
@@ -191,8 +214,33 @@ public class ProgramSettingsModel implements Parcelable
 		this.successFee = successFee;
 	}
 
+	public Boolean isExchange() {
+		return isExchange;
+	}
+
+	public void setIsExchange(Boolean isExchange) {
+		this.isExchange = isExchange;
+	}
+
 	public Boolean isNew() {
 		return isNew;
+	}
+
+	public Boolean isProcessingRealTime() {
+		return isProcessingRealTime;
+	}
+
+	public void setIsProcessingRealTime(Boolean isProcessingRealTime) {
+		this.isProcessingRealTime = isProcessingRealTime;
+	}
+
+
+	public Integer getHourProcessing() {
+		return hourProcessing;
+	}
+
+	public void setHourProcessing(Integer hourProcessing) {
+		this.hourProcessing = hourProcessing;
 	}
 
 	@Override
@@ -244,6 +292,15 @@ public class ProgramSettingsModel implements Parcelable
 			parcel.writeDouble(successFee);
 		}
 		parcel.writeSerializable(tradesDelay);
+		parcel.writeByte((byte) (isExchange == null ? 0 : isExchange ? 1 : 2));
 		parcel.writeByte((byte) (isNew == null ? 0 : isNew ? 1 : 2));
+		parcel.writeByte((byte) (isProcessingRealTime == null ? 0 : isProcessingRealTime ? 1 : 2));
+		if (hourProcessing == null) {
+			parcel.writeByte((byte) 0);
+		}
+		else {
+			parcel.writeByte((byte) 1);
+			parcel.writeInt(hourProcessing);
+		}
 	}
 }

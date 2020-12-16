@@ -42,13 +42,16 @@ public class CreateProgramModel implements Parcelable
 
 	private Boolean isExternal;
 
-	public CreateProgramModel(UUID assetId, AssetType assetType, BrokerTradeServerType serverType, Double currentBalance, String currency, Boolean isExternal) {
+	private Boolean isExchange;
+
+	public CreateProgramModel(UUID assetId, AssetType assetType, BrokerTradeServerType serverType, Double currentBalance, String currency, Boolean isExternal, Boolean isExchange) {
 		this.assetId = assetId;
 		this.assetType = assetType;
 		this.serverType = serverType;
 		this.currentBalance = currentBalance;
 		this.currency = currency;
 		this.isExternal = isExternal;
+		this.isExchange = isExchange;
 	}
 
 	protected CreateProgramModel(Parcel in) {
@@ -69,6 +72,7 @@ public class CreateProgramModel implements Parcelable
 			minDeposit = in.readDouble();
 		}
 		isExternal = in.readByte() == 1;
+		isExchange = in.readByte() == 1;
 	}
 
 	public UUID getAssetId() {
@@ -103,6 +107,10 @@ public class CreateProgramModel implements Parcelable
 		return isExternal;
 	}
 
+	public Boolean isExchange() {
+		return isExchange;
+	}
+
 	@Override
 	public int describeContents() {
 		return 0;
@@ -129,5 +137,6 @@ public class CreateProgramModel implements Parcelable
 			parcel.writeDouble(minDeposit);
 		}
 		parcel.writeByte(isExternal ? (byte) 1 : (byte) 0);
+		parcel.writeByte(isExchange ? (byte) 1 : (byte) 0);
 	}
 }

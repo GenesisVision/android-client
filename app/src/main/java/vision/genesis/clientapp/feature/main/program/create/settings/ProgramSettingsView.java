@@ -15,6 +15,16 @@ interface ProgramSettingsView extends MvpView
 
 	void setPeriodLength(String periodLength, Integer position);
 
+	void setProcessingRealTimeChecked(Boolean checked);
+
+	void setProcessingTimeOptions(ArrayList<String> processingTimeOptions);
+
+	void setProcessingTime(String processingTime, Integer position);
+
+	void setCurrencyOptions(ArrayList<String> currencyOptions);
+
+	void setCurrency(String currency, Integer position);
+
 	void setInvestmentLimit(Double investmentLimit);
 
 	void setTradesDelayOptions(ArrayList<String> tradesDelayOptions);

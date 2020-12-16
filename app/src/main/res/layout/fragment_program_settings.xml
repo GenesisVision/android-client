@@ -24,6 +24,7 @@
                     android:id="@+id/step_number"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/montserrat_semibold"
                     android:text="02"
                     android:textColor="?attr/colorTextPrimary"
                     android:textSize="18sp"/>
@@ -33,6 +34,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="12dp"
+                    android:fontFamily="@font/montserrat_semibold"
                     android:text="@string/main_settings"
                     android:textColor="?attr/colorTextPrimary"
                     android:textSize="18sp"/>
@@ -43,12 +45,13 @@
                 android:id="@+id/group_period"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:layout_marginBottom="24dp"
                 android:orientation="vertical">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="24dp"
                     android:alpha="0.4"
                     android:text="@string/period_length"
                     android:textColor="?attr/colorTextPrimary"
@@ -96,10 +99,150 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:layout_marginBottom="24dp"
                     android:text="@string/program_settings_period_length_description"
                     android:textColor="?attr/colorTextSecondary"
                     android:textSize="12sp"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/group_processing"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:layout_marginBottom="24dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="2dp"
+                    android:alpha="0.4"
+                    android:text="@string/processing"
+                    android:textColor="?attr/colorTextPrimary"
+                    android:textSize="12sp"/>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:gravity="center_vertical"
+                        android:text="@string/real_time"
+                        android:textColor="?attr/colorTextPrimary"
+                        android:textSize="14sp"/>
+
+                    <androidx.appcompat.widget.SwitchCompat
+                        android:id="@+id/realtime_switch"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"/>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/group_processing_time"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/text_input_height">
+
+                    <TextView
+                        android:id="@+id/processing_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:background="@android:color/transparent"
+                        android:gravity="center_vertical"
+                        android:textColor="?attr/colorTextPrimary"
+                        android:textColorHint="?attr/colorTextPrimary"
+                        android:textSize="18sp"
+                        tools:text="01:00"/>
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="8dp"
+                        android:alpha="0.3"
+                        android:gravity="center_vertical|end"
+                        android:src="@drawable/ic_keyboard_arrow_down_black_24dp"
+                        android:textSize="18sp"
+                        android:tint="?attr/colorTextPrimary"/>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_alignParentBottom="true"
+                        android:alpha="0.2"
+                        android:background="?attr/colorTextPrimary"/>
+
+                </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/processing_description"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/program_settings_processing_description"
+                    android:textColor="?attr/colorTextSecondary"
+                    android:textSize="12sp"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/group_currency"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="24dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:alpha="0.4"
+                    android:text="@string/currency"
+                    android:textColor="?attr/colorTextPrimary"
+                    android:textSize="12sp"/>
+
+                <RelativeLayout
+                    android:id="@+id/group_choose_currency"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/text_input_height">
+
+                    <TextView
+                        android:id="@+id/currency"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:background="@android:color/transparent"
+                        android:gravity="center_vertical"
+                        android:textColor="?attr/colorTextPrimary"
+                        android:textColorHint="?attr/colorTextPrimary"
+                        android:textSize="18sp"
+                        tools:text="USDT"/>
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="8dp"
+                        android:alpha="0.3"
+                        android:gravity="center_vertical|end"
+                        android:src="@drawable/ic_keyboard_arrow_down_black_24dp"
+                        android:textSize="18sp"
+                        android:tint="?attr/colorTextPrimary"/>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_alignParentBottom="true"
+                        android:alpha="0.2"
+                        android:background="?attr/colorTextPrimary"/>
+
+                </RelativeLayout>
 
             </LinearLayout>
 
@@ -111,11 +254,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:alpha="0.4"
                     android:gravity="center_vertical"
                     android:text="@string/investment_limit"
                     android:textColor="?attr/colorTextPrimary"
-                    android:textSize="12sp"/>
+                    android:textSize="14sp"/>
 
                 <androidx.appcompat.widget.SwitchCompat
                     android:id="@+id/investment_limit_switch"
@@ -230,71 +372,79 @@
                 android:textColor="?attr/colorTextSecondary"
                 android:textSize="12sp"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:alpha="0.4"
-                android:text="@string/stop_out_level"
-                android:textColor="?attr/colorTextPrimary"
-                android:textSize="12sp"/>
-
-            <RelativeLayout
+            <LinearLayout
                 android:id="@+id/group_stop_out"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/text_input_height">
-
-                <EditText
-                    android:id="@+id/stop_out"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:background="@android:color/transparent"
-                    android:hint="0"
-                    android:inputType="numberDecimal"
-                    android:text="100"
-                    android:textColor="?attr/colorTextPrimary"
-                    android:textColorHint="?attr/colorTextPrimary"
-                    android:textSize="18sp"/>
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:orientation="vertical">
 
                 <TextView
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginStart="8dp"
-                    android:layout_toEndOf="@+id/stop_out"
+                    android:layout_height="wrap_content"
                     android:alpha="0.4"
-                    android:gravity="center"
-                    android:text="%"
+                    android:text="@string/stop_out_level"
                     android:textColor="?attr/colorTextPrimary"
-                    android:textSize="18sp"/>
+                    android:textSize="12sp"/>
 
-                <View
+                <RelativeLayout
+                    android:id="@+id/group_stop_out_edittext"
                     android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_alignParentBottom="true"
-                    android:alpha="0.2"
-                    android:background="?attr/colorTextPrimary"/>
+                    android:layout_height="@dimen/text_input_height">
 
-            </RelativeLayout>
+                    <EditText
+                        android:id="@+id/stop_out"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:background="@android:color/transparent"
+                        android:hint="0"
+                        android:inputType="numberDecimal"
+                        android:text="100"
+                        android:textColor="?attr/colorTextPrimary"
+                        android:textColorHint="?attr/colorTextPrimary"
+                        android:textSize="18sp"/>
 
-            <TextView
-                android:id="@+id/stop_out_error"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:textColor="?attr/colorRed"
-                android:textSize="12sp"
-                android:visibility="gone"
-                tools:text="@string/error_stop_out_max"
-                tools:visibility="visible"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="8dp"
+                        android:layout_toEndOf="@+id/stop_out"
+                        android:alpha="0.4"
+                        android:gravity="center"
+                        android:text="%"
+                        android:textColor="?attr/colorTextPrimary"
+                        android:textSize="18sp"/>
 
-            <TextView
-                android:id="@+id/stop_out_description"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:text="@string/program_settings_stop_out_description"
-                android:textColor="?attr/colorTextSecondary"
-                android:textSize="12sp"/>
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_alignParentBottom="true"
+                        android:alpha="0.2"
+                        android:background="?attr/colorTextPrimary"/>
+
+                </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/stop_out_error"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:textColor="?attr/colorRed"
+                    android:textSize="12sp"
+                    android:visibility="gone"
+                    tools:text="@string/error_stop_out_max"
+                    tools:visibility="visible"/>
+
+                <TextView
+                    android:id="@+id/stop_out_description"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/program_settings_stop_out_description"
+                    android:textColor="?attr/colorTextSecondary"
+                    android:textSize="12sp"/>
+
+            </LinearLayout>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -403,7 +553,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:text="@string/template_create_fund_exit_fee_description"
+                android:text="@string/template_program_settings_success_fee_description"
                 android:textColor="?attr/colorTextSecondary"
                 android:textSize="12sp"/>
 

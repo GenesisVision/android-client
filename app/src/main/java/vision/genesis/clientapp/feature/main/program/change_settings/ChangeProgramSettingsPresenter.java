@@ -95,6 +95,8 @@ public class ChangeProgramSettingsPresenter extends MvpPresenter<ChangeProgramSe
 
 	@Subscribe
 	public void onEventMainThread(OnProgramSettingsConfirmEvent event) {
+		model.setIsProcessingRealTime(event.getModel().isProcessingRealTime());
+		model.setHourProcessing(event.getModel().getHourProcessing());
 		model.setInvestmentLimit(event.getModel().getInvestmentLimit());
 		model.setTradesDelay(event.getModel().getTradesDelay());
 		model.setStopOutLevel(event.getModel().getStopOutLevel());

@@ -200,8 +200,9 @@ public class TradingAccountInfoPresenter extends MvpPresenter<TradingAccountInfo
 				AssetType.NONE,
 				accountDetails.getBrokerDetails().getType(),
 				accountDetails.getTradingAccountInfo().getBalance(),
-				accountDetails.getTradingAccountInfo().getCurrency().getValue(),
-				false));
+				accountDetails.getTradingAccountInfo().getCurrency() != null ? accountDetails.getTradingAccountInfo().getCurrency().getValue() : null,
+				false,
+				accountDetails.getTradingAccountInfo().getType().equals(PrivateTradingAccountType.EXCHANGEACCOUNT)));
 	}
 
 	private void showCreateFollow() {
@@ -210,7 +211,8 @@ public class TradingAccountInfoPresenter extends MvpPresenter<TradingAccountInfo
 				accountDetails.getBrokerDetails().getType(),
 				accountDetails.getTradingAccountInfo().getBalance(),
 				null,
-				accountDetails.getTradingAccountInfo().isIsExternal()));
+				accountDetails.getTradingAccountInfo().isIsExternal(),
+				accountDetails.getTradingAccountInfo().getType().equals(PrivateTradingAccountType.EXCHANGEACCOUNT)));
 	}
 
 	private void getProfile() {

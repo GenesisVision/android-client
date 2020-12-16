@@ -18,7 +18,7 @@ interface ManageProgramView extends MvpView
 {
 	void updateView(ProgramDetailsFull programDetails);
 
-	void showChangeSettingsActivity(UUID programId, String currency, ProgramUpdate model);
+	void showChangeSettingsActivity(UUID programId, String currency, ProgramUpdate model, Boolean isExchange);
 
 	void showSnackbarMessage(String message);
 

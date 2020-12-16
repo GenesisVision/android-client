@@ -60,6 +60,27 @@
                     android:orientation="horizontal">
 
                     <LinearLayout
+                        android:id="@+id/group_processing"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:visibility="gone"
+                        tools:visibility="visible">
+
+                        <TextView
+                            android:id="@+id/processing"
+                            style="@style/program_info_invest_value"
+                            tools:text="Real time"/>
+
+                        <TextView
+                            android:id="@+id/label_processing"
+                            style="@style/program_info_invest_label"
+                            android:text="@string/processing"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -203,6 +224,7 @@
             </LinearLayout>
 
             <RelativeLayout
+                android:id="@+id/group_period"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/padding"
@@ -266,28 +288,36 @@
                 android:visibility="gone"
                 tools:visibility="visible">
 
-                <TextView
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:id="@+id/group_close_period"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/close_period_info"
-                    android:textColor="?attr/colorTextSecondary"
-                    android:textSize="12sp"/>
+                    android:orientation="vertical">
 
-                <vision.genesis.clientapp.ui.PrimaryButton
-                    android:id="@+id/button_close_period"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/button_height"
-                    android:layout_marginTop="20dp"
-                    android:text="@string/close_period"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/close_period_info"
+                        android:textColor="?attr/colorTextSecondary"
+                        android:textSize="12sp"/>
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginTop="@dimen/padding"
-                    android:layout_marginBottom="@dimen/padding"
-                    android:background="?attr/colorDelimiter"/>
+                    <vision.genesis.clientapp.ui.PrimaryButton
+                        android:id="@+id/button_close_period"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/button_height"
+                        android:layout_marginTop="20dp"
+                        android:text="@string/close_period"/>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="@dimen/padding"
+                        android:layout_marginBottom="@dimen/padding"
+                        android:background="?attr/colorDelimiter"/>
+                </LinearLayout>
 
                 <TextView
+                    android:id="@+id/close_program_info"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/close_program_info"
