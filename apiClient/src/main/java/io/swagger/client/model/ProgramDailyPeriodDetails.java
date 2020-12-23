@@ -17,6 +17,8 @@ import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
 
+import org.joda.time.DateTime;
+
 import java.util.Objects;
 
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -45,12 +47,16 @@ public class ProgramDailyPeriodDetails implements Parcelable
 	@SerializedName("hourProcessing")
 	private Integer hourProcessing = null;
 
+	@SerializedName("nextProcessingDate")
+	private DateTime nextProcessingDate = null;
+
 	public ProgramDailyPeriodDetails() {
 	}
 
 	ProgramDailyPeriodDetails(Parcel in) {
 		isProcessingRealTime = (Boolean) in.readValue(null);
 		hourProcessing = (Integer) in.readValue(null);
+		nextProcessingDate = (DateTime) in.readValue(DateTime.class.getClassLoader());
 	}
 
 	public ProgramDailyPeriodDetails isProcessingRealTime(Boolean isProcessingRealTime) {
@@ -91,6 +97,25 @@ public class ProgramDailyPeriodDetails implements Parcelable
 		this.hourProcessing = hourProcessing;
 	}
 
+	public ProgramDailyPeriodDetails nextProcessingDate(DateTime nextProcessingDate) {
+		this.nextProcessingDate = nextProcessingDate;
+		return this;
+	}
+
+	/**
+	 * Get nextProcessingDate
+	 *
+	 * @return nextProcessingDate
+	 **/
+	@Schema(description = "")
+	public DateTime getNextProcessingDate() {
+		return nextProcessingDate;
+	}
+
+	public void setNextProcessingDate(DateTime nextProcessingDate) {
+		this.nextProcessingDate = nextProcessingDate;
+	}
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -101,12 +126,13 @@ public class ProgramDailyPeriodDetails implements Parcelable
 		}
 		ProgramDailyPeriodDetails programDailyPeriodDetails = (ProgramDailyPeriodDetails) o;
 		return Objects.equals(this.isProcessingRealTime, programDailyPeriodDetails.isProcessingRealTime) &&
-				Objects.equals(this.hourProcessing, programDailyPeriodDetails.hourProcessing);
+				Objects.equals(this.hourProcessing, programDailyPeriodDetails.hourProcessing) &&
+				Objects.equals(this.nextProcessingDate, programDailyPeriodDetails.nextProcessingDate);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(isProcessingRealTime, hourProcessing);
+		return Objects.hash(isProcessingRealTime, hourProcessing, nextProcessingDate);
 	}
 
 	@Override
@@ -116,6 +142,7 @@ public class ProgramDailyPeriodDetails implements Parcelable
 
 		sb.append("    isProcessingRealTime: ").append(toIndentedString(isProcessingRealTime)).append("\n");
 		sb.append("    hourProcessing: ").append(toIndentedString(hourProcessing)).append("\n");
+		sb.append("    nextProcessingDate: ").append(toIndentedString(nextProcessingDate)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}
@@ -134,6 +161,7 @@ public class ProgramDailyPeriodDetails implements Parcelable
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(isProcessingRealTime);
 		out.writeValue(hourProcessing);
+		out.writeValue(nextProcessingDate);
 	}
 
 	public int describeContents() {

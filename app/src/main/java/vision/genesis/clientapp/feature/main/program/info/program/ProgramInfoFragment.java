@@ -155,6 +155,9 @@ public class ProgramInfoFragment extends BaseFragment implements ProgramInfoView
 	@BindView(R.id.value)
 	public TextView value;
 
+	@BindView(R.id.group_profit)
+	public ViewGroup profitGroup;
+
 	@BindView(R.id.profit)
 	public TextView profit;
 
@@ -229,6 +232,9 @@ public class ProgramInfoFragment extends BaseFragment implements ProgramInfoView
 
 	@BindView(R.id.invest_info)
 	public TextView investInfo;
+
+	@BindView(R.id.withdraw_info)
+	public TextView withdrawInfo;
 
 	@InjectPresenter
 	public ProgramInfoPresenter presenter;
@@ -506,13 +512,13 @@ public class ProgramInfoFragment extends BaseFragment implements ProgramInfoView
 			withdrawButton.setEnabled(personalDetails.isCanWithdraw());
 		}
 
-		if (programDetails.getType().equals(ProgramType.FIXEDPERIOD)) {
-			investInfo.setVisibility(View.VISIBLE);
-			investInfo.setText(String.format(Locale.getDefault(), getString(R.string.request_info_template), DateTimeUtil.formatShortDateTime(programDetails.getPeriodEnds())));
-		}
-		else {
-			investInfo.setVisibility(View.GONE);
-		}
+//		if (programDetails.getType().equals(ProgramType.FIXEDPERIOD)) {
+//			investInfo.setVisibility(View.VISIBLE);
+//			investInfo.setText(String.format(Locale.getDefault(), getString(R.string.request_info_template), DateTimeUtil.formatShortDateTime(programDetails.getPeriodEnds())));
+//		}
+//		else {
+//			investInfo.setVisibility(View.GONE);
+//		}
 	}
 
 	private void updateCurrentSelectedField(TextView textView, Double current, Double selected) {
@@ -526,6 +532,12 @@ public class ProgramInfoFragment extends BaseFragment implements ProgramInfoView
 	private void updateYourInvestment(PersonalProgramDetails personalDetails) {
 		if (personalDetails != null && personalDetails.isIsInvested() && !personalDetails.getStatus().equals(AssetInvestmentStatus.ENDED)) {
 			yourInvestmentGroup.setVisibility(View.VISIBLE);
+			if (details.getProgramDetails() != null && details.getProgramDetails().getType().equals(ProgramType.DAILYPERIOD)) {
+				profitGroup.setVisibility(View.GONE);
+			}
+			else {
+				profitGroup.setVisibility(View.VISIBLE);
+			}
 			status.setStatus(personalDetails.getStatus().getValue());
 			invested.setText(String.format(Locale.getDefault(), "%s %s",
 					StringFormatUtil.formatAmount(personalDetails.getInvested(), 0,
@@ -620,10 +632,15 @@ public class ProgramInfoFragment extends BaseFragment implements ProgramInfoView
 		reinvestSwitch.setChecked(isReinvest);
 	}
 
-
 	@Override
 	public void setIgnoreSo(Boolean isIgnoreSo) {
 		ignoreSoSwitch.setChecked(isIgnoreSo);
+	}
+
+	@Override
+	public void setInvestWithdrawInfo(String info) {
+		investInfo.setText(info);
+		withdrawInfo.setText(info);
 	}
 
 	@Override

@@ -66,6 +66,9 @@ public class PrivateTradingAccountOwnerActions implements Parcelable
 	@SerializedName("canConfirm2FA")
 	private Boolean canConfirm2FA = null;
 
+	@SerializedName("canCreateApiKeys")
+	private Boolean canCreateApiKeys = null;
+
 	@SerializedName("canClose")
 	private Boolean canClose = null;
 
@@ -94,6 +97,7 @@ public class PrivateTradingAccountOwnerActions implements Parcelable
 		canEditSignalProviderSettings = (Boolean) in.readValue(null);
 		isEnoughMoneyToCreateProgram = (Boolean) in.readValue(null);
 		canConfirm2FA = (Boolean) in.readValue(null);
+		canCreateApiKeys = (Boolean) in.readValue(null);
 		canClose = (Boolean) in.readValue(null);
 		canChangePassword = (Boolean) in.readValue(null);
 		canTransferMoney = (Boolean) in.readValue(null);
@@ -272,6 +276,25 @@ public class PrivateTradingAccountOwnerActions implements Parcelable
 		this.canConfirm2FA = canConfirm2FA;
 	}
 
+	public PrivateTradingAccountOwnerActions canCreateApiKeys(Boolean canCreateApiKeys) {
+		this.canCreateApiKeys = canCreateApiKeys;
+		return this;
+	}
+
+	/**
+	 * Get canCreateApiKeys
+	 *
+	 * @return canCreateApiKeys
+	 **/
+	@Schema(description = "")
+	public Boolean isCanCreateApiKeys() {
+		return canCreateApiKeys;
+	}
+
+	public void setCanCreateApiKeys(Boolean canCreateApiKeys) {
+		this.canCreateApiKeys = canCreateApiKeys;
+	}
+
 	public PrivateTradingAccountOwnerActions canClose(Boolean canClose) {
 		this.canClose = canClose;
 		return this;
@@ -385,6 +408,7 @@ public class PrivateTradingAccountOwnerActions implements Parcelable
 				Objects.equals(this.canEditSignalProviderSettings, privateTradingAccountOwnerActions.canEditSignalProviderSettings) &&
 				Objects.equals(this.isEnoughMoneyToCreateProgram, privateTradingAccountOwnerActions.isEnoughMoneyToCreateProgram) &&
 				Objects.equals(this.canConfirm2FA, privateTradingAccountOwnerActions.canConfirm2FA) &&
+				Objects.equals(this.canCreateApiKeys, privateTradingAccountOwnerActions.canCreateApiKeys) &&
 				Objects.equals(this.canClose, privateTradingAccountOwnerActions.canClose) &&
 				Objects.equals(this.canChangePassword, privateTradingAccountOwnerActions.canChangePassword) &&
 				Objects.equals(this.canTransferMoney, privateTradingAccountOwnerActions.canTransferMoney) &&
@@ -394,7 +418,7 @@ public class PrivateTradingAccountOwnerActions implements Parcelable
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(canMakeProgramFromPrivateTradingAccount, canMakeExchangeProgramFromPrivateTradingAccount, canMakeSignalProviderFromPrivateTradingAccount, canMakeSignalProviderFromPrivateExternalTradingAccount, canMakeProgramFromSignalProvider, canMakeSignalProviderFromProgram, canEditSignalProviderSettings, isEnoughMoneyToCreateProgram, canConfirm2FA, canClose, canChangePassword, canTransferMoney, canMakeDemoDeposit, canCloseOpenPositions);
+		return Objects.hash(canMakeProgramFromPrivateTradingAccount, canMakeExchangeProgramFromPrivateTradingAccount, canMakeSignalProviderFromPrivateTradingAccount, canMakeSignalProviderFromPrivateExternalTradingAccount, canMakeProgramFromSignalProvider, canMakeSignalProviderFromProgram, canEditSignalProviderSettings, isEnoughMoneyToCreateProgram, canConfirm2FA, canCreateApiKeys, canClose, canChangePassword, canTransferMoney, canMakeDemoDeposit, canCloseOpenPositions);
 	}
 
 	@Override
@@ -411,6 +435,7 @@ public class PrivateTradingAccountOwnerActions implements Parcelable
 		sb.append("    canEditSignalProviderSettings: ").append(toIndentedString(canEditSignalProviderSettings)).append("\n");
 		sb.append("    isEnoughMoneyToCreateProgram: ").append(toIndentedString(isEnoughMoneyToCreateProgram)).append("\n");
 		sb.append("    canConfirm2FA: ").append(toIndentedString(canConfirm2FA)).append("\n");
+		sb.append("    canCreateApiKeys: ").append(toIndentedString(canCreateApiKeys)).append("\n");
 		sb.append("    canClose: ").append(toIndentedString(canClose)).append("\n");
 		sb.append("    canChangePassword: ").append(toIndentedString(canChangePassword)).append("\n");
 		sb.append("    canTransferMoney: ").append(toIndentedString(canTransferMoney)).append("\n");
@@ -441,6 +466,7 @@ public class PrivateTradingAccountOwnerActions implements Parcelable
 		out.writeValue(canEditSignalProviderSettings);
 		out.writeValue(isEnoughMoneyToCreateProgram);
 		out.writeValue(canConfirm2FA);
+		out.writeValue(canCreateApiKeys);
 		out.writeValue(canClose);
 		out.writeValue(canChangePassword);
 		out.writeValue(canTransferMoney);

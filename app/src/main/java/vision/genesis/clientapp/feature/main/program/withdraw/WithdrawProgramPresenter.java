@@ -224,20 +224,25 @@ public class WithdrawProgramPresenter extends MvpPresenter<WithdrawProgramView> 
 		programRequest.setAmountTopText(getAmountToWithdrawString());
 		programRequest.setInfoMiddleText(getPayoutDateString());
 		programRequest.setAmountBottomText(getRemainingInvestmentString());
+		programRequest.setAmount(programRequest.isExchangeProgram() ? amountPercent : amount);
+		programRequest.setPeriodEndsText(getPeriodEndsText());
 
-		if (programRequest.isExchangeProgram()) {
-			programRequest.setAmount(amountPercent);
-			if (programRequest.getIsProcessingRealTime()) {
-				programRequest.setPeriodEndsText(String.format(Locale.getDefault(),
-						context.getString(R.string.request_info_exchange_template),
-						DateTimeUtil.formatRequestInfoDateTime(withdrawInfo.getPeriodEnds())));
-			}
-			else {
-				programRequest.setAmount(amount);
-				programRequest.setPeriodEndsText(context.getString(R.string.program_withdraw_warning));
-			}
-		}
 		getViewState().showConfirmDialog(programRequest);
+	}
+
+	private String getPeriodEndsText() {
+		if (isWithdrawAll) {
+			return context.getString(R.string.program_withdraw_all_info);
+		}
+		if (programRequest.getIsProcessingRealTime()) {
+			return context.getString(R.string.program_invest_withdraw_info_few_minutes);
+		}
+		else {
+			return String.format(Locale.getDefault(),
+					context.getString(R.string.request_info_exchange_template),
+					DateTimeUtil.formatRequestInfoDateTime(withdrawInfo.getPeriodEnds()));
+		}
+
 	}
 
 	private void subscribeToBaseCurrency() {

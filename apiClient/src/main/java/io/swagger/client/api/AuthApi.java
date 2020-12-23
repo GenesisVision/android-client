@@ -8,6 +8,7 @@ import io.swagger.client.model.RecoveryCodesViewModel;
 import io.swagger.client.model.RegisterViewModel;
 import io.swagger.client.model.ResendConfirmationViewModel;
 import io.swagger.client.model.ResetPasswordViewModel;
+import io.swagger.client.model.ThreeFactorAuthenticatorConfirm;
 import io.swagger.client.model.TwoFactorAuthenticator;
 import io.swagger.client.model.TwoFactorAuthenticatorConfirm;
 import io.swagger.client.model.TwoFactorCodeWithPassword;
@@ -57,6 +58,20 @@ public interface AuthApi
 	@POST("v2.0/auth/signup/confirm")
 	Observable<String> confirmEmail(
 			@retrofit2.http.Query("userId") String userId, @retrofit2.http.Query("code") String code
+	);
+
+	/**
+	 * 3FA confirm
+	 *
+	 * @param body (optional)
+	 * @return Call&lt;String&gt;
+	 */
+	@Headers({
+			"Content-Type:application/json"
+	})
+	@POST("v2.0/auth/3fa/confirm")
+	Observable<String> confirmThreeStepAuth(
+			@retrofit2.http.Body ThreeFactorAuthenticatorConfirm body
 	);
 
 	/**
@@ -111,7 +126,7 @@ public interface AuthApi
 	);
 
 	/**
-	 * Forgot password for investor
+	 * Forgot password
 	 *
 	 * @param body (optional)
 	 * @return Call&lt;Void&gt;
@@ -171,15 +186,6 @@ public interface AuthApi
 	);
 
 	/**
-	 * Get phone number verification code
-	 *
-	 * @return Call&lt;Integer&gt;
-	 */
-	@POST("v2.0/auth/phone/code")
-	Observable<Integer> requestPhoneNumberVerificationCode();
-
-
-	/**
 	 * Resend Confirmation Link
 	 *
 	 * @param body (optional)
@@ -215,16 +221,5 @@ public interface AuthApi
 	@POST("v2.0/auth/token/update")
 	Observable<String> updateAuthToken();
 
-
-	/**
-	 * Verify phone number
-	 *
-	 * @param code (optional)
-	 * @return Call&lt;Void&gt;
-	 */
-	@POST("v2.0/auth/phone/verify")
-	Observable<Void> validatePhoneNumber(
-			@retrofit2.http.Query("code") String code
-	);
 
 }

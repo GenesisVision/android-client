@@ -197,9 +197,9 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/group_deposit_buttons"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/group_deposit_buttons"
                     android:layout_marginBottom="24dp"
                     android:orientation="horizontal"
                     android:paddingLeft="@dimen/program_details_padding"
@@ -283,6 +283,18 @@
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/button_height"
                         android:text="@string/create_program"/>
+
+                    <TextView
+                        android:id="@+id/create_program_min_deposit_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:gravity="center"
+                        android:text="@string/template_insufficient_balance_create_program"
+                        android:textColor="?attr/colorTextSecondary"
+                        android:textSize="14sp"
+                        android:visibility="gone"
+                        tools:visibility="visible"/>
 
                 </LinearLayout>
 

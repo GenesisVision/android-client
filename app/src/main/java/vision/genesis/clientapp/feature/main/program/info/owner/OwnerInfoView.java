@@ -28,8 +28,14 @@ interface OwnerInfoView extends MvpView
 	@StateStrategyType(AddToEndSingleStrategy.class)
 	void setDetails(ProgramFollowDetailsFull details);
 
+	@StateStrategyType(OneExecutionStateStrategy.class)
+	void setInvestWithdrawInfo(String info);
+
 	@StateStrategyType(AddToEndSingleStrategy.class)
 	void showInvestWithdrawButtons();
+
+	@StateStrategyType(AddToEndSingleStrategy.class)
+	void setMinDepositText(String minDepositText);
 
 	@StateStrategyType(AddToEndSingleStrategy.class)
 	void showProgress(boolean show);

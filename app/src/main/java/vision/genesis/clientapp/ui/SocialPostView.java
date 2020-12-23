@@ -775,8 +775,8 @@ public class SocialPostView extends RelativeLayout implements PostImageView.Post
 	@Override
 	public void onCopyLinkClicked(Post post) {
 		ClipboardManager clipboardManager = (ClipboardManager) getContext().getSystemService(CLIPBOARD_SERVICE);
-		ClipData clipData = ClipData.newPlainText("link", StringFormatUtil.getPostUrl(post.getUrl()));
-		if (clipboardManager != null) {
+		if (clipboardManager != null && post != null && post.getUrl() != null && !post.getUrl().isEmpty()) {
+			ClipData clipData = ClipData.newPlainText("link", StringFormatUtil.getPostUrl(post.getUrl()));
 			clipboardManager.setPrimaryClip(clipData);
 			Toast.makeText(getContext(), getContext().getString(R.string.copied_to_the_clipboard), Toast.LENGTH_SHORT).show();
 		}
@@ -792,10 +792,15 @@ public class SocialPostView extends RelativeLayout implements PostImageView.Post
 
 	@Override
 	public void onShareClicked(Post post) {
-		Intent intent = new Intent(android.content.Intent.ACTION_SEND);
-		intent.setType("text/plain");
-		intent.putExtra(android.content.Intent.EXTRA_SUBJECT, "");
-		intent.putExtra(android.content.Intent.EXTRA_TEXT, StringFormatUtil.getPostUrl(post.getUrl()));
-		getContext().startActivity(Intent.createChooser(intent, getContext().getString(R.string.share)));
+		if (post != null && post.getUrl() != null && !post.getUrl().isEmpty()) {
+			Intent intent = new Intent(android.content.Intent.ACTION_SEND);
+			intent.setType("text/plain");
+			intent.putExtra(android.content.Intent.EXTRA_SUBJECT, "");
+			intent.putExtra(android.content.Intent.EXTRA_TEXT, StringFormatUtil.getPostUrl(post.getUrl()));
+			getContext().startActivity(Intent.createChooser(intent, getContext().getString(R.string.share)));
+		}
+		else {
+			Toast.makeText(getContext(), getContext().getString(R.string.cannot_share), Toast.LENGTH_SHORT).show();
+		}
 	}
 }

@@ -68,6 +68,12 @@ public class BinanceRaw24HPrice implements Parcelable
 	@SerializedName("lowPrice")
 	private Double lowPrice = null;
 
+	@SerializedName("baseVolume")
+	private Double baseVolume = null;
+
+	@SerializedName("quoteVolume")
+	private Double quoteVolume = null;
+
 	@SerializedName("openTime")
 	private DateTime openTime = null;
 
@@ -98,12 +104,6 @@ public class BinanceRaw24HPrice implements Parcelable
 	@SerializedName("askQuantity")
 	private Double askQuantity = null;
 
-	@SerializedName("baseVolume")
-	private Double baseVolume = null;
-
-	@SerializedName("quoteVolume")
-	private Double quoteVolume = null;
-
 	public BinanceRaw24HPrice() {
 	}
 
@@ -117,6 +117,8 @@ public class BinanceRaw24HPrice implements Parcelable
 		openPrice = (Double) in.readValue(null);
 		highPrice = (Double) in.readValue(null);
 		lowPrice = (Double) in.readValue(null);
+		baseVolume = (Double) in.readValue(null);
+		quoteVolume = (Double) in.readValue(null);
 		openTime = (DateTime) in.readValue(DateTime.class.getClassLoader());
 		closeTime = (DateTime) in.readValue(DateTime.class.getClassLoader());
 		firstTradeId = (Long) in.readValue(null);
@@ -127,8 +129,6 @@ public class BinanceRaw24HPrice implements Parcelable
 		bidQuantity = (Double) in.readValue(null);
 		askPrice = (Double) in.readValue(null);
 		askQuantity = (Double) in.readValue(null);
-		baseVolume = (Double) in.readValue(null);
-		quoteVolume = (Double) in.readValue(null);
 	}
 
 	public BinanceRaw24HPrice symbol(String symbol) {
@@ -300,6 +300,44 @@ public class BinanceRaw24HPrice implements Parcelable
 
 	public void setLowPrice(Double lowPrice) {
 		this.lowPrice = lowPrice;
+	}
+
+	public BinanceRaw24HPrice baseVolume(Double baseVolume) {
+		this.baseVolume = baseVolume;
+		return this;
+	}
+
+	/**
+	 * Get baseVolume
+	 *
+	 * @return baseVolume
+	 **/
+	@Schema(description = "")
+	public Double getBaseVolume() {
+		return baseVolume;
+	}
+
+	public void setBaseVolume(Double baseVolume) {
+		this.baseVolume = baseVolume;
+	}
+
+	public BinanceRaw24HPrice quoteVolume(Double quoteVolume) {
+		this.quoteVolume = quoteVolume;
+		return this;
+	}
+
+	/**
+	 * Get quoteVolume
+	 *
+	 * @return quoteVolume
+	 **/
+	@Schema(description = "")
+	public Double getQuoteVolume() {
+		return quoteVolume;
+	}
+
+	public void setQuoteVolume(Double quoteVolume) {
+		this.quoteVolume = quoteVolume;
 	}
 
 	public BinanceRaw24HPrice openTime(DateTime openTime) {
@@ -492,44 +530,6 @@ public class BinanceRaw24HPrice implements Parcelable
 		this.askQuantity = askQuantity;
 	}
 
-	public BinanceRaw24HPrice baseVolume(Double baseVolume) {
-		this.baseVolume = baseVolume;
-		return this;
-	}
-
-	/**
-	 * Get baseVolume
-	 *
-	 * @return baseVolume
-	 **/
-	@Schema(description = "")
-	public Double getBaseVolume() {
-		return baseVolume;
-	}
-
-	public void setBaseVolume(Double baseVolume) {
-		this.baseVolume = baseVolume;
-	}
-
-	public BinanceRaw24HPrice quoteVolume(Double quoteVolume) {
-		this.quoteVolume = quoteVolume;
-		return this;
-	}
-
-	/**
-	 * Get quoteVolume
-	 *
-	 * @return quoteVolume
-	 **/
-	@Schema(description = "")
-	public Double getQuoteVolume() {
-		return quoteVolume;
-	}
-
-	public void setQuoteVolume(Double quoteVolume) {
-		this.quoteVolume = quoteVolume;
-	}
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -548,6 +548,8 @@ public class BinanceRaw24HPrice implements Parcelable
 				Objects.equals(this.openPrice, binanceRaw24HPrice.openPrice) &&
 				Objects.equals(this.highPrice, binanceRaw24HPrice.highPrice) &&
 				Objects.equals(this.lowPrice, binanceRaw24HPrice.lowPrice) &&
+				Objects.equals(this.baseVolume, binanceRaw24HPrice.baseVolume) &&
+				Objects.equals(this.quoteVolume, binanceRaw24HPrice.quoteVolume) &&
 				Objects.equals(this.openTime, binanceRaw24HPrice.openTime) &&
 				Objects.equals(this.closeTime, binanceRaw24HPrice.closeTime) &&
 				Objects.equals(this.firstTradeId, binanceRaw24HPrice.firstTradeId) &&
@@ -557,14 +559,12 @@ public class BinanceRaw24HPrice implements Parcelable
 				Objects.equals(this.bidPrice, binanceRaw24HPrice.bidPrice) &&
 				Objects.equals(this.bidQuantity, binanceRaw24HPrice.bidQuantity) &&
 				Objects.equals(this.askPrice, binanceRaw24HPrice.askPrice) &&
-				Objects.equals(this.askQuantity, binanceRaw24HPrice.askQuantity) &&
-				Objects.equals(this.baseVolume, binanceRaw24HPrice.baseVolume) &&
-				Objects.equals(this.quoteVolume, binanceRaw24HPrice.quoteVolume);
+				Objects.equals(this.askQuantity, binanceRaw24HPrice.askQuantity);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(symbol, priceChange, priceChangePercent, weightedAveragePrice, lastPrice, lastQuantity, openPrice, highPrice, lowPrice, openTime, closeTime, firstTradeId, lastTradeId, totalTrades, prevDayClosePrice, bidPrice, bidQuantity, askPrice, askQuantity, baseVolume, quoteVolume);
+		return Objects.hash(symbol, priceChange, priceChangePercent, weightedAveragePrice, lastPrice, lastQuantity, openPrice, highPrice, lowPrice, baseVolume, quoteVolume, openTime, closeTime, firstTradeId, lastTradeId, totalTrades, prevDayClosePrice, bidPrice, bidQuantity, askPrice, askQuantity);
 	}
 
 	@Override
@@ -581,6 +581,8 @@ public class BinanceRaw24HPrice implements Parcelable
 		sb.append("    openPrice: ").append(toIndentedString(openPrice)).append("\n");
 		sb.append("    highPrice: ").append(toIndentedString(highPrice)).append("\n");
 		sb.append("    lowPrice: ").append(toIndentedString(lowPrice)).append("\n");
+		sb.append("    baseVolume: ").append(toIndentedString(baseVolume)).append("\n");
+		sb.append("    quoteVolume: ").append(toIndentedString(quoteVolume)).append("\n");
 		sb.append("    openTime: ").append(toIndentedString(openTime)).append("\n");
 		sb.append("    closeTime: ").append(toIndentedString(closeTime)).append("\n");
 		sb.append("    firstTradeId: ").append(toIndentedString(firstTradeId)).append("\n");
@@ -591,8 +593,6 @@ public class BinanceRaw24HPrice implements Parcelable
 		sb.append("    bidQuantity: ").append(toIndentedString(bidQuantity)).append("\n");
 		sb.append("    askPrice: ").append(toIndentedString(askPrice)).append("\n");
 		sb.append("    askQuantity: ").append(toIndentedString(askQuantity)).append("\n");
-		sb.append("    baseVolume: ").append(toIndentedString(baseVolume)).append("\n");
-		sb.append("    quoteVolume: ").append(toIndentedString(quoteVolume)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}
@@ -618,6 +618,8 @@ public class BinanceRaw24HPrice implements Parcelable
 		out.writeValue(openPrice);
 		out.writeValue(highPrice);
 		out.writeValue(lowPrice);
+		out.writeValue(baseVolume);
+		out.writeValue(quoteVolume);
 		out.writeValue(openTime);
 		out.writeValue(closeTime);
 		out.writeValue(firstTradeId);
@@ -628,8 +630,6 @@ public class BinanceRaw24HPrice implements Parcelable
 		out.writeValue(bidQuantity);
 		out.writeValue(askPrice);
 		out.writeValue(askQuantity);
-		out.writeValue(baseVolume);
-		out.writeValue(quoteVolume);
 	}
 
 	public int describeContents() {

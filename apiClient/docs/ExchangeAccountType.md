@@ -9,6 +9,7 @@ Name | Type | Description | Notes
 **type** | [**BrokerTradeServerType**](BrokerTradeServerType.md) |  |  [optional]
 **typeTitle** | **String** |  |  [optional]
 **currencies** | **List&lt;String&gt;** |  |  [optional]
+**permissions** | [**List&lt;TradingAccountPermission&gt;**](TradingAccountPermission.md) |  |  [optional]
 **minimumDepositsAmount** | **Map&lt;String, Double&gt;** |  |  [optional]
 **isKycRequired** | **Boolean** |  |  [optional]
 **isCountryNotUSRequired** | **Boolean** |  |  [optional]

@@ -12,6 +12,7 @@ Name | Type | Description | Notes
 **canEditSignalProviderSettings** | **Boolean** |  |  [optional]
 **isEnoughMoneyToCreateProgram** | **Boolean** |  |  [optional]
 **canConfirm2FA** | **Boolean** |  |  [optional]
+**canCreateApiKeys** | **Boolean** |  |  [optional]
 **canClose** | **Boolean** |  |  [optional]
 **canClosePeriod** | **Boolean** |  |  [optional]
 **canChangePassword** | **Boolean** |  |  [optional]

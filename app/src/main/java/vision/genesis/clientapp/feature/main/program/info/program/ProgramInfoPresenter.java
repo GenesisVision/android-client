@@ -1,11 +1,14 @@
 package vision.genesis.clientapp.feature.main.program.info.program;
 
+import android.content.Context;
+
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
+import java.util.Locale;
 import java.util.UUID;
 
 import javax.inject.Inject;
@@ -13,10 +16,12 @@ import javax.inject.Inject;
 import io.swagger.client.model.AssetInvestmentStatus;
 import io.swagger.client.model.ProgramFollowDetailsFull;
 import io.swagger.client.model.ProgramType;
+import io.swagger.client.model.ProgramWithdrawInfo;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
+import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.managers.AuthManager;
 import vision.genesis.clientapp.managers.FollowsManager;
 import vision.genesis.clientapp.managers.ProgramsManager;
@@ -25,6 +30,7 @@ import vision.genesis.clientapp.model.User;
 import vision.genesis.clientapp.model.events.OnProgramReinvestChangedEvent;
 import vision.genesis.clientapp.model.events.OnRequestCancelledEvent;
 import vision.genesis.clientapp.net.ApiErrorResolver;
+import vision.genesis.clientapp.utils.DateTimeUtil;
 
 /**
  * GenesisVisionAndroid
@@ -34,6 +40,9 @@ import vision.genesis.clientapp.net.ApiErrorResolver;
 @InjectViewState
 public class ProgramInfoPresenter extends MvpPresenter<ProgramInfoView>
 {
+	@Inject
+	public Context context;
+
 	@Inject
 	public AuthManager authManager;
 
@@ -46,6 +55,8 @@ public class ProgramInfoPresenter extends MvpPresenter<ProgramInfoView>
 	private Subscription userSubscription;
 
 	private Subscription programDetailsSubscription;
+
+	private Subscription withdrawInfoSubscription;
 
 	private Subscription reinvestSubscription;
 
@@ -75,15 +86,15 @@ public class ProgramInfoPresenter extends MvpPresenter<ProgramInfoView>
 		if (userSubscription != null) {
 			userSubscription.unsubscribe();
 		}
-
 		if (programDetailsSubscription != null) {
 			programDetailsSubscription.unsubscribe();
 		}
-
+		if (withdrawInfoSubscription != null) {
+			withdrawInfoSubscription.unsubscribe();
+		}
 		if (reinvestSubscription != null) {
 			reinvestSubscription.unsubscribe();
 		}
-
 		if (ignoreSoSubscription != null) {
 			ignoreSoSubscription.unsubscribe();
 		}
@@ -199,11 +210,43 @@ public class ProgramInfoPresenter extends MvpPresenter<ProgramInfoView>
 
 		getViewState().setDetails(programDetails);
 
+		if (details.getProgramDetails().getDailyPeriodDetails() != null
+				&& details.getProgramDetails().getDailyPeriodDetails().isIsProcessingRealTime()) {
+			getViewState().setInvestWithdrawInfo(context.getString(R.string.program_invest_withdraw_info_few_minutes));
+		}
+		else {
+			getWithdrawInfo(details);
+		}
 	}
 
 	private void handleProgramDetailsError(Throwable throwable) {
 		programDetailsSubscription.unsubscribe();
 		getViewState().showProgress(false);
+	}
+
+	private void getWithdrawInfo(ProgramFollowDetailsFull details) {
+		if (programsManager != null && details != null) {
+			withdrawInfoSubscription = programsManager.getWithdrawInfo(details.getId())
+					.observeOn(AndroidSchedulers.mainThread())
+					.subscribeOn(Schedulers.io())
+					.subscribe(this::handleWithdrawInfoResponse,
+							this::handleWithdrawInfoError);
+		}
+	}
+
+	private void handleWithdrawInfoResponse(ProgramWithdrawInfo response) {
+		withdrawInfoSubscription.unsubscribe();
+
+		getViewState().setInvestWithdrawInfo(String.format(Locale.getDefault(),
+				context.getString(R.string.program_invest_withdraw_info_template),
+				DateTimeUtil.formatRequestInfoDateTime(response.getPeriodEnds())));
+	}
+
+	private void handleWithdrawInfoError(Throwable throwable) {
+		withdrawInfoSubscription.unsubscribe();
+
+		ApiErrorResolver.resolveErrors(throwable,
+				message -> getViewState().showSnackbarMessage(message));
 	}
 
 	private void setReinvest(boolean reinvest) {

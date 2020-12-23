@@ -45,6 +45,9 @@ public class DashboardProgramDetails implements Parcelable
 	@SerializedName("levelProgress")
 	private Double levelProgress = null;
 
+	@SerializedName("type")
+	private ProgramType type = null;
+
 	@SerializedName("managementFeeSelected")
 	private Double managementFeeSelected = null;
 
@@ -66,6 +69,7 @@ public class DashboardProgramDetails implements Parcelable
 	DashboardProgramDetails(Parcel in) {
 		level = (Integer) in.readValue(null);
 		levelProgress = (Double) in.readValue(null);
+		type = (ProgramType) in.readValue(ProgramType.class.getClassLoader());
 		managementFeeSelected = (Double) in.readValue(null);
 		managementFeeCurrent = (Double) in.readValue(null);
 		successFeeSelected = (Double) in.readValue(null);
@@ -109,6 +113,25 @@ public class DashboardProgramDetails implements Parcelable
 
 	public void setLevelProgress(Double levelProgress) {
 		this.levelProgress = levelProgress;
+	}
+
+	public DashboardProgramDetails type(ProgramType type) {
+		this.type = type;
+		return this;
+	}
+
+	/**
+	 * Get type
+	 *
+	 * @return type
+	 **/
+	@Schema(description = "")
+	public ProgramType getType() {
+		return type;
+	}
+
+	public void setType(ProgramType type) {
+		this.type = type;
 	}
 
 	public DashboardProgramDetails managementFeeSelected(Double managementFeeSelected) {
@@ -217,6 +240,7 @@ public class DashboardProgramDetails implements Parcelable
 		DashboardProgramDetails dashboardProgramDetails = (DashboardProgramDetails) o;
 		return Objects.equals(this.level, dashboardProgramDetails.level) &&
 				Objects.equals(this.levelProgress, dashboardProgramDetails.levelProgress) &&
+				Objects.equals(this.type, dashboardProgramDetails.type) &&
 				Objects.equals(this.managementFeeSelected, dashboardProgramDetails.managementFeeSelected) &&
 				Objects.equals(this.managementFeeCurrent, dashboardProgramDetails.managementFeeCurrent) &&
 				Objects.equals(this.successFeeSelected, dashboardProgramDetails.successFeeSelected) &&
@@ -226,7 +250,7 @@ public class DashboardProgramDetails implements Parcelable
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(level, levelProgress, managementFeeSelected, managementFeeCurrent, successFeeSelected, successFeeCurrent, dailyPeriodDetails);
+		return Objects.hash(level, levelProgress, type, managementFeeSelected, managementFeeCurrent, successFeeSelected, successFeeCurrent, dailyPeriodDetails);
 	}
 
 	@Override
@@ -236,6 +260,7 @@ public class DashboardProgramDetails implements Parcelable
 
 		sb.append("    level: ").append(toIndentedString(level)).append("\n");
 		sb.append("    levelProgress: ").append(toIndentedString(levelProgress)).append("\n");
+		sb.append("    type: ").append(toIndentedString(type)).append("\n");
 		sb.append("    managementFeeSelected: ").append(toIndentedString(managementFeeSelected)).append("\n");
 		sb.append("    managementFeeCurrent: ").append(toIndentedString(managementFeeCurrent)).append("\n");
 		sb.append("    successFeeSelected: ").append(toIndentedString(successFeeSelected)).append("\n");
@@ -259,6 +284,7 @@ public class DashboardProgramDetails implements Parcelable
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(level);
 		out.writeValue(levelProgress);
+		out.writeValue(type);
 		out.writeValue(managementFeeSelected);
 		out.writeValue(managementFeeCurrent);
 		out.writeValue(successFeeSelected);

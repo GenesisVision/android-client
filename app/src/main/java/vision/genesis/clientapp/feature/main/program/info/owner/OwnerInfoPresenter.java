@@ -1,5 +1,7 @@
 package vision.genesis.clientapp.feature.main.program.info.owner;
 
+import android.content.Context;
+
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 
@@ -8,20 +10,25 @@ import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.UUID;
 
 import javax.inject.Inject;
 
+import io.swagger.client.model.AmountWithCurrency;
 import io.swagger.client.model.AssetInvestmentStatus;
 import io.swagger.client.model.AssetType;
 import io.swagger.client.model.CreateSignalProvider;
 import io.swagger.client.model.FollowDetailsFull;
 import io.swagger.client.model.InternalTransferRequestType;
+import io.swagger.client.model.PlatformInfo;
 import io.swagger.client.model.PrivateTradingAccountType;
 import io.swagger.client.model.ProgramDetailsFull;
 import io.swagger.client.model.ProgramFollowDetailsFull;
+import io.swagger.client.model.ProgramMinInvestAmount;
 import io.swagger.client.model.ProgramType;
 import io.swagger.client.model.ProgramUpdate;
+import io.swagger.client.model.ProgramWithdrawInfo;
 import io.swagger.client.model.SignalSubscription;
 import io.swagger.client.model.SignalSubscriptionItemsViewModel;
 import io.swagger.client.model.TradesDelay;
@@ -29,9 +36,11 @@ import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
+import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.managers.AuthManager;
 import vision.genesis.clientapp.managers.FollowsManager;
 import vision.genesis.clientapp.managers.ProgramsManager;
+import vision.genesis.clientapp.managers.SettingsManager;
 import vision.genesis.clientapp.model.CreateProgramModel;
 import vision.genesis.clientapp.model.ProgramRequest;
 import vision.genesis.clientapp.model.TradingAccountDetailsModel;
@@ -40,6 +49,8 @@ import vision.genesis.clientapp.model.events.OnRequestCancelledEvent;
 import vision.genesis.clientapp.model.events.ShowEditSubscriptionEvent;
 import vision.genesis.clientapp.model.events.ShowUnfollowTradesEvent;
 import vision.genesis.clientapp.net.ApiErrorResolver;
+import vision.genesis.clientapp.utils.DateTimeUtil;
+import vision.genesis.clientapp.utils.StringFormatUtil;
 
 /**
  * GenesisVisionAndroid
@@ -50,6 +61,9 @@ import vision.genesis.clientapp.net.ApiErrorResolver;
 public class OwnerInfoPresenter extends MvpPresenter<OwnerInfoView>
 {
 	@Inject
+	public Context context;
+
+	@Inject
 	public AuthManager authManager;
 
 	@Inject
@@ -58,7 +72,14 @@ public class OwnerInfoPresenter extends MvpPresenter<OwnerInfoView>
 	@Inject
 	public FollowsManager followsManager;
 
+	@Inject
+	public SettingsManager settingsManager;
+
+	private Subscription platformInfoSubscription;
+
 	private Subscription detailsSubscription;
+
+	private Subscription withdrawInfoSubscription;
 
 	private Subscription subscriptionsSubscription;
 
@@ -70,6 +91,8 @@ public class OwnerInfoPresenter extends MvpPresenter<OwnerInfoView>
 
 	private boolean isActive = false;
 
+	private PlatformInfo platformInfo;
+
 	@Override
 	protected void onFirstViewAttach() {
 		super.onFirstViewAttach();
@@ -79,13 +102,20 @@ public class OwnerInfoPresenter extends MvpPresenter<OwnerInfoView>
 		EventBus.getDefault().register(this);
 
 		getViewState().showProgress(true);
+		getPlatformInfo();
 		getDetails();
 	}
 
 	@Override
 	public void onDestroy() {
+		if (platformInfoSubscription != null) {
+			platformInfoSubscription.unsubscribe();
+		}
 		if (detailsSubscription != null) {
 			detailsSubscription.unsubscribe();
+		}
+		if (withdrawInfoSubscription != null) {
+			withdrawInfoSubscription.unsubscribe();
 		}
 		if (subscriptionsSubscription != null) {
 			subscriptionsSubscription.unsubscribe();
@@ -261,7 +291,7 @@ public class OwnerInfoPresenter extends MvpPresenter<OwnerInfoView>
 					details.getTradingAccountInfo().getBalance(),
 					details.getTradingAccountInfo().getCurrency().getValue(),
 					false,
-					details.getProgramDetails().getType().equals(ProgramType.DAILYPERIOD)));
+					details.getProgramDetails() != null && details.getProgramDetails().getType().equals(ProgramType.DAILYPERIOD)));
 		}
 	}
 
@@ -273,7 +303,7 @@ public class OwnerInfoPresenter extends MvpPresenter<OwnerInfoView>
 					details.getProgramDetails().getPersonalDetails().getInvested(),
 					details.getTradingAccountInfo().getCurrency().getValue(),
 					false,
-					details.getProgramDetails().getType().equals(ProgramType.DAILYPERIOD)));
+					details.getProgramDetails() != null && details.getProgramDetails().getType().equals(ProgramType.DAILYPERIOD)));
 		}
 	}
 
@@ -284,6 +314,52 @@ public class OwnerInfoPresenter extends MvpPresenter<OwnerInfoView>
 				details.getBrokerDetails().getLogoUrl());
 		getViewState().showCopytradingDetailsActivity(model);
 
+	}
+
+	private void getPlatformInfo() {
+		if (settingsManager != null) {
+			platformInfoSubscription = settingsManager.getPlatformInfo()
+					.observeOn(AndroidSchedulers.mainThread())
+					.subscribeOn(Schedulers.newThread())
+					.subscribe(this::handleGetPlatformInfoSuccess,
+							this::handleGetPlatformInfoError);
+		}
+	}
+
+	private void handleGetPlatformInfoSuccess(PlatformInfo platformInfo) {
+		platformInfoSubscription.unsubscribe();
+		this.platformInfo = platformInfo;
+
+		updateMinDepositInfo();
+	}
+
+	private void updateMinDepositInfo() {
+		if (platformInfo != null && details != null && !details.getOwnerActions().isIsEnoughMoneyToCreateProgram()) {
+			List<ProgramMinInvestAmount> minAmounts = platformInfo.getAssetInfo().getProgramInfo().getMinInvestAmounts();
+			String minDepositText = null;
+
+			exchangeLoop:
+			for (ProgramMinInvestAmount minAmount : minAmounts) {
+				if (minAmount.getServerType().equals(details.getBrokerDetails().getType())) {
+					for (AmountWithCurrency amountWithCurrency : minAmount.getMinDepositCreateAsset()) {
+						if (amountWithCurrency.getCurrency().equals(details.getTradingAccountInfo().getCurrency())) {
+							minDepositText = StringFormatUtil.getValueString(amountWithCurrency.getAmount(), amountWithCurrency.getCurrency().getValue());
+							break exchangeLoop;
+						}
+					}
+				}
+			}
+
+			if (minDepositText != null) {
+				getViewState().setMinDepositText(minDepositText);
+			}
+		}
+	}
+
+	private void handleGetPlatformInfoError(Throwable throwable) {
+		platformInfoSubscription.unsubscribe();
+
+		ApiErrorResolver.resolveErrors(throwable, message -> getViewState().showSnackbarMessage(message));
 	}
 
 	private void getDetails() {
@@ -305,9 +381,19 @@ public class OwnerInfoPresenter extends MvpPresenter<OwnerInfoView>
 
 		this.details = details;
 
+		updateMinDepositInfo();
+
 		getSubscriptions();
 
 		getViewState().setDetails(details);
+
+		if (details.getProgramDetails().getDailyPeriodDetails() != null
+				&& details.getProgramDetails().getDailyPeriodDetails().isIsProcessingRealTime()) {
+			getViewState().setInvestWithdrawInfo(context.getString(R.string.program_invest_withdraw_info_few_minutes));
+		}
+		else {
+			getWithdrawInfo(details);
+		}
 	}
 
 	private void handleDetailsError(Throwable throwable) {
@@ -315,6 +401,31 @@ public class OwnerInfoPresenter extends MvpPresenter<OwnerInfoView>
 		getViewState().showProgress(false);
 
 		ApiErrorResolver.resolveErrors(throwable, message -> getViewState().showSnackbarMessage(message));
+	}
+
+	private void getWithdrawInfo(ProgramFollowDetailsFull details) {
+		if (programsManager != null && details != null) {
+			withdrawInfoSubscription = programsManager.getWithdrawInfo(details.getId())
+					.observeOn(AndroidSchedulers.mainThread())
+					.subscribeOn(Schedulers.io())
+					.subscribe(this::handleWithdrawInfoResponse,
+							this::handleWithdrawInfoError);
+		}
+	}
+
+	private void handleWithdrawInfoResponse(ProgramWithdrawInfo response) {
+		withdrawInfoSubscription.unsubscribe();
+
+		getViewState().setInvestWithdrawInfo(String.format(Locale.getDefault(),
+				context.getString(R.string.program_invest_withdraw_info_template),
+				DateTimeUtil.formatRequestInfoDateTime(response.getPeriodEnds())));
+	}
+
+	private void handleWithdrawInfoError(Throwable throwable) {
+		withdrawInfoSubscription.unsubscribe();
+
+		ApiErrorResolver.resolveErrors(throwable,
+				message -> getViewState().showSnackbarMessage(message));
 	}
 
 	private void getSubscriptions() {

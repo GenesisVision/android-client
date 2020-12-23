@@ -7,20 +7,19 @@ Method | HTTP request | Description
 [**authorize**](AuthApi.md#authorize) | **POST** v2.0/auth/signin | Authorize
 [**changePassword**](AuthApi.md#changePassword) | **POST** v2.0/auth/password/change | Change password
 [**confirmEmail**](AuthApi.md#confirmEmail) | **POST** v2.0/auth/signup/confirm | Confirm email after registration
+[**confirmThreeStepAuth**](AuthApi.md#confirmThreeStepAuth) | **POST** v2.0/auth/3fa/confirm | 3FA confirm
 [**confirmTwoStepAuth**](AuthApi.md#confirmTwoStepAuth) | **POST** v2.0/auth/2fa/confirm | 2FA confirm
 [**createTwoStepAuth**](AuthApi.md#createTwoStepAuth) | **POST** v2.0/auth/2fa/create | 2FA create
 [**createTwoStepAuthRecoveryCodes**](AuthApi.md#createTwoStepAuthRecoveryCodes) | **POST** v2.0/auth/2fa/recoverycodes/new | 2FA generate new recovery codes
 [**disableTwoStepAuth**](AuthApi.md#disableTwoStepAuth) | **POST** v2.0/auth/2fa/disable | 2FA disable
-[**forgotPassword**](AuthApi.md#forgotPassword) | **POST** v2.0/auth/password/forgot | Forgot password for investor
+[**forgotPassword**](AuthApi.md#forgotPassword) | **POST** v2.0/auth/password/forgot | Forgot password
 [**getTwoStepAuthRecoveryCodes**](AuthApi.md#getTwoStepAuthRecoveryCodes) | **POST** v2.0/auth/2fa/recoverycodes | 2FA recovery codes
 [**getTwoStepAuthStatus**](AuthApi.md#getTwoStepAuthStatus) | **GET** v2.0/auth/2fa | 2FA status
 [**logoutFromAnotherDevices**](AuthApi.md#logoutFromAnotherDevices) | **POST** v2.0/auth/token/devices/logout | Logout from another devices
 [**register**](AuthApi.md#register) | **POST** v2.0/auth/signup | New registration
-[**requestPhoneNumberVerificationCode**](AuthApi.md#requestPhoneNumberVerificationCode) | **POST** v2.0/auth/phone/code | Get phone number verification code
 [**resendConfirmationLink**](AuthApi.md#resendConfirmationLink) | **POST** v2.0/auth/resendconfirmationlink | Resend Confirmation Link
 [**resetPassword**](AuthApi.md#resetPassword) | **POST** v2.0/auth/password/reset | Reset password
 [**updateAuthToken**](AuthApi.md#updateAuthToken) | **POST** v2.0/auth/token/update | Update auth token
-[**validatePhoneNumber**](AuthApi.md#validatePhoneNumber) | **POST** v2.0/auth/phone/verify | Verify phone number
 
 <a name="authorize"></a>
 # **authorize**
@@ -181,6 +180,59 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
+
+<a name="confirmThreeStepAuth"></a>
+# **confirmThreeStepAuth**
+> String confirmThreeStepAuth(body)
+
+3FA confirm
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiClient;
+//import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
+//import io.swagger.client.api.AuthApi;
+
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
+
+AuthApi apiInstance = new AuthApi();
+ThreeFactorAuthenticatorConfirm body = new ThreeFactorAuthenticatorConfirm(); // ThreeFactorAuthenticatorConfirm | 
+try {
+    String result = apiInstance.confirmThreeStepAuth(body);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling AuthApi#confirmThreeStepAuth");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **body** | [**ThreeFactorAuthenticatorConfirm**](ThreeFactorAuthenticatorConfirm.md)|  | [optional]
+
+### Return type
+
+**String**
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json, text/json, application/_*+json
  - **Accept**: text/plain, application/json, text/json
 
 <a name="confirmTwoStepAuth"></a>
@@ -395,7 +447,7 @@ Name | Type | Description  | Notes
 # **forgotPassword**
 > Void forgotPassword(body)
 
-Forgot password for investor
+Forgot password
 
 ### Example
 ```java
@@ -648,55 +700,6 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, text/json, application/_*+json
  - **Accept**: text/plain, application/json, text/json
 
-<a name="requestPhoneNumberVerificationCode"></a>
-# **requestPhoneNumberVerificationCode**
-> Integer requestPhoneNumberVerificationCode()
-
-Get phone number verification code
-
-### Example
-```java
-// Import classes:
-//import io.swagger.client.ApiClient;
-//import io.swagger.client.ApiException;
-//import io.swagger.client.Configuration;
-//import io.swagger.client.auth.*;
-//import io.swagger.client.api.AuthApi;
-
-ApiClient defaultClient = Configuration.getDefaultApiClient();
-
-// Configure API key authorization: Bearer
-ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
-Bearer.setApiKey("YOUR API KEY");
-// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-//Bearer.setApiKeyPrefix("Token");
-
-AuthApi apiInstance = new AuthApi();
-try {
-    Integer result = apiInstance.requestPhoneNumberVerificationCode();
-    System.out.println(result);
-} catch (ApiException e) {
-    System.err.println("Exception when calling AuthApi#requestPhoneNumberVerificationCode");
-    e.printStackTrace();
-}
-```
-
-### Parameters
-This endpoint does not need any parameter.
-
-### Return type
-
-**Integer**
-
-### Authorization
-
-[Bearer](../README.md#Bearer)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: text/plain, application/json, text/json
-
 <a name="resendConfirmationLink"></a>
 # **resendConfirmationLink**
 > Void resendConfirmationLink(body)
@@ -842,59 +845,6 @@ This endpoint does not need any parameter.
 ### Return type
 
 **String**
-
-### Authorization
-
-[Bearer](../README.md#Bearer)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: text/plain, application/json, text/json
-
-<a name="validatePhoneNumber"></a>
-# **validatePhoneNumber**
-> Void validatePhoneNumber(code)
-
-Verify phone number
-
-### Example
-```java
-// Import classes:
-//import io.swagger.client.ApiClient;
-//import io.swagger.client.ApiException;
-//import io.swagger.client.Configuration;
-//import io.swagger.client.auth.*;
-//import io.swagger.client.api.AuthApi;
-
-ApiClient defaultClient = Configuration.getDefaultApiClient();
-
-// Configure API key authorization: Bearer
-ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
-Bearer.setApiKey("YOUR API KEY");
-// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-//Bearer.setApiKeyPrefix("Token");
-
-AuthApi apiInstance = new AuthApi();
-String code = "code_example"; // String | 
-try {
-    Void result = apiInstance.validatePhoneNumber(code);
-    System.out.println(result);
-} catch (ApiException e) {
-    System.err.println("Exception when calling AuthApi#validatePhoneNumber");
-    e.printStackTrace();
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **code** | **String**|  | [optional]
-
-### Return type
-
-[**Void**](.md)
 
 ### Authorization
 

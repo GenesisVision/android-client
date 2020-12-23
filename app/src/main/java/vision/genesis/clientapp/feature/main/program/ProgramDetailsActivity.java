@@ -488,14 +488,15 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 			addPage(tradesTab, false);
 			if (details.getProgramDetails().getType().equals(ProgramType.DAILYPERIOD)) {
 				addPage(programAnalyticsTab, false);
+				if (details.getProgramDetails().getPersonalDetails() != null
+						&& details.getProgramDetails().getPersonalDetails().isIsInvested()) {
+					addPage(reportsTab, false);
+				}
 			}
 			else {
 				addPage(periodHistoryTab, false);
 			}
-			if (details.getProgramDetails().getPersonalDetails() != null
-					&& details.getProgramDetails().getPersonalDetails().isIsInvested()) {
-				addPage(reportsTab, false);
-			}
+
 		}
 	}
 

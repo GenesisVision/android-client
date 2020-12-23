@@ -223,6 +223,7 @@ public class TransferFundsPresenter extends MvpPresenter<TransferWalletView> imp
 		getViewState().showRateProgress(false);
 		this.rate = rate;
 		getViewState().setRate(getRateString(rate, firstRateCurrency, secondRateCurrency));
+		getViewState().showRate(!firstRateCurrency.equals(secondRateCurrency));
 		updateFinalAmount();
 	}
 

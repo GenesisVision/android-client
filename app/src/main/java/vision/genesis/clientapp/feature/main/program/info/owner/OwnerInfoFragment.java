@@ -202,6 +202,9 @@ public class OwnerInfoFragment extends BaseFragment implements OwnerInfoView, Pr
 	@BindView(R.id.group_deposit_program_buttons)
 	public ViewGroup depositProgramButtonsGroup;
 
+	@BindView(R.id.invest_withdraw_info)
+	public TextView investWithdrawInfo;
+
 
 	@BindView(R.id.group_program)
 	public ViewGroup programGroup;
@@ -244,6 +247,9 @@ public class OwnerInfoFragment extends BaseFragment implements OwnerInfoView, Pr
 
 	@BindView(R.id.group_create_program)
 	public ViewGroup createProgramGroup;
+
+	@BindView(R.id.create_program_min_deposit_text)
+	public TextView createProgramMinDepositText;
 
 
 	@BindView(R.id.group_follow)
@@ -556,7 +562,22 @@ public class OwnerInfoFragment extends BaseFragment implements OwnerInfoView, Pr
 			updateFollowDetails(details.getFollowDetails());
 
 			updateButtons(details.getPublicInfo().getStatus());
+
+			if (details.getOwnerActions() != null) {
+				if (details.getProgramDetails() != null && details.getProgramDetails().getType().equals(ProgramType.DAILYPERIOD)) {
+					followGroup.setVisibility(details.getOwnerActions().isCanMakeSignalProviderFromPrivateExternalTradingAccount() ? View.VISIBLE : View.GONE);
+				}
+				if (details.getProgramDetails() != null && details.getProgramDetails().getType().equals(ProgramType.FIXEDPERIOD)) {
+					followGroup.setVisibility(details.getOwnerActions().isCanMakeSignalProviderFromProgram() ? View.VISIBLE : View.GONE);
+				}
+				createProgramMinDepositText.setVisibility(details.getOwnerActions().isIsEnoughMoneyToCreateProgram() ? View.GONE : View.VISIBLE);
+			}
 		}
+	}
+
+	@Override
+	public void setInvestWithdrawInfo(String info) {
+		investWithdrawInfo.setText(info);
 	}
 
 	private void updateButtons(String status) {
@@ -578,8 +599,9 @@ public class OwnerInfoFragment extends BaseFragment implements OwnerInfoView, Pr
 		else {
 			yourDepositGroup.setVisibility(View.VISIBLE);
 
-			createProgramButton.setEnabled(true);
-			createFollowButton.setEnabled(true);
+			createProgramButton.setEnabled(details.getOwnerActions().isCanMakeProgramFromSignalProvider()
+					&& details.getOwnerActions().isIsEnoughMoneyToCreateProgram());
+			createFollowButton.setEnabled(details.getOwnerActions().isCanMakeSignalProviderFromProgram());
 			editPublicInfoButton.setEnabled(true);
 			manageAccountButton.setEnabled(true);
 			manageProgramButton.setEnabled(true);
@@ -708,7 +730,12 @@ public class OwnerInfoFragment extends BaseFragment implements OwnerInfoView, Pr
 			PersonalProgramDetails personalDetails = details.getProgramDetails().getPersonalDetails();
 			if (personalDetails != null && personalDetails.isIsInvested() && !personalDetails.getStatus().equals(AssetInvestmentStatus.ENDED)) {
 				status.setVisibility(View.VISIBLE);
-				profitGroup.setVisibility(View.VISIBLE);
+				if (details.getProgramDetails() != null && details.getProgramDetails().getType().equals(ProgramType.DAILYPERIOD)) {
+					profitGroup.setVisibility(View.GONE);
+				}
+				else {
+					profitGroup.setVisibility(View.VISIBLE);
+				}
 				depositProgramButtonsGroup.setVisibility(View.VISIBLE);
 				depositFollowButtonsGroup.setVisibility(View.GONE);
 
@@ -749,6 +776,11 @@ public class OwnerInfoFragment extends BaseFragment implements OwnerInfoView, Pr
 	@Override
 	public void showInvestWithdrawButtons() {
 //		buttonsGroup.setVisibility(show ? View.VISIBLE : View.GONE);
+	}
+
+	@Override
+	public void setMinDepositText(String minDepositText) {
+		this.createProgramMinDepositText.setText(String.format(Locale.getDefault(), getString(R.string.template_insufficient_balance_create_program), minDepositText));
 	}
 
 	@Override

@@ -205,14 +205,26 @@ public class InvestProgramPresenter extends MvpPresenter<InvestProgramView> impl
 		programRequest.setAmountTopText(getAmountToInvestString());
 		programRequest.setInfoMiddleText(getFeesAndCommissionsString());
 		programRequest.setAmountBottomText(getInvestmentAmountString());
-		programRequest.setPeriodEndsText(String.format(Locale.getDefault(),
-				context.getString(R.string.template_program_invest_accrual),
+		programRequest.setPeriodEndsText(getPeriodEndsText());
+		getViewState().showConfirmDialog(programRequest);
+	}
+
+	private String getPeriodEndsText() {
+		int templateStringResId;
+		if (programRequest.isExchangeProgram()) {
+			templateStringResId = R.string.template_program_exchange_invest_accrual;
+		}
+		else {
+			templateStringResId = R.string.template_program_invest_accrual;
+		}
+		return String.format(Locale.getDefault(),
+				context.getString(templateStringResId),
 				selectedWalletFrom.getCurrency().getValue().equals(programRequest.getProgramCurrency()) ? "" :
 						String.format(Locale.getDefault(),
 								context.getString(R.string.template_program_invest_convert),
 								selectedWalletFrom.getCurrency().getValue(), programRequest.getProgramCurrency()),
-				programRequest.getProgramCurrency()));
-		getViewState().showConfirmDialog(programRequest);
+				programRequest.getProgramCurrency());
+
 	}
 
 	private void subscribeToWallets() {

@@ -475,6 +475,7 @@
                     </LinearLayout>
 
                     <LinearLayout
+                        android:id="@+id/group_profit"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -635,7 +636,7 @@
                     android:alpha="0.3"
                     android:gravity="center"
                     android:lineSpacingMultiplier="1.2"
-                    android:text="@string/program_info_withdraw_info"
+                    android:text="@string/program_invest_withdraw_info_few_minutes"
                     android:textColor="?attr/colorTextPrimary"
                     android:textSize="12sp"/>
 

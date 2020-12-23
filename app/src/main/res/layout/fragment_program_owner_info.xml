@@ -485,13 +485,13 @@
                         android:text="@string/withdraw"/>
 
                     <TextView
-                        android:id="@+id/withdraw_info"
+                        android:id="@+id/invest_withdraw_info"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:alpha="0.3"
                         android:gravity="center"
                         android:lineSpacingMultiplier="1.2"
-                        android:text="@string/program_info_withdraw_info"
+                        android:text="@string/program_invest_withdraw_info_few_minutes"
                         android:textColor="?attr/colorTextPrimary"
                         android:textSize="12sp"/>
 
@@ -687,6 +687,18 @@
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/button_height"
                         android:text="@string/create_program"/>
+
+                    <TextView
+                        android:id="@+id/create_program_min_deposit_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:gravity="center"
+                        android:text="@string/template_insufficient_balance_create_program"
+                        android:textColor="?attr/colorTextSecondary"
+                        android:textSize="14sp"
+                        android:visibility="gone"
+                        tools:visibility="visible"/>
 
                 </LinearLayout>
 

@@ -334,6 +334,7 @@ public class ProgramSettingsFragment extends BaseFragment implements ProgramSett
 	@Override
 	public void setCurrency(String currency, Integer position) {
 		this.currency.setText(currency);
+		this.investmentLimitCurrency.setText(currency);
 		this.selectedCurrencyPosition = position;
 	}
 

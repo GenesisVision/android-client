@@ -4,7 +4,11 @@ import java.util.List;
 import java.util.UUID;
 
 import io.swagger.client.model.ChangeBrokerProgramRequest;
+import io.swagger.client.model.CreateApiKeyModel;
 import io.swagger.client.model.CreateSignalProvider;
+import io.swagger.client.model.EditApiKeyRestrictionsModel;
+import io.swagger.client.model.ExchangeCredentials;
+import io.swagger.client.model.ExchangeCredentialsInfoItemsViewModel;
 import io.swagger.client.model.FundAssetPart;
 import io.swagger.client.model.MakeExchangeAccountProgram;
 import io.swagger.client.model.MakeExchangeProgram;
@@ -152,6 +156,21 @@ public interface AssetsApi
 	);
 
 	/**
+	 * Create account api key
+	 *
+	 * @param id   (required)
+	 * @param body (optional)
+	 * @return Call&lt;ExchangeCredentials&gt;
+	 */
+	@Headers({
+			"Content-Type:application/json"
+	})
+	@POST("v2.0/assets/tradingaccounts/{id}/keys/create")
+	Observable<ExchangeCredentials> createAccountApiKey(
+			@retrofit2.http.Path("id") UUID id, @retrofit2.http.Body CreateApiKeyModel body
+	);
+
+	/**
 	 * Create exchange account
 	 *
 	 * @param body (optional)
@@ -219,6 +238,43 @@ public interface AssetsApi
 	@POST("v2.0/assets/tradingaccounts/create")
 	Observable<TradingAccountCreateResult> createTradingAccount(
 			@retrofit2.http.Body NewTradingAccountRequest body
+	);
+
+	/**
+	 * Delete account api key
+	 *
+	 * @param id (required)
+	 * @return Call&lt;Void&gt;
+	 */
+	@POST("v2.0/assets/tradingaccounts/keys/{id}/delete")
+	Observable<Void> deleteAccountApiKey(
+			@retrofit2.http.Path("id") UUID id
+	);
+
+	/**
+	 * Edit account api key restrictions
+	 *
+	 * @param id   (required)
+	 * @param body (optional)
+	 * @return Call&lt;Void&gt;
+	 */
+	@Headers({
+			"Content-Type:application/json"
+	})
+	@POST("v2.0/assets/tradingaccounts/keys/{id}/edit")
+	Observable<Void> editAccountApiKeyRestrictions(
+			@retrofit2.http.Path("id") UUID id, @retrofit2.http.Body EditApiKeyRestrictionsModel body
+	);
+
+	/**
+	 * Get account api key
+	 *
+	 * @param id (required)
+	 * @return Call&lt;ExchangeCredentialsInfoItemsViewModel&gt;
+	 */
+	@GET("v2.0/assets/tradingaccounts/{id}/keys")
+	Observable<ExchangeCredentialsInfoItemsViewModel> getAccountApiKey(
+			@retrofit2.http.Path("id") UUID id
 	);
 
 	/**

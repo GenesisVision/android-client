@@ -130,6 +130,7 @@
     <string name="for_depositing_just_send">For depositing just send the desired amount of GVT to this address. Or use the QR code below:</string>
     <string name="copied_to_the_clipboard">Copied to the clipboard</string>
     <string name="cannot_copy">Cannot copy</string>
+    <string name="cannot_share">Cannot share</string>
 
     <string name="enter_desired_amount_withdraw">Enter correct amount you would like to withdraw</string>
     <string name="enter_wallet_address_withdraw">Enter correct address</string>
@@ -462,10 +463,10 @@
     <string name="av_to_invest">av. to invest</string>
     <string name="entry_fee">Entry fee</string>
     <string name="auto_reinvest">Auto reinvest</string>
-    <string name="request_info_template">Your request will be processed at the end of the reporting period %s</string>
     <string name="your_investment">Your investment</string>
     <string name="value">value</string>
-    <string name="program_info_withdraw_info">Your request will be processed at the end of the reporting period.</string>
+    <string name="program_invest_withdraw_info_template">Your request will be processed at  %s</string>
+    <string name="program_invest_withdraw_info_few_minutes">Your request will be processed within a few minutes.</string>
     <string name="text_continue">Continue</string>
     <string name="investment_amount">Investment amount</string>
     <string name="amount_to_invest">Amount to invest</string>
@@ -548,6 +549,7 @@
     <string name="fund_structure_changing">Fund structure changing</string>
     <string name="template_program_invest_convert">After tapping the "Confirm" button, the invested %s will be immediately converted to %s.</string>
     <string name="template_program_invest_accrual">%s Accrual of %s to the account manager will only occur at the end of the reporting period.</string>
+    <string name="template_program_exchange_invest_accrual">%s Accrual of %s to the account manager will occur at the moment the request is processed.</string>
     <string name="program_withdraw_warning">Your request will be processed at the end of the reporting period.</string>
     <string name="other">Other</string>
     <string name="start">Start</string>
@@ -1021,11 +1023,13 @@
     <string name="deposit_withdraw">Deposit/Withdraw</string>
     <string name="deposits">Deposits</string>
     <string name="withdrawals">Withdrawals</string>
-    <string name="program_withdraw_all_info">You are withdrawing the entire amount that will be available in the program at the end of the period.</string>
+    <string name="program_withdraw_all_info">You are withdrawing the entire amount that will be available in the Program at the moment the request is processed.</string>
     <string name="now">Now</string>
     <string name="real_time">Real time</string>
     <string name="processing">Processing</string>
     <string name="processing_time">Processing time</string>
+    <string name="program_settings_processing_time_utc">Please choose a processing time in UTC+0:00</string>
+    <string name="template_insufficient_balance_create_program">Insufficient balance. Minimum deposit to create a program is %s</string>
 
     <plurals name="assets">
         <item quantity="one">asset</item>

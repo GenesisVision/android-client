@@ -13,11 +13,15 @@ Method | HTTP request | Description
 [**closeInvestmentProgram**](AssetsApi.md#closeInvestmentProgram) | **POST** v2.0/assets/programs/{id}/close | Close existing investment program
 [**closeTradingAccount**](AssetsApi.md#closeTradingAccount) | **POST** v2.0/assets/tradingaccounts/{id}/close | Close trading account
 [**confirmProgram2FA**](AssetsApi.md#confirmProgram2FA) | **POST** v2.0/assets/programs/{id}/2fa/confirm | Confirm 2FA for program if required (for brokers like Huobi)
+[**createAccountApiKey**](AssetsApi.md#createAccountApiKey) | **POST** v2.0/assets/tradingaccounts/{id}/keys/create | Create account api key
 [**createExchangeAccount**](AssetsApi.md#createExchangeAccount) | **POST** v2.0/assets/tradingaccounts/exchange/create | Create exchange account
 [**createExternalTradingAccount**](AssetsApi.md#createExternalTradingAccount) | **POST** v2.0/assets/tradingaccounts/external/create | Create external trading account
 [**createFund**](AssetsApi.md#createFund) | **POST** v2.0/assets/funds/create | Create fund
 [**createSelfManagedFund**](AssetsApi.md#createSelfManagedFund) | **POST** v2.0/assets/funds/selfmanaged/create | Create self managed fund
 [**createTradingAccount**](AssetsApi.md#createTradingAccount) | **POST** v2.0/assets/tradingaccounts/create | Create trading account
+[**deleteAccountApiKey**](AssetsApi.md#deleteAccountApiKey) | **POST** v2.0/assets/tradingaccounts/keys/{id}/delete | Delete account api key
+[**editAccountApiKeyRestrictions**](AssetsApi.md#editAccountApiKeyRestrictions) | **POST** v2.0/assets/tradingaccounts/keys/{id}/edit | Edit account api key restrictions
+[**getAccountApiKey**](AssetsApi.md#getAccountApiKey) | **GET** v2.0/assets/tradingaccounts/{id}/keys | Get account api key
 [**getLevelsCalculator**](AssetsApi.md#getLevelsCalculator) | **GET** v2.0/assets/programs/{id}/levels/info | Get program data for levels calculator
 [**getProgram2FA**](AssetsApi.md#getProgram2FA) | **GET** v2.0/assets/programs/{id}/2fa/get | Get 2FA for program if needed
 [**makeAccountProgram**](AssetsApi.md#makeAccountProgram) | **POST** v2.0/assets/programs/fromaccount/create | Create an investment program from trading account
@@ -522,6 +526,61 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, text/json, application/_*+json
  - **Accept**: text/plain, application/json, text/json
 
+<a name="createAccountApiKey"></a>
+# **createAccountApiKey**
+> ExchangeCredentials createAccountApiKey(id, body)
+
+Create account api key
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiClient;
+//import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
+//import io.swagger.client.api.AssetsApi;
+
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
+
+AssetsApi apiInstance = new AssetsApi();
+UUID id = new UUID(); // UUID | 
+CreateApiKeyModel body = new CreateApiKeyModel(); // CreateApiKeyModel | 
+try {
+    ExchangeCredentials result = apiInstance.createAccountApiKey(id, body);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling AssetsApi#createAccountApiKey");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | [**UUID**](.md)|  |
+ **body** | [**CreateApiKeyModel**](CreateApiKeyModel.md)|  | [optional]
+
+### Return type
+
+[**ExchangeCredentials**](ExchangeCredentials.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json, text/json, application/_*+json
+ - **Accept**: text/plain, application/json, text/json
+
 <a name="createExchangeAccount"></a>
 # **createExchangeAccount**
 > TradingAccountCreateResult createExchangeAccount(body)
@@ -785,6 +844,167 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: application/json, text/json, application/_*+json
+ - **Accept**: text/plain, application/json, text/json
+
+<a name="deleteAccountApiKey"></a>
+# **deleteAccountApiKey**
+> Void deleteAccountApiKey(id)
+
+Delete account api key
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiClient;
+//import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
+//import io.swagger.client.api.AssetsApi;
+
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
+
+AssetsApi apiInstance = new AssetsApi();
+UUID id = new UUID(); // UUID | 
+try {
+    Void result = apiInstance.deleteAccountApiKey(id);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling AssetsApi#deleteAccountApiKey");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | [**UUID**](.md)|  |
+
+### Return type
+
+[**Void**](.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
+
+<a name="editAccountApiKeyRestrictions"></a>
+# **editAccountApiKeyRestrictions**
+> Void editAccountApiKeyRestrictions(id, body)
+
+Edit account api key restrictions
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiClient;
+//import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
+//import io.swagger.client.api.AssetsApi;
+
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
+
+AssetsApi apiInstance = new AssetsApi();
+UUID id = new UUID(); // UUID | 
+EditApiKeyRestrictionsModel body = new EditApiKeyRestrictionsModel(); // EditApiKeyRestrictionsModel | 
+try {
+    Void result = apiInstance.editAccountApiKeyRestrictions(id, body);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling AssetsApi#editAccountApiKeyRestrictions");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | [**UUID**](.md)|  |
+ **body** | [**EditApiKeyRestrictionsModel**](EditApiKeyRestrictionsModel.md)|  | [optional]
+
+### Return type
+
+[**Void**](.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json, text/json, application/_*+json
+ - **Accept**: text/plain, application/json, text/json
+
+<a name="getAccountApiKey"></a>
+# **getAccountApiKey**
+> ExchangeCredentialsInfoItemsViewModel getAccountApiKey(id)
+
+Get account api key
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiClient;
+//import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
+//import io.swagger.client.api.AssetsApi;
+
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
+
+AssetsApi apiInstance = new AssetsApi();
+UUID id = new UUID(); // UUID | 
+try {
+    ExchangeCredentialsInfoItemsViewModel result = apiInstance.getAccountApiKey(id);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling AssetsApi#getAccountApiKey");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | [**UUID**](.md)|  |
+
+### Return type
+
+[**ExchangeCredentialsInfoItemsViewModel**](ExchangeCredentialsInfoItemsViewModel.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
  - **Accept**: text/plain, application/json, text/json
 
 <a name="getLevelsCalculator"></a>

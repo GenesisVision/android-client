@@ -144,42 +144,67 @@
 
                 </RelativeLayout>
 
-                <RelativeLayout
+                <LinearLayout
                     android:id="@+id/group_processing_time"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/text_input_height">
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/processing_time"
                         android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:background="@android:color/transparent"
-                        android:gravity="center_vertical"
-                        android:textColor="?attr/colorTextPrimary"
-                        android:textColorHint="?attr/colorTextPrimary"
-                        android:textSize="18sp"
-                        tools:text="01:00"/>
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:text="@string/program_settings_processing_time_utc"
+                        android:textColor="?attr/colorTextSecondary"
+                        android:textSize="12sp"/>
 
-                    <ImageView
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:layout_alignParentEnd="true"
-                        android:layout_centerVertical="true"
-                        android:layout_marginStart="8dp"
-                        android:alpha="0.3"
-                        android:gravity="center_vertical|end"
-                        android:src="@drawable/ic_keyboard_arrow_down_black_24dp"
-                        android:textSize="18sp"
-                        android:tint="?attr/colorTextPrimary"/>
-
-                    <View
+                    <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:layout_alignParentBottom="true"
-                        android:alpha="0.2"
-                        android:background="?attr/colorTextPrimary"/>
+                        android:layout_height="@dimen/text_input_height">
 
-                </RelativeLayout>
+                        <TextView
+                            android:id="@+id/processing_time"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:gravity="center_vertical"
+                            android:textColor="?attr/colorTextPrimary"
+                            android:textColorHint="?attr/colorTextPrimary"
+                            android:textSize="18sp"
+                            tools:text="01:00"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="8dp"
+                            android:layout_toEndOf="@+id/processing_time"
+                            android:gravity="center_vertical"
+                            android:text="UTC+0:00"
+                            android:textColor="?attr/colorTextSecondary"
+                            android:textColorHint="?attr/colorTextPrimary"
+                            android:textSize="18sp"/>
+
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginStart="8dp"
+                            android:alpha="0.3"
+                            android:gravity="center_vertical|end"
+                            android:src="@drawable/ic_keyboard_arrow_down_black_24dp"
+                            android:textSize="18sp"
+                            android:tint="?attr/colorTextPrimary"/>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_alignParentBottom="true"
+                            android:alpha="0.2"
+                            android:background="?attr/colorTextPrimary"/>
+
+                    </RelativeLayout>
+
+                </LinearLayout>
 
                 <TextView
                     android:id="@+id/processing_description"

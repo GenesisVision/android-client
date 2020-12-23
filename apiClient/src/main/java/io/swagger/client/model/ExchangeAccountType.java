@@ -62,6 +62,9 @@ public class ExchangeAccountType implements Parcelable
 	@SerializedName("currencies")
 	private List<String> currencies = null;
 
+	@SerializedName("permissions")
+	private List<TradingAccountPermission> permissions = null;
+
 	@SerializedName("minimumDepositsAmount")
 	private Map<String, Double> minimumDepositsAmount = null;
 
@@ -87,6 +90,7 @@ public class ExchangeAccountType implements Parcelable
 		type = (BrokerTradeServerType) in.readValue(BrokerTradeServerType.class.getClassLoader());
 		typeTitle = (String) in.readValue(null);
 		currencies = (List<String>) in.readValue(null);
+		permissions = (List<TradingAccountPermission>) in.readValue(TradingAccountPermission.class.getClassLoader());
 		minimumDepositsAmount = (Map<String, Double>) in.readValue(null);
 		isKycRequired = (Boolean) in.readValue(null);
 		isCountryNotUSRequired = (Boolean) in.readValue(null);
@@ -216,6 +220,33 @@ public class ExchangeAccountType implements Parcelable
 		this.currencies = currencies;
 	}
 
+	public ExchangeAccountType permissions(List<TradingAccountPermission> permissions) {
+		this.permissions = permissions;
+		return this;
+	}
+
+	public ExchangeAccountType addPermissionsItem(TradingAccountPermission permissionsItem) {
+		if (this.permissions == null) {
+			this.permissions = new ArrayList<TradingAccountPermission>();
+		}
+		this.permissions.add(permissionsItem);
+		return this;
+	}
+
+	/**
+	 * Get permissions
+	 *
+	 * @return permissions
+	 **/
+	@Schema(description = "")
+	public List<TradingAccountPermission> getPermissions() {
+		return permissions;
+	}
+
+	public void setPermissions(List<TradingAccountPermission> permissions) {
+		this.permissions = permissions;
+	}
+
 	public ExchangeAccountType minimumDepositsAmount(Map<String, Double> minimumDepositsAmount) {
 		this.minimumDepositsAmount = minimumDepositsAmount;
 		return this;
@@ -334,6 +365,7 @@ public class ExchangeAccountType implements Parcelable
 				Objects.equals(this.type, exchangeAccountType.type) &&
 				Objects.equals(this.typeTitle, exchangeAccountType.typeTitle) &&
 				Objects.equals(this.currencies, exchangeAccountType.currencies) &&
+				Objects.equals(this.permissions, exchangeAccountType.permissions) &&
 				Objects.equals(this.minimumDepositsAmount, exchangeAccountType.minimumDepositsAmount) &&
 				Objects.equals(this.isKycRequired, exchangeAccountType.isKycRequired) &&
 				Objects.equals(this.isCountryNotUSRequired, exchangeAccountType.isCountryNotUSRequired) &&
@@ -343,7 +375,7 @@ public class ExchangeAccountType implements Parcelable
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, name, description, type, typeTitle, currencies, minimumDepositsAmount, isKycRequired, isCountryNotUSRequired, isSignalsAvailable, isDepositRequired);
+		return Objects.hash(id, name, description, type, typeTitle, currencies, permissions, minimumDepositsAmount, isKycRequired, isCountryNotUSRequired, isSignalsAvailable, isDepositRequired);
 	}
 
 	@Override
@@ -357,6 +389,7 @@ public class ExchangeAccountType implements Parcelable
 		sb.append("    type: ").append(toIndentedString(type)).append("\n");
 		sb.append("    typeTitle: ").append(toIndentedString(typeTitle)).append("\n");
 		sb.append("    currencies: ").append(toIndentedString(currencies)).append("\n");
+		sb.append("    permissions: ").append(toIndentedString(permissions)).append("\n");
 		sb.append("    minimumDepositsAmount: ").append(toIndentedString(minimumDepositsAmount)).append("\n");
 		sb.append("    isKycRequired: ").append(toIndentedString(isKycRequired)).append("\n");
 		sb.append("    isCountryNotUSRequired: ").append(toIndentedString(isCountryNotUSRequired)).append("\n");
@@ -384,6 +417,7 @@ public class ExchangeAccountType implements Parcelable
 		out.writeValue(type);
 		out.writeValue(typeTitle);
 		out.writeValue(currencies);
+		out.writeValue(permissions);
 		out.writeValue(minimumDepositsAmount);
 		out.writeValue(isKycRequired);
 		out.writeValue(isCountryNotUSRequired);

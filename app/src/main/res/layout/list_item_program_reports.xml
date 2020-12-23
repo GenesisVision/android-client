@@ -17,7 +17,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="20dp"
             android:layout_marginBottom="12dp"
             android:orientation="horizontal">
 
@@ -63,7 +63,7 @@
                     android:id="@+id/balance"
                     style="@style/period_text_value"
                     android:fontFamily="@font/montserrat_semibold"
-                    tools:text="235k GVT"/>
+                    tools:text="0.00000001 GVT"/>
 
                 <TextView
                     android:id="@+id/profit"
@@ -94,7 +94,6 @@
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/group_main"
         android:layout_alignParentEnd="true"
-        android:layout_marginTop="2dp"
         android:layout_marginEnd="20dp"
         android:gravity="end"
         android:orientation="vertical">

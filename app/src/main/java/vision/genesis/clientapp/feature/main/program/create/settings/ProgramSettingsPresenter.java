@@ -263,7 +263,9 @@ public class ProgramSettingsPresenter extends MvpPresenter<ProgramSettingsView>
 				currencyPos++;
 			}
 		}
-		onCurrencyOptionSelected(currencyPos, currencies.get(currencyPos));
+		if (currencyPos < currencies.size()) {
+			onCurrencyOptionSelected(currencyPos, currencies.get(currencyPos));
+		}
 	}
 
 	private void initInvestmentLimit() {

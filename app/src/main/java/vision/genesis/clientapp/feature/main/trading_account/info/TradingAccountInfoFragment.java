@@ -138,6 +138,9 @@ public class TradingAccountInfoFragment extends BaseFragment implements TradingA
 	@BindView(R.id.button_create_program)
 	public PrimaryButton createProgramButton;
 
+	@BindView(R.id.create_program_min_deposit_text)
+	public TextView createProgramMinDepositText;
+
 
 	@BindView(R.id.group_follow)
 	public ViewGroup groupFollow;
@@ -283,13 +286,14 @@ public class TradingAccountInfoFragment extends BaseFragment implements TradingA
 
 			updateAccountInfo(accountDetails);
 
+
+			value.setText(StringFormatUtil.getValueString(accountDetails.getTradingAccountInfo().getBalance(),
+					accountDetails.getTradingAccountInfo().getCurrency().getValue()));
+
 			if (accountDetails.getTradingAccountInfo().isIsExternal()) {
-				value.setText(StringFormatUtil.formatAmount(accountDetails.getTradingAccountInfo().getBalance()));
-				depositButtonsGroup.setVisibility(View.VISIBLE);
+				depositButtonsGroup.setVisibility(View.GONE);
 			}
 			else {
-				value.setText(StringFormatUtil.getValueString(accountDetails.getTradingAccountInfo().getBalance(),
-						accountDetails.getTradingAccountInfo().getCurrency().getValue()));
 				if (accountDetails.getOwnerActions().isCanMakeDemoDeposit()) {
 					addDemoFundsButton.setVisibility(View.VISIBLE);
 					depositButtonsGroup.setVisibility(View.GONE);
@@ -310,21 +314,31 @@ public class TradingAccountInfoFragment extends BaseFragment implements TradingA
 				withdrawButton.setEnabled(accountDetails.getOwnerActions().isCanTransferMoney());
 				addFundsButton.setEnabled(accountDetails.getOwnerActions().isCanTransferMoney());
 				if (accountDetails.getTradingAccountInfo().getType().equals(PrivateTradingAccountType.EXCHANGEACCOUNT)) {
-					createProgramButton.setEnabled(accountDetails.getOwnerActions().isCanMakeExchangeProgramFromPrivateTradingAccount());
+					createProgramButton.setEnabled(accountDetails.getOwnerActions().isCanMakeExchangeProgramFromPrivateTradingAccount()
+							&& accountDetails.getOwnerActions().isIsEnoughMoneyToCreateProgram());
 					createFollowButton.setEnabled(accountDetails.getOwnerActions().isCanMakeSignalProviderFromPrivateExternalTradingAccount());
+					groupFollow.setVisibility(accountDetails.getOwnerActions().isCanMakeSignalProviderFromPrivateExternalTradingAccount() ? View.VISIBLE : View.GONE);
 				}
 				else {
-					createProgramButton.setEnabled(accountDetails.getOwnerActions().isCanMakeProgramFromPrivateTradingAccount());
+					createProgramButton.setEnabled(accountDetails.getOwnerActions().isCanMakeProgramFromPrivateTradingAccount()
+							&& accountDetails.getOwnerActions().isIsEnoughMoneyToCreateProgram());
 					createFollowButton.setEnabled(accountDetails.getOwnerActions().isCanMakeSignalProviderFromPrivateTradingAccount());
 				}
+				createProgramMinDepositText.setVisibility(accountDetails.getOwnerActions().isIsEnoughMoneyToCreateProgram() ? View.GONE : View.VISIBLE);
 			}
 		}
+	}
+
+	@Override
+	public void setMinDepositText(String minDepositText) {
+		this.createProgramMinDepositText.setText(String.format(Locale.getDefault(), getString(R.string.template_insufficient_balance_create_program), minDepositText));
 	}
 
 	private void updateAccountInfo(PrivateTradingAccountFull details) {
 		this.brokerLogo.setImageURI(ImageUtils.getImageUri(details.getBrokerDetails().getLogoUrl()));
 		this.age.setCreationDate(details.getPublicInfo().getCreationDate());
-		if (details.getTradingAccountInfo().isIsExternal()) {
+		if (details.getTradingAccountInfo().getType().equals(PrivateTradingAccountType.EXTERNALTRADINGACCOUNT)
+				|| details.getTradingAccountInfo().getType().equals(PrivateTradingAccountType.EXCHANGEACCOUNT)) {
 			groupCurrency.setVisibility(View.GONE);
 			groupLeverage.setVisibility(View.GONE);
 		}

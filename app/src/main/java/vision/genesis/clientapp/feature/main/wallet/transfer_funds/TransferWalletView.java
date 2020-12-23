@@ -24,6 +24,8 @@ interface TransferWalletView extends MvpView
 
 	void setRate(String feeAmountString);
 
+	void showRate(boolean show);
+
 	void setFinalAmount(String finalAmountString);
 
 	void setConfirmButtonEnabled(boolean enabled);

@@ -11,11 +11,15 @@ import java.util.UUID;
 
 import javax.inject.Inject;
 
+import io.swagger.client.model.AmountWithCurrency;
 import io.swagger.client.model.AssetType;
+import io.swagger.client.model.Currency;
 import io.swagger.client.model.InternalTransferRequestType;
+import io.swagger.client.model.PlatformInfo;
 import io.swagger.client.model.PrivateTradingAccountFull;
 import io.swagger.client.model.PrivateTradingAccountType;
 import io.swagger.client.model.ProfileFullViewModel;
+import io.swagger.client.model.ProgramMinInvestAmount;
 import io.swagger.client.model.SignalSubscription;
 import io.swagger.client.model.SignalSubscriptionItemsViewModel;
 import rx.Subscription;
@@ -25,6 +29,7 @@ import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.managers.AuthManager;
 import vision.genesis.clientapp.managers.FollowsManager;
 import vision.genesis.clientapp.managers.ProfileManager;
+import vision.genesis.clientapp.managers.SettingsManager;
 import vision.genesis.clientapp.managers.TradingAccountManager;
 import vision.genesis.clientapp.model.CreateProgramModel;
 import vision.genesis.clientapp.model.ProgramRequest;
@@ -32,6 +37,7 @@ import vision.genesis.clientapp.model.TradingAccountDetailsModel;
 import vision.genesis.clientapp.model.TransferFundsModel;
 import vision.genesis.clientapp.model.events.OnProfilePublicInfoFilledEvent;
 import vision.genesis.clientapp.net.ApiErrorResolver;
+import vision.genesis.clientapp.utils.StringFormatUtil;
 
 /**
  * GenesisVisionAndroid
@@ -53,6 +59,11 @@ public class TradingAccountInfoPresenter extends MvpPresenter<TradingAccountInfo
 	@Inject
 	public ProfileManager profileManager;
 
+	@Inject
+	public SettingsManager settingsManager;
+
+	private Subscription platformInfoSubscription;
+
 	private Subscription profileSubscription;
 
 	private Subscription accountDetailsSubscription;
@@ -71,6 +82,8 @@ public class TradingAccountInfoPresenter extends MvpPresenter<TradingAccountInfo
 
 	private boolean isWaitingFillProfileToCreateFollow = false;
 
+	private PlatformInfo platformInfo;
+
 	@Override
 	protected void onFirstViewAttach() {
 		super.onFirstViewAttach();
@@ -78,6 +91,7 @@ public class TradingAccountInfoPresenter extends MvpPresenter<TradingAccountInfo
 		GenesisVisionApplication.getComponent().inject(this);
 
 		getViewState().showProgress(true);
+		getPlatformInfo();
 		getProfile();
 		getAccountDetails();
 		getSubscriptions();
@@ -85,6 +99,9 @@ public class TradingAccountInfoPresenter extends MvpPresenter<TradingAccountInfo
 
 	@Override
 	public void onDestroy() {
+		if (platformInfoSubscription != null) {
+			platformInfoSubscription.unsubscribe();
+		}
 		if (profileSubscription != null) {
 			profileSubscription.unsubscribe();
 		}
@@ -215,6 +232,60 @@ public class TradingAccountInfoPresenter extends MvpPresenter<TradingAccountInfo
 				accountDetails.getTradingAccountInfo().getType().equals(PrivateTradingAccountType.EXCHANGEACCOUNT)));
 	}
 
+	private void getPlatformInfo() {
+		if (settingsManager != null) {
+			platformInfoSubscription = settingsManager.getPlatformInfo()
+					.observeOn(AndroidSchedulers.mainThread())
+					.subscribeOn(Schedulers.newThread())
+					.subscribe(this::handleGetPlatformInfoSuccess,
+							this::handleGetPlatformInfoError);
+		}
+	}
+
+	private void handleGetPlatformInfoSuccess(PlatformInfo platformInfo) {
+		platformInfoSubscription.unsubscribe();
+		this.platformInfo = platformInfo;
+
+		updateMinDepositInfo();
+	}
+
+	private void updateMinDepositInfo() {
+		if (platformInfo != null && accountDetails != null && !accountDetails.getOwnerActions().isIsEnoughMoneyToCreateProgram()) {
+			List<ProgramMinInvestAmount> minAmounts = platformInfo.getAssetInfo().getProgramInfo().getMinInvestAmounts();
+			String minDepositText = null;
+
+			exchangeLoop:
+			for (ProgramMinInvestAmount minAmount : minAmounts) {
+				if (minAmount.getServerType().equals(accountDetails.getBrokerDetails().getType())) {
+					for (AmountWithCurrency amountWithCurrency : minAmount.getMinDepositCreateAsset()) {
+						if (accountDetails.getTradingAccountInfo().getType().equals(PrivateTradingAccountType.EXCHANGEACCOUNT)) {
+							if (amountWithCurrency.getCurrency().equals(Currency.USDT)) {
+								minDepositText = StringFormatUtil.getValueString(amountWithCurrency.getAmount(), amountWithCurrency.getCurrency().getValue());
+								break exchangeLoop;
+							}
+						}
+						else {
+							if (amountWithCurrency.getCurrency().equals(accountDetails.getTradingAccountInfo().getCurrency())) {
+								minDepositText = StringFormatUtil.getValueString(amountWithCurrency.getAmount(), amountWithCurrency.getCurrency().getValue());
+								break exchangeLoop;
+							}
+						}
+					}
+				}
+			}
+
+			if (minDepositText != null) {
+				getViewState().setMinDepositText(minDepositText);
+			}
+		}
+	}
+
+	private void handleGetPlatformInfoError(Throwable throwable) {
+		platformInfoSubscription.unsubscribe();
+
+		ApiErrorResolver.resolveErrors(throwable, message -> getViewState().showSnackbarMessage(message));
+	}
+
 	private void getProfile() {
 		profileSubscription = profileManager.getProfileFull(true)
 				.subscribeOn(Schedulers.io())
@@ -245,6 +316,8 @@ public class TradingAccountInfoPresenter extends MvpPresenter<TradingAccountInfo
 		getViewState().showProgress(false);
 
 		this.accountDetails = accountDetails;
+
+		updateMinDepositInfo();
 
 		getViewState().setAccountDetails(accountDetails);
 	}

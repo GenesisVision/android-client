@@ -242,6 +242,11 @@ public class TransferFundsActivity extends BaseSwipeBackActivity implements Tran
 	}
 
 	@Override
+	public void showRate(boolean show) {
+		this.rate.setVisibility(show ? View.VISIBLE : View.INVISIBLE);
+	}
+
+	@Override
 	public void setFinalAmount(String finalAmountString) {
 		this.finalAmount.setText(finalAmountString);
 	}

@@ -23,6 +23,8 @@ interface TradingAccountInfoView extends MvpView
 	@StateStrategyType(AddToEndSingleStrategy.class)
 	void setAccountDetails(PrivateTradingAccountFull accountDetails);
 
+	void setMinDepositText(String minDepositText);
+
 	void showCopytrading(List<SignalSubscription> masters);
 
 	@StateStrategyType(AddToEndSingleStrategy.class)

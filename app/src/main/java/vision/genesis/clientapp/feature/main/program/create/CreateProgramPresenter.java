@@ -18,6 +18,7 @@ import io.swagger.client.model.MakeSignalProviderProgram;
 import io.swagger.client.model.MakeTradingAccountProgram;
 import io.swagger.client.model.PlatformInfo;
 import io.swagger.client.model.ProgramMinInvestAmount;
+import io.swagger.client.model.TradesDelay;
 import rx.Observable;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
@@ -72,6 +73,8 @@ public class CreateProgramPresenter extends MvpPresenter<CreateProgramView>
 	private String currency;
 
 	private Double investmentLimit;
+
+	private TradesDelay tradesDelay;
 
 	private Double entryFee;
 
@@ -171,6 +174,7 @@ public class CreateProgramPresenter extends MvpPresenter<CreateProgramView>
 			accountRequest.setHourProcessing(hourProcessing);
 			accountRequest.setCurrency(Currency.fromValue(currency));
 			accountRequest.setInvestmentLimit(investmentLimit);
+			accountRequest.setTradesDelay(tradesDelay);
 			accountRequest.setManagementFee(entryFee);
 			accountRequest.setSuccessFee(successFee);
 
@@ -185,6 +189,7 @@ public class CreateProgramPresenter extends MvpPresenter<CreateProgramView>
 			accountRequest.setLogo(this.logo);
 
 			accountRequest.setPeriodLength(periodLength);
+			accountRequest.setTradesDelay(tradesDelay);
 			accountRequest.setStopOutLevel(stopOutLevel);
 			accountRequest.setInvestmentLimit(investmentLimit);
 			accountRequest.setManagementFee(entryFee);
@@ -242,8 +247,9 @@ public class CreateProgramPresenter extends MvpPresenter<CreateProgramView>
 		this.isProcessingRealTime = event.getModel().isProcessingRealTime();
 		this.hourProcessing = event.getModel().getHourProcessing();
 		this.currency = event.getModel().getCurrency();
-		this.stopOutLevel = event.getModel().getStopOutLevel();
 		this.investmentLimit = event.getModel().getInvestmentLimit();
+		this.tradesDelay = event.getModel().getTradesDelay();
+		this.stopOutLevel = event.getModel().getStopOutLevel();
 		this.entryFee = event.getModel().getEntryFee();
 		this.successFee = event.getModel().getSuccessFee();
 
