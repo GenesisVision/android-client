@@ -40,9 +40,12 @@ public class CreateProgramModel implements Parcelable
 
 	private Double minDeposit;
 
-	private Boolean isExternal;
+	private Boolean isExternal = false;
 
-	private Boolean isExchange;
+	private Boolean isExchange = false;
+
+	public CreateProgramModel() {
+	}
 
 	public CreateProgramModel(UUID assetId, AssetType assetType, BrokerTradeServerType serverType, Double currentBalance, String currency, Boolean isExternal, Boolean isExchange) {
 		this.assetId = assetId;

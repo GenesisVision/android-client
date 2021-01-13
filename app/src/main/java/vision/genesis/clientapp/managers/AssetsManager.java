@@ -9,6 +9,8 @@ import io.swagger.client.model.ChangeBrokerProgramRequest;
 import io.swagger.client.model.CreateSignalProvider;
 import io.swagger.client.model.FundAssetPart;
 import io.swagger.client.model.MakeExchangeAccountProgram;
+import io.swagger.client.model.MakeExchangeProgram;
+import io.swagger.client.model.MakeProgram;
 import io.swagger.client.model.MakeSelfManagedFundPublicRequest;
 import io.swagger.client.model.MakeSignalProviderProgram;
 import io.swagger.client.model.MakeTradingAccountProgram;
@@ -56,6 +58,14 @@ public class AssetsManager
 
 	public Observable<TradingAccountCreateResult> createExternalTradingAccount(NewExternalTradingAccountRequest request) {
 		return assetsApi.createExternalTradingAccount(request);
+	}
+
+	public Observable<TradingAccountCreateResult> createProgram(MakeProgram request) {
+		return assetsApi.makeProgram(request);
+	}
+
+	public Observable<TradingAccountCreateResult> createExchangeProgram(MakeExchangeProgram request) {
+		return assetsApi.makeExchangeProgram(request);
 	}
 
 	public Observable<Void> createProgramFromTradingAccount(MakeTradingAccountProgram request) {

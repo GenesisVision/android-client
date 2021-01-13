@@ -46,7 +46,7 @@ public class CreateAccountPagerAdapter extends FragmentStatePagerAdapter
 
 		if (model == null) {
 			brokerFragment = SelectBrokerFragment.with(null, null, false);
-			settingsFragment = BrokerSettingsFragment.with(null);
+			settingsFragment = BrokerSettingsFragment.with(null, false);
 			fragments.add(brokerFragment);
 			fragments.add(settingsFragment);
 		}

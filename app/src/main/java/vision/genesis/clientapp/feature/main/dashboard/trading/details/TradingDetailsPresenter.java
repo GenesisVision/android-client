@@ -167,6 +167,9 @@ public class TradingDetailsPresenter extends MvpPresenter<TradingDetailsView> im
 			case 0:
 				checkCreateFundAvailability();
 				break;
+			case 1:
+				checkCreateProgramAvailability();
+				break;
 		}
 	}
 
@@ -184,6 +187,16 @@ public class TradingDetailsPresenter extends MvpPresenter<TradingDetailsView> im
 		}
 	}
 
+	private void checkCreateProgramAvailability() {
+		if (isUsernameFilled) {
+			getViewState().showCreateProgramActivity();
+		}
+		else {
+			isWaitingFillProfileToCreateFund = true;
+			getViewState().showProfilePublicInfoActivity();
+		}
+	}
+
 	private void initCreateOptions() {
 		ArrayList<String> createPrivateOptions = new ArrayList<>();
 		ArrayList<String> createPublicOptions = new ArrayList<>();
@@ -193,6 +206,7 @@ public class TradingDetailsPresenter extends MvpPresenter<TradingDetailsView> im
 		createPrivateOptions.add(context.getString(R.string.create_self_managed_fund));
 
 		createPublicOptions.add(context.getString(R.string.create_fund));
+		createPublicOptions.add(context.getString(R.string.create_program));
 
 		getViewState().setCreateOptions(createPrivateOptions, createPublicOptions);
 	}

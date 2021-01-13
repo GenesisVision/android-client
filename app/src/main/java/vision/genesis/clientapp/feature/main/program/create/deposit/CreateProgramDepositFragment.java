@@ -23,6 +23,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+import io.swagger.client.model.Currency;
 import io.swagger.client.model.WalletData;
 import timber.log.Timber;
 import vision.genesis.clientapp.R;
@@ -114,6 +115,10 @@ public class CreateProgramDepositFragment extends BaseFragment implements Create
 
 	private CreateProgramModel model;
 
+	private Double minDeposit;
+
+	private Currency accountCurrency;
+
 	@OnClick(R.id.group_wallet)
 	public void onWalletClicked() {
 		SelectWalletBottomSheetFragment fragment = new SelectWalletBottomSheetFragment();
@@ -165,6 +170,9 @@ public class CreateProgramDepositFragment extends BaseFragment implements Create
 				updateView(stepNumber, model);
 				setTextListener();
 				presenter.setModel(model);
+				if (minDeposit != null) {
+					presenter.setMinDeposit(minDeposit, accountCurrency);
+				}
 				return;
 			}
 		}
@@ -190,9 +198,11 @@ public class CreateProgramDepositFragment extends BaseFragment implements Create
 
 	private void updateView(String stepNumber, CreateProgramModel model) {
 		this.stepNumber.setText(stepNumber);
-		this.depositNotification.setText(String.format(Locale.getDefault(), getString(R.string.template_create_program_deposit),
-				StringFormatUtil.getValueString(model.getMinDeposit(), model.getCurrency()),
-				StringFormatUtil.getValueString(model.getMinDeposit() - model.getCurrentBalance(), model.getCurrency())));
+		if (model != null && model.getMinDeposit() != null) {
+			this.depositNotification.setText(String.format(Locale.getDefault(), getString(R.string.template_create_program_deposit),
+					StringFormatUtil.getValueString(model.getMinDeposit(), model.getCurrency()),
+					StringFormatUtil.getValueString(model.getMinDeposit() - model.getCurrentBalance(), model.getCurrency())));
+		}
 
 		confirmButton.setEnabled(false);
 	}
@@ -277,5 +287,18 @@ public class CreateProgramDepositFragment extends BaseFragment implements Create
 				imm.showSoftInput(amount, 0);
 			}
 		}
+	}
+
+	public void setMinDeposit(Double minDeposit, Currency accountCurrency) {
+		this.minDeposit = minDeposit;
+		this.accountCurrency = accountCurrency;
+		if (presenter != null) {
+			presenter.setMinDeposit(minDeposit, accountCurrency);
+		}
+	}
+
+	public void setSteps(String stepNumberText, String buttonText) {
+		stepNumber.setText(stepNumberText);
+		confirmButton.setText(buttonText);
 	}
 }

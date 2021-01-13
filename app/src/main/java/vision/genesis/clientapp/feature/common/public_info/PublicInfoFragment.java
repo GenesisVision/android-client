@@ -428,4 +428,9 @@ public class PublicInfoFragment extends BaseFragment implements PublicInfoView
 			}
 		}
 	}
+
+	public void setSteps(String stepNumberText, String buttonText) {
+		stepNumber.setText(stepNumberText);
+		confirmButton.setText(buttonText);
+	}
 }

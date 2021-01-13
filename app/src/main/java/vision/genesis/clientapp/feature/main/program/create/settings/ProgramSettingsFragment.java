@@ -23,6 +23,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+import io.swagger.client.model.Currency;
 import timber.log.Timber;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
@@ -146,6 +147,8 @@ public class ProgramSettingsFragment extends BaseFragment implements ProgramSett
 	private Integer selectedTradesDelayPosition = -1;
 
 	private ProgramSettingsModel model;
+
+	private Boolean isExchangeProgram = false;
 
 	@OnClick(R.id.group_period_length)
 	public void onPeriodLengthClicked() {
@@ -466,5 +469,25 @@ public class ProgramSettingsFragment extends BaseFragment implements ProgramSett
 				imm.hideSoftInputFromWindow(managementFee.getWindowToken(), 0);
 			}
 		}
+	}
+
+	public void setSteps(String stepNumberText, String buttonText) {
+		stepNumber.setText(stepNumberText);
+		confirmButton.setText(buttonText);
+	}
+
+	public void setIsExchangeProgram(Boolean isExchangeProgram) {
+		this.isExchangeProgram = isExchangeProgram;
+		if (presenter != null) {
+			presenter.setIsExchangeProgram(isExchangeProgram);
+		}
+		periodGroup.setVisibility(!isExchangeProgram ? View.VISIBLE : View.GONE);
+		processingGroup.setVisibility(isExchangeProgram ? View.VISIBLE : View.GONE);
+		currencyGroup.setVisibility(isExchangeProgram ? View.VISIBLE : View.GONE);
+		stopOutGroup.setVisibility(!isExchangeProgram ? View.VISIBLE : View.GONE);
+	}
+
+	public void setCurrency(Currency accountCurrency) {
+		investmentLimitCurrency.setText(accountCurrency.getValue());
 	}
 }

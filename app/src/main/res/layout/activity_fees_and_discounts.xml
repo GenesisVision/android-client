@@ -185,18 +185,6 @@
 
                     </LinearLayout>
 
-                    <LinearLayout style="@style/fees_and_discounts_table_row">
-
-                        <TextView
-                            style="@style/fees_and_discounts_table_amount"
-                            android:text="@string/fees_and_discounts_table_amount_6"/>
-
-                        <TextView
-                            style="@style/fees_and_discounts_table_discount"
-                            android:text="@string/fees_and_discounts_table_discount_6"/>
-
-                    </LinearLayout>
-
                 </LinearLayout>
 
             </LinearLayout>

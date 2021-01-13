@@ -41,8 +41,10 @@ import vision.genesis.clientapp.feature.main.events.EventsActivity;
 import vision.genesis.clientapp.feature.main.external.attach.AttachExternalAccountActivity;
 import vision.genesis.clientapp.feature.main.fund.create.CreateFundActivity;
 import vision.genesis.clientapp.feature.main.fund.self_managed.create.CreateSelfManagedFundActivity;
+import vision.genesis.clientapp.feature.main.program.create.CreateProgramActivity;
 import vision.genesis.clientapp.feature.main.settings.public_info.ProfilePublicInfoActivity;
 import vision.genesis.clientapp.feature.main.trading_account.create.CreateAccountActivity;
+import vision.genesis.clientapp.model.CreateProgramModel;
 import vision.genesis.clientapp.model.CurrencyEnum;
 import vision.genesis.clientapp.ui.CustomTabView;
 import vision.genesis.clientapp.ui.PortfolioEventDashboardView;
@@ -743,6 +745,11 @@ public class TradingDetailsActivity extends BaseSwipeBackActivity implements Tra
 	@Override
 	public void showCreateFundActivity() {
 		CreateFundActivity.startFrom(this);
+	}
+
+	@Override
+	public void showCreateProgramActivity() {
+		CreateProgramActivity.startFrom(this, new CreateProgramModel());
 	}
 
 	@Override

@@ -78,6 +78,8 @@ public class ProgramSettingsPresenter extends MvpPresenter<ProgramSettingsView>
 
 	private TradesDelay tradesDelay;
 
+	private Boolean isExchangeProgram = false;
+
 	@Override
 	protected void onFirstViewAttach() {
 		super.onFirstViewAttach();
@@ -98,8 +100,13 @@ public class ProgramSettingsPresenter extends MvpPresenter<ProgramSettingsView>
 
 	void setModel(ProgramSettingsModel model) {
 		this.model = model;
+		this.isExchangeProgram = model.isExchange();
 
 		getPlatformInfo();
+	}
+
+	void setIsExchangeProgram(Boolean isExchangeProgram) {
+		this.isExchangeProgram = isExchangeProgram;
 	}
 
 	void onRealTimeCheckedChanged(boolean checked) {
@@ -176,7 +183,7 @@ public class ProgramSettingsPresenter extends MvpPresenter<ProgramSettingsView>
 		ProgramSettingsModel newModel = new ProgramSettingsModel();
 		newModel.setPeriodLength(periodLength);
 		newModel.setInvestmentLimit(!isInvestmentLimitEnabled ? null : investmentLimit);
-		if (model.isExchange()) {
+		if (isExchangeProgram) {
 			newModel.setIsProcessingRealTime(isRealTimeEnabled);
 			newModel.setHourProcessing(hourProcessing);
 		}
@@ -263,9 +270,10 @@ public class ProgramSettingsPresenter extends MvpPresenter<ProgramSettingsView>
 				currencyPos++;
 			}
 		}
-		if (currencyPos < currencies.size()) {
-			onCurrencyOptionSelected(currencyPos, currencies.get(currencyPos));
+		if (currencyPos >= currencies.size()) {
+			currencyPos = 0;
 		}
+		onCurrencyOptionSelected(currencyPos, currencies.get(currencyPos));
 	}
 
 	private void initInvestmentLimit() {

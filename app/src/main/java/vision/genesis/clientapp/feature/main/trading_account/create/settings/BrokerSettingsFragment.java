@@ -36,10 +36,13 @@ public class BrokerSettingsFragment extends BaseFragment implements BrokerSettin
 {
 	private static String EXTRA_ASSET_ID = "extra_asset_id";
 
-	public static BrokerSettingsFragment with(UUID assetId) {
+	private static String EXTRA_IS_CREATING_NEW_PROGRAM = "extra_is_creating_new_program";
+
+	public static BrokerSettingsFragment with(UUID assetId, boolean isCreatingNewProgram) {
 		BrokerSettingsFragment fragment = new BrokerSettingsFragment();
-		Bundle arguments = new Bundle(1);
+		Bundle arguments = new Bundle(2);
 		arguments.putSerializable(EXTRA_ASSET_ID, assetId);
+		arguments.putBoolean(EXTRA_IS_CREATING_NEW_PROGRAM, isCreatingNewProgram);
 		fragment.setArguments(arguments);
 		return fragment;
 	}
@@ -144,13 +147,14 @@ public class BrokerSettingsFragment extends BaseFragment implements BrokerSettin
 
 		if (getArguments() != null) {
 			UUID assetId = (UUID) getArguments().getSerializable(EXTRA_ASSET_ID);
+			Boolean isCreatingNewProgram = getArguments().getBoolean(EXTRA_IS_CREATING_NEW_PROGRAM, false);
+			presenter.setIsCreatingNewProgram(isCreatingNewProgram);
 			if (assetId != null) {
 				presenter.setAssetId(assetId);
 
 				nextButton.setText(getString(R.string.update));
 			}
 			else {
-//				nextButton.setText(String.format(Locale.getDefault(), "%s (2/3)", getString(R.string.next)));
 				nextButton.setText(getString(R.string.next));
 			}
 			return;
@@ -254,5 +258,10 @@ public class BrokerSettingsFragment extends BaseFragment implements BrokerSettin
 
 	public void setSelectedBroker(Broker selectedBroker) {
 		presenter.setBroker(selectedBroker);
+	}
+
+	public void setSteps(String stepNumberText, String buttonText) {
+		stepNumber.setText(stepNumberText);
+		nextButton.setText(buttonText);
 	}
 }

@@ -14,6 +14,8 @@ import com.arellomobile.mvp.presenter.InjectPresenter;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.swagger.client.model.Broker;
+import io.swagger.client.model.Currency;
 import timber.log.Timber;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseSwipeBackActivity;
@@ -52,6 +54,8 @@ public class CreateProgramActivity extends BaseSwipeBackActivity implements Crea
 
 	private CreateProgramPagerAdapter adapter;
 
+	private Boolean isExchangeProgram;
+
 	@OnClick(R.id.button_back)
 	public void onBackClicked() {
 		onBackPressed();
@@ -87,17 +91,50 @@ public class CreateProgramActivity extends BaseSwipeBackActivity implements Crea
 		if (viewPager.getCurrentItem() == 0) {
 			finishActivity();
 		}
+		else if (viewPager.getCurrentItem() == 2) {
+			viewPager.setCurrentItem(!isExchangeProgram ? 1 : 0);
+		}
 		else {
 			viewPager.setCurrentItem(viewPager.getCurrentItem() - 1);
 		}
 	}
 
 	@Override
-	public void initViewPager(Boolean needPublicInfo, Boolean needDeposit, CreateProgramModel model) {
-		this.adapter = new CreateProgramPagerAdapter(getSupportFragmentManager(), needPublicInfo, needDeposit, model);
+	public void initViewPager(Boolean needBrokerSelect, Boolean needPublicInfo, Boolean needDeposit, CreateProgramModel model) {
+		this.adapter = new CreateProgramPagerAdapter(getSupportFragmentManager(), needBrokerSelect, needPublicInfo, needDeposit, model);
 		viewPager.setAdapter(adapter);
 		viewPager.setEnabled(false);
-		viewPager.setOffscreenPageLimit(3);
+		viewPager.setOffscreenPageLimit(5);
+	}
+
+	@Override
+	public void setIsExchangeProgram(Boolean isExchangeProgram) {
+		if (adapter != null) {
+			this.isExchangeProgram = isExchangeProgram;
+			adapter.setIsExchangeProgram(isExchangeProgram);
+		}
+	}
+
+	@Override
+	public void setMinDeposit(Double minDeposit, Currency accountCurrency) {
+		if (adapter != null) {
+			adapter.setMinDeposit(minDeposit, accountCurrency);
+		}
+	}
+
+	@Override
+	public void showAccountSettings(Broker selectedBroker) {
+		if (adapter != null) {
+			adapter.setSelectedBroker(selectedBroker);
+			viewPager.setCurrentItem(adapter.getAccountSettingsPosition());
+		}
+	}
+
+	@Override
+	public void showPublicInfo() {
+		if (adapter != null) {
+			viewPager.setCurrentItem(adapter.getPublicInfoPosition());
+		}
 	}
 
 	@Override

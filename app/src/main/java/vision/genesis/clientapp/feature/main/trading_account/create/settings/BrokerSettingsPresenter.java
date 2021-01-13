@@ -41,6 +41,8 @@ public class BrokerSettingsPresenter extends MvpPresenter<BrokerSettingsView>
 
 	private Integer leverage;
 
+	private Boolean isCreatingNewProgram = false;
+
 	@Override
 	protected void onFirstViewAttach() {
 		super.onFirstViewAttach();
@@ -50,6 +52,10 @@ public class BrokerSettingsPresenter extends MvpPresenter<BrokerSettingsView>
 
 	void setAssetId(UUID assetId) {
 		this.assetId = assetId;
+	}
+
+	void setIsCreatingNewProgram(Boolean isCreatingNewProgram) {
+		this.isCreatingNewProgram = isCreatingNewProgram;
 	}
 
 	void setBroker(Broker broker) {
@@ -77,7 +83,7 @@ public class BrokerSettingsPresenter extends MvpPresenter<BrokerSettingsView>
 		currency = null;
 		leverage = null;
 
-		if (assetId == null) {
+		if (assetId == null && !isCreatingNewProgram) {
 			getViewState().setButtonText(selectedAccountType.isIsDepositRequired()
 					? context.getString(R.string.next)
 					: context.getString(R.string.create_trading_account));

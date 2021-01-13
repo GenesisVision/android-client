@@ -2,6 +2,8 @@ package vision.genesis.clientapp.feature.main.program.create;
 
 import com.arellomobile.mvp.MvpView;
 
+import io.swagger.client.model.Broker;
+import io.swagger.client.model.Currency;
 import vision.genesis.clientapp.model.CreateProgramModel;
 
 /**
@@ -11,7 +13,15 @@ import vision.genesis.clientapp.model.CreateProgramModel;
 
 public interface CreateProgramView extends MvpView
 {
-	void initViewPager(Boolean needPublicInfo, Boolean needDeposit, CreateProgramModel model);
+	void initViewPager(Boolean needBrokerSelect, Boolean needPublicInfo, Boolean needDeposit, CreateProgramModel model);
+
+	void setIsExchangeProgram(Boolean isExchangeProgram);
+
+	void setMinDeposit(Double minDeposit, Currency accountCurrency);
+
+	void showAccountSettings(Broker selectedBroker);
+
+	void showPublicInfo();
 
 	void showSettings();
 

@@ -40,7 +40,7 @@ public class ChangeBrokerPagerAdapter extends FragmentStatePagerAdapter
 		selectBrokerFragment = SelectBrokerFragment.with(model.getAssetId(), model.getBrokerName(), false);
 		fragments.add(selectBrokerFragment);
 
-		settingsFragment = BrokerSettingsFragment.with(model.getAssetId());
+		settingsFragment = BrokerSettingsFragment.with(model.getAssetId(), false);
 		fragments.add(settingsFragment);
 
 	}

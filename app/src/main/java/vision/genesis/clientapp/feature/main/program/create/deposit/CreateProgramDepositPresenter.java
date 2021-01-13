@@ -11,6 +11,7 @@ import java.util.Locale;
 import javax.inject.Inject;
 
 import io.swagger.client.model.AssetType;
+import io.swagger.client.model.Currency;
 import io.swagger.client.model.InternalTransferRequest;
 import io.swagger.client.model.InternalTransferRequestType;
 import io.swagger.client.model.WalletData;
@@ -24,6 +25,7 @@ import vision.genesis.clientapp.managers.RateManager;
 import vision.genesis.clientapp.managers.WalletManager;
 import vision.genesis.clientapp.model.CreateProgramModel;
 import vision.genesis.clientapp.model.events.OnCreateProgramCreateButtonClickedEvent;
+import vision.genesis.clientapp.model.events.OnProgramDepositConfirmEvent;
 import vision.genesis.clientapp.net.ApiErrorResolver;
 import vision.genesis.clientapp.utils.StringFormatUtil;
 
@@ -87,9 +89,16 @@ public class CreateProgramDepositPresenter extends MvpPresenter<CreateProgramDep
 
 	void setModel(CreateProgramModel model) {
 		this.model = model;
-		this.minDepositAmount = model.getMinDeposit() - model.getCurrentBalance();
-		this.minDepositCurrency = model.getCurrency();
+		if (model.getMinDeposit() != null) {
+			this.minDepositAmount = model.getMinDeposit() - model.getCurrentBalance();
+			this.minDepositCurrency = model.getCurrency();
+			subscribeToWallets();
+		}
+	}
 
+	void setMinDeposit(Double minDeposit, Currency accountCurrency) {
+		this.minDepositAmount = minDeposit;
+		this.minDepositCurrency = accountCurrency.getValue();
 		subscribeToWallets();
 	}
 
@@ -130,7 +139,12 @@ public class CreateProgramDepositPresenter extends MvpPresenter<CreateProgramDep
 
 	void onConfirmClicked() {
 		if (selectedWallet != null) {
-			depositFunds();
+			if (model != null && model.getAssetId() != null) {
+				depositFunds();
+			}
+			else if (minDepositCurrency != null) {
+				EventBus.getDefault().post(new OnProgramDepositConfirmEvent(amount, selectedWallet.getId()));
+			}
 		}
 	}
 
