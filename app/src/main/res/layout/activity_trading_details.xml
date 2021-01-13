@@ -601,4 +601,13 @@
         android:scaleY="4"
         android:visibility="invisible"/>
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/button_select_product"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="12dp"
+        android:src="@drawable/ic_add_black_24dp"/>
+
 </RelativeLayout>
