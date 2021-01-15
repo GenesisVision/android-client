@@ -43,6 +43,8 @@ public class NotificationsSettingsPresenter extends MvpPresenter<NotificationsSe
 
 	private NotificationSettingViewModel emergencySetting;
 
+	private NotificationSettingViewModel socialSetting;
+
 	@Override
 	protected void onFirstViewAttach() {
 		super.onFirstViewAttach();
@@ -83,6 +85,10 @@ public class NotificationsSettingsPresenter extends MvpPresenter<NotificationsSe
 		emergencySetting = new NotificationSettingViewModel();
 		emergencySetting.setType(NotificationType.PLATFORMEMERGENCY);
 		emergencySetting.setIsEnabled(false);
+
+		socialSetting = new NotificationSettingViewModel();
+		socialSetting.setType(NotificationType.SOCIAL);
+		socialSetting.setIsEnabled(false);
 	}
 
 	private void getSettings() {
@@ -112,6 +118,10 @@ public class NotificationsSettingsPresenter extends MvpPresenter<NotificationsSe
 					this.emergencySetting = setting;
 					getViewState().setEmergencyChecked(setting.isIsEnabled());
 					break;
+				case SOCIAL:
+					this.socialSetting = setting;
+					getViewState().setSocialChecked(setting.isIsEnabled());
+					break;
 			}
 		}
 
@@ -133,6 +143,10 @@ public class NotificationsSettingsPresenter extends MvpPresenter<NotificationsSe
 
 	public void onEmergencyClicked() {
 		switchSetting(emergencySetting);
+	}
+
+	public void onSocialClicked() {
+		switchSetting(socialSetting);
 	}
 
 	private void switchSetting(NotificationSettingViewModel setting) {
@@ -173,6 +187,7 @@ public class NotificationsSettingsPresenter extends MvpPresenter<NotificationsSe
 
 		getViewState().setNewsChecked(newsSetting.isIsEnabled());
 		getViewState().setEmergencyChecked(emergencySetting.isIsEnabled());
+		getViewState().setSocialChecked(socialSetting.isIsEnabled());
 
 		ApiErrorResolver.resolveErrors(throwable,
 				message -> getViewState().showSnackbarMessage(message));

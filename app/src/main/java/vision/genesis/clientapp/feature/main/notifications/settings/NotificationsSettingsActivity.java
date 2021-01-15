@@ -58,6 +58,9 @@ public class NotificationsSettingsActivity extends BaseSwipeBackActivity impleme
 	@BindView(R.id.switch_emergency)
 	public SwitchCompat emergencySwitch;
 
+	@BindView(R.id.switch_social)
+	public SwitchCompat socialSwitch;
+
 	@BindView(R.id.group_programs)
 	public ViewGroup programsGroup;
 
@@ -96,6 +99,11 @@ public class NotificationsSettingsActivity extends BaseSwipeBackActivity impleme
 	@OnClick(R.id.switch_emergency)
 	public void onEmergencyClicked() {
 		notificationsSettingsPresenter.onEmergencyClicked();
+	}
+
+	@OnClick(R.id.switch_social)
+	public void onSocialClicked() {
+		notificationsSettingsPresenter.onSocialClicked();
 	}
 
 	@Override
@@ -144,6 +152,11 @@ public class NotificationsSettingsActivity extends BaseSwipeBackActivity impleme
 	@Override
 	public void setEmergencyChecked(Boolean checked) {
 		emergencySwitch.setChecked(checked);
+	}
+
+	@Override
+	public void setSocialChecked(Boolean checked) {
+		socialSwitch.setChecked(checked);
 	}
 
 	@Override

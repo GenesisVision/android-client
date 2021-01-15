@@ -21,6 +21,8 @@ interface NotificationsSettingsView extends MvpView
 
 	void setEmergencyChecked(Boolean checked);
 
+	void setSocialChecked(Boolean checked);
+
 	void setProgramsSettings(List<ProgramNotificationSettingList> settings);
 
 	void setFundsSettings(List<FundNotificationSettingList> settings);
