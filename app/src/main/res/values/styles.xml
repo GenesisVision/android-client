@@ -266,6 +266,7 @@
     <style name="check_tfa_code_number">
         <item name="android:layout_width">45dp</item>
         <item name="android:layout_height">wrap_content</item>
+        <item name="android:fontFamily">@font/montserrat_light</item>
         <item name="android:gravity">center</item>
         <item name="android:textColor">?attr/colorTextPrimary</item>
         <item name="android:textSize">48sp</item>

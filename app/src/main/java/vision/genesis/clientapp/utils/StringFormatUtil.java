@@ -303,4 +303,8 @@ public class StringFormatUtil
 	public static String getCommentUrl(String url) {
 		return BuildConfig.WEB_ADDRESS.concat("posts/".concat(url));
 	}
+
+	public static String maskEmail(String email) {
+		return email.replaceAll("(^[^@]{3}|(?!^)\\G)[^@]", "$1*");
+	}
 }

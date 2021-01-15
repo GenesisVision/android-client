@@ -20,4 +20,8 @@ public class ErrorResponse
 	@Expose
 	public String code;
 
+	@SerializedName("tempToken")
+	@Expose
+	public String tempToken;
+
 }

@@ -1036,6 +1036,11 @@
     <string name="select_product_trading_account_description">Create a trading account and get access to a variety of instruments (depending on your desired broker.) Trade Forex, Crypto, CFD, Stocks, Metals, Indices and Commodities.</string>
     <string name="select_product_attach_external_account_description">Add your Binance account to the platform to copy trades opened and managed by another trader, while having complete control over your capital. You can also make your account a signal provider at any time.</string>
     <string name="trading_account">Trading account</string>
+    <string name="security_verification">Security verification</string>
+    <string name="security_verification_text">To secure your account, please complete the following verification.\n\nEnter the 6 digit code received by %s</string>
+    <string name="logout_from_other_devices">Log out from other devices</string>
+    <string name="logout_from_other_devices_dialog_text">Are you sure you want to log out from other devices?</string>
+    <string name="success">Success</string>
 
     <plurals name="assets">
         <item quantity="one">asset</item>

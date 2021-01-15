@@ -51,6 +51,8 @@ public class Constants
 
 	public static final int MAX_SOCIAL_TAGS_FILTER = 16;
 
+	public static final int THREE_FACTOR_CODE_LENGTH = 6;
+
 	public static ArrayList<String> getCurrenciesForProgramsListFilter() {
 		return new ArrayList<>(Arrays.asList("All", "ETH", "BTC", "USDT", "USD"));
 	}

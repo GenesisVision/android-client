@@ -29,4 +29,6 @@ interface LoginView extends MvpView
 	void finishActivity(boolean withAnimation);
 
 	void startCheckTfaActivity(String action);
+
+	void startEmailConfirmationActivity(String email, String tempToken);
 }

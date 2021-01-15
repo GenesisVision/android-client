@@ -19,6 +19,7 @@ import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseSwipeBackActivity;
 import vision.genesis.clientapp.feature.auth.forgot_password.ForgotPasswordActivity;
 import vision.genesis.clientapp.feature.auth.registration.RegistrationActivity;
+import vision.genesis.clientapp.feature.three_factor.confirm.EmailConfirmationActivity;
 import vision.genesis.clientapp.feature.two_factor.check.CheckTfaActivity;
 import vision.genesis.clientapp.ui.PrimaryButton;
 import vision.genesis.clientapp.utils.ThemeUtil;
@@ -169,5 +170,10 @@ public class LoginActivity extends BaseSwipeBackActivity implements LoginView
 	@Override
 	public void startCheckTfaActivity(String action) {
 		CheckTfaActivity.startWith(this, action);
+	}
+
+	@Override
+	public void startEmailConfirmationActivity(String email, String tempToken) {
+		EmailConfirmationActivity.startWith(this, email, tempToken);
 	}
 }

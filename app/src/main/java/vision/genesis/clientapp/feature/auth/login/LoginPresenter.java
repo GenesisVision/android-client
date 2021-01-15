@@ -27,6 +27,7 @@ import vision.genesis.clientapp.model.api.ErrorResponse;
 import vision.genesis.clientapp.model.events.OnCheckTfaConfirmClickedEvent;
 import vision.genesis.clientapp.model.events.OnCheckTfaErrorEvent;
 import vision.genesis.clientapp.model.events.OnCheckTfaSuccessEvent;
+import vision.genesis.clientapp.model.events.OnEmailVerificationSuccessEvent;
 import vision.genesis.clientapp.net.ApiErrorResolver;
 import vision.genesis.clientapp.net.ErrorResponseConverter;
 import vision.genesis.clientapp.utils.CaptchaUtils;
@@ -184,6 +185,9 @@ public class LoginPresenter extends MvpPresenter<LoginView>
 					String action = String.format(Locale.getDefault(), "%s %s", context.getString(R.string.sign_in_as), email);
 					getViewState().startCheckTfaActivity(action);
 				}
+				else if (response.code.equals(ErrorCodes.REQUIRESEMAILCONFIRMATION.toString())) {
+					getViewState().startEmailConfirmationActivity(email, response.tempToken);
+				}
 				else {
 					for (Error error : response.errors) {
 						if (error.property == null || error.property.isEmpty()) {
@@ -221,5 +225,11 @@ public class LoginPresenter extends MvpPresenter<LoginView>
 		this.tfaCode = event.getCode();
 		this.useRecoveryCode = event.isUseRecoveryCode();
 		login();
+	}
+
+	@Subscribe
+	public void onEventMainThread(OnEmailVerificationSuccessEvent event) {
+		authManager.handleGetTokenResponse(event.getToken());
+		onLoginResponse(event.getToken());
 	}
 }

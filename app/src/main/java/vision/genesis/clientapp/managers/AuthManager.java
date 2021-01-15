@@ -28,6 +28,7 @@ import io.swagger.client.model.ForgotPasswordViewModel;
 import io.swagger.client.model.LoginViewModel;
 import io.swagger.client.model.RecoveryCodesViewModel;
 import io.swagger.client.model.RegisterViewModel;
+import io.swagger.client.model.ThreeFactorAuthenticatorConfirm;
 import io.swagger.client.model.TwoFactorAuthenticator;
 import io.swagger.client.model.TwoFactorAuthenticatorConfirm;
 import io.swagger.client.model.TwoFactorCodeWithPassword;
@@ -164,7 +165,7 @@ public class AuthManager
 						});
 	}
 
-	private void handleGetTokenResponse(String token) {
+	public void handleGetTokenResponse(String token) {
 		saveNewToken(token);
 		if (fcmToken != null && !fcmToken.isEmpty()) {
 			updateFcmTokenMaybe(fcmToken);
@@ -311,6 +312,14 @@ public class AuthManager
 
 	public Observable<CaptchaDetails> checkRiskControl(String route) {
 		return platformApi.getRiskControlInfo(route, "Android", BuildConfig.VERSION_NAME);
+	}
+
+	public Observable<String> confirmThreeStepAuth(ThreeFactorAuthenticatorConfirm body) {
+		return authApi.confirmThreeStepAuth(body);
+	}
+
+	public Observable<String> logoutFromOtherDevices() {
+		return authApi.logoutFromAnotherDevices();
 	}
 
 	public void logout() {
