@@ -27,5 +27,7 @@ interface SecurityView extends MvpView
 
 	void showDisablePin();
 
+	void showSnackbarMessage(String message);
+
 	void showDialogMessage(String message);
 }

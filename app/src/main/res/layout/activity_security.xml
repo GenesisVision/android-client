@@ -58,8 +58,8 @@
                     android:id="@+id/pin_code_delimiter"
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:layout_marginLeft="@dimen/settings_padding"
                     android:layout_marginStart="@dimen/settings_padding"
+                    android:layout_marginLeft="@dimen/settings_padding"
                     android:alpha="0.05"
                     android:background="?attr/colorTextPrimary"/>
 
@@ -72,8 +72,8 @@
                     android:id="@+id/fingerprint_delimiter"
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:layout_marginLeft="@dimen/settings_padding"
                     android:layout_marginStart="@dimen/settings_padding"
+                    android:layout_marginLeft="@dimen/settings_padding"
                     android:alpha="0.05"
                     android:background="?attr/colorTextPrimary"
                     android:visibility="gone"/>
@@ -106,6 +106,35 @@
                     style="@style/menu_item_arrow_right"
                     android:layout_marginEnd="@dimen/settings_padding"
                     android:layout_marginRight="@dimen/settings_padding"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_alignParentBottom="true"
+                    android:alpha="0.05"
+                    android:background="?attr/colorTextPrimary"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/logout_from_other_devices"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/settings_item_height"
+                android:background="?attr/selectableItemBackground"
+                android:paddingLeft="@dimen/settings_padding">
+
+                <TextView
+                    style="@style/settings_text"
+                    android:text="@string/logout_from_other_devices"/>
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="30dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="@dimen/settings_padding"
+                    android:alpha="0.4"
+                    app:srcCompat="@drawable/icon_logout"/>
 
                 <View
                     android:layout_width="match_parent"

@@ -16,6 +16,7 @@ import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.managers.AuthManager;
 import vision.genesis.clientapp.managers.SettingsManager;
 import vision.genesis.clientapp.model.SettingsModel;
+import vision.genesis.clientapp.net.ApiErrorResolver;
 
 /**
  * GenesisVisionAndroid
@@ -36,6 +37,8 @@ public class SecurityPresenter extends MvpPresenter<SecurityView>
 
 	private Subscription settingsSubscription;
 
+	private Subscription logoutSubscription;
+
 	private SettingsModel settingsModel;
 
 	@Override
@@ -55,6 +58,9 @@ public class SecurityPresenter extends MvpPresenter<SecurityView>
 	public void onDestroy() {
 		if (settingsSubscription != null) {
 			settingsSubscription.unsubscribe();
+		}
+		if (logoutSubscription != null) {
+			logoutSubscription.unsubscribe();
 		}
 
 		super.onDestroy();
@@ -95,6 +101,29 @@ public class SecurityPresenter extends MvpPresenter<SecurityView>
 				getViewState().showDialogMessage(context.getString(R.string.error_no_fingerprints));
 			}
 		}
+	}
+
+	void onLogoutClicked() {
+		if (authManager != null) {
+			logoutSubscription = authManager.logoutFromOtherDevices()
+					.observeOn(AndroidSchedulers.mainThread())
+					.subscribeOn(Schedulers.io())
+					.subscribe(this::onLogoutSuccess,
+							this::onLogoutError);
+		}
+	}
+
+	private void onLogoutSuccess(String token) {
+		logoutSubscription.unsubscribe();
+
+		getViewState().showSnackbarMessage(context.getString(R.string.success));
+		authManager.handleGetTokenResponse(token);
+	}
+
+	private void onLogoutError(Throwable throwable) {
+		logoutSubscription.unsubscribe();
+
+		ApiErrorResolver.resolveErrors(throwable, message -> getViewState().showSnackbarMessage(message));
 	}
 
 	private void subscribeToSettings() {

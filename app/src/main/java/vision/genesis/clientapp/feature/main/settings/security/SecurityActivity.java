@@ -1,10 +1,14 @@
 package vision.genesis.clientapp.feature.main.settings.security;
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AlertDialog;
+import androidx.core.content.ContextCompat;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
 
@@ -12,6 +16,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import timber.log.Timber;
+import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseSwipeBackActivity;
 import vision.genesis.clientapp.feature.main.settings.security.change_password.ChangePasswordActivity;
@@ -85,6 +90,20 @@ public class SecurityActivity extends BaseSwipeBackActivity implements SecurityV
 		securityPresenter.onFingerprintClicked();
 	}
 
+	@OnClick(R.id.logout_from_other_devices)
+	public void onLogoutClicked() {
+		AlertDialog logoutDialog = new AlertDialog.Builder(this)
+				.setPositiveButton(getString(R.string.log_out), (dialog, which) -> securityPresenter.onLogoutClicked())
+				.setNegativeButton(getString(R.string.cancel), (dialog, which) -> dialog.dismiss())
+				.setCancelable(false)
+				.setMessage(getString(R.string.logout_from_other_devices_dialog_text))
+				.show();
+
+		logoutDialog.getButton(DialogInterface.BUTTON_POSITIVE).setTextColor(ContextCompat.getColor(GenesisVisionApplication.INSTANCE, R.color.colorAccent));
+		logoutDialog.getButton(DialogInterface.BUTTON_NEGATIVE).setTextColor(ContextCompat.getColor(GenesisVisionApplication.INSTANCE, R.color.colorAccent));
+
+	}
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		setTheme(ThemeUtil.getCurrentThemeResource());
@@ -148,6 +167,11 @@ public class SecurityActivity extends BaseSwipeBackActivity implements SecurityV
 	@Override
 	public void showDisableFingerprint() {
 		VerifyFingerprintActivity.startWith(this, VerifyFingerprintActivity.DISABLE_FINGERPRINT_REQUEST_CODE);
+	}
+
+	@Override
+	public void showSnackbarMessage(String message) {
+		showSnackbar(message, title);
 	}
 
 	@Override
