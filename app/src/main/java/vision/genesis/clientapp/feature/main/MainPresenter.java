@@ -18,6 +18,7 @@ import javax.inject.Inject;
 import io.swagger.client.model.AssetType;
 import io.swagger.client.model.ExternalKycAccessToken;
 import io.swagger.client.model.FacetSortType;
+import io.swagger.client.model.NotificationLocationViewModel;
 import io.swagger.client.model.NotificationViewModel;
 import io.swagger.client.model.PlatformInfo;
 import io.swagger.client.model.PushNotificationViewModel;
@@ -48,6 +49,7 @@ import vision.genesis.clientapp.model.events.OnAddNewPostClickedEvent;
 import vision.genesis.clientapp.model.events.OnFollowFacetClickedEvent;
 import vision.genesis.clientapp.model.events.OnFundFacetClickedEvent;
 import vision.genesis.clientapp.model.events.OnHashTagClickedEvent;
+import vision.genesis.clientapp.model.events.OnNotificationClickedEvent;
 import vision.genesis.clientapp.model.events.OnProgramFacetClickedEvent;
 import vision.genesis.clientapp.model.events.OnShowMediaActivityEvent;
 import vision.genesis.clientapp.model.events.OnShowRepostEvent;
@@ -184,54 +186,58 @@ public class MainPresenter extends MvpPresenter<MainView>
 
 			if (push != null) {
 				if (push.getLocation() != null && push.getLocation().getLocation() != null) {
-					switch (push.getLocation().getLocation()) {
-						case NotificationLocation.USER:
-							UserDetailsModel userDetailsModel = new UserDetailsModel(push.getLocation().getId(), null, null, null);
-							getViewState().showUserDetails(userDetailsModel);
-							break;
-						case NotificationLocation.PROGRAM:
-							ProgramDetailsModel programDetailsModel = new ProgramDetailsModel();
-							programDetailsModel.setProgramId(push.getLocation().getId());
-							programDetailsModel.setAssetType(AssetType.PROGRAM);
-							getViewState().showProgramDetails(programDetailsModel);
-							break;
-						case NotificationLocation.FUND:
-							FundDetailsModel fundDetailsModel = new FundDetailsModel();
-							fundDetailsModel.setFundId(push.getLocation().getId());
-							getViewState().showFundDetails(fundDetailsModel);
-							break;
-						case NotificationLocation.FOLLOW:
-							ProgramDetailsModel followDetailsModel = new ProgramDetailsModel();
-							followDetailsModel.setProgramId(push.getLocation().getId());
-							followDetailsModel.setAssetType(AssetType.FOLLOW);
-							getViewState().showProgramDetails(followDetailsModel);
-							break;
-						case NotificationLocation.TRADING_ACCOUNT:
-							TradingAccountDetailsModel tradingAccountDetailsModel = new TradingAccountDetailsModel();
-							tradingAccountDetailsModel.setTradingAccountId(push.getLocation().getId());
-							getViewState().showTradingAccountDetails(tradingAccountDetailsModel);
-							break;
-						case NotificationLocation.SOCIAL_POST:
-							getViewState().showPostDetails(push.getLocation().getId(), null, false);
-							break;
-						case NotificationLocation.SOCIAL_MEDIA_POST:
-							getViewState().showMediaPostDetails(push.getLocation().getId());
-							break;
-						case NotificationLocation.DASHBOARD:
-							break;
-						case NotificationLocation.EXTERNAL_URL:
-							getViewState().openUrl(push.getLocation().getExternalUrl());
-							break;
-						default:
-							getViewState().showNotificationsActivity();
-							break;
-					}
+					handleNotificationLocation(push.getLocation());
 				}
 				else {
 					getViewState().showNotificationsActivity();
 				}
 			}
 			pushData = null;
+		}
+	}
+
+	private void handleNotificationLocation(NotificationLocationViewModel location) {
+		switch (location.getLocation()) {
+			case NotificationLocation.USER:
+				UserDetailsModel userDetailsModel = new UserDetailsModel(location.getId(), null, null, null);
+				getViewState().showUserDetails(userDetailsModel);
+				break;
+			case NotificationLocation.PROGRAM:
+				ProgramDetailsModel programDetailsModel = new ProgramDetailsModel();
+				programDetailsModel.setProgramId(location.getId());
+				programDetailsModel.setAssetType(AssetType.PROGRAM);
+				getViewState().showProgramDetails(programDetailsModel);
+				break;
+			case NotificationLocation.FUND:
+				FundDetailsModel fundDetailsModel = new FundDetailsModel();
+				fundDetailsModel.setFundId(location.getId());
+				getViewState().showFundDetails(fundDetailsModel);
+				break;
+			case NotificationLocation.FOLLOW:
+				ProgramDetailsModel followDetailsModel = new ProgramDetailsModel();
+				followDetailsModel.setProgramId(location.getId());
+				followDetailsModel.setAssetType(AssetType.FOLLOW);
+				getViewState().showProgramDetails(followDetailsModel);
+				break;
+			case NotificationLocation.TRADING_ACCOUNT:
+				TradingAccountDetailsModel tradingAccountDetailsModel = new TradingAccountDetailsModel();
+				tradingAccountDetailsModel.setTradingAccountId(location.getId());
+				getViewState().showTradingAccountDetails(tradingAccountDetailsModel);
+				break;
+			case NotificationLocation.SOCIAL_POST:
+				getViewState().showPostDetails(location.getId(), null, false);
+				break;
+			case NotificationLocation.SOCIAL_MEDIA_POST:
+				getViewState().showMediaPostDetails(location.getId());
+				break;
+			case NotificationLocation.DASHBOARD:
+				break;
+			case NotificationLocation.EXTERNAL_URL:
+				getViewState().openUrl(location.getExternalUrl());
+				break;
+			default:
+				getViewState().showNotificationsActivity();
+				break;
 		}
 	}
 
@@ -659,5 +665,10 @@ public class MainPresenter extends MvpPresenter<MainView>
 	@Subscribe
 	public void onEventMainThread(OnStartKycClickedEvent event) {
 		startKyc();
+	}
+
+	@Subscribe
+	public void onEventMainThread(OnNotificationClickedEvent event) {
+		handleNotificationLocation(event.getLocation());
 	}
 }

@@ -1,5 +1,6 @@
 package vision.genesis.clientapp.feature.main.notifications;
 
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,17 +19,11 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import io.swagger.client.model.AssetType;
-import io.swagger.client.model.InvestmentProgramType;
 import io.swagger.client.model.NotificationViewModel;
 import vision.genesis.clientapp.R;
-import vision.genesis.clientapp.model.FundDetailsModel;
-import vision.genesis.clientapp.model.ProgramDetailsModel;
-import vision.genesis.clientapp.model.events.ShowFundDetailsEvent;
-import vision.genesis.clientapp.model.events.ShowProgramDetailsEvent;
+import vision.genesis.clientapp.model.events.OnNotificationClickedEvent;
 import vision.genesis.clientapp.utils.DateTimeUtil;
 import vision.genesis.clientapp.utils.ImageUtils;
-import vision.genesis.clientapp.utils.TypefaceUtil;
 
 /**
  * GenesisVisionAndroid
@@ -77,6 +72,8 @@ public class NotificationsListAdapter extends RecyclerView.Adapter<Notifications
 
 	static class NotificationViewHolder extends RecyclerView.ViewHolder
 	{
+		private final View.OnClickListener clickListener;
+
 		@BindView(R.id.icon)
 		public SimpleDraweeView icon;
 
@@ -89,53 +86,25 @@ public class NotificationsListAdapter extends RecyclerView.Adapter<Notifications
 		@BindView(R.id.time)
 		public TextView time;
 
-		@BindView(R.id.action)
-		public TextView action;
+		@BindView(R.id.arrow)
+		public View arrow;
 
 		private NotificationViewModel notification;
+
+		private TypedValue selectableBackground = new TypedValue();
 
 		NotificationViewHolder(View itemView) {
 			super(itemView);
 
 			ButterKnife.bind(this, itemView);
 
-			setFonts();
-			itemView.setOnClickListener(v -> {
-				if (notification.getAssetDetails() != null) {
-					if (notification.getAssetDetails().getAssetType() != null) {
-						if (notification.getAssetDetails().getAssetType().equals(InvestmentProgramType.PROGRAM)) {
-							ProgramDetailsModel programDetailsModel = new ProgramDetailsModel(notification.getAssetDetails().getId(),
-									notification.getAssetDetails().getLogoUrl(),
-									notification.getAssetDetails().getColor(),
-									0,
-									0.0,
-									"",
-									"",
-									"",
-									false,
-									false,
-									//TODO: replace to notification.getAssetType()
-									AssetType.PROGRAM);
-							EventBus.getDefault().post(new ShowProgramDetailsEvent(programDetailsModel));
-						}
-						else if (notification.getAssetDetails().getAssetType().equals(InvestmentProgramType.FUND)) {
-							FundDetailsModel fundDetailsModel = new FundDetailsModel(notification.getAssetDetails().getId(),
-									notification.getAssetDetails().getLogoUrl(),
-									notification.getAssetDetails().getColor(),
-									"",
-									"",
-									false,
-									false);
-							EventBus.getDefault().post(new ShowFundDetailsEvent(fundDetailsModel));
-						}
-					}
-				}
-			});
-		}
+			itemView.getContext().getTheme().resolveAttribute(android.R.attr.selectableItemBackground, selectableBackground, true);
 
-		private void setFonts() {
-			time.setTypeface(TypefaceUtil.semibold());
-			action.setTypeface(TypefaceUtil.semibold());
+			clickListener = view -> {
+				if (notification.getLocation() != null && notification.getLocation().getLocation() != null) {
+					EventBus.getDefault().post(new OnNotificationClickedEvent(notification.getLocation()));
+				}
+			};
 		}
 
 		void setNotification(NotificationViewModel notification) {
@@ -156,6 +125,18 @@ public class NotificationsListAdapter extends RecyclerView.Adapter<Notifications
 			else {
 				icon.setImageURI(ImageUtils.getImageUri(logo));
 			}
+
+			if (notification.getLocation() != null && notification.getLocation().getLocation() != null) {
+				this.arrow.setVisibility(View.VISIBLE);
+				itemView.setOnClickListener(clickListener);
+				itemView.setBackgroundResource(selectableBackground.resourceId);
+			}
+			else {
+				this.arrow.setVisibility(View.GONE);
+				itemView.setOnClickListener(null);
+				itemView.setBackground(null);
+			}
+
 		}
 	}
 }
