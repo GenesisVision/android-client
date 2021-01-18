@@ -74,6 +74,8 @@ public class ProgramsFilter implements Parcelable
 
 	private String status;
 
+	private Boolean includeWithInvestments;
+
 	public ProgramsFilter() {
 	}
 
@@ -175,6 +177,8 @@ public class ProgramsFilter implements Parcelable
 			chartPointsCount = in.readInt();
 		}
 		status = in.readString();
+		byte tmpIncludeWithInvestments = in.readByte();
+		includeWithInvestments = tmpIncludeWithInvestments == 0 ? null : tmpIncludeWithInvestments == 1;
 	}
 
 	public SortingEnum getSorting() {
@@ -337,6 +341,14 @@ public class ProgramsFilter implements Parcelable
 		this.status = status;
 	}
 
+	public Boolean getIncludeWithInvestments() {
+		return includeWithInvestments;
+	}
+
+	public void setIncludeWithInvestments(Boolean includeWithInvestments) {
+		this.includeWithInvestments = includeWithInvestments;
+	}
+
 	@Override
 	public int describeContents() {
 		return 0;
@@ -426,6 +438,7 @@ public class ProgramsFilter implements Parcelable
 			dest.writeInt(chartPointsCount);
 		}
 		dest.writeString(status);
+		dest.writeByte((byte) (includeWithInvestments == null ? 0 : includeWithInvestments ? 1 : 2));
 	}
 
 	@Override

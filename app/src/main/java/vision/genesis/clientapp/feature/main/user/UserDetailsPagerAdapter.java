@@ -59,12 +59,14 @@ public class UserDetailsPagerAdapter extends FragmentStatePagerAdapter
 
 		ProgramsFilter programsFilter = new ProgramsFilter();
 		programsFilter.setManagerId(userId);
+		programsFilter.setIncludeWithInvestments(true);
 		Bundle dataPrograms = new Bundle();
 		dataPrograms.putParcelable(ProgramsListFragment.EXTRA_FILTER, programsFilter);
 		managerProgramsFragment = ProgramsListFragment.with(ProgramsListFragment.LOCATION_MANAGER, dataPrograms);
 
 		ProgramsFilter fundsFilter = new ProgramsFilter();
 		fundsFilter.setManagerId(userId);
+		programsFilter.setIncludeWithInvestments(true);
 		managerFundsFragment = FundsListFragment.with(FundsListFragment.LOCATION_MANAGER, fundsFilter);
 
 		ProgramsFilter followsFilter = new ProgramsFilter();

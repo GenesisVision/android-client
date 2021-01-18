@@ -204,6 +204,9 @@ public class ProgramsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 		@BindView(R.id.period_label)
 		public TextView periodLabel;
 
+		@BindView(R.id.text_program_closed)
+		public TextView programClosedText;
+
 		@BindView(R.id.tag_1)
 		public TagView tag1;
 
@@ -312,12 +315,23 @@ public class ProgramsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 					profitValue > 0 ? "+" : "",
 					StringFormatUtil.formatAmount(profitValue, 0, 4)));
 
-			if (program.getType().equals(ProgramType.FIXEDPERIOD)) {
-				this.period.setData(program.getPeriodDuration(), program.getPeriodStarts(), program.getPeriodEnds(), true, false);
-				this.period.setNoPeriod(false);
+			if (program.getStatus().toLowerCase().equals("closed")) {
+				period.setVisibility(View.GONE);
+				periodLabel.setVisibility(View.GONE);
+				programClosedText.setVisibility(View.VISIBLE);
 			}
-			else if (program.getType().equals(ProgramType.DAILYPERIOD)) {
-				this.period.setNoPeriod(true);
+			else {
+				period.setVisibility(View.VISIBLE);
+				periodLabel.setVisibility(View.VISIBLE);
+				programClosedText.setVisibility(View.GONE);
+
+				if (program.getType().equals(ProgramType.FIXEDPERIOD)) {
+					this.period.setData(program.getPeriodDuration(), program.getPeriodStarts(), program.getPeriodEnds(), true, false);
+					this.period.setNoPeriod(false);
+				}
+				else if (program.getType().equals(ProgramType.DAILYPERIOD)) {
+					this.period.setNoPeriod(true);
+				}
 			}
 
 			this.balance.setText(String.format(Locale.getDefault(), "%s %s",

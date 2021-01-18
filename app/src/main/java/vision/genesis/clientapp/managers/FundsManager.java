@@ -52,7 +52,7 @@ public class FundsManager
 	public Observable<FundDetailsListItemItemsViewModel> getFundsList(ProgramsFilter filter) {
 		return fundsApi.getFunds(
 				FundsFilterSorting.fromValue(filter.getSorting().getValue()), Currency.fromValue(filter.getShowIn().getValue()),
-				null, null, false,
+				null, null, filter.getIncludeWithInvestments(),
 				filter.getDateRange().getFrom(), filter.getDateRange().getTo(),
 				filter.getChartPointsCount(), filter.getFacetId() == null ? null : filter.getFacetId().toString(),
 				filter.getMask(), filter.getManagerId(),

@@ -179,7 +179,7 @@
     <string name="days">days</string>
     <string name="left">left</string>
     <string name="until_end_of_period">until end of period</string>
-    <string name="program_closed">program closed</string>
+    <string name="program_closed">program is closed</string>
 
     <plurals name="years">
         <item quantity="one">year</item>

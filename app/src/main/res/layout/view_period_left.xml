@@ -61,14 +61,14 @@
         android:id="@+id/text_program_closed"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:fontFamily="sans-serif-medium"
-        android:gravity="center"
-        android:lines="2"
+        android:layout_centerVertical="true"
+        android:fontFamily="@font/montserrat_semibold"
+        android:maxLines="2"
         android:text="@string/program_closed"
-        android:textColor="@color/colorMedium"
+        android:textColor="?attr/colorRed"
         android:textSize="14sp"
-        android:visibility="gone"/>
+        android:visibility="gone"
+        tools:visibility="gone"/>
 
     <TextView
         android:id="@+id/text_no_period"
@@ -77,7 +77,7 @@
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_marginStart="16dp"
-        android:fontFamily="sans-serif-medium"
+        android:fontFamily="@font/montserrat_semibold"
         android:text="—"
         android:visibility="gone"
         tools:visibility="visible"/>
