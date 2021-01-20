@@ -12,6 +12,9 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import java.lang.reflect.Type;
+import java.net.URL;
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 
 import javax.inject.Inject;
 
@@ -22,9 +25,11 @@ import io.swagger.client.model.NotificationLocationViewModel;
 import io.swagger.client.model.NotificationViewModel;
 import io.swagger.client.model.PlatformInfo;
 import io.swagger.client.model.PushNotificationViewModel;
+import io.swagger.client.model.ThreeFactorAuthenticatorConfirm;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
+import timber.log.Timber;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.fcm.GvFirebaseMessagingService;
@@ -78,6 +83,7 @@ import vision.genesis.clientapp.model.events.ShowUserDetailsEvent;
 import vision.genesis.clientapp.model.events.ShowVerificationInfoActivityEvent;
 import vision.genesis.clientapp.net.ApiErrorResolver;
 import vision.genesis.clientapp.ui.OnShowPostDetailsEvent;
+import vision.genesis.clientapp.utils.Constants;
 
 /**
  * GenesisVision
@@ -105,6 +111,8 @@ public class MainPresenter extends MvpPresenter<MainView>
 
 	private Subscription kycSubscription;
 
+	private Subscription emailConfirmationSubscription;
+
 	private UnregisteredDashboardFragment unregisteredDashboardFragment;
 
 	private UnregisteredSettingsFragment unregisteredSettingsFragment;
@@ -124,6 +132,8 @@ public class MainPresenter extends MvpPresenter<MainView>
 	private User user;
 
 	private Bundle pushData;
+
+	private String dataString;
 
 	@Override
 	protected void onFirstViewAttach() {
@@ -154,6 +164,9 @@ public class MainPresenter extends MvpPresenter<MainView>
 		if (kycSubscription != null) {
 			kycSubscription.unsubscribe();
 		}
+		if (emailConfirmationSubscription != null) {
+			emailConfirmationSubscription.unsubscribe();
+		}
 
 		EventBus.getDefault().unregister(this);
 
@@ -169,7 +182,67 @@ public class MainPresenter extends MvpPresenter<MainView>
 	}
 
 	void setData(Bundle data, String dataString) {
-		pushData = data;
+		this.pushData = data;
+		this.dataString = dataString;
+	}
+
+	private void handleDataString(String dataString) {
+		Timber.d("DATA_STRING %s", dataString);
+		try {
+			URL url = new URL(URLDecoder.decode(dataString, StandardCharsets.UTF_8.toString()));
+			String[] args = url.getQuery().split("&");
+			switch (url.getPath()) {
+				case "/security-verification":
+					String email = "";
+					String code = "";
+					for (String arg : args) {
+						String[] pair = arg.split("=");
+						if (pair[0].equals("email")) {
+							email = pair[1];
+						}
+						else if (pair[0].equals("code")) {
+							code = pair[1];
+						}
+					}
+					authorizeNewDevice(email, code);
+					break;
+				default:
+					break;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		this.dataString = null;
+	}
+
+	private void authorizeNewDevice(String email, String code) {
+		if (authManager != null) {
+			String tempToken = authManager.getTempToken();
+			if (email != null
+					&& tempToken != null && !tempToken.isEmpty()
+					&& code != null && code.length() == Constants.THREE_FACTOR_CODE_LENGTH) {
+
+				ThreeFactorAuthenticatorConfirm request = new ThreeFactorAuthenticatorConfirm();
+				request.setEmail(email);
+				request.setToken(tempToken);
+				request.setCode(code);
+
+				emailConfirmationSubscription = authManager.confirmThreeStepAuth(request)
+						.observeOn(AndroidSchedulers.mainThread())
+						.subscribeOn(Schedulers.io())
+						.subscribe(this::onEmailConfirmationSuccess, this::onEmailConfirmationError);
+			}
+		}
+	}
+
+	private void onEmailConfirmationSuccess(String token) {
+		emailConfirmationSubscription.unsubscribe();
+		authManager.handleGetTokenResponse(token);
+		authManager.saveTempToken(null);
+	}
+
+	private void onEmailConfirmationError(Throwable throwable) {
+		emailConfirmationSubscription.unsubscribe();
 	}
 
 	private void handlePushData(Bundle data) {
@@ -244,6 +317,9 @@ public class MainPresenter extends MvpPresenter<MainView>
 	void onCheckPinPassed() {
 		if (firstCheckPin) {
 			firstCheckPin = false;
+			if (dataString != null && !dataString.isEmpty()) {
+				handleDataString(dataString);
+			}
 			subscribeToUser();
 			getPlatformStatus();
 		}

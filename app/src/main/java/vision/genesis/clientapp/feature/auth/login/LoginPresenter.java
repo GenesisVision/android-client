@@ -114,6 +114,7 @@ public class LoginPresenter extends MvpPresenter<LoginView>
 
 	private void handleRiskControlSuccess(CaptchaDetails captchaDetails) {
 		riskControlSubscription.unsubscribe();
+		captchaCheckResult = null;
 
 		switch (captchaDetails.getCaptchaType()) {
 			case NONE:
@@ -189,6 +190,7 @@ public class LoginPresenter extends MvpPresenter<LoginView>
 					if (tfaEnabled) {
 						EventBus.getDefault().post(new OnCheckTfaSuccessEvent());
 					}
+					authManager.saveTempToken(response.tempToken);
 					getViewState().startEmailConfirmationActivity(email, response.tempToken);
 				}
 				else {

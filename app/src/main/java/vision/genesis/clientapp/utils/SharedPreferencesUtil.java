@@ -22,6 +22,8 @@ public class SharedPreferencesUtil
 
 	private static final String KEY_FCM_TOKEN = "keyFcmToken";
 
+	private static final String KEY_TEMP_TOKEN = "keyTempToken";
+
 
 	private static final String SETTINGS = "settings";
 
@@ -247,5 +249,17 @@ public class SharedPreferencesUtil
 	public String getTradingPublicStatus() {
 		SharedPreferences sharedPreferences = context.getSharedPreferences(USER_PREFS, Context.MODE_PRIVATE);
 		return sharedPreferences.getString(KEY_TRADING_PUBLIC_STATUS, DashboardAssetStatus.ACTIVE.getValue());
+	}
+
+	public void saveTempToken(String tempToken) {
+		SharedPreferences sharedPreferences = context.getSharedPreferences(USER_PREFS, Context.MODE_PRIVATE);
+		sharedPreferences.edit()
+				.putString(KEY_TEMP_TOKEN, tempToken)
+				.apply();
+	}
+
+	public String getTempToken() {
+		SharedPreferences sharedPreferences = context.getSharedPreferences(USER_PREFS, Context.MODE_PRIVATE);
+		return sharedPreferences.getString(KEY_TEMP_TOKEN, null);
 	}
 }

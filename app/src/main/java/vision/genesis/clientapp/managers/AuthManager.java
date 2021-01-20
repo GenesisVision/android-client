@@ -355,6 +355,14 @@ public class AuthManager
 		sharedPreferencesUtil.setEnableTwoFactorAlreadyShown(shown);
 	}
 
+	public void saveTempToken(String tempToken) {
+		sharedPreferencesUtil.saveTempToken(tempToken);
+	}
+
+	public String getTempToken() {
+		return sharedPreferencesUtil.getTempToken();
+	}
+
 	@RequiresApi(api = Build.VERSION_CODES.M)
 	public boolean hasFingerprintFeature() {
 		return fingerprintManager != null && fingerprintManager.isHardwareDetected()
