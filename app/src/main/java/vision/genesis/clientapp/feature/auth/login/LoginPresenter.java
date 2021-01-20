@@ -186,6 +186,9 @@ public class LoginPresenter extends MvpPresenter<LoginView>
 					getViewState().startCheckTfaActivity(action);
 				}
 				else if (response.code.equals(ErrorCodes.REQUIRESEMAILCONFIRMATION.toString())) {
+					if (tfaEnabled) {
+						EventBus.getDefault().post(new OnCheckTfaSuccessEvent());
+					}
 					getViewState().startEmailConfirmationActivity(email, response.tempToken);
 				}
 				else {

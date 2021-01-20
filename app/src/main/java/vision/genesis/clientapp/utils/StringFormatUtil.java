@@ -183,6 +183,20 @@ public class StringFormatUtil
 		}
 	}
 
+	public static String capitalizeAllWords(String string) {
+		if (string != null && string.length() > 0) {
+			String[] words = string.split(" ");
+			String result = "";
+			for (String word : words) {
+				result = result.concat(capitalize(word)).concat(" ");
+			}
+			return result.substring(0, result.length() - 1);
+		}
+		else {
+			return "";
+		}
+	}
+
 	public static String getApproxSymbolIfNeeded(Double amount) {
 		return amount != 0 ? "≈" : "";
 	}

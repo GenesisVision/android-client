@@ -32,6 +32,7 @@ import vision.genesis.clientapp.model.CurrencyEnum;
 import vision.genesis.clientapp.model.DateRange;
 import vision.genesis.clientapp.model.events.OnProfilePublicInfoFilledEvent;
 import vision.genesis.clientapp.net.ApiErrorResolver;
+import vision.genesis.clientapp.utils.StringFormatUtil;
 
 /**
  * GenesisVisionAndroid
@@ -206,7 +207,7 @@ public class TradingDetailsPresenter extends MvpPresenter<TradingDetailsView> im
 		createPrivateOptions.add(context.getString(R.string.create_self_managed_fund));
 
 		createPublicOptions.add(context.getString(R.string.create_fund));
-		createPublicOptions.add(context.getString(R.string.create_program));
+		createPublicOptions.add(StringFormatUtil.capitalizeAllWords(context.getString(R.string.create_program)));
 
 		getViewState().setCreateOptions(createPrivateOptions, createPublicOptions);
 	}

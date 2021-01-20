@@ -150,6 +150,10 @@ public class ProgramSettingsFragment extends BaseFragment implements ProgramSett
 
 	private Boolean isExchangeProgram = false;
 
+	private Double maxManagementFee = 0.0;
+
+	private Double maxSuccessFee = 0.0;
+
 	@OnClick(R.id.group_period_length)
 	public void onPeriodLengthClicked() {
 		if (getActivity() != null && periodLengthOptions != null && periodLengthOptions.size() > 1) {
@@ -414,7 +418,12 @@ public class ProgramSettingsFragment extends BaseFragment implements ProgramSett
 
 	@Override
 	public void updateManagementFeeDescription(Double maxManagementFee) {
-		if (model.isExchange()) {
+		this.maxManagementFee = maxManagementFee;
+		updateManagementFeeText(maxManagementFee, model.isExchange());
+	}
+
+	private void updateManagementFeeText(Double maxManagementFee, Boolean isExchange) {
+		if (isExchange) {
 			this.managementFeeDescription.setText(String.format(Locale.getDefault(),
 					getString(R.string.template_program_settings_exchange_management_fee_description),
 					StringFormatUtil.formatAmount(maxManagementFee, 0, 4)));
@@ -428,7 +437,12 @@ public class ProgramSettingsFragment extends BaseFragment implements ProgramSett
 
 	@Override
 	public void updateSuccessFeeDescription(Double maxSuccessFee) {
-		if (model.isExchange()) {
+		this.maxSuccessFee = maxSuccessFee;
+		updateSuccessFeeText(maxSuccessFee, model.isExchange());
+	}
+
+	private void updateSuccessFeeText(Double maxSuccessFee, Boolean isExchange) {
+		if (isExchange) {
 			this.successFeeDescription.setText(String.format(Locale.getDefault(),
 					getString(R.string.template_program_settings_exchange_success_fee_description),
 					StringFormatUtil.formatAmount(maxSuccessFee, 0, 4)));
@@ -485,6 +499,9 @@ public class ProgramSettingsFragment extends BaseFragment implements ProgramSett
 		processingGroup.setVisibility(isExchangeProgram ? View.VISIBLE : View.GONE);
 		currencyGroup.setVisibility(isExchangeProgram ? View.VISIBLE : View.GONE);
 		stopOutGroup.setVisibility(!isExchangeProgram ? View.VISIBLE : View.GONE);
+
+		updateManagementFeeText(maxManagementFee, isExchangeProgram);
+		updateSuccessFeeText(maxSuccessFee, isExchangeProgram);
 	}
 
 	public void setCurrency(Currency accountCurrency) {
