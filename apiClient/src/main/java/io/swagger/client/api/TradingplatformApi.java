@@ -33,7 +33,9 @@ import io.swagger.client.model.BinanceRawFuturesOpenInterestHistory;
 import io.swagger.client.model.BinanceRawFuturesOrderItemsViewModel;
 import io.swagger.client.model.BinanceRawFuturesPlaceOrder;
 import io.swagger.client.model.BinanceRawFuturesPlacedOrder;
+import io.swagger.client.model.BinanceRawFuturesPosition;
 import io.swagger.client.model.BinanceRawFuturesPositionMode;
+import io.swagger.client.model.BinanceRawFuturesSymbolBracket;
 import io.swagger.client.model.BinanceRawFuturesUsdtExchangeInfo;
 import io.swagger.client.model.BinanceRawKlineInterval;
 import io.swagger.client.model.BinanceRawKlineItemsViewModel;
@@ -296,6 +298,18 @@ public interface TradingplatformApi
 	);
 
 	/**
+	 * Get notional and leverage brackets
+	 *
+	 * @param accountId (optional)
+	 * @param symbol    (optional)
+	 * @return Call&lt;List&lt;BinanceRawFuturesSymbolBracket&gt;&gt;
+	 */
+	@GET("v2.0/tradingplatform/binance/account/futures/symbols/brackets")
+	Observable<List<BinanceRawFuturesSymbolBracket>> getFuturesBrackets(
+			@retrofit2.http.Query("accountId") UUID accountId, @retrofit2.http.Query("symbol") String symbol
+	);
+
+	/**
 	 * Gets composite index info
 	 *
 	 * @param symbol (optional)
@@ -431,6 +445,18 @@ public interface TradingplatformApi
 	@GET("v2.0/tradingplatform/binance/futures/market/depth")
 	Observable<BinanceRawOrderBook> getFuturesOrderBook(
 			@retrofit2.http.Query("symbol") String symbol, @retrofit2.http.Query("limit") Integer limit
+	);
+
+	/**
+	 * Gets position information
+	 *
+	 * @param accountId (optional)
+	 * @param symbol    (optional)
+	 * @return Call&lt;List&lt;BinanceRawFuturesPosition&gt;&gt;
+	 */
+	@GET("v2.0/tradingplatform/binance/account/futures/position/risk")
+	Observable<List<BinanceRawFuturesPosition>> getFuturesPositionInformation(
+			@retrofit2.http.Query("accountId") UUID accountId, @retrofit2.http.Query("symbol") String symbol
 	);
 
 	/**

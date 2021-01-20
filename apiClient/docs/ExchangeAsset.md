@@ -8,4 +8,5 @@ Name | Type | Description | Notes
 **creationDate** | [**DateTime**](DateTime.md) |  |  [optional]
 **balance** | **Double** |  |  [optional]
 **currency** | [**Currency**](Currency.md) |  |  [optional]
+**permissions** | [**List&lt;TradingAccountPermission&gt;**](TradingAccountPermission.md) |  |  [optional]
 **asset** | [**AssetDetails**](AssetDetails.md) |  |  [optional]

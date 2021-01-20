@@ -35,7 +35,8 @@ public enum TransactionInternalType
 	FOLLOW("Follow"),
 	TRADINGACCOUNTS("TradingAccounts"),
 	AGENTREWARD("AgentReward"),
-	EXCHANGEACCOUNTS("ExchangeAccounts");
+	EXCHANGEACCOUNTS("ExchangeAccounts"),
+	REBATE("Rebate");
 
 	public static TransactionInternalType fromValue(String text) {
 		for (TransactionInternalType b : TransactionInternalType.values()) {

@@ -33,7 +33,11 @@ public enum BinanceSymbolStatus
 	HALT("Halt"),
 	AUCTIONMATCH("AuctionMatch"),
 	BREAK("Break"),
-	CLOSE("Close");
+	CLOSE("Close"),
+	PREDELIVERING("PreDelivering"),
+	DELIVERING("Delivering"),
+	PRESETTLE("PreSettle"),
+	SETTLING("Settling");
 
 	public static BinanceSymbolStatus fromValue(String text) {
 		for (BinanceSymbolStatus b : BinanceSymbolStatus.values()) {

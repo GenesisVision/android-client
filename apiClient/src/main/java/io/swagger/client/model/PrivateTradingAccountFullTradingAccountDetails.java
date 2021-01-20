@@ -74,6 +74,9 @@ public class PrivateTradingAccountFullTradingAccountDetails implements Parcelabl
 	@SerializedName("supportedCurrencies")
 	private List<Currency> supportedCurrencies = null;
 
+	@SerializedName("permissions")
+	private List<TradingAccountPermission> permissions = null;
+
 	public PrivateTradingAccountFullTradingAccountDetails() {
 	}
 
@@ -89,6 +92,7 @@ public class PrivateTradingAccountFullTradingAccountDetails implements Parcelabl
 		isExternal = (Boolean) in.readValue(null);
 		showTradingLog = (Boolean) in.readValue(null);
 		supportedCurrencies = (List<Currency>) in.readValue(Currency.class.getClassLoader());
+		permissions = (List<TradingAccountPermission>) in.readValue(TradingAccountPermission.class.getClassLoader());
 	}
 
 	public PrivateTradingAccountFullTradingAccountDetails currency(Currency currency) {
@@ -316,6 +320,33 @@ public class PrivateTradingAccountFullTradingAccountDetails implements Parcelabl
 		this.supportedCurrencies = supportedCurrencies;
 	}
 
+	public PrivateTradingAccountFullTradingAccountDetails permissions(List<TradingAccountPermission> permissions) {
+		this.permissions = permissions;
+		return this;
+	}
+
+	public PrivateTradingAccountFullTradingAccountDetails addPermissionsItem(TradingAccountPermission permissionsItem) {
+		if (this.permissions == null) {
+			this.permissions = new ArrayList<TradingAccountPermission>();
+		}
+		this.permissions.add(permissionsItem);
+		return this;
+	}
+
+	/**
+	 * Get permissions
+	 *
+	 * @return permissions
+	 **/
+	@Schema(description = "")
+	public List<TradingAccountPermission> getPermissions() {
+		return permissions;
+	}
+
+	public void setPermissions(List<TradingAccountPermission> permissions) {
+		this.permissions = permissions;
+	}
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -335,12 +366,13 @@ public class PrivateTradingAccountFullTradingAccountDetails implements Parcelabl
 				Objects.equals(this.subscriptions, privateTradingAccountFullTradingAccountDetails.subscriptions) &&
 				Objects.equals(this.isExternal, privateTradingAccountFullTradingAccountDetails.isExternal) &&
 				Objects.equals(this.showTradingLog, privateTradingAccountFullTradingAccountDetails.showTradingLog) &&
-				Objects.equals(this.supportedCurrencies, privateTradingAccountFullTradingAccountDetails.supportedCurrencies);
+				Objects.equals(this.supportedCurrencies, privateTradingAccountFullTradingAccountDetails.supportedCurrencies) &&
+				Objects.equals(this.permissions, privateTradingAccountFullTradingAccountDetails.permissions);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(currency, leverage, apiKey, login, balance, balances, type, subscriptions, isExternal, showTradingLog, supportedCurrencies);
+		return Objects.hash(currency, leverage, apiKey, login, balance, balances, type, subscriptions, isExternal, showTradingLog, supportedCurrencies, permissions);
 	}
 
 	@Override
@@ -359,6 +391,7 @@ public class PrivateTradingAccountFullTradingAccountDetails implements Parcelabl
 		sb.append("    isExternal: ").append(toIndentedString(isExternal)).append("\n");
 		sb.append("    showTradingLog: ").append(toIndentedString(showTradingLog)).append("\n");
 		sb.append("    supportedCurrencies: ").append(toIndentedString(supportedCurrencies)).append("\n");
+		sb.append("    permissions: ").append(toIndentedString(permissions)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}
@@ -386,6 +419,7 @@ public class PrivateTradingAccountFullTradingAccountDetails implements Parcelabl
 		out.writeValue(isExternal);
 		out.writeValue(showTradingLog);
 		out.writeValue(supportedCurrencies);
+		out.writeValue(permissions);
 	}
 
 	public int describeContents() {

@@ -13,3 +13,4 @@
 * `TAKEPROFITLIMIT` (value: `"TakeProfitLimit"`)
 * `LIMITMAKER` (value: `"LimitMaker"`)
 * `TRAILINGSTOPMARKET` (value: `"TrailingStopMarket"`)
+* `LIQUIDATION` (value: `"Liquidation"`)

@@ -19,6 +19,8 @@ import com.google.gson.annotations.SerializedName;
 
 import org.joda.time.DateTime;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -57,6 +59,9 @@ public class ExchangeAsset implements Parcelable
 	@SerializedName("currency")
 	private Currency currency = null;
 
+	@SerializedName("permissions")
+	private List<TradingAccountPermission> permissions = null;
+
 	@SerializedName("asset")
 	private AssetDetails asset = null;
 
@@ -69,6 +74,7 @@ public class ExchangeAsset implements Parcelable
 		creationDate = (DateTime) in.readValue(DateTime.class.getClassLoader());
 		balance = (Double) in.readValue(null);
 		currency = (Currency) in.readValue(Currency.class.getClassLoader());
+		permissions = (List<TradingAccountPermission>) in.readValue(TradingAccountPermission.class.getClassLoader());
 		asset = (AssetDetails) in.readValue(AssetDetails.class.getClassLoader());
 	}
 
@@ -167,6 +173,33 @@ public class ExchangeAsset implements Parcelable
 		this.currency = currency;
 	}
 
+	public ExchangeAsset permissions(List<TradingAccountPermission> permissions) {
+		this.permissions = permissions;
+		return this;
+	}
+
+	public ExchangeAsset addPermissionsItem(TradingAccountPermission permissionsItem) {
+		if (this.permissions == null) {
+			this.permissions = new ArrayList<TradingAccountPermission>();
+		}
+		this.permissions.add(permissionsItem);
+		return this;
+	}
+
+	/**
+	 * Get permissions
+	 *
+	 * @return permissions
+	 **/
+	@Schema(description = "")
+	public List<TradingAccountPermission> getPermissions() {
+		return permissions;
+	}
+
+	public void setPermissions(List<TradingAccountPermission> permissions) {
+		this.permissions = permissions;
+	}
+
 	public ExchangeAsset asset(AssetDetails asset) {
 		this.asset = asset;
 		return this;
@@ -200,12 +233,13 @@ public class ExchangeAsset implements Parcelable
 				Objects.equals(this.creationDate, exchangeAsset.creationDate) &&
 				Objects.equals(this.balance, exchangeAsset.balance) &&
 				Objects.equals(this.currency, exchangeAsset.currency) &&
+				Objects.equals(this.permissions, exchangeAsset.permissions) &&
 				Objects.equals(this.asset, exchangeAsset.asset);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, title, creationDate, balance, currency, asset);
+		return Objects.hash(id, title, creationDate, balance, currency, permissions, asset);
 	}
 
 	@Override
@@ -218,6 +252,7 @@ public class ExchangeAsset implements Parcelable
 		sb.append("    creationDate: ").append(toIndentedString(creationDate)).append("\n");
 		sb.append("    balance: ").append(toIndentedString(balance)).append("\n");
 		sb.append("    currency: ").append(toIndentedString(currency)).append("\n");
+		sb.append("    permissions: ").append(toIndentedString(permissions)).append("\n");
 		sb.append("    asset: ").append(toIndentedString(asset)).append("\n");
 		sb.append("}");
 		return sb.toString();
@@ -240,6 +275,7 @@ public class ExchangeAsset implements Parcelable
 		out.writeValue(creationDate);
 		out.writeValue(balance);
 		out.writeValue(currency);
+		out.writeValue(permissions);
 		out.writeValue(asset);
 	}
 

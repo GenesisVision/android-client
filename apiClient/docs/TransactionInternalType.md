@@ -13,3 +13,4 @@
 * `TRADINGACCOUNTS` (value: `"TradingAccounts"`)
 * `AGENTREWARD` (value: `"AgentReward"`)
 * `EXCHANGEACCOUNTS` (value: `"ExchangeAccounts"`)
+* `REBATE` (value: `"Rebate"`)

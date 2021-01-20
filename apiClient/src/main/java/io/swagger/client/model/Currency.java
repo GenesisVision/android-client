@@ -30,6 +30,7 @@ public enum Currency
 	ETH("ETH"),
 	BTC("BTC"),
 	USDT("USDT"),
+	BNB("BNB"),
 	USDC("USDC"),
 	USD("USD");
 

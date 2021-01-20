@@ -2,7 +2,6 @@ package io.swagger.client.api;
 
 import java.util.UUID;
 
-import io.swagger.client.model.AttachToExternalSignalProviderCommon;
 import io.swagger.client.model.AttachToExternalSignalProviderExt;
 import io.swagger.client.model.AttachToSignalProvider;
 import io.swagger.client.model.Currency;
@@ -17,21 +16,6 @@ import rx.Observable;
 
 public interface SignalApi
 {
-	/**
-	 * Subscribe to external signal using common account
-	 *
-	 * @param id   (required)
-	 * @param body (optional)
-	 * @return Call&lt;Void&gt;
-	 */
-	@Headers({
-			"Content-Type:application/json"
-	})
-	@POST("v2.0/signal/external/attach/{id}/common")
-	Observable<Void> attachSlaveToMasterExternalCommonAccount(
-			@retrofit2.http.Path("id") UUID id, @retrofit2.http.Body AttachToExternalSignalProviderCommon body
-	);
-
 	/**
 	 * Subscribe to external signal account
 	 *

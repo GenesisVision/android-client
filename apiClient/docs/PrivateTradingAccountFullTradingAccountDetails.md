@@ -14,3 +14,4 @@ Name | Type | Description | Notes
 **isExternal** | **Boolean** |  |  [optional]
 **showTradingLog** | **Boolean** |  |  [optional]
 **supportedCurrencies** | [**List&lt;Currency&gt;**](Currency.md) |  |  [optional]
+**permissions** | [**List&lt;TradingAccountPermission&gt;**](TradingAccountPermission.md) |  |  [optional]

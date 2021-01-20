@@ -11,3 +11,7 @@
 * `AUCTIONMATCH` (value: `"AuctionMatch"`)
 * `BREAK` (value: `"Break"`)
 * `CLOSE` (value: `"Close"`)
+* `PREDELIVERING` (value: `"PreDelivering"`)
+* `DELIVERING` (value: `"Delivering"`)
+* `PRESETTLE` (value: `"PreSettle"`)
+* `SETTLING` (value: `"Settling"`)

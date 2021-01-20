@@ -4,7 +4,6 @@ All URIs are relative to *https://red.genesis.vision/api*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**attachSlaveToMasterExternalCommonAccount**](SignalApi.md#attachSlaveToMasterExternalCommonAccount) | **POST** v2.0/signal/external/attach/{id}/common | Subscribe to external signal using common account
 [**attachSlaveToMasterExternalPrivateAccount**](SignalApi.md#attachSlaveToMasterExternalPrivateAccount) | **POST** v2.0/signal/external/attach/{id}/private | Subscribe to external signal account
 [**attachSlaveToMasterInternal**](SignalApi.md#attachSlaveToMasterInternal) | **POST** v2.0/signal/attach/{id} | Subscribe to signal provider
 [**detachSlaveFromMasterExternal**](SignalApi.md#detachSlaveFromMasterExternal) | **POST** v2.0/signal/external/detach/{id} | 
@@ -13,61 +12,6 @@ Method | HTTP request | Description
 [**getSubscriberAccountsForAsset**](SignalApi.md#getSubscriberAccountsForAsset) | **GET** v2.0/signal/attach/{id}/accounts | Get subscriber accounts for subscribe to signal provider (common method for all signals)
 [**updateExternalSubscriptionSettings**](SignalApi.md#updateExternalSubscriptionSettings) | **POST** v2.0/signal/external/{id}/update | Update signal subscription settings
 [**updateSubscriptionSettings**](SignalApi.md#updateSubscriptionSettings) | **POST** v2.0/signal/{id}/update | Update signal subscription settings
-
-<a name="attachSlaveToMasterExternalCommonAccount"></a>
-# **attachSlaveToMasterExternalCommonAccount**
-> Void attachSlaveToMasterExternalCommonAccount(id, body)
-
-Subscribe to external signal using common account
-
-### Example
-```java
-// Import classes:
-//import io.swagger.client.ApiClient;
-//import io.swagger.client.ApiException;
-//import io.swagger.client.Configuration;
-//import io.swagger.client.auth.*;
-//import io.swagger.client.api.SignalApi;
-
-ApiClient defaultClient = Configuration.getDefaultApiClient();
-
-// Configure API key authorization: Bearer
-ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
-Bearer.setApiKey("YOUR API KEY");
-// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-//Bearer.setApiKeyPrefix("Token");
-
-SignalApi apiInstance = new SignalApi();
-UUID id = new UUID(); // UUID | 
-AttachToExternalSignalProviderCommon body = new AttachToExternalSignalProviderCommon(); // AttachToExternalSignalProviderCommon | 
-try {
-    Void result = apiInstance.attachSlaveToMasterExternalCommonAccount(id, body);
-    System.out.println(result);
-} catch (ApiException e) {
-    System.err.println("Exception when calling SignalApi#attachSlaveToMasterExternalCommonAccount");
-    e.printStackTrace();
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **id** | [**UUID**](.md)|  |
- **body** | [**AttachToExternalSignalProviderCommon**](AttachToExternalSignalProviderCommon.md)|  | [optional]
-
-### Return type
-
-[**Void**](.md)
-
-### Authorization
-
-[Bearer](../README.md#Bearer)
-
-### HTTP request headers
-
- - **Content-Type**: application/json, text/json, application/_*+json
- - **Accept**: text/plain, application/json, text/json
 
 <a name="attachSlaveToMasterExternalPrivateAccount"></a>
 # **attachSlaveToMasterExternalPrivateAccount**

@@ -35,7 +35,8 @@ public enum BinanceOrderType
 	TAKEPROFITMARKET("TakeProfitMarket"),
 	TAKEPROFITLIMIT("TakeProfitLimit"),
 	LIMITMAKER("LimitMaker"),
-	TRAILINGSTOPMARKET("TrailingStopMarket");
+	TRAILINGSTOPMARKET("TrailingStopMarket"),
+	LIQUIDATION("Liquidation");
 
 	public static BinanceOrderType fromValue(String text) {
 		for (BinanceOrderType b : BinanceOrderType.values()) {
