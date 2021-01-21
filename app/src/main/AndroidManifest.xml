@@ -48,9 +48,11 @@
 
                 <data
                     android:host="*.genesis.vision"
+                    android:path="/security-verification"
                     android:scheme="https"/>
                 <data
                     android:host="genesis.vision"
+                    android:path="/security-verification"
                     android:scheme="https"/>
 
             </intent-filter>
