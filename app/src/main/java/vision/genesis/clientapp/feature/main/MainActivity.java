@@ -139,9 +139,7 @@ public class MainActivity extends MvpAppCompatActivity implements MainView, Bloc
 		if (getIntent().getExtras() != null) {
 			Bundle data = getIntent().getExtras().getBundle(EXTRA_PUSH_BUNDLE);
 			String dataString = getIntent().getExtras().getString(EXTRA_DATA_STRING);
-			if (data != null) {
-				mainPresenter.setData(data, dataString);
-			}
+			mainPresenter.setData(data, dataString);
 		}
 
 		initBottomNavigation();
