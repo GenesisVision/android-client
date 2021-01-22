@@ -37,6 +37,7 @@ import vision.genesis.clientapp.feature.main.assets.AssetsFragment;
 import vision.genesis.clientapp.feature.main.dashboard.DashboardFragment;
 import vision.genesis.clientapp.feature.main.settings.SettingsFragment;
 import vision.genesis.clientapp.feature.main.social.SocialMainFragment;
+import vision.genesis.clientapp.feature.main.terminal.TerminalFragment;
 import vision.genesis.clientapp.feature.main.unregistered.dashboard.UnregisteredDashboardFragment;
 import vision.genesis.clientapp.feature.main.unregistered.settings.UnregisteredSettingsFragment;
 import vision.genesis.clientapp.managers.AuthManager;
@@ -120,6 +121,8 @@ public class MainPresenter extends MvpPresenter<MainView>
 	private DashboardFragment dashboardFragment;
 
 	private AssetsFragment assetsFragment;
+
+	private TerminalFragment terminalFragment;
 
 	private SocialMainFragment socialMainFragment;
 
@@ -348,12 +351,18 @@ public class MainPresenter extends MvpPresenter<MainView>
 				showAssets();
 				break;
 			case 2:
+				if (wasSelected && terminalFragment != null) {
+					return false;
+				}
+				showTerminal();
+				break;
+			case 3:
 				if (wasSelected && socialMainFragment != null) {
 					return false;
 				}
 				showSocial();
 				break;
-			case 3:
+			case 4:
 				if (user == null) {
 					if (wasSelected && unregisteredSettingsFragment != null) {
 						return false;
@@ -408,6 +417,16 @@ public class MainPresenter extends MvpPresenter<MainView>
 		}
 		else {
 			getViewState().showFragment(assetsFragment);
+		}
+	}
+
+	private void showTerminal() {
+		if (terminalFragment == null) {
+			terminalFragment = new TerminalFragment();
+			getViewState().addFragmentToBackstack(terminalFragment);
+		}
+		else {
+			getViewState().showFragment(terminalFragment);
 		}
 	}
 
@@ -502,6 +521,9 @@ public class MainPresenter extends MvpPresenter<MainView>
 		if (assetsFragment != null) {
 			getViewState().removeFragment(assetsFragment);
 		}
+		if (terminalFragment != null) {
+			getViewState().removeFragment(terminalFragment);
+		}
 		if (socialMainFragment != null) {
 			getViewState().removeFragment(socialMainFragment);
 		}
@@ -510,6 +532,7 @@ public class MainPresenter extends MvpPresenter<MainView>
 		}
 		unregisteredDashboardFragment = null;
 		assetsFragment = null;
+		terminalFragment = null;
 		socialMainFragment = null;
 		unregisteredSettingsFragment = null;
 
@@ -527,6 +550,9 @@ public class MainPresenter extends MvpPresenter<MainView>
 		if (assetsFragment != null) {
 			getViewState().removeFragment(assetsFragment);
 		}
+		if (terminalFragment != null) {
+			getViewState().removeFragment(terminalFragment);
+		}
 		if (socialMainFragment != null) {
 			getViewState().removeFragment(socialMainFragment);
 		}
@@ -535,6 +561,7 @@ public class MainPresenter extends MvpPresenter<MainView>
 		}
 		dashboardFragment = null;
 		assetsFragment = null;
+		terminalFragment = null;
 		socialMainFragment = null;
 		settingsFragment = null;
 

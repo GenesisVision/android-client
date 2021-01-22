@@ -279,11 +279,13 @@ public class MainActivity extends MvpAppCompatActivity implements MainView, Bloc
 	public void initBottomNavigation() {
 		AHBottomNavigationItem dashboardItem = new AHBottomNavigationItem(null, R.drawable.icon_dashboard);
 		AHBottomNavigationItem investItem = new AHBottomNavigationItem(null, R.drawable.icon_assets);
+		AHBottomNavigationItem terminalItem = new AHBottomNavigationItem(null, R.drawable.icon_terminal);
 		AHBottomNavigationItem socialItem = new AHBottomNavigationItem(null, R.drawable.icon_social);
 		AHBottomNavigationItem settingsItem = new AHBottomNavigationItem(null, R.drawable.icon_profile);
 
 		bottomNavigationView.addItem(dashboardItem);
 		bottomNavigationView.addItem(investItem);
+		bottomNavigationView.addItem(terminalItem);
 		bottomNavigationView.addItem(socialItem);
 		bottomNavigationView.addItem(settingsItem);
 
