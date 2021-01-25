@@ -352,7 +352,7 @@ public class ProgramSettingsFragment extends BaseFragment implements ProgramSett
 			this.investmentLimit.setText("");
 		}
 		else {
-			String investmentLimitText = StringFormatUtil.formatAmount(investmentLimit, 0, 4);
+			String investmentLimitText = StringFormatUtil.formatAmountWithoutGrouping(investmentLimit);
 			this.investmentLimit.setText(investmentLimitText);
 			this.investmentLimit.setSelection(investmentLimitText.length(), investmentLimitText.length());
 		}

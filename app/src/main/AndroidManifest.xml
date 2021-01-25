@@ -205,7 +205,6 @@
 
         <activity
             android:name=".feature.main.user.UserDetailsActivity"
-            android:launchMode="singleTop"
             android:theme="@style/SwipeBackActivityTheme"
             android:windowSoftInputMode="adjustResize"/>
 

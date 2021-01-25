@@ -3,8 +3,8 @@
                 xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                tools:layout_width="100dp"
                 tools:layout_height="wrap_content">
-
 
     <ProgressBar
         android:id="@+id/age_progress_bar"
@@ -23,13 +23,15 @@
         android:id="@+id/age"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/montserrat_semibold"
         android:layout_centerVertical="true"
         android:layout_marginStart="8dp"
+        android:lineSpacingMultiplier="0.8"
         android:layout_toEndOf="@+id/age_progress_bar"
         android:gravity="bottom"
-        android:lines="1"
+        android:maxLines="2"
         android:textColor="?attr/colorTextPrimary"
         android:textSize="16sp"
-        tools:text="14 days"/>
+        tools:text="1400 days"/>
 
 </RelativeLayout>

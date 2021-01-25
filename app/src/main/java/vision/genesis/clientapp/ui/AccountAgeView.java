@@ -15,7 +15,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
-import vision.genesis.clientapp.utils.TypefaceUtil;
 
 /**
  * GenesisVisionAndroid
@@ -52,20 +51,14 @@ public class AccountAgeView extends RelativeLayout
 
 		ButterKnife.bind(this);
 
-		setFonts();
-
 		progressBar.setMax(MAX_DAYS);
-	}
-
-	protected void setFonts() {
-		age.setTypeface(TypefaceUtil.semibold());
 	}
 
 	public void setCreationDate(DateTime creationDate) {
 		int days = Days.daysBetween(creationDate, DateTime.now()).getDays();
-		String sign = days > MAX_DAYS ? "+" : "";
+//		String sign = days > MAX_DAYS ? "+" : "";
 		this.progressBar.setProgress(days);
-		this.age.setText(String.format(Locale.getDefault(), "%d%s %s", days, sign,
+		this.age.setText(String.format(Locale.getDefault(), "%d %s", days,
 				GenesisVisionApplication.INSTANCE.getResources().getQuantityString(R.plurals.days, days, days, days)));
 	}
 }

@@ -77,7 +77,6 @@ public class ReferralInfoFragment extends BaseFragment implements ReferralInfoVi
 	public void onShareClicked() {
 		Intent intent = new Intent(android.content.Intent.ACTION_SEND);
 		intent.setType("text/plain");
-		intent.putExtra(android.content.Intent.EXTRA_SUBJECT, getString(R.string.share));
 		intent.putExtra(android.content.Intent.EXTRA_TEXT, refUrl);
 		startActivity(Intent.createChooser(intent, getString(R.string.share)));
 	}

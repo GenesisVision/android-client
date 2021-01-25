@@ -190,64 +190,6 @@
                 android:layout_margin="@dimen/padding"
                 android:text="@string/change_settings"/>
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginStart="@dimen/padding"
-                android:layout_marginEnd="@dimen/padding"
-                android:background="?attr/colorDelimiter"/>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="@dimen/padding">
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/available_to_invest"
-                        style="@style/program_info_invest_value"
-                        tools:text="15k GVT"/>
-
-                    <TextView
-                        android:id="@+id/label_available_to_invest"
-                        style="@style/program_info_invest_label"
-                        android:text="@string/av_to_invest"/>
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-            <RelativeLayout
-                android:id="@+id/group_period"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/padding"
-                android:layout_marginEnd="@dimen/padding"
-                android:layout_marginBottom="@dimen/padding">
-
-                <TextView
-                    android:id="@+id/label_period"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:alpha="0.4"
-                    android:text="@string/period"
-                    android:textColor="?attr/colorTextPrimary"
-                    android:textSize="12sp"/>
-
-                <vision.genesis.clientapp.ui.PeriodLeftDetailsView
-                    android:id="@+id/view_period"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/label_period"
-                    android:layout_marginTop="@dimen/program_details_padding"/>
-
-            </RelativeLayout>
 
             <View
                 android:layout_width="match_parent"

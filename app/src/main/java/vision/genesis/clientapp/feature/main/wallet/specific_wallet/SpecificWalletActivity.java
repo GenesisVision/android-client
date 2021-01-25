@@ -159,10 +159,12 @@ public class SpecificWalletActivity extends BaseSwipeBackActivity implements Spe
 
 	@OnClick(R.id.transfer)
 	public void onTransferButtonClicked() {
-		TransferFundsModel transferFundsModel = TransferFundsModel.createFrom(this.model);
-		transferFundsModel.setAssetType(InternalTransferRequestType.WALLET);
-		transferFundsModel.setTransferDirection(TransferFundsModel.TransferDirection.WITHDRAW);
-		TransferFundsActivity.startWith(this, transferFundsModel);
+		if (this.wallet != null) {
+			TransferFundsModel transferFundsModel = TransferFundsModel.createFrom(this.wallet);
+			transferFundsModel.setAssetType(InternalTransferRequestType.WALLET);
+			transferFundsModel.setTransferDirection(TransferFundsModel.TransferDirection.WITHDRAW);
+			TransferFundsActivity.startWith(this, transferFundsModel);
+		}
 	}
 
 	@OnClick(R.id.buy_with_card)

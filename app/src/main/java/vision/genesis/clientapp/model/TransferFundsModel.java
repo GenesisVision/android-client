@@ -11,6 +11,7 @@ import io.swagger.client.model.AmountWithCurrency;
 import io.swagger.client.model.InternalTransferRequestType;
 import io.swagger.client.model.PrivateTradingAccountFull;
 import io.swagger.client.model.ProgramFollowDetailsFull;
+import io.swagger.client.model.WalletData;
 
 /**
  * GenesisVisionAndroid
@@ -35,6 +36,11 @@ public class TransferFundsModel implements Parcelable
 	public static TransferFundsModel createFrom(WalletModel model) {
 		return new TransferFundsModel(model.getId(), model.getLogo(), model.getTitle(),
 				model.getCurrency(), model.getAvailable());
+	}
+
+	public static TransferFundsModel createFrom(WalletData wallet) {
+		return new TransferFundsModel(wallet.getId(), wallet.getLogoUrl(), wallet.getTitle(),
+				wallet.getCurrency().getValue(), wallet.getAvailable());
 	}
 
 	public static TransferFundsModel createFrom(PrivateTradingAccountFull account) {

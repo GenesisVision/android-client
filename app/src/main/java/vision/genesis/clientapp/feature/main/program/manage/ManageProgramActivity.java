@@ -28,7 +28,6 @@ import timber.log.Timber;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseSwipeBackActivity;
 import vision.genesis.clientapp.feature.main.program.change_settings.ChangeProgramSettingsActivity;
-import vision.genesis.clientapp.ui.PeriodLeftDetailsView;
 import vision.genesis.clientapp.ui.PrimaryButton;
 import vision.genesis.clientapp.utils.StringFormatUtil;
 import vision.genesis.clientapp.utils.ThemeUtil;
@@ -97,19 +96,6 @@ public class ManageProgramActivity extends BaseSwipeBackActivity implements Mana
 
 	@BindView(R.id.group_stop_out)
 	public ViewGroup groupStopOut;
-
-
-	@BindView(R.id.label_available_to_invest)
-	public TextView labelAvailableToInvest;
-
-	@BindView(R.id.available_to_invest)
-	public TextView availableToInvest;
-
-	@BindView(R.id.group_period)
-	public ViewGroup groupPeriod;
-
-	@BindView(R.id.view_period)
-	public PeriodLeftDetailsView periodView;
 
 
 	@BindView(R.id.label_danger_zone)
@@ -222,7 +208,6 @@ public class ManageProgramActivity extends BaseSwipeBackActivity implements Mana
 		stopOut.setTypeface(TypefaceUtil.semibold());
 		managementFee.setTypeface(TypefaceUtil.semibold());
 		successFee.setTypeface(TypefaceUtil.semibold());
-		availableToInvest.setTypeface(TypefaceUtil.semibold());
 		labelDangerZone.setTypeface(TypefaceUtil.semibold());
 
 		labelProcessing.setText(labelProcessing.getText().toString().toLowerCase());
@@ -231,7 +216,6 @@ public class ManageProgramActivity extends BaseSwipeBackActivity implements Mana
 		labelStopOut.setText(labelStopOut.getText().toString().toLowerCase());
 		labelManagementFee.setText(labelManagementFee.getText().toString().toLowerCase());
 		labelSuccessFee.setText(labelSuccessFee.getText().toString().toLowerCase());
-		labelAvailableToInvest.setText(labelAvailableToInvest.getText().toString().toLowerCase());
 	}
 
 	@Override
@@ -249,15 +233,9 @@ public class ManageProgramActivity extends BaseSwipeBackActivity implements Mana
 				getString(R.string.annual)));
 		successFee.setText(String.format(Locale.getDefault(), "%s%%", StringFormatUtil.formatAmount(programDetails.getSuccessFeeSelected(), 0, 4)));
 
-		availableToInvest.setText(String.format(Locale.getDefault(), "%s %s",
-				StringFormatUtil.getShortenedAmount(programDetails.getAvailableInvestmentBase()).toString(),
-				currency));
-		periodView.setData(programDetails.getPeriodDuration(), programDetails.getPeriodStarts(), programDetails.getPeriodEnds(), true, true);
-
 		if (programDetails.getType().equals(ProgramType.DAILYPERIOD)) {
 			groupProcessing.setVisibility(View.VISIBLE);
 			groupStopOut.setVisibility(View.GONE);
-			groupPeriod.setVisibility(View.GONE);
 			groupClosePeriod.setVisibility(View.GONE);
 
 			if (programDetails.getDailyPeriodDetails() != null) {

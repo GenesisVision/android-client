@@ -212,7 +212,7 @@ public class TradingAccountProfitFragment extends BaseFragment implements Tradin
 	public void updateStatistics(AccountChartStatistic statistic) {
 		this.trades.setText(String.valueOf(statistic.getTrades()));
 		this.successTrades.setText(String.format(Locale.getDefault(), "%s%%", StringFormatUtil.formatAmount(statistic.getSuccessTradesPercent(), 0, 4)));
-		this.profitFactor.setText(statistic.getProfitFactor() == null ? "∞" : StringFormatUtil.formatAmount(statistic.getProfitFactor(), 0, 4));
+		this.profitFactor.setText(statistic.getProfitFactor() == null ? "-" : StringFormatUtil.formatAmount(statistic.getProfitFactor(), 0, 4));
 		this.sharpeRatio.setText(StringFormatUtil.formatAmount(statistic.getSharpeRatio(), 0, 4));
 		this.sortinoRatio.setText(StringFormatUtil.formatAmount(statistic.getSortinoRatio(), 0, 4));
 		this.calmarRatio.setText(StringFormatUtil.formatAmount(statistic.getCalmarRatio(), 0, 4));

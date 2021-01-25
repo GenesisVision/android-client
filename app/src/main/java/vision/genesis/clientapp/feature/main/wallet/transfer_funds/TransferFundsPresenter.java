@@ -178,7 +178,7 @@ public class TransferFundsPresenter extends MvpPresenter<TransferWalletView> imp
 	private void setWallets() {
 		List<WalletData> walletsToSecond = new ArrayList<>();
 
-		WalletData walletToSelect = wallets.get(0);
+		WalletData walletToSelect = null;
 		for (WalletData wallet : wallets) {
 			if (model.getAssetType().equals(InternalTransferRequestType.WALLET)
 					&& wallet.getCurrency().getValue().equals(model.getCurrency())) {
@@ -190,6 +190,9 @@ public class TransferFundsPresenter extends MvpPresenter<TransferWalletView> imp
 				}
 			}
 			walletsToSecond.add(wallet);
+		}
+		if (walletToSelect == null) {
+			walletToSelect = walletsToSecond.get(0);
 		}
 		getViewState().setWallets(walletsToSecond);
 		onWalletSelected(walletToSelect);
