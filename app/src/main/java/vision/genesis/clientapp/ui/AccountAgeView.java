@@ -61,4 +61,11 @@ public class AccountAgeView extends RelativeLayout
 		this.age.setText(String.format(Locale.getDefault(), "%d %s", days,
 				GenesisVisionApplication.INSTANCE.getResources().getQuantityString(R.plurals.days, days, days, days)));
 	}
+
+	public void setDays(Double ageDays) {
+		int days = ageDays.intValue();
+		this.progressBar.setProgress(days);
+		this.age.setText(String.format(Locale.getDefault(), "%d %s", days,
+				GenesisVisionApplication.INSTANCE.getResources().getQuantityString(R.plurals.days, days, days, days)));
+	}
 }

@@ -475,7 +475,12 @@ public class ProgramInfoFragment extends BaseFragment implements ProgramInfoView
 		this.brokerLogo.setImageURI(ImageUtils.getImageUri(details.getBrokerDetails().getLogoUrl()));
 		this.accountCurrency.setText(details.getTradingAccountInfo().getCurrency().getValue());
 		this.leverage.setText(String.format(Locale.getDefault(), "1:%d", details.getTradingAccountInfo().getLeverageMax()));
-		this.age.setCreationDate(details.getPublicInfo().getCreationDate());
+		if (details.getProgramDetails() != null && details.getProgramDetails().getAgeDays() != null) {
+			this.age.setDays(details.getProgramDetails().getAgeDays());
+		}
+		else {
+			this.age.setCreationDate(details.getPublicInfo().getCreationDate());
+		}
 
 		this.genesisRatioProgressBar.setProgress(Double.valueOf(details.getProgramDetails().getGenesisRatio() * 100).intValue());
 		this.investScaleProgressBar.setProgress(Double.valueOf(details.getProgramDetails().getInvestmentScale() * 100).intValue());

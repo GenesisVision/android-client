@@ -280,7 +280,12 @@ public class FollowInfoFragment extends BaseFragment implements FollowInfoView, 
 		this.brokerLogo.setImageURI(ImageUtils.getImageUri(details.getBrokerDetails().getLogoUrl()));
 		this.accountCurrency.setText(details.getTradingAccountInfo().getCurrency().getValue());
 		this.leverage.setText(String.format(Locale.getDefault(), "1:%d", details.getTradingAccountInfo().getLeverageMax()));
-		this.age.setCreationDate(details.getPublicInfo().getCreationDate());
+		if (details.getProgramDetails() != null && details.getProgramDetails().getAgeDays() != null) {
+			this.age.setDays(details.getProgramDetails().getAgeDays());
+		}
+		else {
+			this.age.setCreationDate(details.getPublicInfo().getCreationDate());
+		}
 	}
 
 	@Override

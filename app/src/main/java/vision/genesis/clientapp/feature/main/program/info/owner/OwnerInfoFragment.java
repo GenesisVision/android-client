@@ -625,7 +625,12 @@ public class OwnerInfoFragment extends BaseFragment implements OwnerInfoView, Pr
 
 	private void updateAccountInfo(ProgramFollowDetailsFull details) {
 		this.brokerLogo.setImageURI(ImageUtils.getImageUri(details.getBrokerDetails().getLogoUrl()));
-		this.age.setCreationDate(details.getPublicInfo().getCreationDate());
+		if (details.getProgramDetails() != null && details.getProgramDetails().getAgeDays() != null) {
+			this.age.setDays(details.getProgramDetails().getAgeDays());
+		}
+		else {
+			this.age.setCreationDate(details.getPublicInfo().getCreationDate());
+		}
 		if (details.getPublicInfo().getTypeExt().equals(AssetTypeExt.EXTERNALSIGNALTRADINGACCOUNT)) {
 			groupCurrency.setVisibility(View.GONE);
 			groupLeverage.setVisibility(View.GONE);

@@ -31,8 +31,8 @@ android {
         targetSdkVersion 30
         multiDexEnabled true
 
-        versionCode 21012501
-        versionName "2.5.0.4"
+        versionCode 21012801
+        versionName "2.6.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
         renderscriptTargetApi 30
