@@ -53,6 +53,8 @@ android {
                 appProperties.load(new FileInputStream(propertiesFile))
                 buildConfigField "String", "API_ADDRESS", appProperties.getProperty("devApiAddress")
                 buildConfigField "String", "WEB_ADDRESS", appProperties.getProperty("devWebAddress")
+                buildConfigField "String", "BINANCE_API_ADDRESS", appProperties.getProperty("binanceApiAddress")
+                buildConfigField "String", "BINANCE_SOCKET_ADDRESS", appProperties.getProperty("binanceSocketAddress")
             }
         }
         qa {
@@ -68,6 +70,8 @@ android {
                 appProperties.load(new FileInputStream(propertiesFile))
                 buildConfigField "String", "API_ADDRESS", appProperties.getProperty("devApiAddress")
                 buildConfigField "String", "WEB_ADDRESS", appProperties.getProperty("devWebAddress")
+                buildConfigField "String", "BINANCE_API_ADDRESS", appProperties.getProperty("binanceApiAddress")
+                buildConfigField "String", "BINANCE_SOCKET_ADDRESS", appProperties.getProperty("binanceSocketAddress")
             }
 
             minifyEnabled false
@@ -85,6 +89,8 @@ android {
                 appProperties.load(new FileInputStream(propertiesFile))
                 buildConfigField "String", "API_ADDRESS", appProperties.getProperty("apiAddress")
                 buildConfigField "String", "WEB_ADDRESS", appProperties.getProperty("webAddress")
+                buildConfigField "String", "BINANCE_API_ADDRESS", appProperties.getProperty("binanceApiAddress")
+                buildConfigField "String", "BINANCE_SOCKET_ADDRESS", appProperties.getProperty("binanceSocketAddress")
             }
 
             minifyEnabled false

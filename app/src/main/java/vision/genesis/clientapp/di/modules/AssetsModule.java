@@ -19,6 +19,7 @@ import io.swagger.client.api.RateApi;
 import io.swagger.client.api.SearchApi;
 import io.swagger.client.api.SignalApi;
 import io.swagger.client.api.TradingaccountApi;
+import io.swagger.client.api.TradingplatformApi;
 import io.swagger.client.api.UsersApi;
 import io.swagger.client.api.WalletApi;
 import vision.genesis.clientapp.managers.AssetsManager;
@@ -31,9 +32,11 @@ import vision.genesis.clientapp.managers.PartnershipManager;
 import vision.genesis.clientapp.managers.ProgramsManager;
 import vision.genesis.clientapp.managers.RateManager;
 import vision.genesis.clientapp.managers.SearchManager;
+import vision.genesis.clientapp.managers.TerminalManager;
 import vision.genesis.clientapp.managers.TradingAccountManager;
 import vision.genesis.clientapp.managers.UsersManager;
 import vision.genesis.clientapp.managers.WalletManager;
+import vision.genesis.clientapp.net.api.BinanceApi;
 
 /**
  * GenesisVision
@@ -101,6 +104,12 @@ public class AssetsModule
 	@Singleton
 	public SearchManager provideSearchManager(SearchApi searchApi) {
 		return new SearchManager(searchApi);
+	}
+
+	@Provides
+	@Singleton
+	public TerminalManager provideTerminalManager(TradingplatformApi tradingplatformApi, BinanceApi binanceApi) {
+		return new TerminalManager(tradingplatformApi, binanceApi);
 	}
 
 	@Provides

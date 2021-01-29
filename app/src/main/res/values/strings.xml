@@ -1042,6 +1042,9 @@
     <string name="logout_from_other_devices">Log out from other devices</string>
     <string name="logout_from_other_devices_dialog_text">Are you sure you want to log out from other devices?</string>
     <string name="success">Success</string>
+    <string name="bnb">BNB</string>
+    <string name="alts">ALTS</string>
+    <string name="fiats">FIATS</string>
 
     <plurals name="assets">
         <item quantity="one">asset</item>

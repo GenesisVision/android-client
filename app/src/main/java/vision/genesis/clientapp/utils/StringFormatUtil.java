@@ -156,7 +156,7 @@ public class StringFormatUtil
 	}
 
 	public static String getPercentString(Double percent) {
-		return String.format(Locale.getDefault(), "%s%%", StringFormatUtil.formatAmount(percent), 0, 2);
+		return String.format(Locale.getDefault(), "%s%%", StringFormatUtil.formatAmount((percent), 0, 2));
 	}
 
 	public static String getChangePercentString(Double first, Double last) {

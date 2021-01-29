@@ -99,8 +99,8 @@ public class AuthManager
 
 		EventBus.getDefault().register(this);
 
-		tryGetFcmToken();
 		tryGetSavedToken();
+		tryGetFcmToken();
 	}
 
 	private void tryGetFcmToken() {

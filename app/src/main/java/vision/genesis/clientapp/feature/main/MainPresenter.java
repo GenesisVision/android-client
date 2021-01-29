@@ -37,7 +37,7 @@ import vision.genesis.clientapp.feature.main.assets.AssetsFragment;
 import vision.genesis.clientapp.feature.main.dashboard.DashboardFragment;
 import vision.genesis.clientapp.feature.main.settings.SettingsFragment;
 import vision.genesis.clientapp.feature.main.social.SocialMainFragment;
-import vision.genesis.clientapp.feature.main.terminal.TerminalFragment;
+import vision.genesis.clientapp.feature.main.terminal.market_watch.MarketWatchFragment;
 import vision.genesis.clientapp.feature.main.unregistered.dashboard.UnregisteredDashboardFragment;
 import vision.genesis.clientapp.feature.main.unregistered.settings.UnregisteredSettingsFragment;
 import vision.genesis.clientapp.managers.AuthManager;
@@ -122,7 +122,7 @@ public class MainPresenter extends MvpPresenter<MainView>
 
 	private AssetsFragment assetsFragment;
 
-	private TerminalFragment terminalFragment;
+	private MarketWatchFragment marketWatchFragment;
 
 	private SocialMainFragment socialMainFragment;
 
@@ -351,7 +351,7 @@ public class MainPresenter extends MvpPresenter<MainView>
 				showAssets();
 				break;
 			case 2:
-				if (wasSelected && terminalFragment != null) {
+				if (wasSelected && marketWatchFragment != null) {
 					return false;
 				}
 				showTerminal();
@@ -421,12 +421,12 @@ public class MainPresenter extends MvpPresenter<MainView>
 	}
 
 	private void showTerminal() {
-		if (terminalFragment == null) {
-			terminalFragment = new TerminalFragment();
-			getViewState().addFragmentToBackstack(terminalFragment);
+		if (marketWatchFragment == null) {
+			marketWatchFragment = new MarketWatchFragment();
+			getViewState().addFragmentToBackstack(marketWatchFragment);
 		}
 		else {
-			getViewState().showFragment(terminalFragment);
+			getViewState().showFragment(marketWatchFragment);
 		}
 	}
 
@@ -521,8 +521,8 @@ public class MainPresenter extends MvpPresenter<MainView>
 		if (assetsFragment != null) {
 			getViewState().removeFragment(assetsFragment);
 		}
-		if (terminalFragment != null) {
-			getViewState().removeFragment(terminalFragment);
+		if (marketWatchFragment != null) {
+			getViewState().removeFragment(marketWatchFragment);
 		}
 		if (socialMainFragment != null) {
 			getViewState().removeFragment(socialMainFragment);
@@ -532,7 +532,7 @@ public class MainPresenter extends MvpPresenter<MainView>
 		}
 		unregisteredDashboardFragment = null;
 		assetsFragment = null;
-		terminalFragment = null;
+		marketWatchFragment = null;
 		socialMainFragment = null;
 		unregisteredSettingsFragment = null;
 
@@ -550,8 +550,8 @@ public class MainPresenter extends MvpPresenter<MainView>
 		if (assetsFragment != null) {
 			getViewState().removeFragment(assetsFragment);
 		}
-		if (terminalFragment != null) {
-			getViewState().removeFragment(terminalFragment);
+		if (marketWatchFragment != null) {
+			getViewState().removeFragment(marketWatchFragment);
 		}
 		if (socialMainFragment != null) {
 			getViewState().removeFragment(socialMainFragment);
@@ -561,7 +561,7 @@ public class MainPresenter extends MvpPresenter<MainView>
 		}
 		dashboardFragment = null;
 		assetsFragment = null;
-		terminalFragment = null;
+		marketWatchFragment = null;
 		socialMainFragment = null;
 		settingsFragment = null;
 

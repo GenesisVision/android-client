@@ -1,4 +1,4 @@
-package vision.genesis.clientapp.net.kyc;
+package vision.genesis.clientapp.net.api;
 
 import io.swagger.client.model.ExternalKycAccessToken;
 import retrofit2.Call;

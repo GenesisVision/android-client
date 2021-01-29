@@ -27,6 +27,7 @@ import io.swagger.client.api.SearchApi;
 import io.swagger.client.api.SignalApi;
 import io.swagger.client.api.SocialApi;
 import io.swagger.client.api.TradingaccountApi;
+import io.swagger.client.api.TradingplatformApi;
 import io.swagger.client.api.UsersApi;
 import io.swagger.client.api.WalletApi;
 import okhttp3.OkHttpClient;
@@ -37,7 +38,7 @@ import vision.genesis.clientapp.BuildConfig;
 import vision.genesis.clientapp.net.AuthenticationInterceptor;
 import vision.genesis.clientapp.net.LogJsonInterceptor;
 import vision.genesis.clientapp.net.UnauthorizedInterceptor;
-import vision.genesis.clientapp.net.kyc.KycApi;
+import vision.genesis.clientapp.net.api.KycApi;
 
 /**
  * GenesisVision
@@ -206,6 +207,12 @@ public class ApiModule
 	@Singleton
 	public TradingaccountApi provideTradingAccountApi(ApiClient apiClient) {
 		return apiClient.createService(TradingaccountApi.class);
+	}
+
+	@Provides
+	@Singleton
+	public TradingplatformApi provideTradingPlatformApi(ApiClient apiClient) {
+		return apiClient.createService(TradingplatformApi.class);
 	}
 
 	@Provides

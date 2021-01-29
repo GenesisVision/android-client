@@ -7,6 +7,7 @@ import vision.genesis.clientapp.di.modules.ApiModule;
 import vision.genesis.clientapp.di.modules.AppModule;
 import vision.genesis.clientapp.di.modules.AssetsModule;
 import vision.genesis.clientapp.di.modules.AuthModule;
+import vision.genesis.clientapp.di.modules.BinanceApiModule;
 import vision.genesis.clientapp.di.modules.FilesModule;
 import vision.genesis.clientapp.di.modules.NotificationsModule;
 import vision.genesis.clientapp.di.modules.SettingsModule;
@@ -133,6 +134,8 @@ import vision.genesis.clientapp.feature.main.social.trending.TrendingBottomSheet
 import vision.genesis.clientapp.feature.main.social.users.SocialUsersListAdapter;
 import vision.genesis.clientapp.feature.main.social.users.SocialUsersListPresenter;
 import vision.genesis.clientapp.feature.main.social.users.SocialUsersView;
+import vision.genesis.clientapp.feature.main.terminal.TerminalPresenter;
+import vision.genesis.clientapp.feature.main.terminal.market_watch.MarketWatchPresenter;
 import vision.genesis.clientapp.feature.main.trading_account.TradingAccountDetailsPresenter;
 import vision.genesis.clientapp.feature.main.trading_account.add_demo_funds.AddDemoFundsPresenter;
 import vision.genesis.clientapp.feature.main.trading_account.balance.TradingAccountBalancePresenter;
@@ -186,7 +189,7 @@ import vision.genesis.clientapp.utils.AppLifecycleTracker;
  * Created by Vitaly on 1/18/18.
  */
 
-@Component(modules = {ApiModule.class, AppModule.class, AssetsModule.class, AuthModule.class, FilesModule.class, NotificationsModule.class, SettingsModule.class, SocialModule.class, UtilsModule.class})
+@Component(modules = {ApiModule.class, AppModule.class, AssetsModule.class, AuthModule.class, BinanceApiModule.class, FilesModule.class, NotificationsModule.class, SettingsModule.class, SocialModule.class, UtilsModule.class})
 @Singleton
 public interface AppComponent
 {
@@ -525,4 +528,8 @@ public interface AppComponent
 	void inject(ProgramReportsPresenter programReportsPresenter);
 
 	void inject(EmailConfirmationPresenter emailConfirmationPresenter);
+
+	void inject(TerminalPresenter terminalPresenter);
+
+	void inject(MarketWatchPresenter marketWatchPresenter);
 }

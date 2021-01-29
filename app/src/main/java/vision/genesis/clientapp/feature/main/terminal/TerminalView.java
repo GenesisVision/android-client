@@ -2,23 +2,16 @@ package vision.genesis.clientapp.feature.main.terminal;
 
 import com.arellomobile.mvp.MvpView;
 
-import io.swagger.client.model.ProfileFullViewModel;
-import vision.genesis.clientapp.model.CurrencyEnum;
-
 /**
  * GenesisVisionAndroid
- * Created by Vitaly on 13/06/2018.
+ * Created by Vitaly on 21/01/2021.
  */
 
 interface TerminalView extends MvpView
 {
-	void updateProfile(ProfileFullViewModel profile);
+	void setSelectedSymbol(String symbol);
 
-	void setBaseCurrency(CurrencyEnum baseCurrency);
-
-	void showDialogMessage(String message);
-
-	void showProgress(boolean show);
+	void showProgressBar(boolean show);
 
 	void showSnackbarMessage(String message);
 }
