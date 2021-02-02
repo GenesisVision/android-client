@@ -13,7 +13,15 @@ import vision.genesis.clientapp.model.terminal.MarketWatchTickerModel;
 
 interface MarketWatchView extends MvpView
 {
-	void updateTickers(ArrayList<MarketWatchTickerModel> tickers);
+	void updateTickers(ArrayList<MarketWatchTickerModel> favsTickers,
+	                   ArrayList<MarketWatchTickerModel> btcTickers,
+	                   ArrayList<MarketWatchTickerModel> bnbTickers,
+	                   ArrayList<MarketWatchTickerModel> altsTickers,
+	                   ArrayList<MarketWatchTickerModel> fiatsTickers);
+
+	void updateSorting(String currentSorting, int sortingDirection);
+
+	void showClearButton(boolean show);
 
 	void showProgress(boolean show);
 

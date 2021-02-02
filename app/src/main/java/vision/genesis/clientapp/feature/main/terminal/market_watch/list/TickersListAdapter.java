@@ -1,5 +1,6 @@
 package vision.genesis.clientapp.feature.main.terminal.market_watch.list;
 
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -73,14 +74,20 @@ public class TickersListAdapter extends RecyclerView.Adapter<TickersListAdapter.
 
 		private MarketWatchTickerModel ticker;
 
-		private String lastTickerSymbol;
+		private Drawable backgroundProfitWhite;
 
-		private Double lastTickerPrice = 0.0;
+		private Drawable backgroundProfitGreen;
+
+		private Drawable backgroundProfitRed;
 
 		TickerViewHolder(View itemView) {
 			super(itemView);
 
 			ButterKnife.bind(this, itemView);
+
+			backgroundProfitWhite = AppCompatResources.getDrawable(itemView.getContext(), R.drawable.background_profit_white);
+			backgroundProfitGreen = AppCompatResources.getDrawable(itemView.getContext(), R.drawable.background_profit_green);
+			backgroundProfitRed = AppCompatResources.getDrawable(itemView.getContext(), R.drawable.background_profit_red);
 
 			itemView.setOnClickListener(view -> {
 				if (ticker != null) {
@@ -96,8 +103,9 @@ public class TickersListAdapter extends RecyclerView.Adapter<TickersListAdapter.
 			quoteAsset.setText(String.format("/%s", ticker.getQuoteAsset()));
 
 			if (ticker.getVolume() != null) {
-				volume.setText(String.format("%s %s", itemView.getContext().getString(R.string.volume),
-						StringFormatUtil.formatAmount(ticker.getVolume(), 2, 8)));
+				volume.setText(StringFormatUtil.formatAmount(ticker.getVolume(), 2, 8));
+//				volume.setText(String.format("%s %s", itemView.getContext().getString(R.string.volume),
+//						StringFormatUtil.formatAmount(ticker.getVolume(), 2, 8)));
 			}
 			else {
 				volume.setText(String.format("%s -", itemView.getContext().getString(R.string.volume)));
@@ -106,37 +114,35 @@ public class TickersListAdapter extends RecyclerView.Adapter<TickersListAdapter.
 			if (ticker.getChange() != null) {
 				change.setText(String.format("%s%s", ticker.getChange() > 0 ? "+" : "", StringFormatUtil.getPercentString(ticker.getChange())));
 				int colorAttrId = R.attr.colorTextPrimary;
-				int backgroundDrawableId = R.drawable.background_profit_white;
+				Drawable backgroundDrawable = backgroundProfitWhite;
 				if (ticker.getChange() > 0) {
 					colorAttrId = R.attr.colorGreen;
-					backgroundDrawableId = R.drawable.background_profit_green;
+					backgroundDrawable = backgroundProfitGreen;
 				}
 				else if (ticker.getChange() < 0) {
 					colorAttrId = R.attr.colorRed;
-					backgroundDrawableId = R.drawable.background_profit_red;
+					backgroundDrawable = backgroundProfitRed;
 
 				}
 				this.change.setTextColor(ThemeUtil.getColorByAttrId(itemView.getContext(), colorAttrId));
-				this.changeBackground.setBackground(AppCompatResources.getDrawable(itemView.getContext(), backgroundDrawableId));
+				this.changeBackground.setBackground(backgroundDrawable);
 			}
 			else {
 				this.change.setText("-");
 				this.change.setTextColor(ThemeUtil.getColorByAttrId(itemView.getContext(), R.attr.colorTextPrimary));
-				this.changeBackground.setBackground(AppCompatResources.getDrawable(itemView.getContext(), R.drawable.background_profit_white));
+				this.changeBackground.setBackground(backgroundProfitWhite);
 			}
 
 			if (ticker.getLastPrice() != null) {
 				price.setText(StringFormatUtil.formatAmount(ticker.getLastPrice()));
 
 				int colorAttrId = R.attr.colorTextPrimary;
-				if (lastTickerSymbol != null) {
-					if (ticker.getSymbol().equals(lastTickerSymbol)) {
-						if (ticker.getLastPrice() > lastTickerPrice) {
-							colorAttrId = R.attr.colorGreen;
-						}
-						else if (ticker.getLastPrice() < lastTickerPrice) {
-							colorAttrId = R.attr.colorRed;
-						}
+				if (ticker.getPreviousPrice() != null) {
+					if (ticker.getLastPrice() > ticker.getPreviousPrice()) {
+						colorAttrId = R.attr.colorGreen;
+					}
+					else if (ticker.getLastPrice() < ticker.getPreviousPrice()) {
+						colorAttrId = R.attr.colorRed;
 					}
 				}
 				this.price.setTextColor(ThemeUtil.getColorByAttrId(itemView.getContext(), colorAttrId));
@@ -145,9 +151,6 @@ public class TickersListAdapter extends RecyclerView.Adapter<TickersListAdapter.
 				this.price.setText("-");
 				this.price.setTextColor(ThemeUtil.getColorByAttrId(itemView.getContext(), R.attr.colorTextPrimary));
 			}
-
-			this.lastTickerSymbol = ticker.getSymbol();
-			this.lastTickerPrice = ticker.getLastPrice();
 		}
 	}
 }

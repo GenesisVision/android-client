@@ -1045,6 +1045,8 @@
     <string name="bnb">BNB</string>
     <string name="alts">ALTS</string>
     <string name="fiats">FIATS</string>
+    <string name="last_price">Last price</string>
+    <string name="header_24h_name">24h change</string>
 
     <plurals name="assets">
         <item quantity="one">asset</item>

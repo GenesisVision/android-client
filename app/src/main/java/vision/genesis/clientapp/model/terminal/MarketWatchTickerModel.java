@@ -45,13 +45,16 @@ public class MarketWatchTickerModel implements Parcelable
 	private String quoteAsset;
 
 	@SerializedName("last_price")
-	private Double lastPrice;
+	private Double lastPrice = 0.0;
+
+	@SerializedName("previous_price")
+	private Double previousPrice;
 
 	@SerializedName("change")
-	private Double change;
+	private Double change = 0.0;
 
 	@SerializedName("volume")
-	private Double volume;
+	private Double volume = 0.0;
 
 	protected MarketWatchTickerModel(Parcel in) {
 		symbol = in.readString();
@@ -62,6 +65,12 @@ public class MarketWatchTickerModel implements Parcelable
 		}
 		else {
 			lastPrice = in.readDouble();
+		}
+		if (in.readByte() == 0) {
+			previousPrice = null;
+		}
+		else {
+			previousPrice = in.readDouble();
 		}
 		if (in.readByte() == 0) {
 			change = null;
@@ -91,6 +100,13 @@ public class MarketWatchTickerModel implements Parcelable
 		else {
 			dest.writeByte((byte) 1);
 			dest.writeDouble(lastPrice);
+		}
+		if (previousPrice == null) {
+			dest.writeByte((byte) 0);
+		}
+		else {
+			dest.writeByte((byte) 1);
+			dest.writeDouble(previousPrice);
 		}
 		if (change == null) {
 			dest.writeByte((byte) 0);
@@ -127,6 +143,14 @@ public class MarketWatchTickerModel implements Parcelable
 
 	public void setLastPrice(Double lastPrice) {
 		this.lastPrice = lastPrice;
+	}
+
+	public Double getPreviousPrice() {
+		return previousPrice;
+	}
+
+	public void setPreviousPrice(Double previousPrice) {
+		this.previousPrice = previousPrice;
 	}
 
 	public Double getChange() {

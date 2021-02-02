@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
                 xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/item_ticker_height"
@@ -21,31 +22,33 @@
             android:gravity="center_vertical"
             android:orientation="vertical">
 
-            <LinearLayout
+            <com.google.android.flexbox.FlexboxLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                app:alignItems="baseline"
+                app:flexWrap="wrap">
 
                 <TextView
                     android:id="@+id/base_asset"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginEnd="4dp"
                     android:fontFamily="@font/montserrat_semibold"
                     android:textColor="?attr/colorTextPrimary"
-                    android:textSize="16sp"
+                    android:textSize="14sp"
                     tools:text="BTC"/>
 
                 <TextView
                     android:id="@+id/quote_asset"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="4dp"
                     android:fontFamily="@font/montserrat_medium"
                     android:textColor="?attr/colorTextSecondary"
-                    android:textSize="14sp"
+                    android:textSize="12sp"
                     tools:text="/USDT"/>
 
-            </LinearLayout>
+            </com.google.android.flexbox.FlexboxLayout>
 
             <TextView
                 android:id="@+id/volume"
@@ -73,7 +76,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/montserrat_semibold"
                 android:textColor="?attr/colorTextPrimary"
-                android:textSize="14sp"
+                android:textSize="12sp"
                 tools:text="120.12345678"/>
 
         </LinearLayout>
@@ -83,7 +86,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
             android:layout_marginEnd="@dimen/program_details_padding"
-            android:layout_weight="1.4"
+            android:layout_weight="1.2"
             android:gravity="center_vertical|end"
             android:orientation="vertical">
 
@@ -110,8 +113,8 @@
                     android:gravity="center"
                     android:padding="6dp"
                     android:textColor="?attr/colorGreen"
-                    android:textSize="14sp"
-                    tools:text="+99.34%"/>
+                    android:textSize="12sp"
+                    tools:text="+9999.99%"/>
 
             </RelativeLayout>
 

@@ -2,6 +2,7 @@ package vision.genesis.clientapp.net.api;
 
 import java.util.List;
 
+import io.swagger.client.model.BinanceRawExchangeInfo;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
 import rx.Observable;
@@ -14,6 +15,12 @@ import vision.genesis.clientapp.model.terminal.binance_api.TickerPriceModel;
 
 public interface BinanceApi
 {
+	@Headers({
+			"Content-Type:application/json"
+	})
+	@GET("v3/exchangeInfo")
+	Observable<BinanceRawExchangeInfo> getExchangeInfo();
+
 	@Headers({
 			"Content-Type:application/json"
 	})
