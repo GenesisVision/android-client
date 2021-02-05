@@ -68,6 +68,7 @@ public class TerminalPresenter extends MvpPresenter<TerminalView>
 //	}
 	void onSymbolChanged(String selectedSymbol) {
 		this.selectedSymbol = selectedSymbol;
+		getViewState().showProgressBar(false);
 		getViewState().setSelectedSymbol(this.selectedSymbol);
 //		getLevelsInfo(this.selectedSymbol);
 	}

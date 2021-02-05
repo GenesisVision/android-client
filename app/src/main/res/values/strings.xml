@@ -1047,6 +1047,11 @@
     <string name="fiats">FIATS</string>
     <string name="last_price">Last price</string>
     <string name="header_24h_name">24h change</string>
+    <string name="header_template_24h_volume">24h volume (%s)</string>
+    <string name="header_24h_high">24h high</string>
+    <string name="header_24h_low">24h low</string>
+    <string name="arrow_up">↑</string>
+    <string name="arrow_down">↓</string>
 
     <plurals name="assets">
         <item quantity="one">asset</item>

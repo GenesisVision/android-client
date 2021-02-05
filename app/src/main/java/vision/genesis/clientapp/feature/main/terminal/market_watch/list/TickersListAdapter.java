@@ -10,12 +10,15 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.recyclerview.widget.RecyclerView;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import vision.genesis.clientapp.R;
+import vision.genesis.clientapp.model.events.OnTickerSelectedEvent;
 import vision.genesis.clientapp.model.terminal.MarketWatchTickerModel;
 import vision.genesis.clientapp.utils.StringFormatUtil;
 import vision.genesis.clientapp.utils.ThemeUtil;
@@ -29,6 +32,10 @@ public class TickersListAdapter extends RecyclerView.Adapter<TickersListAdapter.
 {
 	public List<MarketWatchTickerModel> tickers = new ArrayList<>();
 
+	private long startTime = 0;
+
+	private int index = 0;
+
 	@NonNull
 	@Override
 	public TickerViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -39,6 +46,10 @@ public class TickersListAdapter extends RecyclerView.Adapter<TickersListAdapter.
 	@Override
 	public void onBindViewHolder(@NonNull TickerViewHolder holder, int position) {
 		holder.setTicker(tickers.get(position));
+//		index++;
+//		if (index == 11) {
+//			Timber.d("TIME %d", System.currentTimeMillis() - startTime);
+//		}
 	}
 
 	@Override
@@ -47,6 +58,8 @@ public class TickersListAdapter extends RecyclerView.Adapter<TickersListAdapter.
 	}
 
 	public void setTickers(List<MarketWatchTickerModel> tickers) {
+		startTime = System.currentTimeMillis();
+		index = 0;
 		this.tickers.clear();
 		this.tickers.addAll(tickers);
 		notifyDataSetChanged();
@@ -80,6 +93,12 @@ public class TickersListAdapter extends RecyclerView.Adapter<TickersListAdapter.
 
 		private Drawable backgroundProfitRed;
 
+		private int colorTextPrimary;
+
+		private int colorGreen;
+
+		private int colorRed;
+
 		TickerViewHolder(View itemView) {
 			super(itemView);
 
@@ -89,9 +108,13 @@ public class TickersListAdapter extends RecyclerView.Adapter<TickersListAdapter.
 			backgroundProfitGreen = AppCompatResources.getDrawable(itemView.getContext(), R.drawable.background_profit_green);
 			backgroundProfitRed = AppCompatResources.getDrawable(itemView.getContext(), R.drawable.background_profit_red);
 
+			colorTextPrimary = ThemeUtil.getColorByAttrId(itemView.getContext(), R.attr.colorTextPrimary);
+			colorGreen = ThemeUtil.getColorByAttrId(itemView.getContext(), R.attr.colorGreen);
+			colorRed = ThemeUtil.getColorByAttrId(itemView.getContext(), R.attr.colorRed);
+
 			itemView.setOnClickListener(view -> {
 				if (ticker != null) {
-//					EventBus.getDefault().post(new OnTickerClickedEvent(ticker));
+					EventBus.getDefault().post(new OnTickerSelectedEvent(ticker));
 				}
 			});
 		}
@@ -113,43 +136,43 @@ public class TickersListAdapter extends RecyclerView.Adapter<TickersListAdapter.
 
 			if (ticker.getChange() != null) {
 				change.setText(String.format("%s%s", ticker.getChange() > 0 ? "+" : "", StringFormatUtil.getPercentString(ticker.getChange())));
-				int colorAttrId = R.attr.colorTextPrimary;
+				int color = colorTextPrimary;
 				Drawable backgroundDrawable = backgroundProfitWhite;
 				if (ticker.getChange() > 0) {
-					colorAttrId = R.attr.colorGreen;
+					color = colorGreen;
 					backgroundDrawable = backgroundProfitGreen;
 				}
 				else if (ticker.getChange() < 0) {
-					colorAttrId = R.attr.colorRed;
+					color = colorRed;
 					backgroundDrawable = backgroundProfitRed;
 
 				}
-				this.change.setTextColor(ThemeUtil.getColorByAttrId(itemView.getContext(), colorAttrId));
+				this.change.setTextColor(color);
 				this.changeBackground.setBackground(backgroundDrawable);
 			}
 			else {
 				this.change.setText("-");
-				this.change.setTextColor(ThemeUtil.getColorByAttrId(itemView.getContext(), R.attr.colorTextPrimary));
+				this.change.setTextColor(colorTextPrimary);
 				this.changeBackground.setBackground(backgroundProfitWhite);
 			}
 
 			if (ticker.getLastPrice() != null) {
 				price.setText(StringFormatUtil.formatAmount(ticker.getLastPrice()));
 
-				int colorAttrId = R.attr.colorTextPrimary;
+				int color = colorTextPrimary;
 				if (ticker.getPreviousPrice() != null) {
 					if (ticker.getLastPrice() > ticker.getPreviousPrice()) {
-						colorAttrId = R.attr.colorGreen;
+						color = colorGreen;
 					}
 					else if (ticker.getLastPrice() < ticker.getPreviousPrice()) {
-						colorAttrId = R.attr.colorRed;
+						color = colorRed;
 					}
 				}
-				this.price.setTextColor(ThemeUtil.getColorByAttrId(itemView.getContext(), colorAttrId));
+				this.price.setTextColor(color);
 			}
 			else {
 				this.price.setText("-");
-				this.price.setTextColor(ThemeUtil.getColorByAttrId(itemView.getContext(), R.attr.colorTextPrimary));
+				this.price.setTextColor(colorTextPrimary);
 			}
 		}
 	}

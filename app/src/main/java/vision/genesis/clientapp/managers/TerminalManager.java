@@ -13,10 +13,12 @@ import org.joda.time.DateTime;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import io.swagger.client.api.TradingplatformApi;
 import io.swagger.client.model.BinanceRawExchangeInfo;
+import io.swagger.client.model.BinanceRawSymbol;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -24,6 +26,9 @@ import okhttp3.WebSocket;
 import okhttp3.WebSocketListener;
 import okio.ByteString;
 import rx.Observable;
+import rx.Subscription;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 import rx.subjects.BehaviorSubject;
 import timber.log.Timber;
 import vision.genesis.clientapp.BuildConfig;
@@ -41,7 +46,9 @@ public class TerminalManager
 {
 	public static final String STREAM_MINITICKER = "ws/!miniTicker@arr";
 
-	public static final String STREAM_TICKER = "ws/!ticker@arr";
+	public static final String STREAM_TICKERS = "ws/!ticker@arr";
+
+	public static final String STREAM_TICKER = "ws/%s@ticker";
 
 	private final BinanceApi binanceApi;
 
@@ -49,11 +56,17 @@ public class TerminalManager
 
 	private final OkHttpClient socketClient = new OkHttpClient();
 
+	private Subscription getServerInfoSubscription;
+
+	private BehaviorSubject<BinanceRawExchangeInfo> binanceServerInfoBehaviorSubject;
+
 	private BehaviorSubject<List<MiniTickerModel>> miniTickersSubject = BehaviorSubject.create();
 
 	private BehaviorSubject<List<TickerModel>> tickersSubject = BehaviorSubject.create();
 
-	private List<Pair<String, WebSocket>> sockets = new ArrayList<>();
+	private HashMap<String, BehaviorSubject<TickerModel>> tickerSubjectsMap = new HashMap<>();
+
+	private HashMap<String, WebSocket> sockets = new HashMap<>();
 
 	public TerminalManager(TradingplatformApi tradingplatformApi, BinanceApi binanceApi) {
 		this.tradingplatformApi = tradingplatformApi;
@@ -61,7 +74,28 @@ public class TerminalManager
 	}
 
 	public Observable<BinanceRawExchangeInfo> getBinanceServerInfo() {
-		return tradingplatformApi.getExchangeInfo();
+		if (binanceServerInfoBehaviorSubject == null) {
+			binanceServerInfoBehaviorSubject = BehaviorSubject.create();
+			getServerInfoSubscription = tradingplatformApi.getExchangeInfo()
+					.observeOn(AndroidSchedulers.mainThread())
+					.subscribeOn(Schedulers.io())
+					.subscribe(this::handleGetServerInfoSuccess,
+							this::handleGetServerInfoError);
+		}
+		return binanceServerInfoBehaviorSubject;
+	}
+
+	private void handleGetServerInfoSuccess(BinanceRawExchangeInfo response) {
+		getServerInfoSubscription.unsubscribe();
+		binanceServerInfoBehaviorSubject.onNext(response);
+	}
+
+	private void handleGetServerInfoError(Throwable error) {
+		if (binanceServerInfoBehaviorSubject != null) {
+			getServerInfoSubscription.unsubscribe();
+			binanceServerInfoBehaviorSubject.onError(error);
+			binanceServerInfoBehaviorSubject = null;
+		}
 	}
 
 	public Observable<List<TickerPriceModel>> getTickersPrices() {
@@ -74,19 +108,28 @@ public class TerminalManager
 	}
 
 	public BehaviorSubject<List<TickerModel>> getTickersSubject() {
-		openSocketMaybe(STREAM_TICKER);
+		openSocketMaybe(STREAM_TICKERS);
 		return tickersSubject;
 	}
 
-	private void openSocketMaybe(String streamName) {
-		boolean socketIsOpened = false;
-		for (Pair<String, WebSocket> pair : sockets) {
-			if (pair.first.equals(streamName)) {
-				socketIsOpened = true;
-				break;
-			}
+	public BehaviorSubject<TickerModel> getTickerSubject(String symbol) {
+		String streamName = String.format(STREAM_TICKER, symbol.toLowerCase());
+		openSocketMaybe(streamName);
+		return getTickerSubjectFromMap(streamName);
+	}
+
+	private BehaviorSubject<TickerModel> getTickerSubjectFromMap(String streamName) {
+		BehaviorSubject<TickerModel> subject = tickerSubjectsMap.get(streamName);
+		if (subject == null) {
+			subject = BehaviorSubject.create();
+			tickerSubjectsMap.put(streamName, subject);
 		}
-		if (!socketIsOpened) {
+		return subject;
+	}
+
+	private void openSocketMaybe(String streamName) {
+		WebSocket socket = sockets.get(streamName);
+		if (socket == null) {
 			openSocket(streamName);
 		}
 	}
@@ -126,30 +169,36 @@ public class TerminalManager
 			public void onClosed(WebSocket webSocket, int code, String reason) {
 				Timber.d("SOCKET %s onClosed", streamName);
 				super.onClosed(webSocket, code, reason);
-				removeSocketFromList(webSocket);
+				removeSocketFromList(streamName);
 			}
 
 			@Override
 			public void onFailure(WebSocket webSocket, Throwable t, @Nullable Response response) {
 				Timber.d("SOCKET %s onFailure", streamName);
 				super.onFailure(webSocket, t, response);
-				removeSocketFromList(webSocket);
+				removeSocketFromList(streamName);
 			}
 		});
 	}
 
 	private void addSocketToList(String streamName, WebSocket webSocket) {
-		sockets.add(new Pair<>(streamName, webSocket));
+		sockets.put(streamName, webSocket);
 	}
 
 	private void parseSocketMessage(String streamName, String message) {
-		switch (streamName) {
-			case STREAM_MINITICKER:
-				parseMiniTickerData(message);
-				break;
-			case STREAM_TICKER:
-				parseTickerData(message);
-				break;
+		if (streamName.equals(STREAM_MINITICKER)) {
+			parseMiniTickerData(message);
+			return;
+		}
+		if (streamName.equals(STREAM_TICKERS)) {
+			parseTickersData(message);
+			return;
+		}
+
+		WebSocket socket = sockets.get(streamName);
+		if (socket != null) {
+			parseTickerData(streamName, message);
+			return;
 		}
 	}
 
@@ -176,7 +225,7 @@ public class TerminalManager
 		}
 	}
 
-	private void parseTickerData(String data) {
+	private void parseTickersData(String data) {
 		Gson gson = new GsonBuilder()
 				.registerTypeAdapter(
 						DateTime.class,
@@ -199,36 +248,73 @@ public class TerminalManager
 		}
 	}
 
+	private void parseTickerData(String streamName, String data) {
+		Gson gson = new GsonBuilder()
+				.registerTypeAdapter(
+						DateTime.class,
+						(JsonDeserializer<DateTime>) (json, typeOfT, context) -> new DateTime(json.getAsLong())
+				)
+				.create();
+
+		Type typeToken = new TypeToken<TickerModel>()
+		{
+		}.getType();
+
+		TickerModel ticker = new TickerModel();
+		try {
+			ticker = gson.fromJson(data, typeToken);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		if (ticker != null) {
+			BehaviorSubject<TickerModel> subject = getTickerSubjectFromMap(streamName);
+			if (subject != null) {
+				subject.onNext(ticker);
+			}
+		}
+	}
+
 	private void closeSocketIfNoSubscribers(String streamName) {
-		switch (streamName) {
-			case STREAM_MINITICKER:
-				if (!miniTickersSubject.hasObservers()) {
-					closeSocket(streamName);
-				}
-				break;
-			case STREAM_TICKER:
-				if (!tickersSubject.hasObservers()) {
-					closeSocket(streamName);
-				}
-				break;
+		if (streamName.equals(STREAM_MINITICKER)) {
+			if (!miniTickersSubject.hasObservers()) {
+				closeSocket(streamName);
+			}
+			return;
+		}
+		if (streamName.equals(STREAM_TICKERS)) {
+			if (!tickersSubject.hasObservers()) {
+				closeSocket(streamName);
+			}
+			return;
+		}
+		BehaviorSubject<TickerModel> subject = tickerSubjectsMap.get(streamName);
+		if (subject != null) {
+			if (!subject.hasObservers()) {
+				closeSocket(streamName);
+			}
+			return;
 		}
 	}
 
 	private void closeSocket(String streamName) {
-		for (Pair<String, WebSocket> pair : sockets) {
-			if (pair.first.equals(streamName)) {
-				pair.second.cancel();
-				break;
-			}
+		WebSocket socket = sockets.get(streamName);
+		if (socket != null) {
+			socket.cancel();
 		}
 	}
 
-	private void removeSocketFromList(WebSocket webSocket) {
-		for (Pair<String, WebSocket> pair : sockets) {
-			if (pair.second.equals(webSocket)) {
-				sockets.remove(pair);
-				break;
+	private void removeSocketFromList(String streamName) {
+		sockets.remove(streamName);
+	}
+
+	public Pair<String, String> getBaseQuoteAssets(String symbol) {
+		if (binanceServerInfoBehaviorSubject != null && binanceServerInfoBehaviorSubject.getValue() != null) {
+			for (BinanceRawSymbol ticker : binanceServerInfoBehaviorSubject.getValue().getSymbols()) {
+				if (ticker.getName().equals(symbol)) {
+					return new Pair<>(ticker.getBaseAsset(), ticker.getQuoteAsset());
+				}
 			}
 		}
+		return null;
 	}
 }

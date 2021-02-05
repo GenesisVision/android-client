@@ -718,4 +718,21 @@
         <item name="android:gravity">center</item>
     </style>
 
+    <style name="symbol_watch_label">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:fontFamily">@font/montserrat_regular</item>
+        <item name="android:textColor">?attr/colorTextSecondary</item>
+        <item name="android:textSize">10sp</item>
+    </style>
+
+    <style name="symbol_watch_value">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:fontFamily">@font/dinpro</item>
+        <item name="android:textColor">?attr/colorTextPrimary</item>
+        <item name="android:textFontWeight">600</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
 </resources>

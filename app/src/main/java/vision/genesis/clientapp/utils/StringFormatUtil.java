@@ -39,19 +39,18 @@ import vision.genesis.clientapp.model.ShortenedAmount;
 
 public class StringFormatUtil
 {
+	private static DecimalFormatSymbols dfs = new DecimalFormatSymbols(Locale.US);
+
+	private static DecimalFormat df = new DecimalFormat("0.########", dfs);
+
 	public static String formatAmount(double amountValue) {
 		return formatAmount(amountValue, 2, 8);
 	}
 
 	public static String formatAmount(double amountValue, int minFraction, int maxFraction) {
 		BigDecimal decimal = BigDecimal.valueOf(amountValue);
-		DecimalFormatSymbols dfs = new DecimalFormatSymbols(Locale.US);
-		DecimalFormat df = new DecimalFormat("0.########", dfs);
 		df.setMinimumFractionDigits(minFraction);
 		df.setMaximumFractionDigits(maxFraction);
-		df.setGroupingUsed(true);
-		df.setGroupingSize(3);
-		df.setRoundingMode(RoundingMode.DOWN);
 		return df.format(decimal);
 	}
 
@@ -320,5 +319,11 @@ public class StringFormatUtil
 
 	public static String maskEmail(String email) {
 		return email.replaceAll("(^[^@]{3}|(?!^)\\G)[^@]", "$1*");
+	}
+
+	static {
+		df.setGroupingUsed(true);
+		df.setGroupingSize(3);
+		df.setRoundingMode(RoundingMode.DOWN);
 	}
 }

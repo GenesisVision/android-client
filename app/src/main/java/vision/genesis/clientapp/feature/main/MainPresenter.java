@@ -62,6 +62,7 @@ import vision.genesis.clientapp.model.events.OnShowRepostEvent;
 import vision.genesis.clientapp.model.events.OnShowUsersListActivityEvent;
 import vision.genesis.clientapp.model.events.OnStartKycClickedEvent;
 import vision.genesis.clientapp.model.events.OnThemeChangedEvent;
+import vision.genesis.clientapp.model.events.OnTickerSelectedEvent;
 import vision.genesis.clientapp.model.events.OpenUrlEvent;
 import vision.genesis.clientapp.model.events.ShowBottomNavigationEvent;
 import vision.genesis.clientapp.model.events.ShowCopytradingAccountDetailsEvent;
@@ -773,5 +774,12 @@ public class MainPresenter extends MvpPresenter<MainView>
 	@Subscribe
 	public void onEventMainThread(OnNotificationClickedEvent event) {
 		handleNotificationLocation(event.getLocation());
+	}
+
+	@Subscribe
+	public void onEventMainThread(OnTickerSelectedEvent event) {
+		if (isActive) {
+			getViewState().showTerminal(event.getTicker().getSymbol());
+		}
 	}
 }

@@ -5,7 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ProgressBar;
-import android.widget.TextView;
+import android.widget.ScrollView;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
 
@@ -15,6 +15,7 @@ import butterknife.OnClick;
 import timber.log.Timber;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseSwipeBackActivity;
+import vision.genesis.clientapp.feature.main.terminal.symbol_watch.SymbolWatchView;
 import vision.genesis.clientapp.utils.ThemeUtil;
 
 /**
@@ -24,17 +25,20 @@ import vision.genesis.clientapp.utils.ThemeUtil;
 
 public class TerminalActivity extends BaseSwipeBackActivity implements TerminalView
 {
-	private static final String EXTRA_SYMBOL = "extra_currency";
+	private static final String EXTRA_SYMBOL = "extra_symbol";
 
-	public static void startWith(Activity activity, String currency) {
+	public static void startWith(Activity activity, String symbol) {
 		Intent intent = new Intent(activity.getApplicationContext(), TerminalActivity.class);
-		intent.putExtra(EXTRA_SYMBOL, currency);
+		intent.putExtra(EXTRA_SYMBOL, symbol);
 		activity.startActivity(intent);
 		activity.overridePendingTransition(R.anim.slide_from_right, R.anim.hold);
 	}
 
-	@BindView(R.id.symbol)
-	public TextView symbol;
+	@BindView(R.id.scrollview)
+	public ScrollView scrollView;
+
+	@BindView(R.id.view_symbol_watch)
+	public SymbolWatchView symbolWatchView;
 
 	@BindView(R.id.progress_bar)
 	public ProgressBar progressBar;
@@ -69,20 +73,39 @@ public class TerminalActivity extends BaseSwipeBackActivity implements TerminalV
 		finishActivity();
 	}
 
+	@Override
+	protected void onDestroy() {
+		if (symbolWatchView != null) {
+			symbolWatchView.onDestroy();
+		}
+
+		super.onDestroy();
+	}
 
 	@Override
-	public void setSelectedSymbol(String value) {
-		selectedSymbol = value;
-		this.symbol.setText(value);
+	protected void onResume() {
+		if (symbolWatchView != null) {
+			symbolWatchView.onResume();
+		}
+		super.onResume();
+	}
+
+	@Override
+	public void setSelectedSymbol(String symbol) {
+		selectedSymbol = symbol;
+		this.symbolWatchView.setSymbol(symbol);
 	}
 
 	@Override
 	public void showProgressBar(boolean show) {
 		progressBar.setVisibility(show ? View.VISIBLE : View.INVISIBLE);
+		if (!show) {
+			scrollView.setVisibility(View.VISIBLE);
+		}
 	}
 
 	public void showSnackbarMessage(String message) {
-		showSnackbar(message, symbol);
+		showSnackbar(message, progressBar);
 	}
 
 	@Override
