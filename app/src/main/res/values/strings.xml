@@ -1057,6 +1057,7 @@
     <string name="market_trades">Market trades</string>
     <string name="bid">Bid</string>
     <string name="ask">Ask</string>
+    <string name="no_info_on_this_symbol">Unfortunately, there is no information\non this symbol yet.</string>
 
     <plurals name="assets">
         <item quantity="one">asset</item>

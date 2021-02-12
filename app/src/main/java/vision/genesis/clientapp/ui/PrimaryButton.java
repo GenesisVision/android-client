@@ -53,6 +53,10 @@ public class PrimaryButton extends androidx.appcompat.widget.AppCompatButton
 		setTextSize(TypedValue.COMPLEX_UNIT_SP, 14);
 	}
 
+	public void setGreen() {
+		setBackground(AppCompatResources.getDrawable(getContext(), R.drawable.button_primary_green));
+	}
+
 	public void setRed() {
 		setBackground(AppCompatResources.getDrawable(getContext(), R.drawable.button_primary_red));
 	}

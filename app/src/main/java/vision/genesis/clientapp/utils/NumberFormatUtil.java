@@ -21,6 +21,11 @@ public class NumberFormatUtil
 		BigDecimal bd = new BigDecimal(number);
 		bd = bd.setScale(maxFraction, RoundingMode.HALF_UP);
 		return bd.doubleValue();
+	}
 
+	public static Double multipleDouble(double number, double multiplier) {
+		BigDecimal bd = new BigDecimal(number);
+		bd = bd.multiply(new BigDecimal(multiplier));
+		return bd.setScale(8, RoundingMode.HALF_UP).doubleValue();
 	}
 }

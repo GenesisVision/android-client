@@ -17,10 +17,12 @@ import timber.log.Timber;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseSwipeBackActivity;
 import vision.genesis.clientapp.feature.main.terminal.chart.TerminalChartView;
+import vision.genesis.clientapp.feature.main.terminal.info.TerminalInfoView;
 import vision.genesis.clientapp.feature.main.terminal.market_trades.MarketTradesView;
 import vision.genesis.clientapp.feature.main.terminal.order_book.OrderBookView;
 import vision.genesis.clientapp.feature.main.terminal.symbol_watch.SymbolWatchView;
 import vision.genesis.clientapp.ui.CustomTabView;
+import vision.genesis.clientapp.ui.PrimaryButton;
 import vision.genesis.clientapp.utils.TabLayoutUtil;
 import vision.genesis.clientapp.utils.ThemeUtil;
 
@@ -58,6 +60,15 @@ public class TerminalActivity extends BaseSwipeBackActivity implements TerminalV
 	@BindView(R.id.view_market_trades)
 	public MarketTradesView marketTradesView;
 
+	@BindView(R.id.view_info)
+	public TerminalInfoView infoView;
+
+	@BindView(R.id.button_buy)
+	public PrimaryButton buyButton;
+
+	@BindView(R.id.button_sell)
+	public PrimaryButton sellButton;
+
 	@BindView(R.id.progress_bar)
 	public ProgressBar progressBar;
 
@@ -82,6 +93,9 @@ public class TerminalActivity extends BaseSwipeBackActivity implements TerminalV
 
 		initTabs();
 		orderBookView.setActivity(this);
+
+		buyButton.setGreen();
+		sellButton.setRed();
 
 		if (getIntent().getExtras() != null) {
 			selectedSymbol = getIntent().getExtras().getString(EXTRA_SYMBOL, null);
@@ -186,17 +200,17 @@ public class TerminalActivity extends BaseSwipeBackActivity implements TerminalV
 	private void showOrderBook() {
 		orderBookView.setVisibility(View.VISIBLE);
 		marketTradesView.setVisibility(View.GONE);
-//		infoView.setVisibility(View.GONE);
+		infoView.setVisibility(View.GONE);
 	}
 
 	private void showMarketTrades() {
 		marketTradesView.setVisibility(View.VISIBLE);
 		orderBookView.setVisibility(View.GONE);
-//		infoView.setVisibility(View.GONE);
+		infoView.setVisibility(View.GONE);
 	}
 
 	private void showInfo() {
-//		infoView.setVisibility(View.VISIBLE);
+		infoView.setVisibility(View.VISIBLE);
 		orderBookView.setVisibility(View.GONE);
 		marketTradesView.setVisibility(View.GONE);
 	}
@@ -208,6 +222,7 @@ public class TerminalActivity extends BaseSwipeBackActivity implements TerminalV
 		this.chartView.setSymbol(symbol);
 		this.orderBookView.setSymbol(symbol);
 		this.marketTradesView.setSymbol(symbol);
+		this.infoView.setSymbol(symbol);
 	}
 
 	@Override

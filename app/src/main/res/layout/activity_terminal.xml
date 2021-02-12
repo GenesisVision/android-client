@@ -26,6 +26,7 @@
         android:id="@+id/scrollview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_above="@+id/group_buttons"
         android:layout_below="@+id/toolbar"
         android:scrollbars="none"
         android:visibility="gone"
@@ -73,11 +74,45 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
 
+                <vision.genesis.clientapp.feature.main.terminal.info.TerminalInfoView
+                    android:id="@+id/view_info"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
             </RelativeLayout>
 
         </LinearLayout>
 
     </ScrollView>
+
+    <LinearLayout
+        android:id="@+id/group_buttons"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_alignParentBottom="true"
+        android:background="?attr/colorBackground"
+        android:orientation="horizontal"
+        android:paddingStart="@dimen/padding"
+        android:paddingTop="8dp"
+        android:paddingEnd="@dimen/padding"
+        android:paddingBottom="8dp">
+
+        <vision.genesis.clientapp.ui.PrimaryButton
+            android:id="@+id/button_buy"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="@string/buy"/>
+
+        <vision.genesis.clientapp.ui.PrimaryButton
+            android:id="@+id/button_sell"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="12dp"
+            android:layout_weight="1"
+            android:text="@string/sell"/>
+
+    </LinearLayout>
 
     <ProgressBar
         android:id="@+id/progress_bar"

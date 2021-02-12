@@ -452,7 +452,7 @@ public class TerminalChartView extends RelativeLayout
 		dataSet.setDrawIcons(false);
 		dataSet.setAxisDependency(YAxis.AxisDependency.LEFT);
 		dataSet.setShadowColorSameAsCandle(true);
-		dataSet.setShadowWidth(10f);
+		dataSet.setShadowWidth(4f);
 		dataSet.setDecreasingColor(colorRed);
 		dataSet.setDecreasingPaintStyle(Paint.Style.FILL);
 		dataSet.setIncreasingColor(colorGreen);

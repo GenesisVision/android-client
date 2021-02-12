@@ -36,6 +36,7 @@ import vision.genesis.clientapp.model.terminal.binance_api.DepthListModel;
 import vision.genesis.clientapp.model.terminal.binance_socket.DepthUpdateModel;
 import vision.genesis.clientapp.net.ApiErrorResolver;
 import vision.genesis.clientapp.utils.DepthPairsPriceComparator;
+import vision.genesis.clientapp.utils.NumberFormatUtil;
 import vision.genesis.clientapp.utils.StringFormatUtil;
 
 /**
@@ -220,7 +221,9 @@ public class OrderBookView extends RelativeLayout
 	private void initTickSizes() {
 		double startTickSize = symbolInfo.getPriceFilter().getTickSize();
 		for (int i = 0; i < TICK_SIZE_COUNT; i++) {
-			tickSizes.add(startTickSize * Math.pow(10, i));
+//			tickSizes.add((new BigDecimal(startTickSize)).multiply(BigDecimal.valueOf(Math.pow(10, i))).floatValue());
+//			tickSizes.add((startTickSize * Math.pow(10, i)));
+			tickSizes.add(NumberFormatUtil.multipleDouble(startTickSize, Math.pow(10, i)));
 			tickSizeOptions.add(StringFormatUtil.formatAmount(tickSizes.get(i), 0, 8));
 		}
 		onTickSizeOptionSelected(0, tickSizeOptions.get(0));

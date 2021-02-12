@@ -66,9 +66,11 @@ public class SocialLinksView extends RelativeLayout
 	public void setData(List<SocialLinkViewModel> socialLinks) {
 		if (group != null) {
 			group.removeAllViews();
-			for (SocialLinkViewModel socialLink : socialLinks) {
-				if (socialLink.getType() != null && !socialLink.getType().equals(SocialLinkType.UNDEFINED)) {
-					addViewToGroup(createSocialLinkView(socialLink));
+			if (socialLinks != null) {
+				for (SocialLinkViewModel socialLink : socialLinks) {
+					if (socialLink.getType() != null && !socialLink.getType().equals(SocialLinkType.UNDEFINED)) {
+						addViewToGroup(createSocialLinkView(socialLink));
+					}
 				}
 			}
 		}

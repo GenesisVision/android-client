@@ -3,8 +3,10 @@ package vision.genesis.clientapp.feature.main.terminal.symbol_watch;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.util.Pair;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -68,6 +70,18 @@ public class SymbolWatchView extends RelativeLayout
 
 	@BindView(R.id.volume_quote)
 	public TextView volumeQuote;
+
+	@BindView(R.id.line)
+	public ViewGroup line;
+
+	@BindView(R.id.arrow)
+	public View arrow;
+
+	@BindView(R.id.line_fill)
+	public View fillLine;
+
+	@BindView(R.id.line_empty)
+	public View emptyLine;
 
 	public Subscription tickerUpdateSubscription;
 
@@ -192,6 +206,8 @@ public class SymbolWatchView extends RelativeLayout
 			this.price.setTextColor(color);
 
 			previousPrice = ticker.getLastPrice();
+
+			updateHighLow(ticker);
 		}
 
 		if (ticker.getPriceChange() != null) {
@@ -209,11 +225,24 @@ public class SymbolWatchView extends RelativeLayout
 			this.change.setTextColor(color);
 		}
 
-		high.setText(StringFormatUtil.formatAmount(ticker.getHighPrice(), 2, 8));
-		low.setText(StringFormatUtil.formatAmount(ticker.getLowPrice(), 2, 8));
-
 		volumeBase.setText(StringFormatUtil.formatAmount(ticker.getTotalTradedBaseAssetVolume(), 2, 8));
 		volumeQuote.setText(StringFormatUtil.formatAmount(ticker.getTotalTradedQuoteAssetVolume(), 2, 8));
+	}
+
+	private void updateHighLow(TickerModel ticker) {
+		double fill = (ticker.getLastPrice() - ticker.getLowPrice()) / (ticker.getHighPrice() - ticker.getLowPrice());
+
+		LinearLayout.LayoutParams lp1 = (LinearLayout.LayoutParams) fillLine.getLayoutParams();
+		LinearLayout.LayoutParams lp2 = (LinearLayout.LayoutParams) emptyLine.getLayoutParams();
+		lp1.weight = (float) fill;
+		lp2.weight = 1 - (float) fill;
+		fillLine.setLayoutParams(lp1);
+		emptyLine.setLayoutParams(lp2);
+
+		line.post(() -> arrow.setX((float) (line.getWidth() * fill)));
+
+		high.setText(StringFormatUtil.formatAmount(ticker.getHighPrice(), 2, 8));
+		low.setText(StringFormatUtil.formatAmount(ticker.getLowPrice(), 2, 8));
 	}
 
 	private void onError(Throwable throwable) {
