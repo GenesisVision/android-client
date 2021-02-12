@@ -779,7 +779,7 @@ public class MainPresenter extends MvpPresenter<MainView>
 	@Subscribe
 	public void onEventMainThread(OnTickerSelectedEvent event) {
 		if (isActive) {
-			getViewState().showTerminal(event.getTicker().getSymbol());
+			getViewState().showTerminal(event.getSymbol());
 		}
 	}
 }

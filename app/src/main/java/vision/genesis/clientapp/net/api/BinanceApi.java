@@ -6,7 +6,9 @@ import io.swagger.client.model.BinanceRawExchangeInfo;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
 import rx.Observable;
+import vision.genesis.clientapp.model.terminal.binance_api.DepthListModel;
 import vision.genesis.clientapp.model.terminal.binance_api.TickerPriceModel;
+import vision.genesis.clientapp.model.terminal.binance_api.TradeModel;
 
 /**
  * GenesisVisionAndroid
@@ -27,4 +29,15 @@ public interface BinanceApi
 	@GET("v3/ticker/price")
 	Observable<List<TickerPriceModel>> getTickersPrices();
 
+	@Headers({
+			"Content-Type:application/json"
+	})
+	@GET("v3/trades")
+	Observable<List<TradeModel>> getTrades(@retrofit2.http.Query("symbol") String symbol, @retrofit2.http.Query("limit") Integer limit);
+
+	@Headers({
+			"Content-Type:application/json"
+	})
+	@GET("v3/depth")
+	Observable<DepthListModel> getDepth(@retrofit2.http.Query("symbol") String symbol, @retrofit2.http.Query("limit") Integer limit);
 }

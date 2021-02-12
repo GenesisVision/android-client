@@ -85,7 +85,7 @@ public class SymbolWatchView extends RelativeLayout
 
 	private int colorRed;
 
-	private Double previousPrice;
+	private double previousPrice = 0.0;
 
 	public SymbolWatchView(Context context) {
 		super(context);
@@ -113,8 +113,22 @@ public class SymbolWatchView extends RelativeLayout
 		colorGreen = ThemeUtil.getColorByAttrId(getContext(), R.attr.colorGreen);
 		colorRed = ThemeUtil.getColorByAttrId(getContext(), R.attr.colorRed);
 
+		onSymbolChanged();
+	}
+
+	private void onSymbolChanged() {
+		getTickerData();
 		updateLabels();
 		subscribeToTickerUpdates();
+	}
+
+	private void getTickerData() {
+		if (symbol != null && terminalManager != null) {
+			TickerModel tickerData = terminalManager.getTickerData(symbol);
+			if (tickerData != null) {
+				updateView(tickerData);
+			}
+		}
 	}
 
 	public void onDestroy() {
@@ -167,7 +181,7 @@ public class SymbolWatchView extends RelativeLayout
 			price.setText(StringFormatUtil.formatAmount(ticker.getLastPrice()));
 
 			int color = colorTextPrimary;
-			if (previousPrice != null) {
+			if (previousPrice != 0.0) {
 				if (ticker.getLastPrice() > previousPrice) {
 					color = colorGreen;
 				}
@@ -176,8 +190,9 @@ public class SymbolWatchView extends RelativeLayout
 				}
 			}
 			this.price.setTextColor(color);
+
+			previousPrice = ticker.getLastPrice();
 		}
-		previousPrice = ticker.getLastPrice();
 
 		if (ticker.getPriceChange() != null) {
 			change.setText(String.format("%s%s (%s%s)",
@@ -195,7 +210,7 @@ public class SymbolWatchView extends RelativeLayout
 		}
 
 		high.setText(StringFormatUtil.formatAmount(ticker.getHighPrice(), 2, 8));
-		low.setText(StringFormatUtil.formatAmount(ticker.getHighPrice(), 2, 8));
+		low.setText(StringFormatUtil.formatAmount(ticker.getLowPrice(), 2, 8));
 
 		volumeBase.setText(StringFormatUtil.formatAmount(ticker.getTotalTradedBaseAssetVolume(), 2, 8));
 		volumeQuote.setText(StringFormatUtil.formatAmount(ticker.getTotalTradedQuoteAssetVolume(), 2, 8));
@@ -207,8 +222,6 @@ public class SymbolWatchView extends RelativeLayout
 
 	public void setSymbol(String symbol) {
 		this.symbol = symbol;
-
-		updateLabels();
-		subscribeToTickerUpdates();
+		onSymbolChanged();
 	}
 }

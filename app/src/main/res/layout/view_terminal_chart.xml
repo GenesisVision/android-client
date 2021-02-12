@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:id="@+id/root"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/terminal_chart_height">
+
+    <View
+        android:id="@+id/highlight_area"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:background="?attr/colorDelimiterLight"
+        android:visibility="gone"
+        tools:visibility="visible"/>
+
+    <com.github.mikephil.charting.charts.CombinedChart
+        android:id="@+id/chart"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginEnd="32dp"
+        android:clickable="true"
+        android:focusable="true"/>
+
+    <TextView
+        android:id="@+id/max_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:background="?attr/colorCard"
+        android:gravity="center"
+        android:textColor="?attr/colorTextPrimary"
+        tools:text="310.1241"/>
+
+    <TextView
+        android:id="@+id/min_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="16dp"
+        android:background="?attr/colorCard"
+        android:gravity="center"
+        android:textColor="?attr/colorTextPrimary"
+        tools:text="230.226"/>
+
+    <View
+        android:id="@+id/highlight_circle"
+        android:layout_width="11dp"
+        android:layout_height="11dp"
+        android:background="@drawable/chart_highlight_circle"
+        android:visibility="gone"
+        tools:visibility="visible"/>
+
+    <View
+        android:id="@+id/highlight_line"
+        android:layout_width="1dp"
+        android:layout_height="match_parent"
+        android:background="?attr/colorTextPrimary"
+        android:visibility="gone"
+        tools:visibility="visible"/>
+
+</RelativeLayout>

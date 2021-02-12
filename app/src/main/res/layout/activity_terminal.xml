@@ -8,18 +8,17 @@
     <RelativeLayout
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/toolbar_height">
+        android:layout_height="40dp">
 
         <ImageView
             android:id="@+id/button_back"
-            android:layout_width="50dp"
-            android:layout_height="@dimen/toolbar_height"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:layout_centerVertical="true"
             android:background="?attr/selectableItemBackgroundBorderless"
-            android:padding="20dp"
+            android:padding="12dp"
             app:srcCompat="@drawable/icon_back"
             app:tint="?attr/colorTextPrimary"/>
-
 
     </RelativeLayout>
 
@@ -41,6 +40,40 @@
                 android:id="@+id/view_symbol_watch"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
+
+            <vision.genesis.clientapp.feature.main.terminal.chart.TerminalChartView
+                android:id="@+id/view_chart"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"/>
+
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tab_layout"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:minHeight="?attr/actionBarSize"
+                app:tabGravity="fill"
+                app:tabIndicatorColor="?attr/colorAccent"
+                app:tabMaxWidth="0dp"
+                app:tabMode="scrollable"
+                app:tabSelectedTextColor="?attr/colorTextPrimary"
+                app:tabTextColor="?attr/colorTextSecondary"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <vision.genesis.clientapp.feature.main.terminal.order_book.OrderBookView
+                    android:id="@+id/view_order_book"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+                <vision.genesis.clientapp.feature.main.terminal.market_trades.MarketTradesView
+                    android:id="@+id/view_market_trades"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+            </RelativeLayout>
 
         </LinearLayout>
 

@@ -45,6 +45,8 @@ public class DateTimeUtil
 
 	private static DateTimeFormatter requestInfoDateTimeFormatter = DateTimeFormat.forPattern("KK:mmaa 'on' MMMM dd");
 
+	private static DateTimeFormatter tradeTimeFormatter = DateTimeFormat.forPattern("HH:mm:ss");
+
 	public static String formatDate(DateTime dateTime) {
 		return dateFormatter.withLocale(Locale.US).print(dateTime);
 	}
@@ -110,6 +112,10 @@ public class DateTimeUtil
 
 	public static String formatRequestInfoDateTime(DateTime dateTime) {
 		return requestInfoDateTimeFormatter.withLocale(Locale.US).print(dateTime);
+	}
+
+	public static String formatTradeTime(DateTime dateTime) {
+		return tradeTimeFormatter.withLocale(Locale.US).print(dateTime);
 	}
 
 	public static int getYearsToDate(DateTime date) {

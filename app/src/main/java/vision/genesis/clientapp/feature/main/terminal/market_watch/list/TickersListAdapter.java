@@ -114,7 +114,7 @@ public class TickersListAdapter extends RecyclerView.Adapter<TickersListAdapter.
 
 			itemView.setOnClickListener(view -> {
 				if (ticker != null) {
-					EventBus.getDefault().post(new OnTickerSelectedEvent(ticker));
+					EventBus.getDefault().post(new OnTickerSelectedEvent(ticker.getSymbol()));
 				}
 			});
 		}

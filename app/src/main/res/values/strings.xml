@@ -1052,6 +1052,11 @@
     <string name="header_24h_low">24h low</string>
     <string name="arrow_up">↑</string>
     <string name="arrow_down">↓</string>
+    <string name="time">Time</string>
+    <string name="order_book">Order book</string>
+    <string name="market_trades">Market trades</string>
+    <string name="bid">Bid</string>
+    <string name="ask">Ask</string>
 
     <plurals name="assets">
         <item quantity="one">asset</item>
