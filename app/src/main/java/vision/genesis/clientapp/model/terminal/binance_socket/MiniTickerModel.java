@@ -7,7 +7,7 @@ import com.google.gson.annotations.SerializedName;
 
 import org.joda.time.DateTime;
 
-import io.swagger.client.model.BinanceRawSymbol;
+import vision.genesis.clientapp.model.terminal.binance_api.BinanceRawSymbol;
 
 /**
  * GenesisVisionAndroid

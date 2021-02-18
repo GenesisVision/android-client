@@ -6,13 +6,17 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.ScrollView;
+import android.widget.TextView;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.google.android.material.tabs.TabLayout;
 
+import java.util.ArrayList;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.swagger.client.model.ExchangeAsset;
 import timber.log.Timber;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseSwipeBackActivity;
@@ -20,9 +24,11 @@ import vision.genesis.clientapp.feature.main.terminal.chart.TerminalChartView;
 import vision.genesis.clientapp.feature.main.terminal.info.TerminalInfoView;
 import vision.genesis.clientapp.feature.main.terminal.market_trades.MarketTradesView;
 import vision.genesis.clientapp.feature.main.terminal.order_book.OrderBookView;
+import vision.genesis.clientapp.feature.main.terminal.select_account.SelectAccountBottomSheetFragment;
 import vision.genesis.clientapp.feature.main.terminal.symbol_watch.SymbolWatchView;
 import vision.genesis.clientapp.ui.CustomTabView;
 import vision.genesis.clientapp.ui.PrimaryButton;
+import vision.genesis.clientapp.ui.ProgramLogoView;
 import vision.genesis.clientapp.utils.TabLayoutUtil;
 import vision.genesis.clientapp.utils.ThemeUtil;
 
@@ -41,6 +47,15 @@ public class TerminalActivity extends BaseSwipeBackActivity implements TerminalV
 		activity.startActivity(intent);
 		activity.overridePendingTransition(R.anim.slide_from_right, R.anim.hold);
 	}
+
+	@BindView(R.id.account_logo)
+	public ProgramLogoView accountLogo;
+
+	@BindView(R.id.account_name)
+	public TextView accountName;
+
+	@BindView(R.id.account_arrow)
+	public View accountArrow;
 
 	@BindView(R.id.scrollview)
 	public ScrollView scrollView;
@@ -73,13 +88,20 @@ public class TerminalActivity extends BaseSwipeBackActivity implements TerminalV
 	public ProgressBar progressBar;
 
 	@InjectPresenter
-	TerminalPresenter terminalPresenter;
+	TerminalPresenter presenter;
 
 	private String selectedSymbol = "";
+
+	private int selectedAccountPosition = -1;
 
 	@OnClick(R.id.button_back)
 	public void onBackClicked() {
 		finishActivity();
+	}
+
+	@OnClick(R.id.group_account)
+	public void onAccountClicked() {
+		presenter.onAccountClicked();
 	}
 
 	@Override
@@ -99,7 +121,7 @@ public class TerminalActivity extends BaseSwipeBackActivity implements TerminalV
 
 		if (getIntent().getExtras() != null) {
 			selectedSymbol = getIntent().getExtras().getString(EXTRA_SYMBOL, null);
-			terminalPresenter.onSymbolChanged(selectedSymbol);
+			presenter.onSymbolChanged(selectedSymbol);
 
 			return;
 		}
@@ -231,6 +253,35 @@ public class TerminalActivity extends BaseSwipeBackActivity implements TerminalV
 		if (!show) {
 			scrollView.setVisibility(View.VISIBLE);
 		}
+	}
+
+	@Override
+	public void showSelectAccount(ArrayList<ExchangeAsset> accounts) {
+		SelectAccountBottomSheetFragment fragment = SelectAccountBottomSheetFragment.with(
+				accounts, selectedAccountPosition);
+		fragment.setListener(presenter);
+		fragment.show(getSupportFragmentManager(), fragment.getTag());
+	}
+
+	@Override
+	public void setSelectedAccount(ExchangeAsset account, int selectedAccountPosition) {
+		if (account.getAsset() != null) {
+			this.accountLogo.setVisibility(View.VISIBLE);
+			this.accountLogo.setImage(account.getAsset().getLogoUrl(), account.getAsset().getColor(), 50, 50);
+			this.accountLogo.hideLevel();
+			this.accountName.setText(account.getAsset().getTitle());
+		}
+		else {
+			this.accountLogo.setVisibility(View.GONE);
+			this.accountName.setText(account.getTitle());
+		}
+		this.selectedAccountPosition = selectedAccountPosition;
+		this.accountName.setTextColor(ThemeUtil.getColorByAttrId(this, R.attr.colorTextPrimary));
+	}
+
+	@Override
+	public void showAccountArrow(boolean show) {
+		this.accountArrow.setVisibility(show ? View.VISIBLE : View.GONE);
 	}
 
 	public void showSnackbarMessage(String message) {

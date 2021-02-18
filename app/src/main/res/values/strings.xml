@@ -1058,6 +1058,7 @@
     <string name="bid">Bid</string>
     <string name="ask">Ask</string>
     <string name="no_info_on_this_symbol">Unfortunately, there is no information\non this symbol yet.</string>
+    <string name="select_the_account">Select the account</string>
 
     <plurals name="assets">
         <item quantity="one">asset</item>

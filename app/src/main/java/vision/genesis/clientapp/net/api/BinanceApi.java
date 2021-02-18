@@ -2,10 +2,10 @@ package vision.genesis.clientapp.net.api;
 
 import java.util.List;
 
-import io.swagger.client.model.BinanceRawExchangeInfo;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
 import rx.Observable;
+import vision.genesis.clientapp.model.terminal.binance_api.BinanceRawExchangeInfo;
 import vision.genesis.clientapp.model.terminal.binance_api.DepthListModel;
 import vision.genesis.clientapp.model.terminal.binance_api.TickerPriceModel;
 import vision.genesis.clientapp.model.terminal.binance_api.TradeModel;

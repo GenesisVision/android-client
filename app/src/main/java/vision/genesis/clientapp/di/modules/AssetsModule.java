@@ -108,8 +108,8 @@ public class AssetsModule
 
 	@Provides
 	@Singleton
-	public TerminalManager provideTerminalManager(TradingplatformApi tradingplatformApi, BinanceApi binanceApi) {
-		return new TerminalManager(tradingplatformApi, binanceApi);
+	public TerminalManager provideTerminalManager(TradingplatformApi tradingplatformApi, BinanceApi binanceApi, ExchangesApi exchangesApi, DashboardApi dashboardApi) {
+		return new TerminalManager(tradingplatformApi, binanceApi, exchangesApi, dashboardApi);
 	}
 
 	@Provides

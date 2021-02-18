@@ -15,12 +15,20 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.UUID;
 
+import io.swagger.client.api.DashboardApi;
+import io.swagger.client.api.ExchangesApi;
 import io.swagger.client.api.TradingplatformApi;
-import io.swagger.client.model.BinanceRawExchangeInfo;
 import io.swagger.client.model.BinanceRawKlineInterval;
 import io.swagger.client.model.BinanceRawKlineItemsViewModel;
-import io.swagger.client.model.BinanceRawSymbol;
+import io.swagger.client.model.BrokerTradeServerType;
+import io.swagger.client.model.ExchangeAccountType;
+import io.swagger.client.model.ExchangeAsset;
+import io.swagger.client.model.ExchangeAssetItemsViewModel;
+import io.swagger.client.model.ExchangeInfo;
+import io.swagger.client.model.ExchangeInfoItemsViewModel;
+import io.swagger.client.model.TradingAccountPermission;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -34,6 +42,8 @@ import rx.schedulers.Schedulers;
 import rx.subjects.BehaviorSubject;
 import timber.log.Timber;
 import vision.genesis.clientapp.BuildConfig;
+import vision.genesis.clientapp.model.terminal.binance_api.BinanceRawExchangeInfo;
+import vision.genesis.clientapp.model.terminal.binance_api.BinanceRawSymbol;
 import vision.genesis.clientapp.model.terminal.binance_api.DepthListModel;
 import vision.genesis.clientapp.model.terminal.binance_api.TickerPriceModel;
 import vision.genesis.clientapp.model.terminal.binance_api.TradeModel;
@@ -66,11 +76,19 @@ public class TerminalManager
 
 	private final BinanceApi binanceApi;
 
+	private final ExchangesApi exchangesApi;
+
+	private final DashboardApi dashboardApi;
+
 	private final TradingplatformApi tradingplatformApi;
 
 	private final OkHttpClient socketClient = new OkHttpClient();
 
 	private Subscription getServerInfoSubscription;
+
+	private Subscription getExchangesInfoSubscription;
+
+	private Subscription getAccountsSubscription;
 
 	private BehaviorSubject<BinanceRawExchangeInfo> binanceServerInfoBehaviorSubject;
 
@@ -86,15 +104,21 @@ public class TerminalManager
 
 	private HashMap<String, WebSocket> sockets = new HashMap<>();
 
-	public TerminalManager(TradingplatformApi tradingplatformApi, BinanceApi binanceApi) {
+	private List<ExchangeInfo> exchanges = new ArrayList<>();
+
+	private BehaviorSubject<List<ExchangeAsset>> accountsBehaviorSubject;
+
+	public TerminalManager(TradingplatformApi tradingplatformApi, BinanceApi binanceApi, ExchangesApi exchangesApi, DashboardApi dashboardApi) {
 		this.tradingplatformApi = tradingplatformApi;
 		this.binanceApi = binanceApi;
+		this.exchangesApi = exchangesApi;
+		this.dashboardApi = dashboardApi;
 	}
 
 	public Observable<BinanceRawExchangeInfo> getBinanceServerInfo() {
 		if (binanceServerInfoBehaviorSubject == null) {
 			binanceServerInfoBehaviorSubject = BehaviorSubject.create();
-			getServerInfoSubscription = tradingplatformApi.getExchangeInfo()
+			getServerInfoSubscription = binanceApi.getExchangeInfo()
 					.observeOn(AndroidSchedulers.mainThread())
 					.subscribeOn(Schedulers.io())
 					.subscribe(this::handleGetServerInfoSuccess,
@@ -113,6 +137,71 @@ public class TerminalManager
 			getServerInfoSubscription.unsubscribe();
 			binanceServerInfoBehaviorSubject.onError(error);
 			binanceServerInfoBehaviorSubject = null;
+		}
+	}
+
+	public BehaviorSubject<List<ExchangeAsset>> getAccountsFor(BrokerTradeServerType exchangeName, TradingAccountPermission permission) {
+		accountsBehaviorSubject = BehaviorSubject.create();
+		if (exchanges == null || exchanges.isEmpty()) {
+			getExchangesInfoSubscription = exchangesApi.getExchanges()
+					.observeOn(AndroidSchedulers.mainThread())
+					.subscribeOn(Schedulers.io())
+					.subscribe(response -> handleGetExchangesSuccess(response, exchangeName, permission),
+							this::handleGetExchangesError);
+		}
+		else {
+			getAccountsFor(findAccountTypeId(exchangeName, permission));
+		}
+		return accountsBehaviorSubject;
+	}
+
+	private void handleGetExchangesSuccess(ExchangeInfoItemsViewModel response, BrokerTradeServerType exchangeName, TradingAccountPermission permission) {
+		getExchangesInfoSubscription.unsubscribe();
+
+		exchanges = response.getItems();
+		getAccountsFor(findAccountTypeId(exchangeName, permission));
+	}
+
+	private void handleGetExchangesError(Throwable error) {
+		if (getExchangesInfoSubscription != null) {
+			getExchangesInfoSubscription.unsubscribe();
+			accountsBehaviorSubject.onError(error);
+			accountsBehaviorSubject = null;
+		}
+	}
+
+	private UUID findAccountTypeId(BrokerTradeServerType exchangeName, TradingAccountPermission permission) {
+		if (exchanges != null) {
+			for (ExchangeInfo exchange : exchanges) {
+				for (ExchangeAccountType accountType : exchange.getAccountTypes()) {
+					if (accountType.getType().equals(exchangeName) && accountType.getPermissions().contains(permission)) {
+						return accountType.getId();
+					}
+				}
+			}
+		}
+		return null;
+	}
+
+	private void getAccountsFor(UUID accountTypeId) {
+		getAccountsSubscription = dashboardApi.getExchangeAccountsCredentials(accountTypeId)
+				.observeOn(AndroidSchedulers.mainThread())
+				.subscribeOn(Schedulers.io())
+				.subscribe(this::handleGetAccountsSuccess,
+						this::handleGetAccountsError);
+	}
+
+	private void handleGetAccountsSuccess(ExchangeAssetItemsViewModel response) {
+		getAccountsSubscription.unsubscribe();
+
+		accountsBehaviorSubject.onNext(response.getItems());
+	}
+
+	private void handleGetAccountsError(Throwable error) {
+		if (getAccountsSubscription != null) {
+			getAccountsSubscription.unsubscribe();
+			accountsBehaviorSubject.onError(error);
+			accountsBehaviorSubject = null;
 		}
 	}
 

@@ -13,15 +13,15 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import io.swagger.client.model.BinanceRawExchangeInfo;
-import io.swagger.client.model.BinanceRawSymbol;
-import io.swagger.client.model.BinanceSymbolStatus;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.managers.TerminalManager;
 import vision.genesis.clientapp.model.terminal.MarketWatchTickerModel;
+import vision.genesis.clientapp.model.terminal.binance_api.BinanceRawExchangeInfo;
+import vision.genesis.clientapp.model.terminal.binance_api.BinanceRawSymbol;
+import vision.genesis.clientapp.model.terminal.binance_api.BinanceSymbolStatus;
 import vision.genesis.clientapp.model.terminal.binance_api.TickerPriceModel;
 import vision.genesis.clientapp.model.terminal.binance_socket.TickerModel;
 import vision.genesis.clientapp.net.ApiErrorResolver;
@@ -179,7 +179,7 @@ public class MarketWatchPresenter extends MvpPresenter<MarketWatchView>
 		tickers = new HashMap<>();
 
 		for (BinanceRawSymbol symbol : info.getSymbols()) {
-			if (symbol.getStatus().equals(BinanceSymbolStatus.TRADING)) {
+			if (symbol.getStatus() != null && symbol.getStatus().equals(BinanceSymbolStatus.TRADING)) {
 				tickers.put(symbol.getName(), MarketWatchTickerModel.from(symbol));
 			}
 		}

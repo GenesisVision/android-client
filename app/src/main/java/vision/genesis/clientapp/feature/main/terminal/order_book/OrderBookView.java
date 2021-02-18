@@ -22,8 +22,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
-import io.swagger.client.model.BinanceRawExchangeInfo;
-import io.swagger.client.model.BinanceRawSymbol;
 import rx.BackpressureOverflow;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
@@ -32,6 +30,8 @@ import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.common.option.SelectOptionBottomSheetFragment;
 import vision.genesis.clientapp.managers.TerminalManager;
+import vision.genesis.clientapp.model.terminal.binance_api.BinanceRawExchangeInfo;
+import vision.genesis.clientapp.model.terminal.binance_api.BinanceRawSymbol;
 import vision.genesis.clientapp.model.terminal.binance_api.DepthListModel;
 import vision.genesis.clientapp.model.terminal.binance_socket.DepthUpdateModel;
 import vision.genesis.clientapp.net.ApiErrorResolver;
@@ -126,7 +126,7 @@ public class OrderBookView extends RelativeLayout
 	}
 
 	private void initView() {
-		inflate(getContext(), R.layout.view_oder_book, this);
+		inflate(getContext(), R.layout.view_order_book, this);
 
 		unbinder = ButterKnife.bind(this);
 
@@ -200,7 +200,7 @@ public class OrderBookView extends RelativeLayout
 		for (BinanceRawSymbol symbolInfo : response.getSymbols()) {
 			if (symbolInfo.getName().equals(symbol)) {
 				this.symbolInfo = symbolInfo;
-				this.qtyDigits = getDigitsCount(symbolInfo.getLotSizeFilter().getMinQuantity());
+				this.qtyDigits = getDigitsCount(symbolInfo.getLotSizeFilter().getMinQty());
 				break;
 			}
 		}

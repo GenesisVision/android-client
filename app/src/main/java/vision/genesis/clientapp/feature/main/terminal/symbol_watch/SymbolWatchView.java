@@ -239,7 +239,11 @@ public class SymbolWatchView extends RelativeLayout
 		fillLine.setLayoutParams(lp1);
 		emptyLine.setLayoutParams(lp2);
 
-		line.post(() -> arrow.setX((float) (line.getWidth() * fill)));
+		line.post(() -> {
+			if (line != null) {
+				arrow.setX((float) (line.getWidth() * fill));
+			}
+		});
 
 		high.setText(StringFormatUtil.formatAmount(ticker.getHighPrice(), 2, 8));
 		low.setText(StringFormatUtil.formatAmount(ticker.getLowPrice(), 2, 8));
