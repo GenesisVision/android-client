@@ -24,4 +24,6 @@ interface TerminalView extends MvpView
 	void setSelectedAccount(ExchangeAsset account, int selectedAccountPosition);
 
 	void showAccountArrow(boolean show);
+
+	void showPlaceOrderActivity(String selectedSymbol, ExchangeAsset selectedAccount, String operationType);
 }

@@ -1059,6 +1059,26 @@
     <string name="ask">Ask</string>
     <string name="no_info_on_this_symbol">Unfortunately, there is no information\non this symbol yet.</string>
     <string name="select_the_account">Select the account</string>
+    <string name="market">Market</string>
+    <string name="limit">Limit</string>
+    <string name="stop_limit">Stop limit</string>
+    <string name="market_price">Market price</string>
+    <string name="stop">Stop</string>
+    <string name="order_type">Order type</string>
+    <string name="open_orders">Open orders</string>
+    <string name="order_history">Order history</string>
+    <string name="no_open_orders_for_this_account">You have no open orders for this account</string>
+    <string name="no_orders_found">No orders found</string>
+    <string name="no_trades_found">No trades found</string>
+    <string name="status_new">New</string>
+    <string name="status_partially_filled">Partially filled</string>
+    <string name="status_filled">Filled</string>
+    <string name="status_pending_cancel">Pending cancel</string>
+    <string name="status_rejected">Rejected</string>
+    <string name="status_expired">Expired</string>
+    <string name="status_insurance">Insurance</string>
+    <string name="status_adl">ADL</string>
+    <string name="fee">Fee</string>
 
     <plurals name="assets">
         <item quantity="one">asset</item>

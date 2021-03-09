@@ -1,0 +1,529 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="?attr/colorBackgroundDark">
+
+    <RelativeLayout
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="?attr/colorBackground">
+
+        <ImageView
+            android:id="@+id/button_back"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_centerVertical="true"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:padding="12dp"
+            app:srcCompat="@drawable/icon_back"
+            app:tint="?attr/colorTextPrimary"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/base_asset"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="4dp"
+                android:fontFamily="@font/montserrat_semibold"
+                android:gravity="center_vertical"
+                android:textColor="?attr/colorTextPrimary"
+                android:textSize="16sp"
+                tools:text="BTC"/>
+
+            <TextView
+                android:id="@+id/quote_asset"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat_medium"
+                android:gravity="center_vertical"
+                android:textColor="?attr/colorTextSecondary"
+                android:textSize="14sp"
+                tools:text="/USDT"/>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/toolbar">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appBarLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?attr/colorBackground"
+            app:elevation="0dp">
+
+            <com.google.android.material.appbar.CollapsingToolbarLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_scrollFlags="scroll|enterAlways">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/padding"
+                        android:background="?attr/colorBackground"
+                        android:orientation="horizontal"
+                        android:padding="10dp">
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="8dp"
+                            android:layout_weight="2">
+
+                            <vision.genesis.clientapp.feature.main.terminal.place_order.MiniOrderBookView
+                                android:id="@+id/view_order_book"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"/>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="3"
+                            android:orientation="vertical">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+
+                                <RelativeLayout
+                                    android:id="@+id/button_select_buy"
+                                    android:layout_width="0dp"
+                                    android:layout_height="30dp"
+                                    android:layout_weight="1"
+                                    android:background="?attr/colorGreen">
+
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:layout_centerInParent="true"
+                                        android:fontFamily="@font/montserrat_semibold"
+                                        android:gravity="center"
+                                        android:text="@string/buy"
+                                        android:textAllCaps="true"
+                                        android:textColor="?attr/colorTextPrimary"
+                                        android:textSize="14sp"/>
+
+                                </RelativeLayout>
+
+                                <RelativeLayout
+                                    android:id="@+id/button_select_sell"
+                                    android:layout_width="0dp"
+                                    android:layout_height="30dp"
+                                    android:layout_weight="1"
+                                    android:background="?attr/colorCard">
+
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:layout_centerInParent="true"
+                                        android:fontFamily="@font/montserrat_semibold"
+                                        android:gravity="center"
+                                        android:text="@string/sell"
+                                        android:textAllCaps="true"
+                                        android:textColor="?attr/colorTextPrimary"
+                                        android:textSize="14sp"/>
+
+                                </RelativeLayout>
+
+                            </LinearLayout>
+
+                            <RelativeLayout
+                                android:id="@+id/group_order_type"
+                                android:layout_width="match_parent"
+                                android:layout_height="30dp"
+                                android:layout_marginTop="8dp"
+                                android:background="?attr/colorCard">
+
+                                <TextView
+                                    android:id="@+id/order_type"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_centerInParent="true"
+                                    android:fontFamily="@font/montserrat_medium"
+                                    android:gravity="center"
+                                    android:text="@string/market"
+                                    android:textAllCaps="true"
+                                    android:textColor="?attr/colorTextPrimary"
+                                    android:textSize="12sp"/>
+
+                                <ImageView
+                                    android:layout_width="12dp"
+                                    android:layout_height="12dp"
+                                    android:layout_alignParentEnd="true"
+                                    android:layout_centerVertical="true"
+                                    android:layout_marginEnd="10dp"
+                                    app:srcCompat="@drawable/dropdown_icon"/>
+
+                            </RelativeLayout>
+
+                            <RelativeLayout
+                                android:id="@+id/group_market_price"
+                                android:layout_width="match_parent"
+                                android:layout_height="30dp"
+                                android:layout_marginTop="8dp"
+                                android:background="?attr/colorCard">
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_centerInParent="true"
+                                    android:fontFamily="@font/montserrat_medium"
+                                    android:gravity="center"
+                                    android:text="@string/market_price"
+                                    android:textColor="?attr/colorTextPrimary"
+                                    android:textSize="12sp"/>
+
+                            </RelativeLayout>
+
+                            <RelativeLayout
+                                android:id="@+id/group_price"
+                                android:layout_width="match_parent"
+                                android:layout_height="30dp"
+                                android:layout_marginTop="8dp"
+                                android:background="?attr/colorCard">
+
+                                <EditText
+                                    android:id="@+id/edittext_price"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="match_parent"
+                                    android:layout_centerInParent="true"
+                                    android:background="@android:color/transparent"
+                                    android:fontFamily="@font/montserrat_medium"
+                                    android:gravity="center"
+                                    android:hint="@string/price"
+                                    android:inputType="numberDecimal"
+                                    android:maxLines="1"
+                                    android:textColor="?attr/colorTextPrimary"
+                                    android:textColorHint="?attr/colorTextSecondary"
+                                    android:textSize="12sp"
+                                    tools:text=""/>
+
+                                <TextView
+                                    android:id="@+id/price_currency"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="match_parent"
+                                    android:layout_alignParentEnd="true"
+                                    android:layout_centerVertical="true"
+                                    android:layout_marginStart="4dp"
+                                    android:background="?attr/colorCard"
+                                    android:ellipsize="end"
+                                    android:fontFamily="@font/montserrat_semibold"
+                                    android:gravity="center"
+                                    android:maxLines="1"
+                                    android:paddingEnd="10dp"
+                                    android:textAllCaps="true"
+                                    android:textColor="?attr/colorTextSecondary"
+                                    android:textSize="10sp"
+                                    tools:text="USDT"/>
+
+                            </RelativeLayout>
+
+                            <RelativeLayout
+                                android:id="@+id/group_stop"
+                                android:layout_width="match_parent"
+                                android:layout_height="30dp"
+                                android:layout_marginTop="8dp"
+                                android:background="?attr/colorCard">
+
+                                <EditText
+                                    android:id="@+id/edittext_stop"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="match_parent"
+                                    android:layout_centerInParent="true"
+                                    android:background="@android:color/transparent"
+                                    android:fontFamily="@font/montserrat_medium"
+                                    android:gravity="center"
+                                    android:hint="@string/stop"
+                                    android:inputType="numberDecimal"
+                                    android:maxLines="1"
+                                    android:textColor="?attr/colorTextPrimary"
+                                    android:textColorHint="?attr/colorTextSecondary"
+                                    android:textSize="12sp"
+                                    tools:text=""/>
+
+                                <TextView
+                                    android:id="@+id/stop_currency"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="match_parent"
+                                    android:layout_alignParentEnd="true"
+                                    android:layout_centerVertical="true"
+                                    android:layout_marginStart="4dp"
+                                    android:background="?attr/colorCard"
+                                    android:ellipsize="end"
+                                    android:fontFamily="@font/montserrat_semibold"
+                                    android:gravity="center"
+                                    android:maxLines="1"
+                                    android:paddingEnd="10dp"
+                                    android:textAllCaps="true"
+                                    android:textColor="?attr/colorTextSecondary"
+                                    android:textSize="10sp"
+                                    tools:text="USDT"/>
+
+                            </RelativeLayout>
+
+                            <RelativeLayout
+                                android:id="@+id/group_limit"
+                                android:layout_width="match_parent"
+                                android:layout_height="30dp"
+                                android:layout_marginTop="8dp"
+                                android:background="?attr/colorCard">
+
+                                <EditText
+                                    android:id="@+id/edittext_limit"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="match_parent"
+                                    android:layout_centerInParent="true"
+                                    android:background="@android:color/transparent"
+                                    android:fontFamily="@font/montserrat_medium"
+                                    android:gravity="center"
+                                    android:hint="@string/limit"
+                                    android:inputType="numberDecimal"
+                                    android:maxLines="1"
+                                    android:textColor="?attr/colorTextPrimary"
+                                    android:textColorHint="?attr/colorTextSecondary"
+                                    android:textSize="12sp"
+                                    tools:text=""/>
+
+                                <TextView
+                                    android:id="@+id/limit_currency"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="match_parent"
+                                    android:layout_alignParentEnd="true"
+                                    android:layout_centerVertical="true"
+                                    android:layout_marginStart="4dp"
+                                    android:background="?attr/colorCard"
+                                    android:ellipsize="end"
+                                    android:fontFamily="@font/montserrat_semibold"
+                                    android:gravity="center"
+                                    android:maxLines="1"
+                                    android:paddingEnd="10dp"
+                                    android:textAllCaps="true"
+                                    android:textColor="?attr/colorTextSecondary"
+                                    android:textSize="10sp"
+                                    tools:text="USDT"/>
+
+                            </RelativeLayout>
+
+                            <RelativeLayout
+                                android:id="@+id/group_amount"
+                                android:layout_width="match_parent"
+                                android:layout_height="30dp"
+                                android:layout_marginTop="20dp"
+                                android:background="?attr/colorCard">
+
+                                <EditText
+                                    android:id="@+id/edittext_amount"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="match_parent"
+                                    android:layout_centerInParent="true"
+                                    android:background="@android:color/transparent"
+                                    android:fontFamily="@font/montserrat_medium"
+                                    android:gravity="center"
+                                    android:hint="@string/amount"
+                                    android:inputType="numberDecimal"
+                                    android:maxLines="1"
+                                    android:textColor="?attr/colorTextPrimary"
+                                    android:textColorHint="?attr/colorTextSecondary"
+                                    android:textSize="12sp"
+                                    tools:text=""/>
+
+                                <TextView
+                                    android:id="@+id/amount_currency"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="match_parent"
+                                    android:layout_alignParentEnd="true"
+                                    android:layout_centerVertical="true"
+                                    android:layout_marginStart="4dp"
+                                    android:background="?attr/colorCard"
+                                    android:ellipsize="end"
+                                    android:fontFamily="@font/montserrat_semibold"
+                                    android:gravity="center"
+                                    android:maxLines="1"
+                                    android:paddingEnd="10dp"
+                                    android:textAllCaps="true"
+                                    android:textColor="?attr/colorTextSecondary"
+                                    android:textSize="10sp"
+                                    tools:text="BTC"/>
+
+                            </RelativeLayout>
+
+                            <LinearLayout
+                                android:id="@+id/group_available"
+                                android:layout_width="match_parent"
+                                android:layout_height="30dp"
+                                android:layout_marginTop="8dp"
+                                android:gravity="center_vertical"
+                                android:orientation="horizontal">
+
+                                <ImageView
+                                    android:layout_width="16dp"
+                                    android:layout_height="16dp"
+                                    app:srcCompat="@drawable/icon_wallet"/>
+
+                                <TextView
+                                    android:id="@+id/balance"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="match_parent"
+                                    android:layout_marginStart="8dp"
+                                    android:ellipsize="end"
+                                    android:fontFamily="@font/montserrat_medium"
+                                    android:gravity="center"
+                                    android:maxLines="1"
+                                    android:textAllCaps="true"
+                                    android:textColor="?attr/colorTextPrimary"
+                                    android:textSize="12sp"
+                                    tools:text="34,678.1234 USDT"/>
+
+                            </LinearLayout>
+
+                            <vision.genesis.clientapp.ui.SelectPercentView
+                                android:id="@+id/view_select_percent"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="4dp"/>
+
+                            <RelativeLayout
+                                android:id="@+id/group_total"
+                                android:layout_width="match_parent"
+                                android:layout_height="30dp"
+                                android:layout_marginTop="8dp"
+                                android:background="?attr/colorCard">
+
+                                <EditText
+                                    android:id="@+id/edittext_total"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="match_parent"
+                                    android:layout_centerInParent="true"
+                                    android:background="@android:color/transparent"
+                                    android:fontFamily="@font/montserrat_medium"
+                                    android:gravity="center"
+                                    android:hint="@string/total"
+                                    android:inputType="numberDecimal"
+                                    android:maxLines="1"
+                                    android:textColor="?attr/colorTextPrimary"
+                                    android:textColorHint="?attr/colorTextSecondary"
+                                    android:textSize="12sp"
+                                    tools:text="12345.12345678"/>
+
+                                <TextView
+                                    android:id="@+id/total_currency"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="match_parent"
+                                    android:layout_alignParentEnd="true"
+                                    android:layout_centerVertical="true"
+                                    android:layout_marginStart="4dp"
+                                    android:background="?attr/colorCard"
+                                    android:ellipsize="end"
+                                    android:fontFamily="@font/montserrat_semibold"
+                                    android:gravity="center"
+                                    android:maxLines="1"
+                                    android:paddingEnd="10dp"
+                                    android:textAllCaps="true"
+                                    android:textColor="?attr/colorTextSecondary"
+                                    android:textSize="10sp"
+                                    tools:text="USDT"/>
+
+                            </RelativeLayout>
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/button_height"
+                                android:layout_marginTop="20dp">
+
+                                <RelativeLayout
+                                    android:id="@+id/group_buttons"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent">
+
+                                    <vision.genesis.clientapp.ui.PrimaryButton
+                                        android:id="@+id/button_buy"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:text="@string/buy"/>
+
+                                    <vision.genesis.clientapp.ui.PrimaryButton
+                                        android:id="@+id/button_sell"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:text="@string/sell"/>
+
+                                </RelativeLayout>
+
+                                <ProgressBar
+                                    android:id="@+id/progress_bar_buttons"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_centerInParent="true"
+                                    android:visibility="gone"/>
+
+                            </RelativeLayout>
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="20dp"
+                        android:background="?attr/colorBackgroundDark"/>
+
+                </LinearLayout>
+
+            </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tab_layout"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/tabs_height"
+                android:minHeight="?attr/actionBarSize"
+                app:tabGravity="fill"
+                app:tabIndicatorColor="?attr/colorAccent"
+                app:tabMaxWidth="0dp"
+                app:tabMode="scrollable"
+                app:tabSelectedTextColor="?attr/colorTextPrimary"
+                app:tabTextColor="?attr/colorTextSecondary"/>
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/view_pager_place_order"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_below="@+id/toolbar"
+        android:indeterminate="true"
+        android:scaleY="4"
+        android:visibility="gone"/>
+
+</RelativeLayout>

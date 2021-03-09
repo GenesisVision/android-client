@@ -48,9 +48,9 @@ public class OrderBookView extends RelativeLayout
 {
 	private static final Integer LIMIT = 500;
 
-	private static final Integer VIEWS_COUNT = 15;
-
 	private static final int TICK_SIZE_COUNT = 4;
+
+	protected static Integer VIEWS_COUNT = 15;
 
 	@Inject
 	public TerminalManager terminalManager;
@@ -70,6 +70,10 @@ public class OrderBookView extends RelativeLayout
 
 	public Subscription depthUpdateSubscription;
 
+	protected ArrayList<DepthItemView> asksViews = new ArrayList<>();
+
+	protected String symbol = "";
+
 	private FragmentActivity activity;
 
 	private ArrayList<String> tickSizeOptions = new ArrayList<>();
@@ -78,17 +82,13 @@ public class OrderBookView extends RelativeLayout
 
 	private Unbinder unbinder;
 
-	private String symbol = "";
+	private ArrayList<DepthItemView> bidsViews = new ArrayList<>();
 
 	private HashMap<String, String> asks = new HashMap<>();
 
 	private HashMap<String, String> bids = new HashMap<>();
 
 	private ArrayList<DepthUpdateModel> updatesBuffer = new ArrayList<>();
-
-	private ArrayList<DepthItemView> asksViews = new ArrayList<>();
-
-	private ArrayList<DepthItemView> bidsViews = new ArrayList<>();
 
 	private ArrayList<Double> tickSizes = new ArrayList<>();
 
@@ -116,7 +116,11 @@ public class OrderBookView extends RelativeLayout
 	}
 
 	@OnClick(R.id.group_tick_size)
-	public void onCurrencyClicked() {
+	public void onTickSizeClicked() {
+		handleTickSizeClick();
+	}
+
+	private void handleTickSizeClick() {
 		if (activity != null && tickSizeOptions != null && tickSizeOptions.size() > 1) {
 			SelectOptionBottomSheetFragment fragment = SelectOptionBottomSheetFragment.with(
 					null, tickSizeOptions, selectedTickSizePosition);
@@ -126,13 +130,17 @@ public class OrderBookView extends RelativeLayout
 	}
 
 	private void initView() {
-		inflate(getContext(), R.layout.view_order_book, this);
+		inflateView();
 
 		unbinder = ButterKnife.bind(this);
 
 		GenesisVisionApplication.getComponent().inject(this);
 
 		onSymbolChanged();
+	}
+
+	protected void inflateView() {
+		inflate(getContext(), R.layout.view_order_book, this);
 	}
 
 	public void onDestroy() {
@@ -171,7 +179,7 @@ public class OrderBookView extends RelativeLayout
 		onSymbolChanged();
 	}
 
-	private void onSymbolChanged() {
+	protected void onSymbolChanged() {
 		unsubscribeFromUpdates();
 		this.asks = new HashMap<>();
 		this.bids = new HashMap<>();
@@ -364,21 +372,28 @@ public class OrderBookView extends RelativeLayout
 		asksGroup.removeAllViews();
 		bidsGroup.removeAllViews();
 
-
 		asksViews = new ArrayList<>();
 		bidsViews = new ArrayList<>();
 
 		for (int i = 0; i < VIEWS_COUNT; i++) {
-			DepthItemView askView = new DepthItemView(getContext());
-			askView.initView(DepthItemView.TYPE_ASK);
+			DepthItemView askView = createDepthItemView(DepthItemView.TYPE_ASK);
 			asksViews.add(askView);
-			asksGroup.addView(askView);
+			addAskView(askView);
 
-			DepthItemView bidView = new DepthItemView(getContext());
-			bidView.initView(DepthItemView.TYPE_BID);
+			DepthItemView bidView = createDepthItemView(DepthItemView.TYPE_BID);
 			bidsViews.add(bidView);
 			bidsGroup.addView(bidView);
 		}
+	}
+
+	protected void addAskView(DepthItemView askView) {
+		asksGroup.addView(askView);
+	}
+
+	protected DepthItemView createDepthItemView(String type) {
+		DepthItemView view = new DepthItemView(getContext());
+		view.initView(type, false);
+		return view;
 	}
 
 	private List<Pair<Double, Double>> parseMapToList(HashMap<String, String> map, Boolean isFloor) {

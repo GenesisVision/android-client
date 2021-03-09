@@ -70,6 +70,18 @@ public class StringFormatUtil
 		return df.format(decimal);
 	}
 
+	public static String formatAmountWithoutGrouping(double amountValue, int maxFraction) {
+		BigDecimal decimal = BigDecimal.valueOf(amountValue);
+		DecimalFormatSymbols dfs = new DecimalFormatSymbols(Locale.US);
+		dfs.setGroupingSeparator('.');
+		DecimalFormat df = new DecimalFormat("0.########", dfs);
+		df.setMinimumFractionDigits(0);
+		df.setMaximumFractionDigits(maxFraction);
+		df.setGroupingUsed(false);
+		df.setRoundingMode(RoundingMode.DOWN);
+		return df.format(decimal);
+	}
+
 	public static String formatMinAmountWithoutGrouping(double amountValue) {
 		BigDecimal decimal = BigDecimal.valueOf(amountValue);
 		DecimalFormatSymbols dfs = new DecimalFormatSymbols(Locale.US);

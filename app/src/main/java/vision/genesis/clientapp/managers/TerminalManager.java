@@ -2,6 +2,7 @@ package vision.genesis.clientapp.managers;
 
 import android.util.Pair;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.google.gson.Gson;
@@ -20,15 +21,23 @@ import java.util.UUID;
 import io.swagger.client.api.DashboardApi;
 import io.swagger.client.api.ExchangesApi;
 import io.swagger.client.api.TradingplatformApi;
+import io.swagger.client.model.BinanceRawAccountInfo;
+import io.swagger.client.model.BinanceRawCancelOrder;
 import io.swagger.client.model.BinanceRawKlineInterval;
 import io.swagger.client.model.BinanceRawKlineItemsViewModel;
+import io.swagger.client.model.BinanceRawOrder;
+import io.swagger.client.model.BinanceRawOrderItemsViewModel;
+import io.swagger.client.model.BinanceRawPlaceOrder;
+import io.swagger.client.model.BinanceRawPlacedOrder;
 import io.swagger.client.model.BrokerTradeServerType;
+import io.swagger.client.model.Currency;
 import io.swagger.client.model.ExchangeAccountType;
 import io.swagger.client.model.ExchangeAsset;
 import io.swagger.client.model.ExchangeAssetItemsViewModel;
 import io.swagger.client.model.ExchangeInfo;
 import io.swagger.client.model.ExchangeInfoItemsViewModel;
 import io.swagger.client.model.TradingAccountPermission;
+import io.swagger.client.model.TradingPlatformBinanceOrdersMode;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -42,6 +51,7 @@ import rx.schedulers.Schedulers;
 import rx.subjects.BehaviorSubject;
 import timber.log.Timber;
 import vision.genesis.clientapp.BuildConfig;
+import vision.genesis.clientapp.model.DateRange;
 import vision.genesis.clientapp.model.terminal.binance_api.BinanceRawExchangeInfo;
 import vision.genesis.clientapp.model.terminal.binance_api.BinanceRawSymbol;
 import vision.genesis.clientapp.model.terminal.binance_api.DepthListModel;
@@ -205,6 +215,18 @@ public class TerminalManager
 		}
 	}
 
+	public Observable<BinanceRawAccountInfo> getAccountDetails(UUID accountId, String currency) {
+		return tradingplatformApi.getAccountInfo(accountId, Currency.fromValue(currency));
+	}
+
+	public Observable<BinanceRawOrderItemsViewModel> getOpenOrders(UUID accountId) {
+		return tradingplatformApi.getOpenOrders(accountId);
+	}
+
+	public Observable<BinanceRawOrderItemsViewModel> getOrderHistory(@NonNull UUID accountId, TradingPlatformBinanceOrdersMode mode, @NonNull DateRange dateRange, String symbol, int skip, int take) {
+		return tradingplatformApi.getTradesHistory(accountId, mode, dateRange.getFrom(), dateRange.getTo(), symbol, skip, take);
+	}
+
 	public Observable<BinanceRawKlineItemsViewModel> getKlineData(String symbol, BinanceRawKlineInterval interval, DateTime startTime, DateTime endTime, Integer limit) {
 		return tradingplatformApi.getKlines(symbol, interval, startTime, endTime, limit);
 	}
@@ -220,6 +242,15 @@ public class TerminalManager
 	public Observable<DepthListModel> getDepth(String symbol, Integer limit) {
 		return binanceApi.getDepth(symbol, limit);
 	}
+
+	public Observable<BinanceRawPlacedOrder> placeOrder(BinanceRawPlaceOrder body, UUID accountId) {
+		return tradingplatformApi.placeOrder(body, accountId);
+	}
+
+	public Observable<BinanceRawCancelOrder> cancelOrder(BinanceRawOrder order) {
+		return tradingplatformApi.cancelOrder(order.getAccountId(), order.getSymbol(), String.valueOf(order.getOrderId()));
+	}
+
 
 	public BehaviorSubject<List<TickerModel>> getTickersSubject() {
 		openSocketMaybe(STREAM_TICKERS);
@@ -308,7 +339,7 @@ public class TerminalManager
 
 			@Override
 			public void onMessage(WebSocket webSocket, String text) {
-				Timber.d("SOCKET %s onMessage text", streamName);
+//				Timber.d("SOCKET %s onMessage text", streamName);
 				super.onMessage(webSocket, text);
 				parseSocketMessage(streamName, text);
 

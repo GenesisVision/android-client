@@ -483,7 +483,7 @@ public class BinanceRawSymbol implements Parcelable
 		this.lotSizeFilter = lotSizeFilter;
 	}
 
-	private BinanceSymbolFilter getFilter(BinanceSymbolFilterType filterType) {
+	public BinanceSymbolFilter getFilter(BinanceSymbolFilterType filterType) {
 		if (filters != null) {
 			for (BinanceSymbolFilter filter : filters) {
 				if (filter.getFilterType() != null && filter.getFilterType().equals(filterType)) {

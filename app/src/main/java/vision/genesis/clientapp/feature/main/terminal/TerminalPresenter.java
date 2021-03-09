@@ -15,6 +15,7 @@ import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
+import vision.genesis.clientapp.feature.main.terminal.place_order.PlaceOrderActivity;
 import vision.genesis.clientapp.feature.main.terminal.select_account.SelectAccountBottomSheetFragment;
 import vision.genesis.clientapp.managers.TerminalManager;
 import vision.genesis.clientapp.net.ApiErrorResolver;
@@ -39,6 +40,8 @@ public class TerminalPresenter extends MvpPresenter<TerminalView> implements Sel
 	private ExchangeAsset selectedAccount;
 
 	private int selectedAccountPosition = -1;
+
+	private String pendingAction;
 
 	@Override
 	protected void onFirstViewAttach() {
@@ -101,5 +104,35 @@ public class TerminalPresenter extends MvpPresenter<TerminalView> implements Sel
 		this.selectedAccount = account;
 		this.selectedAccountPosition = position;
 		getViewState().setSelectedAccount(account, selectedAccountPosition);
+
+		if (pendingAction != null) {
+			if (pendingAction.equals(PlaceOrderActivity.OPERATION_TYPE_BUY)) {
+				onBuyClicked();
+			}
+			else if (pendingAction.equals(PlaceOrderActivity.OPERATION_TYPE_SELL)) {
+				onSellClicked();
+			}
+			pendingAction = null;
+		}
+	}
+
+	void onBuyClicked() {
+		if (selectedAccount == null) {
+			onAccountClicked();
+			pendingAction = PlaceOrderActivity.OPERATION_TYPE_BUY;
+		}
+		else {
+			getViewState().showPlaceOrderActivity(selectedSymbol, selectedAccount, PlaceOrderActivity.OPERATION_TYPE_BUY);
+		}
+	}
+
+	void onSellClicked() {
+		if (selectedAccount == null) {
+			onAccountClicked();
+			pendingAction = PlaceOrderActivity.OPERATION_TYPE_SELL;
+		}
+		else {
+			getViewState().showPlaceOrderActivity(selectedSymbol, selectedAccount, PlaceOrderActivity.OPERATION_TYPE_SELL);
+		}
 	}
 }

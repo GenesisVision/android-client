@@ -22,6 +22,11 @@ import vision.genesis.clientapp.utils.StringFormatUtil;
  */
 public class DepthItemView extends RelativeLayout
 {
+	public interface OnPriceSelectedListener
+	{
+		void OnPriceSelected(Double price);
+	}
+
 	public static final String TYPE_ASK = "type_ask";
 
 	public static final String TYPE_BID = "type_bid";
@@ -39,6 +44,10 @@ public class DepthItemView extends RelativeLayout
 	public TextView amount;
 
 	private Unbinder unbinder;
+
+	private OnPriceSelectedListener listener;
+
+	private Pair<Double, Double> data;
 
 	public DepthItemView(Context context) {
 		super(context);
@@ -59,23 +68,30 @@ public class DepthItemView extends RelativeLayout
 		}
 	}
 
-	public void initView(String type) {
+	public void initView(String type, boolean isMini) {
 		int layoutId;
 		switch (type) {
 			case TYPE_ASK:
-				layoutId = R.layout.view_item_ask;
+				layoutId = isMini ? R.layout.view_item_ask_mini : R.layout.view_item_ask;
 				break;
 			default:
 			case TYPE_BID:
-				layoutId = R.layout.view_item_bid;
+				layoutId = isMini ? R.layout.view_item_bid_mini : R.layout.view_item_bid;
 				break;
 		}
 		inflate(getContext(), layoutId, this);
 
 		unbinder = ButterKnife.bind(this);
+
+		this.setOnClickListener(view -> {
+			if (listener != null && data != null) {
+				listener.OnPriceSelected(data.first);
+			}
+		});
 	}
 
 	public void setData(@Nullable Pair<Double, Double> data, Double fill, int priceDigits, int qtyDigits) {
+		this.data = data;
 		if (data != null) {
 			this.price.setText(StringFormatUtil.formatAmount(data.first, priceDigits, priceDigits));
 			this.amount.setText(StringFormatUtil.formatAmount(data.second, qtyDigits, qtyDigits));
@@ -88,5 +104,9 @@ public class DepthItemView extends RelativeLayout
 		LinearLayout.LayoutParams lp2 = (LinearLayout.LayoutParams) emptyLine.getLayoutParams();
 		lp1.weight = fill.floatValue();
 		lp2.weight = 1 - fill.floatValue();
+	}
+
+	public void setListener(OnPriceSelectedListener listener) {
+		this.listener = listener;
 	}
 }

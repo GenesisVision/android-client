@@ -139,7 +139,10 @@ import vision.genesis.clientapp.feature.main.terminal.chart.TerminalChartView;
 import vision.genesis.clientapp.feature.main.terminal.info.TerminalInfoView;
 import vision.genesis.clientapp.feature.main.terminal.market_trades.MarketTradesView;
 import vision.genesis.clientapp.feature.main.terminal.market_watch.MarketWatchPresenter;
+import vision.genesis.clientapp.feature.main.terminal.open_orders.OpenOrdersPresenter;
 import vision.genesis.clientapp.feature.main.terminal.order_book.OrderBookView;
+import vision.genesis.clientapp.feature.main.terminal.order_history.OrderHistoryPresenter;
+import vision.genesis.clientapp.feature.main.terminal.place_order.PlaceOrderPresenter;
 import vision.genesis.clientapp.feature.main.terminal.symbol_watch.SymbolWatchView;
 import vision.genesis.clientapp.feature.main.trading_account.TradingAccountDetailsPresenter;
 import vision.genesis.clientapp.feature.main.trading_account.add_demo_funds.AddDemoFundsPresenter;
@@ -547,4 +550,10 @@ public interface AppComponent
 	void inject(MarketTradesView marketTradesView);
 
 	void inject(TerminalInfoView terminalInfoView);
+
+	void inject(PlaceOrderPresenter placeOrderPresenter);
+
+	void inject(OpenOrdersPresenter openOrdersPresenter);
+
+	void inject(OrderHistoryPresenter orderHistoryPresenter);
 }

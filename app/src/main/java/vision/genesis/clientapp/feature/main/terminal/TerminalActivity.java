@@ -24,6 +24,7 @@ import vision.genesis.clientapp.feature.main.terminal.chart.TerminalChartView;
 import vision.genesis.clientapp.feature.main.terminal.info.TerminalInfoView;
 import vision.genesis.clientapp.feature.main.terminal.market_trades.MarketTradesView;
 import vision.genesis.clientapp.feature.main.terminal.order_book.OrderBookView;
+import vision.genesis.clientapp.feature.main.terminal.place_order.PlaceOrderActivity;
 import vision.genesis.clientapp.feature.main.terminal.select_account.SelectAccountBottomSheetFragment;
 import vision.genesis.clientapp.feature.main.terminal.symbol_watch.SymbolWatchView;
 import vision.genesis.clientapp.ui.CustomTabView;
@@ -102,6 +103,16 @@ public class TerminalActivity extends BaseSwipeBackActivity implements TerminalV
 	@OnClick(R.id.group_account)
 	public void onAccountClicked() {
 		presenter.onAccountClicked();
+	}
+
+	@OnClick(R.id.button_buy)
+	public void onBuyClicked() {
+		presenter.onBuyClicked();
+	}
+
+	@OnClick(R.id.button_sell)
+	public void onSellClicked() {
+		presenter.onSellClicked();
 	}
 
 	@Override
@@ -282,6 +293,11 @@ public class TerminalActivity extends BaseSwipeBackActivity implements TerminalV
 	@Override
 	public void showAccountArrow(boolean show) {
 		this.accountArrow.setVisibility(show ? View.VISIBLE : View.GONE);
+	}
+
+	@Override
+	public void showPlaceOrderActivity(String selectedSymbol, ExchangeAsset selectedAccount, String operationType) {
+		PlaceOrderActivity.startWith(this, selectedSymbol, selectedAccount, operationType);
 	}
 
 	public void showSnackbarMessage(String message) {

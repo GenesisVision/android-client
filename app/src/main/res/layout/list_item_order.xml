@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/item_open_order_height"
+                android:background="?attr/selectableItemBackground"
+                android:paddingStart="@dimen/program_details_padding">
+
+    <TextView
+        android:id="@+id/date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/montserrat_regular"
+        android:textColor="?attr/colorTextSecondary"
+        android:textSize="10sp"
+        tools:text="24 Sep 2018 15:00"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/date">
+
+        <ImageView
+            android:id="@+id/entry"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:layout_centerVertical="true"
+            tools:src="@drawable/icon_red_arrow_up"/>
+
+        <LinearLayout
+            android:id="@+id/group_left"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="20dp"
+            android:layout_toEndOf="@+id/entry"
+            android:gravity="center_vertical"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/symbol"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="4dp"
+                    android:fontFamily="@font/montserrat_semibold"
+                    android:gravity="center_vertical"
+                    android:textColor="?attr/colorTextPrimary"
+                    android:textSize="14sp"
+                    tools:text="BTCUSDT"/>
+
+                <TextView
+                    android:id="@+id/quote_asset"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/montserrat_medium"
+                    android:gravity="center_vertical"
+                    android:textColor="?attr/colorTextSecondary"
+                    android:textSize="14sp"
+                    android:visibility="gone"
+                    tools:text="/USDT"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/side"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/montserrat_regular"
+                    android:textColor="?attr/colorRed"
+                    android:textSize="12sp"
+                    tools:text="@string/sell"/>
+
+                <TextView
+                    android:id="@+id/quantity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:fontFamily="@font/montserrat_medium"
+                    android:textColor="?attr/colorTextPrimary"
+                    android:textSize="10sp"
+                    tools:text="1.0000001 BTC"/>
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/fee"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/padding"
+                android:alpha="0.3"
+                android:fontFamily="@font/montserrat_regular"
+                android:textColor="?attr/colorTextPrimary"
+                android:textSize="10sp"
+                android:visibility="gone"
+                tools:text="Fee 123.12345678 USDT"
+                tools:visibility="visible"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/group_right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="@dimen/padding"
+            android:layout_toEndOf="@+id/group_left"
+            android:gravity="end"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical|end"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/type"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/montserrat_regular"
+                    android:textColor="?attr/colorTextSecondary"
+                    android:textSize="12sp"
+                    tools:text="Limit"/>
+
+                <TextView
+                    android:id="@+id/price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/montserrat_medium"
+                    android:textColor="?attr/colorTextPrimary"
+                    android:textSize="12sp"
+                    tools:text="120.2301"/>
+
+                <TextView
+                    android:id="@+id/trigger"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/montserrat_regular"
+                    android:textColor="?attr/colorTextSecondary"
+                    android:textSize="12sp"
+                    android:visibility="gone"
+                    tools:text="120.23"
+                    tools:visibility="visible"/>
+
+            </LinearLayout>
+
+            <RelativeLayout
+                android:id="@+id/group_filled"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginStart="10dp"
+                tools:visibility="visible">
+
+                <ProgressBar
+                    android:id="@+id/filled_progress"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/circular_background_wallet_invested"
+                    android:indeterminate="false"
+                    android:progressDrawable="@drawable/circular_progress_wallet_invested"
+                    tools:max="100"
+                    tools:min="1"
+                    tools:progress="25"/>
+
+                <TextView
+                    android:id="@+id/filled_percent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:fontFamily="@font/montserrat_semibold"
+                    android:textColor="?attr/colorTextPrimary"
+                    android:textSize="12sp"
+                    tools:text="25%"/>
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_alignParentBottom="true"
+        android:alpha="0.5"
+        android:background="?attr/colorDelimiterLight"/>
+
+    <TextView
+        android:id="@+id/status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="@dimen/padding"
+        android:fontFamily="@font/montserrat_semibold"
+        android:textColor="?attr/colorRed"
+        android:textSize="12sp"
+        android:visibility="gone"
+        tools:text="Canceled"
+        tools:visibility="visible"/>
+
+    <ImageView
+        android:id="@+id/button_close"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignParentEnd="true"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:paddingStart="14dp"
+        android:paddingTop="10dp"
+        android:paddingEnd="20dp"
+        android:paddingBottom="24dp"
+        app:srcCompat="@drawable/icon_close"/>
+
+</RelativeLayout>
