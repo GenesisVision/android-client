@@ -28,17 +28,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class IOsAppVersion implements Parcelable
 {
-	public static final Parcelable.Creator<IOsAppVersion> CREATOR = new Parcelable.Creator<IOsAppVersion>()
-	{
-		public IOsAppVersion createFromParcel(Parcel in) {
-			return new IOsAppVersion(in);
-		}
-
-		public IOsAppVersion[] newArray(int size) {
-			return new IOsAppVersion[size];
-		}
-	};
-
 	@SerializedName("minVersion")
 	private String minVersion = null;
 
@@ -46,11 +35,6 @@ public class IOsAppVersion implements Parcelable
 	private String lastVersion = null;
 
 	public IOsAppVersion() {
-	}
-
-	IOsAppVersion(Parcel in) {
-		minVersion = (String) in.readValue(null);
-		lastVersion = (String) in.readValue(null);
 	}
 
 	public IOsAppVersion minVersion(String minVersion) {
@@ -91,6 +75,7 @@ public class IOsAppVersion implements Parcelable
 		this.lastVersion = lastVersion;
 	}
 
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -108,6 +93,7 @@ public class IOsAppVersion implements Parcelable
 	public int hashCode() {
 		return Objects.hash(minVersion, lastVersion);
 	}
+
 
 	@Override
 	public String toString() {
@@ -131,12 +117,29 @@ public class IOsAppVersion implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
+
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(minVersion);
 		out.writeValue(lastVersion);
 	}
 
+	public static final Parcelable.Creator<IOsAppVersion> CREATOR = new Parcelable.Creator<IOsAppVersion>()
+	{
+		public IOsAppVersion createFromParcel(Parcel in) {
+			return new IOsAppVersion(in);
+		}
+
+		public IOsAppVersion[] newArray(int size) {
+			return new IOsAppVersion[size];
+		}
+	};
+
 	public int describeContents() {
 		return 0;
+	}
+
+	IOsAppVersion(Parcel in) {
+		minVersion = (String) in.readValue(null);
+		lastVersion = (String) in.readValue(null);
 	}
 }

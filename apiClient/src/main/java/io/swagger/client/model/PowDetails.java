@@ -28,17 +28,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class PowDetails implements Parcelable
 {
-	public static final Parcelable.Creator<PowDetails> CREATOR = new Parcelable.Creator<PowDetails>()
-	{
-		public PowDetails createFromParcel(Parcel in) {
-			return new PowDetails(in);
-		}
-
-		public PowDetails[] newArray(int size) {
-			return new PowDetails[size];
-		}
-	};
-
 	@SerializedName("secureAlgorithm")
 	private SecureAlgorithm secureAlgorithm = null;
 
@@ -49,12 +38,6 @@ public class PowDetails implements Parcelable
 	private String nonce = null;
 
 	public PowDetails() {
-	}
-
-	PowDetails(Parcel in) {
-		secureAlgorithm = (SecureAlgorithm) in.readValue(SecureAlgorithm.class.getClassLoader());
-		difficulty = (Integer) in.readValue(null);
-		nonce = (String) in.readValue(null);
 	}
 
 	public PowDetails secureAlgorithm(SecureAlgorithm secureAlgorithm) {
@@ -114,6 +97,7 @@ public class PowDetails implements Parcelable
 		this.nonce = nonce;
 	}
 
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -132,6 +116,7 @@ public class PowDetails implements Parcelable
 	public int hashCode() {
 		return Objects.hash(secureAlgorithm, difficulty, nonce);
 	}
+
 
 	@Override
 	public String toString() {
@@ -156,13 +141,31 @@ public class PowDetails implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
+
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(secureAlgorithm);
 		out.writeValue(difficulty);
 		out.writeValue(nonce);
 	}
 
+	public static final Parcelable.Creator<PowDetails> CREATOR = new Parcelable.Creator<PowDetails>()
+	{
+		public PowDetails createFromParcel(Parcel in) {
+			return new PowDetails(in);
+		}
+
+		public PowDetails[] newArray(int size) {
+			return new PowDetails[size];
+		}
+	};
+
 	public int describeContents() {
 		return 0;
+	}
+
+	PowDetails(Parcel in) {
+		secureAlgorithm = (SecureAlgorithm) in.readValue(SecureAlgorithm.class.getClassLoader());
+		difficulty = (Integer) in.readValue(null);
+		nonce = (String) in.readValue(null);
 	}
 }

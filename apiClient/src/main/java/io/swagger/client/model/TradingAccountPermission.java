@@ -30,15 +30,6 @@ public enum TradingAccountPermission
 	MARGIN("Margin"),
 	FUTURES("Futures");
 
-	public static TradingAccountPermission fromValue(String text) {
-		for (TradingAccountPermission b : TradingAccountPermission.values()) {
-			if (String.valueOf(b.value).equals(text)) {
-				return b;
-			}
-		}
-		return null;
-	}
-
 	private String value;
 
 	TradingAccountPermission(String value) {
@@ -54,6 +45,15 @@ public enum TradingAccountPermission
 		return String.valueOf(value);
 	}
 
+	public static TradingAccountPermission fromValue(String text) {
+		for (TradingAccountPermission b : TradingAccountPermission.values()) {
+			if (String.valueOf(b.value).equals(text)) {
+				return b;
+			}
+		}
+		return null;
+	}
+
 	public static class Adapter extends TypeAdapter<TradingAccountPermission>
 	{
 		@Override
@@ -63,7 +63,7 @@ public enum TradingAccountPermission
 
 		@Override
 		public TradingAccountPermission read(final JsonReader jsonReader) throws IOException {
-			String value = jsonReader.nextString();
+			Object value = jsonReader.nextString();
 			return TradingAccountPermission.fromValue(String.valueOf(value));
 		}
 	}

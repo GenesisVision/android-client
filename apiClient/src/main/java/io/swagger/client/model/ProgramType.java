@@ -28,15 +28,6 @@ public enum ProgramType
 	DAILYPERIOD("DailyPeriod"),
 	FIXEDPERIOD("FixedPeriod");
 
-	public static ProgramType fromValue(String text) {
-		for (ProgramType b : ProgramType.values()) {
-			if (String.valueOf(b.value).equals(text)) {
-				return b;
-			}
-		}
-		return null;
-	}
-
 	private String value;
 
 	ProgramType(String value) {
@@ -52,6 +43,15 @@ public enum ProgramType
 		return String.valueOf(value);
 	}
 
+	public static ProgramType fromValue(String text) {
+		for (ProgramType b : ProgramType.values()) {
+			if (String.valueOf(b.value).equals(text)) {
+				return b;
+			}
+		}
+		return null;
+	}
+
 	public static class Adapter extends TypeAdapter<ProgramType>
 	{
 		@Override
@@ -61,7 +61,7 @@ public enum ProgramType
 
 		@Override
 		public ProgramType read(final JsonReader jsonReader) throws IOException {
-			String value = jsonReader.nextString();
+			Object value = jsonReader.nextString();
 			return ProgramType.fromValue(String.valueOf(value));
 		}
 	}

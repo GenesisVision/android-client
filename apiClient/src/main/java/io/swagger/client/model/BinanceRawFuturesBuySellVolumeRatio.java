@@ -30,17 +30,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class BinanceRawFuturesBuySellVolumeRatio implements Parcelable
 {
-	public static final Parcelable.Creator<BinanceRawFuturesBuySellVolumeRatio> CREATOR = new Parcelable.Creator<BinanceRawFuturesBuySellVolumeRatio>()
-	{
-		public BinanceRawFuturesBuySellVolumeRatio createFromParcel(Parcel in) {
-			return new BinanceRawFuturesBuySellVolumeRatio(in);
-		}
-
-		public BinanceRawFuturesBuySellVolumeRatio[] newArray(int size) {
-			return new BinanceRawFuturesBuySellVolumeRatio[size];
-		}
-	};
-
 	@SerializedName("buySellRatio")
 	private Double buySellRatio = null;
 
@@ -54,13 +43,6 @@ public class BinanceRawFuturesBuySellVolumeRatio implements Parcelable
 	private DateTime timestamp = null;
 
 	public BinanceRawFuturesBuySellVolumeRatio() {
-	}
-
-	BinanceRawFuturesBuySellVolumeRatio(Parcel in) {
-		buySellRatio = (Double) in.readValue(null);
-		buyVolume = (Double) in.readValue(null);
-		sellVolume = (Double) in.readValue(null);
-		timestamp = (DateTime) in.readValue(DateTime.class.getClassLoader());
 	}
 
 	public BinanceRawFuturesBuySellVolumeRatio buySellRatio(Double buySellRatio) {
@@ -139,6 +121,7 @@ public class BinanceRawFuturesBuySellVolumeRatio implements Parcelable
 		this.timestamp = timestamp;
 	}
 
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -158,6 +141,7 @@ public class BinanceRawFuturesBuySellVolumeRatio implements Parcelable
 	public int hashCode() {
 		return Objects.hash(buySellRatio, buyVolume, sellVolume, timestamp);
 	}
+
 
 	@Override
 	public String toString() {
@@ -183,6 +167,7 @@ public class BinanceRawFuturesBuySellVolumeRatio implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
+
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(buySellRatio);
 		out.writeValue(buyVolume);
@@ -190,7 +175,25 @@ public class BinanceRawFuturesBuySellVolumeRatio implements Parcelable
 		out.writeValue(timestamp);
 	}
 
+	public static final Parcelable.Creator<BinanceRawFuturesBuySellVolumeRatio> CREATOR = new Parcelable.Creator<BinanceRawFuturesBuySellVolumeRatio>()
+	{
+		public BinanceRawFuturesBuySellVolumeRatio createFromParcel(Parcel in) {
+			return new BinanceRawFuturesBuySellVolumeRatio(in);
+		}
+
+		public BinanceRawFuturesBuySellVolumeRatio[] newArray(int size) {
+			return new BinanceRawFuturesBuySellVolumeRatio[size];
+		}
+	};
+
 	public int describeContents() {
 		return 0;
+	}
+
+	BinanceRawFuturesBuySellVolumeRatio(Parcel in) {
+		buySellRatio = (Double) in.readValue(null);
+		buyVolume = (Double) in.readValue(null);
+		sellVolume = (Double) in.readValue(null);
+		timestamp = (DateTime) in.readValue(DateTime.class.getClassLoader());
 	}
 }

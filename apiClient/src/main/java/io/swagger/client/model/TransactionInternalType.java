@@ -38,15 +38,6 @@ public enum TransactionInternalType
 	EXCHANGEACCOUNTS("ExchangeAccounts"),
 	REBATE("Rebate");
 
-	public static TransactionInternalType fromValue(String text) {
-		for (TransactionInternalType b : TransactionInternalType.values()) {
-			if (String.valueOf(b.value).equals(text)) {
-				return b;
-			}
-		}
-		return null;
-	}
-
 	private String value;
 
 	TransactionInternalType(String value) {
@@ -62,6 +53,15 @@ public enum TransactionInternalType
 		return String.valueOf(value);
 	}
 
+	public static TransactionInternalType fromValue(String text) {
+		for (TransactionInternalType b : TransactionInternalType.values()) {
+			if (String.valueOf(b.value).equals(text)) {
+				return b;
+			}
+		}
+		return null;
+	}
+
 	public static class Adapter extends TypeAdapter<TransactionInternalType>
 	{
 		@Override
@@ -71,7 +71,7 @@ public enum TransactionInternalType
 
 		@Override
 		public TransactionInternalType read(final JsonReader jsonReader) throws IOException {
-			String value = jsonReader.nextString();
+			Object value = jsonReader.nextString();
 			return TransactionInternalType.fromValue(String.valueOf(value));
 		}
 	}

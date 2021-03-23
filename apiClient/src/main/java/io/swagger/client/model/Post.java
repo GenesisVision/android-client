@@ -33,17 +33,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class Post implements Parcelable
 {
-	public static final Parcelable.Creator<Post> CREATOR = new Parcelable.Creator<Post>()
-	{
-		public Post createFromParcel(Parcel in) {
-			return new Post(in);
-		}
-
-		public Post[] newArray(int size) {
-			return new Post[size];
-		}
-	};
-
 	@SerializedName("id")
 	private UUID id = null;
 
@@ -96,26 +85,6 @@ public class Post implements Parcelable
 	private List<Post> comments = null;
 
 	public Post() {
-	}
-
-	Post(Parcel in) {
-		id = (UUID) in.readValue(UUID.class.getClassLoader());
-		url = (String) in.readValue(null);
-		text = (String) in.readValue(null);
-		date = (DateTime) in.readValue(DateTime.class.getClassLoader());
-		likesCount = (Integer) in.readValue(null);
-		likesUsers = (List<ProfilePublicShort>) in.readValue(ProfilePublicShort.class.getClassLoader());
-		rePostsCount = (Integer) in.readValue(null);
-		rePostsUsers = (List<ProfilePublicShort>) in.readValue(ProfilePublicShort.class.getClassLoader());
-		impressionsCount = (Integer) in.readValue(null);
-		isPinned = (Boolean) in.readValue(null);
-		isDeleted = (Boolean) in.readValue(null);
-		isHighlighted = (Boolean) in.readValue(null);
-		images = (List<PostImage>) in.readValue(PostImage.class.getClassLoader());
-		tags = (List<PostTag>) in.readValue(PostTag.class.getClassLoader());
-		author = (ProfilePublic) in.readValue(ProfilePublic.class.getClassLoader());
-		personalDetails = (PostPersonalDetails) in.readValue(PostPersonalDetails.class.getClassLoader());
-		comments = (List<Post>) in.readValue(Post.class.getClassLoader());
 	}
 
 	public Post id(UUID id) {
@@ -481,6 +450,7 @@ public class Post implements Parcelable
 		this.comments = comments;
 	}
 
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -513,6 +483,7 @@ public class Post implements Parcelable
 	public int hashCode() {
 		return Objects.hash(id, url, text, date, likesCount, likesUsers, rePostsCount, rePostsUsers, impressionsCount, isPinned, isDeleted, isHighlighted, images, tags, author, personalDetails, comments);
 	}
+
 
 	@Override
 	public String toString() {
@@ -551,6 +522,7 @@ public class Post implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
+
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(id);
 		out.writeValue(url);
@@ -571,7 +543,38 @@ public class Post implements Parcelable
 		out.writeValue(comments);
 	}
 
+	public static final Parcelable.Creator<Post> CREATOR = new Parcelable.Creator<Post>()
+	{
+		public Post createFromParcel(Parcel in) {
+			return new Post(in);
+		}
+
+		public Post[] newArray(int size) {
+			return new Post[size];
+		}
+	};
+
 	public int describeContents() {
 		return 0;
+	}
+
+	Post(Parcel in) {
+		id = (UUID) in.readValue(UUID.class.getClassLoader());
+		url = (String) in.readValue(null);
+		text = (String) in.readValue(null);
+		date = (DateTime) in.readValue(DateTime.class.getClassLoader());
+		likesCount = (Integer) in.readValue(null);
+		likesUsers = (List<ProfilePublicShort>) in.readValue(ProfilePublicShort.class.getClassLoader());
+		rePostsCount = (Integer) in.readValue(null);
+		rePostsUsers = (List<ProfilePublicShort>) in.readValue(ProfilePublicShort.class.getClassLoader());
+		impressionsCount = (Integer) in.readValue(null);
+		isPinned = (Boolean) in.readValue(null);
+		isDeleted = (Boolean) in.readValue(null);
+		isHighlighted = (Boolean) in.readValue(null);
+		images = (List<PostImage>) in.readValue(PostImage.class.getClassLoader());
+		tags = (List<PostTag>) in.readValue(PostTag.class.getClassLoader());
+		author = (ProfilePublic) in.readValue(ProfilePublic.class.getClassLoader());
+		personalDetails = (PostPersonalDetails) in.readValue(PostPersonalDetails.class.getClassLoader());
+		comments = (List<Post>) in.readValue(Post.class.getClassLoader());
 	}
 }

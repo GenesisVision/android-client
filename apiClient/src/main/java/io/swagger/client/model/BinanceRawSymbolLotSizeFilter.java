@@ -28,17 +28,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class BinanceRawSymbolLotSizeFilter implements Parcelable
 {
-	public static final Parcelable.Creator<BinanceRawSymbolLotSizeFilter> CREATOR = new Parcelable.Creator<BinanceRawSymbolLotSizeFilter>()
-	{
-		public BinanceRawSymbolLotSizeFilter createFromParcel(Parcel in) {
-			return new BinanceRawSymbolLotSizeFilter(in);
-		}
-
-		public BinanceRawSymbolLotSizeFilter[] newArray(int size) {
-			return new BinanceRawSymbolLotSizeFilter[size];
-		}
-	};
-
 	@SerializedName("filterType")
 	private BinanceSymbolFilterType filterType = null;
 
@@ -52,13 +41,6 @@ public class BinanceRawSymbolLotSizeFilter implements Parcelable
 	private Double stepSize = null;
 
 	public BinanceRawSymbolLotSizeFilter() {
-	}
-
-	BinanceRawSymbolLotSizeFilter(Parcel in) {
-		filterType = (BinanceSymbolFilterType) in.readValue(BinanceSymbolFilterType.class.getClassLoader());
-		minQuantity = (Double) in.readValue(null);
-		maxQuantity = (Double) in.readValue(null);
-		stepSize = (Double) in.readValue(null);
 	}
 
 	public BinanceRawSymbolLotSizeFilter filterType(BinanceSymbolFilterType filterType) {
@@ -137,6 +119,7 @@ public class BinanceRawSymbolLotSizeFilter implements Parcelable
 		this.stepSize = stepSize;
 	}
 
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -156,6 +139,7 @@ public class BinanceRawSymbolLotSizeFilter implements Parcelable
 	public int hashCode() {
 		return Objects.hash(filterType, minQuantity, maxQuantity, stepSize);
 	}
+
 
 	@Override
 	public String toString() {
@@ -181,6 +165,7 @@ public class BinanceRawSymbolLotSizeFilter implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
+
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(filterType);
 		out.writeValue(minQuantity);
@@ -188,7 +173,25 @@ public class BinanceRawSymbolLotSizeFilter implements Parcelable
 		out.writeValue(stepSize);
 	}
 
+	public static final Parcelable.Creator<BinanceRawSymbolLotSizeFilter> CREATOR = new Parcelable.Creator<BinanceRawSymbolLotSizeFilter>()
+	{
+		public BinanceRawSymbolLotSizeFilter createFromParcel(Parcel in) {
+			return new BinanceRawSymbolLotSizeFilter(in);
+		}
+
+		public BinanceRawSymbolLotSizeFilter[] newArray(int size) {
+			return new BinanceRawSymbolLotSizeFilter[size];
+		}
+	};
+
 	public int describeContents() {
 		return 0;
+	}
+
+	BinanceRawSymbolLotSizeFilter(Parcel in) {
+		filterType = (BinanceSymbolFilterType) in.readValue(BinanceSymbolFilterType.class.getClassLoader());
+		minQuantity = (Double) in.readValue(null);
+		maxQuantity = (Double) in.readValue(null);
+		stepSize = (Double) in.readValue(null);
 	}
 }

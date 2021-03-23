@@ -28,17 +28,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class DashboardTradingAssetPublicDetails implements Parcelable
 {
-	public static final Parcelable.Creator<DashboardTradingAssetPublicDetails> CREATOR = new Parcelable.Creator<DashboardTradingAssetPublicDetails>()
-	{
-		public DashboardTradingAssetPublicDetails createFromParcel(Parcel in) {
-			return new DashboardTradingAssetPublicDetails(in);
-		}
-
-		public DashboardTradingAssetPublicDetails[] newArray(int size) {
-			return new DashboardTradingAssetPublicDetails[size];
-		}
-	};
-
 	@SerializedName("logoUrl")
 	private String logoUrl = null;
 
@@ -57,16 +46,18 @@ public class DashboardTradingAssetPublicDetails implements Parcelable
 	@SerializedName("fundDetails")
 	private DashboardFundDetails fundDetails = null;
 
-	public DashboardTradingAssetPublicDetails() {
-	}
+	public static final Parcelable.Creator<DashboardTradingAssetPublicDetails> CREATOR = new Parcelable.Creator<DashboardTradingAssetPublicDetails>()
+	{
+		public DashboardTradingAssetPublicDetails createFromParcel(Parcel in) {
+			return new DashboardTradingAssetPublicDetails(in);
+		}
 
-	DashboardTradingAssetPublicDetails(Parcel in) {
-		logoUrl = (String) in.readValue(null);
-		color = (String) in.readValue(null);
-		title = (String) in.readValue(null);
-		url = (String) in.readValue(null);
-		programDetails = (DashboardProgramDetails) in.readValue(DashboardProgramDetails.class.getClassLoader());
-		fundDetails = (DashboardFundDetails) in.readValue(DashboardFundDetails.class.getClassLoader());
+		public DashboardTradingAssetPublicDetails[] newArray(int size) {
+			return new DashboardTradingAssetPublicDetails[size];
+		}
+	};
+
+	public DashboardTradingAssetPublicDetails() {
 	}
 
 	public DashboardTradingAssetPublicDetails logoUrl(String logoUrl) {
@@ -183,6 +174,38 @@ public class DashboardTradingAssetPublicDetails implements Parcelable
 		this.fundDetails = fundDetails;
 	}
 
+	@SerializedName("owner")
+	private ProfilePublicShort owner = null;
+
+	DashboardTradingAssetPublicDetails(Parcel in) {
+		logoUrl = (String) in.readValue(null);
+		color = (String) in.readValue(null);
+		title = (String) in.readValue(null);
+		url = (String) in.readValue(null);
+		programDetails = (DashboardProgramDetails) in.readValue(DashboardProgramDetails.class.getClassLoader());
+		fundDetails = (DashboardFundDetails) in.readValue(DashboardFundDetails.class.getClassLoader());
+		owner = (ProfilePublicShort) in.readValue(ProfilePublicShort.class.getClassLoader());
+	}
+
+	public DashboardTradingAssetPublicDetails owner(ProfilePublicShort owner) {
+		this.owner = owner;
+		return this;
+	}
+
+	/**
+	 * Get owner
+	 *
+	 * @return owner
+	 **/
+	@Schema(description = "")
+	public ProfilePublicShort getOwner() {
+		return owner;
+	}
+
+	public void setOwner(ProfilePublicShort owner) {
+		this.owner = owner;
+	}
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -197,27 +220,8 @@ public class DashboardTradingAssetPublicDetails implements Parcelable
 				Objects.equals(this.title, dashboardTradingAssetPublicDetails.title) &&
 				Objects.equals(this.url, dashboardTradingAssetPublicDetails.url) &&
 				Objects.equals(this.programDetails, dashboardTradingAssetPublicDetails.programDetails) &&
-				Objects.equals(this.fundDetails, dashboardTradingAssetPublicDetails.fundDetails);
-	}
-
-	@Override
-	public int hashCode() {
-		return Objects.hash(logoUrl, color, title, url, programDetails, fundDetails);
-	}
-
-	@Override
-	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		sb.append("class DashboardTradingAssetPublicDetails {\n");
-
-		sb.append("    logoUrl: ").append(toIndentedString(logoUrl)).append("\n");
-		sb.append("    color: ").append(toIndentedString(color)).append("\n");
-		sb.append("    title: ").append(toIndentedString(title)).append("\n");
-		sb.append("    url: ").append(toIndentedString(url)).append("\n");
-		sb.append("    programDetails: ").append(toIndentedString(programDetails)).append("\n");
-		sb.append("    fundDetails: ").append(toIndentedString(fundDetails)).append("\n");
-		sb.append("}");
-		return sb.toString();
+				Objects.equals(this.fundDetails, dashboardTradingAssetPublicDetails.fundDetails) &&
+				Objects.equals(this.owner, dashboardTradingAssetPublicDetails.owner);
 	}
 
 	/**
@@ -231,6 +235,31 @@ public class DashboardTradingAssetPublicDetails implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
+	@Override
+	public int hashCode() {
+		return Objects.hash(logoUrl, color, title, url, programDetails, fundDetails, owner);
+	}
+
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("class DashboardTradingAssetPublicDetails {\n");
+
+		sb.append("    logoUrl: ").append(toIndentedString(logoUrl)).append("\n");
+		sb.append("    color: ").append(toIndentedString(color)).append("\n");
+		sb.append("    title: ").append(toIndentedString(title)).append("\n");
+		sb.append("    url: ").append(toIndentedString(url)).append("\n");
+		sb.append("    programDetails: ").append(toIndentedString(programDetails)).append("\n");
+		sb.append("    fundDetails: ").append(toIndentedString(fundDetails)).append("\n");
+		sb.append("    owner: ").append(toIndentedString(owner)).append("\n");
+		sb.append("}");
+		return sb.toString();
+	}
+
+	public int describeContents() {
+		return 0;
+	}
+
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(logoUrl);
 		out.writeValue(color);
@@ -238,9 +267,6 @@ public class DashboardTradingAssetPublicDetails implements Parcelable
 		out.writeValue(url);
 		out.writeValue(programDetails);
 		out.writeValue(fundDetails);
-	}
-
-	public int describeContents() {
-		return 0;
+		out.writeValue(owner);
 	}
 }

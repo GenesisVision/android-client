@@ -28,17 +28,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class PersonalFollowDetailsList implements Parcelable
 {
-	public static final Parcelable.Creator<PersonalFollowDetailsList> CREATOR = new Parcelable.Creator<PersonalFollowDetailsList>()
-	{
-		public PersonalFollowDetailsList createFromParcel(Parcel in) {
-			return new PersonalFollowDetailsList(in);
-		}
-
-		public PersonalFollowDetailsList[] newArray(int size) {
-			return new PersonalFollowDetailsList[size];
-		}
-	};
-
 	@SerializedName("isOwnAsset")
 	private Boolean isOwnAsset = null;
 
@@ -46,11 +35,6 @@ public class PersonalFollowDetailsList implements Parcelable
 	private Boolean isFavorite = null;
 
 	public PersonalFollowDetailsList() {
-	}
-
-	PersonalFollowDetailsList(Parcel in) {
-		isOwnAsset = (Boolean) in.readValue(null);
-		isFavorite = (Boolean) in.readValue(null);
 	}
 
 	public PersonalFollowDetailsList isOwnAsset(Boolean isOwnAsset) {
@@ -91,6 +75,7 @@ public class PersonalFollowDetailsList implements Parcelable
 		this.isFavorite = isFavorite;
 	}
 
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -108,6 +93,7 @@ public class PersonalFollowDetailsList implements Parcelable
 	public int hashCode() {
 		return Objects.hash(isOwnAsset, isFavorite);
 	}
+
 
 	@Override
 	public String toString() {
@@ -131,12 +117,29 @@ public class PersonalFollowDetailsList implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
+
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(isOwnAsset);
 		out.writeValue(isFavorite);
 	}
 
+	public static final Parcelable.Creator<PersonalFollowDetailsList> CREATOR = new Parcelable.Creator<PersonalFollowDetailsList>()
+	{
+		public PersonalFollowDetailsList createFromParcel(Parcel in) {
+			return new PersonalFollowDetailsList(in);
+		}
+
+		public PersonalFollowDetailsList[] newArray(int size) {
+			return new PersonalFollowDetailsList[size];
+		}
+	};
+
 	public int describeContents() {
 		return 0;
+	}
+
+	PersonalFollowDetailsList(Parcel in) {
+		isOwnAsset = (Boolean) in.readValue(null);
+		isFavorite = (Boolean) in.readValue(null);
 	}
 }

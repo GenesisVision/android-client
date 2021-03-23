@@ -29,17 +29,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class PlatformAsset implements Parcelable
 {
-	public static final Parcelable.Creator<PlatformAsset> CREATOR = new Parcelable.Creator<PlatformAsset>()
-	{
-		public PlatformAsset createFromParcel(Parcel in) {
-			return new PlatformAsset(in);
-		}
-
-		public PlatformAsset[] newArray(int size) {
-			return new PlatformAsset[size];
-		}
-	};
-
 	@SerializedName("id")
 	private UUID id = null;
 
@@ -68,18 +57,6 @@ public class PlatformAsset implements Parcelable
 	private Double mandatoryFundPercent = null;
 
 	public PlatformAsset() {
-	}
-
-	PlatformAsset(Parcel in) {
-		id = (UUID) in.readValue(UUID.class.getClassLoader());
-		name = (String) in.readValue(null);
-		asset = (String) in.readValue(null);
-		description = (String) in.readValue(null);
-		logoUrl = (String) in.readValue(null);
-		color = (String) in.readValue(null);
-		url = (String) in.readValue(null);
-		provider = (AssetProvider) in.readValue(AssetProvider.class.getClassLoader());
-		mandatoryFundPercent = (Double) in.readValue(null);
 	}
 
 	public PlatformAsset id(UUID id) {
@@ -253,6 +230,7 @@ public class PlatformAsset implements Parcelable
 		this.mandatoryFundPercent = mandatoryFundPercent;
 	}
 
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -277,6 +255,7 @@ public class PlatformAsset implements Parcelable
 	public int hashCode() {
 		return Objects.hash(id, name, asset, description, logoUrl, color, url, provider, mandatoryFundPercent);
 	}
+
 
 	@Override
 	public String toString() {
@@ -307,6 +286,7 @@ public class PlatformAsset implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
+
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(id);
 		out.writeValue(name);
@@ -319,7 +299,30 @@ public class PlatformAsset implements Parcelable
 		out.writeValue(mandatoryFundPercent);
 	}
 
+	public static final Parcelable.Creator<PlatformAsset> CREATOR = new Parcelable.Creator<PlatformAsset>()
+	{
+		public PlatformAsset createFromParcel(Parcel in) {
+			return new PlatformAsset(in);
+		}
+
+		public PlatformAsset[] newArray(int size) {
+			return new PlatformAsset[size];
+		}
+	};
+
 	public int describeContents() {
 		return 0;
+	}
+
+	PlatformAsset(Parcel in) {
+		id = (UUID) in.readValue(UUID.class.getClassLoader());
+		name = (String) in.readValue(null);
+		asset = (String) in.readValue(null);
+		description = (String) in.readValue(null);
+		logoUrl = (String) in.readValue(null);
+		color = (String) in.readValue(null);
+		url = (String) in.readValue(null);
+		provider = (AssetProvider) in.readValue(AssetProvider.class.getClassLoader());
+		mandatoryFundPercent = (Double) in.readValue(null);
 	}
 }

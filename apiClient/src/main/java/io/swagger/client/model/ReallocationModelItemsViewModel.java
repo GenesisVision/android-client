@@ -29,17 +29,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class ReallocationModelItemsViewModel implements Parcelable
 {
-	public static final Parcelable.Creator<ReallocationModelItemsViewModel> CREATOR = new Parcelable.Creator<ReallocationModelItemsViewModel>()
-	{
-		public ReallocationModelItemsViewModel createFromParcel(Parcel in) {
-			return new ReallocationModelItemsViewModel(in);
-		}
-
-		public ReallocationModelItemsViewModel[] newArray(int size) {
-			return new ReallocationModelItemsViewModel[size];
-		}
-	};
-
 	@SerializedName("items")
 	private List<ReallocationModel> items = null;
 
@@ -47,11 +36,6 @@ public class ReallocationModelItemsViewModel implements Parcelable
 	private Integer total = null;
 
 	public ReallocationModelItemsViewModel() {
-	}
-
-	ReallocationModelItemsViewModel(Parcel in) {
-		items = (List<ReallocationModel>) in.readValue(ReallocationModel.class.getClassLoader());
-		total = (Integer) in.readValue(null);
 	}
 
 	/**
@@ -74,6 +58,7 @@ public class ReallocationModelItemsViewModel implements Parcelable
 		return total;
 	}
 
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -91,6 +76,7 @@ public class ReallocationModelItemsViewModel implements Parcelable
 	public int hashCode() {
 		return Objects.hash(items, total);
 	}
+
 
 	@Override
 	public String toString() {
@@ -114,12 +100,29 @@ public class ReallocationModelItemsViewModel implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
+
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(items);
 		out.writeValue(total);
 	}
 
+	public static final Parcelable.Creator<ReallocationModelItemsViewModel> CREATOR = new Parcelable.Creator<ReallocationModelItemsViewModel>()
+	{
+		public ReallocationModelItemsViewModel createFromParcel(Parcel in) {
+			return new ReallocationModelItemsViewModel(in);
+		}
+
+		public ReallocationModelItemsViewModel[] newArray(int size) {
+			return new ReallocationModelItemsViewModel[size];
+		}
+	};
+
 	public int describeContents() {
 		return 0;
+	}
+
+	ReallocationModelItemsViewModel(Parcel in) {
+		items = (List<ReallocationModel>) in.readValue(ReallocationModel.class.getClassLoader());
+		total = (Integer) in.readValue(null);
 	}
 }

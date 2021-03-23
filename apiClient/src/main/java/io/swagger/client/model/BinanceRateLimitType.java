@@ -29,15 +29,6 @@ public enum BinanceRateLimitType
 	ORDERS("Orders"),
 	RAWREQUESTS("RawRequests");
 
-	public static BinanceRateLimitType fromValue(String text) {
-		for (BinanceRateLimitType b : BinanceRateLimitType.values()) {
-			if (String.valueOf(b.value).equals(text)) {
-				return b;
-			}
-		}
-		return null;
-	}
-
 	private String value;
 
 	BinanceRateLimitType(String value) {
@@ -53,6 +44,15 @@ public enum BinanceRateLimitType
 		return String.valueOf(value);
 	}
 
+	public static BinanceRateLimitType fromValue(String text) {
+		for (BinanceRateLimitType b : BinanceRateLimitType.values()) {
+			if (String.valueOf(b.value).equals(text)) {
+				return b;
+			}
+		}
+		return null;
+	}
+
 	public static class Adapter extends TypeAdapter<BinanceRateLimitType>
 	{
 		@Override
@@ -62,7 +62,7 @@ public enum BinanceRateLimitType
 
 		@Override
 		public BinanceRateLimitType read(final JsonReader jsonReader) throws IOException {
-			String value = jsonReader.nextString();
+			Object value = jsonReader.nextString();
 			return BinanceRateLimitType.fromValue(String.valueOf(value));
 		}
 	}

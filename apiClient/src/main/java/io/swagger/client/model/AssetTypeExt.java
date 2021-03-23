@@ -33,15 +33,6 @@ public enum AssetTypeExt
 	EXTERNALSIGNALTRADINGACCOUNT("ExternalSignalTradingAccount"),
 	SELFMANAGEDFUND("SelfManagedFund");
 
-	public static AssetTypeExt fromValue(String text) {
-		for (AssetTypeExt b : AssetTypeExt.values()) {
-			if (String.valueOf(b.value).equals(text)) {
-				return b;
-			}
-		}
-		return null;
-	}
-
 	private String value;
 
 	AssetTypeExt(String value) {
@@ -57,6 +48,15 @@ public enum AssetTypeExt
 		return String.valueOf(value);
 	}
 
+	public static AssetTypeExt fromValue(String text) {
+		for (AssetTypeExt b : AssetTypeExt.values()) {
+			if (String.valueOf(b.value).equals(text)) {
+				return b;
+			}
+		}
+		return null;
+	}
+
 	public static class Adapter extends TypeAdapter<AssetTypeExt>
 	{
 		@Override
@@ -66,7 +66,7 @@ public enum AssetTypeExt
 
 		@Override
 		public AssetTypeExt read(final JsonReader jsonReader) throws IOException {
-			String value = jsonReader.nextString();
+			Object value = jsonReader.nextString();
 			return AssetTypeExt.fromValue(String.valueOf(value));
 		}
 	}

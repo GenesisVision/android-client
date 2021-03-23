@@ -32,15 +32,6 @@ public enum TradeDirectionType
 	UNDEFINED("Undefined"),
 	MANUALBALANCING("ManualBalancing");
 
-	public static TradeDirectionType fromValue(String text) {
-		for (TradeDirectionType b : TradeDirectionType.values()) {
-			if (String.valueOf(b.value).equals(text)) {
-				return b;
-			}
-		}
-		return null;
-	}
-
 	private String value;
 
 	TradeDirectionType(String value) {
@@ -56,6 +47,15 @@ public enum TradeDirectionType
 		return String.valueOf(value);
 	}
 
+	public static TradeDirectionType fromValue(String text) {
+		for (TradeDirectionType b : TradeDirectionType.values()) {
+			if (String.valueOf(b.value).equals(text)) {
+				return b;
+			}
+		}
+		return null;
+	}
+
 	public static class Adapter extends TypeAdapter<TradeDirectionType>
 	{
 		@Override
@@ -65,7 +65,7 @@ public enum TradeDirectionType
 
 		@Override
 		public TradeDirectionType read(final JsonReader jsonReader) throws IOException {
-			String value = jsonReader.nextString();
+			Object value = jsonReader.nextString();
 			return TradeDirectionType.fromValue(String.valueOf(value));
 		}
 	}

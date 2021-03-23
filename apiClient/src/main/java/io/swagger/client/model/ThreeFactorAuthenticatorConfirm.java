@@ -28,17 +28,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class ThreeFactorAuthenticatorConfirm implements Parcelable
 {
-	public static final Parcelable.Creator<ThreeFactorAuthenticatorConfirm> CREATOR = new Parcelable.Creator<ThreeFactorAuthenticatorConfirm>()
-	{
-		public ThreeFactorAuthenticatorConfirm createFromParcel(Parcel in) {
-			return new ThreeFactorAuthenticatorConfirm(in);
-		}
-
-		public ThreeFactorAuthenticatorConfirm[] newArray(int size) {
-			return new ThreeFactorAuthenticatorConfirm[size];
-		}
-	};
-
 	@SerializedName("email")
 	private String email = null;
 
@@ -49,12 +38,6 @@ public class ThreeFactorAuthenticatorConfirm implements Parcelable
 	private String token = null;
 
 	public ThreeFactorAuthenticatorConfirm() {
-	}
-
-	ThreeFactorAuthenticatorConfirm(Parcel in) {
-		email = (String) in.readValue(null);
-		code = (String) in.readValue(null);
-		token = (String) in.readValue(null);
 	}
 
 	public ThreeFactorAuthenticatorConfirm email(String email) {
@@ -114,6 +97,7 @@ public class ThreeFactorAuthenticatorConfirm implements Parcelable
 		this.token = token;
 	}
 
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -132,6 +116,7 @@ public class ThreeFactorAuthenticatorConfirm implements Parcelable
 	public int hashCode() {
 		return Objects.hash(email, code, token);
 	}
+
 
 	@Override
 	public String toString() {
@@ -156,13 +141,31 @@ public class ThreeFactorAuthenticatorConfirm implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
+
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(email);
 		out.writeValue(code);
 		out.writeValue(token);
 	}
 
+	public static final Parcelable.Creator<ThreeFactorAuthenticatorConfirm> CREATOR = new Parcelable.Creator<ThreeFactorAuthenticatorConfirm>()
+	{
+		public ThreeFactorAuthenticatorConfirm createFromParcel(Parcel in) {
+			return new ThreeFactorAuthenticatorConfirm(in);
+		}
+
+		public ThreeFactorAuthenticatorConfirm[] newArray(int size) {
+			return new ThreeFactorAuthenticatorConfirm[size];
+		}
+	};
+
 	public int describeContents() {
 		return 0;
+	}
+
+	ThreeFactorAuthenticatorConfirm(Parcel in) {
+		email = (String) in.readValue(null);
+		code = (String) in.readValue(null);
+		token = (String) in.readValue(null);
 	}
 }

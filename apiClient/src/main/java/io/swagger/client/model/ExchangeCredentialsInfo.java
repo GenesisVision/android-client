@@ -33,17 +33,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class ExchangeCredentialsInfo implements Parcelable
 {
-	public static final Parcelable.Creator<ExchangeCredentialsInfo> CREATOR = new Parcelable.Creator<ExchangeCredentialsInfo>()
-	{
-		public ExchangeCredentialsInfo createFromParcel(Parcel in) {
-			return new ExchangeCredentialsInfo(in);
-		}
-
-		public ExchangeCredentialsInfo[] newArray(int size) {
-			return new ExchangeCredentialsInfo[size];
-		}
-	};
-
 	@SerializedName("apiKey")
 	private String apiKey = null;
 
@@ -75,19 +64,6 @@ public class ExchangeCredentialsInfo implements Parcelable
 	private List<ExchangeCredentialsIpInfo> allowedIps = null;
 
 	public ExchangeCredentialsInfo() {
-	}
-
-	ExchangeCredentialsInfo(Parcel in) {
-		apiKey = (String) in.readValue(null);
-		apiSecret = (String) in.readValue(null);
-		id = (UUID) in.readValue(UUID.class.getClassLoader());
-		title = (String) in.readValue(null);
-		isEnabled = (Boolean) in.readValue(null);
-		isIpRestrict = (Boolean) in.readValue(null);
-		isTradingEnabled = (Boolean) in.readValue(null);
-		dateCreate = (DateTime) in.readValue(DateTime.class.getClassLoader());
-		dateRemove = (DateTime) in.readValue(DateTime.class.getClassLoader());
-		allowedIps = (List<ExchangeCredentialsIpInfo>) in.readValue(ExchangeCredentialsIpInfo.class.getClassLoader());
 	}
 
 	public ExchangeCredentialsInfo apiKey(String apiKey) {
@@ -288,6 +264,7 @@ public class ExchangeCredentialsInfo implements Parcelable
 		this.allowedIps = allowedIps;
 	}
 
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -313,6 +290,7 @@ public class ExchangeCredentialsInfo implements Parcelable
 	public int hashCode() {
 		return Objects.hash(apiKey, apiSecret, id, title, isEnabled, isIpRestrict, isTradingEnabled, dateCreate, dateRemove, allowedIps);
 	}
+
 
 	@Override
 	public String toString() {
@@ -344,6 +322,7 @@ public class ExchangeCredentialsInfo implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
+
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(apiKey);
 		out.writeValue(apiSecret);
@@ -357,7 +336,31 @@ public class ExchangeCredentialsInfo implements Parcelable
 		out.writeValue(allowedIps);
 	}
 
+	public static final Parcelable.Creator<ExchangeCredentialsInfo> CREATOR = new Parcelable.Creator<ExchangeCredentialsInfo>()
+	{
+		public ExchangeCredentialsInfo createFromParcel(Parcel in) {
+			return new ExchangeCredentialsInfo(in);
+		}
+
+		public ExchangeCredentialsInfo[] newArray(int size) {
+			return new ExchangeCredentialsInfo[size];
+		}
+	};
+
 	public int describeContents() {
 		return 0;
+	}
+
+	ExchangeCredentialsInfo(Parcel in) {
+		apiKey = (String) in.readValue(null);
+		apiSecret = (String) in.readValue(null);
+		id = (UUID) in.readValue(UUID.class.getClassLoader());
+		title = (String) in.readValue(null);
+		isEnabled = (Boolean) in.readValue(null);
+		isIpRestrict = (Boolean) in.readValue(null);
+		isTradingEnabled = (Boolean) in.readValue(null);
+		dateCreate = (DateTime) in.readValue(DateTime.class.getClassLoader());
+		dateRemove = (DateTime) in.readValue(DateTime.class.getClassLoader());
+		allowedIps = (List<ExchangeCredentialsIpInfo>) in.readValue(ExchangeCredentialsIpInfo.class.getClassLoader());
 	}
 }

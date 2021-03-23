@@ -31,17 +31,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class FundNotificationSettingList implements Parcelable
 {
-	public static final Parcelable.Creator<FundNotificationSettingList> CREATOR = new Parcelable.Creator<FundNotificationSettingList>()
-	{
-		public FundNotificationSettingList createFromParcel(Parcel in) {
-			return new FundNotificationSettingList(in);
-		}
-
-		public FundNotificationSettingList[] newArray(int size) {
-			return new FundNotificationSettingList[size];
-		}
-	};
-
 	@SerializedName("assetId")
 	private UUID assetId = null;
 
@@ -61,15 +50,6 @@ public class FundNotificationSettingList implements Parcelable
 	private List<NotificationSettingViewModel> settingsGeneral = null;
 
 	public FundNotificationSettingList() {
-	}
-
-	FundNotificationSettingList(Parcel in) {
-		assetId = (UUID) in.readValue(UUID.class.getClassLoader());
-		title = (String) in.readValue(null);
-		url = (String) in.readValue(null);
-		logoUrl = (String) in.readValue(null);
-		color = (String) in.readValue(null);
-		settingsGeneral = (List<NotificationSettingViewModel>) in.readValue(NotificationSettingViewModel.class.getClassLoader());
 	}
 
 	public FundNotificationSettingList assetId(UUID assetId) {
@@ -194,6 +174,7 @@ public class FundNotificationSettingList implements Parcelable
 		this.settingsGeneral = settingsGeneral;
 	}
 
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -215,6 +196,7 @@ public class FundNotificationSettingList implements Parcelable
 	public int hashCode() {
 		return Objects.hash(assetId, title, url, logoUrl, color, settingsGeneral);
 	}
+
 
 	@Override
 	public String toString() {
@@ -242,6 +224,7 @@ public class FundNotificationSettingList implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
+
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(assetId);
 		out.writeValue(title);
@@ -251,7 +234,27 @@ public class FundNotificationSettingList implements Parcelable
 		out.writeValue(settingsGeneral);
 	}
 
+	public static final Parcelable.Creator<FundNotificationSettingList> CREATOR = new Parcelable.Creator<FundNotificationSettingList>()
+	{
+		public FundNotificationSettingList createFromParcel(Parcel in) {
+			return new FundNotificationSettingList(in);
+		}
+
+		public FundNotificationSettingList[] newArray(int size) {
+			return new FundNotificationSettingList[size];
+		}
+	};
+
 	public int describeContents() {
 		return 0;
+	}
+
+	FundNotificationSettingList(Parcel in) {
+		assetId = (UUID) in.readValue(UUID.class.getClassLoader());
+		title = (String) in.readValue(null);
+		url = (String) in.readValue(null);
+		logoUrl = (String) in.readValue(null);
+		color = (String) in.readValue(null);
+		settingsGeneral = (List<NotificationSettingViewModel>) in.readValue(NotificationSettingViewModel.class.getClassLoader());
 	}
 }

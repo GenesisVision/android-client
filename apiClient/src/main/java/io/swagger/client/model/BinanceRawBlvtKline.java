@@ -30,17 +30,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class BinanceRawBlvtKline implements Parcelable
 {
-	public static final Parcelable.Creator<BinanceRawBlvtKline> CREATOR = new Parcelable.Creator<BinanceRawBlvtKline>()
-	{
-		public BinanceRawBlvtKline createFromParcel(Parcel in) {
-			return new BinanceRawBlvtKline(in);
-		}
-
-		public BinanceRawBlvtKline[] newArray(int size) {
-			return new BinanceRawBlvtKline[size];
-		}
-	};
-
 	@SerializedName("openTime")
 	private DateTime openTime = null;
 
@@ -66,17 +55,6 @@ public class BinanceRawBlvtKline implements Parcelable
 	private Integer navUpdates = null;
 
 	public BinanceRawBlvtKline() {
-	}
-
-	BinanceRawBlvtKline(Parcel in) {
-		openTime = (DateTime) in.readValue(DateTime.class.getClassLoader());
-		open = (Double) in.readValue(null);
-		high = (Double) in.readValue(null);
-		low = (Double) in.readValue(null);
-		close = (Double) in.readValue(null);
-		realLeverage = (Double) in.readValue(null);
-		closeTime = (DateTime) in.readValue(DateTime.class.getClassLoader());
-		navUpdates = (Integer) in.readValue(null);
 	}
 
 	public BinanceRawBlvtKline openTime(DateTime openTime) {
@@ -231,6 +209,7 @@ public class BinanceRawBlvtKline implements Parcelable
 		this.navUpdates = navUpdates;
 	}
 
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -254,6 +233,7 @@ public class BinanceRawBlvtKline implements Parcelable
 	public int hashCode() {
 		return Objects.hash(openTime, open, high, low, close, realLeverage, closeTime, navUpdates);
 	}
+
 
 	@Override
 	public String toString() {
@@ -283,6 +263,7 @@ public class BinanceRawBlvtKline implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
+
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(openTime);
 		out.writeValue(open);
@@ -294,7 +275,29 @@ public class BinanceRawBlvtKline implements Parcelable
 		out.writeValue(navUpdates);
 	}
 
+	public static final Parcelable.Creator<BinanceRawBlvtKline> CREATOR = new Parcelable.Creator<BinanceRawBlvtKline>()
+	{
+		public BinanceRawBlvtKline createFromParcel(Parcel in) {
+			return new BinanceRawBlvtKline(in);
+		}
+
+		public BinanceRawBlvtKline[] newArray(int size) {
+			return new BinanceRawBlvtKline[size];
+		}
+	};
+
 	public int describeContents() {
 		return 0;
+	}
+
+	BinanceRawBlvtKline(Parcel in) {
+		openTime = (DateTime) in.readValue(DateTime.class.getClassLoader());
+		open = (Double) in.readValue(null);
+		high = (Double) in.readValue(null);
+		low = (Double) in.readValue(null);
+		close = (Double) in.readValue(null);
+		realLeverage = (Double) in.readValue(null);
+		closeTime = (DateTime) in.readValue(DateTime.class.getClassLoader());
+		navUpdates = (Integer) in.readValue(null);
 	}
 }

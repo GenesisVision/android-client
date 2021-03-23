@@ -28,25 +28,10 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class PowResult implements Parcelable
 {
-	public static final Parcelable.Creator<PowResult> CREATOR = new Parcelable.Creator<PowResult>()
-	{
-		public PowResult createFromParcel(Parcel in) {
-			return new PowResult(in);
-		}
-
-		public PowResult[] newArray(int size) {
-			return new PowResult[size];
-		}
-	};
-
 	@SerializedName("prefix")
 	private String prefix = null;
 
 	public PowResult() {
-	}
-
-	PowResult(Parcel in) {
-		prefix = (String) in.readValue(null);
 	}
 
 	public PowResult prefix(String prefix) {
@@ -68,6 +53,7 @@ public class PowResult implements Parcelable
 		this.prefix = prefix;
 	}
 
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -84,6 +70,7 @@ public class PowResult implements Parcelable
 	public int hashCode() {
 		return Objects.hash(prefix);
 	}
+
 
 	@Override
 	public String toString() {
@@ -106,11 +93,27 @@ public class PowResult implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
+
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(prefix);
 	}
 
+	public static final Parcelable.Creator<PowResult> CREATOR = new Parcelable.Creator<PowResult>()
+	{
+		public PowResult createFromParcel(Parcel in) {
+			return new PowResult(in);
+		}
+
+		public PowResult[] newArray(int size) {
+			return new PowResult[size];
+		}
+	};
+
 	public int describeContents() {
 		return 0;
+	}
+
+	PowResult(Parcel in) {
+		prefix = (String) in.readValue(null);
 	}
 }

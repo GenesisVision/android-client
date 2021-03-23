@@ -28,17 +28,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class DashboardProgramDetails implements Parcelable
 {
-	public static final Parcelable.Creator<DashboardProgramDetails> CREATOR = new Parcelable.Creator<DashboardProgramDetails>()
-	{
-		public DashboardProgramDetails createFromParcel(Parcel in) {
-			return new DashboardProgramDetails(in);
-		}
-
-		public DashboardProgramDetails[] newArray(int size) {
-			return new DashboardProgramDetails[size];
-		}
-	};
-
 	@SerializedName("level")
 	private Integer level = null;
 
@@ -60,21 +49,27 @@ public class DashboardProgramDetails implements Parcelable
 	@SerializedName("successFeeCurrent")
 	private Double successFeeCurrent = null;
 
+	public static final Parcelable.Creator<DashboardProgramDetails> CREATOR = new Parcelable.Creator<DashboardProgramDetails>()
+	{
+		public DashboardProgramDetails createFromParcel(Parcel in) {
+			return new DashboardProgramDetails(in);
+		}
+
+		public DashboardProgramDetails[] newArray(int size) {
+			return new DashboardProgramDetails[size];
+		}
+	};
+
+	@SerializedName("stopOutLevelSelected")
+	private Double stopOutLevelSelected = null;
+
+	@SerializedName("stopOutLevelCurrent")
+	private Double stopOutLevelCurrent = null;
+
 	@SerializedName("dailyPeriodDetails")
 	private ProgramDailyPeriodDetails dailyPeriodDetails = null;
 
 	public DashboardProgramDetails() {
-	}
-
-	DashboardProgramDetails(Parcel in) {
-		level = (Integer) in.readValue(null);
-		levelProgress = (Double) in.readValue(null);
-		type = (ProgramType) in.readValue(ProgramType.class.getClassLoader());
-		managementFeeSelected = (Double) in.readValue(null);
-		managementFeeCurrent = (Double) in.readValue(null);
-		successFeeSelected = (Double) in.readValue(null);
-		successFeeCurrent = (Double) in.readValue(null);
-		dailyPeriodDetails = (ProgramDailyPeriodDetails) in.readValue(ProgramDailyPeriodDetails.class.getClassLoader());
 	}
 
 	public DashboardProgramDetails level(Integer level) {
@@ -210,6 +205,66 @@ public class DashboardProgramDetails implements Parcelable
 		this.successFeeCurrent = successFeeCurrent;
 	}
 
+	@SerializedName("totalAvailableInvestment")
+	private Double totalAvailableInvestment = null;
+
+	DashboardProgramDetails(Parcel in) {
+		level = (Integer) in.readValue(null);
+		levelProgress = (Double) in.readValue(null);
+		type = (ProgramType) in.readValue(ProgramType.class.getClassLoader());
+		managementFeeSelected = (Double) in.readValue(null);
+		managementFeeCurrent = (Double) in.readValue(null);
+		successFeeSelected = (Double) in.readValue(null);
+		successFeeCurrent = (Double) in.readValue(null);
+		stopOutLevelSelected = (Double) in.readValue(null);
+		stopOutLevelCurrent = (Double) in.readValue(null);
+		totalAvailableInvestment = (Double) in.readValue(null);
+		dailyPeriodDetails = (ProgramDailyPeriodDetails) in.readValue(ProgramDailyPeriodDetails.class.getClassLoader());
+	}
+
+	public DashboardProgramDetails stopOutLevelSelected(Double stopOutLevelSelected) {
+		this.stopOutLevelSelected = stopOutLevelSelected;
+		return this;
+	}
+
+	/**
+	 * Get stopOutLevelSelected
+	 *
+	 * @return stopOutLevelSelected
+	 **/
+	@Schema(description = "")
+	public Double getStopOutLevelSelected() {
+		return stopOutLevelSelected;
+	}
+
+	public void setStopOutLevelSelected(Double stopOutLevelSelected) {
+		this.stopOutLevelSelected = stopOutLevelSelected;
+	}
+
+	public DashboardProgramDetails stopOutLevelCurrent(Double stopOutLevelCurrent) {
+		this.stopOutLevelCurrent = stopOutLevelCurrent;
+		return this;
+	}
+
+	/**
+	 * Get stopOutLevelCurrent
+	 *
+	 * @return stopOutLevelCurrent
+	 **/
+	@Schema(description = "")
+	public Double getStopOutLevelCurrent() {
+		return stopOutLevelCurrent;
+	}
+
+	public void setStopOutLevelCurrent(Double stopOutLevelCurrent) {
+		this.stopOutLevelCurrent = stopOutLevelCurrent;
+	}
+
+	public DashboardProgramDetails totalAvailableInvestment(Double totalAvailableInvestment) {
+		this.totalAvailableInvestment = totalAvailableInvestment;
+		return this;
+	}
+
 	public DashboardProgramDetails dailyPeriodDetails(ProgramDailyPeriodDetails dailyPeriodDetails) {
 		this.dailyPeriodDetails = dailyPeriodDetails;
 		return this;
@@ -229,6 +284,20 @@ public class DashboardProgramDetails implements Parcelable
 		this.dailyPeriodDetails = dailyPeriodDetails;
 	}
 
+	/**
+	 * Get totalAvailableInvestment
+	 *
+	 * @return totalAvailableInvestment
+	 **/
+	@Schema(description = "")
+	public Double getTotalAvailableInvestment() {
+		return totalAvailableInvestment;
+	}
+
+	public void setTotalAvailableInvestment(Double totalAvailableInvestment) {
+		this.totalAvailableInvestment = totalAvailableInvestment;
+	}
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -245,12 +314,26 @@ public class DashboardProgramDetails implements Parcelable
 				Objects.equals(this.managementFeeCurrent, dashboardProgramDetails.managementFeeCurrent) &&
 				Objects.equals(this.successFeeSelected, dashboardProgramDetails.successFeeSelected) &&
 				Objects.equals(this.successFeeCurrent, dashboardProgramDetails.successFeeCurrent) &&
+				Objects.equals(this.stopOutLevelSelected, dashboardProgramDetails.stopOutLevelSelected) &&
+				Objects.equals(this.stopOutLevelCurrent, dashboardProgramDetails.stopOutLevelCurrent) &&
+				Objects.equals(this.totalAvailableInvestment, dashboardProgramDetails.totalAvailableInvestment) &&
 				Objects.equals(this.dailyPeriodDetails, dashboardProgramDetails.dailyPeriodDetails);
+	}
+
+	/**
+	 * Convert the given object to string with each line indented by 4 spaces
+	 * (except the first line).
+	 */
+	private String toIndentedString(java.lang.Object o) {
+		if (o == null) {
+			return "null";
+		}
+		return o.toString().replace("\n", "\n    ");
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(level, levelProgress, type, managementFeeSelected, managementFeeCurrent, successFeeSelected, successFeeCurrent, dailyPeriodDetails);
+		return Objects.hash(level, levelProgress, type, managementFeeSelected, managementFeeCurrent, successFeeSelected, successFeeCurrent, stopOutLevelSelected, stopOutLevelCurrent, totalAvailableInvestment, dailyPeriodDetails);
 	}
 
 	@Override
@@ -265,20 +348,16 @@ public class DashboardProgramDetails implements Parcelable
 		sb.append("    managementFeeCurrent: ").append(toIndentedString(managementFeeCurrent)).append("\n");
 		sb.append("    successFeeSelected: ").append(toIndentedString(successFeeSelected)).append("\n");
 		sb.append("    successFeeCurrent: ").append(toIndentedString(successFeeCurrent)).append("\n");
+		sb.append("    stopOutLevelSelected: ").append(toIndentedString(stopOutLevelSelected)).append("\n");
+		sb.append("    stopOutLevelCurrent: ").append(toIndentedString(stopOutLevelCurrent)).append("\n");
+		sb.append("    totalAvailableInvestment: ").append(toIndentedString(totalAvailableInvestment)).append("\n");
 		sb.append("    dailyPeriodDetails: ").append(toIndentedString(dailyPeriodDetails)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}
 
-	/**
-	 * Convert the given object to string with each line indented by 4 spaces
-	 * (except the first line).
-	 */
-	private String toIndentedString(java.lang.Object o) {
-		if (o == null) {
-			return "null";
-		}
-		return o.toString().replace("\n", "\n    ");
+	public int describeContents() {
+		return 0;
 	}
 
 	public void writeToParcel(Parcel out, int flags) {
@@ -289,10 +368,9 @@ public class DashboardProgramDetails implements Parcelable
 		out.writeValue(managementFeeCurrent);
 		out.writeValue(successFeeSelected);
 		out.writeValue(successFeeCurrent);
+		out.writeValue(stopOutLevelSelected);
+		out.writeValue(stopOutLevelCurrent);
+		out.writeValue(totalAvailableInvestment);
 		out.writeValue(dailyPeriodDetails);
-	}
-
-	public int describeContents() {
-		return 0;
 	}
 }

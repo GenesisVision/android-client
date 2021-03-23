@@ -30,15 +30,6 @@ public enum TransactionExternalType
 	DEPOSIT("Deposit"),
 	PLATFORM("Platform");
 
-	public static TransactionExternalType fromValue(String text) {
-		for (TransactionExternalType b : TransactionExternalType.values()) {
-			if (String.valueOf(b.value).equals(text)) {
-				return b;
-			}
-		}
-		return null;
-	}
-
 	private String value;
 
 	TransactionExternalType(String value) {
@@ -54,6 +45,15 @@ public enum TransactionExternalType
 		return String.valueOf(value);
 	}
 
+	public static TransactionExternalType fromValue(String text) {
+		for (TransactionExternalType b : TransactionExternalType.values()) {
+			if (String.valueOf(b.value).equals(text)) {
+				return b;
+			}
+		}
+		return null;
+	}
+
 	public static class Adapter extends TypeAdapter<TransactionExternalType>
 	{
 		@Override
@@ -63,7 +63,7 @@ public enum TransactionExternalType
 
 		@Override
 		public TransactionExternalType read(final JsonReader jsonReader) throws IOException {
-			String value = jsonReader.nextString();
+			Object value = jsonReader.nextString();
 			return TransactionExternalType.fromValue(String.valueOf(value));
 		}
 	}

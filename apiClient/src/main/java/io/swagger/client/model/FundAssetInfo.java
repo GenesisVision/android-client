@@ -28,17 +28,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class FundAssetInfo implements Parcelable
 {
-	public static final Parcelable.Creator<FundAssetInfo> CREATOR = new Parcelable.Creator<FundAssetInfo>()
-	{
-		public FundAssetInfo createFromParcel(Parcel in) {
-			return new FundAssetInfo(in);
-		}
-
-		public FundAssetInfo[] newArray(int size) {
-			return new FundAssetInfo[size];
-		}
-	};
-
 	@SerializedName("asset")
 	private String asset = null;
 
@@ -61,16 +50,6 @@ public class FundAssetInfo implements Parcelable
 	private String url = null;
 
 	public FundAssetInfo() {
-	}
-
-	FundAssetInfo(Parcel in) {
-		asset = (String) in.readValue(null);
-		symbol = (String) in.readValue(null);
-		logoUrl = (String) in.readValue(null);
-		target = (Double) in.readValue(null);
-		current = (Double) in.readValue(null);
-		currentAmount = (Double) in.readValue(null);
-		url = (String) in.readValue(null);
 	}
 
 	public FundAssetInfo asset(String asset) {
@@ -206,6 +185,7 @@ public class FundAssetInfo implements Parcelable
 		this.url = url;
 	}
 
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -228,6 +208,7 @@ public class FundAssetInfo implements Parcelable
 	public int hashCode() {
 		return Objects.hash(asset, symbol, logoUrl, target, current, currentAmount, url);
 	}
+
 
 	@Override
 	public String toString() {
@@ -256,6 +237,7 @@ public class FundAssetInfo implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
+
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(asset);
 		out.writeValue(symbol);
@@ -266,7 +248,28 @@ public class FundAssetInfo implements Parcelable
 		out.writeValue(url);
 	}
 
+	public static final Parcelable.Creator<FundAssetInfo> CREATOR = new Parcelable.Creator<FundAssetInfo>()
+	{
+		public FundAssetInfo createFromParcel(Parcel in) {
+			return new FundAssetInfo(in);
+		}
+
+		public FundAssetInfo[] newArray(int size) {
+			return new FundAssetInfo[size];
+		}
+	};
+
 	public int describeContents() {
 		return 0;
+	}
+
+	FundAssetInfo(Parcel in) {
+		asset = (String) in.readValue(null);
+		symbol = (String) in.readValue(null);
+		logoUrl = (String) in.readValue(null);
+		target = (Double) in.readValue(null);
+		current = (Double) in.readValue(null);
+		currentAmount = (Double) in.readValue(null);
+		url = (String) in.readValue(null);
 	}
 }

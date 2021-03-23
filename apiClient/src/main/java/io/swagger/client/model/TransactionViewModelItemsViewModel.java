@@ -29,17 +29,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class TransactionViewModelItemsViewModel implements Parcelable
 {
-	public static final Parcelable.Creator<TransactionViewModelItemsViewModel> CREATOR = new Parcelable.Creator<TransactionViewModelItemsViewModel>()
-	{
-		public TransactionViewModelItemsViewModel createFromParcel(Parcel in) {
-			return new TransactionViewModelItemsViewModel(in);
-		}
-
-		public TransactionViewModelItemsViewModel[] newArray(int size) {
-			return new TransactionViewModelItemsViewModel[size];
-		}
-	};
-
 	@SerializedName("items")
 	private List<TransactionViewModel> items = null;
 
@@ -47,11 +36,6 @@ public class TransactionViewModelItemsViewModel implements Parcelable
 	private Integer total = null;
 
 	public TransactionViewModelItemsViewModel() {
-	}
-
-	TransactionViewModelItemsViewModel(Parcel in) {
-		items = (List<TransactionViewModel>) in.readValue(TransactionViewModel.class.getClassLoader());
-		total = (Integer) in.readValue(null);
 	}
 
 	/**
@@ -74,6 +58,7 @@ public class TransactionViewModelItemsViewModel implements Parcelable
 		return total;
 	}
 
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -91,6 +76,7 @@ public class TransactionViewModelItemsViewModel implements Parcelable
 	public int hashCode() {
 		return Objects.hash(items, total);
 	}
+
 
 	@Override
 	public String toString() {
@@ -114,12 +100,29 @@ public class TransactionViewModelItemsViewModel implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
+
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(items);
 		out.writeValue(total);
 	}
 
+	public static final Parcelable.Creator<TransactionViewModelItemsViewModel> CREATOR = new Parcelable.Creator<TransactionViewModelItemsViewModel>()
+	{
+		public TransactionViewModelItemsViewModel createFromParcel(Parcel in) {
+			return new TransactionViewModelItemsViewModel(in);
+		}
+
+		public TransactionViewModelItemsViewModel[] newArray(int size) {
+			return new TransactionViewModelItemsViewModel[size];
+		}
+	};
+
 	public int describeContents() {
 		return 0;
+	}
+
+	TransactionViewModelItemsViewModel(Parcel in) {
+		items = (List<TransactionViewModel>) in.readValue(TransactionViewModel.class.getClassLoader());
+		total = (Integer) in.readValue(null);
 	}
 }

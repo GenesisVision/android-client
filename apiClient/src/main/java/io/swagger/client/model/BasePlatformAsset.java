@@ -29,17 +29,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class BasePlatformAsset implements Parcelable
 {
-	public static final Parcelable.Creator<BasePlatformAsset> CREATOR = new Parcelable.Creator<BasePlatformAsset>()
-	{
-		public BasePlatformAsset createFromParcel(Parcel in) {
-			return new BasePlatformAsset(in);
-		}
-
-		public BasePlatformAsset[] newArray(int size) {
-			return new BasePlatformAsset[size];
-		}
-	};
-
 	@SerializedName("id")
 	private UUID id = null;
 
@@ -65,17 +54,6 @@ public class BasePlatformAsset implements Parcelable
 	private AssetProvider provider = null;
 
 	public BasePlatformAsset() {
-	}
-
-	BasePlatformAsset(Parcel in) {
-		id = (UUID) in.readValue(UUID.class.getClassLoader());
-		name = (String) in.readValue(null);
-		asset = (String) in.readValue(null);
-		description = (String) in.readValue(null);
-		logoUrl = (String) in.readValue(null);
-		color = (String) in.readValue(null);
-		url = (String) in.readValue(null);
-		provider = (AssetProvider) in.readValue(AssetProvider.class.getClassLoader());
 	}
 
 	public BasePlatformAsset id(UUID id) {
@@ -230,6 +208,7 @@ public class BasePlatformAsset implements Parcelable
 		this.provider = provider;
 	}
 
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -253,6 +232,7 @@ public class BasePlatformAsset implements Parcelable
 	public int hashCode() {
 		return Objects.hash(id, name, asset, description, logoUrl, color, url, provider);
 	}
+
 
 	@Override
 	public String toString() {
@@ -282,6 +262,7 @@ public class BasePlatformAsset implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
+
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(id);
 		out.writeValue(name);
@@ -293,7 +274,29 @@ public class BasePlatformAsset implements Parcelable
 		out.writeValue(provider);
 	}
 
+	public static final Parcelable.Creator<BasePlatformAsset> CREATOR = new Parcelable.Creator<BasePlatformAsset>()
+	{
+		public BasePlatformAsset createFromParcel(Parcel in) {
+			return new BasePlatformAsset(in);
+		}
+
+		public BasePlatformAsset[] newArray(int size) {
+			return new BasePlatformAsset[size];
+		}
+	};
+
 	public int describeContents() {
 		return 0;
+	}
+
+	BasePlatformAsset(Parcel in) {
+		id = (UUID) in.readValue(UUID.class.getClassLoader());
+		name = (String) in.readValue(null);
+		asset = (String) in.readValue(null);
+		description = (String) in.readValue(null);
+		logoUrl = (String) in.readValue(null);
+		color = (String) in.readValue(null);
+		url = (String) in.readValue(null);
+		provider = (AssetProvider) in.readValue(AssetProvider.class.getClassLoader());
 	}
 }

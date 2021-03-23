@@ -28,17 +28,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class DashboardTimeframeProfit implements Parcelable
 {
-	public static final Parcelable.Creator<DashboardTimeframeProfit> CREATOR = new Parcelable.Creator<DashboardTimeframeProfit>()
-	{
-		public DashboardTimeframeProfit createFromParcel(Parcel in) {
-			return new DashboardTimeframeProfit(in);
-		}
-
-		public DashboardTimeframeProfit[] newArray(int size) {
-			return new DashboardTimeframeProfit[size];
-		}
-	};
-
 	@SerializedName("profit")
 	private Double profit = null;
 
@@ -46,11 +35,6 @@ public class DashboardTimeframeProfit implements Parcelable
 	private Double profitPercent = null;
 
 	public DashboardTimeframeProfit() {
-	}
-
-	DashboardTimeframeProfit(Parcel in) {
-		profit = (Double) in.readValue(null);
-		profitPercent = (Double) in.readValue(null);
 	}
 
 	public DashboardTimeframeProfit profit(Double profit) {
@@ -91,6 +75,7 @@ public class DashboardTimeframeProfit implements Parcelable
 		this.profitPercent = profitPercent;
 	}
 
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -108,6 +93,7 @@ public class DashboardTimeframeProfit implements Parcelable
 	public int hashCode() {
 		return Objects.hash(profit, profitPercent);
 	}
+
 
 	@Override
 	public String toString() {
@@ -131,12 +117,29 @@ public class DashboardTimeframeProfit implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
+
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(profit);
 		out.writeValue(profitPercent);
 	}
 
+	public static final Parcelable.Creator<DashboardTimeframeProfit> CREATOR = new Parcelable.Creator<DashboardTimeframeProfit>()
+	{
+		public DashboardTimeframeProfit createFromParcel(Parcel in) {
+			return new DashboardTimeframeProfit(in);
+		}
+
+		public DashboardTimeframeProfit[] newArray(int size) {
+			return new DashboardTimeframeProfit[size];
+		}
+	};
+
 	public int describeContents() {
 		return 0;
+	}
+
+	DashboardTimeframeProfit(Parcel in) {
+		profit = (Double) in.readValue(null);
+		profitPercent = (Double) in.readValue(null);
 	}
 }

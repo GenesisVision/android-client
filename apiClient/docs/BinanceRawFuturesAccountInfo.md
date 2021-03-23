@@ -20,4 +20,4 @@ Name | Type | Description | Notes
 **availableBalance** | **Double** |  |  [optional]
 **updateTime** | [**DateTime**](DateTime.md) |  |  [optional]
 **assets** | [**List&lt;BinanceRawFuturesAccountAsset&gt;**](BinanceRawFuturesAccountAsset.md) |  |  [optional]
-**positions** | [**List&lt;BinanceRawFuturesAccountPosition&gt;**](BinanceRawFuturesAccountPosition.md) |  |  [optional]
+**positions** | [**List&lt;BinanceRawFuturesPosition&gt;**](BinanceRawFuturesPosition.md) |  |  [optional]

@@ -32,7 +32,7 @@ Bearer.setApiKey("YOUR API KEY");
 FileApi apiInstance = new FileApi();
 File uploadedFile = new File("uploadedFile_example"); // File | 
 ImageLocation location = new ImageLocation(); // ImageLocation | 
-Boolean waitForResize = true; // Boolean | 
+Boolean waitForResize = false; // Boolean | 
 try {
     UploadResult result = apiInstance.uploadFile(uploadedFile, location, waitForResize);
     System.out.println(result);
@@ -48,7 +48,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **uploadedFile** | **File**|  | [optional]
  **location** | [**ImageLocation**](.md)|  | [optional]
- **waitForResize** | **Boolean**|  | [optional]
+ **waitForResize** | **Boolean**|  | [optional] [default to false]
 
 ### Return type
 

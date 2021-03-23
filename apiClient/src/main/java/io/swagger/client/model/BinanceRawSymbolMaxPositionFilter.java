@@ -28,17 +28,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class BinanceRawSymbolMaxPositionFilter implements Parcelable
 {
-	public static final Parcelable.Creator<BinanceRawSymbolMaxPositionFilter> CREATOR = new Parcelable.Creator<BinanceRawSymbolMaxPositionFilter>()
-	{
-		public BinanceRawSymbolMaxPositionFilter createFromParcel(Parcel in) {
-			return new BinanceRawSymbolMaxPositionFilter(in);
-		}
-
-		public BinanceRawSymbolMaxPositionFilter[] newArray(int size) {
-			return new BinanceRawSymbolMaxPositionFilter[size];
-		}
-	};
-
 	@SerializedName("filterType")
 	private BinanceSymbolFilterType filterType = null;
 
@@ -46,11 +35,6 @@ public class BinanceRawSymbolMaxPositionFilter implements Parcelable
 	private Double maxPosition = null;
 
 	public BinanceRawSymbolMaxPositionFilter() {
-	}
-
-	BinanceRawSymbolMaxPositionFilter(Parcel in) {
-		filterType = (BinanceSymbolFilterType) in.readValue(BinanceSymbolFilterType.class.getClassLoader());
-		maxPosition = (Double) in.readValue(null);
 	}
 
 	public BinanceRawSymbolMaxPositionFilter filterType(BinanceSymbolFilterType filterType) {
@@ -91,6 +75,7 @@ public class BinanceRawSymbolMaxPositionFilter implements Parcelable
 		this.maxPosition = maxPosition;
 	}
 
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -108,6 +93,7 @@ public class BinanceRawSymbolMaxPositionFilter implements Parcelable
 	public int hashCode() {
 		return Objects.hash(filterType, maxPosition);
 	}
+
 
 	@Override
 	public String toString() {
@@ -131,12 +117,29 @@ public class BinanceRawSymbolMaxPositionFilter implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
+
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(filterType);
 		out.writeValue(maxPosition);
 	}
 
+	public static final Parcelable.Creator<BinanceRawSymbolMaxPositionFilter> CREATOR = new Parcelable.Creator<BinanceRawSymbolMaxPositionFilter>()
+	{
+		public BinanceRawSymbolMaxPositionFilter createFromParcel(Parcel in) {
+			return new BinanceRawSymbolMaxPositionFilter(in);
+		}
+
+		public BinanceRawSymbolMaxPositionFilter[] newArray(int size) {
+			return new BinanceRawSymbolMaxPositionFilter[size];
+		}
+	};
+
 	public int describeContents() {
 		return 0;
+	}
+
+	BinanceRawSymbolMaxPositionFilter(Parcel in) {
+		filterType = (BinanceSymbolFilterType) in.readValue(BinanceSymbolFilterType.class.getClassLoader());
+		maxPosition = (Double) in.readValue(null);
 	}
 }

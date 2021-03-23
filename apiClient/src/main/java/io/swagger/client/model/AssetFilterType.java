@@ -30,15 +30,6 @@ public enum AssetFilterType
 	FUND("Fund"),
 	FOLLOW("Follow");
 
-	public static AssetFilterType fromValue(String text) {
-		for (AssetFilterType b : AssetFilterType.values()) {
-			if (String.valueOf(b.value).equals(text)) {
-				return b;
-			}
-		}
-		return null;
-	}
-
 	private String value;
 
 	AssetFilterType(String value) {
@@ -54,6 +45,15 @@ public enum AssetFilterType
 		return String.valueOf(value);
 	}
 
+	public static AssetFilterType fromValue(String text) {
+		for (AssetFilterType b : AssetFilterType.values()) {
+			if (String.valueOf(b.value).equals(text)) {
+				return b;
+			}
+		}
+		return null;
+	}
+
 	public static class Adapter extends TypeAdapter<AssetFilterType>
 	{
 		@Override
@@ -63,7 +63,7 @@ public enum AssetFilterType
 
 		@Override
 		public AssetFilterType read(final JsonReader jsonReader) throws IOException {
-			String value = jsonReader.nextString();
+			Object value = jsonReader.nextString();
 			return AssetFilterType.fromValue(String.valueOf(value));
 		}
 	}

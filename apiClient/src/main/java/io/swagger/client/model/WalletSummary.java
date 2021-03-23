@@ -30,17 +30,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class WalletSummary implements Parcelable
 {
-	public static final Parcelable.Creator<WalletSummary> CREATOR = new Parcelable.Creator<WalletSummary>()
-	{
-		public WalletSummary createFromParcel(Parcel in) {
-			return new WalletSummary(in);
-		}
-
-		public WalletSummary[] newArray(int size) {
-			return new WalletSummary[size];
-		}
-	};
-
 	@SerializedName("grandTotal")
 	private WalletsGrandTotal grandTotal = null;
 
@@ -51,12 +40,6 @@ public class WalletSummary implements Parcelable
 	private Double genesisMarketsDiscountPercent = null;
 
 	public WalletSummary() {
-	}
-
-	WalletSummary(Parcel in) {
-		grandTotal = (WalletsGrandTotal) in.readValue(WalletsGrandTotal.class.getClassLoader());
-		wallets = (List<WalletData>) in.readValue(WalletData.class.getClassLoader());
-		genesisMarketsDiscountPercent = (Double) in.readValue(null);
 	}
 
 	public WalletSummary grandTotal(WalletsGrandTotal grandTotal) {
@@ -124,6 +107,7 @@ public class WalletSummary implements Parcelable
 		this.genesisMarketsDiscountPercent = genesisMarketsDiscountPercent;
 	}
 
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -142,6 +126,7 @@ public class WalletSummary implements Parcelable
 	public int hashCode() {
 		return Objects.hash(grandTotal, wallets, genesisMarketsDiscountPercent);
 	}
+
 
 	@Override
 	public String toString() {
@@ -166,13 +151,31 @@ public class WalletSummary implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
+
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(grandTotal);
 		out.writeValue(wallets);
 		out.writeValue(genesisMarketsDiscountPercent);
 	}
 
+	public static final Parcelable.Creator<WalletSummary> CREATOR = new Parcelable.Creator<WalletSummary>()
+	{
+		public WalletSummary createFromParcel(Parcel in) {
+			return new WalletSummary(in);
+		}
+
+		public WalletSummary[] newArray(int size) {
+			return new WalletSummary[size];
+		}
+	};
+
 	public int describeContents() {
 		return 0;
+	}
+
+	WalletSummary(Parcel in) {
+		grandTotal = (WalletsGrandTotal) in.readValue(WalletsGrandTotal.class.getClassLoader());
+		wallets = (List<WalletData>) in.readValue(WalletData.class.getClassLoader());
+		genesisMarketsDiscountPercent = (Double) in.readValue(null);
 	}
 }

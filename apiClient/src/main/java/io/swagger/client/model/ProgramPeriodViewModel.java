@@ -30,17 +30,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class ProgramPeriodViewModel implements Parcelable
 {
-	public static final Parcelable.Creator<ProgramPeriodViewModel> CREATOR = new Parcelable.Creator<ProgramPeriodViewModel>()
-	{
-		public ProgramPeriodViewModel createFromParcel(Parcel in) {
-			return new ProgramPeriodViewModel(in);
-		}
-
-		public ProgramPeriodViewModel[] newArray(int size) {
-			return new ProgramPeriodViewModel[size];
-		}
-	};
-
 	@SerializedName("dateFrom")
 	private DateTime dateFrom = null;
 
@@ -96,27 +85,6 @@ public class ProgramPeriodViewModel implements Parcelable
 	private InvestorFinancialStatistic investorStatistic = null;
 
 	public ProgramPeriodViewModel() {
-	}
-
-	ProgramPeriodViewModel(Parcel in) {
-		dateFrom = (DateTime) in.readValue(DateTime.class.getClassLoader());
-		dateTo = (DateTime) in.readValue(DateTime.class.getClassLoader());
-		periodLength = (Double) in.readValue(null);
-		status = (PeriodStatus) in.readValue(PeriodStatus.class.getClassLoader());
-		number = (Integer) in.readValue(null);
-		profit = (Double) in.readValue(null);
-		profitPercent = (Double) in.readValue(null);
-		balance = (Double) in.readValue(null);
-		investors = (Integer) in.readValue(null);
-		managerDeposit = (Double) in.readValue(null);
-		managerWithdraw = (Double) in.readValue(null);
-		managerCommissionRebate = (Double) in.readValue(null);
-		investorsDeposit = (Double) in.readValue(null);
-		investorsWithdraw = (Double) in.readValue(null);
-		investorsProfitWithdraw = (Double) in.readValue(null);
-		platformSuccessFee = (Double) in.readValue(null);
-		managerStatistic = (ManagerFinancialStatistic) in.readValue(ManagerFinancialStatistic.class.getClassLoader());
-		investorStatistic = (InvestorFinancialStatistic) in.readValue(InvestorFinancialStatistic.class.getClassLoader());
 	}
 
 	public ProgramPeriodViewModel dateFrom(DateTime dateFrom) {
@@ -461,6 +429,7 @@ public class ProgramPeriodViewModel implements Parcelable
 		this.investorStatistic = investorStatistic;
 	}
 
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -494,6 +463,7 @@ public class ProgramPeriodViewModel implements Parcelable
 	public int hashCode() {
 		return Objects.hash(dateFrom, dateTo, periodLength, status, number, profit, profitPercent, balance, investors, managerDeposit, managerWithdraw, managerCommissionRebate, investorsDeposit, investorsWithdraw, investorsProfitWithdraw, platformSuccessFee, managerStatistic, investorStatistic);
 	}
+
 
 	@Override
 	public String toString() {
@@ -533,6 +503,7 @@ public class ProgramPeriodViewModel implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
+
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(dateFrom);
 		out.writeValue(dateTo);
@@ -554,7 +525,39 @@ public class ProgramPeriodViewModel implements Parcelable
 		out.writeValue(investorStatistic);
 	}
 
+	public static final Parcelable.Creator<ProgramPeriodViewModel> CREATOR = new Parcelable.Creator<ProgramPeriodViewModel>()
+	{
+		public ProgramPeriodViewModel createFromParcel(Parcel in) {
+			return new ProgramPeriodViewModel(in);
+		}
+
+		public ProgramPeriodViewModel[] newArray(int size) {
+			return new ProgramPeriodViewModel[size];
+		}
+	};
+
 	public int describeContents() {
 		return 0;
+	}
+
+	ProgramPeriodViewModel(Parcel in) {
+		dateFrom = (DateTime) in.readValue(DateTime.class.getClassLoader());
+		dateTo = (DateTime) in.readValue(DateTime.class.getClassLoader());
+		periodLength = (Double) in.readValue(null);
+		status = (PeriodStatus) in.readValue(PeriodStatus.class.getClassLoader());
+		number = (Integer) in.readValue(null);
+		profit = (Double) in.readValue(null);
+		profitPercent = (Double) in.readValue(null);
+		balance = (Double) in.readValue(null);
+		investors = (Integer) in.readValue(null);
+		managerDeposit = (Double) in.readValue(null);
+		managerWithdraw = (Double) in.readValue(null);
+		managerCommissionRebate = (Double) in.readValue(null);
+		investorsDeposit = (Double) in.readValue(null);
+		investorsWithdraw = (Double) in.readValue(null);
+		investorsProfitWithdraw = (Double) in.readValue(null);
+		platformSuccessFee = (Double) in.readValue(null);
+		managerStatistic = (ManagerFinancialStatistic) in.readValue(ManagerFinancialStatistic.class.getClassLoader());
+		investorStatistic = (InvestorFinancialStatistic) in.readValue(InvestorFinancialStatistic.class.getClassLoader());
 	}
 }

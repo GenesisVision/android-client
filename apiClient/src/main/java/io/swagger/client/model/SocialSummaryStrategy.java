@@ -29,17 +29,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class SocialSummaryStrategy implements Parcelable
 {
-	public static final Parcelable.Creator<SocialSummaryStrategy> CREATOR = new Parcelable.Creator<SocialSummaryStrategy>()
-	{
-		public SocialSummaryStrategy createFromParcel(Parcel in) {
-			return new SocialSummaryStrategy(in);
-		}
-
-		public SocialSummaryStrategy[] newArray(int size) {
-			return new SocialSummaryStrategy[size];
-		}
-	};
-
 	@SerializedName("id")
 	private UUID id = null;
 
@@ -71,19 +60,6 @@ public class SocialSummaryStrategy implements Parcelable
 	private Double profitPercent = null;
 
 	public SocialSummaryStrategy() {
-	}
-
-	SocialSummaryStrategy(Parcel in) {
-		id = (UUID) in.readValue(UUID.class.getClassLoader());
-		logoUrl = (String) in.readValue(null);
-		color = (String) in.readValue(null);
-		title = (String) in.readValue(null);
-		url = (String) in.readValue(null);
-		assetType = (AssetType) in.readValue(AssetType.class.getClassLoader());
-		programDetails = (ProgramAssetDetails) in.readValue(ProgramAssetDetails.class.getClassLoader());
-		investorsCount = (Integer) in.readValue(null);
-		subscribersCount = (Integer) in.readValue(null);
-		profitPercent = (Double) in.readValue(null);
 	}
 
 	public SocialSummaryStrategy id(UUID id) {
@@ -276,6 +252,7 @@ public class SocialSummaryStrategy implements Parcelable
 		this.profitPercent = profitPercent;
 	}
 
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -301,6 +278,7 @@ public class SocialSummaryStrategy implements Parcelable
 	public int hashCode() {
 		return Objects.hash(id, logoUrl, color, title, url, assetType, programDetails, investorsCount, subscribersCount, profitPercent);
 	}
+
 
 	@Override
 	public String toString() {
@@ -332,6 +310,7 @@ public class SocialSummaryStrategy implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
+
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(id);
 		out.writeValue(logoUrl);
@@ -345,7 +324,31 @@ public class SocialSummaryStrategy implements Parcelable
 		out.writeValue(profitPercent);
 	}
 
+	public static final Parcelable.Creator<SocialSummaryStrategy> CREATOR = new Parcelable.Creator<SocialSummaryStrategy>()
+	{
+		public SocialSummaryStrategy createFromParcel(Parcel in) {
+			return new SocialSummaryStrategy(in);
+		}
+
+		public SocialSummaryStrategy[] newArray(int size) {
+			return new SocialSummaryStrategy[size];
+		}
+	};
+
 	public int describeContents() {
 		return 0;
+	}
+
+	SocialSummaryStrategy(Parcel in) {
+		id = (UUID) in.readValue(UUID.class.getClassLoader());
+		logoUrl = (String) in.readValue(null);
+		color = (String) in.readValue(null);
+		title = (String) in.readValue(null);
+		url = (String) in.readValue(null);
+		assetType = (AssetType) in.readValue(AssetType.class.getClassLoader());
+		programDetails = (ProgramAssetDetails) in.readValue(ProgramAssetDetails.class.getClassLoader());
+		investorsCount = (Integer) in.readValue(null);
+		subscribersCount = (Integer) in.readValue(null);
+		profitPercent = (Double) in.readValue(null);
 	}
 }

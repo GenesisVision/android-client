@@ -34,15 +34,6 @@ public enum Currency
 	USDC("USDC"),
 	USD("USD");
 
-	public static Currency fromValue(String text) {
-		for (Currency b : Currency.values()) {
-			if (String.valueOf(b.value).equals(text)) {
-				return b;
-			}
-		}
-		return null;
-	}
-
 	private String value;
 
 	Currency(String value) {
@@ -58,6 +49,15 @@ public enum Currency
 		return String.valueOf(value);
 	}
 
+	public static Currency fromValue(String text) {
+		for (Currency b : Currency.values()) {
+			if (String.valueOf(b.value).equals(text)) {
+				return b;
+			}
+		}
+		return null;
+	}
+
 	public static class Adapter extends TypeAdapter<Currency>
 	{
 		@Override
@@ -67,7 +67,7 @@ public enum Currency
 
 		@Override
 		public Currency read(final JsonReader jsonReader) throws IOException {
-			String value = jsonReader.nextString();
+			Object value = jsonReader.nextString();
 			return Currency.fromValue(String.valueOf(value));
 		}
 	}

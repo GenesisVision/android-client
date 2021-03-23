@@ -28,17 +28,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class ChangePasswordViewModel implements Parcelable
 {
-	public static final Parcelable.Creator<ChangePasswordViewModel> CREATOR = new Parcelable.Creator<ChangePasswordViewModel>()
-	{
-		public ChangePasswordViewModel createFromParcel(Parcel in) {
-			return new ChangePasswordViewModel(in);
-		}
-
-		public ChangePasswordViewModel[] newArray(int size) {
-			return new ChangePasswordViewModel[size];
-		}
-	};
-
 	@SerializedName("oldPassword")
 	private String oldPassword = null;
 
@@ -49,12 +38,6 @@ public class ChangePasswordViewModel implements Parcelable
 	private String confirmPassword = null;
 
 	public ChangePasswordViewModel() {
-	}
-
-	ChangePasswordViewModel(Parcel in) {
-		oldPassword = (String) in.readValue(null);
-		password = (String) in.readValue(null);
-		confirmPassword = (String) in.readValue(null);
 	}
 
 	public ChangePasswordViewModel oldPassword(String oldPassword) {
@@ -114,6 +97,7 @@ public class ChangePasswordViewModel implements Parcelable
 		this.confirmPassword = confirmPassword;
 	}
 
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -132,6 +116,7 @@ public class ChangePasswordViewModel implements Parcelable
 	public int hashCode() {
 		return Objects.hash(oldPassword, password, confirmPassword);
 	}
+
 
 	@Override
 	public String toString() {
@@ -156,13 +141,31 @@ public class ChangePasswordViewModel implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
+
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(oldPassword);
 		out.writeValue(password);
 		out.writeValue(confirmPassword);
 	}
 
+	public static final Parcelable.Creator<ChangePasswordViewModel> CREATOR = new Parcelable.Creator<ChangePasswordViewModel>()
+	{
+		public ChangePasswordViewModel createFromParcel(Parcel in) {
+			return new ChangePasswordViewModel(in);
+		}
+
+		public ChangePasswordViewModel[] newArray(int size) {
+			return new ChangePasswordViewModel[size];
+		}
+	};
+
 	public int describeContents() {
 		return 0;
+	}
+
+	ChangePasswordViewModel(Parcel in) {
+		oldPassword = (String) in.readValue(null);
+		password = (String) in.readValue(null);
+		confirmPassword = (String) in.readValue(null);
 	}
 }

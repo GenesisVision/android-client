@@ -28,17 +28,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class FundWithdrawInfo implements Parcelable
 {
-	public static final Parcelable.Creator<FundWithdrawInfo> CREATOR = new Parcelable.Creator<FundWithdrawInfo>()
-	{
-		public FundWithdrawInfo createFromParcel(Parcel in) {
-			return new FundWithdrawInfo(in);
-		}
-
-		public FundWithdrawInfo[] newArray(int size) {
-			return new FundWithdrawInfo[size];
-		}
-	};
-
 	@SerializedName("title")
 	private String title = null;
 
@@ -55,14 +44,6 @@ public class FundWithdrawInfo implements Parcelable
 	private Double exitFee = null;
 
 	public FundWithdrawInfo() {
-	}
-
-	FundWithdrawInfo(Parcel in) {
-		title = (String) in.readValue(null);
-		availableToWithdraw = (Double) in.readValue(null);
-		isOwner = (Boolean) in.readValue(null);
-		withheldInvestment = (Double) in.readValue(null);
-		exitFee = (Double) in.readValue(null);
 	}
 
 	public FundWithdrawInfo title(String title) {
@@ -160,6 +141,7 @@ public class FundWithdrawInfo implements Parcelable
 		this.exitFee = exitFee;
 	}
 
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -180,6 +162,7 @@ public class FundWithdrawInfo implements Parcelable
 	public int hashCode() {
 		return Objects.hash(title, availableToWithdraw, isOwner, withheldInvestment, exitFee);
 	}
+
 
 	@Override
 	public String toString() {
@@ -206,6 +189,7 @@ public class FundWithdrawInfo implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
+
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(title);
 		out.writeValue(availableToWithdraw);
@@ -214,7 +198,26 @@ public class FundWithdrawInfo implements Parcelable
 		out.writeValue(exitFee);
 	}
 
+	public static final Parcelable.Creator<FundWithdrawInfo> CREATOR = new Parcelable.Creator<FundWithdrawInfo>()
+	{
+		public FundWithdrawInfo createFromParcel(Parcel in) {
+			return new FundWithdrawInfo(in);
+		}
+
+		public FundWithdrawInfo[] newArray(int size) {
+			return new FundWithdrawInfo[size];
+		}
+	};
+
 	public int describeContents() {
 		return 0;
+	}
+
+	FundWithdrawInfo(Parcel in) {
+		title = (String) in.readValue(null);
+		availableToWithdraw = (Double) in.readValue(null);
+		isOwner = (Boolean) in.readValue(null);
+		withheldInvestment = (Double) in.readValue(null);
+		exitFee = (Double) in.readValue(null);
 	}
 }

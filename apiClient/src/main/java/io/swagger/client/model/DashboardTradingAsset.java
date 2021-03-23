@@ -31,17 +31,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class DashboardTradingAsset implements Parcelable
 {
-	public static final Parcelable.Creator<DashboardTradingAsset> CREATOR = new Parcelable.Creator<DashboardTradingAsset>()
-	{
-		public DashboardTradingAsset createFromParcel(Parcel in) {
-			return new DashboardTradingAsset(in);
-		}
-
-		public DashboardTradingAsset[] newArray(int size) {
-			return new DashboardTradingAsset[size];
-		}
-	};
-
 	@SerializedName("id")
 	private UUID id = null;
 
@@ -73,19 +62,6 @@ public class DashboardTradingAsset implements Parcelable
 	private List<Tag> tags = null;
 
 	public DashboardTradingAsset() {
-	}
-
-	DashboardTradingAsset(Parcel in) {
-		id = (UUID) in.readValue(UUID.class.getClassLoader());
-		assetType = (AssetType) in.readValue(AssetType.class.getClassLoader());
-		assetTypeExt = (AssetTypeExt) in.readValue(AssetTypeExt.class.getClassLoader());
-		statistic = (ProfitChart) in.readValue(ProfitChart.class.getClassLoader());
-		publicInfo = (DashboardTradingAssetPublicDetails) in.readValue(DashboardTradingAssetPublicDetails.class.getClassLoader());
-		accountInfo = (DashboardTradingAssetCommonDetails) in.readValue(DashboardTradingAssetCommonDetails.class.getClassLoader());
-		signalInfo = (DashboardTradingAssetSignalDetails) in.readValue(DashboardTradingAssetSignalDetails.class.getClassLoader());
-		broker = (DashboardTradingAssetBrokerDetails) in.readValue(DashboardTradingAssetBrokerDetails.class.getClassLoader());
-		actions = (DashboardTradingAssetActions) in.readValue(DashboardTradingAssetActions.class.getClassLoader());
-		tags = (List<Tag>) in.readValue(Tag.class.getClassLoader());
 	}
 
 	public DashboardTradingAsset id(UUID id) {
@@ -286,6 +262,7 @@ public class DashboardTradingAsset implements Parcelable
 		this.tags = tags;
 	}
 
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -311,6 +288,7 @@ public class DashboardTradingAsset implements Parcelable
 	public int hashCode() {
 		return Objects.hash(id, assetType, assetTypeExt, statistic, publicInfo, accountInfo, signalInfo, broker, actions, tags);
 	}
+
 
 	@Override
 	public String toString() {
@@ -342,6 +320,7 @@ public class DashboardTradingAsset implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
+
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(id);
 		out.writeValue(assetType);
@@ -355,7 +334,31 @@ public class DashboardTradingAsset implements Parcelable
 		out.writeValue(tags);
 	}
 
+	public static final Parcelable.Creator<DashboardTradingAsset> CREATOR = new Parcelable.Creator<DashboardTradingAsset>()
+	{
+		public DashboardTradingAsset createFromParcel(Parcel in) {
+			return new DashboardTradingAsset(in);
+		}
+
+		public DashboardTradingAsset[] newArray(int size) {
+			return new DashboardTradingAsset[size];
+		}
+	};
+
 	public int describeContents() {
 		return 0;
+	}
+
+	DashboardTradingAsset(Parcel in) {
+		id = (UUID) in.readValue(UUID.class.getClassLoader());
+		assetType = (AssetType) in.readValue(AssetType.class.getClassLoader());
+		assetTypeExt = (AssetTypeExt) in.readValue(AssetTypeExt.class.getClassLoader());
+		statistic = (ProfitChart) in.readValue(ProfitChart.class.getClassLoader());
+		publicInfo = (DashboardTradingAssetPublicDetails) in.readValue(DashboardTradingAssetPublicDetails.class.getClassLoader());
+		accountInfo = (DashboardTradingAssetCommonDetails) in.readValue(DashboardTradingAssetCommonDetails.class.getClassLoader());
+		signalInfo = (DashboardTradingAssetSignalDetails) in.readValue(DashboardTradingAssetSignalDetails.class.getClassLoader());
+		broker = (DashboardTradingAssetBrokerDetails) in.readValue(DashboardTradingAssetBrokerDetails.class.getClassLoader());
+		actions = (DashboardTradingAssetActions) in.readValue(DashboardTradingAssetActions.class.getClassLoader());
+		tags = (List<Tag>) in.readValue(Tag.class.getClassLoader());
 	}
 }

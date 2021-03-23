@@ -29,25 +29,10 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class UploadResult implements Parcelable
 {
-	public static final Parcelable.Creator<UploadResult> CREATOR = new Parcelable.Creator<UploadResult>()
-	{
-		public UploadResult createFromParcel(Parcel in) {
-			return new UploadResult(in);
-		}
-
-		public UploadResult[] newArray(int size) {
-			return new UploadResult[size];
-		}
-	};
-
 	@SerializedName("id")
 	private UUID id = null;
 
 	public UploadResult() {
-	}
-
-	UploadResult(Parcel in) {
-		id = (UUID) in.readValue(UUID.class.getClassLoader());
 	}
 
 	public UploadResult id(UUID id) {
@@ -69,6 +54,7 @@ public class UploadResult implements Parcelable
 		this.id = id;
 	}
 
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -85,6 +71,7 @@ public class UploadResult implements Parcelable
 	public int hashCode() {
 		return Objects.hash(id);
 	}
+
 
 	@Override
 	public String toString() {
@@ -107,11 +94,27 @@ public class UploadResult implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
+
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(id);
 	}
 
+	public static final Parcelable.Creator<UploadResult> CREATOR = new Parcelable.Creator<UploadResult>()
+	{
+		public UploadResult createFromParcel(Parcel in) {
+			return new UploadResult(in);
+		}
+
+		public UploadResult[] newArray(int size) {
+			return new UploadResult[size];
+		}
+	};
+
 	public int describeContents() {
 		return 0;
+	}
+
+	UploadResult(Parcel in) {
+		id = (UUID) in.readValue(UUID.class.getClassLoader());
 	}
 }

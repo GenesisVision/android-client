@@ -28,17 +28,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class AndroidAppVersion implements Parcelable
 {
-	public static final Parcelable.Creator<AndroidAppVersion> CREATOR = new Parcelable.Creator<AndroidAppVersion>()
-	{
-		public AndroidAppVersion createFromParcel(Parcel in) {
-			return new AndroidAppVersion(in);
-		}
-
-		public AndroidAppVersion[] newArray(int size) {
-			return new AndroidAppVersion[size];
-		}
-	};
-
 	@SerializedName("minVersion")
 	private AndroidVersion minVersion = null;
 
@@ -46,11 +35,6 @@ public class AndroidAppVersion implements Parcelable
 	private AndroidVersion lastVersion = null;
 
 	public AndroidAppVersion() {
-	}
-
-	AndroidAppVersion(Parcel in) {
-		minVersion = (AndroidVersion) in.readValue(AndroidVersion.class.getClassLoader());
-		lastVersion = (AndroidVersion) in.readValue(AndroidVersion.class.getClassLoader());
 	}
 
 	public AndroidAppVersion minVersion(AndroidVersion minVersion) {
@@ -91,6 +75,7 @@ public class AndroidAppVersion implements Parcelable
 		this.lastVersion = lastVersion;
 	}
 
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -108,6 +93,7 @@ public class AndroidAppVersion implements Parcelable
 	public int hashCode() {
 		return Objects.hash(minVersion, lastVersion);
 	}
+
 
 	@Override
 	public String toString() {
@@ -131,12 +117,29 @@ public class AndroidAppVersion implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
+
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(minVersion);
 		out.writeValue(lastVersion);
 	}
 
+	public static final Parcelable.Creator<AndroidAppVersion> CREATOR = new Parcelable.Creator<AndroidAppVersion>()
+	{
+		public AndroidAppVersion createFromParcel(Parcel in) {
+			return new AndroidAppVersion(in);
+		}
+
+		public AndroidAppVersion[] newArray(int size) {
+			return new AndroidAppVersion[size];
+		}
+	};
+
 	public int describeContents() {
 		return 0;
+	}
+
+	AndroidAppVersion(Parcel in) {
+		minVersion = (AndroidVersion) in.readValue(AndroidVersion.class.getClassLoader());
+		lastVersion = (AndroidVersion) in.readValue(AndroidVersion.class.getClassLoader());
 	}
 }

@@ -29,15 +29,6 @@ public enum UserFeedMode
 	PROFILEONLYOWNERPOSTS("ProfileOnlyOwnerPosts"),
 	FRIENDSPOSTS("FriendsPosts");
 
-	public static UserFeedMode fromValue(String text) {
-		for (UserFeedMode b : UserFeedMode.values()) {
-			if (String.valueOf(b.value).equals(text)) {
-				return b;
-			}
-		}
-		return null;
-	}
-
 	private String value;
 
 	UserFeedMode(String value) {
@@ -53,6 +44,15 @@ public enum UserFeedMode
 		return String.valueOf(value);
 	}
 
+	public static UserFeedMode fromValue(String text) {
+		for (UserFeedMode b : UserFeedMode.values()) {
+			if (String.valueOf(b.value).equals(text)) {
+				return b;
+			}
+		}
+		return null;
+	}
+
 	public static class Adapter extends TypeAdapter<UserFeedMode>
 	{
 		@Override
@@ -62,7 +62,7 @@ public enum UserFeedMode
 
 		@Override
 		public UserFeedMode read(final JsonReader jsonReader) throws IOException {
-			String value = jsonReader.nextString();
+			Object value = jsonReader.nextString();
 			return UserFeedMode.fromValue(String.valueOf(value));
 		}
 	}

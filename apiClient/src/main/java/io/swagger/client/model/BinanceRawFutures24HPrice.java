@@ -30,17 +30,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class BinanceRawFutures24HPrice implements Parcelable
 {
-	public static final Parcelable.Creator<BinanceRawFutures24HPrice> CREATOR = new Parcelable.Creator<BinanceRawFutures24HPrice>()
-	{
-		public BinanceRawFutures24HPrice createFromParcel(Parcel in) {
-			return new BinanceRawFutures24HPrice(in);
-		}
-
-		public BinanceRawFutures24HPrice[] newArray(int size) {
-			return new BinanceRawFutures24HPrice[size];
-		}
-	};
-
 	@SerializedName("symbol")
 	private String symbol = null;
 
@@ -90,25 +79,6 @@ public class BinanceRawFutures24HPrice implements Parcelable
 	private Long totalTrades = null;
 
 	public BinanceRawFutures24HPrice() {
-	}
-
-	BinanceRawFutures24HPrice(Parcel in) {
-		symbol = (String) in.readValue(null);
-		lastPrice = (Double) in.readValue(null);
-		openPrice = (Double) in.readValue(null);
-		highPrice = (Double) in.readValue(null);
-		lowPrice = (Double) in.readValue(null);
-		baseVolume = (Double) in.readValue(null);
-		quoteVolume = (Double) in.readValue(null);
-		priceChange = (Double) in.readValue(null);
-		priceChangePercent = (Double) in.readValue(null);
-		weightedAveragePrice = (Double) in.readValue(null);
-		lastQuantity = (Double) in.readValue(null);
-		openTime = (DateTime) in.readValue(DateTime.class.getClassLoader());
-		closeTime = (DateTime) in.readValue(DateTime.class.getClassLoader());
-		firstTradeId = (Long) in.readValue(null);
-		lastTradeId = (Long) in.readValue(null);
-		totalTrades = (Long) in.readValue(null);
 	}
 
 	public BinanceRawFutures24HPrice symbol(String symbol) {
@@ -415,6 +385,7 @@ public class BinanceRawFutures24HPrice implements Parcelable
 		this.totalTrades = totalTrades;
 	}
 
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -446,6 +417,7 @@ public class BinanceRawFutures24HPrice implements Parcelable
 	public int hashCode() {
 		return Objects.hash(symbol, lastPrice, openPrice, highPrice, lowPrice, baseVolume, quoteVolume, priceChange, priceChangePercent, weightedAveragePrice, lastQuantity, openTime, closeTime, firstTradeId, lastTradeId, totalTrades);
 	}
+
 
 	@Override
 	public String toString() {
@@ -483,6 +455,7 @@ public class BinanceRawFutures24HPrice implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
+
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(symbol);
 		out.writeValue(lastPrice);
@@ -502,7 +475,37 @@ public class BinanceRawFutures24HPrice implements Parcelable
 		out.writeValue(totalTrades);
 	}
 
+	public static final Parcelable.Creator<BinanceRawFutures24HPrice> CREATOR = new Parcelable.Creator<BinanceRawFutures24HPrice>()
+	{
+		public BinanceRawFutures24HPrice createFromParcel(Parcel in) {
+			return new BinanceRawFutures24HPrice(in);
+		}
+
+		public BinanceRawFutures24HPrice[] newArray(int size) {
+			return new BinanceRawFutures24HPrice[size];
+		}
+	};
+
 	public int describeContents() {
 		return 0;
+	}
+
+	BinanceRawFutures24HPrice(Parcel in) {
+		symbol = (String) in.readValue(null);
+		lastPrice = (Double) in.readValue(null);
+		openPrice = (Double) in.readValue(null);
+		highPrice = (Double) in.readValue(null);
+		lowPrice = (Double) in.readValue(null);
+		baseVolume = (Double) in.readValue(null);
+		quoteVolume = (Double) in.readValue(null);
+		priceChange = (Double) in.readValue(null);
+		priceChangePercent = (Double) in.readValue(null);
+		weightedAveragePrice = (Double) in.readValue(null);
+		lastQuantity = (Double) in.readValue(null);
+		openTime = (DateTime) in.readValue(DateTime.class.getClassLoader());
+		closeTime = (DateTime) in.readValue(DateTime.class.getClassLoader());
+		firstTradeId = (Long) in.readValue(null);
+		lastTradeId = (Long) in.readValue(null);
+		totalTrades = (Long) in.readValue(null);
 	}
 }

@@ -262,7 +262,7 @@ Bearer.setApiKey("YOUR API KEY");
 //Bearer.setApiKeyPrefix("Token");
 
 DashboardApi apiInstance = new DashboardApi();
-Integer topAssetsCount = 56; // Integer | 
+Integer topAssetsCount = 4; // Integer | 
 try {
     DashboardAssets result = apiInstance.getHoldings(topAssetsCount);
     System.out.println(result);
@@ -276,7 +276,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **topAssetsCount** | **Integer**|  | [optional]
+ **topAssetsCount** | **Integer**|  | [optional] [default to 4]
 
 ### Return type
 
@@ -770,7 +770,7 @@ Bearer.setApiKey("YOUR API KEY");
 DashboardApi apiInstance = new DashboardApi();
 Currency currency = new Currency(); // Currency | 
 Integer take = 56; // Integer | 
-Boolean onlyFollows = true; // Boolean | 
+Boolean onlyFollows = false; // Boolean | 
 try {
     CommonPublicAssetsViewModel result = apiInstance.getRecommendations(currency, take, onlyFollows);
     System.out.println(result);
@@ -786,7 +786,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **currency** | [**Currency**](.md)|  | [optional]
  **take** | **Integer**|  | [optional]
- **onlyFollows** | **Boolean**|  | [optional]
+ **onlyFollows** | **Boolean**|  | [optional] [default to false]
 
 ### Return type
 

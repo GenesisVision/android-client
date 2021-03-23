@@ -28,17 +28,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class ProgramAssetDetails implements Parcelable
 {
-	public static final Parcelable.Creator<ProgramAssetDetails> CREATOR = new Parcelable.Creator<ProgramAssetDetails>()
-	{
-		public ProgramAssetDetails createFromParcel(Parcel in) {
-			return new ProgramAssetDetails(in);
-		}
-
-		public ProgramAssetDetails[] newArray(int size) {
-			return new ProgramAssetDetails[size];
-		}
-	};
-
 	@SerializedName("level")
 	private Integer level = null;
 
@@ -46,11 +35,6 @@ public class ProgramAssetDetails implements Parcelable
 	private Double levelProgress = null;
 
 	public ProgramAssetDetails() {
-	}
-
-	ProgramAssetDetails(Parcel in) {
-		level = (Integer) in.readValue(null);
-		levelProgress = (Double) in.readValue(null);
 	}
 
 	public ProgramAssetDetails level(Integer level) {
@@ -91,6 +75,7 @@ public class ProgramAssetDetails implements Parcelable
 		this.levelProgress = levelProgress;
 	}
 
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -108,6 +93,7 @@ public class ProgramAssetDetails implements Parcelable
 	public int hashCode() {
 		return Objects.hash(level, levelProgress);
 	}
+
 
 	@Override
 	public String toString() {
@@ -131,12 +117,29 @@ public class ProgramAssetDetails implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
+
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(level);
 		out.writeValue(levelProgress);
 	}
 
+	public static final Parcelable.Creator<ProgramAssetDetails> CREATOR = new Parcelable.Creator<ProgramAssetDetails>()
+	{
+		public ProgramAssetDetails createFromParcel(Parcel in) {
+			return new ProgramAssetDetails(in);
+		}
+
+		public ProgramAssetDetails[] newArray(int size) {
+			return new ProgramAssetDetails[size];
+		}
+	};
+
 	public int describeContents() {
 		return 0;
+	}
+
+	ProgramAssetDetails(Parcel in) {
+		level = (Integer) in.readValue(null);
+		levelProgress = (Double) in.readValue(null);
 	}
 }

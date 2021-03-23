@@ -29,17 +29,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class MakeTradingAccountSignalProvider implements Parcelable
 {
-	public static final Parcelable.Creator<MakeTradingAccountSignalProvider> CREATOR = new Parcelable.Creator<MakeTradingAccountSignalProvider>()
-	{
-		public MakeTradingAccountSignalProvider createFromParcel(Parcel in) {
-			return new MakeTradingAccountSignalProvider(in);
-		}
-
-		public MakeTradingAccountSignalProvider[] newArray(int size) {
-			return new MakeTradingAccountSignalProvider[size];
-		}
-	};
-
 	@SerializedName("title")
 	private String title = null;
 
@@ -59,15 +48,6 @@ public class MakeTradingAccountSignalProvider implements Parcelable
 	private Double successFee = null;
 
 	public MakeTradingAccountSignalProvider() {
-	}
-
-	MakeTradingAccountSignalProvider(Parcel in) {
-		title = (String) in.readValue(null);
-		description = (String) in.readValue(null);
-		logo = (String) in.readValue(null);
-		id = (UUID) in.readValue(UUID.class.getClassLoader());
-		volumeFee = (Double) in.readValue(null);
-		successFee = (Double) in.readValue(null);
 	}
 
 	public MakeTradingAccountSignalProvider title(String title) {
@@ -184,6 +164,7 @@ public class MakeTradingAccountSignalProvider implements Parcelable
 		this.successFee = successFee;
 	}
 
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -205,6 +186,7 @@ public class MakeTradingAccountSignalProvider implements Parcelable
 	public int hashCode() {
 		return Objects.hash(title, description, logo, id, volumeFee, successFee);
 	}
+
 
 	@Override
 	public String toString() {
@@ -232,6 +214,7 @@ public class MakeTradingAccountSignalProvider implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
+
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(title);
 		out.writeValue(description);
@@ -241,7 +224,27 @@ public class MakeTradingAccountSignalProvider implements Parcelable
 		out.writeValue(successFee);
 	}
 
+	public static final Parcelable.Creator<MakeTradingAccountSignalProvider> CREATOR = new Parcelable.Creator<MakeTradingAccountSignalProvider>()
+	{
+		public MakeTradingAccountSignalProvider createFromParcel(Parcel in) {
+			return new MakeTradingAccountSignalProvider(in);
+		}
+
+		public MakeTradingAccountSignalProvider[] newArray(int size) {
+			return new MakeTradingAccountSignalProvider[size];
+		}
+	};
+
 	public int describeContents() {
 		return 0;
+	}
+
+	MakeTradingAccountSignalProvider(Parcel in) {
+		title = (String) in.readValue(null);
+		description = (String) in.readValue(null);
+		logo = (String) in.readValue(null);
+		id = (UUID) in.readValue(UUID.class.getClassLoader());
+		volumeFee = (Double) in.readValue(null);
+		successFee = (Double) in.readValue(null);
 	}
 }

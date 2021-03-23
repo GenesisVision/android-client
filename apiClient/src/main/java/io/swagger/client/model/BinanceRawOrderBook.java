@@ -30,25 +30,11 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class BinanceRawOrderBook implements Parcelable
 {
-	public static final Parcelable.Creator<BinanceRawOrderBook> CREATOR = new Parcelable.Creator<BinanceRawOrderBook>()
-	{
-		public BinanceRawOrderBook createFromParcel(Parcel in) {
-			return new BinanceRawOrderBook(in);
-		}
-
-		public BinanceRawOrderBook[] newArray(int size) {
-			return new BinanceRawOrderBook[size];
-		}
-	};
-
 	@SerializedName("symbol")
 	private String symbol = null;
 
 	@SerializedName("lastUpdateId")
 	private Long lastUpdateId = null;
-
-	@SerializedName("firstUpdateId")
-	private Long firstUpdateId = null;
 
 	@SerializedName("bids")
 	private List<BinanceRawOrderBookEntry> bids = null;
@@ -57,14 +43,6 @@ public class BinanceRawOrderBook implements Parcelable
 	private List<BinanceRawOrderBookEntry> asks = null;
 
 	public BinanceRawOrderBook() {
-	}
-
-	BinanceRawOrderBook(Parcel in) {
-		symbol = (String) in.readValue(null);
-		lastUpdateId = (Long) in.readValue(null);
-		firstUpdateId = (Long) in.readValue(null);
-		bids = (List<BinanceRawOrderBookEntry>) in.readValue(BinanceRawOrderBookEntry.class.getClassLoader());
-		asks = (List<BinanceRawOrderBookEntry>) in.readValue(BinanceRawOrderBookEntry.class.getClassLoader());
 	}
 
 	public BinanceRawOrderBook symbol(String symbol) {
@@ -103,25 +81,6 @@ public class BinanceRawOrderBook implements Parcelable
 
 	public void setLastUpdateId(Long lastUpdateId) {
 		this.lastUpdateId = lastUpdateId;
-	}
-
-	public BinanceRawOrderBook firstUpdateId(Long firstUpdateId) {
-		this.firstUpdateId = firstUpdateId;
-		return this;
-	}
-
-	/**
-	 * Get firstUpdateId
-	 *
-	 * @return firstUpdateId
-	 **/
-	@Schema(description = "")
-	public Long getFirstUpdateId() {
-		return firstUpdateId;
-	}
-
-	public void setFirstUpdateId(Long firstUpdateId) {
-		this.firstUpdateId = firstUpdateId;
 	}
 
 	public BinanceRawOrderBook bids(List<BinanceRawOrderBookEntry> bids) {
@@ -178,6 +137,7 @@ public class BinanceRawOrderBook implements Parcelable
 		this.asks = asks;
 	}
 
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -189,15 +149,21 @@ public class BinanceRawOrderBook implements Parcelable
 		BinanceRawOrderBook binanceRawOrderBook = (BinanceRawOrderBook) o;
 		return Objects.equals(this.symbol, binanceRawOrderBook.symbol) &&
 				Objects.equals(this.lastUpdateId, binanceRawOrderBook.lastUpdateId) &&
-				Objects.equals(this.firstUpdateId, binanceRawOrderBook.firstUpdateId) &&
 				Objects.equals(this.bids, binanceRawOrderBook.bids) &&
 				Objects.equals(this.asks, binanceRawOrderBook.asks);
 	}
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(symbol, lastUpdateId, firstUpdateId, bids, asks);
-	}
+	public static final Parcelable.Creator<BinanceRawOrderBook> CREATOR = new Parcelable.Creator<BinanceRawOrderBook>()
+	{
+		public BinanceRawOrderBook createFromParcel(Parcel in) {
+			return new BinanceRawOrderBook(in);
+		}
+
+		public BinanceRawOrderBook[] newArray(int size) {
+			return new BinanceRawOrderBook[size];
+		}
+	};
+
 
 	@Override
 	public String toString() {
@@ -206,7 +172,6 @@ public class BinanceRawOrderBook implements Parcelable
 
 		sb.append("    symbol: ").append(toIndentedString(symbol)).append("\n");
 		sb.append("    lastUpdateId: ").append(toIndentedString(lastUpdateId)).append("\n");
-		sb.append("    firstUpdateId: ").append(toIndentedString(firstUpdateId)).append("\n");
 		sb.append("    bids: ").append(toIndentedString(bids)).append("\n");
 		sb.append("    asks: ").append(toIndentedString(asks)).append("\n");
 		sb.append("}");
@@ -224,15 +189,27 @@ public class BinanceRawOrderBook implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
+
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(symbol);
 		out.writeValue(lastUpdateId);
-		out.writeValue(firstUpdateId);
 		out.writeValue(bids);
 		out.writeValue(asks);
 	}
 
+	BinanceRawOrderBook(Parcel in) {
+		symbol = (String) in.readValue(null);
+		lastUpdateId = (Long) in.readValue(null);
+		bids = (List<BinanceRawOrderBookEntry>) in.readValue(BinanceRawOrderBookEntry.class.getClassLoader());
+		asks = (List<BinanceRawOrderBookEntry>) in.readValue(BinanceRawOrderBookEntry.class.getClassLoader());
+	}
+
 	public int describeContents() {
 		return 0;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(symbol, lastUpdateId, bids, asks);
 	}
 }

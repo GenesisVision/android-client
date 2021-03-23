@@ -32,3 +32,4 @@ Name | Type | Description | Notes
 **quoteQuantity** | **Double** |  |  [optional]
 **lastQuoteQuantity** | **Double** |  |  [optional]
 **orderListId** | **Long** |  |  [optional]
+**pnL** | **Double** |  |  [optional]

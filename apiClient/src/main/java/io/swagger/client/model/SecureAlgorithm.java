@@ -27,15 +27,6 @@ public enum SecureAlgorithm
 {
 	SHA256("Sha256");
 
-	public static SecureAlgorithm fromValue(String text) {
-		for (SecureAlgorithm b : SecureAlgorithm.values()) {
-			if (String.valueOf(b.value).equals(text)) {
-				return b;
-			}
-		}
-		return null;
-	}
-
 	private String value;
 
 	SecureAlgorithm(String value) {
@@ -51,6 +42,15 @@ public enum SecureAlgorithm
 		return String.valueOf(value);
 	}
 
+	public static SecureAlgorithm fromValue(String text) {
+		for (SecureAlgorithm b : SecureAlgorithm.values()) {
+			if (String.valueOf(b.value).equals(text)) {
+				return b;
+			}
+		}
+		return null;
+	}
+
 	public static class Adapter extends TypeAdapter<SecureAlgorithm>
 	{
 		@Override
@@ -60,7 +60,7 @@ public enum SecureAlgorithm
 
 		@Override
 		public SecureAlgorithm read(final JsonReader jsonReader) throws IOException {
-			String value = jsonReader.nextString();
+			Object value = jsonReader.nextString();
 			return SecureAlgorithm.fromValue(String.valueOf(value));
 		}
 	}

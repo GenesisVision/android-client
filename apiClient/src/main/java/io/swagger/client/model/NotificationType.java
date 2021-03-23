@@ -52,15 +52,6 @@ public enum NotificationType
 	SOCIAL("Social"),
 	PLATFORMASSET("PlatformAsset");
 
-	public static NotificationType fromValue(String text) {
-		for (NotificationType b : NotificationType.values()) {
-			if (String.valueOf(b.value).equals(text)) {
-				return b;
-			}
-		}
-		return null;
-	}
-
 	private String value;
 
 	NotificationType(String value) {
@@ -76,6 +67,15 @@ public enum NotificationType
 		return String.valueOf(value);
 	}
 
+	public static NotificationType fromValue(String text) {
+		for (NotificationType b : NotificationType.values()) {
+			if (String.valueOf(b.value).equals(text)) {
+				return b;
+			}
+		}
+		return null;
+	}
+
 	public static class Adapter extends TypeAdapter<NotificationType>
 	{
 		@Override
@@ -85,7 +85,7 @@ public enum NotificationType
 
 		@Override
 		public NotificationType read(final JsonReader jsonReader) throws IOException {
-			String value = jsonReader.nextString();
+			Object value = jsonReader.nextString();
 			return NotificationType.fromValue(String.valueOf(value));
 		}
 	}

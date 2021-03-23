@@ -30,17 +30,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class LandingInfo implements Parcelable
 {
-	public static final Parcelable.Creator<LandingInfo> CREATOR = new Parcelable.Creator<LandingInfo>()
-	{
-		public LandingInfo createFromParcel(Parcel in) {
-			return new LandingInfo(in);
-		}
-
-		public LandingInfo[] newArray(int size) {
-			return new LandingInfo[size];
-		}
-	};
-
 	@SerializedName("events")
 	private List<PlatformEvent> events = null;
 
@@ -57,14 +46,6 @@ public class LandingInfo implements Parcelable
 	private FundDetailsListItemItemsViewModel funds = null;
 
 	public LandingInfo() {
-	}
-
-	LandingInfo(Parcel in) {
-		events = (List<PlatformEvent>) in.readValue(PlatformEvent.class.getClassLoader());
-		news = (List<PlatformNews>) in.readValue(PlatformNews.class.getClassLoader());
-		follows = (FollowDetailsListItemItemsViewModel) in.readValue(FollowDetailsListItemItemsViewModel.class.getClassLoader());
-		programs = (ProgramDetailsListItemItemsViewModel) in.readValue(ProgramDetailsListItemItemsViewModel.class.getClassLoader());
-		funds = (FundDetailsListItemItemsViewModel) in.readValue(FundDetailsListItemItemsViewModel.class.getClassLoader());
 	}
 
 	public LandingInfo events(List<PlatformEvent> events) {
@@ -178,6 +159,7 @@ public class LandingInfo implements Parcelable
 		this.funds = funds;
 	}
 
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -198,6 +180,7 @@ public class LandingInfo implements Parcelable
 	public int hashCode() {
 		return Objects.hash(events, news, follows, programs, funds);
 	}
+
 
 	@Override
 	public String toString() {
@@ -224,6 +207,7 @@ public class LandingInfo implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
+
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(events);
 		out.writeValue(news);
@@ -232,7 +216,26 @@ public class LandingInfo implements Parcelable
 		out.writeValue(funds);
 	}
 
+	public static final Parcelable.Creator<LandingInfo> CREATOR = new Parcelable.Creator<LandingInfo>()
+	{
+		public LandingInfo createFromParcel(Parcel in) {
+			return new LandingInfo(in);
+		}
+
+		public LandingInfo[] newArray(int size) {
+			return new LandingInfo[size];
+		}
+	};
+
 	public int describeContents() {
 		return 0;
+	}
+
+	LandingInfo(Parcel in) {
+		events = (List<PlatformEvent>) in.readValue(PlatformEvent.class.getClassLoader());
+		news = (List<PlatformNews>) in.readValue(PlatformNews.class.getClassLoader());
+		follows = (FollowDetailsListItemItemsViewModel) in.readValue(FollowDetailsListItemItemsViewModel.class.getClassLoader());
+		programs = (ProgramDetailsListItemItemsViewModel) in.readValue(ProgramDetailsListItemItemsViewModel.class.getClassLoader());
+		funds = (FundDetailsListItemItemsViewModel) in.readValue(FundDetailsListItemItemsViewModel.class.getClassLoader());
 	}
 }

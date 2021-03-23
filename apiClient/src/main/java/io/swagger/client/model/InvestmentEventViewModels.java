@@ -30,17 +30,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class InvestmentEventViewModels implements Parcelable
 {
-	public static final Parcelable.Creator<InvestmentEventViewModels> CREATOR = new Parcelable.Creator<InvestmentEventViewModels>()
-	{
-		public InvestmentEventViewModels createFromParcel(Parcel in) {
-			return new InvestmentEventViewModels(in);
-		}
-
-		public InvestmentEventViewModels[] newArray(int size) {
-			return new InvestmentEventViewModels[size];
-		}
-	};
-
 	@SerializedName("events")
 	private List<InvestmentEventViewModel> events = null;
 
@@ -48,11 +37,6 @@ public class InvestmentEventViewModels implements Parcelable
 	private Integer total = null;
 
 	public InvestmentEventViewModels() {
-	}
-
-	InvestmentEventViewModels(Parcel in) {
-		events = (List<InvestmentEventViewModel>) in.readValue(InvestmentEventViewModel.class.getClassLoader());
-		total = (Integer) in.readValue(null);
 	}
 
 	public InvestmentEventViewModels events(List<InvestmentEventViewModel> events) {
@@ -101,6 +85,7 @@ public class InvestmentEventViewModels implements Parcelable
 		this.total = total;
 	}
 
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -118,6 +103,7 @@ public class InvestmentEventViewModels implements Parcelable
 	public int hashCode() {
 		return Objects.hash(events, total);
 	}
+
 
 	@Override
 	public String toString() {
@@ -141,12 +127,29 @@ public class InvestmentEventViewModels implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
+
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(events);
 		out.writeValue(total);
 	}
 
+	public static final Parcelable.Creator<InvestmentEventViewModels> CREATOR = new Parcelable.Creator<InvestmentEventViewModels>()
+	{
+		public InvestmentEventViewModels createFromParcel(Parcel in) {
+			return new InvestmentEventViewModels(in);
+		}
+
+		public InvestmentEventViewModels[] newArray(int size) {
+			return new InvestmentEventViewModels[size];
+		}
+	};
+
 	public int describeContents() {
 		return 0;
+	}
+
+	InvestmentEventViewModels(Parcel in) {
+		events = (List<InvestmentEventViewModel>) in.readValue(InvestmentEventViewModel.class.getClassLoader());
+		total = (Integer) in.readValue(null);
 	}
 }

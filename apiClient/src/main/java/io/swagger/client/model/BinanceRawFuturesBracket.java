@@ -28,17 +28,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class BinanceRawFuturesBracket implements Parcelable
 {
-	public static final Parcelable.Creator<BinanceRawFuturesBracket> CREATOR = new Parcelable.Creator<BinanceRawFuturesBracket>()
-	{
-		public BinanceRawFuturesBracket createFromParcel(Parcel in) {
-			return new BinanceRawFuturesBracket(in);
-		}
-
-		public BinanceRawFuturesBracket[] newArray(int size) {
-			return new BinanceRawFuturesBracket[size];
-		}
-	};
-
 	@SerializedName("bracket")
 	private Integer bracket = null;
 
@@ -55,14 +44,6 @@ public class BinanceRawFuturesBracket implements Parcelable
 	private Double maintenanceMarginRatio = null;
 
 	public BinanceRawFuturesBracket() {
-	}
-
-	BinanceRawFuturesBracket(Parcel in) {
-		bracket = (Integer) in.readValue(null);
-		initialLeverage = (Integer) in.readValue(null);
-		cap = (Long) in.readValue(null);
-		floor = (Long) in.readValue(null);
-		maintenanceMarginRatio = (Double) in.readValue(null);
 	}
 
 	public BinanceRawFuturesBracket bracket(Integer bracket) {
@@ -160,6 +141,7 @@ public class BinanceRawFuturesBracket implements Parcelable
 		this.maintenanceMarginRatio = maintenanceMarginRatio;
 	}
 
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -180,6 +162,7 @@ public class BinanceRawFuturesBracket implements Parcelable
 	public int hashCode() {
 		return Objects.hash(bracket, initialLeverage, cap, floor, maintenanceMarginRatio);
 	}
+
 
 	@Override
 	public String toString() {
@@ -206,6 +189,7 @@ public class BinanceRawFuturesBracket implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
+
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(bracket);
 		out.writeValue(initialLeverage);
@@ -214,7 +198,26 @@ public class BinanceRawFuturesBracket implements Parcelable
 		out.writeValue(maintenanceMarginRatio);
 	}
 
+	public static final Parcelable.Creator<BinanceRawFuturesBracket> CREATOR = new Parcelable.Creator<BinanceRawFuturesBracket>()
+	{
+		public BinanceRawFuturesBracket createFromParcel(Parcel in) {
+			return new BinanceRawFuturesBracket(in);
+		}
+
+		public BinanceRawFuturesBracket[] newArray(int size) {
+			return new BinanceRawFuturesBracket[size];
+		}
+	};
+
 	public int describeContents() {
 		return 0;
+	}
+
+	BinanceRawFuturesBracket(Parcel in) {
+		bracket = (Integer) in.readValue(null);
+		initialLeverage = (Integer) in.readValue(null);
+		cap = (Long) in.readValue(null);
+		floor = (Long) in.readValue(null);
+		maintenanceMarginRatio = (Double) in.readValue(null);
 	}
 }

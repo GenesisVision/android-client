@@ -9,6 +9,8 @@ import android.widget.TextView;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
 
+import java.util.Map;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -123,7 +125,7 @@ public class CreateAccountActivity extends BaseSwipeBackActivity implements Crea
 	}
 
 	@Override
-	public void showExchangeAccountDeposit(Double minDepositAmount, String currency) {
+	public void showExchangeAccountDeposit(Map<String, Double> minDepositAmount, String currency) {
 		if (adapter != null) {
 			this.isPassSettings = true;
 			adapter.setDepositStepNumber("02");
@@ -133,9 +135,9 @@ public class CreateAccountActivity extends BaseSwipeBackActivity implements Crea
 	}
 
 	@Override
-	public void showBrokerAccountDeposit(Double minDepositAmount, String currency) {
+	public void showBrokerAccountDeposit(Map<String, Double> minDepositAmountInfo, String currency) {
 		if (adapter != null) {
-			adapter.setMinDepositAmount(minDepositAmount, currency);
+			adapter.setMinDepositAmount(minDepositAmountInfo, currency);
 			viewPager.setCurrentItem(2);
 		}
 	}

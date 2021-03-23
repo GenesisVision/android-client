@@ -28,17 +28,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class ErrorMessage implements Parcelable
 {
-	public static final Parcelable.Creator<ErrorMessage> CREATOR = new Parcelable.Creator<ErrorMessage>()
-	{
-		public ErrorMessage createFromParcel(Parcel in) {
-			return new ErrorMessage(in);
-		}
-
-		public ErrorMessage[] newArray(int size) {
-			return new ErrorMessage[size];
-		}
-	};
-
 	@SerializedName("message")
 	private String message = null;
 
@@ -46,11 +35,6 @@ public class ErrorMessage implements Parcelable
 	private String property = null;
 
 	public ErrorMessage() {
-	}
-
-	ErrorMessage(Parcel in) {
-		message = (String) in.readValue(null);
-		property = (String) in.readValue(null);
 	}
 
 	public ErrorMessage message(String message) {
@@ -91,6 +75,7 @@ public class ErrorMessage implements Parcelable
 		this.property = property;
 	}
 
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -108,6 +93,7 @@ public class ErrorMessage implements Parcelable
 	public int hashCode() {
 		return Objects.hash(message, property);
 	}
+
 
 	@Override
 	public String toString() {
@@ -131,12 +117,29 @@ public class ErrorMessage implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
+
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(message);
 		out.writeValue(property);
 	}
 
+	public static final Parcelable.Creator<ErrorMessage> CREATOR = new Parcelable.Creator<ErrorMessage>()
+	{
+		public ErrorMessage createFromParcel(Parcel in) {
+			return new ErrorMessage(in);
+		}
+
+		public ErrorMessage[] newArray(int size) {
+			return new ErrorMessage[size];
+		}
+	};
+
 	public int describeContents() {
 		return 0;
+	}
+
+	ErrorMessage(Parcel in) {
+		message = (String) in.readValue(null);
+		property = (String) in.readValue(null);
 	}
 }

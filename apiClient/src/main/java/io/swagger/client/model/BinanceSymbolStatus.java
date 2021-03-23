@@ -39,15 +39,6 @@ public enum BinanceSymbolStatus
 	PRESETTLE("PreSettle"),
 	SETTLING("Settling");
 
-	public static BinanceSymbolStatus fromValue(String text) {
-		for (BinanceSymbolStatus b : BinanceSymbolStatus.values()) {
-			if (String.valueOf(b.value).equals(text)) {
-				return b;
-			}
-		}
-		return null;
-	}
-
 	private String value;
 
 	BinanceSymbolStatus(String value) {
@@ -63,6 +54,15 @@ public enum BinanceSymbolStatus
 		return String.valueOf(value);
 	}
 
+	public static BinanceSymbolStatus fromValue(String text) {
+		for (BinanceSymbolStatus b : BinanceSymbolStatus.values()) {
+			if (String.valueOf(b.value).equals(text)) {
+				return b;
+			}
+		}
+		return null;
+	}
+
 	public static class Adapter extends TypeAdapter<BinanceSymbolStatus>
 	{
 		@Override
@@ -72,7 +72,7 @@ public enum BinanceSymbolStatus
 
 		@Override
 		public BinanceSymbolStatus read(final JsonReader jsonReader) throws IOException {
-			String value = jsonReader.nextString();
+			Object value = jsonReader.nextString();
 			return BinanceSymbolStatus.fromValue(String.valueOf(value));
 		}
 	}

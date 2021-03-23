@@ -28,17 +28,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class TradeAssetData implements Parcelable
 {
-	public static final Parcelable.Creator<TradeAssetData> CREATOR = new Parcelable.Creator<TradeAssetData>()
-	{
-		public TradeAssetData createFromParcel(Parcel in) {
-			return new TradeAssetData(in);
-		}
-
-		public TradeAssetData[] newArray(int size) {
-			return new TradeAssetData[size];
-		}
-	};
-
 	@SerializedName("logoUrl")
 	private String logoUrl = null;
 
@@ -49,12 +38,6 @@ public class TradeAssetData implements Parcelable
 	private String url = null;
 
 	public TradeAssetData() {
-	}
-
-	TradeAssetData(Parcel in) {
-		logoUrl = (String) in.readValue(null);
-		hasAssetInfo = (Boolean) in.readValue(null);
-		url = (String) in.readValue(null);
 	}
 
 	public TradeAssetData logoUrl(String logoUrl) {
@@ -105,6 +88,7 @@ public class TradeAssetData implements Parcelable
 		this.url = url;
 	}
 
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -123,6 +107,7 @@ public class TradeAssetData implements Parcelable
 	public int hashCode() {
 		return Objects.hash(logoUrl, hasAssetInfo, url);
 	}
+
 
 	@Override
 	public String toString() {
@@ -147,13 +132,31 @@ public class TradeAssetData implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
+
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(logoUrl);
 		out.writeValue(hasAssetInfo);
 		out.writeValue(url);
 	}
 
+	public static final Parcelable.Creator<TradeAssetData> CREATOR = new Parcelable.Creator<TradeAssetData>()
+	{
+		public TradeAssetData createFromParcel(Parcel in) {
+			return new TradeAssetData(in);
+		}
+
+		public TradeAssetData[] newArray(int size) {
+			return new TradeAssetData[size];
+		}
+	};
+
 	public int describeContents() {
 		return 0;
+	}
+
+	TradeAssetData(Parcel in) {
+		logoUrl = (String) in.readValue(null);
+		hasAssetInfo = (Boolean) in.readValue(null);
+		url = (String) in.readValue(null);
 	}
 }

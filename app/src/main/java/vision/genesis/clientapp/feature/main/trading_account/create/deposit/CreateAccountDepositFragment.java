@@ -18,6 +18,7 @@ import com.jakewharton.rxbinding.widget.RxTextView;
 
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -125,7 +126,7 @@ public class CreateAccountDepositFragment extends BaseFragment implements Create
 
 	private NewTradingAccountRequest request;
 
-	private Double minDepositAmount;
+	private Map<String, Double> minDepositAmountInfo;
 
 	private String minDepositCurrency;
 
@@ -177,8 +178,8 @@ public class CreateAccountDepositFragment extends BaseFragment implements Create
 			presenter.setRequest(request);
 		}
 
-		if (minDepositAmount != null) {
-			presenter.setMinDeposit(minDepositAmount, minDepositCurrency);
+		if (minDepositAmountInfo != null) {
+			presenter.setMinDeposit(minDepositAmountInfo, minDepositCurrency);
 		}
 
 		if (getArguments() != null) {
@@ -262,11 +263,6 @@ public class CreateAccountDepositFragment extends BaseFragment implements Create
 	}
 
 	@Override
-	public void setAmountBase(String amountBaseString) {
-		this.baseCurrencyAmount.setText(amountBaseString);
-	}
-
-	@Override
 	public void setCreateButtonEnabled(boolean enabled) {
 		this.createAccountButton.setEnabled(enabled);
 	}
@@ -289,15 +285,15 @@ public class CreateAccountDepositFragment extends BaseFragment implements Create
 		}
 	}
 
-	public void setMinDepositAmount(Double minDepositAmount, String minDepositCurrency) {
-		this.minDepositAmount = minDepositAmount;
+	public void setMinDepositAmount(Map<String, Double> minDepositAmountInfo, String minDepositCurrency) {
+		this.minDepositAmountInfo = minDepositAmountInfo;
 		this.minDepositCurrency = minDepositCurrency;
 		if (presenter != null) {
-			presenter.setMinDeposit(minDepositAmount, minDepositCurrency);
+			presenter.setMinDeposit(minDepositAmountInfo, minDepositCurrency);
 		}
-		depositNotification.setText(String.format(Locale.getDefault(),
-				getString(R.string.template_create_trading_account_deposit_notification),
-				StringFormatUtil.getValueString(minDepositAmount, minDepositCurrency)));
+//		depositNotification.setText(String.format(Locale.getDefault(),
+//				getString(R.string.template_create_trading_account_deposit_notification),
+//				StringFormatUtil.getValueString(minDepositAmount, minDepositCurrency)));
 	}
 
 	public void setStepNumber(String stepNumber) {

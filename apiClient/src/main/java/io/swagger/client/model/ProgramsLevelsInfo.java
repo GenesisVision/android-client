@@ -30,25 +30,10 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class ProgramsLevelsInfo implements Parcelable
 {
-	public static final Parcelable.Creator<ProgramsLevelsInfo> CREATOR = new Parcelable.Creator<ProgramsLevelsInfo>()
-	{
-		public ProgramsLevelsInfo createFromParcel(Parcel in) {
-			return new ProgramsLevelsInfo(in);
-		}
-
-		public ProgramsLevelsInfo[] newArray(int size) {
-			return new ProgramsLevelsInfo[size];
-		}
-	};
-
 	@SerializedName("levels")
 	private List<LevelInfo> levels = null;
 
 	public ProgramsLevelsInfo() {
-	}
-
-	ProgramsLevelsInfo(Parcel in) {
-		levels = (List<LevelInfo>) in.readValue(LevelInfo.class.getClassLoader());
 	}
 
 	public ProgramsLevelsInfo levels(List<LevelInfo> levels) {
@@ -78,6 +63,7 @@ public class ProgramsLevelsInfo implements Parcelable
 		this.levels = levels;
 	}
 
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -94,6 +80,7 @@ public class ProgramsLevelsInfo implements Parcelable
 	public int hashCode() {
 		return Objects.hash(levels);
 	}
+
 
 	@Override
 	public String toString() {
@@ -116,11 +103,27 @@ public class ProgramsLevelsInfo implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
+
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(levels);
 	}
 
+	public static final Parcelable.Creator<ProgramsLevelsInfo> CREATOR = new Parcelable.Creator<ProgramsLevelsInfo>()
+	{
+		public ProgramsLevelsInfo createFromParcel(Parcel in) {
+			return new ProgramsLevelsInfo(in);
+		}
+
+		public ProgramsLevelsInfo[] newArray(int size) {
+			return new ProgramsLevelsInfo[size];
+		}
+	};
+
 	public int describeContents() {
 		return 0;
+	}
+
+	ProgramsLevelsInfo(Parcel in) {
+		levels = (List<LevelInfo>) in.readValue(LevelInfo.class.getClassLoader());
 	}
 }

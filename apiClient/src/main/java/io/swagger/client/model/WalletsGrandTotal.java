@@ -28,17 +28,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class WalletsGrandTotal implements Parcelable
 {
-	public static final Parcelable.Creator<WalletsGrandTotal> CREATOR = new Parcelable.Creator<WalletsGrandTotal>()
-	{
-		public WalletsGrandTotal createFromParcel(Parcel in) {
-			return new WalletsGrandTotal(in);
-		}
-
-		public WalletsGrandTotal[] newArray(int size) {
-			return new WalletsGrandTotal[size];
-		}
-	};
-
 	@SerializedName("currency")
 	private Currency currency = null;
 
@@ -55,14 +44,6 @@ public class WalletsGrandTotal implements Parcelable
 	private Double total = null;
 
 	public WalletsGrandTotal() {
-	}
-
-	WalletsGrandTotal(Parcel in) {
-		currency = (Currency) in.readValue(Currency.class.getClassLoader());
-		available = (Double) in.readValue(null);
-		invested = (Double) in.readValue(null);
-		trading = (Double) in.readValue(null);
-		total = (Double) in.readValue(null);
 	}
 
 	public WalletsGrandTotal currency(Currency currency) {
@@ -151,6 +132,7 @@ public class WalletsGrandTotal implements Parcelable
 		return total;
 	}
 
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -171,6 +153,7 @@ public class WalletsGrandTotal implements Parcelable
 	public int hashCode() {
 		return Objects.hash(currency, available, invested, trading, total);
 	}
+
 
 	@Override
 	public String toString() {
@@ -197,6 +180,7 @@ public class WalletsGrandTotal implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
+
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(currency);
 		out.writeValue(available);
@@ -205,7 +189,26 @@ public class WalletsGrandTotal implements Parcelable
 		out.writeValue(total);
 	}
 
+	public static final Parcelable.Creator<WalletsGrandTotal> CREATOR = new Parcelable.Creator<WalletsGrandTotal>()
+	{
+		public WalletsGrandTotal createFromParcel(Parcel in) {
+			return new WalletsGrandTotal(in);
+		}
+
+		public WalletsGrandTotal[] newArray(int size) {
+			return new WalletsGrandTotal[size];
+		}
+	};
+
 	public int describeContents() {
 		return 0;
+	}
+
+	WalletsGrandTotal(Parcel in) {
+		currency = (Currency) in.readValue(Currency.class.getClassLoader());
+		available = (Double) in.readValue(null);
+		invested = (Double) in.readValue(null);
+		trading = (Double) in.readValue(null);
+		total = (Double) in.readValue(null);
 	}
 }

@@ -30,17 +30,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class AssetInfo implements Parcelable
 {
-	public static final Parcelable.Creator<AssetInfo> CREATOR = new Parcelable.Creator<AssetInfo>()
-	{
-		public AssetInfo createFromParcel(Parcel in) {
-			return new AssetInfo(in);
-		}
-
-		public AssetInfo[] newArray(int size) {
-			return new AssetInfo[size];
-		}
-	};
-
 	@SerializedName("name")
 	private String name = null;
 
@@ -63,16 +52,6 @@ public class AssetInfo implements Parcelable
 	private List<SocialLinkViewModel> socialLinks = null;
 
 	public AssetInfo() {
-	}
-
-	AssetInfo(Parcel in) {
-		name = (String) in.readValue(null);
-		symbol = (String) in.readValue(null);
-		logoUrl = (String) in.readValue(null);
-		description = (String) in.readValue(null);
-		chartSymbol = (String) in.readValue(null);
-		tags = (List<Tag>) in.readValue(Tag.class.getClassLoader());
-		socialLinks = (List<SocialLinkViewModel>) in.readValue(SocialLinkViewModel.class.getClassLoader());
 	}
 
 	public AssetInfo name(String name) {
@@ -224,6 +203,7 @@ public class AssetInfo implements Parcelable
 		this.socialLinks = socialLinks;
 	}
 
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -246,6 +226,7 @@ public class AssetInfo implements Parcelable
 	public int hashCode() {
 		return Objects.hash(name, symbol, logoUrl, description, chartSymbol, tags, socialLinks);
 	}
+
 
 	@Override
 	public String toString() {
@@ -274,6 +255,7 @@ public class AssetInfo implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
+
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(name);
 		out.writeValue(symbol);
@@ -284,7 +266,28 @@ public class AssetInfo implements Parcelable
 		out.writeValue(socialLinks);
 	}
 
+	public static final Parcelable.Creator<AssetInfo> CREATOR = new Parcelable.Creator<AssetInfo>()
+	{
+		public AssetInfo createFromParcel(Parcel in) {
+			return new AssetInfo(in);
+		}
+
+		public AssetInfo[] newArray(int size) {
+			return new AssetInfo[size];
+		}
+	};
+
 	public int describeContents() {
 		return 0;
+	}
+
+	AssetInfo(Parcel in) {
+		name = (String) in.readValue(null);
+		symbol = (String) in.readValue(null);
+		logoUrl = (String) in.readValue(null);
+		description = (String) in.readValue(null);
+		chartSymbol = (String) in.readValue(null);
+		tags = (List<Tag>) in.readValue(Tag.class.getClassLoader());
+		socialLinks = (List<SocialLinkViewModel>) in.readValue(SocialLinkViewModel.class.getClassLoader());
 	}
 }

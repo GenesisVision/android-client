@@ -1,4 +1,4 @@
-package io.swagger.client.api;
+package io.swagger.client.api;//retrofit2
 
 import java.util.List;
 import java.util.UUID;

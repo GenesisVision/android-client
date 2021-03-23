@@ -30,17 +30,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class BinanceRawFuturesUsdtSymbol implements Parcelable
 {
-	public static final Parcelable.Creator<BinanceRawFuturesUsdtSymbol> CREATOR = new Parcelable.Creator<BinanceRawFuturesUsdtSymbol>()
-	{
-		public BinanceRawFuturesUsdtSymbol createFromParcel(Parcel in) {
-			return new BinanceRawFuturesUsdtSymbol(in);
-		}
-
-		public BinanceRawFuturesUsdtSymbol[] newArray(int size) {
-			return new BinanceRawFuturesUsdtSymbol[size];
-		}
-	};
-
 	@SerializedName("name")
 	private String name = null;
 
@@ -99,28 +88,6 @@ public class BinanceRawFuturesUsdtSymbol implements Parcelable
 	private BinanceRawFuturesSymbolPercentPriceFilter pricePercentFilter = null;
 
 	public BinanceRawFuturesUsdtSymbol() {
-	}
-
-	BinanceRawFuturesUsdtSymbol(Parcel in) {
-		name = (String) in.readValue(null);
-		maintenanceMarginPercent = (Double) in.readValue(null);
-		pricePrecision = (Integer) in.readValue(null);
-		quantityPrecision = (Integer) in.readValue(null);
-		requiredMarginPercent = (Double) in.readValue(null);
-		baseAsset = (String) in.readValue(null);
-		marginAsset = (String) in.readValue(null);
-		quoteAsset = (String) in.readValue(null);
-		baseAssetPrecision = (Integer) in.readValue(null);
-		quoteAssetPrecision = (Integer) in.readValue(null);
-		status = (BinanceSymbolStatus) in.readValue(BinanceSymbolStatus.class.getClassLoader());
-		orderTypes = (List<BinanceOrderType>) in.readValue(BinanceOrderType.class.getClassLoader());
-		timeInForce = (List<BinanceTimeInForce>) in.readValue(BinanceTimeInForce.class.getClassLoader());
-		priceFilter = (BinanceRawFuturesSymbolPriceFilter) in.readValue(BinanceRawFuturesSymbolPriceFilter.class.getClassLoader());
-		lotSizeFilter = (BinanceRawFuturesSymbolLotSizeFilter) in.readValue(BinanceRawFuturesSymbolLotSizeFilter.class.getClassLoader());
-		marketLotSizeFilter = (BinanceRawFuturesSymbolMarketLotSizeFilter) in.readValue(BinanceRawFuturesSymbolMarketLotSizeFilter.class.getClassLoader());
-		maxOrdersFilter = (BinanceRawFuturesSymbolMaxOrdersFilter) in.readValue(BinanceRawFuturesSymbolMaxOrdersFilter.class.getClassLoader());
-		maxAlgoOrdersFilter = (BinanceRawFuturesSymbolMaxAlgorithmicOrdersFilter) in.readValue(BinanceRawFuturesSymbolMaxAlgorithmicOrdersFilter.class.getClassLoader());
-		pricePercentFilter = (BinanceRawFuturesSymbolPercentPriceFilter) in.readValue(BinanceRawFuturesSymbolPercentPriceFilter.class.getClassLoader());
 	}
 
 	public BinanceRawFuturesUsdtSymbol name(String name) {
@@ -500,6 +467,7 @@ public class BinanceRawFuturesUsdtSymbol implements Parcelable
 		this.pricePercentFilter = pricePercentFilter;
 	}
 
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -534,6 +502,7 @@ public class BinanceRawFuturesUsdtSymbol implements Parcelable
 	public int hashCode() {
 		return Objects.hash(name, maintenanceMarginPercent, pricePrecision, quantityPrecision, requiredMarginPercent, baseAsset, marginAsset, quoteAsset, baseAssetPrecision, quoteAssetPrecision, status, orderTypes, timeInForce, priceFilter, lotSizeFilter, marketLotSizeFilter, maxOrdersFilter, maxAlgoOrdersFilter, pricePercentFilter);
 	}
+
 
 	@Override
 	public String toString() {
@@ -574,6 +543,7 @@ public class BinanceRawFuturesUsdtSymbol implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
+
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(name);
 		out.writeValue(maintenanceMarginPercent);
@@ -596,7 +566,40 @@ public class BinanceRawFuturesUsdtSymbol implements Parcelable
 		out.writeValue(pricePercentFilter);
 	}
 
+	public static final Parcelable.Creator<BinanceRawFuturesUsdtSymbol> CREATOR = new Parcelable.Creator<BinanceRawFuturesUsdtSymbol>()
+	{
+		public BinanceRawFuturesUsdtSymbol createFromParcel(Parcel in) {
+			return new BinanceRawFuturesUsdtSymbol(in);
+		}
+
+		public BinanceRawFuturesUsdtSymbol[] newArray(int size) {
+			return new BinanceRawFuturesUsdtSymbol[size];
+		}
+	};
+
 	public int describeContents() {
 		return 0;
+	}
+
+	BinanceRawFuturesUsdtSymbol(Parcel in) {
+		name = (String) in.readValue(null);
+		maintenanceMarginPercent = (Double) in.readValue(null);
+		pricePrecision = (Integer) in.readValue(null);
+		quantityPrecision = (Integer) in.readValue(null);
+		requiredMarginPercent = (Double) in.readValue(null);
+		baseAsset = (String) in.readValue(null);
+		marginAsset = (String) in.readValue(null);
+		quoteAsset = (String) in.readValue(null);
+		baseAssetPrecision = (Integer) in.readValue(null);
+		quoteAssetPrecision = (Integer) in.readValue(null);
+		status = (BinanceSymbolStatus) in.readValue(BinanceSymbolStatus.class.getClassLoader());
+		orderTypes = (List<BinanceOrderType>) in.readValue(BinanceOrderType.class.getClassLoader());
+		timeInForce = (List<BinanceTimeInForce>) in.readValue(BinanceTimeInForce.class.getClassLoader());
+		priceFilter = (BinanceRawFuturesSymbolPriceFilter) in.readValue(BinanceRawFuturesSymbolPriceFilter.class.getClassLoader());
+		lotSizeFilter = (BinanceRawFuturesSymbolLotSizeFilter) in.readValue(BinanceRawFuturesSymbolLotSizeFilter.class.getClassLoader());
+		marketLotSizeFilter = (BinanceRawFuturesSymbolMarketLotSizeFilter) in.readValue(BinanceRawFuturesSymbolMarketLotSizeFilter.class.getClassLoader());
+		maxOrdersFilter = (BinanceRawFuturesSymbolMaxOrdersFilter) in.readValue(BinanceRawFuturesSymbolMaxOrdersFilter.class.getClassLoader());
+		maxAlgoOrdersFilter = (BinanceRawFuturesSymbolMaxAlgorithmicOrdersFilter) in.readValue(BinanceRawFuturesSymbolMaxAlgorithmicOrdersFilter.class.getClassLoader());
+		pricePercentFilter = (BinanceRawFuturesSymbolPercentPriceFilter) in.readValue(BinanceRawFuturesSymbolPercentPriceFilter.class.getClassLoader());
 	}
 }

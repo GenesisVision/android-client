@@ -28,17 +28,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class BinanceRawSymbolMinNotionalFilter implements Parcelable
 {
-	public static final Parcelable.Creator<BinanceRawSymbolMinNotionalFilter> CREATOR = new Parcelable.Creator<BinanceRawSymbolMinNotionalFilter>()
-	{
-		public BinanceRawSymbolMinNotionalFilter createFromParcel(Parcel in) {
-			return new BinanceRawSymbolMinNotionalFilter(in);
-		}
-
-		public BinanceRawSymbolMinNotionalFilter[] newArray(int size) {
-			return new BinanceRawSymbolMinNotionalFilter[size];
-		}
-	};
-
 	@SerializedName("filterType")
 	private BinanceSymbolFilterType filterType = null;
 
@@ -52,13 +41,6 @@ public class BinanceRawSymbolMinNotionalFilter implements Parcelable
 	private Integer averagePriceMinutes = null;
 
 	public BinanceRawSymbolMinNotionalFilter() {
-	}
-
-	BinanceRawSymbolMinNotionalFilter(Parcel in) {
-		filterType = (BinanceSymbolFilterType) in.readValue(BinanceSymbolFilterType.class.getClassLoader());
-		minNotional = (Double) in.readValue(null);
-		applyToMarketOrders = (Boolean) in.readValue(null);
-		averagePriceMinutes = (Integer) in.readValue(null);
 	}
 
 	public BinanceRawSymbolMinNotionalFilter filterType(BinanceSymbolFilterType filterType) {
@@ -137,6 +119,7 @@ public class BinanceRawSymbolMinNotionalFilter implements Parcelable
 		this.averagePriceMinutes = averagePriceMinutes;
 	}
 
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -156,6 +139,7 @@ public class BinanceRawSymbolMinNotionalFilter implements Parcelable
 	public int hashCode() {
 		return Objects.hash(filterType, minNotional, applyToMarketOrders, averagePriceMinutes);
 	}
+
 
 	@Override
 	public String toString() {
@@ -181,6 +165,7 @@ public class BinanceRawSymbolMinNotionalFilter implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
+
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(filterType);
 		out.writeValue(minNotional);
@@ -188,7 +173,25 @@ public class BinanceRawSymbolMinNotionalFilter implements Parcelable
 		out.writeValue(averagePriceMinutes);
 	}
 
+	public static final Parcelable.Creator<BinanceRawSymbolMinNotionalFilter> CREATOR = new Parcelable.Creator<BinanceRawSymbolMinNotionalFilter>()
+	{
+		public BinanceRawSymbolMinNotionalFilter createFromParcel(Parcel in) {
+			return new BinanceRawSymbolMinNotionalFilter(in);
+		}
+
+		public BinanceRawSymbolMinNotionalFilter[] newArray(int size) {
+			return new BinanceRawSymbolMinNotionalFilter[size];
+		}
+	};
+
 	public int describeContents() {
 		return 0;
+	}
+
+	BinanceRawSymbolMinNotionalFilter(Parcel in) {
+		filterType = (BinanceSymbolFilterType) in.readValue(BinanceSymbolFilterType.class.getClassLoader());
+		minNotional = (Double) in.readValue(null);
+		applyToMarketOrders = (Boolean) in.readValue(null);
+		averagePriceMinutes = (Integer) in.readValue(null);
 	}
 }

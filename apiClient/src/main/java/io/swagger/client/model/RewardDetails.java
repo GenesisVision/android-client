@@ -30,17 +30,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class RewardDetails implements Parcelable
 {
-	public static final Parcelable.Creator<RewardDetails> CREATOR = new Parcelable.Creator<RewardDetails>()
-	{
-		public RewardDetails createFromParcel(Parcel in) {
-			return new RewardDetails(in);
-		}
-
-		public RewardDetails[] newArray(int size) {
-			return new RewardDetails[size];
-		}
-	};
-
 	@SerializedName("date")
 	private DateTime date = null;
 
@@ -51,12 +40,6 @@ public class RewardDetails implements Parcelable
 	private Double amount = null;
 
 	public RewardDetails() {
-	}
-
-	RewardDetails(Parcel in) {
-		date = (DateTime) in.readValue(DateTime.class.getClassLoader());
-		currency = (Currency) in.readValue(Currency.class.getClassLoader());
-		amount = (Double) in.readValue(null);
 	}
 
 	public RewardDetails date(DateTime date) {
@@ -116,6 +99,7 @@ public class RewardDetails implements Parcelable
 		this.amount = amount;
 	}
 
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -134,6 +118,7 @@ public class RewardDetails implements Parcelable
 	public int hashCode() {
 		return Objects.hash(date, currency, amount);
 	}
+
 
 	@Override
 	public String toString() {
@@ -158,13 +143,31 @@ public class RewardDetails implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
+
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(date);
 		out.writeValue(currency);
 		out.writeValue(amount);
 	}
 
+	public static final Parcelable.Creator<RewardDetails> CREATOR = new Parcelable.Creator<RewardDetails>()
+	{
+		public RewardDetails createFromParcel(Parcel in) {
+			return new RewardDetails(in);
+		}
+
+		public RewardDetails[] newArray(int size) {
+			return new RewardDetails[size];
+		}
+	};
+
 	public int describeContents() {
 		return 0;
+	}
+
+	RewardDetails(Parcel in) {
+		date = (DateTime) in.readValue(DateTime.class.getClassLoader());
+		currency = (Currency) in.readValue(Currency.class.getClassLoader());
+		amount = (Double) in.readValue(null);
 	}
 }

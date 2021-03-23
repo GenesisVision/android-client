@@ -28,17 +28,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class AndroidVersion implements Parcelable
 {
-	public static final Parcelable.Creator<AndroidVersion> CREATOR = new Parcelable.Creator<AndroidVersion>()
-	{
-		public AndroidVersion createFromParcel(Parcel in) {
-			return new AndroidVersion(in);
-		}
-
-		public AndroidVersion[] newArray(int size) {
-			return new AndroidVersion[size];
-		}
-	};
-
 	@SerializedName("versionCode")
 	private String versionCode = null;
 
@@ -46,11 +35,6 @@ public class AndroidVersion implements Parcelable
 	private String versionName = null;
 
 	public AndroidVersion() {
-	}
-
-	AndroidVersion(Parcel in) {
-		versionCode = (String) in.readValue(null);
-		versionName = (String) in.readValue(null);
 	}
 
 	public AndroidVersion versionCode(String versionCode) {
@@ -91,6 +75,7 @@ public class AndroidVersion implements Parcelable
 		this.versionName = versionName;
 	}
 
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -108,6 +93,7 @@ public class AndroidVersion implements Parcelable
 	public int hashCode() {
 		return Objects.hash(versionCode, versionName);
 	}
+
 
 	@Override
 	public String toString() {
@@ -131,12 +117,29 @@ public class AndroidVersion implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
+
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(versionCode);
 		out.writeValue(versionName);
 	}
 
+	public static final Parcelable.Creator<AndroidVersion> CREATOR = new Parcelable.Creator<AndroidVersion>()
+	{
+		public AndroidVersion createFromParcel(Parcel in) {
+			return new AndroidVersion(in);
+		}
+
+		public AndroidVersion[] newArray(int size) {
+			return new AndroidVersion[size];
+		}
+	};
+
 	public int describeContents() {
 		return 0;
+	}
+
+	AndroidVersion(Parcel in) {
+		versionCode = (String) in.readValue(null);
+		versionName = (String) in.readValue(null);
 	}
 }

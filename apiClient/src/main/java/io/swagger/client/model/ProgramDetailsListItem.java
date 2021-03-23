@@ -33,17 +33,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class ProgramDetailsListItem implements Parcelable
 {
-	public static final Parcelable.Creator<ProgramDetailsListItem> CREATOR = new Parcelable.Creator<ProgramDetailsListItem>()
-	{
-		public ProgramDetailsListItem createFromParcel(Parcel in) {
-			return new ProgramDetailsListItem(in);
-		}
-
-		public ProgramDetailsListItem[] newArray(int size) {
-			return new ProgramDetailsListItem[size];
-		}
-	};
-
 	@SerializedName("id")
 	private UUID id = null;
 
@@ -120,34 +109,6 @@ public class ProgramDetailsListItem implements Parcelable
 	private AmountWithCurrency balance = null;
 
 	public ProgramDetailsListItem() {
-	}
-
-	ProgramDetailsListItem(Parcel in) {
-		id = (UUID) in.readValue(UUID.class.getClassLoader());
-		type = (ProgramType) in.readValue(ProgramType.class.getClassLoader());
-		logoUrl = (String) in.readValue(null);
-		url = (String) in.readValue(null);
-		description = (String) in.readValue(null);
-		color = (String) in.readValue(null);
-		title = (String) in.readValue(null);
-		creationDate = (DateTime) in.readValue(DateTime.class.getClassLoader());
-		currency = (Currency) in.readValue(Currency.class.getClassLoader());
-		level = (Integer) in.readValue(null);
-		levelProgress = (Double) in.readValue(null);
-		periodDuration = (Integer) in.readValue(null);
-		availableToInvest = (Double) in.readValue(null);
-		investorsCount = (Integer) in.readValue(null);
-		periodStarts = (DateTime) in.readValue(DateTime.class.getClassLoader());
-		periodEnds = (DateTime) in.readValue(DateTime.class.getClassLoader());
-		status = (String) in.readValue(null);
-		entryFeeSelected = (Double) in.readValue(null);
-		entryFeeCurrent = (Double) in.readValue(null);
-		brokerId = (UUID) in.readValue(UUID.class.getClassLoader());
-		owner = (ProfilePublicShort) in.readValue(ProfilePublicShort.class.getClassLoader());
-		personalDetails = (PersonalProgramDetailsList) in.readValue(PersonalProgramDetailsList.class.getClassLoader());
-		tags = (List<Tag>) in.readValue(Tag.class.getClassLoader());
-		statistic = (ProfitChart) in.readValue(ProfitChart.class.getClassLoader());
-		balance = (AmountWithCurrency) in.readValue(AmountWithCurrency.class.getClassLoader());
 	}
 
 	public ProgramDetailsListItem id(UUID id) {
@@ -633,6 +594,7 @@ public class ProgramDetailsListItem implements Parcelable
 		this.balance = balance;
 	}
 
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -673,6 +635,7 @@ public class ProgramDetailsListItem implements Parcelable
 	public int hashCode() {
 		return Objects.hash(id, type, logoUrl, url, description, color, title, creationDate, currency, level, levelProgress, periodDuration, availableToInvest, investorsCount, periodStarts, periodEnds, status, entryFeeSelected, entryFeeCurrent, brokerId, owner, personalDetails, tags, statistic, balance);
 	}
+
 
 	@Override
 	public String toString() {
@@ -719,6 +682,7 @@ public class ProgramDetailsListItem implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
+
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(id);
 		out.writeValue(type);
@@ -747,7 +711,46 @@ public class ProgramDetailsListItem implements Parcelable
 		out.writeValue(balance);
 	}
 
+	public static final Parcelable.Creator<ProgramDetailsListItem> CREATOR = new Parcelable.Creator<ProgramDetailsListItem>()
+	{
+		public ProgramDetailsListItem createFromParcel(Parcel in) {
+			return new ProgramDetailsListItem(in);
+		}
+
+		public ProgramDetailsListItem[] newArray(int size) {
+			return new ProgramDetailsListItem[size];
+		}
+	};
+
 	public int describeContents() {
 		return 0;
+	}
+
+	ProgramDetailsListItem(Parcel in) {
+		id = (UUID) in.readValue(UUID.class.getClassLoader());
+		type = (ProgramType) in.readValue(ProgramType.class.getClassLoader());
+		logoUrl = (String) in.readValue(null);
+		url = (String) in.readValue(null);
+		description = (String) in.readValue(null);
+		color = (String) in.readValue(null);
+		title = (String) in.readValue(null);
+		creationDate = (DateTime) in.readValue(DateTime.class.getClassLoader());
+		currency = (Currency) in.readValue(Currency.class.getClassLoader());
+		level = (Integer) in.readValue(null);
+		levelProgress = (Double) in.readValue(null);
+		periodDuration = (Integer) in.readValue(null);
+		availableToInvest = (Double) in.readValue(null);
+		investorsCount = (Integer) in.readValue(null);
+		periodStarts = (DateTime) in.readValue(DateTime.class.getClassLoader());
+		periodEnds = (DateTime) in.readValue(DateTime.class.getClassLoader());
+		status = (String) in.readValue(null);
+		entryFeeSelected = (Double) in.readValue(null);
+		entryFeeCurrent = (Double) in.readValue(null);
+		brokerId = (UUID) in.readValue(UUID.class.getClassLoader());
+		owner = (ProfilePublicShort) in.readValue(ProfilePublicShort.class.getClassLoader());
+		personalDetails = (PersonalProgramDetailsList) in.readValue(PersonalProgramDetailsList.class.getClassLoader());
+		tags = (List<Tag>) in.readValue(Tag.class.getClassLoader());
+		statistic = (ProfitChart) in.readValue(ProfitChart.class.getClassLoader());
+		balance = (AmountWithCurrency) in.readValue(AmountWithCurrency.class.getClassLoader());
 	}
 }

@@ -30,15 +30,6 @@ public enum UserVerificationStatus
 	UNDERREVIEW("UnderReview"),
 	REJECTED("Rejected");
 
-	public static UserVerificationStatus fromValue(String text) {
-		for (UserVerificationStatus b : UserVerificationStatus.values()) {
-			if (String.valueOf(b.value).equals(text)) {
-				return b;
-			}
-		}
-		return null;
-	}
-
 	private String value;
 
 	UserVerificationStatus(String value) {
@@ -54,6 +45,15 @@ public enum UserVerificationStatus
 		return String.valueOf(value);
 	}
 
+	public static UserVerificationStatus fromValue(String text) {
+		for (UserVerificationStatus b : UserVerificationStatus.values()) {
+			if (String.valueOf(b.value).equals(text)) {
+				return b;
+			}
+		}
+		return null;
+	}
+
 	public static class Adapter extends TypeAdapter<UserVerificationStatus>
 	{
 		@Override
@@ -63,7 +63,7 @@ public enum UserVerificationStatus
 
 		@Override
 		public UserVerificationStatus read(final JsonReader jsonReader) throws IOException {
-			String value = jsonReader.nextString();
+			Object value = jsonReader.nextString();
 			return UserVerificationStatus.fromValue(String.valueOf(value));
 		}
 	}

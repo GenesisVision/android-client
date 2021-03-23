@@ -29,17 +29,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class MediaPostItemsViewModel implements Parcelable
 {
-	public static final Parcelable.Creator<MediaPostItemsViewModel> CREATOR = new Parcelable.Creator<MediaPostItemsViewModel>()
-	{
-		public MediaPostItemsViewModel createFromParcel(Parcel in) {
-			return new MediaPostItemsViewModel(in);
-		}
-
-		public MediaPostItemsViewModel[] newArray(int size) {
-			return new MediaPostItemsViewModel[size];
-		}
-	};
-
 	@SerializedName("items")
 	private List<MediaPost> items = null;
 
@@ -47,11 +36,6 @@ public class MediaPostItemsViewModel implements Parcelable
 	private Integer total = null;
 
 	public MediaPostItemsViewModel() {
-	}
-
-	MediaPostItemsViewModel(Parcel in) {
-		items = (List<MediaPost>) in.readValue(MediaPost.class.getClassLoader());
-		total = (Integer) in.readValue(null);
 	}
 
 	/**
@@ -74,6 +58,7 @@ public class MediaPostItemsViewModel implements Parcelable
 		return total;
 	}
 
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -91,6 +76,7 @@ public class MediaPostItemsViewModel implements Parcelable
 	public int hashCode() {
 		return Objects.hash(items, total);
 	}
+
 
 	@Override
 	public String toString() {
@@ -114,12 +100,29 @@ public class MediaPostItemsViewModel implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
+
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(items);
 		out.writeValue(total);
 	}
 
+	public static final Parcelable.Creator<MediaPostItemsViewModel> CREATOR = new Parcelable.Creator<MediaPostItemsViewModel>()
+	{
+		public MediaPostItemsViewModel createFromParcel(Parcel in) {
+			return new MediaPostItemsViewModel(in);
+		}
+
+		public MediaPostItemsViewModel[] newArray(int size) {
+			return new MediaPostItemsViewModel[size];
+		}
+	};
+
 	public int describeContents() {
 		return 0;
+	}
+
+	MediaPostItemsViewModel(Parcel in) {
+		items = (List<MediaPost>) in.readValue(MediaPost.class.getClassLoader());
+		total = (Integer) in.readValue(null);
 	}
 }

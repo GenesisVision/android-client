@@ -19,6 +19,8 @@ import com.google.gson.annotations.SerializedName;
 
 import org.joda.time.DateTime;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -30,6 +32,12 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class SignalSubscription implements Parcelable
 {
+	@SerializedName("subscriberInfo")
+	private SignalSubscriberInfo subscriberInfo = null;
+
+	@SerializedName("asset")
+	private AssetDetails asset = null;
+
 	public static final Parcelable.Creator<SignalSubscription> CREATOR = new Parcelable.Creator<SignalSubscription>()
 	{
 		public SignalSubscription createFromParcel(Parcel in) {
@@ -41,11 +49,11 @@ public class SignalSubscription implements Parcelable
 		}
 	};
 
-	@SerializedName("subscriberInfo")
-	private SignalSubscriberInfo subscriberInfo = null;
+	@SerializedName("assetOwner")
+	private ProfilePublic assetOwner = null;
 
-	@SerializedName("asset")
-	private AssetDetails asset = null;
+	@SerializedName("assetBrokerDetails")
+	private BrokerDetails assetBrokerDetails = null;
 
 	@SerializedName("status")
 	private String status = null;
@@ -95,12 +103,24 @@ public class SignalSubscription implements Parcelable
 	@SerializedName("volumeFeePersonal")
 	private Double volumeFeePersonal = null;
 
+	@SerializedName("assetTags")
+	private List<Tag> assetTags = null;
+
+	@SerializedName("successFee")
+	private Double successFee = null;
+
 	public SignalSubscription() {
 	}
+
+	@SerializedName("volumeFee")
+	private Double volumeFee = null;
 
 	SignalSubscription(Parcel in) {
 		subscriberInfo = (SignalSubscriberInfo) in.readValue(SignalSubscriberInfo.class.getClassLoader());
 		asset = (AssetDetails) in.readValue(AssetDetails.class.getClassLoader());
+		assetOwner = (ProfilePublic) in.readValue(ProfilePublic.class.getClassLoader());
+		assetBrokerDetails = (BrokerDetails) in.readValue(BrokerDetails.class.getClassLoader());
+		assetTags = (List<Tag>) in.readValue(Tag.class.getClassLoader());
 		status = (String) in.readValue(null);
 		subscriptionDate = (DateTime) in.readValue(DateTime.class.getClassLoader());
 		unsubscriptionDate = (DateTime) in.readValue(DateTime.class.getClassLoader());
@@ -117,6 +137,8 @@ public class SignalSubscription implements Parcelable
 		totalVolume = (Double) in.readValue(null);
 		successFeePersonal = (Double) in.readValue(null);
 		volumeFeePersonal = (Double) in.readValue(null);
+		successFee = (Double) in.readValue(null);
+		volumeFee = (Double) in.readValue(null);
 	}
 
 	public SignalSubscription subscriberInfo(SignalSubscriberInfo subscriberInfo) {
@@ -155,6 +177,57 @@ public class SignalSubscription implements Parcelable
 
 	public void setAsset(AssetDetails asset) {
 		this.asset = asset;
+	}
+
+	public SignalSubscription assetOwner(ProfilePublic assetOwner) {
+		this.assetOwner = assetOwner;
+		return this;
+	}
+
+	/**
+	 * Get assetOwner
+	 *
+	 * @return assetOwner
+	 **/
+	@Schema(description = "")
+	public ProfilePublic getAssetOwner() {
+		return assetOwner;
+	}
+
+	public void setAssetOwner(ProfilePublic assetOwner) {
+		this.assetOwner = assetOwner;
+	}
+
+	public SignalSubscription assetBrokerDetails(BrokerDetails assetBrokerDetails) {
+		this.assetBrokerDetails = assetBrokerDetails;
+		return this;
+	}
+
+	/**
+	 * Get assetBrokerDetails
+	 *
+	 * @return assetBrokerDetails
+	 **/
+	@Schema(description = "")
+	public BrokerDetails getAssetBrokerDetails() {
+		return assetBrokerDetails;
+	}
+
+	public void setAssetBrokerDetails(BrokerDetails assetBrokerDetails) {
+		this.assetBrokerDetails = assetBrokerDetails;
+	}
+
+	public SignalSubscription assetTags(List<Tag> assetTags) {
+		this.assetTags = assetTags;
+		return this;
+	}
+
+	public SignalSubscription addAssetTagsItem(Tag assetTagsItem) {
+		if (this.assetTags == null) {
+			this.assetTags = new ArrayList<Tag>();
+		}
+		this.assetTags.add(assetTagsItem);
+		return this;
 	}
 
 	public SignalSubscription status(String status) {
@@ -461,6 +534,58 @@ public class SignalSubscription implements Parcelable
 		this.volumeFeePersonal = volumeFeePersonal;
 	}
 
+	/**
+	 * Get assetTags
+	 *
+	 * @return assetTags
+	 **/
+	@Schema(description = "")
+	public List<Tag> getAssetTags() {
+		return assetTags;
+	}
+
+	public void setAssetTags(List<Tag> assetTags) {
+		this.assetTags = assetTags;
+	}
+
+	public SignalSubscription successFee(Double successFee) {
+		this.successFee = successFee;
+		return this;
+	}
+
+	/**
+	 * Get successFee
+	 *
+	 * @return successFee
+	 **/
+	@Schema(description = "")
+	public Double getSuccessFee() {
+		return successFee;
+	}
+
+	public void setSuccessFee(Double successFee) {
+		this.successFee = successFee;
+	}
+
+	public SignalSubscription volumeFee(Double volumeFee) {
+		this.volumeFee = volumeFee;
+		return this;
+	}
+
+	/**
+	 * Get volumeFee
+	 *
+	 * @return volumeFee
+	 **/
+	@Schema(description = "")
+	public Double getVolumeFee() {
+		return volumeFee;
+	}
+
+	public void setVolumeFee(Double volumeFee) {
+		this.volumeFee = volumeFee;
+	}
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -472,6 +597,9 @@ public class SignalSubscription implements Parcelable
 		SignalSubscription signalSubscription = (SignalSubscription) o;
 		return Objects.equals(this.subscriberInfo, signalSubscription.subscriberInfo) &&
 				Objects.equals(this.asset, signalSubscription.asset) &&
+				Objects.equals(this.assetOwner, signalSubscription.assetOwner) &&
+				Objects.equals(this.assetBrokerDetails, signalSubscription.assetBrokerDetails) &&
+				Objects.equals(this.assetTags, signalSubscription.assetTags) &&
 				Objects.equals(this.status, signalSubscription.status) &&
 				Objects.equals(this.subscriptionDate, signalSubscription.subscriptionDate) &&
 				Objects.equals(this.unsubscriptionDate, signalSubscription.unsubscriptionDate) &&
@@ -487,12 +615,25 @@ public class SignalSubscription implements Parcelable
 				Objects.equals(this.totalProfit, signalSubscription.totalProfit) &&
 				Objects.equals(this.totalVolume, signalSubscription.totalVolume) &&
 				Objects.equals(this.successFeePersonal, signalSubscription.successFeePersonal) &&
-				Objects.equals(this.volumeFeePersonal, signalSubscription.volumeFeePersonal);
+				Objects.equals(this.volumeFeePersonal, signalSubscription.volumeFeePersonal) &&
+				Objects.equals(this.successFee, signalSubscription.successFee) &&
+				Objects.equals(this.volumeFee, signalSubscription.volumeFee);
+	}
+
+	/**
+	 * Convert the given object to string with each line indented by 4 spaces
+	 * (except the first line).
+	 */
+	private String toIndentedString(java.lang.Object o) {
+		if (o == null) {
+			return "null";
+		}
+		return o.toString().replace("\n", "\n    ");
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(subscriberInfo, asset, status, subscriptionDate, unsubscriptionDate, hasSignalAccount, hasActiveSubscription, isExternal, mode, detachMode, percent, openTolerancePercent, fixedVolume, fixedCurrency, totalProfit, totalVolume, successFeePersonal, volumeFeePersonal);
+		return Objects.hash(subscriberInfo, asset, assetOwner, assetBrokerDetails, assetTags, status, subscriptionDate, unsubscriptionDate, hasSignalAccount, hasActiveSubscription, isExternal, mode, detachMode, percent, openTolerancePercent, fixedVolume, fixedCurrency, totalProfit, totalVolume, successFeePersonal, volumeFeePersonal, successFee, volumeFee);
 	}
 
 	@Override
@@ -502,6 +643,9 @@ public class SignalSubscription implements Parcelable
 
 		sb.append("    subscriberInfo: ").append(toIndentedString(subscriberInfo)).append("\n");
 		sb.append("    asset: ").append(toIndentedString(asset)).append("\n");
+		sb.append("    assetOwner: ").append(toIndentedString(assetOwner)).append("\n");
+		sb.append("    assetBrokerDetails: ").append(toIndentedString(assetBrokerDetails)).append("\n");
+		sb.append("    assetTags: ").append(toIndentedString(assetTags)).append("\n");
 		sb.append("    status: ").append(toIndentedString(status)).append("\n");
 		sb.append("    subscriptionDate: ").append(toIndentedString(subscriptionDate)).append("\n");
 		sb.append("    unsubscriptionDate: ").append(toIndentedString(unsubscriptionDate)).append("\n");
@@ -518,24 +662,22 @@ public class SignalSubscription implements Parcelable
 		sb.append("    totalVolume: ").append(toIndentedString(totalVolume)).append("\n");
 		sb.append("    successFeePersonal: ").append(toIndentedString(successFeePersonal)).append("\n");
 		sb.append("    volumeFeePersonal: ").append(toIndentedString(volumeFeePersonal)).append("\n");
+		sb.append("    successFee: ").append(toIndentedString(successFee)).append("\n");
+		sb.append("    volumeFee: ").append(toIndentedString(volumeFee)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}
 
-	/**
-	 * Convert the given object to string with each line indented by 4 spaces
-	 * (except the first line).
-	 */
-	private String toIndentedString(java.lang.Object o) {
-		if (o == null) {
-			return "null";
-		}
-		return o.toString().replace("\n", "\n    ");
+	public int describeContents() {
+		return 0;
 	}
 
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(subscriberInfo);
 		out.writeValue(asset);
+		out.writeValue(assetOwner);
+		out.writeValue(assetBrokerDetails);
+		out.writeValue(assetTags);
 		out.writeValue(status);
 		out.writeValue(subscriptionDate);
 		out.writeValue(unsubscriptionDate);
@@ -552,9 +694,7 @@ public class SignalSubscription implements Parcelable
 		out.writeValue(totalVolume);
 		out.writeValue(successFeePersonal);
 		out.writeValue(volumeFeePersonal);
-	}
-
-	public int describeContents() {
-		return 0;
+		out.writeValue(successFee);
+		out.writeValue(volumeFee);
 	}
 }

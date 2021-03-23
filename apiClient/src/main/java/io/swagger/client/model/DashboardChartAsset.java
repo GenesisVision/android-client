@@ -29,17 +29,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class DashboardChartAsset implements Parcelable
 {
-	public static final Parcelable.Creator<DashboardChartAsset> CREATOR = new Parcelable.Creator<DashboardChartAsset>()
-	{
-		public DashboardChartAsset createFromParcel(Parcel in) {
-			return new DashboardChartAsset(in);
-		}
-
-		public DashboardChartAsset[] newArray(int size) {
-			return new DashboardChartAsset[size];
-		}
-	};
-
 	@SerializedName("id")
 	private UUID id = null;
 
@@ -65,17 +54,6 @@ public class DashboardChartAsset implements Parcelable
 	private Boolean isPrivateAccount = null;
 
 	public DashboardChartAsset() {
-	}
-
-	DashboardChartAsset(Parcel in) {
-		id = (UUID) in.readValue(UUID.class.getClassLoader());
-		logoUrl = (String) in.readValue(null);
-		color = (String) in.readValue(null);
-		title = (String) in.readValue(null);
-		url = (String) in.readValue(null);
-		assetType = (AssetType) in.readValue(AssetType.class.getClassLoader());
-		programDetails = (ProgramAssetDetails) in.readValue(ProgramAssetDetails.class.getClassLoader());
-		isPrivateAccount = (Boolean) in.readValue(null);
 	}
 
 	public DashboardChartAsset id(UUID id) {
@@ -230,6 +208,7 @@ public class DashboardChartAsset implements Parcelable
 		this.isPrivateAccount = isPrivateAccount;
 	}
 
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -253,6 +232,7 @@ public class DashboardChartAsset implements Parcelable
 	public int hashCode() {
 		return Objects.hash(id, logoUrl, color, title, url, assetType, programDetails, isPrivateAccount);
 	}
+
 
 	@Override
 	public String toString() {
@@ -282,6 +262,7 @@ public class DashboardChartAsset implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
+
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(id);
 		out.writeValue(logoUrl);
@@ -293,7 +274,29 @@ public class DashboardChartAsset implements Parcelable
 		out.writeValue(isPrivateAccount);
 	}
 
+	public static final Parcelable.Creator<DashboardChartAsset> CREATOR = new Parcelable.Creator<DashboardChartAsset>()
+	{
+		public DashboardChartAsset createFromParcel(Parcel in) {
+			return new DashboardChartAsset(in);
+		}
+
+		public DashboardChartAsset[] newArray(int size) {
+			return new DashboardChartAsset[size];
+		}
+	};
+
 	public int describeContents() {
 		return 0;
+	}
+
+	DashboardChartAsset(Parcel in) {
+		id = (UUID) in.readValue(UUID.class.getClassLoader());
+		logoUrl = (String) in.readValue(null);
+		color = (String) in.readValue(null);
+		title = (String) in.readValue(null);
+		url = (String) in.readValue(null);
+		assetType = (AssetType) in.readValue(AssetType.class.getClassLoader());
+		programDetails = (ProgramAssetDetails) in.readValue(ProgramAssetDetails.class.getClassLoader());
+		isPrivateAccount = (Boolean) in.readValue(null);
 	}
 }

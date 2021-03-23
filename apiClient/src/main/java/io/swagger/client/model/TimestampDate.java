@@ -28,25 +28,10 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class TimestampDate implements Parcelable
 {
-	public static final Parcelable.Creator<TimestampDate> CREATOR = new Parcelable.Creator<TimestampDate>()
-	{
-		public TimestampDate createFromParcel(Parcel in) {
-			return new TimestampDate(in);
-		}
-
-		public TimestampDate[] newArray(int size) {
-			return new TimestampDate[size];
-		}
-	};
-
 	@SerializedName("date")
 	private Long date = null;
 
 	public TimestampDate() {
-	}
-
-	TimestampDate(Parcel in) {
-		date = (Long) in.readValue(null);
 	}
 
 	public TimestampDate date(Long date) {
@@ -68,6 +53,7 @@ public class TimestampDate implements Parcelable
 		this.date = date;
 	}
 
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -84,6 +70,7 @@ public class TimestampDate implements Parcelable
 	public int hashCode() {
 		return Objects.hash(date);
 	}
+
 
 	@Override
 	public String toString() {
@@ -106,11 +93,27 @@ public class TimestampDate implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
+
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(date);
 	}
 
+	public static final Parcelable.Creator<TimestampDate> CREATOR = new Parcelable.Creator<TimestampDate>()
+	{
+		public TimestampDate createFromParcel(Parcel in) {
+			return new TimestampDate(in);
+		}
+
+		public TimestampDate[] newArray(int size) {
+			return new TimestampDate[size];
+		}
+	};
+
 	public int describeContents() {
 		return 0;
+	}
+
+	TimestampDate(Parcel in) {
+		date = (Long) in.readValue(null);
 	}
 }

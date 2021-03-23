@@ -30,17 +30,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class PrivateTradingAccountFullTradingAccountDetails implements Parcelable
 {
-	public static final Parcelable.Creator<PrivateTradingAccountFullTradingAccountDetails> CREATOR = new Parcelable.Creator<PrivateTradingAccountFullTradingAccountDetails>()
-	{
-		public PrivateTradingAccountFullTradingAccountDetails createFromParcel(Parcel in) {
-			return new PrivateTradingAccountFullTradingAccountDetails(in);
-		}
-
-		public PrivateTradingAccountFullTradingAccountDetails[] newArray(int size) {
-			return new PrivateTradingAccountFullTradingAccountDetails[size];
-		}
-	};
-
 	@SerializedName("currency")
 	private Currency currency = null;
 
@@ -78,21 +67,6 @@ public class PrivateTradingAccountFullTradingAccountDetails implements Parcelabl
 	private List<TradingAccountPermission> permissions = null;
 
 	public PrivateTradingAccountFullTradingAccountDetails() {
-	}
-
-	PrivateTradingAccountFullTradingAccountDetails(Parcel in) {
-		currency = (Currency) in.readValue(Currency.class.getClassLoader());
-		leverage = (Integer) in.readValue(null);
-		apiKey = (String) in.readValue(null);
-		login = (String) in.readValue(null);
-		balance = (Double) in.readValue(null);
-		balances = (List<AmountWithCurrency>) in.readValue(AmountWithCurrency.class.getClassLoader());
-		type = (PrivateTradingAccountType) in.readValue(PrivateTradingAccountType.class.getClassLoader());
-		subscriptions = (Integer) in.readValue(null);
-		isExternal = (Boolean) in.readValue(null);
-		showTradingLog = (Boolean) in.readValue(null);
-		supportedCurrencies = (List<Currency>) in.readValue(Currency.class.getClassLoader());
-		permissions = (List<TradingAccountPermission>) in.readValue(TradingAccountPermission.class.getClassLoader());
 	}
 
 	public PrivateTradingAccountFullTradingAccountDetails currency(Currency currency) {
@@ -347,6 +321,7 @@ public class PrivateTradingAccountFullTradingAccountDetails implements Parcelabl
 		this.permissions = permissions;
 	}
 
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -374,6 +349,7 @@ public class PrivateTradingAccountFullTradingAccountDetails implements Parcelabl
 	public int hashCode() {
 		return Objects.hash(currency, leverage, apiKey, login, balance, balances, type, subscriptions, isExternal, showTradingLog, supportedCurrencies, permissions);
 	}
+
 
 	@Override
 	public String toString() {
@@ -407,6 +383,7 @@ public class PrivateTradingAccountFullTradingAccountDetails implements Parcelabl
 		return o.toString().replace("\n", "\n    ");
 	}
 
+
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(currency);
 		out.writeValue(leverage);
@@ -422,7 +399,33 @@ public class PrivateTradingAccountFullTradingAccountDetails implements Parcelabl
 		out.writeValue(permissions);
 	}
 
+	public static final Parcelable.Creator<PrivateTradingAccountFullTradingAccountDetails> CREATOR = new Parcelable.Creator<PrivateTradingAccountFullTradingAccountDetails>()
+	{
+		public PrivateTradingAccountFullTradingAccountDetails createFromParcel(Parcel in) {
+			return new PrivateTradingAccountFullTradingAccountDetails(in);
+		}
+
+		public PrivateTradingAccountFullTradingAccountDetails[] newArray(int size) {
+			return new PrivateTradingAccountFullTradingAccountDetails[size];
+		}
+	};
+
 	public int describeContents() {
 		return 0;
+	}
+
+	PrivateTradingAccountFullTradingAccountDetails(Parcel in) {
+		currency = (Currency) in.readValue(Currency.class.getClassLoader());
+		leverage = (Integer) in.readValue(null);
+		apiKey = (String) in.readValue(null);
+		login = (String) in.readValue(null);
+		balance = (Double) in.readValue(null);
+		balances = (List<AmountWithCurrency>) in.readValue(AmountWithCurrency.class.getClassLoader());
+		type = (PrivateTradingAccountType) in.readValue(PrivateTradingAccountType.class.getClassLoader());
+		subscriptions = (Integer) in.readValue(null);
+		isExternal = (Boolean) in.readValue(null);
+		showTradingLog = (Boolean) in.readValue(null);
+		supportedCurrencies = (List<Currency>) in.readValue(Currency.class.getClassLoader());
+		permissions = (List<TradingAccountPermission>) in.readValue(TradingAccountPermission.class.getClassLoader());
 	}
 }

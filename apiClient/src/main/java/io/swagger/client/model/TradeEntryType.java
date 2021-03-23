@@ -30,15 +30,6 @@ public enum TradeEntryType
 	INOUT("InOut"),
 	OUTBY("OutBy");
 
-	public static TradeEntryType fromValue(String text) {
-		for (TradeEntryType b : TradeEntryType.values()) {
-			if (String.valueOf(b.value).equals(text)) {
-				return b;
-			}
-		}
-		return null;
-	}
-
 	private String value;
 
 	TradeEntryType(String value) {
@@ -54,6 +45,15 @@ public enum TradeEntryType
 		return String.valueOf(value);
 	}
 
+	public static TradeEntryType fromValue(String text) {
+		for (TradeEntryType b : TradeEntryType.values()) {
+			if (String.valueOf(b.value).equals(text)) {
+				return b;
+			}
+		}
+		return null;
+	}
+
 	public static class Adapter extends TypeAdapter<TradeEntryType>
 	{
 		@Override
@@ -63,7 +63,7 @@ public enum TradeEntryType
 
 		@Override
 		public TradeEntryType read(final JsonReader jsonReader) throws IOException {
-			String value = jsonReader.nextString();
+			Object value = jsonReader.nextString();
 			return TradeEntryType.fromValue(String.valueOf(value));
 		}
 	}

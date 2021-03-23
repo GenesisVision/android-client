@@ -31,15 +31,6 @@ public enum ImageLocation
 	USER("User"),
 	SOCIAL("Social");
 
-	public static ImageLocation fromValue(String text) {
-		for (ImageLocation b : ImageLocation.values()) {
-			if (String.valueOf(b.value).equals(text)) {
-				return b;
-			}
-		}
-		return null;
-	}
-
 	private String value;
 
 	ImageLocation(String value) {
@@ -55,6 +46,15 @@ public enum ImageLocation
 		return String.valueOf(value);
 	}
 
+	public static ImageLocation fromValue(String text) {
+		for (ImageLocation b : ImageLocation.values()) {
+			if (String.valueOf(b.value).equals(text)) {
+				return b;
+			}
+		}
+		return null;
+	}
+
 	public static class Adapter extends TypeAdapter<ImageLocation>
 	{
 		@Override
@@ -64,7 +64,7 @@ public enum ImageLocation
 
 		@Override
 		public ImageLocation read(final JsonReader jsonReader) throws IOException {
-			String value = jsonReader.nextString();
+			Object value = jsonReader.nextString();
 			return ImageLocation.fromValue(String.valueOf(value));
 		}
 	}

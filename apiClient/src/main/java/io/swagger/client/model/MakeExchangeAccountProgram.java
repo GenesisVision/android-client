@@ -29,17 +29,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class MakeExchangeAccountProgram implements Parcelable
 {
-	public static final Parcelable.Creator<MakeExchangeAccountProgram> CREATOR = new Parcelable.Creator<MakeExchangeAccountProgram>()
-	{
-		public MakeExchangeAccountProgram createFromParcel(Parcel in) {
-			return new MakeExchangeAccountProgram(in);
-		}
-
-		public MakeExchangeAccountProgram[] newArray(int size) {
-			return new MakeExchangeAccountProgram[size];
-		}
-	};
-
 	@SerializedName("title")
 	private String title = null;
 
@@ -74,20 +63,6 @@ public class MakeExchangeAccountProgram implements Parcelable
 	private Double investmentLimit = null;
 
 	public MakeExchangeAccountProgram() {
-	}
-
-	MakeExchangeAccountProgram(Parcel in) {
-		title = (String) in.readValue(null);
-		description = (String) in.readValue(null);
-		logo = (String) in.readValue(null);
-		id = (UUID) in.readValue(UUID.class.getClassLoader());
-		currency = (Currency) in.readValue(Currency.class.getClassLoader());
-		hourProcessing = (Integer) in.readValue(null);
-		isProcessingRealTime = (Boolean) in.readValue(null);
-		tradesDelay = (TradesDelay) in.readValue(TradesDelay.class.getClassLoader());
-		managementFee = (Double) in.readValue(null);
-		successFee = (Double) in.readValue(null);
-		investmentLimit = (Double) in.readValue(null);
 	}
 
 	public MakeExchangeAccountProgram title(String title) {
@@ -299,6 +274,7 @@ public class MakeExchangeAccountProgram implements Parcelable
 		this.investmentLimit = investmentLimit;
 	}
 
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -325,6 +301,7 @@ public class MakeExchangeAccountProgram implements Parcelable
 	public int hashCode() {
 		return Objects.hash(title, description, logo, id, currency, hourProcessing, isProcessingRealTime, tradesDelay, managementFee, successFee, investmentLimit);
 	}
+
 
 	@Override
 	public String toString() {
@@ -357,6 +334,7 @@ public class MakeExchangeAccountProgram implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
+
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(title);
 		out.writeValue(description);
@@ -371,7 +349,32 @@ public class MakeExchangeAccountProgram implements Parcelable
 		out.writeValue(investmentLimit);
 	}
 
+	public static final Parcelable.Creator<MakeExchangeAccountProgram> CREATOR = new Parcelable.Creator<MakeExchangeAccountProgram>()
+	{
+		public MakeExchangeAccountProgram createFromParcel(Parcel in) {
+			return new MakeExchangeAccountProgram(in);
+		}
+
+		public MakeExchangeAccountProgram[] newArray(int size) {
+			return new MakeExchangeAccountProgram[size];
+		}
+	};
+
 	public int describeContents() {
 		return 0;
+	}
+
+	MakeExchangeAccountProgram(Parcel in) {
+		title = (String) in.readValue(null);
+		description = (String) in.readValue(null);
+		logo = (String) in.readValue(null);
+		id = (UUID) in.readValue(UUID.class.getClassLoader());
+		currency = (Currency) in.readValue(Currency.class.getClassLoader());
+		hourProcessing = (Integer) in.readValue(null);
+		isProcessingRealTime = (Boolean) in.readValue(null);
+		tradesDelay = (TradesDelay) in.readValue(TradesDelay.class.getClassLoader());
+		managementFee = (Double) in.readValue(null);
+		successFee = (Double) in.readValue(null);
+		investmentLimit = (Double) in.readValue(null);
 	}
 }

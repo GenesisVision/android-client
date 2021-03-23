@@ -30,17 +30,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class TradingAccountMaxCreateAmount implements Parcelable
 {
-	public static final Parcelable.Creator<TradingAccountMaxCreateAmount> CREATOR = new Parcelable.Creator<TradingAccountMaxCreateAmount>()
-	{
-		public TradingAccountMaxCreateAmount createFromParcel(Parcel in) {
-			return new TradingAccountMaxCreateAmount(in);
-		}
-
-		public TradingAccountMaxCreateAmount[] newArray(int size) {
-			return new TradingAccountMaxCreateAmount[size];
-		}
-	};
-
 	@SerializedName("serverType")
 	private BrokerTradeServerType serverType = null;
 
@@ -48,11 +37,6 @@ public class TradingAccountMaxCreateAmount implements Parcelable
 	private List<AmountWithCurrency> transferDemo = null;
 
 	public TradingAccountMaxCreateAmount() {
-	}
-
-	TradingAccountMaxCreateAmount(Parcel in) {
-		serverType = (BrokerTradeServerType) in.readValue(BrokerTradeServerType.class.getClassLoader());
-		transferDemo = (List<AmountWithCurrency>) in.readValue(AmountWithCurrency.class.getClassLoader());
 	}
 
 	public TradingAccountMaxCreateAmount serverType(BrokerTradeServerType serverType) {
@@ -101,6 +85,7 @@ public class TradingAccountMaxCreateAmount implements Parcelable
 		this.transferDemo = transferDemo;
 	}
 
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -118,6 +103,7 @@ public class TradingAccountMaxCreateAmount implements Parcelable
 	public int hashCode() {
 		return Objects.hash(serverType, transferDemo);
 	}
+
 
 	@Override
 	public String toString() {
@@ -141,12 +127,29 @@ public class TradingAccountMaxCreateAmount implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
+
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(serverType);
 		out.writeValue(transferDemo);
 	}
 
+	public static final Parcelable.Creator<TradingAccountMaxCreateAmount> CREATOR = new Parcelable.Creator<TradingAccountMaxCreateAmount>()
+	{
+		public TradingAccountMaxCreateAmount createFromParcel(Parcel in) {
+			return new TradingAccountMaxCreateAmount(in);
+		}
+
+		public TradingAccountMaxCreateAmount[] newArray(int size) {
+			return new TradingAccountMaxCreateAmount[size];
+		}
+	};
+
 	public int describeContents() {
 		return 0;
+	}
+
+	TradingAccountMaxCreateAmount(Parcel in) {
+		serverType = (BrokerTradeServerType) in.readValue(BrokerTradeServerType.class.getClassLoader());
+		transferDemo = (List<AmountWithCurrency>) in.readValue(AmountWithCurrency.class.getClassLoader());
 	}
 }

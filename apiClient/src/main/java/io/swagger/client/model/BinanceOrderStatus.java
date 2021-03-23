@@ -35,15 +35,6 @@ public enum BinanceOrderStatus
 	INSURANCE("Insurance"),
 	ADL("Adl");
 
-	public static BinanceOrderStatus fromValue(String text) {
-		for (BinanceOrderStatus b : BinanceOrderStatus.values()) {
-			if (String.valueOf(b.value).equals(text)) {
-				return b;
-			}
-		}
-		return null;
-	}
-
 	private String value;
 
 	BinanceOrderStatus(String value) {
@@ -59,6 +50,15 @@ public enum BinanceOrderStatus
 		return String.valueOf(value);
 	}
 
+	public static BinanceOrderStatus fromValue(String text) {
+		for (BinanceOrderStatus b : BinanceOrderStatus.values()) {
+			if (String.valueOf(b.value).equals(text)) {
+				return b;
+			}
+		}
+		return null;
+	}
+
 	public static class Adapter extends TypeAdapter<BinanceOrderStatus>
 	{
 		@Override
@@ -68,7 +68,7 @@ public enum BinanceOrderStatus
 
 		@Override
 		public BinanceOrderStatus read(final JsonReader jsonReader) throws IOException {
-			String value = jsonReader.nextString();
+			Object value = jsonReader.nextString();
 			return BinanceOrderStatus.fromValue(String.valueOf(value));
 		}
 	}

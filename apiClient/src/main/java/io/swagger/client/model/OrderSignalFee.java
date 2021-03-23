@@ -28,17 +28,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class OrderSignalFee implements Parcelable
 {
-	public static final Parcelable.Creator<OrderSignalFee> CREATOR = new Parcelable.Creator<OrderSignalFee>()
-	{
-		public OrderSignalFee createFromParcel(Parcel in) {
-			return new OrderSignalFee(in);
-		}
-
-		public OrderSignalFee[] newArray(int size) {
-			return new OrderSignalFee[size];
-		}
-	};
-
 	@SerializedName("amount")
 	private Double amount = null;
 
@@ -49,12 +38,6 @@ public class OrderSignalFee implements Parcelable
 	private FeeType type = null;
 
 	public OrderSignalFee() {
-	}
-
-	OrderSignalFee(Parcel in) {
-		amount = (Double) in.readValue(null);
-		currency = (Currency) in.readValue(Currency.class.getClassLoader());
-		type = (FeeType) in.readValue(FeeType.class.getClassLoader());
 	}
 
 	public OrderSignalFee amount(Double amount) {
@@ -114,6 +97,7 @@ public class OrderSignalFee implements Parcelable
 		this.type = type;
 	}
 
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -132,6 +116,7 @@ public class OrderSignalFee implements Parcelable
 	public int hashCode() {
 		return Objects.hash(amount, currency, type);
 	}
+
 
 	@Override
 	public String toString() {
@@ -156,13 +141,31 @@ public class OrderSignalFee implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
+
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(amount);
 		out.writeValue(currency);
 		out.writeValue(type);
 	}
 
+	public static final Parcelable.Creator<OrderSignalFee> CREATOR = new Parcelable.Creator<OrderSignalFee>()
+	{
+		public OrderSignalFee createFromParcel(Parcel in) {
+			return new OrderSignalFee(in);
+		}
+
+		public OrderSignalFee[] newArray(int size) {
+			return new OrderSignalFee[size];
+		}
+	};
+
 	public int describeContents() {
 		return 0;
+	}
+
+	OrderSignalFee(Parcel in) {
+		amount = (Double) in.readValue(null);
+		currency = (Currency) in.readValue(Currency.class.getClassLoader());
+		type = (FeeType) in.readValue(FeeType.class.getClassLoader());
 	}
 }

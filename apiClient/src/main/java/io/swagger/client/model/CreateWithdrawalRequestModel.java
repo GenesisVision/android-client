@@ -28,17 +28,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class CreateWithdrawalRequestModel implements Parcelable
 {
-	public static final Parcelable.Creator<CreateWithdrawalRequestModel> CREATOR = new Parcelable.Creator<CreateWithdrawalRequestModel>()
-	{
-		public CreateWithdrawalRequestModel createFromParcel(Parcel in) {
-			return new CreateWithdrawalRequestModel(in);
-		}
-
-		public CreateWithdrawalRequestModel[] newArray(int size) {
-			return new CreateWithdrawalRequestModel[size];
-		}
-	};
-
 	@SerializedName("amount")
 	private Double amount = null;
 
@@ -52,13 +41,6 @@ public class CreateWithdrawalRequestModel implements Parcelable
 	private String twoFactorCode = null;
 
 	public CreateWithdrawalRequestModel() {
-	}
-
-	CreateWithdrawalRequestModel(Parcel in) {
-		amount = (Double) in.readValue(null);
-		currency = (Currency) in.readValue(Currency.class.getClassLoader());
-		address = (String) in.readValue(null);
-		twoFactorCode = (String) in.readValue(null);
 	}
 
 	public CreateWithdrawalRequestModel amount(Double amount) {
@@ -137,6 +119,7 @@ public class CreateWithdrawalRequestModel implements Parcelable
 		this.twoFactorCode = twoFactorCode;
 	}
 
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -156,6 +139,7 @@ public class CreateWithdrawalRequestModel implements Parcelable
 	public int hashCode() {
 		return Objects.hash(amount, currency, address, twoFactorCode);
 	}
+
 
 	@Override
 	public String toString() {
@@ -181,6 +165,7 @@ public class CreateWithdrawalRequestModel implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
+
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(amount);
 		out.writeValue(currency);
@@ -188,7 +173,25 @@ public class CreateWithdrawalRequestModel implements Parcelable
 		out.writeValue(twoFactorCode);
 	}
 
+	public static final Parcelable.Creator<CreateWithdrawalRequestModel> CREATOR = new Parcelable.Creator<CreateWithdrawalRequestModel>()
+	{
+		public CreateWithdrawalRequestModel createFromParcel(Parcel in) {
+			return new CreateWithdrawalRequestModel(in);
+		}
+
+		public CreateWithdrawalRequestModel[] newArray(int size) {
+			return new CreateWithdrawalRequestModel[size];
+		}
+	};
+
 	public int describeContents() {
 		return 0;
+	}
+
+	CreateWithdrawalRequestModel(Parcel in) {
+		amount = (Double) in.readValue(null);
+		currency = (Currency) in.readValue(Currency.class.getClassLoader());
+		address = (String) in.readValue(null);
+		twoFactorCode = (String) in.readValue(null);
 	}
 }

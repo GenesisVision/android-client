@@ -29,17 +29,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class PostItemsViewModel implements Parcelable
 {
-	public static final Parcelable.Creator<PostItemsViewModel> CREATOR = new Parcelable.Creator<PostItemsViewModel>()
-	{
-		public PostItemsViewModel createFromParcel(Parcel in) {
-			return new PostItemsViewModel(in);
-		}
-
-		public PostItemsViewModel[] newArray(int size) {
-			return new PostItemsViewModel[size];
-		}
-	};
-
 	@SerializedName("items")
 	private List<Post> items = null;
 
@@ -47,11 +36,6 @@ public class PostItemsViewModel implements Parcelable
 	private Integer total = null;
 
 	public PostItemsViewModel() {
-	}
-
-	PostItemsViewModel(Parcel in) {
-		items = (List<Post>) in.readValue(Post.class.getClassLoader());
-		total = (Integer) in.readValue(null);
 	}
 
 	/**
@@ -74,6 +58,7 @@ public class PostItemsViewModel implements Parcelable
 		return total;
 	}
 
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -91,6 +76,7 @@ public class PostItemsViewModel implements Parcelable
 	public int hashCode() {
 		return Objects.hash(items, total);
 	}
+
 
 	@Override
 	public String toString() {
@@ -114,12 +100,29 @@ public class PostItemsViewModel implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
+
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(items);
 		out.writeValue(total);
 	}
 
+	public static final Parcelable.Creator<PostItemsViewModel> CREATOR = new Parcelable.Creator<PostItemsViewModel>()
+	{
+		public PostItemsViewModel createFromParcel(Parcel in) {
+			return new PostItemsViewModel(in);
+		}
+
+		public PostItemsViewModel[] newArray(int size) {
+			return new PostItemsViewModel[size];
+		}
+	};
+
 	public int describeContents() {
 		return 0;
+	}
+
+	PostItemsViewModel(Parcel in) {
+		items = (List<Post>) in.readValue(Post.class.getClassLoader());
+		total = (Integer) in.readValue(null);
 	}
 }

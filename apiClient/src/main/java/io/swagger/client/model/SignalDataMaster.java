@@ -28,17 +28,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class SignalDataMaster implements Parcelable
 {
-	public static final Parcelable.Creator<SignalDataMaster> CREATOR = new Parcelable.Creator<SignalDataMaster>()
-	{
-		public SignalDataMaster createFromParcel(Parcel in) {
-			return new SignalDataMaster(in);
-		}
-
-		public SignalDataMaster[] newArray(int size) {
-			return new SignalDataMaster[size];
-		}
-	};
-
 	@SerializedName("login")
 	private String login = null;
 
@@ -46,11 +35,6 @@ public class SignalDataMaster implements Parcelable
 	private Double share = null;
 
 	public SignalDataMaster() {
-	}
-
-	SignalDataMaster(Parcel in) {
-		login = (String) in.readValue(null);
-		share = (Double) in.readValue(null);
 	}
 
 	public SignalDataMaster login(String login) {
@@ -91,6 +75,7 @@ public class SignalDataMaster implements Parcelable
 		this.share = share;
 	}
 
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -108,6 +93,7 @@ public class SignalDataMaster implements Parcelable
 	public int hashCode() {
 		return Objects.hash(login, share);
 	}
+
 
 	@Override
 	public String toString() {
@@ -131,12 +117,29 @@ public class SignalDataMaster implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
+
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(login);
 		out.writeValue(share);
 	}
 
+	public static final Parcelable.Creator<SignalDataMaster> CREATOR = new Parcelable.Creator<SignalDataMaster>()
+	{
+		public SignalDataMaster createFromParcel(Parcel in) {
+			return new SignalDataMaster(in);
+		}
+
+		public SignalDataMaster[] newArray(int size) {
+			return new SignalDataMaster[size];
+		}
+	};
+
 	public int describeContents() {
 		return 0;
+	}
+
+	SignalDataMaster(Parcel in) {
+		login = (String) in.readValue(null);
+		share = (Double) in.readValue(null);
 	}
 }

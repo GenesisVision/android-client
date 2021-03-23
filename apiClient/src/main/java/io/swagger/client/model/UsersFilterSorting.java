@@ -42,15 +42,6 @@ public enum UsersFilterSorting
 	BYACTIVITYASC("ByActivityAsc"),
 	BYACTIVITYDESC("ByActivityDesc");
 
-	public static UsersFilterSorting fromValue(String text) {
-		for (UsersFilterSorting b : UsersFilterSorting.values()) {
-			if (String.valueOf(b.value).equals(text)) {
-				return b;
-			}
-		}
-		return null;
-	}
-
 	private String value;
 
 	UsersFilterSorting(String value) {
@@ -66,6 +57,15 @@ public enum UsersFilterSorting
 		return String.valueOf(value);
 	}
 
+	public static UsersFilterSorting fromValue(String text) {
+		for (UsersFilterSorting b : UsersFilterSorting.values()) {
+			if (String.valueOf(b.value).equals(text)) {
+				return b;
+			}
+		}
+		return null;
+	}
+
 	public static class Adapter extends TypeAdapter<UsersFilterSorting>
 	{
 		@Override
@@ -75,7 +75,7 @@ public enum UsersFilterSorting
 
 		@Override
 		public UsersFilterSorting read(final JsonReader jsonReader) throws IOException {
-			String value = jsonReader.nextString();
+			Object value = jsonReader.nextString();
 			return UsersFilterSorting.fromValue(String.valueOf(value));
 		}
 	}

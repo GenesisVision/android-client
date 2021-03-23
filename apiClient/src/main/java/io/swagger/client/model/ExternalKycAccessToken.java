@@ -28,17 +28,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class ExternalKycAccessToken implements Parcelable
 {
-	public static final Parcelable.Creator<ExternalKycAccessToken> CREATOR = new Parcelable.Creator<ExternalKycAccessToken>()
-	{
-		public ExternalKycAccessToken createFromParcel(Parcel in) {
-			return new ExternalKycAccessToken(in);
-		}
-
-		public ExternalKycAccessToken[] newArray(int size) {
-			return new ExternalKycAccessToken[size];
-		}
-	};
-
 	@SerializedName("baseAddress")
 	private String baseAddress = null;
 
@@ -49,12 +38,6 @@ public class ExternalKycAccessToken implements Parcelable
 	private String flowName = null;
 
 	public ExternalKycAccessToken() {
-	}
-
-	ExternalKycAccessToken(Parcel in) {
-		baseAddress = (String) in.readValue(null);
-		accessToken = (String) in.readValue(null);
-		flowName = (String) in.readValue(null);
 	}
 
 	public ExternalKycAccessToken baseAddress(String baseAddress) {
@@ -114,6 +97,7 @@ public class ExternalKycAccessToken implements Parcelable
 		this.flowName = flowName;
 	}
 
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -132,6 +116,7 @@ public class ExternalKycAccessToken implements Parcelable
 	public int hashCode() {
 		return Objects.hash(baseAddress, accessToken, flowName);
 	}
+
 
 	@Override
 	public String toString() {
@@ -156,13 +141,31 @@ public class ExternalKycAccessToken implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
+
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(baseAddress);
 		out.writeValue(accessToken);
 		out.writeValue(flowName);
 	}
 
+	public static final Parcelable.Creator<ExternalKycAccessToken> CREATOR = new Parcelable.Creator<ExternalKycAccessToken>()
+	{
+		public ExternalKycAccessToken createFromParcel(Parcel in) {
+			return new ExternalKycAccessToken(in);
+		}
+
+		public ExternalKycAccessToken[] newArray(int size) {
+			return new ExternalKycAccessToken[size];
+		}
+	};
+
 	public int describeContents() {
 		return 0;
+	}
+
+	ExternalKycAccessToken(Parcel in) {
+		baseAddress = (String) in.readValue(null);
+		accessToken = (String) in.readValue(null);
+		flowName = (String) in.readValue(null);
 	}
 }

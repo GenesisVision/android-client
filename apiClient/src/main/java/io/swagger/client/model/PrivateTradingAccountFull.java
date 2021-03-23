@@ -29,17 +29,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class PrivateTradingAccountFull implements Parcelable
 {
-	public static final Parcelable.Creator<PrivateTradingAccountFull> CREATOR = new Parcelable.Creator<PrivateTradingAccountFull>()
-	{
-		public PrivateTradingAccountFull createFromParcel(Parcel in) {
-			return new PrivateTradingAccountFull(in);
-		}
-
-		public PrivateTradingAccountFull[] newArray(int size) {
-			return new PrivateTradingAccountFull[size];
-		}
-	};
-
 	@SerializedName("id")
 	private UUID id = null;
 
@@ -56,14 +45,6 @@ public class PrivateTradingAccountFull implements Parcelable
 	private PrivateTradingAccountOwnerActions ownerActions = null;
 
 	public PrivateTradingAccountFull() {
-	}
-
-	PrivateTradingAccountFull(Parcel in) {
-		id = (UUID) in.readValue(UUID.class.getClassLoader());
-		publicInfo = (PrivateTradingAccountFullPublicDetails) in.readValue(PrivateTradingAccountFullPublicDetails.class.getClassLoader());
-		tradingAccountInfo = (PrivateTradingAccountFullTradingAccountDetails) in.readValue(PrivateTradingAccountFullTradingAccountDetails.class.getClassLoader());
-		brokerDetails = (BrokerDetails) in.readValue(BrokerDetails.class.getClassLoader());
-		ownerActions = (PrivateTradingAccountOwnerActions) in.readValue(PrivateTradingAccountOwnerActions.class.getClassLoader());
 	}
 
 	public PrivateTradingAccountFull id(UUID id) {
@@ -161,6 +142,7 @@ public class PrivateTradingAccountFull implements Parcelable
 		this.ownerActions = ownerActions;
 	}
 
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -181,6 +163,7 @@ public class PrivateTradingAccountFull implements Parcelable
 	public int hashCode() {
 		return Objects.hash(id, publicInfo, tradingAccountInfo, brokerDetails, ownerActions);
 	}
+
 
 	@Override
 	public String toString() {
@@ -207,6 +190,7 @@ public class PrivateTradingAccountFull implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
+
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(id);
 		out.writeValue(publicInfo);
@@ -215,7 +199,26 @@ public class PrivateTradingAccountFull implements Parcelable
 		out.writeValue(ownerActions);
 	}
 
+	public static final Parcelable.Creator<PrivateTradingAccountFull> CREATOR = new Parcelable.Creator<PrivateTradingAccountFull>()
+	{
+		public PrivateTradingAccountFull createFromParcel(Parcel in) {
+			return new PrivateTradingAccountFull(in);
+		}
+
+		public PrivateTradingAccountFull[] newArray(int size) {
+			return new PrivateTradingAccountFull[size];
+		}
+	};
+
 	public int describeContents() {
 		return 0;
+	}
+
+	PrivateTradingAccountFull(Parcel in) {
+		id = (UUID) in.readValue(UUID.class.getClassLoader());
+		publicInfo = (PrivateTradingAccountFullPublicDetails) in.readValue(PrivateTradingAccountFullPublicDetails.class.getClassLoader());
+		tradingAccountInfo = (PrivateTradingAccountFullTradingAccountDetails) in.readValue(PrivateTradingAccountFullTradingAccountDetails.class.getClassLoader());
+		brokerDetails = (BrokerDetails) in.readValue(BrokerDetails.class.getClassLoader());
+		ownerActions = (PrivateTradingAccountOwnerActions) in.readValue(PrivateTradingAccountOwnerActions.class.getClassLoader());
 	}
 }

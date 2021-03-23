@@ -5,6 +5,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 import io.swagger.client.model.Broker;
 import io.swagger.client.model.NewTradingAccountRequest;
@@ -76,9 +77,9 @@ public class CreateAccountPagerAdapter extends FragmentStatePagerAdapter
 		}
 	}
 
-	public void setMinDepositAmount(Double minDepositAmount, String currency) {
+	public void setMinDepositAmount(Map<String, Double> minDepositAmountInfo, String currency) {
 		if (depositFragment != null) {
-			depositFragment.setMinDepositAmount(minDepositAmount, currency);
+			depositFragment.setMinDepositAmount(minDepositAmountInfo, currency);
 		}
 	}
 

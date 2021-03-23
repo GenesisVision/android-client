@@ -28,17 +28,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class PlatformCurrencyInfo implements Parcelable
 {
-	public static final Parcelable.Creator<PlatformCurrencyInfo> CREATOR = new Parcelable.Creator<PlatformCurrencyInfo>()
-	{
-		public PlatformCurrencyInfo createFromParcel(Parcel in) {
-			return new PlatformCurrencyInfo(in);
-		}
-
-		public PlatformCurrencyInfo[] newArray(int size) {
-			return new PlatformCurrencyInfo[size];
-		}
-	};
-
 	@SerializedName("name")
 	private String name = null;
 
@@ -49,12 +38,6 @@ public class PlatformCurrencyInfo implements Parcelable
 	private Double minConvertAmount = null;
 
 	public PlatformCurrencyInfo() {
-	}
-
-	PlatformCurrencyInfo(Parcel in) {
-		name = (String) in.readValue(null);
-		color = (String) in.readValue(null);
-		minConvertAmount = (Double) in.readValue(null);
 	}
 
 	public PlatformCurrencyInfo name(String name) {
@@ -114,6 +97,7 @@ public class PlatformCurrencyInfo implements Parcelable
 		this.minConvertAmount = minConvertAmount;
 	}
 
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -132,6 +116,7 @@ public class PlatformCurrencyInfo implements Parcelable
 	public int hashCode() {
 		return Objects.hash(name, color, minConvertAmount);
 	}
+
 
 	@Override
 	public String toString() {
@@ -156,13 +141,31 @@ public class PlatformCurrencyInfo implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
+
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(name);
 		out.writeValue(color);
 		out.writeValue(minConvertAmount);
 	}
 
+	public static final Parcelable.Creator<PlatformCurrencyInfo> CREATOR = new Parcelable.Creator<PlatformCurrencyInfo>()
+	{
+		public PlatformCurrencyInfo createFromParcel(Parcel in) {
+			return new PlatformCurrencyInfo(in);
+		}
+
+		public PlatformCurrencyInfo[] newArray(int size) {
+			return new PlatformCurrencyInfo[size];
+		}
+	};
+
 	public int describeContents() {
 		return 0;
+	}
+
+	PlatformCurrencyInfo(Parcel in) {
+		name = (String) in.readValue(null);
+		color = (String) in.readValue(null);
+		minConvertAmount = (Double) in.readValue(null);
 	}
 }

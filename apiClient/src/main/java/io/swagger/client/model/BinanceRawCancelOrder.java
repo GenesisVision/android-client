@@ -28,17 +28,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class BinanceRawCancelOrder implements Parcelable
 {
-	public static final Parcelable.Creator<BinanceRawCancelOrder> CREATOR = new Parcelable.Creator<BinanceRawCancelOrder>()
-	{
-		public BinanceRawCancelOrder createFromParcel(Parcel in) {
-			return new BinanceRawCancelOrder(in);
-		}
-
-		public BinanceRawCancelOrder[] newArray(int size) {
-			return new BinanceRawCancelOrder[size];
-		}
-	};
-
 	@SerializedName("symbol")
 	private String symbol = null;
 
@@ -82,23 +71,6 @@ public class BinanceRawCancelOrder implements Parcelable
 	private BinanceOrderSide side = null;
 
 	public BinanceRawCancelOrder() {
-	}
-
-	BinanceRawCancelOrder(Parcel in) {
-		symbol = (String) in.readValue(null);
-		orderId = (Long) in.readValue(null);
-		clientOrderId = (String) in.readValue(null);
-		originalClientOrderId = (String) in.readValue(null);
-		orderListId = (Long) in.readValue(null);
-		quoteQuantity = (Double) in.readValue(null);
-		price = (Double) in.readValue(null);
-		quantity = (Double) in.readValue(null);
-		quantityFilled = (Double) in.readValue(null);
-		quoteQuantityFilled = (Double) in.readValue(null);
-		status = (BinanceOrderStatus) in.readValue(BinanceOrderStatus.class.getClassLoader());
-		timeInForce = (BinanceTimeInForce) in.readValue(BinanceTimeInForce.class.getClassLoader());
-		type = (BinanceOrderType) in.readValue(BinanceOrderType.class.getClassLoader());
-		side = (BinanceOrderSide) in.readValue(BinanceOrderSide.class.getClassLoader());
 	}
 
 	public BinanceRawCancelOrder symbol(String symbol) {
@@ -367,6 +339,7 @@ public class BinanceRawCancelOrder implements Parcelable
 		this.side = side;
 	}
 
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -396,6 +369,7 @@ public class BinanceRawCancelOrder implements Parcelable
 	public int hashCode() {
 		return Objects.hash(symbol, orderId, clientOrderId, originalClientOrderId, orderListId, quoteQuantity, price, quantity, quantityFilled, quoteQuantityFilled, status, timeInForce, type, side);
 	}
+
 
 	@Override
 	public String toString() {
@@ -431,6 +405,7 @@ public class BinanceRawCancelOrder implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
+
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(symbol);
 		out.writeValue(orderId);
@@ -448,7 +423,35 @@ public class BinanceRawCancelOrder implements Parcelable
 		out.writeValue(side);
 	}
 
+	public static final Parcelable.Creator<BinanceRawCancelOrder> CREATOR = new Parcelable.Creator<BinanceRawCancelOrder>()
+	{
+		public BinanceRawCancelOrder createFromParcel(Parcel in) {
+			return new BinanceRawCancelOrder(in);
+		}
+
+		public BinanceRawCancelOrder[] newArray(int size) {
+			return new BinanceRawCancelOrder[size];
+		}
+	};
+
 	public int describeContents() {
 		return 0;
+	}
+
+	BinanceRawCancelOrder(Parcel in) {
+		symbol = (String) in.readValue(null);
+		orderId = (Long) in.readValue(null);
+		clientOrderId = (String) in.readValue(null);
+		originalClientOrderId = (String) in.readValue(null);
+		orderListId = (Long) in.readValue(null);
+		quoteQuantity = (Double) in.readValue(null);
+		price = (Double) in.readValue(null);
+		quantity = (Double) in.readValue(null);
+		quantityFilled = (Double) in.readValue(null);
+		quoteQuantityFilled = (Double) in.readValue(null);
+		status = (BinanceOrderStatus) in.readValue(BinanceOrderStatus.class.getClassLoader());
+		timeInForce = (BinanceTimeInForce) in.readValue(BinanceTimeInForce.class.getClassLoader());
+		type = (BinanceOrderType) in.readValue(BinanceOrderType.class.getClassLoader());
+		side = (BinanceOrderSide) in.readValue(BinanceOrderSide.class.getClassLoader());
 	}
 }

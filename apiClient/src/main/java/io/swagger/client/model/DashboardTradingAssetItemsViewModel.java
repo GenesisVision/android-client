@@ -29,17 +29,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class DashboardTradingAssetItemsViewModel implements Parcelable
 {
-	public static final Parcelable.Creator<DashboardTradingAssetItemsViewModel> CREATOR = new Parcelable.Creator<DashboardTradingAssetItemsViewModel>()
-	{
-		public DashboardTradingAssetItemsViewModel createFromParcel(Parcel in) {
-			return new DashboardTradingAssetItemsViewModel(in);
-		}
-
-		public DashboardTradingAssetItemsViewModel[] newArray(int size) {
-			return new DashboardTradingAssetItemsViewModel[size];
-		}
-	};
-
 	@SerializedName("items")
 	private List<DashboardTradingAsset> items = null;
 
@@ -47,11 +36,6 @@ public class DashboardTradingAssetItemsViewModel implements Parcelable
 	private Integer total = null;
 
 	public DashboardTradingAssetItemsViewModel() {
-	}
-
-	DashboardTradingAssetItemsViewModel(Parcel in) {
-		items = (List<DashboardTradingAsset>) in.readValue(DashboardTradingAsset.class.getClassLoader());
-		total = (Integer) in.readValue(null);
 	}
 
 	/**
@@ -74,6 +58,7 @@ public class DashboardTradingAssetItemsViewModel implements Parcelable
 		return total;
 	}
 
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -91,6 +76,7 @@ public class DashboardTradingAssetItemsViewModel implements Parcelable
 	public int hashCode() {
 		return Objects.hash(items, total);
 	}
+
 
 	@Override
 	public String toString() {
@@ -114,12 +100,29 @@ public class DashboardTradingAssetItemsViewModel implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
+
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(items);
 		out.writeValue(total);
 	}
 
+	public static final Parcelable.Creator<DashboardTradingAssetItemsViewModel> CREATOR = new Parcelable.Creator<DashboardTradingAssetItemsViewModel>()
+	{
+		public DashboardTradingAssetItemsViewModel createFromParcel(Parcel in) {
+			return new DashboardTradingAssetItemsViewModel(in);
+		}
+
+		public DashboardTradingAssetItemsViewModel[] newArray(int size) {
+			return new DashboardTradingAssetItemsViewModel[size];
+		}
+	};
+
 	public int describeContents() {
 		return 0;
+	}
+
+	DashboardTradingAssetItemsViewModel(Parcel in) {
+		items = (List<DashboardTradingAsset>) in.readValue(DashboardTradingAsset.class.getClassLoader());
+		total = (Integer) in.readValue(null);
 	}
 }

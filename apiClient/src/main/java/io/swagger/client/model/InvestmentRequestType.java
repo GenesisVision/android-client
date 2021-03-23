@@ -28,15 +28,6 @@ public enum InvestmentRequestType
 	INVEST("Invest"),
 	WITHDRAWAL("Withdrawal");
 
-	public static InvestmentRequestType fromValue(String text) {
-		for (InvestmentRequestType b : InvestmentRequestType.values()) {
-			if (String.valueOf(b.value).equals(text)) {
-				return b;
-			}
-		}
-		return null;
-	}
-
 	private String value;
 
 	InvestmentRequestType(String value) {
@@ -52,6 +43,15 @@ public enum InvestmentRequestType
 		return String.valueOf(value);
 	}
 
+	public static InvestmentRequestType fromValue(String text) {
+		for (InvestmentRequestType b : InvestmentRequestType.values()) {
+			if (String.valueOf(b.value).equals(text)) {
+				return b;
+			}
+		}
+		return null;
+	}
+
 	public static class Adapter extends TypeAdapter<InvestmentRequestType>
 	{
 		@Override
@@ -61,7 +61,7 @@ public enum InvestmentRequestType
 
 		@Override
 		public InvestmentRequestType read(final JsonReader jsonReader) throws IOException {
-			String value = jsonReader.nextString();
+			Object value = jsonReader.nextString();
 			return InvestmentRequestType.fromValue(String.valueOf(value));
 		}
 	}

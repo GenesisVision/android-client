@@ -30,17 +30,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class BinanceRawFuturesOpenInterest implements Parcelable
 {
-	public static final Parcelable.Creator<BinanceRawFuturesOpenInterest> CREATOR = new Parcelable.Creator<BinanceRawFuturesOpenInterest>()
-	{
-		public BinanceRawFuturesOpenInterest createFromParcel(Parcel in) {
-			return new BinanceRawFuturesOpenInterest(in);
-		}
-
-		public BinanceRawFuturesOpenInterest[] newArray(int size) {
-			return new BinanceRawFuturesOpenInterest[size];
-		}
-	};
-
 	@SerializedName("symbol")
 	private String symbol = null;
 
@@ -51,12 +40,6 @@ public class BinanceRawFuturesOpenInterest implements Parcelable
 	private DateTime timestamp = null;
 
 	public BinanceRawFuturesOpenInterest() {
-	}
-
-	BinanceRawFuturesOpenInterest(Parcel in) {
-		symbol = (String) in.readValue(null);
-		openInterest = (Double) in.readValue(null);
-		timestamp = (DateTime) in.readValue(DateTime.class.getClassLoader());
 	}
 
 	public BinanceRawFuturesOpenInterest symbol(String symbol) {
@@ -116,6 +99,7 @@ public class BinanceRawFuturesOpenInterest implements Parcelable
 		this.timestamp = timestamp;
 	}
 
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -134,6 +118,7 @@ public class BinanceRawFuturesOpenInterest implements Parcelable
 	public int hashCode() {
 		return Objects.hash(symbol, openInterest, timestamp);
 	}
+
 
 	@Override
 	public String toString() {
@@ -158,13 +143,31 @@ public class BinanceRawFuturesOpenInterest implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
+
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(symbol);
 		out.writeValue(openInterest);
 		out.writeValue(timestamp);
 	}
 
+	public static final Parcelable.Creator<BinanceRawFuturesOpenInterest> CREATOR = new Parcelable.Creator<BinanceRawFuturesOpenInterest>()
+	{
+		public BinanceRawFuturesOpenInterest createFromParcel(Parcel in) {
+			return new BinanceRawFuturesOpenInterest(in);
+		}
+
+		public BinanceRawFuturesOpenInterest[] newArray(int size) {
+			return new BinanceRawFuturesOpenInterest[size];
+		}
+	};
+
 	public int describeContents() {
 		return 0;
+	}
+
+	BinanceRawFuturesOpenInterest(Parcel in) {
+		symbol = (String) in.readValue(null);
+		openInterest = (Double) in.readValue(null);
+		timestamp = (DateTime) in.readValue(DateTime.class.getClassLoader());
 	}
 }

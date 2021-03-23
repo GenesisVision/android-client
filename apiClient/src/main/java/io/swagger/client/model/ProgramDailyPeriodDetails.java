@@ -30,17 +30,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class ProgramDailyPeriodDetails implements Parcelable
 {
-	public static final Parcelable.Creator<ProgramDailyPeriodDetails> CREATOR = new Parcelable.Creator<ProgramDailyPeriodDetails>()
-	{
-		public ProgramDailyPeriodDetails createFromParcel(Parcel in) {
-			return new ProgramDailyPeriodDetails(in);
-		}
-
-		public ProgramDailyPeriodDetails[] newArray(int size) {
-			return new ProgramDailyPeriodDetails[size];
-		}
-	};
-
 	@SerializedName("isProcessingRealTime")
 	private Boolean isProcessingRealTime = null;
 
@@ -51,12 +40,6 @@ public class ProgramDailyPeriodDetails implements Parcelable
 	private DateTime nextProcessingDate = null;
 
 	public ProgramDailyPeriodDetails() {
-	}
-
-	ProgramDailyPeriodDetails(Parcel in) {
-		isProcessingRealTime = (Boolean) in.readValue(null);
-		hourProcessing = (Integer) in.readValue(null);
-		nextProcessingDate = (DateTime) in.readValue(DateTime.class.getClassLoader());
 	}
 
 	public ProgramDailyPeriodDetails isProcessingRealTime(Boolean isProcessingRealTime) {
@@ -116,6 +99,7 @@ public class ProgramDailyPeriodDetails implements Parcelable
 		this.nextProcessingDate = nextProcessingDate;
 	}
 
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -134,6 +118,7 @@ public class ProgramDailyPeriodDetails implements Parcelable
 	public int hashCode() {
 		return Objects.hash(isProcessingRealTime, hourProcessing, nextProcessingDate);
 	}
+
 
 	@Override
 	public String toString() {
@@ -158,13 +143,31 @@ public class ProgramDailyPeriodDetails implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
+
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(isProcessingRealTime);
 		out.writeValue(hourProcessing);
 		out.writeValue(nextProcessingDate);
 	}
 
+	public static final Parcelable.Creator<ProgramDailyPeriodDetails> CREATOR = new Parcelable.Creator<ProgramDailyPeriodDetails>()
+	{
+		public ProgramDailyPeriodDetails createFromParcel(Parcel in) {
+			return new ProgramDailyPeriodDetails(in);
+		}
+
+		public ProgramDailyPeriodDetails[] newArray(int size) {
+			return new ProgramDailyPeriodDetails[size];
+		}
+	};
+
 	public int describeContents() {
 		return 0;
+	}
+
+	ProgramDailyPeriodDetails(Parcel in) {
+		isProcessingRealTime = (Boolean) in.readValue(null);
+		hourProcessing = (Integer) in.readValue(null);
+		nextProcessingDate = (DateTime) in.readValue(DateTime.class.getClassLoader());
 	}
 }

@@ -28,17 +28,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class ManagerFinancialStatistic implements Parcelable
 {
-	public static final Parcelable.Creator<ManagerFinancialStatistic> CREATOR = new Parcelable.Creator<ManagerFinancialStatistic>()
-	{
-		public ManagerFinancialStatistic createFromParcel(Parcel in) {
-			return new ManagerFinancialStatistic(in);
-		}
-
-		public ManagerFinancialStatistic[] newArray(int size) {
-			return new ManagerFinancialStatistic[size];
-		}
-	};
-
 	@SerializedName("successFee")
 	private Double successFee = null;
 
@@ -52,13 +41,6 @@ public class ManagerFinancialStatistic implements Parcelable
 	private Double balance = null;
 
 	public ManagerFinancialStatistic() {
-	}
-
-	ManagerFinancialStatistic(Parcel in) {
-		successFee = (Double) in.readValue(null);
-		entryFee = (Double) in.readValue(null);
-		profit = (Double) in.readValue(null);
-		balance = (Double) in.readValue(null);
 	}
 
 	public ManagerFinancialStatistic successFee(Double successFee) {
@@ -137,6 +119,7 @@ public class ManagerFinancialStatistic implements Parcelable
 		this.balance = balance;
 	}
 
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -156,6 +139,7 @@ public class ManagerFinancialStatistic implements Parcelable
 	public int hashCode() {
 		return Objects.hash(successFee, entryFee, profit, balance);
 	}
+
 
 	@Override
 	public String toString() {
@@ -181,6 +165,7 @@ public class ManagerFinancialStatistic implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
+
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(successFee);
 		out.writeValue(entryFee);
@@ -188,7 +173,25 @@ public class ManagerFinancialStatistic implements Parcelable
 		out.writeValue(balance);
 	}
 
+	public static final Parcelable.Creator<ManagerFinancialStatistic> CREATOR = new Parcelable.Creator<ManagerFinancialStatistic>()
+	{
+		public ManagerFinancialStatistic createFromParcel(Parcel in) {
+			return new ManagerFinancialStatistic(in);
+		}
+
+		public ManagerFinancialStatistic[] newArray(int size) {
+			return new ManagerFinancialStatistic[size];
+		}
+	};
+
 	public int describeContents() {
 		return 0;
+	}
+
+	ManagerFinancialStatistic(Parcel in) {
+		successFee = (Double) in.readValue(null);
+		entryFee = (Double) in.readValue(null);
+		profit = (Double) in.readValue(null);
+		balance = (Double) in.readValue(null);
 	}
 }

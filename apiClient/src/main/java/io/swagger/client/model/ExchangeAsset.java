@@ -33,17 +33,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class ExchangeAsset implements Parcelable
 {
-	public static final Parcelable.Creator<ExchangeAsset> CREATOR = new Parcelable.Creator<ExchangeAsset>()
-	{
-		public ExchangeAsset createFromParcel(Parcel in) {
-			return new ExchangeAsset(in);
-		}
-
-		public ExchangeAsset[] newArray(int size) {
-			return new ExchangeAsset[size];
-		}
-	};
-
 	@SerializedName("id")
 	private UUID id = null;
 
@@ -66,16 +55,6 @@ public class ExchangeAsset implements Parcelable
 	private AssetDetails asset = null;
 
 	public ExchangeAsset() {
-	}
-
-	ExchangeAsset(Parcel in) {
-		id = (UUID) in.readValue(UUID.class.getClassLoader());
-		title = (String) in.readValue(null);
-		creationDate = (DateTime) in.readValue(DateTime.class.getClassLoader());
-		balance = (Double) in.readValue(null);
-		currency = (Currency) in.readValue(Currency.class.getClassLoader());
-		permissions = (List<TradingAccountPermission>) in.readValue(TradingAccountPermission.class.getClassLoader());
-		asset = (AssetDetails) in.readValue(AssetDetails.class.getClassLoader());
 	}
 
 	public ExchangeAsset id(UUID id) {
@@ -219,6 +198,7 @@ public class ExchangeAsset implements Parcelable
 		this.asset = asset;
 	}
 
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -241,6 +221,7 @@ public class ExchangeAsset implements Parcelable
 	public int hashCode() {
 		return Objects.hash(id, title, creationDate, balance, currency, permissions, asset);
 	}
+
 
 	@Override
 	public String toString() {
@@ -269,6 +250,7 @@ public class ExchangeAsset implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
+
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(id);
 		out.writeValue(title);
@@ -279,7 +261,28 @@ public class ExchangeAsset implements Parcelable
 		out.writeValue(asset);
 	}
 
+	public static final Parcelable.Creator<ExchangeAsset> CREATOR = new Parcelable.Creator<ExchangeAsset>()
+	{
+		public ExchangeAsset createFromParcel(Parcel in) {
+			return new ExchangeAsset(in);
+		}
+
+		public ExchangeAsset[] newArray(int size) {
+			return new ExchangeAsset[size];
+		}
+	};
+
 	public int describeContents() {
 		return 0;
+	}
+
+	ExchangeAsset(Parcel in) {
+		id = (UUID) in.readValue(UUID.class.getClassLoader());
+		title = (String) in.readValue(null);
+		creationDate = (DateTime) in.readValue(DateTime.class.getClassLoader());
+		balance = (Double) in.readValue(null);
+		currency = (Currency) in.readValue(Currency.class.getClassLoader());
+		permissions = (List<TradingAccountPermission>) in.readValue(TradingAccountPermission.class.getClassLoader());
+		asset = (AssetDetails) in.readValue(AssetDetails.class.getClassLoader());
 	}
 }

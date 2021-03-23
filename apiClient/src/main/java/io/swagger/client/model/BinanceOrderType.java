@@ -38,15 +38,6 @@ public enum BinanceOrderType
 	TRAILINGSTOPMARKET("TrailingStopMarket"),
 	LIQUIDATION("Liquidation");
 
-	public static BinanceOrderType fromValue(String text) {
-		for (BinanceOrderType b : BinanceOrderType.values()) {
-			if (String.valueOf(b.value).equals(text)) {
-				return b;
-			}
-		}
-		return null;
-	}
-
 	private String value;
 
 	BinanceOrderType(String value) {
@@ -62,6 +53,15 @@ public enum BinanceOrderType
 		return String.valueOf(value);
 	}
 
+	public static BinanceOrderType fromValue(String text) {
+		for (BinanceOrderType b : BinanceOrderType.values()) {
+			if (String.valueOf(b.value).equals(text)) {
+				return b;
+			}
+		}
+		return null;
+	}
+
 	public static class Adapter extends TypeAdapter<BinanceOrderType>
 	{
 		@Override
@@ -71,7 +71,7 @@ public enum BinanceOrderType
 
 		@Override
 		public BinanceOrderType read(final JsonReader jsonReader) throws IOException {
-			String value = jsonReader.nextString();
+			Object value = jsonReader.nextString();
 			return BinanceOrderType.fromValue(String.valueOf(value));
 		}
 	}

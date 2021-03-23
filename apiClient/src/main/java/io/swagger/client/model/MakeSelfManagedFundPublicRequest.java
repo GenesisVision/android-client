@@ -29,17 +29,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class MakeSelfManagedFundPublicRequest implements Parcelable
 {
-	public static final Parcelable.Creator<MakeSelfManagedFundPublicRequest> CREATOR = new Parcelable.Creator<MakeSelfManagedFundPublicRequest>()
-	{
-		public MakeSelfManagedFundPublicRequest createFromParcel(Parcel in) {
-			return new MakeSelfManagedFundPublicRequest(in);
-		}
-
-		public MakeSelfManagedFundPublicRequest[] newArray(int size) {
-			return new MakeSelfManagedFundPublicRequest[size];
-		}
-	};
-
 	@SerializedName("id")
 	private UUID id = null;
 
@@ -56,14 +45,6 @@ public class MakeSelfManagedFundPublicRequest implements Parcelable
 	private Double exitFee = null;
 
 	public MakeSelfManagedFundPublicRequest() {
-	}
-
-	MakeSelfManagedFundPublicRequest(Parcel in) {
-		id = (UUID) in.readValue(UUID.class.getClassLoader());
-		title = (String) in.readValue(null);
-		description = (String) in.readValue(null);
-		entryFee = (Double) in.readValue(null);
-		exitFee = (Double) in.readValue(null);
 	}
 
 	public MakeSelfManagedFundPublicRequest id(UUID id) {
@@ -161,6 +142,7 @@ public class MakeSelfManagedFundPublicRequest implements Parcelable
 		this.exitFee = exitFee;
 	}
 
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -181,6 +163,7 @@ public class MakeSelfManagedFundPublicRequest implements Parcelable
 	public int hashCode() {
 		return Objects.hash(id, title, description, entryFee, exitFee);
 	}
+
 
 	@Override
 	public String toString() {
@@ -207,6 +190,7 @@ public class MakeSelfManagedFundPublicRequest implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
+
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(id);
 		out.writeValue(title);
@@ -215,7 +199,26 @@ public class MakeSelfManagedFundPublicRequest implements Parcelable
 		out.writeValue(exitFee);
 	}
 
+	public static final Parcelable.Creator<MakeSelfManagedFundPublicRequest> CREATOR = new Parcelable.Creator<MakeSelfManagedFundPublicRequest>()
+	{
+		public MakeSelfManagedFundPublicRequest createFromParcel(Parcel in) {
+			return new MakeSelfManagedFundPublicRequest(in);
+		}
+
+		public MakeSelfManagedFundPublicRequest[] newArray(int size) {
+			return new MakeSelfManagedFundPublicRequest[size];
+		}
+	};
+
 	public int describeContents() {
 		return 0;
+	}
+
+	MakeSelfManagedFundPublicRequest(Parcel in) {
+		id = (UUID) in.readValue(UUID.class.getClassLoader());
+		title = (String) in.readValue(null);
+		description = (String) in.readValue(null);
+		entryFee = (Double) in.readValue(null);
+		exitFee = (Double) in.readValue(null);
 	}
 }

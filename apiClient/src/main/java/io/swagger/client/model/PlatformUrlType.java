@@ -30,15 +30,6 @@ public enum PlatformUrlType
 	FOLLOW("Follow"),
 	USER("User");
 
-	public static PlatformUrlType fromValue(String text) {
-		for (PlatformUrlType b : PlatformUrlType.values()) {
-			if (String.valueOf(b.value).equals(text)) {
-				return b;
-			}
-		}
-		return null;
-	}
-
 	private String value;
 
 	PlatformUrlType(String value) {
@@ -54,6 +45,15 @@ public enum PlatformUrlType
 		return String.valueOf(value);
 	}
 
+	public static PlatformUrlType fromValue(String text) {
+		for (PlatformUrlType b : PlatformUrlType.values()) {
+			if (String.valueOf(b.value).equals(text)) {
+				return b;
+			}
+		}
+		return null;
+	}
+
 	public static class Adapter extends TypeAdapter<PlatformUrlType>
 	{
 		@Override
@@ -63,7 +63,7 @@ public enum PlatformUrlType
 
 		@Override
 		public PlatformUrlType read(final JsonReader jsonReader) throws IOException {
-			String value = jsonReader.nextString();
+			Object value = jsonReader.nextString();
 			return PlatformUrlType.fromValue(String.valueOf(value));
 		}
 	}

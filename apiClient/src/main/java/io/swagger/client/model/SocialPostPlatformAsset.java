@@ -31,17 +31,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class SocialPostPlatformAsset implements Parcelable
 {
-	public static final Parcelable.Creator<SocialPostPlatformAsset> CREATOR = new Parcelable.Creator<SocialPostPlatformAsset>()
-	{
-		public SocialPostPlatformAsset createFromParcel(Parcel in) {
-			return new SocialPostPlatformAsset(in);
-		}
-
-		public SocialPostPlatformAsset[] newArray(int size) {
-			return new SocialPostPlatformAsset[size];
-		}
-	};
-
 	@SerializedName("id")
 	private UUID id = null;
 
@@ -82,22 +71,6 @@ public class SocialPostPlatformAsset implements Parcelable
 	private List<SimpleChartPoint> chart = null;
 
 	public SocialPostPlatformAsset() {
-	}
-
-	SocialPostPlatformAsset(Parcel in) {
-		id = (UUID) in.readValue(UUID.class.getClassLoader());
-		name = (String) in.readValue(null);
-		asset = (String) in.readValue(null);
-		description = (String) in.readValue(null);
-		logoUrl = (String) in.readValue(null);
-		color = (String) in.readValue(null);
-		url = (String) in.readValue(null);
-		provider = (AssetProvider) in.readValue(AssetProvider.class.getClassLoader());
-		price = (Double) in.readValue(null);
-		priceCurrency = (Currency) in.readValue(Currency.class.getClassLoader());
-		change24Percent = (Double) in.readValue(null);
-		changeState = (ChangeState) in.readValue(ChangeState.class.getClassLoader());
-		chart = (List<SimpleChartPoint>) in.readValue(SimpleChartPoint.class.getClassLoader());
 	}
 
 	public SocialPostPlatformAsset id(UUID id) {
@@ -355,6 +328,7 @@ public class SocialPostPlatformAsset implements Parcelable
 		this.chart = chart;
 	}
 
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -383,6 +357,7 @@ public class SocialPostPlatformAsset implements Parcelable
 	public int hashCode() {
 		return Objects.hash(id, name, asset, description, logoUrl, color, url, provider, price, priceCurrency, change24Percent, changeState, chart);
 	}
+
 
 	@Override
 	public String toString() {
@@ -417,6 +392,7 @@ public class SocialPostPlatformAsset implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
+
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(id);
 		out.writeValue(name);
@@ -433,7 +409,34 @@ public class SocialPostPlatformAsset implements Parcelable
 		out.writeValue(chart);
 	}
 
+	public static final Parcelable.Creator<SocialPostPlatformAsset> CREATOR = new Parcelable.Creator<SocialPostPlatformAsset>()
+	{
+		public SocialPostPlatformAsset createFromParcel(Parcel in) {
+			return new SocialPostPlatformAsset(in);
+		}
+
+		public SocialPostPlatformAsset[] newArray(int size) {
+			return new SocialPostPlatformAsset[size];
+		}
+	};
+
 	public int describeContents() {
 		return 0;
+	}
+
+	SocialPostPlatformAsset(Parcel in) {
+		id = (UUID) in.readValue(UUID.class.getClassLoader());
+		name = (String) in.readValue(null);
+		asset = (String) in.readValue(null);
+		description = (String) in.readValue(null);
+		logoUrl = (String) in.readValue(null);
+		color = (String) in.readValue(null);
+		url = (String) in.readValue(null);
+		provider = (AssetProvider) in.readValue(AssetProvider.class.getClassLoader());
+		price = (Double) in.readValue(null);
+		priceCurrency = (Currency) in.readValue(Currency.class.getClassLoader());
+		change24Percent = (Double) in.readValue(null);
+		changeState = (ChangeState) in.readValue(ChangeState.class.getClassLoader());
+		chart = (List<SimpleChartPoint>) in.readValue(SimpleChartPoint.class.getClassLoader());
 	}
 }

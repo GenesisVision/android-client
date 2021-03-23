@@ -30,17 +30,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class PostImage implements Parcelable
 {
-	public static final Parcelable.Creator<PostImage> CREATOR = new Parcelable.Creator<PostImage>()
-	{
-		public PostImage createFromParcel(Parcel in) {
-			return new PostImage(in);
-		}
-
-		public PostImage[] newArray(int size) {
-			return new PostImage[size];
-		}
-	};
-
 	@SerializedName("id")
 	private String id = null;
 
@@ -48,11 +37,6 @@ public class PostImage implements Parcelable
 	private List<PostImageResize> resizes = null;
 
 	public PostImage() {
-	}
-
-	PostImage(Parcel in) {
-		id = (String) in.readValue(null);
-		resizes = (List<PostImageResize>) in.readValue(PostImageResize.class.getClassLoader());
 	}
 
 	public PostImage id(String id) {
@@ -101,6 +85,7 @@ public class PostImage implements Parcelable
 		this.resizes = resizes;
 	}
 
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -118,6 +103,7 @@ public class PostImage implements Parcelable
 	public int hashCode() {
 		return Objects.hash(id, resizes);
 	}
+
 
 	@Override
 	public String toString() {
@@ -141,12 +127,29 @@ public class PostImage implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
+
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(id);
 		out.writeValue(resizes);
 	}
 
+	public static final Parcelable.Creator<PostImage> CREATOR = new Parcelable.Creator<PostImage>()
+	{
+		public PostImage createFromParcel(Parcel in) {
+			return new PostImage(in);
+		}
+
+		public PostImage[] newArray(int size) {
+			return new PostImage[size];
+		}
+	};
+
 	public int describeContents() {
 		return 0;
+	}
+
+	PostImage(Parcel in) {
+		id = (String) in.readValue(null);
+		resizes = (List<PostImageResize>) in.readValue(PostImageResize.class.getClassLoader());
 	}
 }

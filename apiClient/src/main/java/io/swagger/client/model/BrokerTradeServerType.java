@@ -38,15 +38,6 @@ public enum BrokerTradeServerType
 	BINANCEFOLLOW("BinanceFollow"),
 	BINANCE("Binance");
 
-	public static BrokerTradeServerType fromValue(String text) {
-		for (BrokerTradeServerType b : BrokerTradeServerType.values()) {
-			if (String.valueOf(b.value).equals(text)) {
-				return b;
-			}
-		}
-		return null;
-	}
-
 	private String value;
 
 	BrokerTradeServerType(String value) {
@@ -62,6 +53,15 @@ public enum BrokerTradeServerType
 		return String.valueOf(value);
 	}
 
+	public static BrokerTradeServerType fromValue(String text) {
+		for (BrokerTradeServerType b : BrokerTradeServerType.values()) {
+			if (String.valueOf(b.value).equals(text)) {
+				return b;
+			}
+		}
+		return null;
+	}
+
 	public static class Adapter extends TypeAdapter<BrokerTradeServerType>
 	{
 		@Override
@@ -71,7 +71,7 @@ public enum BrokerTradeServerType
 
 		@Override
 		public BrokerTradeServerType read(final JsonReader jsonReader) throws IOException {
-			String value = jsonReader.nextString();
+			Object value = jsonReader.nextString();
 			return BrokerTradeServerType.fromValue(String.valueOf(value));
 		}
 	}

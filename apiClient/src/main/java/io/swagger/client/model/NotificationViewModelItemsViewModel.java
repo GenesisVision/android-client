@@ -29,17 +29,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class NotificationViewModelItemsViewModel implements Parcelable
 {
-	public static final Parcelable.Creator<NotificationViewModelItemsViewModel> CREATOR = new Parcelable.Creator<NotificationViewModelItemsViewModel>()
-	{
-		public NotificationViewModelItemsViewModel createFromParcel(Parcel in) {
-			return new NotificationViewModelItemsViewModel(in);
-		}
-
-		public NotificationViewModelItemsViewModel[] newArray(int size) {
-			return new NotificationViewModelItemsViewModel[size];
-		}
-	};
-
 	@SerializedName("items")
 	private List<NotificationViewModel> items = null;
 
@@ -47,11 +36,6 @@ public class NotificationViewModelItemsViewModel implements Parcelable
 	private Integer total = null;
 
 	public NotificationViewModelItemsViewModel() {
-	}
-
-	NotificationViewModelItemsViewModel(Parcel in) {
-		items = (List<NotificationViewModel>) in.readValue(NotificationViewModel.class.getClassLoader());
-		total = (Integer) in.readValue(null);
 	}
 
 	/**
@@ -74,6 +58,7 @@ public class NotificationViewModelItemsViewModel implements Parcelable
 		return total;
 	}
 
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -91,6 +76,7 @@ public class NotificationViewModelItemsViewModel implements Parcelable
 	public int hashCode() {
 		return Objects.hash(items, total);
 	}
+
 
 	@Override
 	public String toString() {
@@ -114,12 +100,29 @@ public class NotificationViewModelItemsViewModel implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
+
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(items);
 		out.writeValue(total);
 	}
 
+	public static final Parcelable.Creator<NotificationViewModelItemsViewModel> CREATOR = new Parcelable.Creator<NotificationViewModelItemsViewModel>()
+	{
+		public NotificationViewModelItemsViewModel createFromParcel(Parcel in) {
+			return new NotificationViewModelItemsViewModel(in);
+		}
+
+		public NotificationViewModelItemsViewModel[] newArray(int size) {
+			return new NotificationViewModelItemsViewModel[size];
+		}
+	};
+
 	public int describeContents() {
 		return 0;
+	}
+
+	NotificationViewModelItemsViewModel(Parcel in) {
+		items = (List<NotificationViewModel>) in.readValue(NotificationViewModel.class.getClassLoader());
+		total = (Integer) in.readValue(null);
 	}
 }

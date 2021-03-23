@@ -29,15 +29,6 @@ public enum BetaTestingType
 	SOCIAL("Social"),
 	TRADINGTERMINAL("TradingTerminal");
 
-	public static BetaTestingType fromValue(String text) {
-		for (BetaTestingType b : BetaTestingType.values()) {
-			if (String.valueOf(b.value).equals(text)) {
-				return b;
-			}
-		}
-		return null;
-	}
-
 	private String value;
 
 	BetaTestingType(String value) {
@@ -53,6 +44,15 @@ public enum BetaTestingType
 		return String.valueOf(value);
 	}
 
+	public static BetaTestingType fromValue(String text) {
+		for (BetaTestingType b : BetaTestingType.values()) {
+			if (String.valueOf(b.value).equals(text)) {
+				return b;
+			}
+		}
+		return null;
+	}
+
 	public static class Adapter extends TypeAdapter<BetaTestingType>
 	{
 		@Override
@@ -62,7 +62,7 @@ public enum BetaTestingType
 
 		@Override
 		public BetaTestingType read(final JsonReader jsonReader) throws IOException {
-			String value = jsonReader.nextString();
+			Object value = jsonReader.nextString();
 			return BetaTestingType.fromValue(String.valueOf(value));
 		}
 	}

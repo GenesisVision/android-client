@@ -28,17 +28,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class ProgramLevelInfo implements Parcelable
 {
-	public static final Parcelable.Creator<ProgramLevelInfo> CREATOR = new Parcelable.Creator<ProgramLevelInfo>()
-	{
-		public ProgramLevelInfo createFromParcel(Parcel in) {
-			return new ProgramLevelInfo(in);
-		}
-
-		public ProgramLevelInfo[] newArray(int size) {
-			return new ProgramLevelInfo[size];
-		}
-	};
-
 	@SerializedName("isKycPassed")
 	private Boolean isKycPassed = null;
 
@@ -67,18 +56,6 @@ public class ProgramLevelInfo implements Parcelable
 	private Double totalAvailableToInvest = null;
 
 	public ProgramLevelInfo() {
-	}
-
-	ProgramLevelInfo(Parcel in) {
-		isKycPassed = (Boolean) in.readValue(null);
-		level = (Integer) in.readValue(null);
-		levelProgressPercent = (Double) in.readValue(null);
-		genesisRatio = (Double) in.readValue(null);
-		programAge = (Double) in.readValue(null);
-		weightedVolumeScale = (Double) in.readValue(null);
-		managerBalance = (Double) in.readValue(null);
-		investmentScale = (Double) in.readValue(null);
-		totalAvailableToInvest = (Double) in.readValue(null);
 	}
 
 	public ProgramLevelInfo isKycPassed(Boolean isKycPassed) {
@@ -252,6 +229,7 @@ public class ProgramLevelInfo implements Parcelable
 		this.totalAvailableToInvest = totalAvailableToInvest;
 	}
 
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -276,6 +254,7 @@ public class ProgramLevelInfo implements Parcelable
 	public int hashCode() {
 		return Objects.hash(isKycPassed, level, levelProgressPercent, genesisRatio, programAge, weightedVolumeScale, managerBalance, investmentScale, totalAvailableToInvest);
 	}
+
 
 	@Override
 	public String toString() {
@@ -306,6 +285,7 @@ public class ProgramLevelInfo implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
+
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(isKycPassed);
 		out.writeValue(level);
@@ -318,7 +298,30 @@ public class ProgramLevelInfo implements Parcelable
 		out.writeValue(totalAvailableToInvest);
 	}
 
+	public static final Parcelable.Creator<ProgramLevelInfo> CREATOR = new Parcelable.Creator<ProgramLevelInfo>()
+	{
+		public ProgramLevelInfo createFromParcel(Parcel in) {
+			return new ProgramLevelInfo(in);
+		}
+
+		public ProgramLevelInfo[] newArray(int size) {
+			return new ProgramLevelInfo[size];
+		}
+	};
+
 	public int describeContents() {
 		return 0;
+	}
+
+	ProgramLevelInfo(Parcel in) {
+		isKycPassed = (Boolean) in.readValue(null);
+		level = (Integer) in.readValue(null);
+		levelProgressPercent = (Double) in.readValue(null);
+		genesisRatio = (Double) in.readValue(null);
+		programAge = (Double) in.readValue(null);
+		weightedVolumeScale = (Double) in.readValue(null);
+		managerBalance = (Double) in.readValue(null);
+		investmentScale = (Double) in.readValue(null);
+		totalAvailableToInvest = (Double) in.readValue(null);
 	}
 }

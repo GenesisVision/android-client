@@ -29,15 +29,6 @@ public enum AppPlatform
 	ANDROID("Android"),
 	WEB("Web");
 
-	public static AppPlatform fromValue(String text) {
-		for (AppPlatform b : AppPlatform.values()) {
-			if (String.valueOf(b.value).equals(text)) {
-				return b;
-			}
-		}
-		return null;
-	}
-
 	private String value;
 
 	AppPlatform(String value) {
@@ -53,6 +44,15 @@ public enum AppPlatform
 		return String.valueOf(value);
 	}
 
+	public static AppPlatform fromValue(String text) {
+		for (AppPlatform b : AppPlatform.values()) {
+			if (String.valueOf(b.value).equals(text)) {
+				return b;
+			}
+		}
+		return null;
+	}
+
 	public static class Adapter extends TypeAdapter<AppPlatform>
 	{
 		@Override
@@ -62,7 +62,7 @@ public enum AppPlatform
 
 		@Override
 		public AppPlatform read(final JsonReader jsonReader) throws IOException {
-			String value = jsonReader.nextString();
+			Object value = jsonReader.nextString();
 			return AppPlatform.fromValue(String.valueOf(value));
 		}
 	}

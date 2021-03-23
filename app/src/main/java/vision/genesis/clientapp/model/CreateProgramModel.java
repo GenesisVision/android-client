@@ -3,8 +3,10 @@ package vision.genesis.clientapp.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.util.List;
 import java.util.UUID;
 
+import io.swagger.client.model.AmountWithCurrency;
 import io.swagger.client.model.AssetType;
 import io.swagger.client.model.BrokerTradeServerType;
 
@@ -38,7 +40,7 @@ public class CreateProgramModel implements Parcelable
 
 	private String currency;
 
-	private Double minDeposit;
+	private List<AmountWithCurrency> minDepositInfo;
 
 	private Boolean isExternal = false;
 
@@ -69,10 +71,10 @@ public class CreateProgramModel implements Parcelable
 		}
 		currency = in.readString();
 		if (in.readByte() == 0) {
-			minDeposit = null;
+			minDepositInfo = null;
 		}
 		else {
-			minDeposit = in.readDouble();
+			in.readList(minDepositInfo, AmountWithCurrency.class.getClassLoader());
 		}
 		isExternal = in.readByte() == 1;
 		isExchange = in.readByte() == 1;
@@ -98,12 +100,12 @@ public class CreateProgramModel implements Parcelable
 		return currency;
 	}
 
-	public Double getMinDeposit() {
-		return minDeposit;
+	public List<AmountWithCurrency> getMinDepositInfo() {
+		return minDepositInfo;
 	}
 
-	public void setMinDeposit(Double minDeposit) {
-		this.minDeposit = minDeposit;
+	public void setMinDepositInfo(List<AmountWithCurrency> minDepositInfo) {
+		this.minDepositInfo = minDepositInfo;
 	}
 
 	public Boolean isExternal() {
@@ -132,12 +134,12 @@ public class CreateProgramModel implements Parcelable
 			parcel.writeDouble(currentBalance);
 		}
 		parcel.writeString(currency);
-		if (minDeposit == null) {
+		if (minDepositInfo == null) {
 			parcel.writeByte((byte) 0);
 		}
 		else {
 			parcel.writeByte((byte) 1);
-			parcel.writeDouble(minDeposit);
+			parcel.writeList(minDepositInfo);
 		}
 		parcel.writeByte(isExternal ? (byte) 1 : (byte) 0);
 		parcel.writeByte(isExchange ? (byte) 1 : (byte) 0);

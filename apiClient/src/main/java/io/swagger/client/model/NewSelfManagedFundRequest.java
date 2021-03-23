@@ -31,17 +31,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class NewSelfManagedFundRequest implements Parcelable
 {
-	public static final Parcelable.Creator<NewSelfManagedFundRequest> CREATOR = new Parcelable.Creator<NewSelfManagedFundRequest>()
-	{
-		public NewSelfManagedFundRequest createFromParcel(Parcel in) {
-			return new NewSelfManagedFundRequest(in);
-		}
-
-		public NewSelfManagedFundRequest[] newArray(int size) {
-			return new NewSelfManagedFundRequest[size];
-		}
-	};
-
 	@SerializedName("title")
 	private String title = null;
 
@@ -58,14 +47,6 @@ public class NewSelfManagedFundRequest implements Parcelable
 	private UUID depositWalletId = null;
 
 	public NewSelfManagedFundRequest() {
-	}
-
-	NewSelfManagedFundRequest(Parcel in) {
-		title = (String) in.readValue(null);
-		logo = (String) in.readValue(null);
-		assets = (List<FundAssetPart>) in.readValue(FundAssetPart.class.getClassLoader());
-		depositAmount = (Double) in.readValue(null);
-		depositWalletId = (UUID) in.readValue(UUID.class.getClassLoader());
 	}
 
 	public NewSelfManagedFundRequest title(String title) {
@@ -171,6 +152,7 @@ public class NewSelfManagedFundRequest implements Parcelable
 		this.depositWalletId = depositWalletId;
 	}
 
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -191,6 +173,7 @@ public class NewSelfManagedFundRequest implements Parcelable
 	public int hashCode() {
 		return Objects.hash(title, logo, assets, depositAmount, depositWalletId);
 	}
+
 
 	@Override
 	public String toString() {
@@ -217,6 +200,7 @@ public class NewSelfManagedFundRequest implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
+
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(title);
 		out.writeValue(logo);
@@ -225,7 +209,26 @@ public class NewSelfManagedFundRequest implements Parcelable
 		out.writeValue(depositWalletId);
 	}
 
+	public static final Parcelable.Creator<NewSelfManagedFundRequest> CREATOR = new Parcelable.Creator<NewSelfManagedFundRequest>()
+	{
+		public NewSelfManagedFundRequest createFromParcel(Parcel in) {
+			return new NewSelfManagedFundRequest(in);
+		}
+
+		public NewSelfManagedFundRequest[] newArray(int size) {
+			return new NewSelfManagedFundRequest[size];
+		}
+	};
+
 	public int describeContents() {
 		return 0;
+	}
+
+	NewSelfManagedFundRequest(Parcel in) {
+		title = (String) in.readValue(null);
+		logo = (String) in.readValue(null);
+		assets = (List<FundAssetPart>) in.readValue(FundAssetPart.class.getClassLoader());
+		depositAmount = (Double) in.readValue(null);
+		depositWalletId = (UUID) in.readValue(UUID.class.getClassLoader());
 	}
 }

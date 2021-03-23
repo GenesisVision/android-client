@@ -28,25 +28,10 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class PlatformCommissionInfo implements Parcelable
 {
-	public static final Parcelable.Creator<PlatformCommissionInfo> CREATOR = new Parcelable.Creator<PlatformCommissionInfo>()
-	{
-		public PlatformCommissionInfo createFromParcel(Parcel in) {
-			return new PlatformCommissionInfo(in);
-		}
-
-		public PlatformCommissionInfo[] newArray(int size) {
-			return new PlatformCommissionInfo[size];
-		}
-	};
-
 	@SerializedName("investment")
 	private Double investment = null;
 
 	public PlatformCommissionInfo() {
-	}
-
-	PlatformCommissionInfo(Parcel in) {
-		investment = (Double) in.readValue(null);
 	}
 
 	public PlatformCommissionInfo investment(Double investment) {
@@ -68,6 +53,7 @@ public class PlatformCommissionInfo implements Parcelable
 		this.investment = investment;
 	}
 
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -84,6 +70,7 @@ public class PlatformCommissionInfo implements Parcelable
 	public int hashCode() {
 		return Objects.hash(investment);
 	}
+
 
 	@Override
 	public String toString() {
@@ -106,11 +93,27 @@ public class PlatformCommissionInfo implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
+
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(investment);
 	}
 
+	public static final Parcelable.Creator<PlatformCommissionInfo> CREATOR = new Parcelable.Creator<PlatformCommissionInfo>()
+	{
+		public PlatformCommissionInfo createFromParcel(Parcel in) {
+			return new PlatformCommissionInfo(in);
+		}
+
+		public PlatformCommissionInfo[] newArray(int size) {
+			return new PlatformCommissionInfo[size];
+		}
+	};
+
 	public int describeContents() {
 		return 0;
+	}
+
+	PlatformCommissionInfo(Parcel in) {
+		investment = (Double) in.readValue(null);
 	}
 }

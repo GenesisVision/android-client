@@ -30,17 +30,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class CreateApiKeyModel implements Parcelable
 {
-	public static final Parcelable.Creator<CreateApiKeyModel> CREATOR = new Parcelable.Creator<CreateApiKeyModel>()
-	{
-		public CreateApiKeyModel createFromParcel(Parcel in) {
-			return new CreateApiKeyModel(in);
-		}
-
-		public CreateApiKeyModel[] newArray(int size) {
-			return new CreateApiKeyModel[size];
-		}
-	};
-
 	@SerializedName("isIpRestrict")
 	private Boolean isIpRestrict = null;
 
@@ -57,14 +46,6 @@ public class CreateApiKeyModel implements Parcelable
 	private String title = null;
 
 	public CreateApiKeyModel() {
-	}
-
-	CreateApiKeyModel(Parcel in) {
-		isIpRestrict = (Boolean) in.readValue(null);
-		allowedIps = (List<String>) in.readValue(null);
-		isTradingEnabled = (Boolean) in.readValue(null);
-		twoFactorCode = (String) in.readValue(null);
-		title = (String) in.readValue(null);
 	}
 
 	public CreateApiKeyModel isIpRestrict(Boolean isIpRestrict) {
@@ -170,6 +151,7 @@ public class CreateApiKeyModel implements Parcelable
 		this.title = title;
 	}
 
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -190,6 +172,7 @@ public class CreateApiKeyModel implements Parcelable
 	public int hashCode() {
 		return Objects.hash(isIpRestrict, allowedIps, isTradingEnabled, twoFactorCode, title);
 	}
+
 
 	@Override
 	public String toString() {
@@ -216,6 +199,7 @@ public class CreateApiKeyModel implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
+
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(isIpRestrict);
 		out.writeValue(allowedIps);
@@ -224,7 +208,26 @@ public class CreateApiKeyModel implements Parcelable
 		out.writeValue(title);
 	}
 
+	public static final Parcelable.Creator<CreateApiKeyModel> CREATOR = new Parcelable.Creator<CreateApiKeyModel>()
+	{
+		public CreateApiKeyModel createFromParcel(Parcel in) {
+			return new CreateApiKeyModel(in);
+		}
+
+		public CreateApiKeyModel[] newArray(int size) {
+			return new CreateApiKeyModel[size];
+		}
+	};
+
 	public int describeContents() {
 		return 0;
+	}
+
+	CreateApiKeyModel(Parcel in) {
+		isIpRestrict = (Boolean) in.readValue(null);
+		allowedIps = (List<String>) in.readValue(null);
+		isTradingEnabled = (Boolean) in.readValue(null);
+		twoFactorCode = (String) in.readValue(null);
+		title = (String) in.readValue(null);
 	}
 }

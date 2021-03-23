@@ -28,17 +28,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class UtmSource implements Parcelable
 {
-	public static final Parcelable.Creator<UtmSource> CREATOR = new Parcelable.Creator<UtmSource>()
-	{
-		public UtmSource createFromParcel(Parcel in) {
-			return new UtmSource(in);
-		}
-
-		public UtmSource[] newArray(int size) {
-			return new UtmSource[size];
-		}
-	};
-
 	@SerializedName("urlParams")
 	private String urlParams = null;
 
@@ -46,11 +35,6 @@ public class UtmSource implements Parcelable
 	private String referer = null;
 
 	public UtmSource() {
-	}
-
-	UtmSource(Parcel in) {
-		urlParams = (String) in.readValue(null);
-		referer = (String) in.readValue(null);
 	}
 
 	public UtmSource urlParams(String urlParams) {
@@ -91,6 +75,7 @@ public class UtmSource implements Parcelable
 		this.referer = referer;
 	}
 
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -108,6 +93,7 @@ public class UtmSource implements Parcelable
 	public int hashCode() {
 		return Objects.hash(urlParams, referer);
 	}
+
 
 	@Override
 	public String toString() {
@@ -131,12 +117,29 @@ public class UtmSource implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
+
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(urlParams);
 		out.writeValue(referer);
 	}
 
+	public static final Parcelable.Creator<UtmSource> CREATOR = new Parcelable.Creator<UtmSource>()
+	{
+		public UtmSource createFromParcel(Parcel in) {
+			return new UtmSource(in);
+		}
+
+		public UtmSource[] newArray(int size) {
+			return new UtmSource[size];
+		}
+	};
+
 	public int describeContents() {
 		return 0;
+	}
+
+	UtmSource(Parcel in) {
+		urlParams = (String) in.readValue(null);
+		referer = (String) in.readValue(null);
 	}
 }

@@ -31,17 +31,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class MediaPost implements Parcelable
 {
-	public static final Parcelable.Creator<MediaPost> CREATOR = new Parcelable.Creator<MediaPost>()
-	{
-		public MediaPost createFromParcel(Parcel in) {
-			return new MediaPost(in);
-		}
-
-		public MediaPost[] newArray(int size) {
-			return new MediaPost[size];
-		}
-	};
-
 	@SerializedName("id")
 	private UUID id = null;
 
@@ -76,20 +65,6 @@ public class MediaPost implements Parcelable
 	private PostImage image = null;
 
 	public MediaPost() {
-	}
-
-	MediaPost(Parcel in) {
-		id = (UUID) in.readValue(UUID.class.getClassLoader());
-		url = (String) in.readValue(null);
-		type = (SocialLinkType) in.readValue(SocialLinkType.class.getClassLoader());
-		typeLogoUrl = (String) in.readValue(null);
-		author = (String) in.readValue(null);
-		authorUrl = (String) in.readValue(null);
-		authorLogoUrl = (String) in.readValue(null);
-		title = (String) in.readValue(null);
-		text = (String) in.readValue(null);
-		date = (DateTime) in.readValue(DateTime.class.getClassLoader());
-		image = (PostImage) in.readValue(PostImage.class.getClassLoader());
 	}
 
 	public MediaPost id(UUID id) {
@@ -301,6 +276,7 @@ public class MediaPost implements Parcelable
 		this.image = image;
 	}
 
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -327,6 +303,7 @@ public class MediaPost implements Parcelable
 	public int hashCode() {
 		return Objects.hash(id, url, type, typeLogoUrl, author, authorUrl, authorLogoUrl, title, text, date, image);
 	}
+
 
 	@Override
 	public String toString() {
@@ -359,6 +336,7 @@ public class MediaPost implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
+
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(id);
 		out.writeValue(url);
@@ -373,7 +351,32 @@ public class MediaPost implements Parcelable
 		out.writeValue(image);
 	}
 
+	public static final Parcelable.Creator<MediaPost> CREATOR = new Parcelable.Creator<MediaPost>()
+	{
+		public MediaPost createFromParcel(Parcel in) {
+			return new MediaPost(in);
+		}
+
+		public MediaPost[] newArray(int size) {
+			return new MediaPost[size];
+		}
+	};
+
 	public int describeContents() {
 		return 0;
+	}
+
+	MediaPost(Parcel in) {
+		id = (UUID) in.readValue(UUID.class.getClassLoader());
+		url = (String) in.readValue(null);
+		type = (SocialLinkType) in.readValue(SocialLinkType.class.getClassLoader());
+		typeLogoUrl = (String) in.readValue(null);
+		author = (String) in.readValue(null);
+		authorUrl = (String) in.readValue(null);
+		authorLogoUrl = (String) in.readValue(null);
+		title = (String) in.readValue(null);
+		text = (String) in.readValue(null);
+		date = (DateTime) in.readValue(DateTime.class.getClassLoader());
+		image = (PostImage) in.readValue(PostImage.class.getClassLoader());
 	}
 }

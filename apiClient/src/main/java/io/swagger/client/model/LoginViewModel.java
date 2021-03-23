@@ -28,17 +28,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class LoginViewModel implements Parcelable
 {
-	public static final Parcelable.Creator<LoginViewModel> CREATOR = new Parcelable.Creator<LoginViewModel>()
-	{
-		public LoginViewModel createFromParcel(Parcel in) {
-			return new LoginViewModel(in);
-		}
-
-		public LoginViewModel[] newArray(int size) {
-			return new LoginViewModel[size];
-		}
-	};
-
 	@SerializedName("email")
 	private String email = null;
 
@@ -61,16 +50,6 @@ public class LoginViewModel implements Parcelable
 	private String client = null;
 
 	public LoginViewModel() {
-	}
-
-	LoginViewModel(Parcel in) {
-		email = (String) in.readValue(null);
-		captchaCheckResult = (CaptchaCheckResult) in.readValue(CaptchaCheckResult.class.getClassLoader());
-		password = (String) in.readValue(null);
-		rememberMe = (Boolean) in.readValue(null);
-		twoFactorCode = (String) in.readValue(null);
-		recoveryCode = (String) in.readValue(null);
-		client = (String) in.readValue(null);
 	}
 
 	public LoginViewModel email(String email) {
@@ -206,6 +185,7 @@ public class LoginViewModel implements Parcelable
 		this.client = client;
 	}
 
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -228,6 +208,7 @@ public class LoginViewModel implements Parcelable
 	public int hashCode() {
 		return Objects.hash(email, captchaCheckResult, password, rememberMe, twoFactorCode, recoveryCode, client);
 	}
+
 
 	@Override
 	public String toString() {
@@ -256,6 +237,7 @@ public class LoginViewModel implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
+
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(email);
 		out.writeValue(captchaCheckResult);
@@ -266,7 +248,28 @@ public class LoginViewModel implements Parcelable
 		out.writeValue(client);
 	}
 
+	public static final Parcelable.Creator<LoginViewModel> CREATOR = new Parcelable.Creator<LoginViewModel>()
+	{
+		public LoginViewModel createFromParcel(Parcel in) {
+			return new LoginViewModel(in);
+		}
+
+		public LoginViewModel[] newArray(int size) {
+			return new LoginViewModel[size];
+		}
+	};
+
 	public int describeContents() {
 		return 0;
+	}
+
+	LoginViewModel(Parcel in) {
+		email = (String) in.readValue(null);
+		captchaCheckResult = (CaptchaCheckResult) in.readValue(CaptchaCheckResult.class.getClassLoader());
+		password = (String) in.readValue(null);
+		rememberMe = (Boolean) in.readValue(null);
+		twoFactorCode = (String) in.readValue(null);
+		recoveryCode = (String) in.readValue(null);
+		client = (String) in.readValue(null);
 	}
 }

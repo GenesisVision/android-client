@@ -30,17 +30,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class BinanceRawKline implements Parcelable
 {
-	public static final Parcelable.Creator<BinanceRawKline> CREATOR = new Parcelable.Creator<BinanceRawKline>()
-	{
-		public BinanceRawKline createFromParcel(Parcel in) {
-			return new BinanceRawKline(in);
-		}
-
-		public BinanceRawKline[] newArray(int size) {
-			return new BinanceRawKline[size];
-		}
-	};
-
 	@SerializedName("openTime")
 	private DateTime openTime = null;
 
@@ -75,20 +64,6 @@ public class BinanceRawKline implements Parcelable
 	private Double takerBuyQuoteVolume = null;
 
 	public BinanceRawKline() {
-	}
-
-	BinanceRawKline(Parcel in) {
-		openTime = (DateTime) in.readValue(DateTime.class.getClassLoader());
-		open = (Double) in.readValue(null);
-		high = (Double) in.readValue(null);
-		low = (Double) in.readValue(null);
-		close = (Double) in.readValue(null);
-		baseVolume = (Double) in.readValue(null);
-		closeTime = (DateTime) in.readValue(DateTime.class.getClassLoader());
-		quoteVolume = (Double) in.readValue(null);
-		tradeCount = (Integer) in.readValue(null);
-		takerBuyBaseVolume = (Double) in.readValue(null);
-		takerBuyQuoteVolume = (Double) in.readValue(null);
 	}
 
 	public BinanceRawKline openTime(DateTime openTime) {
@@ -300,6 +275,7 @@ public class BinanceRawKline implements Parcelable
 		this.takerBuyQuoteVolume = takerBuyQuoteVolume;
 	}
 
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -326,6 +302,7 @@ public class BinanceRawKline implements Parcelable
 	public int hashCode() {
 		return Objects.hash(openTime, open, high, low, close, baseVolume, closeTime, quoteVolume, tradeCount, takerBuyBaseVolume, takerBuyQuoteVolume);
 	}
+
 
 	@Override
 	public String toString() {
@@ -358,6 +335,7 @@ public class BinanceRawKline implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
+
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(openTime);
 		out.writeValue(open);
@@ -372,7 +350,32 @@ public class BinanceRawKline implements Parcelable
 		out.writeValue(takerBuyQuoteVolume);
 	}
 
+	public static final Parcelable.Creator<BinanceRawKline> CREATOR = new Parcelable.Creator<BinanceRawKline>()
+	{
+		public BinanceRawKline createFromParcel(Parcel in) {
+			return new BinanceRawKline(in);
+		}
+
+		public BinanceRawKline[] newArray(int size) {
+			return new BinanceRawKline[size];
+		}
+	};
+
 	public int describeContents() {
 		return 0;
+	}
+
+	BinanceRawKline(Parcel in) {
+		openTime = (DateTime) in.readValue(DateTime.class.getClassLoader());
+		open = (Double) in.readValue(null);
+		high = (Double) in.readValue(null);
+		low = (Double) in.readValue(null);
+		close = (Double) in.readValue(null);
+		baseVolume = (Double) in.readValue(null);
+		closeTime = (DateTime) in.readValue(DateTime.class.getClassLoader());
+		quoteVolume = (Double) in.readValue(null);
+		tradeCount = (Integer) in.readValue(null);
+		takerBuyBaseVolume = (Double) in.readValue(null);
+		takerBuyQuoteVolume = (Double) in.readValue(null);
 	}
 }

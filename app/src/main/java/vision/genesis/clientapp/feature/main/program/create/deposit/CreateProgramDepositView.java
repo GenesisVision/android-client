@@ -23,8 +23,6 @@ interface CreateProgramDepositView extends MvpView
 
 	void setAmount(String amountText);
 
-	void setAmountBase(String amountBaseString);
-
 	void setConfirmButtonEnabled(boolean enabled);
 
 	void showSnackbarMessage(String message);

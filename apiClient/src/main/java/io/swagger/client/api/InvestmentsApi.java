@@ -1,4 +1,4 @@
-package io.swagger.client.api;
+package io.swagger.client.api;//retrofit2
 
 import java.util.UUID;
 
@@ -159,7 +159,7 @@ public interface InvestmentsApi
 	 *
 	 * @param id          (required)
 	 * @param amount      (optional)
-	 * @param withdrawAll (optional)
+	 * @param withdrawAll (optional, default to false)
 	 * @return Call&lt;Void&gt;
 	 */
 	@POST("v2.0/investments/programs/{id}/withdraw")

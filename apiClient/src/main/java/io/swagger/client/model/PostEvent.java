@@ -28,17 +28,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class PostEvent implements Parcelable
 {
-	public static final Parcelable.Creator<PostEvent> CREATOR = new Parcelable.Creator<PostEvent>()
-	{
-		public PostEvent createFromParcel(Parcel in) {
-			return new PostEvent(in);
-		}
-
-		public PostEvent[] newArray(int size) {
-			return new PostEvent[size];
-		}
-	};
-
 	@SerializedName("title")
 	private String title = null;
 
@@ -58,15 +47,6 @@ public class PostEvent implements Parcelable
 	private ChangeState changeState = null;
 
 	public PostEvent() {
-	}
-
-	PostEvent(Parcel in) {
-		title = (String) in.readValue(null);
-		logoUrl = (String) in.readValue(null);
-		amount = (Double) in.readValue(null);
-		currency = (Currency) in.readValue(Currency.class.getClassLoader());
-		percent = (Double) in.readValue(null);
-		changeState = (ChangeState) in.readValue(ChangeState.class.getClassLoader());
 	}
 
 	public PostEvent title(String title) {
@@ -183,6 +163,7 @@ public class PostEvent implements Parcelable
 		this.changeState = changeState;
 	}
 
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -204,6 +185,7 @@ public class PostEvent implements Parcelable
 	public int hashCode() {
 		return Objects.hash(title, logoUrl, amount, currency, percent, changeState);
 	}
+
 
 	@Override
 	public String toString() {
@@ -231,6 +213,7 @@ public class PostEvent implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
+
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(title);
 		out.writeValue(logoUrl);
@@ -240,7 +223,27 @@ public class PostEvent implements Parcelable
 		out.writeValue(changeState);
 	}
 
+	public static final Parcelable.Creator<PostEvent> CREATOR = new Parcelable.Creator<PostEvent>()
+	{
+		public PostEvent createFromParcel(Parcel in) {
+			return new PostEvent(in);
+		}
+
+		public PostEvent[] newArray(int size) {
+			return new PostEvent[size];
+		}
+	};
+
 	public int describeContents() {
 		return 0;
+	}
+
+	PostEvent(Parcel in) {
+		title = (String) in.readValue(null);
+		logoUrl = (String) in.readValue(null);
+		amount = (Double) in.readValue(null);
+		currency = (Currency) in.readValue(Currency.class.getClassLoader());
+		percent = (Double) in.readValue(null);
+		changeState = (ChangeState) in.readValue(ChangeState.class.getClassLoader());
 	}
 }

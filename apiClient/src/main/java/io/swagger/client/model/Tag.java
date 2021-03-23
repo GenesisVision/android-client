@@ -28,17 +28,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class Tag implements Parcelable
 {
-	public static final Parcelable.Creator<Tag> CREATOR = new Parcelable.Creator<Tag>()
-	{
-		public Tag createFromParcel(Parcel in) {
-			return new Tag(in);
-		}
-
-		public Tag[] newArray(int size) {
-			return new Tag[size];
-		}
-	};
-
 	@SerializedName("name")
 	private String name = null;
 
@@ -46,11 +35,6 @@ public class Tag implements Parcelable
 	private String color = null;
 
 	public Tag() {
-	}
-
-	Tag(Parcel in) {
-		name = (String) in.readValue(null);
-		color = (String) in.readValue(null);
 	}
 
 	public Tag name(String name) {
@@ -91,6 +75,7 @@ public class Tag implements Parcelable
 		this.color = color;
 	}
 
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -108,6 +93,7 @@ public class Tag implements Parcelable
 	public int hashCode() {
 		return Objects.hash(name, color);
 	}
+
 
 	@Override
 	public String toString() {
@@ -131,12 +117,29 @@ public class Tag implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
+
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(name);
 		out.writeValue(color);
 	}
 
+	public static final Parcelable.Creator<Tag> CREATOR = new Parcelable.Creator<Tag>()
+	{
+		public Tag createFromParcel(Parcel in) {
+			return new Tag(in);
+		}
+
+		public Tag[] newArray(int size) {
+			return new Tag[size];
+		}
+	};
+
 	public int describeContents() {
 		return 0;
+	}
+
+	Tag(Parcel in) {
+		name = (String) in.readValue(null);
+		color = (String) in.readValue(null);
 	}
 }

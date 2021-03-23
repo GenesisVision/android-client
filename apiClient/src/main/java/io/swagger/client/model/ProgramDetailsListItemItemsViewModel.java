@@ -29,17 +29,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class ProgramDetailsListItemItemsViewModel implements Parcelable
 {
-	public static final Parcelable.Creator<ProgramDetailsListItemItemsViewModel> CREATOR = new Parcelable.Creator<ProgramDetailsListItemItemsViewModel>()
-	{
-		public ProgramDetailsListItemItemsViewModel createFromParcel(Parcel in) {
-			return new ProgramDetailsListItemItemsViewModel(in);
-		}
-
-		public ProgramDetailsListItemItemsViewModel[] newArray(int size) {
-			return new ProgramDetailsListItemItemsViewModel[size];
-		}
-	};
-
 	@SerializedName("items")
 	private List<ProgramDetailsListItem> items = null;
 
@@ -47,11 +36,6 @@ public class ProgramDetailsListItemItemsViewModel implements Parcelable
 	private Integer total = null;
 
 	public ProgramDetailsListItemItemsViewModel() {
-	}
-
-	ProgramDetailsListItemItemsViewModel(Parcel in) {
-		items = (List<ProgramDetailsListItem>) in.readValue(ProgramDetailsListItem.class.getClassLoader());
-		total = (Integer) in.readValue(null);
 	}
 
 	/**
@@ -74,6 +58,7 @@ public class ProgramDetailsListItemItemsViewModel implements Parcelable
 		return total;
 	}
 
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -91,6 +76,7 @@ public class ProgramDetailsListItemItemsViewModel implements Parcelable
 	public int hashCode() {
 		return Objects.hash(items, total);
 	}
+
 
 	@Override
 	public String toString() {
@@ -114,12 +100,29 @@ public class ProgramDetailsListItemItemsViewModel implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
+
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(items);
 		out.writeValue(total);
 	}
 
+	public static final Parcelable.Creator<ProgramDetailsListItemItemsViewModel> CREATOR = new Parcelable.Creator<ProgramDetailsListItemItemsViewModel>()
+	{
+		public ProgramDetailsListItemItemsViewModel createFromParcel(Parcel in) {
+			return new ProgramDetailsListItemItemsViewModel(in);
+		}
+
+		public ProgramDetailsListItemItemsViewModel[] newArray(int size) {
+			return new ProgramDetailsListItemItemsViewModel[size];
+		}
+	};
+
 	public int describeContents() {
 		return 0;
+	}
+
+	ProgramDetailsListItemItemsViewModel(Parcel in) {
+		items = (List<ProgramDetailsListItem>) in.readValue(ProgramDetailsListItem.class.getClassLoader());
+		total = (Integer) in.readValue(null);
 	}
 }

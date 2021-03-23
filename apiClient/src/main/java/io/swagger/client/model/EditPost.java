@@ -31,17 +31,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class EditPost implements Parcelable
 {
-	public static final Parcelable.Creator<EditPost> CREATOR = new Parcelable.Creator<EditPost>()
-	{
-		public EditPost createFromParcel(Parcel in) {
-			return new EditPost(in);
-		}
-
-		public EditPost[] newArray(int size) {
-			return new EditPost[size];
-		}
-	};
-
 	@SerializedName("id")
 	private UUID id = null;
 
@@ -52,12 +41,6 @@ public class EditPost implements Parcelable
 	private List<NewPostImage> images = null;
 
 	public EditPost() {
-	}
-
-	EditPost(Parcel in) {
-		id = (UUID) in.readValue(UUID.class.getClassLoader());
-		text = (String) in.readValue(null);
-		images = (List<NewPostImage>) in.readValue(NewPostImage.class.getClassLoader());
 	}
 
 	public EditPost id(UUID id) {
@@ -125,6 +108,7 @@ public class EditPost implements Parcelable
 		this.images = images;
 	}
 
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -143,6 +127,7 @@ public class EditPost implements Parcelable
 	public int hashCode() {
 		return Objects.hash(id, text, images);
 	}
+
 
 	@Override
 	public String toString() {
@@ -167,13 +152,31 @@ public class EditPost implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
+
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(id);
 		out.writeValue(text);
 		out.writeValue(images);
 	}
 
+	public static final Parcelable.Creator<EditPost> CREATOR = new Parcelable.Creator<EditPost>()
+	{
+		public EditPost createFromParcel(Parcel in) {
+			return new EditPost(in);
+		}
+
+		public EditPost[] newArray(int size) {
+			return new EditPost[size];
+		}
+	};
+
 	public int describeContents() {
 		return 0;
+	}
+
+	EditPost(Parcel in) {
+		id = (UUID) in.readValue(UUID.class.getClassLoader());
+		text = (String) in.readValue(null);
+		images = (List<NewPostImage>) in.readValue(NewPostImage.class.getClassLoader());
 	}
 }

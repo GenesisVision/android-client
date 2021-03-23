@@ -28,17 +28,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class PersonalInvestingProgramDetailsList implements Parcelable
 {
-	public static final Parcelable.Creator<PersonalInvestingProgramDetailsList> CREATOR = new Parcelable.Creator<PersonalInvestingProgramDetailsList>()
-	{
-		public PersonalInvestingProgramDetailsList createFromParcel(Parcel in) {
-			return new PersonalInvestingProgramDetailsList(in);
-		}
-
-		public PersonalInvestingProgramDetailsList[] newArray(int size) {
-			return new PersonalInvestingProgramDetailsList[size];
-		}
-	};
-
 	@SerializedName("isOwnAsset")
 	private Boolean isOwnAsset = null;
 
@@ -85,24 +74,6 @@ public class PersonalInvestingProgramDetailsList implements Parcelable
 	private AssetInvestmentStatus status = null;
 
 	public PersonalInvestingProgramDetailsList() {
-	}
-
-	PersonalInvestingProgramDetailsList(Parcel in) {
-		isOwnAsset = (Boolean) in.readValue(null);
-		isFavorite = (Boolean) in.readValue(null);
-		isReinvest = (Boolean) in.readValue(null);
-		isAutoJoin = (Boolean) in.readValue(null);
-		canInvest = (Boolean) in.readValue(null);
-		canWithdraw = (Boolean) in.readValue(null);
-		canChangeReinvest = (Boolean) in.readValue(null);
-		share = (Double) in.readValue(null);
-		value = (Double) in.readValue(null);
-		profit = (Double) in.readValue(null);
-		profitPercent = (Double) in.readValue(null);
-		invested = (Double) in.readValue(null);
-		successFeePersonal = (Double) in.readValue(null);
-		managementFeePersonal = (Double) in.readValue(null);
-		status = (AssetInvestmentStatus) in.readValue(AssetInvestmentStatus.class.getClassLoader());
 	}
 
 	public PersonalInvestingProgramDetailsList isOwnAsset(Boolean isOwnAsset) {
@@ -390,6 +361,7 @@ public class PersonalInvestingProgramDetailsList implements Parcelable
 		this.status = status;
 	}
 
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -420,6 +392,7 @@ public class PersonalInvestingProgramDetailsList implements Parcelable
 	public int hashCode() {
 		return Objects.hash(isOwnAsset, isFavorite, isReinvest, isAutoJoin, canInvest, canWithdraw, canChangeReinvest, share, value, profit, profitPercent, invested, successFeePersonal, managementFeePersonal, status);
 	}
+
 
 	@Override
 	public String toString() {
@@ -456,6 +429,7 @@ public class PersonalInvestingProgramDetailsList implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
+
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(isOwnAsset);
 		out.writeValue(isFavorite);
@@ -474,7 +448,36 @@ public class PersonalInvestingProgramDetailsList implements Parcelable
 		out.writeValue(status);
 	}
 
+	public static final Parcelable.Creator<PersonalInvestingProgramDetailsList> CREATOR = new Parcelable.Creator<PersonalInvestingProgramDetailsList>()
+	{
+		public PersonalInvestingProgramDetailsList createFromParcel(Parcel in) {
+			return new PersonalInvestingProgramDetailsList(in);
+		}
+
+		public PersonalInvestingProgramDetailsList[] newArray(int size) {
+			return new PersonalInvestingProgramDetailsList[size];
+		}
+	};
+
 	public int describeContents() {
 		return 0;
+	}
+
+	PersonalInvestingProgramDetailsList(Parcel in) {
+		isOwnAsset = (Boolean) in.readValue(null);
+		isFavorite = (Boolean) in.readValue(null);
+		isReinvest = (Boolean) in.readValue(null);
+		isAutoJoin = (Boolean) in.readValue(null);
+		canInvest = (Boolean) in.readValue(null);
+		canWithdraw = (Boolean) in.readValue(null);
+		canChangeReinvest = (Boolean) in.readValue(null);
+		share = (Double) in.readValue(null);
+		value = (Double) in.readValue(null);
+		profit = (Double) in.readValue(null);
+		profitPercent = (Double) in.readValue(null);
+		invested = (Double) in.readValue(null);
+		successFeePersonal = (Double) in.readValue(null);
+		managementFeePersonal = (Double) in.readValue(null);
+		status = (AssetInvestmentStatus) in.readValue(AssetInvestmentStatus.class.getClassLoader());
 	}
 }

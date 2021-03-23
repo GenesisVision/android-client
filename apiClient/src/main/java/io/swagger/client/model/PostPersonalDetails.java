@@ -28,17 +28,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class PostPersonalDetails implements Parcelable
 {
-	public static final Parcelable.Creator<PostPersonalDetails> CREATOR = new Parcelable.Creator<PostPersonalDetails>()
-	{
-		public PostPersonalDetails createFromParcel(Parcel in) {
-			return new PostPersonalDetails(in);
-		}
-
-		public PostPersonalDetails[] newArray(int size) {
-			return new PostPersonalDetails[size];
-		}
-	};
-
 	@SerializedName("isLiked")
 	private Boolean isLiked = null;
 
@@ -55,14 +44,6 @@ public class PostPersonalDetails implements Parcelable
 	private Boolean canComment = null;
 
 	public PostPersonalDetails() {
-	}
-
-	PostPersonalDetails(Parcel in) {
-		isLiked = (Boolean) in.readValue(null);
-		canEdit = (Boolean) in.readValue(null);
-		canDelete = (Boolean) in.readValue(null);
-		canPin = (Boolean) in.readValue(null);
-		canComment = (Boolean) in.readValue(null);
 	}
 
 	public PostPersonalDetails isLiked(Boolean isLiked) {
@@ -160,6 +141,7 @@ public class PostPersonalDetails implements Parcelable
 		this.canComment = canComment;
 	}
 
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -180,6 +162,7 @@ public class PostPersonalDetails implements Parcelable
 	public int hashCode() {
 		return Objects.hash(isLiked, canEdit, canDelete, canPin, canComment);
 	}
+
 
 	@Override
 	public String toString() {
@@ -206,6 +189,7 @@ public class PostPersonalDetails implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
+
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(isLiked);
 		out.writeValue(canEdit);
@@ -214,7 +198,26 @@ public class PostPersonalDetails implements Parcelable
 		out.writeValue(canComment);
 	}
 
+	public static final Parcelable.Creator<PostPersonalDetails> CREATOR = new Parcelable.Creator<PostPersonalDetails>()
+	{
+		public PostPersonalDetails createFromParcel(Parcel in) {
+			return new PostPersonalDetails(in);
+		}
+
+		public PostPersonalDetails[] newArray(int size) {
+			return new PostPersonalDetails[size];
+		}
+	};
+
 	public int describeContents() {
 		return 0;
+	}
+
+	PostPersonalDetails(Parcel in) {
+		isLiked = (Boolean) in.readValue(null);
+		canEdit = (Boolean) in.readValue(null);
+		canDelete = (Boolean) in.readValue(null);
+		canPin = (Boolean) in.readValue(null);
+		canComment = (Boolean) in.readValue(null);
 	}
 }

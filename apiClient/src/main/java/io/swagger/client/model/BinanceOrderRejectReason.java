@@ -36,15 +36,6 @@ public enum BinanceOrderRejectReason
 	ACCOUNTINACTIVE("AccountInactive"),
 	ACCOUNTCANNOTSETTLE("AccountCannotSettle");
 
-	public static BinanceOrderRejectReason fromValue(String text) {
-		for (BinanceOrderRejectReason b : BinanceOrderRejectReason.values()) {
-			if (String.valueOf(b.value).equals(text)) {
-				return b;
-			}
-		}
-		return null;
-	}
-
 	private String value;
 
 	BinanceOrderRejectReason(String value) {
@@ -60,6 +51,15 @@ public enum BinanceOrderRejectReason
 		return String.valueOf(value);
 	}
 
+	public static BinanceOrderRejectReason fromValue(String text) {
+		for (BinanceOrderRejectReason b : BinanceOrderRejectReason.values()) {
+			if (String.valueOf(b.value).equals(text)) {
+				return b;
+			}
+		}
+		return null;
+	}
+
 	public static class Adapter extends TypeAdapter<BinanceOrderRejectReason>
 	{
 		@Override
@@ -69,7 +69,7 @@ public enum BinanceOrderRejectReason
 
 		@Override
 		public BinanceOrderRejectReason read(final JsonReader jsonReader) throws IOException {
-			String value = jsonReader.nextString();
+			Object value = jsonReader.nextString();
 			return BinanceOrderRejectReason.fromValue(String.valueOf(value));
 		}
 	}

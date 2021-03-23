@@ -46,15 +46,6 @@ public enum ProgramsFilterSorting
 	BYVALUEASC("ByValueAsc"),
 	BYVALUEDESC("ByValueDesc");
 
-	public static ProgramsFilterSorting fromValue(String text) {
-		for (ProgramsFilterSorting b : ProgramsFilterSorting.values()) {
-			if (String.valueOf(b.value).equals(text)) {
-				return b;
-			}
-		}
-		return null;
-	}
-
 	private String value;
 
 	ProgramsFilterSorting(String value) {
@@ -70,6 +61,15 @@ public enum ProgramsFilterSorting
 		return String.valueOf(value);
 	}
 
+	public static ProgramsFilterSorting fromValue(String text) {
+		for (ProgramsFilterSorting b : ProgramsFilterSorting.values()) {
+			if (String.valueOf(b.value).equals(text)) {
+				return b;
+			}
+		}
+		return null;
+	}
+
 	public static class Adapter extends TypeAdapter<ProgramsFilterSorting>
 	{
 		@Override
@@ -79,7 +79,7 @@ public enum ProgramsFilterSorting
 
 		@Override
 		public ProgramsFilterSorting read(final JsonReader jsonReader) throws IOException {
-			String value = jsonReader.nextString();
+			Object value = jsonReader.nextString();
 			return ProgramsFilterSorting.fromValue(String.valueOf(value));
 		}
 	}

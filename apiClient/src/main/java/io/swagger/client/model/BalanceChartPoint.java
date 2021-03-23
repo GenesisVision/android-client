@@ -28,17 +28,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class BalanceChartPoint implements Parcelable
 {
-	public static final Parcelable.Creator<BalanceChartPoint> CREATOR = new Parcelable.Creator<BalanceChartPoint>()
-	{
-		public BalanceChartPoint createFromParcel(Parcel in) {
-			return new BalanceChartPoint(in);
-		}
-
-		public BalanceChartPoint[] newArray(int size) {
-			return new BalanceChartPoint[size];
-		}
-	};
-
 	@SerializedName("date")
 	private Long date = null;
 
@@ -49,12 +38,6 @@ public class BalanceChartPoint implements Parcelable
 	private Double investorsFunds = null;
 
 	public BalanceChartPoint() {
-	}
-
-	BalanceChartPoint(Parcel in) {
-		date = (Long) in.readValue(null);
-		managerFunds = (Double) in.readValue(null);
-		investorsFunds = (Double) in.readValue(null);
 	}
 
 	public BalanceChartPoint date(Long date) {
@@ -114,6 +97,7 @@ public class BalanceChartPoint implements Parcelable
 		this.investorsFunds = investorsFunds;
 	}
 
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -132,6 +116,7 @@ public class BalanceChartPoint implements Parcelable
 	public int hashCode() {
 		return Objects.hash(date, managerFunds, investorsFunds);
 	}
+
 
 	@Override
 	public String toString() {
@@ -156,13 +141,31 @@ public class BalanceChartPoint implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
+
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(date);
 		out.writeValue(managerFunds);
 		out.writeValue(investorsFunds);
 	}
 
+	public static final Parcelable.Creator<BalanceChartPoint> CREATOR = new Parcelable.Creator<BalanceChartPoint>()
+	{
+		public BalanceChartPoint createFromParcel(Parcel in) {
+			return new BalanceChartPoint(in);
+		}
+
+		public BalanceChartPoint[] newArray(int size) {
+			return new BalanceChartPoint[size];
+		}
+	};
+
 	public int describeContents() {
 		return 0;
+	}
+
+	BalanceChartPoint(Parcel in) {
+		date = (Long) in.readValue(null);
+		managerFunds = (Double) in.readValue(null);
+		investorsFunds = (Double) in.readValue(null);
 	}
 }

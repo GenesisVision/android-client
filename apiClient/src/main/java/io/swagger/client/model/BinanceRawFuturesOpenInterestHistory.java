@@ -30,17 +30,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class BinanceRawFuturesOpenInterestHistory implements Parcelable
 {
-	public static final Parcelable.Creator<BinanceRawFuturesOpenInterestHistory> CREATOR = new Parcelable.Creator<BinanceRawFuturesOpenInterestHistory>()
-	{
-		public BinanceRawFuturesOpenInterestHistory createFromParcel(Parcel in) {
-			return new BinanceRawFuturesOpenInterestHistory(in);
-		}
-
-		public BinanceRawFuturesOpenInterestHistory[] newArray(int size) {
-			return new BinanceRawFuturesOpenInterestHistory[size];
-		}
-	};
-
 	@SerializedName("symbol")
 	private String symbol = null;
 
@@ -54,13 +43,6 @@ public class BinanceRawFuturesOpenInterestHistory implements Parcelable
 	private DateTime timestamp = null;
 
 	public BinanceRawFuturesOpenInterestHistory() {
-	}
-
-	BinanceRawFuturesOpenInterestHistory(Parcel in) {
-		symbol = (String) in.readValue(null);
-		sumOpenInterest = (Double) in.readValue(null);
-		sumOpenInterestValue = (Double) in.readValue(null);
-		timestamp = (DateTime) in.readValue(DateTime.class.getClassLoader());
 	}
 
 	public BinanceRawFuturesOpenInterestHistory symbol(String symbol) {
@@ -139,6 +121,7 @@ public class BinanceRawFuturesOpenInterestHistory implements Parcelable
 		this.timestamp = timestamp;
 	}
 
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -158,6 +141,7 @@ public class BinanceRawFuturesOpenInterestHistory implements Parcelable
 	public int hashCode() {
 		return Objects.hash(symbol, sumOpenInterest, sumOpenInterestValue, timestamp);
 	}
+
 
 	@Override
 	public String toString() {
@@ -183,6 +167,7 @@ public class BinanceRawFuturesOpenInterestHistory implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
+
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(symbol);
 		out.writeValue(sumOpenInterest);
@@ -190,7 +175,25 @@ public class BinanceRawFuturesOpenInterestHistory implements Parcelable
 		out.writeValue(timestamp);
 	}
 
+	public static final Parcelable.Creator<BinanceRawFuturesOpenInterestHistory> CREATOR = new Parcelable.Creator<BinanceRawFuturesOpenInterestHistory>()
+	{
+		public BinanceRawFuturesOpenInterestHistory createFromParcel(Parcel in) {
+			return new BinanceRawFuturesOpenInterestHistory(in);
+		}
+
+		public BinanceRawFuturesOpenInterestHistory[] newArray(int size) {
+			return new BinanceRawFuturesOpenInterestHistory[size];
+		}
+	};
+
 	public int describeContents() {
 		return 0;
+	}
+
+	BinanceRawFuturesOpenInterestHistory(Parcel in) {
+		symbol = (String) in.readValue(null);
+		sumOpenInterest = (Double) in.readValue(null);
+		sumOpenInterestValue = (Double) in.readValue(null);
+		timestamp = (DateTime) in.readValue(DateTime.class.getClassLoader());
 	}
 }

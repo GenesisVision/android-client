@@ -1,4 +1,4 @@
-package io.swagger.client.api;
+package io.swagger.client.api;//retrofit2
 
 import org.joda.time.DateTime;
 
@@ -68,7 +68,7 @@ public interface DashboardApi
 	);
 
 	/**
-	 * @param topAssetsCount (optional)
+	 * @param topAssetsCount (optional, default to 4)
 	 * @return Call&lt;DashboardAssets&gt;
 	 */
 	@GET("v2.0/dashboard/holdings")
@@ -187,7 +187,7 @@ public interface DashboardApi
 	 *
 	 * @param currency    (optional)
 	 * @param take        (optional)
-	 * @param onlyFollows (optional)
+	 * @param onlyFollows (optional, default to false)
 	 * @return Call&lt;CommonPublicAssetsViewModel&gt;
 	 */
 	@GET("v2.0/dashboard/recommendations")

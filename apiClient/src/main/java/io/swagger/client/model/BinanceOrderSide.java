@@ -28,15 +28,6 @@ public enum BinanceOrderSide
 	BUY("Buy"),
 	SELL("Sell");
 
-	public static BinanceOrderSide fromValue(String text) {
-		for (BinanceOrderSide b : BinanceOrderSide.values()) {
-			if (String.valueOf(b.value).equals(text)) {
-				return b;
-			}
-		}
-		return null;
-	}
-
 	private String value;
 
 	BinanceOrderSide(String value) {
@@ -52,6 +43,15 @@ public enum BinanceOrderSide
 		return String.valueOf(value);
 	}
 
+	public static BinanceOrderSide fromValue(String text) {
+		for (BinanceOrderSide b : BinanceOrderSide.values()) {
+			if (String.valueOf(b.value).equals(text)) {
+				return b;
+			}
+		}
+		return null;
+	}
+
 	public static class Adapter extends TypeAdapter<BinanceOrderSide>
 	{
 		@Override
@@ -61,7 +61,7 @@ public enum BinanceOrderSide
 
 		@Override
 		public BinanceOrderSide read(final JsonReader jsonReader) throws IOException {
-			String value = jsonReader.nextString();
+			Object value = jsonReader.nextString();
 			return BinanceOrderSide.fromValue(String.valueOf(value));
 		}
 	}

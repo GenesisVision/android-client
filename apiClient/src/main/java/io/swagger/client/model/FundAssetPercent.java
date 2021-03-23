@@ -28,17 +28,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class FundAssetPercent implements Parcelable
 {
-	public static final Parcelable.Creator<FundAssetPercent> CREATOR = new Parcelable.Creator<FundAssetPercent>()
-	{
-		public FundAssetPercent createFromParcel(Parcel in) {
-			return new FundAssetPercent(in);
-		}
-
-		public FundAssetPercent[] newArray(int size) {
-			return new FundAssetPercent[size];
-		}
-	};
-
 	@SerializedName("asset")
 	private String asset = null;
 
@@ -55,14 +44,6 @@ public class FundAssetPercent implements Parcelable
 	private String url = null;
 
 	public FundAssetPercent() {
-	}
-
-	FundAssetPercent(Parcel in) {
-		asset = (String) in.readValue(null);
-		name = (String) in.readValue(null);
-		percent = (Double) in.readValue(null);
-		logoUrl = (String) in.readValue(null);
-		url = (String) in.readValue(null);
 	}
 
 	public FundAssetPercent asset(String asset) {
@@ -160,6 +141,7 @@ public class FundAssetPercent implements Parcelable
 		this.url = url;
 	}
 
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -180,6 +162,7 @@ public class FundAssetPercent implements Parcelable
 	public int hashCode() {
 		return Objects.hash(asset, name, percent, logoUrl, url);
 	}
+
 
 	@Override
 	public String toString() {
@@ -206,6 +189,7 @@ public class FundAssetPercent implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
+
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(asset);
 		out.writeValue(name);
@@ -214,7 +198,26 @@ public class FundAssetPercent implements Parcelable
 		out.writeValue(url);
 	}
 
+	public static final Parcelable.Creator<FundAssetPercent> CREATOR = new Parcelable.Creator<FundAssetPercent>()
+	{
+		public FundAssetPercent createFromParcel(Parcel in) {
+			return new FundAssetPercent(in);
+		}
+
+		public FundAssetPercent[] newArray(int size) {
+			return new FundAssetPercent[size];
+		}
+	};
+
 	public int describeContents() {
 		return 0;
+	}
+
+	FundAssetPercent(Parcel in) {
+		asset = (String) in.readValue(null);
+		name = (String) in.readValue(null);
+		percent = (Double) in.readValue(null);
+		logoUrl = (String) in.readValue(null);
+		url = (String) in.readValue(null);
 	}
 }

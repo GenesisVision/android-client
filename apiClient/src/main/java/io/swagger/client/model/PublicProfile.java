@@ -33,17 +33,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class PublicProfile implements Parcelable
 {
-	public static final Parcelable.Creator<PublicProfile> CREATOR = new Parcelable.Creator<PublicProfile>()
-	{
-		public PublicProfile createFromParcel(Parcel in) {
-			return new PublicProfile(in);
-		}
-
-		public PublicProfile[] newArray(int size) {
-			return new PublicProfile[size];
-		}
-	};
-
 	@SerializedName("id")
 	private UUID id = null;
 
@@ -78,20 +67,6 @@ public class PublicProfile implements Parcelable
 	private PublicProfilePersonalDetails personalDetails = null;
 
 	public PublicProfile() {
-	}
-
-	PublicProfile(Parcel in) {
-		id = (UUID) in.readValue(UUID.class.getClassLoader());
-		username = (String) in.readValue(null);
-		about = (String) in.readValue(null);
-		logoUrl = (String) in.readValue(null);
-		regDate = (DateTime) in.readValue(DateTime.class.getClassLoader());
-		assets = (List<String>) in.readValue(null);
-		url = (String) in.readValue(null);
-		followers = (Integer) in.readValue(null);
-		following = (Integer) in.readValue(null);
-		socialLinks = (List<SocialLinkViewModel>) in.readValue(SocialLinkViewModel.class.getClassLoader());
-		personalDetails = (PublicProfilePersonalDetails) in.readValue(PublicProfilePersonalDetails.class.getClassLoader());
 	}
 
 	public PublicProfile id(UUID id) {
@@ -319,6 +294,7 @@ public class PublicProfile implements Parcelable
 		this.personalDetails = personalDetails;
 	}
 
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -345,6 +321,7 @@ public class PublicProfile implements Parcelable
 	public int hashCode() {
 		return Objects.hash(id, username, about, logoUrl, regDate, assets, url, followers, following, socialLinks, personalDetails);
 	}
+
 
 	@Override
 	public String toString() {
@@ -377,6 +354,7 @@ public class PublicProfile implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
+
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(id);
 		out.writeValue(username);
@@ -391,7 +369,32 @@ public class PublicProfile implements Parcelable
 		out.writeValue(personalDetails);
 	}
 
+	public static final Parcelable.Creator<PublicProfile> CREATOR = new Parcelable.Creator<PublicProfile>()
+	{
+		public PublicProfile createFromParcel(Parcel in) {
+			return new PublicProfile(in);
+		}
+
+		public PublicProfile[] newArray(int size) {
+			return new PublicProfile[size];
+		}
+	};
+
 	public int describeContents() {
 		return 0;
+	}
+
+	PublicProfile(Parcel in) {
+		id = (UUID) in.readValue(UUID.class.getClassLoader());
+		username = (String) in.readValue(null);
+		about = (String) in.readValue(null);
+		logoUrl = (String) in.readValue(null);
+		regDate = (DateTime) in.readValue(DateTime.class.getClassLoader());
+		assets = (List<String>) in.readValue(null);
+		url = (String) in.readValue(null);
+		followers = (Integer) in.readValue(null);
+		following = (Integer) in.readValue(null);
+		socialLinks = (List<SocialLinkViewModel>) in.readValue(SocialLinkViewModel.class.getClassLoader());
+		personalDetails = (PublicProfilePersonalDetails) in.readValue(PublicProfilePersonalDetails.class.getClassLoader());
 	}
 }

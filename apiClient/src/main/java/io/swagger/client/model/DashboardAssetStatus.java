@@ -28,15 +28,6 @@ public enum DashboardAssetStatus
 	ALL("All"),
 	ACTIVE("Active");
 
-	public static DashboardAssetStatus fromValue(String text) {
-		for (DashboardAssetStatus b : DashboardAssetStatus.values()) {
-			if (String.valueOf(b.value).equals(text)) {
-				return b;
-			}
-		}
-		return null;
-	}
-
 	private String value;
 
 	DashboardAssetStatus(String value) {
@@ -52,6 +43,15 @@ public enum DashboardAssetStatus
 		return String.valueOf(value);
 	}
 
+	public static DashboardAssetStatus fromValue(String text) {
+		for (DashboardAssetStatus b : DashboardAssetStatus.values()) {
+			if (String.valueOf(b.value).equals(text)) {
+				return b;
+			}
+		}
+		return null;
+	}
+
 	public static class Adapter extends TypeAdapter<DashboardAssetStatus>
 	{
 		@Override
@@ -61,7 +61,7 @@ public enum DashboardAssetStatus
 
 		@Override
 		public DashboardAssetStatus read(final JsonReader jsonReader) throws IOException {
-			String value = jsonReader.nextString();
+			Object value = jsonReader.nextString();
 			return DashboardAssetStatus.fromValue(String.valueOf(value));
 		}
 	}

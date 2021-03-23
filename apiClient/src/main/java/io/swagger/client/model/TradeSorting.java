@@ -46,15 +46,6 @@ public enum TradeSorting
 	BYSWAPASC("BySwapAsc"),
 	BYSWAPDESC("BySwapDesc");
 
-	public static TradeSorting fromValue(String text) {
-		for (TradeSorting b : TradeSorting.values()) {
-			if (String.valueOf(b.value).equals(text)) {
-				return b;
-			}
-		}
-		return null;
-	}
-
 	private String value;
 
 	TradeSorting(String value) {
@@ -70,6 +61,15 @@ public enum TradeSorting
 		return String.valueOf(value);
 	}
 
+	public static TradeSorting fromValue(String text) {
+		for (TradeSorting b : TradeSorting.values()) {
+			if (String.valueOf(b.value).equals(text)) {
+				return b;
+			}
+		}
+		return null;
+	}
+
 	public static class Adapter extends TypeAdapter<TradeSorting>
 	{
 		@Override
@@ -79,7 +79,7 @@ public enum TradeSorting
 
 		@Override
 		public TradeSorting read(final JsonReader jsonReader) throws IOException {
-			String value = jsonReader.nextString();
+			Object value = jsonReader.nextString();
 			return TradeSorting.fromValue(String.valueOf(value));
 		}
 	}

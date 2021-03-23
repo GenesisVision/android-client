@@ -28,17 +28,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class SimpleChartPoint implements Parcelable
 {
-	public static final Parcelable.Creator<SimpleChartPoint> CREATOR = new Parcelable.Creator<SimpleChartPoint>()
-	{
-		public SimpleChartPoint createFromParcel(Parcel in) {
-			return new SimpleChartPoint(in);
-		}
-
-		public SimpleChartPoint[] newArray(int size) {
-			return new SimpleChartPoint[size];
-		}
-	};
-
 	@SerializedName("date")
 	private Long date = null;
 
@@ -46,11 +35,6 @@ public class SimpleChartPoint implements Parcelable
 	private Double value = null;
 
 	public SimpleChartPoint() {
-	}
-
-	SimpleChartPoint(Parcel in) {
-		date = (Long) in.readValue(null);
-		value = (Double) in.readValue(null);
 	}
 
 	public SimpleChartPoint date(Long date) {
@@ -91,6 +75,7 @@ public class SimpleChartPoint implements Parcelable
 		this.value = value;
 	}
 
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -108,6 +93,7 @@ public class SimpleChartPoint implements Parcelable
 	public int hashCode() {
 		return Objects.hash(date, value);
 	}
+
 
 	@Override
 	public String toString() {
@@ -131,12 +117,29 @@ public class SimpleChartPoint implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
+
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(date);
 		out.writeValue(value);
 	}
 
+	public static final Parcelable.Creator<SimpleChartPoint> CREATOR = new Parcelable.Creator<SimpleChartPoint>()
+	{
+		public SimpleChartPoint createFromParcel(Parcel in) {
+			return new SimpleChartPoint(in);
+		}
+
+		public SimpleChartPoint[] newArray(int size) {
+			return new SimpleChartPoint[size];
+		}
+	};
+
 	public int describeContents() {
 		return 0;
+	}
+
+	SimpleChartPoint(Parcel in) {
+		date = (Long) in.readValue(null);
+		value = (Double) in.readValue(null);
 	}
 }

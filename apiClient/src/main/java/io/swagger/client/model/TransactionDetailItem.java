@@ -28,17 +28,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class TransactionDetailItem implements Parcelable
 {
-	public static final Parcelable.Creator<TransactionDetailItem> CREATOR = new Parcelable.Creator<TransactionDetailItem>()
-	{
-		public TransactionDetailItem createFromParcel(Parcel in) {
-			return new TransactionDetailItem(in);
-		}
-
-		public TransactionDetailItem[] newArray(int size) {
-			return new TransactionDetailItem[size];
-		}
-	};
-
 	@SerializedName("title")
 	private String title = null;
 
@@ -52,13 +41,6 @@ public class TransactionDetailItem implements Parcelable
 	private Boolean canCopy = null;
 
 	public TransactionDetailItem() {
-	}
-
-	TransactionDetailItem(Parcel in) {
-		title = (String) in.readValue(null);
-		details = (String) in.readValue(null);
-		url = (String) in.readValue(null);
-		canCopy = (Boolean) in.readValue(null);
 	}
 
 	public TransactionDetailItem title(String title) {
@@ -137,6 +119,7 @@ public class TransactionDetailItem implements Parcelable
 		this.canCopy = canCopy;
 	}
 
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -156,6 +139,7 @@ public class TransactionDetailItem implements Parcelable
 	public int hashCode() {
 		return Objects.hash(title, details, url, canCopy);
 	}
+
 
 	@Override
 	public String toString() {
@@ -181,6 +165,7 @@ public class TransactionDetailItem implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
+
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(title);
 		out.writeValue(details);
@@ -188,7 +173,25 @@ public class TransactionDetailItem implements Parcelable
 		out.writeValue(canCopy);
 	}
 
+	public static final Parcelable.Creator<TransactionDetailItem> CREATOR = new Parcelable.Creator<TransactionDetailItem>()
+	{
+		public TransactionDetailItem createFromParcel(Parcel in) {
+			return new TransactionDetailItem(in);
+		}
+
+		public TransactionDetailItem[] newArray(int size) {
+			return new TransactionDetailItem[size];
+		}
+	};
+
 	public int describeContents() {
 		return 0;
+	}
+
+	TransactionDetailItem(Parcel in) {
+		title = (String) in.readValue(null);
+		details = (String) in.readValue(null);
+		url = (String) in.readValue(null);
+		canCopy = (Boolean) in.readValue(null);
 	}
 }

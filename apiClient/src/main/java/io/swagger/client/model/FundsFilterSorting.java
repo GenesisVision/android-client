@@ -40,15 +40,6 @@ public enum FundsFilterSorting
 	BYVALUEASC("ByValueAsc"),
 	BYVALUEDESC("ByValueDesc");
 
-	public static FundsFilterSorting fromValue(String text) {
-		for (FundsFilterSorting b : FundsFilterSorting.values()) {
-			if (String.valueOf(b.value).equals(text)) {
-				return b;
-			}
-		}
-		return null;
-	}
-
 	private String value;
 
 	FundsFilterSorting(String value) {
@@ -64,6 +55,15 @@ public enum FundsFilterSorting
 		return String.valueOf(value);
 	}
 
+	public static FundsFilterSorting fromValue(String text) {
+		for (FundsFilterSorting b : FundsFilterSorting.values()) {
+			if (String.valueOf(b.value).equals(text)) {
+				return b;
+			}
+		}
+		return null;
+	}
+
 	public static class Adapter extends TypeAdapter<FundsFilterSorting>
 	{
 		@Override
@@ -73,7 +73,7 @@ public enum FundsFilterSorting
 
 		@Override
 		public FundsFilterSorting read(final JsonReader jsonReader) throws IOException {
-			String value = jsonReader.nextString();
+			Object value = jsonReader.nextString();
 			return FundsFilterSorting.fromValue(String.valueOf(value));
 		}
 	}

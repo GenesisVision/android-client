@@ -30,17 +30,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class TradingAccountAssetPlatformInfo implements Parcelable
 {
-	public static final Parcelable.Creator<TradingAccountAssetPlatformInfo> CREATOR = new Parcelable.Creator<TradingAccountAssetPlatformInfo>()
-	{
-		public TradingAccountAssetPlatformInfo createFromParcel(Parcel in) {
-			return new TradingAccountAssetPlatformInfo(in);
-		}
-
-		public TradingAccountAssetPlatformInfo[] newArray(int size) {
-			return new TradingAccountAssetPlatformInfo[size];
-		}
-	};
-
 	@SerializedName("minAmounts")
 	private List<TradingAccountMinCreateAmount> minAmounts = null;
 
@@ -48,11 +37,6 @@ public class TradingAccountAssetPlatformInfo implements Parcelable
 	private List<TradingAccountMaxCreateAmount> maxAmounts = null;
 
 	public TradingAccountAssetPlatformInfo() {
-	}
-
-	TradingAccountAssetPlatformInfo(Parcel in) {
-		minAmounts = (List<TradingAccountMinCreateAmount>) in.readValue(TradingAccountMinCreateAmount.class.getClassLoader());
-		maxAmounts = (List<TradingAccountMaxCreateAmount>) in.readValue(TradingAccountMaxCreateAmount.class.getClassLoader());
 	}
 
 	public TradingAccountAssetPlatformInfo minAmounts(List<TradingAccountMinCreateAmount> minAmounts) {
@@ -109,6 +93,7 @@ public class TradingAccountAssetPlatformInfo implements Parcelable
 		this.maxAmounts = maxAmounts;
 	}
 
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -126,6 +111,7 @@ public class TradingAccountAssetPlatformInfo implements Parcelable
 	public int hashCode() {
 		return Objects.hash(minAmounts, maxAmounts);
 	}
+
 
 	@Override
 	public String toString() {
@@ -149,12 +135,29 @@ public class TradingAccountAssetPlatformInfo implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
+
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(minAmounts);
 		out.writeValue(maxAmounts);
 	}
 
+	public static final Parcelable.Creator<TradingAccountAssetPlatformInfo> CREATOR = new Parcelable.Creator<TradingAccountAssetPlatformInfo>()
+	{
+		public TradingAccountAssetPlatformInfo createFromParcel(Parcel in) {
+			return new TradingAccountAssetPlatformInfo(in);
+		}
+
+		public TradingAccountAssetPlatformInfo[] newArray(int size) {
+			return new TradingAccountAssetPlatformInfo[size];
+		}
+	};
+
 	public int describeContents() {
 		return 0;
+	}
+
+	TradingAccountAssetPlatformInfo(Parcel in) {
+		minAmounts = (List<TradingAccountMinCreateAmount>) in.readValue(TradingAccountMinCreateAmount.class.getClassLoader());
+		maxAmounts = (List<TradingAccountMaxCreateAmount>) in.readValue(TradingAccountMaxCreateAmount.class.getClassLoader());
 	}
 }

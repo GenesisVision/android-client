@@ -31,17 +31,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class ProgramNotificationSettingList implements Parcelable
 {
-	public static final Parcelable.Creator<ProgramNotificationSettingList> CREATOR = new Parcelable.Creator<ProgramNotificationSettingList>()
-	{
-		public ProgramNotificationSettingList createFromParcel(Parcel in) {
-			return new ProgramNotificationSettingList(in);
-		}
-
-		public ProgramNotificationSettingList[] newArray(int size) {
-			return new ProgramNotificationSettingList[size];
-		}
-	};
-
 	@SerializedName("assetId")
 	private UUID assetId = null;
 
@@ -70,18 +59,6 @@ public class ProgramNotificationSettingList implements Parcelable
 	private List<NotificationSettingViewModel> settingsCustom = null;
 
 	public ProgramNotificationSettingList() {
-	}
-
-	ProgramNotificationSettingList(Parcel in) {
-		assetId = (UUID) in.readValue(UUID.class.getClassLoader());
-		title = (String) in.readValue(null);
-		url = (String) in.readValue(null);
-		logoUrl = (String) in.readValue(null);
-		color = (String) in.readValue(null);
-		settingsGeneral = (List<NotificationSettingViewModel>) in.readValue(NotificationSettingViewModel.class.getClassLoader());
-		level = (Integer) in.readValue(null);
-		levelProgress = (Double) in.readValue(null);
-		settingsCustom = (List<NotificationSettingViewModel>) in.readValue(NotificationSettingViewModel.class.getClassLoader());
 	}
 
 	public ProgramNotificationSettingList assetId(UUID assetId) {
@@ -271,6 +248,7 @@ public class ProgramNotificationSettingList implements Parcelable
 		this.settingsCustom = settingsCustom;
 	}
 
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -295,6 +273,7 @@ public class ProgramNotificationSettingList implements Parcelable
 	public int hashCode() {
 		return Objects.hash(assetId, title, url, logoUrl, color, settingsGeneral, level, levelProgress, settingsCustom);
 	}
+
 
 	@Override
 	public String toString() {
@@ -325,6 +304,7 @@ public class ProgramNotificationSettingList implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
+
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(assetId);
 		out.writeValue(title);
@@ -337,7 +317,30 @@ public class ProgramNotificationSettingList implements Parcelable
 		out.writeValue(settingsCustom);
 	}
 
+	public static final Parcelable.Creator<ProgramNotificationSettingList> CREATOR = new Parcelable.Creator<ProgramNotificationSettingList>()
+	{
+		public ProgramNotificationSettingList createFromParcel(Parcel in) {
+			return new ProgramNotificationSettingList(in);
+		}
+
+		public ProgramNotificationSettingList[] newArray(int size) {
+			return new ProgramNotificationSettingList[size];
+		}
+	};
+
 	public int describeContents() {
 		return 0;
+	}
+
+	ProgramNotificationSettingList(Parcel in) {
+		assetId = (UUID) in.readValue(UUID.class.getClassLoader());
+		title = (String) in.readValue(null);
+		url = (String) in.readValue(null);
+		logoUrl = (String) in.readValue(null);
+		color = (String) in.readValue(null);
+		settingsGeneral = (List<NotificationSettingViewModel>) in.readValue(NotificationSettingViewModel.class.getClassLoader());
+		level = (Integer) in.readValue(null);
+		levelProgress = (Double) in.readValue(null);
+		settingsCustom = (List<NotificationSettingViewModel>) in.readValue(NotificationSettingViewModel.class.getClassLoader());
 	}
 }

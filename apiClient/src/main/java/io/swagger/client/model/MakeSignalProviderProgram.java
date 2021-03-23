@@ -29,17 +29,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class MakeSignalProviderProgram implements Parcelable
 {
-	public static final Parcelable.Creator<MakeSignalProviderProgram> CREATOR = new Parcelable.Creator<MakeSignalProviderProgram>()
-	{
-		public MakeSignalProviderProgram createFromParcel(Parcel in) {
-			return new MakeSignalProviderProgram(in);
-		}
-
-		public MakeSignalProviderProgram[] newArray(int size) {
-			return new MakeSignalProviderProgram[size];
-		}
-	};
-
 	@SerializedName("id")
 	private UUID id = null;
 
@@ -59,15 +48,6 @@ public class MakeSignalProviderProgram implements Parcelable
 	private Double managementFee = null;
 
 	public MakeSignalProviderProgram() {
-	}
-
-	MakeSignalProviderProgram(Parcel in) {
-		id = (UUID) in.readValue(UUID.class.getClassLoader());
-		periodLength = (Integer) in.readValue(null);
-		stopOutLevel = (Double) in.readValue(null);
-		investmentLimit = (Double) in.readValue(null);
-		successFee = (Double) in.readValue(null);
-		managementFee = (Double) in.readValue(null);
 	}
 
 	public MakeSignalProviderProgram id(UUID id) {
@@ -184,6 +164,7 @@ public class MakeSignalProviderProgram implements Parcelable
 		this.managementFee = managementFee;
 	}
 
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -205,6 +186,7 @@ public class MakeSignalProviderProgram implements Parcelable
 	public int hashCode() {
 		return Objects.hash(id, periodLength, stopOutLevel, investmentLimit, successFee, managementFee);
 	}
+
 
 	@Override
 	public String toString() {
@@ -232,6 +214,7 @@ public class MakeSignalProviderProgram implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
+
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(id);
 		out.writeValue(periodLength);
@@ -241,7 +224,27 @@ public class MakeSignalProviderProgram implements Parcelable
 		out.writeValue(managementFee);
 	}
 
+	public static final Parcelable.Creator<MakeSignalProviderProgram> CREATOR = new Parcelable.Creator<MakeSignalProviderProgram>()
+	{
+		public MakeSignalProviderProgram createFromParcel(Parcel in) {
+			return new MakeSignalProviderProgram(in);
+		}
+
+		public MakeSignalProviderProgram[] newArray(int size) {
+			return new MakeSignalProviderProgram[size];
+		}
+	};
+
 	public int describeContents() {
 		return 0;
+	}
+
+	MakeSignalProviderProgram(Parcel in) {
+		id = (UUID) in.readValue(UUID.class.getClassLoader());
+		periodLength = (Integer) in.readValue(null);
+		stopOutLevel = (Double) in.readValue(null);
+		investmentLimit = (Double) in.readValue(null);
+		successFee = (Double) in.readValue(null);
+		managementFee = (Double) in.readValue(null);
 	}
 }

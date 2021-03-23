@@ -28,17 +28,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class TwoFactorAuthenticatorConfirm implements Parcelable
 {
-	public static final Parcelable.Creator<TwoFactorAuthenticatorConfirm> CREATOR = new Parcelable.Creator<TwoFactorAuthenticatorConfirm>()
-	{
-		public TwoFactorAuthenticatorConfirm createFromParcel(Parcel in) {
-			return new TwoFactorAuthenticatorConfirm(in);
-		}
-
-		public TwoFactorAuthenticatorConfirm[] newArray(int size) {
-			return new TwoFactorAuthenticatorConfirm[size];
-		}
-	};
-
 	@SerializedName("password")
 	private String password = null;
 
@@ -49,12 +38,6 @@ public class TwoFactorAuthenticatorConfirm implements Parcelable
 	private String sharedKey = null;
 
 	public TwoFactorAuthenticatorConfirm() {
-	}
-
-	TwoFactorAuthenticatorConfirm(Parcel in) {
-		password = (String) in.readValue(null);
-		code = (String) in.readValue(null);
-		sharedKey = (String) in.readValue(null);
 	}
 
 	public TwoFactorAuthenticatorConfirm password(String password) {
@@ -114,6 +97,7 @@ public class TwoFactorAuthenticatorConfirm implements Parcelable
 		this.sharedKey = sharedKey;
 	}
 
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -132,6 +116,7 @@ public class TwoFactorAuthenticatorConfirm implements Parcelable
 	public int hashCode() {
 		return Objects.hash(password, code, sharedKey);
 	}
+
 
 	@Override
 	public String toString() {
@@ -156,13 +141,31 @@ public class TwoFactorAuthenticatorConfirm implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
+
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(password);
 		out.writeValue(code);
 		out.writeValue(sharedKey);
 	}
 
+	public static final Parcelable.Creator<TwoFactorAuthenticatorConfirm> CREATOR = new Parcelable.Creator<TwoFactorAuthenticatorConfirm>()
+	{
+		public TwoFactorAuthenticatorConfirm createFromParcel(Parcel in) {
+			return new TwoFactorAuthenticatorConfirm(in);
+		}
+
+		public TwoFactorAuthenticatorConfirm[] newArray(int size) {
+			return new TwoFactorAuthenticatorConfirm[size];
+		}
+	};
+
 	public int describeContents() {
 		return 0;
+	}
+
+	TwoFactorAuthenticatorConfirm(Parcel in) {
+		password = (String) in.readValue(null);
+		code = (String) in.readValue(null);
+		sharedKey = (String) in.readValue(null);
 	}
 }

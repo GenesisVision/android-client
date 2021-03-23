@@ -30,17 +30,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class AccountBalanceChart implements Parcelable
 {
-	public static final Parcelable.Creator<AccountBalanceChart> CREATOR = new Parcelable.Creator<AccountBalanceChart>()
-	{
-		public AccountBalanceChart createFromParcel(Parcel in) {
-			return new AccountBalanceChart(in);
-		}
-
-		public AccountBalanceChart[] newArray(int size) {
-			return new AccountBalanceChart[size];
-		}
-	};
-
 	@SerializedName("balance")
 	private Double balance = null;
 
@@ -51,12 +40,6 @@ public class AccountBalanceChart implements Parcelable
 	private List<SimpleChartPoint> chart = null;
 
 	public AccountBalanceChart() {
-	}
-
-	AccountBalanceChart(Parcel in) {
-		balance = (Double) in.readValue(null);
-		color = (String) in.readValue(null);
-		chart = (List<SimpleChartPoint>) in.readValue(SimpleChartPoint.class.getClassLoader());
 	}
 
 	public AccountBalanceChart balance(Double balance) {
@@ -124,6 +107,7 @@ public class AccountBalanceChart implements Parcelable
 		this.chart = chart;
 	}
 
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -142,6 +126,7 @@ public class AccountBalanceChart implements Parcelable
 	public int hashCode() {
 		return Objects.hash(balance, color, chart);
 	}
+
 
 	@Override
 	public String toString() {
@@ -166,13 +151,31 @@ public class AccountBalanceChart implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
+
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(balance);
 		out.writeValue(color);
 		out.writeValue(chart);
 	}
 
+	public static final Parcelable.Creator<AccountBalanceChart> CREATOR = new Parcelable.Creator<AccountBalanceChart>()
+	{
+		public AccountBalanceChart createFromParcel(Parcel in) {
+			return new AccountBalanceChart(in);
+		}
+
+		public AccountBalanceChart[] newArray(int size) {
+			return new AccountBalanceChart[size];
+		}
+	};
+
 	public int describeContents() {
 		return 0;
+	}
+
+	AccountBalanceChart(Parcel in) {
+		balance = (Double) in.readValue(null);
+		color = (String) in.readValue(null);
+		chart = (List<SimpleChartPoint>) in.readValue(SimpleChartPoint.class.getClassLoader());
 	}
 }

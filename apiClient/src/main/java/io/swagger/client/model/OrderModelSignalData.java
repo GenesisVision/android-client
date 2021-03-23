@@ -30,25 +30,10 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class OrderModelSignalData implements Parcelable
 {
-	public static final Parcelable.Creator<OrderModelSignalData> CREATOR = new Parcelable.Creator<OrderModelSignalData>()
-	{
-		public OrderModelSignalData createFromParcel(Parcel in) {
-			return new OrderModelSignalData(in);
-		}
-
-		public OrderModelSignalData[] newArray(int size) {
-			return new OrderModelSignalData[size];
-		}
-	};
-
 	@SerializedName("masters")
 	private List<SignalDataMaster> masters = null;
 
 	public OrderModelSignalData() {
-	}
-
-	OrderModelSignalData(Parcel in) {
-		masters = (List<SignalDataMaster>) in.readValue(SignalDataMaster.class.getClassLoader());
 	}
 
 	public OrderModelSignalData masters(List<SignalDataMaster> masters) {
@@ -78,6 +63,7 @@ public class OrderModelSignalData implements Parcelable
 		this.masters = masters;
 	}
 
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -94,6 +80,7 @@ public class OrderModelSignalData implements Parcelable
 	public int hashCode() {
 		return Objects.hash(masters);
 	}
+
 
 	@Override
 	public String toString() {
@@ -116,11 +103,27 @@ public class OrderModelSignalData implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
+
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(masters);
 	}
 
+	public static final Parcelable.Creator<OrderModelSignalData> CREATOR = new Parcelable.Creator<OrderModelSignalData>()
+	{
+		public OrderModelSignalData createFromParcel(Parcel in) {
+			return new OrderModelSignalData(in);
+		}
+
+		public OrderModelSignalData[] newArray(int size) {
+			return new OrderModelSignalData[size];
+		}
+	};
+
 	public int describeContents() {
 		return 0;
+	}
+
+	OrderModelSignalData(Parcel in) {
+		masters = (List<SignalDataMaster>) in.readValue(SignalDataMaster.class.getClassLoader());
 	}
 }

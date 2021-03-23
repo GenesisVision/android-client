@@ -29,17 +29,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class SignalSubscriberInfo implements Parcelable
 {
-	public static final Parcelable.Creator<SignalSubscriberInfo> CREATOR = new Parcelable.Creator<SignalSubscriberInfo>()
-	{
-		public SignalSubscriberInfo createFromParcel(Parcel in) {
-			return new SignalSubscriberInfo(in);
-		}
-
-		public SignalSubscriberInfo[] newArray(int size) {
-			return new SignalSubscriberInfo[size];
-		}
-	};
-
 	@SerializedName("tradingAccountId")
 	private UUID tradingAccountId = null;
 
@@ -50,12 +39,6 @@ public class SignalSubscriberInfo implements Parcelable
 	private AssetDetails asset = null;
 
 	public SignalSubscriberInfo() {
-	}
-
-	SignalSubscriberInfo(Parcel in) {
-		tradingAccountId = (UUID) in.readValue(UUID.class.getClassLoader());
-		tradingAccountLogin = (String) in.readValue(null);
-		asset = (AssetDetails) in.readValue(AssetDetails.class.getClassLoader());
 	}
 
 	public SignalSubscriberInfo tradingAccountId(UUID tradingAccountId) {
@@ -115,6 +98,7 @@ public class SignalSubscriberInfo implements Parcelable
 		this.asset = asset;
 	}
 
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -133,6 +117,7 @@ public class SignalSubscriberInfo implements Parcelable
 	public int hashCode() {
 		return Objects.hash(tradingAccountId, tradingAccountLogin, asset);
 	}
+
 
 	@Override
 	public String toString() {
@@ -157,13 +142,31 @@ public class SignalSubscriberInfo implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
+
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(tradingAccountId);
 		out.writeValue(tradingAccountLogin);
 		out.writeValue(asset);
 	}
 
+	public static final Parcelable.Creator<SignalSubscriberInfo> CREATOR = new Parcelable.Creator<SignalSubscriberInfo>()
+	{
+		public SignalSubscriberInfo createFromParcel(Parcel in) {
+			return new SignalSubscriberInfo(in);
+		}
+
+		public SignalSubscriberInfo[] newArray(int size) {
+			return new SignalSubscriberInfo[size];
+		}
+	};
+
 	public int describeContents() {
 		return 0;
+	}
+
+	SignalSubscriberInfo(Parcel in) {
+		tradingAccountId = (UUID) in.readValue(UUID.class.getClassLoader());
+		tradingAccountLogin = (String) in.readValue(null);
+		asset = (AssetDetails) in.readValue(AssetDetails.class.getClassLoader());
 	}
 }

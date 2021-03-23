@@ -1,4 +1,4 @@
-package io.swagger.client.api;
+package io.swagger.client.api;//retrofit2
 
 import io.swagger.client.model.ImageLocation;
 import io.swagger.client.model.UploadResult;
@@ -13,7 +13,7 @@ public interface FileApi
 	 *
 	 * @param uploadedFile  (optional)
 	 * @param location      (optional)
-	 * @param waitForResize (optional)
+	 * @param waitForResize (optional, default to false)
 	 * @return Call&lt;UploadResult&gt;
 	 */
 	@retrofit2.http.Multipart

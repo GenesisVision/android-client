@@ -29,25 +29,10 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class Body implements Parcelable
 {
-	public static final Parcelable.Creator<Body> CREATOR = new Parcelable.Creator<Body>()
-	{
-		public Body createFromParcel(Parcel in) {
-			return new Body(in);
-		}
-
-		public Body[] newArray(int size) {
-			return new Body[size];
-		}
-	};
-
 	@SerializedName("uploadedFile")
 	private File uploadedFile = null;
 
 	public Body() {
-	}
-
-	Body(Parcel in) {
-		uploadedFile = (File) in.readValue(File.class.getClassLoader());
 	}
 
 	public Body uploadedFile(File uploadedFile) {
@@ -69,6 +54,7 @@ public class Body implements Parcelable
 		this.uploadedFile = uploadedFile;
 	}
 
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -85,6 +71,7 @@ public class Body implements Parcelable
 	public int hashCode() {
 		return Objects.hash(Objects.hashCode(uploadedFile));
 	}
+
 
 	@Override
 	public String toString() {
@@ -107,11 +94,27 @@ public class Body implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
+
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(uploadedFile);
 	}
 
+	public static final Parcelable.Creator<Body> CREATOR = new Parcelable.Creator<Body>()
+	{
+		public Body createFromParcel(Parcel in) {
+			return new Body(in);
+		}
+
+		public Body[] newArray(int size) {
+			return new Body[size];
+		}
+	};
+
 	public int describeContents() {
 		return 0;
+	}
+
+	Body(Parcel in) {
+		uploadedFile = (File) in.readValue(File.class.getClassLoader());
 	}
 }

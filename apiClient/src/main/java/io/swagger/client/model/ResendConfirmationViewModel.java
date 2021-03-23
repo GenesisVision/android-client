@@ -28,17 +28,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class ResendConfirmationViewModel implements Parcelable
 {
-	public static final Parcelable.Creator<ResendConfirmationViewModel> CREATOR = new Parcelable.Creator<ResendConfirmationViewModel>()
-	{
-		public ResendConfirmationViewModel createFromParcel(Parcel in) {
-			return new ResendConfirmationViewModel(in);
-		}
-
-		public ResendConfirmationViewModel[] newArray(int size) {
-			return new ResendConfirmationViewModel[size];
-		}
-	};
-
 	@SerializedName("email")
 	private String email = null;
 
@@ -46,11 +35,6 @@ public class ResendConfirmationViewModel implements Parcelable
 	private CaptchaCheckResult captchaCheckResult = null;
 
 	public ResendConfirmationViewModel() {
-	}
-
-	ResendConfirmationViewModel(Parcel in) {
-		email = (String) in.readValue(null);
-		captchaCheckResult = (CaptchaCheckResult) in.readValue(CaptchaCheckResult.class.getClassLoader());
 	}
 
 	public ResendConfirmationViewModel email(String email) {
@@ -91,6 +75,7 @@ public class ResendConfirmationViewModel implements Parcelable
 		this.captchaCheckResult = captchaCheckResult;
 	}
 
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -108,6 +93,7 @@ public class ResendConfirmationViewModel implements Parcelable
 	public int hashCode() {
 		return Objects.hash(email, captchaCheckResult);
 	}
+
 
 	@Override
 	public String toString() {
@@ -131,12 +117,29 @@ public class ResendConfirmationViewModel implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
+
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(email);
 		out.writeValue(captchaCheckResult);
 	}
 
+	public static final Parcelable.Creator<ResendConfirmationViewModel> CREATOR = new Parcelable.Creator<ResendConfirmationViewModel>()
+	{
+		public ResendConfirmationViewModel createFromParcel(Parcel in) {
+			return new ResendConfirmationViewModel(in);
+		}
+
+		public ResendConfirmationViewModel[] newArray(int size) {
+			return new ResendConfirmationViewModel[size];
+		}
+	};
+
 	public int describeContents() {
 		return 0;
+	}
+
+	ResendConfirmationViewModel(Parcel in) {
+		email = (String) in.readValue(null);
+		captchaCheckResult = (CaptchaCheckResult) in.readValue(CaptchaCheckResult.class.getClassLoader());
 	}
 }

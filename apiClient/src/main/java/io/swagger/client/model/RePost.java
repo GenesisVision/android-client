@@ -31,17 +31,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class RePost implements Parcelable
 {
-	public static final Parcelable.Creator<RePost> CREATOR = new Parcelable.Creator<RePost>()
-	{
-		public RePost createFromParcel(Parcel in) {
-			return new RePost(in);
-		}
-
-		public RePost[] newArray(int size) {
-			return new RePost[size];
-		}
-	};
-
 	@SerializedName("id")
 	private UUID id = null;
 
@@ -52,12 +41,6 @@ public class RePost implements Parcelable
 	private List<NewPostImage> images = null;
 
 	public RePost() {
-	}
-
-	RePost(Parcel in) {
-		id = (UUID) in.readValue(UUID.class.getClassLoader());
-		text = (String) in.readValue(null);
-		images = (List<NewPostImage>) in.readValue(NewPostImage.class.getClassLoader());
 	}
 
 	public RePost id(UUID id) {
@@ -125,6 +108,7 @@ public class RePost implements Parcelable
 		this.images = images;
 	}
 
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -143,6 +127,7 @@ public class RePost implements Parcelable
 	public int hashCode() {
 		return Objects.hash(id, text, images);
 	}
+
 
 	@Override
 	public String toString() {
@@ -167,13 +152,31 @@ public class RePost implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
+
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(id);
 		out.writeValue(text);
 		out.writeValue(images);
 	}
 
+	public static final Parcelable.Creator<RePost> CREATOR = new Parcelable.Creator<RePost>()
+	{
+		public RePost createFromParcel(Parcel in) {
+			return new RePost(in);
+		}
+
+		public RePost[] newArray(int size) {
+			return new RePost[size];
+		}
+	};
+
 	public int describeContents() {
 		return 0;
+	}
+
+	RePost(Parcel in) {
+		id = (UUID) in.readValue(UUID.class.getClassLoader());
+		text = (String) in.readValue(null);
+		images = (List<NewPostImage>) in.readValue(NewPostImage.class.getClassLoader());
 	}
 }

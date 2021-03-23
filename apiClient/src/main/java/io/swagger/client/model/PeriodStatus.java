@@ -29,15 +29,6 @@ public enum PeriodStatus
 	INPROCCESS("InProccess"),
 	CLOSED("Closed");
 
-	public static PeriodStatus fromValue(String text) {
-		for (PeriodStatus b : PeriodStatus.values()) {
-			if (String.valueOf(b.value).equals(text)) {
-				return b;
-			}
-		}
-		return null;
-	}
-
 	private String value;
 
 	PeriodStatus(String value) {
@@ -53,6 +44,15 @@ public enum PeriodStatus
 		return String.valueOf(value);
 	}
 
+	public static PeriodStatus fromValue(String text) {
+		for (PeriodStatus b : PeriodStatus.values()) {
+			if (String.valueOf(b.value).equals(text)) {
+				return b;
+			}
+		}
+		return null;
+	}
+
 	public static class Adapter extends TypeAdapter<PeriodStatus>
 	{
 		@Override
@@ -62,7 +62,7 @@ public enum PeriodStatus
 
 		@Override
 		public PeriodStatus read(final JsonReader jsonReader) throws IOException {
-			String value = jsonReader.nextString();
+			Object value = jsonReader.nextString();
 			return PeriodStatus.fromValue(String.valueOf(value));
 		}
 	}

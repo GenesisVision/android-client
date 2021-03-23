@@ -33,15 +33,6 @@ public enum PlatformEventType
 	FUNDREALLOCATED("FundReallocated"),
 	FOLLOWTRADE("FollowTrade");
 
-	public static PlatformEventType fromValue(String text) {
-		for (PlatformEventType b : PlatformEventType.values()) {
-			if (String.valueOf(b.value).equals(text)) {
-				return b;
-			}
-		}
-		return null;
-	}
-
 	private String value;
 
 	PlatformEventType(String value) {
@@ -57,6 +48,15 @@ public enum PlatformEventType
 		return String.valueOf(value);
 	}
 
+	public static PlatformEventType fromValue(String text) {
+		for (PlatformEventType b : PlatformEventType.values()) {
+			if (String.valueOf(b.value).equals(text)) {
+				return b;
+			}
+		}
+		return null;
+	}
+
 	public static class Adapter extends TypeAdapter<PlatformEventType>
 	{
 		@Override
@@ -66,7 +66,7 @@ public enum PlatformEventType
 
 		@Override
 		public PlatformEventType read(final JsonReader jsonReader) throws IOException {
-			String value = jsonReader.nextString();
+			Object value = jsonReader.nextString();
 			return PlatformEventType.fromValue(String.valueOf(value));
 		}
 	}

@@ -6,6 +6,7 @@ import androidx.fragment.app.FragmentStatePagerAdapter;
 
 import java.util.ArrayList;
 import java.util.Locale;
+import java.util.Map;
 
 import io.swagger.client.model.Broker;
 import io.swagger.client.model.Currency;
@@ -159,12 +160,12 @@ public class CreateProgramPagerAdapter extends FragmentStatePagerAdapter
 		}
 	}
 
-	public void setMinDeposit(Double minDeposit, Currency accountCurrency) {
+	public void setMinDeposit(Map<String, Double> minDepositInfo, Currency accountCurrency) {
 		if (programSettingsFragment != null) {
 			programSettingsFragment.setCurrency(accountCurrency);
 		}
 		if (depositFragment != null) {
-			depositFragment.setMinDeposit(minDeposit, accountCurrency);
+			depositFragment.setMinDeposit(minDepositInfo, accountCurrency);
 		}
 	}
 

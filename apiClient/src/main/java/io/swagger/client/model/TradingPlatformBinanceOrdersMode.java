@@ -28,15 +28,6 @@ public enum TradingPlatformBinanceOrdersMode
 	TRADEHISTORY("TradeHistory"),
 	ORDERHISTORY("OrderHistory");
 
-	public static TradingPlatformBinanceOrdersMode fromValue(String text) {
-		for (TradingPlatformBinanceOrdersMode b : TradingPlatformBinanceOrdersMode.values()) {
-			if (String.valueOf(b.value).equals(text)) {
-				return b;
-			}
-		}
-		return null;
-	}
-
 	private String value;
 
 	TradingPlatformBinanceOrdersMode(String value) {
@@ -52,6 +43,15 @@ public enum TradingPlatformBinanceOrdersMode
 		return String.valueOf(value);
 	}
 
+	public static TradingPlatformBinanceOrdersMode fromValue(String text) {
+		for (TradingPlatformBinanceOrdersMode b : TradingPlatformBinanceOrdersMode.values()) {
+			if (String.valueOf(b.value).equals(text)) {
+				return b;
+			}
+		}
+		return null;
+	}
+
 	public static class Adapter extends TypeAdapter<TradingPlatformBinanceOrdersMode>
 	{
 		@Override
@@ -61,7 +61,7 @@ public enum TradingPlatformBinanceOrdersMode
 
 		@Override
 		public TradingPlatformBinanceOrdersMode read(final JsonReader jsonReader) throws IOException {
-			String value = jsonReader.nextString();
+			Object value = jsonReader.nextString();
 			return TradingPlatformBinanceOrdersMode.fromValue(String.valueOf(value));
 		}
 	}

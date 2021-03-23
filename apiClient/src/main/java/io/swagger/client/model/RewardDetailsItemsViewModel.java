@@ -29,17 +29,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class RewardDetailsItemsViewModel implements Parcelable
 {
-	public static final Parcelable.Creator<RewardDetailsItemsViewModel> CREATOR = new Parcelable.Creator<RewardDetailsItemsViewModel>()
-	{
-		public RewardDetailsItemsViewModel createFromParcel(Parcel in) {
-			return new RewardDetailsItemsViewModel(in);
-		}
-
-		public RewardDetailsItemsViewModel[] newArray(int size) {
-			return new RewardDetailsItemsViewModel[size];
-		}
-	};
-
 	@SerializedName("items")
 	private List<RewardDetails> items = null;
 
@@ -47,11 +36,6 @@ public class RewardDetailsItemsViewModel implements Parcelable
 	private Integer total = null;
 
 	public RewardDetailsItemsViewModel() {
-	}
-
-	RewardDetailsItemsViewModel(Parcel in) {
-		items = (List<RewardDetails>) in.readValue(RewardDetails.class.getClassLoader());
-		total = (Integer) in.readValue(null);
 	}
 
 	/**
@@ -74,6 +58,7 @@ public class RewardDetailsItemsViewModel implements Parcelable
 		return total;
 	}
 
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -91,6 +76,7 @@ public class RewardDetailsItemsViewModel implements Parcelable
 	public int hashCode() {
 		return Objects.hash(items, total);
 	}
+
 
 	@Override
 	public String toString() {
@@ -114,12 +100,29 @@ public class RewardDetailsItemsViewModel implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
+
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(items);
 		out.writeValue(total);
 	}
 
+	public static final Parcelable.Creator<RewardDetailsItemsViewModel> CREATOR = new Parcelable.Creator<RewardDetailsItemsViewModel>()
+	{
+		public RewardDetailsItemsViewModel createFromParcel(Parcel in) {
+			return new RewardDetailsItemsViewModel(in);
+		}
+
+		public RewardDetailsItemsViewModel[] newArray(int size) {
+			return new RewardDetailsItemsViewModel[size];
+		}
+	};
+
 	public int describeContents() {
 		return 0;
+	}
+
+	RewardDetailsItemsViewModel(Parcel in) {
+		items = (List<RewardDetails>) in.readValue(RewardDetails.class.getClassLoader());
+		total = (Integer) in.readValue(null);
 	}
 }

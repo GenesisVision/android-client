@@ -28,17 +28,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class PostTag implements Parcelable
 {
-	public static final Parcelable.Creator<PostTag> CREATOR = new Parcelable.Creator<PostTag>()
-	{
-		public PostTag createFromParcel(Parcel in) {
-			return new PostTag(in);
-		}
-
-		public PostTag[] newArray(int size) {
-			return new PostTag[size];
-		}
-	};
-
 	@SerializedName("title")
 	private String title = null;
 
@@ -67,18 +56,6 @@ public class PostTag implements Parcelable
 	private PostLink link = null;
 
 	public PostTag() {
-	}
-
-	PostTag(Parcel in) {
-		title = (String) in.readValue(null);
-		number = (Integer) in.readValue(null);
-		type = (SocialPostTagType) in.readValue(SocialPostTagType.class.getClassLoader());
-		assetDetails = (PostAssetDetailsWithPrices) in.readValue(PostAssetDetailsWithPrices.class.getClassLoader());
-		userDetails = (ProfilePublic) in.readValue(ProfilePublic.class.getClassLoader());
-		platformAssetDetails = (PostPlatformAssetDetailsWithPrices) in.readValue(PostPlatformAssetDetailsWithPrices.class.getClassLoader());
-		post = (Post) in.readValue(Post.class.getClassLoader());
-		event = (PostEvent) in.readValue(PostEvent.class.getClassLoader());
-		link = (PostLink) in.readValue(PostLink.class.getClassLoader());
 	}
 
 	public PostTag title(String title) {
@@ -252,6 +229,7 @@ public class PostTag implements Parcelable
 		this.link = link;
 	}
 
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -276,6 +254,7 @@ public class PostTag implements Parcelable
 	public int hashCode() {
 		return Objects.hash(title, number, type, assetDetails, userDetails, platformAssetDetails, post, event, link);
 	}
+
 
 	@Override
 	public String toString() {
@@ -306,6 +285,7 @@ public class PostTag implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
+
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(title);
 		out.writeValue(number);
@@ -318,7 +298,30 @@ public class PostTag implements Parcelable
 		out.writeValue(link);
 	}
 
+	public static final Parcelable.Creator<PostTag> CREATOR = new Parcelable.Creator<PostTag>()
+	{
+		public PostTag createFromParcel(Parcel in) {
+			return new PostTag(in);
+		}
+
+		public PostTag[] newArray(int size) {
+			return new PostTag[size];
+		}
+	};
+
 	public int describeContents() {
 		return 0;
+	}
+
+	PostTag(Parcel in) {
+		title = (String) in.readValue(null);
+		number = (Integer) in.readValue(null);
+		type = (SocialPostTagType) in.readValue(SocialPostTagType.class.getClassLoader());
+		assetDetails = (PostAssetDetailsWithPrices) in.readValue(PostAssetDetailsWithPrices.class.getClassLoader());
+		userDetails = (ProfilePublic) in.readValue(ProfilePublic.class.getClassLoader());
+		platformAssetDetails = (PostPlatformAssetDetailsWithPrices) in.readValue(PostPlatformAssetDetailsWithPrices.class.getClassLoader());
+		post = (Post) in.readValue(Post.class.getClassLoader());
+		event = (PostEvent) in.readValue(PostEvent.class.getClassLoader());
+		link = (PostLink) in.readValue(PostLink.class.getClassLoader());
 	}
 }

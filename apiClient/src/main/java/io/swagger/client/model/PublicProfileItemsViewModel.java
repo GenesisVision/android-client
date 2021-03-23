@@ -29,17 +29,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class PublicProfileItemsViewModel implements Parcelable
 {
-	public static final Parcelable.Creator<PublicProfileItemsViewModel> CREATOR = new Parcelable.Creator<PublicProfileItemsViewModel>()
-	{
-		public PublicProfileItemsViewModel createFromParcel(Parcel in) {
-			return new PublicProfileItemsViewModel(in);
-		}
-
-		public PublicProfileItemsViewModel[] newArray(int size) {
-			return new PublicProfileItemsViewModel[size];
-		}
-	};
-
 	@SerializedName("items")
 	private List<PublicProfile> items = null;
 
@@ -47,11 +36,6 @@ public class PublicProfileItemsViewModel implements Parcelable
 	private Integer total = null;
 
 	public PublicProfileItemsViewModel() {
-	}
-
-	PublicProfileItemsViewModel(Parcel in) {
-		items = (List<PublicProfile>) in.readValue(PublicProfile.class.getClassLoader());
-		total = (Integer) in.readValue(null);
 	}
 
 	/**
@@ -74,6 +58,7 @@ public class PublicProfileItemsViewModel implements Parcelable
 		return total;
 	}
 
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -91,6 +76,7 @@ public class PublicProfileItemsViewModel implements Parcelable
 	public int hashCode() {
 		return Objects.hash(items, total);
 	}
+
 
 	@Override
 	public String toString() {
@@ -114,12 +100,29 @@ public class PublicProfileItemsViewModel implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
+
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(items);
 		out.writeValue(total);
 	}
 
+	public static final Parcelable.Creator<PublicProfileItemsViewModel> CREATOR = new Parcelable.Creator<PublicProfileItemsViewModel>()
+	{
+		public PublicProfileItemsViewModel createFromParcel(Parcel in) {
+			return new PublicProfileItemsViewModel(in);
+		}
+
+		public PublicProfileItemsViewModel[] newArray(int size) {
+			return new PublicProfileItemsViewModel[size];
+		}
+	};
+
 	public int describeContents() {
 		return 0;
+	}
+
+	PublicProfileItemsViewModel(Parcel in) {
+		items = (List<PublicProfile>) in.readValue(PublicProfile.class.getClassLoader());
+		total = (Integer) in.readValue(null);
 	}
 }

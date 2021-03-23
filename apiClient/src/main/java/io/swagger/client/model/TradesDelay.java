@@ -32,15 +32,6 @@ public enum TradesDelay
 	ONEHOUR("OneHour"),
 	SIXHOURS("SixHours");
 
-	public static TradesDelay fromValue(String text) {
-		for (TradesDelay b : TradesDelay.values()) {
-			if (String.valueOf(b.value).equals(text)) {
-				return b;
-			}
-		}
-		return null;
-	}
-
 	private String value;
 
 	TradesDelay(String value) {
@@ -56,6 +47,15 @@ public enum TradesDelay
 		return String.valueOf(value);
 	}
 
+	public static TradesDelay fromValue(String text) {
+		for (TradesDelay b : TradesDelay.values()) {
+			if (String.valueOf(b.value).equals(text)) {
+				return b;
+			}
+		}
+		return null;
+	}
+
 	public static class Adapter extends TypeAdapter<TradesDelay>
 	{
 		@Override
@@ -65,7 +65,7 @@ public enum TradesDelay
 
 		@Override
 		public TradesDelay read(final JsonReader jsonReader) throws IOException {
-			String value = jsonReader.nextString();
+			Object value = jsonReader.nextString();
 			return TradesDelay.fromValue(String.valueOf(value));
 		}
 	}

@@ -28,17 +28,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class PostLink implements Parcelable
 {
-	public static final Parcelable.Creator<PostLink> CREATOR = new Parcelable.Creator<PostLink>()
-	{
-		public PostLink createFromParcel(Parcel in) {
-			return new PostLink(in);
-		}
-
-		public PostLink[] newArray(int size) {
-			return new PostLink[size];
-		}
-	};
-
 	@SerializedName("title")
 	private String title = null;
 
@@ -46,11 +35,6 @@ public class PostLink implements Parcelable
 	private String url = null;
 
 	public PostLink() {
-	}
-
-	PostLink(Parcel in) {
-		title = (String) in.readValue(null);
-		url = (String) in.readValue(null);
 	}
 
 	public PostLink title(String title) {
@@ -91,6 +75,7 @@ public class PostLink implements Parcelable
 		this.url = url;
 	}
 
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -108,6 +93,7 @@ public class PostLink implements Parcelable
 	public int hashCode() {
 		return Objects.hash(title, url);
 	}
+
 
 	@Override
 	public String toString() {
@@ -131,12 +117,29 @@ public class PostLink implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
+
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(title);
 		out.writeValue(url);
 	}
 
+	public static final Parcelable.Creator<PostLink> CREATOR = new Parcelable.Creator<PostLink>()
+	{
+		public PostLink createFromParcel(Parcel in) {
+			return new PostLink(in);
+		}
+
+		public PostLink[] newArray(int size) {
+			return new PostLink[size];
+		}
+	};
+
 	public int describeContents() {
 		return 0;
+	}
+
+	PostLink(Parcel in) {
+		title = (String) in.readValue(null);
+		url = (String) in.readValue(null);
 	}
 }

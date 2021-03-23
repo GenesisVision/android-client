@@ -28,15 +28,6 @@ public enum BinancePositionMode
 	HEDGE("Hedge"),
 	ONEWAY("OneWay");
 
-	public static BinancePositionMode fromValue(String text) {
-		for (BinancePositionMode b : BinancePositionMode.values()) {
-			if (String.valueOf(b.value).equals(text)) {
-				return b;
-			}
-		}
-		return null;
-	}
-
 	private String value;
 
 	BinancePositionMode(String value) {
@@ -52,6 +43,15 @@ public enum BinancePositionMode
 		return String.valueOf(value);
 	}
 
+	public static BinancePositionMode fromValue(String text) {
+		for (BinancePositionMode b : BinancePositionMode.values()) {
+			if (String.valueOf(b.value).equals(text)) {
+				return b;
+			}
+		}
+		return null;
+	}
+
 	public static class Adapter extends TypeAdapter<BinancePositionMode>
 	{
 		@Override
@@ -61,7 +61,7 @@ public enum BinancePositionMode
 
 		@Override
 		public BinancePositionMode read(final JsonReader jsonReader) throws IOException {
-			String value = jsonReader.nextString();
+			Object value = jsonReader.nextString();
 			return BinancePositionMode.fromValue(String.valueOf(value));
 		}
 	}

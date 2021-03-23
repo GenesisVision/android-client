@@ -31,17 +31,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class ProgramFollowDetailsFull implements Parcelable
 {
-	public static final Parcelable.Creator<ProgramFollowDetailsFull> CREATOR = new Parcelable.Creator<ProgramFollowDetailsFull>()
-	{
-		public ProgramFollowDetailsFull createFromParcel(Parcel in) {
-			return new ProgramFollowDetailsFull(in);
-		}
-
-		public ProgramFollowDetailsFull[] newArray(int size) {
-			return new ProgramFollowDetailsFull[size];
-		}
-	};
-
 	@SerializedName("id")
 	private UUID id = null;
 
@@ -70,18 +59,6 @@ public class ProgramFollowDetailsFull implements Parcelable
 	private ProgramFollowOwnerActions ownerActions = null;
 
 	public ProgramFollowDetailsFull() {
-	}
-
-	ProgramFollowDetailsFull(Parcel in) {
-		id = (UUID) in.readValue(UUID.class.getClassLoader());
-		publicInfo = (AssetPublicDetails) in.readValue(AssetPublicDetails.class.getClassLoader());
-		tradingAccountInfo = (ProgramFollowDetailsFullTradingAccountDetails) in.readValue(ProgramFollowDetailsFullTradingAccountDetails.class.getClassLoader());
-		owner = (ProfilePublic) in.readValue(ProfilePublic.class.getClassLoader());
-		brokerDetails = (BrokerDetails) in.readValue(BrokerDetails.class.getClassLoader());
-		tags = (List<Tag>) in.readValue(Tag.class.getClassLoader());
-		programDetails = (ProgramDetailsFull) in.readValue(ProgramDetailsFull.class.getClassLoader());
-		followDetails = (FollowDetailsFull) in.readValue(FollowDetailsFull.class.getClassLoader());
-		ownerActions = (ProgramFollowOwnerActions) in.readValue(ProgramFollowOwnerActions.class.getClassLoader());
 	}
 
 	public ProgramFollowDetailsFull id(UUID id) {
@@ -263,6 +240,7 @@ public class ProgramFollowDetailsFull implements Parcelable
 		this.ownerActions = ownerActions;
 	}
 
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -287,6 +265,7 @@ public class ProgramFollowDetailsFull implements Parcelable
 	public int hashCode() {
 		return Objects.hash(id, publicInfo, tradingAccountInfo, owner, brokerDetails, tags, programDetails, followDetails, ownerActions);
 	}
+
 
 	@Override
 	public String toString() {
@@ -317,6 +296,7 @@ public class ProgramFollowDetailsFull implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
+
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(id);
 		out.writeValue(publicInfo);
@@ -329,7 +309,30 @@ public class ProgramFollowDetailsFull implements Parcelable
 		out.writeValue(ownerActions);
 	}
 
+	public static final Parcelable.Creator<ProgramFollowDetailsFull> CREATOR = new Parcelable.Creator<ProgramFollowDetailsFull>()
+	{
+		public ProgramFollowDetailsFull createFromParcel(Parcel in) {
+			return new ProgramFollowDetailsFull(in);
+		}
+
+		public ProgramFollowDetailsFull[] newArray(int size) {
+			return new ProgramFollowDetailsFull[size];
+		}
+	};
+
 	public int describeContents() {
 		return 0;
+	}
+
+	ProgramFollowDetailsFull(Parcel in) {
+		id = (UUID) in.readValue(UUID.class.getClassLoader());
+		publicInfo = (AssetPublicDetails) in.readValue(AssetPublicDetails.class.getClassLoader());
+		tradingAccountInfo = (ProgramFollowDetailsFullTradingAccountDetails) in.readValue(ProgramFollowDetailsFullTradingAccountDetails.class.getClassLoader());
+		owner = (ProfilePublic) in.readValue(ProfilePublic.class.getClassLoader());
+		brokerDetails = (BrokerDetails) in.readValue(BrokerDetails.class.getClassLoader());
+		tags = (List<Tag>) in.readValue(Tag.class.getClassLoader());
+		programDetails = (ProgramDetailsFull) in.readValue(ProgramDetailsFull.class.getClassLoader());
+		followDetails = (FollowDetailsFull) in.readValue(FollowDetailsFull.class.getClassLoader());
+		ownerActions = (ProgramFollowOwnerActions) in.readValue(ProgramFollowOwnerActions.class.getClassLoader());
 	}
 }

@@ -1,4 +1,4 @@
-package io.swagger.client.api;
+package io.swagger.client.api;//retrofit2
 
 import io.swagger.client.model.CommonPublicAssetsViewModel;
 import retrofit2.http.GET;

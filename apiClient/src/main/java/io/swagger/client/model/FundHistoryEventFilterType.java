@@ -33,15 +33,6 @@ public enum FundHistoryEventFilterType
 	REALLOCATION("Reallocation"),
 	CHALLENGEWINNER("ChallengeWinner");
 
-	public static FundHistoryEventFilterType fromValue(String text) {
-		for (FundHistoryEventFilterType b : FundHistoryEventFilterType.values()) {
-			if (String.valueOf(b.value).equals(text)) {
-				return b;
-			}
-		}
-		return null;
-	}
-
 	private String value;
 
 	FundHistoryEventFilterType(String value) {
@@ -57,6 +48,15 @@ public enum FundHistoryEventFilterType
 		return String.valueOf(value);
 	}
 
+	public static FundHistoryEventFilterType fromValue(String text) {
+		for (FundHistoryEventFilterType b : FundHistoryEventFilterType.values()) {
+			if (String.valueOf(b.value).equals(text)) {
+				return b;
+			}
+		}
+		return null;
+	}
+
 	public static class Adapter extends TypeAdapter<FundHistoryEventFilterType>
 	{
 		@Override
@@ -66,7 +66,7 @@ public enum FundHistoryEventFilterType
 
 		@Override
 		public FundHistoryEventFilterType read(final JsonReader jsonReader) throws IOException {
-			String value = jsonReader.nextString();
+			Object value = jsonReader.nextString();
 			return FundHistoryEventFilterType.fromValue(String.valueOf(value));
 		}
 	}

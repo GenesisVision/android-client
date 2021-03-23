@@ -31,15 +31,6 @@ public enum ErrorCodes
 	WRONGCAPTCHA("WrongCaptcha"),
 	REQUIRESEMAILCONFIRMATION("RequiresEmailConfirmation");
 
-	public static ErrorCodes fromValue(String text) {
-		for (ErrorCodes b : ErrorCodes.values()) {
-			if (String.valueOf(b.value).equals(text)) {
-				return b;
-			}
-		}
-		return null;
-	}
-
 	private String value;
 
 	ErrorCodes(String value) {
@@ -55,6 +46,15 @@ public enum ErrorCodes
 		return String.valueOf(value);
 	}
 
+	public static ErrorCodes fromValue(String text) {
+		for (ErrorCodes b : ErrorCodes.values()) {
+			if (String.valueOf(b.value).equals(text)) {
+				return b;
+			}
+		}
+		return null;
+	}
+
 	public static class Adapter extends TypeAdapter<ErrorCodes>
 	{
 		@Override
@@ -64,7 +64,7 @@ public enum ErrorCodes
 
 		@Override
 		public ErrorCodes read(final JsonReader jsonReader) throws IOException {
-			String value = jsonReader.nextString();
+			Object value = jsonReader.nextString();
 			return ErrorCodes.fromValue(String.valueOf(value));
 		}
 	}

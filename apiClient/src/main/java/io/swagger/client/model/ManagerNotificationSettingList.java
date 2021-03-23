@@ -31,17 +31,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class ManagerNotificationSettingList implements Parcelable
 {
-	public static final Parcelable.Creator<ManagerNotificationSettingList> CREATOR = new Parcelable.Creator<ManagerNotificationSettingList>()
-	{
-		public ManagerNotificationSettingList createFromParcel(Parcel in) {
-			return new ManagerNotificationSettingList(in);
-		}
-
-		public ManagerNotificationSettingList[] newArray(int size) {
-			return new ManagerNotificationSettingList[size];
-		}
-	};
-
 	@SerializedName("managerId")
 	private UUID managerId = null;
 
@@ -61,15 +50,6 @@ public class ManagerNotificationSettingList implements Parcelable
 	private List<NotificationSettingViewModel> settingsGeneral = null;
 
 	public ManagerNotificationSettingList() {
-	}
-
-	ManagerNotificationSettingList(Parcel in) {
-		managerId = (UUID) in.readValue(UUID.class.getClassLoader());
-		url = (String) in.readValue(null);
-		username = (String) in.readValue(null);
-		logoUrl = (String) in.readValue(null);
-		about = (String) in.readValue(null);
-		settingsGeneral = (List<NotificationSettingViewModel>) in.readValue(NotificationSettingViewModel.class.getClassLoader());
 	}
 
 	public ManagerNotificationSettingList managerId(UUID managerId) {
@@ -194,6 +174,7 @@ public class ManagerNotificationSettingList implements Parcelable
 		this.settingsGeneral = settingsGeneral;
 	}
 
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -215,6 +196,7 @@ public class ManagerNotificationSettingList implements Parcelable
 	public int hashCode() {
 		return Objects.hash(managerId, url, username, logoUrl, about, settingsGeneral);
 	}
+
 
 	@Override
 	public String toString() {
@@ -242,6 +224,7 @@ public class ManagerNotificationSettingList implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
+
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(managerId);
 		out.writeValue(url);
@@ -251,7 +234,27 @@ public class ManagerNotificationSettingList implements Parcelable
 		out.writeValue(settingsGeneral);
 	}
 
+	public static final Parcelable.Creator<ManagerNotificationSettingList> CREATOR = new Parcelable.Creator<ManagerNotificationSettingList>()
+	{
+		public ManagerNotificationSettingList createFromParcel(Parcel in) {
+			return new ManagerNotificationSettingList(in);
+		}
+
+		public ManagerNotificationSettingList[] newArray(int size) {
+			return new ManagerNotificationSettingList[size];
+		}
+	};
+
 	public int describeContents() {
 		return 0;
+	}
+
+	ManagerNotificationSettingList(Parcel in) {
+		managerId = (UUID) in.readValue(UUID.class.getClassLoader());
+		url = (String) in.readValue(null);
+		username = (String) in.readValue(null);
+		logoUrl = (String) in.readValue(null);
+		about = (String) in.readValue(null);
+		settingsGeneral = (List<NotificationSettingViewModel>) in.readValue(NotificationSettingViewModel.class.getClassLoader());
 	}
 }

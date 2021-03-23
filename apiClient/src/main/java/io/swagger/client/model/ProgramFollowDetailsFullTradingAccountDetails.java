@@ -29,17 +29,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class ProgramFollowDetailsFullTradingAccountDetails implements Parcelable
 {
-	public static final Parcelable.Creator<ProgramFollowDetailsFullTradingAccountDetails> CREATOR = new Parcelable.Creator<ProgramFollowDetailsFullTradingAccountDetails>()
-	{
-		public ProgramFollowDetailsFullTradingAccountDetails createFromParcel(Parcel in) {
-			return new ProgramFollowDetailsFullTradingAccountDetails(in);
-		}
-
-		public ProgramFollowDetailsFullTradingAccountDetails[] newArray(int size) {
-			return new ProgramFollowDetailsFullTradingAccountDetails[size];
-		}
-	};
-
 	@SerializedName("id")
 	private UUID id = null;
 
@@ -59,15 +48,6 @@ public class ProgramFollowDetailsFullTradingAccountDetails implements Parcelable
 	private Double balance = null;
 
 	public ProgramFollowDetailsFullTradingAccountDetails() {
-	}
-
-	ProgramFollowDetailsFullTradingAccountDetails(Parcel in) {
-		id = (UUID) in.readValue(UUID.class.getClassLoader());
-		login = (String) in.readValue(null);
-		currency = (Currency) in.readValue(Currency.class.getClassLoader());
-		leverageMin = (Integer) in.readValue(null);
-		leverageMax = (Integer) in.readValue(null);
-		balance = (Double) in.readValue(null);
 	}
 
 	public ProgramFollowDetailsFullTradingAccountDetails id(UUID id) {
@@ -184,6 +164,7 @@ public class ProgramFollowDetailsFullTradingAccountDetails implements Parcelable
 		this.balance = balance;
 	}
 
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -205,6 +186,7 @@ public class ProgramFollowDetailsFullTradingAccountDetails implements Parcelable
 	public int hashCode() {
 		return Objects.hash(id, login, currency, leverageMin, leverageMax, balance);
 	}
+
 
 	@Override
 	public String toString() {
@@ -232,6 +214,7 @@ public class ProgramFollowDetailsFullTradingAccountDetails implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
+
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(id);
 		out.writeValue(login);
@@ -241,7 +224,27 @@ public class ProgramFollowDetailsFullTradingAccountDetails implements Parcelable
 		out.writeValue(balance);
 	}
 
+	public static final Parcelable.Creator<ProgramFollowDetailsFullTradingAccountDetails> CREATOR = new Parcelable.Creator<ProgramFollowDetailsFullTradingAccountDetails>()
+	{
+		public ProgramFollowDetailsFullTradingAccountDetails createFromParcel(Parcel in) {
+			return new ProgramFollowDetailsFullTradingAccountDetails(in);
+		}
+
+		public ProgramFollowDetailsFullTradingAccountDetails[] newArray(int size) {
+			return new ProgramFollowDetailsFullTradingAccountDetails[size];
+		}
+	};
+
 	public int describeContents() {
 		return 0;
+	}
+
+	ProgramFollowDetailsFullTradingAccountDetails(Parcel in) {
+		id = (UUID) in.readValue(UUID.class.getClassLoader());
+		login = (String) in.readValue(null);
+		currency = (Currency) in.readValue(Currency.class.getClassLoader());
+		leverageMin = (Integer) in.readValue(null);
+		leverageMax = (Integer) in.readValue(null);
+		balance = (Double) in.readValue(null);
 	}
 }

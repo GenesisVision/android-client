@@ -9,6 +9,7 @@ Name | Type | Description | Notes
 **balance** | **Double** |  |  [optional]
 **login** | **String** |  |  [optional]
 **currency** | [**Currency**](Currency.md) |  |  [optional]
+**originalCurrency** | [**Currency**](Currency.md) |  |  [optional]
 **leverage** | **Integer** |  |  [optional]
 **type** | [**PrivateTradingAccountType**](PrivateTradingAccountType.md) |  |  [optional]
 **balances** | [**List&lt;AmountWithCurrency&gt;**](AmountWithCurrency.md) |  |  [optional]

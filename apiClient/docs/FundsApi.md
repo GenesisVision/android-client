@@ -277,7 +277,7 @@ DateTime dateTo = new DateTime(); // DateTime |
 Integer maxPointCount = 56; // Integer | 
 Currency currency = new Currency(); // Currency | 
 List<Currency> currencies = Arrays.asList(new Currency()); // List<Currency> | 
-Integer chartAssetsCount = 56; // Integer | 
+Integer chartAssetsCount = 3; // Integer | 
 try {
     FundProfitPercentCharts result = apiInstance.getFundProfitPercentCharts(id, dateFrom, dateTo, maxPointCount, currency, currencies, chartAssetsCount);
     System.out.println(result);
@@ -297,7 +297,7 @@ Name | Type | Description  | Notes
  **maxPointCount** | **Integer**|  | [optional]
  **currency** | [**Currency**](.md)|  | [optional]
  **currencies** | [**List&lt;Currency&gt;**](Currency.md)|  | [optional]
- **chartAssetsCount** | **Integer**|  | [optional]
+ **chartAssetsCount** | **Integer**|  | [optional] [default to 3]
 
 ### Return type
 

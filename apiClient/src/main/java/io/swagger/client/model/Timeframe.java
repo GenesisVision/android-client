@@ -32,15 +32,6 @@ public enum Timeframe
 	YEAR("Year"),
 	ALLTIME("AllTime");
 
-	public static Timeframe fromValue(String text) {
-		for (Timeframe b : Timeframe.values()) {
-			if (String.valueOf(b.value).equals(text)) {
-				return b;
-			}
-		}
-		return null;
-	}
-
 	private String value;
 
 	Timeframe(String value) {
@@ -56,6 +47,15 @@ public enum Timeframe
 		return String.valueOf(value);
 	}
 
+	public static Timeframe fromValue(String text) {
+		for (Timeframe b : Timeframe.values()) {
+			if (String.valueOf(b.value).equals(text)) {
+				return b;
+			}
+		}
+		return null;
+	}
+
 	public static class Adapter extends TypeAdapter<Timeframe>
 	{
 		@Override
@@ -65,7 +65,7 @@ public enum Timeframe
 
 		@Override
 		public Timeframe read(final JsonReader jsonReader) throws IOException {
-			String value = jsonReader.nextString();
+			Object value = jsonReader.nextString();
 			return Timeframe.fromValue(String.valueOf(value));
 		}
 	}

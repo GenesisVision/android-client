@@ -8,6 +8,8 @@ import com.arellomobile.mvp.MvpPresenter;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
 import javax.inject.Inject;
@@ -181,7 +183,7 @@ public class CreateProgramPresenter extends MvpPresenter<CreateProgramView>
 						for (AmountWithCurrency amountWithCurrency : info.getMinDepositCreateAsset()) {
 							if (amountWithCurrency.getCurrency().getValue().equals(model.getCurrency())) {
 								Double minDeposit = amountWithCurrency.getAmount();
-								model.setMinDeposit(minDeposit);
+								model.setMinDepositInfo(info.getMinDepositCreateAsset());
 								needPublicInfo = model.getAssetType().equals(AssetType.NONE);
 								needDeposit = model.getCurrentBalance() < minDeposit;
 								getViewState().initViewPager(needBrokerSelect, needPublicInfo, needDeposit, model);
@@ -386,17 +388,15 @@ public class CreateProgramPresenter extends MvpPresenter<CreateProgramView>
 	}
 
 	private void setMinDeposit(Currency accountCurrency) {
+		Map<String, Double> minDepositInfo = new HashMap<>();
 		for (ProgramMinInvestAmount info : platformInfo.getAssetInfo().getProgramInfo().getMinInvestAmounts()) {
 			if (info.getServerType().equals(brokerServerType)) {
 				for (AmountWithCurrency amountWithCurrency : info.getMinDepositCreateAsset()) {
-					if (amountWithCurrency.getCurrency().getValue().equals(accountCurrency.getValue())) {
-						Double minDeposit = amountWithCurrency.getAmount();
-						getViewState().setMinDeposit(minDeposit, accountCurrency);
-						break;
-					}
+					minDepositInfo.put(amountWithCurrency.getCurrency().getValue(), amountWithCurrency.getAmount());
 				}
 			}
 		}
+		getViewState().setMinDeposit(minDepositInfo, accountCurrency);
 	}
 
 	@Subscribe

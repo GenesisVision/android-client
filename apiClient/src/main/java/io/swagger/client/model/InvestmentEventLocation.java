@@ -29,15 +29,6 @@ public enum InvestmentEventLocation
 	DASHBOARD("Dashboard"),
 	EVENTSALL("EventsAll");
 
-	public static InvestmentEventLocation fromValue(String text) {
-		for (InvestmentEventLocation b : InvestmentEventLocation.values()) {
-			if (String.valueOf(b.value).equals(text)) {
-				return b;
-			}
-		}
-		return null;
-	}
-
 	private String value;
 
 	InvestmentEventLocation(String value) {
@@ -53,6 +44,15 @@ public enum InvestmentEventLocation
 		return String.valueOf(value);
 	}
 
+	public static InvestmentEventLocation fromValue(String text) {
+		for (InvestmentEventLocation b : InvestmentEventLocation.values()) {
+			if (String.valueOf(b.value).equals(text)) {
+				return b;
+			}
+		}
+		return null;
+	}
+
 	public static class Adapter extends TypeAdapter<InvestmentEventLocation>
 	{
 		@Override
@@ -62,7 +62,7 @@ public enum InvestmentEventLocation
 
 		@Override
 		public InvestmentEventLocation read(final JsonReader jsonReader) throws IOException {
-			String value = jsonReader.nextString();
+			Object value = jsonReader.nextString();
 			return InvestmentEventLocation.fromValue(String.valueOf(value));
 		}
 	}

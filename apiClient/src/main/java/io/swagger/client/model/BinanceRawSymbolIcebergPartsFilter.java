@@ -28,17 +28,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class BinanceRawSymbolIcebergPartsFilter implements Parcelable
 {
-	public static final Parcelable.Creator<BinanceRawSymbolIcebergPartsFilter> CREATOR = new Parcelable.Creator<BinanceRawSymbolIcebergPartsFilter>()
-	{
-		public BinanceRawSymbolIcebergPartsFilter createFromParcel(Parcel in) {
-			return new BinanceRawSymbolIcebergPartsFilter(in);
-		}
-
-		public BinanceRawSymbolIcebergPartsFilter[] newArray(int size) {
-			return new BinanceRawSymbolIcebergPartsFilter[size];
-		}
-	};
-
 	@SerializedName("filterType")
 	private BinanceSymbolFilterType filterType = null;
 
@@ -46,11 +35,6 @@ public class BinanceRawSymbolIcebergPartsFilter implements Parcelable
 	private Integer limit = null;
 
 	public BinanceRawSymbolIcebergPartsFilter() {
-	}
-
-	BinanceRawSymbolIcebergPartsFilter(Parcel in) {
-		filterType = (BinanceSymbolFilterType) in.readValue(BinanceSymbolFilterType.class.getClassLoader());
-		limit = (Integer) in.readValue(null);
 	}
 
 	public BinanceRawSymbolIcebergPartsFilter filterType(BinanceSymbolFilterType filterType) {
@@ -91,6 +75,7 @@ public class BinanceRawSymbolIcebergPartsFilter implements Parcelable
 		this.limit = limit;
 	}
 
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -108,6 +93,7 @@ public class BinanceRawSymbolIcebergPartsFilter implements Parcelable
 	public int hashCode() {
 		return Objects.hash(filterType, limit);
 	}
+
 
 	@Override
 	public String toString() {
@@ -131,12 +117,29 @@ public class BinanceRawSymbolIcebergPartsFilter implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
+
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(filterType);
 		out.writeValue(limit);
 	}
 
+	public static final Parcelable.Creator<BinanceRawSymbolIcebergPartsFilter> CREATOR = new Parcelable.Creator<BinanceRawSymbolIcebergPartsFilter>()
+	{
+		public BinanceRawSymbolIcebergPartsFilter createFromParcel(Parcel in) {
+			return new BinanceRawSymbolIcebergPartsFilter(in);
+		}
+
+		public BinanceRawSymbolIcebergPartsFilter[] newArray(int size) {
+			return new BinanceRawSymbolIcebergPartsFilter[size];
+		}
+	};
+
 	public int describeContents() {
 		return 0;
+	}
+
+	BinanceRawSymbolIcebergPartsFilter(Parcel in) {
+		filterType = (BinanceSymbolFilterType) in.readValue(BinanceSymbolFilterType.class.getClassLoader());
+		limit = (Integer) in.readValue(null);
 	}
 }

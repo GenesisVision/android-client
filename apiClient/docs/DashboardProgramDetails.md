@@ -10,4 +10,7 @@ Name | Type | Description | Notes
 **managementFeeCurrent** | **Double** |  |  [optional]
 **successFeeSelected** | **Double** |  |  [optional]
 **successFeeCurrent** | **Double** |  |  [optional]
+**stopOutLevelSelected** | **Double** |  |  [optional]
+**stopOutLevelCurrent** | **Double** |  |  [optional]
+**totalAvailableInvestment** | **Double** |  |  [optional]
 **dailyPeriodDetails** | [**ProgramDailyPeriodDetails**](ProgramDailyPeriodDetails.md) |  |  [optional]

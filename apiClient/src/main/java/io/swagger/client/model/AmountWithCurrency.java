@@ -28,17 +28,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class AmountWithCurrency implements Parcelable
 {
-	public static final Parcelable.Creator<AmountWithCurrency> CREATOR = new Parcelable.Creator<AmountWithCurrency>()
-	{
-		public AmountWithCurrency createFromParcel(Parcel in) {
-			return new AmountWithCurrency(in);
-		}
-
-		public AmountWithCurrency[] newArray(int size) {
-			return new AmountWithCurrency[size];
-		}
-	};
-
 	@SerializedName("amount")
 	private Double amount = null;
 
@@ -46,11 +35,6 @@ public class AmountWithCurrency implements Parcelable
 	private Currency currency = null;
 
 	public AmountWithCurrency() {
-	}
-
-	AmountWithCurrency(Parcel in) {
-		amount = (Double) in.readValue(null);
-		currency = (Currency) in.readValue(Currency.class.getClassLoader());
 	}
 
 	public AmountWithCurrency amount(Double amount) {
@@ -91,6 +75,7 @@ public class AmountWithCurrency implements Parcelable
 		this.currency = currency;
 	}
 
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -108,6 +93,7 @@ public class AmountWithCurrency implements Parcelable
 	public int hashCode() {
 		return Objects.hash(amount, currency);
 	}
+
 
 	@Override
 	public String toString() {
@@ -131,12 +117,29 @@ public class AmountWithCurrency implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
+
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(amount);
 		out.writeValue(currency);
 	}
 
+	public static final Parcelable.Creator<AmountWithCurrency> CREATOR = new Parcelable.Creator<AmountWithCurrency>()
+	{
+		public AmountWithCurrency createFromParcel(Parcel in) {
+			return new AmountWithCurrency(in);
+		}
+
+		public AmountWithCurrency[] newArray(int size) {
+			return new AmountWithCurrency[size];
+		}
+	};
+
 	public int describeContents() {
 		return 0;
+	}
+
+	AmountWithCurrency(Parcel in) {
+		amount = (Double) in.readValue(null);
+		currency = (Currency) in.readValue(Currency.class.getClassLoader());
 	}
 }

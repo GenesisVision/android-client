@@ -28,15 +28,6 @@ public enum BinanceFuturesMarginType
 	ISOLATED("Isolated"),
 	CROSS("Cross");
 
-	public static BinanceFuturesMarginType fromValue(String text) {
-		for (BinanceFuturesMarginType b : BinanceFuturesMarginType.values()) {
-			if (String.valueOf(b.value).equals(text)) {
-				return b;
-			}
-		}
-		return null;
-	}
-
 	private String value;
 
 	BinanceFuturesMarginType(String value) {
@@ -52,6 +43,15 @@ public enum BinanceFuturesMarginType
 		return String.valueOf(value);
 	}
 
+	public static BinanceFuturesMarginType fromValue(String text) {
+		for (BinanceFuturesMarginType b : BinanceFuturesMarginType.values()) {
+			if (String.valueOf(b.value).equals(text)) {
+				return b;
+			}
+		}
+		return null;
+	}
+
 	public static class Adapter extends TypeAdapter<BinanceFuturesMarginType>
 	{
 		@Override
@@ -61,7 +61,7 @@ public enum BinanceFuturesMarginType
 
 		@Override
 		public BinanceFuturesMarginType read(final JsonReader jsonReader) throws IOException {
-			String value = jsonReader.nextString();
+			Object value = jsonReader.nextString();
 			return BinanceFuturesMarginType.fromValue(String.valueOf(value));
 		}
 	}

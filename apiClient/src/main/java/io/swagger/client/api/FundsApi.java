@@ -1,4 +1,4 @@
-package io.swagger.client.api;
+package io.swagger.client.api;//retrofit2
 
 import org.joda.time.DateTime;
 
@@ -86,7 +86,7 @@ public interface FundsApi
 	 * @param maxPointCount    (optional)
 	 * @param currency         (optional)
 	 * @param currencies       (optional)
-	 * @param chartAssetsCount (optional)
+	 * @param chartAssetsCount (optional, default to 3)
 	 * @return Call&lt;FundProfitPercentCharts&gt;
 	 */
 	@GET("v2.0/funds/{id}/charts/profit/percent")

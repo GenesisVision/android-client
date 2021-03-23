@@ -491,7 +491,7 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | [**UUID**](.md)|  |
- **onlyActive** | **Boolean**|  | [optional]
+ **onlyActive** | **Boolean**|  | [optional] [default to true]
 
 ### Return type
 
@@ -546,7 +546,7 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | [**UUID**](.md)|  |
- **onlyActive** | **Boolean**|  | [optional]
+ **onlyActive** | **Boolean**|  | [optional] [default to true]
 
 ### Return type
 

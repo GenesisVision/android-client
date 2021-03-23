@@ -28,17 +28,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class BinanceRawSymbolMaxAlgorithmicOrdersFilter implements Parcelable
 {
-	public static final Parcelable.Creator<BinanceRawSymbolMaxAlgorithmicOrdersFilter> CREATOR = new Parcelable.Creator<BinanceRawSymbolMaxAlgorithmicOrdersFilter>()
-	{
-		public BinanceRawSymbolMaxAlgorithmicOrdersFilter createFromParcel(Parcel in) {
-			return new BinanceRawSymbolMaxAlgorithmicOrdersFilter(in);
-		}
-
-		public BinanceRawSymbolMaxAlgorithmicOrdersFilter[] newArray(int size) {
-			return new BinanceRawSymbolMaxAlgorithmicOrdersFilter[size];
-		}
-	};
-
 	@SerializedName("filterType")
 	private BinanceSymbolFilterType filterType = null;
 
@@ -46,11 +35,6 @@ public class BinanceRawSymbolMaxAlgorithmicOrdersFilter implements Parcelable
 	private Integer maxNumberAlgorithmicOrders = null;
 
 	public BinanceRawSymbolMaxAlgorithmicOrdersFilter() {
-	}
-
-	BinanceRawSymbolMaxAlgorithmicOrdersFilter(Parcel in) {
-		filterType = (BinanceSymbolFilterType) in.readValue(BinanceSymbolFilterType.class.getClassLoader());
-		maxNumberAlgorithmicOrders = (Integer) in.readValue(null);
 	}
 
 	public BinanceRawSymbolMaxAlgorithmicOrdersFilter filterType(BinanceSymbolFilterType filterType) {
@@ -91,6 +75,7 @@ public class BinanceRawSymbolMaxAlgorithmicOrdersFilter implements Parcelable
 		this.maxNumberAlgorithmicOrders = maxNumberAlgorithmicOrders;
 	}
 
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -108,6 +93,7 @@ public class BinanceRawSymbolMaxAlgorithmicOrdersFilter implements Parcelable
 	public int hashCode() {
 		return Objects.hash(filterType, maxNumberAlgorithmicOrders);
 	}
+
 
 	@Override
 	public String toString() {
@@ -131,12 +117,29 @@ public class BinanceRawSymbolMaxAlgorithmicOrdersFilter implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
+
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(filterType);
 		out.writeValue(maxNumberAlgorithmicOrders);
 	}
 
+	public static final Parcelable.Creator<BinanceRawSymbolMaxAlgorithmicOrdersFilter> CREATOR = new Parcelable.Creator<BinanceRawSymbolMaxAlgorithmicOrdersFilter>()
+	{
+		public BinanceRawSymbolMaxAlgorithmicOrdersFilter createFromParcel(Parcel in) {
+			return new BinanceRawSymbolMaxAlgorithmicOrdersFilter(in);
+		}
+
+		public BinanceRawSymbolMaxAlgorithmicOrdersFilter[] newArray(int size) {
+			return new BinanceRawSymbolMaxAlgorithmicOrdersFilter[size];
+		}
+	};
+
 	public int describeContents() {
 		return 0;
+	}
+
+	BinanceRawSymbolMaxAlgorithmicOrdersFilter(Parcel in) {
+		filterType = (BinanceSymbolFilterType) in.readValue(BinanceSymbolFilterType.class.getClassLoader());
+		maxNumberAlgorithmicOrders = (Integer) in.readValue(null);
 	}
 }

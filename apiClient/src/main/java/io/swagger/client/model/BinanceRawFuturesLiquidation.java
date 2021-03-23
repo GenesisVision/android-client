@@ -30,17 +30,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class BinanceRawFuturesLiquidation implements Parcelable
 {
-	public static final Parcelable.Creator<BinanceRawFuturesLiquidation> CREATOR = new Parcelable.Creator<BinanceRawFuturesLiquidation>()
-	{
-		public BinanceRawFuturesLiquidation createFromParcel(Parcel in) {
-			return new BinanceRawFuturesLiquidation(in);
-		}
-
-		public BinanceRawFuturesLiquidation[] newArray(int size) {
-			return new BinanceRawFuturesLiquidation[size];
-		}
-	};
-
 	@SerializedName("symbol")
 	private String symbol = null;
 
@@ -72,19 +61,6 @@ public class BinanceRawFuturesLiquidation implements Parcelable
 	private DateTime time = null;
 
 	public BinanceRawFuturesLiquidation() {
-	}
-
-	BinanceRawFuturesLiquidation(Parcel in) {
-		symbol = (String) in.readValue(null);
-		price = (Double) in.readValue(null);
-		lastQuantityFilled = (Double) in.readValue(null);
-		quantityFilled = (Double) in.readValue(null);
-		averagePrice = (Double) in.readValue(null);
-		status = (BinanceOrderStatus) in.readValue(BinanceOrderStatus.class.getClassLoader());
-		timeInForce = (BinanceTimeInForce) in.readValue(BinanceTimeInForce.class.getClassLoader());
-		side = (BinanceOrderSide) in.readValue(BinanceOrderSide.class.getClassLoader());
-		type = (BinanceOrderType) in.readValue(BinanceOrderType.class.getClassLoader());
-		time = (DateTime) in.readValue(DateTime.class.getClassLoader());
 	}
 
 	public BinanceRawFuturesLiquidation symbol(String symbol) {
@@ -277,6 +253,7 @@ public class BinanceRawFuturesLiquidation implements Parcelable
 		this.time = time;
 	}
 
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -302,6 +279,7 @@ public class BinanceRawFuturesLiquidation implements Parcelable
 	public int hashCode() {
 		return Objects.hash(symbol, price, lastQuantityFilled, quantityFilled, averagePrice, status, timeInForce, side, type, time);
 	}
+
 
 	@Override
 	public String toString() {
@@ -333,6 +311,7 @@ public class BinanceRawFuturesLiquidation implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
+
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(symbol);
 		out.writeValue(price);
@@ -346,7 +325,31 @@ public class BinanceRawFuturesLiquidation implements Parcelable
 		out.writeValue(time);
 	}
 
+	public static final Parcelable.Creator<BinanceRawFuturesLiquidation> CREATOR = new Parcelable.Creator<BinanceRawFuturesLiquidation>()
+	{
+		public BinanceRawFuturesLiquidation createFromParcel(Parcel in) {
+			return new BinanceRawFuturesLiquidation(in);
+		}
+
+		public BinanceRawFuturesLiquidation[] newArray(int size) {
+			return new BinanceRawFuturesLiquidation[size];
+		}
+	};
+
 	public int describeContents() {
 		return 0;
+	}
+
+	BinanceRawFuturesLiquidation(Parcel in) {
+		symbol = (String) in.readValue(null);
+		price = (Double) in.readValue(null);
+		lastQuantityFilled = (Double) in.readValue(null);
+		quantityFilled = (Double) in.readValue(null);
+		averagePrice = (Double) in.readValue(null);
+		status = (BinanceOrderStatus) in.readValue(BinanceOrderStatus.class.getClassLoader());
+		timeInForce = (BinanceTimeInForce) in.readValue(BinanceTimeInForce.class.getClassLoader());
+		side = (BinanceOrderSide) in.readValue(BinanceOrderSide.class.getClassLoader());
+		type = (BinanceOrderType) in.readValue(BinanceOrderType.class.getClassLoader());
+		time = (DateTime) in.readValue(DateTime.class.getClassLoader());
 	}
 }

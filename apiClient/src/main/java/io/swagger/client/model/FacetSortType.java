@@ -36,15 +36,6 @@ public enum FacetSortType
 	AUM("AUM"),
 	FUNDSCHALLENGE("FundsChallenge");
 
-	public static FacetSortType fromValue(String text) {
-		for (FacetSortType b : FacetSortType.values()) {
-			if (String.valueOf(b.value).equals(text)) {
-				return b;
-			}
-		}
-		return null;
-	}
-
 	private String value;
 
 	FacetSortType(String value) {
@@ -60,6 +51,15 @@ public enum FacetSortType
 		return String.valueOf(value);
 	}
 
+	public static FacetSortType fromValue(String text) {
+		for (FacetSortType b : FacetSortType.values()) {
+			if (String.valueOf(b.value).equals(text)) {
+				return b;
+			}
+		}
+		return null;
+	}
+
 	public static class Adapter extends TypeAdapter<FacetSortType>
 	{
 		@Override
@@ -69,7 +69,7 @@ public enum FacetSortType
 
 		@Override
 		public FacetSortType read(final JsonReader jsonReader) throws IOException {
-			String value = jsonReader.nextString();
+			Object value = jsonReader.nextString();
 			return FacetSortType.fromValue(String.valueOf(value));
 		}
 	}

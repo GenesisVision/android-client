@@ -28,17 +28,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class RateItem implements Parcelable
 {
-	public static final Parcelable.Creator<RateItem> CREATOR = new Parcelable.Creator<RateItem>()
-	{
-		public RateItem createFromParcel(Parcel in) {
-			return new RateItem(in);
-		}
-
-		public RateItem[] newArray(int size) {
-			return new RateItem[size];
-		}
-	};
-
 	@SerializedName("currency")
 	private String currency = null;
 
@@ -46,11 +35,6 @@ public class RateItem implements Parcelable
 	private Double rate = null;
 
 	public RateItem() {
-	}
-
-	RateItem(Parcel in) {
-		currency = (String) in.readValue(null);
-		rate = (Double) in.readValue(null);
 	}
 
 	public RateItem currency(String currency) {
@@ -91,6 +75,7 @@ public class RateItem implements Parcelable
 		this.rate = rate;
 	}
 
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -108,6 +93,7 @@ public class RateItem implements Parcelable
 	public int hashCode() {
 		return Objects.hash(currency, rate);
 	}
+
 
 	@Override
 	public String toString() {
@@ -131,12 +117,29 @@ public class RateItem implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
+
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(currency);
 		out.writeValue(rate);
 	}
 
+	public static final Parcelable.Creator<RateItem> CREATOR = new Parcelable.Creator<RateItem>()
+	{
+		public RateItem createFromParcel(Parcel in) {
+			return new RateItem(in);
+		}
+
+		public RateItem[] newArray(int size) {
+			return new RateItem[size];
+		}
+	};
+
 	public int describeContents() {
 		return 0;
+	}
+
+	RateItem(Parcel in) {
+		currency = (String) in.readValue(null);
+		rate = (Double) in.readValue(null);
 	}
 }

@@ -31,15 +31,6 @@ public enum AssetInvestmentStatus
 	WITHDRAWING("Withdrawing"),
 	ENDED("Ended");
 
-	public static AssetInvestmentStatus fromValue(String text) {
-		for (AssetInvestmentStatus b : AssetInvestmentStatus.values()) {
-			if (String.valueOf(b.value).equals(text)) {
-				return b;
-			}
-		}
-		return null;
-	}
-
 	private String value;
 
 	AssetInvestmentStatus(String value) {
@@ -55,6 +46,15 @@ public enum AssetInvestmentStatus
 		return String.valueOf(value);
 	}
 
+	public static AssetInvestmentStatus fromValue(String text) {
+		for (AssetInvestmentStatus b : AssetInvestmentStatus.values()) {
+			if (String.valueOf(b.value).equals(text)) {
+				return b;
+			}
+		}
+		return null;
+	}
+
 	public static class Adapter extends TypeAdapter<AssetInvestmentStatus>
 	{
 		@Override
@@ -64,7 +64,7 @@ public enum AssetInvestmentStatus
 
 		@Override
 		public AssetInvestmentStatus read(final JsonReader jsonReader) throws IOException {
-			String value = jsonReader.nextString();
+			Object value = jsonReader.nextString();
 			return AssetInvestmentStatus.fromValue(String.valueOf(value));
 		}
 	}

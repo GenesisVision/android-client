@@ -28,17 +28,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class UserCommissionData implements Parcelable
 {
-	public static final Parcelable.Creator<UserCommissionData> CREATOR = new Parcelable.Creator<UserCommissionData>()
-	{
-		public UserCommissionData createFromParcel(Parcel in) {
-			return new UserCommissionData(in);
-		}
-
-		public UserCommissionData[] newArray(int size) {
-			return new UserCommissionData[size];
-		}
-	};
-
 	@SerializedName("isPayingCommissionInGvt")
 	private Boolean isPayingCommissionInGvt = null;
 
@@ -55,14 +44,6 @@ public class UserCommissionData implements Parcelable
 	private Double regularDiscount = null;
 
 	public UserCommissionData() {
-	}
-
-	UserCommissionData(Parcel in) {
-		isPayingCommissionInGvt = (Boolean) in.readValue(null);
-		gvtHolderTradingFee = (Double) in.readValue(null);
-		gvtHolderDiscount = (Double) in.readValue(null);
-		regularTradingFee = (Double) in.readValue(null);
-		regularDiscount = (Double) in.readValue(null);
 	}
 
 	public UserCommissionData isPayingCommissionInGvt(Boolean isPayingCommissionInGvt) {
@@ -160,6 +141,7 @@ public class UserCommissionData implements Parcelable
 		this.regularDiscount = regularDiscount;
 	}
 
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -180,6 +162,7 @@ public class UserCommissionData implements Parcelable
 	public int hashCode() {
 		return Objects.hash(isPayingCommissionInGvt, gvtHolderTradingFee, gvtHolderDiscount, regularTradingFee, regularDiscount);
 	}
+
 
 	@Override
 	public String toString() {
@@ -206,6 +189,7 @@ public class UserCommissionData implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
+
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(isPayingCommissionInGvt);
 		out.writeValue(gvtHolderTradingFee);
@@ -214,7 +198,26 @@ public class UserCommissionData implements Parcelable
 		out.writeValue(regularDiscount);
 	}
 
+	public static final Parcelable.Creator<UserCommissionData> CREATOR = new Parcelable.Creator<UserCommissionData>()
+	{
+		public UserCommissionData createFromParcel(Parcel in) {
+			return new UserCommissionData(in);
+		}
+
+		public UserCommissionData[] newArray(int size) {
+			return new UserCommissionData[size];
+		}
+	};
+
 	public int describeContents() {
 		return 0;
+	}
+
+	UserCommissionData(Parcel in) {
+		isPayingCommissionInGvt = (Boolean) in.readValue(null);
+		gvtHolderTradingFee = (Double) in.readValue(null);
+		gvtHolderDiscount = (Double) in.readValue(null);
+		regularTradingFee = (Double) in.readValue(null);
+		regularDiscount = (Double) in.readValue(null);
 	}
 }

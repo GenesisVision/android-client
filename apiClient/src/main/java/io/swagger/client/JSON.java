@@ -38,6 +38,16 @@ import io.gsonfire.GsonFireBuilder;
 
 public class JSON
 {
+	private Gson gson;
+
+	private DateTypeAdapter dateTypeAdapter = new DateTypeAdapter();
+
+	private SqlDateTypeAdapter sqlDateTypeAdapter = new SqlDateTypeAdapter();
+
+	private DateTimeTypeAdapter dateTimeTypeAdapter = new DateTimeTypeAdapter();
+
+	private LocalDateTypeAdapter localDateTypeAdapter = new LocalDateTypeAdapter();
+
 	public static GsonBuilder createGson() {
 		GsonFireBuilder fireBuilder = new GsonFireBuilder();
 		return fireBuilder.createGsonBuilder();
@@ -58,16 +68,6 @@ public class JSON
 		}
 		return clazz;
 	}
-
-	private Gson gson;
-
-	private DateTypeAdapter dateTypeAdapter = new DateTypeAdapter();
-
-	private SqlDateTypeAdapter sqlDateTypeAdapter = new SqlDateTypeAdapter();
-
-	private DateTimeTypeAdapter dateTimeTypeAdapter = new DateTimeTypeAdapter();
-
-	private LocalDateTypeAdapter localDateTypeAdapter = new LocalDateTypeAdapter();
 
 	public JSON() {
 		gson = createGson()
@@ -95,26 +95,6 @@ public class JSON
 	 */
 	public JSON setGson(Gson gson) {
 		this.gson = gson;
-		return this;
-	}
-
-	public JSON setDateTimeFormat(DateTimeFormatter dateFormat) {
-		dateTimeTypeAdapter.setFormat(dateFormat);
-		return this;
-	}
-
-	public JSON setLocalDateFormat(DateTimeFormatter dateFormat) {
-		localDateTypeAdapter.setFormat(dateFormat);
-		return this;
-	}
-
-	public JSON setDateFormat(DateFormat dateFormat) {
-		dateTypeAdapter.setFormat(dateFormat);
-		return this;
-	}
-
-	public JSON setSqlDateFormat(DateFormat dateFormat) {
-		sqlDateTypeAdapter.setFormat(dateFormat);
 		return this;
 	}
 
@@ -161,6 +141,21 @@ public class JSON
 					return formatter.parseDateTime(date);
 			}
 		}
+	}
+
+	public JSON setDateTimeFormat(DateTimeFormatter dateFormat) {
+		dateTimeTypeAdapter.setFormat(dateFormat);
+		return this;
+	}
+
+	public JSON setLocalDateFormat(DateTimeFormatter dateFormat) {
+		localDateTypeAdapter.setFormat(dateFormat);
+		return this;
+	}
+
+	public JSON setDateFormat(DateFormat dateFormat) {
+		dateTypeAdapter.setFormat(dateFormat);
+		return this;
 	}
 
 	/**
@@ -280,6 +275,11 @@ public class JSON
 				throw new JsonParseException(e);
 			}
 		}
+	}
+
+	public JSON setSqlDateFormat(DateFormat dateFormat) {
+		sqlDateTypeAdapter.setFormat(dateFormat);
+		return this;
 	}
 
 	/**

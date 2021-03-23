@@ -28,17 +28,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class BinanceRawFuturesCancelAllOrders implements Parcelable
 {
-	public static final Parcelable.Creator<BinanceRawFuturesCancelAllOrders> CREATOR = new Parcelable.Creator<BinanceRawFuturesCancelAllOrders>()
-	{
-		public BinanceRawFuturesCancelAllOrders createFromParcel(Parcel in) {
-			return new BinanceRawFuturesCancelAllOrders(in);
-		}
-
-		public BinanceRawFuturesCancelAllOrders[] newArray(int size) {
-			return new BinanceRawFuturesCancelAllOrders[size];
-		}
-	};
-
 	@SerializedName("code")
 	private Integer code = null;
 
@@ -46,11 +35,6 @@ public class BinanceRawFuturesCancelAllOrders implements Parcelable
 	private String message = null;
 
 	public BinanceRawFuturesCancelAllOrders() {
-	}
-
-	BinanceRawFuturesCancelAllOrders(Parcel in) {
-		code = (Integer) in.readValue(null);
-		message = (String) in.readValue(null);
 	}
 
 	public BinanceRawFuturesCancelAllOrders code(Integer code) {
@@ -91,6 +75,7 @@ public class BinanceRawFuturesCancelAllOrders implements Parcelable
 		this.message = message;
 	}
 
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -108,6 +93,7 @@ public class BinanceRawFuturesCancelAllOrders implements Parcelable
 	public int hashCode() {
 		return Objects.hash(code, message);
 	}
+
 
 	@Override
 	public String toString() {
@@ -131,12 +117,29 @@ public class BinanceRawFuturesCancelAllOrders implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
+
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(code);
 		out.writeValue(message);
 	}
 
+	public static final Parcelable.Creator<BinanceRawFuturesCancelAllOrders> CREATOR = new Parcelable.Creator<BinanceRawFuturesCancelAllOrders>()
+	{
+		public BinanceRawFuturesCancelAllOrders createFromParcel(Parcel in) {
+			return new BinanceRawFuturesCancelAllOrders(in);
+		}
+
+		public BinanceRawFuturesCancelAllOrders[] newArray(int size) {
+			return new BinanceRawFuturesCancelAllOrders[size];
+		}
+	};
+
 	public int describeContents() {
 		return 0;
+	}
+
+	BinanceRawFuturesCancelAllOrders(Parcel in) {
+		code = (Integer) in.readValue(null);
+		message = (String) in.readValue(null);
 	}
 }

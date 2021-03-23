@@ -10,7 +10,6 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import io.swagger.client.model.AmountWithCurrency;
 import io.swagger.client.model.Broker;
 import io.swagger.client.model.BrokerAccountType;
 import io.swagger.client.model.BrokersInfo;
@@ -19,7 +18,6 @@ import io.swagger.client.model.ExchangeAccountType;
 import io.swagger.client.model.ExchangeInfo;
 import io.swagger.client.model.NewExchangeAccountRequest;
 import io.swagger.client.model.NewTradingAccountRequest;
-import io.swagger.client.model.PlatformInfo;
 import io.swagger.client.model.TradingAccountCreateResult;
 import io.swagger.client.model.TradingAccountMinCreateAmount;
 import rx.Subscription;
@@ -80,7 +78,7 @@ public class CreateAccountPresenter extends MvpPresenter<CreateAccountView>
 		EventBus.getDefault().register(this);
 
 		getViewState().setRequestObjectToFragments(request);
-		getPlatformInfo();
+//		getPlatformInfo();
 		getBrokers();
 	}
 
@@ -107,27 +105,27 @@ public class CreateAccountPresenter extends MvpPresenter<CreateAccountView>
 		getBrokers();
 	}
 
-	private void getPlatformInfo() {
-		if (settingsManager != null) {
-			platformInfoSubscription = settingsManager.getPlatformInfo()
-					.observeOn(AndroidSchedulers.mainThread())
-					.subscribeOn(Schedulers.newThread())
-					.subscribe(this::handleGetPlatformInfoSuccess,
-							this::handleGetPlatformInfoError);
-		}
-	}
-
-	private void handleGetPlatformInfoSuccess(PlatformInfo platformInfo) {
-		platformInfoSubscription.unsubscribe();
-
-		minAmounts = platformInfo.getAssetInfo().getTradingAccountInfo().getMinAmounts();
-	}
-
-	private void handleGetPlatformInfoError(Throwable throwable) {
-		platformInfoSubscription.unsubscribe();
-
-		ApiErrorResolver.resolveErrors(throwable, message -> getViewState().showSnackbarMessage(message));
-	}
+//	private void getPlatformInfo() {
+//		if (settingsManager != null) {
+//			platformInfoSubscription = settingsManager.getPlatformInfo()
+//					.observeOn(AndroidSchedulers.mainThread())
+//					.subscribeOn(Schedulers.newThread())
+//					.subscribe(this::handleGetPlatformInfoSuccess,
+//							this::handleGetPlatformInfoError);
+//		}
+//	}
+//
+//	private void handleGetPlatformInfoSuccess(PlatformInfo platformInfo) {
+//		platformInfoSubscription.unsubscribe();
+//
+//		minAmounts = platformInfo.getAssetInfo().getTradingAccountInfo().getMinAmounts();
+//	}
+//
+//	private void handleGetPlatformInfoError(Throwable throwable) {
+//		platformInfoSubscription.unsubscribe();
+//
+//		ApiErrorResolver.resolveErrors(throwable, message -> getViewState().showSnackbarMessage(message));
+//	}
 
 	private void getBrokers() {
 		if (brokersManager != null && model != null) {
@@ -213,23 +211,9 @@ public class CreateAccountPresenter extends MvpPresenter<CreateAccountView>
 	}
 
 	private void showExchangeAccountDepositOrCreateAccount(ExchangeAccountType exchangeAccountType) {
-		Double minDepositAmount = 0.0;
-
 		if (selectedExchange != null && exchangeAccountType != null) {
-			exchangeLoop:
-			for (TradingAccountMinCreateAmount minAmount : minAmounts) {
-				if (minAmount.getServerType().equals(exchangeAccountType.getType())) {
-					for (AmountWithCurrency amountWithCurrency : minAmount.getMinDepositCreateAsset()) {
-						if (amountWithCurrency.getCurrency().equals(request.getCurrency())) {
-							minDepositAmount = amountWithCurrency.getAmount();
-							break exchangeLoop;
-						}
-					}
-				}
-			}
-
 			if (exchangeAccountType.isIsDepositRequired()) {
-				getViewState().showExchangeAccountDeposit(minDepositAmount, request.getCurrency().getValue());
+				getViewState().showExchangeAccountDeposit(exchangeAccountType.getMinimumDepositsAmount(), request.getCurrency().getValue());
 			}
 			else {
 				sendCreateAccountRequest();
@@ -258,13 +242,9 @@ public class CreateAccountPresenter extends MvpPresenter<CreateAccountView>
 	}
 
 	private void showBrokerAccountDepositOrCreateAccount(BrokerAccountType brokerAccountType) {
-		Double minDepositAmount = 0.0;
-
 		if (selectedBroker != null && brokerAccountType != null) {
-			minDepositAmount = brokerAccountType.getMinimumDepositsAmount().get(request.getCurrency().getValue());
-
 			if (brokerAccountType.isIsDepositRequired()) {
-				getViewState().showBrokerAccountDeposit(minDepositAmount, request.getCurrency().getValue());
+				getViewState().showBrokerAccountDeposit(brokerAccountType.getMinimumDepositsAmount(), request.getCurrency().getValue());
 			}
 			else {
 				sendCreateAccountRequest();

@@ -1,4 +1,4 @@
-package io.swagger.client.api;
+package io.swagger.client.api;//retrofit2
 
 import org.joda.time.DateTime;
 
@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.UUID;
 
 import io.swagger.client.model.BinanceFuturesMarginType;
+import io.swagger.client.model.BinanceKlineInterval;
 import io.swagger.client.model.BinancePeriodInterval;
 import io.swagger.client.model.BinancePositionMode;
 import io.swagger.client.model.BinanceRaw24HPrice;
@@ -37,7 +38,6 @@ import io.swagger.client.model.BinanceRawFuturesPosition;
 import io.swagger.client.model.BinanceRawFuturesPositionMode;
 import io.swagger.client.model.BinanceRawFuturesSymbolBracket;
 import io.swagger.client.model.BinanceRawFuturesUsdtExchangeInfo;
-import io.swagger.client.model.BinanceRawKlineInterval;
 import io.swagger.client.model.BinanceRawKlineItemsViewModel;
 import io.swagger.client.model.BinanceRawOrderBook;
 import io.swagger.client.model.BinanceRawOrderItemsViewModel;
@@ -234,7 +234,7 @@ public interface TradingplatformApi
 	 */
 	@GET("v2.0/tradingplatform/binance/blvt/market/klines")
 	Observable<BinanceRawBlvtKlineItemsViewModel> getBlvtKlines(
-			@retrofit2.http.Query("symbol") String symbol, @retrofit2.http.Query("interval") BinanceRawKlineInterval interval, @retrofit2.http.Query("startTime") DateTime startTime, @retrofit2.http.Query("endTime") DateTime endTime, @retrofit2.http.Query("limit") Integer limit
+			@retrofit2.http.Query("symbol") String symbol, @retrofit2.http.Query("interval") BinanceKlineInterval interval, @retrofit2.http.Query("startTime") DateTime startTime, @retrofit2.http.Query("endTime") DateTime endTime, @retrofit2.http.Query("limit") Integer limit
 	);
 
 	/**
@@ -370,7 +370,7 @@ public interface TradingplatformApi
 	 */
 	@GET("v2.0/tradingplatform/binance/futures/market/klines")
 	Observable<BinanceRawKlineItemsViewModel> getFuturesKlines(
-			@retrofit2.http.Query("symbol") String symbol, @retrofit2.http.Query("interval") BinanceRawKlineInterval interval, @retrofit2.http.Query("startTime") DateTime startTime, @retrofit2.http.Query("endTime") DateTime endTime, @retrofit2.http.Query("limit") Integer limit
+			@retrofit2.http.Query("symbol") String symbol, @retrofit2.http.Query("interval") BinanceKlineInterval interval, @retrofit2.http.Query("startTime") DateTime startTime, @retrofit2.http.Query("endTime") DateTime endTime, @retrofit2.http.Query("limit") Integer limit
 	);
 
 	/**
@@ -576,7 +576,7 @@ public interface TradingplatformApi
 	 */
 	@GET("v2.0/tradingplatform/binance/market/{symbol}/klines")
 	Observable<BinanceRawKlineItemsViewModel> getKlines(
-			@retrofit2.http.Path("symbol") String symbol, @retrofit2.http.Query("interval") BinanceRawKlineInterval interval, @retrofit2.http.Query("startTime") DateTime startTime, @retrofit2.http.Query("endTime") DateTime endTime, @retrofit2.http.Query("limit") Integer limit
+			@retrofit2.http.Path("symbol") String symbol, @retrofit2.http.Query("interval") BinanceKlineInterval interval, @retrofit2.http.Query("startTime") DateTime startTime, @retrofit2.http.Query("endTime") DateTime endTime, @retrofit2.http.Query("limit") Integer limit
 	);
 
 	/**

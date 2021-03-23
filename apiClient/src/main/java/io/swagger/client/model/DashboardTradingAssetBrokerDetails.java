@@ -29,17 +29,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class DashboardTradingAssetBrokerDetails implements Parcelable
 {
-	public static final Parcelable.Creator<DashboardTradingAssetBrokerDetails> CREATOR = new Parcelable.Creator<DashboardTradingAssetBrokerDetails>()
-	{
-		public DashboardTradingAssetBrokerDetails createFromParcel(Parcel in) {
-			return new DashboardTradingAssetBrokerDetails(in);
-		}
-
-		public DashboardTradingAssetBrokerDetails[] newArray(int size) {
-			return new DashboardTradingAssetBrokerDetails[size];
-		}
-	};
-
 	@SerializedName("id")
 	private UUID id = null;
 
@@ -53,13 +42,6 @@ public class DashboardTradingAssetBrokerDetails implements Parcelable
 	private BrokerTradeServerType type = null;
 
 	public DashboardTradingAssetBrokerDetails() {
-	}
-
-	DashboardTradingAssetBrokerDetails(Parcel in) {
-		id = (UUID) in.readValue(UUID.class.getClassLoader());
-		logoUrl = (String) in.readValue(null);
-		name = (String) in.readValue(null);
-		type = (BrokerTradeServerType) in.readValue(BrokerTradeServerType.class.getClassLoader());
 	}
 
 	public DashboardTradingAssetBrokerDetails id(UUID id) {
@@ -138,6 +120,7 @@ public class DashboardTradingAssetBrokerDetails implements Parcelable
 		this.type = type;
 	}
 
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -157,6 +140,7 @@ public class DashboardTradingAssetBrokerDetails implements Parcelable
 	public int hashCode() {
 		return Objects.hash(id, logoUrl, name, type);
 	}
+
 
 	@Override
 	public String toString() {
@@ -182,6 +166,7 @@ public class DashboardTradingAssetBrokerDetails implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
+
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(id);
 		out.writeValue(logoUrl);
@@ -189,7 +174,25 @@ public class DashboardTradingAssetBrokerDetails implements Parcelable
 		out.writeValue(type);
 	}
 
+	public static final Parcelable.Creator<DashboardTradingAssetBrokerDetails> CREATOR = new Parcelable.Creator<DashboardTradingAssetBrokerDetails>()
+	{
+		public DashboardTradingAssetBrokerDetails createFromParcel(Parcel in) {
+			return new DashboardTradingAssetBrokerDetails(in);
+		}
+
+		public DashboardTradingAssetBrokerDetails[] newArray(int size) {
+			return new DashboardTradingAssetBrokerDetails[size];
+		}
+	};
+
 	public int describeContents() {
 		return 0;
+	}
+
+	DashboardTradingAssetBrokerDetails(Parcel in) {
+		id = (UUID) in.readValue(UUID.class.getClassLoader());
+		logoUrl = (String) in.readValue(null);
+		name = (String) in.readValue(null);
+		type = (BrokerTradeServerType) in.readValue(BrokerTradeServerType.class.getClassLoader());
 	}
 }

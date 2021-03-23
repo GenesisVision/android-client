@@ -30,17 +30,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class BinanceRawBookPrice implements Parcelable
 {
-	public static final Parcelable.Creator<BinanceRawBookPrice> CREATOR = new Parcelable.Creator<BinanceRawBookPrice>()
-	{
-		public BinanceRawBookPrice createFromParcel(Parcel in) {
-			return new BinanceRawBookPrice(in);
-		}
-
-		public BinanceRawBookPrice[] newArray(int size) {
-			return new BinanceRawBookPrice[size];
-		}
-	};
-
 	@SerializedName("symbol")
 	private String symbol = null;
 
@@ -60,15 +49,6 @@ public class BinanceRawBookPrice implements Parcelable
 	private DateTime timestamp = null;
 
 	public BinanceRawBookPrice() {
-	}
-
-	BinanceRawBookPrice(Parcel in) {
-		symbol = (String) in.readValue(null);
-		bestBidPrice = (Double) in.readValue(null);
-		bestBidQuantity = (Double) in.readValue(null);
-		bestAskPrice = (Double) in.readValue(null);
-		bestAskQuantity = (Double) in.readValue(null);
-		timestamp = (DateTime) in.readValue(DateTime.class.getClassLoader());
 	}
 
 	public BinanceRawBookPrice symbol(String symbol) {
@@ -185,6 +165,7 @@ public class BinanceRawBookPrice implements Parcelable
 		this.timestamp = timestamp;
 	}
 
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -206,6 +187,7 @@ public class BinanceRawBookPrice implements Parcelable
 	public int hashCode() {
 		return Objects.hash(symbol, bestBidPrice, bestBidQuantity, bestAskPrice, bestAskQuantity, timestamp);
 	}
+
 
 	@Override
 	public String toString() {
@@ -233,6 +215,7 @@ public class BinanceRawBookPrice implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
+
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(symbol);
 		out.writeValue(bestBidPrice);
@@ -242,7 +225,27 @@ public class BinanceRawBookPrice implements Parcelable
 		out.writeValue(timestamp);
 	}
 
+	public static final Parcelable.Creator<BinanceRawBookPrice> CREATOR = new Parcelable.Creator<BinanceRawBookPrice>()
+	{
+		public BinanceRawBookPrice createFromParcel(Parcel in) {
+			return new BinanceRawBookPrice(in);
+		}
+
+		public BinanceRawBookPrice[] newArray(int size) {
+			return new BinanceRawBookPrice[size];
+		}
+	};
+
 	public int describeContents() {
 		return 0;
+	}
+
+	BinanceRawBookPrice(Parcel in) {
+		symbol = (String) in.readValue(null);
+		bestBidPrice = (Double) in.readValue(null);
+		bestBidQuantity = (Double) in.readValue(null);
+		bestAskPrice = (Double) in.readValue(null);
+		bestAskQuantity = (Double) in.readValue(null);
+		timestamp = (DateTime) in.readValue(DateTime.class.getClassLoader());
 	}
 }

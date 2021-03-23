@@ -28,17 +28,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class AssetPlatformInfo implements Parcelable
 {
-	public static final Parcelable.Creator<AssetPlatformInfo> CREATOR = new Parcelable.Creator<AssetPlatformInfo>()
-	{
-		public AssetPlatformInfo createFromParcel(Parcel in) {
-			return new AssetPlatformInfo(in);
-		}
-
-		public AssetPlatformInfo[] newArray(int size) {
-			return new AssetPlatformInfo[size];
-		}
-	};
-
 	@SerializedName("programInfo")
 	private ProgramAssetPlatformInfo programInfo = null;
 
@@ -52,13 +41,6 @@ public class AssetPlatformInfo implements Parcelable
 	private FollowAssetPlatformInfo followInfo = null;
 
 	public AssetPlatformInfo() {
-	}
-
-	AssetPlatformInfo(Parcel in) {
-		programInfo = (ProgramAssetPlatformInfo) in.readValue(ProgramAssetPlatformInfo.class.getClassLoader());
-		tradingAccountInfo = (TradingAccountAssetPlatformInfo) in.readValue(TradingAccountAssetPlatformInfo.class.getClassLoader());
-		fundInfo = (FundAssetPlatformInfo) in.readValue(FundAssetPlatformInfo.class.getClassLoader());
-		followInfo = (FollowAssetPlatformInfo) in.readValue(FollowAssetPlatformInfo.class.getClassLoader());
 	}
 
 	public AssetPlatformInfo programInfo(ProgramAssetPlatformInfo programInfo) {
@@ -137,6 +119,7 @@ public class AssetPlatformInfo implements Parcelable
 		this.followInfo = followInfo;
 	}
 
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -156,6 +139,7 @@ public class AssetPlatformInfo implements Parcelable
 	public int hashCode() {
 		return Objects.hash(programInfo, tradingAccountInfo, fundInfo, followInfo);
 	}
+
 
 	@Override
 	public String toString() {
@@ -181,6 +165,7 @@ public class AssetPlatformInfo implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
+
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(programInfo);
 		out.writeValue(tradingAccountInfo);
@@ -188,7 +173,25 @@ public class AssetPlatformInfo implements Parcelable
 		out.writeValue(followInfo);
 	}
 
+	public static final Parcelable.Creator<AssetPlatformInfo> CREATOR = new Parcelable.Creator<AssetPlatformInfo>()
+	{
+		public AssetPlatformInfo createFromParcel(Parcel in) {
+			return new AssetPlatformInfo(in);
+		}
+
+		public AssetPlatformInfo[] newArray(int size) {
+			return new AssetPlatformInfo[size];
+		}
+	};
+
 	public int describeContents() {
 		return 0;
+	}
+
+	AssetPlatformInfo(Parcel in) {
+		programInfo = (ProgramAssetPlatformInfo) in.readValue(ProgramAssetPlatformInfo.class.getClassLoader());
+		tradingAccountInfo = (TradingAccountAssetPlatformInfo) in.readValue(TradingAccountAssetPlatformInfo.class.getClassLoader());
+		fundInfo = (FundAssetPlatformInfo) in.readValue(FundAssetPlatformInfo.class.getClassLoader());
+		followInfo = (FollowAssetPlatformInfo) in.readValue(FollowAssetPlatformInfo.class.getClassLoader());
 	}
 }

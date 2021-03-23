@@ -30,17 +30,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class ErrorViewModelWithToken implements Parcelable
 {
-	public static final Parcelable.Creator<ErrorViewModelWithToken> CREATOR = new Parcelable.Creator<ErrorViewModelWithToken>()
-	{
-		public ErrorViewModelWithToken createFromParcel(Parcel in) {
-			return new ErrorViewModelWithToken(in);
-		}
-
-		public ErrorViewModelWithToken[] newArray(int size) {
-			return new ErrorViewModelWithToken[size];
-		}
-	};
-
 	@SerializedName("errors")
 	private List<ErrorMessage> errors = null;
 
@@ -51,12 +40,6 @@ public class ErrorViewModelWithToken implements Parcelable
 	private String tempToken = null;
 
 	public ErrorViewModelWithToken() {
-	}
-
-	ErrorViewModelWithToken(Parcel in) {
-		errors = (List<ErrorMessage>) in.readValue(ErrorMessage.class.getClassLoader());
-		code = (ErrorCodes) in.readValue(ErrorCodes.class.getClassLoader());
-		tempToken = (String) in.readValue(null);
 	}
 
 	public ErrorViewModelWithToken errors(List<ErrorMessage> errors) {
@@ -124,6 +107,7 @@ public class ErrorViewModelWithToken implements Parcelable
 		this.tempToken = tempToken;
 	}
 
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -142,6 +126,7 @@ public class ErrorViewModelWithToken implements Parcelable
 	public int hashCode() {
 		return Objects.hash(errors, code, tempToken);
 	}
+
 
 	@Override
 	public String toString() {
@@ -166,13 +151,31 @@ public class ErrorViewModelWithToken implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
+
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(errors);
 		out.writeValue(code);
 		out.writeValue(tempToken);
 	}
 
+	public static final Parcelable.Creator<ErrorViewModelWithToken> CREATOR = new Parcelable.Creator<ErrorViewModelWithToken>()
+	{
+		public ErrorViewModelWithToken createFromParcel(Parcel in) {
+			return new ErrorViewModelWithToken(in);
+		}
+
+		public ErrorViewModelWithToken[] newArray(int size) {
+			return new ErrorViewModelWithToken[size];
+		}
+	};
+
 	public int describeContents() {
 		return 0;
+	}
+
+	ErrorViewModelWithToken(Parcel in) {
+		errors = (List<ErrorMessage>) in.readValue(ErrorMessage.class.getClassLoader());
+		code = (ErrorCodes) in.readValue(ErrorCodes.class.getClassLoader());
+		tempToken = (String) in.readValue(null);
 	}
 }

@@ -11,6 +11,8 @@ import androidx.annotation.Nullable;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
 
+import java.util.Map;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -116,9 +118,9 @@ public class CreateProgramActivity extends BaseSwipeBackActivity implements Crea
 	}
 
 	@Override
-	public void setMinDeposit(Double minDeposit, Currency accountCurrency) {
+	public void setMinDeposit(Map<String, Double> minDepositInfo, Currency accountCurrency) {
 		if (adapter != null) {
-			adapter.setMinDeposit(minDeposit, accountCurrency);
+			adapter.setMinDeposit(minDepositInfo, accountCurrency);
 		}
 	}
 

@@ -32,17 +32,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class BinanceRawAccountInfo implements Parcelable
 {
-	public static final Parcelable.Creator<BinanceRawAccountInfo> CREATOR = new Parcelable.Creator<BinanceRawAccountInfo>()
-	{
-		public BinanceRawAccountInfo createFromParcel(Parcel in) {
-			return new BinanceRawAccountInfo(in);
-		}
-
-		public BinanceRawAccountInfo[] newArray(int size) {
-			return new BinanceRawAccountInfo[size];
-		}
-	};
-
 	@SerializedName("makerCommission")
 	private Double makerCommission = null;
 
@@ -77,20 +66,6 @@ public class BinanceRawAccountInfo implements Parcelable
 	private List<BinanceRawBinanceBalance> balances = null;
 
 	public BinanceRawAccountInfo() {
-	}
-
-	BinanceRawAccountInfo(Parcel in) {
-		makerCommission = (Double) in.readValue(null);
-		takerCommission = (Double) in.readValue(null);
-		buyerCommission = (Double) in.readValue(null);
-		sellerCommission = (Double) in.readValue(null);
-		canTrade = (Boolean) in.readValue(null);
-		canWithdraw = (Boolean) in.readValue(null);
-		canDeposit = (Boolean) in.readValue(null);
-		updateTime = (DateTime) in.readValue(DateTime.class.getClassLoader());
-		accountType = (BinanceAccountType) in.readValue(BinanceAccountType.class.getClassLoader());
-		permissions = (List<BinanceAccountType>) in.readValue(BinanceAccountType.class.getClassLoader());
-		balances = (List<BinanceRawBinanceBalance>) in.readValue(BinanceRawBinanceBalance.class.getClassLoader());
 	}
 
 	public BinanceRawAccountInfo makerCommission(Double makerCommission) {
@@ -318,6 +293,7 @@ public class BinanceRawAccountInfo implements Parcelable
 		this.balances = balances;
 	}
 
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -344,6 +320,7 @@ public class BinanceRawAccountInfo implements Parcelable
 	public int hashCode() {
 		return Objects.hash(makerCommission, takerCommission, buyerCommission, sellerCommission, canTrade, canWithdraw, canDeposit, updateTime, accountType, permissions, balances);
 	}
+
 
 	@Override
 	public String toString() {
@@ -376,6 +353,7 @@ public class BinanceRawAccountInfo implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
+
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(makerCommission);
 		out.writeValue(takerCommission);
@@ -390,7 +368,32 @@ public class BinanceRawAccountInfo implements Parcelable
 		out.writeValue(balances);
 	}
 
+	public static final Parcelable.Creator<BinanceRawAccountInfo> CREATOR = new Parcelable.Creator<BinanceRawAccountInfo>()
+	{
+		public BinanceRawAccountInfo createFromParcel(Parcel in) {
+			return new BinanceRawAccountInfo(in);
+		}
+
+		public BinanceRawAccountInfo[] newArray(int size) {
+			return new BinanceRawAccountInfo[size];
+		}
+	};
+
 	public int describeContents() {
 		return 0;
+	}
+
+	BinanceRawAccountInfo(Parcel in) {
+		makerCommission = (Double) in.readValue(null);
+		takerCommission = (Double) in.readValue(null);
+		buyerCommission = (Double) in.readValue(null);
+		sellerCommission = (Double) in.readValue(null);
+		canTrade = (Boolean) in.readValue(null);
+		canWithdraw = (Boolean) in.readValue(null);
+		canDeposit = (Boolean) in.readValue(null);
+		updateTime = (DateTime) in.readValue(DateTime.class.getClassLoader());
+		accountType = (BinanceAccountType) in.readValue(BinanceAccountType.class.getClassLoader());
+		permissions = (List<BinanceAccountType>) in.readValue(BinanceAccountType.class.getClassLoader());
+		balances = (List<BinanceRawBinanceBalance>) in.readValue(BinanceRawBinanceBalance.class.getClassLoader());
 	}
 }

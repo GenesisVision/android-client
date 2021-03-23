@@ -29,17 +29,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class FundDetailsListItemItemsViewModel implements Parcelable
 {
-	public static final Parcelable.Creator<FundDetailsListItemItemsViewModel> CREATOR = new Parcelable.Creator<FundDetailsListItemItemsViewModel>()
-	{
-		public FundDetailsListItemItemsViewModel createFromParcel(Parcel in) {
-			return new FundDetailsListItemItemsViewModel(in);
-		}
-
-		public FundDetailsListItemItemsViewModel[] newArray(int size) {
-			return new FundDetailsListItemItemsViewModel[size];
-		}
-	};
-
 	@SerializedName("items")
 	private List<FundDetailsListItem> items = null;
 
@@ -47,11 +36,6 @@ public class FundDetailsListItemItemsViewModel implements Parcelable
 	private Integer total = null;
 
 	public FundDetailsListItemItemsViewModel() {
-	}
-
-	FundDetailsListItemItemsViewModel(Parcel in) {
-		items = (List<FundDetailsListItem>) in.readValue(FundDetailsListItem.class.getClassLoader());
-		total = (Integer) in.readValue(null);
 	}
 
 	/**
@@ -74,6 +58,7 @@ public class FundDetailsListItemItemsViewModel implements Parcelable
 		return total;
 	}
 
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -91,6 +76,7 @@ public class FundDetailsListItemItemsViewModel implements Parcelable
 	public int hashCode() {
 		return Objects.hash(items, total);
 	}
+
 
 	@Override
 	public String toString() {
@@ -114,12 +100,29 @@ public class FundDetailsListItemItemsViewModel implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
+
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(items);
 		out.writeValue(total);
 	}
 
+	public static final Parcelable.Creator<FundDetailsListItemItemsViewModel> CREATOR = new Parcelable.Creator<FundDetailsListItemItemsViewModel>()
+	{
+		public FundDetailsListItemItemsViewModel createFromParcel(Parcel in) {
+			return new FundDetailsListItemItemsViewModel(in);
+		}
+
+		public FundDetailsListItemItemsViewModel[] newArray(int size) {
+			return new FundDetailsListItemItemsViewModel[size];
+		}
+	};
+
 	public int describeContents() {
 		return 0;
+	}
+
+	FundDetailsListItemItemsViewModel(Parcel in) {
+		items = (List<FundDetailsListItem>) in.readValue(FundDetailsListItem.class.getClassLoader());
+		total = (Integer) in.readValue(null);
 	}
 }

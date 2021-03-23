@@ -29,17 +29,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class TradingAccountDetailsItemsViewModel implements Parcelable
 {
-	public static final Parcelable.Creator<TradingAccountDetailsItemsViewModel> CREATOR = new Parcelable.Creator<TradingAccountDetailsItemsViewModel>()
-	{
-		public TradingAccountDetailsItemsViewModel createFromParcel(Parcel in) {
-			return new TradingAccountDetailsItemsViewModel(in);
-		}
-
-		public TradingAccountDetailsItemsViewModel[] newArray(int size) {
-			return new TradingAccountDetailsItemsViewModel[size];
-		}
-	};
-
 	@SerializedName("items")
 	private List<TradingAccountDetails> items = null;
 
@@ -47,11 +36,6 @@ public class TradingAccountDetailsItemsViewModel implements Parcelable
 	private Integer total = null;
 
 	public TradingAccountDetailsItemsViewModel() {
-	}
-
-	TradingAccountDetailsItemsViewModel(Parcel in) {
-		items = (List<TradingAccountDetails>) in.readValue(TradingAccountDetails.class.getClassLoader());
-		total = (Integer) in.readValue(null);
 	}
 
 	/**
@@ -74,6 +58,7 @@ public class TradingAccountDetailsItemsViewModel implements Parcelable
 		return total;
 	}
 
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -91,6 +76,7 @@ public class TradingAccountDetailsItemsViewModel implements Parcelable
 	public int hashCode() {
 		return Objects.hash(items, total);
 	}
+
 
 	@Override
 	public String toString() {
@@ -114,12 +100,29 @@ public class TradingAccountDetailsItemsViewModel implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
+
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(items);
 		out.writeValue(total);
 	}
 
+	public static final Parcelable.Creator<TradingAccountDetailsItemsViewModel> CREATOR = new Parcelable.Creator<TradingAccountDetailsItemsViewModel>()
+	{
+		public TradingAccountDetailsItemsViewModel createFromParcel(Parcel in) {
+			return new TradingAccountDetailsItemsViewModel(in);
+		}
+
+		public TradingAccountDetailsItemsViewModel[] newArray(int size) {
+			return new TradingAccountDetailsItemsViewModel[size];
+		}
+	};
+
 	public int describeContents() {
 		return 0;
+	}
+
+	TradingAccountDetailsItemsViewModel(Parcel in) {
+		items = (List<TradingAccountDetails>) in.readValue(TradingAccountDetails.class.getClassLoader());
+		total = (Integer) in.readValue(null);
 	}
 }

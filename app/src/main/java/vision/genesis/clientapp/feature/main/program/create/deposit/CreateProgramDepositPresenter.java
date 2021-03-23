@@ -5,8 +5,9 @@ import com.arellomobile.mvp.MvpPresenter;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -21,7 +22,6 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.feature.common.select_wallet.SelectWalletBottomSheetFragment;
-import vision.genesis.clientapp.managers.RateManager;
 import vision.genesis.clientapp.managers.WalletManager;
 import vision.genesis.clientapp.model.CreateProgramModel;
 import vision.genesis.clientapp.model.events.OnCreateProgramCreateButtonClickedEvent;
@@ -41,9 +41,6 @@ public class CreateProgramDepositPresenter extends MvpPresenter<CreateProgramDep
 	@Inject
 	public WalletManager walletManager;
 
-	@Inject
-	public RateManager rateManager;
-
 	private Subscription walletsSubscription;
 
 	private Subscription depositSubscription;
@@ -54,17 +51,13 @@ public class CreateProgramDepositPresenter extends MvpPresenter<CreateProgramDep
 
 	private double amount = 0;
 
-	private double amountBase = 0;
-
-	private Double rate = 1.0;
-
 	private CreateProgramModel model;
 
-	private Double minDepositSelectedCurrencyAmount;
+	private double minDepositSelectedCurrencyAmount;
 
 	private String minDepositCurrency;
 
-	private Double minDepositAmount;
+	private Map<String, Double> minDepositInfo;
 
 	@Override
 	protected void onFirstViewAttach() {
@@ -89,15 +82,12 @@ public class CreateProgramDepositPresenter extends MvpPresenter<CreateProgramDep
 
 	void setModel(CreateProgramModel model) {
 		this.model = model;
-		if (model.getMinDeposit() != null) {
-			this.minDepositAmount = model.getMinDeposit() - model.getCurrentBalance();
-			this.minDepositCurrency = model.getCurrency();
-			subscribeToWallets();
-		}
+		this.minDepositCurrency = model.getCurrency();
+		subscribeToWallets();
 	}
 
-	void setMinDeposit(Double minDeposit, Currency accountCurrency) {
-		this.minDepositAmount = minDeposit;
+	void setMinDeposit(Map<String, Double> minDepositInfo, Currency accountCurrency) {
+		this.minDepositInfo = minDepositInfo;
 		this.minDepositCurrency = accountCurrency.getValue();
 		subscribeToWallets();
 	}
@@ -109,15 +99,12 @@ public class CreateProgramDepositPresenter extends MvpPresenter<CreateProgramDep
 			amount = 0.0;
 		}
 
-		if (selectedWallet != null && model != null && minDepositSelectedCurrencyAmount != null) {
+		if (selectedWallet != null && model != null && minDepositCurrency != null) {
 			if (amount > availableInWallet) {
 				getViewState().setAmount(StringFormatUtil.formatAmountWithoutGrouping(availableInWallet));
 				return;
 			}
 
-			amountBase = amount * rate;
-
-			getViewState().setAmountBase(getAmountBaseString());
 			getViewState().setConfirmButtonEnabled(amount >= minDepositSelectedCurrencyAmount && amount <= availableInWallet);
 		}
 	}
@@ -148,11 +135,6 @@ public class CreateProgramDepositPresenter extends MvpPresenter<CreateProgramDep
 		}
 	}
 
-	private String getAmountBaseString() {
-		return String.format(Locale.getDefault(), "≈ %s",
-				StringFormatUtil.getValueString(amountBase, minDepositCurrency));
-	}
-
 	private void subscribeToWallets() {
 		if (walletManager != null && minDepositCurrency != null) {
 			if (walletsSubscription != null) {
@@ -168,37 +150,17 @@ public class CreateProgramDepositPresenter extends MvpPresenter<CreateProgramDep
 
 	private void handleWalletUpdateSuccess(WalletSummary response) {
 		getViewState().showProgress(false);
-		List<WalletData> wallets = response.getWallets();
-
+		List<WalletData> wallets = new ArrayList<>();
+		for (WalletData wallet : response.getWallets()) {
+			if (minDepositInfo.containsKey(wallet.getCurrency().getValue())) {
+				wallets.add(wallet);
+			}
+		}
 		getViewState().setWallets(wallets);
 		onWalletSelected(wallets.get(0));
 	}
 
 	private void handleWalletUpdateError(Throwable throwable) {
-		ApiErrorResolver.resolveErrors(throwable,
-				message -> getViewState().showSnackbarMessage(message));
-	}
-
-	private void updateRate() {
-		if (minDepositCurrency != null && selectedWallet != null && rateManager != null) {
-			getViewState().showRateProgress(true);
-			rateManager.getRate(selectedWallet.getCurrency().getValue(), minDepositCurrency)
-					.observeOn(AndroidSchedulers.mainThread())
-					.subscribeOn(Schedulers.io())
-					.subscribe(this::handleGetRateSuccess,
-							this::handleGetRateError);
-		}
-	}
-
-	private void handleGetRateSuccess(Double rate) {
-		getViewState().showRateProgress(false);
-		this.rate = rate;
-
-		minDepositSelectedCurrencyAmount = minDepositAmount / rate;
-		getViewState().setMinDepositWalletCurrencyAmount(minDepositSelectedCurrencyAmount, selectedWallet.getCurrency().getValue());
-	}
-
-	private void handleGetRateError(Throwable throwable) {
 		ApiErrorResolver.resolveErrors(throwable,
 				message -> getViewState().showSnackbarMessage(message));
 	}
@@ -242,9 +204,17 @@ public class CreateProgramDepositPresenter extends MvpPresenter<CreateProgramDep
 	public void onWalletSelected(WalletData wallet) {
 		this.selectedWallet = wallet;
 		availableInWallet = selectedWallet.getAvailable();
+
+		updateMinDeposit();
 		getViewState().setWallet(selectedWallet);
 		getViewState().setAmount("");
+	}
 
-		updateRate();
+	private void updateMinDeposit() {
+		if (selectedWallet != null && minDepositInfo != null) {
+			this.minDepositCurrency = selectedWallet.getCurrency().getValue();
+			minDepositSelectedCurrencyAmount = minDepositInfo.get(minDepositCurrency);
+			getViewState().setMinDepositWalletCurrencyAmount(minDepositSelectedCurrencyAmount, selectedWallet.getCurrency().getValue());
+		}
 	}
 }

@@ -29,17 +29,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class TradingAccountDetails implements Parcelable
 {
-	public static final Parcelable.Creator<TradingAccountDetails> CREATOR = new Parcelable.Creator<TradingAccountDetails>()
-	{
-		public TradingAccountDetails createFromParcel(Parcel in) {
-			return new TradingAccountDetails(in);
-		}
-
-		public TradingAccountDetails[] newArray(int size) {
-			return new TradingAccountDetails[size];
-		}
-	};
-
 	@SerializedName("id")
 	private UUID id = null;
 
@@ -56,14 +45,6 @@ public class TradingAccountDetails implements Parcelable
 	private AssetDetails asset = null;
 
 	public TradingAccountDetails() {
-	}
-
-	TradingAccountDetails(Parcel in) {
-		id = (UUID) in.readValue(UUID.class.getClassLoader());
-		currency = (Currency) in.readValue(Currency.class.getClassLoader());
-		login = (String) in.readValue(null);
-		apiKey = (String) in.readValue(null);
-		asset = (AssetDetails) in.readValue(AssetDetails.class.getClassLoader());
 	}
 
 	public TradingAccountDetails id(UUID id) {
@@ -161,6 +142,7 @@ public class TradingAccountDetails implements Parcelable
 		this.asset = asset;
 	}
 
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -181,6 +163,7 @@ public class TradingAccountDetails implements Parcelable
 	public int hashCode() {
 		return Objects.hash(id, currency, login, apiKey, asset);
 	}
+
 
 	@Override
 	public String toString() {
@@ -207,6 +190,7 @@ public class TradingAccountDetails implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
+
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(id);
 		out.writeValue(currency);
@@ -215,7 +199,26 @@ public class TradingAccountDetails implements Parcelable
 		out.writeValue(asset);
 	}
 
+	public static final Parcelable.Creator<TradingAccountDetails> CREATOR = new Parcelable.Creator<TradingAccountDetails>()
+	{
+		public TradingAccountDetails createFromParcel(Parcel in) {
+			return new TradingAccountDetails(in);
+		}
+
+		public TradingAccountDetails[] newArray(int size) {
+			return new TradingAccountDetails[size];
+		}
+	};
+
 	public int describeContents() {
 		return 0;
+	}
+
+	TradingAccountDetails(Parcel in) {
+		id = (UUID) in.readValue(UUID.class.getClassLoader());
+		currency = (Currency) in.readValue(Currency.class.getClassLoader());
+		login = (String) in.readValue(null);
+		apiKey = (String) in.readValue(null);
+		asset = (AssetDetails) in.readValue(AssetDetails.class.getClassLoader());
 	}
 }

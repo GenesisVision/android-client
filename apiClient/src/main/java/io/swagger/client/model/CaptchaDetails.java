@@ -29,17 +29,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class CaptchaDetails implements Parcelable
 {
-	public static final Parcelable.Creator<CaptchaDetails> CREATOR = new Parcelable.Creator<CaptchaDetails>()
-	{
-		public CaptchaDetails createFromParcel(Parcel in) {
-			return new CaptchaDetails(in);
-		}
-
-		public CaptchaDetails[] newArray(int size) {
-			return new CaptchaDetails[size];
-		}
-	};
-
 	@SerializedName("captchaType")
 	private CaptchaType captchaType = null;
 
@@ -56,14 +45,6 @@ public class CaptchaDetails implements Parcelable
 	private GeeTestDetails geeTest = null;
 
 	public CaptchaDetails() {
-	}
-
-	CaptchaDetails(Parcel in) {
-		captchaType = (CaptchaType) in.readValue(CaptchaType.class.getClassLoader());
-		id = (UUID) in.readValue(UUID.class.getClassLoader());
-		route = (String) in.readValue(null);
-		pow = (PowDetails) in.readValue(PowDetails.class.getClassLoader());
-		geeTest = (GeeTestDetails) in.readValue(GeeTestDetails.class.getClassLoader());
 	}
 
 	public CaptchaDetails captchaType(CaptchaType captchaType) {
@@ -161,6 +142,7 @@ public class CaptchaDetails implements Parcelable
 		this.geeTest = geeTest;
 	}
 
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -181,6 +163,7 @@ public class CaptchaDetails implements Parcelable
 	public int hashCode() {
 		return Objects.hash(captchaType, id, route, pow, geeTest);
 	}
+
 
 	@Override
 	public String toString() {
@@ -207,6 +190,7 @@ public class CaptchaDetails implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
+
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(captchaType);
 		out.writeValue(id);
@@ -215,7 +199,26 @@ public class CaptchaDetails implements Parcelable
 		out.writeValue(geeTest);
 	}
 
+	public static final Parcelable.Creator<CaptchaDetails> CREATOR = new Parcelable.Creator<CaptchaDetails>()
+	{
+		public CaptchaDetails createFromParcel(Parcel in) {
+			return new CaptchaDetails(in);
+		}
+
+		public CaptchaDetails[] newArray(int size) {
+			return new CaptchaDetails[size];
+		}
+	};
+
 	public int describeContents() {
 		return 0;
+	}
+
+	CaptchaDetails(Parcel in) {
+		captchaType = (CaptchaType) in.readValue(CaptchaType.class.getClassLoader());
+		id = (UUID) in.readValue(UUID.class.getClassLoader());
+		route = (String) in.readValue(null);
+		pow = (PowDetails) in.readValue(PowDetails.class.getClassLoader());
+		geeTest = (GeeTestDetails) in.readValue(GeeTestDetails.class.getClassLoader());
 	}
 }

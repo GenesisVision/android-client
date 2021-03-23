@@ -30,17 +30,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class FundBalanceChart implements Parcelable
 {
-	public static final Parcelable.Creator<FundBalanceChart> CREATOR = new Parcelable.Creator<FundBalanceChart>()
-	{
-		public FundBalanceChart createFromParcel(Parcel in) {
-			return new FundBalanceChart(in);
-		}
-
-		public FundBalanceChart[] newArray(int size) {
-			return new FundBalanceChart[size];
-		}
-	};
-
 	@SerializedName("balance")
 	private Double balance = null;
 
@@ -51,12 +40,6 @@ public class FundBalanceChart implements Parcelable
 	private List<BalanceChartPoint> chart = null;
 
 	public FundBalanceChart() {
-	}
-
-	FundBalanceChart(Parcel in) {
-		balance = (Double) in.readValue(null);
-		color = (String) in.readValue(null);
-		chart = (List<BalanceChartPoint>) in.readValue(BalanceChartPoint.class.getClassLoader());
 	}
 
 	public FundBalanceChart balance(Double balance) {
@@ -124,6 +107,7 @@ public class FundBalanceChart implements Parcelable
 		this.chart = chart;
 	}
 
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -142,6 +126,7 @@ public class FundBalanceChart implements Parcelable
 	public int hashCode() {
 		return Objects.hash(balance, color, chart);
 	}
+
 
 	@Override
 	public String toString() {
@@ -166,13 +151,31 @@ public class FundBalanceChart implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
+
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(balance);
 		out.writeValue(color);
 		out.writeValue(chart);
 	}
 
+	public static final Parcelable.Creator<FundBalanceChart> CREATOR = new Parcelable.Creator<FundBalanceChart>()
+	{
+		public FundBalanceChart createFromParcel(Parcel in) {
+			return new FundBalanceChart(in);
+		}
+
+		public FundBalanceChart[] newArray(int size) {
+			return new FundBalanceChart[size];
+		}
+	};
+
 	public int describeContents() {
 		return 0;
+	}
+
+	FundBalanceChart(Parcel in) {
+		balance = (Double) in.readValue(null);
+		color = (String) in.readValue(null);
+		chart = (List<BalanceChartPoint>) in.readValue(BalanceChartPoint.class.getClassLoader());
 	}
 }

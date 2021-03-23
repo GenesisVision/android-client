@@ -29,17 +29,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class SignalTradingEventItemsViewModel implements Parcelable
 {
-	public static final Parcelable.Creator<SignalTradingEventItemsViewModel> CREATOR = new Parcelable.Creator<SignalTradingEventItemsViewModel>()
-	{
-		public SignalTradingEventItemsViewModel createFromParcel(Parcel in) {
-			return new SignalTradingEventItemsViewModel(in);
-		}
-
-		public SignalTradingEventItemsViewModel[] newArray(int size) {
-			return new SignalTradingEventItemsViewModel[size];
-		}
-	};
-
 	@SerializedName("items")
 	private List<SignalTradingEvent> items = null;
 
@@ -47,11 +36,6 @@ public class SignalTradingEventItemsViewModel implements Parcelable
 	private Integer total = null;
 
 	public SignalTradingEventItemsViewModel() {
-	}
-
-	SignalTradingEventItemsViewModel(Parcel in) {
-		items = (List<SignalTradingEvent>) in.readValue(SignalTradingEvent.class.getClassLoader());
-		total = (Integer) in.readValue(null);
 	}
 
 	/**
@@ -74,6 +58,7 @@ public class SignalTradingEventItemsViewModel implements Parcelable
 		return total;
 	}
 
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -91,6 +76,7 @@ public class SignalTradingEventItemsViewModel implements Parcelable
 	public int hashCode() {
 		return Objects.hash(items, total);
 	}
+
 
 	@Override
 	public String toString() {
@@ -114,12 +100,29 @@ public class SignalTradingEventItemsViewModel implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
+
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(items);
 		out.writeValue(total);
 	}
 
+	public static final Parcelable.Creator<SignalTradingEventItemsViewModel> CREATOR = new Parcelable.Creator<SignalTradingEventItemsViewModel>()
+	{
+		public SignalTradingEventItemsViewModel createFromParcel(Parcel in) {
+			return new SignalTradingEventItemsViewModel(in);
+		}
+
+		public SignalTradingEventItemsViewModel[] newArray(int size) {
+			return new SignalTradingEventItemsViewModel[size];
+		}
+	};
+
 	public int describeContents() {
 		return 0;
+	}
+
+	SignalTradingEventItemsViewModel(Parcel in) {
+		items = (List<SignalTradingEvent>) in.readValue(SignalTradingEvent.class.getClassLoader());
+		total = (Integer) in.readValue(null);
 	}
 }

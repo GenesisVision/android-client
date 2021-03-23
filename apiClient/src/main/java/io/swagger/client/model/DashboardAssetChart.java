@@ -31,17 +31,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class DashboardAssetChart implements Parcelable
 {
-	public static final Parcelable.Creator<DashboardAssetChart> CREATOR = new Parcelable.Creator<DashboardAssetChart>()
-	{
-		public DashboardAssetChart createFromParcel(Parcel in) {
-			return new DashboardAssetChart(in);
-		}
-
-		public DashboardAssetChart[] newArray(int size) {
-			return new DashboardAssetChart[size];
-		}
-	};
-
 	@SerializedName("assetId")
 	private UUID assetId = null;
 
@@ -52,12 +41,6 @@ public class DashboardAssetChart implements Parcelable
 	private List<SimpleChartPoint> chart = null;
 
 	public DashboardAssetChart() {
-	}
-
-	DashboardAssetChart(Parcel in) {
-		assetId = (UUID) in.readValue(UUID.class.getClassLoader());
-		color = (String) in.readValue(null);
-		chart = (List<SimpleChartPoint>) in.readValue(SimpleChartPoint.class.getClassLoader());
 	}
 
 	public DashboardAssetChart assetId(UUID assetId) {
@@ -125,6 +108,7 @@ public class DashboardAssetChart implements Parcelable
 		this.chart = chart;
 	}
 
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -143,6 +127,7 @@ public class DashboardAssetChart implements Parcelable
 	public int hashCode() {
 		return Objects.hash(assetId, color, chart);
 	}
+
 
 	@Override
 	public String toString() {
@@ -167,13 +152,31 @@ public class DashboardAssetChart implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
+
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(assetId);
 		out.writeValue(color);
 		out.writeValue(chart);
 	}
 
+	public static final Parcelable.Creator<DashboardAssetChart> CREATOR = new Parcelable.Creator<DashboardAssetChart>()
+	{
+		public DashboardAssetChart createFromParcel(Parcel in) {
+			return new DashboardAssetChart(in);
+		}
+
+		public DashboardAssetChart[] newArray(int size) {
+			return new DashboardAssetChart[size];
+		}
+	};
+
 	public int describeContents() {
 		return 0;
+	}
+
+	DashboardAssetChart(Parcel in) {
+		assetId = (UUID) in.readValue(UUID.class.getClassLoader());
+		color = (String) in.readValue(null);
+		chart = (List<SimpleChartPoint>) in.readValue(SimpleChartPoint.class.getClassLoader());
 	}
 }

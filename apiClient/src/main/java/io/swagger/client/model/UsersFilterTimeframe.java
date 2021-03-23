@@ -29,15 +29,6 @@ public enum UsersFilterTimeframe
 	WEEK("Week"),
 	MONTH("Month");
 
-	public static UsersFilterTimeframe fromValue(String text) {
-		for (UsersFilterTimeframe b : UsersFilterTimeframe.values()) {
-			if (String.valueOf(b.value).equals(text)) {
-				return b;
-			}
-		}
-		return null;
-	}
-
 	private String value;
 
 	UsersFilterTimeframe(String value) {
@@ -53,6 +44,15 @@ public enum UsersFilterTimeframe
 		return String.valueOf(value);
 	}
 
+	public static UsersFilterTimeframe fromValue(String text) {
+		for (UsersFilterTimeframe b : UsersFilterTimeframe.values()) {
+			if (String.valueOf(b.value).equals(text)) {
+				return b;
+			}
+		}
+		return null;
+	}
+
 	public static class Adapter extends TypeAdapter<UsersFilterTimeframe>
 	{
 		@Override
@@ -62,7 +62,7 @@ public enum UsersFilterTimeframe
 
 		@Override
 		public UsersFilterTimeframe read(final JsonReader jsonReader) throws IOException {
-			String value = jsonReader.nextString();
+			Object value = jsonReader.nextString();
 			return UsersFilterTimeframe.fromValue(String.valueOf(value));
 		}
 	}

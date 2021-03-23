@@ -35,15 +35,6 @@ public enum SocialPostTagType
 	POST("Post"),
 	URL("Url");
 
-	public static SocialPostTagType fromValue(String text) {
-		for (SocialPostTagType b : SocialPostTagType.values()) {
-			if (String.valueOf(b.value).equals(text)) {
-				return b;
-			}
-		}
-		return null;
-	}
-
 	private String value;
 
 	SocialPostTagType(String value) {
@@ -59,6 +50,15 @@ public enum SocialPostTagType
 		return String.valueOf(value);
 	}
 
+	public static SocialPostTagType fromValue(String text) {
+		for (SocialPostTagType b : SocialPostTagType.values()) {
+			if (String.valueOf(b.value).equals(text)) {
+				return b;
+			}
+		}
+		return null;
+	}
+
 	public static class Adapter extends TypeAdapter<SocialPostTagType>
 	{
 		@Override
@@ -68,7 +68,7 @@ public enum SocialPostTagType
 
 		@Override
 		public SocialPostTagType read(final JsonReader jsonReader) throws IOException {
-			String value = jsonReader.nextString();
+			Object value = jsonReader.nextString();
 			return SocialPostTagType.fromValue(String.valueOf(value));
 		}
 	}

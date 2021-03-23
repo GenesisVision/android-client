@@ -28,17 +28,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class UsersSocialLinkInfo implements Parcelable
 {
-	public static final Parcelable.Creator<UsersSocialLinkInfo> CREATOR = new Parcelable.Creator<UsersSocialLinkInfo>()
-	{
-		public UsersSocialLinkInfo createFromParcel(Parcel in) {
-			return new UsersSocialLinkInfo(in);
-		}
-
-		public UsersSocialLinkInfo[] newArray(int size) {
-			return new UsersSocialLinkInfo[size];
-		}
-	};
-
 	@SerializedName("type")
 	private SocialLinkType type = null;
 
@@ -52,13 +41,6 @@ public class UsersSocialLinkInfo implements Parcelable
 	private String name = null;
 
 	public UsersSocialLinkInfo() {
-	}
-
-	UsersSocialLinkInfo(Parcel in) {
-		type = (SocialLinkType) in.readValue(SocialLinkType.class.getClassLoader());
-		url = (String) in.readValue(null);
-		logoUrl = (String) in.readValue(null);
-		name = (String) in.readValue(null);
 	}
 
 	public UsersSocialLinkInfo type(SocialLinkType type) {
@@ -137,6 +119,7 @@ public class UsersSocialLinkInfo implements Parcelable
 		this.name = name;
 	}
 
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -156,6 +139,7 @@ public class UsersSocialLinkInfo implements Parcelable
 	public int hashCode() {
 		return Objects.hash(type, url, logoUrl, name);
 	}
+
 
 	@Override
 	public String toString() {
@@ -181,6 +165,7 @@ public class UsersSocialLinkInfo implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
+
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(type);
 		out.writeValue(url);
@@ -188,7 +173,25 @@ public class UsersSocialLinkInfo implements Parcelable
 		out.writeValue(name);
 	}
 
+	public static final Parcelable.Creator<UsersSocialLinkInfo> CREATOR = new Parcelable.Creator<UsersSocialLinkInfo>()
+	{
+		public UsersSocialLinkInfo createFromParcel(Parcel in) {
+			return new UsersSocialLinkInfo(in);
+		}
+
+		public UsersSocialLinkInfo[] newArray(int size) {
+			return new UsersSocialLinkInfo[size];
+		}
+	};
+
 	public int describeContents() {
 		return 0;
+	}
+
+	UsersSocialLinkInfo(Parcel in) {
+		type = (SocialLinkType) in.readValue(SocialLinkType.class.getClassLoader());
+		url = (String) in.readValue(null);
+		logoUrl = (String) in.readValue(null);
+		name = (String) in.readValue(null);
 	}
 }

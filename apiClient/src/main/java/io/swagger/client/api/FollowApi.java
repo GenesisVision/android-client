@@ -1,4 +1,4 @@
-package io.swagger.client.api;
+package io.swagger.client.api;//retrofit2
 
 import org.joda.time.DateTime;
 
@@ -135,7 +135,7 @@ public interface FollowApi
 	 * Get subscriptions to current asset
 	 *
 	 * @param id         (required)
-	 * @param onlyActive (optional)
+	 * @param onlyActive (optional, default to true)
 	 * @return Call&lt;SignalSubscriptionItemsViewModel&gt;
 	 */
 	@POST("v2.0/follow/{id}/subscriptions")
@@ -147,7 +147,7 @@ public interface FollowApi
 	 * Get subscriptions for my trading account
 	 *
 	 * @param id         (required)
-	 * @param onlyActive (optional)
+	 * @param onlyActive (optional, default to true)
 	 * @return Call&lt;SignalSubscriptionItemsViewModel&gt;
 	 */
 	@POST("v2.0/follow/account/own/{id}/subscriptions")

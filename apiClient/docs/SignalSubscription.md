@@ -5,6 +5,9 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **subscriberInfo** | [**SignalSubscriberInfo**](SignalSubscriberInfo.md) |  |  [optional]
 **asset** | [**AssetDetails**](AssetDetails.md) |  |  [optional]
+**assetOwner** | [**ProfilePublic**](ProfilePublic.md) |  |  [optional]
+**assetBrokerDetails** | [**BrokerDetails**](BrokerDetails.md) |  |  [optional]
+**assetTags** | [**List&lt;Tag&gt;**](Tag.md) |  |  [optional]
 **status** | **String** |  |  [optional]
 **subscriptionDate** | [**DateTime**](DateTime.md) |  |  [optional]
 **unsubscriptionDate** | [**DateTime**](DateTime.md) |  |  [optional]
@@ -21,3 +24,5 @@ Name | Type | Description | Notes
 **totalVolume** | **Double** |  |  [optional]
 **successFeePersonal** | **Double** |  |  [optional]
 **volumeFeePersonal** | **Double** |  |  [optional]
+**successFee** | **Double** |  |  [optional]
+**volumeFee** | **Double** |  |  [optional]

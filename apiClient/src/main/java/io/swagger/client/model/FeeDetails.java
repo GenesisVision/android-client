@@ -28,17 +28,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class FeeDetails implements Parcelable
 {
-	public static final Parcelable.Creator<FeeDetails> CREATOR = new Parcelable.Creator<FeeDetails>()
-	{
-		public FeeDetails createFromParcel(Parcel in) {
-			return new FeeDetails(in);
-		}
-
-		public FeeDetails[] newArray(int size) {
-			return new FeeDetails[size];
-		}
-	};
-
 	@SerializedName("title")
 	private String title = null;
 
@@ -55,14 +44,6 @@ public class FeeDetails implements Parcelable
 	private Currency currency = null;
 
 	public FeeDetails() {
-	}
-
-	FeeDetails(Parcel in) {
-		title = (String) in.readValue(null);
-		description = (String) in.readValue(null);
-		type = (FeeType) in.readValue(FeeType.class.getClassLoader());
-		amount = (Double) in.readValue(null);
-		currency = (Currency) in.readValue(Currency.class.getClassLoader());
 	}
 
 	public FeeDetails title(String title) {
@@ -160,6 +141,7 @@ public class FeeDetails implements Parcelable
 		this.currency = currency;
 	}
 
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -180,6 +162,7 @@ public class FeeDetails implements Parcelable
 	public int hashCode() {
 		return Objects.hash(title, description, type, amount, currency);
 	}
+
 
 	@Override
 	public String toString() {
@@ -206,6 +189,7 @@ public class FeeDetails implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
+
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(title);
 		out.writeValue(description);
@@ -214,7 +198,26 @@ public class FeeDetails implements Parcelable
 		out.writeValue(currency);
 	}
 
+	public static final Parcelable.Creator<FeeDetails> CREATOR = new Parcelable.Creator<FeeDetails>()
+	{
+		public FeeDetails createFromParcel(Parcel in) {
+			return new FeeDetails(in);
+		}
+
+		public FeeDetails[] newArray(int size) {
+			return new FeeDetails[size];
+		}
+	};
+
 	public int describeContents() {
 		return 0;
+	}
+
+	FeeDetails(Parcel in) {
+		title = (String) in.readValue(null);
+		description = (String) in.readValue(null);
+		type = (FeeType) in.readValue(FeeType.class.getClassLoader());
+		amount = (Double) in.readValue(null);
+		currency = (Currency) in.readValue(Currency.class.getClassLoader());
 	}
 }

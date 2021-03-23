@@ -30,25 +30,10 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class SocialLinksViewModel implements Parcelable
 {
-	public static final Parcelable.Creator<SocialLinksViewModel> CREATOR = new Parcelable.Creator<SocialLinksViewModel>()
-	{
-		public SocialLinksViewModel createFromParcel(Parcel in) {
-			return new SocialLinksViewModel(in);
-		}
-
-		public SocialLinksViewModel[] newArray(int size) {
-			return new SocialLinksViewModel[size];
-		}
-	};
-
 	@SerializedName("socialLinks")
 	private List<SocialLinkViewModel> socialLinks = null;
 
 	public SocialLinksViewModel() {
-	}
-
-	SocialLinksViewModel(Parcel in) {
-		socialLinks = (List<SocialLinkViewModel>) in.readValue(SocialLinkViewModel.class.getClassLoader());
 	}
 
 	public SocialLinksViewModel socialLinks(List<SocialLinkViewModel> socialLinks) {
@@ -78,6 +63,7 @@ public class SocialLinksViewModel implements Parcelable
 		this.socialLinks = socialLinks;
 	}
 
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -94,6 +80,7 @@ public class SocialLinksViewModel implements Parcelable
 	public int hashCode() {
 		return Objects.hash(socialLinks);
 	}
+
 
 	@Override
 	public String toString() {
@@ -116,11 +103,27 @@ public class SocialLinksViewModel implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
+
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(socialLinks);
 	}
 
+	public static final Parcelable.Creator<SocialLinksViewModel> CREATOR = new Parcelable.Creator<SocialLinksViewModel>()
+	{
+		public SocialLinksViewModel createFromParcel(Parcel in) {
+			return new SocialLinksViewModel(in);
+		}
+
+		public SocialLinksViewModel[] newArray(int size) {
+			return new SocialLinksViewModel[size];
+		}
+	};
+
 	public int describeContents() {
 		return 0;
+	}
+
+	SocialLinksViewModel(Parcel in) {
+		socialLinks = (List<SocialLinkViewModel>) in.readValue(SocialLinkViewModel.class.getClassLoader());
 	}
 }

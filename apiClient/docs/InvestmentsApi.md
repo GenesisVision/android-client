@@ -700,7 +700,7 @@ Bearer.setApiKey("YOUR API KEY");
 InvestmentsApi apiInstance = new InvestmentsApi();
 UUID id = new UUID(); // UUID | 
 Double amount = 3.4D; // Double | 
-Boolean withdrawAll = true; // Boolean | 
+Boolean withdrawAll = false; // Boolean | 
 try {
     Void result = apiInstance.withdrawFromProgram(id, amount, withdrawAll);
     System.out.println(result);
@@ -716,7 +716,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | [**UUID**](.md)|  |
  **amount** | **Double**|  | [optional]
- **withdrawAll** | **Boolean**|  | [optional]
+ **withdrawAll** | **Boolean**|  | [optional] [default to false]
 
 ### Return type
 

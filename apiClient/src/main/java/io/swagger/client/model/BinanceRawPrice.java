@@ -30,17 +30,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class BinanceRawPrice implements Parcelable
 {
-	public static final Parcelable.Creator<BinanceRawPrice> CREATOR = new Parcelable.Creator<BinanceRawPrice>()
-	{
-		public BinanceRawPrice createFromParcel(Parcel in) {
-			return new BinanceRawPrice(in);
-		}
-
-		public BinanceRawPrice[] newArray(int size) {
-			return new BinanceRawPrice[size];
-		}
-	};
-
 	@SerializedName("symbol")
 	private String symbol = null;
 
@@ -51,12 +40,6 @@ public class BinanceRawPrice implements Parcelable
 	private DateTime timestamp = null;
 
 	public BinanceRawPrice() {
-	}
-
-	BinanceRawPrice(Parcel in) {
-		symbol = (String) in.readValue(null);
-		price = (Double) in.readValue(null);
-		timestamp = (DateTime) in.readValue(DateTime.class.getClassLoader());
 	}
 
 	public BinanceRawPrice symbol(String symbol) {
@@ -116,6 +99,7 @@ public class BinanceRawPrice implements Parcelable
 		this.timestamp = timestamp;
 	}
 
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -134,6 +118,7 @@ public class BinanceRawPrice implements Parcelable
 	public int hashCode() {
 		return Objects.hash(symbol, price, timestamp);
 	}
+
 
 	@Override
 	public String toString() {
@@ -158,13 +143,31 @@ public class BinanceRawPrice implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
+
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(symbol);
 		out.writeValue(price);
 		out.writeValue(timestamp);
 	}
 
+	public static final Parcelable.Creator<BinanceRawPrice> CREATOR = new Parcelable.Creator<BinanceRawPrice>()
+	{
+		public BinanceRawPrice createFromParcel(Parcel in) {
+			return new BinanceRawPrice(in);
+		}
+
+		public BinanceRawPrice[] newArray(int size) {
+			return new BinanceRawPrice[size];
+		}
+	};
+
 	public int describeContents() {
 		return 0;
+	}
+
+	BinanceRawPrice(Parcel in) {
+		symbol = (String) in.readValue(null);
+		price = (Double) in.readValue(null);
+		timestamp = (DateTime) in.readValue(DateTime.class.getClassLoader());
 	}
 }

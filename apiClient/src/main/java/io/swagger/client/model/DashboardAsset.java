@@ -28,17 +28,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class DashboardAsset implements Parcelable
 {
-	public static final Parcelable.Creator<DashboardAsset> CREATOR = new Parcelable.Creator<DashboardAsset>()
-	{
-		public DashboardAsset createFromParcel(Parcel in) {
-			return new DashboardAsset(in);
-		}
-
-		public DashboardAsset[] newArray(int size) {
-			return new DashboardAsset[size];
-		}
-	};
-
 	@SerializedName("name")
 	private String name = null;
 
@@ -49,12 +38,6 @@ public class DashboardAsset implements Parcelable
 	private Double percent = null;
 
 	public DashboardAsset() {
-	}
-
-	DashboardAsset(Parcel in) {
-		name = (String) in.readValue(null);
-		color = (String) in.readValue(null);
-		percent = (Double) in.readValue(null);
 	}
 
 	public DashboardAsset name(String name) {
@@ -114,6 +97,7 @@ public class DashboardAsset implements Parcelable
 		this.percent = percent;
 	}
 
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -132,6 +116,7 @@ public class DashboardAsset implements Parcelable
 	public int hashCode() {
 		return Objects.hash(name, color, percent);
 	}
+
 
 	@Override
 	public String toString() {
@@ -156,13 +141,31 @@ public class DashboardAsset implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
+
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(name);
 		out.writeValue(color);
 		out.writeValue(percent);
 	}
 
+	public static final Parcelable.Creator<DashboardAsset> CREATOR = new Parcelable.Creator<DashboardAsset>()
+	{
+		public DashboardAsset createFromParcel(Parcel in) {
+			return new DashboardAsset(in);
+		}
+
+		public DashboardAsset[] newArray(int size) {
+			return new DashboardAsset[size];
+		}
+	};
+
 	public int describeContents() {
 		return 0;
+	}
+
+	DashboardAsset(Parcel in) {
+		name = (String) in.readValue(null);
+		color = (String) in.readValue(null);
+		percent = (Double) in.readValue(null);
 	}
 }

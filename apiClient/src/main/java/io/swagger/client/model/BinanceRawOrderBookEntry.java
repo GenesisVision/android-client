@@ -28,17 +28,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class BinanceRawOrderBookEntry implements Parcelable
 {
-	public static final Parcelable.Creator<BinanceRawOrderBookEntry> CREATOR = new Parcelable.Creator<BinanceRawOrderBookEntry>()
-	{
-		public BinanceRawOrderBookEntry createFromParcel(Parcel in) {
-			return new BinanceRawOrderBookEntry(in);
-		}
-
-		public BinanceRawOrderBookEntry[] newArray(int size) {
-			return new BinanceRawOrderBookEntry[size];
-		}
-	};
-
 	@SerializedName("price")
 	private Double price = null;
 
@@ -46,11 +35,6 @@ public class BinanceRawOrderBookEntry implements Parcelable
 	private Double quantity = null;
 
 	public BinanceRawOrderBookEntry() {
-	}
-
-	BinanceRawOrderBookEntry(Parcel in) {
-		price = (Double) in.readValue(null);
-		quantity = (Double) in.readValue(null);
 	}
 
 	public BinanceRawOrderBookEntry price(Double price) {
@@ -91,6 +75,7 @@ public class BinanceRawOrderBookEntry implements Parcelable
 		this.quantity = quantity;
 	}
 
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -108,6 +93,7 @@ public class BinanceRawOrderBookEntry implements Parcelable
 	public int hashCode() {
 		return Objects.hash(price, quantity);
 	}
+
 
 	@Override
 	public String toString() {
@@ -131,12 +117,29 @@ public class BinanceRawOrderBookEntry implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
+
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(price);
 		out.writeValue(quantity);
 	}
 
+	public static final Parcelable.Creator<BinanceRawOrderBookEntry> CREATOR = new Parcelable.Creator<BinanceRawOrderBookEntry>()
+	{
+		public BinanceRawOrderBookEntry createFromParcel(Parcel in) {
+			return new BinanceRawOrderBookEntry(in);
+		}
+
+		public BinanceRawOrderBookEntry[] newArray(int size) {
+			return new BinanceRawOrderBookEntry[size];
+		}
+	};
+
 	public int describeContents() {
 		return 0;
+	}
+
+	BinanceRawOrderBookEntry(Parcel in) {
+		price = (Double) in.readValue(null);
+		quantity = (Double) in.readValue(null);
 	}
 }

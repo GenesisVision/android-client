@@ -30,15 +30,6 @@ public enum BinanceAccountType
 	FUTURES("Futures"),
 	LEVERAGED("Leveraged");
 
-	public static BinanceAccountType fromValue(String text) {
-		for (BinanceAccountType b : BinanceAccountType.values()) {
-			if (String.valueOf(b.value).equals(text)) {
-				return b;
-			}
-		}
-		return null;
-	}
-
 	private String value;
 
 	BinanceAccountType(String value) {
@@ -54,6 +45,15 @@ public enum BinanceAccountType
 		return String.valueOf(value);
 	}
 
+	public static BinanceAccountType fromValue(String text) {
+		for (BinanceAccountType b : BinanceAccountType.values()) {
+			if (String.valueOf(b.value).equals(text)) {
+				return b;
+			}
+		}
+		return null;
+	}
+
 	public static class Adapter extends TypeAdapter<BinanceAccountType>
 	{
 		@Override
@@ -63,7 +63,7 @@ public enum BinanceAccountType
 
 		@Override
 		public BinanceAccountType read(final JsonReader jsonReader) throws IOException {
-			String value = jsonReader.nextString();
+			Object value = jsonReader.nextString();
 			return BinanceAccountType.fromValue(String.valueOf(value));
 		}
 	}

@@ -29,17 +29,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class MakeProgram implements Parcelable
 {
-	public static final Parcelable.Creator<MakeProgram> CREATOR = new Parcelable.Creator<MakeProgram>()
-	{
-		public MakeProgram createFromParcel(Parcel in) {
-			return new MakeProgram(in);
-		}
-
-		public MakeProgram[] newArray(int size) {
-			return new MakeProgram[size];
-		}
-	};
-
 	@SerializedName("depositAmount")
 	private Double depositAmount = null;
 
@@ -83,23 +72,6 @@ public class MakeProgram implements Parcelable
 	private Double managementFee = null;
 
 	public MakeProgram() {
-	}
-
-	MakeProgram(Parcel in) {
-		depositAmount = (Double) in.readValue(null);
-		depositWalletId = (UUID) in.readValue(UUID.class.getClassLoader());
-		currency = (Currency) in.readValue(Currency.class.getClassLoader());
-		leverage = (Integer) in.readValue(null);
-		brokerAccountTypeId = (UUID) in.readValue(UUID.class.getClassLoader());
-		title = (String) in.readValue(null);
-		description = (String) in.readValue(null);
-		logo = (String) in.readValue(null);
-		periodLength = (Integer) in.readValue(null);
-		stopOutLevel = (Double) in.readValue(null);
-		investmentLimit = (Double) in.readValue(null);
-		tradesDelay = (TradesDelay) in.readValue(TradesDelay.class.getClassLoader());
-		successFee = (Double) in.readValue(null);
-		managementFee = (Double) in.readValue(null);
 	}
 
 	public MakeProgram depositAmount(Double depositAmount) {
@@ -368,6 +340,7 @@ public class MakeProgram implements Parcelable
 		this.managementFee = managementFee;
 	}
 
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -397,6 +370,7 @@ public class MakeProgram implements Parcelable
 	public int hashCode() {
 		return Objects.hash(depositAmount, depositWalletId, currency, leverage, brokerAccountTypeId, title, description, logo, periodLength, stopOutLevel, investmentLimit, tradesDelay, successFee, managementFee);
 	}
+
 
 	@Override
 	public String toString() {
@@ -432,6 +406,7 @@ public class MakeProgram implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
+
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(depositAmount);
 		out.writeValue(depositWalletId);
@@ -449,7 +424,35 @@ public class MakeProgram implements Parcelable
 		out.writeValue(managementFee);
 	}
 
+	public static final Parcelable.Creator<MakeProgram> CREATOR = new Parcelable.Creator<MakeProgram>()
+	{
+		public MakeProgram createFromParcel(Parcel in) {
+			return new MakeProgram(in);
+		}
+
+		public MakeProgram[] newArray(int size) {
+			return new MakeProgram[size];
+		}
+	};
+
 	public int describeContents() {
 		return 0;
+	}
+
+	MakeProgram(Parcel in) {
+		depositAmount = (Double) in.readValue(null);
+		depositWalletId = (UUID) in.readValue(UUID.class.getClassLoader());
+		currency = (Currency) in.readValue(Currency.class.getClassLoader());
+		leverage = (Integer) in.readValue(null);
+		brokerAccountTypeId = (UUID) in.readValue(UUID.class.getClassLoader());
+		title = (String) in.readValue(null);
+		description = (String) in.readValue(null);
+		logo = (String) in.readValue(null);
+		periodLength = (Integer) in.readValue(null);
+		stopOutLevel = (Double) in.readValue(null);
+		investmentLimit = (Double) in.readValue(null);
+		tradesDelay = (TradesDelay) in.readValue(TradesDelay.class.getClassLoader());
+		successFee = (Double) in.readValue(null);
+		managementFee = (Double) in.readValue(null);
 	}
 }

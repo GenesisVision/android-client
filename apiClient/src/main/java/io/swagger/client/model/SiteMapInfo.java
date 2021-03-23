@@ -30,17 +30,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class SiteMapInfo implements Parcelable
 {
-	public static final Parcelable.Creator<SiteMapInfo> CREATOR = new Parcelable.Creator<SiteMapInfo>()
-	{
-		public SiteMapInfo createFromParcel(Parcel in) {
-			return new SiteMapInfo(in);
-		}
-
-		public SiteMapInfo[] newArray(int size) {
-			return new SiteMapInfo[size];
-		}
-	};
-
 	@SerializedName("programs")
 	private List<String> programs = null;
 
@@ -57,14 +46,6 @@ public class SiteMapInfo implements Parcelable
 	private List<String> actives = null;
 
 	public SiteMapInfo() {
-	}
-
-	SiteMapInfo(Parcel in) {
-		programs = (List<String>) in.readValue(null);
-		funds = (List<String>) in.readValue(null);
-		follow = (List<String>) in.readValue(null);
-		users = (List<String>) in.readValue(null);
-		actives = (List<String>) in.readValue(null);
 	}
 
 	public SiteMapInfo programs(List<String> programs) {
@@ -202,6 +183,7 @@ public class SiteMapInfo implements Parcelable
 		this.actives = actives;
 	}
 
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -222,6 +204,7 @@ public class SiteMapInfo implements Parcelable
 	public int hashCode() {
 		return Objects.hash(programs, funds, follow, users, actives);
 	}
+
 
 	@Override
 	public String toString() {
@@ -248,6 +231,7 @@ public class SiteMapInfo implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
+
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(programs);
 		out.writeValue(funds);
@@ -256,7 +240,26 @@ public class SiteMapInfo implements Parcelable
 		out.writeValue(actives);
 	}
 
+	public static final Parcelable.Creator<SiteMapInfo> CREATOR = new Parcelable.Creator<SiteMapInfo>()
+	{
+		public SiteMapInfo createFromParcel(Parcel in) {
+			return new SiteMapInfo(in);
+		}
+
+		public SiteMapInfo[] newArray(int size) {
+			return new SiteMapInfo[size];
+		}
+	};
+
 	public int describeContents() {
 		return 0;
+	}
+
+	SiteMapInfo(Parcel in) {
+		programs = (List<String>) in.readValue(null);
+		funds = (List<String>) in.readValue(null);
+		follow = (List<String>) in.readValue(null);
+		users = (List<String>) in.readValue(null);
+		actives = (List<String>) in.readValue(null);
 	}
 }

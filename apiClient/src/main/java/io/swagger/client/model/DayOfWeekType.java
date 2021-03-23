@@ -33,15 +33,6 @@ public enum DayOfWeekType
 	FRIDAY("Friday"),
 	SATURDAY("Saturday");
 
-	public static DayOfWeekType fromValue(String text) {
-		for (DayOfWeekType b : DayOfWeekType.values()) {
-			if (String.valueOf(b.value).equals(text)) {
-				return b;
-			}
-		}
-		return null;
-	}
-
 	private String value;
 
 	DayOfWeekType(String value) {
@@ -57,6 +48,15 @@ public enum DayOfWeekType
 		return String.valueOf(value);
 	}
 
+	public static DayOfWeekType fromValue(String text) {
+		for (DayOfWeekType b : DayOfWeekType.values()) {
+			if (String.valueOf(b.value).equals(text)) {
+				return b;
+			}
+		}
+		return null;
+	}
+
 	public static class Adapter extends TypeAdapter<DayOfWeekType>
 	{
 		@Override
@@ -66,7 +66,7 @@ public enum DayOfWeekType
 
 		@Override
 		public DayOfWeekType read(final JsonReader jsonReader) throws IOException {
-			String value = jsonReader.nextString();
+			Object value = jsonReader.nextString();
 			return DayOfWeekType.fromValue(String.valueOf(value));
 		}
 	}

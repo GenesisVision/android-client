@@ -855,7 +855,7 @@ Bearer.setApiKey("YOUR API KEY");
 
 TradingplatformApi apiInstance = new TradingplatformApi();
 String symbol = "symbol_example"; // String | 
-BinanceRawKlineInterval interval = new BinanceRawKlineInterval(); // BinanceRawKlineInterval | 
+BinanceKlineInterval interval = new BinanceKlineInterval(); // BinanceKlineInterval | 
 DateTime startTime = new DateTime(); // DateTime | 
 DateTime endTime = new DateTime(); // DateTime | 
 Integer limit = 56; // Integer | 
@@ -873,7 +873,7 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **symbol** | **String**|  | [optional]
- **interval** | [**BinanceRawKlineInterval**](.md)|  | [optional]
+ **interval** | [**BinanceKlineInterval**](.md)|  | [optional]
  **startTime** | **DateTime**|  | [optional]
  **endTime** | **DateTime**|  | [optional]
  **limit** | **Integer**|  | [optional]
@@ -1503,7 +1503,7 @@ Bearer.setApiKey("YOUR API KEY");
 
 TradingplatformApi apiInstance = new TradingplatformApi();
 String symbol = "symbol_example"; // String | 
-BinanceRawKlineInterval interval = new BinanceRawKlineInterval(); // BinanceRawKlineInterval | 
+BinanceKlineInterval interval = new BinanceKlineInterval(); // BinanceKlineInterval | 
 DateTime startTime = new DateTime(); // DateTime | 
 DateTime endTime = new DateTime(); // DateTime | 
 Integer limit = 56; // Integer | 
@@ -1521,7 +1521,7 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **symbol** | **String**|  | [optional]
- **interval** | [**BinanceRawKlineInterval**](.md)|  | [optional]
+ **interval** | [**BinanceKlineInterval**](.md)|  | [optional]
  **startTime** | **DateTime**|  | [optional]
  **endTime** | **DateTime**|  | [optional]
  **limit** | **Integer**|  | [optional]
@@ -2415,7 +2415,7 @@ Bearer.setApiKey("YOUR API KEY");
 
 TradingplatformApi apiInstance = new TradingplatformApi();
 String symbol = "symbol_example"; // String | 
-BinanceRawKlineInterval interval = new BinanceRawKlineInterval(); // BinanceRawKlineInterval | 
+BinanceKlineInterval interval = new BinanceKlineInterval(); // BinanceKlineInterval | 
 DateTime startTime = new DateTime(); // DateTime | 
 DateTime endTime = new DateTime(); // DateTime | 
 Integer limit = 56; // Integer | 
@@ -2433,7 +2433,7 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **symbol** | **String**|  |
- **interval** | [**BinanceRawKlineInterval**](.md)|  | [optional]
+ **interval** | [**BinanceKlineInterval**](.md)|  | [optional]
  **startTime** | **DateTime**|  | [optional]
  **endTime** | **DateTime**|  | [optional]
  **limit** | **Integer**|  | [optional]

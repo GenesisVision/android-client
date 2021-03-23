@@ -28,17 +28,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class BinanceRawPlaceOrder implements Parcelable
 {
-	public static final Parcelable.Creator<BinanceRawPlaceOrder> CREATOR = new Parcelable.Creator<BinanceRawPlaceOrder>()
-	{
-		public BinanceRawPlaceOrder createFromParcel(Parcel in) {
-			return new BinanceRawPlaceOrder(in);
-		}
-
-		public BinanceRawPlaceOrder[] newArray(int size) {
-			return new BinanceRawPlaceOrder[size];
-		}
-	};
-
 	@SerializedName("symbol")
 	private String symbol = null;
 
@@ -73,20 +62,6 @@ public class BinanceRawPlaceOrder implements Parcelable
 	private BinanceOrderResponseType orderResponseType = null;
 
 	public BinanceRawPlaceOrder() {
-	}
-
-	BinanceRawPlaceOrder(Parcel in) {
-		symbol = (String) in.readValue(null);
-		side = (BinanceOrderSide) in.readValue(BinanceOrderSide.class.getClassLoader());
-		type = (BinanceOrderType) in.readValue(BinanceOrderType.class.getClassLoader());
-		quantity = (Double) in.readValue(null);
-		quoteOrderQuantity = (Double) in.readValue(null);
-		newClientOrderId = (String) in.readValue(null);
-		price = (Double) in.readValue(null);
-		timeInForce = (BinanceTimeInForce) in.readValue(BinanceTimeInForce.class.getClassLoader());
-		stopPrice = (Double) in.readValue(null);
-		icebergQuantity = (Double) in.readValue(null);
-		orderResponseType = (BinanceOrderResponseType) in.readValue(BinanceOrderResponseType.class.getClassLoader());
 	}
 
 	public BinanceRawPlaceOrder symbol(String symbol) {
@@ -298,6 +273,7 @@ public class BinanceRawPlaceOrder implements Parcelable
 		this.orderResponseType = orderResponseType;
 	}
 
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -324,6 +300,7 @@ public class BinanceRawPlaceOrder implements Parcelable
 	public int hashCode() {
 		return Objects.hash(symbol, side, type, quantity, quoteOrderQuantity, newClientOrderId, price, timeInForce, stopPrice, icebergQuantity, orderResponseType);
 	}
+
 
 	@Override
 	public String toString() {
@@ -356,6 +333,7 @@ public class BinanceRawPlaceOrder implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
+
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(symbol);
 		out.writeValue(side);
@@ -370,7 +348,32 @@ public class BinanceRawPlaceOrder implements Parcelable
 		out.writeValue(orderResponseType);
 	}
 
+	public static final Parcelable.Creator<BinanceRawPlaceOrder> CREATOR = new Parcelable.Creator<BinanceRawPlaceOrder>()
+	{
+		public BinanceRawPlaceOrder createFromParcel(Parcel in) {
+			return new BinanceRawPlaceOrder(in);
+		}
+
+		public BinanceRawPlaceOrder[] newArray(int size) {
+			return new BinanceRawPlaceOrder[size];
+		}
+	};
+
 	public int describeContents() {
 		return 0;
+	}
+
+	BinanceRawPlaceOrder(Parcel in) {
+		symbol = (String) in.readValue(null);
+		side = (BinanceOrderSide) in.readValue(BinanceOrderSide.class.getClassLoader());
+		type = (BinanceOrderType) in.readValue(BinanceOrderType.class.getClassLoader());
+		quantity = (Double) in.readValue(null);
+		quoteOrderQuantity = (Double) in.readValue(null);
+		newClientOrderId = (String) in.readValue(null);
+		price = (Double) in.readValue(null);
+		timeInForce = (BinanceTimeInForce) in.readValue(BinanceTimeInForce.class.getClassLoader());
+		stopPrice = (Double) in.readValue(null);
+		icebergQuantity = (Double) in.readValue(null);
+		orderResponseType = (BinanceOrderResponseType) in.readValue(BinanceOrderResponseType.class.getClassLoader());
 	}
 }

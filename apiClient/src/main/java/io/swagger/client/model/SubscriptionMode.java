@@ -29,15 +29,6 @@ public enum SubscriptionMode
 	PERCENT("Percent"),
 	FIXED("Fixed");
 
-	public static SubscriptionMode fromValue(String text) {
-		for (SubscriptionMode b : SubscriptionMode.values()) {
-			if (String.valueOf(b.value).equals(text)) {
-				return b;
-			}
-		}
-		return null;
-	}
-
 	private String value;
 
 	SubscriptionMode(String value) {
@@ -53,6 +44,15 @@ public enum SubscriptionMode
 		return String.valueOf(value);
 	}
 
+	public static SubscriptionMode fromValue(String text) {
+		for (SubscriptionMode b : SubscriptionMode.values()) {
+			if (String.valueOf(b.value).equals(text)) {
+				return b;
+			}
+		}
+		return null;
+	}
+
 	public static class Adapter extends TypeAdapter<SubscriptionMode>
 	{
 		@Override
@@ -62,7 +62,7 @@ public enum SubscriptionMode
 
 		@Override
 		public SubscriptionMode read(final JsonReader jsonReader) throws IOException {
-			String value = jsonReader.nextString();
+			Object value = jsonReader.nextString();
 			return SubscriptionMode.fromValue(String.valueOf(value));
 		}
 	}

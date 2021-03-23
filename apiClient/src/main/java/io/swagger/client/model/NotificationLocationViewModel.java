@@ -29,17 +29,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class NotificationLocationViewModel implements Parcelable
 {
-	public static final Parcelable.Creator<NotificationLocationViewModel> CREATOR = new Parcelable.Creator<NotificationLocationViewModel>()
-	{
-		public NotificationLocationViewModel createFromParcel(Parcel in) {
-			return new NotificationLocationViewModel(in);
-		}
-
-		public NotificationLocationViewModel[] newArray(int size) {
-			return new NotificationLocationViewModel[size];
-		}
-	};
-
 	@SerializedName("location")
 	private String location = null;
 
@@ -50,12 +39,6 @@ public class NotificationLocationViewModel implements Parcelable
 	private String externalUrl = null;
 
 	public NotificationLocationViewModel() {
-	}
-
-	NotificationLocationViewModel(Parcel in) {
-		location = (String) in.readValue(null);
-		id = (UUID) in.readValue(UUID.class.getClassLoader());
-		externalUrl = (String) in.readValue(null);
 	}
 
 	public NotificationLocationViewModel location(String location) {
@@ -115,6 +98,7 @@ public class NotificationLocationViewModel implements Parcelable
 		this.externalUrl = externalUrl;
 	}
 
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -133,6 +117,7 @@ public class NotificationLocationViewModel implements Parcelable
 	public int hashCode() {
 		return Objects.hash(location, id, externalUrl);
 	}
+
 
 	@Override
 	public String toString() {
@@ -157,13 +142,31 @@ public class NotificationLocationViewModel implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
+
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(location);
 		out.writeValue(id);
 		out.writeValue(externalUrl);
 	}
 
+	public static final Parcelable.Creator<NotificationLocationViewModel> CREATOR = new Parcelable.Creator<NotificationLocationViewModel>()
+	{
+		public NotificationLocationViewModel createFromParcel(Parcel in) {
+			return new NotificationLocationViewModel(in);
+		}
+
+		public NotificationLocationViewModel[] newArray(int size) {
+			return new NotificationLocationViewModel[size];
+		}
+	};
+
 	public int describeContents() {
 		return 0;
+	}
+
+	NotificationLocationViewModel(Parcel in) {
+		location = (String) in.readValue(null);
+		id = (UUID) in.readValue(UUID.class.getClassLoader());
+		externalUrl = (String) in.readValue(null);
 	}
 }

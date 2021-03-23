@@ -28,17 +28,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class BinanceRawFuturesSymbolPercentPriceFilter implements Parcelable
 {
-	public static final Parcelable.Creator<BinanceRawFuturesSymbolPercentPriceFilter> CREATOR = new Parcelable.Creator<BinanceRawFuturesSymbolPercentPriceFilter>()
-	{
-		public BinanceRawFuturesSymbolPercentPriceFilter createFromParcel(Parcel in) {
-			return new BinanceRawFuturesSymbolPercentPriceFilter(in);
-		}
-
-		public BinanceRawFuturesSymbolPercentPriceFilter[] newArray(int size) {
-			return new BinanceRawFuturesSymbolPercentPriceFilter[size];
-		}
-	};
-
 	@SerializedName("filterType")
 	private BinanceSymbolFilterType filterType = null;
 
@@ -52,13 +41,6 @@ public class BinanceRawFuturesSymbolPercentPriceFilter implements Parcelable
 	private Integer multiplierDecimal = null;
 
 	public BinanceRawFuturesSymbolPercentPriceFilter() {
-	}
-
-	BinanceRawFuturesSymbolPercentPriceFilter(Parcel in) {
-		filterType = (BinanceSymbolFilterType) in.readValue(BinanceSymbolFilterType.class.getClassLoader());
-		multiplierUp = (Double) in.readValue(null);
-		multiplierDown = (Double) in.readValue(null);
-		multiplierDecimal = (Integer) in.readValue(null);
 	}
 
 	public BinanceRawFuturesSymbolPercentPriceFilter filterType(BinanceSymbolFilterType filterType) {
@@ -137,6 +119,7 @@ public class BinanceRawFuturesSymbolPercentPriceFilter implements Parcelable
 		this.multiplierDecimal = multiplierDecimal;
 	}
 
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -156,6 +139,7 @@ public class BinanceRawFuturesSymbolPercentPriceFilter implements Parcelable
 	public int hashCode() {
 		return Objects.hash(filterType, multiplierUp, multiplierDown, multiplierDecimal);
 	}
+
 
 	@Override
 	public String toString() {
@@ -181,6 +165,7 @@ public class BinanceRawFuturesSymbolPercentPriceFilter implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
+
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(filterType);
 		out.writeValue(multiplierUp);
@@ -188,7 +173,25 @@ public class BinanceRawFuturesSymbolPercentPriceFilter implements Parcelable
 		out.writeValue(multiplierDecimal);
 	}
 
+	public static final Parcelable.Creator<BinanceRawFuturesSymbolPercentPriceFilter> CREATOR = new Parcelable.Creator<BinanceRawFuturesSymbolPercentPriceFilter>()
+	{
+		public BinanceRawFuturesSymbolPercentPriceFilter createFromParcel(Parcel in) {
+			return new BinanceRawFuturesSymbolPercentPriceFilter(in);
+		}
+
+		public BinanceRawFuturesSymbolPercentPriceFilter[] newArray(int size) {
+			return new BinanceRawFuturesSymbolPercentPriceFilter[size];
+		}
+	};
+
 	public int describeContents() {
 		return 0;
+	}
+
+	BinanceRawFuturesSymbolPercentPriceFilter(Parcel in) {
+		filterType = (BinanceSymbolFilterType) in.readValue(BinanceSymbolFilterType.class.getClassLoader());
+		multiplierUp = (Double) in.readValue(null);
+		multiplierDown = (Double) in.readValue(null);
+		multiplierDecimal = (Integer) in.readValue(null);
 	}
 }

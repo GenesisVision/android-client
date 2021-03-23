@@ -18,6 +18,7 @@ import com.jakewharton.rxbinding.widget.RxTextView;
 
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -115,7 +116,7 @@ public class CreateProgramDepositFragment extends BaseFragment implements Create
 
 	private CreateProgramModel model;
 
-	private Double minDeposit;
+	private Map<String, Double> minDepositInfo;
 
 	private Currency accountCurrency;
 
@@ -170,8 +171,8 @@ public class CreateProgramDepositFragment extends BaseFragment implements Create
 				updateView(stepNumber, model);
 				setTextListener();
 				presenter.setModel(model);
-				if (minDeposit != null) {
-					presenter.setMinDeposit(minDeposit, accountCurrency);
+				if (minDepositInfo != null) {
+					presenter.setMinDeposit(minDepositInfo, accountCurrency);
 				}
 				return;
 			}
@@ -198,10 +199,10 @@ public class CreateProgramDepositFragment extends BaseFragment implements Create
 
 	private void updateView(String stepNumber, CreateProgramModel model) {
 		this.stepNumber.setText(stepNumber);
-		if (model != null && model.getMinDeposit() != null) {
-			this.depositNotification.setText(String.format(Locale.getDefault(), getString(R.string.template_create_program_deposit),
-					StringFormatUtil.getValueString(model.getMinDeposit(), model.getCurrency()),
-					StringFormatUtil.getValueString(model.getMinDeposit() - model.getCurrentBalance(), model.getCurrency())));
+		if (model != null && model.getMinDepositInfo() != null) {
+//			this.depositNotification.setText(String.format(Locale.getDefault(), getString(R.string.template_create_program_deposit),
+//					StringFormatUtil.getValueString(model.getMinDepositInfo(), model.getCurrency()),
+//					StringFormatUtil.getValueString(model.getMinDepositInfo() - model.getCurrentBalance(), model.getCurrency())));
 		}
 
 		confirmButton.setEnabled(false);
@@ -253,11 +254,6 @@ public class CreateProgramDepositFragment extends BaseFragment implements Create
 	}
 
 	@Override
-	public void setAmountBase(String amountBaseString) {
-		this.baseCurrencyAmount.setText(amountBaseString);
-	}
-
-	@Override
 	public void setConfirmButtonEnabled(boolean enabled) {
 		this.confirmButton.setEnabled(enabled);
 	}
@@ -289,11 +285,11 @@ public class CreateProgramDepositFragment extends BaseFragment implements Create
 		}
 	}
 
-	public void setMinDeposit(Double minDeposit, Currency accountCurrency) {
-		this.minDeposit = minDeposit;
+	public void setMinDeposit(Map<String, Double> minDepositInfo, Currency accountCurrency) {
+		this.minDepositInfo = minDepositInfo;
 		this.accountCurrency = accountCurrency;
 		if (presenter != null) {
-			presenter.setMinDeposit(minDeposit, accountCurrency);
+			presenter.setMinDeposit(minDepositInfo, accountCurrency);
 		}
 	}
 

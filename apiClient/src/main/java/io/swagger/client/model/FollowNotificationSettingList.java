@@ -31,17 +31,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class FollowNotificationSettingList implements Parcelable
 {
-	public static final Parcelable.Creator<FollowNotificationSettingList> CREATOR = new Parcelable.Creator<FollowNotificationSettingList>()
-	{
-		public FollowNotificationSettingList createFromParcel(Parcel in) {
-			return new FollowNotificationSettingList(in);
-		}
-
-		public FollowNotificationSettingList[] newArray(int size) {
-			return new FollowNotificationSettingList[size];
-		}
-	};
-
 	@SerializedName("assetId")
 	private UUID assetId = null;
 
@@ -61,15 +50,6 @@ public class FollowNotificationSettingList implements Parcelable
 	private List<NotificationSettingViewModel> settingsGeneral = null;
 
 	public FollowNotificationSettingList() {
-	}
-
-	FollowNotificationSettingList(Parcel in) {
-		assetId = (UUID) in.readValue(UUID.class.getClassLoader());
-		title = (String) in.readValue(null);
-		url = (String) in.readValue(null);
-		logoUrl = (String) in.readValue(null);
-		color = (String) in.readValue(null);
-		settingsGeneral = (List<NotificationSettingViewModel>) in.readValue(NotificationSettingViewModel.class.getClassLoader());
 	}
 
 	public FollowNotificationSettingList assetId(UUID assetId) {
@@ -194,6 +174,7 @@ public class FollowNotificationSettingList implements Parcelable
 		this.settingsGeneral = settingsGeneral;
 	}
 
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -215,6 +196,7 @@ public class FollowNotificationSettingList implements Parcelable
 	public int hashCode() {
 		return Objects.hash(assetId, title, url, logoUrl, color, settingsGeneral);
 	}
+
 
 	@Override
 	public String toString() {
@@ -242,6 +224,7 @@ public class FollowNotificationSettingList implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
+
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(assetId);
 		out.writeValue(title);
@@ -251,7 +234,27 @@ public class FollowNotificationSettingList implements Parcelable
 		out.writeValue(settingsGeneral);
 	}
 
+	public static final Parcelable.Creator<FollowNotificationSettingList> CREATOR = new Parcelable.Creator<FollowNotificationSettingList>()
+	{
+		public FollowNotificationSettingList createFromParcel(Parcel in) {
+			return new FollowNotificationSettingList(in);
+		}
+
+		public FollowNotificationSettingList[] newArray(int size) {
+			return new FollowNotificationSettingList[size];
+		}
+	};
+
 	public int describeContents() {
 		return 0;
+	}
+
+	FollowNotificationSettingList(Parcel in) {
+		assetId = (UUID) in.readValue(UUID.class.getClassLoader());
+		title = (String) in.readValue(null);
+		url = (String) in.readValue(null);
+		logoUrl = (String) in.readValue(null);
+		color = (String) in.readValue(null);
+		settingsGeneral = (List<NotificationSettingViewModel>) in.readValue(NotificationSettingViewModel.class.getClassLoader());
 	}
 }

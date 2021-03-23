@@ -30,17 +30,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class PersonalFundDetails implements Parcelable
 {
-	public static final Parcelable.Creator<PersonalFundDetails> CREATOR = new Parcelable.Creator<PersonalFundDetails>()
-	{
-		public PersonalFundDetails createFromParcel(Parcel in) {
-			return new PersonalFundDetails(in);
-		}
-
-		public PersonalFundDetails[] newArray(int size) {
-			return new PersonalFundDetails[size];
-		}
-	};
-
 	@SerializedName("isFavorite")
 	private Boolean isFavorite = null;
 
@@ -87,24 +76,6 @@ public class PersonalFundDetails implements Parcelable
 	private Double exitFeePersonal = null;
 
 	public PersonalFundDetails() {
-	}
-
-	PersonalFundDetails(Parcel in) {
-		isFavorite = (Boolean) in.readValue(null);
-		isInvested = (Boolean) in.readValue(null);
-		canInvest = (Boolean) in.readValue(null);
-		canWithdraw = (Boolean) in.readValue(null);
-		ownerActions = (FundOwnerActions) in.readValue(FundOwnerActions.class.getClassLoader());
-		hasNotifications = (Boolean) in.readValue(null);
-		value = (Double) in.readValue(null);
-		status = (AssetInvestmentStatus) in.readValue(AssetInvestmentStatus.class.getClassLoader());
-		pendingInput = (Double) in.readValue(null);
-		pendingOutput = (Double) in.readValue(null);
-		pendingInOutCurrency = (Currency) in.readValue(Currency.class.getClassLoader());
-		withdrawPercent = (Double) in.readValue(null);
-		availableReallocationPercents = (Integer) in.readValue(null);
-		nextReallocationPercents = (DateTime) in.readValue(DateTime.class.getClassLoader());
-		exitFeePersonal = (Double) in.readValue(null);
 	}
 
 	public PersonalFundDetails isFavorite(Boolean isFavorite) {
@@ -392,6 +363,7 @@ public class PersonalFundDetails implements Parcelable
 		this.exitFeePersonal = exitFeePersonal;
 	}
 
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -422,6 +394,7 @@ public class PersonalFundDetails implements Parcelable
 	public int hashCode() {
 		return Objects.hash(isFavorite, isInvested, canInvest, canWithdraw, ownerActions, hasNotifications, value, status, pendingInput, pendingOutput, pendingInOutCurrency, withdrawPercent, availableReallocationPercents, nextReallocationPercents, exitFeePersonal);
 	}
+
 
 	@Override
 	public String toString() {
@@ -458,6 +431,7 @@ public class PersonalFundDetails implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
+
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(isFavorite);
 		out.writeValue(isInvested);
@@ -476,7 +450,36 @@ public class PersonalFundDetails implements Parcelable
 		out.writeValue(exitFeePersonal);
 	}
 
+	public static final Parcelable.Creator<PersonalFundDetails> CREATOR = new Parcelable.Creator<PersonalFundDetails>()
+	{
+		public PersonalFundDetails createFromParcel(Parcel in) {
+			return new PersonalFundDetails(in);
+		}
+
+		public PersonalFundDetails[] newArray(int size) {
+			return new PersonalFundDetails[size];
+		}
+	};
+
 	public int describeContents() {
 		return 0;
+	}
+
+	PersonalFundDetails(Parcel in) {
+		isFavorite = (Boolean) in.readValue(null);
+		isInvested = (Boolean) in.readValue(null);
+		canInvest = (Boolean) in.readValue(null);
+		canWithdraw = (Boolean) in.readValue(null);
+		ownerActions = (FundOwnerActions) in.readValue(FundOwnerActions.class.getClassLoader());
+		hasNotifications = (Boolean) in.readValue(null);
+		value = (Double) in.readValue(null);
+		status = (AssetInvestmentStatus) in.readValue(AssetInvestmentStatus.class.getClassLoader());
+		pendingInput = (Double) in.readValue(null);
+		pendingOutput = (Double) in.readValue(null);
+		pendingInOutCurrency = (Currency) in.readValue(Currency.class.getClassLoader());
+		withdrawPercent = (Double) in.readValue(null);
+		availableReallocationPercents = (Integer) in.readValue(null);
+		nextReallocationPercents = (DateTime) in.readValue(DateTime.class.getClassLoader());
+		exitFeePersonal = (Double) in.readValue(null);
 	}
 }

@@ -28,17 +28,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class TradingAccountPwdUpdate implements Parcelable
 {
-	public static final Parcelable.Creator<TradingAccountPwdUpdate> CREATOR = new Parcelable.Creator<TradingAccountPwdUpdate>()
-	{
-		public TradingAccountPwdUpdate createFromParcel(Parcel in) {
-			return new TradingAccountPwdUpdate(in);
-		}
-
-		public TradingAccountPwdUpdate[] newArray(int size) {
-			return new TradingAccountPwdUpdate[size];
-		}
-	};
-
 	@SerializedName("password")
 	private String password = null;
 
@@ -46,11 +35,6 @@ public class TradingAccountPwdUpdate implements Parcelable
 	private String twoFactorCode = null;
 
 	public TradingAccountPwdUpdate() {
-	}
-
-	TradingAccountPwdUpdate(Parcel in) {
-		password = (String) in.readValue(null);
-		twoFactorCode = (String) in.readValue(null);
 	}
 
 	public TradingAccountPwdUpdate password(String password) {
@@ -91,6 +75,7 @@ public class TradingAccountPwdUpdate implements Parcelable
 		this.twoFactorCode = twoFactorCode;
 	}
 
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -108,6 +93,7 @@ public class TradingAccountPwdUpdate implements Parcelable
 	public int hashCode() {
 		return Objects.hash(password, twoFactorCode);
 	}
+
 
 	@Override
 	public String toString() {
@@ -131,12 +117,29 @@ public class TradingAccountPwdUpdate implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
+
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(password);
 		out.writeValue(twoFactorCode);
 	}
 
+	public static final Parcelable.Creator<TradingAccountPwdUpdate> CREATOR = new Parcelable.Creator<TradingAccountPwdUpdate>()
+	{
+		public TradingAccountPwdUpdate createFromParcel(Parcel in) {
+			return new TradingAccountPwdUpdate(in);
+		}
+
+		public TradingAccountPwdUpdate[] newArray(int size) {
+			return new TradingAccountPwdUpdate[size];
+		}
+	};
+
 	public int describeContents() {
 		return 0;
+	}
+
+	TradingAccountPwdUpdate(Parcel in) {
+		password = (String) in.readValue(null);
+		twoFactorCode = (String) in.readValue(null);
 	}
 }

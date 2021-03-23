@@ -30,15 +30,6 @@ public enum AssetProvider
 	HUOBI("Huobi"),
 	NASDAQ("Nasdaq");
 
-	public static AssetProvider fromValue(String text) {
-		for (AssetProvider b : AssetProvider.values()) {
-			if (String.valueOf(b.value).equals(text)) {
-				return b;
-			}
-		}
-		return null;
-	}
-
 	private String value;
 
 	AssetProvider(String value) {
@@ -54,6 +45,15 @@ public enum AssetProvider
 		return String.valueOf(value);
 	}
 
+	public static AssetProvider fromValue(String text) {
+		for (AssetProvider b : AssetProvider.values()) {
+			if (String.valueOf(b.value).equals(text)) {
+				return b;
+			}
+		}
+		return null;
+	}
+
 	public static class Adapter extends TypeAdapter<AssetProvider>
 	{
 		@Override
@@ -63,7 +63,7 @@ public enum AssetProvider
 
 		@Override
 		public AssetProvider read(final JsonReader jsonReader) throws IOException {
-			String value = jsonReader.nextString();
+			Object value = jsonReader.nextString();
 			return AssetProvider.fromValue(String.valueOf(value));
 		}
 	}

@@ -28,17 +28,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class InvestmentEventItemViewModel implements Parcelable
 {
-	public static final Parcelable.Creator<InvestmentEventItemViewModel> CREATOR = new Parcelable.Creator<InvestmentEventItemViewModel>()
-	{
-		public InvestmentEventItemViewModel createFromParcel(Parcel in) {
-			return new InvestmentEventItemViewModel(in);
-		}
-
-		public InvestmentEventItemViewModel[] newArray(int size) {
-			return new InvestmentEventItemViewModel[size];
-		}
-	};
-
 	@SerializedName("title")
 	private String title = null;
 
@@ -49,12 +38,6 @@ public class InvestmentEventItemViewModel implements Parcelable
 	private Currency currency = null;
 
 	public InvestmentEventItemViewModel() {
-	}
-
-	InvestmentEventItemViewModel(Parcel in) {
-		title = (String) in.readValue(null);
-		amount = (Double) in.readValue(null);
-		currency = (Currency) in.readValue(Currency.class.getClassLoader());
 	}
 
 	public InvestmentEventItemViewModel title(String title) {
@@ -114,6 +97,7 @@ public class InvestmentEventItemViewModel implements Parcelable
 		this.currency = currency;
 	}
 
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -132,6 +116,7 @@ public class InvestmentEventItemViewModel implements Parcelable
 	public int hashCode() {
 		return Objects.hash(title, amount, currency);
 	}
+
 
 	@Override
 	public String toString() {
@@ -156,13 +141,31 @@ public class InvestmentEventItemViewModel implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
+
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(title);
 		out.writeValue(amount);
 		out.writeValue(currency);
 	}
 
+	public static final Parcelable.Creator<InvestmentEventItemViewModel> CREATOR = new Parcelable.Creator<InvestmentEventItemViewModel>()
+	{
+		public InvestmentEventItemViewModel createFromParcel(Parcel in) {
+			return new InvestmentEventItemViewModel(in);
+		}
+
+		public InvestmentEventItemViewModel[] newArray(int size) {
+			return new InvestmentEventItemViewModel[size];
+		}
+	};
+
 	public int describeContents() {
 		return 0;
+	}
+
+	InvestmentEventItemViewModel(Parcel in) {
+		title = (String) in.readValue(null);
+		amount = (Double) in.readValue(null);
+		currency = (Currency) in.readValue(Currency.class.getClassLoader());
 	}
 }

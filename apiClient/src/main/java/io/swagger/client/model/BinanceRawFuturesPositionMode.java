@@ -28,25 +28,10 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class BinanceRawFuturesPositionMode implements Parcelable
 {
-	public static final Parcelable.Creator<BinanceRawFuturesPositionMode> CREATOR = new Parcelable.Creator<BinanceRawFuturesPositionMode>()
-	{
-		public BinanceRawFuturesPositionMode createFromParcel(Parcel in) {
-			return new BinanceRawFuturesPositionMode(in);
-		}
-
-		public BinanceRawFuturesPositionMode[] newArray(int size) {
-			return new BinanceRawFuturesPositionMode[size];
-		}
-	};
-
 	@SerializedName("positionMode")
 	private BinancePositionMode positionMode = null;
 
 	public BinanceRawFuturesPositionMode() {
-	}
-
-	BinanceRawFuturesPositionMode(Parcel in) {
-		positionMode = (BinancePositionMode) in.readValue(BinancePositionMode.class.getClassLoader());
 	}
 
 	public BinanceRawFuturesPositionMode positionMode(BinancePositionMode positionMode) {
@@ -68,6 +53,7 @@ public class BinanceRawFuturesPositionMode implements Parcelable
 		this.positionMode = positionMode;
 	}
 
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -84,6 +70,7 @@ public class BinanceRawFuturesPositionMode implements Parcelable
 	public int hashCode() {
 		return Objects.hash(positionMode);
 	}
+
 
 	@Override
 	public String toString() {
@@ -106,11 +93,27 @@ public class BinanceRawFuturesPositionMode implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
+
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(positionMode);
 	}
 
+	public static final Parcelable.Creator<BinanceRawFuturesPositionMode> CREATOR = new Parcelable.Creator<BinanceRawFuturesPositionMode>()
+	{
+		public BinanceRawFuturesPositionMode createFromParcel(Parcel in) {
+			return new BinanceRawFuturesPositionMode(in);
+		}
+
+		public BinanceRawFuturesPositionMode[] newArray(int size) {
+			return new BinanceRawFuturesPositionMode[size];
+		}
+	};
+
 	public int describeContents() {
 		return 0;
+	}
+
+	BinanceRawFuturesPositionMode(Parcel in) {
+		positionMode = (BinancePositionMode) in.readValue(BinancePositionMode.class.getClassLoader());
 	}
 }

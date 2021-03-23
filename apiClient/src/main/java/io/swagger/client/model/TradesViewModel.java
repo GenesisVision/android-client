@@ -29,17 +29,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class TradesViewModel implements Parcelable
 {
-	public static final Parcelable.Creator<TradesViewModel> CREATOR = new Parcelable.Creator<TradesViewModel>()
-	{
-		public TradesViewModel createFromParcel(Parcel in) {
-			return new TradesViewModel(in);
-		}
-
-		public TradesViewModel[] newArray(int size) {
-			return new TradesViewModel[size];
-		}
-	};
-
 	@SerializedName("items")
 	private List<OrderModel> items = null;
 
@@ -71,19 +60,6 @@ public class TradesViewModel implements Parcelable
 	private TradesDelay tradesDelay = null;
 
 	public TradesViewModel() {
-	}
-
-	TradesViewModel(Parcel in) {
-		items = (List<OrderModel>) in.readValue(OrderModel.class.getClassLoader());
-		total = (Integer) in.readValue(null);
-		showSwaps = (Boolean) in.readValue(null);
-		showTickets = (Boolean) in.readValue(null);
-		showDate = (Boolean) in.readValue(null);
-		showDirection = (Boolean) in.readValue(null);
-		showPrice = (Boolean) in.readValue(null);
-		showPriceOpen = (Boolean) in.readValue(null);
-		showProfit = (Boolean) in.readValue(null);
-		tradesDelay = (TradesDelay) in.readValue(TradesDelay.class.getClassLoader());
 	}
 
 	/**
@@ -258,6 +234,7 @@ public class TradesViewModel implements Parcelable
 		this.tradesDelay = tradesDelay;
 	}
 
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -283,6 +260,7 @@ public class TradesViewModel implements Parcelable
 	public int hashCode() {
 		return Objects.hash(items, total, showSwaps, showTickets, showDate, showDirection, showPrice, showPriceOpen, showProfit, tradesDelay);
 	}
+
 
 	@Override
 	public String toString() {
@@ -314,6 +292,7 @@ public class TradesViewModel implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
+
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(items);
 		out.writeValue(total);
@@ -327,7 +306,31 @@ public class TradesViewModel implements Parcelable
 		out.writeValue(tradesDelay);
 	}
 
+	public static final Parcelable.Creator<TradesViewModel> CREATOR = new Parcelable.Creator<TradesViewModel>()
+	{
+		public TradesViewModel createFromParcel(Parcel in) {
+			return new TradesViewModel(in);
+		}
+
+		public TradesViewModel[] newArray(int size) {
+			return new TradesViewModel[size];
+		}
+	};
+
 	public int describeContents() {
 		return 0;
+	}
+
+	TradesViewModel(Parcel in) {
+		items = (List<OrderModel>) in.readValue(OrderModel.class.getClassLoader());
+		total = (Integer) in.readValue(null);
+		showSwaps = (Boolean) in.readValue(null);
+		showTickets = (Boolean) in.readValue(null);
+		showDate = (Boolean) in.readValue(null);
+		showDirection = (Boolean) in.readValue(null);
+		showPrice = (Boolean) in.readValue(null);
+		showPriceOpen = (Boolean) in.readValue(null);
+		showProfit = (Boolean) in.readValue(null);
+		tradesDelay = (TradesDelay) in.readValue(TradesDelay.class.getClassLoader());
 	}
 }

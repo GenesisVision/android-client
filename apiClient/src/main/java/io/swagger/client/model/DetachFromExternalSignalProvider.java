@@ -29,25 +29,10 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class DetachFromExternalSignalProvider implements Parcelable
 {
-	public static final Parcelable.Creator<DetachFromExternalSignalProvider> CREATOR = new Parcelable.Creator<DetachFromExternalSignalProvider>()
-	{
-		public DetachFromExternalSignalProvider createFromParcel(Parcel in) {
-			return new DetachFromExternalSignalProvider(in);
-		}
-
-		public DetachFromExternalSignalProvider[] newArray(int size) {
-			return new DetachFromExternalSignalProvider[size];
-		}
-	};
-
 	@SerializedName("tradingAccountId")
 	private UUID tradingAccountId = null;
 
 	public DetachFromExternalSignalProvider() {
-	}
-
-	DetachFromExternalSignalProvider(Parcel in) {
-		tradingAccountId = (UUID) in.readValue(UUID.class.getClassLoader());
 	}
 
 	public DetachFromExternalSignalProvider tradingAccountId(UUID tradingAccountId) {
@@ -69,6 +54,7 @@ public class DetachFromExternalSignalProvider implements Parcelable
 		this.tradingAccountId = tradingAccountId;
 	}
 
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -85,6 +71,7 @@ public class DetachFromExternalSignalProvider implements Parcelable
 	public int hashCode() {
 		return Objects.hash(tradingAccountId);
 	}
+
 
 	@Override
 	public String toString() {
@@ -107,11 +94,27 @@ public class DetachFromExternalSignalProvider implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
+
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(tradingAccountId);
 	}
 
+	public static final Parcelable.Creator<DetachFromExternalSignalProvider> CREATOR = new Parcelable.Creator<DetachFromExternalSignalProvider>()
+	{
+		public DetachFromExternalSignalProvider createFromParcel(Parcel in) {
+			return new DetachFromExternalSignalProvider(in);
+		}
+
+		public DetachFromExternalSignalProvider[] newArray(int size) {
+			return new DetachFromExternalSignalProvider[size];
+		}
+	};
+
 	public int describeContents() {
 		return 0;
+	}
+
+	DetachFromExternalSignalProvider(Parcel in) {
+		tradingAccountId = (UUID) in.readValue(UUID.class.getClassLoader());
 	}
 }

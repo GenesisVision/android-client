@@ -33,17 +33,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class FollowDetailsListItem implements Parcelable
 {
-	public static final Parcelable.Creator<FollowDetailsListItem> CREATOR = new Parcelable.Creator<FollowDetailsListItem>()
-	{
-		public FollowDetailsListItem createFromParcel(Parcel in) {
-			return new FollowDetailsListItem(in);
-		}
-
-		public FollowDetailsListItem[] newArray(int size) {
-			return new FollowDetailsListItem[size];
-		}
-	};
-
 	@SerializedName("id")
 	private UUID id = null;
 
@@ -86,11 +75,22 @@ public class FollowDetailsListItem implements Parcelable
 	@SerializedName("leverageMax")
 	private Integer leverageMax = null;
 
-	@SerializedName("brokerId")
-	private UUID brokerId = null;
+	public static final Parcelable.Creator<FollowDetailsListItem> CREATOR = new Parcelable.Creator<FollowDetailsListItem>()
+	{
+		public FollowDetailsListItem createFromParcel(Parcel in) {
+			return new FollowDetailsListItem(in);
+		}
 
-	@SerializedName("brokerType")
-	private BrokerTradeServerType brokerType = null;
+		public FollowDetailsListItem[] newArray(int size) {
+			return new FollowDetailsListItem[size];
+		}
+	};
+
+	@SerializedName("successFee")
+	private Double successFee = null;
+
+	@SerializedName("volumeFee")
+	private Double volumeFee = null;
 
 	@SerializedName("owner")
 	private ProfilePublicShort owner = null;
@@ -108,30 +108,6 @@ public class FollowDetailsListItem implements Parcelable
 	private AmountWithCurrency balance = null;
 
 	public FollowDetailsListItem() {
-	}
-
-	FollowDetailsListItem(Parcel in) {
-		id = (UUID) in.readValue(UUID.class.getClassLoader());
-		title = (String) in.readValue(null);
-		description = (String) in.readValue(null);
-		logoUrl = (String) in.readValue(null);
-		creationDate = (DateTime) in.readValue(DateTime.class.getClassLoader());
-		currency = (Currency) in.readValue(Currency.class.getClassLoader());
-		subscribersCount = (Integer) in.readValue(null);
-		tradesCount = (Integer) in.readValue(null);
-		status = (String) in.readValue(null);
-		url = (String) in.readValue(null);
-		color = (String) in.readValue(null);
-		isExternal = (Boolean) in.readValue(null);
-		leverageMin = (Integer) in.readValue(null);
-		leverageMax = (Integer) in.readValue(null);
-		brokerId = (UUID) in.readValue(UUID.class.getClassLoader());
-		brokerType = (BrokerTradeServerType) in.readValue(BrokerTradeServerType.class.getClassLoader());
-		owner = (ProfilePublicShort) in.readValue(ProfilePublicShort.class.getClassLoader());
-		statistic = (ProfitChart) in.readValue(ProfitChart.class.getClassLoader());
-		personalDetails = (PersonalFollowDetailsList) in.readValue(PersonalFollowDetailsList.class.getClassLoader());
-		tags = (List<Tag>) in.readValue(Tag.class.getClassLoader());
-		balance = (AmountWithCurrency) in.readValue(AmountWithCurrency.class.getClassLoader());
 	}
 
 	public FollowDetailsListItem id(UUID id) {
@@ -400,42 +376,75 @@ public class FollowDetailsListItem implements Parcelable
 		this.leverageMax = leverageMax;
 	}
 
-	public FollowDetailsListItem brokerId(UUID brokerId) {
-		this.brokerId = brokerId;
+	@SerializedName("brokerDetails")
+	private BrokerDetails brokerDetails = null;
+
+	FollowDetailsListItem(Parcel in) {
+		id = (UUID) in.readValue(UUID.class.getClassLoader());
+		title = (String) in.readValue(null);
+		description = (String) in.readValue(null);
+		logoUrl = (String) in.readValue(null);
+		creationDate = (DateTime) in.readValue(DateTime.class.getClassLoader());
+		currency = (Currency) in.readValue(Currency.class.getClassLoader());
+		subscribersCount = (Integer) in.readValue(null);
+		tradesCount = (Integer) in.readValue(null);
+		status = (String) in.readValue(null);
+		url = (String) in.readValue(null);
+		color = (String) in.readValue(null);
+		isExternal = (Boolean) in.readValue(null);
+		leverageMin = (Integer) in.readValue(null);
+		leverageMax = (Integer) in.readValue(null);
+		successFee = (Double) in.readValue(null);
+		volumeFee = (Double) in.readValue(null);
+		brokerDetails = (BrokerDetails) in.readValue(BrokerDetails.class.getClassLoader());
+		owner = (ProfilePublicShort) in.readValue(ProfilePublicShort.class.getClassLoader());
+		statistic = (ProfitChart) in.readValue(ProfitChart.class.getClassLoader());
+		personalDetails = (PersonalFollowDetailsList) in.readValue(PersonalFollowDetailsList.class.getClassLoader());
+		tags = (List<Tag>) in.readValue(Tag.class.getClassLoader());
+		balance = (AmountWithCurrency) in.readValue(AmountWithCurrency.class.getClassLoader());
+	}
+
+	public FollowDetailsListItem successFee(Double successFee) {
+		this.successFee = successFee;
 		return this;
 	}
 
 	/**
-	 * Get brokerId
+	 * Get successFee
 	 *
-	 * @return brokerId
+	 * @return successFee
 	 **/
 	@Schema(description = "")
-	public UUID getBrokerId() {
-		return brokerId;
+	public Double getSuccessFee() {
+		return successFee;
 	}
 
-	public void setBrokerId(UUID brokerId) {
-		this.brokerId = brokerId;
+	public void setSuccessFee(Double successFee) {
+		this.successFee = successFee;
 	}
 
-	public FollowDetailsListItem brokerType(BrokerTradeServerType brokerType) {
-		this.brokerType = brokerType;
+	public FollowDetailsListItem volumeFee(Double volumeFee) {
+		this.volumeFee = volumeFee;
 		return this;
 	}
 
 	/**
-	 * Get brokerType
+	 * Get volumeFee
 	 *
-	 * @return brokerType
+	 * @return volumeFee
 	 **/
 	@Schema(description = "")
-	public BrokerTradeServerType getBrokerType() {
-		return brokerType;
+	public Double getVolumeFee() {
+		return volumeFee;
 	}
 
-	public void setBrokerType(BrokerTradeServerType brokerType) {
-		this.brokerType = brokerType;
+	public void setVolumeFee(Double volumeFee) {
+		this.volumeFee = volumeFee;
+	}
+
+	public FollowDetailsListItem brokerDetails(BrokerDetails brokerDetails) {
+		this.brokerDetails = brokerDetails;
+		return this;
 	}
 
 	public FollowDetailsListItem owner(ProfilePublicShort owner) {
@@ -541,6 +550,20 @@ public class FollowDetailsListItem implements Parcelable
 		this.balance = balance;
 	}
 
+	/**
+	 * Get brokerDetails
+	 *
+	 * @return brokerDetails
+	 **/
+	@Schema(description = "")
+	public BrokerDetails getBrokerDetails() {
+		return brokerDetails;
+	}
+
+	public void setBrokerDetails(BrokerDetails brokerDetails) {
+		this.brokerDetails = brokerDetails;
+	}
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -564,8 +587,9 @@ public class FollowDetailsListItem implements Parcelable
 				Objects.equals(this.isExternal, followDetailsListItem.isExternal) &&
 				Objects.equals(this.leverageMin, followDetailsListItem.leverageMin) &&
 				Objects.equals(this.leverageMax, followDetailsListItem.leverageMax) &&
-				Objects.equals(this.brokerId, followDetailsListItem.brokerId) &&
-				Objects.equals(this.brokerType, followDetailsListItem.brokerType) &&
+				Objects.equals(this.successFee, followDetailsListItem.successFee) &&
+				Objects.equals(this.volumeFee, followDetailsListItem.volumeFee) &&
+				Objects.equals(this.brokerDetails, followDetailsListItem.brokerDetails) &&
 				Objects.equals(this.owner, followDetailsListItem.owner) &&
 				Objects.equals(this.statistic, followDetailsListItem.statistic) &&
 				Objects.equals(this.personalDetails, followDetailsListItem.personalDetails) &&
@@ -573,9 +597,20 @@ public class FollowDetailsListItem implements Parcelable
 				Objects.equals(this.balance, followDetailsListItem.balance);
 	}
 
+	/**
+	 * Convert the given object to string with each line indented by 4 spaces
+	 * (except the first line).
+	 */
+	private String toIndentedString(java.lang.Object o) {
+		if (o == null) {
+			return "null";
+		}
+		return o.toString().replace("\n", "\n    ");
+	}
+
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, title, description, logoUrl, creationDate, currency, subscribersCount, tradesCount, status, url, color, isExternal, leverageMin, leverageMax, brokerId, brokerType, owner, statistic, personalDetails, tags, balance);
+		return Objects.hash(id, title, description, logoUrl, creationDate, currency, subscribersCount, tradesCount, status, url, color, isExternal, leverageMin, leverageMax, successFee, volumeFee, brokerDetails, owner, statistic, personalDetails, tags, balance);
 	}
 
 	@Override
@@ -597,8 +632,9 @@ public class FollowDetailsListItem implements Parcelable
 		sb.append("    isExternal: ").append(toIndentedString(isExternal)).append("\n");
 		sb.append("    leverageMin: ").append(toIndentedString(leverageMin)).append("\n");
 		sb.append("    leverageMax: ").append(toIndentedString(leverageMax)).append("\n");
-		sb.append("    brokerId: ").append(toIndentedString(brokerId)).append("\n");
-		sb.append("    brokerType: ").append(toIndentedString(brokerType)).append("\n");
+		sb.append("    successFee: ").append(toIndentedString(successFee)).append("\n");
+		sb.append("    volumeFee: ").append(toIndentedString(volumeFee)).append("\n");
+		sb.append("    brokerDetails: ").append(toIndentedString(brokerDetails)).append("\n");
 		sb.append("    owner: ").append(toIndentedString(owner)).append("\n");
 		sb.append("    statistic: ").append(toIndentedString(statistic)).append("\n");
 		sb.append("    personalDetails: ").append(toIndentedString(personalDetails)).append("\n");
@@ -608,15 +644,8 @@ public class FollowDetailsListItem implements Parcelable
 		return sb.toString();
 	}
 
-	/**
-	 * Convert the given object to string with each line indented by 4 spaces
-	 * (except the first line).
-	 */
-	private String toIndentedString(java.lang.Object o) {
-		if (o == null) {
-			return "null";
-		}
-		return o.toString().replace("\n", "\n    ");
+	public int describeContents() {
+		return 0;
 	}
 
 	public void writeToParcel(Parcel out, int flags) {
@@ -634,16 +663,13 @@ public class FollowDetailsListItem implements Parcelable
 		out.writeValue(isExternal);
 		out.writeValue(leverageMin);
 		out.writeValue(leverageMax);
-		out.writeValue(brokerId);
-		out.writeValue(brokerType);
+		out.writeValue(successFee);
+		out.writeValue(volumeFee);
+		out.writeValue(brokerDetails);
 		out.writeValue(owner);
 		out.writeValue(statistic);
 		out.writeValue(personalDetails);
 		out.writeValue(tags);
 		out.writeValue(balance);
-	}
-
-	public int describeContents() {
-		return 0;
 	}
 }

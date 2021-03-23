@@ -29,15 +29,6 @@ public enum BinanceRateLimitInterval
 	MINUTE("Minute"),
 	DAY("Day");
 
-	public static BinanceRateLimitInterval fromValue(String text) {
-		for (BinanceRateLimitInterval b : BinanceRateLimitInterval.values()) {
-			if (String.valueOf(b.value).equals(text)) {
-				return b;
-			}
-		}
-		return null;
-	}
-
 	private String value;
 
 	BinanceRateLimitInterval(String value) {
@@ -53,6 +44,15 @@ public enum BinanceRateLimitInterval
 		return String.valueOf(value);
 	}
 
+	public static BinanceRateLimitInterval fromValue(String text) {
+		for (BinanceRateLimitInterval b : BinanceRateLimitInterval.values()) {
+			if (String.valueOf(b.value).equals(text)) {
+				return b;
+			}
+		}
+		return null;
+	}
+
 	public static class Adapter extends TypeAdapter<BinanceRateLimitInterval>
 	{
 		@Override
@@ -62,7 +62,7 @@ public enum BinanceRateLimitInterval
 
 		@Override
 		public BinanceRateLimitInterval read(final JsonReader jsonReader) throws IOException {
-			String value = jsonReader.nextString();
+			Object value = jsonReader.nextString();
 			return BinanceRateLimitInterval.fromValue(String.valueOf(value));
 		}
 	}

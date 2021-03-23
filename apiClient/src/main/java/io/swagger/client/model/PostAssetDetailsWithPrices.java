@@ -29,17 +29,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class PostAssetDetailsWithPrices implements Parcelable
 {
-	public static final Parcelable.Creator<PostAssetDetailsWithPrices> CREATOR = new Parcelable.Creator<PostAssetDetailsWithPrices>()
-	{
-		public PostAssetDetailsWithPrices createFromParcel(Parcel in) {
-			return new PostAssetDetailsWithPrices(in);
-		}
-
-		public PostAssetDetailsWithPrices[] newArray(int size) {
-			return new PostAssetDetailsWithPrices[size];
-		}
-	};
-
 	@SerializedName("id")
 	private UUID id = null;
 
@@ -74,20 +63,6 @@ public class PostAssetDetailsWithPrices implements Parcelable
 	private ChangeState changeState = null;
 
 	public PostAssetDetailsWithPrices() {
-	}
-
-	PostAssetDetailsWithPrices(Parcel in) {
-		id = (UUID) in.readValue(UUID.class.getClassLoader());
-		logoUrl = (String) in.readValue(null);
-		color = (String) in.readValue(null);
-		title = (String) in.readValue(null);
-		url = (String) in.readValue(null);
-		assetType = (AssetType) in.readValue(AssetType.class.getClassLoader());
-		programDetails = (ProgramAssetDetails) in.readValue(ProgramAssetDetails.class.getClassLoader());
-		price = (Double) in.readValue(null);
-		priceCurrency = (Currency) in.readValue(Currency.class.getClassLoader());
-		change24Percent = (Double) in.readValue(null);
-		changeState = (ChangeState) in.readValue(ChangeState.class.getClassLoader());
 	}
 
 	public PostAssetDetailsWithPrices id(UUID id) {
@@ -299,6 +274,7 @@ public class PostAssetDetailsWithPrices implements Parcelable
 		this.changeState = changeState;
 	}
 
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -325,6 +301,7 @@ public class PostAssetDetailsWithPrices implements Parcelable
 	public int hashCode() {
 		return Objects.hash(id, logoUrl, color, title, url, assetType, programDetails, price, priceCurrency, change24Percent, changeState);
 	}
+
 
 	@Override
 	public String toString() {
@@ -357,6 +334,7 @@ public class PostAssetDetailsWithPrices implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
+
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(id);
 		out.writeValue(logoUrl);
@@ -371,7 +349,32 @@ public class PostAssetDetailsWithPrices implements Parcelable
 		out.writeValue(changeState);
 	}
 
+	public static final Parcelable.Creator<PostAssetDetailsWithPrices> CREATOR = new Parcelable.Creator<PostAssetDetailsWithPrices>()
+	{
+		public PostAssetDetailsWithPrices createFromParcel(Parcel in) {
+			return new PostAssetDetailsWithPrices(in);
+		}
+
+		public PostAssetDetailsWithPrices[] newArray(int size) {
+			return new PostAssetDetailsWithPrices[size];
+		}
+	};
+
 	public int describeContents() {
 		return 0;
+	}
+
+	PostAssetDetailsWithPrices(Parcel in) {
+		id = (UUID) in.readValue(UUID.class.getClassLoader());
+		logoUrl = (String) in.readValue(null);
+		color = (String) in.readValue(null);
+		title = (String) in.readValue(null);
+		url = (String) in.readValue(null);
+		assetType = (AssetType) in.readValue(AssetType.class.getClassLoader());
+		programDetails = (ProgramAssetDetails) in.readValue(ProgramAssetDetails.class.getClassLoader());
+		price = (Double) in.readValue(null);
+		priceCurrency = (Currency) in.readValue(Currency.class.getClassLoader());
+		change24Percent = (Double) in.readValue(null);
+		changeState = (ChangeState) in.readValue(ChangeState.class.getClassLoader());
 	}
 }

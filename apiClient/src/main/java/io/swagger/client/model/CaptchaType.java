@@ -29,15 +29,6 @@ public enum CaptchaType
 	POW("Pow"),
 	GEETEST("GeeTest");
 
-	public static CaptchaType fromValue(String text) {
-		for (CaptchaType b : CaptchaType.values()) {
-			if (String.valueOf(b.value).equals(text)) {
-				return b;
-			}
-		}
-		return null;
-	}
-
 	private String value;
 
 	CaptchaType(String value) {
@@ -53,6 +44,15 @@ public enum CaptchaType
 		return String.valueOf(value);
 	}
 
+	public static CaptchaType fromValue(String text) {
+		for (CaptchaType b : CaptchaType.values()) {
+			if (String.valueOf(b.value).equals(text)) {
+				return b;
+			}
+		}
+		return null;
+	}
+
 	public static class Adapter extends TypeAdapter<CaptchaType>
 	{
 		@Override
@@ -62,7 +62,7 @@ public enum CaptchaType
 
 		@Override
 		public CaptchaType read(final JsonReader jsonReader) throws IOException {
-			String value = jsonReader.nextString();
+			Object value = jsonReader.nextString();
 			return CaptchaType.fromValue(String.valueOf(value));
 		}
 	}

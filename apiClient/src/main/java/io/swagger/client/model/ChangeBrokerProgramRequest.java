@@ -29,17 +29,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class ChangeBrokerProgramRequest implements Parcelable
 {
-	public static final Parcelable.Creator<ChangeBrokerProgramRequest> CREATOR = new Parcelable.Creator<ChangeBrokerProgramRequest>()
-	{
-		public ChangeBrokerProgramRequest createFromParcel(Parcel in) {
-			return new ChangeBrokerProgramRequest(in);
-		}
-
-		public ChangeBrokerProgramRequest[] newArray(int size) {
-			return new ChangeBrokerProgramRequest[size];
-		}
-	};
-
 	@SerializedName("newBrokerAccountTypeId")
 	private UUID newBrokerAccountTypeId = null;
 
@@ -47,11 +36,6 @@ public class ChangeBrokerProgramRequest implements Parcelable
 	private Integer newLeverage = null;
 
 	public ChangeBrokerProgramRequest() {
-	}
-
-	ChangeBrokerProgramRequest(Parcel in) {
-		newBrokerAccountTypeId = (UUID) in.readValue(UUID.class.getClassLoader());
-		newLeverage = (Integer) in.readValue(null);
 	}
 
 	public ChangeBrokerProgramRequest newBrokerAccountTypeId(UUID newBrokerAccountTypeId) {
@@ -92,6 +76,7 @@ public class ChangeBrokerProgramRequest implements Parcelable
 		this.newLeverage = newLeverage;
 	}
 
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -109,6 +94,7 @@ public class ChangeBrokerProgramRequest implements Parcelable
 	public int hashCode() {
 		return Objects.hash(newBrokerAccountTypeId, newLeverage);
 	}
+
 
 	@Override
 	public String toString() {
@@ -132,12 +118,29 @@ public class ChangeBrokerProgramRequest implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
+
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(newBrokerAccountTypeId);
 		out.writeValue(newLeverage);
 	}
 
+	public static final Parcelable.Creator<ChangeBrokerProgramRequest> CREATOR = new Parcelable.Creator<ChangeBrokerProgramRequest>()
+	{
+		public ChangeBrokerProgramRequest createFromParcel(Parcel in) {
+			return new ChangeBrokerProgramRequest(in);
+		}
+
+		public ChangeBrokerProgramRequest[] newArray(int size) {
+			return new ChangeBrokerProgramRequest[size];
+		}
+	};
+
 	public int describeContents() {
 		return 0;
+	}
+
+	ChangeBrokerProgramRequest(Parcel in) {
+		newBrokerAccountTypeId = (UUID) in.readValue(UUID.class.getClassLoader());
+		newLeverage = (Integer) in.readValue(null);
 	}
 }

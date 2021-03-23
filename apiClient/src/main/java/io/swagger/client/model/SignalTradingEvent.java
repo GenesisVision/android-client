@@ -30,17 +30,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class SignalTradingEvent implements Parcelable
 {
-	public static final Parcelable.Creator<SignalTradingEvent> CREATOR = new Parcelable.Creator<SignalTradingEvent>()
-	{
-		public SignalTradingEvent createFromParcel(Parcel in) {
-			return new SignalTradingEvent(in);
-		}
-
-		public SignalTradingEvent[] newArray(int size) {
-			return new SignalTradingEvent[size];
-		}
-	};
-
 	@SerializedName("date")
 	private DateTime date = null;
 
@@ -48,11 +37,6 @@ public class SignalTradingEvent implements Parcelable
 	private String message = null;
 
 	public SignalTradingEvent() {
-	}
-
-	SignalTradingEvent(Parcel in) {
-		date = (DateTime) in.readValue(DateTime.class.getClassLoader());
-		message = (String) in.readValue(null);
 	}
 
 	public SignalTradingEvent date(DateTime date) {
@@ -93,6 +77,7 @@ public class SignalTradingEvent implements Parcelable
 		this.message = message;
 	}
 
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -110,6 +95,7 @@ public class SignalTradingEvent implements Parcelable
 	public int hashCode() {
 		return Objects.hash(date, message);
 	}
+
 
 	@Override
 	public String toString() {
@@ -133,12 +119,29 @@ public class SignalTradingEvent implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
+
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(date);
 		out.writeValue(message);
 	}
 
+	public static final Parcelable.Creator<SignalTradingEvent> CREATOR = new Parcelable.Creator<SignalTradingEvent>()
+	{
+		public SignalTradingEvent createFromParcel(Parcel in) {
+			return new SignalTradingEvent(in);
+		}
+
+		public SignalTradingEvent[] newArray(int size) {
+			return new SignalTradingEvent[size];
+		}
+	};
+
 	public int describeContents() {
 		return 0;
+	}
+
+	SignalTradingEvent(Parcel in) {
+		date = (DateTime) in.readValue(DateTime.class.getClassLoader());
+		message = (String) in.readValue(null);
 	}
 }

@@ -28,17 +28,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class FundOwnerActions implements Parcelable
 {
-	public static final Parcelable.Creator<FundOwnerActions> CREATOR = new Parcelable.Creator<FundOwnerActions>()
-	{
-		public FundOwnerActions createFromParcel(Parcel in) {
-			return new FundOwnerActions(in);
-		}
-
-		public FundOwnerActions[] newArray(int size) {
-			return new FundOwnerActions[size];
-		}
-	};
-
 	@SerializedName("canClose")
 	private Boolean canClose = null;
 
@@ -46,11 +35,6 @@ public class FundOwnerActions implements Parcelable
 	private Boolean canReallocate = null;
 
 	public FundOwnerActions() {
-	}
-
-	FundOwnerActions(Parcel in) {
-		canClose = (Boolean) in.readValue(null);
-		canReallocate = (Boolean) in.readValue(null);
 	}
 
 	public FundOwnerActions canClose(Boolean canClose) {
@@ -91,6 +75,7 @@ public class FundOwnerActions implements Parcelable
 		this.canReallocate = canReallocate;
 	}
 
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -108,6 +93,7 @@ public class FundOwnerActions implements Parcelable
 	public int hashCode() {
 		return Objects.hash(canClose, canReallocate);
 	}
+
 
 	@Override
 	public String toString() {
@@ -131,12 +117,29 @@ public class FundOwnerActions implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
+
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(canClose);
 		out.writeValue(canReallocate);
 	}
 
+	public static final Parcelable.Creator<FundOwnerActions> CREATOR = new Parcelable.Creator<FundOwnerActions>()
+	{
+		public FundOwnerActions createFromParcel(Parcel in) {
+			return new FundOwnerActions(in);
+		}
+
+		public FundOwnerActions[] newArray(int size) {
+			return new FundOwnerActions[size];
+		}
+	};
+
 	public int describeContents() {
 		return 0;
+	}
+
+	FundOwnerActions(Parcel in) {
+		canClose = (Boolean) in.readValue(null);
+		canReallocate = (Boolean) in.readValue(null);
 	}
 }

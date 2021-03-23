@@ -33,15 +33,6 @@ public enum PushNotificationChannel
 	SOCIAL("Social"),
 	OTHER("Other");
 
-	public static PushNotificationChannel fromValue(String text) {
-		for (PushNotificationChannel b : PushNotificationChannel.values()) {
-			if (String.valueOf(b.value).equals(text)) {
-				return b;
-			}
-		}
-		return null;
-	}
-
 	private String value;
 
 	PushNotificationChannel(String value) {
@@ -57,6 +48,15 @@ public enum PushNotificationChannel
 		return String.valueOf(value);
 	}
 
+	public static PushNotificationChannel fromValue(String text) {
+		for (PushNotificationChannel b : PushNotificationChannel.values()) {
+			if (String.valueOf(b.value).equals(text)) {
+				return b;
+			}
+		}
+		return null;
+	}
+
 	public static class Adapter extends TypeAdapter<PushNotificationChannel>
 	{
 		@Override
@@ -66,7 +66,7 @@ public enum PushNotificationChannel
 
 		@Override
 		public PushNotificationChannel read(final JsonReader jsonReader) throws IOException {
-			String value = jsonReader.nextString();
+			Object value = jsonReader.nextString();
 			return PushNotificationChannel.fromValue(String.valueOf(value));
 		}
 	}

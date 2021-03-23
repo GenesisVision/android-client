@@ -29,15 +29,6 @@ public enum ChangeState
 	INCREASED("Increased"),
 	DECREASED("Decreased");
 
-	public static ChangeState fromValue(String text) {
-		for (ChangeState b : ChangeState.values()) {
-			if (String.valueOf(b.value).equals(text)) {
-				return b;
-			}
-		}
-		return null;
-	}
-
 	private String value;
 
 	ChangeState(String value) {
@@ -53,6 +44,15 @@ public enum ChangeState
 		return String.valueOf(value);
 	}
 
+	public static ChangeState fromValue(String text) {
+		for (ChangeState b : ChangeState.values()) {
+			if (String.valueOf(b.value).equals(text)) {
+				return b;
+			}
+		}
+		return null;
+	}
+
 	public static class Adapter extends TypeAdapter<ChangeState>
 	{
 		@Override
@@ -62,7 +62,7 @@ public enum ChangeState
 
 		@Override
 		public ChangeState read(final JsonReader jsonReader) throws IOException {
-			String value = jsonReader.nextString();
+			Object value = jsonReader.nextString();
 			return ChangeState.fromValue(String.valueOf(value));
 		}
 	}

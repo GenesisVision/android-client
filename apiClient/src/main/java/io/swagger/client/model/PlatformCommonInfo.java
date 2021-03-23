@@ -30,6 +30,15 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class PlatformCommonInfo implements Parcelable
 {
+	@SerializedName("platformCommission")
+	private PlatformCommissionInfo platformCommission = null;
+
+	@SerializedName("platformCurrencies")
+	private List<PlatformCurrencyInfo> platformCurrencies = null;
+
+	@SerializedName("platformUrls")
+	private List<PlatformUrlInfo> platformUrls = null;
+
 	public static final Parcelable.Creator<PlatformCommonInfo> CREATOR = new Parcelable.Creator<PlatformCommonInfo>()
 	{
 		public PlatformCommonInfo createFromParcel(Parcel in) {
@@ -41,22 +50,7 @@ public class PlatformCommonInfo implements Parcelable
 		}
 	};
 
-	@SerializedName("platformCommission")
-	private PlatformCommissionInfo platformCommission = null;
-
-	@SerializedName("platformCurrencies")
-	private List<PlatformCurrencyInfo> platformCurrencies = null;
-
-	@SerializedName("platformUrls")
-	private List<PlatformUrlInfo> platformUrls = null;
-
 	public PlatformCommonInfo() {
-	}
-
-	PlatformCommonInfo(Parcel in) {
-		platformCommission = (PlatformCommissionInfo) in.readValue(PlatformCommissionInfo.class.getClassLoader());
-		platformCurrencies = (List<PlatformCurrencyInfo>) in.readValue(PlatformCurrencyInfo.class.getClassLoader());
-		platformUrls = (List<PlatformUrlInfo>) in.readValue(PlatformUrlInfo.class.getClassLoader());
 	}
 
 	public PlatformCommonInfo platformCommission(PlatformCommissionInfo platformCommission) {
@@ -132,6 +126,43 @@ public class PlatformCommonInfo implements Parcelable
 		this.platformUrls = platformUrls;
 	}
 
+	@SerializedName("platformWithdrawalInfo")
+	private List<PlatformWithdrawalInfo> platformWithdrawalInfo = null;
+
+	PlatformCommonInfo(Parcel in) {
+		platformCommission = (PlatformCommissionInfo) in.readValue(PlatformCommissionInfo.class.getClassLoader());
+		platformCurrencies = (List<PlatformCurrencyInfo>) in.readValue(PlatformCurrencyInfo.class.getClassLoader());
+		platformUrls = (List<PlatformUrlInfo>) in.readValue(PlatformUrlInfo.class.getClassLoader());
+		platformWithdrawalInfo = (List<PlatformWithdrawalInfo>) in.readValue(PlatformWithdrawalInfo.class.getClassLoader());
+	}
+
+	public PlatformCommonInfo platformWithdrawalInfo(List<PlatformWithdrawalInfo> platformWithdrawalInfo) {
+		this.platformWithdrawalInfo = platformWithdrawalInfo;
+		return this;
+	}
+
+	public PlatformCommonInfo addPlatformWithdrawalInfoItem(PlatformWithdrawalInfo platformWithdrawalInfoItem) {
+		if (this.platformWithdrawalInfo == null) {
+			this.platformWithdrawalInfo = new ArrayList<PlatformWithdrawalInfo>();
+		}
+		this.platformWithdrawalInfo.add(platformWithdrawalInfoItem);
+		return this;
+	}
+
+	/**
+	 * Get platformWithdrawalInfo
+	 *
+	 * @return platformWithdrawalInfo
+	 **/
+	@Schema(description = "")
+	public List<PlatformWithdrawalInfo> getPlatformWithdrawalInfo() {
+		return platformWithdrawalInfo;
+	}
+
+	public void setPlatformWithdrawalInfo(List<PlatformWithdrawalInfo> platformWithdrawalInfo) {
+		this.platformWithdrawalInfo = platformWithdrawalInfo;
+	}
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -143,24 +174,8 @@ public class PlatformCommonInfo implements Parcelable
 		PlatformCommonInfo platformCommonInfo = (PlatformCommonInfo) o;
 		return Objects.equals(this.platformCommission, platformCommonInfo.platformCommission) &&
 				Objects.equals(this.platformCurrencies, platformCommonInfo.platformCurrencies) &&
-				Objects.equals(this.platformUrls, platformCommonInfo.platformUrls);
-	}
-
-	@Override
-	public int hashCode() {
-		return Objects.hash(platformCommission, platformCurrencies, platformUrls);
-	}
-
-	@Override
-	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		sb.append("class PlatformCommonInfo {\n");
-
-		sb.append("    platformCommission: ").append(toIndentedString(platformCommission)).append("\n");
-		sb.append("    platformCurrencies: ").append(toIndentedString(platformCurrencies)).append("\n");
-		sb.append("    platformUrls: ").append(toIndentedString(platformUrls)).append("\n");
-		sb.append("}");
-		return sb.toString();
+				Objects.equals(this.platformUrls, platformCommonInfo.platformUrls) &&
+				Objects.equals(this.platformWithdrawalInfo, platformCommonInfo.platformWithdrawalInfo);
 	}
 
 	/**
@@ -174,13 +189,32 @@ public class PlatformCommonInfo implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
-	public void writeToParcel(Parcel out, int flags) {
-		out.writeValue(platformCommission);
-		out.writeValue(platformCurrencies);
-		out.writeValue(platformUrls);
+	@Override
+	public int hashCode() {
+		return Objects.hash(platformCommission, platformCurrencies, platformUrls, platformWithdrawalInfo);
+	}
+
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("class PlatformCommonInfo {\n");
+
+		sb.append("    platformCommission: ").append(toIndentedString(platformCommission)).append("\n");
+		sb.append("    platformCurrencies: ").append(toIndentedString(platformCurrencies)).append("\n");
+		sb.append("    platformUrls: ").append(toIndentedString(platformUrls)).append("\n");
+		sb.append("    platformWithdrawalInfo: ").append(toIndentedString(platformWithdrawalInfo)).append("\n");
+		sb.append("}");
+		return sb.toString();
 	}
 
 	public int describeContents() {
 		return 0;
+	}
+
+	public void writeToParcel(Parcel out, int flags) {
+		out.writeValue(platformCommission);
+		out.writeValue(platformCurrencies);
+		out.writeValue(platformUrls);
+		out.writeValue(platformWithdrawalInfo);
 	}
 }

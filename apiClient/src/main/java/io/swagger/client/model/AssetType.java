@@ -30,15 +30,6 @@ public enum AssetType
 	FUND("Fund"),
 	FOLLOW("Follow");
 
-	public static AssetType fromValue(String text) {
-		for (AssetType b : AssetType.values()) {
-			if (String.valueOf(b.value).equals(text)) {
-				return b;
-			}
-		}
-		return null;
-	}
-
 	private String value;
 
 	AssetType(String value) {
@@ -54,6 +45,15 @@ public enum AssetType
 		return String.valueOf(value);
 	}
 
+	public static AssetType fromValue(String text) {
+		for (AssetType b : AssetType.values()) {
+			if (String.valueOf(b.value).equals(text)) {
+				return b;
+			}
+		}
+		return null;
+	}
+
 	public static class Adapter extends TypeAdapter<AssetType>
 	{
 		@Override
@@ -63,7 +63,7 @@ public enum AssetType
 
 		@Override
 		public AssetType read(final JsonReader jsonReader) throws IOException {
-			String value = jsonReader.nextString();
+			Object value = jsonReader.nextString();
 			return AssetType.fromValue(String.valueOf(value));
 		}
 	}

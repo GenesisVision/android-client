@@ -30,17 +30,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class ProgramAssetPlatformInfo implements Parcelable
 {
-	public static final Parcelable.Creator<ProgramAssetPlatformInfo> CREATOR = new Parcelable.Creator<ProgramAssetPlatformInfo>()
-	{
-		public ProgramAssetPlatformInfo createFromParcel(Parcel in) {
-			return new ProgramAssetPlatformInfo(in);
-		}
-
-		public ProgramAssetPlatformInfo[] newArray(int size) {
-			return new ProgramAssetPlatformInfo[size];
-		}
-	};
-
 	@SerializedName("facets")
 	private List<AssetFacet> facets = null;
 
@@ -60,15 +49,6 @@ public class ProgramAssetPlatformInfo implements Parcelable
 	private ProgramCreateAssetPlatformInfo createProgramInfo = null;
 
 	public ProgramAssetPlatformInfo() {
-	}
-
-	ProgramAssetPlatformInfo(Parcel in) {
-		facets = (List<AssetFacet>) in.readValue(AssetFacet.class.getClassLoader());
-		tags = (List<Tag>) in.readValue(Tag.class.getClassLoader());
-		availableProgramCurrencies = (List<String>) in.readValue(null);
-		minInvestAmounts = (List<ProgramMinInvestAmount>) in.readValue(ProgramMinInvestAmount.class.getClassLoader());
-		periods = (List<Integer>) in.readValue(null);
-		createProgramInfo = (ProgramCreateAssetPlatformInfo) in.readValue(ProgramCreateAssetPlatformInfo.class.getClassLoader());
 	}
 
 	public ProgramAssetPlatformInfo facets(List<AssetFacet> facets) {
@@ -225,6 +205,7 @@ public class ProgramAssetPlatformInfo implements Parcelable
 		this.createProgramInfo = createProgramInfo;
 	}
 
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -246,6 +227,7 @@ public class ProgramAssetPlatformInfo implements Parcelable
 	public int hashCode() {
 		return Objects.hash(facets, tags, availableProgramCurrencies, minInvestAmounts, periods, createProgramInfo);
 	}
+
 
 	@Override
 	public String toString() {
@@ -273,6 +255,7 @@ public class ProgramAssetPlatformInfo implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
+
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(facets);
 		out.writeValue(tags);
@@ -282,7 +265,27 @@ public class ProgramAssetPlatformInfo implements Parcelable
 		out.writeValue(createProgramInfo);
 	}
 
+	public static final Parcelable.Creator<ProgramAssetPlatformInfo> CREATOR = new Parcelable.Creator<ProgramAssetPlatformInfo>()
+	{
+		public ProgramAssetPlatformInfo createFromParcel(Parcel in) {
+			return new ProgramAssetPlatformInfo(in);
+		}
+
+		public ProgramAssetPlatformInfo[] newArray(int size) {
+			return new ProgramAssetPlatformInfo[size];
+		}
+	};
+
 	public int describeContents() {
 		return 0;
+	}
+
+	ProgramAssetPlatformInfo(Parcel in) {
+		facets = (List<AssetFacet>) in.readValue(AssetFacet.class.getClassLoader());
+		tags = (List<Tag>) in.readValue(Tag.class.getClassLoader());
+		availableProgramCurrencies = (List<String>) in.readValue(null);
+		minInvestAmounts = (List<ProgramMinInvestAmount>) in.readValue(ProgramMinInvestAmount.class.getClassLoader());
+		periods = (List<Integer>) in.readValue(null);
+		createProgramInfo = (ProgramCreateAssetPlatformInfo) in.readValue(ProgramCreateAssetPlatformInfo.class.getClassLoader());
 	}
 }

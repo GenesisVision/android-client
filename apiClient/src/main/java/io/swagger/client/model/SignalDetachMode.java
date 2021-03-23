@@ -29,15 +29,6 @@ public enum SignalDetachMode
 	PROVIDERCLOSEONLY("ProviderCloseOnly"),
 	CLOSEALLIMMEDIATELY("CloseAllImmediately");
 
-	public static SignalDetachMode fromValue(String text) {
-		for (SignalDetachMode b : SignalDetachMode.values()) {
-			if (String.valueOf(b.value).equals(text)) {
-				return b;
-			}
-		}
-		return null;
-	}
-
 	private String value;
 
 	SignalDetachMode(String value) {
@@ -53,6 +44,15 @@ public enum SignalDetachMode
 		return String.valueOf(value);
 	}
 
+	public static SignalDetachMode fromValue(String text) {
+		for (SignalDetachMode b : SignalDetachMode.values()) {
+			if (String.valueOf(b.value).equals(text)) {
+				return b;
+			}
+		}
+		return null;
+	}
+
 	public static class Adapter extends TypeAdapter<SignalDetachMode>
 	{
 		@Override
@@ -62,7 +62,7 @@ public enum SignalDetachMode
 
 		@Override
 		public SignalDetachMode read(final JsonReader jsonReader) throws IOException {
-			String value = jsonReader.nextString();
+			Object value = jsonReader.nextString();
 			return SignalDetachMode.fromValue(String.valueOf(value));
 		}
 	}

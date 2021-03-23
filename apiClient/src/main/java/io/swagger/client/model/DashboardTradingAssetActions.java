@@ -28,17 +28,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class DashboardTradingAssetActions implements Parcelable
 {
-	public static final Parcelable.Creator<DashboardTradingAssetActions> CREATOR = new Parcelable.Creator<DashboardTradingAssetActions>()
-	{
-		public DashboardTradingAssetActions createFromParcel(Parcel in) {
-			return new DashboardTradingAssetActions(in);
-		}
-
-		public DashboardTradingAssetActions[] newArray(int size) {
-			return new DashboardTradingAssetActions[size];
-		}
-	};
-
 	@SerializedName("canMakeProgramFromPrivateTradingAccount")
 	private Boolean canMakeProgramFromPrivateTradingAccount = null;
 
@@ -94,27 +83,6 @@ public class DashboardTradingAssetActions implements Parcelable
 	private Boolean hasTerminal = null;
 
 	public DashboardTradingAssetActions() {
-	}
-
-	DashboardTradingAssetActions(Parcel in) {
-		canMakeProgramFromPrivateTradingAccount = (Boolean) in.readValue(null);
-		canMakeExchangeProgramFromPrivateTradingAccount = (Boolean) in.readValue(null);
-		canMakeSignalProviderFromPrivateTradingAccount = (Boolean) in.readValue(null);
-		canMakeSignalProviderFromPrivateExternalTradingAccount = (Boolean) in.readValue(null);
-		canMakeProgramFromSignalProvider = (Boolean) in.readValue(null);
-		canMakeSignalProviderFromProgram = (Boolean) in.readValue(null);
-		canEditSignalProviderSettings = (Boolean) in.readValue(null);
-		isEnoughMoneyToCreateProgram = (Boolean) in.readValue(null);
-		canConfirm2FA = (Boolean) in.readValue(null);
-		canCreateApiKeys = (Boolean) in.readValue(null);
-		canAddRequestInvest = (Boolean) in.readValue(null);
-		canAddRequestWithdraw = (Boolean) in.readValue(null);
-		canTransferMoney = (Boolean) in.readValue(null);
-		canMakeDemoDeposit = (Boolean) in.readValue(null);
-		canChangePassword = (Boolean) in.readValue(null);
-		canClose = (Boolean) in.readValue(null);
-		canClosePeriod = (Boolean) in.readValue(null);
-		hasTerminal = (Boolean) in.readValue(null);
 	}
 
 	public DashboardTradingAssetActions canMakeProgramFromPrivateTradingAccount(Boolean canMakeProgramFromPrivateTradingAccount) {
@@ -459,6 +427,7 @@ public class DashboardTradingAssetActions implements Parcelable
 		this.hasTerminal = hasTerminal;
 	}
 
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -492,6 +461,7 @@ public class DashboardTradingAssetActions implements Parcelable
 	public int hashCode() {
 		return Objects.hash(canMakeProgramFromPrivateTradingAccount, canMakeExchangeProgramFromPrivateTradingAccount, canMakeSignalProviderFromPrivateTradingAccount, canMakeSignalProviderFromPrivateExternalTradingAccount, canMakeProgramFromSignalProvider, canMakeSignalProviderFromProgram, canEditSignalProviderSettings, isEnoughMoneyToCreateProgram, canConfirm2FA, canCreateApiKeys, canAddRequestInvest, canAddRequestWithdraw, canTransferMoney, canMakeDemoDeposit, canChangePassword, canClose, canClosePeriod, hasTerminal);
 	}
+
 
 	@Override
 	public String toString() {
@@ -531,6 +501,7 @@ public class DashboardTradingAssetActions implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
+
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(canMakeProgramFromPrivateTradingAccount);
 		out.writeValue(canMakeExchangeProgramFromPrivateTradingAccount);
@@ -552,7 +523,39 @@ public class DashboardTradingAssetActions implements Parcelable
 		out.writeValue(hasTerminal);
 	}
 
+	public static final Parcelable.Creator<DashboardTradingAssetActions> CREATOR = new Parcelable.Creator<DashboardTradingAssetActions>()
+	{
+		public DashboardTradingAssetActions createFromParcel(Parcel in) {
+			return new DashboardTradingAssetActions(in);
+		}
+
+		public DashboardTradingAssetActions[] newArray(int size) {
+			return new DashboardTradingAssetActions[size];
+		}
+	};
+
 	public int describeContents() {
 		return 0;
+	}
+
+	DashboardTradingAssetActions(Parcel in) {
+		canMakeProgramFromPrivateTradingAccount = (Boolean) in.readValue(null);
+		canMakeExchangeProgramFromPrivateTradingAccount = (Boolean) in.readValue(null);
+		canMakeSignalProviderFromPrivateTradingAccount = (Boolean) in.readValue(null);
+		canMakeSignalProviderFromPrivateExternalTradingAccount = (Boolean) in.readValue(null);
+		canMakeProgramFromSignalProvider = (Boolean) in.readValue(null);
+		canMakeSignalProviderFromProgram = (Boolean) in.readValue(null);
+		canEditSignalProviderSettings = (Boolean) in.readValue(null);
+		isEnoughMoneyToCreateProgram = (Boolean) in.readValue(null);
+		canConfirm2FA = (Boolean) in.readValue(null);
+		canCreateApiKeys = (Boolean) in.readValue(null);
+		canAddRequestInvest = (Boolean) in.readValue(null);
+		canAddRequestWithdraw = (Boolean) in.readValue(null);
+		canTransferMoney = (Boolean) in.readValue(null);
+		canMakeDemoDeposit = (Boolean) in.readValue(null);
+		canChangePassword = (Boolean) in.readValue(null);
+		canClose = (Boolean) in.readValue(null);
+		canClosePeriod = (Boolean) in.readValue(null);
+		hasTerminal = (Boolean) in.readValue(null);
 	}
 }

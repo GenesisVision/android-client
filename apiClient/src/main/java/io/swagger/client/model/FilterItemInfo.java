@@ -28,17 +28,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class FilterItemInfo implements Parcelable
 {
-	public static final Parcelable.Creator<FilterItemInfo> CREATOR = new Parcelable.Creator<FilterItemInfo>()
-	{
-		public FilterItemInfo createFromParcel(Parcel in) {
-			return new FilterItemInfo(in);
-		}
-
-		public FilterItemInfo[] newArray(int size) {
-			return new FilterItemInfo[size];
-		}
-	};
-
 	@SerializedName("key")
 	private String key = null;
 
@@ -46,11 +35,6 @@ public class FilterItemInfo implements Parcelable
 	private String title = null;
 
 	public FilterItemInfo() {
-	}
-
-	FilterItemInfo(Parcel in) {
-		key = (String) in.readValue(null);
-		title = (String) in.readValue(null);
 	}
 
 	public FilterItemInfo key(String key) {
@@ -91,6 +75,7 @@ public class FilterItemInfo implements Parcelable
 		this.title = title;
 	}
 
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -108,6 +93,7 @@ public class FilterItemInfo implements Parcelable
 	public int hashCode() {
 		return Objects.hash(key, title);
 	}
+
 
 	@Override
 	public String toString() {
@@ -131,12 +117,29 @@ public class FilterItemInfo implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
+
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(key);
 		out.writeValue(title);
 	}
 
+	public static final Parcelable.Creator<FilterItemInfo> CREATOR = new Parcelable.Creator<FilterItemInfo>()
+	{
+		public FilterItemInfo createFromParcel(Parcel in) {
+			return new FilterItemInfo(in);
+		}
+
+		public FilterItemInfo[] newArray(int size) {
+			return new FilterItemInfo[size];
+		}
+	};
+
 	public int describeContents() {
 		return 0;
+	}
+
+	FilterItemInfo(Parcel in) {
+		key = (String) in.readValue(null);
+		title = (String) in.readValue(null);
 	}
 }

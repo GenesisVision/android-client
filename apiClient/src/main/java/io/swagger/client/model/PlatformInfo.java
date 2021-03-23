@@ -28,17 +28,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class PlatformInfo implements Parcelable
 {
-	public static final Parcelable.Creator<PlatformInfo> CREATOR = new Parcelable.Creator<PlatformInfo>()
-	{
-		public PlatformInfo createFromParcel(Parcel in) {
-			return new PlatformInfo(in);
-		}
-
-		public PlatformInfo[] newArray(int size) {
-			return new PlatformInfo[size];
-		}
-	};
-
 	@SerializedName("appVersionInfo")
 	private AppVersion appVersionInfo = null;
 
@@ -55,14 +44,6 @@ public class PlatformInfo implements Parcelable
 	private PlatformCommonInfo commonInfo = null;
 
 	public PlatformInfo() {
-	}
-
-	PlatformInfo(Parcel in) {
-		appVersionInfo = (AppVersion) in.readValue(AppVersion.class.getClassLoader());
-		filters = (FilterInfo) in.readValue(FilterInfo.class.getClassLoader());
-		assetInfo = (AssetPlatformInfo) in.readValue(AssetPlatformInfo.class.getClassLoader());
-		usersInfo = (UsersPlatformInfo) in.readValue(UsersPlatformInfo.class.getClassLoader());
-		commonInfo = (PlatformCommonInfo) in.readValue(PlatformCommonInfo.class.getClassLoader());
 	}
 
 	public PlatformInfo appVersionInfo(AppVersion appVersionInfo) {
@@ -160,6 +141,7 @@ public class PlatformInfo implements Parcelable
 		this.commonInfo = commonInfo;
 	}
 
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -180,6 +162,7 @@ public class PlatformInfo implements Parcelable
 	public int hashCode() {
 		return Objects.hash(appVersionInfo, filters, assetInfo, usersInfo, commonInfo);
 	}
+
 
 	@Override
 	public String toString() {
@@ -206,6 +189,7 @@ public class PlatformInfo implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
+
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(appVersionInfo);
 		out.writeValue(filters);
@@ -214,7 +198,26 @@ public class PlatformInfo implements Parcelable
 		out.writeValue(commonInfo);
 	}
 
+	public static final Parcelable.Creator<PlatformInfo> CREATOR = new Parcelable.Creator<PlatformInfo>()
+	{
+		public PlatformInfo createFromParcel(Parcel in) {
+			return new PlatformInfo(in);
+		}
+
+		public PlatformInfo[] newArray(int size) {
+			return new PlatformInfo[size];
+		}
+	};
+
 	public int describeContents() {
 		return 0;
+	}
+
+	PlatformInfo(Parcel in) {
+		appVersionInfo = (AppVersion) in.readValue(AppVersion.class.getClassLoader());
+		filters = (FilterInfo) in.readValue(FilterInfo.class.getClassLoader());
+		assetInfo = (AssetPlatformInfo) in.readValue(AssetPlatformInfo.class.getClassLoader());
+		usersInfo = (UsersPlatformInfo) in.readValue(UsersPlatformInfo.class.getClassLoader());
+		commonInfo = (PlatformCommonInfo) in.readValue(PlatformCommonInfo.class.getClassLoader());
 	}
 }

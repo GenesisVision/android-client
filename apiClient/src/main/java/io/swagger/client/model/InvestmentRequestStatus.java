@@ -30,15 +30,6 @@ public enum InvestmentRequestStatus
 	CANCELLED("Cancelled"),
 	PENDING("Pending");
 
-	public static InvestmentRequestStatus fromValue(String text) {
-		for (InvestmentRequestStatus b : InvestmentRequestStatus.values()) {
-			if (String.valueOf(b.value).equals(text)) {
-				return b;
-			}
-		}
-		return null;
-	}
-
 	private String value;
 
 	InvestmentRequestStatus(String value) {
@@ -54,6 +45,15 @@ public enum InvestmentRequestStatus
 		return String.valueOf(value);
 	}
 
+	public static InvestmentRequestStatus fromValue(String text) {
+		for (InvestmentRequestStatus b : InvestmentRequestStatus.values()) {
+			if (String.valueOf(b.value).equals(text)) {
+				return b;
+			}
+		}
+		return null;
+	}
+
 	public static class Adapter extends TypeAdapter<InvestmentRequestStatus>
 	{
 		@Override
@@ -63,7 +63,7 @@ public enum InvestmentRequestStatus
 
 		@Override
 		public InvestmentRequestStatus read(final JsonReader jsonReader) throws IOException {
-			String value = jsonReader.nextString();
+			Object value = jsonReader.nextString();
 			return InvestmentRequestStatus.fromValue(String.valueOf(value));
 		}
 	}

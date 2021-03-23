@@ -30,17 +30,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class ProfitChart implements Parcelable
 {
-	public static final Parcelable.Creator<ProfitChart> CREATOR = new Parcelable.Creator<ProfitChart>()
-	{
-		public ProfitChart createFromParcel(Parcel in) {
-			return new ProfitChart(in);
-		}
-
-		public ProfitChart[] newArray(int size) {
-			return new ProfitChart[size];
-		}
-	};
-
 	@SerializedName("chart")
 	private List<SimpleChartPoint> chart = null;
 
@@ -51,12 +40,6 @@ public class ProfitChart implements Parcelable
 	private Double drawdown = null;
 
 	public ProfitChart() {
-	}
-
-	ProfitChart(Parcel in) {
-		chart = (List<SimpleChartPoint>) in.readValue(SimpleChartPoint.class.getClassLoader());
-		profit = (Double) in.readValue(null);
-		drawdown = (Double) in.readValue(null);
 	}
 
 	public ProfitChart chart(List<SimpleChartPoint> chart) {
@@ -124,6 +107,7 @@ public class ProfitChart implements Parcelable
 		this.drawdown = drawdown;
 	}
 
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -142,6 +126,7 @@ public class ProfitChart implements Parcelable
 	public int hashCode() {
 		return Objects.hash(chart, profit, drawdown);
 	}
+
 
 	@Override
 	public String toString() {
@@ -166,13 +151,31 @@ public class ProfitChart implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
+
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(chart);
 		out.writeValue(profit);
 		out.writeValue(drawdown);
 	}
 
+	public static final Parcelable.Creator<ProfitChart> CREATOR = new Parcelable.Creator<ProfitChart>()
+	{
+		public ProfitChart createFromParcel(Parcel in) {
+			return new ProfitChart(in);
+		}
+
+		public ProfitChart[] newArray(int size) {
+			return new ProfitChart[size];
+		}
+	};
+
 	public int describeContents() {
 		return 0;
+	}
+
+	ProfitChart(Parcel in) {
+		chart = (List<SimpleChartPoint>) in.readValue(SimpleChartPoint.class.getClassLoader());
+		profit = (Double) in.readValue(null);
+		drawdown = (Double) in.readValue(null);
 	}
 }

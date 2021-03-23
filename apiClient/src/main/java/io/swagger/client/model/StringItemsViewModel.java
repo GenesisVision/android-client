@@ -29,17 +29,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class StringItemsViewModel implements Parcelable
 {
-	public static final Parcelable.Creator<StringItemsViewModel> CREATOR = new Parcelable.Creator<StringItemsViewModel>()
-	{
-		public StringItemsViewModel createFromParcel(Parcel in) {
-			return new StringItemsViewModel(in);
-		}
-
-		public StringItemsViewModel[] newArray(int size) {
-			return new StringItemsViewModel[size];
-		}
-	};
-
 	@SerializedName("items")
 	private List<String> items = null;
 
@@ -47,11 +36,6 @@ public class StringItemsViewModel implements Parcelable
 	private Integer total = null;
 
 	public StringItemsViewModel() {
-	}
-
-	StringItemsViewModel(Parcel in) {
-		items = (List<String>) in.readValue(null);
-		total = (Integer) in.readValue(null);
 	}
 
 	/**
@@ -74,6 +58,7 @@ public class StringItemsViewModel implements Parcelable
 		return total;
 	}
 
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -91,6 +76,7 @@ public class StringItemsViewModel implements Parcelable
 	public int hashCode() {
 		return Objects.hash(items, total);
 	}
+
 
 	@Override
 	public String toString() {
@@ -114,12 +100,29 @@ public class StringItemsViewModel implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
+
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(items);
 		out.writeValue(total);
 	}
 
+	public static final Parcelable.Creator<StringItemsViewModel> CREATOR = new Parcelable.Creator<StringItemsViewModel>()
+	{
+		public StringItemsViewModel createFromParcel(Parcel in) {
+			return new StringItemsViewModel(in);
+		}
+
+		public StringItemsViewModel[] newArray(int size) {
+			return new StringItemsViewModel[size];
+		}
+	};
+
 	public int describeContents() {
 		return 0;
+	}
+
+	StringItemsViewModel(Parcel in) {
+		items = (List<String>) in.readValue(null);
+		total = (Integer) in.readValue(null);
 	}
 }

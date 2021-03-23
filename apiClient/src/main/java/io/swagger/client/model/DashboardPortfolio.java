@@ -30,25 +30,10 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class DashboardPortfolio implements Parcelable
 {
-	public static final Parcelable.Creator<DashboardPortfolio> CREATOR = new Parcelable.Creator<DashboardPortfolio>()
-	{
-		public DashboardPortfolio createFromParcel(Parcel in) {
-			return new DashboardPortfolio(in);
-		}
-
-		public DashboardPortfolio[] newArray(int size) {
-			return new DashboardPortfolio[size];
-		}
-	};
-
 	@SerializedName("distribution")
 	private List<MoneyLocation> distribution = null;
 
 	public DashboardPortfolio() {
-	}
-
-	DashboardPortfolio(Parcel in) {
-		distribution = (List<MoneyLocation>) in.readValue(MoneyLocation.class.getClassLoader());
 	}
 
 	public DashboardPortfolio distribution(List<MoneyLocation> distribution) {
@@ -78,6 +63,7 @@ public class DashboardPortfolio implements Parcelable
 		this.distribution = distribution;
 	}
 
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -94,6 +80,7 @@ public class DashboardPortfolio implements Parcelable
 	public int hashCode() {
 		return Objects.hash(distribution);
 	}
+
 
 	@Override
 	public String toString() {
@@ -116,11 +103,27 @@ public class DashboardPortfolio implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
+
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(distribution);
 	}
 
+	public static final Parcelable.Creator<DashboardPortfolio> CREATOR = new Parcelable.Creator<DashboardPortfolio>()
+	{
+		public DashboardPortfolio createFromParcel(Parcel in) {
+			return new DashboardPortfolio(in);
+		}
+
+		public DashboardPortfolio[] newArray(int size) {
+			return new DashboardPortfolio[size];
+		}
+	};
+
 	public int describeContents() {
 		return 0;
+	}
+
+	DashboardPortfolio(Parcel in) {
+		distribution = (List<MoneyLocation>) in.readValue(MoneyLocation.class.getClassLoader());
 	}
 }

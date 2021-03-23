@@ -32,17 +32,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class ReallocationModel implements Parcelable
 {
-	public static final Parcelable.Creator<ReallocationModel> CREATOR = new Parcelable.Creator<ReallocationModel>()
-	{
-		public ReallocationModel createFromParcel(Parcel in) {
-			return new ReallocationModel(in);
-		}
-
-		public ReallocationModel[] newArray(int size) {
-			return new ReallocationModel[size];
-		}
-	};
-
 	@SerializedName("date")
 	private DateTime date = null;
 
@@ -50,11 +39,6 @@ public class ReallocationModel implements Parcelable
 	private List<FundAssetPartWithIcon> parts = null;
 
 	public ReallocationModel() {
-	}
-
-	ReallocationModel(Parcel in) {
-		date = (DateTime) in.readValue(DateTime.class.getClassLoader());
-		parts = (List<FundAssetPartWithIcon>) in.readValue(FundAssetPartWithIcon.class.getClassLoader());
 	}
 
 	public ReallocationModel date(DateTime date) {
@@ -103,6 +87,7 @@ public class ReallocationModel implements Parcelable
 		this.parts = parts;
 	}
 
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -120,6 +105,7 @@ public class ReallocationModel implements Parcelable
 	public int hashCode() {
 		return Objects.hash(date, parts);
 	}
+
 
 	@Override
 	public String toString() {
@@ -143,12 +129,29 @@ public class ReallocationModel implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
+
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(date);
 		out.writeValue(parts);
 	}
 
+	public static final Parcelable.Creator<ReallocationModel> CREATOR = new Parcelable.Creator<ReallocationModel>()
+	{
+		public ReallocationModel createFromParcel(Parcel in) {
+			return new ReallocationModel(in);
+		}
+
+		public ReallocationModel[] newArray(int size) {
+			return new ReallocationModel[size];
+		}
+	};
+
 	public int describeContents() {
 		return 0;
+	}
+
+	ReallocationModel(Parcel in) {
+		date = (DateTime) in.readValue(DateTime.class.getClassLoader());
+		parts = (List<FundAssetPartWithIcon>) in.readValue(FundAssetPartWithIcon.class.getClassLoader());
 	}
 }

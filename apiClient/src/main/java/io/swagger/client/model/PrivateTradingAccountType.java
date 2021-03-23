@@ -30,15 +30,6 @@ public enum PrivateTradingAccountType
 	EXCHANGEACCOUNT("ExchangeAccount"),
 	EXTERNALTRADINGACCOUNT("ExternalTradingAccount");
 
-	public static PrivateTradingAccountType fromValue(String text) {
-		for (PrivateTradingAccountType b : PrivateTradingAccountType.values()) {
-			if (String.valueOf(b.value).equals(text)) {
-				return b;
-			}
-		}
-		return null;
-	}
-
 	private String value;
 
 	PrivateTradingAccountType(String value) {
@@ -54,6 +45,15 @@ public enum PrivateTradingAccountType
 		return String.valueOf(value);
 	}
 
+	public static PrivateTradingAccountType fromValue(String text) {
+		for (PrivateTradingAccountType b : PrivateTradingAccountType.values()) {
+			if (String.valueOf(b.value).equals(text)) {
+				return b;
+			}
+		}
+		return null;
+	}
+
 	public static class Adapter extends TypeAdapter<PrivateTradingAccountType>
 	{
 		@Override
@@ -63,7 +63,7 @@ public enum PrivateTradingAccountType
 
 		@Override
 		public PrivateTradingAccountType read(final JsonReader jsonReader) throws IOException {
-			String value = jsonReader.nextString();
+			Object value = jsonReader.nextString();
 			return PrivateTradingAccountType.fromValue(String.valueOf(value));
 		}
 	}

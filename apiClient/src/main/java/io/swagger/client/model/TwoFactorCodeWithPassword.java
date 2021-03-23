@@ -28,17 +28,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class TwoFactorCodeWithPassword implements Parcelable
 {
-	public static final Parcelable.Creator<TwoFactorCodeWithPassword> CREATOR = new Parcelable.Creator<TwoFactorCodeWithPassword>()
-	{
-		public TwoFactorCodeWithPassword createFromParcel(Parcel in) {
-			return new TwoFactorCodeWithPassword(in);
-		}
-
-		public TwoFactorCodeWithPassword[] newArray(int size) {
-			return new TwoFactorCodeWithPassword[size];
-		}
-	};
-
 	@SerializedName("password")
 	private String password = null;
 
@@ -49,12 +38,6 @@ public class TwoFactorCodeWithPassword implements Parcelable
 	private String recoveryCode = null;
 
 	public TwoFactorCodeWithPassword() {
-	}
-
-	TwoFactorCodeWithPassword(Parcel in) {
-		password = (String) in.readValue(null);
-		twoFactorCode = (String) in.readValue(null);
-		recoveryCode = (String) in.readValue(null);
 	}
 
 	public TwoFactorCodeWithPassword password(String password) {
@@ -114,6 +97,7 @@ public class TwoFactorCodeWithPassword implements Parcelable
 		this.recoveryCode = recoveryCode;
 	}
 
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -132,6 +116,7 @@ public class TwoFactorCodeWithPassword implements Parcelable
 	public int hashCode() {
 		return Objects.hash(password, twoFactorCode, recoveryCode);
 	}
+
 
 	@Override
 	public String toString() {
@@ -156,13 +141,31 @@ public class TwoFactorCodeWithPassword implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
+
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(password);
 		out.writeValue(twoFactorCode);
 		out.writeValue(recoveryCode);
 	}
 
+	public static final Parcelable.Creator<TwoFactorCodeWithPassword> CREATOR = new Parcelable.Creator<TwoFactorCodeWithPassword>()
+	{
+		public TwoFactorCodeWithPassword createFromParcel(Parcel in) {
+			return new TwoFactorCodeWithPassword(in);
+		}
+
+		public TwoFactorCodeWithPassword[] newArray(int size) {
+			return new TwoFactorCodeWithPassword[size];
+		}
+	};
+
 	public int describeContents() {
 		return 0;
+	}
+
+	TwoFactorCodeWithPassword(Parcel in) {
+		password = (String) in.readValue(null);
+		twoFactorCode = (String) in.readValue(null);
+		recoveryCode = (String) in.readValue(null);
 	}
 }

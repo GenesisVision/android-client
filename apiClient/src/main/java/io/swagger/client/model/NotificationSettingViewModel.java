@@ -29,17 +29,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class NotificationSettingViewModel implements Parcelable
 {
-	public static final Parcelable.Creator<NotificationSettingViewModel> CREATOR = new Parcelable.Creator<NotificationSettingViewModel>()
-	{
-		public NotificationSettingViewModel createFromParcel(Parcel in) {
-			return new NotificationSettingViewModel(in);
-		}
-
-		public NotificationSettingViewModel[] newArray(int size) {
-			return new NotificationSettingViewModel[size];
-		}
-	};
-
 	@SerializedName("assetId")
 	private UUID assetId = null;
 
@@ -62,16 +51,6 @@ public class NotificationSettingViewModel implements Parcelable
 	private Boolean isEnabled = null;
 
 	public NotificationSettingViewModel() {
-	}
-
-	NotificationSettingViewModel(Parcel in) {
-		assetId = (UUID) in.readValue(UUID.class.getClassLoader());
-		managerId = (UUID) in.readValue(UUID.class.getClassLoader());
-		type = (NotificationType) in.readValue(NotificationType.class.getClassLoader());
-		conditionType = (NotificationSettingConditionType) in.readValue(NotificationSettingConditionType.class.getClassLoader());
-		conditionAmount = (Double) in.readValue(null);
-		id = (UUID) in.readValue(UUID.class.getClassLoader());
-		isEnabled = (Boolean) in.readValue(null);
 	}
 
 	public NotificationSettingViewModel assetId(UUID assetId) {
@@ -207,6 +186,7 @@ public class NotificationSettingViewModel implements Parcelable
 		this.isEnabled = isEnabled;
 	}
 
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -229,6 +209,7 @@ public class NotificationSettingViewModel implements Parcelable
 	public int hashCode() {
 		return Objects.hash(assetId, managerId, type, conditionType, conditionAmount, id, isEnabled);
 	}
+
 
 	@Override
 	public String toString() {
@@ -257,6 +238,7 @@ public class NotificationSettingViewModel implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
+
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(assetId);
 		out.writeValue(managerId);
@@ -267,7 +249,28 @@ public class NotificationSettingViewModel implements Parcelable
 		out.writeValue(isEnabled);
 	}
 
+	public static final Parcelable.Creator<NotificationSettingViewModel> CREATOR = new Parcelable.Creator<NotificationSettingViewModel>()
+	{
+		public NotificationSettingViewModel createFromParcel(Parcel in) {
+			return new NotificationSettingViewModel(in);
+		}
+
+		public NotificationSettingViewModel[] newArray(int size) {
+			return new NotificationSettingViewModel[size];
+		}
+	};
+
 	public int describeContents() {
 		return 0;
+	}
+
+	NotificationSettingViewModel(Parcel in) {
+		assetId = (UUID) in.readValue(UUID.class.getClassLoader());
+		managerId = (UUID) in.readValue(UUID.class.getClassLoader());
+		type = (NotificationType) in.readValue(NotificationType.class.getClassLoader());
+		conditionType = (NotificationSettingConditionType) in.readValue(NotificationSettingConditionType.class.getClassLoader());
+		conditionAmount = (Double) in.readValue(null);
+		id = (UUID) in.readValue(UUID.class.getClassLoader());
+		isEnabled = (Boolean) in.readValue(null);
 	}
 }

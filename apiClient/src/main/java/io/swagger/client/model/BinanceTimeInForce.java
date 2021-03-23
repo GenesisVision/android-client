@@ -31,15 +31,6 @@ public enum BinanceTimeInForce
 	GOODTILLCROSSING("GoodTillCrossing"),
 	GOODTILLEXPIREDORCANCELED("GoodTillExpiredOrCanceled");
 
-	public static BinanceTimeInForce fromValue(String text) {
-		for (BinanceTimeInForce b : BinanceTimeInForce.values()) {
-			if (String.valueOf(b.value).equals(text)) {
-				return b;
-			}
-		}
-		return null;
-	}
-
 	private String value;
 
 	BinanceTimeInForce(String value) {
@@ -55,6 +46,15 @@ public enum BinanceTimeInForce
 		return String.valueOf(value);
 	}
 
+	public static BinanceTimeInForce fromValue(String text) {
+		for (BinanceTimeInForce b : BinanceTimeInForce.values()) {
+			if (String.valueOf(b.value).equals(text)) {
+				return b;
+			}
+		}
+		return null;
+	}
+
 	public static class Adapter extends TypeAdapter<BinanceTimeInForce>
 	{
 		@Override
@@ -64,7 +64,7 @@ public enum BinanceTimeInForce
 
 		@Override
 		public BinanceTimeInForce read(final JsonReader jsonReader) throws IOException {
-			String value = jsonReader.nextString();
+			Object value = jsonReader.nextString();
 			return BinanceTimeInForce.fromValue(String.valueOf(value));
 		}
 	}
