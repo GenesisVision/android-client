@@ -5,8 +5,11 @@ import android.content.Context;
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -87,7 +90,7 @@ public class InvestFundPresenter extends MvpPresenter<InvestFundView> implements
 
 	private Double gvCommissionPercent = 0.0;
 
-	private List<AmountWithCurrency> minInvestmentAmountInfo;
+	private Map<String, Double> minInvestInfo;
 
 	@Override
 	protected void onFirstViewAttach() {
@@ -96,7 +99,6 @@ public class InvestFundPresenter extends MvpPresenter<InvestFundView> implements
 		GenesisVisionApplication.getComponent().inject(this);
 
 		subscribeToBaseCurrency();
-		getPlatformInfo();
 	}
 
 	@Override
@@ -117,7 +119,6 @@ public class InvestFundPresenter extends MvpPresenter<InvestFundView> implements
 	void setFundRequest(FundRequest fundRequest) {
 		this.fundRequest = fundRequest;
 		subscribeToBaseCurrency();
-		getPlatformInfo();
 	}
 
 	void onAmountChanged(String newAmount) {
@@ -127,7 +128,7 @@ public class InvestFundPresenter extends MvpPresenter<InvestFundView> implements
 		} catch (NumberFormatException e) {
 			amount = 0.0;
 		}
-		if (info != null && fundRequest != null) {
+		if (info != null && fundRequest != null && rate > 0) {
 			if (amount > availableInWallet) {
 				getViewState().setAmount(StringFormatUtil.formatAmountWithoutGrouping(availableInWallet));
 				return;
@@ -212,7 +213,43 @@ public class InvestFundPresenter extends MvpPresenter<InvestFundView> implements
 
 	private void baseCurrencyChangedHandler(CurrencyEnum baseCurrency) {
 		this.baseCurrency = baseCurrency;
+		getPlatformInfo();
+	}
+
+	private void getPlatformInfo() {
+		if (settingsManager != null && fundRequest != null) {
+			platformInfoSubscription = settingsManager.getPlatformInfo()
+					.observeOn(AndroidSchedulers.mainThread())
+					.subscribeOn(Schedulers.io())
+					.subscribe(this::handlePlatformInfoResponse,
+							this::handlePlatformInfoError);
+		}
+	}
+
+	private void handlePlatformInfoResponse(PlatformInfo response) {
+		platformInfoSubscription.unsubscribe();
+
+		getViewState().showProgress(false);
+
+		info = response;
+		gvCommissionPercent = info.getCommonInfo().getPlatformCommission().getInvestment();
+
+		minInvestInfo = new HashMap<>();
+		for (AmountWithCurrency amountWithCurrency : info.getAssetInfo().getFundInfo().getMinInvestAmountIntoFund()) {
+			minInvestInfo.put(amountWithCurrency.getCurrency().getValue(), amountWithCurrency.getAmount());
+		}
+
 		subscribeToWallets();
+	}
+
+	private void handlePlatformInfoError(Throwable throwable) {
+		platformInfoSubscription.unsubscribe();
+		getViewState().showProgress(false);
+
+		ApiErrorResolver.resolveErrors(throwable,
+				message -> getViewState().showSnackbarMessage(message));
+
+		getViewState().finishActivity();
 	}
 
 	private void subscribeToWallets() {
@@ -229,7 +266,12 @@ public class InvestFundPresenter extends MvpPresenter<InvestFundView> implements
 	}
 
 	private void handleWalletUpdateSuccess(WalletSummary response) {
-		List<WalletData> wallets = response.getWallets();
+		List<WalletData> wallets = new ArrayList<>();
+		for (WalletData wallet : response.getWallets()) {
+			if (minInvestInfo.containsKey(wallet.getCurrency().getValue())) {
+				wallets.add(wallet);
+			}
+		}
 
 		getViewState().setWalletsFrom(wallets);
 		onWalletSelected(wallets.get(0));
@@ -253,56 +295,19 @@ public class InvestFundPresenter extends MvpPresenter<InvestFundView> implements
 	}
 
 	private void handleGetRateSuccess(Double rate) {
+		getViewState().showAmountProgress(false);
 		this.rate = rate;
-		getPlatformInfo();
 	}
 
 	private void handleGetRateError(Throwable throwable) {
-		ApiErrorResolver.resolveErrors(throwable,
-				message -> getViewState().showSnackbarMessage(message));
-	}
-
-	private void getPlatformInfo() {
-		if (settingsManager != null && fundRequest != null && selectedWalletFrom != null) {
-			platformInfoSubscription = settingsManager.getPlatformInfo()
-					.observeOn(AndroidSchedulers.mainThread())
-					.subscribeOn(Schedulers.io())
-					.subscribe(this::handlePlatformInfoResponse,
-							this::handlePlatformInfoError);
-		}
-	}
-
-	private void handlePlatformInfoResponse(PlatformInfo response) {
-		platformInfoSubscription.unsubscribe();
-
-		getViewState().showProgress(false);
 		getViewState().showAmountProgress(false);
-
-		info = response;
-		gvCommissionPercent = info.getCommonInfo().getPlatformCommission().getInvestment();
-
-		minInvestmentAmountInfo = info.getAssetInfo().getFundInfo().getMinInvestAmountIntoFund();
-		updateMinInvestmentAmount();
-	}
-
-	private void handlePlatformInfoError(Throwable throwable) {
-		platformInfoSubscription.unsubscribe();
-		getViewState().showProgress(false);
-
 		ApiErrorResolver.resolveErrors(throwable,
 				message -> getViewState().showSnackbarMessage(message));
-
-		getViewState().finishActivity();
 	}
 
 	private void updateMinInvestmentAmount() {
-		if (selectedWalletFrom != null && minInvestmentAmountInfo != null) {
-			for (AmountWithCurrency amountWithCurrency : minInvestmentAmountInfo) {
-				if (amountWithCurrency.getCurrency().getValue().equals(selectedWalletFrom.getCurrency().getValue())) {
-					minInvestment = amountWithCurrency.getAmount();
-					break;
-				}
-			}
+		if (selectedWalletFrom != null && minInvestInfo != null) {
+			minInvestment = minInvestInfo.get(selectedWalletFrom.getCurrency().getValue());
 		}
 
 		getViewState().setMinInvestmentAmount(minInvestment);

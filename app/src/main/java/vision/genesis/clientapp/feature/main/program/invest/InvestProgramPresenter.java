@@ -5,8 +5,11 @@ import android.content.Context;
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -72,8 +75,6 @@ public class InvestProgramPresenter extends MvpPresenter<InvestProgramView> impl
 
 	private Double availableToInvest;
 
-	private Double managementFee = 0.0;
-
 	private Double gvCommission = 0.0;
 
 	private Double investmentAmount;
@@ -84,9 +85,12 @@ public class InvestProgramPresenter extends MvpPresenter<InvestProgramView> impl
 
 	private PlatformInfo info;
 
-	private Double programCurrencyMinInvestment = 0.0;
+	private Double minInvestAmount = 0.0;
 
 	private Double gvCommissionPercent = 0.0;
+
+	private Map<String, Double> minInvestInfo;
+
 
 	@Override
 	protected void onFirstViewAttach() {
@@ -94,7 +98,6 @@ public class InvestProgramPresenter extends MvpPresenter<InvestProgramView> impl
 
 		GenesisVisionApplication.getComponent().inject(this);
 
-		subscribeToWallets();
 		getPlatformInfo();
 		getWithdrawInfo();
 	}
@@ -116,7 +119,6 @@ public class InvestProgramPresenter extends MvpPresenter<InvestProgramView> impl
 
 	void setProgramRequest(ProgramRequest programRequest) {
 		this.programRequest = programRequest;
-		subscribeToWallets();
 		getPlatformInfo();
 		getWithdrawInfo();
 	}
@@ -128,7 +130,7 @@ public class InvestProgramPresenter extends MvpPresenter<InvestProgramView> impl
 		} catch (NumberFormatException e) {
 			amount = 0.0;
 		}
-		if (info != null && programRequest != null) {
+		if (info != null && programRequest != null && availableToInvest != null) {
 			if (amount > availableToInvest) {
 				getViewState().setAmount(StringFormatUtil.formatAmountWithoutGrouping(availableToInvest));
 				return;
@@ -145,7 +147,7 @@ public class InvestProgramPresenter extends MvpPresenter<InvestProgramView> impl
 			getViewState().setManagementFee(getManagementFeeString());
 			getViewState().setGvCommission(getGvCommissionString());
 			getViewState().setInvestmentAmount(getInvestmentAmountString());
-			getViewState().setContinueButtonEnabled(amount >= programCurrencyMinInvestment * rate
+			getViewState().setContinueButtonEnabled(amount >= minInvestAmount
 					&& amount > 0
 					&& amount <= availableToInvest);
 		}
@@ -241,7 +243,12 @@ public class InvestProgramPresenter extends MvpPresenter<InvestProgramView> impl
 	}
 
 	private void handleWalletUpdateSuccess(WalletSummary response) {
-		List<WalletData> wallets = response.getWallets();
+		List<WalletData> wallets = new ArrayList<>();
+		for (WalletData wallet : response.getWallets()) {
+			if (minInvestInfo.containsKey(wallet.getCurrency().getValue())) {
+				wallets.add(wallet);
+			}
+		}
 
 		getViewState().setWalletsFrom(wallets);
 		onWalletSelected(wallets.get(0));
@@ -288,17 +295,35 @@ public class InvestProgramPresenter extends MvpPresenter<InvestProgramView> impl
 	}
 
 	private void handleGetRateSuccess(Double rate) {
+		getViewState().showAmountProgress(false);
+
 		this.rate = rate;
-		getPlatformInfo();
+
+		if (programRequest.isOwner()) {
+			availableToInvest = selectedWalletFrom.getAvailable();
+		}
+		else {
+			availableToInvest = programRequest.getAvailableInvestment() < selectedWalletFrom.getAvailable() / rate
+					? programRequest.getAvailableInvestment() * rate
+					: selectedWalletFrom.getAvailable();
+		}
+
+		getViewState().setAvailableToInvest(StringFormatUtil.getValueString(
+				programRequest.getAvailableInvestment(),
+				programRequest.getProgramCurrency()));
+
+		getViewState().setAmount("");
 	}
 
 	private void handleGetRateError(Throwable throwable) {
+		getViewState().showAmountProgress(false);
+
 		ApiErrorResolver.resolveErrors(throwable,
 				message -> getViewState().showSnackbarMessage(message));
 	}
 
 	private void getPlatformInfo() {
-		if (settingsManager != null && programRequest != null && selectedWalletFrom != null) {
+		if (settingsManager != null && programRequest != null) {
 			platformInfoSubscription = settingsManager.getPlatformInfo()
 					.observeOn(AndroidSchedulers.mainThread())
 					.subscribeOn(Schedulers.io())
@@ -316,36 +341,19 @@ public class InvestProgramPresenter extends MvpPresenter<InvestProgramView> impl
 		info = response;
 		gvCommissionPercent = info.getCommonInfo().getPlatformCommission().getInvestment();
 
+		minInvestInfo = new HashMap<>();
+
 		for (ProgramMinInvestAmount model : info.getAssetInfo().getProgramInfo().getMinInvestAmounts()) {
 			if (model.getServerType().equals(programRequest.getBrokerType())) {
 				for (AmountWithCurrency amountWithCurrency : model.getMinInvestAmountIntoProgram()) {
-					if (amountWithCurrency.getCurrency().getValue().equals(programRequest.getProgramCurrency())) {
-						programCurrencyMinInvestment = amountWithCurrency.getAmount();
-						break;
-					}
+					minInvestInfo.put(amountWithCurrency.getCurrency().getValue(), amountWithCurrency.getAmount());
 				}
 			}
 		}
 
-//		double maxAmount = investInfo.getAvailableInWallet() / (1 + investInfo.getEntryFee() / 100);
-//		availableToInvest = investInfo.getAvailableToInvest() < maxAmount
-//				? investInfo.getAvailableToInvest()
-//				: maxAmount;
-		getViewState().setAvailableToInvest(StringFormatUtil.getValueString(
-				programRequest.getAvailableInvestment(),
-				programRequest.getProgramCurrency()));
+		updateMinInvest();
 
-		if (programRequest.isOwner()) {
-			availableToInvest = selectedWalletFrom.getAvailable();
-		}
-		else {
-			availableToInvest = programRequest.getAvailableInvestment() < selectedWalletFrom.getAvailable() / rate
-					? programRequest.getAvailableInvestment() * rate
-					: selectedWalletFrom.getAvailable();
-		}
-
-		getViewState().setMinInvestmentAmount(programCurrencyMinInvestment * rate);
-		getViewState().setAmount("");
+		subscribeToWallets();
 	}
 
 	private void handlePlatformInfoError(Throwable throwable) {
@@ -363,6 +371,14 @@ public class InvestProgramPresenter extends MvpPresenter<InvestProgramView> impl
 		this.selectedWalletFrom = wallet;
 		getViewState().setWalletFrom(selectedWalletFrom);
 		updateRate();
+		updateMinInvest();
+	}
+
+	private void updateMinInvest() {
+		if (selectedWalletFrom != null && minInvestInfo != null) {
+			minInvestAmount = minInvestInfo.get(selectedWalletFrom.getCurrency().getValue());
+			getViewState().setMinInvestmentAmount(minInvestAmount);
+		}
 	}
 
 	@Override
