@@ -105,10 +105,6 @@ public class CreateProgramPresenter extends MvpPresenter<CreateProgramView>
 
 	private Double successFee;
 
-	private boolean needBrokerSelect;
-
-	private boolean needPublicInfo;
-
 	private boolean needDeposit;
 
 	private PlatformInfo platformInfo;
@@ -166,32 +162,21 @@ public class CreateProgramPresenter extends MvpPresenter<CreateProgramView>
 		this.platformInfo = platformInfo;
 
 		if (model.getAssetId() == null) {
-			needBrokerSelect = true;
-			needPublicInfo = true;
 			needDeposit = true;
-			getViewState().initViewPager(needBrokerSelect, needPublicInfo, needDeposit, model);
+			getViewState().initViewPager(true, true, needDeposit, model);
 		}
 		else {
+			Boolean needPublicInfo = model.getAssetType().equals(AssetType.NONE);
 			if (model.isExchange()) {
-				needPublicInfo = model.getAssetType().equals(AssetType.NONE);
 				needDeposit = false;
-				getViewState().initViewPager(needBrokerSelect, needPublicInfo, needDeposit, model);
+				getViewState().initViewPager(false, needPublicInfo, needDeposit, model);
 			}
 			else {
-				for (ProgramMinInvestAmount info : platformInfo.getAssetInfo().getProgramInfo().getMinInvestAmounts()) {
-					if (info.getServerType().equals(model.getServerType())) {
-						for (AmountWithCurrency amountWithCurrency : info.getMinDepositCreateAsset()) {
-							if (amountWithCurrency.getCurrency().getValue().equals(model.getCurrency())) {
-								Double minDeposit = amountWithCurrency.getAmount();
-								model.setMinDepositInfo(info.getMinDepositCreateAsset());
-								needPublicInfo = model.getAssetType().equals(AssetType.NONE);
-								needDeposit = model.getCurrentBalance() < minDeposit;
-								getViewState().initViewPager(needBrokerSelect, needPublicInfo, needDeposit, model);
-								break;
-							}
-						}
-					}
-				}
+				needDeposit = true;
+				brokerServerType = model.getServerType();
+				accountCurrency = Currency.fromValue(model.getCurrency());
+				getViewState().initViewPager(false, needPublicInfo, needDeposit, model);
+				setMinDeposit(accountCurrency);
 			}
 		}
 	}

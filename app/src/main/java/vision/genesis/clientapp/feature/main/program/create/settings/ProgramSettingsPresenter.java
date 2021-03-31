@@ -255,25 +255,27 @@ public class ProgramSettingsPresenter extends MvpPresenter<ProgramSettingsView>
 	}
 
 	private void initCurrencies() {
-		currencies = new ArrayList<>();
-		currencies.add("BTC");
-		currencies.add("USDT");
-		getViewState().setCurrencyOptions(currencies);
+		if (model != null && model.isNew() && model.isExchange()) {
+			currencies = new ArrayList<>();
+			currencies.add("BTC");
+			currencies.add("USDT");
+			getViewState().setCurrencyOptions(currencies);
 
-		int currencyPos = 0;
-		if (model.getCurrency() != null) {
-			for (String currency : currencies) {
-				if (currency.equals(model.getCurrency())) {
-					this.currency = currency;
-					break;
+			int currencyPos = 0;
+			if (model.getCurrency() != null) {
+				for (String currency : currencies) {
+					if (currency.equals(model.getCurrency())) {
+						this.currency = currency;
+						break;
+					}
+					currencyPos++;
 				}
-				currencyPos++;
 			}
+			if (currencyPos >= currencies.size()) {
+				currencyPos = 0;
+			}
+			onCurrencyOptionSelected(currencyPos, currencies.get(currencyPos));
 		}
-		if (currencyPos >= currencies.size()) {
-			currencyPos = 0;
-		}
-		onCurrencyOptionSelected(currencyPos, currencies.get(currencyPos));
 	}
 
 	private void initInvestmentLimit() {

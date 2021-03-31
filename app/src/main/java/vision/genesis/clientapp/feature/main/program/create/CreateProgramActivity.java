@@ -56,7 +56,7 @@ public class CreateProgramActivity extends BaseSwipeBackActivity implements Crea
 
 	private CreateProgramPagerAdapter adapter;
 
-	private Boolean isExchangeProgram;
+	private Boolean isExchangeProgram = false;
 
 	@OnClick(R.id.button_back)
 	public void onBackClicked() {
