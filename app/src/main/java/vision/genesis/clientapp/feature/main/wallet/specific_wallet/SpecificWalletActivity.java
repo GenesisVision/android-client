@@ -22,11 +22,13 @@ import java.util.Locale;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.swagger.client.model.Currency;
 import io.swagger.client.model.InternalTransferRequestType;
 import io.swagger.client.model.WalletData;
 import timber.log.Timber;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseSwipeBackActivity;
+import vision.genesis.clientapp.feature.main.message.MessageBottomSheetDialog;
 import vision.genesis.clientapp.feature.main.wallet.deposit.DepositWalletActivity;
 import vision.genesis.clientapp.feature.main.wallet.transfer_funds.TransferFundsActivity;
 import vision.genesis.clientapp.feature.main.wallet.withdraw.WithdrawWalletActivity;
@@ -179,12 +181,40 @@ public class SpecificWalletActivity extends BaseSwipeBackActivity implements Spe
 
 	@OnClick(R.id.withdraw)
 	public void onWithdrawButtonClicked() {
-		WithdrawWalletActivity.startWith(this, model);
+		if (model.getCurrency().equals(Currency.BNB.getValue())) {
+			MessageBottomSheetDialog dialog = new MessageBottomSheetDialog();
+			dialog.show(getSupportFragmentManager(), dialog.getTag());
+			dialog.setData(
+					R.drawable.ic_report_problem_black_24dp,
+					getString(R.string.warning).toUpperCase(),
+					getString(R.string.bnb_withdraw_warning),
+					getString(R.string.i_understand_it),
+					false,
+					() -> WithdrawWalletActivity.startWith(this, model));
+
+		}
+		else {
+			WithdrawWalletActivity.startWith(this, model);
+		}
 	}
 
 	@OnClick(R.id.add_funds)
 	public void onAddFundsButtonClicked() {
-		DepositWalletActivity.startWith(this, model);
+		if (model.getCurrency().equals(Currency.BNB.getValue())) {
+			MessageBottomSheetDialog dialog = new MessageBottomSheetDialog();
+			dialog.show(getSupportFragmentManager(), dialog.getTag());
+			dialog.setData(
+					R.drawable.ic_report_problem_black_24dp,
+					getString(R.string.warning).toUpperCase(),
+					getString(R.string.bnb_deposit_warning),
+					getString(R.string.i_understand_it),
+					false,
+					() -> DepositWalletActivity.startWith(this, model));
+
+		}
+		else {
+			DepositWalletActivity.startWith(this, model);
+		}
 	}
 
 	@Override

@@ -2,7 +2,6 @@ package vision.genesis.clientapp.feature.main.message;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -10,6 +9,8 @@ import android.widget.TextView;
 
 import androidx.appcompat.content.res.AppCompatResources;
 
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
 import java.util.Objects;
@@ -55,8 +56,13 @@ public class MessageBottomSheetDialog extends BottomSheetDialogFragment
 
 	private String messageText;
 
+	private String buttonText;
+
 	@OnClick(R.id.button)
 	public void onButtonClicked() {
+		if (listener != null) {
+			listener.onMessageButtonClicked();
+		}
 		this.dismiss();
 	}
 
@@ -64,6 +70,13 @@ public class MessageBottomSheetDialog extends BottomSheetDialogFragment
 	@Override
 	public void setupDialog(Dialog dialog, int style) {
 		super.setupDialog(dialog, style);
+		getDialog().setOnShowListener(dialog1 -> {
+			BottomSheetDialog d = (BottomSheetDialog) dialog1;
+			View bottomSheetInternal = d.findViewById(com.google.android.material.R.id.design_bottom_sheet);
+			if (bottomSheetInternal != null) {
+				BottomSheetBehavior.from(bottomSheetInternal).setState(BottomSheetBehavior.STATE_EXPANDED);
+			}
+		});
 		View contentView = View.inflate(getContext(), R.layout.fragment_bottomsheet_message, null);
 
 		dialog.setContentView(contentView);
@@ -92,6 +105,15 @@ public class MessageBottomSheetDialog extends BottomSheetDialogFragment
 		this.listener = listener;
 	}
 
+	public void setData(int imageResourceId, String title, String message, String buttonText, boolean mustRead, OnButtonClickListener listener) {
+		this.imageResourceId = imageResourceId;
+		this.titleText = title;
+		this.messageText = message;
+		this.buttonText = buttonText;
+		this.mustRead = mustRead;
+		this.listener = listener;
+	}
+
 	private void setFonts() {
 		title.setTypeface(TypefaceUtil.semibold());
 	}
@@ -103,24 +125,9 @@ public class MessageBottomSheetDialog extends BottomSheetDialogFragment
 			}
 			this.title.setText(titleText);
 			this.message.setText(messageText);
+			this.button.setText(buttonText == null ? getString(R.string.ok) : buttonText);
 
 			setCancelable(!mustRead);
 		}
-	}
-
-	@Override
-	public void onCancel(DialogInterface dialog) {
-		if (listener != null) {
-			listener.onMessageButtonClicked();
-		}
-		super.onCancel(dialog);
-	}
-
-	@Override
-	public void dismiss() {
-		if (listener != null) {
-			listener.onMessageButtonClicked();
-		}
-		super.dismiss();
 	}
 }

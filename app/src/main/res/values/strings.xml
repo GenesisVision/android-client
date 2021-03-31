@@ -1042,6 +1042,10 @@
     <string name="logout_from_other_devices">Log out from other devices</string>
     <string name="logout_from_other_devices_dialog_text">Are you sure you want to log out from other devices?</string>
     <string name="success">Success</string>
+    <string name="i_understand_it">I understand it</string>
+    <string name="bnb_withdraw_warning">Please ensure that the withdrawal address supports the Binance Smart Chain network (BSC). You will loose your assets if your chosen platform does not support BSC.</string>
+    <string name="bnb_deposit_warning">Please ensure that you are using Binance Smart Chain network (BSC) when depositing BNB to this address. You will loose your assets if you do not chose the correct network.</string>
+    <string name="warning">Warning</string>
 
     <plurals name="assets">
         <item quantity="one">asset</item>
