@@ -30,6 +30,17 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class PlatformNews implements Parcelable
 {
+	public static final Parcelable.Creator<PlatformNews> CREATOR = new Parcelable.Creator<PlatformNews>()
+	{
+		public PlatformNews createFromParcel(Parcel in) {
+			return new PlatformNews(in);
+		}
+
+		public PlatformNews[] newArray(int size) {
+			return new PlatformNews[size];
+		}
+	};
+
 	@SerializedName("date")
 	private DateTime date = null;
 
@@ -49,6 +60,15 @@ public class PlatformNews implements Parcelable
 	private Boolean isHot = null;
 
 	public PlatformNews() {
+	}
+
+	PlatformNews(Parcel in) {
+		date = (DateTime) in.readValue(DateTime.class.getClassLoader());
+		title = (String) in.readValue(null);
+		body = (String) in.readValue(null);
+		logoUrl = (String) in.readValue(null);
+		url = (String) in.readValue(null);
+		isHot = (Boolean) in.readValue(null);
 	}
 
 	public PlatformNews date(DateTime date) {
@@ -165,7 +185,6 @@ public class PlatformNews implements Parcelable
 		this.isHot = isHot;
 	}
 
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -187,7 +206,6 @@ public class PlatformNews implements Parcelable
 	public int hashCode() {
 		return Objects.hash(date, title, body, logoUrl, url, isHot);
 	}
-
 
 	@Override
 	public String toString() {
@@ -215,7 +233,6 @@ public class PlatformNews implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
-
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(date);
 		out.writeValue(title);
@@ -225,27 +242,7 @@ public class PlatformNews implements Parcelable
 		out.writeValue(isHot);
 	}
 
-	public static final Parcelable.Creator<PlatformNews> CREATOR = new Parcelable.Creator<PlatformNews>()
-	{
-		public PlatformNews createFromParcel(Parcel in) {
-			return new PlatformNews(in);
-		}
-
-		public PlatformNews[] newArray(int size) {
-			return new PlatformNews[size];
-		}
-	};
-
 	public int describeContents() {
 		return 0;
-	}
-
-	PlatformNews(Parcel in) {
-		date = (DateTime) in.readValue(DateTime.class.getClassLoader());
-		title = (String) in.readValue(null);
-		body = (String) in.readValue(null);
-		logoUrl = (String) in.readValue(null);
-		url = (String) in.readValue(null);
-		isHot = (Boolean) in.readValue(null);
 	}
 }

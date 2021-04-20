@@ -30,10 +30,25 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class BrokersInfo implements Parcelable
 {
+	public static final Parcelable.Creator<BrokersInfo> CREATOR = new Parcelable.Creator<BrokersInfo>()
+	{
+		public BrokersInfo createFromParcel(Parcel in) {
+			return new BrokersInfo(in);
+		}
+
+		public BrokersInfo[] newArray(int size) {
+			return new BrokersInfo[size];
+		}
+	};
+
 	@SerializedName("brokers")
 	private List<Broker> brokers = null;
 
 	public BrokersInfo() {
+	}
+
+	BrokersInfo(Parcel in) {
+		brokers = (List<Broker>) in.readValue(Broker.class.getClassLoader());
 	}
 
 	public BrokersInfo brokers(List<Broker> brokers) {
@@ -63,7 +78,6 @@ public class BrokersInfo implements Parcelable
 		this.brokers = brokers;
 	}
 
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -80,7 +94,6 @@ public class BrokersInfo implements Parcelable
 	public int hashCode() {
 		return Objects.hash(brokers);
 	}
-
 
 	@Override
 	public String toString() {
@@ -103,27 +116,11 @@ public class BrokersInfo implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
-
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(brokers);
 	}
 
-	public static final Parcelable.Creator<BrokersInfo> CREATOR = new Parcelable.Creator<BrokersInfo>()
-	{
-		public BrokersInfo createFromParcel(Parcel in) {
-			return new BrokersInfo(in);
-		}
-
-		public BrokersInfo[] newArray(int size) {
-			return new BrokersInfo[size];
-		}
-	};
-
 	public int describeContents() {
 		return 0;
-	}
-
-	BrokersInfo(Parcel in) {
-		brokers = (List<Broker>) in.readValue(Broker.class.getClassLoader());
 	}
 }

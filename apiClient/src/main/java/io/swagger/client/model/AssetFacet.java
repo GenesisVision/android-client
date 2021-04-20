@@ -29,6 +29,17 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class AssetFacet implements Parcelable
 {
+	public static final Parcelable.Creator<AssetFacet> CREATOR = new Parcelable.Creator<AssetFacet>()
+	{
+		public AssetFacet createFromParcel(Parcel in) {
+			return new AssetFacet(in);
+		}
+
+		public AssetFacet[] newArray(int size) {
+			return new AssetFacet[size];
+		}
+	};
+
 	@SerializedName("id")
 	private UUID id = null;
 
@@ -54,6 +65,17 @@ public class AssetFacet implements Parcelable
 	private String sorting = null;
 
 	public AssetFacet() {
+	}
+
+	AssetFacet(Parcel in) {
+		id = (UUID) in.readValue(UUID.class.getClassLoader());
+		title = (String) in.readValue(null);
+		description = (String) in.readValue(null);
+		logoUrl = (String) in.readValue(null);
+		url = (String) in.readValue(null);
+		sortType = (FacetSortType) in.readValue(FacetSortType.class.getClassLoader());
+		timeframe = (Timeframe) in.readValue(Timeframe.class.getClassLoader());
+		sorting = (String) in.readValue(null);
 	}
 
 	public AssetFacet id(UUID id) {
@@ -208,7 +230,6 @@ public class AssetFacet implements Parcelable
 		this.sorting = sorting;
 	}
 
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -232,7 +253,6 @@ public class AssetFacet implements Parcelable
 	public int hashCode() {
 		return Objects.hash(id, title, description, logoUrl, url, sortType, timeframe, sorting);
 	}
-
 
 	@Override
 	public String toString() {
@@ -262,7 +282,6 @@ public class AssetFacet implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
-
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(id);
 		out.writeValue(title);
@@ -274,29 +293,7 @@ public class AssetFacet implements Parcelable
 		out.writeValue(sorting);
 	}
 
-	public static final Parcelable.Creator<AssetFacet> CREATOR = new Parcelable.Creator<AssetFacet>()
-	{
-		public AssetFacet createFromParcel(Parcel in) {
-			return new AssetFacet(in);
-		}
-
-		public AssetFacet[] newArray(int size) {
-			return new AssetFacet[size];
-		}
-	};
-
 	public int describeContents() {
 		return 0;
-	}
-
-	AssetFacet(Parcel in) {
-		id = (UUID) in.readValue(UUID.class.getClassLoader());
-		title = (String) in.readValue(null);
-		description = (String) in.readValue(null);
-		logoUrl = (String) in.readValue(null);
-		url = (String) in.readValue(null);
-		sortType = (FacetSortType) in.readValue(FacetSortType.class.getClassLoader());
-		timeframe = (Timeframe) in.readValue(Timeframe.class.getClassLoader());
-		sorting = (String) in.readValue(null);
 	}
 }

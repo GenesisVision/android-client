@@ -28,6 +28,17 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class FollowDetailsFull implements Parcelable
 {
+	public static final Parcelable.Creator<FollowDetailsFull> CREATOR = new Parcelable.Creator<FollowDetailsFull>()
+	{
+		public FollowDetailsFull createFromParcel(Parcel in) {
+			return new FollowDetailsFull(in);
+		}
+
+		public FollowDetailsFull[] newArray(int size) {
+			return new FollowDetailsFull[size];
+		}
+	};
+
 	@SerializedName("tradesCount")
 	private Integer tradesCount = null;
 
@@ -41,6 +52,13 @@ public class FollowDetailsFull implements Parcelable
 	private PersonalFollowDetailsFull personalDetails = null;
 
 	public FollowDetailsFull() {
+	}
+
+	FollowDetailsFull(Parcel in) {
+		tradesCount = (Integer) in.readValue(null);
+		signalSettings = (AssetSignalSettings) in.readValue(AssetSignalSettings.class.getClassLoader());
+		subscribersCount = (Integer) in.readValue(null);
+		personalDetails = (PersonalFollowDetailsFull) in.readValue(PersonalFollowDetailsFull.class.getClassLoader());
 	}
 
 	public FollowDetailsFull tradesCount(Integer tradesCount) {
@@ -119,7 +137,6 @@ public class FollowDetailsFull implements Parcelable
 		this.personalDetails = personalDetails;
 	}
 
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -139,7 +156,6 @@ public class FollowDetailsFull implements Parcelable
 	public int hashCode() {
 		return Objects.hash(tradesCount, signalSettings, subscribersCount, personalDetails);
 	}
-
 
 	@Override
 	public String toString() {
@@ -165,7 +181,6 @@ public class FollowDetailsFull implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
-
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(tradesCount);
 		out.writeValue(signalSettings);
@@ -173,25 +188,7 @@ public class FollowDetailsFull implements Parcelable
 		out.writeValue(personalDetails);
 	}
 
-	public static final Parcelable.Creator<FollowDetailsFull> CREATOR = new Parcelable.Creator<FollowDetailsFull>()
-	{
-		public FollowDetailsFull createFromParcel(Parcel in) {
-			return new FollowDetailsFull(in);
-		}
-
-		public FollowDetailsFull[] newArray(int size) {
-			return new FollowDetailsFull[size];
-		}
-	};
-
 	public int describeContents() {
 		return 0;
-	}
-
-	FollowDetailsFull(Parcel in) {
-		tradesCount = (Integer) in.readValue(null);
-		signalSettings = (AssetSignalSettings) in.readValue(AssetSignalSettings.class.getClassLoader());
-		subscribersCount = (Integer) in.readValue(null);
-		personalDetails = (PersonalFollowDetailsFull) in.readValue(PersonalFollowDetailsFull.class.getClassLoader());
 	}
 }

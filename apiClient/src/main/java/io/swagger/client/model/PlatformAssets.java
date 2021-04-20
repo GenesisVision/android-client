@@ -30,6 +30,17 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class PlatformAssets implements Parcelable
 {
+	public static final Parcelable.Creator<PlatformAssets> CREATOR = new Parcelable.Creator<PlatformAssets>()
+	{
+		public PlatformAssets createFromParcel(Parcel in) {
+			return new PlatformAssets(in);
+		}
+
+		public PlatformAssets[] newArray(int size) {
+			return new PlatformAssets[size];
+		}
+	};
+
 	@SerializedName("assets")
 	private List<PlatformAsset> assets = null;
 
@@ -37,6 +48,11 @@ public class PlatformAssets implements Parcelable
 	private List<ProviderPlatformAssets> providers = null;
 
 	public PlatformAssets() {
+	}
+
+	PlatformAssets(Parcel in) {
+		assets = (List<PlatformAsset>) in.readValue(PlatformAsset.class.getClassLoader());
+		providers = (List<ProviderPlatformAssets>) in.readValue(ProviderPlatformAssets.class.getClassLoader());
 	}
 
 	public PlatformAssets assets(List<PlatformAsset> assets) {
@@ -93,7 +109,6 @@ public class PlatformAssets implements Parcelable
 		this.providers = providers;
 	}
 
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -111,7 +126,6 @@ public class PlatformAssets implements Parcelable
 	public int hashCode() {
 		return Objects.hash(assets, providers);
 	}
-
 
 	@Override
 	public String toString() {
@@ -135,29 +149,12 @@ public class PlatformAssets implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
-
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(assets);
 		out.writeValue(providers);
 	}
 
-	public static final Parcelable.Creator<PlatformAssets> CREATOR = new Parcelable.Creator<PlatformAssets>()
-	{
-		public PlatformAssets createFromParcel(Parcel in) {
-			return new PlatformAssets(in);
-		}
-
-		public PlatformAssets[] newArray(int size) {
-			return new PlatformAssets[size];
-		}
-	};
-
 	public int describeContents() {
 		return 0;
-	}
-
-	PlatformAssets(Parcel in) {
-		assets = (List<PlatformAsset>) in.readValue(PlatformAsset.class.getClassLoader());
-		providers = (List<ProviderPlatformAssets>) in.readValue(ProviderPlatformAssets.class.getClassLoader());
 	}
 }

@@ -7,3 +7,4 @@ Name | Type | Description | Notes
 **tradingAccountInfo** | [**TradingAccountAssetPlatformInfo**](TradingAccountAssetPlatformInfo.md) |  |  [optional]
 **fundInfo** | [**FundAssetPlatformInfo**](FundAssetPlatformInfo.md) |  |  [optional]
 **followInfo** | [**FollowAssetPlatformInfo**](FollowAssetPlatformInfo.md) |  |  [optional]
+**anonymousInfo** | [**AnonymousPlatformInfo**](AnonymousPlatformInfo.md) |  |  [optional]

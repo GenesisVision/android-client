@@ -28,6 +28,17 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class PostImageResize implements Parcelable
 {
+	public static final Parcelable.Creator<PostImageResize> CREATOR = new Parcelable.Creator<PostImageResize>()
+	{
+		public PostImageResize createFromParcel(Parcel in) {
+			return new PostImageResize(in);
+		}
+
+		public PostImageResize[] newArray(int size) {
+			return new PostImageResize[size];
+		}
+	};
+
 	@SerializedName("quality")
 	private ImageQuality quality = null;
 
@@ -41,6 +52,13 @@ public class PostImageResize implements Parcelable
 	private Integer width = null;
 
 	public PostImageResize() {
+	}
+
+	PostImageResize(Parcel in) {
+		quality = (ImageQuality) in.readValue(ImageQuality.class.getClassLoader());
+		logoUrl = (String) in.readValue(null);
+		height = (Integer) in.readValue(null);
+		width = (Integer) in.readValue(null);
 	}
 
 	public PostImageResize quality(ImageQuality quality) {
@@ -119,7 +137,6 @@ public class PostImageResize implements Parcelable
 		this.width = width;
 	}
 
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -139,7 +156,6 @@ public class PostImageResize implements Parcelable
 	public int hashCode() {
 		return Objects.hash(quality, logoUrl, height, width);
 	}
-
 
 	@Override
 	public String toString() {
@@ -165,7 +181,6 @@ public class PostImageResize implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
-
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(quality);
 		out.writeValue(logoUrl);
@@ -173,25 +188,7 @@ public class PostImageResize implements Parcelable
 		out.writeValue(width);
 	}
 
-	public static final Parcelable.Creator<PostImageResize> CREATOR = new Parcelable.Creator<PostImageResize>()
-	{
-		public PostImageResize createFromParcel(Parcel in) {
-			return new PostImageResize(in);
-		}
-
-		public PostImageResize[] newArray(int size) {
-			return new PostImageResize[size];
-		}
-	};
-
 	public int describeContents() {
 		return 0;
-	}
-
-	PostImageResize(Parcel in) {
-		quality = (ImageQuality) in.readValue(ImageQuality.class.getClassLoader());
-		logoUrl = (String) in.readValue(null);
-		height = (Integer) in.readValue(null);
-		width = (Integer) in.readValue(null);
 	}
 }

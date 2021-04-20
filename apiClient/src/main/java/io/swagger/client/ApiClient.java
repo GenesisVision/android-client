@@ -367,13 +367,13 @@ class GsonResponseBodyConverterToString<T> implements Converter<ResponseBody, T>
 
 class GsonCustomConverterFactory extends Converter.Factory
 {
-	private final Gson gson;
-
-	private final GsonConverterFactory gsonConverterFactory;
-
 	public static GsonCustomConverterFactory create(Gson gson) {
 		return new GsonCustomConverterFactory(gson);
 	}
+
+	private final Gson gson;
+
+	private final GsonConverterFactory gsonConverterFactory;
 
 	private GsonCustomConverterFactory(Gson gson) {
 		if (gson == null) {

@@ -31,6 +31,17 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class FundDetailsFull implements Parcelable
 {
+	public static final Parcelable.Creator<FundDetailsFull> CREATOR = new Parcelable.Creator<FundDetailsFull>()
+	{
+		public FundDetailsFull createFromParcel(Parcel in) {
+			return new FundDetailsFull(in);
+		}
+
+		public FundDetailsFull[] newArray(int size) {
+			return new FundDetailsFull[size];
+		}
+	};
+
 	@SerializedName("id")
 	private UUID id = null;
 
@@ -62,6 +73,19 @@ public class FundDetailsFull implements Parcelable
 	private ProfilePublic owner = null;
 
 	public FundDetailsFull() {
+	}
+
+	FundDetailsFull(Parcel in) {
+		id = (UUID) in.readValue(UUID.class.getClassLoader());
+		publicInfo = (AssetPublicDetails) in.readValue(AssetPublicDetails.class.getClassLoader());
+		entryFeeSelected = (Double) in.readValue(null);
+		entryFeeCurrent = (Double) in.readValue(null);
+		exitFeeSelected = (Double) in.readValue(null);
+		exitFeeCurrent = (Double) in.readValue(null);
+		tradingSchedule = (TradingScheduleInfo) in.readValue(TradingScheduleInfo.class.getClassLoader());
+		assetsStructure = (List<FundAssetInfo>) in.readValue(FundAssetInfo.class.getClassLoader());
+		personalDetails = (PersonalFundDetails) in.readValue(PersonalFundDetails.class.getClassLoader());
+		owner = (ProfilePublic) in.readValue(ProfilePublic.class.getClassLoader());
 	}
 
 	public FundDetailsFull id(UUID id) {
@@ -262,7 +286,6 @@ public class FundDetailsFull implements Parcelable
 		this.owner = owner;
 	}
 
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -288,7 +311,6 @@ public class FundDetailsFull implements Parcelable
 	public int hashCode() {
 		return Objects.hash(id, publicInfo, entryFeeSelected, entryFeeCurrent, exitFeeSelected, exitFeeCurrent, tradingSchedule, assetsStructure, personalDetails, owner);
 	}
-
 
 	@Override
 	public String toString() {
@@ -320,7 +342,6 @@ public class FundDetailsFull implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
-
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(id);
 		out.writeValue(publicInfo);
@@ -334,31 +355,7 @@ public class FundDetailsFull implements Parcelable
 		out.writeValue(owner);
 	}
 
-	public static final Parcelable.Creator<FundDetailsFull> CREATOR = new Parcelable.Creator<FundDetailsFull>()
-	{
-		public FundDetailsFull createFromParcel(Parcel in) {
-			return new FundDetailsFull(in);
-		}
-
-		public FundDetailsFull[] newArray(int size) {
-			return new FundDetailsFull[size];
-		}
-	};
-
 	public int describeContents() {
 		return 0;
-	}
-
-	FundDetailsFull(Parcel in) {
-		id = (UUID) in.readValue(UUID.class.getClassLoader());
-		publicInfo = (AssetPublicDetails) in.readValue(AssetPublicDetails.class.getClassLoader());
-		entryFeeSelected = (Double) in.readValue(null);
-		entryFeeCurrent = (Double) in.readValue(null);
-		exitFeeSelected = (Double) in.readValue(null);
-		exitFeeCurrent = (Double) in.readValue(null);
-		tradingSchedule = (TradingScheduleInfo) in.readValue(TradingScheduleInfo.class.getClassLoader());
-		assetsStructure = (List<FundAssetInfo>) in.readValue(FundAssetInfo.class.getClassLoader());
-		personalDetails = (PersonalFundDetails) in.readValue(PersonalFundDetails.class.getClassLoader());
-		owner = (ProfilePublic) in.readValue(ProfilePublic.class.getClassLoader());
 	}
 }

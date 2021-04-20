@@ -30,6 +30,17 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class FundTradingEventViewModel implements Parcelable
 {
+	public static final Parcelable.Creator<FundTradingEventViewModel> CREATOR = new Parcelable.Creator<FundTradingEventViewModel>()
+	{
+		public FundTradingEventViewModel createFromParcel(Parcel in) {
+			return new FundTradingEventViewModel(in);
+		}
+
+		public FundTradingEventViewModel[] newArray(int size) {
+			return new FundTradingEventViewModel[size];
+		}
+	};
+
 	@SerializedName("date")
 	private DateTime date = null;
 
@@ -52,6 +63,16 @@ public class FundTradingEventViewModel implements Parcelable
 	private String commissionCurrency = null;
 
 	public FundTradingEventViewModel() {
+	}
+
+	FundTradingEventViewModel(Parcel in) {
+		date = (DateTime) in.readValue(DateTime.class.getClassLoader());
+		soldAmount = (Double) in.readValue(null);
+		soldAsset = (BasePlatformAsset) in.readValue(BasePlatformAsset.class.getClassLoader());
+		boughtAmount = (Double) in.readValue(null);
+		boughtAsset = (BasePlatformAsset) in.readValue(BasePlatformAsset.class.getClassLoader());
+		commission = (Double) in.readValue(null);
+		commissionCurrency = (String) in.readValue(null);
 	}
 
 	public FundTradingEventViewModel date(DateTime date) {
@@ -187,7 +208,6 @@ public class FundTradingEventViewModel implements Parcelable
 		this.commissionCurrency = commissionCurrency;
 	}
 
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -210,7 +230,6 @@ public class FundTradingEventViewModel implements Parcelable
 	public int hashCode() {
 		return Objects.hash(date, soldAmount, soldAsset, boughtAmount, boughtAsset, commission, commissionCurrency);
 	}
-
 
 	@Override
 	public String toString() {
@@ -239,7 +258,6 @@ public class FundTradingEventViewModel implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
-
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(date);
 		out.writeValue(soldAmount);
@@ -250,28 +268,7 @@ public class FundTradingEventViewModel implements Parcelable
 		out.writeValue(commissionCurrency);
 	}
 
-	public static final Parcelable.Creator<FundTradingEventViewModel> CREATOR = new Parcelable.Creator<FundTradingEventViewModel>()
-	{
-		public FundTradingEventViewModel createFromParcel(Parcel in) {
-			return new FundTradingEventViewModel(in);
-		}
-
-		public FundTradingEventViewModel[] newArray(int size) {
-			return new FundTradingEventViewModel[size];
-		}
-	};
-
 	public int describeContents() {
 		return 0;
-	}
-
-	FundTradingEventViewModel(Parcel in) {
-		date = (DateTime) in.readValue(DateTime.class.getClassLoader());
-		soldAmount = (Double) in.readValue(null);
-		soldAsset = (BasePlatformAsset) in.readValue(BasePlatformAsset.class.getClassLoader());
-		boughtAmount = (Double) in.readValue(null);
-		boughtAsset = (BasePlatformAsset) in.readValue(BasePlatformAsset.class.getClassLoader());
-		commission = (Double) in.readValue(null);
-		commissionCurrency = (String) in.readValue(null);
 	}
 }

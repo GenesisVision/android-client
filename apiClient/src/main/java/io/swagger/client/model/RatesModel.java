@@ -31,10 +31,25 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class RatesModel implements Parcelable
 {
+	public static final Parcelable.Creator<RatesModel> CREATOR = new Parcelable.Creator<RatesModel>()
+	{
+		public RatesModel createFromParcel(Parcel in) {
+			return new RatesModel(in);
+		}
+
+		public RatesModel[] newArray(int size) {
+			return new RatesModel[size];
+		}
+	};
+
 	@SerializedName("rates")
 	private Map<String, List<RateItem>> rates = null;
 
 	public RatesModel() {
+	}
+
+	RatesModel(Parcel in) {
+		rates = (Map<String, List<RateItem>>) in.readValue(List.class.getClassLoader());
 	}
 
 	public RatesModel rates(Map<String, List<RateItem>> rates) {
@@ -64,7 +79,6 @@ public class RatesModel implements Parcelable
 		this.rates = rates;
 	}
 
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -81,7 +95,6 @@ public class RatesModel implements Parcelable
 	public int hashCode() {
 		return Objects.hash(rates);
 	}
-
 
 	@Override
 	public String toString() {
@@ -104,27 +117,11 @@ public class RatesModel implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
-
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(rates);
 	}
 
-	public static final Parcelable.Creator<RatesModel> CREATOR = new Parcelable.Creator<RatesModel>()
-	{
-		public RatesModel createFromParcel(Parcel in) {
-			return new RatesModel(in);
-		}
-
-		public RatesModel[] newArray(int size) {
-			return new RatesModel[size];
-		}
-	};
-
 	public int describeContents() {
 		return 0;
-	}
-
-	RatesModel(Parcel in) {
-		rates = (Map<String, List<RateItem>>) in.readValue(List.class.getClassLoader());
 	}
 }

@@ -30,6 +30,17 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class SocialSummary implements Parcelable
 {
+	public static final Parcelable.Creator<SocialSummary> CREATOR = new Parcelable.Creator<SocialSummary>()
+	{
+		public SocialSummary createFromParcel(Parcel in) {
+			return new SocialSummary(in);
+		}
+
+		public SocialSummary[] newArray(int size) {
+			return new SocialSummary[size];
+		}
+	};
+
 	@SerializedName("hotTopics")
 	private List<SocialSummaryHashTag> hotTopics = null;
 
@@ -40,6 +51,12 @@ public class SocialSummary implements Parcelable
 	private List<SocialPostPlatformAsset> topAssets = null;
 
 	public SocialSummary() {
+	}
+
+	SocialSummary(Parcel in) {
+		hotTopics = (List<SocialSummaryHashTag>) in.readValue(SocialSummaryHashTag.class.getClassLoader());
+		topStrategies = (List<SocialSummaryStrategy>) in.readValue(SocialSummaryStrategy.class.getClassLoader());
+		topAssets = (List<SocialPostPlatformAsset>) in.readValue(SocialPostPlatformAsset.class.getClassLoader());
 	}
 
 	public SocialSummary hotTopics(List<SocialSummaryHashTag> hotTopics) {
@@ -123,7 +140,6 @@ public class SocialSummary implements Parcelable
 		this.topAssets = topAssets;
 	}
 
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -142,7 +158,6 @@ public class SocialSummary implements Parcelable
 	public int hashCode() {
 		return Objects.hash(hotTopics, topStrategies, topAssets);
 	}
-
 
 	@Override
 	public String toString() {
@@ -167,31 +182,13 @@ public class SocialSummary implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
-
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(hotTopics);
 		out.writeValue(topStrategies);
 		out.writeValue(topAssets);
 	}
 
-	public static final Parcelable.Creator<SocialSummary> CREATOR = new Parcelable.Creator<SocialSummary>()
-	{
-		public SocialSummary createFromParcel(Parcel in) {
-			return new SocialSummary(in);
-		}
-
-		public SocialSummary[] newArray(int size) {
-			return new SocialSummary[size];
-		}
-	};
-
 	public int describeContents() {
 		return 0;
-	}
-
-	SocialSummary(Parcel in) {
-		hotTopics = (List<SocialSummaryHashTag>) in.readValue(SocialSummaryHashTag.class.getClassLoader());
-		topStrategies = (List<SocialSummaryStrategy>) in.readValue(SocialSummaryStrategy.class.getClassLoader());
-		topAssets = (List<SocialPostPlatformAsset>) in.readValue(SocialPostPlatformAsset.class.getClassLoader());
 	}
 }

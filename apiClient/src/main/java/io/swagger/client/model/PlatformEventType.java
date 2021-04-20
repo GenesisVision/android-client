@@ -33,6 +33,15 @@ public enum PlatformEventType
 	FUNDREALLOCATED("FundReallocated"),
 	FOLLOWTRADE("FollowTrade");
 
+	public static PlatformEventType fromValue(String text) {
+		for (PlatformEventType b : PlatformEventType.values()) {
+			if (String.valueOf(b.value).equals(text)) {
+				return b;
+			}
+		}
+		return null;
+	}
+
 	private String value;
 
 	PlatformEventType(String value) {
@@ -46,15 +55,6 @@ public enum PlatformEventType
 	@Override
 	public String toString() {
 		return String.valueOf(value);
-	}
-
-	public static PlatformEventType fromValue(String text) {
-		for (PlatformEventType b : PlatformEventType.values()) {
-			if (String.valueOf(b.value).equals(text)) {
-				return b;
-			}
-		}
-		return null;
 	}
 
 	public static class Adapter extends TypeAdapter<PlatformEventType>

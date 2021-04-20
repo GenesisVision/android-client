@@ -31,6 +31,17 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class PushNotificationViewModel implements Parcelable
 {
+	public static final Parcelable.Creator<PushNotificationViewModel> CREATOR = new Parcelable.Creator<PushNotificationViewModel>()
+	{
+		public PushNotificationViewModel createFromParcel(Parcel in) {
+			return new PushNotificationViewModel(in);
+		}
+
+		public PushNotificationViewModel[] newArray(int size) {
+			return new PushNotificationViewModel[size];
+		}
+	};
+
 	@SerializedName("id")
 	private UUID id = null;
 
@@ -65,6 +76,20 @@ public class PushNotificationViewModel implements Parcelable
 	private PushNotificationChannel channel = null;
 
 	public PushNotificationViewModel() {
+	}
+
+	PushNotificationViewModel(Parcel in) {
+		id = (UUID) in.readValue(UUID.class.getClassLoader());
+		text = (String) in.readValue(null);
+		type = (String) in.readValue(null);
+		date = (DateTime) in.readValue(DateTime.class.getClassLoader());
+		imageUrl = (String) in.readValue(null);
+		isUnread = (Boolean) in.readValue(null);
+		location = (NotificationLocationViewModel) in.readValue(NotificationLocationViewModel.class.getClassLoader());
+		assetDetails = (AssetDetails) in.readValue(AssetDetails.class.getClassLoader());
+		userDetails = (ProfilePublic) in.readValue(ProfilePublic.class.getClassLoader());
+		platformAssetDetails = (BasePlatformAsset) in.readValue(BasePlatformAsset.class.getClassLoader());
+		channel = (PushNotificationChannel) in.readValue(PushNotificationChannel.class.getClassLoader());
 	}
 
 	public PushNotificationViewModel id(UUID id) {
@@ -276,7 +301,6 @@ public class PushNotificationViewModel implements Parcelable
 		this.channel = channel;
 	}
 
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -303,7 +327,6 @@ public class PushNotificationViewModel implements Parcelable
 	public int hashCode() {
 		return Objects.hash(id, text, type, date, imageUrl, isUnread, location, assetDetails, userDetails, platformAssetDetails, channel);
 	}
-
 
 	@Override
 	public String toString() {
@@ -336,7 +359,6 @@ public class PushNotificationViewModel implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
-
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(id);
 		out.writeValue(text);
@@ -351,32 +373,7 @@ public class PushNotificationViewModel implements Parcelable
 		out.writeValue(channel);
 	}
 
-	public static final Parcelable.Creator<PushNotificationViewModel> CREATOR = new Parcelable.Creator<PushNotificationViewModel>()
-	{
-		public PushNotificationViewModel createFromParcel(Parcel in) {
-			return new PushNotificationViewModel(in);
-		}
-
-		public PushNotificationViewModel[] newArray(int size) {
-			return new PushNotificationViewModel[size];
-		}
-	};
-
 	public int describeContents() {
 		return 0;
-	}
-
-	PushNotificationViewModel(Parcel in) {
-		id = (UUID) in.readValue(UUID.class.getClassLoader());
-		text = (String) in.readValue(null);
-		type = (String) in.readValue(null);
-		date = (DateTime) in.readValue(DateTime.class.getClassLoader());
-		imageUrl = (String) in.readValue(null);
-		isUnread = (Boolean) in.readValue(null);
-		location = (NotificationLocationViewModel) in.readValue(NotificationLocationViewModel.class.getClassLoader());
-		assetDetails = (AssetDetails) in.readValue(AssetDetails.class.getClassLoader());
-		userDetails = (ProfilePublic) in.readValue(ProfilePublic.class.getClassLoader());
-		platformAssetDetails = (BasePlatformAsset) in.readValue(BasePlatformAsset.class.getClassLoader());
-		channel = (PushNotificationChannel) in.readValue(PushNotificationChannel.class.getClassLoader());
 	}
 }

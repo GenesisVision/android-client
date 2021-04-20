@@ -30,6 +30,17 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class ProgramBalanceChart implements Parcelable
 {
+	public static final Parcelable.Creator<ProgramBalanceChart> CREATOR = new Parcelable.Creator<ProgramBalanceChart>()
+	{
+		public ProgramBalanceChart createFromParcel(Parcel in) {
+			return new ProgramBalanceChart(in);
+		}
+
+		public ProgramBalanceChart[] newArray(int size) {
+			return new ProgramBalanceChart[size];
+		}
+	};
+
 	@SerializedName("balance")
 	private Double balance = null;
 
@@ -43,6 +54,13 @@ public class ProgramBalanceChart implements Parcelable
 	private List<BalanceChartPoint> chart = null;
 
 	public ProgramBalanceChart() {
+	}
+
+	ProgramBalanceChart(Parcel in) {
+		balance = (Double) in.readValue(null);
+		programCurrency = (Currency) in.readValue(Currency.class.getClassLoader());
+		color = (String) in.readValue(null);
+		chart = (List<BalanceChartPoint>) in.readValue(BalanceChartPoint.class.getClassLoader());
 	}
 
 	public ProgramBalanceChart balance(Double balance) {
@@ -129,7 +147,6 @@ public class ProgramBalanceChart implements Parcelable
 		this.chart = chart;
 	}
 
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -149,7 +166,6 @@ public class ProgramBalanceChart implements Parcelable
 	public int hashCode() {
 		return Objects.hash(balance, programCurrency, color, chart);
 	}
-
 
 	@Override
 	public String toString() {
@@ -175,7 +191,6 @@ public class ProgramBalanceChart implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
-
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(balance);
 		out.writeValue(programCurrency);
@@ -183,25 +198,7 @@ public class ProgramBalanceChart implements Parcelable
 		out.writeValue(chart);
 	}
 
-	public static final Parcelable.Creator<ProgramBalanceChart> CREATOR = new Parcelable.Creator<ProgramBalanceChart>()
-	{
-		public ProgramBalanceChart createFromParcel(Parcel in) {
-			return new ProgramBalanceChart(in);
-		}
-
-		public ProgramBalanceChart[] newArray(int size) {
-			return new ProgramBalanceChart[size];
-		}
-	};
-
 	public int describeContents() {
 		return 0;
-	}
-
-	ProgramBalanceChart(Parcel in) {
-		balance = (Double) in.readValue(null);
-		programCurrency = (Currency) in.readValue(Currency.class.getClassLoader());
-		color = (String) in.readValue(null);
-		chart = (List<BalanceChartPoint>) in.readValue(BalanceChartPoint.class.getClassLoader());
 	}
 }

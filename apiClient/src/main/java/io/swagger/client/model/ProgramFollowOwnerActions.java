@@ -28,6 +28,17 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class ProgramFollowOwnerActions implements Parcelable
 {
+	public static final Parcelable.Creator<ProgramFollowOwnerActions> CREATOR = new Parcelable.Creator<ProgramFollowOwnerActions>()
+	{
+		public ProgramFollowOwnerActions createFromParcel(Parcel in) {
+			return new ProgramFollowOwnerActions(in);
+		}
+
+		public ProgramFollowOwnerActions[] newArray(int size) {
+			return new ProgramFollowOwnerActions[size];
+		}
+	};
+
 	@SerializedName("canMakeProgramFromPrivateTradingAccount")
 	private Boolean canMakeProgramFromPrivateTradingAccount = null;
 
@@ -74,6 +85,24 @@ public class ProgramFollowOwnerActions implements Parcelable
 	private Boolean canCloseOpenPositions = null;
 
 	public ProgramFollowOwnerActions() {
+	}
+
+	ProgramFollowOwnerActions(Parcel in) {
+		canMakeProgramFromPrivateTradingAccount = (Boolean) in.readValue(null);
+		canMakeExchangeProgramFromPrivateTradingAccount = (Boolean) in.readValue(null);
+		canMakeSignalProviderFromPrivateTradingAccount = (Boolean) in.readValue(null);
+		canMakeSignalProviderFromPrivateExternalTradingAccount = (Boolean) in.readValue(null);
+		canMakeProgramFromSignalProvider = (Boolean) in.readValue(null);
+		canMakeSignalProviderFromProgram = (Boolean) in.readValue(null);
+		canEditSignalProviderSettings = (Boolean) in.readValue(null);
+		isEnoughMoneyToCreateProgram = (Boolean) in.readValue(null);
+		canConfirm2FA = (Boolean) in.readValue(null);
+		canCreateApiKeys = (Boolean) in.readValue(null);
+		canClose = (Boolean) in.readValue(null);
+		canClosePeriod = (Boolean) in.readValue(null);
+		canChangePassword = (Boolean) in.readValue(null);
+		canTransferMoney = (Boolean) in.readValue(null);
+		canCloseOpenPositions = (Boolean) in.readValue(null);
 	}
 
 	public ProgramFollowOwnerActions canMakeProgramFromPrivateTradingAccount(Boolean canMakeProgramFromPrivateTradingAccount) {
@@ -361,7 +390,6 @@ public class ProgramFollowOwnerActions implements Parcelable
 		this.canCloseOpenPositions = canCloseOpenPositions;
 	}
 
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -392,7 +420,6 @@ public class ProgramFollowOwnerActions implements Parcelable
 	public int hashCode() {
 		return Objects.hash(canMakeProgramFromPrivateTradingAccount, canMakeExchangeProgramFromPrivateTradingAccount, canMakeSignalProviderFromPrivateTradingAccount, canMakeSignalProviderFromPrivateExternalTradingAccount, canMakeProgramFromSignalProvider, canMakeSignalProviderFromProgram, canEditSignalProviderSettings, isEnoughMoneyToCreateProgram, canConfirm2FA, canCreateApiKeys, canClose, canClosePeriod, canChangePassword, canTransferMoney, canCloseOpenPositions);
 	}
-
 
 	@Override
 	public String toString() {
@@ -429,7 +456,6 @@ public class ProgramFollowOwnerActions implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
-
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(canMakeProgramFromPrivateTradingAccount);
 		out.writeValue(canMakeExchangeProgramFromPrivateTradingAccount);
@@ -448,36 +474,7 @@ public class ProgramFollowOwnerActions implements Parcelable
 		out.writeValue(canCloseOpenPositions);
 	}
 
-	public static final Parcelable.Creator<ProgramFollowOwnerActions> CREATOR = new Parcelable.Creator<ProgramFollowOwnerActions>()
-	{
-		public ProgramFollowOwnerActions createFromParcel(Parcel in) {
-			return new ProgramFollowOwnerActions(in);
-		}
-
-		public ProgramFollowOwnerActions[] newArray(int size) {
-			return new ProgramFollowOwnerActions[size];
-		}
-	};
-
 	public int describeContents() {
 		return 0;
-	}
-
-	ProgramFollowOwnerActions(Parcel in) {
-		canMakeProgramFromPrivateTradingAccount = (Boolean) in.readValue(null);
-		canMakeExchangeProgramFromPrivateTradingAccount = (Boolean) in.readValue(null);
-		canMakeSignalProviderFromPrivateTradingAccount = (Boolean) in.readValue(null);
-		canMakeSignalProviderFromPrivateExternalTradingAccount = (Boolean) in.readValue(null);
-		canMakeProgramFromSignalProvider = (Boolean) in.readValue(null);
-		canMakeSignalProviderFromProgram = (Boolean) in.readValue(null);
-		canEditSignalProviderSettings = (Boolean) in.readValue(null);
-		isEnoughMoneyToCreateProgram = (Boolean) in.readValue(null);
-		canConfirm2FA = (Boolean) in.readValue(null);
-		canCreateApiKeys = (Boolean) in.readValue(null);
-		canClose = (Boolean) in.readValue(null);
-		canClosePeriod = (Boolean) in.readValue(null);
-		canChangePassword = (Boolean) in.readValue(null);
-		canTransferMoney = (Boolean) in.readValue(null);
-		canCloseOpenPositions = (Boolean) in.readValue(null);
 	}
 }

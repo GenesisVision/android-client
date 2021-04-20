@@ -28,10 +28,25 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class TradingAccountDemoDeposit implements Parcelable
 {
+	public static final Parcelable.Creator<TradingAccountDemoDeposit> CREATOR = new Parcelable.Creator<TradingAccountDemoDeposit>()
+	{
+		public TradingAccountDemoDeposit createFromParcel(Parcel in) {
+			return new TradingAccountDemoDeposit(in);
+		}
+
+		public TradingAccountDemoDeposit[] newArray(int size) {
+			return new TradingAccountDemoDeposit[size];
+		}
+	};
+
 	@SerializedName("amount")
 	private Double amount = null;
 
 	public TradingAccountDemoDeposit() {
+	}
+
+	TradingAccountDemoDeposit(Parcel in) {
+		amount = (Double) in.readValue(null);
 	}
 
 	public TradingAccountDemoDeposit amount(Double amount) {
@@ -53,7 +68,6 @@ public class TradingAccountDemoDeposit implements Parcelable
 		this.amount = amount;
 	}
 
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -70,7 +84,6 @@ public class TradingAccountDemoDeposit implements Parcelable
 	public int hashCode() {
 		return Objects.hash(amount);
 	}
-
 
 	@Override
 	public String toString() {
@@ -93,27 +106,11 @@ public class TradingAccountDemoDeposit implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
-
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(amount);
 	}
 
-	public static final Parcelable.Creator<TradingAccountDemoDeposit> CREATOR = new Parcelable.Creator<TradingAccountDemoDeposit>()
-	{
-		public TradingAccountDemoDeposit createFromParcel(Parcel in) {
-			return new TradingAccountDemoDeposit(in);
-		}
-
-		public TradingAccountDemoDeposit[] newArray(int size) {
-			return new TradingAccountDemoDeposit[size];
-		}
-	};
-
 	public int describeContents() {
 		return 0;
-	}
-
-	TradingAccountDemoDeposit(Parcel in) {
-		amount = (Double) in.readValue(null);
 	}
 }

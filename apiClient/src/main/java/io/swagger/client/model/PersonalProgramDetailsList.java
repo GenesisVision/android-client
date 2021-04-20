@@ -28,6 +28,17 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class PersonalProgramDetailsList implements Parcelable
 {
+	public static final Parcelable.Creator<PersonalProgramDetailsList> CREATOR = new Parcelable.Creator<PersonalProgramDetailsList>()
+	{
+		public PersonalProgramDetailsList createFromParcel(Parcel in) {
+			return new PersonalProgramDetailsList(in);
+		}
+
+		public PersonalProgramDetailsList[] newArray(int size) {
+			return new PersonalProgramDetailsList[size];
+		}
+	};
+
 	@SerializedName("isOwnAsset")
 	private Boolean isOwnAsset = null;
 
@@ -41,6 +52,13 @@ public class PersonalProgramDetailsList implements Parcelable
 	private Boolean isAutoJoin = null;
 
 	public PersonalProgramDetailsList() {
+	}
+
+	PersonalProgramDetailsList(Parcel in) {
+		isOwnAsset = (Boolean) in.readValue(null);
+		isFavorite = (Boolean) in.readValue(null);
+		isReinvest = (Boolean) in.readValue(null);
+		isAutoJoin = (Boolean) in.readValue(null);
 	}
 
 	public PersonalProgramDetailsList isOwnAsset(Boolean isOwnAsset) {
@@ -119,7 +137,6 @@ public class PersonalProgramDetailsList implements Parcelable
 		this.isAutoJoin = isAutoJoin;
 	}
 
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -139,7 +156,6 @@ public class PersonalProgramDetailsList implements Parcelable
 	public int hashCode() {
 		return Objects.hash(isOwnAsset, isFavorite, isReinvest, isAutoJoin);
 	}
-
 
 	@Override
 	public String toString() {
@@ -165,7 +181,6 @@ public class PersonalProgramDetailsList implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
-
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(isOwnAsset);
 		out.writeValue(isFavorite);
@@ -173,25 +188,7 @@ public class PersonalProgramDetailsList implements Parcelable
 		out.writeValue(isAutoJoin);
 	}
 
-	public static final Parcelable.Creator<PersonalProgramDetailsList> CREATOR = new Parcelable.Creator<PersonalProgramDetailsList>()
-	{
-		public PersonalProgramDetailsList createFromParcel(Parcel in) {
-			return new PersonalProgramDetailsList(in);
-		}
-
-		public PersonalProgramDetailsList[] newArray(int size) {
-			return new PersonalProgramDetailsList[size];
-		}
-	};
-
 	public int describeContents() {
 		return 0;
-	}
-
-	PersonalProgramDetailsList(Parcel in) {
-		isOwnAsset = (Boolean) in.readValue(null);
-		isFavorite = (Boolean) in.readValue(null);
-		isReinvest = (Boolean) in.readValue(null);
-		isAutoJoin = (Boolean) in.readValue(null);
 	}
 }

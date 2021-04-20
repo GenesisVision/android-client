@@ -28,6 +28,17 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class PersonalFollowDetailsFull implements Parcelable
 {
+	public static final Parcelable.Creator<PersonalFollowDetailsFull> CREATOR = new Parcelable.Creator<PersonalFollowDetailsFull>()
+	{
+		public PersonalFollowDetailsFull createFromParcel(Parcel in) {
+			return new PersonalFollowDetailsFull(in);
+		}
+
+		public PersonalFollowDetailsFull[] newArray(int size) {
+			return new PersonalFollowDetailsFull[size];
+		}
+	};
+
 	@SerializedName("isFavorite")
 	private Boolean isFavorite = null;
 
@@ -41,6 +52,13 @@ public class PersonalFollowDetailsFull implements Parcelable
 	private Integer subscribedAccounts = null;
 
 	public PersonalFollowDetailsFull() {
+	}
+
+	PersonalFollowDetailsFull(Parcel in) {
+		isFavorite = (Boolean) in.readValue(null);
+		guestActions = (AssetGuestActions) in.readValue(AssetGuestActions.class.getClassLoader());
+		hasNotifications = (Boolean) in.readValue(null);
+		subscribedAccounts = (Integer) in.readValue(null);
 	}
 
 	public PersonalFollowDetailsFull isFavorite(Boolean isFavorite) {
@@ -119,7 +137,6 @@ public class PersonalFollowDetailsFull implements Parcelable
 		this.subscribedAccounts = subscribedAccounts;
 	}
 
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -139,7 +156,6 @@ public class PersonalFollowDetailsFull implements Parcelable
 	public int hashCode() {
 		return Objects.hash(isFavorite, guestActions, hasNotifications, subscribedAccounts);
 	}
-
 
 	@Override
 	public String toString() {
@@ -165,7 +181,6 @@ public class PersonalFollowDetailsFull implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
-
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(isFavorite);
 		out.writeValue(guestActions);
@@ -173,25 +188,7 @@ public class PersonalFollowDetailsFull implements Parcelable
 		out.writeValue(subscribedAccounts);
 	}
 
-	public static final Parcelable.Creator<PersonalFollowDetailsFull> CREATOR = new Parcelable.Creator<PersonalFollowDetailsFull>()
-	{
-		public PersonalFollowDetailsFull createFromParcel(Parcel in) {
-			return new PersonalFollowDetailsFull(in);
-		}
-
-		public PersonalFollowDetailsFull[] newArray(int size) {
-			return new PersonalFollowDetailsFull[size];
-		}
-	};
-
 	public int describeContents() {
 		return 0;
-	}
-
-	PersonalFollowDetailsFull(Parcel in) {
-		isFavorite = (Boolean) in.readValue(null);
-		guestActions = (AssetGuestActions) in.readValue(AssetGuestActions.class.getClassLoader());
-		hasNotifications = (Boolean) in.readValue(null);
-		subscribedAccounts = (Integer) in.readValue(null);
 	}
 }

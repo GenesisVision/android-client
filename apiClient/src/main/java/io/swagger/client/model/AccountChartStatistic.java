@@ -28,6 +28,17 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class AccountChartStatistic implements Parcelable
 {
+	public static final Parcelable.Creator<AccountChartStatistic> CREATOR = new Parcelable.Creator<AccountChartStatistic>()
+	{
+		public AccountChartStatistic createFromParcel(Parcel in) {
+			return new AccountChartStatistic(in);
+		}
+
+		public AccountChartStatistic[] newArray(int size) {
+			return new AccountChartStatistic[size];
+		}
+	};
+
 	@SerializedName("balance")
 	private Double balance = null;
 
@@ -59,6 +70,19 @@ public class AccountChartStatistic implements Parcelable
 	private Double profitFactor = null;
 
 	public AccountChartStatistic() {
+	}
+
+	AccountChartStatistic(Parcel in) {
+		balance = (Double) in.readValue(null);
+		profitPercent = (Double) in.readValue(null);
+		sharpeRatio = (Double) in.readValue(null);
+		sortinoRatio = (Double) in.readValue(null);
+		calmarRatio = (Double) in.readValue(null);
+		maxDrawdown = (Double) in.readValue(null);
+		tradingVolume = (Double) in.readValue(null);
+		trades = (Integer) in.readValue(null);
+		successTradesPercent = (Double) in.readValue(null);
+		profitFactor = (Double) in.readValue(null);
 	}
 
 	public AccountChartStatistic balance(Double balance) {
@@ -251,7 +275,6 @@ public class AccountChartStatistic implements Parcelable
 		this.profitFactor = profitFactor;
 	}
 
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -277,7 +300,6 @@ public class AccountChartStatistic implements Parcelable
 	public int hashCode() {
 		return Objects.hash(balance, profitPercent, sharpeRatio, sortinoRatio, calmarRatio, maxDrawdown, tradingVolume, trades, successTradesPercent, profitFactor);
 	}
-
 
 	@Override
 	public String toString() {
@@ -309,7 +331,6 @@ public class AccountChartStatistic implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
-
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(balance);
 		out.writeValue(profitPercent);
@@ -323,31 +344,7 @@ public class AccountChartStatistic implements Parcelable
 		out.writeValue(profitFactor);
 	}
 
-	public static final Parcelable.Creator<AccountChartStatistic> CREATOR = new Parcelable.Creator<AccountChartStatistic>()
-	{
-		public AccountChartStatistic createFromParcel(Parcel in) {
-			return new AccountChartStatistic(in);
-		}
-
-		public AccountChartStatistic[] newArray(int size) {
-			return new AccountChartStatistic[size];
-		}
-	};
-
 	public int describeContents() {
 		return 0;
-	}
-
-	AccountChartStatistic(Parcel in) {
-		balance = (Double) in.readValue(null);
-		profitPercent = (Double) in.readValue(null);
-		sharpeRatio = (Double) in.readValue(null);
-		sortinoRatio = (Double) in.readValue(null);
-		calmarRatio = (Double) in.readValue(null);
-		maxDrawdown = (Double) in.readValue(null);
-		tradingVolume = (Double) in.readValue(null);
-		trades = (Integer) in.readValue(null);
-		successTradesPercent = (Double) in.readValue(null);
-		profitFactor = (Double) in.readValue(null);
 	}
 }

@@ -28,6 +28,17 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class PersonalProgramDetails implements Parcelable
 {
+	public static final Parcelable.Creator<PersonalProgramDetails> CREATOR = new Parcelable.Creator<PersonalProgramDetails>()
+	{
+		public PersonalProgramDetails createFromParcel(Parcel in) {
+			return new PersonalProgramDetails(in);
+		}
+
+		public PersonalProgramDetails[] newArray(int size) {
+			return new PersonalProgramDetails[size];
+		}
+	};
+
 	@SerializedName("isFavorite")
 	private Boolean isFavorite = null;
 
@@ -92,6 +103,30 @@ public class PersonalProgramDetails implements Parcelable
 	private Integer subscribedAccounts = null;
 
 	public PersonalProgramDetails() {
+	}
+
+	PersonalProgramDetails(Parcel in) {
+		isFavorite = (Boolean) in.readValue(null);
+		isReinvest = (Boolean) in.readValue(null);
+		isAutoJoin = (Boolean) in.readValue(null);
+		isInvested = (Boolean) in.readValue(null);
+		canInvest = (Boolean) in.readValue(null);
+		canWithdraw = (Boolean) in.readValue(null);
+		canChangeReinvest = (Boolean) in.readValue(null);
+		hasNotifications = (Boolean) in.readValue(null);
+		showTwoFactorButton = (Boolean) in.readValue(null);
+		value = (Double) in.readValue(null);
+		profit = (Double) in.readValue(null);
+		profitPercent = (Double) in.readValue(null);
+		invested = (Double) in.readValue(null);
+		pendingInput = (Double) in.readValue(null);
+		pendingOutput = (Double) in.readValue(null);
+		pendingOutputIsWithdrawAll = (Boolean) in.readValue(null);
+		status = (AssetInvestmentStatus) in.readValue(AssetInvestmentStatus.class.getClassLoader());
+		successFeePersonal = (Double) in.readValue(null);
+		managementFeePersonal = (Double) in.readValue(null);
+		migration = (MigrationRequest) in.readValue(MigrationRequest.class.getClassLoader());
+		subscribedAccounts = (Integer) in.readValue(null);
 	}
 
 	public PersonalProgramDetails isFavorite(Boolean isFavorite) {
@@ -493,7 +528,6 @@ public class PersonalProgramDetails implements Parcelable
 		this.subscribedAccounts = subscribedAccounts;
 	}
 
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -530,7 +564,6 @@ public class PersonalProgramDetails implements Parcelable
 	public int hashCode() {
 		return Objects.hash(isFavorite, isReinvest, isAutoJoin, isInvested, canInvest, canWithdraw, canChangeReinvest, hasNotifications, showTwoFactorButton, value, profit, profitPercent, invested, pendingInput, pendingOutput, pendingOutputIsWithdrawAll, status, successFeePersonal, managementFeePersonal, migration, subscribedAccounts);
 	}
-
 
 	@Override
 	public String toString() {
@@ -573,7 +606,6 @@ public class PersonalProgramDetails implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
-
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(isFavorite);
 		out.writeValue(isReinvest);
@@ -598,42 +630,7 @@ public class PersonalProgramDetails implements Parcelable
 		out.writeValue(subscribedAccounts);
 	}
 
-	public static final Parcelable.Creator<PersonalProgramDetails> CREATOR = new Parcelable.Creator<PersonalProgramDetails>()
-	{
-		public PersonalProgramDetails createFromParcel(Parcel in) {
-			return new PersonalProgramDetails(in);
-		}
-
-		public PersonalProgramDetails[] newArray(int size) {
-			return new PersonalProgramDetails[size];
-		}
-	};
-
 	public int describeContents() {
 		return 0;
-	}
-
-	PersonalProgramDetails(Parcel in) {
-		isFavorite = (Boolean) in.readValue(null);
-		isReinvest = (Boolean) in.readValue(null);
-		isAutoJoin = (Boolean) in.readValue(null);
-		isInvested = (Boolean) in.readValue(null);
-		canInvest = (Boolean) in.readValue(null);
-		canWithdraw = (Boolean) in.readValue(null);
-		canChangeReinvest = (Boolean) in.readValue(null);
-		hasNotifications = (Boolean) in.readValue(null);
-		showTwoFactorButton = (Boolean) in.readValue(null);
-		value = (Double) in.readValue(null);
-		profit = (Double) in.readValue(null);
-		profitPercent = (Double) in.readValue(null);
-		invested = (Double) in.readValue(null);
-		pendingInput = (Double) in.readValue(null);
-		pendingOutput = (Double) in.readValue(null);
-		pendingOutputIsWithdrawAll = (Boolean) in.readValue(null);
-		status = (AssetInvestmentStatus) in.readValue(AssetInvestmentStatus.class.getClassLoader());
-		successFeePersonal = (Double) in.readValue(null);
-		managementFeePersonal = (Double) in.readValue(null);
-		migration = (MigrationRequest) in.readValue(MigrationRequest.class.getClassLoader());
-		subscribedAccounts = (Integer) in.readValue(null);
 	}
 }

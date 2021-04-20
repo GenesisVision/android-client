@@ -28,6 +28,15 @@ public enum EventGroupType
 	INVESTMENTHISTORY("InvestmentHistory"),
 	TRADINGHISTORY("TradingHistory");
 
+	public static EventGroupType fromValue(String text) {
+		for (EventGroupType b : EventGroupType.values()) {
+			if (String.valueOf(b.value).equals(text)) {
+				return b;
+			}
+		}
+		return null;
+	}
+
 	private String value;
 
 	EventGroupType(String value) {
@@ -41,15 +50,6 @@ public enum EventGroupType
 	@Override
 	public String toString() {
 		return String.valueOf(value);
-	}
-
-	public static EventGroupType fromValue(String text) {
-		for (EventGroupType b : EventGroupType.values()) {
-			if (String.valueOf(b.value).equals(text)) {
-				return b;
-			}
-		}
-		return null;
 	}
 
 	public static class Adapter extends TypeAdapter<EventGroupType>

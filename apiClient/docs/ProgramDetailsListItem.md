@@ -7,6 +7,7 @@ Name | Type | Description | Notes
 **type** | [**ProgramType**](ProgramType.md) |  |  [optional]
 **logoUrl** | **String** |  |  [optional]
 **url** | **String** |  |  [optional]
+**index** | **Integer** |  |  [optional]
 **description** | **String** |  |  [optional]
 **color** | **String** |  |  [optional]
 **title** | **String** |  |  [optional]

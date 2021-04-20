@@ -30,6 +30,17 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class ExchangeCredentialsIpInfo implements Parcelable
 {
+	public static final Parcelable.Creator<ExchangeCredentialsIpInfo> CREATOR = new Parcelable.Creator<ExchangeCredentialsIpInfo>()
+	{
+		public ExchangeCredentialsIpInfo createFromParcel(Parcel in) {
+			return new ExchangeCredentialsIpInfo(in);
+		}
+
+		public ExchangeCredentialsIpInfo[] newArray(int size) {
+			return new ExchangeCredentialsIpInfo[size];
+		}
+	};
+
 	@SerializedName("ip")
 	private String ip = null;
 
@@ -37,6 +48,11 @@ public class ExchangeCredentialsIpInfo implements Parcelable
 	private DateTime date = null;
 
 	public ExchangeCredentialsIpInfo() {
+	}
+
+	ExchangeCredentialsIpInfo(Parcel in) {
+		ip = (String) in.readValue(null);
+		date = (DateTime) in.readValue(DateTime.class.getClassLoader());
 	}
 
 	public ExchangeCredentialsIpInfo ip(String ip) {
@@ -77,7 +93,6 @@ public class ExchangeCredentialsIpInfo implements Parcelable
 		this.date = date;
 	}
 
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -95,7 +110,6 @@ public class ExchangeCredentialsIpInfo implements Parcelable
 	public int hashCode() {
 		return Objects.hash(ip, date);
 	}
-
 
 	@Override
 	public String toString() {
@@ -119,29 +133,12 @@ public class ExchangeCredentialsIpInfo implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
-
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(ip);
 		out.writeValue(date);
 	}
 
-	public static final Parcelable.Creator<ExchangeCredentialsIpInfo> CREATOR = new Parcelable.Creator<ExchangeCredentialsIpInfo>()
-	{
-		public ExchangeCredentialsIpInfo createFromParcel(Parcel in) {
-			return new ExchangeCredentialsIpInfo(in);
-		}
-
-		public ExchangeCredentialsIpInfo[] newArray(int size) {
-			return new ExchangeCredentialsIpInfo[size];
-		}
-	};
-
 	public int describeContents() {
 		return 0;
-	}
-
-	ExchangeCredentialsIpInfo(Parcel in) {
-		ip = (String) in.readValue(null);
-		date = (DateTime) in.readValue(DateTime.class.getClassLoader());
 	}
 }

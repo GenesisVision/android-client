@@ -29,6 +29,17 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class BinanceRawFuturesOrderItemsViewModel implements Parcelable
 {
+	public static final Parcelable.Creator<BinanceRawFuturesOrderItemsViewModel> CREATOR = new Parcelable.Creator<BinanceRawFuturesOrderItemsViewModel>()
+	{
+		public BinanceRawFuturesOrderItemsViewModel createFromParcel(Parcel in) {
+			return new BinanceRawFuturesOrderItemsViewModel(in);
+		}
+
+		public BinanceRawFuturesOrderItemsViewModel[] newArray(int size) {
+			return new BinanceRawFuturesOrderItemsViewModel[size];
+		}
+	};
+
 	@SerializedName("items")
 	private List<BinanceRawFuturesOrder> items = null;
 
@@ -36,6 +47,11 @@ public class BinanceRawFuturesOrderItemsViewModel implements Parcelable
 	private Integer total = null;
 
 	public BinanceRawFuturesOrderItemsViewModel() {
+	}
+
+	BinanceRawFuturesOrderItemsViewModel(Parcel in) {
+		items = (List<BinanceRawFuturesOrder>) in.readValue(BinanceRawFuturesOrder.class.getClassLoader());
+		total = (Integer) in.readValue(null);
 	}
 
 	/**
@@ -58,7 +74,6 @@ public class BinanceRawFuturesOrderItemsViewModel implements Parcelable
 		return total;
 	}
 
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -76,7 +91,6 @@ public class BinanceRawFuturesOrderItemsViewModel implements Parcelable
 	public int hashCode() {
 		return Objects.hash(items, total);
 	}
-
 
 	@Override
 	public String toString() {
@@ -100,29 +114,12 @@ public class BinanceRawFuturesOrderItemsViewModel implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
-
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(items);
 		out.writeValue(total);
 	}
 
-	public static final Parcelable.Creator<BinanceRawFuturesOrderItemsViewModel> CREATOR = new Parcelable.Creator<BinanceRawFuturesOrderItemsViewModel>()
-	{
-		public BinanceRawFuturesOrderItemsViewModel createFromParcel(Parcel in) {
-			return new BinanceRawFuturesOrderItemsViewModel(in);
-		}
-
-		public BinanceRawFuturesOrderItemsViewModel[] newArray(int size) {
-			return new BinanceRawFuturesOrderItemsViewModel[size];
-		}
-	};
-
 	public int describeContents() {
 		return 0;
-	}
-
-	BinanceRawFuturesOrderItemsViewModel(Parcel in) {
-		items = (List<BinanceRawFuturesOrder>) in.readValue(BinanceRawFuturesOrder.class.getClassLoader());
-		total = (Integer) in.readValue(null);
 	}
 }

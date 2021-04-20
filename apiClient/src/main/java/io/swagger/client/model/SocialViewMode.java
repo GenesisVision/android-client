@@ -28,6 +28,15 @@ public enum SocialViewMode
 	ALLUSERS("AllUsers"),
 	ONLYME("OnlyMe");
 
+	public static SocialViewMode fromValue(String text) {
+		for (SocialViewMode b : SocialViewMode.values()) {
+			if (String.valueOf(b.value).equals(text)) {
+				return b;
+			}
+		}
+		return null;
+	}
+
 	private String value;
 
 	SocialViewMode(String value) {
@@ -41,15 +50,6 @@ public enum SocialViewMode
 	@Override
 	public String toString() {
 		return String.valueOf(value);
-	}
-
-	public static SocialViewMode fromValue(String text) {
-		for (SocialViewMode b : SocialViewMode.values()) {
-			if (String.valueOf(b.value).equals(text)) {
-				return b;
-			}
-		}
-		return null;
 	}
 
 	public static class Adapter extends TypeAdapter<SocialViewMode>

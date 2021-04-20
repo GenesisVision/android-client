@@ -33,6 +33,17 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class EditablePost implements Parcelable
 {
+	public static final Parcelable.Creator<EditablePost> CREATOR = new Parcelable.Creator<EditablePost>()
+	{
+		public EditablePost createFromParcel(Parcel in) {
+			return new EditablePost(in);
+		}
+
+		public EditablePost[] newArray(int size) {
+			return new EditablePost[size];
+		}
+	};
+
 	@SerializedName("id")
 	private UUID id = null;
 
@@ -88,6 +99,27 @@ public class EditablePost implements Parcelable
 	private String textOriginal = null;
 
 	public EditablePost() {
+	}
+
+	EditablePost(Parcel in) {
+		id = (UUID) in.readValue(UUID.class.getClassLoader());
+		url = (String) in.readValue(null);
+		text = (String) in.readValue(null);
+		date = (DateTime) in.readValue(DateTime.class.getClassLoader());
+		likesCount = (Integer) in.readValue(null);
+		likesUsers = (List<ProfilePublicShort>) in.readValue(ProfilePublicShort.class.getClassLoader());
+		rePostsCount = (Integer) in.readValue(null);
+		rePostsUsers = (List<ProfilePublicShort>) in.readValue(ProfilePublicShort.class.getClassLoader());
+		impressionsCount = (Integer) in.readValue(null);
+		isPinned = (Boolean) in.readValue(null);
+		isDeleted = (Boolean) in.readValue(null);
+		isHighlighted = (Boolean) in.readValue(null);
+		images = (List<PostImage>) in.readValue(PostImage.class.getClassLoader());
+		tags = (List<PostTag>) in.readValue(PostTag.class.getClassLoader());
+		author = (ProfilePublic) in.readValue(ProfilePublic.class.getClassLoader());
+		personalDetails = (PostPersonalDetails) in.readValue(PostPersonalDetails.class.getClassLoader());
+		comments = (List<Post>) in.readValue(Post.class.getClassLoader());
+		textOriginal = (String) in.readValue(null);
 	}
 
 	public EditablePost id(UUID id) {
@@ -472,7 +504,6 @@ public class EditablePost implements Parcelable
 		this.textOriginal = textOriginal;
 	}
 
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -506,7 +537,6 @@ public class EditablePost implements Parcelable
 	public int hashCode() {
 		return Objects.hash(id, url, text, date, likesCount, likesUsers, rePostsCount, rePostsUsers, impressionsCount, isPinned, isDeleted, isHighlighted, images, tags, author, personalDetails, comments, textOriginal);
 	}
-
 
 	@Override
 	public String toString() {
@@ -546,7 +576,6 @@ public class EditablePost implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
-
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(id);
 		out.writeValue(url);
@@ -568,39 +597,7 @@ public class EditablePost implements Parcelable
 		out.writeValue(textOriginal);
 	}
 
-	public static final Parcelable.Creator<EditablePost> CREATOR = new Parcelable.Creator<EditablePost>()
-	{
-		public EditablePost createFromParcel(Parcel in) {
-			return new EditablePost(in);
-		}
-
-		public EditablePost[] newArray(int size) {
-			return new EditablePost[size];
-		}
-	};
-
 	public int describeContents() {
 		return 0;
-	}
-
-	EditablePost(Parcel in) {
-		id = (UUID) in.readValue(UUID.class.getClassLoader());
-		url = (String) in.readValue(null);
-		text = (String) in.readValue(null);
-		date = (DateTime) in.readValue(DateTime.class.getClassLoader());
-		likesCount = (Integer) in.readValue(null);
-		likesUsers = (List<ProfilePublicShort>) in.readValue(ProfilePublicShort.class.getClassLoader());
-		rePostsCount = (Integer) in.readValue(null);
-		rePostsUsers = (List<ProfilePublicShort>) in.readValue(ProfilePublicShort.class.getClassLoader());
-		impressionsCount = (Integer) in.readValue(null);
-		isPinned = (Boolean) in.readValue(null);
-		isDeleted = (Boolean) in.readValue(null);
-		isHighlighted = (Boolean) in.readValue(null);
-		images = (List<PostImage>) in.readValue(PostImage.class.getClassLoader());
-		tags = (List<PostTag>) in.readValue(PostTag.class.getClassLoader());
-		author = (ProfilePublic) in.readValue(ProfilePublic.class.getClassLoader());
-		personalDetails = (PostPersonalDetails) in.readValue(PostPersonalDetails.class.getClassLoader());
-		comments = (List<Post>) in.readValue(Post.class.getClassLoader());
-		textOriginal = (String) in.readValue(null);
 	}
 }

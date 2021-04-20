@@ -30,6 +30,17 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class PublicProfileFollow implements Parcelable
 {
+	public static final Parcelable.Creator<PublicProfileFollow> CREATOR = new Parcelable.Creator<PublicProfileFollow>()
+	{
+		public PublicProfileFollow createFromParcel(Parcel in) {
+			return new PublicProfileFollow(in);
+		}
+
+		public PublicProfileFollow[] newArray(int size) {
+			return new PublicProfileFollow[size];
+		}
+	};
+
 	@SerializedName("followers")
 	private List<ProfilePublicShort> followers = null;
 
@@ -37,6 +48,11 @@ public class PublicProfileFollow implements Parcelable
 	private List<ProfilePublicShort> following = null;
 
 	public PublicProfileFollow() {
+	}
+
+	PublicProfileFollow(Parcel in) {
+		followers = (List<ProfilePublicShort>) in.readValue(ProfilePublicShort.class.getClassLoader());
+		following = (List<ProfilePublicShort>) in.readValue(ProfilePublicShort.class.getClassLoader());
 	}
 
 	public PublicProfileFollow followers(List<ProfilePublicShort> followers) {
@@ -93,7 +109,6 @@ public class PublicProfileFollow implements Parcelable
 		this.following = following;
 	}
 
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -111,7 +126,6 @@ public class PublicProfileFollow implements Parcelable
 	public int hashCode() {
 		return Objects.hash(followers, following);
 	}
-
 
 	@Override
 	public String toString() {
@@ -135,29 +149,12 @@ public class PublicProfileFollow implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
-
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(followers);
 		out.writeValue(following);
 	}
 
-	public static final Parcelable.Creator<PublicProfileFollow> CREATOR = new Parcelable.Creator<PublicProfileFollow>()
-	{
-		public PublicProfileFollow createFromParcel(Parcel in) {
-			return new PublicProfileFollow(in);
-		}
-
-		public PublicProfileFollow[] newArray(int size) {
-			return new PublicProfileFollow[size];
-		}
-	};
-
 	public int describeContents() {
 		return 0;
-	}
-
-	PublicProfileFollow(Parcel in) {
-		followers = (List<ProfilePublicShort>) in.readValue(ProfilePublicShort.class.getClassLoader());
-		following = (List<ProfilePublicShort>) in.readValue(ProfilePublicShort.class.getClassLoader());
 	}
 }

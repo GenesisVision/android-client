@@ -28,6 +28,17 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class BinanceRawSymbolPercentPriceFilter implements Parcelable
 {
+	public static final Parcelable.Creator<BinanceRawSymbolPercentPriceFilter> CREATOR = new Parcelable.Creator<BinanceRawSymbolPercentPriceFilter>()
+	{
+		public BinanceRawSymbolPercentPriceFilter createFromParcel(Parcel in) {
+			return new BinanceRawSymbolPercentPriceFilter(in);
+		}
+
+		public BinanceRawSymbolPercentPriceFilter[] newArray(int size) {
+			return new BinanceRawSymbolPercentPriceFilter[size];
+		}
+	};
+
 	@SerializedName("filterType")
 	private BinanceSymbolFilterType filterType = null;
 
@@ -41,6 +52,13 @@ public class BinanceRawSymbolPercentPriceFilter implements Parcelable
 	private Integer averagePriceMinutes = null;
 
 	public BinanceRawSymbolPercentPriceFilter() {
+	}
+
+	BinanceRawSymbolPercentPriceFilter(Parcel in) {
+		filterType = (BinanceSymbolFilterType) in.readValue(BinanceSymbolFilterType.class.getClassLoader());
+		multiplierUp = (Double) in.readValue(null);
+		multiplierDown = (Double) in.readValue(null);
+		averagePriceMinutes = (Integer) in.readValue(null);
 	}
 
 	public BinanceRawSymbolPercentPriceFilter filterType(BinanceSymbolFilterType filterType) {
@@ -119,7 +137,6 @@ public class BinanceRawSymbolPercentPriceFilter implements Parcelable
 		this.averagePriceMinutes = averagePriceMinutes;
 	}
 
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -139,7 +156,6 @@ public class BinanceRawSymbolPercentPriceFilter implements Parcelable
 	public int hashCode() {
 		return Objects.hash(filterType, multiplierUp, multiplierDown, averagePriceMinutes);
 	}
-
 
 	@Override
 	public String toString() {
@@ -165,7 +181,6 @@ public class BinanceRawSymbolPercentPriceFilter implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
-
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(filterType);
 		out.writeValue(multiplierUp);
@@ -173,25 +188,7 @@ public class BinanceRawSymbolPercentPriceFilter implements Parcelable
 		out.writeValue(averagePriceMinutes);
 	}
 
-	public static final Parcelable.Creator<BinanceRawSymbolPercentPriceFilter> CREATOR = new Parcelable.Creator<BinanceRawSymbolPercentPriceFilter>()
-	{
-		public BinanceRawSymbolPercentPriceFilter createFromParcel(Parcel in) {
-			return new BinanceRawSymbolPercentPriceFilter(in);
-		}
-
-		public BinanceRawSymbolPercentPriceFilter[] newArray(int size) {
-			return new BinanceRawSymbolPercentPriceFilter[size];
-		}
-	};
-
 	public int describeContents() {
 		return 0;
-	}
-
-	BinanceRawSymbolPercentPriceFilter(Parcel in) {
-		filterType = (BinanceSymbolFilterType) in.readValue(BinanceSymbolFilterType.class.getClassLoader());
-		multiplierUp = (Double) in.readValue(null);
-		multiplierDown = (Double) in.readValue(null);
-		averagePriceMinutes = (Integer) in.readValue(null);
 	}
 }

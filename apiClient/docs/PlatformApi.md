@@ -5,6 +5,7 @@ All URIs are relative to *https://red.genesis.vision/api*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**getAllPlatformTradingAssets**](PlatformApi.md#getAllPlatformTradingAssets) | **GET** v2.0/platform/trading/assets | Get all supported assets for funds
+[**getMsgForSignature**](PlatformApi.md#getMsgForSignature) | **POST** v2.0/platform/signature/message | Get message for signature
 [**getPlatformAssetInfo**](PlatformApi.md#getPlatformAssetInfo) | **GET** v2.0/platform/asset/{asset} | Get asset description
 [**getPlatformDate**](PlatformApi.md#getPlatformDate) | **POST** v2.0/platform/date | Server date
 [**getPlatformEvents**](PlatformApi.md#getPlatformEvents) | **GET** v2.0/platform/events | Get platform events
@@ -55,6 +56,59 @@ This endpoint does not need any parameter.
 ### Return type
 
 [**PlatformAssets**](PlatformAssets.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
+
+<a name="getMsgForSignature"></a>
+# **getMsgForSignature**
+> SignMessage getMsgForSignature(type)
+
+Get message for signature
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiClient;
+//import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
+//import io.swagger.client.api.PlatformApi;
+
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
+
+PlatformApi apiInstance = new PlatformApi();
+RouteType type = new RouteType(); // RouteType | 
+try {
+    SignMessage result = apiInstance.getMsgForSignature(type);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling PlatformApi#getMsgForSignature");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **type** | [**RouteType**](.md)|  | [optional]
+
+### Return type
+
+[**SignMessage**](SignMessage.md)
 
 ### Authorization
 

@@ -30,123 +30,123 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class AbsoluteProfitChart implements Parcelable
 {
-  public static final Parcelable.Creator<AbsoluteProfitChart> CREATOR = new Parcelable.Creator<AbsoluteProfitChart>()
-  {
-    public AbsoluteProfitChart createFromParcel(Parcel in) {
-      return new AbsoluteProfitChart(in);
-    }
+	public static final Parcelable.Creator<AbsoluteProfitChart> CREATOR = new Parcelable.Creator<AbsoluteProfitChart>()
+	{
+		public AbsoluteProfitChart createFromParcel(Parcel in) {
+			return new AbsoluteProfitChart(in);
+		}
 
-    public AbsoluteProfitChart[] newArray(int size) {
-      return new AbsoluteProfitChart[size];
-    }
-  };
+		public AbsoluteProfitChart[] newArray(int size) {
+			return new AbsoluteProfitChart[size];
+		}
+	};
 
-  @SerializedName("profit")
-  private Double profit = null;
+	@SerializedName("profit")
+	private Double profit = null;
 
-  @SerializedName("chart")
-  private List<SimpleChartPoint> chart = null;
+	@SerializedName("chart")
+	private List<SimpleChartPoint> chart = null;
 
-  public AbsoluteProfitChart() {
-  }
+	public AbsoluteProfitChart() {
+	}
 
-  AbsoluteProfitChart(Parcel in) {
-    profit = (Double) in.readValue(null);
-    chart = (List<SimpleChartPoint>) in.readValue(SimpleChartPoint.class.getClassLoader());
-  }
+	AbsoluteProfitChart(Parcel in) {
+		profit = (Double) in.readValue(null);
+		chart = (List<SimpleChartPoint>) in.readValue(SimpleChartPoint.class.getClassLoader());
+	}
 
-  public AbsoluteProfitChart profit(Double profit) {
-    this.profit = profit;
-    return this;
-  }
+	public AbsoluteProfitChart profit(Double profit) {
+		this.profit = profit;
+		return this;
+	}
 
-  /**
-   * Get profit
-   *
-   * @return profit
-   **/
-  @Schema(description = "")
-  public Double getProfit() {
-    return profit;
-  }
+	/**
+	 * Get profit
+	 *
+	 * @return profit
+	 **/
+	@Schema(description = "")
+	public Double getProfit() {
+		return profit;
+	}
 
-  public void setProfit(Double profit) {
-    this.profit = profit;
-  }
+	public void setProfit(Double profit) {
+		this.profit = profit;
+	}
 
-  public AbsoluteProfitChart chart(List<SimpleChartPoint> chart) {
-    this.chart = chart;
-    return this;
-  }
+	public AbsoluteProfitChart chart(List<SimpleChartPoint> chart) {
+		this.chart = chart;
+		return this;
+	}
 
-  public AbsoluteProfitChart addChartItem(SimpleChartPoint chartItem) {
-    if (this.chart == null) {
-      this.chart = new ArrayList<SimpleChartPoint>();
-    }
-    this.chart.add(chartItem);
-    return this;
-  }
+	public AbsoluteProfitChart addChartItem(SimpleChartPoint chartItem) {
+		if (this.chart == null) {
+			this.chart = new ArrayList<SimpleChartPoint>();
+		}
+		this.chart.add(chartItem);
+		return this;
+	}
 
-  /**
-   * Get chart
-   *
-   * @return chart
-   **/
-  @Schema(description = "")
-  public List<SimpleChartPoint> getChart() {
-    return chart;
-  }
+	/**
+	 * Get chart
+	 *
+	 * @return chart
+	 **/
+	@Schema(description = "")
+	public List<SimpleChartPoint> getChart() {
+		return chart;
+	}
 
-  public void setChart(List<SimpleChartPoint> chart) {
-    this.chart = chart;
-  }
+	public void setChart(List<SimpleChartPoint> chart) {
+		this.chart = chart;
+	}
 
-  @Override
-  public boolean equals(java.lang.Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-    AbsoluteProfitChart absoluteProfitChart = (AbsoluteProfitChart) o;
-    return Objects.equals(this.profit, absoluteProfitChart.profit) &&
-            Objects.equals(this.chart, absoluteProfitChart.chart);
-  }
+	@Override
+	public boolean equals(java.lang.Object o) {
+		if (this == o) {
+			return true;
+		}
+		if (o == null || getClass() != o.getClass()) {
+			return false;
+		}
+		AbsoluteProfitChart absoluteProfitChart = (AbsoluteProfitChart) o;
+		return Objects.equals(this.profit, absoluteProfitChart.profit) &&
+				Objects.equals(this.chart, absoluteProfitChart.chart);
+	}
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(profit, chart);
-  }
+	@Override
+	public int hashCode() {
+		return Objects.hash(profit, chart);
+	}
 
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class AbsoluteProfitChart {\n");
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("class AbsoluteProfitChart {\n");
 
-    sb.append("    profit: ").append(toIndentedString(profit)).append("\n");
-    sb.append("    chart: ").append(toIndentedString(chart)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
+		sb.append("    profit: ").append(toIndentedString(profit)).append("\n");
+		sb.append("    chart: ").append(toIndentedString(chart)).append("\n");
+		sb.append("}");
+		return sb.toString();
+	}
 
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(java.lang.Object o) {
-    if (o == null) {
-      return "null";
-    }
-    return o.toString().replace("\n", "\n    ");
-  }
+	/**
+	 * Convert the given object to string with each line indented by 4 spaces
+	 * (except the first line).
+	 */
+	private String toIndentedString(java.lang.Object o) {
+		if (o == null) {
+			return "null";
+		}
+		return o.toString().replace("\n", "\n    ");
+	}
 
-  public void writeToParcel(Parcel out, int flags) {
-    out.writeValue(profit);
-    out.writeValue(chart);
-  }
+	public void writeToParcel(Parcel out, int flags) {
+		out.writeValue(profit);
+		out.writeValue(chart);
+	}
 
-  public int describeContents() {
-    return 0;
-  }
+	public int describeContents() {
+		return 0;
+	}
 }

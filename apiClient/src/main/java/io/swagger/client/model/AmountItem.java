@@ -28,6 +28,17 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class AmountItem implements Parcelable
 {
+	public static final Parcelable.Creator<AmountItem> CREATOR = new Parcelable.Creator<AmountItem>()
+	{
+		public AmountItem createFromParcel(Parcel in) {
+			return new AmountItem(in);
+		}
+
+		public AmountItem[] newArray(int size) {
+			return new AmountItem[size];
+		}
+	};
+
 	@SerializedName("amount")
 	private Double amount = null;
 
@@ -41,6 +52,13 @@ public class AmountItem implements Parcelable
 	private String logoUrl = null;
 
 	public AmountItem() {
+	}
+
+	AmountItem(Parcel in) {
+		amount = (Double) in.readValue(null);
+		currency = (Currency) in.readValue(Currency.class.getClassLoader());
+		color = (Color) in.readValue(Color.class.getClassLoader());
+		logoUrl = (String) in.readValue(null);
 	}
 
 	public AmountItem amount(Double amount) {
@@ -119,7 +137,6 @@ public class AmountItem implements Parcelable
 		this.logoUrl = logoUrl;
 	}
 
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -139,7 +156,6 @@ public class AmountItem implements Parcelable
 	public int hashCode() {
 		return Objects.hash(amount, currency, color, logoUrl);
 	}
-
 
 	@Override
 	public String toString() {
@@ -165,7 +181,6 @@ public class AmountItem implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
-
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(amount);
 		out.writeValue(currency);
@@ -173,25 +188,7 @@ public class AmountItem implements Parcelable
 		out.writeValue(logoUrl);
 	}
 
-	public static final Parcelable.Creator<AmountItem> CREATOR = new Parcelable.Creator<AmountItem>()
-	{
-		public AmountItem createFromParcel(Parcel in) {
-			return new AmountItem(in);
-		}
-
-		public AmountItem[] newArray(int size) {
-			return new AmountItem[size];
-		}
-	};
-
 	public int describeContents() {
 		return 0;
-	}
-
-	AmountItem(Parcel in) {
-		amount = (Double) in.readValue(null);
-		currency = (Currency) in.readValue(Currency.class.getClassLoader());
-		color = (Color) in.readValue(Color.class.getClassLoader());
-		logoUrl = (String) in.readValue(null);
 	}
 }

@@ -30,6 +30,17 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class AccountProfitPercentCharts implements Parcelable
 {
+	public static final Parcelable.Creator<AccountProfitPercentCharts> CREATOR = new Parcelable.Creator<AccountProfitPercentCharts>()
+	{
+		public AccountProfitPercentCharts createFromParcel(Parcel in) {
+			return new AccountProfitPercentCharts(in);
+		}
+
+		public AccountProfitPercentCharts[] newArray(int size) {
+			return new AccountProfitPercentCharts[size];
+		}
+	};
+
 	@SerializedName("statistic")
 	private AccountChartStatistic statistic = null;
 
@@ -37,6 +48,11 @@ public class AccountProfitPercentCharts implements Parcelable
 	private List<SimpleChart> charts = null;
 
 	public AccountProfitPercentCharts() {
+	}
+
+	AccountProfitPercentCharts(Parcel in) {
+		statistic = (AccountChartStatistic) in.readValue(AccountChartStatistic.class.getClassLoader());
+		charts = (List<SimpleChart>) in.readValue(SimpleChart.class.getClassLoader());
 	}
 
 	public AccountProfitPercentCharts statistic(AccountChartStatistic statistic) {
@@ -85,7 +101,6 @@ public class AccountProfitPercentCharts implements Parcelable
 		this.charts = charts;
 	}
 
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -103,7 +118,6 @@ public class AccountProfitPercentCharts implements Parcelable
 	public int hashCode() {
 		return Objects.hash(statistic, charts);
 	}
-
 
 	@Override
 	public String toString() {
@@ -127,29 +141,12 @@ public class AccountProfitPercentCharts implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
-
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(statistic);
 		out.writeValue(charts);
 	}
 
-	public static final Parcelable.Creator<AccountProfitPercentCharts> CREATOR = new Parcelable.Creator<AccountProfitPercentCharts>()
-	{
-		public AccountProfitPercentCharts createFromParcel(Parcel in) {
-			return new AccountProfitPercentCharts(in);
-		}
-
-		public AccountProfitPercentCharts[] newArray(int size) {
-			return new AccountProfitPercentCharts[size];
-		}
-	};
-
 	public int describeContents() {
 		return 0;
-	}
-
-	AccountProfitPercentCharts(Parcel in) {
-		statistic = (AccountChartStatistic) in.readValue(AccountChartStatistic.class.getClassLoader());
-		charts = (List<SimpleChart>) in.readValue(SimpleChart.class.getClassLoader());
 	}
 }

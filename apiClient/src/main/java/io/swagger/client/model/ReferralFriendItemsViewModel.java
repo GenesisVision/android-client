@@ -29,6 +29,17 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class ReferralFriendItemsViewModel implements Parcelable
 {
+	public static final Parcelable.Creator<ReferralFriendItemsViewModel> CREATOR = new Parcelable.Creator<ReferralFriendItemsViewModel>()
+	{
+		public ReferralFriendItemsViewModel createFromParcel(Parcel in) {
+			return new ReferralFriendItemsViewModel(in);
+		}
+
+		public ReferralFriendItemsViewModel[] newArray(int size) {
+			return new ReferralFriendItemsViewModel[size];
+		}
+	};
+
 	@SerializedName("items")
 	private List<ReferralFriend> items = null;
 
@@ -36,6 +47,11 @@ public class ReferralFriendItemsViewModel implements Parcelable
 	private Integer total = null;
 
 	public ReferralFriendItemsViewModel() {
+	}
+
+	ReferralFriendItemsViewModel(Parcel in) {
+		items = (List<ReferralFriend>) in.readValue(ReferralFriend.class.getClassLoader());
+		total = (Integer) in.readValue(null);
 	}
 
 	/**
@@ -58,7 +74,6 @@ public class ReferralFriendItemsViewModel implements Parcelable
 		return total;
 	}
 
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -76,7 +91,6 @@ public class ReferralFriendItemsViewModel implements Parcelable
 	public int hashCode() {
 		return Objects.hash(items, total);
 	}
-
 
 	@Override
 	public String toString() {
@@ -100,29 +114,12 @@ public class ReferralFriendItemsViewModel implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
-
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(items);
 		out.writeValue(total);
 	}
 
-	public static final Parcelable.Creator<ReferralFriendItemsViewModel> CREATOR = new Parcelable.Creator<ReferralFriendItemsViewModel>()
-	{
-		public ReferralFriendItemsViewModel createFromParcel(Parcel in) {
-			return new ReferralFriendItemsViewModel(in);
-		}
-
-		public ReferralFriendItemsViewModel[] newArray(int size) {
-			return new ReferralFriendItemsViewModel[size];
-		}
-	};
-
 	public int describeContents() {
 		return 0;
-	}
-
-	ReferralFriendItemsViewModel(Parcel in) {
-		items = (List<ReferralFriend>) in.readValue(ReferralFriend.class.getClassLoader());
-		total = (Integer) in.readValue(null);
 	}
 }

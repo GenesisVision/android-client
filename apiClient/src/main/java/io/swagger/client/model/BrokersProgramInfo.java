@@ -31,6 +31,17 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class BrokersProgramInfo implements Parcelable
 {
+	public static final Parcelable.Creator<BrokersProgramInfo> CREATOR = new Parcelable.Creator<BrokersProgramInfo>()
+	{
+		public BrokersProgramInfo createFromParcel(Parcel in) {
+			return new BrokersProgramInfo(in);
+		}
+
+		public BrokersProgramInfo[] newArray(int size) {
+			return new BrokersProgramInfo[size];
+		}
+	};
+
 	@SerializedName("brokers")
 	private List<Broker> brokers = null;
 
@@ -38,6 +49,11 @@ public class BrokersProgramInfo implements Parcelable
 	private UUID currentAccountTypeId = null;
 
 	public BrokersProgramInfo() {
+	}
+
+	BrokersProgramInfo(Parcel in) {
+		brokers = (List<Broker>) in.readValue(Broker.class.getClassLoader());
+		currentAccountTypeId = (UUID) in.readValue(UUID.class.getClassLoader());
 	}
 
 	public BrokersProgramInfo brokers(List<Broker> brokers) {
@@ -86,7 +102,6 @@ public class BrokersProgramInfo implements Parcelable
 		this.currentAccountTypeId = currentAccountTypeId;
 	}
 
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -104,7 +119,6 @@ public class BrokersProgramInfo implements Parcelable
 	public int hashCode() {
 		return Objects.hash(brokers, currentAccountTypeId);
 	}
-
 
 	@Override
 	public String toString() {
@@ -128,29 +142,12 @@ public class BrokersProgramInfo implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
-
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(brokers);
 		out.writeValue(currentAccountTypeId);
 	}
 
-	public static final Parcelable.Creator<BrokersProgramInfo> CREATOR = new Parcelable.Creator<BrokersProgramInfo>()
-	{
-		public BrokersProgramInfo createFromParcel(Parcel in) {
-			return new BrokersProgramInfo(in);
-		}
-
-		public BrokersProgramInfo[] newArray(int size) {
-			return new BrokersProgramInfo[size];
-		}
-	};
-
 	public int describeContents() {
 		return 0;
-	}
-
-	BrokersProgramInfo(Parcel in) {
-		brokers = (List<Broker>) in.readValue(Broker.class.getClassLoader());
-		currentAccountTypeId = (UUID) in.readValue(UUID.class.getClassLoader());
 	}
 }

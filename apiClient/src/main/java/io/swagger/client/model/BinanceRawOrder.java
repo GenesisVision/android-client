@@ -31,6 +31,17 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class BinanceRawOrder implements Parcelable
 {
+	public static final Parcelable.Creator<BinanceRawOrder> CREATOR = new Parcelable.Creator<BinanceRawOrder>()
+	{
+		public BinanceRawOrder createFromParcel(Parcel in) {
+			return new BinanceRawOrder(in);
+		}
+
+		public BinanceRawOrder[] newArray(int size) {
+			return new BinanceRawOrder[size];
+		}
+	};
+
 	@SerializedName("accountId")
 	private UUID accountId = null;
 
@@ -118,18 +129,43 @@ public class BinanceRawOrder implements Parcelable
 	@SerializedName("orderListId")
 	private Long orderListId = null;
 
-	public static final Parcelable.Creator<BinanceRawOrder> CREATOR = new Parcelable.Creator<BinanceRawOrder>()
-	{
-		public BinanceRawOrder createFromParcel(Parcel in) {
-			return new BinanceRawOrder(in);
-		}
-
-		public BinanceRawOrder[] newArray(int size) {
-			return new BinanceRawOrder[size];
-		}
-	};
+	@SerializedName("pnL")
+	private Double pnL = null;
 
 	public BinanceRawOrder() {
+	}
+
+	BinanceRawOrder(Parcel in) {
+		accountId = (UUID) in.readValue(UUID.class.getClassLoader());
+		symbol = (String) in.readValue(null);
+		clientOrderId = (String) in.readValue(null);
+		side = (BinanceOrderSide) in.readValue(BinanceOrderSide.class.getClassLoader());
+		type = (BinanceOrderType) in.readValue(BinanceOrderType.class.getClassLoader());
+		timeInForce = (BinanceTimeInForce) in.readValue(BinanceTimeInForce.class.getClassLoader());
+		quantity = (Double) in.readValue(null);
+		price = (Double) in.readValue(null);
+		stopPrice = (Double) in.readValue(null);
+		icebergQuantity = (Double) in.readValue(null);
+		originalClientOrderId = (String) in.readValue(null);
+		executionType = (BinanceExecutionType) in.readValue(BinanceExecutionType.class.getClassLoader());
+		status = (BinanceOrderStatus) in.readValue(BinanceOrderStatus.class.getClassLoader());
+		rejectReason = (BinanceOrderRejectReason) in.readValue(BinanceOrderRejectReason.class.getClassLoader());
+		orderId = (Long) in.readValue(null);
+		lastQuantityFilled = (Double) in.readValue(null);
+		quantityFilled = (Double) in.readValue(null);
+		lastPriceFilled = (Double) in.readValue(null);
+		commission = (Double) in.readValue(null);
+		commissionAsset = (String) in.readValue(null);
+		updateTime = (DateTime) in.readValue(DateTime.class.getClassLoader());
+		tradeId = (Long) in.readValue(null);
+		isWorking = (Boolean) in.readValue(null);
+		buyerIsMaker = (Boolean) in.readValue(null);
+		createTime = (DateTime) in.readValue(DateTime.class.getClassLoader());
+		quoteQuantityFilled = (Double) in.readValue(null);
+		quoteQuantity = (Double) in.readValue(null);
+		lastQuoteQuantity = (Double) in.readValue(null);
+		orderListId = (Long) in.readValue(null);
+		pnL = (Double) in.readValue(null);
 	}
 
 	public BinanceRawOrder accountId(UUID accountId) {
@@ -683,42 +719,6 @@ public class BinanceRawOrder implements Parcelable
 		this.orderListId = orderListId;
 	}
 
-	@SerializedName("pnL")
-	private Double pnL = null;
-
-	BinanceRawOrder(Parcel in) {
-		accountId = (UUID) in.readValue(UUID.class.getClassLoader());
-		symbol = (String) in.readValue(null);
-		clientOrderId = (String) in.readValue(null);
-		side = (BinanceOrderSide) in.readValue(BinanceOrderSide.class.getClassLoader());
-		type = (BinanceOrderType) in.readValue(BinanceOrderType.class.getClassLoader());
-		timeInForce = (BinanceTimeInForce) in.readValue(BinanceTimeInForce.class.getClassLoader());
-		quantity = (Double) in.readValue(null);
-		price = (Double) in.readValue(null);
-		stopPrice = (Double) in.readValue(null);
-		icebergQuantity = (Double) in.readValue(null);
-		originalClientOrderId = (String) in.readValue(null);
-		executionType = (BinanceExecutionType) in.readValue(BinanceExecutionType.class.getClassLoader());
-		status = (BinanceOrderStatus) in.readValue(BinanceOrderStatus.class.getClassLoader());
-		rejectReason = (BinanceOrderRejectReason) in.readValue(BinanceOrderRejectReason.class.getClassLoader());
-		orderId = (Long) in.readValue(null);
-		lastQuantityFilled = (Double) in.readValue(null);
-		quantityFilled = (Double) in.readValue(null);
-		lastPriceFilled = (Double) in.readValue(null);
-		commission = (Double) in.readValue(null);
-		commissionAsset = (String) in.readValue(null);
-		updateTime = (DateTime) in.readValue(DateTime.class.getClassLoader());
-		tradeId = (Long) in.readValue(null);
-		isWorking = (Boolean) in.readValue(null);
-		buyerIsMaker = (Boolean) in.readValue(null);
-		createTime = (DateTime) in.readValue(DateTime.class.getClassLoader());
-		quoteQuantityFilled = (Double) in.readValue(null);
-		quoteQuantity = (Double) in.readValue(null);
-		lastQuoteQuantity = (Double) in.readValue(null);
-		orderListId = (Long) in.readValue(null);
-		pnL = (Double) in.readValue(null);
-	}
-
 	public BinanceRawOrder pnL(Double pnL) {
 		this.pnL = pnL;
 		return this;
@@ -779,17 +779,6 @@ public class BinanceRawOrder implements Parcelable
 				Objects.equals(this.pnL, binanceRawOrder.pnL);
 	}
 
-	/**
-	 * Convert the given object to string with each line indented by 4 spaces
-	 * (except the first line).
-	 */
-	private String toIndentedString(java.lang.Object o) {
-		if (o == null) {
-			return "null";
-		}
-		return o.toString().replace("\n", "\n    ");
-	}
-
 	@Override
 	public int hashCode() {
 		return Objects.hash(accountId, symbol, clientOrderId, side, type, timeInForce, quantity, price, stopPrice, icebergQuantity, originalClientOrderId, executionType, status, rejectReason, orderId, lastQuantityFilled, quantityFilled, lastPriceFilled, commission, commissionAsset, updateTime, tradeId, isWorking, buyerIsMaker, createTime, quoteQuantityFilled, quoteQuantity, lastQuoteQuantity, orderListId, pnL);
@@ -834,8 +823,15 @@ public class BinanceRawOrder implements Parcelable
 		return sb.toString();
 	}
 
-	public int describeContents() {
-		return 0;
+	/**
+	 * Convert the given object to string with each line indented by 4 spaces
+	 * (except the first line).
+	 */
+	private String toIndentedString(java.lang.Object o) {
+		if (o == null) {
+			return "null";
+		}
+		return o.toString().replace("\n", "\n    ");
 	}
 
 	public void writeToParcel(Parcel out, int flags) {
@@ -869,5 +865,9 @@ public class BinanceRawOrder implements Parcelable
 		out.writeValue(lastQuoteQuantity);
 		out.writeValue(orderListId);
 		out.writeValue(pnL);
+	}
+
+	public int describeContents() {
+		return 0;
 	}
 }

@@ -28,6 +28,17 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class CaptchaCheckResult implements Parcelable
 {
+	public static final Parcelable.Creator<CaptchaCheckResult> CREATOR = new Parcelable.Creator<CaptchaCheckResult>()
+	{
+		public CaptchaCheckResult createFromParcel(Parcel in) {
+			return new CaptchaCheckResult(in);
+		}
+
+		public CaptchaCheckResult[] newArray(int size) {
+			return new CaptchaCheckResult[size];
+		}
+	};
+
 	@SerializedName("id")
 	private String id = null;
 
@@ -38,6 +49,12 @@ public class CaptchaCheckResult implements Parcelable
 	private GeeTestResult geeTest = null;
 
 	public CaptchaCheckResult() {
+	}
+
+	CaptchaCheckResult(Parcel in) {
+		id = (String) in.readValue(null);
+		pow = (PowResult) in.readValue(PowResult.class.getClassLoader());
+		geeTest = (GeeTestResult) in.readValue(GeeTestResult.class.getClassLoader());
 	}
 
 	public CaptchaCheckResult id(String id) {
@@ -97,7 +114,6 @@ public class CaptchaCheckResult implements Parcelable
 		this.geeTest = geeTest;
 	}
 
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -116,7 +132,6 @@ public class CaptchaCheckResult implements Parcelable
 	public int hashCode() {
 		return Objects.hash(id, pow, geeTest);
 	}
-
 
 	@Override
 	public String toString() {
@@ -141,31 +156,13 @@ public class CaptchaCheckResult implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
-
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(id);
 		out.writeValue(pow);
 		out.writeValue(geeTest);
 	}
 
-	public static final Parcelable.Creator<CaptchaCheckResult> CREATOR = new Parcelable.Creator<CaptchaCheckResult>()
-	{
-		public CaptchaCheckResult createFromParcel(Parcel in) {
-			return new CaptchaCheckResult(in);
-		}
-
-		public CaptchaCheckResult[] newArray(int size) {
-			return new CaptchaCheckResult[size];
-		}
-	};
-
 	public int describeContents() {
 		return 0;
-	}
-
-	CaptchaCheckResult(Parcel in) {
-		id = (String) in.readValue(null);
-		pow = (PowResult) in.readValue(PowResult.class.getClassLoader());
-		geeTest = (GeeTestResult) in.readValue(GeeTestResult.class.getClassLoader());
 	}
 }

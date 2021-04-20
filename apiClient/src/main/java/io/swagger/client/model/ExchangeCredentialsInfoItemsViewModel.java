@@ -29,6 +29,17 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class ExchangeCredentialsInfoItemsViewModel implements Parcelable
 {
+	public static final Parcelable.Creator<ExchangeCredentialsInfoItemsViewModel> CREATOR = new Parcelable.Creator<ExchangeCredentialsInfoItemsViewModel>()
+	{
+		public ExchangeCredentialsInfoItemsViewModel createFromParcel(Parcel in) {
+			return new ExchangeCredentialsInfoItemsViewModel(in);
+		}
+
+		public ExchangeCredentialsInfoItemsViewModel[] newArray(int size) {
+			return new ExchangeCredentialsInfoItemsViewModel[size];
+		}
+	};
+
 	@SerializedName("items")
 	private List<ExchangeCredentialsInfo> items = null;
 
@@ -36,6 +47,11 @@ public class ExchangeCredentialsInfoItemsViewModel implements Parcelable
 	private Integer total = null;
 
 	public ExchangeCredentialsInfoItemsViewModel() {
+	}
+
+	ExchangeCredentialsInfoItemsViewModel(Parcel in) {
+		items = (List<ExchangeCredentialsInfo>) in.readValue(ExchangeCredentialsInfo.class.getClassLoader());
+		total = (Integer) in.readValue(null);
 	}
 
 	/**
@@ -58,7 +74,6 @@ public class ExchangeCredentialsInfoItemsViewModel implements Parcelable
 		return total;
 	}
 
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -76,7 +91,6 @@ public class ExchangeCredentialsInfoItemsViewModel implements Parcelable
 	public int hashCode() {
 		return Objects.hash(items, total);
 	}
-
 
 	@Override
 	public String toString() {
@@ -100,29 +114,12 @@ public class ExchangeCredentialsInfoItemsViewModel implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
-
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(items);
 		out.writeValue(total);
 	}
 
-	public static final Parcelable.Creator<ExchangeCredentialsInfoItemsViewModel> CREATOR = new Parcelable.Creator<ExchangeCredentialsInfoItemsViewModel>()
-	{
-		public ExchangeCredentialsInfoItemsViewModel createFromParcel(Parcel in) {
-			return new ExchangeCredentialsInfoItemsViewModel(in);
-		}
-
-		public ExchangeCredentialsInfoItemsViewModel[] newArray(int size) {
-			return new ExchangeCredentialsInfoItemsViewModel[size];
-		}
-	};
-
 	public int describeContents() {
 		return 0;
-	}
-
-	ExchangeCredentialsInfoItemsViewModel(Parcel in) {
-		items = (List<ExchangeCredentialsInfo>) in.readValue(ExchangeCredentialsInfo.class.getClassLoader());
-		total = (Integer) in.readValue(null);
 	}
 }

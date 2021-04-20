@@ -30,6 +30,17 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class BinanceRawFuturesCancelOrder implements Parcelable
 {
+	public static final Parcelable.Creator<BinanceRawFuturesCancelOrder> CREATOR = new Parcelable.Creator<BinanceRawFuturesCancelOrder>()
+	{
+		public BinanceRawFuturesCancelOrder createFromParcel(Parcel in) {
+			return new BinanceRawFuturesCancelOrder(in);
+		}
+
+		public BinanceRawFuturesCancelOrder[] newArray(int size) {
+			return new BinanceRawFuturesCancelOrder[size];
+		}
+	};
+
 	@SerializedName("symbol")
 	private String symbol = null;
 
@@ -94,6 +105,30 @@ public class BinanceRawFuturesCancelOrder implements Parcelable
 	private BinancePositionSide positionSide = null;
 
 	public BinanceRawFuturesCancelOrder() {
+	}
+
+	BinanceRawFuturesCancelOrder(Parcel in) {
+		symbol = (String) in.readValue(null);
+		orderId = (Long) in.readValue(null);
+		clientOrderId = (String) in.readValue(null);
+		price = (Double) in.readValue(null);
+		cumulativeQuantity = (Double) in.readValue(null);
+		cumulativeQuoteQuantity = (Double) in.readValue(null);
+		executedQuantity = (Double) in.readValue(null);
+		originalQuantity = (Double) in.readValue(null);
+		reduceOnly = (Boolean) in.readValue(null);
+		closePosition = (Boolean) in.readValue(null);
+		side = (BinanceOrderSide) in.readValue(BinanceOrderSide.class.getClassLoader());
+		status = (BinanceOrderStatus) in.readValue(BinanceOrderStatus.class.getClassLoader());
+		stopPrice = (Double) in.readValue(null);
+		timeInForce = (BinanceTimeInForce) in.readValue(BinanceTimeInForce.class.getClassLoader());
+		originalType = (BinanceOrderType) in.readValue(BinanceOrderType.class.getClassLoader());
+		type = (BinanceOrderType) in.readValue(BinanceOrderType.class.getClassLoader());
+		activatePrice = (Double) in.readValue(null);
+		priceRate = (Double) in.readValue(null);
+		updateTime = (DateTime) in.readValue(DateTime.class.getClassLoader());
+		workingType = (BinanceWorkingType) in.readValue(BinanceWorkingType.class.getClassLoader());
+		positionSide = (BinancePositionSide) in.readValue(BinancePositionSide.class.getClassLoader());
 	}
 
 	public BinanceRawFuturesCancelOrder symbol(String symbol) {
@@ -495,7 +530,6 @@ public class BinanceRawFuturesCancelOrder implements Parcelable
 		this.positionSide = positionSide;
 	}
 
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -532,7 +566,6 @@ public class BinanceRawFuturesCancelOrder implements Parcelable
 	public int hashCode() {
 		return Objects.hash(symbol, orderId, clientOrderId, price, cumulativeQuantity, cumulativeQuoteQuantity, executedQuantity, originalQuantity, reduceOnly, closePosition, side, status, stopPrice, timeInForce, originalType, type, activatePrice, priceRate, updateTime, workingType, positionSide);
 	}
-
 
 	@Override
 	public String toString() {
@@ -575,7 +608,6 @@ public class BinanceRawFuturesCancelOrder implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
-
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(symbol);
 		out.writeValue(orderId);
@@ -600,42 +632,7 @@ public class BinanceRawFuturesCancelOrder implements Parcelable
 		out.writeValue(positionSide);
 	}
 
-	public static final Parcelable.Creator<BinanceRawFuturesCancelOrder> CREATOR = new Parcelable.Creator<BinanceRawFuturesCancelOrder>()
-	{
-		public BinanceRawFuturesCancelOrder createFromParcel(Parcel in) {
-			return new BinanceRawFuturesCancelOrder(in);
-		}
-
-		public BinanceRawFuturesCancelOrder[] newArray(int size) {
-			return new BinanceRawFuturesCancelOrder[size];
-		}
-	};
-
 	public int describeContents() {
 		return 0;
-	}
-
-	BinanceRawFuturesCancelOrder(Parcel in) {
-		symbol = (String) in.readValue(null);
-		orderId = (Long) in.readValue(null);
-		clientOrderId = (String) in.readValue(null);
-		price = (Double) in.readValue(null);
-		cumulativeQuantity = (Double) in.readValue(null);
-		cumulativeQuoteQuantity = (Double) in.readValue(null);
-		executedQuantity = (Double) in.readValue(null);
-		originalQuantity = (Double) in.readValue(null);
-		reduceOnly = (Boolean) in.readValue(null);
-		closePosition = (Boolean) in.readValue(null);
-		side = (BinanceOrderSide) in.readValue(BinanceOrderSide.class.getClassLoader());
-		status = (BinanceOrderStatus) in.readValue(BinanceOrderStatus.class.getClassLoader());
-		stopPrice = (Double) in.readValue(null);
-		timeInForce = (BinanceTimeInForce) in.readValue(BinanceTimeInForce.class.getClassLoader());
-		originalType = (BinanceOrderType) in.readValue(BinanceOrderType.class.getClassLoader());
-		type = (BinanceOrderType) in.readValue(BinanceOrderType.class.getClassLoader());
-		activatePrice = (Double) in.readValue(null);
-		priceRate = (Double) in.readValue(null);
-		updateTime = (DateTime) in.readValue(DateTime.class.getClassLoader());
-		workingType = (BinanceWorkingType) in.readValue(BinanceWorkingType.class.getClassLoader());
-		positionSide = (BinancePositionSide) in.readValue(BinancePositionSide.class.getClassLoader());
 	}
 }

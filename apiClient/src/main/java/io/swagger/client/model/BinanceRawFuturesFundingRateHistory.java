@@ -30,6 +30,17 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class BinanceRawFuturesFundingRateHistory implements Parcelable
 {
+	public static final Parcelable.Creator<BinanceRawFuturesFundingRateHistory> CREATOR = new Parcelable.Creator<BinanceRawFuturesFundingRateHistory>()
+	{
+		public BinanceRawFuturesFundingRateHistory createFromParcel(Parcel in) {
+			return new BinanceRawFuturesFundingRateHistory(in);
+		}
+
+		public BinanceRawFuturesFundingRateHistory[] newArray(int size) {
+			return new BinanceRawFuturesFundingRateHistory[size];
+		}
+	};
+
 	@SerializedName("symbol")
 	private String symbol = null;
 
@@ -40,6 +51,12 @@ public class BinanceRawFuturesFundingRateHistory implements Parcelable
 	private DateTime fundingTime = null;
 
 	public BinanceRawFuturesFundingRateHistory() {
+	}
+
+	BinanceRawFuturesFundingRateHistory(Parcel in) {
+		symbol = (String) in.readValue(null);
+		fundingRate = (Double) in.readValue(null);
+		fundingTime = (DateTime) in.readValue(DateTime.class.getClassLoader());
 	}
 
 	public BinanceRawFuturesFundingRateHistory symbol(String symbol) {
@@ -99,7 +116,6 @@ public class BinanceRawFuturesFundingRateHistory implements Parcelable
 		this.fundingTime = fundingTime;
 	}
 
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -118,7 +134,6 @@ public class BinanceRawFuturesFundingRateHistory implements Parcelable
 	public int hashCode() {
 		return Objects.hash(symbol, fundingRate, fundingTime);
 	}
-
 
 	@Override
 	public String toString() {
@@ -143,31 +158,13 @@ public class BinanceRawFuturesFundingRateHistory implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
-
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(symbol);
 		out.writeValue(fundingRate);
 		out.writeValue(fundingTime);
 	}
 
-	public static final Parcelable.Creator<BinanceRawFuturesFundingRateHistory> CREATOR = new Parcelable.Creator<BinanceRawFuturesFundingRateHistory>()
-	{
-		public BinanceRawFuturesFundingRateHistory createFromParcel(Parcel in) {
-			return new BinanceRawFuturesFundingRateHistory(in);
-		}
-
-		public BinanceRawFuturesFundingRateHistory[] newArray(int size) {
-			return new BinanceRawFuturesFundingRateHistory[size];
-		}
-	};
-
 	public int describeContents() {
 		return 0;
-	}
-
-	BinanceRawFuturesFundingRateHistory(Parcel in) {
-		symbol = (String) in.readValue(null);
-		fundingRate = (Double) in.readValue(null);
-		fundingTime = (DateTime) in.readValue(DateTime.class.getClassLoader());
 	}
 }

@@ -30,6 +30,15 @@ public enum TransactionExternalType
 	DEPOSIT("Deposit"),
 	PLATFORM("Platform");
 
+	public static TransactionExternalType fromValue(String text) {
+		for (TransactionExternalType b : TransactionExternalType.values()) {
+			if (String.valueOf(b.value).equals(text)) {
+				return b;
+			}
+		}
+		return null;
+	}
+
 	private String value;
 
 	TransactionExternalType(String value) {
@@ -43,15 +52,6 @@ public enum TransactionExternalType
 	@Override
 	public String toString() {
 		return String.valueOf(value);
-	}
-
-	public static TransactionExternalType fromValue(String text) {
-		for (TransactionExternalType b : TransactionExternalType.values()) {
-			if (String.valueOf(b.value).equals(text)) {
-				return b;
-			}
-		}
-		return null;
 	}
 
 	public static class Adapter extends TypeAdapter<TransactionExternalType>

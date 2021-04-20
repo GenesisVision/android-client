@@ -29,6 +29,17 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class NewTradingAccountRequest implements Parcelable
 {
+	public static final Parcelable.Creator<NewTradingAccountRequest> CREATOR = new Parcelable.Creator<NewTradingAccountRequest>()
+	{
+		public NewTradingAccountRequest createFromParcel(Parcel in) {
+			return new NewTradingAccountRequest(in);
+		}
+
+		public NewTradingAccountRequest[] newArray(int size) {
+			return new NewTradingAccountRequest[size];
+		}
+	};
+
 	@SerializedName("depositAmount")
 	private Double depositAmount = null;
 
@@ -45,6 +56,14 @@ public class NewTradingAccountRequest implements Parcelable
 	private UUID brokerAccountTypeId = null;
 
 	public NewTradingAccountRequest() {
+	}
+
+	NewTradingAccountRequest(Parcel in) {
+		depositAmount = (Double) in.readValue(null);
+		depositWalletId = (UUID) in.readValue(UUID.class.getClassLoader());
+		currency = (Currency) in.readValue(Currency.class.getClassLoader());
+		leverage = (Integer) in.readValue(null);
+		brokerAccountTypeId = (UUID) in.readValue(UUID.class.getClassLoader());
 	}
 
 	public NewTradingAccountRequest depositAmount(Double depositAmount) {
@@ -142,7 +161,6 @@ public class NewTradingAccountRequest implements Parcelable
 		this.brokerAccountTypeId = brokerAccountTypeId;
 	}
 
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -163,7 +181,6 @@ public class NewTradingAccountRequest implements Parcelable
 	public int hashCode() {
 		return Objects.hash(depositAmount, depositWalletId, currency, leverage, brokerAccountTypeId);
 	}
-
 
 	@Override
 	public String toString() {
@@ -190,7 +207,6 @@ public class NewTradingAccountRequest implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
-
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(depositAmount);
 		out.writeValue(depositWalletId);
@@ -199,26 +215,7 @@ public class NewTradingAccountRequest implements Parcelable
 		out.writeValue(brokerAccountTypeId);
 	}
 
-	public static final Parcelable.Creator<NewTradingAccountRequest> CREATOR = new Parcelable.Creator<NewTradingAccountRequest>()
-	{
-		public NewTradingAccountRequest createFromParcel(Parcel in) {
-			return new NewTradingAccountRequest(in);
-		}
-
-		public NewTradingAccountRequest[] newArray(int size) {
-			return new NewTradingAccountRequest[size];
-		}
-	};
-
 	public int describeContents() {
 		return 0;
-	}
-
-	NewTradingAccountRequest(Parcel in) {
-		depositAmount = (Double) in.readValue(null);
-		depositWalletId = (UUID) in.readValue(UUID.class.getClassLoader());
-		currency = (Currency) in.readValue(Currency.class.getClassLoader());
-		leverage = (Integer) in.readValue(null);
-		brokerAccountTypeId = (UUID) in.readValue(UUID.class.getClassLoader());
 	}
 }

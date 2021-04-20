@@ -35,6 +35,15 @@ public enum BinanceOrderStatus
 	INSURANCE("Insurance"),
 	ADL("Adl");
 
+	public static BinanceOrderStatus fromValue(String text) {
+		for (BinanceOrderStatus b : BinanceOrderStatus.values()) {
+			if (String.valueOf(b.value).equals(text)) {
+				return b;
+			}
+		}
+		return null;
+	}
+
 	private String value;
 
 	BinanceOrderStatus(String value) {
@@ -48,15 +57,6 @@ public enum BinanceOrderStatus
 	@Override
 	public String toString() {
 		return String.valueOf(value);
-	}
-
-	public static BinanceOrderStatus fromValue(String text) {
-		for (BinanceOrderStatus b : BinanceOrderStatus.values()) {
-			if (String.valueOf(b.value).equals(text)) {
-				return b;
-			}
-		}
-		return null;
 	}
 
 	public static class Adapter extends TypeAdapter<BinanceOrderStatus>

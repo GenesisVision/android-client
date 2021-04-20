@@ -28,6 +28,17 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class BinanceRawFuturesInitialLeverageChangeResult implements Parcelable
 {
+	public static final Parcelable.Creator<BinanceRawFuturesInitialLeverageChangeResult> CREATOR = new Parcelable.Creator<BinanceRawFuturesInitialLeverageChangeResult>()
+	{
+		public BinanceRawFuturesInitialLeverageChangeResult createFromParcel(Parcel in) {
+			return new BinanceRawFuturesInitialLeverageChangeResult(in);
+		}
+
+		public BinanceRawFuturesInitialLeverageChangeResult[] newArray(int size) {
+			return new BinanceRawFuturesInitialLeverageChangeResult[size];
+		}
+	};
+
 	@SerializedName("leverage")
 	private Integer leverage = null;
 
@@ -38,6 +49,12 @@ public class BinanceRawFuturesInitialLeverageChangeResult implements Parcelable
 	private String symbol = null;
 
 	public BinanceRawFuturesInitialLeverageChangeResult() {
+	}
+
+	BinanceRawFuturesInitialLeverageChangeResult(Parcel in) {
+		leverage = (Integer) in.readValue(null);
+		maxNotionalValue = (String) in.readValue(null);
+		symbol = (String) in.readValue(null);
 	}
 
 	public BinanceRawFuturesInitialLeverageChangeResult leverage(Integer leverage) {
@@ -97,7 +114,6 @@ public class BinanceRawFuturesInitialLeverageChangeResult implements Parcelable
 		this.symbol = symbol;
 	}
 
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -116,7 +132,6 @@ public class BinanceRawFuturesInitialLeverageChangeResult implements Parcelable
 	public int hashCode() {
 		return Objects.hash(leverage, maxNotionalValue, symbol);
 	}
-
 
 	@Override
 	public String toString() {
@@ -141,31 +156,13 @@ public class BinanceRawFuturesInitialLeverageChangeResult implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
-
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(leverage);
 		out.writeValue(maxNotionalValue);
 		out.writeValue(symbol);
 	}
 
-	public static final Parcelable.Creator<BinanceRawFuturesInitialLeverageChangeResult> CREATOR = new Parcelable.Creator<BinanceRawFuturesInitialLeverageChangeResult>()
-	{
-		public BinanceRawFuturesInitialLeverageChangeResult createFromParcel(Parcel in) {
-			return new BinanceRawFuturesInitialLeverageChangeResult(in);
-		}
-
-		public BinanceRawFuturesInitialLeverageChangeResult[] newArray(int size) {
-			return new BinanceRawFuturesInitialLeverageChangeResult[size];
-		}
-	};
-
 	public int describeContents() {
 		return 0;
-	}
-
-	BinanceRawFuturesInitialLeverageChangeResult(Parcel in) {
-		leverage = (Integer) in.readValue(null);
-		maxNotionalValue = (String) in.readValue(null);
-		symbol = (String) in.readValue(null);
 	}
 }

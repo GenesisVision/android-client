@@ -29,6 +29,15 @@ public enum BinancePositionSide
 	LONG("Long"),
 	BOTH("Both");
 
+	public static BinancePositionSide fromValue(String text) {
+		for (BinancePositionSide b : BinancePositionSide.values()) {
+			if (String.valueOf(b.value).equals(text)) {
+				return b;
+			}
+		}
+		return null;
+	}
+
 	private String value;
 
 	BinancePositionSide(String value) {
@@ -42,15 +51,6 @@ public enum BinancePositionSide
 	@Override
 	public String toString() {
 		return String.valueOf(value);
-	}
-
-	public static BinancePositionSide fromValue(String text) {
-		for (BinancePositionSide b : BinancePositionSide.values()) {
-			if (String.valueOf(b.value).equals(text)) {
-				return b;
-			}
-		}
-		return null;
 	}
 
 	public static class Adapter extends TypeAdapter<BinancePositionSide>

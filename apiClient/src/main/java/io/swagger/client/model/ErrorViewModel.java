@@ -30,6 +30,17 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class ErrorViewModel implements Parcelable
 {
+	public static final Parcelable.Creator<ErrorViewModel> CREATOR = new Parcelable.Creator<ErrorViewModel>()
+	{
+		public ErrorViewModel createFromParcel(Parcel in) {
+			return new ErrorViewModel(in);
+		}
+
+		public ErrorViewModel[] newArray(int size) {
+			return new ErrorViewModel[size];
+		}
+	};
+
 	@SerializedName("errors")
 	private List<ErrorMessage> errors = null;
 
@@ -37,6 +48,11 @@ public class ErrorViewModel implements Parcelable
 	private ErrorCodes code = null;
 
 	public ErrorViewModel() {
+	}
+
+	ErrorViewModel(Parcel in) {
+		errors = (List<ErrorMessage>) in.readValue(ErrorMessage.class.getClassLoader());
+		code = (ErrorCodes) in.readValue(ErrorCodes.class.getClassLoader());
 	}
 
 	public ErrorViewModel errors(List<ErrorMessage> errors) {
@@ -85,7 +101,6 @@ public class ErrorViewModel implements Parcelable
 		this.code = code;
 	}
 
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -103,7 +118,6 @@ public class ErrorViewModel implements Parcelable
 	public int hashCode() {
 		return Objects.hash(errors, code);
 	}
-
 
 	@Override
 	public String toString() {
@@ -127,29 +141,12 @@ public class ErrorViewModel implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
-
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(errors);
 		out.writeValue(code);
 	}
 
-	public static final Parcelable.Creator<ErrorViewModel> CREATOR = new Parcelable.Creator<ErrorViewModel>()
-	{
-		public ErrorViewModel createFromParcel(Parcel in) {
-			return new ErrorViewModel(in);
-		}
-
-		public ErrorViewModel[] newArray(int size) {
-			return new ErrorViewModel[size];
-		}
-	};
-
 	public int describeContents() {
 		return 0;
-	}
-
-	ErrorViewModel(Parcel in) {
-		errors = (List<ErrorMessage>) in.readValue(ErrorMessage.class.getClassLoader());
-		code = (ErrorCodes) in.readValue(ErrorCodes.class.getClassLoader());
 	}
 }

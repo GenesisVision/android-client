@@ -28,6 +28,17 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class TransactionDetailsActions implements Parcelable
 {
+	public static final Parcelable.Creator<TransactionDetailsActions> CREATOR = new Parcelable.Creator<TransactionDetailsActions>()
+	{
+		public TransactionDetailsActions createFromParcel(Parcel in) {
+			return new TransactionDetailsActions(in);
+		}
+
+		public TransactionDetailsActions[] newArray(int size) {
+			return new TransactionDetailsActions[size];
+		}
+	};
+
 	@SerializedName("canResend")
 	private Boolean canResend = null;
 
@@ -35,6 +46,11 @@ public class TransactionDetailsActions implements Parcelable
 	private Boolean canCancel = null;
 
 	public TransactionDetailsActions() {
+	}
+
+	TransactionDetailsActions(Parcel in) {
+		canResend = (Boolean) in.readValue(null);
+		canCancel = (Boolean) in.readValue(null);
 	}
 
 	public TransactionDetailsActions canResend(Boolean canResend) {
@@ -75,7 +91,6 @@ public class TransactionDetailsActions implements Parcelable
 		this.canCancel = canCancel;
 	}
 
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -93,7 +108,6 @@ public class TransactionDetailsActions implements Parcelable
 	public int hashCode() {
 		return Objects.hash(canResend, canCancel);
 	}
-
 
 	@Override
 	public String toString() {
@@ -117,29 +131,12 @@ public class TransactionDetailsActions implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
-
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(canResend);
 		out.writeValue(canCancel);
 	}
 
-	public static final Parcelable.Creator<TransactionDetailsActions> CREATOR = new Parcelable.Creator<TransactionDetailsActions>()
-	{
-		public TransactionDetailsActions createFromParcel(Parcel in) {
-			return new TransactionDetailsActions(in);
-		}
-
-		public TransactionDetailsActions[] newArray(int size) {
-			return new TransactionDetailsActions[size];
-		}
-	};
-
 	public int describeContents() {
 		return 0;
-	}
-
-	TransactionDetailsActions(Parcel in) {
-		canResend = (Boolean) in.readValue(null);
-		canCancel = (Boolean) in.readValue(null);
 	}
 }

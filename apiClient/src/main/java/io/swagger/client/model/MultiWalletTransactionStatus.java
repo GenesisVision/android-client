@@ -30,6 +30,15 @@ public enum MultiWalletTransactionStatus
 	CANCELED("Canceled"),
 	ERROR("Error");
 
+	public static MultiWalletTransactionStatus fromValue(String text) {
+		for (MultiWalletTransactionStatus b : MultiWalletTransactionStatus.values()) {
+			if (String.valueOf(b.value).equals(text)) {
+				return b;
+			}
+		}
+		return null;
+	}
+
 	private String value;
 
 	MultiWalletTransactionStatus(String value) {
@@ -43,15 +52,6 @@ public enum MultiWalletTransactionStatus
 	@Override
 	public String toString() {
 		return String.valueOf(value);
-	}
-
-	public static MultiWalletTransactionStatus fromValue(String text) {
-		for (MultiWalletTransactionStatus b : MultiWalletTransactionStatus.values()) {
-			if (String.valueOf(b.value).equals(text)) {
-				return b;
-			}
-		}
-		return null;
 	}
 
 	public static class Adapter extends TypeAdapter<MultiWalletTransactionStatus>

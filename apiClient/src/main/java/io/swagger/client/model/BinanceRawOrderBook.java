@@ -30,6 +30,17 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class BinanceRawOrderBook implements Parcelable
 {
+	public static final Parcelable.Creator<BinanceRawOrderBook> CREATOR = new Parcelable.Creator<BinanceRawOrderBook>()
+	{
+		public BinanceRawOrderBook createFromParcel(Parcel in) {
+			return new BinanceRawOrderBook(in);
+		}
+
+		public BinanceRawOrderBook[] newArray(int size) {
+			return new BinanceRawOrderBook[size];
+		}
+	};
+
 	@SerializedName("symbol")
 	private String symbol = null;
 
@@ -43,6 +54,13 @@ public class BinanceRawOrderBook implements Parcelable
 	private List<BinanceRawOrderBookEntry> asks = null;
 
 	public BinanceRawOrderBook() {
+	}
+
+	BinanceRawOrderBook(Parcel in) {
+		symbol = (String) in.readValue(null);
+		lastUpdateId = (Long) in.readValue(null);
+		bids = (List<BinanceRawOrderBookEntry>) in.readValue(BinanceRawOrderBookEntry.class.getClassLoader());
+		asks = (List<BinanceRawOrderBookEntry>) in.readValue(BinanceRawOrderBookEntry.class.getClassLoader());
 	}
 
 	public BinanceRawOrderBook symbol(String symbol) {
@@ -137,7 +155,6 @@ public class BinanceRawOrderBook implements Parcelable
 		this.asks = asks;
 	}
 
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -153,17 +170,10 @@ public class BinanceRawOrderBook implements Parcelable
 				Objects.equals(this.asks, binanceRawOrderBook.asks);
 	}
 
-	public static final Parcelable.Creator<BinanceRawOrderBook> CREATOR = new Parcelable.Creator<BinanceRawOrderBook>()
-	{
-		public BinanceRawOrderBook createFromParcel(Parcel in) {
-			return new BinanceRawOrderBook(in);
-		}
-
-		public BinanceRawOrderBook[] newArray(int size) {
-			return new BinanceRawOrderBook[size];
-		}
-	};
-
+	@Override
+	public int hashCode() {
+		return Objects.hash(symbol, lastUpdateId, bids, asks);
+	}
 
 	@Override
 	public String toString() {
@@ -189,7 +199,6 @@ public class BinanceRawOrderBook implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
-
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(symbol);
 		out.writeValue(lastUpdateId);
@@ -197,19 +206,7 @@ public class BinanceRawOrderBook implements Parcelable
 		out.writeValue(asks);
 	}
 
-	BinanceRawOrderBook(Parcel in) {
-		symbol = (String) in.readValue(null);
-		lastUpdateId = (Long) in.readValue(null);
-		bids = (List<BinanceRawOrderBookEntry>) in.readValue(BinanceRawOrderBookEntry.class.getClassLoader());
-		asks = (List<BinanceRawOrderBookEntry>) in.readValue(BinanceRawOrderBookEntry.class.getClassLoader());
-	}
-
 	public int describeContents() {
 		return 0;
-	}
-
-	@Override
-	public int hashCode() {
-		return Objects.hash(symbol, lastUpdateId, bids, asks);
 	}
 }

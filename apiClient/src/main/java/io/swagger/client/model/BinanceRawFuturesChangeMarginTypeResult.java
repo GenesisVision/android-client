@@ -28,6 +28,17 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class BinanceRawFuturesChangeMarginTypeResult implements Parcelable
 {
+	public static final Parcelable.Creator<BinanceRawFuturesChangeMarginTypeResult> CREATOR = new Parcelable.Creator<BinanceRawFuturesChangeMarginTypeResult>()
+	{
+		public BinanceRawFuturesChangeMarginTypeResult createFromParcel(Parcel in) {
+			return new BinanceRawFuturesChangeMarginTypeResult(in);
+		}
+
+		public BinanceRawFuturesChangeMarginTypeResult[] newArray(int size) {
+			return new BinanceRawFuturesChangeMarginTypeResult[size];
+		}
+	};
+
 	@SerializedName("code")
 	private Integer code = null;
 
@@ -35,6 +46,11 @@ public class BinanceRawFuturesChangeMarginTypeResult implements Parcelable
 	private String message = null;
 
 	public BinanceRawFuturesChangeMarginTypeResult() {
+	}
+
+	BinanceRawFuturesChangeMarginTypeResult(Parcel in) {
+		code = (Integer) in.readValue(null);
+		message = (String) in.readValue(null);
 	}
 
 	public BinanceRawFuturesChangeMarginTypeResult code(Integer code) {
@@ -75,7 +91,6 @@ public class BinanceRawFuturesChangeMarginTypeResult implements Parcelable
 		this.message = message;
 	}
 
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -93,7 +108,6 @@ public class BinanceRawFuturesChangeMarginTypeResult implements Parcelable
 	public int hashCode() {
 		return Objects.hash(code, message);
 	}
-
 
 	@Override
 	public String toString() {
@@ -117,29 +131,12 @@ public class BinanceRawFuturesChangeMarginTypeResult implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
-
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(code);
 		out.writeValue(message);
 	}
 
-	public static final Parcelable.Creator<BinanceRawFuturesChangeMarginTypeResult> CREATOR = new Parcelable.Creator<BinanceRawFuturesChangeMarginTypeResult>()
-	{
-		public BinanceRawFuturesChangeMarginTypeResult createFromParcel(Parcel in) {
-			return new BinanceRawFuturesChangeMarginTypeResult(in);
-		}
-
-		public BinanceRawFuturesChangeMarginTypeResult[] newArray(int size) {
-			return new BinanceRawFuturesChangeMarginTypeResult[size];
-		}
-	};
-
 	public int describeContents() {
 		return 0;
-	}
-
-	BinanceRawFuturesChangeMarginTypeResult(Parcel in) {
-		code = (Integer) in.readValue(null);
-		message = (String) in.readValue(null);
 	}
 }

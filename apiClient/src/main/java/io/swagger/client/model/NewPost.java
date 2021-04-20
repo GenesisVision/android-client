@@ -31,6 +31,17 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class NewPost implements Parcelable
 {
+	public static final Parcelable.Creator<NewPost> CREATOR = new Parcelable.Creator<NewPost>()
+	{
+		public NewPost createFromParcel(Parcel in) {
+			return new NewPost(in);
+		}
+
+		public NewPost[] newArray(int size) {
+			return new NewPost[size];
+		}
+	};
+
 	@SerializedName("text")
 	private String text = null;
 
@@ -44,6 +55,13 @@ public class NewPost implements Parcelable
 	private List<NewPostImage> images = null;
 
 	public NewPost() {
+	}
+
+	NewPost(Parcel in) {
+		text = (String) in.readValue(null);
+		postId = (UUID) in.readValue(UUID.class.getClassLoader());
+		userId = (UUID) in.readValue(UUID.class.getClassLoader());
+		images = (List<NewPostImage>) in.readValue(NewPostImage.class.getClassLoader());
 	}
 
 	public NewPost text(String text) {
@@ -130,7 +148,6 @@ public class NewPost implements Parcelable
 		this.images = images;
 	}
 
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -150,7 +167,6 @@ public class NewPost implements Parcelable
 	public int hashCode() {
 		return Objects.hash(text, postId, userId, images);
 	}
-
 
 	@Override
 	public String toString() {
@@ -176,7 +192,6 @@ public class NewPost implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
-
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(text);
 		out.writeValue(postId);
@@ -184,25 +199,7 @@ public class NewPost implements Parcelable
 		out.writeValue(images);
 	}
 
-	public static final Parcelable.Creator<NewPost> CREATOR = new Parcelable.Creator<NewPost>()
-	{
-		public NewPost createFromParcel(Parcel in) {
-			return new NewPost(in);
-		}
-
-		public NewPost[] newArray(int size) {
-			return new NewPost[size];
-		}
-	};
-
 	public int describeContents() {
 		return 0;
-	}
-
-	NewPost(Parcel in) {
-		text = (String) in.readValue(null);
-		postId = (UUID) in.readValue(UUID.class.getClassLoader());
-		userId = (UUID) in.readValue(UUID.class.getClassLoader());
-		images = (List<NewPostImage>) in.readValue(NewPostImage.class.getClassLoader());
 	}
 }

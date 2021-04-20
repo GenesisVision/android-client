@@ -33,6 +33,17 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class TransactionViewModel implements Parcelable
 {
+	public static final Parcelable.Creator<TransactionViewModel> CREATOR = new Parcelable.Creator<TransactionViewModel>()
+	{
+		public TransactionViewModel createFromParcel(Parcel in) {
+			return new TransactionViewModel(in);
+		}
+
+		public TransactionViewModel[] newArray(int size) {
+			return new TransactionViewModel[size];
+		}
+	};
+
 	@SerializedName("id")
 	private UUID id = null;
 
@@ -61,6 +72,18 @@ public class TransactionViewModel implements Parcelable
 	private MultiWalletTransactionStatus status = null;
 
 	public TransactionViewModel() {
+	}
+
+	TransactionViewModel(Parcel in) {
+		id = (UUID) in.readValue(UUID.class.getClassLoader());
+		date = (DateTime) in.readValue(DateTime.class.getClassLoader());
+		description = (String) in.readValue(null);
+		amount = (AmountRowCell) in.readValue(AmountRowCell.class.getClassLoader());
+		detailsTitle = (String) in.readValue(null);
+		asset = (TransactionAssetDetails) in.readValue(TransactionAssetDetails.class.getClassLoader());
+		details = (List<TransactionDetailItem>) in.readValue(TransactionDetailItem.class.getClassLoader());
+		actions = (TransactionDetailsActions) in.readValue(TransactionDetailsActions.class.getClassLoader());
+		status = (MultiWalletTransactionStatus) in.readValue(MultiWalletTransactionStatus.class.getClassLoader());
 	}
 
 	public TransactionViewModel id(UUID id) {
@@ -242,7 +265,6 @@ public class TransactionViewModel implements Parcelable
 		this.status = status;
 	}
 
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -267,7 +289,6 @@ public class TransactionViewModel implements Parcelable
 	public int hashCode() {
 		return Objects.hash(id, date, description, amount, detailsTitle, asset, details, actions, status);
 	}
-
 
 	@Override
 	public String toString() {
@@ -298,7 +319,6 @@ public class TransactionViewModel implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
-
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(id);
 		out.writeValue(date);
@@ -311,30 +331,7 @@ public class TransactionViewModel implements Parcelable
 		out.writeValue(status);
 	}
 
-	public static final Parcelable.Creator<TransactionViewModel> CREATOR = new Parcelable.Creator<TransactionViewModel>()
-	{
-		public TransactionViewModel createFromParcel(Parcel in) {
-			return new TransactionViewModel(in);
-		}
-
-		public TransactionViewModel[] newArray(int size) {
-			return new TransactionViewModel[size];
-		}
-	};
-
 	public int describeContents() {
 		return 0;
-	}
-
-	TransactionViewModel(Parcel in) {
-		id = (UUID) in.readValue(UUID.class.getClassLoader());
-		date = (DateTime) in.readValue(DateTime.class.getClassLoader());
-		description = (String) in.readValue(null);
-		amount = (AmountRowCell) in.readValue(AmountRowCell.class.getClassLoader());
-		detailsTitle = (String) in.readValue(null);
-		asset = (TransactionAssetDetails) in.readValue(TransactionAssetDetails.class.getClassLoader());
-		details = (List<TransactionDetailItem>) in.readValue(TransactionDetailItem.class.getClassLoader());
-		actions = (TransactionDetailsActions) in.readValue(TransactionDetailsActions.class.getClassLoader());
-		status = (MultiWalletTransactionStatus) in.readValue(MultiWalletTransactionStatus.class.getClassLoader());
 	}
 }

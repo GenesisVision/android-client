@@ -30,6 +30,17 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class BinanceRawSymbol implements Parcelable
 {
+	public static final Parcelable.Creator<BinanceRawSymbol> CREATOR = new Parcelable.Creator<BinanceRawSymbol>()
+	{
+		public BinanceRawSymbol createFromParcel(Parcel in) {
+			return new BinanceRawSymbol(in);
+		}
+
+		public BinanceRawSymbol[] newArray(int size) {
+			return new BinanceRawSymbol[size];
+		}
+	};
+
 	@SerializedName("name")
 	private String name = null;
 
@@ -103,6 +114,33 @@ public class BinanceRawSymbol implements Parcelable
 	private BinanceRawSymbolMaxPositionFilter maxPositionFilter = null;
 
 	public BinanceRawSymbol() {
+	}
+
+	BinanceRawSymbol(Parcel in) {
+		name = (String) in.readValue(null);
+		status = (BinanceSymbolStatus) in.readValue(BinanceSymbolStatus.class.getClassLoader());
+		baseAsset = (String) in.readValue(null);
+		baseAssetPrecision = (Integer) in.readValue(null);
+		quoteAsset = (String) in.readValue(null);
+		quoteAssetPrecision = (Integer) in.readValue(null);
+		orderTypes = (List<BinanceOrderType>) in.readValue(BinanceOrderType.class.getClassLoader());
+		iceBergAllowed = (Boolean) in.readValue(null);
+		isSpotTradingAllowed = (Boolean) in.readValue(null);
+		isMarginTradingAllowed = (Boolean) in.readValue(null);
+		ocoAllowed = (Boolean) in.readValue(null);
+		quoteOrderQuantityMarketAllowed = (Boolean) in.readValue(null);
+		baseCommissionPrecision = (Integer) in.readValue(null);
+		quoteCommissionPrecision = (Integer) in.readValue(null);
+		permissions = (List<BinanceAccountType>) in.readValue(BinanceAccountType.class.getClassLoader());
+		iceBergPartsFilter = (BinanceRawSymbolIcebergPartsFilter) in.readValue(BinanceRawSymbolIcebergPartsFilter.class.getClassLoader());
+		lotSizeFilter = (BinanceRawSymbolLotSizeFilter) in.readValue(BinanceRawSymbolLotSizeFilter.class.getClassLoader());
+		marketLotSizeFilter = (BinanceRawSymbolMarketLotSizeFilter) in.readValue(BinanceRawSymbolMarketLotSizeFilter.class.getClassLoader());
+		maxOrdersFilter = (BinanceRawSymbolMaxOrdersFilter) in.readValue(BinanceRawSymbolMaxOrdersFilter.class.getClassLoader());
+		maxAlgorithmicOrdersFilter = (BinanceRawSymbolMaxAlgorithmicOrdersFilter) in.readValue(BinanceRawSymbolMaxAlgorithmicOrdersFilter.class.getClassLoader());
+		minNotionalFilter = (BinanceRawSymbolMinNotionalFilter) in.readValue(BinanceRawSymbolMinNotionalFilter.class.getClassLoader());
+		priceFilter = (BinanceRawSymbolPriceFilter) in.readValue(BinanceRawSymbolPriceFilter.class.getClassLoader());
+		pricePercentFilter = (BinanceRawSymbolPercentPriceFilter) in.readValue(BinanceRawSymbolPercentPriceFilter.class.getClassLoader());
+		maxPositionFilter = (BinanceRawSymbolMaxPositionFilter) in.readValue(BinanceRawSymbolMaxPositionFilter.class.getClassLoader());
 	}
 
 	public BinanceRawSymbol name(String name) {
@@ -577,7 +615,6 @@ public class BinanceRawSymbol implements Parcelable
 		this.maxPositionFilter = maxPositionFilter;
 	}
 
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -617,7 +654,6 @@ public class BinanceRawSymbol implements Parcelable
 	public int hashCode() {
 		return Objects.hash(name, status, baseAsset, baseAssetPrecision, quoteAsset, quoteAssetPrecision, orderTypes, iceBergAllowed, isSpotTradingAllowed, isMarginTradingAllowed, ocoAllowed, quoteOrderQuantityMarketAllowed, baseCommissionPrecision, quoteCommissionPrecision, permissions, iceBergPartsFilter, lotSizeFilter, marketLotSizeFilter, maxOrdersFilter, maxAlgorithmicOrdersFilter, minNotionalFilter, priceFilter, pricePercentFilter, maxPositionFilter);
 	}
-
 
 	@Override
 	public String toString() {
@@ -663,7 +699,6 @@ public class BinanceRawSymbol implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
-
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(name);
 		out.writeValue(status);
@@ -691,45 +726,7 @@ public class BinanceRawSymbol implements Parcelable
 		out.writeValue(maxPositionFilter);
 	}
 
-	public static final Parcelable.Creator<BinanceRawSymbol> CREATOR = new Parcelable.Creator<BinanceRawSymbol>()
-	{
-		public BinanceRawSymbol createFromParcel(Parcel in) {
-			return new BinanceRawSymbol(in);
-		}
-
-		public BinanceRawSymbol[] newArray(int size) {
-			return new BinanceRawSymbol[size];
-		}
-	};
-
 	public int describeContents() {
 		return 0;
-	}
-
-	BinanceRawSymbol(Parcel in) {
-		name = (String) in.readValue(null);
-		status = (BinanceSymbolStatus) in.readValue(BinanceSymbolStatus.class.getClassLoader());
-		baseAsset = (String) in.readValue(null);
-		baseAssetPrecision = (Integer) in.readValue(null);
-		quoteAsset = (String) in.readValue(null);
-		quoteAssetPrecision = (Integer) in.readValue(null);
-		orderTypes = (List<BinanceOrderType>) in.readValue(BinanceOrderType.class.getClassLoader());
-		iceBergAllowed = (Boolean) in.readValue(null);
-		isSpotTradingAllowed = (Boolean) in.readValue(null);
-		isMarginTradingAllowed = (Boolean) in.readValue(null);
-		ocoAllowed = (Boolean) in.readValue(null);
-		quoteOrderQuantityMarketAllowed = (Boolean) in.readValue(null);
-		baseCommissionPrecision = (Integer) in.readValue(null);
-		quoteCommissionPrecision = (Integer) in.readValue(null);
-		permissions = (List<BinanceAccountType>) in.readValue(BinanceAccountType.class.getClassLoader());
-		iceBergPartsFilter = (BinanceRawSymbolIcebergPartsFilter) in.readValue(BinanceRawSymbolIcebergPartsFilter.class.getClassLoader());
-		lotSizeFilter = (BinanceRawSymbolLotSizeFilter) in.readValue(BinanceRawSymbolLotSizeFilter.class.getClassLoader());
-		marketLotSizeFilter = (BinanceRawSymbolMarketLotSizeFilter) in.readValue(BinanceRawSymbolMarketLotSizeFilter.class.getClassLoader());
-		maxOrdersFilter = (BinanceRawSymbolMaxOrdersFilter) in.readValue(BinanceRawSymbolMaxOrdersFilter.class.getClassLoader());
-		maxAlgorithmicOrdersFilter = (BinanceRawSymbolMaxAlgorithmicOrdersFilter) in.readValue(BinanceRawSymbolMaxAlgorithmicOrdersFilter.class.getClassLoader());
-		minNotionalFilter = (BinanceRawSymbolMinNotionalFilter) in.readValue(BinanceRawSymbolMinNotionalFilter.class.getClassLoader());
-		priceFilter = (BinanceRawSymbolPriceFilter) in.readValue(BinanceRawSymbolPriceFilter.class.getClassLoader());
-		pricePercentFilter = (BinanceRawSymbolPercentPriceFilter) in.readValue(BinanceRawSymbolPercentPriceFilter.class.getClassLoader());
-		maxPositionFilter = (BinanceRawSymbolMaxPositionFilter) in.readValue(BinanceRawSymbolMaxPositionFilter.class.getClassLoader());
 	}
 }

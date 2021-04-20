@@ -28,6 +28,17 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class OrderProgramData implements Parcelable
 {
+	public static final Parcelable.Creator<OrderProgramData> CREATOR = new Parcelable.Creator<OrderProgramData>()
+	{
+		public OrderProgramData createFromParcel(Parcel in) {
+			return new OrderProgramData(in);
+		}
+
+		public OrderProgramData[] newArray(int size) {
+			return new OrderProgramData[size];
+		}
+	};
+
 	@SerializedName("title")
 	private String title = null;
 
@@ -50,6 +61,16 @@ public class OrderProgramData implements Parcelable
 	private AssetType type = null;
 
 	public OrderProgramData() {
+	}
+
+	OrderProgramData(Parcel in) {
+		title = (String) in.readValue(null);
+		level = (Integer) in.readValue(null);
+		levelProgress = (Double) in.readValue(null);
+		color = (String) in.readValue(null);
+		url = (String) in.readValue(null);
+		logoUrl = (String) in.readValue(null);
+		type = (AssetType) in.readValue(AssetType.class.getClassLoader());
 	}
 
 	public OrderProgramData title(String title) {
@@ -185,7 +206,6 @@ public class OrderProgramData implements Parcelable
 		this.type = type;
 	}
 
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -208,7 +228,6 @@ public class OrderProgramData implements Parcelable
 	public int hashCode() {
 		return Objects.hash(title, level, levelProgress, color, url, logoUrl, type);
 	}
-
 
 	@Override
 	public String toString() {
@@ -237,7 +256,6 @@ public class OrderProgramData implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
-
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(title);
 		out.writeValue(level);
@@ -248,28 +266,7 @@ public class OrderProgramData implements Parcelable
 		out.writeValue(type);
 	}
 
-	public static final Parcelable.Creator<OrderProgramData> CREATOR = new Parcelable.Creator<OrderProgramData>()
-	{
-		public OrderProgramData createFromParcel(Parcel in) {
-			return new OrderProgramData(in);
-		}
-
-		public OrderProgramData[] newArray(int size) {
-			return new OrderProgramData[size];
-		}
-	};
-
 	public int describeContents() {
 		return 0;
-	}
-
-	OrderProgramData(Parcel in) {
-		title = (String) in.readValue(null);
-		level = (Integer) in.readValue(null);
-		levelProgress = (Double) in.readValue(null);
-		color = (String) in.readValue(null);
-		url = (String) in.readValue(null);
-		logoUrl = (String) in.readValue(null);
-		type = (AssetType) in.readValue(AssetType.class.getClassLoader());
 	}
 }

@@ -29,6 +29,17 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class FundHistoryEventViewModelItemsViewModel implements Parcelable
 {
+	public static final Parcelable.Creator<FundHistoryEventViewModelItemsViewModel> CREATOR = new Parcelable.Creator<FundHistoryEventViewModelItemsViewModel>()
+	{
+		public FundHistoryEventViewModelItemsViewModel createFromParcel(Parcel in) {
+			return new FundHistoryEventViewModelItemsViewModel(in);
+		}
+
+		public FundHistoryEventViewModelItemsViewModel[] newArray(int size) {
+			return new FundHistoryEventViewModelItemsViewModel[size];
+		}
+	};
+
 	@SerializedName("items")
 	private List<FundHistoryEventViewModel> items = null;
 
@@ -36,6 +47,11 @@ public class FundHistoryEventViewModelItemsViewModel implements Parcelable
 	private Integer total = null;
 
 	public FundHistoryEventViewModelItemsViewModel() {
+	}
+
+	FundHistoryEventViewModelItemsViewModel(Parcel in) {
+		items = (List<FundHistoryEventViewModel>) in.readValue(FundHistoryEventViewModel.class.getClassLoader());
+		total = (Integer) in.readValue(null);
 	}
 
 	/**
@@ -58,7 +74,6 @@ public class FundHistoryEventViewModelItemsViewModel implements Parcelable
 		return total;
 	}
 
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -76,7 +91,6 @@ public class FundHistoryEventViewModelItemsViewModel implements Parcelable
 	public int hashCode() {
 		return Objects.hash(items, total);
 	}
-
 
 	@Override
 	public String toString() {
@@ -100,29 +114,12 @@ public class FundHistoryEventViewModelItemsViewModel implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
-
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(items);
 		out.writeValue(total);
 	}
 
-	public static final Parcelable.Creator<FundHistoryEventViewModelItemsViewModel> CREATOR = new Parcelable.Creator<FundHistoryEventViewModelItemsViewModel>()
-	{
-		public FundHistoryEventViewModelItemsViewModel createFromParcel(Parcel in) {
-			return new FundHistoryEventViewModelItemsViewModel(in);
-		}
-
-		public FundHistoryEventViewModelItemsViewModel[] newArray(int size) {
-			return new FundHistoryEventViewModelItemsViewModel[size];
-		}
-	};
-
 	public int describeContents() {
 		return 0;
-	}
-
-	FundHistoryEventViewModelItemsViewModel(Parcel in) {
-		items = (List<FundHistoryEventViewModel>) in.readValue(FundHistoryEventViewModel.class.getClassLoader());
-		total = (Integer) in.readValue(null);
 	}
 }

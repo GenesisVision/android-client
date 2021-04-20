@@ -28,6 +28,17 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class PersonalFundDetailsList implements Parcelable
 {
+	public static final Parcelable.Creator<PersonalFundDetailsList> CREATOR = new Parcelable.Creator<PersonalFundDetailsList>()
+	{
+		public PersonalFundDetailsList createFromParcel(Parcel in) {
+			return new PersonalFundDetailsList(in);
+		}
+
+		public PersonalFundDetailsList[] newArray(int size) {
+			return new PersonalFundDetailsList[size];
+		}
+	};
+
 	@SerializedName("isOwnAsset")
 	private Boolean isOwnAsset = null;
 
@@ -35,6 +46,11 @@ public class PersonalFundDetailsList implements Parcelable
 	private Boolean isFavorite = null;
 
 	public PersonalFundDetailsList() {
+	}
+
+	PersonalFundDetailsList(Parcel in) {
+		isOwnAsset = (Boolean) in.readValue(null);
+		isFavorite = (Boolean) in.readValue(null);
 	}
 
 	public PersonalFundDetailsList isOwnAsset(Boolean isOwnAsset) {
@@ -75,7 +91,6 @@ public class PersonalFundDetailsList implements Parcelable
 		this.isFavorite = isFavorite;
 	}
 
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -93,7 +108,6 @@ public class PersonalFundDetailsList implements Parcelable
 	public int hashCode() {
 		return Objects.hash(isOwnAsset, isFavorite);
 	}
-
 
 	@Override
 	public String toString() {
@@ -117,29 +131,12 @@ public class PersonalFundDetailsList implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
-
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(isOwnAsset);
 		out.writeValue(isFavorite);
 	}
 
-	public static final Parcelable.Creator<PersonalFundDetailsList> CREATOR = new Parcelable.Creator<PersonalFundDetailsList>()
-	{
-		public PersonalFundDetailsList createFromParcel(Parcel in) {
-			return new PersonalFundDetailsList(in);
-		}
-
-		public PersonalFundDetailsList[] newArray(int size) {
-			return new PersonalFundDetailsList[size];
-		}
-	};
-
 	public int describeContents() {
 		return 0;
-	}
-
-	PersonalFundDetailsList(Parcel in) {
-		isOwnAsset = (Boolean) in.readValue(null);
-		isFavorite = (Boolean) in.readValue(null);
 	}
 }

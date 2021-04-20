@@ -30,6 +30,17 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class SimpleChart implements Parcelable
 {
+	public static final Parcelable.Creator<SimpleChart> CREATOR = new Parcelable.Creator<SimpleChart>()
+	{
+		public SimpleChart createFromParcel(Parcel in) {
+			return new SimpleChart(in);
+		}
+
+		public SimpleChart[] newArray(int size) {
+			return new SimpleChart[size];
+		}
+	};
+
 	@SerializedName("currency")
 	private Currency currency = null;
 
@@ -40,6 +51,12 @@ public class SimpleChart implements Parcelable
 	private List<SimpleChartPoint> chart = null;
 
 	public SimpleChart() {
+	}
+
+	SimpleChart(Parcel in) {
+		currency = (Currency) in.readValue(Currency.class.getClassLoader());
+		color = (String) in.readValue(null);
+		chart = (List<SimpleChartPoint>) in.readValue(SimpleChartPoint.class.getClassLoader());
 	}
 
 	public SimpleChart currency(Currency currency) {
@@ -107,7 +124,6 @@ public class SimpleChart implements Parcelable
 		this.chart = chart;
 	}
 
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -126,7 +142,6 @@ public class SimpleChart implements Parcelable
 	public int hashCode() {
 		return Objects.hash(currency, color, chart);
 	}
-
 
 	@Override
 	public String toString() {
@@ -151,31 +166,13 @@ public class SimpleChart implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
-
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(currency);
 		out.writeValue(color);
 		out.writeValue(chart);
 	}
 
-	public static final Parcelable.Creator<SimpleChart> CREATOR = new Parcelable.Creator<SimpleChart>()
-	{
-		public SimpleChart createFromParcel(Parcel in) {
-			return new SimpleChart(in);
-		}
-
-		public SimpleChart[] newArray(int size) {
-			return new SimpleChart[size];
-		}
-	};
-
 	public int describeContents() {
 		return 0;
-	}
-
-	SimpleChart(Parcel in) {
-		currency = (Currency) in.readValue(Currency.class.getClassLoader());
-		color = (String) in.readValue(null);
-		chart = (List<SimpleChartPoint>) in.readValue(SimpleChartPoint.class.getClassLoader());
 	}
 }

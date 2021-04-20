@@ -28,6 +28,17 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class ExchangeCredentials implements Parcelable
 {
+	public static final Parcelable.Creator<ExchangeCredentials> CREATOR = new Parcelable.Creator<ExchangeCredentials>()
+	{
+		public ExchangeCredentials createFromParcel(Parcel in) {
+			return new ExchangeCredentials(in);
+		}
+
+		public ExchangeCredentials[] newArray(int size) {
+			return new ExchangeCredentials[size];
+		}
+	};
+
 	@SerializedName("apiKey")
 	private String apiKey = null;
 
@@ -35,6 +46,11 @@ public class ExchangeCredentials implements Parcelable
 	private String apiSecret = null;
 
 	public ExchangeCredentials() {
+	}
+
+	ExchangeCredentials(Parcel in) {
+		apiKey = (String) in.readValue(null);
+		apiSecret = (String) in.readValue(null);
 	}
 
 	public ExchangeCredentials apiKey(String apiKey) {
@@ -75,7 +91,6 @@ public class ExchangeCredentials implements Parcelable
 		this.apiSecret = apiSecret;
 	}
 
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -93,7 +108,6 @@ public class ExchangeCredentials implements Parcelable
 	public int hashCode() {
 		return Objects.hash(apiKey, apiSecret);
 	}
-
 
 	@Override
 	public String toString() {
@@ -117,29 +131,12 @@ public class ExchangeCredentials implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
-
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(apiKey);
 		out.writeValue(apiSecret);
 	}
 
-	public static final Parcelable.Creator<ExchangeCredentials> CREATOR = new Parcelable.Creator<ExchangeCredentials>()
-	{
-		public ExchangeCredentials createFromParcel(Parcel in) {
-			return new ExchangeCredentials(in);
-		}
-
-		public ExchangeCredentials[] newArray(int size) {
-			return new ExchangeCredentials[size];
-		}
-	};
-
 	public int describeContents() {
 		return 0;
-	}
-
-	ExchangeCredentials(Parcel in) {
-		apiKey = (String) in.readValue(null);
-		apiSecret = (String) in.readValue(null);
 	}
 }

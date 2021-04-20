@@ -27,6 +27,15 @@ public enum SecureAlgorithm
 {
 	SHA256("Sha256");
 
+	public static SecureAlgorithm fromValue(String text) {
+		for (SecureAlgorithm b : SecureAlgorithm.values()) {
+			if (String.valueOf(b.value).equals(text)) {
+				return b;
+			}
+		}
+		return null;
+	}
+
 	private String value;
 
 	SecureAlgorithm(String value) {
@@ -40,15 +49,6 @@ public enum SecureAlgorithm
 	@Override
 	public String toString() {
 		return String.valueOf(value);
-	}
-
-	public static SecureAlgorithm fromValue(String text) {
-		for (SecureAlgorithm b : SecureAlgorithm.values()) {
-			if (String.valueOf(b.value).equals(text)) {
-				return b;
-			}
-		}
-		return null;
 	}
 
 	public static class Adapter extends TypeAdapter<SecureAlgorithm>

@@ -28,6 +28,17 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class RegisterViewModel implements Parcelable
 {
+	public static final Parcelable.Creator<RegisterViewModel> CREATOR = new Parcelable.Creator<RegisterViewModel>()
+	{
+		public RegisterViewModel createFromParcel(Parcel in) {
+			return new RegisterViewModel(in);
+		}
+
+		public RegisterViewModel[] newArray(int size) {
+			return new RegisterViewModel[size];
+		}
+	};
+
 	@SerializedName("email")
 	private String email = null;
 
@@ -53,6 +64,17 @@ public class RegisterViewModel implements Parcelable
 	private UtmSource utmSource = null;
 
 	public RegisterViewModel() {
+	}
+
+	RegisterViewModel(Parcel in) {
+		email = (String) in.readValue(null);
+		captchaCheckResult = (CaptchaCheckResult) in.readValue(CaptchaCheckResult.class.getClassLoader());
+		password = (String) in.readValue(null);
+		confirmPassword = (String) in.readValue(null);
+		userName = (String) in.readValue(null);
+		refCode = (String) in.readValue(null);
+		isAuto = (Boolean) in.readValue(null);
+		utmSource = (UtmSource) in.readValue(UtmSource.class.getClassLoader());
 	}
 
 	public RegisterViewModel email(String email) {
@@ -207,7 +229,6 @@ public class RegisterViewModel implements Parcelable
 		this.utmSource = utmSource;
 	}
 
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -231,7 +252,6 @@ public class RegisterViewModel implements Parcelable
 	public int hashCode() {
 		return Objects.hash(email, captchaCheckResult, password, confirmPassword, userName, refCode, isAuto, utmSource);
 	}
-
 
 	@Override
 	public String toString() {
@@ -261,7 +281,6 @@ public class RegisterViewModel implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
-
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(email);
 		out.writeValue(captchaCheckResult);
@@ -273,29 +292,7 @@ public class RegisterViewModel implements Parcelable
 		out.writeValue(utmSource);
 	}
 
-	public static final Parcelable.Creator<RegisterViewModel> CREATOR = new Parcelable.Creator<RegisterViewModel>()
-	{
-		public RegisterViewModel createFromParcel(Parcel in) {
-			return new RegisterViewModel(in);
-		}
-
-		public RegisterViewModel[] newArray(int size) {
-			return new RegisterViewModel[size];
-		}
-	};
-
 	public int describeContents() {
 		return 0;
-	}
-
-	RegisterViewModel(Parcel in) {
-		email = (String) in.readValue(null);
-		captchaCheckResult = (CaptchaCheckResult) in.readValue(CaptchaCheckResult.class.getClassLoader());
-		password = (String) in.readValue(null);
-		confirmPassword = (String) in.readValue(null);
-		userName = (String) in.readValue(null);
-		refCode = (String) in.readValue(null);
-		isAuto = (Boolean) in.readValue(null);
-		utmSource = (UtmSource) in.readValue(UtmSource.class.getClassLoader());
 	}
 }

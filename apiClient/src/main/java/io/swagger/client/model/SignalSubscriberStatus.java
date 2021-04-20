@@ -28,6 +28,15 @@ public enum SignalSubscriberStatus
 	ACTIVE("Active"),
 	ENDED("Ended");
 
+	public static SignalSubscriberStatus fromValue(String text) {
+		for (SignalSubscriberStatus b : SignalSubscriberStatus.values()) {
+			if (String.valueOf(b.value).equals(text)) {
+				return b;
+			}
+		}
+		return null;
+	}
+
 	private String value;
 
 	SignalSubscriberStatus(String value) {
@@ -41,15 +50,6 @@ public enum SignalSubscriberStatus
 	@Override
 	public String toString() {
 		return String.valueOf(value);
-	}
-
-	public static SignalSubscriberStatus fromValue(String text) {
-		for (SignalSubscriberStatus b : SignalSubscriberStatus.values()) {
-			if (String.valueOf(b.value).equals(text)) {
-				return b;
-			}
-		}
-		return null;
 	}
 
 	public static class Adapter extends TypeAdapter<SignalSubscriberStatus>

@@ -46,6 +46,15 @@ public enum FeeType
 	GVSIGNALVOLUMEFEE("GvSignalVolumeFee"),
 	GVFUNDTRADE("GvFundTrade");
 
+	public static FeeType fromValue(String text) {
+		for (FeeType b : FeeType.values()) {
+			if (String.valueOf(b.value).equals(text)) {
+				return b;
+			}
+		}
+		return null;
+	}
+
 	private String value;
 
 	FeeType(String value) {
@@ -59,15 +68,6 @@ public enum FeeType
 	@Override
 	public String toString() {
 		return String.valueOf(value);
-	}
-
-	public static FeeType fromValue(String text) {
-		for (FeeType b : FeeType.values()) {
-			if (String.valueOf(b.value).equals(text)) {
-				return b;
-			}
-		}
-		return null;
 	}
 
 	public static class Adapter extends TypeAdapter<FeeType>

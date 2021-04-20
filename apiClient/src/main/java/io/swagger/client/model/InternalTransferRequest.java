@@ -29,6 +29,17 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class InternalTransferRequest implements Parcelable
 {
+	public static final Parcelable.Creator<InternalTransferRequest> CREATOR = new Parcelable.Creator<InternalTransferRequest>()
+	{
+		public InternalTransferRequest createFromParcel(Parcel in) {
+			return new InternalTransferRequest(in);
+		}
+
+		public InternalTransferRequest[] newArray(int size) {
+			return new InternalTransferRequest[size];
+		}
+	};
+
 	@SerializedName("sourceId")
 	private UUID sourceId = null;
 
@@ -48,6 +59,15 @@ public class InternalTransferRequest implements Parcelable
 	private Boolean transferAll = null;
 
 	public InternalTransferRequest() {
+	}
+
+	InternalTransferRequest(Parcel in) {
+		sourceId = (UUID) in.readValue(UUID.class.getClassLoader());
+		sourceType = (InternalTransferRequestType) in.readValue(InternalTransferRequestType.class.getClassLoader());
+		destinationId = (UUID) in.readValue(UUID.class.getClassLoader());
+		destinationType = (InternalTransferRequestType) in.readValue(InternalTransferRequestType.class.getClassLoader());
+		amount = (Double) in.readValue(null);
+		transferAll = (Boolean) in.readValue(null);
 	}
 
 	public InternalTransferRequest sourceId(UUID sourceId) {
@@ -164,7 +184,6 @@ public class InternalTransferRequest implements Parcelable
 		this.transferAll = transferAll;
 	}
 
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -186,7 +205,6 @@ public class InternalTransferRequest implements Parcelable
 	public int hashCode() {
 		return Objects.hash(sourceId, sourceType, destinationId, destinationType, amount, transferAll);
 	}
-
 
 	@Override
 	public String toString() {
@@ -214,7 +232,6 @@ public class InternalTransferRequest implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
-
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(sourceId);
 		out.writeValue(sourceType);
@@ -224,27 +241,7 @@ public class InternalTransferRequest implements Parcelable
 		out.writeValue(transferAll);
 	}
 
-	public static final Parcelable.Creator<InternalTransferRequest> CREATOR = new Parcelable.Creator<InternalTransferRequest>()
-	{
-		public InternalTransferRequest createFromParcel(Parcel in) {
-			return new InternalTransferRequest(in);
-		}
-
-		public InternalTransferRequest[] newArray(int size) {
-			return new InternalTransferRequest[size];
-		}
-	};
-
 	public int describeContents() {
 		return 0;
-	}
-
-	InternalTransferRequest(Parcel in) {
-		sourceId = (UUID) in.readValue(UUID.class.getClassLoader());
-		sourceType = (InternalTransferRequestType) in.readValue(InternalTransferRequestType.class.getClassLoader());
-		destinationId = (UUID) in.readValue(UUID.class.getClassLoader());
-		destinationType = (InternalTransferRequestType) in.readValue(InternalTransferRequestType.class.getClassLoader());
-		amount = (Double) in.readValue(null);
-		transferAll = (Boolean) in.readValue(null);
 	}
 }

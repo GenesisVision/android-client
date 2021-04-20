@@ -28,6 +28,17 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class BinanceRawOrderTrade implements Parcelable
 {
+	public static final Parcelable.Creator<BinanceRawOrderTrade> CREATOR = new Parcelable.Creator<BinanceRawOrderTrade>()
+	{
+		public BinanceRawOrderTrade createFromParcel(Parcel in) {
+			return new BinanceRawOrderTrade(in);
+		}
+
+		public BinanceRawOrderTrade[] newArray(int size) {
+			return new BinanceRawOrderTrade[size];
+		}
+	};
+
 	@SerializedName("tradeId")
 	private Long tradeId = null;
 
@@ -44,6 +55,14 @@ public class BinanceRawOrderTrade implements Parcelable
 	private String commissionAsset = null;
 
 	public BinanceRawOrderTrade() {
+	}
+
+	BinanceRawOrderTrade(Parcel in) {
+		tradeId = (Long) in.readValue(null);
+		price = (Double) in.readValue(null);
+		quantity = (Double) in.readValue(null);
+		commission = (Double) in.readValue(null);
+		commissionAsset = (String) in.readValue(null);
 	}
 
 	public BinanceRawOrderTrade tradeId(Long tradeId) {
@@ -141,7 +160,6 @@ public class BinanceRawOrderTrade implements Parcelable
 		this.commissionAsset = commissionAsset;
 	}
 
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -162,7 +180,6 @@ public class BinanceRawOrderTrade implements Parcelable
 	public int hashCode() {
 		return Objects.hash(tradeId, price, quantity, commission, commissionAsset);
 	}
-
 
 	@Override
 	public String toString() {
@@ -189,7 +206,6 @@ public class BinanceRawOrderTrade implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
-
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(tradeId);
 		out.writeValue(price);
@@ -198,26 +214,7 @@ public class BinanceRawOrderTrade implements Parcelable
 		out.writeValue(commissionAsset);
 	}
 
-	public static final Parcelable.Creator<BinanceRawOrderTrade> CREATOR = new Parcelable.Creator<BinanceRawOrderTrade>()
-	{
-		public BinanceRawOrderTrade createFromParcel(Parcel in) {
-			return new BinanceRawOrderTrade(in);
-		}
-
-		public BinanceRawOrderTrade[] newArray(int size) {
-			return new BinanceRawOrderTrade[size];
-		}
-	};
-
 	public int describeContents() {
 		return 0;
-	}
-
-	BinanceRawOrderTrade(Parcel in) {
-		tradeId = (Long) in.readValue(null);
-		price = (Double) in.readValue(null);
-		quantity = (Double) in.readValue(null);
-		commission = (Double) in.readValue(null);
-		commissionAsset = (String) in.readValue(null);
 	}
 }

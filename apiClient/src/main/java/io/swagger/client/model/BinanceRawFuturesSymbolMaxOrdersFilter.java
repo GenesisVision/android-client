@@ -28,6 +28,17 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class BinanceRawFuturesSymbolMaxOrdersFilter implements Parcelable
 {
+	public static final Parcelable.Creator<BinanceRawFuturesSymbolMaxOrdersFilter> CREATOR = new Parcelable.Creator<BinanceRawFuturesSymbolMaxOrdersFilter>()
+	{
+		public BinanceRawFuturesSymbolMaxOrdersFilter createFromParcel(Parcel in) {
+			return new BinanceRawFuturesSymbolMaxOrdersFilter(in);
+		}
+
+		public BinanceRawFuturesSymbolMaxOrdersFilter[] newArray(int size) {
+			return new BinanceRawFuturesSymbolMaxOrdersFilter[size];
+		}
+	};
+
 	@SerializedName("filterType")
 	private BinanceSymbolFilterType filterType = null;
 
@@ -35,6 +46,11 @@ public class BinanceRawFuturesSymbolMaxOrdersFilter implements Parcelable
 	private Integer maxNumberOrders = null;
 
 	public BinanceRawFuturesSymbolMaxOrdersFilter() {
+	}
+
+	BinanceRawFuturesSymbolMaxOrdersFilter(Parcel in) {
+		filterType = (BinanceSymbolFilterType) in.readValue(BinanceSymbolFilterType.class.getClassLoader());
+		maxNumberOrders = (Integer) in.readValue(null);
 	}
 
 	public BinanceRawFuturesSymbolMaxOrdersFilter filterType(BinanceSymbolFilterType filterType) {
@@ -75,7 +91,6 @@ public class BinanceRawFuturesSymbolMaxOrdersFilter implements Parcelable
 		this.maxNumberOrders = maxNumberOrders;
 	}
 
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -93,7 +108,6 @@ public class BinanceRawFuturesSymbolMaxOrdersFilter implements Parcelable
 	public int hashCode() {
 		return Objects.hash(filterType, maxNumberOrders);
 	}
-
 
 	@Override
 	public String toString() {
@@ -117,29 +131,12 @@ public class BinanceRawFuturesSymbolMaxOrdersFilter implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
-
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(filterType);
 		out.writeValue(maxNumberOrders);
 	}
 
-	public static final Parcelable.Creator<BinanceRawFuturesSymbolMaxOrdersFilter> CREATOR = new Parcelable.Creator<BinanceRawFuturesSymbolMaxOrdersFilter>()
-	{
-		public BinanceRawFuturesSymbolMaxOrdersFilter createFromParcel(Parcel in) {
-			return new BinanceRawFuturesSymbolMaxOrdersFilter(in);
-		}
-
-		public BinanceRawFuturesSymbolMaxOrdersFilter[] newArray(int size) {
-			return new BinanceRawFuturesSymbolMaxOrdersFilter[size];
-		}
-	};
-
 	public int describeContents() {
 		return 0;
-	}
-
-	BinanceRawFuturesSymbolMaxOrdersFilter(Parcel in) {
-		filterType = (BinanceSymbolFilterType) in.readValue(BinanceSymbolFilterType.class.getClassLoader());
-		maxNumberOrders = (Integer) in.readValue(null);
 	}
 }

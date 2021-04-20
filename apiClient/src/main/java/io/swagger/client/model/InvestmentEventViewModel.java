@@ -32,6 +32,17 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class InvestmentEventViewModel implements Parcelable
 {
+	public static final Parcelable.Creator<InvestmentEventViewModel> CREATOR = new Parcelable.Creator<InvestmentEventViewModel>()
+	{
+		public InvestmentEventViewModel createFromParcel(Parcel in) {
+			return new InvestmentEventViewModel(in);
+		}
+
+		public InvestmentEventViewModel[] newArray(int size) {
+			return new InvestmentEventViewModel[size];
+		}
+	};
+
 	@SerializedName("title")
 	private String title = null;
 
@@ -66,6 +77,20 @@ public class InvestmentEventViewModel implements Parcelable
 	private Currency totalFeesCurrency = null;
 
 	public InvestmentEventViewModel() {
+	}
+
+	InvestmentEventViewModel(Parcel in) {
+		title = (String) in.readValue(null);
+		logoUrl = (String) in.readValue(null);
+		date = (DateTime) in.readValue(DateTime.class.getClassLoader());
+		assetDetails = (AssetDetails) in.readValue(AssetDetails.class.getClassLoader());
+		amount = (Double) in.readValue(null);
+		currency = (Currency) in.readValue(Currency.class.getClassLoader());
+		changeState = (ChangeState) in.readValue(ChangeState.class.getClassLoader());
+		extendedInfo = (List<InvestmentEventItemViewModel>) in.readValue(InvestmentEventItemViewModel.class.getClassLoader());
+		feesInfo = (List<FeeDetails>) in.readValue(FeeDetails.class.getClassLoader());
+		totalFeesAmount = (Double) in.readValue(null);
+		totalFeesCurrency = (Currency) in.readValue(Currency.class.getClassLoader());
 	}
 
 	public InvestmentEventViewModel title(String title) {
@@ -293,7 +318,6 @@ public class InvestmentEventViewModel implements Parcelable
 		this.totalFeesCurrency = totalFeesCurrency;
 	}
 
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -320,7 +344,6 @@ public class InvestmentEventViewModel implements Parcelable
 	public int hashCode() {
 		return Objects.hash(title, logoUrl, date, assetDetails, amount, currency, changeState, extendedInfo, feesInfo, totalFeesAmount, totalFeesCurrency);
 	}
-
 
 	@Override
 	public String toString() {
@@ -353,7 +376,6 @@ public class InvestmentEventViewModel implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
-
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(title);
 		out.writeValue(logoUrl);
@@ -368,32 +390,7 @@ public class InvestmentEventViewModel implements Parcelable
 		out.writeValue(totalFeesCurrency);
 	}
 
-	public static final Parcelable.Creator<InvestmentEventViewModel> CREATOR = new Parcelable.Creator<InvestmentEventViewModel>()
-	{
-		public InvestmentEventViewModel createFromParcel(Parcel in) {
-			return new InvestmentEventViewModel(in);
-		}
-
-		public InvestmentEventViewModel[] newArray(int size) {
-			return new InvestmentEventViewModel[size];
-		}
-	};
-
 	public int describeContents() {
 		return 0;
-	}
-
-	InvestmentEventViewModel(Parcel in) {
-		title = (String) in.readValue(null);
-		logoUrl = (String) in.readValue(null);
-		date = (DateTime) in.readValue(DateTime.class.getClassLoader());
-		assetDetails = (AssetDetails) in.readValue(AssetDetails.class.getClassLoader());
-		amount = (Double) in.readValue(null);
-		currency = (Currency) in.readValue(Currency.class.getClassLoader());
-		changeState = (ChangeState) in.readValue(ChangeState.class.getClassLoader());
-		extendedInfo = (List<InvestmentEventItemViewModel>) in.readValue(InvestmentEventItemViewModel.class.getClassLoader());
-		feesInfo = (List<FeeDetails>) in.readValue(FeeDetails.class.getClassLoader());
-		totalFeesAmount = (Double) in.readValue(null);
-		totalFeesCurrency = (Currency) in.readValue(Currency.class.getClassLoader());
 	}
 }

@@ -31,6 +31,17 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class AssetInvestmentRequest implements Parcelable
 {
+	public static final Parcelable.Creator<AssetInvestmentRequest> CREATOR = new Parcelable.Creator<AssetInvestmentRequest>()
+	{
+		public AssetInvestmentRequest createFromParcel(Parcel in) {
+			return new AssetInvestmentRequest(in);
+		}
+
+		public AssetInvestmentRequest[] newArray(int size) {
+			return new AssetInvestmentRequest[size];
+		}
+	};
+
 	@SerializedName("id")
 	private UUID id = null;
 
@@ -56,6 +67,17 @@ public class AssetInvestmentRequest implements Parcelable
 	private AssetRequestDetails assetDetails = null;
 
 	public AssetInvestmentRequest() {
+	}
+
+	AssetInvestmentRequest(Parcel in) {
+		id = (UUID) in.readValue(UUID.class.getClassLoader());
+		date = (DateTime) in.readValue(DateTime.class.getClassLoader());
+		amount = (Double) in.readValue(null);
+		currency = (Currency) in.readValue(Currency.class.getClassLoader());
+		type = (InvestmentRequestType) in.readValue(InvestmentRequestType.class.getClassLoader());
+		status = (InvestmentRequestStatus) in.readValue(InvestmentRequestStatus.class.getClassLoader());
+		canCancelRequest = (Boolean) in.readValue(null);
+		assetDetails = (AssetRequestDetails) in.readValue(AssetRequestDetails.class.getClassLoader());
 	}
 
 	public AssetInvestmentRequest id(UUID id) {
@@ -210,7 +232,6 @@ public class AssetInvestmentRequest implements Parcelable
 		this.assetDetails = assetDetails;
 	}
 
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -234,7 +255,6 @@ public class AssetInvestmentRequest implements Parcelable
 	public int hashCode() {
 		return Objects.hash(id, date, amount, currency, type, status, canCancelRequest, assetDetails);
 	}
-
 
 	@Override
 	public String toString() {
@@ -264,7 +284,6 @@ public class AssetInvestmentRequest implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
-
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(id);
 		out.writeValue(date);
@@ -276,29 +295,7 @@ public class AssetInvestmentRequest implements Parcelable
 		out.writeValue(assetDetails);
 	}
 
-	public static final Parcelable.Creator<AssetInvestmentRequest> CREATOR = new Parcelable.Creator<AssetInvestmentRequest>()
-	{
-		public AssetInvestmentRequest createFromParcel(Parcel in) {
-			return new AssetInvestmentRequest(in);
-		}
-
-		public AssetInvestmentRequest[] newArray(int size) {
-			return new AssetInvestmentRequest[size];
-		}
-	};
-
 	public int describeContents() {
 		return 0;
-	}
-
-	AssetInvestmentRequest(Parcel in) {
-		id = (UUID) in.readValue(UUID.class.getClassLoader());
-		date = (DateTime) in.readValue(DateTime.class.getClassLoader());
-		amount = (Double) in.readValue(null);
-		currency = (Currency) in.readValue(Currency.class.getClassLoader());
-		type = (InvestmentRequestType) in.readValue(InvestmentRequestType.class.getClassLoader());
-		status = (InvestmentRequestStatus) in.readValue(InvestmentRequestStatus.class.getClassLoader());
-		canCancelRequest = (Boolean) in.readValue(null);
-		assetDetails = (AssetRequestDetails) in.readValue(AssetRequestDetails.class.getClassLoader());
 	}
 }

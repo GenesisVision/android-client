@@ -9,6 +9,7 @@ Name | Type | Description | Notes
 **logoUrl** | **String** |  |  [optional]
 **url** | **String** |  |  [optional]
 **color** | **String** |  |  [optional]
+**index** | **Integer** |  |  [optional]
 **creationDate** | [**DateTime**](DateTime.md) |  |  [optional]
 **status** | **String** |  |  [optional]
 **isOwnAsset** | **Boolean** |  |  [optional]

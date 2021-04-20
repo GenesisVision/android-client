@@ -30,6 +30,17 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class SignalSubscriber implements Parcelable
 {
+	public static final Parcelable.Creator<SignalSubscriber> CREATOR = new Parcelable.Creator<SignalSubscriber>()
+	{
+		public SignalSubscriber createFromParcel(Parcel in) {
+			return new SignalSubscriber(in);
+		}
+
+		public SignalSubscriber[] newArray(int size) {
+			return new SignalSubscriber[size];
+		}
+	};
+
 	@SerializedName("number")
 	private Integer number = null;
 
@@ -70,6 +81,22 @@ public class SignalSubscriber implements Parcelable
 	private Currency totalVolumeFeeCurrency = null;
 
 	public SignalSubscriber() {
+	}
+
+	SignalSubscriber(Parcel in) {
+		number = (Integer) in.readValue(null);
+		trades = (Integer) in.readValue(null);
+		profit = (Double) in.readValue(null);
+		volume = (Double) in.readValue(null);
+		subscriptionDate = (DateTime) in.readValue(DateTime.class.getClassLoader());
+		unsubscriptionDate = (DateTime) in.readValue(DateTime.class.getClassLoader());
+		status = (SignalSubscriberStatus) in.readValue(SignalSubscriberStatus.class.getClassLoader());
+		totalCommissionAmount = (Double) in.readValue(null);
+		totalCommissionCurrency = (Currency) in.readValue(Currency.class.getClassLoader());
+		totalSuccessFeeAmount = (Double) in.readValue(null);
+		totalSuccessFeeCurrency = (Currency) in.readValue(Currency.class.getClassLoader());
+		totalVolumeFeeAmount = (Double) in.readValue(null);
+		totalVolumeFeeCurrency = (Currency) in.readValue(Currency.class.getClassLoader());
 	}
 
 	public SignalSubscriber number(Integer number) {
@@ -319,7 +346,6 @@ public class SignalSubscriber implements Parcelable
 		this.totalVolumeFeeCurrency = totalVolumeFeeCurrency;
 	}
 
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -348,7 +374,6 @@ public class SignalSubscriber implements Parcelable
 	public int hashCode() {
 		return Objects.hash(number, trades, profit, volume, subscriptionDate, unsubscriptionDate, status, totalCommissionAmount, totalCommissionCurrency, totalSuccessFeeAmount, totalSuccessFeeCurrency, totalVolumeFeeAmount, totalVolumeFeeCurrency);
 	}
-
 
 	@Override
 	public String toString() {
@@ -383,7 +408,6 @@ public class SignalSubscriber implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
-
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(number);
 		out.writeValue(trades);
@@ -400,34 +424,7 @@ public class SignalSubscriber implements Parcelable
 		out.writeValue(totalVolumeFeeCurrency);
 	}
 
-	public static final Parcelable.Creator<SignalSubscriber> CREATOR = new Parcelable.Creator<SignalSubscriber>()
-	{
-		public SignalSubscriber createFromParcel(Parcel in) {
-			return new SignalSubscriber(in);
-		}
-
-		public SignalSubscriber[] newArray(int size) {
-			return new SignalSubscriber[size];
-		}
-	};
-
 	public int describeContents() {
 		return 0;
-	}
-
-	SignalSubscriber(Parcel in) {
-		number = (Integer) in.readValue(null);
-		trades = (Integer) in.readValue(null);
-		profit = (Double) in.readValue(null);
-		volume = (Double) in.readValue(null);
-		subscriptionDate = (DateTime) in.readValue(DateTime.class.getClassLoader());
-		unsubscriptionDate = (DateTime) in.readValue(DateTime.class.getClassLoader());
-		status = (SignalSubscriberStatus) in.readValue(SignalSubscriberStatus.class.getClassLoader());
-		totalCommissionAmount = (Double) in.readValue(null);
-		totalCommissionCurrency = (Currency) in.readValue(Currency.class.getClassLoader());
-		totalSuccessFeeAmount = (Double) in.readValue(null);
-		totalSuccessFeeCurrency = (Currency) in.readValue(Currency.class.getClassLoader());
-		totalVolumeFeeAmount = (Double) in.readValue(null);
-		totalVolumeFeeCurrency = (Currency) in.readValue(Currency.class.getClassLoader());
 	}
 }

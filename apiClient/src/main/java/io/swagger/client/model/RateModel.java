@@ -28,10 +28,25 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class RateModel implements Parcelable
 {
+	public static final Parcelable.Creator<RateModel> CREATOR = new Parcelable.Creator<RateModel>()
+	{
+		public RateModel createFromParcel(Parcel in) {
+			return new RateModel(in);
+		}
+
+		public RateModel[] newArray(int size) {
+			return new RateModel[size];
+		}
+	};
+
 	@SerializedName("rate")
 	private Double rate = null;
 
 	public RateModel() {
+	}
+
+	RateModel(Parcel in) {
+		rate = (Double) in.readValue(null);
 	}
 
 	public RateModel rate(Double rate) {
@@ -53,7 +68,6 @@ public class RateModel implements Parcelable
 		this.rate = rate;
 	}
 
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -70,7 +84,6 @@ public class RateModel implements Parcelable
 	public int hashCode() {
 		return Objects.hash(rate);
 	}
-
 
 	@Override
 	public String toString() {
@@ -93,27 +106,11 @@ public class RateModel implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
-
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(rate);
 	}
 
-	public static final Parcelable.Creator<RateModel> CREATOR = new Parcelable.Creator<RateModel>()
-	{
-		public RateModel createFromParcel(Parcel in) {
-			return new RateModel(in);
-		}
-
-		public RateModel[] newArray(int size) {
-			return new RateModel[size];
-		}
-	};
-
 	public int describeContents() {
 		return 0;
-	}
-
-	RateModel(Parcel in) {
-		rate = (Double) in.readValue(null);
 	}
 }

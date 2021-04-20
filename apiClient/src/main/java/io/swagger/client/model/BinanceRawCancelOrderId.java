@@ -28,6 +28,17 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class BinanceRawCancelOrderId implements Parcelable
 {
+	public static final Parcelable.Creator<BinanceRawCancelOrderId> CREATOR = new Parcelable.Creator<BinanceRawCancelOrderId>()
+	{
+		public BinanceRawCancelOrderId createFromParcel(Parcel in) {
+			return new BinanceRawCancelOrderId(in);
+		}
+
+		public BinanceRawCancelOrderId[] newArray(int size) {
+			return new BinanceRawCancelOrderId[size];
+		}
+	};
+
 	@SerializedName("id")
 	private String id = null;
 
@@ -38,6 +49,12 @@ public class BinanceRawCancelOrderId implements Parcelable
 	private Boolean ocoOrder = null;
 
 	public BinanceRawCancelOrderId() {
+	}
+
+	BinanceRawCancelOrderId(Parcel in) {
+		id = (String) in.readValue(null);
+		clientOrderId = (String) in.readValue(null);
+		ocoOrder = (Boolean) in.readValue(null);
 	}
 
 	public BinanceRawCancelOrderId id(String id) {
@@ -97,7 +114,6 @@ public class BinanceRawCancelOrderId implements Parcelable
 		this.ocoOrder = ocoOrder;
 	}
 
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -116,7 +132,6 @@ public class BinanceRawCancelOrderId implements Parcelable
 	public int hashCode() {
 		return Objects.hash(id, clientOrderId, ocoOrder);
 	}
-
 
 	@Override
 	public String toString() {
@@ -141,31 +156,13 @@ public class BinanceRawCancelOrderId implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
-
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(id);
 		out.writeValue(clientOrderId);
 		out.writeValue(ocoOrder);
 	}
 
-	public static final Parcelable.Creator<BinanceRawCancelOrderId> CREATOR = new Parcelable.Creator<BinanceRawCancelOrderId>()
-	{
-		public BinanceRawCancelOrderId createFromParcel(Parcel in) {
-			return new BinanceRawCancelOrderId(in);
-		}
-
-		public BinanceRawCancelOrderId[] newArray(int size) {
-			return new BinanceRawCancelOrderId[size];
-		}
-	};
-
 	public int describeContents() {
 		return 0;
-	}
-
-	BinanceRawCancelOrderId(Parcel in) {
-		id = (String) in.readValue(null);
-		clientOrderId = (String) in.readValue(null);
-		ocoOrder = (Boolean) in.readValue(null);
 	}
 }

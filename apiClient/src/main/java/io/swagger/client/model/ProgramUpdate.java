@@ -28,6 +28,17 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class ProgramUpdate implements Parcelable
 {
+	public static final Parcelable.Creator<ProgramUpdate> CREATOR = new Parcelable.Creator<ProgramUpdate>()
+	{
+		public ProgramUpdate createFromParcel(Parcel in) {
+			return new ProgramUpdate(in);
+		}
+
+		public ProgramUpdate[] newArray(int size) {
+			return new ProgramUpdate[size];
+		}
+	};
+
 	@SerializedName("title")
 	private String title = null;
 
@@ -62,6 +73,20 @@ public class ProgramUpdate implements Parcelable
 	private Boolean isProcessingRealTime = null;
 
 	public ProgramUpdate() {
+	}
+
+	ProgramUpdate(Parcel in) {
+		title = (String) in.readValue(null);
+		description = (String) in.readValue(null);
+		logo = (String) in.readValue(null);
+		entryFee = (Double) in.readValue(null);
+		exitFee = (Double) in.readValue(null);
+		successFee = (Double) in.readValue(null);
+		stopOutLevel = (Double) in.readValue(null);
+		investmentLimit = (Double) in.readValue(null);
+		tradesDelay = (TradesDelay) in.readValue(TradesDelay.class.getClassLoader());
+		hourProcessing = (Integer) in.readValue(null);
+		isProcessingRealTime = (Boolean) in.readValue(null);
 	}
 
 	public ProgramUpdate title(String title) {
@@ -273,7 +298,6 @@ public class ProgramUpdate implements Parcelable
 		this.isProcessingRealTime = isProcessingRealTime;
 	}
 
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -300,7 +324,6 @@ public class ProgramUpdate implements Parcelable
 	public int hashCode() {
 		return Objects.hash(title, description, logo, entryFee, exitFee, successFee, stopOutLevel, investmentLimit, tradesDelay, hourProcessing, isProcessingRealTime);
 	}
-
 
 	@Override
 	public String toString() {
@@ -333,7 +356,6 @@ public class ProgramUpdate implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
-
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(title);
 		out.writeValue(description);
@@ -348,32 +370,7 @@ public class ProgramUpdate implements Parcelable
 		out.writeValue(isProcessingRealTime);
 	}
 
-	public static final Parcelable.Creator<ProgramUpdate> CREATOR = new Parcelable.Creator<ProgramUpdate>()
-	{
-		public ProgramUpdate createFromParcel(Parcel in) {
-			return new ProgramUpdate(in);
-		}
-
-		public ProgramUpdate[] newArray(int size) {
-			return new ProgramUpdate[size];
-		}
-	};
-
 	public int describeContents() {
 		return 0;
-	}
-
-	ProgramUpdate(Parcel in) {
-		title = (String) in.readValue(null);
-		description = (String) in.readValue(null);
-		logo = (String) in.readValue(null);
-		entryFee = (Double) in.readValue(null);
-		exitFee = (Double) in.readValue(null);
-		successFee = (Double) in.readValue(null);
-		stopOutLevel = (Double) in.readValue(null);
-		investmentLimit = (Double) in.readValue(null);
-		tradesDelay = (TradesDelay) in.readValue(TradesDelay.class.getClassLoader());
-		hourProcessing = (Integer) in.readValue(null);
-		isProcessingRealTime = (Boolean) in.readValue(null);
 	}
 }

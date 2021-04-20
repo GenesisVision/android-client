@@ -28,10 +28,25 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class TwoFactorCodeModel implements Parcelable
 {
+	public static final Parcelable.Creator<TwoFactorCodeModel> CREATOR = new Parcelable.Creator<TwoFactorCodeModel>()
+	{
+		public TwoFactorCodeModel createFromParcel(Parcel in) {
+			return new TwoFactorCodeModel(in);
+		}
+
+		public TwoFactorCodeModel[] newArray(int size) {
+			return new TwoFactorCodeModel[size];
+		}
+	};
+
 	@SerializedName("twoFactorCode")
 	private String twoFactorCode = null;
 
 	public TwoFactorCodeModel() {
+	}
+
+	TwoFactorCodeModel(Parcel in) {
+		twoFactorCode = (String) in.readValue(null);
 	}
 
 	public TwoFactorCodeModel twoFactorCode(String twoFactorCode) {
@@ -53,7 +68,6 @@ public class TwoFactorCodeModel implements Parcelable
 		this.twoFactorCode = twoFactorCode;
 	}
 
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -70,7 +84,6 @@ public class TwoFactorCodeModel implements Parcelable
 	public int hashCode() {
 		return Objects.hash(twoFactorCode);
 	}
-
 
 	@Override
 	public String toString() {
@@ -93,27 +106,11 @@ public class TwoFactorCodeModel implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
-
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(twoFactorCode);
 	}
 
-	public static final Parcelable.Creator<TwoFactorCodeModel> CREATOR = new Parcelable.Creator<TwoFactorCodeModel>()
-	{
-		public TwoFactorCodeModel createFromParcel(Parcel in) {
-			return new TwoFactorCodeModel(in);
-		}
-
-		public TwoFactorCodeModel[] newArray(int size) {
-			return new TwoFactorCodeModel[size];
-		}
-	};
-
 	public int describeContents() {
 		return 0;
-	}
-
-	TwoFactorCodeModel(Parcel in) {
-		twoFactorCode = (String) in.readValue(null);
 	}
 }

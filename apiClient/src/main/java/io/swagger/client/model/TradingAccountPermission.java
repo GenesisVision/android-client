@@ -30,6 +30,15 @@ public enum TradingAccountPermission
 	MARGIN("Margin"),
 	FUTURES("Futures");
 
+	public static TradingAccountPermission fromValue(String text) {
+		for (TradingAccountPermission b : TradingAccountPermission.values()) {
+			if (String.valueOf(b.value).equals(text)) {
+				return b;
+			}
+		}
+		return null;
+	}
+
 	private String value;
 
 	TradingAccountPermission(String value) {
@@ -43,15 +52,6 @@ public enum TradingAccountPermission
 	@Override
 	public String toString() {
 		return String.valueOf(value);
-	}
-
-	public static TradingAccountPermission fromValue(String text) {
-		for (TradingAccountPermission b : TradingAccountPermission.values()) {
-			if (String.valueOf(b.value).equals(text)) {
-				return b;
-			}
-		}
-		return null;
 	}
 
 	public static class Adapter extends TypeAdapter<TradingAccountPermission>

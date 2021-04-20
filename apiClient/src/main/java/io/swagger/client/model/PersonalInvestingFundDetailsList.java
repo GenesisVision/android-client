@@ -28,6 +28,17 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class PersonalInvestingFundDetailsList implements Parcelable
 {
+	public static final Parcelable.Creator<PersonalInvestingFundDetailsList> CREATOR = new Parcelable.Creator<PersonalInvestingFundDetailsList>()
+	{
+		public PersonalInvestingFundDetailsList createFromParcel(Parcel in) {
+			return new PersonalInvestingFundDetailsList(in);
+		}
+
+		public PersonalInvestingFundDetailsList[] newArray(int size) {
+			return new PersonalInvestingFundDetailsList[size];
+		}
+	};
+
 	@SerializedName("isOwnAsset")
 	private Boolean isOwnAsset = null;
 
@@ -53,6 +64,17 @@ public class PersonalInvestingFundDetailsList implements Parcelable
 	private AssetInvestmentStatus status = null;
 
 	public PersonalInvestingFundDetailsList() {
+	}
+
+	PersonalInvestingFundDetailsList(Parcel in) {
+		isOwnAsset = (Boolean) in.readValue(null);
+		isFavorite = (Boolean) in.readValue(null);
+		canInvest = (Boolean) in.readValue(null);
+		canWithdraw = (Boolean) in.readValue(null);
+		share = (Double) in.readValue(null);
+		value = (Double) in.readValue(null);
+		exitFeePersonal = (Double) in.readValue(null);
+		status = (AssetInvestmentStatus) in.readValue(AssetInvestmentStatus.class.getClassLoader());
 	}
 
 	public PersonalInvestingFundDetailsList isOwnAsset(Boolean isOwnAsset) {
@@ -207,7 +229,6 @@ public class PersonalInvestingFundDetailsList implements Parcelable
 		this.status = status;
 	}
 
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -231,7 +252,6 @@ public class PersonalInvestingFundDetailsList implements Parcelable
 	public int hashCode() {
 		return Objects.hash(isOwnAsset, isFavorite, canInvest, canWithdraw, share, value, exitFeePersonal, status);
 	}
-
 
 	@Override
 	public String toString() {
@@ -261,7 +281,6 @@ public class PersonalInvestingFundDetailsList implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
-
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(isOwnAsset);
 		out.writeValue(isFavorite);
@@ -273,29 +292,7 @@ public class PersonalInvestingFundDetailsList implements Parcelable
 		out.writeValue(status);
 	}
 
-	public static final Parcelable.Creator<PersonalInvestingFundDetailsList> CREATOR = new Parcelable.Creator<PersonalInvestingFundDetailsList>()
-	{
-		public PersonalInvestingFundDetailsList createFromParcel(Parcel in) {
-			return new PersonalInvestingFundDetailsList(in);
-		}
-
-		public PersonalInvestingFundDetailsList[] newArray(int size) {
-			return new PersonalInvestingFundDetailsList[size];
-		}
-	};
-
 	public int describeContents() {
 		return 0;
-	}
-
-	PersonalInvestingFundDetailsList(Parcel in) {
-		isOwnAsset = (Boolean) in.readValue(null);
-		isFavorite = (Boolean) in.readValue(null);
-		canInvest = (Boolean) in.readValue(null);
-		canWithdraw = (Boolean) in.readValue(null);
-		share = (Double) in.readValue(null);
-		value = (Double) in.readValue(null);
-		exitFeePersonal = (Double) in.readValue(null);
-		status = (AssetInvestmentStatus) in.readValue(AssetInvestmentStatus.class.getClassLoader());
 	}
 }

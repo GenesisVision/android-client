@@ -33,6 +33,15 @@ public enum AssetTypeExt
 	EXTERNALSIGNALTRADINGACCOUNT("ExternalSignalTradingAccount"),
 	SELFMANAGEDFUND("SelfManagedFund");
 
+	public static AssetTypeExt fromValue(String text) {
+		for (AssetTypeExt b : AssetTypeExt.values()) {
+			if (String.valueOf(b.value).equals(text)) {
+				return b;
+			}
+		}
+		return null;
+	}
+
 	private String value;
 
 	AssetTypeExt(String value) {
@@ -46,15 +55,6 @@ public enum AssetTypeExt
 	@Override
 	public String toString() {
 		return String.valueOf(value);
-	}
-
-	public static AssetTypeExt fromValue(String text) {
-		for (AssetTypeExt b : AssetTypeExt.values()) {
-			if (String.valueOf(b.value).equals(text)) {
-				return b;
-			}
-		}
-		return null;
 	}
 
 	public static class Adapter extends TypeAdapter<AssetTypeExt>

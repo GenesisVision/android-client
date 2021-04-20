@@ -28,6 +28,17 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class MoneyLocation implements Parcelable
 {
+	public static final Parcelable.Creator<MoneyLocation> CREATOR = new Parcelable.Creator<MoneyLocation>()
+	{
+		public MoneyLocation createFromParcel(Parcel in) {
+			return new MoneyLocation(in);
+		}
+
+		public MoneyLocation[] newArray(int size) {
+			return new MoneyLocation[size];
+		}
+	};
+
 	@SerializedName("name")
 	private MoneyLocationType name = null;
 
@@ -38,6 +49,12 @@ public class MoneyLocation implements Parcelable
 	private String color = null;
 
 	public MoneyLocation() {
+	}
+
+	MoneyLocation(Parcel in) {
+		name = (MoneyLocationType) in.readValue(MoneyLocationType.class.getClassLoader());
+		percent = (Double) in.readValue(null);
+		color = (String) in.readValue(null);
 	}
 
 	public MoneyLocation name(MoneyLocationType name) {
@@ -97,7 +114,6 @@ public class MoneyLocation implements Parcelable
 		this.color = color;
 	}
 
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -116,7 +132,6 @@ public class MoneyLocation implements Parcelable
 	public int hashCode() {
 		return Objects.hash(name, percent, color);
 	}
-
 
 	@Override
 	public String toString() {
@@ -141,31 +156,13 @@ public class MoneyLocation implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
-
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(name);
 		out.writeValue(percent);
 		out.writeValue(color);
 	}
 
-	public static final Parcelable.Creator<MoneyLocation> CREATOR = new Parcelable.Creator<MoneyLocation>()
-	{
-		public MoneyLocation createFromParcel(Parcel in) {
-			return new MoneyLocation(in);
-		}
-
-		public MoneyLocation[] newArray(int size) {
-			return new MoneyLocation[size];
-		}
-	};
-
 	public int describeContents() {
 		return 0;
-	}
-
-	MoneyLocation(Parcel in) {
-		name = (MoneyLocationType) in.readValue(MoneyLocationType.class.getClassLoader());
-		percent = (Double) in.readValue(null);
-		color = (String) in.readValue(null);
 	}
 }

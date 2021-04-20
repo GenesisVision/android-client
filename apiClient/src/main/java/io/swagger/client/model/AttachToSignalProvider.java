@@ -29,6 +29,17 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class AttachToSignalProvider implements Parcelable
 {
+	public static final Parcelable.Creator<AttachToSignalProvider> CREATOR = new Parcelable.Creator<AttachToSignalProvider>()
+	{
+		public AttachToSignalProvider createFromParcel(Parcel in) {
+			return new AttachToSignalProvider(in);
+		}
+
+		public AttachToSignalProvider[] newArray(int size) {
+			return new AttachToSignalProvider[size];
+		}
+	};
+
 	@SerializedName("mode")
 	private SubscriptionMode mode = null;
 
@@ -48,6 +59,15 @@ public class AttachToSignalProvider implements Parcelable
 	private UUID tradingAccountId = null;
 
 	public AttachToSignalProvider() {
+	}
+
+	AttachToSignalProvider(Parcel in) {
+		mode = (SubscriptionMode) in.readValue(SubscriptionMode.class.getClassLoader());
+		percent = (Double) in.readValue(null);
+		openTolerancePercent = (Double) in.readValue(null);
+		fixedVolume = (Double) in.readValue(null);
+		fixedCurrency = (Currency) in.readValue(Currency.class.getClassLoader());
+		tradingAccountId = (UUID) in.readValue(UUID.class.getClassLoader());
 	}
 
 	public AttachToSignalProvider mode(SubscriptionMode mode) {
@@ -164,7 +184,6 @@ public class AttachToSignalProvider implements Parcelable
 		this.tradingAccountId = tradingAccountId;
 	}
 
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -186,7 +205,6 @@ public class AttachToSignalProvider implements Parcelable
 	public int hashCode() {
 		return Objects.hash(mode, percent, openTolerancePercent, fixedVolume, fixedCurrency, tradingAccountId);
 	}
-
 
 	@Override
 	public String toString() {
@@ -214,7 +232,6 @@ public class AttachToSignalProvider implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
-
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(mode);
 		out.writeValue(percent);
@@ -224,27 +241,7 @@ public class AttachToSignalProvider implements Parcelable
 		out.writeValue(tradingAccountId);
 	}
 
-	public static final Parcelable.Creator<AttachToSignalProvider> CREATOR = new Parcelable.Creator<AttachToSignalProvider>()
-	{
-		public AttachToSignalProvider createFromParcel(Parcel in) {
-			return new AttachToSignalProvider(in);
-		}
-
-		public AttachToSignalProvider[] newArray(int size) {
-			return new AttachToSignalProvider[size];
-		}
-	};
-
 	public int describeContents() {
 		return 0;
-	}
-
-	AttachToSignalProvider(Parcel in) {
-		mode = (SubscriptionMode) in.readValue(SubscriptionMode.class.getClassLoader());
-		percent = (Double) in.readValue(null);
-		openTolerancePercent = (Double) in.readValue(null);
-		fixedVolume = (Double) in.readValue(null);
-		fixedCurrency = (Currency) in.readValue(Currency.class.getClassLoader());
-		tradingAccountId = (UUID) in.readValue(UUID.class.getClassLoader());
 	}
 }

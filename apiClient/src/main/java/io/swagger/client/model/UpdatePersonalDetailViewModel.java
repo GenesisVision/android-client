@@ -30,6 +30,17 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class UpdatePersonalDetailViewModel implements Parcelable
 {
+	public static final Parcelable.Creator<UpdatePersonalDetailViewModel> CREATOR = new Parcelable.Creator<UpdatePersonalDetailViewModel>()
+	{
+		public UpdatePersonalDetailViewModel createFromParcel(Parcel in) {
+			return new UpdatePersonalDetailViewModel(in);
+		}
+
+		public UpdatePersonalDetailViewModel[] newArray(int size) {
+			return new UpdatePersonalDetailViewModel[size];
+		}
+	};
+
 	@SerializedName("firstName")
 	private String firstName = null;
 
@@ -67,6 +78,21 @@ public class UpdatePersonalDetailViewModel implements Parcelable
 	private String index = null;
 
 	public UpdatePersonalDetailViewModel() {
+	}
+
+	UpdatePersonalDetailViewModel(Parcel in) {
+		firstName = (String) in.readValue(null);
+		middleName = (String) in.readValue(null);
+		lastName = (String) in.readValue(null);
+		birthday = (DateTime) in.readValue(DateTime.class.getClassLoader());
+		citizenship = (String) in.readValue(null);
+		gender = (Boolean) in.readValue(null);
+		documentId = (String) in.readValue(null);
+		phoneNumber = (String) in.readValue(null);
+		country = (String) in.readValue(null);
+		city = (String) in.readValue(null);
+		address = (String) in.readValue(null);
+		index = (String) in.readValue(null);
 	}
 
 	public UpdatePersonalDetailViewModel firstName(String firstName) {
@@ -297,7 +323,6 @@ public class UpdatePersonalDetailViewModel implements Parcelable
 		this.index = index;
 	}
 
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -325,7 +350,6 @@ public class UpdatePersonalDetailViewModel implements Parcelable
 	public int hashCode() {
 		return Objects.hash(firstName, middleName, lastName, birthday, citizenship, gender, documentId, phoneNumber, country, city, address, index);
 	}
-
 
 	@Override
 	public String toString() {
@@ -359,7 +383,6 @@ public class UpdatePersonalDetailViewModel implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
-
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(firstName);
 		out.writeValue(middleName);
@@ -375,33 +398,7 @@ public class UpdatePersonalDetailViewModel implements Parcelable
 		out.writeValue(index);
 	}
 
-	public static final Parcelable.Creator<UpdatePersonalDetailViewModel> CREATOR = new Parcelable.Creator<UpdatePersonalDetailViewModel>()
-	{
-		public UpdatePersonalDetailViewModel createFromParcel(Parcel in) {
-			return new UpdatePersonalDetailViewModel(in);
-		}
-
-		public UpdatePersonalDetailViewModel[] newArray(int size) {
-			return new UpdatePersonalDetailViewModel[size];
-		}
-	};
-
 	public int describeContents() {
 		return 0;
-	}
-
-	UpdatePersonalDetailViewModel(Parcel in) {
-		firstName = (String) in.readValue(null);
-		middleName = (String) in.readValue(null);
-		lastName = (String) in.readValue(null);
-		birthday = (DateTime) in.readValue(DateTime.class.getClassLoader());
-		citizenship = (String) in.readValue(null);
-		gender = (Boolean) in.readValue(null);
-		documentId = (String) in.readValue(null);
-		phoneNumber = (String) in.readValue(null);
-		country = (String) in.readValue(null);
-		city = (String) in.readValue(null);
-		address = (String) in.readValue(null);
-		index = (String) in.readValue(null);
 	}
 }

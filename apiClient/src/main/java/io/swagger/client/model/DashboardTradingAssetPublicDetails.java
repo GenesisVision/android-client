@@ -28,6 +28,17 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class DashboardTradingAssetPublicDetails implements Parcelable
 {
+	public static final Parcelable.Creator<DashboardTradingAssetPublicDetails> CREATOR = new Parcelable.Creator<DashboardTradingAssetPublicDetails>()
+	{
+		public DashboardTradingAssetPublicDetails createFromParcel(Parcel in) {
+			return new DashboardTradingAssetPublicDetails(in);
+		}
+
+		public DashboardTradingAssetPublicDetails[] newArray(int size) {
+			return new DashboardTradingAssetPublicDetails[size];
+		}
+	};
+
 	@SerializedName("logoUrl")
 	private String logoUrl = null;
 
@@ -46,18 +57,20 @@ public class DashboardTradingAssetPublicDetails implements Parcelable
 	@SerializedName("fundDetails")
 	private DashboardFundDetails fundDetails = null;
 
-	public static final Parcelable.Creator<DashboardTradingAssetPublicDetails> CREATOR = new Parcelable.Creator<DashboardTradingAssetPublicDetails>()
-	{
-		public DashboardTradingAssetPublicDetails createFromParcel(Parcel in) {
-			return new DashboardTradingAssetPublicDetails(in);
-		}
-
-		public DashboardTradingAssetPublicDetails[] newArray(int size) {
-			return new DashboardTradingAssetPublicDetails[size];
-		}
-	};
+	@SerializedName("owner")
+	private ProfilePublicShort owner = null;
 
 	public DashboardTradingAssetPublicDetails() {
+	}
+
+	DashboardTradingAssetPublicDetails(Parcel in) {
+		logoUrl = (String) in.readValue(null);
+		color = (String) in.readValue(null);
+		title = (String) in.readValue(null);
+		url = (String) in.readValue(null);
+		programDetails = (DashboardProgramDetails) in.readValue(DashboardProgramDetails.class.getClassLoader());
+		fundDetails = (DashboardFundDetails) in.readValue(DashboardFundDetails.class.getClassLoader());
+		owner = (ProfilePublicShort) in.readValue(ProfilePublicShort.class.getClassLoader());
 	}
 
 	public DashboardTradingAssetPublicDetails logoUrl(String logoUrl) {
@@ -174,19 +187,6 @@ public class DashboardTradingAssetPublicDetails implements Parcelable
 		this.fundDetails = fundDetails;
 	}
 
-	@SerializedName("owner")
-	private ProfilePublicShort owner = null;
-
-	DashboardTradingAssetPublicDetails(Parcel in) {
-		logoUrl = (String) in.readValue(null);
-		color = (String) in.readValue(null);
-		title = (String) in.readValue(null);
-		url = (String) in.readValue(null);
-		programDetails = (DashboardProgramDetails) in.readValue(DashboardProgramDetails.class.getClassLoader());
-		fundDetails = (DashboardFundDetails) in.readValue(DashboardFundDetails.class.getClassLoader());
-		owner = (ProfilePublicShort) in.readValue(ProfilePublicShort.class.getClassLoader());
-	}
-
 	public DashboardTradingAssetPublicDetails owner(ProfilePublicShort owner) {
 		this.owner = owner;
 		return this;
@@ -224,17 +224,6 @@ public class DashboardTradingAssetPublicDetails implements Parcelable
 				Objects.equals(this.owner, dashboardTradingAssetPublicDetails.owner);
 	}
 
-	/**
-	 * Convert the given object to string with each line indented by 4 spaces
-	 * (except the first line).
-	 */
-	private String toIndentedString(java.lang.Object o) {
-		if (o == null) {
-			return "null";
-		}
-		return o.toString().replace("\n", "\n    ");
-	}
-
 	@Override
 	public int hashCode() {
 		return Objects.hash(logoUrl, color, title, url, programDetails, fundDetails, owner);
@@ -256,8 +245,15 @@ public class DashboardTradingAssetPublicDetails implements Parcelable
 		return sb.toString();
 	}
 
-	public int describeContents() {
-		return 0;
+	/**
+	 * Convert the given object to string with each line indented by 4 spaces
+	 * (except the first line).
+	 */
+	private String toIndentedString(java.lang.Object o) {
+		if (o == null) {
+			return "null";
+		}
+		return o.toString().replace("\n", "\n    ");
 	}
 
 	public void writeToParcel(Parcel out, int flags) {
@@ -268,5 +264,9 @@ public class DashboardTradingAssetPublicDetails implements Parcelable
 		out.writeValue(programDetails);
 		out.writeValue(fundDetails);
 		out.writeValue(owner);
+	}
+
+	public int describeContents() {
+		return 0;
 	}
 }

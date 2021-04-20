@@ -33,6 +33,17 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class UserDetailsList implements Parcelable
 {
+	public static final Parcelable.Creator<UserDetailsList> CREATOR = new Parcelable.Creator<UserDetailsList>()
+	{
+		public UserDetailsList createFromParcel(Parcel in) {
+			return new UserDetailsList(in);
+		}
+
+		public UserDetailsList[] newArray(int size) {
+			return new UserDetailsList[size];
+		}
+	};
+
 	@SerializedName("userId")
 	private UUID userId = null;
 
@@ -73,6 +84,22 @@ public class UserDetailsList implements Parcelable
 	private PublicProfilePersonalDetails personalDetails = null;
 
 	public UserDetailsList() {
+	}
+
+	UserDetailsList(Parcel in) {
+		userId = (UUID) in.readValue(UUID.class.getClassLoader());
+		username = (String) in.readValue(null);
+		logoUrl = (String) in.readValue(null);
+		url = (String) in.readValue(null);
+		tags = (List<Tag>) in.readValue(Tag.class.getClassLoader());
+		regDate = (DateTime) in.readValue(DateTime.class.getClassLoader());
+		assetsUnderManagement = (Double) in.readValue(null);
+		investorsCount = (Integer) in.readValue(null);
+		followersCount = (Integer) in.readValue(null);
+		totalProfit = (Double) in.readValue(null);
+		about = (String) in.readValue(null);
+		followers = (List<ProfilePublicShort>) in.readValue(ProfilePublicShort.class.getClassLoader());
+		personalDetails = (PublicProfilePersonalDetails) in.readValue(PublicProfilePersonalDetails.class.getClassLoader());
 	}
 
 	public UserDetailsList userId(UUID userId) {
@@ -338,7 +365,6 @@ public class UserDetailsList implements Parcelable
 		this.personalDetails = personalDetails;
 	}
 
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -367,7 +393,6 @@ public class UserDetailsList implements Parcelable
 	public int hashCode() {
 		return Objects.hash(userId, username, logoUrl, url, tags, regDate, assetsUnderManagement, investorsCount, followersCount, totalProfit, about, followers, personalDetails);
 	}
-
 
 	@Override
 	public String toString() {
@@ -402,7 +427,6 @@ public class UserDetailsList implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
-
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(userId);
 		out.writeValue(username);
@@ -419,34 +443,7 @@ public class UserDetailsList implements Parcelable
 		out.writeValue(personalDetails);
 	}
 
-	public static final Parcelable.Creator<UserDetailsList> CREATOR = new Parcelable.Creator<UserDetailsList>()
-	{
-		public UserDetailsList createFromParcel(Parcel in) {
-			return new UserDetailsList(in);
-		}
-
-		public UserDetailsList[] newArray(int size) {
-			return new UserDetailsList[size];
-		}
-	};
-
 	public int describeContents() {
 		return 0;
-	}
-
-	UserDetailsList(Parcel in) {
-		userId = (UUID) in.readValue(UUID.class.getClassLoader());
-		username = (String) in.readValue(null);
-		logoUrl = (String) in.readValue(null);
-		url = (String) in.readValue(null);
-		tags = (List<Tag>) in.readValue(Tag.class.getClassLoader());
-		regDate = (DateTime) in.readValue(DateTime.class.getClassLoader());
-		assetsUnderManagement = (Double) in.readValue(null);
-		investorsCount = (Integer) in.readValue(null);
-		followersCount = (Integer) in.readValue(null);
-		totalProfit = (Double) in.readValue(null);
-		about = (String) in.readValue(null);
-		followers = (List<ProfilePublicShort>) in.readValue(ProfilePublicShort.class.getClassLoader());
-		personalDetails = (PublicProfilePersonalDetails) in.readValue(PublicProfilePersonalDetails.class.getClassLoader());
 	}
 }

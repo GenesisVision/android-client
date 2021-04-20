@@ -30,6 +30,17 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class Broker implements Parcelable
 {
+	public static final Parcelable.Creator<Broker> CREATOR = new Parcelable.Creator<Broker>()
+	{
+		public Broker createFromParcel(Parcel in) {
+			return new Broker(in);
+		}
+
+		public Broker[] newArray(int size) {
+			return new Broker[size];
+		}
+	};
+
 	@SerializedName("name")
 	private String name = null;
 
@@ -64,6 +75,20 @@ public class Broker implements Parcelable
 	private List<Tag> tags = null;
 
 	public Broker() {
+	}
+
+	Broker(Parcel in) {
+		name = (String) in.readValue(null);
+		description = (String) in.readValue(null);
+		logoUrl = (String) in.readValue(null);
+		terms = (String) in.readValue(null);
+		assets = (String) in.readValue(null);
+		fee = (Double) in.readValue(null);
+		leverageMin = (Integer) in.readValue(null);
+		leverageMax = (Integer) in.readValue(null);
+		isKycRequired = (Boolean) in.readValue(null);
+		accountTypes = (List<BrokerAccountType>) in.readValue(BrokerAccountType.class.getClassLoader());
+		tags = (List<Tag>) in.readValue(Tag.class.getClassLoader());
 	}
 
 	public Broker name(String name) {
@@ -264,7 +289,6 @@ public class Broker implements Parcelable
 		this.tags = tags;
 	}
 
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -291,7 +315,6 @@ public class Broker implements Parcelable
 	public int hashCode() {
 		return Objects.hash(name, description, logoUrl, terms, assets, fee, leverageMin, leverageMax, isKycRequired, accountTypes, tags);
 	}
-
 
 	@Override
 	public String toString() {
@@ -324,7 +347,6 @@ public class Broker implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
-
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(name);
 		out.writeValue(description);
@@ -339,32 +361,7 @@ public class Broker implements Parcelable
 		out.writeValue(tags);
 	}
 
-	public static final Parcelable.Creator<Broker> CREATOR = new Parcelable.Creator<Broker>()
-	{
-		public Broker createFromParcel(Parcel in) {
-			return new Broker(in);
-		}
-
-		public Broker[] newArray(int size) {
-			return new Broker[size];
-		}
-	};
-
 	public int describeContents() {
 		return 0;
-	}
-
-	Broker(Parcel in) {
-		name = (String) in.readValue(null);
-		description = (String) in.readValue(null);
-		logoUrl = (String) in.readValue(null);
-		terms = (String) in.readValue(null);
-		assets = (String) in.readValue(null);
-		fee = (Double) in.readValue(null);
-		leverageMin = (Integer) in.readValue(null);
-		leverageMax = (Integer) in.readValue(null);
-		isKycRequired = (Boolean) in.readValue(null);
-		accountTypes = (List<BrokerAccountType>) in.readValue(BrokerAccountType.class.getClassLoader());
-		tags = (List<Tag>) in.readValue(Tag.class.getClassLoader());
 	}
 }

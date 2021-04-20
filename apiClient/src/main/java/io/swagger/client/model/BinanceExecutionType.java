@@ -32,6 +32,15 @@ public enum BinanceExecutionType
 	TRADE("Trade"),
 	EXPIRED("Expired");
 
+	public static BinanceExecutionType fromValue(String text) {
+		for (BinanceExecutionType b : BinanceExecutionType.values()) {
+			if (String.valueOf(b.value).equals(text)) {
+				return b;
+			}
+		}
+		return null;
+	}
+
 	private String value;
 
 	BinanceExecutionType(String value) {
@@ -45,15 +54,6 @@ public enum BinanceExecutionType
 	@Override
 	public String toString() {
 		return String.valueOf(value);
-	}
-
-	public static BinanceExecutionType fromValue(String text) {
-		for (BinanceExecutionType b : BinanceExecutionType.values()) {
-			if (String.valueOf(b.value).equals(text)) {
-				return b;
-			}
-		}
-		return null;
 	}
 
 	public static class Adapter extends TypeAdapter<BinanceExecutionType>

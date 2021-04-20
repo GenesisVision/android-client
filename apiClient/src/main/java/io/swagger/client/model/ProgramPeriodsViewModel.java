@@ -30,6 +30,17 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class ProgramPeriodsViewModel implements Parcelable
 {
+	public static final Parcelable.Creator<ProgramPeriodsViewModel> CREATOR = new Parcelable.Creator<ProgramPeriodsViewModel>()
+	{
+		public ProgramPeriodsViewModel createFromParcel(Parcel in) {
+			return new ProgramPeriodsViewModel(in);
+		}
+
+		public ProgramPeriodsViewModel[] newArray(int size) {
+			return new ProgramPeriodsViewModel[size];
+		}
+	};
+
 	@SerializedName("periods")
 	private List<ProgramPeriodViewModel> periods = null;
 
@@ -37,6 +48,11 @@ public class ProgramPeriodsViewModel implements Parcelable
 	private Integer total = null;
 
 	public ProgramPeriodsViewModel() {
+	}
+
+	ProgramPeriodsViewModel(Parcel in) {
+		periods = (List<ProgramPeriodViewModel>) in.readValue(ProgramPeriodViewModel.class.getClassLoader());
+		total = (Integer) in.readValue(null);
 	}
 
 	public ProgramPeriodsViewModel periods(List<ProgramPeriodViewModel> periods) {
@@ -85,7 +101,6 @@ public class ProgramPeriodsViewModel implements Parcelable
 		this.total = total;
 	}
 
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -103,7 +118,6 @@ public class ProgramPeriodsViewModel implements Parcelable
 	public int hashCode() {
 		return Objects.hash(periods, total);
 	}
-
 
 	@Override
 	public String toString() {
@@ -127,29 +141,12 @@ public class ProgramPeriodsViewModel implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
-
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(periods);
 		out.writeValue(total);
 	}
 
-	public static final Parcelable.Creator<ProgramPeriodsViewModel> CREATOR = new Parcelable.Creator<ProgramPeriodsViewModel>()
-	{
-		public ProgramPeriodsViewModel createFromParcel(Parcel in) {
-			return new ProgramPeriodsViewModel(in);
-		}
-
-		public ProgramPeriodsViewModel[] newArray(int size) {
-			return new ProgramPeriodsViewModel[size];
-		}
-	};
-
 	public int describeContents() {
 		return 0;
-	}
-
-	ProgramPeriodsViewModel(Parcel in) {
-		periods = (List<ProgramPeriodViewModel>) in.readValue(ProgramPeriodViewModel.class.getClassLoader());
-		total = (Integer) in.readValue(null);
 	}
 }

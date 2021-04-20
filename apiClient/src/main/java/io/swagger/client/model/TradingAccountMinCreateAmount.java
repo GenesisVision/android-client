@@ -30,6 +30,17 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class TradingAccountMinCreateAmount implements Parcelable
 {
+	public static final Parcelable.Creator<TradingAccountMinCreateAmount> CREATOR = new Parcelable.Creator<TradingAccountMinCreateAmount>()
+	{
+		public TradingAccountMinCreateAmount createFromParcel(Parcel in) {
+			return new TradingAccountMinCreateAmount(in);
+		}
+
+		public TradingAccountMinCreateAmount[] newArray(int size) {
+			return new TradingAccountMinCreateAmount[size];
+		}
+	};
+
 	@SerializedName("serverType")
 	private BrokerTradeServerType serverType = null;
 
@@ -37,6 +48,11 @@ public class TradingAccountMinCreateAmount implements Parcelable
 	private List<AmountWithCurrency> minDepositCreateAsset = null;
 
 	public TradingAccountMinCreateAmount() {
+	}
+
+	TradingAccountMinCreateAmount(Parcel in) {
+		serverType = (BrokerTradeServerType) in.readValue(BrokerTradeServerType.class.getClassLoader());
+		minDepositCreateAsset = (List<AmountWithCurrency>) in.readValue(AmountWithCurrency.class.getClassLoader());
 	}
 
 	public TradingAccountMinCreateAmount serverType(BrokerTradeServerType serverType) {
@@ -85,7 +101,6 @@ public class TradingAccountMinCreateAmount implements Parcelable
 		this.minDepositCreateAsset = minDepositCreateAsset;
 	}
 
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -103,7 +118,6 @@ public class TradingAccountMinCreateAmount implements Parcelable
 	public int hashCode() {
 		return Objects.hash(serverType, minDepositCreateAsset);
 	}
-
 
 	@Override
 	public String toString() {
@@ -127,29 +141,12 @@ public class TradingAccountMinCreateAmount implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
-
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(serverType);
 		out.writeValue(minDepositCreateAsset);
 	}
 
-	public static final Parcelable.Creator<TradingAccountMinCreateAmount> CREATOR = new Parcelable.Creator<TradingAccountMinCreateAmount>()
-	{
-		public TradingAccountMinCreateAmount createFromParcel(Parcel in) {
-			return new TradingAccountMinCreateAmount(in);
-		}
-
-		public TradingAccountMinCreateAmount[] newArray(int size) {
-			return new TradingAccountMinCreateAmount[size];
-		}
-	};
-
 	public int describeContents() {
 		return 0;
-	}
-
-	TradingAccountMinCreateAmount(Parcel in) {
-		serverType = (BrokerTradeServerType) in.readValue(BrokerTradeServerType.class.getClassLoader());
-		minDepositCreateAsset = (List<AmountWithCurrency>) in.readValue(AmountWithCurrency.class.getClassLoader());
 	}
 }

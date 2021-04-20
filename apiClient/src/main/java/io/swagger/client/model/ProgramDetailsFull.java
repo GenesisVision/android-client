@@ -30,6 +30,17 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class ProgramDetailsFull implements Parcelable
 {
+	public static final Parcelable.Creator<ProgramDetailsFull> CREATOR = new Parcelable.Creator<ProgramDetailsFull>()
+	{
+		public ProgramDetailsFull createFromParcel(Parcel in) {
+			return new ProgramDetailsFull(in);
+		}
+
+		public ProgramDetailsFull[] newArray(int size) {
+			return new ProgramDetailsFull[size];
+		}
+	};
+
 	@SerializedName("type")
 	private ProgramType type = null;
 
@@ -103,6 +114,33 @@ public class ProgramDetailsFull implements Parcelable
 	private PersonalProgramDetails personalDetails = null;
 
 	public ProgramDetailsFull() {
+	}
+
+	ProgramDetailsFull(Parcel in) {
+		type = (ProgramType) in.readValue(ProgramType.class.getClassLoader());
+		level = (Integer) in.readValue(null);
+		levelProgress = (Double) in.readValue(null);
+		periodDuration = (Integer) in.readValue(null);
+		periodStarts = (DateTime) in.readValue(DateTime.class.getClassLoader());
+		periodEnds = (DateTime) in.readValue(DateTime.class.getClassLoader());
+		tradesDelay = (TradesDelay) in.readValue(TradesDelay.class.getClassLoader());
+		ageDays = (Double) in.readValue(null);
+		genesisRatio = (Double) in.readValue(null);
+		investmentScale = (Double) in.readValue(null);
+		volumeScale = (Double) in.readValue(null);
+		managementFeeSelected = (Double) in.readValue(null);
+		managementFeeCurrent = (Double) in.readValue(null);
+		successFeeSelected = (Double) in.readValue(null);
+		successFeeCurrent = (Double) in.readValue(null);
+		stopOutLevelSelected = (Double) in.readValue(null);
+		stopOutLevelCurrent = (Double) in.readValue(null);
+		availableInvestmentBase = (Double) in.readValue(null);
+		availableInvestmentLimit = (Double) in.readValue(null);
+		totalAvailableInvestment = (Double) in.readValue(null);
+		canShowPeriodHistory = (Boolean) in.readValue(null);
+		canShowFinancialStatistic = (Boolean) in.readValue(null);
+		dailyPeriodDetails = (ProgramDailyPeriodDetails) in.readValue(ProgramDailyPeriodDetails.class.getClassLoader());
+		personalDetails = (PersonalProgramDetails) in.readValue(PersonalProgramDetails.class.getClassLoader());
 	}
 
 	public ProgramDetailsFull type(ProgramType type) {
@@ -561,7 +599,6 @@ public class ProgramDetailsFull implements Parcelable
 		this.personalDetails = personalDetails;
 	}
 
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -601,7 +638,6 @@ public class ProgramDetailsFull implements Parcelable
 	public int hashCode() {
 		return Objects.hash(type, level, levelProgress, periodDuration, periodStarts, periodEnds, tradesDelay, ageDays, genesisRatio, investmentScale, volumeScale, managementFeeSelected, managementFeeCurrent, successFeeSelected, successFeeCurrent, stopOutLevelSelected, stopOutLevelCurrent, availableInvestmentBase, availableInvestmentLimit, totalAvailableInvestment, canShowPeriodHistory, canShowFinancialStatistic, dailyPeriodDetails, personalDetails);
 	}
-
 
 	@Override
 	public String toString() {
@@ -647,7 +683,6 @@ public class ProgramDetailsFull implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
-
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(type);
 		out.writeValue(level);
@@ -675,45 +710,7 @@ public class ProgramDetailsFull implements Parcelable
 		out.writeValue(personalDetails);
 	}
 
-	public static final Parcelable.Creator<ProgramDetailsFull> CREATOR = new Parcelable.Creator<ProgramDetailsFull>()
-	{
-		public ProgramDetailsFull createFromParcel(Parcel in) {
-			return new ProgramDetailsFull(in);
-		}
-
-		public ProgramDetailsFull[] newArray(int size) {
-			return new ProgramDetailsFull[size];
-		}
-	};
-
 	public int describeContents() {
 		return 0;
-	}
-
-	ProgramDetailsFull(Parcel in) {
-		type = (ProgramType) in.readValue(ProgramType.class.getClassLoader());
-		level = (Integer) in.readValue(null);
-		levelProgress = (Double) in.readValue(null);
-		periodDuration = (Integer) in.readValue(null);
-		periodStarts = (DateTime) in.readValue(DateTime.class.getClassLoader());
-		periodEnds = (DateTime) in.readValue(DateTime.class.getClassLoader());
-		tradesDelay = (TradesDelay) in.readValue(TradesDelay.class.getClassLoader());
-		ageDays = (Double) in.readValue(null);
-		genesisRatio = (Double) in.readValue(null);
-		investmentScale = (Double) in.readValue(null);
-		volumeScale = (Double) in.readValue(null);
-		managementFeeSelected = (Double) in.readValue(null);
-		managementFeeCurrent = (Double) in.readValue(null);
-		successFeeSelected = (Double) in.readValue(null);
-		successFeeCurrent = (Double) in.readValue(null);
-		stopOutLevelSelected = (Double) in.readValue(null);
-		stopOutLevelCurrent = (Double) in.readValue(null);
-		availableInvestmentBase = (Double) in.readValue(null);
-		availableInvestmentLimit = (Double) in.readValue(null);
-		totalAvailableInvestment = (Double) in.readValue(null);
-		canShowPeriodHistory = (Boolean) in.readValue(null);
-		canShowFinancialStatistic = (Boolean) in.readValue(null);
-		dailyPeriodDetails = (ProgramDailyPeriodDetails) in.readValue(ProgramDailyPeriodDetails.class.getClassLoader());
-		personalDetails = (PersonalProgramDetails) in.readValue(PersonalProgramDetails.class.getClassLoader());
 	}
 }

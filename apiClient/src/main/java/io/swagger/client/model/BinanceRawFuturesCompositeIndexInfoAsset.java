@@ -28,6 +28,17 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class BinanceRawFuturesCompositeIndexInfoAsset implements Parcelable
 {
+	public static final Parcelable.Creator<BinanceRawFuturesCompositeIndexInfoAsset> CREATOR = new Parcelable.Creator<BinanceRawFuturesCompositeIndexInfoAsset>()
+	{
+		public BinanceRawFuturesCompositeIndexInfoAsset createFromParcel(Parcel in) {
+			return new BinanceRawFuturesCompositeIndexInfoAsset(in);
+		}
+
+		public BinanceRawFuturesCompositeIndexInfoAsset[] newArray(int size) {
+			return new BinanceRawFuturesCompositeIndexInfoAsset[size];
+		}
+	};
+
 	@SerializedName("baseAsset")
 	private String baseAsset = null;
 
@@ -38,6 +49,12 @@ public class BinanceRawFuturesCompositeIndexInfoAsset implements Parcelable
 	private Double weightInPercentage = null;
 
 	public BinanceRawFuturesCompositeIndexInfoAsset() {
+	}
+
+	BinanceRawFuturesCompositeIndexInfoAsset(Parcel in) {
+		baseAsset = (String) in.readValue(null);
+		weightInQuantity = (Double) in.readValue(null);
+		weightInPercentage = (Double) in.readValue(null);
 	}
 
 	public BinanceRawFuturesCompositeIndexInfoAsset baseAsset(String baseAsset) {
@@ -97,7 +114,6 @@ public class BinanceRawFuturesCompositeIndexInfoAsset implements Parcelable
 		this.weightInPercentage = weightInPercentage;
 	}
 
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -116,7 +132,6 @@ public class BinanceRawFuturesCompositeIndexInfoAsset implements Parcelable
 	public int hashCode() {
 		return Objects.hash(baseAsset, weightInQuantity, weightInPercentage);
 	}
-
 
 	@Override
 	public String toString() {
@@ -141,31 +156,13 @@ public class BinanceRawFuturesCompositeIndexInfoAsset implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
-
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(baseAsset);
 		out.writeValue(weightInQuantity);
 		out.writeValue(weightInPercentage);
 	}
 
-	public static final Parcelable.Creator<BinanceRawFuturesCompositeIndexInfoAsset> CREATOR = new Parcelable.Creator<BinanceRawFuturesCompositeIndexInfoAsset>()
-	{
-		public BinanceRawFuturesCompositeIndexInfoAsset createFromParcel(Parcel in) {
-			return new BinanceRawFuturesCompositeIndexInfoAsset(in);
-		}
-
-		public BinanceRawFuturesCompositeIndexInfoAsset[] newArray(int size) {
-			return new BinanceRawFuturesCompositeIndexInfoAsset[size];
-		}
-	};
-
 	public int describeContents() {
 		return 0;
-	}
-
-	BinanceRawFuturesCompositeIndexInfoAsset(Parcel in) {
-		baseAsset = (String) in.readValue(null);
-		weightInQuantity = (Double) in.readValue(null);
-		weightInPercentage = (Double) in.readValue(null);
 	}
 }

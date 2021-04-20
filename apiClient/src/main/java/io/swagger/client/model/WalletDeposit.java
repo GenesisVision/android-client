@@ -28,6 +28,17 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class WalletDeposit implements Parcelable
 {
+	public static final Parcelable.Creator<WalletDeposit> CREATOR = new Parcelable.Creator<WalletDeposit>()
+	{
+		public WalletDeposit createFromParcel(Parcel in) {
+			return new WalletDeposit(in);
+		}
+
+		public WalletDeposit[] newArray(int size) {
+			return new WalletDeposit[size];
+		}
+	};
+
 	@SerializedName("currency")
 	private Currency currency = null;
 
@@ -35,6 +46,11 @@ public class WalletDeposit implements Parcelable
 	private String depositAddress = null;
 
 	public WalletDeposit() {
+	}
+
+	WalletDeposit(Parcel in) {
+		currency = (Currency) in.readValue(Currency.class.getClassLoader());
+		depositAddress = (String) in.readValue(null);
 	}
 
 	public WalletDeposit currency(Currency currency) {
@@ -75,7 +91,6 @@ public class WalletDeposit implements Parcelable
 		this.depositAddress = depositAddress;
 	}
 
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -93,7 +108,6 @@ public class WalletDeposit implements Parcelable
 	public int hashCode() {
 		return Objects.hash(currency, depositAddress);
 	}
-
 
 	@Override
 	public String toString() {
@@ -117,29 +131,12 @@ public class WalletDeposit implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
-
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(currency);
 		out.writeValue(depositAddress);
 	}
 
-	public static final Parcelable.Creator<WalletDeposit> CREATOR = new Parcelable.Creator<WalletDeposit>()
-	{
-		public WalletDeposit createFromParcel(Parcel in) {
-			return new WalletDeposit(in);
-		}
-
-		public WalletDeposit[] newArray(int size) {
-			return new WalletDeposit[size];
-		}
-	};
-
 	public int describeContents() {
 		return 0;
-	}
-
-	WalletDeposit(Parcel in) {
-		currency = (Currency) in.readValue(Currency.class.getClassLoader());
-		depositAddress = (String) in.readValue(null);
 	}
 }

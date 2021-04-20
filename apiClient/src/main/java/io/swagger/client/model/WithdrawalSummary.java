@@ -30,6 +30,17 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class WithdrawalSummary implements Parcelable
 {
+	public static final Parcelable.Creator<WithdrawalSummary> CREATOR = new Parcelable.Creator<WithdrawalSummary>()
+	{
+		public WithdrawalSummary createFromParcel(Parcel in) {
+			return new WithdrawalSummary(in);
+		}
+
+		public WithdrawalSummary[] newArray(int size) {
+			return new WithdrawalSummary[size];
+		}
+	};
+
 	@SerializedName("availableToWithdrawal")
 	private Double availableToWithdrawal = null;
 
@@ -37,6 +48,11 @@ public class WithdrawalSummary implements Parcelable
 	private List<WalletWithdrawalInfo> wallets = null;
 
 	public WithdrawalSummary() {
+	}
+
+	WithdrawalSummary(Parcel in) {
+		availableToWithdrawal = (Double) in.readValue(null);
+		wallets = (List<WalletWithdrawalInfo>) in.readValue(WalletWithdrawalInfo.class.getClassLoader());
 	}
 
 	public WithdrawalSummary availableToWithdrawal(Double availableToWithdrawal) {
@@ -85,7 +101,6 @@ public class WithdrawalSummary implements Parcelable
 		this.wallets = wallets;
 	}
 
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -103,7 +118,6 @@ public class WithdrawalSummary implements Parcelable
 	public int hashCode() {
 		return Objects.hash(availableToWithdrawal, wallets);
 	}
-
 
 	@Override
 	public String toString() {
@@ -127,29 +141,12 @@ public class WithdrawalSummary implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
-
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(availableToWithdrawal);
 		out.writeValue(wallets);
 	}
 
-	public static final Parcelable.Creator<WithdrawalSummary> CREATOR = new Parcelable.Creator<WithdrawalSummary>()
-	{
-		public WithdrawalSummary createFromParcel(Parcel in) {
-			return new WithdrawalSummary(in);
-		}
-
-		public WithdrawalSummary[] newArray(int size) {
-			return new WithdrawalSummary[size];
-		}
-	};
-
 	public int describeContents() {
 		return 0;
-	}
-
-	WithdrawalSummary(Parcel in) {
-		availableToWithdrawal = (Double) in.readValue(null);
-		wallets = (List<WalletWithdrawalInfo>) in.readValue(WalletWithdrawalInfo.class.getClassLoader());
 	}
 }

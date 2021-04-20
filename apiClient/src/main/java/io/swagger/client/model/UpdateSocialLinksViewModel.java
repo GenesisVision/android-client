@@ -30,10 +30,25 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class UpdateSocialLinksViewModel implements Parcelable
 {
+	public static final Parcelable.Creator<UpdateSocialLinksViewModel> CREATOR = new Parcelable.Creator<UpdateSocialLinksViewModel>()
+	{
+		public UpdateSocialLinksViewModel createFromParcel(Parcel in) {
+			return new UpdateSocialLinksViewModel(in);
+		}
+
+		public UpdateSocialLinksViewModel[] newArray(int size) {
+			return new UpdateSocialLinksViewModel[size];
+		}
+	};
+
 	@SerializedName("links")
 	private List<UpdateSocialLinkViewModel> links = null;
 
 	public UpdateSocialLinksViewModel() {
+	}
+
+	UpdateSocialLinksViewModel(Parcel in) {
+		links = (List<UpdateSocialLinkViewModel>) in.readValue(UpdateSocialLinkViewModel.class.getClassLoader());
 	}
 
 	public UpdateSocialLinksViewModel links(List<UpdateSocialLinkViewModel> links) {
@@ -63,7 +78,6 @@ public class UpdateSocialLinksViewModel implements Parcelable
 		this.links = links;
 	}
 
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -80,7 +94,6 @@ public class UpdateSocialLinksViewModel implements Parcelable
 	public int hashCode() {
 		return Objects.hash(links);
 	}
-
 
 	@Override
 	public String toString() {
@@ -103,27 +116,11 @@ public class UpdateSocialLinksViewModel implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
-
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(links);
 	}
 
-	public static final Parcelable.Creator<UpdateSocialLinksViewModel> CREATOR = new Parcelable.Creator<UpdateSocialLinksViewModel>()
-	{
-		public UpdateSocialLinksViewModel createFromParcel(Parcel in) {
-			return new UpdateSocialLinksViewModel(in);
-		}
-
-		public UpdateSocialLinksViewModel[] newArray(int size) {
-			return new UpdateSocialLinksViewModel[size];
-		}
-	};
-
 	public int describeContents() {
 		return 0;
-	}
-
-	UpdateSocialLinksViewModel(Parcel in) {
-		links = (List<UpdateSocialLinkViewModel>) in.readValue(UpdateSocialLinkViewModel.class.getClassLoader());
 	}
 }

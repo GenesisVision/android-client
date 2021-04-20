@@ -30,6 +30,15 @@ public enum UserVerificationStatus
 	UNDERREVIEW("UnderReview"),
 	REJECTED("Rejected");
 
+	public static UserVerificationStatus fromValue(String text) {
+		for (UserVerificationStatus b : UserVerificationStatus.values()) {
+			if (String.valueOf(b.value).equals(text)) {
+				return b;
+			}
+		}
+		return null;
+	}
+
 	private String value;
 
 	UserVerificationStatus(String value) {
@@ -43,15 +52,6 @@ public enum UserVerificationStatus
 	@Override
 	public String toString() {
 		return String.valueOf(value);
-	}
-
-	public static UserVerificationStatus fromValue(String text) {
-		for (UserVerificationStatus b : UserVerificationStatus.values()) {
-			if (String.valueOf(b.value).equals(text)) {
-				return b;
-			}
-		}
-		return null;
 	}
 
 	public static class Adapter extends TypeAdapter<UserVerificationStatus>

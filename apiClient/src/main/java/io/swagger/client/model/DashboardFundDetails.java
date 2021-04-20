@@ -30,6 +30,17 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class DashboardFundDetails implements Parcelable
 {
+	public static final Parcelable.Creator<DashboardFundDetails> CREATOR = new Parcelable.Creator<DashboardFundDetails>()
+	{
+		public DashboardFundDetails createFromParcel(Parcel in) {
+			return new DashboardFundDetails(in);
+		}
+
+		public DashboardFundDetails[] newArray(int size) {
+			return new DashboardFundDetails[size];
+		}
+	};
+
 	@SerializedName("topFundAssets")
 	private List<FundAssetPercent> topFundAssets = null;
 
@@ -52,6 +63,16 @@ public class DashboardFundDetails implements Parcelable
 	private Double exitFeeSelected = null;
 
 	public DashboardFundDetails() {
+	}
+
+	DashboardFundDetails(Parcel in) {
+		topFundAssets = (List<FundAssetPercent>) in.readValue(FundAssetPercent.class.getClassLoader());
+		totalAssetsCount = (Integer) in.readValue(null);
+		tradingSchedule = (TradingScheduleInfo) in.readValue(TradingScheduleInfo.class.getClassLoader());
+		entryFeeCurrent = (Double) in.readValue(null);
+		entryFeeSelected = (Double) in.readValue(null);
+		exitFeeCurrent = (Double) in.readValue(null);
+		exitFeeSelected = (Double) in.readValue(null);
 	}
 
 	public DashboardFundDetails topFundAssets(List<FundAssetPercent> topFundAssets) {
@@ -195,7 +216,6 @@ public class DashboardFundDetails implements Parcelable
 		this.exitFeeSelected = exitFeeSelected;
 	}
 
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -218,7 +238,6 @@ public class DashboardFundDetails implements Parcelable
 	public int hashCode() {
 		return Objects.hash(topFundAssets, totalAssetsCount, tradingSchedule, entryFeeCurrent, entryFeeSelected, exitFeeCurrent, exitFeeSelected);
 	}
-
 
 	@Override
 	public String toString() {
@@ -247,7 +266,6 @@ public class DashboardFundDetails implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
-
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(topFundAssets);
 		out.writeValue(totalAssetsCount);
@@ -258,28 +276,7 @@ public class DashboardFundDetails implements Parcelable
 		out.writeValue(exitFeeSelected);
 	}
 
-	public static final Parcelable.Creator<DashboardFundDetails> CREATOR = new Parcelable.Creator<DashboardFundDetails>()
-	{
-		public DashboardFundDetails createFromParcel(Parcel in) {
-			return new DashboardFundDetails(in);
-		}
-
-		public DashboardFundDetails[] newArray(int size) {
-			return new DashboardFundDetails[size];
-		}
-	};
-
 	public int describeContents() {
 		return 0;
-	}
-
-	DashboardFundDetails(Parcel in) {
-		topFundAssets = (List<FundAssetPercent>) in.readValue(FundAssetPercent.class.getClassLoader());
-		totalAssetsCount = (Integer) in.readValue(null);
-		tradingSchedule = (TradingScheduleInfo) in.readValue(TradingScheduleInfo.class.getClassLoader());
-		entryFeeCurrent = (Double) in.readValue(null);
-		entryFeeSelected = (Double) in.readValue(null);
-		exitFeeCurrent = (Double) in.readValue(null);
-		exitFeeSelected = (Double) in.readValue(null);
 	}
 }

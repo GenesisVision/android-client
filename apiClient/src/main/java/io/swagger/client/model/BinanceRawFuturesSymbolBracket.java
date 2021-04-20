@@ -30,6 +30,17 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class BinanceRawFuturesSymbolBracket implements Parcelable
 {
+	public static final Parcelable.Creator<BinanceRawFuturesSymbolBracket> CREATOR = new Parcelable.Creator<BinanceRawFuturesSymbolBracket>()
+	{
+		public BinanceRawFuturesSymbolBracket createFromParcel(Parcel in) {
+			return new BinanceRawFuturesSymbolBracket(in);
+		}
+
+		public BinanceRawFuturesSymbolBracket[] newArray(int size) {
+			return new BinanceRawFuturesSymbolBracket[size];
+		}
+	};
+
 	@SerializedName("symbolOrPair")
 	private String symbolOrPair = null;
 
@@ -37,6 +48,11 @@ public class BinanceRawFuturesSymbolBracket implements Parcelable
 	private List<BinanceRawFuturesBracket> brackets = null;
 
 	public BinanceRawFuturesSymbolBracket() {
+	}
+
+	BinanceRawFuturesSymbolBracket(Parcel in) {
+		symbolOrPair = (String) in.readValue(null);
+		brackets = (List<BinanceRawFuturesBracket>) in.readValue(BinanceRawFuturesBracket.class.getClassLoader());
 	}
 
 	public BinanceRawFuturesSymbolBracket symbolOrPair(String symbolOrPair) {
@@ -85,7 +101,6 @@ public class BinanceRawFuturesSymbolBracket implements Parcelable
 		this.brackets = brackets;
 	}
 
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -103,7 +118,6 @@ public class BinanceRawFuturesSymbolBracket implements Parcelable
 	public int hashCode() {
 		return Objects.hash(symbolOrPair, brackets);
 	}
-
 
 	@Override
 	public String toString() {
@@ -127,29 +141,12 @@ public class BinanceRawFuturesSymbolBracket implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
-
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(symbolOrPair);
 		out.writeValue(brackets);
 	}
 
-	public static final Parcelable.Creator<BinanceRawFuturesSymbolBracket> CREATOR = new Parcelable.Creator<BinanceRawFuturesSymbolBracket>()
-	{
-		public BinanceRawFuturesSymbolBracket createFromParcel(Parcel in) {
-			return new BinanceRawFuturesSymbolBracket(in);
-		}
-
-		public BinanceRawFuturesSymbolBracket[] newArray(int size) {
-			return new BinanceRawFuturesSymbolBracket[size];
-		}
-	};
-
 	public int describeContents() {
 		return 0;
-	}
-
-	BinanceRawFuturesSymbolBracket(Parcel in) {
-		symbolOrPair = (String) in.readValue(null);
-		brackets = (List<BinanceRawFuturesBracket>) in.readValue(BinanceRawFuturesBracket.class.getClassLoader());
 	}
 }

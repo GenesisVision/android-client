@@ -29,6 +29,17 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class FundAssetPart implements Parcelable
 {
+	public static final Parcelable.Creator<FundAssetPart> CREATOR = new Parcelable.Creator<FundAssetPart>()
+	{
+		public FundAssetPart createFromParcel(Parcel in) {
+			return new FundAssetPart(in);
+		}
+
+		public FundAssetPart[] newArray(int size) {
+			return new FundAssetPart[size];
+		}
+	};
+
 	@SerializedName("id")
 	private UUID id = null;
 
@@ -36,6 +47,11 @@ public class FundAssetPart implements Parcelable
 	private Double percent = null;
 
 	public FundAssetPart() {
+	}
+
+	FundAssetPart(Parcel in) {
+		id = (UUID) in.readValue(UUID.class.getClassLoader());
+		percent = (Double) in.readValue(null);
 	}
 
 	public FundAssetPart id(UUID id) {
@@ -76,7 +92,6 @@ public class FundAssetPart implements Parcelable
 		this.percent = percent;
 	}
 
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -94,7 +109,6 @@ public class FundAssetPart implements Parcelable
 	public int hashCode() {
 		return Objects.hash(id, percent);
 	}
-
 
 	@Override
 	public String toString() {
@@ -118,29 +132,12 @@ public class FundAssetPart implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
-
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(id);
 		out.writeValue(percent);
 	}
 
-	public static final Parcelable.Creator<FundAssetPart> CREATOR = new Parcelable.Creator<FundAssetPart>()
-	{
-		public FundAssetPart createFromParcel(Parcel in) {
-			return new FundAssetPart(in);
-		}
-
-		public FundAssetPart[] newArray(int size) {
-			return new FundAssetPart[size];
-		}
-	};
-
 	public int describeContents() {
 		return 0;
-	}
-
-	FundAssetPart(Parcel in) {
-		id = (UUID) in.readValue(UUID.class.getClassLoader());
-		percent = (Double) in.readValue(null);
 	}
 }

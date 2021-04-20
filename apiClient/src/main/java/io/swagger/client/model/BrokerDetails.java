@@ -29,6 +29,17 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class BrokerDetails implements Parcelable
 {
+	public static final Parcelable.Creator<BrokerDetails> CREATOR = new Parcelable.Creator<BrokerDetails>()
+	{
+		public BrokerDetails createFromParcel(Parcel in) {
+			return new BrokerDetails(in);
+		}
+
+		public BrokerDetails[] newArray(int size) {
+			return new BrokerDetails[size];
+		}
+	};
+
 	@SerializedName("id")
 	private UUID id = null;
 
@@ -69,6 +80,22 @@ public class BrokerDetails implements Parcelable
 	private Boolean showCommissionRebateSometime = null;
 
 	public BrokerDetails() {
+	}
+
+	BrokerDetails(Parcel in) {
+		id = (UUID) in.readValue(UUID.class.getClassLoader());
+		logoUrl = (String) in.readValue(null);
+		name = (String) in.readValue(null);
+		type = (BrokerTradeServerType) in.readValue(BrokerTradeServerType.class.getClassLoader());
+		isKycRequired = (Boolean) in.readValue(null);
+		showSwaps = (Boolean) in.readValue(null);
+		showTickets = (Boolean) in.readValue(null);
+		showCommissionRebate = (Boolean) in.readValue(null);
+		isSignalsAvailable = (Boolean) in.readValue(null);
+		isKycRequiredSometime = (Boolean) in.readValue(null);
+		showSwapsSometime = (Boolean) in.readValue(null);
+		showTicketsSometime = (Boolean) in.readValue(null);
+		showCommissionRebateSometime = (Boolean) in.readValue(null);
 	}
 
 	public BrokerDetails id(UUID id) {
@@ -318,7 +345,6 @@ public class BrokerDetails implements Parcelable
 		this.showCommissionRebateSometime = showCommissionRebateSometime;
 	}
 
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -347,7 +373,6 @@ public class BrokerDetails implements Parcelable
 	public int hashCode() {
 		return Objects.hash(id, logoUrl, name, type, isKycRequired, showSwaps, showTickets, showCommissionRebate, isSignalsAvailable, isKycRequiredSometime, showSwapsSometime, showTicketsSometime, showCommissionRebateSometime);
 	}
-
 
 	@Override
 	public String toString() {
@@ -382,7 +407,6 @@ public class BrokerDetails implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
-
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(id);
 		out.writeValue(logoUrl);
@@ -399,34 +423,7 @@ public class BrokerDetails implements Parcelable
 		out.writeValue(showCommissionRebateSometime);
 	}
 
-	public static final Parcelable.Creator<BrokerDetails> CREATOR = new Parcelable.Creator<BrokerDetails>()
-	{
-		public BrokerDetails createFromParcel(Parcel in) {
-			return new BrokerDetails(in);
-		}
-
-		public BrokerDetails[] newArray(int size) {
-			return new BrokerDetails[size];
-		}
-	};
-
 	public int describeContents() {
 		return 0;
-	}
-
-	BrokerDetails(Parcel in) {
-		id = (UUID) in.readValue(UUID.class.getClassLoader());
-		logoUrl = (String) in.readValue(null);
-		name = (String) in.readValue(null);
-		type = (BrokerTradeServerType) in.readValue(BrokerTradeServerType.class.getClassLoader());
-		isKycRequired = (Boolean) in.readValue(null);
-		showSwaps = (Boolean) in.readValue(null);
-		showTickets = (Boolean) in.readValue(null);
-		showCommissionRebate = (Boolean) in.readValue(null);
-		isSignalsAvailable = (Boolean) in.readValue(null);
-		isKycRequiredSometime = (Boolean) in.readValue(null);
-		showSwapsSometime = (Boolean) in.readValue(null);
-		showTicketsSometime = (Boolean) in.readValue(null);
-		showCommissionRebateSometime = (Boolean) in.readValue(null);
 	}
 }

@@ -28,6 +28,17 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class DashboardProgramDetails implements Parcelable
 {
+	public static final Parcelable.Creator<DashboardProgramDetails> CREATOR = new Parcelable.Creator<DashboardProgramDetails>()
+	{
+		public DashboardProgramDetails createFromParcel(Parcel in) {
+			return new DashboardProgramDetails(in);
+		}
+
+		public DashboardProgramDetails[] newArray(int size) {
+			return new DashboardProgramDetails[size];
+		}
+	};
+
 	@SerializedName("level")
 	private Integer level = null;
 
@@ -49,27 +60,33 @@ public class DashboardProgramDetails implements Parcelable
 	@SerializedName("successFeeCurrent")
 	private Double successFeeCurrent = null;
 
-	public static final Parcelable.Creator<DashboardProgramDetails> CREATOR = new Parcelable.Creator<DashboardProgramDetails>()
-	{
-		public DashboardProgramDetails createFromParcel(Parcel in) {
-			return new DashboardProgramDetails(in);
-		}
-
-		public DashboardProgramDetails[] newArray(int size) {
-			return new DashboardProgramDetails[size];
-		}
-	};
-
 	@SerializedName("stopOutLevelSelected")
 	private Double stopOutLevelSelected = null;
 
 	@SerializedName("stopOutLevelCurrent")
 	private Double stopOutLevelCurrent = null;
 
+	@SerializedName("totalAvailableInvestment")
+	private Double totalAvailableInvestment = null;
+
 	@SerializedName("dailyPeriodDetails")
 	private ProgramDailyPeriodDetails dailyPeriodDetails = null;
 
 	public DashboardProgramDetails() {
+	}
+
+	DashboardProgramDetails(Parcel in) {
+		level = (Integer) in.readValue(null);
+		levelProgress = (Double) in.readValue(null);
+		type = (ProgramType) in.readValue(ProgramType.class.getClassLoader());
+		managementFeeSelected = (Double) in.readValue(null);
+		managementFeeCurrent = (Double) in.readValue(null);
+		successFeeSelected = (Double) in.readValue(null);
+		successFeeCurrent = (Double) in.readValue(null);
+		stopOutLevelSelected = (Double) in.readValue(null);
+		stopOutLevelCurrent = (Double) in.readValue(null);
+		totalAvailableInvestment = (Double) in.readValue(null);
+		dailyPeriodDetails = (ProgramDailyPeriodDetails) in.readValue(ProgramDailyPeriodDetails.class.getClassLoader());
 	}
 
 	public DashboardProgramDetails level(Integer level) {
@@ -205,23 +222,6 @@ public class DashboardProgramDetails implements Parcelable
 		this.successFeeCurrent = successFeeCurrent;
 	}
 
-	@SerializedName("totalAvailableInvestment")
-	private Double totalAvailableInvestment = null;
-
-	DashboardProgramDetails(Parcel in) {
-		level = (Integer) in.readValue(null);
-		levelProgress = (Double) in.readValue(null);
-		type = (ProgramType) in.readValue(ProgramType.class.getClassLoader());
-		managementFeeSelected = (Double) in.readValue(null);
-		managementFeeCurrent = (Double) in.readValue(null);
-		successFeeSelected = (Double) in.readValue(null);
-		successFeeCurrent = (Double) in.readValue(null);
-		stopOutLevelSelected = (Double) in.readValue(null);
-		stopOutLevelCurrent = (Double) in.readValue(null);
-		totalAvailableInvestment = (Double) in.readValue(null);
-		dailyPeriodDetails = (ProgramDailyPeriodDetails) in.readValue(ProgramDailyPeriodDetails.class.getClassLoader());
-	}
-
 	public DashboardProgramDetails stopOutLevelSelected(Double stopOutLevelSelected) {
 		this.stopOutLevelSelected = stopOutLevelSelected;
 		return this;
@@ -265,6 +265,20 @@ public class DashboardProgramDetails implements Parcelable
 		return this;
 	}
 
+	/**
+	 * Get totalAvailableInvestment
+	 *
+	 * @return totalAvailableInvestment
+	 **/
+	@Schema(description = "")
+	public Double getTotalAvailableInvestment() {
+		return totalAvailableInvestment;
+	}
+
+	public void setTotalAvailableInvestment(Double totalAvailableInvestment) {
+		this.totalAvailableInvestment = totalAvailableInvestment;
+	}
+
 	public DashboardProgramDetails dailyPeriodDetails(ProgramDailyPeriodDetails dailyPeriodDetails) {
 		this.dailyPeriodDetails = dailyPeriodDetails;
 		return this;
@@ -282,20 +296,6 @@ public class DashboardProgramDetails implements Parcelable
 
 	public void setDailyPeriodDetails(ProgramDailyPeriodDetails dailyPeriodDetails) {
 		this.dailyPeriodDetails = dailyPeriodDetails;
-	}
-
-	/**
-	 * Get totalAvailableInvestment
-	 *
-	 * @return totalAvailableInvestment
-	 **/
-	@Schema(description = "")
-	public Double getTotalAvailableInvestment() {
-		return totalAvailableInvestment;
-	}
-
-	public void setTotalAvailableInvestment(Double totalAvailableInvestment) {
-		this.totalAvailableInvestment = totalAvailableInvestment;
 	}
 
 	@Override
@@ -318,17 +318,6 @@ public class DashboardProgramDetails implements Parcelable
 				Objects.equals(this.stopOutLevelCurrent, dashboardProgramDetails.stopOutLevelCurrent) &&
 				Objects.equals(this.totalAvailableInvestment, dashboardProgramDetails.totalAvailableInvestment) &&
 				Objects.equals(this.dailyPeriodDetails, dashboardProgramDetails.dailyPeriodDetails);
-	}
-
-	/**
-	 * Convert the given object to string with each line indented by 4 spaces
-	 * (except the first line).
-	 */
-	private String toIndentedString(java.lang.Object o) {
-		if (o == null) {
-			return "null";
-		}
-		return o.toString().replace("\n", "\n    ");
 	}
 
 	@Override
@@ -356,8 +345,15 @@ public class DashboardProgramDetails implements Parcelable
 		return sb.toString();
 	}
 
-	public int describeContents() {
-		return 0;
+	/**
+	 * Convert the given object to string with each line indented by 4 spaces
+	 * (except the first line).
+	 */
+	private String toIndentedString(java.lang.Object o) {
+		if (o == null) {
+			return "null";
+		}
+		return o.toString().replace("\n", "\n    ");
 	}
 
 	public void writeToParcel(Parcel out, int flags) {
@@ -372,5 +368,9 @@ public class DashboardProgramDetails implements Parcelable
 		out.writeValue(stopOutLevelCurrent);
 		out.writeValue(totalAvailableInvestment);
 		out.writeValue(dailyPeriodDetails);
+	}
+
+	public int describeContents() {
+		return 0;
 	}
 }

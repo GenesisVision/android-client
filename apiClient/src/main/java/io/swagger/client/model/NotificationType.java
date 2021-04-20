@@ -52,6 +52,15 @@ public enum NotificationType
 	SOCIAL("Social"),
 	PLATFORMASSET("PlatformAsset");
 
+	public static NotificationType fromValue(String text) {
+		for (NotificationType b : NotificationType.values()) {
+			if (String.valueOf(b.value).equals(text)) {
+				return b;
+			}
+		}
+		return null;
+	}
+
 	private String value;
 
 	NotificationType(String value) {
@@ -65,15 +74,6 @@ public enum NotificationType
 	@Override
 	public String toString() {
 		return String.valueOf(value);
-	}
-
-	public static NotificationType fromValue(String text) {
-		for (NotificationType b : NotificationType.values()) {
-			if (String.valueOf(b.value).equals(text)) {
-				return b;
-			}
-		}
-		return null;
 	}
 
 	public static class Adapter extends TypeAdapter<NotificationType>

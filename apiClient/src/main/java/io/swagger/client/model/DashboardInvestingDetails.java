@@ -28,6 +28,17 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class DashboardInvestingDetails implements Parcelable
 {
+	public static final Parcelable.Creator<DashboardInvestingDetails> CREATOR = new Parcelable.Creator<DashboardInvestingDetails>()
+	{
+		public DashboardInvestingDetails createFromParcel(Parcel in) {
+			return new DashboardInvestingDetails(in);
+		}
+
+		public DashboardInvestingDetails[] newArray(int size) {
+			return new DashboardInvestingDetails[size];
+		}
+	};
+
 	@SerializedName("equity")
 	private Double equity = null;
 
@@ -44,6 +55,14 @@ public class DashboardInvestingDetails implements Parcelable
 	private InvestmentEventViewModelItemsViewModel events = null;
 
 	public DashboardInvestingDetails() {
+	}
+
+	DashboardInvestingDetails(Parcel in) {
+		equity = (Double) in.readValue(null);
+		programsCount = (Integer) in.readValue(null);
+		fundsCount = (Integer) in.readValue(null);
+		profits = (DashboardProfits) in.readValue(DashboardProfits.class.getClassLoader());
+		events = (InvestmentEventViewModelItemsViewModel) in.readValue(InvestmentEventViewModelItemsViewModel.class.getClassLoader());
 	}
 
 	public DashboardInvestingDetails equity(Double equity) {
@@ -141,7 +160,6 @@ public class DashboardInvestingDetails implements Parcelable
 		this.events = events;
 	}
 
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -162,7 +180,6 @@ public class DashboardInvestingDetails implements Parcelable
 	public int hashCode() {
 		return Objects.hash(equity, programsCount, fundsCount, profits, events);
 	}
-
 
 	@Override
 	public String toString() {
@@ -189,7 +206,6 @@ public class DashboardInvestingDetails implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
-
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(equity);
 		out.writeValue(programsCount);
@@ -198,26 +214,7 @@ public class DashboardInvestingDetails implements Parcelable
 		out.writeValue(events);
 	}
 
-	public static final Parcelable.Creator<DashboardInvestingDetails> CREATOR = new Parcelable.Creator<DashboardInvestingDetails>()
-	{
-		public DashboardInvestingDetails createFromParcel(Parcel in) {
-			return new DashboardInvestingDetails(in);
-		}
-
-		public DashboardInvestingDetails[] newArray(int size) {
-			return new DashboardInvestingDetails[size];
-		}
-	};
-
 	public int describeContents() {
 		return 0;
-	}
-
-	DashboardInvestingDetails(Parcel in) {
-		equity = (Double) in.readValue(null);
-		programsCount = (Integer) in.readValue(null);
-		fundsCount = (Integer) in.readValue(null);
-		profits = (DashboardProfits) in.readValue(DashboardProfits.class.getClassLoader());
-		events = (InvestmentEventViewModelItemsViewModel) in.readValue(InvestmentEventViewModelItemsViewModel.class.getClassLoader());
 	}
 }

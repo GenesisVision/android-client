@@ -30,6 +30,17 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class FundAssetPlatformInfo implements Parcelable
 {
+	public static final Parcelable.Creator<FundAssetPlatformInfo> CREATOR = new Parcelable.Creator<FundAssetPlatformInfo>()
+	{
+		public FundAssetPlatformInfo createFromParcel(Parcel in) {
+			return new FundAssetPlatformInfo(in);
+		}
+
+		public FundAssetPlatformInfo[] newArray(int size) {
+			return new FundAssetPlatformInfo[size];
+		}
+	};
+
 	@SerializedName("facets")
 	private List<AssetFacet> facets = null;
 
@@ -46,6 +57,14 @@ public class FundAssetPlatformInfo implements Parcelable
 	private FundCreateAssetPlatformInfo createFundInfo = null;
 
 	public FundAssetPlatformInfo() {
+	}
+
+	FundAssetPlatformInfo(Parcel in) {
+		facets = (List<AssetFacet>) in.readValue(AssetFacet.class.getClassLoader());
+		assets = (List<PlatformAsset>) in.readValue(PlatformAsset.class.getClassLoader());
+		minInvestAmountIntoFund = (List<AmountWithCurrency>) in.readValue(AmountWithCurrency.class.getClassLoader());
+		minWithdrawAmountFromFund = (List<AmountWithCurrency>) in.readValue(AmountWithCurrency.class.getClassLoader());
+		createFundInfo = (FundCreateAssetPlatformInfo) in.readValue(FundCreateAssetPlatformInfo.class.getClassLoader());
 	}
 
 	public FundAssetPlatformInfo facets(List<AssetFacet> facets) {
@@ -175,7 +194,6 @@ public class FundAssetPlatformInfo implements Parcelable
 		this.createFundInfo = createFundInfo;
 	}
 
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -196,7 +214,6 @@ public class FundAssetPlatformInfo implements Parcelable
 	public int hashCode() {
 		return Objects.hash(facets, assets, minInvestAmountIntoFund, minWithdrawAmountFromFund, createFundInfo);
 	}
-
 
 	@Override
 	public String toString() {
@@ -223,7 +240,6 @@ public class FundAssetPlatformInfo implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
-
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(facets);
 		out.writeValue(assets);
@@ -232,26 +248,7 @@ public class FundAssetPlatformInfo implements Parcelable
 		out.writeValue(createFundInfo);
 	}
 
-	public static final Parcelable.Creator<FundAssetPlatformInfo> CREATOR = new Parcelable.Creator<FundAssetPlatformInfo>()
-	{
-		public FundAssetPlatformInfo createFromParcel(Parcel in) {
-			return new FundAssetPlatformInfo(in);
-		}
-
-		public FundAssetPlatformInfo[] newArray(int size) {
-			return new FundAssetPlatformInfo[size];
-		}
-	};
-
 	public int describeContents() {
 		return 0;
-	}
-
-	FundAssetPlatformInfo(Parcel in) {
-		facets = (List<AssetFacet>) in.readValue(AssetFacet.class.getClassLoader());
-		assets = (List<PlatformAsset>) in.readValue(PlatformAsset.class.getClassLoader());
-		minInvestAmountIntoFund = (List<AmountWithCurrency>) in.readValue(AmountWithCurrency.class.getClassLoader());
-		minWithdrawAmountFromFund = (List<AmountWithCurrency>) in.readValue(AmountWithCurrency.class.getClassLoader());
-		createFundInfo = (FundCreateAssetPlatformInfo) in.readValue(FundCreateAssetPlatformInfo.class.getClassLoader());
 	}
 }

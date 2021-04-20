@@ -28,6 +28,17 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class ProviderPlatformAssets implements Parcelable
 {
+	public static final Parcelable.Creator<ProviderPlatformAssets> CREATOR = new Parcelable.Creator<ProviderPlatformAssets>()
+	{
+		public ProviderPlatformAssets createFromParcel(Parcel in) {
+			return new ProviderPlatformAssets(in);
+		}
+
+		public ProviderPlatformAssets[] newArray(int size) {
+			return new ProviderPlatformAssets[size];
+		}
+	};
+
 	@SerializedName("type")
 	private AssetProvider type = null;
 
@@ -35,6 +46,11 @@ public class ProviderPlatformAssets implements Parcelable
 	private TradingScheduleInfo tradingSchedule = null;
 
 	public ProviderPlatformAssets() {
+	}
+
+	ProviderPlatformAssets(Parcel in) {
+		type = (AssetProvider) in.readValue(AssetProvider.class.getClassLoader());
+		tradingSchedule = (TradingScheduleInfo) in.readValue(TradingScheduleInfo.class.getClassLoader());
 	}
 
 	public ProviderPlatformAssets type(AssetProvider type) {
@@ -75,7 +91,6 @@ public class ProviderPlatformAssets implements Parcelable
 		this.tradingSchedule = tradingSchedule;
 	}
 
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -93,7 +108,6 @@ public class ProviderPlatformAssets implements Parcelable
 	public int hashCode() {
 		return Objects.hash(type, tradingSchedule);
 	}
-
 
 	@Override
 	public String toString() {
@@ -117,29 +131,12 @@ public class ProviderPlatformAssets implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
-
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(type);
 		out.writeValue(tradingSchedule);
 	}
 
-	public static final Parcelable.Creator<ProviderPlatformAssets> CREATOR = new Parcelable.Creator<ProviderPlatformAssets>()
-	{
-		public ProviderPlatformAssets createFromParcel(Parcel in) {
-			return new ProviderPlatformAssets(in);
-		}
-
-		public ProviderPlatformAssets[] newArray(int size) {
-			return new ProviderPlatformAssets[size];
-		}
-	};
-
 	public int describeContents() {
 		return 0;
-	}
-
-	ProviderPlatformAssets(Parcel in) {
-		type = (AssetProvider) in.readValue(AssetProvider.class.getClassLoader());
-		tradingSchedule = (TradingScheduleInfo) in.readValue(TradingScheduleInfo.class.getClassLoader());
 	}
 }

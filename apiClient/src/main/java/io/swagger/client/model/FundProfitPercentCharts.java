@@ -30,6 +30,17 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class FundProfitPercentCharts implements Parcelable
 {
+	public static final Parcelable.Creator<FundProfitPercentCharts> CREATOR = new Parcelable.Creator<FundProfitPercentCharts>()
+	{
+		public FundProfitPercentCharts createFromParcel(Parcel in) {
+			return new FundProfitPercentCharts(in);
+		}
+
+		public FundProfitPercentCharts[] newArray(int size) {
+			return new FundProfitPercentCharts[size];
+		}
+	};
+
 	@SerializedName("statistic")
 	private FundChartStatistic statistic = null;
 
@@ -40,6 +51,12 @@ public class FundProfitPercentCharts implements Parcelable
 	private List<FundAssetsState> assets = null;
 
 	public FundProfitPercentCharts() {
+	}
+
+	FundProfitPercentCharts(Parcel in) {
+		statistic = (FundChartStatistic) in.readValue(FundChartStatistic.class.getClassLoader());
+		charts = (List<SimpleChart>) in.readValue(SimpleChart.class.getClassLoader());
+		assets = (List<FundAssetsState>) in.readValue(FundAssetsState.class.getClassLoader());
 	}
 
 	public FundProfitPercentCharts statistic(FundChartStatistic statistic) {
@@ -115,7 +132,6 @@ public class FundProfitPercentCharts implements Parcelable
 		this.assets = assets;
 	}
 
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -134,7 +150,6 @@ public class FundProfitPercentCharts implements Parcelable
 	public int hashCode() {
 		return Objects.hash(statistic, charts, assets);
 	}
-
 
 	@Override
 	public String toString() {
@@ -159,31 +174,13 @@ public class FundProfitPercentCharts implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
-
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(statistic);
 		out.writeValue(charts);
 		out.writeValue(assets);
 	}
 
-	public static final Parcelable.Creator<FundProfitPercentCharts> CREATOR = new Parcelable.Creator<FundProfitPercentCharts>()
-	{
-		public FundProfitPercentCharts createFromParcel(Parcel in) {
-			return new FundProfitPercentCharts(in);
-		}
-
-		public FundProfitPercentCharts[] newArray(int size) {
-			return new FundProfitPercentCharts[size];
-		}
-	};
-
 	public int describeContents() {
 		return 0;
-	}
-
-	FundProfitPercentCharts(Parcel in) {
-		statistic = (FundChartStatistic) in.readValue(FundChartStatistic.class.getClassLoader());
-		charts = (List<SimpleChart>) in.readValue(SimpleChart.class.getClassLoader());
-		assets = (List<FundAssetsState>) in.readValue(FundAssetsState.class.getClassLoader());
 	}
 }

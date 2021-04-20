@@ -31,6 +31,17 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class ProfileFullViewModel implements Parcelable
 {
+	public static final Parcelable.Creator<ProfileFullViewModel> CREATOR = new Parcelable.Creator<ProfileFullViewModel>()
+	{
+		public ProfileFullViewModel createFromParcel(Parcel in) {
+			return new ProfileFullViewModel(in);
+		}
+
+		public ProfileFullViewModel[] newArray(int size) {
+			return new ProfileFullViewModel[size];
+		}
+	};
+
 	@SerializedName("id")
 	private UUID id = null;
 
@@ -104,6 +115,33 @@ public class ProfileFullViewModel implements Parcelable
 	private SocialViewMode whoCanViewCommentsOnMyPosts = null;
 
 	public ProfileFullViewModel() {
+	}
+
+	ProfileFullViewModel(Parcel in) {
+		id = (UUID) in.readValue(UUID.class.getClassLoader());
+		email = (String) in.readValue(null);
+		firstName = (String) in.readValue(null);
+		middleName = (String) in.readValue(null);
+		lastName = (String) in.readValue(null);
+		country = (String) in.readValue(null);
+		city = (String) in.readValue(null);
+		address = (String) in.readValue(null);
+		phone = (String) in.readValue(null);
+		phoneNumberConfirmed = (Boolean) in.readValue(null);
+		birthday = (DateTime) in.readValue(DateTime.class.getClassLoader());
+		gender = (Boolean) in.readValue(null);
+		logoUrl = (String) in.readValue(null);
+		about = (String) in.readValue(null);
+		userName = (String) in.readValue(null);
+		index = (String) in.readValue(null);
+		citizenship = (String) in.readValue(null);
+		refUrl = (String) in.readValue(null);
+		verificationStatus = (UserVerificationStatus) in.readValue(UserVerificationStatus.class.getClassLoader());
+		isPublicInvestor = (Boolean) in.readValue(null);
+		platformCurrency = (Currency) in.readValue(Currency.class.getClassLoader());
+		whoCanPostToMayWall = (SocialViewMode) in.readValue(SocialViewMode.class.getClassLoader());
+		whoCanCommentOnMyPosts = (SocialViewMode) in.readValue(SocialViewMode.class.getClassLoader());
+		whoCanViewCommentsOnMyPosts = (SocialViewMode) in.readValue(SocialViewMode.class.getClassLoader());
 	}
 
 	public ProfileFullViewModel id(UUID id) {
@@ -562,7 +600,6 @@ public class ProfileFullViewModel implements Parcelable
 		this.whoCanViewCommentsOnMyPosts = whoCanViewCommentsOnMyPosts;
 	}
 
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -602,7 +639,6 @@ public class ProfileFullViewModel implements Parcelable
 	public int hashCode() {
 		return Objects.hash(id, email, firstName, middleName, lastName, country, city, address, phone, phoneNumberConfirmed, birthday, gender, logoUrl, about, userName, index, citizenship, refUrl, verificationStatus, isPublicInvestor, platformCurrency, whoCanPostToMayWall, whoCanCommentOnMyPosts, whoCanViewCommentsOnMyPosts);
 	}
-
 
 	@Override
 	public String toString() {
@@ -648,7 +684,6 @@ public class ProfileFullViewModel implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
-
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(id);
 		out.writeValue(email);
@@ -676,45 +711,7 @@ public class ProfileFullViewModel implements Parcelable
 		out.writeValue(whoCanViewCommentsOnMyPosts);
 	}
 
-	public static final Parcelable.Creator<ProfileFullViewModel> CREATOR = new Parcelable.Creator<ProfileFullViewModel>()
-	{
-		public ProfileFullViewModel createFromParcel(Parcel in) {
-			return new ProfileFullViewModel(in);
-		}
-
-		public ProfileFullViewModel[] newArray(int size) {
-			return new ProfileFullViewModel[size];
-		}
-	};
-
 	public int describeContents() {
 		return 0;
-	}
-
-	ProfileFullViewModel(Parcel in) {
-		id = (UUID) in.readValue(UUID.class.getClassLoader());
-		email = (String) in.readValue(null);
-		firstName = (String) in.readValue(null);
-		middleName = (String) in.readValue(null);
-		lastName = (String) in.readValue(null);
-		country = (String) in.readValue(null);
-		city = (String) in.readValue(null);
-		address = (String) in.readValue(null);
-		phone = (String) in.readValue(null);
-		phoneNumberConfirmed = (Boolean) in.readValue(null);
-		birthday = (DateTime) in.readValue(DateTime.class.getClassLoader());
-		gender = (Boolean) in.readValue(null);
-		logoUrl = (String) in.readValue(null);
-		about = (String) in.readValue(null);
-		userName = (String) in.readValue(null);
-		index = (String) in.readValue(null);
-		citizenship = (String) in.readValue(null);
-		refUrl = (String) in.readValue(null);
-		verificationStatus = (UserVerificationStatus) in.readValue(UserVerificationStatus.class.getClassLoader());
-		isPublicInvestor = (Boolean) in.readValue(null);
-		platformCurrency = (Currency) in.readValue(Currency.class.getClassLoader());
-		whoCanPostToMayWall = (SocialViewMode) in.readValue(SocialViewMode.class.getClassLoader());
-		whoCanCommentOnMyPosts = (SocialViewMode) in.readValue(SocialViewMode.class.getClassLoader());
-		whoCanViewCommentsOnMyPosts = (SocialViewMode) in.readValue(SocialViewMode.class.getClassLoader());
 	}
 }

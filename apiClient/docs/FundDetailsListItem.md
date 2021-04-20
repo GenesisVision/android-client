@@ -7,6 +7,7 @@ Name | Type | Description | Notes
 **logoUrl** | **String** |  |  [optional]
 **url** | **String** |  |  [optional]
 **color** | **String** |  |  [optional]
+**index** | **Integer** |  |  [optional]
 **title** | **String** |  |  [optional]
 **description** | **String** |  |  [optional]
 **creationDate** | [**DateTime**](DateTime.md) |  |  [optional]

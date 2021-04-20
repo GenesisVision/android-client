@@ -34,6 +34,15 @@ public enum Color
 	PURPLE("Purple"),
 	BLACK("Black");
 
+	public static Color fromValue(String text) {
+		for (Color b : Color.values()) {
+			if (String.valueOf(b.value).equals(text)) {
+				return b;
+			}
+		}
+		return null;
+	}
+
 	private String value;
 
 	Color(String value) {
@@ -47,15 +56,6 @@ public enum Color
 	@Override
 	public String toString() {
 		return String.valueOf(value);
-	}
-
-	public static Color fromValue(String text) {
-		for (Color b : Color.values()) {
-			if (String.valueOf(b.value).equals(text)) {
-				return b;
-			}
-		}
-		return null;
 	}
 
 	public static class Adapter extends TypeAdapter<Color>

@@ -30,6 +30,17 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class ReferralFriend implements Parcelable
 {
+	public static final Parcelable.Creator<ReferralFriend> CREATOR = new Parcelable.Creator<ReferralFriend>()
+	{
+		public ReferralFriend createFromParcel(Parcel in) {
+			return new ReferralFriend(in);
+		}
+
+		public ReferralFriend[] newArray(int size) {
+			return new ReferralFriend[size];
+		}
+	};
+
 	@SerializedName("date")
 	private DateTime date = null;
 
@@ -37,6 +48,11 @@ public class ReferralFriend implements Parcelable
 	private String emailMask = null;
 
 	public ReferralFriend() {
+	}
+
+	ReferralFriend(Parcel in) {
+		date = (DateTime) in.readValue(DateTime.class.getClassLoader());
+		emailMask = (String) in.readValue(null);
 	}
 
 	public ReferralFriend date(DateTime date) {
@@ -77,7 +93,6 @@ public class ReferralFriend implements Parcelable
 		this.emailMask = emailMask;
 	}
 
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -95,7 +110,6 @@ public class ReferralFriend implements Parcelable
 	public int hashCode() {
 		return Objects.hash(date, emailMask);
 	}
-
 
 	@Override
 	public String toString() {
@@ -119,29 +133,12 @@ public class ReferralFriend implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
-
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(date);
 		out.writeValue(emailMask);
 	}
 
-	public static final Parcelable.Creator<ReferralFriend> CREATOR = new Parcelable.Creator<ReferralFriend>()
-	{
-		public ReferralFriend createFromParcel(Parcel in) {
-			return new ReferralFriend(in);
-		}
-
-		public ReferralFriend[] newArray(int size) {
-			return new ReferralFriend[size];
-		}
-	};
-
 	public int describeContents() {
 		return 0;
-	}
-
-	ReferralFriend(Parcel in) {
-		date = (DateTime) in.readValue(DateTime.class.getClassLoader());
-		emailMask = (String) in.readValue(null);
 	}
 }

@@ -28,6 +28,17 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class ResetPasswordViewModel implements Parcelable
 {
+	public static final Parcelable.Creator<ResetPasswordViewModel> CREATOR = new Parcelable.Creator<ResetPasswordViewModel>()
+	{
+		public ResetPasswordViewModel createFromParcel(Parcel in) {
+			return new ResetPasswordViewModel(in);
+		}
+
+		public ResetPasswordViewModel[] newArray(int size) {
+			return new ResetPasswordViewModel[size];
+		}
+	};
+
 	@SerializedName("userId")
 	private String userId = null;
 
@@ -41,6 +52,13 @@ public class ResetPasswordViewModel implements Parcelable
 	private String confirmPassword = null;
 
 	public ResetPasswordViewModel() {
+	}
+
+	ResetPasswordViewModel(Parcel in) {
+		userId = (String) in.readValue(null);
+		code = (String) in.readValue(null);
+		password = (String) in.readValue(null);
+		confirmPassword = (String) in.readValue(null);
 	}
 
 	public ResetPasswordViewModel userId(String userId) {
@@ -119,7 +137,6 @@ public class ResetPasswordViewModel implements Parcelable
 		this.confirmPassword = confirmPassword;
 	}
 
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -139,7 +156,6 @@ public class ResetPasswordViewModel implements Parcelable
 	public int hashCode() {
 		return Objects.hash(userId, code, password, confirmPassword);
 	}
-
 
 	@Override
 	public String toString() {
@@ -165,7 +181,6 @@ public class ResetPasswordViewModel implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
-
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(userId);
 		out.writeValue(code);
@@ -173,25 +188,7 @@ public class ResetPasswordViewModel implements Parcelable
 		out.writeValue(confirmPassword);
 	}
 
-	public static final Parcelable.Creator<ResetPasswordViewModel> CREATOR = new Parcelable.Creator<ResetPasswordViewModel>()
-	{
-		public ResetPasswordViewModel createFromParcel(Parcel in) {
-			return new ResetPasswordViewModel(in);
-		}
-
-		public ResetPasswordViewModel[] newArray(int size) {
-			return new ResetPasswordViewModel[size];
-		}
-	};
-
 	public int describeContents() {
 		return 0;
-	}
-
-	ResetPasswordViewModel(Parcel in) {
-		userId = (String) in.readValue(null);
-		code = (String) in.readValue(null);
-		password = (String) in.readValue(null);
-		confirmPassword = (String) in.readValue(null);
 	}
 }

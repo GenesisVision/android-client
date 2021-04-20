@@ -28,6 +28,17 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class LevelInfo implements Parcelable
 {
+	public static final Parcelable.Creator<LevelInfo> CREATOR = new Parcelable.Creator<LevelInfo>()
+	{
+		public LevelInfo createFromParcel(Parcel in) {
+			return new LevelInfo(in);
+		}
+
+		public LevelInfo[] newArray(int size) {
+			return new LevelInfo[size];
+		}
+	};
+
 	@SerializedName("level")
 	private Integer level = null;
 
@@ -35,6 +46,11 @@ public class LevelInfo implements Parcelable
 	private Double investmentLimit = null;
 
 	public LevelInfo() {
+	}
+
+	LevelInfo(Parcel in) {
+		level = (Integer) in.readValue(null);
+		investmentLimit = (Double) in.readValue(null);
 	}
 
 	public LevelInfo level(Integer level) {
@@ -75,7 +91,6 @@ public class LevelInfo implements Parcelable
 		this.investmentLimit = investmentLimit;
 	}
 
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -93,7 +108,6 @@ public class LevelInfo implements Parcelable
 	public int hashCode() {
 		return Objects.hash(level, investmentLimit);
 	}
-
 
 	@Override
 	public String toString() {
@@ -117,29 +131,12 @@ public class LevelInfo implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
-
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(level);
 		out.writeValue(investmentLimit);
 	}
 
-	public static final Parcelable.Creator<LevelInfo> CREATOR = new Parcelable.Creator<LevelInfo>()
-	{
-		public LevelInfo createFromParcel(Parcel in) {
-			return new LevelInfo(in);
-		}
-
-		public LevelInfo[] newArray(int size) {
-			return new LevelInfo[size];
-		}
-	};
-
 	public int describeContents() {
 		return 0;
-	}
-
-	LevelInfo(Parcel in) {
-		level = (Integer) in.readValue(null);
-		investmentLimit = (Double) in.readValue(null);
 	}
 }

@@ -31,6 +31,17 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class NewFundRequest implements Parcelable
 {
+	public static final Parcelable.Creator<NewFundRequest> CREATOR = new Parcelable.Creator<NewFundRequest>()
+	{
+		public NewFundRequest createFromParcel(Parcel in) {
+			return new NewFundRequest(in);
+		}
+
+		public NewFundRequest[] newArray(int size) {
+			return new NewFundRequest[size];
+		}
+	};
+
 	@SerializedName("title")
 	private String title = null;
 
@@ -56,6 +67,17 @@ public class NewFundRequest implements Parcelable
 	private UUID depositWalletId = null;
 
 	public NewFundRequest() {
+	}
+
+	NewFundRequest(Parcel in) {
+		title = (String) in.readValue(null);
+		description = (String) in.readValue(null);
+		logo = (String) in.readValue(null);
+		assets = (List<FundAssetPart>) in.readValue(FundAssetPart.class.getClassLoader());
+		entryFee = (Double) in.readValue(null);
+		exitFee = (Double) in.readValue(null);
+		depositAmount = (Double) in.readValue(null);
+		depositWalletId = (UUID) in.readValue(UUID.class.getClassLoader());
 	}
 
 	public NewFundRequest title(String title) {
@@ -218,7 +240,6 @@ public class NewFundRequest implements Parcelable
 		this.depositWalletId = depositWalletId;
 	}
 
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -242,7 +263,6 @@ public class NewFundRequest implements Parcelable
 	public int hashCode() {
 		return Objects.hash(title, description, logo, assets, entryFee, exitFee, depositAmount, depositWalletId);
 	}
-
 
 	@Override
 	public String toString() {
@@ -272,7 +292,6 @@ public class NewFundRequest implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
-
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(title);
 		out.writeValue(description);
@@ -284,29 +303,7 @@ public class NewFundRequest implements Parcelable
 		out.writeValue(depositWalletId);
 	}
 
-	public static final Parcelable.Creator<NewFundRequest> CREATOR = new Parcelable.Creator<NewFundRequest>()
-	{
-		public NewFundRequest createFromParcel(Parcel in) {
-			return new NewFundRequest(in);
-		}
-
-		public NewFundRequest[] newArray(int size) {
-			return new NewFundRequest[size];
-		}
-	};
-
 	public int describeContents() {
 		return 0;
-	}
-
-	NewFundRequest(Parcel in) {
-		title = (String) in.readValue(null);
-		description = (String) in.readValue(null);
-		logo = (String) in.readValue(null);
-		assets = (List<FundAssetPart>) in.readValue(FundAssetPart.class.getClassLoader());
-		entryFee = (Double) in.readValue(null);
-		exitFee = (Double) in.readValue(null);
-		depositAmount = (Double) in.readValue(null);
-		depositWalletId = (UUID) in.readValue(UUID.class.getClassLoader());
 	}
 }

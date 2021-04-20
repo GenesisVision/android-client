@@ -30,6 +30,17 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class ExchangeInfo implements Parcelable
 {
+	public static final Parcelable.Creator<ExchangeInfo> CREATOR = new Parcelable.Creator<ExchangeInfo>()
+	{
+		public ExchangeInfo createFromParcel(Parcel in) {
+			return new ExchangeInfo(in);
+		}
+
+		public ExchangeInfo[] newArray(int size) {
+			return new ExchangeInfo[size];
+		}
+	};
+
 	@SerializedName("name")
 	private String name = null;
 
@@ -58,6 +69,18 @@ public class ExchangeInfo implements Parcelable
 	private List<Tag> tags = null;
 
 	public ExchangeInfo() {
+	}
+
+	ExchangeInfo(Parcel in) {
+		name = (String) in.readValue(null);
+		description = (String) in.readValue(null);
+		logoUrl = (String) in.readValue(null);
+		terms = (String) in.readValue(null);
+		assets = (String) in.readValue(null);
+		fee = (Double) in.readValue(null);
+		isKycRequired = (Boolean) in.readValue(null);
+		accountTypes = (List<ExchangeAccountType>) in.readValue(ExchangeAccountType.class.getClassLoader());
+		tags = (List<Tag>) in.readValue(Tag.class.getClassLoader());
 	}
 
 	public ExchangeInfo name(String name) {
@@ -238,7 +261,6 @@ public class ExchangeInfo implements Parcelable
 		this.tags = tags;
 	}
 
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -263,7 +285,6 @@ public class ExchangeInfo implements Parcelable
 	public int hashCode() {
 		return Objects.hash(name, description, logoUrl, terms, assets, fee, isKycRequired, accountTypes, tags);
 	}
-
 
 	@Override
 	public String toString() {
@@ -294,7 +315,6 @@ public class ExchangeInfo implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
-
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(name);
 		out.writeValue(description);
@@ -307,30 +327,7 @@ public class ExchangeInfo implements Parcelable
 		out.writeValue(tags);
 	}
 
-	public static final Parcelable.Creator<ExchangeInfo> CREATOR = new Parcelable.Creator<ExchangeInfo>()
-	{
-		public ExchangeInfo createFromParcel(Parcel in) {
-			return new ExchangeInfo(in);
-		}
-
-		public ExchangeInfo[] newArray(int size) {
-			return new ExchangeInfo[size];
-		}
-	};
-
 	public int describeContents() {
 		return 0;
-	}
-
-	ExchangeInfo(Parcel in) {
-		name = (String) in.readValue(null);
-		description = (String) in.readValue(null);
-		logoUrl = (String) in.readValue(null);
-		terms = (String) in.readValue(null);
-		assets = (String) in.readValue(null);
-		fee = (Double) in.readValue(null);
-		isKycRequired = (Boolean) in.readValue(null);
-		accountTypes = (List<ExchangeAccountType>) in.readValue(ExchangeAccountType.class.getClassLoader());
-		tags = (List<Tag>) in.readValue(Tag.class.getClassLoader());
 	}
 }

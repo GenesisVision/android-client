@@ -32,6 +32,17 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class BinanceRawFuturesCompositeIndexInfo implements Parcelable
 {
+	public static final Parcelable.Creator<BinanceRawFuturesCompositeIndexInfo> CREATOR = new Parcelable.Creator<BinanceRawFuturesCompositeIndexInfo>()
+	{
+		public BinanceRawFuturesCompositeIndexInfo createFromParcel(Parcel in) {
+			return new BinanceRawFuturesCompositeIndexInfo(in);
+		}
+
+		public BinanceRawFuturesCompositeIndexInfo[] newArray(int size) {
+			return new BinanceRawFuturesCompositeIndexInfo[size];
+		}
+	};
+
 	@SerializedName("symbol")
 	private String symbol = null;
 
@@ -42,6 +53,12 @@ public class BinanceRawFuturesCompositeIndexInfo implements Parcelable
 	private List<BinanceRawFuturesCompositeIndexInfoAsset> baseAssets = null;
 
 	public BinanceRawFuturesCompositeIndexInfo() {
+	}
+
+	BinanceRawFuturesCompositeIndexInfo(Parcel in) {
+		symbol = (String) in.readValue(null);
+		timestamp = (DateTime) in.readValue(DateTime.class.getClassLoader());
+		baseAssets = (List<BinanceRawFuturesCompositeIndexInfoAsset>) in.readValue(BinanceRawFuturesCompositeIndexInfoAsset.class.getClassLoader());
 	}
 
 	public BinanceRawFuturesCompositeIndexInfo symbol(String symbol) {
@@ -109,7 +126,6 @@ public class BinanceRawFuturesCompositeIndexInfo implements Parcelable
 		this.baseAssets = baseAssets;
 	}
 
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -128,7 +144,6 @@ public class BinanceRawFuturesCompositeIndexInfo implements Parcelable
 	public int hashCode() {
 		return Objects.hash(symbol, timestamp, baseAssets);
 	}
-
 
 	@Override
 	public String toString() {
@@ -153,31 +168,13 @@ public class BinanceRawFuturesCompositeIndexInfo implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
-
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(symbol);
 		out.writeValue(timestamp);
 		out.writeValue(baseAssets);
 	}
 
-	public static final Parcelable.Creator<BinanceRawFuturesCompositeIndexInfo> CREATOR = new Parcelable.Creator<BinanceRawFuturesCompositeIndexInfo>()
-	{
-		public BinanceRawFuturesCompositeIndexInfo createFromParcel(Parcel in) {
-			return new BinanceRawFuturesCompositeIndexInfo(in);
-		}
-
-		public BinanceRawFuturesCompositeIndexInfo[] newArray(int size) {
-			return new BinanceRawFuturesCompositeIndexInfo[size];
-		}
-	};
-
 	public int describeContents() {
 		return 0;
-	}
-
-	BinanceRawFuturesCompositeIndexInfo(Parcel in) {
-		symbol = (String) in.readValue(null);
-		timestamp = (DateTime) in.readValue(DateTime.class.getClassLoader());
-		baseAssets = (List<BinanceRawFuturesCompositeIndexInfoAsset>) in.readValue(BinanceRawFuturesCompositeIndexInfoAsset.class.getClassLoader());
 	}
 }

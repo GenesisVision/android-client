@@ -28,6 +28,17 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class InvestorFinancialStatistic implements Parcelable
 {
+	public static final Parcelable.Creator<InvestorFinancialStatistic> CREATOR = new Parcelable.Creator<InvestorFinancialStatistic>()
+	{
+		public InvestorFinancialStatistic createFromParcel(Parcel in) {
+			return new InvestorFinancialStatistic(in);
+		}
+
+		public InvestorFinancialStatistic[] newArray(int size) {
+			return new InvestorFinancialStatistic[size];
+		}
+	};
+
 	@SerializedName("profit")
 	private Double profit = null;
 
@@ -50,6 +61,16 @@ public class InvestorFinancialStatistic implements Parcelable
 	private Double platformSuccessFee = null;
 
 	public InvestorFinancialStatistic() {
+	}
+
+	InvestorFinancialStatistic(Parcel in) {
+		profit = (Double) in.readValue(null);
+		balance = (Double) in.readValue(null);
+		deposits = (Double) in.readValue(null);
+		withdrawals = (Double) in.readValue(null);
+		managerManagementFee = (Double) in.readValue(null);
+		managerSuccessFee = (Double) in.readValue(null);
+		platformSuccessFee = (Double) in.readValue(null);
 	}
 
 	public InvestorFinancialStatistic profit(Double profit) {
@@ -185,7 +206,6 @@ public class InvestorFinancialStatistic implements Parcelable
 		this.platformSuccessFee = platformSuccessFee;
 	}
 
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -208,7 +228,6 @@ public class InvestorFinancialStatistic implements Parcelable
 	public int hashCode() {
 		return Objects.hash(profit, balance, deposits, withdrawals, managerManagementFee, managerSuccessFee, platformSuccessFee);
 	}
-
 
 	@Override
 	public String toString() {
@@ -237,7 +256,6 @@ public class InvestorFinancialStatistic implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
-
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(profit);
 		out.writeValue(balance);
@@ -248,28 +266,7 @@ public class InvestorFinancialStatistic implements Parcelable
 		out.writeValue(platformSuccessFee);
 	}
 
-	public static final Parcelable.Creator<InvestorFinancialStatistic> CREATOR = new Parcelable.Creator<InvestorFinancialStatistic>()
-	{
-		public InvestorFinancialStatistic createFromParcel(Parcel in) {
-			return new InvestorFinancialStatistic(in);
-		}
-
-		public InvestorFinancialStatistic[] newArray(int size) {
-			return new InvestorFinancialStatistic[size];
-		}
-	};
-
 	public int describeContents() {
 		return 0;
-	}
-
-	InvestorFinancialStatistic(Parcel in) {
-		profit = (Double) in.readValue(null);
-		balance = (Double) in.readValue(null);
-		deposits = (Double) in.readValue(null);
-		withdrawals = (Double) in.readValue(null);
-		managerManagementFee = (Double) in.readValue(null);
-		managerSuccessFee = (Double) in.readValue(null);
-		platformSuccessFee = (Double) in.readValue(null);
 	}
 }

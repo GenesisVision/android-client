@@ -33,6 +33,17 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class OrderSignalProgramInfo implements Parcelable
 {
+	public static final Parcelable.Creator<OrderSignalProgramInfo> CREATOR = new Parcelable.Creator<OrderSignalProgramInfo>()
+	{
+		public OrderSignalProgramInfo createFromParcel(Parcel in) {
+			return new OrderSignalProgramInfo(in);
+		}
+
+		public OrderSignalProgramInfo[] newArray(int size) {
+			return new OrderSignalProgramInfo[size];
+		}
+	};
+
 	@SerializedName("manager")
 	private ProfilePublic manager = null;
 
@@ -58,6 +69,17 @@ public class OrderSignalProgramInfo implements Parcelable
 	private List<OrderSignalFee> fees = null;
 
 	public OrderSignalProgramInfo() {
+	}
+
+	OrderSignalProgramInfo(Parcel in) {
+		manager = (ProfilePublic) in.readValue(ProfilePublic.class.getClassLoader());
+		program = (OrderProgramData) in.readValue(OrderProgramData.class.getClassLoader());
+		programId = (UUID) in.readValue(UUID.class.getClassLoader());
+		volume = (Double) in.readValue(null);
+		priceOpenAvg = (Double) in.readValue(null);
+		profit = (Double) in.readValue(null);
+		firstOrderDate = (DateTime) in.readValue(DateTime.class.getClassLoader());
+		fees = (List<OrderSignalFee>) in.readValue(OrderSignalFee.class.getClassLoader());
 	}
 
 	public OrderSignalProgramInfo manager(ProfilePublic manager) {
@@ -220,7 +242,6 @@ public class OrderSignalProgramInfo implements Parcelable
 		this.fees = fees;
 	}
 
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -244,7 +265,6 @@ public class OrderSignalProgramInfo implements Parcelable
 	public int hashCode() {
 		return Objects.hash(manager, program, programId, volume, priceOpenAvg, profit, firstOrderDate, fees);
 	}
-
 
 	@Override
 	public String toString() {
@@ -274,7 +294,6 @@ public class OrderSignalProgramInfo implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
-
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(manager);
 		out.writeValue(program);
@@ -286,29 +305,7 @@ public class OrderSignalProgramInfo implements Parcelable
 		out.writeValue(fees);
 	}
 
-	public static final Parcelable.Creator<OrderSignalProgramInfo> CREATOR = new Parcelable.Creator<OrderSignalProgramInfo>()
-	{
-		public OrderSignalProgramInfo createFromParcel(Parcel in) {
-			return new OrderSignalProgramInfo(in);
-		}
-
-		public OrderSignalProgramInfo[] newArray(int size) {
-			return new OrderSignalProgramInfo[size];
-		}
-	};
-
 	public int describeContents() {
 		return 0;
-	}
-
-	OrderSignalProgramInfo(Parcel in) {
-		manager = (ProfilePublic) in.readValue(ProfilePublic.class.getClassLoader());
-		program = (OrderProgramData) in.readValue(OrderProgramData.class.getClassLoader());
-		programId = (UUID) in.readValue(UUID.class.getClassLoader());
-		volume = (Double) in.readValue(null);
-		priceOpenAvg = (Double) in.readValue(null);
-		profit = (Double) in.readValue(null);
-		firstOrderDate = (DateTime) in.readValue(DateTime.class.getClassLoader());
-		fees = (List<OrderSignalFee>) in.readValue(OrderSignalFee.class.getClassLoader());
 	}
 }

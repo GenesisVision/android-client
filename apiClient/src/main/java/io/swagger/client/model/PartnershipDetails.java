@@ -28,6 +28,17 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class PartnershipDetails implements Parcelable
 {
+	public static final Parcelable.Creator<PartnershipDetails> CREATOR = new Parcelable.Creator<PartnershipDetails>()
+	{
+		public PartnershipDetails createFromParcel(Parcel in) {
+			return new PartnershipDetails(in);
+		}
+
+		public PartnershipDetails[] newArray(int size) {
+			return new PartnershipDetails[size];
+		}
+	};
+
 	@SerializedName("totalReferralsL1")
 	private Integer totalReferralsL1 = null;
 
@@ -38,6 +49,12 @@ public class PartnershipDetails implements Parcelable
 	private Double totalAmount = null;
 
 	public PartnershipDetails() {
+	}
+
+	PartnershipDetails(Parcel in) {
+		totalReferralsL1 = (Integer) in.readValue(null);
+		totalReferralsL2 = (Integer) in.readValue(null);
+		totalAmount = (Double) in.readValue(null);
 	}
 
 	public PartnershipDetails totalReferralsL1(Integer totalReferralsL1) {
@@ -97,7 +114,6 @@ public class PartnershipDetails implements Parcelable
 		this.totalAmount = totalAmount;
 	}
 
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -116,7 +132,6 @@ public class PartnershipDetails implements Parcelable
 	public int hashCode() {
 		return Objects.hash(totalReferralsL1, totalReferralsL2, totalAmount);
 	}
-
 
 	@Override
 	public String toString() {
@@ -141,31 +156,13 @@ public class PartnershipDetails implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
-
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(totalReferralsL1);
 		out.writeValue(totalReferralsL2);
 		out.writeValue(totalAmount);
 	}
 
-	public static final Parcelable.Creator<PartnershipDetails> CREATOR = new Parcelable.Creator<PartnershipDetails>()
-	{
-		public PartnershipDetails createFromParcel(Parcel in) {
-			return new PartnershipDetails(in);
-		}
-
-		public PartnershipDetails[] newArray(int size) {
-			return new PartnershipDetails[size];
-		}
-	};
-
 	public int describeContents() {
 		return 0;
-	}
-
-	PartnershipDetails(Parcel in) {
-		totalReferralsL1 = (Integer) in.readValue(null);
-		totalReferralsL2 = (Integer) in.readValue(null);
-		totalAmount = (Double) in.readValue(null);
 	}
 }

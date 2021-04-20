@@ -30,6 +30,17 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class BinanceRawFuturesMarkPrice implements Parcelable
 {
+	public static final Parcelable.Creator<BinanceRawFuturesMarkPrice> CREATOR = new Parcelable.Creator<BinanceRawFuturesMarkPrice>()
+	{
+		public BinanceRawFuturesMarkPrice createFromParcel(Parcel in) {
+			return new BinanceRawFuturesMarkPrice(in);
+		}
+
+		public BinanceRawFuturesMarkPrice[] newArray(int size) {
+			return new BinanceRawFuturesMarkPrice[size];
+		}
+	};
+
 	@SerializedName("symbol")
 	private String symbol = null;
 
@@ -46,6 +57,14 @@ public class BinanceRawFuturesMarkPrice implements Parcelable
 	private DateTime time = null;
 
 	public BinanceRawFuturesMarkPrice() {
+	}
+
+	BinanceRawFuturesMarkPrice(Parcel in) {
+		symbol = (String) in.readValue(null);
+		markPrice = (Double) in.readValue(null);
+		fundingRate = (Double) in.readValue(null);
+		nextFundingTime = (DateTime) in.readValue(DateTime.class.getClassLoader());
+		time = (DateTime) in.readValue(DateTime.class.getClassLoader());
 	}
 
 	public BinanceRawFuturesMarkPrice symbol(String symbol) {
@@ -143,7 +162,6 @@ public class BinanceRawFuturesMarkPrice implements Parcelable
 		this.time = time;
 	}
 
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -164,7 +182,6 @@ public class BinanceRawFuturesMarkPrice implements Parcelable
 	public int hashCode() {
 		return Objects.hash(symbol, markPrice, fundingRate, nextFundingTime, time);
 	}
-
 
 	@Override
 	public String toString() {
@@ -191,7 +208,6 @@ public class BinanceRawFuturesMarkPrice implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
-
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(symbol);
 		out.writeValue(markPrice);
@@ -200,26 +216,7 @@ public class BinanceRawFuturesMarkPrice implements Parcelable
 		out.writeValue(time);
 	}
 
-	public static final Parcelable.Creator<BinanceRawFuturesMarkPrice> CREATOR = new Parcelable.Creator<BinanceRawFuturesMarkPrice>()
-	{
-		public BinanceRawFuturesMarkPrice createFromParcel(Parcel in) {
-			return new BinanceRawFuturesMarkPrice(in);
-		}
-
-		public BinanceRawFuturesMarkPrice[] newArray(int size) {
-			return new BinanceRawFuturesMarkPrice[size];
-		}
-	};
-
 	public int describeContents() {
 		return 0;
-	}
-
-	BinanceRawFuturesMarkPrice(Parcel in) {
-		symbol = (String) in.readValue(null);
-		markPrice = (Double) in.readValue(null);
-		fundingRate = (Double) in.readValue(null);
-		nextFundingTime = (DateTime) in.readValue(DateTime.class.getClassLoader());
-		time = (DateTime) in.readValue(DateTime.class.getClassLoader());
 	}
 }

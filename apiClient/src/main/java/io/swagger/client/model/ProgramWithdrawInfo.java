@@ -30,6 +30,17 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class ProgramWithdrawInfo implements Parcelable
 {
+	public static final Parcelable.Creator<ProgramWithdrawInfo> CREATOR = new Parcelable.Creator<ProgramWithdrawInfo>()
+	{
+		public ProgramWithdrawInfo createFromParcel(Parcel in) {
+			return new ProgramWithdrawInfo(in);
+		}
+
+		public ProgramWithdrawInfo[] newArray(int size) {
+			return new ProgramWithdrawInfo[size];
+		}
+	};
+
 	@SerializedName("title")
 	private String title = null;
 
@@ -49,6 +60,15 @@ public class ProgramWithdrawInfo implements Parcelable
 	private Boolean withdrawInPercent = null;
 
 	public ProgramWithdrawInfo() {
+	}
+
+	ProgramWithdrawInfo(Parcel in) {
+		title = (String) in.readValue(null);
+		availableToWithdraw = (Double) in.readValue(null);
+		isOwner = (Boolean) in.readValue(null);
+		withheldInvestment = (Double) in.readValue(null);
+		periodEnds = (DateTime) in.readValue(DateTime.class.getClassLoader());
+		withdrawInPercent = (Boolean) in.readValue(null);
 	}
 
 	public ProgramWithdrawInfo title(String title) {
@@ -165,7 +185,6 @@ public class ProgramWithdrawInfo implements Parcelable
 		this.withdrawInPercent = withdrawInPercent;
 	}
 
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -187,7 +206,6 @@ public class ProgramWithdrawInfo implements Parcelable
 	public int hashCode() {
 		return Objects.hash(title, availableToWithdraw, isOwner, withheldInvestment, periodEnds, withdrawInPercent);
 	}
-
 
 	@Override
 	public String toString() {
@@ -215,7 +233,6 @@ public class ProgramWithdrawInfo implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
-
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(title);
 		out.writeValue(availableToWithdraw);
@@ -225,27 +242,7 @@ public class ProgramWithdrawInfo implements Parcelable
 		out.writeValue(withdrawInPercent);
 	}
 
-	public static final Parcelable.Creator<ProgramWithdrawInfo> CREATOR = new Parcelable.Creator<ProgramWithdrawInfo>()
-	{
-		public ProgramWithdrawInfo createFromParcel(Parcel in) {
-			return new ProgramWithdrawInfo(in);
-		}
-
-		public ProgramWithdrawInfo[] newArray(int size) {
-			return new ProgramWithdrawInfo[size];
-		}
-	};
-
 	public int describeContents() {
 		return 0;
-	}
-
-	ProgramWithdrawInfo(Parcel in) {
-		title = (String) in.readValue(null);
-		availableToWithdraw = (Double) in.readValue(null);
-		isOwner = (Boolean) in.readValue(null);
-		withheldInvestment = (Double) in.readValue(null);
-		periodEnds = (DateTime) in.readValue(DateTime.class.getClassLoader());
-		withdrawInPercent = (Boolean) in.readValue(null);
 	}
 }

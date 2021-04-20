@@ -28,6 +28,17 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class PublicProfilePersonalDetails implements Parcelable
 {
+	public static final Parcelable.Creator<PublicProfilePersonalDetails> CREATOR = new Parcelable.Creator<PublicProfilePersonalDetails>()
+	{
+		public PublicProfilePersonalDetails createFromParcel(Parcel in) {
+			return new PublicProfilePersonalDetails(in);
+		}
+
+		public PublicProfilePersonalDetails[] newArray(int size) {
+			return new PublicProfilePersonalDetails[size];
+		}
+	};
+
 	@SerializedName("isFollow")
 	private Boolean isFollow = null;
 
@@ -41,6 +52,13 @@ public class PublicProfilePersonalDetails implements Parcelable
 	private Boolean canCommentPosts = null;
 
 	public PublicProfilePersonalDetails() {
+	}
+
+	PublicProfilePersonalDetails(Parcel in) {
+		isFollow = (Boolean) in.readValue(null);
+		canWritePost = (Boolean) in.readValue(null);
+		allowFollow = (Boolean) in.readValue(null);
+		canCommentPosts = (Boolean) in.readValue(null);
 	}
 
 	public PublicProfilePersonalDetails isFollow(Boolean isFollow) {
@@ -119,7 +137,6 @@ public class PublicProfilePersonalDetails implements Parcelable
 		this.canCommentPosts = canCommentPosts;
 	}
 
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -139,7 +156,6 @@ public class PublicProfilePersonalDetails implements Parcelable
 	public int hashCode() {
 		return Objects.hash(isFollow, canWritePost, allowFollow, canCommentPosts);
 	}
-
 
 	@Override
 	public String toString() {
@@ -165,7 +181,6 @@ public class PublicProfilePersonalDetails implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
-
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(isFollow);
 		out.writeValue(canWritePost);
@@ -173,25 +188,7 @@ public class PublicProfilePersonalDetails implements Parcelable
 		out.writeValue(canCommentPosts);
 	}
 
-	public static final Parcelable.Creator<PublicProfilePersonalDetails> CREATOR = new Parcelable.Creator<PublicProfilePersonalDetails>()
-	{
-		public PublicProfilePersonalDetails createFromParcel(Parcel in) {
-			return new PublicProfilePersonalDetails(in);
-		}
-
-		public PublicProfilePersonalDetails[] newArray(int size) {
-			return new PublicProfilePersonalDetails[size];
-		}
-	};
-
 	public int describeContents() {
 		return 0;
-	}
-
-	PublicProfilePersonalDetails(Parcel in) {
-		isFollow = (Boolean) in.readValue(null);
-		canWritePost = (Boolean) in.readValue(null);
-		allowFollow = (Boolean) in.readValue(null);
-		canCommentPosts = (Boolean) in.readValue(null);
 	}
 }

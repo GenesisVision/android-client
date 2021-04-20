@@ -29,6 +29,17 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class FundInvestingDetailsListItemsViewModel implements Parcelable
 {
+	public static final Parcelable.Creator<FundInvestingDetailsListItemsViewModel> CREATOR = new Parcelable.Creator<FundInvestingDetailsListItemsViewModel>()
+	{
+		public FundInvestingDetailsListItemsViewModel createFromParcel(Parcel in) {
+			return new FundInvestingDetailsListItemsViewModel(in);
+		}
+
+		public FundInvestingDetailsListItemsViewModel[] newArray(int size) {
+			return new FundInvestingDetailsListItemsViewModel[size];
+		}
+	};
+
 	@SerializedName("items")
 	private List<FundInvestingDetailsList> items = null;
 
@@ -36,6 +47,11 @@ public class FundInvestingDetailsListItemsViewModel implements Parcelable
 	private Integer total = null;
 
 	public FundInvestingDetailsListItemsViewModel() {
+	}
+
+	FundInvestingDetailsListItemsViewModel(Parcel in) {
+		items = (List<FundInvestingDetailsList>) in.readValue(FundInvestingDetailsList.class.getClassLoader());
+		total = (Integer) in.readValue(null);
 	}
 
 	/**
@@ -58,7 +74,6 @@ public class FundInvestingDetailsListItemsViewModel implements Parcelable
 		return total;
 	}
 
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -76,7 +91,6 @@ public class FundInvestingDetailsListItemsViewModel implements Parcelable
 	public int hashCode() {
 		return Objects.hash(items, total);
 	}
-
 
 	@Override
 	public String toString() {
@@ -100,29 +114,12 @@ public class FundInvestingDetailsListItemsViewModel implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
-
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(items);
 		out.writeValue(total);
 	}
 
-	public static final Parcelable.Creator<FundInvestingDetailsListItemsViewModel> CREATOR = new Parcelable.Creator<FundInvestingDetailsListItemsViewModel>()
-	{
-		public FundInvestingDetailsListItemsViewModel createFromParcel(Parcel in) {
-			return new FundInvestingDetailsListItemsViewModel(in);
-		}
-
-		public FundInvestingDetailsListItemsViewModel[] newArray(int size) {
-			return new FundInvestingDetailsListItemsViewModel[size];
-		}
-	};
-
 	public int describeContents() {
 		return 0;
-	}
-
-	FundInvestingDetailsListItemsViewModel(Parcel in) {
-		items = (List<FundInvestingDetailsList>) in.readValue(FundInvestingDetailsList.class.getClassLoader());
-		total = (Integer) in.readValue(null);
 	}
 }

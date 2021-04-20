@@ -28,6 +28,17 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class EventFilters implements Parcelable
 {
+	public static final Parcelable.Creator<EventFilters> CREATOR = new Parcelable.Creator<EventFilters>()
+	{
+		public EventFilters createFromParcel(Parcel in) {
+			return new EventFilters(in);
+		}
+
+		public EventFilters[] newArray(int size) {
+			return new EventFilters[size];
+		}
+	};
+
 	@SerializedName("investmentHistory")
 	private EventInvestingItemFilters investmentHistory = null;
 
@@ -35,6 +46,11 @@ public class EventFilters implements Parcelable
 	private EventTradingItemFilters tradingHistory = null;
 
 	public EventFilters() {
+	}
+
+	EventFilters(Parcel in) {
+		investmentHistory = (EventInvestingItemFilters) in.readValue(EventInvestingItemFilters.class.getClassLoader());
+		tradingHistory = (EventTradingItemFilters) in.readValue(EventTradingItemFilters.class.getClassLoader());
 	}
 
 	public EventFilters investmentHistory(EventInvestingItemFilters investmentHistory) {
@@ -75,7 +91,6 @@ public class EventFilters implements Parcelable
 		this.tradingHistory = tradingHistory;
 	}
 
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -93,7 +108,6 @@ public class EventFilters implements Parcelable
 	public int hashCode() {
 		return Objects.hash(investmentHistory, tradingHistory);
 	}
-
 
 	@Override
 	public String toString() {
@@ -117,29 +131,12 @@ public class EventFilters implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
-
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(investmentHistory);
 		out.writeValue(tradingHistory);
 	}
 
-	public static final Parcelable.Creator<EventFilters> CREATOR = new Parcelable.Creator<EventFilters>()
-	{
-		public EventFilters createFromParcel(Parcel in) {
-			return new EventFilters(in);
-		}
-
-		public EventFilters[] newArray(int size) {
-			return new EventFilters[size];
-		}
-	};
-
 	public int describeContents() {
 		return 0;
-	}
-
-	EventFilters(Parcel in) {
-		investmentHistory = (EventInvestingItemFilters) in.readValue(EventInvestingItemFilters.class.getClassLoader());
-		tradingHistory = (EventTradingItemFilters) in.readValue(EventTradingItemFilters.class.getClassLoader());
 	}
 }

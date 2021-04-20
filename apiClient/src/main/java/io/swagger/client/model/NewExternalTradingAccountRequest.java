@@ -29,6 +29,17 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class NewExternalTradingAccountRequest implements Parcelable
 {
+	public static final Parcelable.Creator<NewExternalTradingAccountRequest> CREATOR = new Parcelable.Creator<NewExternalTradingAccountRequest>()
+	{
+		public NewExternalTradingAccountRequest createFromParcel(Parcel in) {
+			return new NewExternalTradingAccountRequest(in);
+		}
+
+		public NewExternalTradingAccountRequest[] newArray(int size) {
+			return new NewExternalTradingAccountRequest[size];
+		}
+	};
+
 	@SerializedName("brokerAccountTypeId")
 	private UUID brokerAccountTypeId = null;
 
@@ -39,6 +50,12 @@ public class NewExternalTradingAccountRequest implements Parcelable
 	private String secret = null;
 
 	public NewExternalTradingAccountRequest() {
+	}
+
+	NewExternalTradingAccountRequest(Parcel in) {
+		brokerAccountTypeId = (UUID) in.readValue(UUID.class.getClassLoader());
+		key = (String) in.readValue(null);
+		secret = (String) in.readValue(null);
 	}
 
 	public NewExternalTradingAccountRequest brokerAccountTypeId(UUID brokerAccountTypeId) {
@@ -98,7 +115,6 @@ public class NewExternalTradingAccountRequest implements Parcelable
 		this.secret = secret;
 	}
 
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -117,7 +133,6 @@ public class NewExternalTradingAccountRequest implements Parcelable
 	public int hashCode() {
 		return Objects.hash(brokerAccountTypeId, key, secret);
 	}
-
 
 	@Override
 	public String toString() {
@@ -142,31 +157,13 @@ public class NewExternalTradingAccountRequest implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
-
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(brokerAccountTypeId);
 		out.writeValue(key);
 		out.writeValue(secret);
 	}
 
-	public static final Parcelable.Creator<NewExternalTradingAccountRequest> CREATOR = new Parcelable.Creator<NewExternalTradingAccountRequest>()
-	{
-		public NewExternalTradingAccountRequest createFromParcel(Parcel in) {
-			return new NewExternalTradingAccountRequest(in);
-		}
-
-		public NewExternalTradingAccountRequest[] newArray(int size) {
-			return new NewExternalTradingAccountRequest[size];
-		}
-	};
-
 	public int describeContents() {
 		return 0;
-	}
-
-	NewExternalTradingAccountRequest(Parcel in) {
-		brokerAccountTypeId = (UUID) in.readValue(UUID.class.getClassLoader());
-		key = (String) in.readValue(null);
-		secret = (String) in.readValue(null);
 	}
 }

@@ -29,6 +29,17 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class BinanceRawOrderItemsViewModel implements Parcelable
 {
+	public static final Parcelable.Creator<BinanceRawOrderItemsViewModel> CREATOR = new Parcelable.Creator<BinanceRawOrderItemsViewModel>()
+	{
+		public BinanceRawOrderItemsViewModel createFromParcel(Parcel in) {
+			return new BinanceRawOrderItemsViewModel(in);
+		}
+
+		public BinanceRawOrderItemsViewModel[] newArray(int size) {
+			return new BinanceRawOrderItemsViewModel[size];
+		}
+	};
+
 	@SerializedName("items")
 	private List<BinanceRawOrder> items = null;
 
@@ -36,6 +47,11 @@ public class BinanceRawOrderItemsViewModel implements Parcelable
 	private Integer total = null;
 
 	public BinanceRawOrderItemsViewModel() {
+	}
+
+	BinanceRawOrderItemsViewModel(Parcel in) {
+		items = (List<BinanceRawOrder>) in.readValue(BinanceRawOrder.class.getClassLoader());
+		total = (Integer) in.readValue(null);
 	}
 
 	/**
@@ -58,7 +74,6 @@ public class BinanceRawOrderItemsViewModel implements Parcelable
 		return total;
 	}
 
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -76,7 +91,6 @@ public class BinanceRawOrderItemsViewModel implements Parcelable
 	public int hashCode() {
 		return Objects.hash(items, total);
 	}
-
 
 	@Override
 	public String toString() {
@@ -100,29 +114,12 @@ public class BinanceRawOrderItemsViewModel implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
-
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(items);
 		out.writeValue(total);
 	}
 
-	public static final Parcelable.Creator<BinanceRawOrderItemsViewModel> CREATOR = new Parcelable.Creator<BinanceRawOrderItemsViewModel>()
-	{
-		public BinanceRawOrderItemsViewModel createFromParcel(Parcel in) {
-			return new BinanceRawOrderItemsViewModel(in);
-		}
-
-		public BinanceRawOrderItemsViewModel[] newArray(int size) {
-			return new BinanceRawOrderItemsViewModel[size];
-		}
-	};
-
 	public int describeContents() {
 		return 0;
-	}
-
-	BinanceRawOrderItemsViewModel(Parcel in) {
-		items = (List<BinanceRawOrder>) in.readValue(BinanceRawOrder.class.getClassLoader());
-		total = (Integer) in.readValue(null);
 	}
 }

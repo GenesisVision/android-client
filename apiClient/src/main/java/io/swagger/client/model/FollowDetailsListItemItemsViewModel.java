@@ -29,6 +29,17 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class FollowDetailsListItemItemsViewModel implements Parcelable
 {
+	public static final Parcelable.Creator<FollowDetailsListItemItemsViewModel> CREATOR = new Parcelable.Creator<FollowDetailsListItemItemsViewModel>()
+	{
+		public FollowDetailsListItemItemsViewModel createFromParcel(Parcel in) {
+			return new FollowDetailsListItemItemsViewModel(in);
+		}
+
+		public FollowDetailsListItemItemsViewModel[] newArray(int size) {
+			return new FollowDetailsListItemItemsViewModel[size];
+		}
+	};
+
 	@SerializedName("items")
 	private List<FollowDetailsListItem> items = null;
 
@@ -36,6 +47,11 @@ public class FollowDetailsListItemItemsViewModel implements Parcelable
 	private Integer total = null;
 
 	public FollowDetailsListItemItemsViewModel() {
+	}
+
+	FollowDetailsListItemItemsViewModel(Parcel in) {
+		items = (List<FollowDetailsListItem>) in.readValue(FollowDetailsListItem.class.getClassLoader());
+		total = (Integer) in.readValue(null);
 	}
 
 	/**
@@ -58,7 +74,6 @@ public class FollowDetailsListItemItemsViewModel implements Parcelable
 		return total;
 	}
 
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -76,7 +91,6 @@ public class FollowDetailsListItemItemsViewModel implements Parcelable
 	public int hashCode() {
 		return Objects.hash(items, total);
 	}
-
 
 	@Override
 	public String toString() {
@@ -100,29 +114,12 @@ public class FollowDetailsListItemItemsViewModel implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
-
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(items);
 		out.writeValue(total);
 	}
 
-	public static final Parcelable.Creator<FollowDetailsListItemItemsViewModel> CREATOR = new Parcelable.Creator<FollowDetailsListItemItemsViewModel>()
-	{
-		public FollowDetailsListItemItemsViewModel createFromParcel(Parcel in) {
-			return new FollowDetailsListItemItemsViewModel(in);
-		}
-
-		public FollowDetailsListItemItemsViewModel[] newArray(int size) {
-			return new FollowDetailsListItemItemsViewModel[size];
-		}
-	};
-
 	public int describeContents() {
 		return 0;
-	}
-
-	FollowDetailsListItemItemsViewModel(Parcel in) {
-		items = (List<FollowDetailsListItem>) in.readValue(FollowDetailsListItem.class.getClassLoader());
-		total = (Integer) in.readValue(null);
 	}
 }

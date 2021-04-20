@@ -2,6 +2,7 @@ package io.swagger.client.api;//retrofit2
 
 import io.swagger.client.model.ChangePasswordViewModel;
 import io.swagger.client.model.ForgotPasswordViewModel;
+import io.swagger.client.model.LoginSignViewModel;
 import io.swagger.client.model.LoginViewModel;
 import io.swagger.client.model.PasswordModel;
 import io.swagger.client.model.RecoveryCodesViewModel;
@@ -32,6 +33,20 @@ public interface AuthApi
 	@POST("v2.0/auth/signin")
 	Observable<String> authorize(
 			@retrofit2.http.Body LoginViewModel body
+	);
+
+	/**
+	 * Authorize by signature
+	 *
+	 * @param body (optional)
+	 * @return Call&lt;String&gt;
+	 */
+	@Headers({
+			"Content-Type:application/json"
+	})
+	@POST("v2.0/auth/signature/signin")
+	Observable<String> authorizeBySignature(
+			@retrofit2.http.Body LoginSignViewModel body
 	);
 
 	/**

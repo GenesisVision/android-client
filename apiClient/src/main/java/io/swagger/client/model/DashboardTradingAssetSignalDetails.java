@@ -28,10 +28,25 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class DashboardTradingAssetSignalDetails implements Parcelable
 {
+	public static final Parcelable.Creator<DashboardTradingAssetSignalDetails> CREATOR = new Parcelable.Creator<DashboardTradingAssetSignalDetails>()
+	{
+		public DashboardTradingAssetSignalDetails createFromParcel(Parcel in) {
+			return new DashboardTradingAssetSignalDetails(in);
+		}
+
+		public DashboardTradingAssetSignalDetails[] newArray(int size) {
+			return new DashboardTradingAssetSignalDetails[size];
+		}
+	};
+
 	@SerializedName("subscribersCount")
 	private Integer subscribersCount = null;
 
 	public DashboardTradingAssetSignalDetails() {
+	}
+
+	DashboardTradingAssetSignalDetails(Parcel in) {
+		subscribersCount = (Integer) in.readValue(null);
 	}
 
 	public DashboardTradingAssetSignalDetails subscribersCount(Integer subscribersCount) {
@@ -53,7 +68,6 @@ public class DashboardTradingAssetSignalDetails implements Parcelable
 		this.subscribersCount = subscribersCount;
 	}
 
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -70,7 +84,6 @@ public class DashboardTradingAssetSignalDetails implements Parcelable
 	public int hashCode() {
 		return Objects.hash(subscribersCount);
 	}
-
 
 	@Override
 	public String toString() {
@@ -93,27 +106,11 @@ public class DashboardTradingAssetSignalDetails implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
-
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(subscribersCount);
 	}
 
-	public static final Parcelable.Creator<DashboardTradingAssetSignalDetails> CREATOR = new Parcelable.Creator<DashboardTradingAssetSignalDetails>()
-	{
-		public DashboardTradingAssetSignalDetails createFromParcel(Parcel in) {
-			return new DashboardTradingAssetSignalDetails(in);
-		}
-
-		public DashboardTradingAssetSignalDetails[] newArray(int size) {
-			return new DashboardTradingAssetSignalDetails[size];
-		}
-	};
-
 	public int describeContents() {
 		return 0;
-	}
-
-	DashboardTradingAssetSignalDetails(Parcel in) {
-		subscribersCount = (Integer) in.readValue(null);
 	}
 }

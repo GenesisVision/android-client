@@ -32,7 +32,17 @@ public enum Currency
 	USDT("USDT"),
 	BNB("BNB"),
 	USDC("USDC"),
+	DAI("DAI"),
 	USD("USD");
+
+	public static Currency fromValue(String text) {
+		for (Currency b : Currency.values()) {
+			if (String.valueOf(b.value).equals(text)) {
+				return b;
+			}
+		}
+		return null;
+	}
 
 	private String value;
 
@@ -47,15 +57,6 @@ public enum Currency
 	@Override
 	public String toString() {
 		return String.valueOf(value);
-	}
-
-	public static Currency fromValue(String text) {
-		for (Currency b : Currency.values()) {
-			if (String.valueOf(b.value).equals(text)) {
-				return b;
-			}
-		}
-		return null;
 	}
 
 	public static class Adapter extends TypeAdapter<Currency>

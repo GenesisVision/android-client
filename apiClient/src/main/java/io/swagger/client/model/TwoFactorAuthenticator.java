@@ -28,6 +28,17 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class TwoFactorAuthenticator implements Parcelable
 {
+	public static final Parcelable.Creator<TwoFactorAuthenticator> CREATOR = new Parcelable.Creator<TwoFactorAuthenticator>()
+	{
+		public TwoFactorAuthenticator createFromParcel(Parcel in) {
+			return new TwoFactorAuthenticator(in);
+		}
+
+		public TwoFactorAuthenticator[] newArray(int size) {
+			return new TwoFactorAuthenticator[size];
+		}
+	};
+
 	@SerializedName("sharedKey")
 	private String sharedKey = null;
 
@@ -35,6 +46,11 @@ public class TwoFactorAuthenticator implements Parcelable
 	private String authenticatorUri = null;
 
 	public TwoFactorAuthenticator() {
+	}
+
+	TwoFactorAuthenticator(Parcel in) {
+		sharedKey = (String) in.readValue(null);
+		authenticatorUri = (String) in.readValue(null);
 	}
 
 	public TwoFactorAuthenticator sharedKey(String sharedKey) {
@@ -75,7 +91,6 @@ public class TwoFactorAuthenticator implements Parcelable
 		this.authenticatorUri = authenticatorUri;
 	}
 
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -93,7 +108,6 @@ public class TwoFactorAuthenticator implements Parcelable
 	public int hashCode() {
 		return Objects.hash(sharedKey, authenticatorUri);
 	}
-
 
 	@Override
 	public String toString() {
@@ -117,29 +131,12 @@ public class TwoFactorAuthenticator implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
-
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(sharedKey);
 		out.writeValue(authenticatorUri);
 	}
 
-	public static final Parcelable.Creator<TwoFactorAuthenticator> CREATOR = new Parcelable.Creator<TwoFactorAuthenticator>()
-	{
-		public TwoFactorAuthenticator createFromParcel(Parcel in) {
-			return new TwoFactorAuthenticator(in);
-		}
-
-		public TwoFactorAuthenticator[] newArray(int size) {
-			return new TwoFactorAuthenticator[size];
-		}
-	};
-
 	public int describeContents() {
 		return 0;
-	}
-
-	TwoFactorAuthenticator(Parcel in) {
-		sharedKey = (String) in.readValue(null);
-		authenticatorUri = (String) in.readValue(null);
 	}
 }

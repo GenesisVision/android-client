@@ -30,6 +30,17 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class UsersPlatformInfo implements Parcelable
 {
+	public static final Parcelable.Creator<UsersPlatformInfo> CREATOR = new Parcelable.Creator<UsersPlatformInfo>()
+	{
+		public UsersPlatformInfo createFromParcel(Parcel in) {
+			return new UsersPlatformInfo(in);
+		}
+
+		public UsersPlatformInfo[] newArray(int size) {
+			return new UsersPlatformInfo[size];
+		}
+	};
+
 	@SerializedName("tags")
 	private List<Tag> tags = null;
 
@@ -40,6 +51,12 @@ public class UsersPlatformInfo implements Parcelable
 	private List<UsersSocialLinkInfo> socialLinkTypes = null;
 
 	public UsersPlatformInfo() {
+	}
+
+	UsersPlatformInfo(Parcel in) {
+		tags = (List<Tag>) in.readValue(Tag.class.getClassLoader());
+		availableBetaFeatures = (List<BetaTestingType>) in.readValue(BetaTestingType.class.getClassLoader());
+		socialLinkTypes = (List<UsersSocialLinkInfo>) in.readValue(UsersSocialLinkInfo.class.getClassLoader());
 	}
 
 	public UsersPlatformInfo tags(List<Tag> tags) {
@@ -123,7 +140,6 @@ public class UsersPlatformInfo implements Parcelable
 		this.socialLinkTypes = socialLinkTypes;
 	}
 
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -142,7 +158,6 @@ public class UsersPlatformInfo implements Parcelable
 	public int hashCode() {
 		return Objects.hash(tags, availableBetaFeatures, socialLinkTypes);
 	}
-
 
 	@Override
 	public String toString() {
@@ -167,31 +182,13 @@ public class UsersPlatformInfo implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
-
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(tags);
 		out.writeValue(availableBetaFeatures);
 		out.writeValue(socialLinkTypes);
 	}
 
-	public static final Parcelable.Creator<UsersPlatformInfo> CREATOR = new Parcelable.Creator<UsersPlatformInfo>()
-	{
-		public UsersPlatformInfo createFromParcel(Parcel in) {
-			return new UsersPlatformInfo(in);
-		}
-
-		public UsersPlatformInfo[] newArray(int size) {
-			return new UsersPlatformInfo[size];
-		}
-	};
-
 	public int describeContents() {
 		return 0;
-	}
-
-	UsersPlatformInfo(Parcel in) {
-		tags = (List<Tag>) in.readValue(Tag.class.getClassLoader());
-		availableBetaFeatures = (List<BetaTestingType>) in.readValue(BetaTestingType.class.getClassLoader());
-		socialLinkTypes = (List<UsersSocialLinkInfo>) in.readValue(UsersSocialLinkInfo.class.getClassLoader());
 	}
 }

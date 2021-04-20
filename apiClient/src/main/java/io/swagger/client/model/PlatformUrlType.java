@@ -30,6 +30,15 @@ public enum PlatformUrlType
 	FOLLOW("Follow"),
 	USER("User");
 
+	public static PlatformUrlType fromValue(String text) {
+		for (PlatformUrlType b : PlatformUrlType.values()) {
+			if (String.valueOf(b.value).equals(text)) {
+				return b;
+			}
+		}
+		return null;
+	}
+
 	private String value;
 
 	PlatformUrlType(String value) {
@@ -43,15 +52,6 @@ public enum PlatformUrlType
 	@Override
 	public String toString() {
 		return String.valueOf(value);
-	}
-
-	public static PlatformUrlType fromValue(String text) {
-		for (PlatformUrlType b : PlatformUrlType.values()) {
-			if (String.valueOf(b.value).equals(text)) {
-				return b;
-			}
-		}
-		return null;
 	}
 
 	public static class Adapter extends TypeAdapter<PlatformUrlType>

@@ -28,6 +28,15 @@ public enum BinanceWorkingType
 	MARK("Mark"),
 	CONTRACT("Contract");
 
+	public static BinanceWorkingType fromValue(String text) {
+		for (BinanceWorkingType b : BinanceWorkingType.values()) {
+			if (String.valueOf(b.value).equals(text)) {
+				return b;
+			}
+		}
+		return null;
+	}
+
 	private String value;
 
 	BinanceWorkingType(String value) {
@@ -41,15 +50,6 @@ public enum BinanceWorkingType
 	@Override
 	public String toString() {
 		return String.valueOf(value);
-	}
-
-	public static BinanceWorkingType fromValue(String text) {
-		for (BinanceWorkingType b : BinanceWorkingType.values()) {
-			if (String.valueOf(b.value).equals(text)) {
-				return b;
-			}
-		}
-		return null;
 	}
 
 	public static class Adapter extends TypeAdapter<BinanceWorkingType>

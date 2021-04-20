@@ -29,6 +29,17 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class TradingAccountCreateResult implements Parcelable
 {
+	public static final Parcelable.Creator<TradingAccountCreateResult> CREATOR = new Parcelable.Creator<TradingAccountCreateResult>()
+	{
+		public TradingAccountCreateResult createFromParcel(Parcel in) {
+			return new TradingAccountCreateResult(in);
+		}
+
+		public TradingAccountCreateResult[] newArray(int size) {
+			return new TradingAccountCreateResult[size];
+		}
+	};
+
 	@SerializedName("id")
 	private UUID id = null;
 
@@ -42,6 +53,13 @@ public class TradingAccountCreateResult implements Parcelable
 	private Double startDeposit = null;
 
 	public TradingAccountCreateResult() {
+	}
+
+	TradingAccountCreateResult(Parcel in) {
+		id = (UUID) in.readValue(UUID.class.getClassLoader());
+		twoFactorRequired = (Boolean) in.readValue(null);
+		twoFactor = (TwoFactorAuthenticator) in.readValue(TwoFactorAuthenticator.class.getClassLoader());
+		startDeposit = (Double) in.readValue(null);
 	}
 
 	public TradingAccountCreateResult id(UUID id) {
@@ -120,7 +138,6 @@ public class TradingAccountCreateResult implements Parcelable
 		this.startDeposit = startDeposit;
 	}
 
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -140,7 +157,6 @@ public class TradingAccountCreateResult implements Parcelable
 	public int hashCode() {
 		return Objects.hash(id, twoFactorRequired, twoFactor, startDeposit);
 	}
-
 
 	@Override
 	public String toString() {
@@ -166,7 +182,6 @@ public class TradingAccountCreateResult implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
-
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(id);
 		out.writeValue(twoFactorRequired);
@@ -174,25 +189,7 @@ public class TradingAccountCreateResult implements Parcelable
 		out.writeValue(startDeposit);
 	}
 
-	public static final Parcelable.Creator<TradingAccountCreateResult> CREATOR = new Parcelable.Creator<TradingAccountCreateResult>()
-	{
-		public TradingAccountCreateResult createFromParcel(Parcel in) {
-			return new TradingAccountCreateResult(in);
-		}
-
-		public TradingAccountCreateResult[] newArray(int size) {
-			return new TradingAccountCreateResult[size];
-		}
-	};
-
 	public int describeContents() {
 		return 0;
-	}
-
-	TradingAccountCreateResult(Parcel in) {
-		id = (UUID) in.readValue(UUID.class.getClassLoader());
-		twoFactorRequired = (Boolean) in.readValue(null);
-		twoFactor = (TwoFactorAuthenticator) in.readValue(TwoFactorAuthenticator.class.getClassLoader());
-		startDeposit = (Double) in.readValue(null);
 	}
 }

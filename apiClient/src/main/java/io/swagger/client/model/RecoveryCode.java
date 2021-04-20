@@ -28,6 +28,17 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class RecoveryCode implements Parcelable
 {
+	public static final Parcelable.Creator<RecoveryCode> CREATOR = new Parcelable.Creator<RecoveryCode>()
+	{
+		public RecoveryCode createFromParcel(Parcel in) {
+			return new RecoveryCode(in);
+		}
+
+		public RecoveryCode[] newArray(int size) {
+			return new RecoveryCode[size];
+		}
+	};
+
 	@SerializedName("code")
 	private String code = null;
 
@@ -35,6 +46,11 @@ public class RecoveryCode implements Parcelable
 	private Boolean isActive = null;
 
 	public RecoveryCode() {
+	}
+
+	RecoveryCode(Parcel in) {
+		code = (String) in.readValue(null);
+		isActive = (Boolean) in.readValue(null);
 	}
 
 	public RecoveryCode code(String code) {
@@ -75,7 +91,6 @@ public class RecoveryCode implements Parcelable
 		this.isActive = isActive;
 	}
 
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -93,7 +108,6 @@ public class RecoveryCode implements Parcelable
 	public int hashCode() {
 		return Objects.hash(code, isActive);
 	}
-
 
 	@Override
 	public String toString() {
@@ -117,29 +131,12 @@ public class RecoveryCode implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
-
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(code);
 		out.writeValue(isActive);
 	}
 
-	public static final Parcelable.Creator<RecoveryCode> CREATOR = new Parcelable.Creator<RecoveryCode>()
-	{
-		public RecoveryCode createFromParcel(Parcel in) {
-			return new RecoveryCode(in);
-		}
-
-		public RecoveryCode[] newArray(int size) {
-			return new RecoveryCode[size];
-		}
-	};
-
 	public int describeContents() {
 		return 0;
-	}
-
-	RecoveryCode(Parcel in) {
-		code = (String) in.readValue(null);
-		isActive = (Boolean) in.readValue(null);
 	}
 }

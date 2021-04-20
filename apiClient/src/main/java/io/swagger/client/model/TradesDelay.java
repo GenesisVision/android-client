@@ -32,6 +32,15 @@ public enum TradesDelay
 	ONEHOUR("OneHour"),
 	SIXHOURS("SixHours");
 
+	public static TradesDelay fromValue(String text) {
+		for (TradesDelay b : TradesDelay.values()) {
+			if (String.valueOf(b.value).equals(text)) {
+				return b;
+			}
+		}
+		return null;
+	}
+
 	private String value;
 
 	TradesDelay(String value) {
@@ -45,15 +54,6 @@ public enum TradesDelay
 	@Override
 	public String toString() {
 		return String.valueOf(value);
-	}
-
-	public static TradesDelay fromValue(String text) {
-		for (TradesDelay b : TradesDelay.values()) {
-			if (String.valueOf(b.value).equals(text)) {
-				return b;
-			}
-		}
-		return null;
 	}
 
 	public static class Adapter extends TypeAdapter<TradesDelay>

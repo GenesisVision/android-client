@@ -46,6 +46,15 @@ public enum ProgramsFilterSorting
 	BYVALUEASC("ByValueAsc"),
 	BYVALUEDESC("ByValueDesc");
 
+	public static ProgramsFilterSorting fromValue(String text) {
+		for (ProgramsFilterSorting b : ProgramsFilterSorting.values()) {
+			if (String.valueOf(b.value).equals(text)) {
+				return b;
+			}
+		}
+		return null;
+	}
+
 	private String value;
 
 	ProgramsFilterSorting(String value) {
@@ -59,15 +68,6 @@ public enum ProgramsFilterSorting
 	@Override
 	public String toString() {
 		return String.valueOf(value);
-	}
-
-	public static ProgramsFilterSorting fromValue(String text) {
-		for (ProgramsFilterSorting b : ProgramsFilterSorting.values()) {
-			if (String.valueOf(b.value).equals(text)) {
-				return b;
-			}
-		}
-		return null;
 	}
 
 	public static class Adapter extends TypeAdapter<ProgramsFilterSorting>

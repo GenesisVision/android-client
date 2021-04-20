@@ -29,6 +29,17 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class UserDetailsListItemsViewModel implements Parcelable
 {
+	public static final Parcelable.Creator<UserDetailsListItemsViewModel> CREATOR = new Parcelable.Creator<UserDetailsListItemsViewModel>()
+	{
+		public UserDetailsListItemsViewModel createFromParcel(Parcel in) {
+			return new UserDetailsListItemsViewModel(in);
+		}
+
+		public UserDetailsListItemsViewModel[] newArray(int size) {
+			return new UserDetailsListItemsViewModel[size];
+		}
+	};
+
 	@SerializedName("items")
 	private List<UserDetailsList> items = null;
 
@@ -36,6 +47,11 @@ public class UserDetailsListItemsViewModel implements Parcelable
 	private Integer total = null;
 
 	public UserDetailsListItemsViewModel() {
+	}
+
+	UserDetailsListItemsViewModel(Parcel in) {
+		items = (List<UserDetailsList>) in.readValue(UserDetailsList.class.getClassLoader());
+		total = (Integer) in.readValue(null);
 	}
 
 	/**
@@ -58,7 +74,6 @@ public class UserDetailsListItemsViewModel implements Parcelable
 		return total;
 	}
 
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -76,7 +91,6 @@ public class UserDetailsListItemsViewModel implements Parcelable
 	public int hashCode() {
 		return Objects.hash(items, total);
 	}
-
 
 	@Override
 	public String toString() {
@@ -100,29 +114,12 @@ public class UserDetailsListItemsViewModel implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
-
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(items);
 		out.writeValue(total);
 	}
 
-	public static final Parcelable.Creator<UserDetailsListItemsViewModel> CREATOR = new Parcelable.Creator<UserDetailsListItemsViewModel>()
-	{
-		public UserDetailsListItemsViewModel createFromParcel(Parcel in) {
-			return new UserDetailsListItemsViewModel(in);
-		}
-
-		public UserDetailsListItemsViewModel[] newArray(int size) {
-			return new UserDetailsListItemsViewModel[size];
-		}
-	};
-
 	public int describeContents() {
 		return 0;
-	}
-
-	UserDetailsListItemsViewModel(Parcel in) {
-		items = (List<UserDetailsList>) in.readValue(UserDetailsList.class.getClassLoader());
-		total = (Integer) in.readValue(null);
 	}
 }

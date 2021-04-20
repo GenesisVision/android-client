@@ -30,6 +30,17 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class AssetPublicDetails implements Parcelable
 {
+	public static final Parcelable.Creator<AssetPublicDetails> CREATOR = new Parcelable.Creator<AssetPublicDetails>()
+	{
+		public AssetPublicDetails createFromParcel(Parcel in) {
+			return new AssetPublicDetails(in);
+		}
+
+		public AssetPublicDetails[] newArray(int size) {
+			return new AssetPublicDetails[size];
+		}
+	};
+
 	@SerializedName("title")
 	private String title = null;
 
@@ -48,6 +59,9 @@ public class AssetPublicDetails implements Parcelable
 	@SerializedName("color")
 	private String color = null;
 
+	@SerializedName("index")
+	private Integer index = null;
+
 	@SerializedName("creationDate")
 	private DateTime creationDate = null;
 
@@ -64,6 +78,21 @@ public class AssetPublicDetails implements Parcelable
 	private String systemUrl = null;
 
 	public AssetPublicDetails() {
+	}
+
+	AssetPublicDetails(Parcel in) {
+		title = (String) in.readValue(null);
+		description = (String) in.readValue(null);
+		logo = (String) in.readValue(null);
+		logoUrl = (String) in.readValue(null);
+		url = (String) in.readValue(null);
+		color = (String) in.readValue(null);
+		index = (Integer) in.readValue(null);
+		creationDate = (DateTime) in.readValue(DateTime.class.getClassLoader());
+		status = (String) in.readValue(null);
+		isOwnAsset = (Boolean) in.readValue(null);
+		typeExt = (AssetTypeExt) in.readValue(AssetTypeExt.class.getClassLoader());
+		systemUrl = (String) in.readValue(null);
 	}
 
 	public AssetPublicDetails title(String title) {
@@ -180,6 +209,25 @@ public class AssetPublicDetails implements Parcelable
 		this.color = color;
 	}
 
+	public AssetPublicDetails index(Integer index) {
+		this.index = index;
+		return this;
+	}
+
+	/**
+	 * Get index
+	 *
+	 * @return index
+	 **/
+	@Schema(description = "")
+	public Integer getIndex() {
+		return index;
+	}
+
+	public void setIndex(Integer index) {
+		this.index = index;
+	}
+
 	public AssetPublicDetails creationDate(DateTime creationDate) {
 		this.creationDate = creationDate;
 		return this;
@@ -275,7 +323,6 @@ public class AssetPublicDetails implements Parcelable
 		this.systemUrl = systemUrl;
 	}
 
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -291,6 +338,7 @@ public class AssetPublicDetails implements Parcelable
 				Objects.equals(this.logoUrl, assetPublicDetails.logoUrl) &&
 				Objects.equals(this.url, assetPublicDetails.url) &&
 				Objects.equals(this.color, assetPublicDetails.color) &&
+				Objects.equals(this.index, assetPublicDetails.index) &&
 				Objects.equals(this.creationDate, assetPublicDetails.creationDate) &&
 				Objects.equals(this.status, assetPublicDetails.status) &&
 				Objects.equals(this.isOwnAsset, assetPublicDetails.isOwnAsset) &&
@@ -300,9 +348,8 @@ public class AssetPublicDetails implements Parcelable
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(title, description, logo, logoUrl, url, color, creationDate, status, isOwnAsset, typeExt, systemUrl);
+		return Objects.hash(title, description, logo, logoUrl, url, color, index, creationDate, status, isOwnAsset, typeExt, systemUrl);
 	}
-
 
 	@Override
 	public String toString() {
@@ -315,6 +362,7 @@ public class AssetPublicDetails implements Parcelable
 		sb.append("    logoUrl: ").append(toIndentedString(logoUrl)).append("\n");
 		sb.append("    url: ").append(toIndentedString(url)).append("\n");
 		sb.append("    color: ").append(toIndentedString(color)).append("\n");
+		sb.append("    index: ").append(toIndentedString(index)).append("\n");
 		sb.append("    creationDate: ").append(toIndentedString(creationDate)).append("\n");
 		sb.append("    status: ").append(toIndentedString(status)).append("\n");
 		sb.append("    isOwnAsset: ").append(toIndentedString(isOwnAsset)).append("\n");
@@ -335,7 +383,6 @@ public class AssetPublicDetails implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
-
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(title);
 		out.writeValue(description);
@@ -343,6 +390,7 @@ public class AssetPublicDetails implements Parcelable
 		out.writeValue(logoUrl);
 		out.writeValue(url);
 		out.writeValue(color);
+		out.writeValue(index);
 		out.writeValue(creationDate);
 		out.writeValue(status);
 		out.writeValue(isOwnAsset);
@@ -350,32 +398,7 @@ public class AssetPublicDetails implements Parcelable
 		out.writeValue(systemUrl);
 	}
 
-	public static final Parcelable.Creator<AssetPublicDetails> CREATOR = new Parcelable.Creator<AssetPublicDetails>()
-	{
-		public AssetPublicDetails createFromParcel(Parcel in) {
-			return new AssetPublicDetails(in);
-		}
-
-		public AssetPublicDetails[] newArray(int size) {
-			return new AssetPublicDetails[size];
-		}
-	};
-
 	public int describeContents() {
 		return 0;
-	}
-
-	AssetPublicDetails(Parcel in) {
-		title = (String) in.readValue(null);
-		description = (String) in.readValue(null);
-		logo = (String) in.readValue(null);
-		logoUrl = (String) in.readValue(null);
-		url = (String) in.readValue(null);
-		color = (String) in.readValue(null);
-		creationDate = (DateTime) in.readValue(DateTime.class.getClassLoader());
-		status = (String) in.readValue(null);
-		isOwnAsset = (Boolean) in.readValue(null);
-		typeExt = (AssetTypeExt) in.readValue(AssetTypeExt.class.getClassLoader());
-		systemUrl = (String) in.readValue(null);
 	}
 }

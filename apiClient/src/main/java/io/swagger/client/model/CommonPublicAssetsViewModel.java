@@ -28,6 +28,17 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class CommonPublicAssetsViewModel implements Parcelable
 {
+	public static final Parcelable.Creator<CommonPublicAssetsViewModel> CREATOR = new Parcelable.Creator<CommonPublicAssetsViewModel>()
+	{
+		public CommonPublicAssetsViewModel createFromParcel(Parcel in) {
+			return new CommonPublicAssetsViewModel(in);
+		}
+
+		public CommonPublicAssetsViewModel[] newArray(int size) {
+			return new CommonPublicAssetsViewModel[size];
+		}
+	};
+
 	@SerializedName("programs")
 	private ProgramDetailsListItemItemsViewModel programs = null;
 
@@ -41,6 +52,13 @@ public class CommonPublicAssetsViewModel implements Parcelable
 	private PublicProfileItemsViewModel managers = null;
 
 	public CommonPublicAssetsViewModel() {
+	}
+
+	CommonPublicAssetsViewModel(Parcel in) {
+		programs = (ProgramDetailsListItemItemsViewModel) in.readValue(ProgramDetailsListItemItemsViewModel.class.getClassLoader());
+		funds = (FundDetailsListItemItemsViewModel) in.readValue(FundDetailsListItemItemsViewModel.class.getClassLoader());
+		follows = (FollowDetailsListItemItemsViewModel) in.readValue(FollowDetailsListItemItemsViewModel.class.getClassLoader());
+		managers = (PublicProfileItemsViewModel) in.readValue(PublicProfileItemsViewModel.class.getClassLoader());
 	}
 
 	public CommonPublicAssetsViewModel programs(ProgramDetailsListItemItemsViewModel programs) {
@@ -119,7 +137,6 @@ public class CommonPublicAssetsViewModel implements Parcelable
 		this.managers = managers;
 	}
 
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -139,7 +156,6 @@ public class CommonPublicAssetsViewModel implements Parcelable
 	public int hashCode() {
 		return Objects.hash(programs, funds, follows, managers);
 	}
-
 
 	@Override
 	public String toString() {
@@ -165,7 +181,6 @@ public class CommonPublicAssetsViewModel implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
-
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(programs);
 		out.writeValue(funds);
@@ -173,25 +188,7 @@ public class CommonPublicAssetsViewModel implements Parcelable
 		out.writeValue(managers);
 	}
 
-	public static final Parcelable.Creator<CommonPublicAssetsViewModel> CREATOR = new Parcelable.Creator<CommonPublicAssetsViewModel>()
-	{
-		public CommonPublicAssetsViewModel createFromParcel(Parcel in) {
-			return new CommonPublicAssetsViewModel(in);
-		}
-
-		public CommonPublicAssetsViewModel[] newArray(int size) {
-			return new CommonPublicAssetsViewModel[size];
-		}
-	};
-
 	public int describeContents() {
 		return 0;
-	}
-
-	CommonPublicAssetsViewModel(Parcel in) {
-		programs = (ProgramDetailsListItemItemsViewModel) in.readValue(ProgramDetailsListItemItemsViewModel.class.getClassLoader());
-		funds = (FundDetailsListItemItemsViewModel) in.readValue(FundDetailsListItemItemsViewModel.class.getClassLoader());
-		follows = (FollowDetailsListItemItemsViewModel) in.readValue(FollowDetailsListItemItemsViewModel.class.getClassLoader());
-		managers = (PublicProfileItemsViewModel) in.readValue(PublicProfileItemsViewModel.class.getClassLoader());
 	}
 }

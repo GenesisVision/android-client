@@ -30,6 +30,15 @@ public enum NotificationSettingConditionType
 	LEVEL("Level"),
 	AVAILABLETOINVEST("AvailableToInvest");
 
+	public static NotificationSettingConditionType fromValue(String text) {
+		for (NotificationSettingConditionType b : NotificationSettingConditionType.values()) {
+			if (String.valueOf(b.value).equals(text)) {
+				return b;
+			}
+		}
+		return null;
+	}
+
 	private String value;
 
 	NotificationSettingConditionType(String value) {
@@ -43,15 +52,6 @@ public enum NotificationSettingConditionType
 	@Override
 	public String toString() {
 		return String.valueOf(value);
-	}
-
-	public static NotificationSettingConditionType fromValue(String text) {
-		for (NotificationSettingConditionType b : NotificationSettingConditionType.values()) {
-			if (String.valueOf(b.value).equals(text)) {
-				return b;
-			}
-		}
-		return null;
 	}
 
 	public static class Adapter extends TypeAdapter<NotificationSettingConditionType>

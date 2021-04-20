@@ -30,6 +30,17 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class FilterInfo implements Parcelable
 {
+	public static final Parcelable.Creator<FilterInfo> CREATOR = new Parcelable.Creator<FilterInfo>()
+	{
+		public FilterInfo createFromParcel(Parcel in) {
+			return new FilterInfo(in);
+		}
+
+		public FilterInfo[] newArray(int size) {
+			return new FilterInfo[size];
+		}
+	};
+
 	@SerializedName("walletTransactions")
 	private List<FilterItemInfo> walletTransactions = null;
 
@@ -46,6 +57,14 @@ public class FilterInfo implements Parcelable
 	private List<FilterItemInfo> fundsHistoryEvents = null;
 
 	public FilterInfo() {
+	}
+
+	FilterInfo(Parcel in) {
+		walletTransactions = (List<FilterItemInfo>) in.readValue(FilterItemInfo.class.getClassLoader());
+		walletExternalTransactions = (List<FilterItemInfo>) in.readValue(FilterItemInfo.class.getClassLoader());
+		events = (EventFilters) in.readValue(EventFilters.class.getClassLoader());
+		assets = (List<FilterItemInfo>) in.readValue(FilterItemInfo.class.getClassLoader());
+		fundsHistoryEvents = (List<FilterItemInfo>) in.readValue(FilterItemInfo.class.getClassLoader());
 	}
 
 	public FilterInfo walletTransactions(List<FilterItemInfo> walletTransactions) {
@@ -175,7 +194,6 @@ public class FilterInfo implements Parcelable
 		this.fundsHistoryEvents = fundsHistoryEvents;
 	}
 
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -196,7 +214,6 @@ public class FilterInfo implements Parcelable
 	public int hashCode() {
 		return Objects.hash(walletTransactions, walletExternalTransactions, events, assets, fundsHistoryEvents);
 	}
-
 
 	@Override
 	public String toString() {
@@ -223,7 +240,6 @@ public class FilterInfo implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
-
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(walletTransactions);
 		out.writeValue(walletExternalTransactions);
@@ -232,26 +248,7 @@ public class FilterInfo implements Parcelable
 		out.writeValue(fundsHistoryEvents);
 	}
 
-	public static final Parcelable.Creator<FilterInfo> CREATOR = new Parcelable.Creator<FilterInfo>()
-	{
-		public FilterInfo createFromParcel(Parcel in) {
-			return new FilterInfo(in);
-		}
-
-		public FilterInfo[] newArray(int size) {
-			return new FilterInfo[size];
-		}
-	};
-
 	public int describeContents() {
 		return 0;
-	}
-
-	FilterInfo(Parcel in) {
-		walletTransactions = (List<FilterItemInfo>) in.readValue(FilterItemInfo.class.getClassLoader());
-		walletExternalTransactions = (List<FilterItemInfo>) in.readValue(FilterItemInfo.class.getClassLoader());
-		events = (EventFilters) in.readValue(EventFilters.class.getClassLoader());
-		assets = (List<FilterItemInfo>) in.readValue(FilterItemInfo.class.getClassLoader());
-		fundsHistoryEvents = (List<FilterItemInfo>) in.readValue(FilterItemInfo.class.getClassLoader());
 	}
 }

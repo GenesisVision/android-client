@@ -30,6 +30,15 @@ public enum AssetType
 	FUND("Fund"),
 	FOLLOW("Follow");
 
+	public static AssetType fromValue(String text) {
+		for (AssetType b : AssetType.values()) {
+			if (String.valueOf(b.value).equals(text)) {
+				return b;
+			}
+		}
+		return null;
+	}
+
 	private String value;
 
 	AssetType(String value) {
@@ -43,15 +52,6 @@ public enum AssetType
 	@Override
 	public String toString() {
 		return String.valueOf(value);
-	}
-
-	public static AssetType fromValue(String text) {
-		for (AssetType b : AssetType.values()) {
-			if (String.valueOf(b.value).equals(text)) {
-				return b;
-			}
-		}
-		return null;
 	}
 
 	public static class Adapter extends TypeAdapter<AssetType>

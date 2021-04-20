@@ -28,6 +28,17 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class ProgramCreateAssetPlatformInfo implements Parcelable
 {
+	public static final Parcelable.Creator<ProgramCreateAssetPlatformInfo> CREATOR = new Parcelable.Creator<ProgramCreateAssetPlatformInfo>()
+	{
+		public ProgramCreateAssetPlatformInfo createFromParcel(Parcel in) {
+			return new ProgramCreateAssetPlatformInfo(in);
+		}
+
+		public ProgramCreateAssetPlatformInfo[] newArray(int size) {
+			return new ProgramCreateAssetPlatformInfo[size];
+		}
+	};
+
 	@SerializedName("maxSuccessFee")
 	private Double maxSuccessFee = null;
 
@@ -35,6 +46,11 @@ public class ProgramCreateAssetPlatformInfo implements Parcelable
 	private Double maxManagementFee = null;
 
 	public ProgramCreateAssetPlatformInfo() {
+	}
+
+	ProgramCreateAssetPlatformInfo(Parcel in) {
+		maxSuccessFee = (Double) in.readValue(null);
+		maxManagementFee = (Double) in.readValue(null);
 	}
 
 	public ProgramCreateAssetPlatformInfo maxSuccessFee(Double maxSuccessFee) {
@@ -75,7 +91,6 @@ public class ProgramCreateAssetPlatformInfo implements Parcelable
 		this.maxManagementFee = maxManagementFee;
 	}
 
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -93,7 +108,6 @@ public class ProgramCreateAssetPlatformInfo implements Parcelable
 	public int hashCode() {
 		return Objects.hash(maxSuccessFee, maxManagementFee);
 	}
-
 
 	@Override
 	public String toString() {
@@ -117,29 +131,12 @@ public class ProgramCreateAssetPlatformInfo implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
-
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(maxSuccessFee);
 		out.writeValue(maxManagementFee);
 	}
 
-	public static final Parcelable.Creator<ProgramCreateAssetPlatformInfo> CREATOR = new Parcelable.Creator<ProgramCreateAssetPlatformInfo>()
-	{
-		public ProgramCreateAssetPlatformInfo createFromParcel(Parcel in) {
-			return new ProgramCreateAssetPlatformInfo(in);
-		}
-
-		public ProgramCreateAssetPlatformInfo[] newArray(int size) {
-			return new ProgramCreateAssetPlatformInfo[size];
-		}
-	};
-
 	public int describeContents() {
 		return 0;
-	}
-
-	ProgramCreateAssetPlatformInfo(Parcel in) {
-		maxSuccessFee = (Double) in.readValue(null);
-		maxManagementFee = (Double) in.readValue(null);
 	}
 }

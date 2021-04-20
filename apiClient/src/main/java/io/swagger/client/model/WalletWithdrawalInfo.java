@@ -28,6 +28,17 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class WalletWithdrawalInfo implements Parcelable
 {
+	public static final Parcelable.Creator<WalletWithdrawalInfo> CREATOR = new Parcelable.Creator<WalletWithdrawalInfo>()
+	{
+		public WalletWithdrawalInfo createFromParcel(Parcel in) {
+			return new WalletWithdrawalInfo(in);
+		}
+
+		public WalletWithdrawalInfo[] newArray(int size) {
+			return new WalletWithdrawalInfo[size];
+		}
+	};
+
 	@SerializedName("currency")
 	private Currency currency = null;
 
@@ -47,6 +58,15 @@ public class WalletWithdrawalInfo implements Parcelable
 	private Double availableToWithdrawal = null;
 
 	public WalletWithdrawalInfo() {
+	}
+
+	WalletWithdrawalInfo(Parcel in) {
+		currency = (Currency) in.readValue(Currency.class.getClassLoader());
+		description = (String) in.readValue(null);
+		logoUrl = (String) in.readValue(null);
+		commission = (Double) in.readValue(null);
+		rateToGvt = (Double) in.readValue(null);
+		availableToWithdrawal = (Double) in.readValue(null);
 	}
 
 	public WalletWithdrawalInfo currency(Currency currency) {
@@ -163,7 +183,6 @@ public class WalletWithdrawalInfo implements Parcelable
 		this.availableToWithdrawal = availableToWithdrawal;
 	}
 
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -185,7 +204,6 @@ public class WalletWithdrawalInfo implements Parcelable
 	public int hashCode() {
 		return Objects.hash(currency, description, logoUrl, commission, rateToGvt, availableToWithdrawal);
 	}
-
 
 	@Override
 	public String toString() {
@@ -213,7 +231,6 @@ public class WalletWithdrawalInfo implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
-
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(currency);
 		out.writeValue(description);
@@ -223,27 +240,7 @@ public class WalletWithdrawalInfo implements Parcelable
 		out.writeValue(availableToWithdrawal);
 	}
 
-	public static final Parcelable.Creator<WalletWithdrawalInfo> CREATOR = new Parcelable.Creator<WalletWithdrawalInfo>()
-	{
-		public WalletWithdrawalInfo createFromParcel(Parcel in) {
-			return new WalletWithdrawalInfo(in);
-		}
-
-		public WalletWithdrawalInfo[] newArray(int size) {
-			return new WalletWithdrawalInfo[size];
-		}
-	};
-
 	public int describeContents() {
 		return 0;
-	}
-
-	WalletWithdrawalInfo(Parcel in) {
-		currency = (Currency) in.readValue(Currency.class.getClassLoader());
-		description = (String) in.readValue(null);
-		logoUrl = (String) in.readValue(null);
-		commission = (Double) in.readValue(null);
-		rateToGvt = (Double) in.readValue(null);
-		availableToWithdrawal = (Double) in.readValue(null);
 	}
 }

@@ -30,6 +30,17 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class BinanceRawRecentTrade implements Parcelable
 {
+	public static final Parcelable.Creator<BinanceRawRecentTrade> CREATOR = new Parcelable.Creator<BinanceRawRecentTrade>()
+	{
+		public BinanceRawRecentTrade createFromParcel(Parcel in) {
+			return new BinanceRawRecentTrade(in);
+		}
+
+		public BinanceRawRecentTrade[] newArray(int size) {
+			return new BinanceRawRecentTrade[size];
+		}
+	};
+
 	@SerializedName("orderId")
 	private Long orderId = null;
 
@@ -52,6 +63,16 @@ public class BinanceRawRecentTrade implements Parcelable
 	private Boolean isBestMatch = null;
 
 	public BinanceRawRecentTrade() {
+	}
+
+	BinanceRawRecentTrade(Parcel in) {
+		orderId = (Long) in.readValue(null);
+		price = (Double) in.readValue(null);
+		baseQuantity = (Double) in.readValue(null);
+		quoteQuantity = (Double) in.readValue(null);
+		tradeTime = (DateTime) in.readValue(DateTime.class.getClassLoader());
+		buyerIsMaker = (Boolean) in.readValue(null);
+		isBestMatch = (Boolean) in.readValue(null);
 	}
 
 	public BinanceRawRecentTrade orderId(Long orderId) {
@@ -187,7 +208,6 @@ public class BinanceRawRecentTrade implements Parcelable
 		this.isBestMatch = isBestMatch;
 	}
 
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -210,7 +230,6 @@ public class BinanceRawRecentTrade implements Parcelable
 	public int hashCode() {
 		return Objects.hash(orderId, price, baseQuantity, quoteQuantity, tradeTime, buyerIsMaker, isBestMatch);
 	}
-
 
 	@Override
 	public String toString() {
@@ -239,7 +258,6 @@ public class BinanceRawRecentTrade implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
-
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(orderId);
 		out.writeValue(price);
@@ -250,28 +268,7 @@ public class BinanceRawRecentTrade implements Parcelable
 		out.writeValue(isBestMatch);
 	}
 
-	public static final Parcelable.Creator<BinanceRawRecentTrade> CREATOR = new Parcelable.Creator<BinanceRawRecentTrade>()
-	{
-		public BinanceRawRecentTrade createFromParcel(Parcel in) {
-			return new BinanceRawRecentTrade(in);
-		}
-
-		public BinanceRawRecentTrade[] newArray(int size) {
-			return new BinanceRawRecentTrade[size];
-		}
-	};
-
 	public int describeContents() {
 		return 0;
-	}
-
-	BinanceRawRecentTrade(Parcel in) {
-		orderId = (Long) in.readValue(null);
-		price = (Double) in.readValue(null);
-		baseQuantity = (Double) in.readValue(null);
-		quoteQuantity = (Double) in.readValue(null);
-		tradeTime = (DateTime) in.readValue(DateTime.class.getClassLoader());
-		buyerIsMaker = (Boolean) in.readValue(null);
-		isBestMatch = (Boolean) in.readValue(null);
 	}
 }

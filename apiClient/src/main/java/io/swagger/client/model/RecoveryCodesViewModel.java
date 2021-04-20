@@ -30,6 +30,17 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class RecoveryCodesViewModel implements Parcelable
 {
+	public static final Parcelable.Creator<RecoveryCodesViewModel> CREATOR = new Parcelable.Creator<RecoveryCodesViewModel>()
+	{
+		public RecoveryCodesViewModel createFromParcel(Parcel in) {
+			return new RecoveryCodesViewModel(in);
+		}
+
+		public RecoveryCodesViewModel[] newArray(int size) {
+			return new RecoveryCodesViewModel[size];
+		}
+	};
+
 	@SerializedName("codes")
 	private List<RecoveryCode> codes = null;
 
@@ -37,6 +48,11 @@ public class RecoveryCodesViewModel implements Parcelable
 	private String authToken = null;
 
 	public RecoveryCodesViewModel() {
+	}
+
+	RecoveryCodesViewModel(Parcel in) {
+		codes = (List<RecoveryCode>) in.readValue(RecoveryCode.class.getClassLoader());
+		authToken = (String) in.readValue(null);
 	}
 
 	public RecoveryCodesViewModel codes(List<RecoveryCode> codes) {
@@ -85,7 +101,6 @@ public class RecoveryCodesViewModel implements Parcelable
 		this.authToken = authToken;
 	}
 
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -103,7 +118,6 @@ public class RecoveryCodesViewModel implements Parcelable
 	public int hashCode() {
 		return Objects.hash(codes, authToken);
 	}
-
 
 	@Override
 	public String toString() {
@@ -127,29 +141,12 @@ public class RecoveryCodesViewModel implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
-
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(codes);
 		out.writeValue(authToken);
 	}
 
-	public static final Parcelable.Creator<RecoveryCodesViewModel> CREATOR = new Parcelable.Creator<RecoveryCodesViewModel>()
-	{
-		public RecoveryCodesViewModel createFromParcel(Parcel in) {
-			return new RecoveryCodesViewModel(in);
-		}
-
-		public RecoveryCodesViewModel[] newArray(int size) {
-			return new RecoveryCodesViewModel[size];
-		}
-	};
-
 	public int describeContents() {
 		return 0;
-	}
-
-	RecoveryCodesViewModel(Parcel in) {
-		codes = (List<RecoveryCode>) in.readValue(RecoveryCode.class.getClassLoader());
-		authToken = (String) in.readValue(null);
 	}
 }

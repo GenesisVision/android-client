@@ -28,6 +28,17 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class SocialSummaryHashTag implements Parcelable
 {
+	public static final Parcelable.Creator<SocialSummaryHashTag> CREATOR = new Parcelable.Creator<SocialSummaryHashTag>()
+	{
+		public SocialSummaryHashTag createFromParcel(Parcel in) {
+			return new SocialSummaryHashTag(in);
+		}
+
+		public SocialSummaryHashTag[] newArray(int size) {
+			return new SocialSummaryHashTag[size];
+		}
+	};
+
 	@SerializedName("hashTag")
 	private String hashTag = null;
 
@@ -38,6 +49,12 @@ public class SocialSummaryHashTag implements Parcelable
 	private Integer discussCount = null;
 
 	public SocialSummaryHashTag() {
+	}
+
+	SocialSummaryHashTag(Parcel in) {
+		hashTag = (String) in.readValue(null);
+		impressionsCount = (Integer) in.readValue(null);
+		discussCount = (Integer) in.readValue(null);
 	}
 
 	public SocialSummaryHashTag hashTag(String hashTag) {
@@ -97,7 +114,6 @@ public class SocialSummaryHashTag implements Parcelable
 		this.discussCount = discussCount;
 	}
 
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -116,7 +132,6 @@ public class SocialSummaryHashTag implements Parcelable
 	public int hashCode() {
 		return Objects.hash(hashTag, impressionsCount, discussCount);
 	}
-
 
 	@Override
 	public String toString() {
@@ -141,31 +156,13 @@ public class SocialSummaryHashTag implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
-
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(hashTag);
 		out.writeValue(impressionsCount);
 		out.writeValue(discussCount);
 	}
 
-	public static final Parcelable.Creator<SocialSummaryHashTag> CREATOR = new Parcelable.Creator<SocialSummaryHashTag>()
-	{
-		public SocialSummaryHashTag createFromParcel(Parcel in) {
-			return new SocialSummaryHashTag(in);
-		}
-
-		public SocialSummaryHashTag[] newArray(int size) {
-			return new SocialSummaryHashTag[size];
-		}
-	};
-
 	public int describeContents() {
 		return 0;
-	}
-
-	SocialSummaryHashTag(Parcel in) {
-		hashTag = (String) in.readValue(null);
-		impressionsCount = (Integer) in.readValue(null);
-		discussCount = (Integer) in.readValue(null);
 	}
 }

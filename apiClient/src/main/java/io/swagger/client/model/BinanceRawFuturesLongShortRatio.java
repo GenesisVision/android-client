@@ -30,6 +30,17 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class BinanceRawFuturesLongShortRatio implements Parcelable
 {
+	public static final Parcelable.Creator<BinanceRawFuturesLongShortRatio> CREATOR = new Parcelable.Creator<BinanceRawFuturesLongShortRatio>()
+	{
+		public BinanceRawFuturesLongShortRatio createFromParcel(Parcel in) {
+			return new BinanceRawFuturesLongShortRatio(in);
+		}
+
+		public BinanceRawFuturesLongShortRatio[] newArray(int size) {
+			return new BinanceRawFuturesLongShortRatio[size];
+		}
+	};
+
 	@SerializedName("symbol")
 	private String symbol = null;
 
@@ -46,6 +57,14 @@ public class BinanceRawFuturesLongShortRatio implements Parcelable
 	private DateTime timestamp = null;
 
 	public BinanceRawFuturesLongShortRatio() {
+	}
+
+	BinanceRawFuturesLongShortRatio(Parcel in) {
+		symbol = (String) in.readValue(null);
+		longShortRatio = (Double) in.readValue(null);
+		longAccount = (Double) in.readValue(null);
+		shortAccount = (Double) in.readValue(null);
+		timestamp = (DateTime) in.readValue(DateTime.class.getClassLoader());
 	}
 
 	public BinanceRawFuturesLongShortRatio symbol(String symbol) {
@@ -143,7 +162,6 @@ public class BinanceRawFuturesLongShortRatio implements Parcelable
 		this.timestamp = timestamp;
 	}
 
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -164,7 +182,6 @@ public class BinanceRawFuturesLongShortRatio implements Parcelable
 	public int hashCode() {
 		return Objects.hash(symbol, longShortRatio, longAccount, shortAccount, timestamp);
 	}
-
 
 	@Override
 	public String toString() {
@@ -191,7 +208,6 @@ public class BinanceRawFuturesLongShortRatio implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
-
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(symbol);
 		out.writeValue(longShortRatio);
@@ -200,26 +216,7 @@ public class BinanceRawFuturesLongShortRatio implements Parcelable
 		out.writeValue(timestamp);
 	}
 
-	public static final Parcelable.Creator<BinanceRawFuturesLongShortRatio> CREATOR = new Parcelable.Creator<BinanceRawFuturesLongShortRatio>()
-	{
-		public BinanceRawFuturesLongShortRatio createFromParcel(Parcel in) {
-			return new BinanceRawFuturesLongShortRatio(in);
-		}
-
-		public BinanceRawFuturesLongShortRatio[] newArray(int size) {
-			return new BinanceRawFuturesLongShortRatio[size];
-		}
-	};
-
 	public int describeContents() {
 		return 0;
-	}
-
-	BinanceRawFuturesLongShortRatio(Parcel in) {
-		symbol = (String) in.readValue(null);
-		longShortRatio = (Double) in.readValue(null);
-		longAccount = (Double) in.readValue(null);
-		shortAccount = (Double) in.readValue(null);
-		timestamp = (DateTime) in.readValue(DateTime.class.getClassLoader());
 	}
 }

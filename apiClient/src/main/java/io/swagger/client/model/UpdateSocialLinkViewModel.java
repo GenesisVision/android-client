@@ -28,6 +28,17 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class UpdateSocialLinkViewModel implements Parcelable
 {
+	public static final Parcelable.Creator<UpdateSocialLinkViewModel> CREATOR = new Parcelable.Creator<UpdateSocialLinkViewModel>()
+	{
+		public UpdateSocialLinkViewModel createFromParcel(Parcel in) {
+			return new UpdateSocialLinkViewModel(in);
+		}
+
+		public UpdateSocialLinkViewModel[] newArray(int size) {
+			return new UpdateSocialLinkViewModel[size];
+		}
+	};
+
 	@SerializedName("type")
 	private SocialLinkType type = null;
 
@@ -35,6 +46,11 @@ public class UpdateSocialLinkViewModel implements Parcelable
 	private String value = null;
 
 	public UpdateSocialLinkViewModel() {
+	}
+
+	UpdateSocialLinkViewModel(Parcel in) {
+		type = (SocialLinkType) in.readValue(SocialLinkType.class.getClassLoader());
+		value = (String) in.readValue(null);
 	}
 
 	public UpdateSocialLinkViewModel type(SocialLinkType type) {
@@ -75,7 +91,6 @@ public class UpdateSocialLinkViewModel implements Parcelable
 		this.value = value;
 	}
 
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -93,7 +108,6 @@ public class UpdateSocialLinkViewModel implements Parcelable
 	public int hashCode() {
 		return Objects.hash(type, value);
 	}
-
 
 	@Override
 	public String toString() {
@@ -117,29 +131,12 @@ public class UpdateSocialLinkViewModel implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
-
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(type);
 		out.writeValue(value);
 	}
 
-	public static final Parcelable.Creator<UpdateSocialLinkViewModel> CREATOR = new Parcelable.Creator<UpdateSocialLinkViewModel>()
-	{
-		public UpdateSocialLinkViewModel createFromParcel(Parcel in) {
-			return new UpdateSocialLinkViewModel(in);
-		}
-
-		public UpdateSocialLinkViewModel[] newArray(int size) {
-			return new UpdateSocialLinkViewModel[size];
-		}
-	};
-
 	public int describeContents() {
 		return 0;
-	}
-
-	UpdateSocialLinkViewModel(Parcel in) {
-		type = (SocialLinkType) in.readValue(SocialLinkType.class.getClassLoader());
-		value = (String) in.readValue(null);
 	}
 }

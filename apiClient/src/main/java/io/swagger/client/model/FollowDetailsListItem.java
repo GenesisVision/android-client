@@ -33,6 +33,17 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class FollowDetailsListItem implements Parcelable
 {
+	public static final Parcelable.Creator<FollowDetailsListItem> CREATOR = new Parcelable.Creator<FollowDetailsListItem>()
+	{
+		public FollowDetailsListItem createFromParcel(Parcel in) {
+			return new FollowDetailsListItem(in);
+		}
+
+		public FollowDetailsListItem[] newArray(int size) {
+			return new FollowDetailsListItem[size];
+		}
+	};
+
 	@SerializedName("id")
 	private UUID id = null;
 
@@ -75,22 +86,14 @@ public class FollowDetailsListItem implements Parcelable
 	@SerializedName("leverageMax")
 	private Integer leverageMax = null;
 
-	public static final Parcelable.Creator<FollowDetailsListItem> CREATOR = new Parcelable.Creator<FollowDetailsListItem>()
-	{
-		public FollowDetailsListItem createFromParcel(Parcel in) {
-			return new FollowDetailsListItem(in);
-		}
-
-		public FollowDetailsListItem[] newArray(int size) {
-			return new FollowDetailsListItem[size];
-		}
-	};
-
 	@SerializedName("successFee")
 	private Double successFee = null;
 
 	@SerializedName("volumeFee")
 	private Double volumeFee = null;
+
+	@SerializedName("brokerDetails")
+	private BrokerDetails brokerDetails = null;
 
 	@SerializedName("owner")
 	private ProfilePublicShort owner = null;
@@ -108,6 +111,31 @@ public class FollowDetailsListItem implements Parcelable
 	private AmountWithCurrency balance = null;
 
 	public FollowDetailsListItem() {
+	}
+
+	FollowDetailsListItem(Parcel in) {
+		id = (UUID) in.readValue(UUID.class.getClassLoader());
+		title = (String) in.readValue(null);
+		description = (String) in.readValue(null);
+		logoUrl = (String) in.readValue(null);
+		creationDate = (DateTime) in.readValue(DateTime.class.getClassLoader());
+		currency = (Currency) in.readValue(Currency.class.getClassLoader());
+		subscribersCount = (Integer) in.readValue(null);
+		tradesCount = (Integer) in.readValue(null);
+		status = (String) in.readValue(null);
+		url = (String) in.readValue(null);
+		color = (String) in.readValue(null);
+		isExternal = (Boolean) in.readValue(null);
+		leverageMin = (Integer) in.readValue(null);
+		leverageMax = (Integer) in.readValue(null);
+		successFee = (Double) in.readValue(null);
+		volumeFee = (Double) in.readValue(null);
+		brokerDetails = (BrokerDetails) in.readValue(BrokerDetails.class.getClassLoader());
+		owner = (ProfilePublicShort) in.readValue(ProfilePublicShort.class.getClassLoader());
+		statistic = (ProfitChart) in.readValue(ProfitChart.class.getClassLoader());
+		personalDetails = (PersonalFollowDetailsList) in.readValue(PersonalFollowDetailsList.class.getClassLoader());
+		tags = (List<Tag>) in.readValue(Tag.class.getClassLoader());
+		balance = (AmountWithCurrency) in.readValue(AmountWithCurrency.class.getClassLoader());
 	}
 
 	public FollowDetailsListItem id(UUID id) {
@@ -376,34 +404,6 @@ public class FollowDetailsListItem implements Parcelable
 		this.leverageMax = leverageMax;
 	}
 
-	@SerializedName("brokerDetails")
-	private BrokerDetails brokerDetails = null;
-
-	FollowDetailsListItem(Parcel in) {
-		id = (UUID) in.readValue(UUID.class.getClassLoader());
-		title = (String) in.readValue(null);
-		description = (String) in.readValue(null);
-		logoUrl = (String) in.readValue(null);
-		creationDate = (DateTime) in.readValue(DateTime.class.getClassLoader());
-		currency = (Currency) in.readValue(Currency.class.getClassLoader());
-		subscribersCount = (Integer) in.readValue(null);
-		tradesCount = (Integer) in.readValue(null);
-		status = (String) in.readValue(null);
-		url = (String) in.readValue(null);
-		color = (String) in.readValue(null);
-		isExternal = (Boolean) in.readValue(null);
-		leverageMin = (Integer) in.readValue(null);
-		leverageMax = (Integer) in.readValue(null);
-		successFee = (Double) in.readValue(null);
-		volumeFee = (Double) in.readValue(null);
-		brokerDetails = (BrokerDetails) in.readValue(BrokerDetails.class.getClassLoader());
-		owner = (ProfilePublicShort) in.readValue(ProfilePublicShort.class.getClassLoader());
-		statistic = (ProfitChart) in.readValue(ProfitChart.class.getClassLoader());
-		personalDetails = (PersonalFollowDetailsList) in.readValue(PersonalFollowDetailsList.class.getClassLoader());
-		tags = (List<Tag>) in.readValue(Tag.class.getClassLoader());
-		balance = (AmountWithCurrency) in.readValue(AmountWithCurrency.class.getClassLoader());
-	}
-
 	public FollowDetailsListItem successFee(Double successFee) {
 		this.successFee = successFee;
 		return this;
@@ -445,6 +445,20 @@ public class FollowDetailsListItem implements Parcelable
 	public FollowDetailsListItem brokerDetails(BrokerDetails brokerDetails) {
 		this.brokerDetails = brokerDetails;
 		return this;
+	}
+
+	/**
+	 * Get brokerDetails
+	 *
+	 * @return brokerDetails
+	 **/
+	@Schema(description = "")
+	public BrokerDetails getBrokerDetails() {
+		return brokerDetails;
+	}
+
+	public void setBrokerDetails(BrokerDetails brokerDetails) {
+		this.brokerDetails = brokerDetails;
 	}
 
 	public FollowDetailsListItem owner(ProfilePublicShort owner) {
@@ -550,20 +564,6 @@ public class FollowDetailsListItem implements Parcelable
 		this.balance = balance;
 	}
 
-	/**
-	 * Get brokerDetails
-	 *
-	 * @return brokerDetails
-	 **/
-	@Schema(description = "")
-	public BrokerDetails getBrokerDetails() {
-		return brokerDetails;
-	}
-
-	public void setBrokerDetails(BrokerDetails brokerDetails) {
-		this.brokerDetails = brokerDetails;
-	}
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -595,17 +595,6 @@ public class FollowDetailsListItem implements Parcelable
 				Objects.equals(this.personalDetails, followDetailsListItem.personalDetails) &&
 				Objects.equals(this.tags, followDetailsListItem.tags) &&
 				Objects.equals(this.balance, followDetailsListItem.balance);
-	}
-
-	/**
-	 * Convert the given object to string with each line indented by 4 spaces
-	 * (except the first line).
-	 */
-	private String toIndentedString(java.lang.Object o) {
-		if (o == null) {
-			return "null";
-		}
-		return o.toString().replace("\n", "\n    ");
 	}
 
 	@Override
@@ -644,8 +633,15 @@ public class FollowDetailsListItem implements Parcelable
 		return sb.toString();
 	}
 
-	public int describeContents() {
-		return 0;
+	/**
+	 * Convert the given object to string with each line indented by 4 spaces
+	 * (except the first line).
+	 */
+	private String toIndentedString(java.lang.Object o) {
+		if (o == null) {
+			return "null";
+		}
+		return o.toString().replace("\n", "\n    ");
 	}
 
 	public void writeToParcel(Parcel out, int flags) {
@@ -671,5 +667,9 @@ public class FollowDetailsListItem implements Parcelable
 		out.writeValue(personalDetails);
 		out.writeValue(tags);
 		out.writeValue(balance);
+	}
+
+	public int describeContents() {
+		return 0;
 	}
 }

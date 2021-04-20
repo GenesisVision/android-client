@@ -29,6 +29,17 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class DetachFromSignalProvider implements Parcelable
 {
+	public static final Parcelable.Creator<DetachFromSignalProvider> CREATOR = new Parcelable.Creator<DetachFromSignalProvider>()
+	{
+		public DetachFromSignalProvider createFromParcel(Parcel in) {
+			return new DetachFromSignalProvider(in);
+		}
+
+		public DetachFromSignalProvider[] newArray(int size) {
+			return new DetachFromSignalProvider[size];
+		}
+	};
+
 	@SerializedName("tradingAccountId")
 	private UUID tradingAccountId = null;
 
@@ -36,6 +47,11 @@ public class DetachFromSignalProvider implements Parcelable
 	private SignalDetachMode mode = null;
 
 	public DetachFromSignalProvider() {
+	}
+
+	DetachFromSignalProvider(Parcel in) {
+		tradingAccountId = (UUID) in.readValue(UUID.class.getClassLoader());
+		mode = (SignalDetachMode) in.readValue(SignalDetachMode.class.getClassLoader());
 	}
 
 	public DetachFromSignalProvider tradingAccountId(UUID tradingAccountId) {
@@ -76,7 +92,6 @@ public class DetachFromSignalProvider implements Parcelable
 		this.mode = mode;
 	}
 
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -94,7 +109,6 @@ public class DetachFromSignalProvider implements Parcelable
 	public int hashCode() {
 		return Objects.hash(tradingAccountId, mode);
 	}
-
 
 	@Override
 	public String toString() {
@@ -118,29 +132,12 @@ public class DetachFromSignalProvider implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
-
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(tradingAccountId);
 		out.writeValue(mode);
 	}
 
-	public static final Parcelable.Creator<DetachFromSignalProvider> CREATOR = new Parcelable.Creator<DetachFromSignalProvider>()
-	{
-		public DetachFromSignalProvider createFromParcel(Parcel in) {
-			return new DetachFromSignalProvider(in);
-		}
-
-		public DetachFromSignalProvider[] newArray(int size) {
-			return new DetachFromSignalProvider[size];
-		}
-	};
-
 	public int describeContents() {
 		return 0;
-	}
-
-	DetachFromSignalProvider(Parcel in) {
-		tradingAccountId = (UUID) in.readValue(UUID.class.getClassLoader());
-		mode = (SignalDetachMode) in.readValue(SignalDetachMode.class.getClassLoader());
 	}
 }

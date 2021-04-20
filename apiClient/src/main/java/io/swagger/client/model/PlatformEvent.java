@@ -30,6 +30,17 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class PlatformEvent implements Parcelable
 {
+	public static final Parcelable.Creator<PlatformEvent> CREATOR = new Parcelable.Creator<PlatformEvent>()
+	{
+		public PlatformEvent createFromParcel(Parcel in) {
+			return new PlatformEvent(in);
+		}
+
+		public PlatformEvent[] newArray(int size) {
+			return new PlatformEvent[size];
+		}
+	};
+
 	@SerializedName("title")
 	private String title = null;
 
@@ -61,6 +72,19 @@ public class PlatformEvent implements Parcelable
 	private PlatformEventType type = null;
 
 	public PlatformEvent() {
+	}
+
+	PlatformEvent(Parcel in) {
+		title = (String) in.readValue(null);
+		text = (String) in.readValue(null);
+		logoUrl = (String) in.readValue(null);
+		assetUrl = (String) in.readValue(null);
+		userUrl = (String) in.readValue(null);
+		value = (String) in.readValue(null);
+		color = (String) in.readValue(null);
+		assetType = (AssetType) in.readValue(AssetType.class.getClassLoader());
+		date = (DateTime) in.readValue(DateTime.class.getClassLoader());
+		type = (PlatformEventType) in.readValue(PlatformEventType.class.getClassLoader());
 	}
 
 	public PlatformEvent title(String title) {
@@ -253,7 +277,6 @@ public class PlatformEvent implements Parcelable
 		this.type = type;
 	}
 
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -279,7 +302,6 @@ public class PlatformEvent implements Parcelable
 	public int hashCode() {
 		return Objects.hash(title, text, logoUrl, assetUrl, userUrl, value, color, assetType, date, type);
 	}
-
 
 	@Override
 	public String toString() {
@@ -311,7 +333,6 @@ public class PlatformEvent implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
-
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(title);
 		out.writeValue(text);
@@ -325,31 +346,7 @@ public class PlatformEvent implements Parcelable
 		out.writeValue(type);
 	}
 
-	public static final Parcelable.Creator<PlatformEvent> CREATOR = new Parcelable.Creator<PlatformEvent>()
-	{
-		public PlatformEvent createFromParcel(Parcel in) {
-			return new PlatformEvent(in);
-		}
-
-		public PlatformEvent[] newArray(int size) {
-			return new PlatformEvent[size];
-		}
-	};
-
 	public int describeContents() {
 		return 0;
-	}
-
-	PlatformEvent(Parcel in) {
-		title = (String) in.readValue(null);
-		text = (String) in.readValue(null);
-		logoUrl = (String) in.readValue(null);
-		assetUrl = (String) in.readValue(null);
-		userUrl = (String) in.readValue(null);
-		value = (String) in.readValue(null);
-		color = (String) in.readValue(null);
-		assetType = (AssetType) in.readValue(AssetType.class.getClassLoader());
-		date = (DateTime) in.readValue(DateTime.class.getClassLoader());
-		type = (PlatformEventType) in.readValue(PlatformEventType.class.getClassLoader());
 	}
 }

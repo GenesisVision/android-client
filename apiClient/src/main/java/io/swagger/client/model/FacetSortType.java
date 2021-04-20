@@ -36,6 +36,15 @@ public enum FacetSortType
 	AUM("AUM"),
 	FUNDSCHALLENGE("FundsChallenge");
 
+	public static FacetSortType fromValue(String text) {
+		for (FacetSortType b : FacetSortType.values()) {
+			if (String.valueOf(b.value).equals(text)) {
+				return b;
+			}
+		}
+		return null;
+	}
+
 	private String value;
 
 	FacetSortType(String value) {
@@ -49,15 +58,6 @@ public enum FacetSortType
 	@Override
 	public String toString() {
 		return String.valueOf(value);
-	}
-
-	public static FacetSortType fromValue(String text) {
-		for (FacetSortType b : FacetSortType.values()) {
-			if (String.valueOf(b.value).equals(text)) {
-				return b;
-			}
-		}
-		return null;
 	}
 
 	public static class Adapter extends TypeAdapter<FacetSortType>

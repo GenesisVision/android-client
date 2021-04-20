@@ -30,6 +30,17 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class EventTradingItemFilters implements Parcelable
 {
+	public static final Parcelable.Creator<EventTradingItemFilters> CREATOR = new Parcelable.Creator<EventTradingItemFilters>()
+	{
+		public EventTradingItemFilters createFromParcel(Parcel in) {
+			return new EventTradingItemFilters(in);
+		}
+
+		public EventTradingItemFilters[] newArray(int size) {
+			return new EventTradingItemFilters[size];
+		}
+	};
+
 	@SerializedName("all")
 	private List<FilterItemInfo> all = null;
 
@@ -43,6 +54,13 @@ public class EventTradingItemFilters implements Parcelable
 	private List<FilterItemInfo> follow = null;
 
 	public EventTradingItemFilters() {
+	}
+
+	EventTradingItemFilters(Parcel in) {
+		all = (List<FilterItemInfo>) in.readValue(FilterItemInfo.class.getClassLoader());
+		program = (List<FilterItemInfo>) in.readValue(FilterItemInfo.class.getClassLoader());
+		fund = (List<FilterItemInfo>) in.readValue(FilterItemInfo.class.getClassLoader());
+		follow = (List<FilterItemInfo>) in.readValue(FilterItemInfo.class.getClassLoader());
 	}
 
 	public EventTradingItemFilters all(List<FilterItemInfo> all) {
@@ -153,7 +171,6 @@ public class EventTradingItemFilters implements Parcelable
 		this.follow = follow;
 	}
 
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -173,7 +190,6 @@ public class EventTradingItemFilters implements Parcelable
 	public int hashCode() {
 		return Objects.hash(all, program, fund, follow);
 	}
-
 
 	@Override
 	public String toString() {
@@ -199,7 +215,6 @@ public class EventTradingItemFilters implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
-
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(all);
 		out.writeValue(program);
@@ -207,25 +222,7 @@ public class EventTradingItemFilters implements Parcelable
 		out.writeValue(follow);
 	}
 
-	public static final Parcelable.Creator<EventTradingItemFilters> CREATOR = new Parcelable.Creator<EventTradingItemFilters>()
-	{
-		public EventTradingItemFilters createFromParcel(Parcel in) {
-			return new EventTradingItemFilters(in);
-		}
-
-		public EventTradingItemFilters[] newArray(int size) {
-			return new EventTradingItemFilters[size];
-		}
-	};
-
 	public int describeContents() {
 		return 0;
-	}
-
-	EventTradingItemFilters(Parcel in) {
-		all = (List<FilterItemInfo>) in.readValue(FilterItemInfo.class.getClassLoader());
-		program = (List<FilterItemInfo>) in.readValue(FilterItemInfo.class.getClassLoader());
-		fund = (List<FilterItemInfo>) in.readValue(FilterItemInfo.class.getClassLoader());
-		follow = (List<FilterItemInfo>) in.readValue(FilterItemInfo.class.getClassLoader());
 	}
 }

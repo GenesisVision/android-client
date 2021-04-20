@@ -30,6 +30,15 @@ public enum MoneyLocationType
 	TRADING("Trading"),
 	WALLET("Wallet");
 
+	public static MoneyLocationType fromValue(String text) {
+		for (MoneyLocationType b : MoneyLocationType.values()) {
+			if (String.valueOf(b.value).equals(text)) {
+				return b;
+			}
+		}
+		return null;
+	}
+
 	private String value;
 
 	MoneyLocationType(String value) {
@@ -43,15 +52,6 @@ public enum MoneyLocationType
 	@Override
 	public String toString() {
 		return String.valueOf(value);
-	}
-
-	public static MoneyLocationType fromValue(String text) {
-		for (MoneyLocationType b : MoneyLocationType.values()) {
-			if (String.valueOf(b.value).equals(text)) {
-				return b;
-			}
-		}
-		return null;
 	}
 
 	public static class Adapter extends TypeAdapter<MoneyLocationType>

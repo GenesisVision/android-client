@@ -29,6 +29,17 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class ExchangeInfoItemsViewModel implements Parcelable
 {
+	public static final Parcelable.Creator<ExchangeInfoItemsViewModel> CREATOR = new Parcelable.Creator<ExchangeInfoItemsViewModel>()
+	{
+		public ExchangeInfoItemsViewModel createFromParcel(Parcel in) {
+			return new ExchangeInfoItemsViewModel(in);
+		}
+
+		public ExchangeInfoItemsViewModel[] newArray(int size) {
+			return new ExchangeInfoItemsViewModel[size];
+		}
+	};
+
 	@SerializedName("items")
 	private List<ExchangeInfo> items = null;
 
@@ -36,6 +47,11 @@ public class ExchangeInfoItemsViewModel implements Parcelable
 	private Integer total = null;
 
 	public ExchangeInfoItemsViewModel() {
+	}
+
+	ExchangeInfoItemsViewModel(Parcel in) {
+		items = (List<ExchangeInfo>) in.readValue(ExchangeInfo.class.getClassLoader());
+		total = (Integer) in.readValue(null);
 	}
 
 	/**
@@ -58,7 +74,6 @@ public class ExchangeInfoItemsViewModel implements Parcelable
 		return total;
 	}
 
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -76,7 +91,6 @@ public class ExchangeInfoItemsViewModel implements Parcelable
 	public int hashCode() {
 		return Objects.hash(items, total);
 	}
-
 
 	@Override
 	public String toString() {
@@ -100,29 +114,12 @@ public class ExchangeInfoItemsViewModel implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
-
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(items);
 		out.writeValue(total);
 	}
 
-	public static final Parcelable.Creator<ExchangeInfoItemsViewModel> CREATOR = new Parcelable.Creator<ExchangeInfoItemsViewModel>()
-	{
-		public ExchangeInfoItemsViewModel createFromParcel(Parcel in) {
-			return new ExchangeInfoItemsViewModel(in);
-		}
-
-		public ExchangeInfoItemsViewModel[] newArray(int size) {
-			return new ExchangeInfoItemsViewModel[size];
-		}
-	};
-
 	public int describeContents() {
 		return 0;
-	}
-
-	ExchangeInfoItemsViewModel(Parcel in) {
-		items = (List<ExchangeInfo>) in.readValue(ExchangeInfo.class.getClassLoader());
-		total = (Integer) in.readValue(null);
 	}
 }

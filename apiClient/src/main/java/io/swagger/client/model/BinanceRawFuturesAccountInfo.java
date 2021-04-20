@@ -32,6 +32,17 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class BinanceRawFuturesAccountInfo implements Parcelable
 {
+	public static final Parcelable.Creator<BinanceRawFuturesAccountInfo> CREATOR = new Parcelable.Creator<BinanceRawFuturesAccountInfo>()
+	{
+		public BinanceRawFuturesAccountInfo createFromParcel(Parcel in) {
+			return new BinanceRawFuturesAccountInfo(in);
+		}
+
+		public BinanceRawFuturesAccountInfo[] newArray(int size) {
+			return new BinanceRawFuturesAccountInfo[size];
+		}
+	};
+
 	@SerializedName("canDeposit")
 	private Boolean canDeposit = null;
 
@@ -83,18 +94,31 @@ public class BinanceRawFuturesAccountInfo implements Parcelable
 	@SerializedName("assets")
 	private List<BinanceRawFuturesAccountAsset> assets = null;
 
-	public static final Parcelable.Creator<BinanceRawFuturesAccountInfo> CREATOR = new Parcelable.Creator<BinanceRawFuturesAccountInfo>()
-	{
-		public BinanceRawFuturesAccountInfo createFromParcel(Parcel in) {
-			return new BinanceRawFuturesAccountInfo(in);
-		}
-
-		public BinanceRawFuturesAccountInfo[] newArray(int size) {
-			return new BinanceRawFuturesAccountInfo[size];
-		}
-	};
+	@SerializedName("positions")
+	private List<BinanceRawFuturesPosition> positions = null;
 
 	public BinanceRawFuturesAccountInfo() {
+	}
+
+	BinanceRawFuturesAccountInfo(Parcel in) {
+		canDeposit = (Boolean) in.readValue(null);
+		canTrade = (Boolean) in.readValue(null);
+		canWithdraw = (Boolean) in.readValue(null);
+		feeTier = (Integer) in.readValue(null);
+		maxWithdrawAmount = (Double) in.readValue(null);
+		totalInitialMargin = (Double) in.readValue(null);
+		totalMaintMargin = (Double) in.readValue(null);
+		totalMarginBalance = (Double) in.readValue(null);
+		totalOpenOrderInitialMargin = (Double) in.readValue(null);
+		totalPositionInitialMargin = (Double) in.readValue(null);
+		totalUnrealizedProfit = (Double) in.readValue(null);
+		totalWalletBalance = (Double) in.readValue(null);
+		totalCrossWalletBalance = (Double) in.readValue(null);
+		totalCrossUnPnl = (Double) in.readValue(null);
+		availableBalance = (Double) in.readValue(null);
+		updateTime = (DateTime) in.readValue(DateTime.class.getClassLoader());
+		assets = (List<BinanceRawFuturesAccountAsset>) in.readValue(BinanceRawFuturesAccountAsset.class.getClassLoader());
+		positions = (List<BinanceRawFuturesPosition>) in.readValue(BinanceRawFuturesPosition.class.getClassLoader());
 	}
 
 	public BinanceRawFuturesAccountInfo canDeposit(Boolean canDeposit) {
@@ -428,30 +452,6 @@ public class BinanceRawFuturesAccountInfo implements Parcelable
 		this.assets = assets;
 	}
 
-	@SerializedName("positions")
-	private List<BinanceRawFuturesPosition> positions = null;
-
-	BinanceRawFuturesAccountInfo(Parcel in) {
-		canDeposit = (Boolean) in.readValue(null);
-		canTrade = (Boolean) in.readValue(null);
-		canWithdraw = (Boolean) in.readValue(null);
-		feeTier = (Integer) in.readValue(null);
-		maxWithdrawAmount = (Double) in.readValue(null);
-		totalInitialMargin = (Double) in.readValue(null);
-		totalMaintMargin = (Double) in.readValue(null);
-		totalMarginBalance = (Double) in.readValue(null);
-		totalOpenOrderInitialMargin = (Double) in.readValue(null);
-		totalPositionInitialMargin = (Double) in.readValue(null);
-		totalUnrealizedProfit = (Double) in.readValue(null);
-		totalWalletBalance = (Double) in.readValue(null);
-		totalCrossWalletBalance = (Double) in.readValue(null);
-		totalCrossUnPnl = (Double) in.readValue(null);
-		availableBalance = (Double) in.readValue(null);
-		updateTime = (DateTime) in.readValue(DateTime.class.getClassLoader());
-		assets = (List<BinanceRawFuturesAccountAsset>) in.readValue(BinanceRawFuturesAccountAsset.class.getClassLoader());
-		positions = (List<BinanceRawFuturesPosition>) in.readValue(BinanceRawFuturesPosition.class.getClassLoader());
-	}
-
 	public BinanceRawFuturesAccountInfo positions(List<BinanceRawFuturesPosition> positions) {
 		this.positions = positions;
 		return this;
@@ -465,6 +465,19 @@ public class BinanceRawFuturesAccountInfo implements Parcelable
 		return this;
 	}
 
+	/**
+	 * Get positions
+	 *
+	 * @return positions
+	 **/
+	@Schema(description = "")
+	public List<BinanceRawFuturesPosition> getPositions() {
+		return positions;
+	}
+
+	public void setPositions(List<BinanceRawFuturesPosition> positions) {
+		this.positions = positions;
+	}
 
 	@Override
 	public boolean equals(java.lang.Object o) {
@@ -499,7 +512,6 @@ public class BinanceRawFuturesAccountInfo implements Parcelable
 	public int hashCode() {
 		return Objects.hash(canDeposit, canTrade, canWithdraw, feeTier, maxWithdrawAmount, totalInitialMargin, totalMaintMargin, totalMarginBalance, totalOpenOrderInitialMargin, totalPositionInitialMargin, totalUnrealizedProfit, totalWalletBalance, totalCrossWalletBalance, totalCrossUnPnl, availableBalance, updateTime, assets, positions);
 	}
-
 
 	@Override
 	public String toString() {
@@ -539,7 +551,6 @@ public class BinanceRawFuturesAccountInfo implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
-
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(canDeposit);
 		out.writeValue(canTrade);
@@ -561,21 +572,7 @@ public class BinanceRawFuturesAccountInfo implements Parcelable
 		out.writeValue(positions);
 	}
 
-	/**
-	 * Get positions
-	 *
-	 * @return positions
-	 **/
-	@Schema(description = "")
-	public List<BinanceRawFuturesPosition> getPositions() {
-		return positions;
-	}
-
 	public int describeContents() {
 		return 0;
-	}
-
-	public void setPositions(List<BinanceRawFuturesPosition> positions) {
-		this.positions = positions;
 	}
 }

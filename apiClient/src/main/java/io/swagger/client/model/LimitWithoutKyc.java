@@ -28,6 +28,17 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class LimitWithoutKyc implements Parcelable
 {
+	public static final Parcelable.Creator<LimitWithoutKyc> CREATOR = new Parcelable.Creator<LimitWithoutKyc>()
+	{
+		public LimitWithoutKyc createFromParcel(Parcel in) {
+			return new LimitWithoutKyc(in);
+		}
+
+		public LimitWithoutKyc[] newArray(int size) {
+			return new LimitWithoutKyc[size];
+		}
+	};
+
 	@SerializedName("limit")
 	private Double limit = null;
 
@@ -38,6 +49,12 @@ public class LimitWithoutKyc implements Parcelable
 	private Double invested = null;
 
 	public LimitWithoutKyc() {
+	}
+
+	LimitWithoutKyc(Parcel in) {
+		limit = (Double) in.readValue(null);
+		currency = (Currency) in.readValue(Currency.class.getClassLoader());
+		invested = (Double) in.readValue(null);
 	}
 
 	public LimitWithoutKyc limit(Double limit) {
@@ -97,7 +114,6 @@ public class LimitWithoutKyc implements Parcelable
 		this.invested = invested;
 	}
 
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -116,7 +132,6 @@ public class LimitWithoutKyc implements Parcelable
 	public int hashCode() {
 		return Objects.hash(limit, currency, invested);
 	}
-
 
 	@Override
 	public String toString() {
@@ -141,31 +156,13 @@ public class LimitWithoutKyc implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
-
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(limit);
 		out.writeValue(currency);
 		out.writeValue(invested);
 	}
 
-	public static final Parcelable.Creator<LimitWithoutKyc> CREATOR = new Parcelable.Creator<LimitWithoutKyc>()
-	{
-		public LimitWithoutKyc createFromParcel(Parcel in) {
-			return new LimitWithoutKyc(in);
-		}
-
-		public LimitWithoutKyc[] newArray(int size) {
-			return new LimitWithoutKyc[size];
-		}
-	};
-
 	public int describeContents() {
 		return 0;
-	}
-
-	LimitWithoutKyc(Parcel in) {
-		limit = (Double) in.readValue(null);
-		currency = (Currency) in.readValue(Currency.class.getClassLoader());
-		invested = (Double) in.readValue(null);
 	}
 }

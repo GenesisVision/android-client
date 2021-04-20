@@ -30,6 +30,15 @@ public enum InvestmentRequestStatus
 	CANCELLED("Cancelled"),
 	PENDING("Pending");
 
+	public static InvestmentRequestStatus fromValue(String text) {
+		for (InvestmentRequestStatus b : InvestmentRequestStatus.values()) {
+			if (String.valueOf(b.value).equals(text)) {
+				return b;
+			}
+		}
+		return null;
+	}
+
 	private String value;
 
 	InvestmentRequestStatus(String value) {
@@ -43,15 +52,6 @@ public enum InvestmentRequestStatus
 	@Override
 	public String toString() {
 		return String.valueOf(value);
-	}
-
-	public static InvestmentRequestStatus fromValue(String text) {
-		for (InvestmentRequestStatus b : InvestmentRequestStatus.values()) {
-			if (String.valueOf(b.value).equals(text)) {
-				return b;
-			}
-		}
-		return null;
 	}
 
 	public static class Adapter extends TypeAdapter<InvestmentRequestStatus>

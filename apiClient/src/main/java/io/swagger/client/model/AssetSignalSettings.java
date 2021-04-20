@@ -28,6 +28,17 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class AssetSignalSettings implements Parcelable
 {
+	public static final Parcelable.Creator<AssetSignalSettings> CREATOR = new Parcelable.Creator<AssetSignalSettings>()
+	{
+		public AssetSignalSettings createFromParcel(Parcel in) {
+			return new AssetSignalSettings(in);
+		}
+
+		public AssetSignalSettings[] newArray(int size) {
+			return new AssetSignalSettings[size];
+		}
+	};
+
 	@SerializedName("signalSuccessFee")
 	private Double signalSuccessFee = null;
 
@@ -38,6 +49,12 @@ public class AssetSignalSettings implements Parcelable
 	private Boolean isActive = null;
 
 	public AssetSignalSettings() {
+	}
+
+	AssetSignalSettings(Parcel in) {
+		signalSuccessFee = (Double) in.readValue(null);
+		signalVolumeFee = (Double) in.readValue(null);
+		isActive = (Boolean) in.readValue(null);
 	}
 
 	public AssetSignalSettings signalSuccessFee(Double signalSuccessFee) {
@@ -97,7 +114,6 @@ public class AssetSignalSettings implements Parcelable
 		this.isActive = isActive;
 	}
 
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -116,7 +132,6 @@ public class AssetSignalSettings implements Parcelable
 	public int hashCode() {
 		return Objects.hash(signalSuccessFee, signalVolumeFee, isActive);
 	}
-
 
 	@Override
 	public String toString() {
@@ -141,31 +156,13 @@ public class AssetSignalSettings implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
-
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(signalSuccessFee);
 		out.writeValue(signalVolumeFee);
 		out.writeValue(isActive);
 	}
 
-	public static final Parcelable.Creator<AssetSignalSettings> CREATOR = new Parcelable.Creator<AssetSignalSettings>()
-	{
-		public AssetSignalSettings createFromParcel(Parcel in) {
-			return new AssetSignalSettings(in);
-		}
-
-		public AssetSignalSettings[] newArray(int size) {
-			return new AssetSignalSettings[size];
-		}
-	};
-
 	public int describeContents() {
 		return 0;
-	}
-
-	AssetSignalSettings(Parcel in) {
-		signalSuccessFee = (Double) in.readValue(null);
-		signalVolumeFee = (Double) in.readValue(null);
-		isActive = (Boolean) in.readValue(null);
 	}
 }

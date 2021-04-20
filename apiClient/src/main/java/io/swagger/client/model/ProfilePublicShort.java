@@ -29,6 +29,17 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class ProfilePublicShort implements Parcelable
 {
+	public static final Parcelable.Creator<ProfilePublicShort> CREATOR = new Parcelable.Creator<ProfilePublicShort>()
+	{
+		public ProfilePublicShort createFromParcel(Parcel in) {
+			return new ProfilePublicShort(in);
+		}
+
+		public ProfilePublicShort[] newArray(int size) {
+			return new ProfilePublicShort[size];
+		}
+	};
+
 	@SerializedName("id")
 	private UUID id = null;
 
@@ -45,6 +56,14 @@ public class ProfilePublicShort implements Parcelable
 	private PublicProfilePersonalDetails personalDetails = null;
 
 	public ProfilePublicShort() {
+	}
+
+	ProfilePublicShort(Parcel in) {
+		id = (UUID) in.readValue(UUID.class.getClassLoader());
+		username = (String) in.readValue(null);
+		url = (String) in.readValue(null);
+		logoUrl = (String) in.readValue(null);
+		personalDetails = (PublicProfilePersonalDetails) in.readValue(PublicProfilePersonalDetails.class.getClassLoader());
 	}
 
 	public ProfilePublicShort id(UUID id) {
@@ -142,7 +161,6 @@ public class ProfilePublicShort implements Parcelable
 		this.personalDetails = personalDetails;
 	}
 
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -163,7 +181,6 @@ public class ProfilePublicShort implements Parcelable
 	public int hashCode() {
 		return Objects.hash(id, username, url, logoUrl, personalDetails);
 	}
-
 
 	@Override
 	public String toString() {
@@ -190,7 +207,6 @@ public class ProfilePublicShort implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
-
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(id);
 		out.writeValue(username);
@@ -199,26 +215,7 @@ public class ProfilePublicShort implements Parcelable
 		out.writeValue(personalDetails);
 	}
 
-	public static final Parcelable.Creator<ProfilePublicShort> CREATOR = new Parcelable.Creator<ProfilePublicShort>()
-	{
-		public ProfilePublicShort createFromParcel(Parcel in) {
-			return new ProfilePublicShort(in);
-		}
-
-		public ProfilePublicShort[] newArray(int size) {
-			return new ProfilePublicShort[size];
-		}
-	};
-
 	public int describeContents() {
 		return 0;
-	}
-
-	ProfilePublicShort(Parcel in) {
-		id = (UUID) in.readValue(UUID.class.getClassLoader());
-		username = (String) in.readValue(null);
-		url = (String) in.readValue(null);
-		logoUrl = (String) in.readValue(null);
-		personalDetails = (PublicProfilePersonalDetails) in.readValue(PublicProfilePersonalDetails.class.getClassLoader());
 	}
 }

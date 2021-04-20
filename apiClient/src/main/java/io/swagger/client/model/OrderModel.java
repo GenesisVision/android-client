@@ -31,6 +31,17 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class OrderModel implements Parcelable
 {
+	public static final Parcelable.Creator<OrderModel> CREATOR = new Parcelable.Creator<OrderModel>()
+	{
+		public OrderModel createFromParcel(Parcel in) {
+			return new OrderModel(in);
+		}
+
+		public OrderModel[] newArray(int size) {
+			return new OrderModel[size];
+		}
+	};
+
 	@SerializedName("id")
 	private UUID id = null;
 
@@ -92,6 +103,29 @@ public class OrderModel implements Parcelable
 	private OrderModelSignalData signalData = null;
 
 	public OrderModel() {
+	}
+
+	OrderModel(Parcel in) {
+		id = (UUID) in.readValue(UUID.class.getClassLoader());
+		login = (String) in.readValue(null);
+		ticket = (String) in.readValue(null);
+		symbol = (String) in.readValue(null);
+		volume = (Double) in.readValue(null);
+		profit = (Double) in.readValue(null);
+		profitCurrency = (String) in.readValue(null);
+		direction = (TradeDirectionType) in.readValue(TradeDirectionType.class.getClassLoader());
+		date = (DateTime) in.readValue(DateTime.class.getClassLoader());
+		price = (Double) in.readValue(null);
+		priceCurrent = (Double) in.readValue(null);
+		entry = (TradeEntryType) in.readValue(TradeEntryType.class.getClassLoader());
+		baseVolume = (Double) in.readValue(null);
+		originalCommission = (Double) in.readValue(null);
+		originalCommissionCurrency = (String) in.readValue(null);
+		commission = (Double) in.readValue(null);
+		swap = (Double) in.readValue(null);
+		showOriginalCommission = (Boolean) in.readValue(null);
+		assetData = (TradeAssetData) in.readValue(TradeAssetData.class.getClassLoader());
+		signalData = (OrderModelSignalData) in.readValue(OrderModelSignalData.class.getClassLoader());
 	}
 
 	public OrderModel id(UUID id) {
@@ -474,7 +508,6 @@ public class OrderModel implements Parcelable
 		this.signalData = signalData;
 	}
 
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -510,7 +543,6 @@ public class OrderModel implements Parcelable
 	public int hashCode() {
 		return Objects.hash(id, login, ticket, symbol, volume, profit, profitCurrency, direction, date, price, priceCurrent, entry, baseVolume, originalCommission, originalCommissionCurrency, commission, swap, showOriginalCommission, assetData, signalData);
 	}
-
 
 	@Override
 	public String toString() {
@@ -552,7 +584,6 @@ public class OrderModel implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
-
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(id);
 		out.writeValue(login);
@@ -576,41 +607,7 @@ public class OrderModel implements Parcelable
 		out.writeValue(signalData);
 	}
 
-	public static final Parcelable.Creator<OrderModel> CREATOR = new Parcelable.Creator<OrderModel>()
-	{
-		public OrderModel createFromParcel(Parcel in) {
-			return new OrderModel(in);
-		}
-
-		public OrderModel[] newArray(int size) {
-			return new OrderModel[size];
-		}
-	};
-
 	public int describeContents() {
 		return 0;
-	}
-
-	OrderModel(Parcel in) {
-		id = (UUID) in.readValue(UUID.class.getClassLoader());
-		login = (String) in.readValue(null);
-		ticket = (String) in.readValue(null);
-		symbol = (String) in.readValue(null);
-		volume = (Double) in.readValue(null);
-		profit = (Double) in.readValue(null);
-		profitCurrency = (String) in.readValue(null);
-		direction = (TradeDirectionType) in.readValue(TradeDirectionType.class.getClassLoader());
-		date = (DateTime) in.readValue(DateTime.class.getClassLoader());
-		price = (Double) in.readValue(null);
-		priceCurrent = (Double) in.readValue(null);
-		entry = (TradeEntryType) in.readValue(TradeEntryType.class.getClassLoader());
-		baseVolume = (Double) in.readValue(null);
-		originalCommission = (Double) in.readValue(null);
-		originalCommissionCurrency = (String) in.readValue(null);
-		commission = (Double) in.readValue(null);
-		swap = (Double) in.readValue(null);
-		showOriginalCommission = (Boolean) in.readValue(null);
-		assetData = (TradeAssetData) in.readValue(TradeAssetData.class.getClassLoader());
-		signalData = (OrderModelSignalData) in.readValue(OrderModelSignalData.class.getClassLoader());
 	}
 }

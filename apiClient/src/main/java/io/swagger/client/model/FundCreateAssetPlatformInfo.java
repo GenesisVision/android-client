@@ -28,6 +28,17 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class FundCreateAssetPlatformInfo implements Parcelable
 {
+	public static final Parcelable.Creator<FundCreateAssetPlatformInfo> CREATOR = new Parcelable.Creator<FundCreateAssetPlatformInfo>()
+	{
+		public FundCreateAssetPlatformInfo createFromParcel(Parcel in) {
+			return new FundCreateAssetPlatformInfo(in);
+		}
+
+		public FundCreateAssetPlatformInfo[] newArray(int size) {
+			return new FundCreateAssetPlatformInfo[size];
+		}
+	};
+
 	@SerializedName("maxEntryFee")
 	private Double maxEntryFee = null;
 
@@ -38,6 +49,12 @@ public class FundCreateAssetPlatformInfo implements Parcelable
 	private Double minDeposit = null;
 
 	public FundCreateAssetPlatformInfo() {
+	}
+
+	FundCreateAssetPlatformInfo(Parcel in) {
+		maxEntryFee = (Double) in.readValue(null);
+		maxExitFee = (Double) in.readValue(null);
+		minDeposit = (Double) in.readValue(null);
 	}
 
 	public FundCreateAssetPlatformInfo maxEntryFee(Double maxEntryFee) {
@@ -97,7 +114,6 @@ public class FundCreateAssetPlatformInfo implements Parcelable
 		this.minDeposit = minDeposit;
 	}
 
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -116,7 +132,6 @@ public class FundCreateAssetPlatformInfo implements Parcelable
 	public int hashCode() {
 		return Objects.hash(maxEntryFee, maxExitFee, minDeposit);
 	}
-
 
 	@Override
 	public String toString() {
@@ -141,31 +156,13 @@ public class FundCreateAssetPlatformInfo implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
-
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(maxEntryFee);
 		out.writeValue(maxExitFee);
 		out.writeValue(minDeposit);
 	}
 
-	public static final Parcelable.Creator<FundCreateAssetPlatformInfo> CREATOR = new Parcelable.Creator<FundCreateAssetPlatformInfo>()
-	{
-		public FundCreateAssetPlatformInfo createFromParcel(Parcel in) {
-			return new FundCreateAssetPlatformInfo(in);
-		}
-
-		public FundCreateAssetPlatformInfo[] newArray(int size) {
-			return new FundCreateAssetPlatformInfo[size];
-		}
-	};
-
 	public int describeContents() {
 		return 0;
-	}
-
-	FundCreateAssetPlatformInfo(Parcel in) {
-		maxEntryFee = (Double) in.readValue(null);
-		maxExitFee = (Double) in.readValue(null);
-		minDeposit = (Double) in.readValue(null);
 	}
 }

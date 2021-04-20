@@ -29,6 +29,17 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class AssetInvestmentRequestItemsViewModel implements Parcelable
 {
+	public static final Parcelable.Creator<AssetInvestmentRequestItemsViewModel> CREATOR = new Parcelable.Creator<AssetInvestmentRequestItemsViewModel>()
+	{
+		public AssetInvestmentRequestItemsViewModel createFromParcel(Parcel in) {
+			return new AssetInvestmentRequestItemsViewModel(in);
+		}
+
+		public AssetInvestmentRequestItemsViewModel[] newArray(int size) {
+			return new AssetInvestmentRequestItemsViewModel[size];
+		}
+	};
+
 	@SerializedName("items")
 	private List<AssetInvestmentRequest> items = null;
 
@@ -36,6 +47,11 @@ public class AssetInvestmentRequestItemsViewModel implements Parcelable
 	private Integer total = null;
 
 	public AssetInvestmentRequestItemsViewModel() {
+	}
+
+	AssetInvestmentRequestItemsViewModel(Parcel in) {
+		items = (List<AssetInvestmentRequest>) in.readValue(AssetInvestmentRequest.class.getClassLoader());
+		total = (Integer) in.readValue(null);
 	}
 
 	/**
@@ -58,7 +74,6 @@ public class AssetInvestmentRequestItemsViewModel implements Parcelable
 		return total;
 	}
 
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -76,7 +91,6 @@ public class AssetInvestmentRequestItemsViewModel implements Parcelable
 	public int hashCode() {
 		return Objects.hash(items, total);
 	}
-
 
 	@Override
 	public String toString() {
@@ -100,29 +114,12 @@ public class AssetInvestmentRequestItemsViewModel implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
-
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(items);
 		out.writeValue(total);
 	}
 
-	public static final Parcelable.Creator<AssetInvestmentRequestItemsViewModel> CREATOR = new Parcelable.Creator<AssetInvestmentRequestItemsViewModel>()
-	{
-		public AssetInvestmentRequestItemsViewModel createFromParcel(Parcel in) {
-			return new AssetInvestmentRequestItemsViewModel(in);
-		}
-
-		public AssetInvestmentRequestItemsViewModel[] newArray(int size) {
-			return new AssetInvestmentRequestItemsViewModel[size];
-		}
-	};
-
 	public int describeContents() {
 		return 0;
-	}
-
-	AssetInvestmentRequestItemsViewModel(Parcel in) {
-		items = (List<AssetInvestmentRequest>) in.readValue(AssetInvestmentRequest.class.getClassLoader());
-		total = (Integer) in.readValue(null);
 	}
 }

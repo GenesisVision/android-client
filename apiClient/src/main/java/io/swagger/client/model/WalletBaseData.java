@@ -29,6 +29,17 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class WalletBaseData implements Parcelable
 {
+	public static final Parcelable.Creator<WalletBaseData> CREATOR = new Parcelable.Creator<WalletBaseData>()
+	{
+		public WalletBaseData createFromParcel(Parcel in) {
+			return new WalletBaseData(in);
+		}
+
+		public WalletBaseData[] newArray(int size) {
+			return new WalletBaseData[size];
+		}
+	};
+
 	@SerializedName("id")
 	private UUID id = null;
 
@@ -48,6 +59,15 @@ public class WalletBaseData implements Parcelable
 	private Double rate = null;
 
 	public WalletBaseData() {
+	}
+
+	WalletBaseData(Parcel in) {
+		id = (UUID) in.readValue(UUID.class.getClassLoader());
+		title = (String) in.readValue(null);
+		logoUrl = (String) in.readValue(null);
+		currency = (Currency) in.readValue(Currency.class.getClassLoader());
+		available = (Double) in.readValue(null);
+		rate = (Double) in.readValue(null);
 	}
 
 	public WalletBaseData id(UUID id) {
@@ -164,7 +184,6 @@ public class WalletBaseData implements Parcelable
 		this.rate = rate;
 	}
 
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -186,7 +205,6 @@ public class WalletBaseData implements Parcelable
 	public int hashCode() {
 		return Objects.hash(id, title, logoUrl, currency, available, rate);
 	}
-
 
 	@Override
 	public String toString() {
@@ -214,7 +232,6 @@ public class WalletBaseData implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
-
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(id);
 		out.writeValue(title);
@@ -224,27 +241,7 @@ public class WalletBaseData implements Parcelable
 		out.writeValue(rate);
 	}
 
-	public static final Parcelable.Creator<WalletBaseData> CREATOR = new Parcelable.Creator<WalletBaseData>()
-	{
-		public WalletBaseData createFromParcel(Parcel in) {
-			return new WalletBaseData(in);
-		}
-
-		public WalletBaseData[] newArray(int size) {
-			return new WalletBaseData[size];
-		}
-	};
-
 	public int describeContents() {
 		return 0;
-	}
-
-	WalletBaseData(Parcel in) {
-		id = (UUID) in.readValue(UUID.class.getClassLoader());
-		title = (String) in.readValue(null);
-		logoUrl = (String) in.readValue(null);
-		currency = (Currency) in.readValue(Currency.class.getClassLoader());
-		available = (Double) in.readValue(null);
-		rate = (Double) in.readValue(null);
 	}
 }

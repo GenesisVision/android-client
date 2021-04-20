@@ -28,6 +28,17 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class AmountRowCell implements Parcelable
 {
+	public static final Parcelable.Creator<AmountRowCell> CREATOR = new Parcelable.Creator<AmountRowCell>()
+	{
+		public AmountRowCell createFromParcel(Parcel in) {
+			return new AmountRowCell(in);
+		}
+
+		public AmountRowCell[] newArray(int size) {
+			return new AmountRowCell[size];
+		}
+	};
+
 	@SerializedName("title")
 	private String title = null;
 
@@ -38,6 +49,12 @@ public class AmountRowCell implements Parcelable
 	private AmountItem second = null;
 
 	public AmountRowCell() {
+	}
+
+	AmountRowCell(Parcel in) {
+		title = (String) in.readValue(null);
+		first = (AmountItem) in.readValue(AmountItem.class.getClassLoader());
+		second = (AmountItem) in.readValue(AmountItem.class.getClassLoader());
 	}
 
 	public AmountRowCell title(String title) {
@@ -97,7 +114,6 @@ public class AmountRowCell implements Parcelable
 		this.second = second;
 	}
 
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -116,7 +132,6 @@ public class AmountRowCell implements Parcelable
 	public int hashCode() {
 		return Objects.hash(title, first, second);
 	}
-
 
 	@Override
 	public String toString() {
@@ -141,31 +156,13 @@ public class AmountRowCell implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
-
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(title);
 		out.writeValue(first);
 		out.writeValue(second);
 	}
 
-	public static final Parcelable.Creator<AmountRowCell> CREATOR = new Parcelable.Creator<AmountRowCell>()
-	{
-		public AmountRowCell createFromParcel(Parcel in) {
-			return new AmountRowCell(in);
-		}
-
-		public AmountRowCell[] newArray(int size) {
-			return new AmountRowCell[size];
-		}
-	};
-
 	public int describeContents() {
 		return 0;
-	}
-
-	AmountRowCell(Parcel in) {
-		title = (String) in.readValue(null);
-		first = (AmountItem) in.readValue(AmountItem.class.getClassLoader());
-		second = (AmountItem) in.readValue(AmountItem.class.getClassLoader());
 	}
 }

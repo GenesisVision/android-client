@@ -33,6 +33,17 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class OrderSignalModel implements Parcelable
 {
+	public static final Parcelable.Creator<OrderSignalModel> CREATOR = new Parcelable.Creator<OrderSignalModel>()
+	{
+		public OrderSignalModel createFromParcel(Parcel in) {
+			return new OrderSignalModel(in);
+		}
+
+		public OrderSignalModel[] newArray(int size) {
+			return new OrderSignalModel[size];
+		}
+	};
+
 	@SerializedName("id")
 	private UUID id = null;
 
@@ -109,6 +120,34 @@ public class OrderSignalModel implements Parcelable
 	private Currency currency = null;
 
 	public OrderSignalModel() {
+	}
+
+	OrderSignalModel(Parcel in) {
+		id = (UUID) in.readValue(UUID.class.getClassLoader());
+		login = (String) in.readValue(null);
+		ticket = (String) in.readValue(null);
+		symbol = (String) in.readValue(null);
+		volume = (Double) in.readValue(null);
+		profit = (Double) in.readValue(null);
+		profitCurrency = (String) in.readValue(null);
+		direction = (TradeDirectionType) in.readValue(TradeDirectionType.class.getClassLoader());
+		date = (DateTime) in.readValue(DateTime.class.getClassLoader());
+		price = (Double) in.readValue(null);
+		priceCurrent = (Double) in.readValue(null);
+		entry = (TradeEntryType) in.readValue(TradeEntryType.class.getClassLoader());
+		baseVolume = (Double) in.readValue(null);
+		originalCommission = (Double) in.readValue(null);
+		originalCommissionCurrency = (String) in.readValue(null);
+		commission = (Double) in.readValue(null);
+		swap = (Double) in.readValue(null);
+		showOriginalCommission = (Boolean) in.readValue(null);
+		assetData = (TradeAssetData) in.readValue(TradeAssetData.class.getClassLoader());
+		signalData = (OrderModelSignalData) in.readValue(OrderModelSignalData.class.getClassLoader());
+		providers = (List<OrderSignalProgramInfo>) in.readValue(OrderSignalProgramInfo.class.getClassLoader());
+		totalCommission = (Double) in.readValue(null);
+		totalCommissionByType = (List<FeeDetails>) in.readValue(FeeDetails.class.getClassLoader());
+		tradingAccountId = (UUID) in.readValue(UUID.class.getClassLoader());
+		currency = (Currency) in.readValue(Currency.class.getClassLoader());
 	}
 
 	public OrderSignalModel id(UUID id) {
@@ -602,7 +641,6 @@ public class OrderSignalModel implements Parcelable
 		this.currency = currency;
 	}
 
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -643,7 +681,6 @@ public class OrderSignalModel implements Parcelable
 	public int hashCode() {
 		return Objects.hash(id, login, ticket, symbol, volume, profit, profitCurrency, direction, date, price, priceCurrent, entry, baseVolume, originalCommission, originalCommissionCurrency, commission, swap, showOriginalCommission, assetData, signalData, providers, totalCommission, totalCommissionByType, tradingAccountId, currency);
 	}
-
 
 	@Override
 	public String toString() {
@@ -690,7 +727,6 @@ public class OrderSignalModel implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
-
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(id);
 		out.writeValue(login);
@@ -719,46 +755,7 @@ public class OrderSignalModel implements Parcelable
 		out.writeValue(currency);
 	}
 
-	public static final Parcelable.Creator<OrderSignalModel> CREATOR = new Parcelable.Creator<OrderSignalModel>()
-	{
-		public OrderSignalModel createFromParcel(Parcel in) {
-			return new OrderSignalModel(in);
-		}
-
-		public OrderSignalModel[] newArray(int size) {
-			return new OrderSignalModel[size];
-		}
-	};
-
 	public int describeContents() {
 		return 0;
-	}
-
-	OrderSignalModel(Parcel in) {
-		id = (UUID) in.readValue(UUID.class.getClassLoader());
-		login = (String) in.readValue(null);
-		ticket = (String) in.readValue(null);
-		symbol = (String) in.readValue(null);
-		volume = (Double) in.readValue(null);
-		profit = (Double) in.readValue(null);
-		profitCurrency = (String) in.readValue(null);
-		direction = (TradeDirectionType) in.readValue(TradeDirectionType.class.getClassLoader());
-		date = (DateTime) in.readValue(DateTime.class.getClassLoader());
-		price = (Double) in.readValue(null);
-		priceCurrent = (Double) in.readValue(null);
-		entry = (TradeEntryType) in.readValue(TradeEntryType.class.getClassLoader());
-		baseVolume = (Double) in.readValue(null);
-		originalCommission = (Double) in.readValue(null);
-		originalCommissionCurrency = (String) in.readValue(null);
-		commission = (Double) in.readValue(null);
-		swap = (Double) in.readValue(null);
-		showOriginalCommission = (Boolean) in.readValue(null);
-		assetData = (TradeAssetData) in.readValue(TradeAssetData.class.getClassLoader());
-		signalData = (OrderModelSignalData) in.readValue(OrderModelSignalData.class.getClassLoader());
-		providers = (List<OrderSignalProgramInfo>) in.readValue(OrderSignalProgramInfo.class.getClassLoader());
-		totalCommission = (Double) in.readValue(null);
-		totalCommissionByType = (List<FeeDetails>) in.readValue(FeeDetails.class.getClassLoader());
-		tradingAccountId = (UUID) in.readValue(UUID.class.getClassLoader());
-		currency = (Currency) in.readValue(Currency.class.getClassLoader());
 	}
 }

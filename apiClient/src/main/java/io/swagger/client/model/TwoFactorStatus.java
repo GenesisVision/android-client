@@ -28,10 +28,25 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class TwoFactorStatus implements Parcelable
 {
+	public static final Parcelable.Creator<TwoFactorStatus> CREATOR = new Parcelable.Creator<TwoFactorStatus>()
+	{
+		public TwoFactorStatus createFromParcel(Parcel in) {
+			return new TwoFactorStatus(in);
+		}
+
+		public TwoFactorStatus[] newArray(int size) {
+			return new TwoFactorStatus[size];
+		}
+	};
+
 	@SerializedName("twoFactorEnabled")
 	private Boolean twoFactorEnabled = null;
 
 	public TwoFactorStatus() {
+	}
+
+	TwoFactorStatus(Parcel in) {
+		twoFactorEnabled = (Boolean) in.readValue(null);
 	}
 
 	public TwoFactorStatus twoFactorEnabled(Boolean twoFactorEnabled) {
@@ -53,7 +68,6 @@ public class TwoFactorStatus implements Parcelable
 		this.twoFactorEnabled = twoFactorEnabled;
 	}
 
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -70,7 +84,6 @@ public class TwoFactorStatus implements Parcelable
 	public int hashCode() {
 		return Objects.hash(twoFactorEnabled);
 	}
-
 
 	@Override
 	public String toString() {
@@ -93,27 +106,11 @@ public class TwoFactorStatus implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
-
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(twoFactorEnabled);
 	}
 
-	public static final Parcelable.Creator<TwoFactorStatus> CREATOR = new Parcelable.Creator<TwoFactorStatus>()
-	{
-		public TwoFactorStatus createFromParcel(Parcel in) {
-			return new TwoFactorStatus(in);
-		}
-
-		public TwoFactorStatus[] newArray(int size) {
-			return new TwoFactorStatus[size];
-		}
-	};
-
 	public int describeContents() {
 		return 0;
-	}
-
-	TwoFactorStatus(Parcel in) {
-		twoFactorEnabled = (Boolean) in.readValue(null);
 	}
 }

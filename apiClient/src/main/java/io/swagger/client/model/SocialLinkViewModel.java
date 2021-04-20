@@ -28,6 +28,17 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class SocialLinkViewModel implements Parcelable
 {
+	public static final Parcelable.Creator<SocialLinkViewModel> CREATOR = new Parcelable.Creator<SocialLinkViewModel>()
+	{
+		public SocialLinkViewModel createFromParcel(Parcel in) {
+			return new SocialLinkViewModel(in);
+		}
+
+		public SocialLinkViewModel[] newArray(int size) {
+			return new SocialLinkViewModel[size];
+		}
+	};
+
 	@SerializedName("url")
 	private String url = null;
 
@@ -44,6 +55,14 @@ public class SocialLinkViewModel implements Parcelable
 	private SocialLinkType type = null;
 
 	public SocialLinkViewModel() {
+	}
+
+	SocialLinkViewModel(Parcel in) {
+		url = (String) in.readValue(null);
+		logoUrl = (String) in.readValue(null);
+		name = (String) in.readValue(null);
+		value = (String) in.readValue(null);
+		type = (SocialLinkType) in.readValue(SocialLinkType.class.getClassLoader());
 	}
 
 	public SocialLinkViewModel url(String url) {
@@ -141,7 +160,6 @@ public class SocialLinkViewModel implements Parcelable
 		this.type = type;
 	}
 
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -162,7 +180,6 @@ public class SocialLinkViewModel implements Parcelable
 	public int hashCode() {
 		return Objects.hash(url, logoUrl, name, value, type);
 	}
-
 
 	@Override
 	public String toString() {
@@ -189,7 +206,6 @@ public class SocialLinkViewModel implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
-
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(url);
 		out.writeValue(logoUrl);
@@ -198,26 +214,7 @@ public class SocialLinkViewModel implements Parcelable
 		out.writeValue(type);
 	}
 
-	public static final Parcelable.Creator<SocialLinkViewModel> CREATOR = new Parcelable.Creator<SocialLinkViewModel>()
-	{
-		public SocialLinkViewModel createFromParcel(Parcel in) {
-			return new SocialLinkViewModel(in);
-		}
-
-		public SocialLinkViewModel[] newArray(int size) {
-			return new SocialLinkViewModel[size];
-		}
-	};
-
 	public int describeContents() {
 		return 0;
-	}
-
-	SocialLinkViewModel(Parcel in) {
-		url = (String) in.readValue(null);
-		logoUrl = (String) in.readValue(null);
-		name = (String) in.readValue(null);
-		value = (String) in.readValue(null);
-		type = (SocialLinkType) in.readValue(SocialLinkType.class.getClassLoader());
 	}
 }

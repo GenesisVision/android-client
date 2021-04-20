@@ -33,6 +33,17 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class ProgramInvestingDetailsList implements Parcelable
 {
+	public static final Parcelable.Creator<ProgramInvestingDetailsList> CREATOR = new Parcelable.Creator<ProgramInvestingDetailsList>()
+	{
+		public ProgramInvestingDetailsList createFromParcel(Parcel in) {
+			return new ProgramInvestingDetailsList(in);
+		}
+
+		public ProgramInvestingDetailsList[] newArray(int size) {
+			return new ProgramInvestingDetailsList[size];
+		}
+	};
+
 	@SerializedName("id")
 	private UUID id = null;
 
@@ -90,22 +101,14 @@ public class ProgramInvestingDetailsList implements Parcelable
 	@SerializedName("successFeeCurrent")
 	private Double successFeeCurrent = null;
 
-	public static final Parcelable.Creator<ProgramInvestingDetailsList> CREATOR = new Parcelable.Creator<ProgramInvestingDetailsList>()
-	{
-		public ProgramInvestingDetailsList createFromParcel(Parcel in) {
-			return new ProgramInvestingDetailsList(in);
-		}
-
-		public ProgramInvestingDetailsList[] newArray(int size) {
-			return new ProgramInvestingDetailsList[size];
-		}
-	};
-
 	@SerializedName("totalAvailableInvestment")
 	private Double totalAvailableInvestment = null;
 
 	@SerializedName("stopOutLevelSelected")
 	private Double stopOutLevelSelected = null;
+
+	@SerializedName("stopOutLevelCurrent")
+	private Double stopOutLevelCurrent = null;
 
 	@SerializedName("owner")
 	private ProfilePublicShort owner = null;
@@ -129,6 +132,38 @@ public class ProgramInvestingDetailsList implements Parcelable
 	private ProgramDailyPeriodDetails dailyPeriodDetails = null;
 
 	public ProgramInvestingDetailsList() {
+	}
+
+	ProgramInvestingDetailsList(Parcel in) {
+		id = (UUID) in.readValue(UUID.class.getClassLoader());
+		type = (ProgramType) in.readValue(ProgramType.class.getClassLoader());
+		logoUrl = (String) in.readValue(null);
+		url = (String) in.readValue(null);
+		color = (String) in.readValue(null);
+		title = (String) in.readValue(null);
+		creationDate = (DateTime) in.readValue(DateTime.class.getClassLoader());
+		currency = (Currency) in.readValue(Currency.class.getClassLoader());
+		availableToInvest = (Double) in.readValue(null);
+		level = (Integer) in.readValue(null);
+		levelProgress = (Double) in.readValue(null);
+		periodDuration = (Integer) in.readValue(null);
+		investorsCount = (Integer) in.readValue(null);
+		periodStarts = (DateTime) in.readValue(DateTime.class.getClassLoader());
+		periodEnds = (DateTime) in.readValue(DateTime.class.getClassLoader());
+		managementFeeSelected = (Double) in.readValue(null);
+		managementFeeCurrent = (Double) in.readValue(null);
+		successFeeSelected = (Double) in.readValue(null);
+		successFeeCurrent = (Double) in.readValue(null);
+		totalAvailableInvestment = (Double) in.readValue(null);
+		stopOutLevelSelected = (Double) in.readValue(null);
+		stopOutLevelCurrent = (Double) in.readValue(null);
+		owner = (ProfilePublicShort) in.readValue(ProfilePublicShort.class.getClassLoader());
+		brokerDetails = (BrokerDetails) in.readValue(BrokerDetails.class.getClassLoader());
+		personalDetails = (PersonalInvestingProgramDetailsList) in.readValue(PersonalInvestingProgramDetailsList.class.getClassLoader());
+		tags = (List<Tag>) in.readValue(Tag.class.getClassLoader());
+		statistic = (ProfitChart) in.readValue(ProfitChart.class.getClassLoader());
+		balance = (AmountWithCurrency) in.readValue(AmountWithCurrency.class.getClassLoader());
+		dailyPeriodDetails = (ProgramDailyPeriodDetails) in.readValue(ProgramDailyPeriodDetails.class.getClassLoader());
 	}
 
 	public ProgramInvestingDetailsList id(UUID id) {
@@ -492,41 +527,6 @@ public class ProgramInvestingDetailsList implements Parcelable
 		this.successFeeCurrent = successFeeCurrent;
 	}
 
-	@SerializedName("stopOutLevelCurrent")
-	private Double stopOutLevelCurrent = null;
-
-	ProgramInvestingDetailsList(Parcel in) {
-		id = (UUID) in.readValue(UUID.class.getClassLoader());
-		type = (ProgramType) in.readValue(ProgramType.class.getClassLoader());
-		logoUrl = (String) in.readValue(null);
-		url = (String) in.readValue(null);
-		color = (String) in.readValue(null);
-		title = (String) in.readValue(null);
-		creationDate = (DateTime) in.readValue(DateTime.class.getClassLoader());
-		currency = (Currency) in.readValue(Currency.class.getClassLoader());
-		availableToInvest = (Double) in.readValue(null);
-		level = (Integer) in.readValue(null);
-		levelProgress = (Double) in.readValue(null);
-		periodDuration = (Integer) in.readValue(null);
-		investorsCount = (Integer) in.readValue(null);
-		periodStarts = (DateTime) in.readValue(DateTime.class.getClassLoader());
-		periodEnds = (DateTime) in.readValue(DateTime.class.getClassLoader());
-		managementFeeSelected = (Double) in.readValue(null);
-		managementFeeCurrent = (Double) in.readValue(null);
-		successFeeSelected = (Double) in.readValue(null);
-		successFeeCurrent = (Double) in.readValue(null);
-		totalAvailableInvestment = (Double) in.readValue(null);
-		stopOutLevelSelected = (Double) in.readValue(null);
-		stopOutLevelCurrent = (Double) in.readValue(null);
-		owner = (ProfilePublicShort) in.readValue(ProfilePublicShort.class.getClassLoader());
-		brokerDetails = (BrokerDetails) in.readValue(BrokerDetails.class.getClassLoader());
-		personalDetails = (PersonalInvestingProgramDetailsList) in.readValue(PersonalInvestingProgramDetailsList.class.getClassLoader());
-		tags = (List<Tag>) in.readValue(Tag.class.getClassLoader());
-		statistic = (ProfitChart) in.readValue(ProfitChart.class.getClassLoader());
-		balance = (AmountWithCurrency) in.readValue(AmountWithCurrency.class.getClassLoader());
-		dailyPeriodDetails = (ProgramDailyPeriodDetails) in.readValue(ProgramDailyPeriodDetails.class.getClassLoader());
-	}
-
 	public ProgramInvestingDetailsList totalAvailableInvestment(Double totalAvailableInvestment) {
 		this.totalAvailableInvestment = totalAvailableInvestment;
 		return this;
@@ -568,6 +568,20 @@ public class ProgramInvestingDetailsList implements Parcelable
 	public ProgramInvestingDetailsList stopOutLevelCurrent(Double stopOutLevelCurrent) {
 		this.stopOutLevelCurrent = stopOutLevelCurrent;
 		return this;
+	}
+
+	/**
+	 * Get stopOutLevelCurrent
+	 *
+	 * @return stopOutLevelCurrent
+	 **/
+	@Schema(description = "")
+	public Double getStopOutLevelCurrent() {
+		return stopOutLevelCurrent;
+	}
+
+	public void setStopOutLevelCurrent(Double stopOutLevelCurrent) {
+		this.stopOutLevelCurrent = stopOutLevelCurrent;
 	}
 
 	public ProgramInvestingDetailsList owner(ProfilePublicShort owner) {
@@ -711,20 +725,6 @@ public class ProgramInvestingDetailsList implements Parcelable
 		this.dailyPeriodDetails = dailyPeriodDetails;
 	}
 
-	/**
-	 * Get stopOutLevelCurrent
-	 *
-	 * @return stopOutLevelCurrent
-	 **/
-	@Schema(description = "")
-	public Double getStopOutLevelCurrent() {
-		return stopOutLevelCurrent;
-	}
-
-	public void setStopOutLevelCurrent(Double stopOutLevelCurrent) {
-		this.stopOutLevelCurrent = stopOutLevelCurrent;
-	}
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -763,17 +763,6 @@ public class ProgramInvestingDetailsList implements Parcelable
 				Objects.equals(this.statistic, programInvestingDetailsList.statistic) &&
 				Objects.equals(this.balance, programInvestingDetailsList.balance) &&
 				Objects.equals(this.dailyPeriodDetails, programInvestingDetailsList.dailyPeriodDetails);
-	}
-
-	/**
-	 * Convert the given object to string with each line indented by 4 spaces
-	 * (except the first line).
-	 */
-	private String toIndentedString(java.lang.Object o) {
-		if (o == null) {
-			return "null";
-		}
-		return o.toString().replace("\n", "\n    ");
 	}
 
 	@Override
@@ -819,8 +808,15 @@ public class ProgramInvestingDetailsList implements Parcelable
 		return sb.toString();
 	}
 
-	public int describeContents() {
-		return 0;
+	/**
+	 * Convert the given object to string with each line indented by 4 spaces
+	 * (except the first line).
+	 */
+	private String toIndentedString(java.lang.Object o) {
+		if (o == null) {
+			return "null";
+		}
+		return o.toString().replace("\n", "\n    ");
 	}
 
 	public void writeToParcel(Parcel out, int flags) {
@@ -853,5 +849,9 @@ public class ProgramInvestingDetailsList implements Parcelable
 		out.writeValue(statistic);
 		out.writeValue(balance);
 		out.writeValue(dailyPeriodDetails);
+	}
+
+	public int describeContents() {
+		return 0;
 	}
 }

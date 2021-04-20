@@ -5,6 +5,7 @@ All URIs are relative to *https://red.genesis.vision/api*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**authorize**](AuthApi.md#authorize) | **POST** v2.0/auth/signin | Authorize
+[**authorizeBySignature**](AuthApi.md#authorizeBySignature) | **POST** v2.0/auth/signature/signin | Authorize by signature
 [**changePassword**](AuthApi.md#changePassword) | **POST** v2.0/auth/password/change | Change password
 [**confirmEmail**](AuthApi.md#confirmEmail) | **POST** v2.0/auth/signup/confirm | Confirm email after registration
 [**confirmThreeStepAuth**](AuthApi.md#confirmThreeStepAuth) | **POST** v2.0/auth/3fa/confirm | 3FA confirm
@@ -60,6 +61,59 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **body** | [**LoginViewModel**](LoginViewModel.md)|  | [optional]
+
+### Return type
+
+**String**
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json, text/json, application/_*+json
+ - **Accept**: text/plain, application/json, text/json
+
+<a name="authorizeBySignature"></a>
+# **authorizeBySignature**
+> String authorizeBySignature(body)
+
+Authorize by signature
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiClient;
+//import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
+//import io.swagger.client.api.AuthApi;
+
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
+
+AuthApi apiInstance = new AuthApi();
+LoginSignViewModel body = new LoginSignViewModel(); // LoginSignViewModel | 
+try {
+    String result = apiInstance.authorizeBySignature(body);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling AuthApi#authorizeBySignature");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **body** | [**LoginSignViewModel**](LoginSignViewModel.md)|  | [optional]
 
 ### Return type
 

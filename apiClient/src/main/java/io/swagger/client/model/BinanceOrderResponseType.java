@@ -29,6 +29,15 @@ public enum BinanceOrderResponseType
 	RESULT("Result"),
 	FULL("Full");
 
+	public static BinanceOrderResponseType fromValue(String text) {
+		for (BinanceOrderResponseType b : BinanceOrderResponseType.values()) {
+			if (String.valueOf(b.value).equals(text)) {
+				return b;
+			}
+		}
+		return null;
+	}
+
 	private String value;
 
 	BinanceOrderResponseType(String value) {
@@ -42,15 +51,6 @@ public enum BinanceOrderResponseType
 	@Override
 	public String toString() {
 		return String.valueOf(value);
-	}
-
-	public static BinanceOrderResponseType fromValue(String text) {
-		for (BinanceOrderResponseType b : BinanceOrderResponseType.values()) {
-			if (String.valueOf(b.value).equals(text)) {
-				return b;
-			}
-		}
-		return null;
 	}
 
 	public static class Adapter extends TypeAdapter<BinanceOrderResponseType>

@@ -35,6 +35,15 @@ public enum BinancePeriodInterval
 	TWELVEHOUR("TwelveHour"),
 	ONEDAY("OneDay");
 
+	public static BinancePeriodInterval fromValue(String text) {
+		for (BinancePeriodInterval b : BinancePeriodInterval.values()) {
+			if (String.valueOf(b.value).equals(text)) {
+				return b;
+			}
+		}
+		return null;
+	}
+
 	private String value;
 
 	BinancePeriodInterval(String value) {
@@ -48,15 +57,6 @@ public enum BinancePeriodInterval
 	@Override
 	public String toString() {
 		return String.valueOf(value);
-	}
-
-	public static BinancePeriodInterval fromValue(String text) {
-		for (BinancePeriodInterval b : BinancePeriodInterval.values()) {
-			if (String.valueOf(b.value).equals(text)) {
-				return b;
-			}
-		}
-		return null;
 	}
 
 	public static class Adapter extends TypeAdapter<BinancePeriodInterval>

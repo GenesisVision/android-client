@@ -29,6 +29,17 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class SignalSubscriptionItemsViewModel implements Parcelable
 {
+	public static final Parcelable.Creator<SignalSubscriptionItemsViewModel> CREATOR = new Parcelable.Creator<SignalSubscriptionItemsViewModel>()
+	{
+		public SignalSubscriptionItemsViewModel createFromParcel(Parcel in) {
+			return new SignalSubscriptionItemsViewModel(in);
+		}
+
+		public SignalSubscriptionItemsViewModel[] newArray(int size) {
+			return new SignalSubscriptionItemsViewModel[size];
+		}
+	};
+
 	@SerializedName("items")
 	private List<SignalSubscription> items = null;
 
@@ -36,6 +47,11 @@ public class SignalSubscriptionItemsViewModel implements Parcelable
 	private Integer total = null;
 
 	public SignalSubscriptionItemsViewModel() {
+	}
+
+	SignalSubscriptionItemsViewModel(Parcel in) {
+		items = (List<SignalSubscription>) in.readValue(SignalSubscription.class.getClassLoader());
+		total = (Integer) in.readValue(null);
 	}
 
 	/**
@@ -58,7 +74,6 @@ public class SignalSubscriptionItemsViewModel implements Parcelable
 		return total;
 	}
 
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -76,7 +91,6 @@ public class SignalSubscriptionItemsViewModel implements Parcelable
 	public int hashCode() {
 		return Objects.hash(items, total);
 	}
-
 
 	@Override
 	public String toString() {
@@ -100,29 +114,12 @@ public class SignalSubscriptionItemsViewModel implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
-
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(items);
 		out.writeValue(total);
 	}
 
-	public static final Parcelable.Creator<SignalSubscriptionItemsViewModel> CREATOR = new Parcelable.Creator<SignalSubscriptionItemsViewModel>()
-	{
-		public SignalSubscriptionItemsViewModel createFromParcel(Parcel in) {
-			return new SignalSubscriptionItemsViewModel(in);
-		}
-
-		public SignalSubscriptionItemsViewModel[] newArray(int size) {
-			return new SignalSubscriptionItemsViewModel[size];
-		}
-	};
-
 	public int describeContents() {
 		return 0;
-	}
-
-	SignalSubscriptionItemsViewModel(Parcel in) {
-		items = (List<SignalSubscription>) in.readValue(SignalSubscription.class.getClassLoader());
-		total = (Integer) in.readValue(null);
 	}
 }

@@ -28,6 +28,17 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class PlatformUrlInfo implements Parcelable
 {
+	public static final Parcelable.Creator<PlatformUrlInfo> CREATOR = new Parcelable.Creator<PlatformUrlInfo>()
+	{
+		public PlatformUrlInfo createFromParcel(Parcel in) {
+			return new PlatformUrlInfo(in);
+		}
+
+		public PlatformUrlInfo[] newArray(int size) {
+			return new PlatformUrlInfo[size];
+		}
+	};
+
 	@SerializedName("type")
 	private PlatformUrlType type = null;
 
@@ -35,6 +46,11 @@ public class PlatformUrlInfo implements Parcelable
 	private String url = null;
 
 	public PlatformUrlInfo() {
+	}
+
+	PlatformUrlInfo(Parcel in) {
+		type = (PlatformUrlType) in.readValue(PlatformUrlType.class.getClassLoader());
+		url = (String) in.readValue(null);
 	}
 
 	public PlatformUrlInfo type(PlatformUrlType type) {
@@ -75,7 +91,6 @@ public class PlatformUrlInfo implements Parcelable
 		this.url = url;
 	}
 
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -93,7 +108,6 @@ public class PlatformUrlInfo implements Parcelable
 	public int hashCode() {
 		return Objects.hash(type, url);
 	}
-
 
 	@Override
 	public String toString() {
@@ -117,29 +131,12 @@ public class PlatformUrlInfo implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
-
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(type);
 		out.writeValue(url);
 	}
 
-	public static final Parcelable.Creator<PlatformUrlInfo> CREATOR = new Parcelable.Creator<PlatformUrlInfo>()
-	{
-		public PlatformUrlInfo createFromParcel(Parcel in) {
-			return new PlatformUrlInfo(in);
-		}
-
-		public PlatformUrlInfo[] newArray(int size) {
-			return new PlatformUrlInfo[size];
-		}
-	};
-
 	public int describeContents() {
 		return 0;
-	}
-
-	PlatformUrlInfo(Parcel in) {
-		type = (PlatformUrlType) in.readValue(PlatformUrlType.class.getClassLoader());
-		url = (String) in.readValue(null);
 	}
 }

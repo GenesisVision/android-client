@@ -28,6 +28,17 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class AppVersion implements Parcelable
 {
+	public static final Parcelable.Creator<AppVersion> CREATOR = new Parcelable.Creator<AppVersion>()
+	{
+		public AppVersion createFromParcel(Parcel in) {
+			return new AppVersion(in);
+		}
+
+		public AppVersion[] newArray(int size) {
+			return new AppVersion[size];
+		}
+	};
+
 	@SerializedName("iOS")
 	private IOsAppVersion iOS = null;
 
@@ -35,6 +46,11 @@ public class AppVersion implements Parcelable
 	private AndroidAppVersion android = null;
 
 	public AppVersion() {
+	}
+
+	AppVersion(Parcel in) {
+		iOS = (IOsAppVersion) in.readValue(IOsAppVersion.class.getClassLoader());
+		android = (AndroidAppVersion) in.readValue(AndroidAppVersion.class.getClassLoader());
 	}
 
 	public AppVersion iOS(IOsAppVersion iOS) {
@@ -75,7 +91,6 @@ public class AppVersion implements Parcelable
 		this.android = android;
 	}
 
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -93,7 +108,6 @@ public class AppVersion implements Parcelable
 	public int hashCode() {
 		return Objects.hash(iOS, android);
 	}
-
 
 	@Override
 	public String toString() {
@@ -117,29 +131,12 @@ public class AppVersion implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
-
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(iOS);
 		out.writeValue(android);
 	}
 
-	public static final Parcelable.Creator<AppVersion> CREATOR = new Parcelable.Creator<AppVersion>()
-	{
-		public AppVersion createFromParcel(Parcel in) {
-			return new AppVersion(in);
-		}
-
-		public AppVersion[] newArray(int size) {
-			return new AppVersion[size];
-		}
-	};
-
 	public int describeContents() {
 		return 0;
-	}
-
-	AppVersion(Parcel in) {
-		iOS = (IOsAppVersion) in.readValue(IOsAppVersion.class.getClassLoader());
-		android = (AndroidAppVersion) in.readValue(AndroidAppVersion.class.getClassLoader());
 	}
 }

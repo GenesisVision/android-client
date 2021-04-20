@@ -28,6 +28,17 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class DashboardSummary implements Parcelable
 {
+	public static final Parcelable.Creator<DashboardSummary> CREATOR = new Parcelable.Creator<DashboardSummary>()
+	{
+		public DashboardSummary createFromParcel(Parcel in) {
+			return new DashboardSummary(in);
+		}
+
+		public DashboardSummary[] newArray(int size) {
+			return new DashboardSummary[size];
+		}
+	};
+
 	@SerializedName("invested")
 	private Double invested = null;
 
@@ -47,6 +58,15 @@ public class DashboardSummary implements Parcelable
 	private LimitWithoutKyc limitWithoutKyc = null;
 
 	public DashboardSummary() {
+	}
+
+	DashboardSummary(Parcel in) {
+		invested = (Double) in.readValue(null);
+		trading = (Double) in.readValue(null);
+		wallets = (Double) in.readValue(null);
+		total = (Double) in.readValue(null);
+		profits = (DashboardProfits) in.readValue(DashboardProfits.class.getClassLoader());
+		limitWithoutKyc = (LimitWithoutKyc) in.readValue(LimitWithoutKyc.class.getClassLoader());
 	}
 
 	public DashboardSummary invested(Double invested) {
@@ -163,7 +183,6 @@ public class DashboardSummary implements Parcelable
 		this.limitWithoutKyc = limitWithoutKyc;
 	}
 
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -185,7 +204,6 @@ public class DashboardSummary implements Parcelable
 	public int hashCode() {
 		return Objects.hash(invested, trading, wallets, total, profits, limitWithoutKyc);
 	}
-
 
 	@Override
 	public String toString() {
@@ -213,7 +231,6 @@ public class DashboardSummary implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
-
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(invested);
 		out.writeValue(trading);
@@ -223,27 +240,7 @@ public class DashboardSummary implements Parcelable
 		out.writeValue(limitWithoutKyc);
 	}
 
-	public static final Parcelable.Creator<DashboardSummary> CREATOR = new Parcelable.Creator<DashboardSummary>()
-	{
-		public DashboardSummary createFromParcel(Parcel in) {
-			return new DashboardSummary(in);
-		}
-
-		public DashboardSummary[] newArray(int size) {
-			return new DashboardSummary[size];
-		}
-	};
-
 	public int describeContents() {
 		return 0;
-	}
-
-	DashboardSummary(Parcel in) {
-		invested = (Double) in.readValue(null);
-		trading = (Double) in.readValue(null);
-		wallets = (Double) in.readValue(null);
-		total = (Double) in.readValue(null);
-		profits = (DashboardProfits) in.readValue(DashboardProfits.class.getClassLoader());
-		limitWithoutKyc = (LimitWithoutKyc) in.readValue(LimitWithoutKyc.class.getClassLoader());
 	}
 }

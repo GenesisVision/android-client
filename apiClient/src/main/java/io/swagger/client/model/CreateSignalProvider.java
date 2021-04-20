@@ -29,6 +29,17 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class CreateSignalProvider implements Parcelable
 {
+	public static final Parcelable.Creator<CreateSignalProvider> CREATOR = new Parcelable.Creator<CreateSignalProvider>()
+	{
+		public CreateSignalProvider createFromParcel(Parcel in) {
+			return new CreateSignalProvider(in);
+		}
+
+		public CreateSignalProvider[] newArray(int size) {
+			return new CreateSignalProvider[size];
+		}
+	};
+
 	@SerializedName("id")
 	private UUID id = null;
 
@@ -39,6 +50,12 @@ public class CreateSignalProvider implements Parcelable
 	private Double successFee = null;
 
 	public CreateSignalProvider() {
+	}
+
+	CreateSignalProvider(Parcel in) {
+		id = (UUID) in.readValue(UUID.class.getClassLoader());
+		volumeFee = (Double) in.readValue(null);
+		successFee = (Double) in.readValue(null);
 	}
 
 	public CreateSignalProvider id(UUID id) {
@@ -98,7 +115,6 @@ public class CreateSignalProvider implements Parcelable
 		this.successFee = successFee;
 	}
 
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -117,7 +133,6 @@ public class CreateSignalProvider implements Parcelable
 	public int hashCode() {
 		return Objects.hash(id, volumeFee, successFee);
 	}
-
 
 	@Override
 	public String toString() {
@@ -142,31 +157,13 @@ public class CreateSignalProvider implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
-
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(id);
 		out.writeValue(volumeFee);
 		out.writeValue(successFee);
 	}
 
-	public static final Parcelable.Creator<CreateSignalProvider> CREATOR = new Parcelable.Creator<CreateSignalProvider>()
-	{
-		public CreateSignalProvider createFromParcel(Parcel in) {
-			return new CreateSignalProvider(in);
-		}
-
-		public CreateSignalProvider[] newArray(int size) {
-			return new CreateSignalProvider[size];
-		}
-	};
-
 	public int describeContents() {
 		return 0;
-	}
-
-	CreateSignalProvider(Parcel in) {
-		id = (UUID) in.readValue(UUID.class.getClassLoader());
-		volumeFee = (Double) in.readValue(null);
-		successFee = (Double) in.readValue(null);
 	}
 }

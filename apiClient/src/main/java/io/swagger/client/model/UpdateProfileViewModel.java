@@ -28,6 +28,17 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class UpdateProfileViewModel implements Parcelable
 {
+	public static final Parcelable.Creator<UpdateProfileViewModel> CREATOR = new Parcelable.Creator<UpdateProfileViewModel>()
+	{
+		public UpdateProfileViewModel createFromParcel(Parcel in) {
+			return new UpdateProfileViewModel(in);
+		}
+
+		public UpdateProfileViewModel[] newArray(int size) {
+			return new UpdateProfileViewModel[size];
+		}
+	};
+
 	@SerializedName("userName")
 	private String userName = null;
 
@@ -35,6 +46,11 @@ public class UpdateProfileViewModel implements Parcelable
 	private String about = null;
 
 	public UpdateProfileViewModel() {
+	}
+
+	UpdateProfileViewModel(Parcel in) {
+		userName = (String) in.readValue(null);
+		about = (String) in.readValue(null);
 	}
 
 	public UpdateProfileViewModel userName(String userName) {
@@ -75,7 +91,6 @@ public class UpdateProfileViewModel implements Parcelable
 		this.about = about;
 	}
 
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -93,7 +108,6 @@ public class UpdateProfileViewModel implements Parcelable
 	public int hashCode() {
 		return Objects.hash(userName, about);
 	}
-
 
 	@Override
 	public String toString() {
@@ -117,29 +131,12 @@ public class UpdateProfileViewModel implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
-
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(userName);
 		out.writeValue(about);
 	}
 
-	public static final Parcelable.Creator<UpdateProfileViewModel> CREATOR = new Parcelable.Creator<UpdateProfileViewModel>()
-	{
-		public UpdateProfileViewModel createFromParcel(Parcel in) {
-			return new UpdateProfileViewModel(in);
-		}
-
-		public UpdateProfileViewModel[] newArray(int size) {
-			return new UpdateProfileViewModel[size];
-		}
-	};
-
 	public int describeContents() {
 		return 0;
-	}
-
-	UpdateProfileViewModel(Parcel in) {
-		userName = (String) in.readValue(null);
-		about = (String) in.readValue(null);
 	}
 }

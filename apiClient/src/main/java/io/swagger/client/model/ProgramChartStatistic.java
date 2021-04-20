@@ -30,6 +30,17 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class ProgramChartStatistic implements Parcelable
 {
+	public static final Parcelable.Creator<ProgramChartStatistic> CREATOR = new Parcelable.Creator<ProgramChartStatistic>()
+	{
+		public ProgramChartStatistic createFromParcel(Parcel in) {
+			return new ProgramChartStatistic(in);
+		}
+
+		public ProgramChartStatistic[] newArray(int size) {
+			return new ProgramChartStatistic[size];
+		}
+	};
+
 	@SerializedName("balance")
 	private Double balance = null;
 
@@ -73,6 +84,23 @@ public class ProgramChartStatistic implements Parcelable
 	private Integer subscribers = null;
 
 	public ProgramChartStatistic() {
+	}
+
+	ProgramChartStatistic(Parcel in) {
+		balance = (Double) in.readValue(null);
+		profitPercent = (Double) in.readValue(null);
+		sharpeRatio = (Double) in.readValue(null);
+		sortinoRatio = (Double) in.readValue(null);
+		calmarRatio = (Double) in.readValue(null);
+		maxDrawdown = (Double) in.readValue(null);
+		tradingVolume = (Double) in.readValue(null);
+		trades = (Integer) in.readValue(null);
+		successTradesPercent = (Double) in.readValue(null);
+		profitFactor = (Double) in.readValue(null);
+		investors = (Integer) in.readValue(null);
+		lastPeriodStarts = (DateTime) in.readValue(DateTime.class.getClassLoader());
+		lastPeriodEnds = (DateTime) in.readValue(DateTime.class.getClassLoader());
+		subscribers = (Integer) in.readValue(null);
 	}
 
 	public ProgramChartStatistic balance(Double balance) {
@@ -341,7 +369,6 @@ public class ProgramChartStatistic implements Parcelable
 		this.subscribers = subscribers;
 	}
 
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -371,7 +398,6 @@ public class ProgramChartStatistic implements Parcelable
 	public int hashCode() {
 		return Objects.hash(balance, profitPercent, sharpeRatio, sortinoRatio, calmarRatio, maxDrawdown, tradingVolume, trades, successTradesPercent, profitFactor, investors, lastPeriodStarts, lastPeriodEnds, subscribers);
 	}
-
 
 	@Override
 	public String toString() {
@@ -407,7 +433,6 @@ public class ProgramChartStatistic implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
-
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(balance);
 		out.writeValue(profitPercent);
@@ -425,35 +450,7 @@ public class ProgramChartStatistic implements Parcelable
 		out.writeValue(subscribers);
 	}
 
-	public static final Parcelable.Creator<ProgramChartStatistic> CREATOR = new Parcelable.Creator<ProgramChartStatistic>()
-	{
-		public ProgramChartStatistic createFromParcel(Parcel in) {
-			return new ProgramChartStatistic(in);
-		}
-
-		public ProgramChartStatistic[] newArray(int size) {
-			return new ProgramChartStatistic[size];
-		}
-	};
-
 	public int describeContents() {
 		return 0;
-	}
-
-	ProgramChartStatistic(Parcel in) {
-		balance = (Double) in.readValue(null);
-		profitPercent = (Double) in.readValue(null);
-		sharpeRatio = (Double) in.readValue(null);
-		sortinoRatio = (Double) in.readValue(null);
-		calmarRatio = (Double) in.readValue(null);
-		maxDrawdown = (Double) in.readValue(null);
-		tradingVolume = (Double) in.readValue(null);
-		trades = (Integer) in.readValue(null);
-		successTradesPercent = (Double) in.readValue(null);
-		profitFactor = (Double) in.readValue(null);
-		investors = (Integer) in.readValue(null);
-		lastPeriodStarts = (DateTime) in.readValue(DateTime.class.getClassLoader());
-		lastPeriodEnds = (DateTime) in.readValue(DateTime.class.getClassLoader());
-		subscribers = (Integer) in.readValue(null);
 	}
 }

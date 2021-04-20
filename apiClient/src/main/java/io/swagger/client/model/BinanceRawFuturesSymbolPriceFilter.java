@@ -28,6 +28,17 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class BinanceRawFuturesSymbolPriceFilter implements Parcelable
 {
+	public static final Parcelable.Creator<BinanceRawFuturesSymbolPriceFilter> CREATOR = new Parcelable.Creator<BinanceRawFuturesSymbolPriceFilter>()
+	{
+		public BinanceRawFuturesSymbolPriceFilter createFromParcel(Parcel in) {
+			return new BinanceRawFuturesSymbolPriceFilter(in);
+		}
+
+		public BinanceRawFuturesSymbolPriceFilter[] newArray(int size) {
+			return new BinanceRawFuturesSymbolPriceFilter[size];
+		}
+	};
+
 	@SerializedName("filterType")
 	private BinanceSymbolFilterType filterType = null;
 
@@ -41,6 +52,13 @@ public class BinanceRawFuturesSymbolPriceFilter implements Parcelable
 	private Double tickSize = null;
 
 	public BinanceRawFuturesSymbolPriceFilter() {
+	}
+
+	BinanceRawFuturesSymbolPriceFilter(Parcel in) {
+		filterType = (BinanceSymbolFilterType) in.readValue(BinanceSymbolFilterType.class.getClassLoader());
+		minPrice = (Double) in.readValue(null);
+		maxPrice = (Double) in.readValue(null);
+		tickSize = (Double) in.readValue(null);
 	}
 
 	public BinanceRawFuturesSymbolPriceFilter filterType(BinanceSymbolFilterType filterType) {
@@ -119,7 +137,6 @@ public class BinanceRawFuturesSymbolPriceFilter implements Parcelable
 		this.tickSize = tickSize;
 	}
 
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -139,7 +156,6 @@ public class BinanceRawFuturesSymbolPriceFilter implements Parcelable
 	public int hashCode() {
 		return Objects.hash(filterType, minPrice, maxPrice, tickSize);
 	}
-
 
 	@Override
 	public String toString() {
@@ -165,7 +181,6 @@ public class BinanceRawFuturesSymbolPriceFilter implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
-
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(filterType);
 		out.writeValue(minPrice);
@@ -173,25 +188,7 @@ public class BinanceRawFuturesSymbolPriceFilter implements Parcelable
 		out.writeValue(tickSize);
 	}
 
-	public static final Parcelable.Creator<BinanceRawFuturesSymbolPriceFilter> CREATOR = new Parcelable.Creator<BinanceRawFuturesSymbolPriceFilter>()
-	{
-		public BinanceRawFuturesSymbolPriceFilter createFromParcel(Parcel in) {
-			return new BinanceRawFuturesSymbolPriceFilter(in);
-		}
-
-		public BinanceRawFuturesSymbolPriceFilter[] newArray(int size) {
-			return new BinanceRawFuturesSymbolPriceFilter[size];
-		}
-	};
-
 	public int describeContents() {
 		return 0;
-	}
-
-	BinanceRawFuturesSymbolPriceFilter(Parcel in) {
-		filterType = (BinanceSymbolFilterType) in.readValue(BinanceSymbolFilterType.class.getClassLoader());
-		minPrice = (Double) in.readValue(null);
-		maxPrice = (Double) in.readValue(null);
-		tickSize = (Double) in.readValue(null);
 	}
 }

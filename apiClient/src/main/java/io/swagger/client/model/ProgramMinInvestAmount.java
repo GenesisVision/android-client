@@ -30,6 +30,17 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class ProgramMinInvestAmount implements Parcelable
 {
+	public static final Parcelable.Creator<ProgramMinInvestAmount> CREATOR = new Parcelable.Creator<ProgramMinInvestAmount>()
+	{
+		public ProgramMinInvestAmount createFromParcel(Parcel in) {
+			return new ProgramMinInvestAmount(in);
+		}
+
+		public ProgramMinInvestAmount[] newArray(int size) {
+			return new ProgramMinInvestAmount[size];
+		}
+	};
+
 	@SerializedName("serverType")
 	private BrokerTradeServerType serverType = null;
 
@@ -40,6 +51,12 @@ public class ProgramMinInvestAmount implements Parcelable
 	private List<AmountWithCurrency> minInvestAmountIntoProgram = null;
 
 	public ProgramMinInvestAmount() {
+	}
+
+	ProgramMinInvestAmount(Parcel in) {
+		serverType = (BrokerTradeServerType) in.readValue(BrokerTradeServerType.class.getClassLoader());
+		minDepositCreateAsset = (List<AmountWithCurrency>) in.readValue(AmountWithCurrency.class.getClassLoader());
+		minInvestAmountIntoProgram = (List<AmountWithCurrency>) in.readValue(AmountWithCurrency.class.getClassLoader());
 	}
 
 	public ProgramMinInvestAmount serverType(BrokerTradeServerType serverType) {
@@ -115,7 +132,6 @@ public class ProgramMinInvestAmount implements Parcelable
 		this.minInvestAmountIntoProgram = minInvestAmountIntoProgram;
 	}
 
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -134,7 +150,6 @@ public class ProgramMinInvestAmount implements Parcelable
 	public int hashCode() {
 		return Objects.hash(serverType, minDepositCreateAsset, minInvestAmountIntoProgram);
 	}
-
 
 	@Override
 	public String toString() {
@@ -159,31 +174,13 @@ public class ProgramMinInvestAmount implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
-
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(serverType);
 		out.writeValue(minDepositCreateAsset);
 		out.writeValue(minInvestAmountIntoProgram);
 	}
 
-	public static final Parcelable.Creator<ProgramMinInvestAmount> CREATOR = new Parcelable.Creator<ProgramMinInvestAmount>()
-	{
-		public ProgramMinInvestAmount createFromParcel(Parcel in) {
-			return new ProgramMinInvestAmount(in);
-		}
-
-		public ProgramMinInvestAmount[] newArray(int size) {
-			return new ProgramMinInvestAmount[size];
-		}
-	};
-
 	public int describeContents() {
 		return 0;
-	}
-
-	ProgramMinInvestAmount(Parcel in) {
-		serverType = (BrokerTradeServerType) in.readValue(BrokerTradeServerType.class.getClassLoader());
-		minDepositCreateAsset = (List<AmountWithCurrency>) in.readValue(AmountWithCurrency.class.getClassLoader());
-		minInvestAmountIntoProgram = (List<AmountWithCurrency>) in.readValue(AmountWithCurrency.class.getClassLoader());
 	}
 }

@@ -32,6 +32,17 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class FundHistoryEventViewModel implements Parcelable
 {
+	public static final Parcelable.Creator<FundHistoryEventViewModel> CREATOR = new Parcelable.Creator<FundHistoryEventViewModel>()
+	{
+		public FundHistoryEventViewModel createFromParcel(Parcel in) {
+			return new FundHistoryEventViewModel(in);
+		}
+
+		public FundHistoryEventViewModel[] newArray(int size) {
+			return new FundHistoryEventViewModel[size];
+		}
+	};
+
 	@SerializedName("date")
 	private DateTime date = null;
 
@@ -51,6 +62,15 @@ public class FundHistoryEventViewModel implements Parcelable
 	private List<FundAssetPartWithIcon> newAssets = null;
 
 	public FundHistoryEventViewModel() {
+	}
+
+	FundHistoryEventViewModel(Parcel in) {
+		date = (DateTime) in.readValue(DateTime.class.getClassLoader());
+		type = (FundHistoryEventType) in.readValue(FundHistoryEventType.class.getClassLoader());
+		description = (String) in.readValue(null);
+		logoUrl = (String) in.readValue(null);
+		trades = (List<FundTradingEventViewModel>) in.readValue(FundTradingEventViewModel.class.getClassLoader());
+		newAssets = (List<FundAssetPartWithIcon>) in.readValue(FundAssetPartWithIcon.class.getClassLoader());
 	}
 
 	public FundHistoryEventViewModel date(DateTime date) {
@@ -183,7 +203,6 @@ public class FundHistoryEventViewModel implements Parcelable
 		this.newAssets = newAssets;
 	}
 
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -205,7 +224,6 @@ public class FundHistoryEventViewModel implements Parcelable
 	public int hashCode() {
 		return Objects.hash(date, type, description, logoUrl, trades, newAssets);
 	}
-
 
 	@Override
 	public String toString() {
@@ -233,7 +251,6 @@ public class FundHistoryEventViewModel implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
-
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(date);
 		out.writeValue(type);
@@ -243,27 +260,7 @@ public class FundHistoryEventViewModel implements Parcelable
 		out.writeValue(newAssets);
 	}
 
-	public static final Parcelable.Creator<FundHistoryEventViewModel> CREATOR = new Parcelable.Creator<FundHistoryEventViewModel>()
-	{
-		public FundHistoryEventViewModel createFromParcel(Parcel in) {
-			return new FundHistoryEventViewModel(in);
-		}
-
-		public FundHistoryEventViewModel[] newArray(int size) {
-			return new FundHistoryEventViewModel[size];
-		}
-	};
-
 	public int describeContents() {
 		return 0;
-	}
-
-	FundHistoryEventViewModel(Parcel in) {
-		date = (DateTime) in.readValue(DateTime.class.getClassLoader());
-		type = (FundHistoryEventType) in.readValue(FundHistoryEventType.class.getClassLoader());
-		description = (String) in.readValue(null);
-		logoUrl = (String) in.readValue(null);
-		trades = (List<FundTradingEventViewModel>) in.readValue(FundTradingEventViewModel.class.getClassLoader());
-		newAssets = (List<FundAssetPartWithIcon>) in.readValue(FundAssetPartWithIcon.class.getClassLoader());
 	}
 }

@@ -29,6 +29,17 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class WalletData implements Parcelable
 {
+	public static final Parcelable.Creator<WalletData> CREATOR = new Parcelable.Creator<WalletData>()
+	{
+		public WalletData createFromParcel(Parcel in) {
+			return new WalletData(in);
+		}
+
+		public WalletData[] newArray(int size) {
+			return new WalletData[size];
+		}
+	};
+
 	@SerializedName("currency")
 	private Currency currency = null;
 
@@ -87,6 +98,28 @@ public class WalletData implements Parcelable
 	private String depositUrlCoindirect = null;
 
 	public WalletData() {
+	}
+
+	WalletData(Parcel in) {
+		currency = (Currency) in.readValue(Currency.class.getClassLoader());
+		available = (Double) in.readValue(null);
+		invested = (Double) in.readValue(null);
+		trading = (Double) in.readValue(null);
+		pending = (Double) in.readValue(null);
+		total = (Double) in.readValue(null);
+		availableCcy = (Double) in.readValue(null);
+		investedCcy = (Double) in.readValue(null);
+		tradingCcy = (Double) in.readValue(null);
+		pendingCcy = (Double) in.readValue(null);
+		totalCcy = (Double) in.readValue(null);
+		id = (UUID) in.readValue(UUID.class.getClassLoader());
+		title = (String) in.readValue(null);
+		logoUrl = (String) in.readValue(null);
+		isDepositEnabled = (Boolean) in.readValue(null);
+		isWithdrawalEnabled = (Boolean) in.readValue(null);
+		withdrawalCommission = (Double) in.readValue(null);
+		depositAddress = (String) in.readValue(null);
+		depositUrlCoindirect = (String) in.readValue(null);
 	}
 
 	public WalletData currency(Currency currency) {
@@ -432,7 +465,6 @@ public class WalletData implements Parcelable
 		this.depositUrlCoindirect = depositUrlCoindirect;
 	}
 
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -467,7 +499,6 @@ public class WalletData implements Parcelable
 	public int hashCode() {
 		return Objects.hash(currency, available, invested, trading, pending, total, availableCcy, investedCcy, tradingCcy, pendingCcy, totalCcy, id, title, logoUrl, isDepositEnabled, isWithdrawalEnabled, withdrawalCommission, depositAddress, depositUrlCoindirect);
 	}
-
 
 	@Override
 	public String toString() {
@@ -508,7 +539,6 @@ public class WalletData implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
-
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(currency);
 		out.writeValue(available);
@@ -531,40 +561,7 @@ public class WalletData implements Parcelable
 		out.writeValue(depositUrlCoindirect);
 	}
 
-	public static final Parcelable.Creator<WalletData> CREATOR = new Parcelable.Creator<WalletData>()
-	{
-		public WalletData createFromParcel(Parcel in) {
-			return new WalletData(in);
-		}
-
-		public WalletData[] newArray(int size) {
-			return new WalletData[size];
-		}
-	};
-
 	public int describeContents() {
 		return 0;
-	}
-
-	WalletData(Parcel in) {
-		currency = (Currency) in.readValue(Currency.class.getClassLoader());
-		available = (Double) in.readValue(null);
-		invested = (Double) in.readValue(null);
-		trading = (Double) in.readValue(null);
-		pending = (Double) in.readValue(null);
-		total = (Double) in.readValue(null);
-		availableCcy = (Double) in.readValue(null);
-		investedCcy = (Double) in.readValue(null);
-		tradingCcy = (Double) in.readValue(null);
-		pendingCcy = (Double) in.readValue(null);
-		totalCcy = (Double) in.readValue(null);
-		id = (UUID) in.readValue(UUID.class.getClassLoader());
-		title = (String) in.readValue(null);
-		logoUrl = (String) in.readValue(null);
-		isDepositEnabled = (Boolean) in.readValue(null);
-		isWithdrawalEnabled = (Boolean) in.readValue(null);
-		withdrawalCommission = (Double) in.readValue(null);
-		depositAddress = (String) in.readValue(null);
-		depositUrlCoindirect = (String) in.readValue(null);
 	}
 }

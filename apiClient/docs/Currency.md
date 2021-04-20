@@ -9,4 +9,5 @@
 * `USDT` (value: `"USDT"`)
 * `BNB` (value: `"BNB"`)
 * `USDC` (value: `"USDC"`)
+* `DAI` (value: `"DAI"`)
 * `USD` (value: `"USD"`)

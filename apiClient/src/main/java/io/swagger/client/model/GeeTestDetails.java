@@ -24,7 +24,21 @@ import java.util.Objects;
 
 public class GeeTestDetails implements Parcelable
 {
+	public static final Parcelable.Creator<GeeTestDetails> CREATOR = new Parcelable.Creator<GeeTestDetails>()
+	{
+		public GeeTestDetails createFromParcel(Parcel in) {
+			return new GeeTestDetails(in);
+		}
+
+		public GeeTestDetails[] newArray(int size) {
+			return new GeeTestDetails[size];
+		}
+	};
+
 	public GeeTestDetails() {
+	}
+
+	GeeTestDetails(Parcel in) {
 	}
 
 	@Override
@@ -42,7 +56,6 @@ public class GeeTestDetails implements Parcelable
 	public int hashCode() {
 		return Objects.hash();
 	}
-
 
 	@Override
 	public String toString() {
@@ -64,25 +77,10 @@ public class GeeTestDetails implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
-
 	public void writeToParcel(Parcel out, int flags) {
 	}
 
-	public static final Parcelable.Creator<GeeTestDetails> CREATOR = new Parcelable.Creator<GeeTestDetails>()
-	{
-		public GeeTestDetails createFromParcel(Parcel in) {
-			return new GeeTestDetails(in);
-		}
-
-		public GeeTestDetails[] newArray(int size) {
-			return new GeeTestDetails[size];
-		}
-	};
-
 	public int describeContents() {
 		return 0;
-	}
-
-	GeeTestDetails(Parcel in) {
 	}
 }

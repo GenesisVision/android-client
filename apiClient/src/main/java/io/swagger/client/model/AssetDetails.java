@@ -29,6 +29,17 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class AssetDetails implements Parcelable
 {
+	public static final Parcelable.Creator<AssetDetails> CREATOR = new Parcelable.Creator<AssetDetails>()
+	{
+		public AssetDetails createFromParcel(Parcel in) {
+			return new AssetDetails(in);
+		}
+
+		public AssetDetails[] newArray(int size) {
+			return new AssetDetails[size];
+		}
+	};
+
 	@SerializedName("id")
 	private UUID id = null;
 
@@ -51,6 +62,16 @@ public class AssetDetails implements Parcelable
 	private ProgramAssetDetails programDetails = null;
 
 	public AssetDetails() {
+	}
+
+	AssetDetails(Parcel in) {
+		id = (UUID) in.readValue(UUID.class.getClassLoader());
+		logoUrl = (String) in.readValue(null);
+		color = (String) in.readValue(null);
+		title = (String) in.readValue(null);
+		url = (String) in.readValue(null);
+		assetType = (AssetType) in.readValue(AssetType.class.getClassLoader());
+		programDetails = (ProgramAssetDetails) in.readValue(ProgramAssetDetails.class.getClassLoader());
 	}
 
 	public AssetDetails id(UUID id) {
@@ -186,7 +207,6 @@ public class AssetDetails implements Parcelable
 		this.programDetails = programDetails;
 	}
 
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -209,7 +229,6 @@ public class AssetDetails implements Parcelable
 	public int hashCode() {
 		return Objects.hash(id, logoUrl, color, title, url, assetType, programDetails);
 	}
-
 
 	@Override
 	public String toString() {
@@ -238,7 +257,6 @@ public class AssetDetails implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
-
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(id);
 		out.writeValue(logoUrl);
@@ -249,28 +267,7 @@ public class AssetDetails implements Parcelable
 		out.writeValue(programDetails);
 	}
 
-	public static final Parcelable.Creator<AssetDetails> CREATOR = new Parcelable.Creator<AssetDetails>()
-	{
-		public AssetDetails createFromParcel(Parcel in) {
-			return new AssetDetails(in);
-		}
-
-		public AssetDetails[] newArray(int size) {
-			return new AssetDetails[size];
-		}
-	};
-
 	public int describeContents() {
 		return 0;
-	}
-
-	AssetDetails(Parcel in) {
-		id = (UUID) in.readValue(UUID.class.getClassLoader());
-		logoUrl = (String) in.readValue(null);
-		color = (String) in.readValue(null);
-		title = (String) in.readValue(null);
-		url = (String) in.readValue(null);
-		assetType = (AssetType) in.readValue(AssetType.class.getClassLoader());
-		programDetails = (ProgramAssetDetails) in.readValue(ProgramAssetDetails.class.getClassLoader());
 	}
 }

@@ -28,6 +28,17 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class TradingScheduleInfo implements Parcelable
 {
+	public static final Parcelable.Creator<TradingScheduleInfo> CREATOR = new Parcelable.Creator<TradingScheduleInfo>()
+	{
+		public TradingScheduleInfo createFromParcel(Parcel in) {
+			return new TradingScheduleInfo(in);
+		}
+
+		public TradingScheduleInfo[] newArray(int size) {
+			return new TradingScheduleInfo[size];
+		}
+	};
+
 	@SerializedName("hasTradingSchedule")
 	private Boolean hasTradingSchedule = null;
 
@@ -50,6 +61,16 @@ public class TradingScheduleInfo implements Parcelable
 	private Integer minuteEnd = null;
 
 	public TradingScheduleInfo() {
+	}
+
+	TradingScheduleInfo(Parcel in) {
+		hasTradingSchedule = (Boolean) in.readValue(null);
+		dayStart = (DayOfWeekType) in.readValue(DayOfWeekType.class.getClassLoader());
+		hourStart = (Integer) in.readValue(null);
+		minuteStart = (Integer) in.readValue(null);
+		dayEnd = (DayOfWeekType) in.readValue(DayOfWeekType.class.getClassLoader());
+		hourEnd = (Integer) in.readValue(null);
+		minuteEnd = (Integer) in.readValue(null);
 	}
 
 	public TradingScheduleInfo hasTradingSchedule(Boolean hasTradingSchedule) {
@@ -185,7 +206,6 @@ public class TradingScheduleInfo implements Parcelable
 		this.minuteEnd = minuteEnd;
 	}
 
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -208,7 +228,6 @@ public class TradingScheduleInfo implements Parcelable
 	public int hashCode() {
 		return Objects.hash(hasTradingSchedule, dayStart, hourStart, minuteStart, dayEnd, hourEnd, minuteEnd);
 	}
-
 
 	@Override
 	public String toString() {
@@ -237,7 +256,6 @@ public class TradingScheduleInfo implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
-
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(hasTradingSchedule);
 		out.writeValue(dayStart);
@@ -248,28 +266,7 @@ public class TradingScheduleInfo implements Parcelable
 		out.writeValue(minuteEnd);
 	}
 
-	public static final Parcelable.Creator<TradingScheduleInfo> CREATOR = new Parcelable.Creator<TradingScheduleInfo>()
-	{
-		public TradingScheduleInfo createFromParcel(Parcel in) {
-			return new TradingScheduleInfo(in);
-		}
-
-		public TradingScheduleInfo[] newArray(int size) {
-			return new TradingScheduleInfo[size];
-		}
-	};
-
 	public int describeContents() {
 		return 0;
-	}
-
-	TradingScheduleInfo(Parcel in) {
-		hasTradingSchedule = (Boolean) in.readValue(null);
-		dayStart = (DayOfWeekType) in.readValue(DayOfWeekType.class.getClassLoader());
-		hourStart = (Integer) in.readValue(null);
-		minuteStart = (Integer) in.readValue(null);
-		dayEnd = (DayOfWeekType) in.readValue(DayOfWeekType.class.getClassLoader());
-		hourEnd = (Integer) in.readValue(null);
-		minuteEnd = (Integer) in.readValue(null);
 	}
 }

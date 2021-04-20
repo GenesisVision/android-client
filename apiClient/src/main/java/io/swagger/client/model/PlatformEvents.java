@@ -30,10 +30,25 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class PlatformEvents implements Parcelable
 {
+	public static final Parcelable.Creator<PlatformEvents> CREATOR = new Parcelable.Creator<PlatformEvents>()
+	{
+		public PlatformEvents createFromParcel(Parcel in) {
+			return new PlatformEvents(in);
+		}
+
+		public PlatformEvents[] newArray(int size) {
+			return new PlatformEvents[size];
+		}
+	};
+
 	@SerializedName("events")
 	private List<PlatformEvent> events = null;
 
 	public PlatformEvents() {
+	}
+
+	PlatformEvents(Parcel in) {
+		events = (List<PlatformEvent>) in.readValue(PlatformEvent.class.getClassLoader());
 	}
 
 	public PlatformEvents events(List<PlatformEvent> events) {
@@ -63,7 +78,6 @@ public class PlatformEvents implements Parcelable
 		this.events = events;
 	}
 
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -80,7 +94,6 @@ public class PlatformEvents implements Parcelable
 	public int hashCode() {
 		return Objects.hash(events);
 	}
-
 
 	@Override
 	public String toString() {
@@ -103,27 +116,11 @@ public class PlatformEvents implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
-
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(events);
 	}
 
-	public static final Parcelable.Creator<PlatformEvents> CREATOR = new Parcelable.Creator<PlatformEvents>()
-	{
-		public PlatformEvents createFromParcel(Parcel in) {
-			return new PlatformEvents(in);
-		}
-
-		public PlatformEvents[] newArray(int size) {
-			return new PlatformEvents[size];
-		}
-	};
-
 	public int describeContents() {
 		return 0;
-	}
-
-	PlatformEvents(Parcel in) {
-		events = (List<PlatformEvent>) in.readValue(PlatformEvent.class.getClassLoader());
 	}
 }

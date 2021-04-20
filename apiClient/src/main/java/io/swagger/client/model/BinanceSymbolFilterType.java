@@ -36,6 +36,15 @@ public enum BinanceSymbolFilterType
 	ICEBERGPARTS("IcebergParts"),
 	MAXPOSITION("MaxPosition");
 
+	public static BinanceSymbolFilterType fromValue(String text) {
+		for (BinanceSymbolFilterType b : BinanceSymbolFilterType.values()) {
+			if (String.valueOf(b.value).equals(text)) {
+				return b;
+			}
+		}
+		return null;
+	}
+
 	private String value;
 
 	BinanceSymbolFilterType(String value) {
@@ -49,15 +58,6 @@ public enum BinanceSymbolFilterType
 	@Override
 	public String toString() {
 		return String.valueOf(value);
-	}
-
-	public static BinanceSymbolFilterType fromValue(String text) {
-		for (BinanceSymbolFilterType b : BinanceSymbolFilterType.values()) {
-			if (String.valueOf(b.value).equals(text)) {
-				return b;
-			}
-		}
-		return null;
 	}
 
 	public static class Adapter extends TypeAdapter<BinanceSymbolFilterType>

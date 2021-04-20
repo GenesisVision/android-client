@@ -33,6 +33,17 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class FundDetailsListItem implements Parcelable
 {
+	public static final Parcelable.Creator<FundDetailsListItem> CREATOR = new Parcelable.Creator<FundDetailsListItem>()
+	{
+		public FundDetailsListItem createFromParcel(Parcel in) {
+			return new FundDetailsListItem(in);
+		}
+
+		public FundDetailsListItem[] newArray(int size) {
+			return new FundDetailsListItem[size];
+		}
+	};
+
 	@SerializedName("id")
 	private UUID id = null;
 
@@ -44,6 +55,9 @@ public class FundDetailsListItem implements Parcelable
 
 	@SerializedName("color")
 	private String color = null;
+
+	@SerializedName("index")
+	private Integer index = null;
 
 	@SerializedName("title")
 	private String title = null;
@@ -79,6 +93,25 @@ public class FundDetailsListItem implements Parcelable
 	private AmountWithCurrency balance = null;
 
 	public FundDetailsListItem() {
+	}
+
+	FundDetailsListItem(Parcel in) {
+		id = (UUID) in.readValue(UUID.class.getClassLoader());
+		logoUrl = (String) in.readValue(null);
+		url = (String) in.readValue(null);
+		color = (String) in.readValue(null);
+		index = (Integer) in.readValue(null);
+		title = (String) in.readValue(null);
+		description = (String) in.readValue(null);
+		creationDate = (DateTime) in.readValue(DateTime.class.getClassLoader());
+		investorsCount = (Integer) in.readValue(null);
+		status = (String) in.readValue(null);
+		totalAssetsCount = (Integer) in.readValue(null);
+		topFundAssets = (List<FundAssetPercent>) in.readValue(FundAssetPercent.class.getClassLoader());
+		owner = (ProfilePublicShort) in.readValue(ProfilePublicShort.class.getClassLoader());
+		statistic = (ProfitChart) in.readValue(ProfitChart.class.getClassLoader());
+		personalDetails = (PersonalFundDetailsList) in.readValue(PersonalFundDetailsList.class.getClassLoader());
+		balance = (AmountWithCurrency) in.readValue(AmountWithCurrency.class.getClassLoader());
 	}
 
 	public FundDetailsListItem id(UUID id) {
@@ -155,6 +188,25 @@ public class FundDetailsListItem implements Parcelable
 
 	public void setColor(String color) {
 		this.color = color;
+	}
+
+	public FundDetailsListItem index(Integer index) {
+		this.index = index;
+		return this;
+	}
+
+	/**
+	 * Get index
+	 *
+	 * @return index
+	 **/
+	@Schema(description = "")
+	public Integer getIndex() {
+		return index;
+	}
+
+	public void setIndex(Integer index) {
+		this.index = index;
 	}
 
 	public FundDetailsListItem title(String title) {
@@ -374,7 +426,6 @@ public class FundDetailsListItem implements Parcelable
 		this.balance = balance;
 	}
 
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -388,6 +439,7 @@ public class FundDetailsListItem implements Parcelable
 				Objects.equals(this.logoUrl, fundDetailsListItem.logoUrl) &&
 				Objects.equals(this.url, fundDetailsListItem.url) &&
 				Objects.equals(this.color, fundDetailsListItem.color) &&
+				Objects.equals(this.index, fundDetailsListItem.index) &&
 				Objects.equals(this.title, fundDetailsListItem.title) &&
 				Objects.equals(this.description, fundDetailsListItem.description) &&
 				Objects.equals(this.creationDate, fundDetailsListItem.creationDate) &&
@@ -403,9 +455,8 @@ public class FundDetailsListItem implements Parcelable
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, logoUrl, url, color, title, description, creationDate, investorsCount, status, totalAssetsCount, topFundAssets, owner, statistic, personalDetails, balance);
+		return Objects.hash(id, logoUrl, url, color, index, title, description, creationDate, investorsCount, status, totalAssetsCount, topFundAssets, owner, statistic, personalDetails, balance);
 	}
-
 
 	@Override
 	public String toString() {
@@ -416,6 +467,7 @@ public class FundDetailsListItem implements Parcelable
 		sb.append("    logoUrl: ").append(toIndentedString(logoUrl)).append("\n");
 		sb.append("    url: ").append(toIndentedString(url)).append("\n");
 		sb.append("    color: ").append(toIndentedString(color)).append("\n");
+		sb.append("    index: ").append(toIndentedString(index)).append("\n");
 		sb.append("    title: ").append(toIndentedString(title)).append("\n");
 		sb.append("    description: ").append(toIndentedString(description)).append("\n");
 		sb.append("    creationDate: ").append(toIndentedString(creationDate)).append("\n");
@@ -442,12 +494,12 @@ public class FundDetailsListItem implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
-
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(id);
 		out.writeValue(logoUrl);
 		out.writeValue(url);
 		out.writeValue(color);
+		out.writeValue(index);
 		out.writeValue(title);
 		out.writeValue(description);
 		out.writeValue(creationDate);
@@ -461,36 +513,7 @@ public class FundDetailsListItem implements Parcelable
 		out.writeValue(balance);
 	}
 
-	public static final Parcelable.Creator<FundDetailsListItem> CREATOR = new Parcelable.Creator<FundDetailsListItem>()
-	{
-		public FundDetailsListItem createFromParcel(Parcel in) {
-			return new FundDetailsListItem(in);
-		}
-
-		public FundDetailsListItem[] newArray(int size) {
-			return new FundDetailsListItem[size];
-		}
-	};
-
 	public int describeContents() {
 		return 0;
-	}
-
-	FundDetailsListItem(Parcel in) {
-		id = (UUID) in.readValue(UUID.class.getClassLoader());
-		logoUrl = (String) in.readValue(null);
-		url = (String) in.readValue(null);
-		color = (String) in.readValue(null);
-		title = (String) in.readValue(null);
-		description = (String) in.readValue(null);
-		creationDate = (DateTime) in.readValue(DateTime.class.getClassLoader());
-		investorsCount = (Integer) in.readValue(null);
-		status = (String) in.readValue(null);
-		totalAssetsCount = (Integer) in.readValue(null);
-		topFundAssets = (List<FundAssetPercent>) in.readValue(FundAssetPercent.class.getClassLoader());
-		owner = (ProfilePublicShort) in.readValue(ProfilePublicShort.class.getClassLoader());
-		statistic = (ProfitChart) in.readValue(ProfitChart.class.getClassLoader());
-		personalDetails = (PersonalFundDetailsList) in.readValue(PersonalFundDetailsList.class.getClassLoader());
-		balance = (AmountWithCurrency) in.readValue(AmountWithCurrency.class.getClassLoader());
 	}
 }

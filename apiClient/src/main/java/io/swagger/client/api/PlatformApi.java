@@ -10,6 +10,8 @@ import io.swagger.client.model.PlatformEvents;
 import io.swagger.client.model.PlatformInfo;
 import io.swagger.client.model.ProgramsLevelsInfo;
 import io.swagger.client.model.PushNotificationViewModel;
+import io.swagger.client.model.RouteType;
+import io.swagger.client.model.SignMessage;
 import io.swagger.client.model.SiteMapInfo;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
@@ -25,6 +27,17 @@ public interface PlatformApi
 	@GET("v2.0/platform/trading/assets")
 	Observable<PlatformAssets> getAllPlatformTradingAssets();
 
+
+	/**
+	 * Get message for signature
+	 *
+	 * @param type (optional)
+	 * @return Call&lt;SignMessage&gt;
+	 */
+	@POST("v2.0/platform/signature/message")
+	Observable<SignMessage> getMsgForSignature(
+			@retrofit2.http.Query("type") RouteType type
+	);
 
 	/**
 	 * Get asset description

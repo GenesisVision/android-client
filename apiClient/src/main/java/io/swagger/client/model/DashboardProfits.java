@@ -28,6 +28,17 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class DashboardProfits implements Parcelable
 {
+	public static final Parcelable.Creator<DashboardProfits> CREATOR = new Parcelable.Creator<DashboardProfits>()
+	{
+		public DashboardProfits createFromParcel(Parcel in) {
+			return new DashboardProfits(in);
+		}
+
+		public DashboardProfits[] newArray(int size) {
+			return new DashboardProfits[size];
+		}
+	};
+
 	@SerializedName("day")
 	private DashboardTimeframeProfit day = null;
 
@@ -38,6 +49,12 @@ public class DashboardProfits implements Parcelable
 	private DashboardTimeframeProfit month = null;
 
 	public DashboardProfits() {
+	}
+
+	DashboardProfits(Parcel in) {
+		day = (DashboardTimeframeProfit) in.readValue(DashboardTimeframeProfit.class.getClassLoader());
+		week = (DashboardTimeframeProfit) in.readValue(DashboardTimeframeProfit.class.getClassLoader());
+		month = (DashboardTimeframeProfit) in.readValue(DashboardTimeframeProfit.class.getClassLoader());
 	}
 
 	public DashboardProfits day(DashboardTimeframeProfit day) {
@@ -97,7 +114,6 @@ public class DashboardProfits implements Parcelable
 		this.month = month;
 	}
 
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -116,7 +132,6 @@ public class DashboardProfits implements Parcelable
 	public int hashCode() {
 		return Objects.hash(day, week, month);
 	}
-
 
 	@Override
 	public String toString() {
@@ -141,31 +156,13 @@ public class DashboardProfits implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
-
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(day);
 		out.writeValue(week);
 		out.writeValue(month);
 	}
 
-	public static final Parcelable.Creator<DashboardProfits> CREATOR = new Parcelable.Creator<DashboardProfits>()
-	{
-		public DashboardProfits createFromParcel(Parcel in) {
-			return new DashboardProfits(in);
-		}
-
-		public DashboardProfits[] newArray(int size) {
-			return new DashboardProfits[size];
-		}
-	};
-
 	public int describeContents() {
 		return 0;
-	}
-
-	DashboardProfits(Parcel in) {
-		day = (DashboardTimeframeProfit) in.readValue(DashboardTimeframeProfit.class.getClassLoader());
-		week = (DashboardTimeframeProfit) in.readValue(DashboardTimeframeProfit.class.getClassLoader());
-		month = (DashboardTimeframeProfit) in.readValue(DashboardTimeframeProfit.class.getClassLoader());
 	}
 }

@@ -30,6 +30,15 @@ public enum ImageQuality
 	HIGH("High"),
 	ORIGINAL("Original");
 
+	public static ImageQuality fromValue(String text) {
+		for (ImageQuality b : ImageQuality.values()) {
+			if (String.valueOf(b.value).equals(text)) {
+				return b;
+			}
+		}
+		return null;
+	}
+
 	private String value;
 
 	ImageQuality(String value) {
@@ -43,15 +52,6 @@ public enum ImageQuality
 	@Override
 	public String toString() {
 		return String.valueOf(value);
-	}
-
-	public static ImageQuality fromValue(String text) {
-		for (ImageQuality b : ImageQuality.values()) {
-			if (String.valueOf(b.value).equals(text)) {
-				return b;
-			}
-		}
-		return null;
 	}
 
 	public static class Adapter extends TypeAdapter<ImageQuality>

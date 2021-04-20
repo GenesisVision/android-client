@@ -29,6 +29,17 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class ExchangeAssetItemsViewModel implements Parcelable
 {
+	public static final Parcelable.Creator<ExchangeAssetItemsViewModel> CREATOR = new Parcelable.Creator<ExchangeAssetItemsViewModel>()
+	{
+		public ExchangeAssetItemsViewModel createFromParcel(Parcel in) {
+			return new ExchangeAssetItemsViewModel(in);
+		}
+
+		public ExchangeAssetItemsViewModel[] newArray(int size) {
+			return new ExchangeAssetItemsViewModel[size];
+		}
+	};
+
 	@SerializedName("items")
 	private List<ExchangeAsset> items = null;
 
@@ -36,6 +47,11 @@ public class ExchangeAssetItemsViewModel implements Parcelable
 	private Integer total = null;
 
 	public ExchangeAssetItemsViewModel() {
+	}
+
+	ExchangeAssetItemsViewModel(Parcel in) {
+		items = (List<ExchangeAsset>) in.readValue(ExchangeAsset.class.getClassLoader());
+		total = (Integer) in.readValue(null);
 	}
 
 	/**
@@ -58,7 +74,6 @@ public class ExchangeAssetItemsViewModel implements Parcelable
 		return total;
 	}
 
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -76,7 +91,6 @@ public class ExchangeAssetItemsViewModel implements Parcelable
 	public int hashCode() {
 		return Objects.hash(items, total);
 	}
-
 
 	@Override
 	public String toString() {
@@ -100,29 +114,12 @@ public class ExchangeAssetItemsViewModel implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
-
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(items);
 		out.writeValue(total);
 	}
 
-	public static final Parcelable.Creator<ExchangeAssetItemsViewModel> CREATOR = new Parcelable.Creator<ExchangeAssetItemsViewModel>()
-	{
-		public ExchangeAssetItemsViewModel createFromParcel(Parcel in) {
-			return new ExchangeAssetItemsViewModel(in);
-		}
-
-		public ExchangeAssetItemsViewModel[] newArray(int size) {
-			return new ExchangeAssetItemsViewModel[size];
-		}
-	};
-
 	public int describeContents() {
 		return 0;
-	}
-
-	ExchangeAssetItemsViewModel(Parcel in) {
-		items = (List<ExchangeAsset>) in.readValue(ExchangeAsset.class.getClassLoader());
-		total = (Integer) in.readValue(null);
 	}
 }

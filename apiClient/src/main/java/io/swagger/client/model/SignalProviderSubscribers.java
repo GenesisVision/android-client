@@ -30,6 +30,17 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class SignalProviderSubscribers implements Parcelable
 {
+	public static final Parcelable.Creator<SignalProviderSubscribers> CREATOR = new Parcelable.Creator<SignalProviderSubscribers>()
+	{
+		public SignalProviderSubscribers createFromParcel(Parcel in) {
+			return new SignalProviderSubscribers(in);
+		}
+
+		public SignalProviderSubscribers[] newArray(int size) {
+			return new SignalProviderSubscribers[size];
+		}
+	};
+
 	@SerializedName("subscribers")
 	private List<SignalSubscriber> subscribers = null;
 
@@ -37,6 +48,11 @@ public class SignalProviderSubscribers implements Parcelable
 	private Integer total = null;
 
 	public SignalProviderSubscribers() {
+	}
+
+	SignalProviderSubscribers(Parcel in) {
+		subscribers = (List<SignalSubscriber>) in.readValue(SignalSubscriber.class.getClassLoader());
+		total = (Integer) in.readValue(null);
 	}
 
 	public SignalProviderSubscribers subscribers(List<SignalSubscriber> subscribers) {
@@ -85,7 +101,6 @@ public class SignalProviderSubscribers implements Parcelable
 		this.total = total;
 	}
 
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -103,7 +118,6 @@ public class SignalProviderSubscribers implements Parcelable
 	public int hashCode() {
 		return Objects.hash(subscribers, total);
 	}
-
 
 	@Override
 	public String toString() {
@@ -127,29 +141,12 @@ public class SignalProviderSubscribers implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
-
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(subscribers);
 		out.writeValue(total);
 	}
 
-	public static final Parcelable.Creator<SignalProviderSubscribers> CREATOR = new Parcelable.Creator<SignalProviderSubscribers>()
-	{
-		public SignalProviderSubscribers createFromParcel(Parcel in) {
-			return new SignalProviderSubscribers(in);
-		}
-
-		public SignalProviderSubscribers[] newArray(int size) {
-			return new SignalProviderSubscribers[size];
-		}
-	};
-
 	public int describeContents() {
 		return 0;
-	}
-
-	SignalProviderSubscribers(Parcel in) {
-		subscribers = (List<SignalSubscriber>) in.readValue(SignalSubscriber.class.getClassLoader());
-		total = (Integer) in.readValue(null);
 	}
 }

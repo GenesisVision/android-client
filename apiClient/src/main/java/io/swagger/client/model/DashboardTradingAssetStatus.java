@@ -29,6 +29,15 @@ public enum DashboardTradingAssetStatus
 	ACTIVE("Active"),
 	DISABLED("Disabled");
 
+	public static DashboardTradingAssetStatus fromValue(String text) {
+		for (DashboardTradingAssetStatus b : DashboardTradingAssetStatus.values()) {
+			if (String.valueOf(b.value).equals(text)) {
+				return b;
+			}
+		}
+		return null;
+	}
+
 	private String value;
 
 	DashboardTradingAssetStatus(String value) {
@@ -42,15 +51,6 @@ public enum DashboardTradingAssetStatus
 	@Override
 	public String toString() {
 		return String.valueOf(value);
-	}
-
-	public static DashboardTradingAssetStatus fromValue(String text) {
-		for (DashboardTradingAssetStatus b : DashboardTradingAssetStatus.values()) {
-			if (String.valueOf(b.value).equals(text)) {
-				return b;
-			}
-		}
-		return null;
 	}
 
 	public static class Adapter extends TypeAdapter<DashboardTradingAssetStatus>

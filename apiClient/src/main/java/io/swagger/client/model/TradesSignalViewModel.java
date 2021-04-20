@@ -29,6 +29,17 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class TradesSignalViewModel implements Parcelable
 {
+	public static final Parcelable.Creator<TradesSignalViewModel> CREATOR = new Parcelable.Creator<TradesSignalViewModel>()
+	{
+		public TradesSignalViewModel createFromParcel(Parcel in) {
+			return new TradesSignalViewModel(in);
+		}
+
+		public TradesSignalViewModel[] newArray(int size) {
+			return new TradesSignalViewModel[size];
+		}
+	};
+
 	@SerializedName("items")
 	private List<OrderSignalModel> items = null;
 
@@ -45,6 +56,14 @@ public class TradesSignalViewModel implements Parcelable
 	private TradesDelay tradesDelay = null;
 
 	public TradesSignalViewModel() {
+	}
+
+	TradesSignalViewModel(Parcel in) {
+		items = (List<OrderSignalModel>) in.readValue(OrderSignalModel.class.getClassLoader());
+		total = (Integer) in.readValue(null);
+		showSwaps = (Boolean) in.readValue(null);
+		showTickets = (Boolean) in.readValue(null);
+		tradesDelay = (TradesDelay) in.readValue(TradesDelay.class.getClassLoader());
 	}
 
 	/**
@@ -124,7 +143,6 @@ public class TradesSignalViewModel implements Parcelable
 		this.tradesDelay = tradesDelay;
 	}
 
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -145,7 +163,6 @@ public class TradesSignalViewModel implements Parcelable
 	public int hashCode() {
 		return Objects.hash(items, total, showSwaps, showTickets, tradesDelay);
 	}
-
 
 	@Override
 	public String toString() {
@@ -172,7 +189,6 @@ public class TradesSignalViewModel implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
-
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(items);
 		out.writeValue(total);
@@ -181,26 +197,7 @@ public class TradesSignalViewModel implements Parcelable
 		out.writeValue(tradesDelay);
 	}
 
-	public static final Parcelable.Creator<TradesSignalViewModel> CREATOR = new Parcelable.Creator<TradesSignalViewModel>()
-	{
-		public TradesSignalViewModel createFromParcel(Parcel in) {
-			return new TradesSignalViewModel(in);
-		}
-
-		public TradesSignalViewModel[] newArray(int size) {
-			return new TradesSignalViewModel[size];
-		}
-	};
-
 	public int describeContents() {
 		return 0;
-	}
-
-	TradesSignalViewModel(Parcel in) {
-		items = (List<OrderSignalModel>) in.readValue(OrderSignalModel.class.getClassLoader());
-		total = (Integer) in.readValue(null);
-		showSwaps = (Boolean) in.readValue(null);
-		showTickets = (Boolean) in.readValue(null);
-		tradesDelay = (TradesDelay) in.readValue(TradesDelay.class.getClassLoader());
 	}
 }

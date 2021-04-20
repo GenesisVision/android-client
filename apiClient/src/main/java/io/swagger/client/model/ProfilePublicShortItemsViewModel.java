@@ -29,6 +29,17 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class ProfilePublicShortItemsViewModel implements Parcelable
 {
+	public static final Parcelable.Creator<ProfilePublicShortItemsViewModel> CREATOR = new Parcelable.Creator<ProfilePublicShortItemsViewModel>()
+	{
+		public ProfilePublicShortItemsViewModel createFromParcel(Parcel in) {
+			return new ProfilePublicShortItemsViewModel(in);
+		}
+
+		public ProfilePublicShortItemsViewModel[] newArray(int size) {
+			return new ProfilePublicShortItemsViewModel[size];
+		}
+	};
+
 	@SerializedName("items")
 	private List<ProfilePublicShort> items = null;
 
@@ -36,6 +47,11 @@ public class ProfilePublicShortItemsViewModel implements Parcelable
 	private Integer total = null;
 
 	public ProfilePublicShortItemsViewModel() {
+	}
+
+	ProfilePublicShortItemsViewModel(Parcel in) {
+		items = (List<ProfilePublicShort>) in.readValue(ProfilePublicShort.class.getClassLoader());
+		total = (Integer) in.readValue(null);
 	}
 
 	/**
@@ -58,7 +74,6 @@ public class ProfilePublicShortItemsViewModel implements Parcelable
 		return total;
 	}
 
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -76,7 +91,6 @@ public class ProfilePublicShortItemsViewModel implements Parcelable
 	public int hashCode() {
 		return Objects.hash(items, total);
 	}
-
 
 	@Override
 	public String toString() {
@@ -100,29 +114,12 @@ public class ProfilePublicShortItemsViewModel implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
-
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(items);
 		out.writeValue(total);
 	}
 
-	public static final Parcelable.Creator<ProfilePublicShortItemsViewModel> CREATOR = new Parcelable.Creator<ProfilePublicShortItemsViewModel>()
-	{
-		public ProfilePublicShortItemsViewModel createFromParcel(Parcel in) {
-			return new ProfilePublicShortItemsViewModel(in);
-		}
-
-		public ProfilePublicShortItemsViewModel[] newArray(int size) {
-			return new ProfilePublicShortItemsViewModel[size];
-		}
-	};
-
 	public int describeContents() {
 		return 0;
-	}
-
-	ProfilePublicShortItemsViewModel(Parcel in) {
-		items = (List<ProfilePublicShort>) in.readValue(ProfilePublicShort.class.getClassLoader());
-		total = (Integer) in.readValue(null);
 	}
 }

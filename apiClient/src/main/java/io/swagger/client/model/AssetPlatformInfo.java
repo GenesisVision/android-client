@@ -28,6 +28,17 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class AssetPlatformInfo implements Parcelable
 {
+	public static final Parcelable.Creator<AssetPlatformInfo> CREATOR = new Parcelable.Creator<AssetPlatformInfo>()
+	{
+		public AssetPlatformInfo createFromParcel(Parcel in) {
+			return new AssetPlatformInfo(in);
+		}
+
+		public AssetPlatformInfo[] newArray(int size) {
+			return new AssetPlatformInfo[size];
+		}
+	};
+
 	@SerializedName("programInfo")
 	private ProgramAssetPlatformInfo programInfo = null;
 
@@ -40,7 +51,18 @@ public class AssetPlatformInfo implements Parcelable
 	@SerializedName("followInfo")
 	private FollowAssetPlatformInfo followInfo = null;
 
+	@SerializedName("anonymousInfo")
+	private AnonymousPlatformInfo anonymousInfo = null;
+
 	public AssetPlatformInfo() {
+	}
+
+	AssetPlatformInfo(Parcel in) {
+		programInfo = (ProgramAssetPlatformInfo) in.readValue(ProgramAssetPlatformInfo.class.getClassLoader());
+		tradingAccountInfo = (TradingAccountAssetPlatformInfo) in.readValue(TradingAccountAssetPlatformInfo.class.getClassLoader());
+		fundInfo = (FundAssetPlatformInfo) in.readValue(FundAssetPlatformInfo.class.getClassLoader());
+		followInfo = (FollowAssetPlatformInfo) in.readValue(FollowAssetPlatformInfo.class.getClassLoader());
+		anonymousInfo = (AnonymousPlatformInfo) in.readValue(AnonymousPlatformInfo.class.getClassLoader());
 	}
 
 	public AssetPlatformInfo programInfo(ProgramAssetPlatformInfo programInfo) {
@@ -119,6 +141,24 @@ public class AssetPlatformInfo implements Parcelable
 		this.followInfo = followInfo;
 	}
 
+	public AssetPlatformInfo anonymousInfo(AnonymousPlatformInfo anonymousInfo) {
+		this.anonymousInfo = anonymousInfo;
+		return this;
+	}
+
+	/**
+	 * Get anonymousInfo
+	 *
+	 * @return anonymousInfo
+	 **/
+	@Schema(description = "")
+	public AnonymousPlatformInfo getAnonymousInfo() {
+		return anonymousInfo;
+	}
+
+	public void setAnonymousInfo(AnonymousPlatformInfo anonymousInfo) {
+		this.anonymousInfo = anonymousInfo;
+	}
 
 	@Override
 	public boolean equals(java.lang.Object o) {
@@ -132,14 +172,14 @@ public class AssetPlatformInfo implements Parcelable
 		return Objects.equals(this.programInfo, assetPlatformInfo.programInfo) &&
 				Objects.equals(this.tradingAccountInfo, assetPlatformInfo.tradingAccountInfo) &&
 				Objects.equals(this.fundInfo, assetPlatformInfo.fundInfo) &&
-				Objects.equals(this.followInfo, assetPlatformInfo.followInfo);
+				Objects.equals(this.followInfo, assetPlatformInfo.followInfo) &&
+				Objects.equals(this.anonymousInfo, assetPlatformInfo.anonymousInfo);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(programInfo, tradingAccountInfo, fundInfo, followInfo);
+		return Objects.hash(programInfo, tradingAccountInfo, fundInfo, followInfo, anonymousInfo);
 	}
-
 
 	@Override
 	public String toString() {
@@ -150,6 +190,7 @@ public class AssetPlatformInfo implements Parcelable
 		sb.append("    tradingAccountInfo: ").append(toIndentedString(tradingAccountInfo)).append("\n");
 		sb.append("    fundInfo: ").append(toIndentedString(fundInfo)).append("\n");
 		sb.append("    followInfo: ").append(toIndentedString(followInfo)).append("\n");
+		sb.append("    anonymousInfo: ").append(toIndentedString(anonymousInfo)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}
@@ -165,33 +206,15 @@ public class AssetPlatformInfo implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
-
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(programInfo);
 		out.writeValue(tradingAccountInfo);
 		out.writeValue(fundInfo);
 		out.writeValue(followInfo);
+		out.writeValue(anonymousInfo);
 	}
-
-	public static final Parcelable.Creator<AssetPlatformInfo> CREATOR = new Parcelable.Creator<AssetPlatformInfo>()
-	{
-		public AssetPlatformInfo createFromParcel(Parcel in) {
-			return new AssetPlatformInfo(in);
-		}
-
-		public AssetPlatformInfo[] newArray(int size) {
-			return new AssetPlatformInfo[size];
-		}
-	};
 
 	public int describeContents() {
 		return 0;
-	}
-
-	AssetPlatformInfo(Parcel in) {
-		programInfo = (ProgramAssetPlatformInfo) in.readValue(ProgramAssetPlatformInfo.class.getClassLoader());
-		tradingAccountInfo = (TradingAccountAssetPlatformInfo) in.readValue(TradingAccountAssetPlatformInfo.class.getClassLoader());
-		fundInfo = (FundAssetPlatformInfo) in.readValue(FundAssetPlatformInfo.class.getClassLoader());
-		followInfo = (FollowAssetPlatformInfo) in.readValue(FollowAssetPlatformInfo.class.getClassLoader());
 	}
 }

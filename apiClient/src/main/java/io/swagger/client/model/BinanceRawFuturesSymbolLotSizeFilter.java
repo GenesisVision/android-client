@@ -28,6 +28,17 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class BinanceRawFuturesSymbolLotSizeFilter implements Parcelable
 {
+	public static final Parcelable.Creator<BinanceRawFuturesSymbolLotSizeFilter> CREATOR = new Parcelable.Creator<BinanceRawFuturesSymbolLotSizeFilter>()
+	{
+		public BinanceRawFuturesSymbolLotSizeFilter createFromParcel(Parcel in) {
+			return new BinanceRawFuturesSymbolLotSizeFilter(in);
+		}
+
+		public BinanceRawFuturesSymbolLotSizeFilter[] newArray(int size) {
+			return new BinanceRawFuturesSymbolLotSizeFilter[size];
+		}
+	};
+
 	@SerializedName("filterType")
 	private BinanceSymbolFilterType filterType = null;
 
@@ -41,6 +52,13 @@ public class BinanceRawFuturesSymbolLotSizeFilter implements Parcelable
 	private Double stepSize = null;
 
 	public BinanceRawFuturesSymbolLotSizeFilter() {
+	}
+
+	BinanceRawFuturesSymbolLotSizeFilter(Parcel in) {
+		filterType = (BinanceSymbolFilterType) in.readValue(BinanceSymbolFilterType.class.getClassLoader());
+		minQuantity = (Double) in.readValue(null);
+		maxQuantity = (Double) in.readValue(null);
+		stepSize = (Double) in.readValue(null);
 	}
 
 	public BinanceRawFuturesSymbolLotSizeFilter filterType(BinanceSymbolFilterType filterType) {
@@ -119,7 +137,6 @@ public class BinanceRawFuturesSymbolLotSizeFilter implements Parcelable
 		this.stepSize = stepSize;
 	}
 
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -139,7 +156,6 @@ public class BinanceRawFuturesSymbolLotSizeFilter implements Parcelable
 	public int hashCode() {
 		return Objects.hash(filterType, minQuantity, maxQuantity, stepSize);
 	}
-
 
 	@Override
 	public String toString() {
@@ -165,7 +181,6 @@ public class BinanceRawFuturesSymbolLotSizeFilter implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
-
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(filterType);
 		out.writeValue(minQuantity);
@@ -173,25 +188,7 @@ public class BinanceRawFuturesSymbolLotSizeFilter implements Parcelable
 		out.writeValue(stepSize);
 	}
 
-	public static final Parcelable.Creator<BinanceRawFuturesSymbolLotSizeFilter> CREATOR = new Parcelable.Creator<BinanceRawFuturesSymbolLotSizeFilter>()
-	{
-		public BinanceRawFuturesSymbolLotSizeFilter createFromParcel(Parcel in) {
-			return new BinanceRawFuturesSymbolLotSizeFilter(in);
-		}
-
-		public BinanceRawFuturesSymbolLotSizeFilter[] newArray(int size) {
-			return new BinanceRawFuturesSymbolLotSizeFilter[size];
-		}
-	};
-
 	public int describeContents() {
 		return 0;
-	}
-
-	BinanceRawFuturesSymbolLotSizeFilter(Parcel in) {
-		filterType = (BinanceSymbolFilterType) in.readValue(BinanceSymbolFilterType.class.getClassLoader());
-		minQuantity = (Double) in.readValue(null);
-		maxQuantity = (Double) in.readValue(null);
-		stepSize = (Double) in.readValue(null);
 	}
 }

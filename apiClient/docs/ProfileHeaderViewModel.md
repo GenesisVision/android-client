@@ -16,6 +16,8 @@ Name | Type | Description | Notes
 **isTwoFactorEnabled** | **Boolean** |  |  [optional]
 **isNewUser** | **Boolean** |  |  [optional]
 **isPublicInvestor** | **Boolean** |  |  [optional]
+**hasPassword** | **Boolean** |  |  [optional]
+**hasEmailAddress** | **Boolean** |  |  [optional]
 **betaTester** | [**List&lt;BetaTestingType&gt;**](BetaTestingType.md) |  |  [optional]
 **isUserNameFilled** | **Boolean** |  |  [optional]
 **platformCurrency** | [**Currency**](Currency.md) |  |  [optional]

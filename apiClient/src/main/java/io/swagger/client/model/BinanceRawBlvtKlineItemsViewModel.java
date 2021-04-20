@@ -29,6 +29,17 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class BinanceRawBlvtKlineItemsViewModel implements Parcelable
 {
+	public static final Parcelable.Creator<BinanceRawBlvtKlineItemsViewModel> CREATOR = new Parcelable.Creator<BinanceRawBlvtKlineItemsViewModel>()
+	{
+		public BinanceRawBlvtKlineItemsViewModel createFromParcel(Parcel in) {
+			return new BinanceRawBlvtKlineItemsViewModel(in);
+		}
+
+		public BinanceRawBlvtKlineItemsViewModel[] newArray(int size) {
+			return new BinanceRawBlvtKlineItemsViewModel[size];
+		}
+	};
+
 	@SerializedName("items")
 	private List<BinanceRawBlvtKline> items = null;
 
@@ -36,6 +47,11 @@ public class BinanceRawBlvtKlineItemsViewModel implements Parcelable
 	private Integer total = null;
 
 	public BinanceRawBlvtKlineItemsViewModel() {
+	}
+
+	BinanceRawBlvtKlineItemsViewModel(Parcel in) {
+		items = (List<BinanceRawBlvtKline>) in.readValue(BinanceRawBlvtKline.class.getClassLoader());
+		total = (Integer) in.readValue(null);
 	}
 
 	/**
@@ -58,7 +74,6 @@ public class BinanceRawBlvtKlineItemsViewModel implements Parcelable
 		return total;
 	}
 
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -76,7 +91,6 @@ public class BinanceRawBlvtKlineItemsViewModel implements Parcelable
 	public int hashCode() {
 		return Objects.hash(items, total);
 	}
-
 
 	@Override
 	public String toString() {
@@ -100,29 +114,12 @@ public class BinanceRawBlvtKlineItemsViewModel implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
-
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(items);
 		out.writeValue(total);
 	}
 
-	public static final Parcelable.Creator<BinanceRawBlvtKlineItemsViewModel> CREATOR = new Parcelable.Creator<BinanceRawBlvtKlineItemsViewModel>()
-	{
-		public BinanceRawBlvtKlineItemsViewModel createFromParcel(Parcel in) {
-			return new BinanceRawBlvtKlineItemsViewModel(in);
-		}
-
-		public BinanceRawBlvtKlineItemsViewModel[] newArray(int size) {
-			return new BinanceRawBlvtKlineItemsViewModel[size];
-		}
-	};
-
 	public int describeContents() {
 		return 0;
-	}
-
-	BinanceRawBlvtKlineItemsViewModel(Parcel in) {
-		items = (List<BinanceRawBlvtKline>) in.readValue(BinanceRawBlvtKline.class.getClassLoader());
-		total = (Integer) in.readValue(null);
 	}
 }

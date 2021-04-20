@@ -28,6 +28,17 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class BinanceRawRateLimit implements Parcelable
 {
+	public static final Parcelable.Creator<BinanceRawRateLimit> CREATOR = new Parcelable.Creator<BinanceRawRateLimit>()
+	{
+		public BinanceRawRateLimit createFromParcel(Parcel in) {
+			return new BinanceRawRateLimit(in);
+		}
+
+		public BinanceRawRateLimit[] newArray(int size) {
+			return new BinanceRawRateLimit[size];
+		}
+	};
+
 	@SerializedName("interval")
 	private BinanceRateLimitInterval interval = null;
 
@@ -41,6 +52,13 @@ public class BinanceRawRateLimit implements Parcelable
 	private Integer limit = null;
 
 	public BinanceRawRateLimit() {
+	}
+
+	BinanceRawRateLimit(Parcel in) {
+		interval = (BinanceRateLimitInterval) in.readValue(BinanceRateLimitInterval.class.getClassLoader());
+		type = (BinanceRateLimitType) in.readValue(BinanceRateLimitType.class.getClassLoader());
+		intervalNumber = (Integer) in.readValue(null);
+		limit = (Integer) in.readValue(null);
 	}
 
 	public BinanceRawRateLimit interval(BinanceRateLimitInterval interval) {
@@ -119,7 +137,6 @@ public class BinanceRawRateLimit implements Parcelable
 		this.limit = limit;
 	}
 
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -139,7 +156,6 @@ public class BinanceRawRateLimit implements Parcelable
 	public int hashCode() {
 		return Objects.hash(interval, type, intervalNumber, limit);
 	}
-
 
 	@Override
 	public String toString() {
@@ -165,7 +181,6 @@ public class BinanceRawRateLimit implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
-
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(interval);
 		out.writeValue(type);
@@ -173,25 +188,7 @@ public class BinanceRawRateLimit implements Parcelable
 		out.writeValue(limit);
 	}
 
-	public static final Parcelable.Creator<BinanceRawRateLimit> CREATOR = new Parcelable.Creator<BinanceRawRateLimit>()
-	{
-		public BinanceRawRateLimit createFromParcel(Parcel in) {
-			return new BinanceRawRateLimit(in);
-		}
-
-		public BinanceRawRateLimit[] newArray(int size) {
-			return new BinanceRawRateLimit[size];
-		}
-	};
-
 	public int describeContents() {
 		return 0;
-	}
-
-	BinanceRawRateLimit(Parcel in) {
-		interval = (BinanceRateLimitInterval) in.readValue(BinanceRateLimitInterval.class.getClassLoader());
-		type = (BinanceRateLimitType) in.readValue(BinanceRateLimitType.class.getClassLoader());
-		intervalNumber = (Integer) in.readValue(null);
-		limit = (Integer) in.readValue(null);
 	}
 }

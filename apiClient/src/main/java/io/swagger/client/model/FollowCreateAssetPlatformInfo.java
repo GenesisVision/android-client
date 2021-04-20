@@ -28,6 +28,17 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class FollowCreateAssetPlatformInfo implements Parcelable
 {
+	public static final Parcelable.Creator<FollowCreateAssetPlatformInfo> CREATOR = new Parcelable.Creator<FollowCreateAssetPlatformInfo>()
+	{
+		public FollowCreateAssetPlatformInfo createFromParcel(Parcel in) {
+			return new FollowCreateAssetPlatformInfo(in);
+		}
+
+		public FollowCreateAssetPlatformInfo[] newArray(int size) {
+			return new FollowCreateAssetPlatformInfo[size];
+		}
+	};
+
 	@SerializedName("minVolumeFee")
 	private Double minVolumeFee = null;
 
@@ -41,6 +52,13 @@ public class FollowCreateAssetPlatformInfo implements Parcelable
 	private Double maxSuccessFee = null;
 
 	public FollowCreateAssetPlatformInfo() {
+	}
+
+	FollowCreateAssetPlatformInfo(Parcel in) {
+		minVolumeFee = (Double) in.readValue(null);
+		maxVolumeFee = (Double) in.readValue(null);
+		minSuccessFee = (Double) in.readValue(null);
+		maxSuccessFee = (Double) in.readValue(null);
 	}
 
 	public FollowCreateAssetPlatformInfo minVolumeFee(Double minVolumeFee) {
@@ -119,7 +137,6 @@ public class FollowCreateAssetPlatformInfo implements Parcelable
 		this.maxSuccessFee = maxSuccessFee;
 	}
 
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -139,7 +156,6 @@ public class FollowCreateAssetPlatformInfo implements Parcelable
 	public int hashCode() {
 		return Objects.hash(minVolumeFee, maxVolumeFee, minSuccessFee, maxSuccessFee);
 	}
-
 
 	@Override
 	public String toString() {
@@ -165,7 +181,6 @@ public class FollowCreateAssetPlatformInfo implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
-
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(minVolumeFee);
 		out.writeValue(maxVolumeFee);
@@ -173,25 +188,7 @@ public class FollowCreateAssetPlatformInfo implements Parcelable
 		out.writeValue(maxSuccessFee);
 	}
 
-	public static final Parcelable.Creator<FollowCreateAssetPlatformInfo> CREATOR = new Parcelable.Creator<FollowCreateAssetPlatformInfo>()
-	{
-		public FollowCreateAssetPlatformInfo createFromParcel(Parcel in) {
-			return new FollowCreateAssetPlatformInfo(in);
-		}
-
-		public FollowCreateAssetPlatformInfo[] newArray(int size) {
-			return new FollowCreateAssetPlatformInfo[size];
-		}
-	};
-
 	public int describeContents() {
 		return 0;
-	}
-
-	FollowCreateAssetPlatformInfo(Parcel in) {
-		minVolumeFee = (Double) in.readValue(null);
-		maxVolumeFee = (Double) in.readValue(null);
-		minSuccessFee = (Double) in.readValue(null);
-		maxSuccessFee = (Double) in.readValue(null);
 	}
 }

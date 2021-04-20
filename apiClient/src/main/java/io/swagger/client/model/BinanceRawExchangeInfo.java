@@ -32,6 +32,17 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class BinanceRawExchangeInfo implements Parcelable
 {
+	public static final Parcelable.Creator<BinanceRawExchangeInfo> CREATOR = new Parcelable.Creator<BinanceRawExchangeInfo>()
+	{
+		public BinanceRawExchangeInfo createFromParcel(Parcel in) {
+			return new BinanceRawExchangeInfo(in);
+		}
+
+		public BinanceRawExchangeInfo[] newArray(int size) {
+			return new BinanceRawExchangeInfo[size];
+		}
+	};
+
 	@SerializedName("timeZone")
 	private String timeZone = null;
 
@@ -45,6 +56,13 @@ public class BinanceRawExchangeInfo implements Parcelable
 	private List<BinanceRawSymbol> symbols = null;
 
 	public BinanceRawExchangeInfo() {
+	}
+
+	BinanceRawExchangeInfo(Parcel in) {
+		timeZone = (String) in.readValue(null);
+		serverTime = (DateTime) in.readValue(DateTime.class.getClassLoader());
+		rateLimits = (List<BinanceRawRateLimit>) in.readValue(BinanceRawRateLimit.class.getClassLoader());
+		symbols = (List<BinanceRawSymbol>) in.readValue(BinanceRawSymbol.class.getClassLoader());
 	}
 
 	public BinanceRawExchangeInfo timeZone(String timeZone) {
@@ -139,7 +157,6 @@ public class BinanceRawExchangeInfo implements Parcelable
 		this.symbols = symbols;
 	}
 
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -159,7 +176,6 @@ public class BinanceRawExchangeInfo implements Parcelable
 	public int hashCode() {
 		return Objects.hash(timeZone, serverTime, rateLimits, symbols);
 	}
-
 
 	@Override
 	public String toString() {
@@ -185,7 +201,6 @@ public class BinanceRawExchangeInfo implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
-
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(timeZone);
 		out.writeValue(serverTime);
@@ -193,25 +208,7 @@ public class BinanceRawExchangeInfo implements Parcelable
 		out.writeValue(symbols);
 	}
 
-	public static final Parcelable.Creator<BinanceRawExchangeInfo> CREATOR = new Parcelable.Creator<BinanceRawExchangeInfo>()
-	{
-		public BinanceRawExchangeInfo createFromParcel(Parcel in) {
-			return new BinanceRawExchangeInfo(in);
-		}
-
-		public BinanceRawExchangeInfo[] newArray(int size) {
-			return new BinanceRawExchangeInfo[size];
-		}
-	};
-
 	public int describeContents() {
 		return 0;
-	}
-
-	BinanceRawExchangeInfo(Parcel in) {
-		timeZone = (String) in.readValue(null);
-		serverTime = (DateTime) in.readValue(DateTime.class.getClassLoader());
-		rateLimits = (List<BinanceRawRateLimit>) in.readValue(BinanceRawRateLimit.class.getClassLoader());
-		symbols = (List<BinanceRawSymbol>) in.readValue(BinanceRawSymbol.class.getClassLoader());
 	}
 }

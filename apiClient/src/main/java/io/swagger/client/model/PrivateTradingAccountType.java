@@ -30,6 +30,15 @@ public enum PrivateTradingAccountType
 	EXCHANGEACCOUNT("ExchangeAccount"),
 	EXTERNALTRADINGACCOUNT("ExternalTradingAccount");
 
+	public static PrivateTradingAccountType fromValue(String text) {
+		for (PrivateTradingAccountType b : PrivateTradingAccountType.values()) {
+			if (String.valueOf(b.value).equals(text)) {
+				return b;
+			}
+		}
+		return null;
+	}
+
 	private String value;
 
 	PrivateTradingAccountType(String value) {
@@ -43,15 +52,6 @@ public enum PrivateTradingAccountType
 	@Override
 	public String toString() {
 		return String.valueOf(value);
-	}
-
-	public static PrivateTradingAccountType fromValue(String text) {
-		for (PrivateTradingAccountType b : PrivateTradingAccountType.values()) {
-			if (String.valueOf(b.value).equals(text)) {
-				return b;
-			}
-		}
-		return null;
 	}
 
 	public static class Adapter extends TypeAdapter<PrivateTradingAccountType>

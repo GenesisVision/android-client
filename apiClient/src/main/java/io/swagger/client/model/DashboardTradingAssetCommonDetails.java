@@ -32,6 +32,17 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class DashboardTradingAssetCommonDetails implements Parcelable
 {
+	public static final Parcelable.Creator<DashboardTradingAssetCommonDetails> CREATOR = new Parcelable.Creator<DashboardTradingAssetCommonDetails>()
+	{
+		public DashboardTradingAssetCommonDetails createFromParcel(Parcel in) {
+			return new DashboardTradingAssetCommonDetails(in);
+		}
+
+		public DashboardTradingAssetCommonDetails[] newArray(int size) {
+			return new DashboardTradingAssetCommonDetails[size];
+		}
+	};
+
 	@SerializedName("title")
 	private String title = null;
 
@@ -50,16 +61,8 @@ public class DashboardTradingAssetCommonDetails implements Parcelable
 	@SerializedName("currency")
 	private Currency currency = null;
 
-	public static final Parcelable.Creator<DashboardTradingAssetCommonDetails> CREATOR = new Parcelable.Creator<DashboardTradingAssetCommonDetails>()
-	{
-		public DashboardTradingAssetCommonDetails createFromParcel(Parcel in) {
-			return new DashboardTradingAssetCommonDetails(in);
-		}
-
-		public DashboardTradingAssetCommonDetails[] newArray(int size) {
-			return new DashboardTradingAssetCommonDetails[size];
-		}
-	};
+	@SerializedName("originalCurrency")
+	private Currency originalCurrency = null;
 
 	@SerializedName("leverage")
 	private Integer leverage = null;
@@ -74,6 +77,20 @@ public class DashboardTradingAssetCommonDetails implements Parcelable
 	private List<Currency> supportedCurrencies = null;
 
 	public DashboardTradingAssetCommonDetails() {
+	}
+
+	DashboardTradingAssetCommonDetails(Parcel in) {
+		title = (String) in.readValue(null);
+		status = (DashboardTradingAssetStatus) in.readValue(DashboardTradingAssetStatus.class.getClassLoader());
+		creationDate = (DateTime) in.readValue(DateTime.class.getClassLoader());
+		balance = (Double) in.readValue(null);
+		login = (String) in.readValue(null);
+		currency = (Currency) in.readValue(Currency.class.getClassLoader());
+		originalCurrency = (Currency) in.readValue(Currency.class.getClassLoader());
+		leverage = (Integer) in.readValue(null);
+		type = (PrivateTradingAccountType) in.readValue(PrivateTradingAccountType.class.getClassLoader());
+		balances = (List<AmountWithCurrency>) in.readValue(AmountWithCurrency.class.getClassLoader());
+		supportedCurrencies = (List<Currency>) in.readValue(Currency.class.getClassLoader());
 	}
 
 	public DashboardTradingAssetCommonDetails title(String title) {
@@ -190,26 +207,23 @@ public class DashboardTradingAssetCommonDetails implements Parcelable
 		this.currency = currency;
 	}
 
-	@SerializedName("originalCurrency")
-	private Currency originalCurrency = null;
-
-	DashboardTradingAssetCommonDetails(Parcel in) {
-		title = (String) in.readValue(null);
-		status = (DashboardTradingAssetStatus) in.readValue(DashboardTradingAssetStatus.class.getClassLoader());
-		creationDate = (DateTime) in.readValue(DateTime.class.getClassLoader());
-		balance = (Double) in.readValue(null);
-		login = (String) in.readValue(null);
-		currency = (Currency) in.readValue(Currency.class.getClassLoader());
-		originalCurrency = (Currency) in.readValue(Currency.class.getClassLoader());
-		leverage = (Integer) in.readValue(null);
-		type = (PrivateTradingAccountType) in.readValue(PrivateTradingAccountType.class.getClassLoader());
-		balances = (List<AmountWithCurrency>) in.readValue(AmountWithCurrency.class.getClassLoader());
-		supportedCurrencies = (List<Currency>) in.readValue(Currency.class.getClassLoader());
-	}
-
 	public DashboardTradingAssetCommonDetails originalCurrency(Currency originalCurrency) {
 		this.originalCurrency = originalCurrency;
 		return this;
+	}
+
+	/**
+	 * Get originalCurrency
+	 *
+	 * @return originalCurrency
+	 **/
+	@Schema(description = "")
+	public Currency getOriginalCurrency() {
+		return originalCurrency;
+	}
+
+	public void setOriginalCurrency(Currency originalCurrency) {
+		this.originalCurrency = originalCurrency;
 	}
 
 	public DashboardTradingAssetCommonDetails leverage(Integer leverage) {
@@ -304,20 +318,6 @@ public class DashboardTradingAssetCommonDetails implements Parcelable
 		this.supportedCurrencies = supportedCurrencies;
 	}
 
-	/**
-	 * Get originalCurrency
-	 *
-	 * @return originalCurrency
-	 **/
-	@Schema(description = "")
-	public Currency getOriginalCurrency() {
-		return originalCurrency;
-	}
-
-	public void setOriginalCurrency(Currency originalCurrency) {
-		this.originalCurrency = originalCurrency;
-	}
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -338,17 +338,6 @@ public class DashboardTradingAssetCommonDetails implements Parcelable
 				Objects.equals(this.type, dashboardTradingAssetCommonDetails.type) &&
 				Objects.equals(this.balances, dashboardTradingAssetCommonDetails.balances) &&
 				Objects.equals(this.supportedCurrencies, dashboardTradingAssetCommonDetails.supportedCurrencies);
-	}
-
-	/**
-	 * Convert the given object to string with each line indented by 4 spaces
-	 * (except the first line).
-	 */
-	private String toIndentedString(java.lang.Object o) {
-		if (o == null) {
-			return "null";
-		}
-		return o.toString().replace("\n", "\n    ");
 	}
 
 	@Override
@@ -376,8 +365,15 @@ public class DashboardTradingAssetCommonDetails implements Parcelable
 		return sb.toString();
 	}
 
-	public int describeContents() {
-		return 0;
+	/**
+	 * Convert the given object to string with each line indented by 4 spaces
+	 * (except the first line).
+	 */
+	private String toIndentedString(java.lang.Object o) {
+		if (o == null) {
+			return "null";
+		}
+		return o.toString().replace("\n", "\n    ");
 	}
 
 	public void writeToParcel(Parcel out, int flags) {
@@ -392,5 +388,9 @@ public class DashboardTradingAssetCommonDetails implements Parcelable
 		out.writeValue(type);
 		out.writeValue(balances);
 		out.writeValue(supportedCurrencies);
+	}
+
+	public int describeContents() {
+		return 0;
 	}
 }

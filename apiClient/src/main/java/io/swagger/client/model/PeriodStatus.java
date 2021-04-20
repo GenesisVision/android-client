@@ -29,6 +29,15 @@ public enum PeriodStatus
 	INPROCCESS("InProccess"),
 	CLOSED("Closed");
 
+	public static PeriodStatus fromValue(String text) {
+		for (PeriodStatus b : PeriodStatus.values()) {
+			if (String.valueOf(b.value).equals(text)) {
+				return b;
+			}
+		}
+		return null;
+	}
+
 	private String value;
 
 	PeriodStatus(String value) {
@@ -42,15 +51,6 @@ public enum PeriodStatus
 	@Override
 	public String toString() {
 		return String.valueOf(value);
-	}
-
-	public static PeriodStatus fromValue(String text) {
-		for (PeriodStatus b : PeriodStatus.values()) {
-			if (String.valueOf(b.value).equals(text)) {
-				return b;
-			}
-		}
-		return null;
 	}
 
 	public static class Adapter extends TypeAdapter<PeriodStatus>

@@ -30,6 +30,17 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class NotificationSettingList implements Parcelable
 {
+	public static final Parcelable.Creator<NotificationSettingList> CREATOR = new Parcelable.Creator<NotificationSettingList>()
+	{
+		public NotificationSettingList createFromParcel(Parcel in) {
+			return new NotificationSettingList(in);
+		}
+
+		public NotificationSettingList[] newArray(int size) {
+			return new NotificationSettingList[size];
+		}
+	};
+
 	@SerializedName("settingsGeneral")
 	private List<NotificationSettingViewModel> settingsGeneral = null;
 
@@ -46,6 +57,14 @@ public class NotificationSettingList implements Parcelable
 	private List<FollowNotificationSettingList> settingsFollow = null;
 
 	public NotificationSettingList() {
+	}
+
+	NotificationSettingList(Parcel in) {
+		settingsGeneral = (List<NotificationSettingViewModel>) in.readValue(NotificationSettingViewModel.class.getClassLoader());
+		settingsProgram = (List<ProgramNotificationSettingList>) in.readValue(ProgramNotificationSettingList.class.getClassLoader());
+		settingsFund = (List<FundNotificationSettingList>) in.readValue(FundNotificationSettingList.class.getClassLoader());
+		settingsManager = (List<ManagerNotificationSettingList>) in.readValue(ManagerNotificationSettingList.class.getClassLoader());
+		settingsFollow = (List<FollowNotificationSettingList>) in.readValue(FollowNotificationSettingList.class.getClassLoader());
 	}
 
 	public NotificationSettingList settingsGeneral(List<NotificationSettingViewModel> settingsGeneral) {
@@ -183,7 +202,6 @@ public class NotificationSettingList implements Parcelable
 		this.settingsFollow = settingsFollow;
 	}
 
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -204,7 +222,6 @@ public class NotificationSettingList implements Parcelable
 	public int hashCode() {
 		return Objects.hash(settingsGeneral, settingsProgram, settingsFund, settingsManager, settingsFollow);
 	}
-
 
 	@Override
 	public String toString() {
@@ -231,7 +248,6 @@ public class NotificationSettingList implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
-
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(settingsGeneral);
 		out.writeValue(settingsProgram);
@@ -240,26 +256,7 @@ public class NotificationSettingList implements Parcelable
 		out.writeValue(settingsFollow);
 	}
 
-	public static final Parcelable.Creator<NotificationSettingList> CREATOR = new Parcelable.Creator<NotificationSettingList>()
-	{
-		public NotificationSettingList createFromParcel(Parcel in) {
-			return new NotificationSettingList(in);
-		}
-
-		public NotificationSettingList[] newArray(int size) {
-			return new NotificationSettingList[size];
-		}
-	};
-
 	public int describeContents() {
 		return 0;
-	}
-
-	NotificationSettingList(Parcel in) {
-		settingsGeneral = (List<NotificationSettingViewModel>) in.readValue(NotificationSettingViewModel.class.getClassLoader());
-		settingsProgram = (List<ProgramNotificationSettingList>) in.readValue(ProgramNotificationSettingList.class.getClassLoader());
-		settingsFund = (List<FundNotificationSettingList>) in.readValue(FundNotificationSettingList.class.getClassLoader());
-		settingsManager = (List<ManagerNotificationSettingList>) in.readValue(ManagerNotificationSettingList.class.getClassLoader());
-		settingsFollow = (List<FollowNotificationSettingList>) in.readValue(FollowNotificationSettingList.class.getClassLoader());
 	}
 }

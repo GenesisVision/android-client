@@ -32,6 +32,17 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class BinanceRawPlacedOrder implements Parcelable
 {
+	public static final Parcelable.Creator<BinanceRawPlacedOrder> CREATOR = new Parcelable.Creator<BinanceRawPlacedOrder>()
+	{
+		public BinanceRawPlacedOrder createFromParcel(Parcel in) {
+			return new BinanceRawPlacedOrder(in);
+		}
+
+		public BinanceRawPlacedOrder[] newArray(int size) {
+			return new BinanceRawPlacedOrder[size];
+		}
+	};
+
 	@SerializedName("symbol")
 	private String symbol = null;
 
@@ -90,6 +101,28 @@ public class BinanceRawPlacedOrder implements Parcelable
 	private String marginBuyBorrowAsset = null;
 
 	public BinanceRawPlacedOrder() {
+	}
+
+	BinanceRawPlacedOrder(Parcel in) {
+		symbol = (String) in.readValue(null);
+		orderId = (Long) in.readValue(null);
+		orderListId = (Long) in.readValue(null);
+		clientOrderId = (String) in.readValue(null);
+		originalClientOrderId = (String) in.readValue(null);
+		createTime = (DateTime) in.readValue(DateTime.class.getClassLoader());
+		price = (Double) in.readValue(null);
+		quantity = (Double) in.readValue(null);
+		quantityFilled = (Double) in.readValue(null);
+		quoteQuantityFilled = (Double) in.readValue(null);
+		quoteQuantity = (Double) in.readValue(null);
+		status = (BinanceOrderStatus) in.readValue(BinanceOrderStatus.class.getClassLoader());
+		timeInForce = (BinanceTimeInForce) in.readValue(BinanceTimeInForce.class.getClassLoader());
+		type = (BinanceOrderType) in.readValue(BinanceOrderType.class.getClassLoader());
+		side = (BinanceOrderSide) in.readValue(BinanceOrderSide.class.getClassLoader());
+		fills = (List<BinanceRawOrderTrade>) in.readValue(BinanceRawOrderTrade.class.getClassLoader());
+		stopPrice = (Double) in.readValue(null);
+		marginBuyBorrowAmount = (Double) in.readValue(null);
+		marginBuyBorrowAsset = (String) in.readValue(null);
 	}
 
 	public BinanceRawPlacedOrder symbol(String symbol) {
@@ -461,7 +494,6 @@ public class BinanceRawPlacedOrder implements Parcelable
 		this.marginBuyBorrowAsset = marginBuyBorrowAsset;
 	}
 
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -496,7 +528,6 @@ public class BinanceRawPlacedOrder implements Parcelable
 	public int hashCode() {
 		return Objects.hash(symbol, orderId, orderListId, clientOrderId, originalClientOrderId, createTime, price, quantity, quantityFilled, quoteQuantityFilled, quoteQuantity, status, timeInForce, type, side, fills, stopPrice, marginBuyBorrowAmount, marginBuyBorrowAsset);
 	}
-
 
 	@Override
 	public String toString() {
@@ -537,7 +568,6 @@ public class BinanceRawPlacedOrder implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
-
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(symbol);
 		out.writeValue(orderId);
@@ -560,40 +590,7 @@ public class BinanceRawPlacedOrder implements Parcelable
 		out.writeValue(marginBuyBorrowAsset);
 	}
 
-	public static final Parcelable.Creator<BinanceRawPlacedOrder> CREATOR = new Parcelable.Creator<BinanceRawPlacedOrder>()
-	{
-		public BinanceRawPlacedOrder createFromParcel(Parcel in) {
-			return new BinanceRawPlacedOrder(in);
-		}
-
-		public BinanceRawPlacedOrder[] newArray(int size) {
-			return new BinanceRawPlacedOrder[size];
-		}
-	};
-
 	public int describeContents() {
 		return 0;
-	}
-
-	BinanceRawPlacedOrder(Parcel in) {
-		symbol = (String) in.readValue(null);
-		orderId = (Long) in.readValue(null);
-		orderListId = (Long) in.readValue(null);
-		clientOrderId = (String) in.readValue(null);
-		originalClientOrderId = (String) in.readValue(null);
-		createTime = (DateTime) in.readValue(DateTime.class.getClassLoader());
-		price = (Double) in.readValue(null);
-		quantity = (Double) in.readValue(null);
-		quantityFilled = (Double) in.readValue(null);
-		quoteQuantityFilled = (Double) in.readValue(null);
-		quoteQuantity = (Double) in.readValue(null);
-		status = (BinanceOrderStatus) in.readValue(BinanceOrderStatus.class.getClassLoader());
-		timeInForce = (BinanceTimeInForce) in.readValue(BinanceTimeInForce.class.getClassLoader());
-		type = (BinanceOrderType) in.readValue(BinanceOrderType.class.getClassLoader());
-		side = (BinanceOrderSide) in.readValue(BinanceOrderSide.class.getClassLoader());
-		fills = (List<BinanceRawOrderTrade>) in.readValue(BinanceRawOrderTrade.class.getClassLoader());
-		stopPrice = (Double) in.readValue(null);
-		marginBuyBorrowAmount = (Double) in.readValue(null);
-		marginBuyBorrowAsset = (String) in.readValue(null);
 	}
 }

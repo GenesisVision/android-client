@@ -30,10 +30,25 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class WalletMultiAvailable implements Parcelable
 {
+	public static final Parcelable.Creator<WalletMultiAvailable> CREATOR = new Parcelable.Creator<WalletMultiAvailable>()
+	{
+		public WalletMultiAvailable createFromParcel(Parcel in) {
+			return new WalletMultiAvailable(in);
+		}
+
+		public WalletMultiAvailable[] newArray(int size) {
+			return new WalletMultiAvailable[size];
+		}
+	};
+
 	@SerializedName("wallets")
 	private List<WalletBaseData> wallets = null;
 
 	public WalletMultiAvailable() {
+	}
+
+	WalletMultiAvailable(Parcel in) {
+		wallets = (List<WalletBaseData>) in.readValue(WalletBaseData.class.getClassLoader());
 	}
 
 	public WalletMultiAvailable wallets(List<WalletBaseData> wallets) {
@@ -63,7 +78,6 @@ public class WalletMultiAvailable implements Parcelable
 		this.wallets = wallets;
 	}
 
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -80,7 +94,6 @@ public class WalletMultiAvailable implements Parcelable
 	public int hashCode() {
 		return Objects.hash(wallets);
 	}
-
 
 	@Override
 	public String toString() {
@@ -103,27 +116,11 @@ public class WalletMultiAvailable implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
-
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(wallets);
 	}
 
-	public static final Parcelable.Creator<WalletMultiAvailable> CREATOR = new Parcelable.Creator<WalletMultiAvailable>()
-	{
-		public WalletMultiAvailable createFromParcel(Parcel in) {
-			return new WalletMultiAvailable(in);
-		}
-
-		public WalletMultiAvailable[] newArray(int size) {
-			return new WalletMultiAvailable[size];
-		}
-	};
-
 	public int describeContents() {
 		return 0;
-	}
-
-	WalletMultiAvailable(Parcel in) {
-		wallets = (List<WalletBaseData>) in.readValue(WalletBaseData.class.getClassLoader());
 	}
 }

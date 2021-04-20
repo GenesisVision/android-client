@@ -30,6 +30,17 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class FundChartStatistic implements Parcelable
 {
+	public static final Parcelable.Creator<FundChartStatistic> CREATOR = new Parcelable.Creator<FundChartStatistic>()
+	{
+		public FundChartStatistic createFromParcel(Parcel in) {
+			return new FundChartStatistic(in);
+		}
+
+		public FundChartStatistic[] newArray(int size) {
+			return new FundChartStatistic[size];
+		}
+	};
+
 	@SerializedName("balance")
 	private Double balance = null;
 
@@ -55,6 +66,17 @@ public class FundChartStatistic implements Parcelable
 	private DateTime creationDate = null;
 
 	public FundChartStatistic() {
+	}
+
+	FundChartStatistic(Parcel in) {
+		balance = (Double) in.readValue(null);
+		profitPercent = (Double) in.readValue(null);
+		sharpeRatio = (Double) in.readValue(null);
+		sortinoRatio = (Double) in.readValue(null);
+		calmarRatio = (Double) in.readValue(null);
+		maxDrawdown = (Double) in.readValue(null);
+		investors = (Integer) in.readValue(null);
+		creationDate = (DateTime) in.readValue(DateTime.class.getClassLoader());
 	}
 
 	public FundChartStatistic balance(Double balance) {
@@ -209,7 +231,6 @@ public class FundChartStatistic implements Parcelable
 		this.creationDate = creationDate;
 	}
 
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -233,7 +254,6 @@ public class FundChartStatistic implements Parcelable
 	public int hashCode() {
 		return Objects.hash(balance, profitPercent, sharpeRatio, sortinoRatio, calmarRatio, maxDrawdown, investors, creationDate);
 	}
-
 
 	@Override
 	public String toString() {
@@ -263,7 +283,6 @@ public class FundChartStatistic implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
-
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(balance);
 		out.writeValue(profitPercent);
@@ -275,29 +294,7 @@ public class FundChartStatistic implements Parcelable
 		out.writeValue(creationDate);
 	}
 
-	public static final Parcelable.Creator<FundChartStatistic> CREATOR = new Parcelable.Creator<FundChartStatistic>()
-	{
-		public FundChartStatistic createFromParcel(Parcel in) {
-			return new FundChartStatistic(in);
-		}
-
-		public FundChartStatistic[] newArray(int size) {
-			return new FundChartStatistic[size];
-		}
-	};
-
 	public int describeContents() {
 		return 0;
-	}
-
-	FundChartStatistic(Parcel in) {
-		balance = (Double) in.readValue(null);
-		profitPercent = (Double) in.readValue(null);
-		sharpeRatio = (Double) in.readValue(null);
-		sortinoRatio = (Double) in.readValue(null);
-		calmarRatio = (Double) in.readValue(null);
-		maxDrawdown = (Double) in.readValue(null);
-		investors = (Integer) in.readValue(null);
-		creationDate = (DateTime) in.readValue(DateTime.class.getClassLoader());
 	}
 }

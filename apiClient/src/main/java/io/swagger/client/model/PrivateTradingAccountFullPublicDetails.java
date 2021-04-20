@@ -30,6 +30,17 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class PrivateTradingAccountFullPublicDetails implements Parcelable
 {
+	public static final Parcelable.Creator<PrivateTradingAccountFullPublicDetails> CREATOR = new Parcelable.Creator<PrivateTradingAccountFullPublicDetails>()
+	{
+		public PrivateTradingAccountFullPublicDetails createFromParcel(Parcel in) {
+			return new PrivateTradingAccountFullPublicDetails(in);
+		}
+
+		public PrivateTradingAccountFullPublicDetails[] newArray(int size) {
+			return new PrivateTradingAccountFullPublicDetails[size];
+		}
+	};
+
 	@SerializedName("title")
 	private String title = null;
 
@@ -40,6 +51,12 @@ public class PrivateTradingAccountFullPublicDetails implements Parcelable
 	private DashboardTradingAssetStatus status = null;
 
 	public PrivateTradingAccountFullPublicDetails() {
+	}
+
+	PrivateTradingAccountFullPublicDetails(Parcel in) {
+		title = (String) in.readValue(null);
+		creationDate = (DateTime) in.readValue(DateTime.class.getClassLoader());
+		status = (DashboardTradingAssetStatus) in.readValue(DashboardTradingAssetStatus.class.getClassLoader());
 	}
 
 	public PrivateTradingAccountFullPublicDetails title(String title) {
@@ -99,7 +116,6 @@ public class PrivateTradingAccountFullPublicDetails implements Parcelable
 		this.status = status;
 	}
 
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -118,7 +134,6 @@ public class PrivateTradingAccountFullPublicDetails implements Parcelable
 	public int hashCode() {
 		return Objects.hash(title, creationDate, status);
 	}
-
 
 	@Override
 	public String toString() {
@@ -143,31 +158,13 @@ public class PrivateTradingAccountFullPublicDetails implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
-
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(title);
 		out.writeValue(creationDate);
 		out.writeValue(status);
 	}
 
-	public static final Parcelable.Creator<PrivateTradingAccountFullPublicDetails> CREATOR = new Parcelable.Creator<PrivateTradingAccountFullPublicDetails>()
-	{
-		public PrivateTradingAccountFullPublicDetails createFromParcel(Parcel in) {
-			return new PrivateTradingAccountFullPublicDetails(in);
-		}
-
-		public PrivateTradingAccountFullPublicDetails[] newArray(int size) {
-			return new PrivateTradingAccountFullPublicDetails[size];
-		}
-	};
-
 	public int describeContents() {
 		return 0;
-	}
-
-	PrivateTradingAccountFullPublicDetails(Parcel in) {
-		title = (String) in.readValue(null);
-		creationDate = (DateTime) in.readValue(DateTime.class.getClassLoader());
-		status = (DashboardTradingAssetStatus) in.readValue(DashboardTradingAssetStatus.class.getClassLoader());
 	}
 }
