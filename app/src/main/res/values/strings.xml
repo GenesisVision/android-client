@@ -1046,6 +1046,8 @@
     <string name="bnb_withdraw_warning">Please ensure that the withdrawal address supports the Binance Smart Chain network (BSC). You will loose your assets if your chosen platform does not support BSC.</string>
     <string name="bnb_deposit_warning">Please ensure that you are using Binance Smart Chain network (BSC) when depositing BNB to this address. You will loose your assets if you do not chose the correct network.</string>
     <string name="warning">Warning</string>
+    <string name="blockchain">Blockchain</string>
+    <string name="select_blockchain">Select blockchain</string>
 
     <plurals name="assets">
         <item quantity="one">asset</item>

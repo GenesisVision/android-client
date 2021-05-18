@@ -17,6 +17,8 @@ import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -88,11 +90,11 @@ public class WalletData implements Parcelable
 	@SerializedName("isWithdrawalEnabled")
 	private Boolean isWithdrawalEnabled = null;
 
-	@SerializedName("withdrawalCommission")
-	private Double withdrawalCommission = null;
+	@SerializedName("depositAddresses")
+	private List<WalletDepositData> depositAddresses = null;
 
-	@SerializedName("depositAddress")
-	private String depositAddress = null;
+	@SerializedName("withdrawalCommissions")
+	private List<WalletWithdrawalCurrencyInfo> withdrawalCommissions = null;
 
 	@SerializedName("depositUrlCoindirect")
 	private String depositUrlCoindirect = null;
@@ -117,8 +119,8 @@ public class WalletData implements Parcelable
 		logoUrl = (String) in.readValue(null);
 		isDepositEnabled = (Boolean) in.readValue(null);
 		isWithdrawalEnabled = (Boolean) in.readValue(null);
-		withdrawalCommission = (Double) in.readValue(null);
-		depositAddress = (String) in.readValue(null);
+		depositAddresses = (List<WalletDepositData>) in.readValue(WalletDepositData.class.getClassLoader());
+		withdrawalCommissions = (List<WalletWithdrawalCurrencyInfo>) in.readValue(WalletWithdrawalCurrencyInfo.class.getClassLoader());
 		depositUrlCoindirect = (String) in.readValue(null);
 	}
 
@@ -408,42 +410,58 @@ public class WalletData implements Parcelable
 		this.isWithdrawalEnabled = isWithdrawalEnabled;
 	}
 
-	public WalletData withdrawalCommission(Double withdrawalCommission) {
-		this.withdrawalCommission = withdrawalCommission;
+	public WalletData depositAddresses(List<WalletDepositData> depositAddresses) {
+		this.depositAddresses = depositAddresses;
+		return this;
+	}
+
+	public WalletData addDepositAddressesItem(WalletDepositData depositAddressesItem) {
+		if (this.depositAddresses == null) {
+			this.depositAddresses = new ArrayList<WalletDepositData>();
+		}
+		this.depositAddresses.add(depositAddressesItem);
 		return this;
 	}
 
 	/**
-	 * Get withdrawalCommission
+	 * Get depositAddresses
 	 *
-	 * @return withdrawalCommission
+	 * @return depositAddresses
 	 **/
 	@Schema(description = "")
-	public Double getWithdrawalCommission() {
-		return withdrawalCommission;
+	public List<WalletDepositData> getDepositAddresses() {
+		return depositAddresses;
 	}
 
-	public void setWithdrawalCommission(Double withdrawalCommission) {
-		this.withdrawalCommission = withdrawalCommission;
+	public void setDepositAddresses(List<WalletDepositData> depositAddresses) {
+		this.depositAddresses = depositAddresses;
 	}
 
-	public WalletData depositAddress(String depositAddress) {
-		this.depositAddress = depositAddress;
+	public WalletData withdrawalCommissions(List<WalletWithdrawalCurrencyInfo> withdrawalCommissions) {
+		this.withdrawalCommissions = withdrawalCommissions;
+		return this;
+	}
+
+	public WalletData addWithdrawalCommissionsItem(WalletWithdrawalCurrencyInfo withdrawalCommissionsItem) {
+		if (this.withdrawalCommissions == null) {
+			this.withdrawalCommissions = new ArrayList<WalletWithdrawalCurrencyInfo>();
+		}
+		this.withdrawalCommissions.add(withdrawalCommissionsItem);
 		return this;
 	}
 
 	/**
-	 * Get depositAddress
+	 * Get withdrawalCommissions
 	 *
-	 * @return depositAddress
+	 * @return withdrawalCommissions
 	 **/
 	@Schema(description = "")
-	public String getDepositAddress() {
-		return depositAddress;
+	public List<WalletWithdrawalCurrencyInfo> getWithdrawalCommissions() {
+		return withdrawalCommissions;
 	}
 
-	public void setDepositAddress(String depositAddress) {
-		this.depositAddress = depositAddress;
+	public void setWithdrawalCommissions(List<WalletWithdrawalCurrencyInfo> withdrawalCommissions) {
+		this.withdrawalCommissions = withdrawalCommissions;
 	}
 
 	public WalletData depositUrlCoindirect(String depositUrlCoindirect) {
@@ -490,14 +508,14 @@ public class WalletData implements Parcelable
 				Objects.equals(this.logoUrl, walletData.logoUrl) &&
 				Objects.equals(this.isDepositEnabled, walletData.isDepositEnabled) &&
 				Objects.equals(this.isWithdrawalEnabled, walletData.isWithdrawalEnabled) &&
-				Objects.equals(this.withdrawalCommission, walletData.withdrawalCommission) &&
-				Objects.equals(this.depositAddress, walletData.depositAddress) &&
+				Objects.equals(this.depositAddresses, walletData.depositAddresses) &&
+				Objects.equals(this.withdrawalCommissions, walletData.withdrawalCommissions) &&
 				Objects.equals(this.depositUrlCoindirect, walletData.depositUrlCoindirect);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(currency, available, invested, trading, pending, total, availableCcy, investedCcy, tradingCcy, pendingCcy, totalCcy, id, title, logoUrl, isDepositEnabled, isWithdrawalEnabled, withdrawalCommission, depositAddress, depositUrlCoindirect);
+		return Objects.hash(currency, available, invested, trading, pending, total, availableCcy, investedCcy, tradingCcy, pendingCcy, totalCcy, id, title, logoUrl, isDepositEnabled, isWithdrawalEnabled, depositAddresses, withdrawalCommissions, depositUrlCoindirect);
 	}
 
 	@Override
@@ -521,8 +539,8 @@ public class WalletData implements Parcelable
 		sb.append("    logoUrl: ").append(toIndentedString(logoUrl)).append("\n");
 		sb.append("    isDepositEnabled: ").append(toIndentedString(isDepositEnabled)).append("\n");
 		sb.append("    isWithdrawalEnabled: ").append(toIndentedString(isWithdrawalEnabled)).append("\n");
-		sb.append("    withdrawalCommission: ").append(toIndentedString(withdrawalCommission)).append("\n");
-		sb.append("    depositAddress: ").append(toIndentedString(depositAddress)).append("\n");
+		sb.append("    depositAddresses: ").append(toIndentedString(depositAddresses)).append("\n");
+		sb.append("    withdrawalCommissions: ").append(toIndentedString(withdrawalCommissions)).append("\n");
 		sb.append("    depositUrlCoindirect: ").append(toIndentedString(depositUrlCoindirect)).append("\n");
 		sb.append("}");
 		return sb.toString();
@@ -556,8 +574,8 @@ public class WalletData implements Parcelable
 		out.writeValue(logoUrl);
 		out.writeValue(isDepositEnabled);
 		out.writeValue(isWithdrawalEnabled);
-		out.writeValue(withdrawalCommission);
-		out.writeValue(depositAddress);
+		out.writeValue(depositAddresses);
+		out.writeValue(withdrawalCommissions);
 		out.writeValue(depositUrlCoindirect);
 	}
 

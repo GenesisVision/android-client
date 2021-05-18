@@ -11,7 +11,6 @@ import io.swagger.client.model.TransactionExternalType;
 import io.swagger.client.model.TransactionInternalType;
 import io.swagger.client.model.TransactionViewModelItemsViewModel;
 import io.swagger.client.model.UserCommissionData;
-import io.swagger.client.model.WalletDepositSummary;
 import io.swagger.client.model.WalletMultiAvailable;
 import io.swagger.client.model.WalletSummary;
 import io.swagger.client.model.WithdrawalSummary;
@@ -145,14 +144,5 @@ public interface WalletApi
 	Observable<Void> transfer(
 			@retrofit2.http.Body InternalTransferRequest body
 	);
-
-	/**
-	 * Update deposit wallets
-	 *
-	 * @return Call&lt;WalletDepositSummary&gt;
-	 */
-	@POST("v2.0/wallet/deposit/update")
-	Observable<WalletDepositSummary> updateDepositWallets();
-
 
 }

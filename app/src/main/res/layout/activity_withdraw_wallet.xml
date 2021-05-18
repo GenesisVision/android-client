@@ -52,7 +52,7 @@
                 android:orientation="vertical">
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
                     android:layout_margin="20dp"
@@ -147,6 +147,63 @@
 
                 </RelativeLayout>
 
+                <RelativeLayout
+                    android:id="@+id/group_blockchain"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp">
+
+                    <TextView
+                        android:id="@+id/label_blockchain"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:alpha="0.4"
+                        android:text="@string/blockchain"
+                        android:textColor="?attr/colorTextPrimary"
+                        android:textSize="12sp"/>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_below="@+id/label_blockchain"
+                        android:layout_marginTop="0dp"
+                        android:background="?attr/selectableItemBackground">
+
+                        <TextView
+                            android:id="@+id/blockchain"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_toStartOf="@+id/blockchain_arrow"
+                            android:textColor="?attr/colorTextPrimary"
+                            android:textColorHint="?attr/colorTextPrimary"
+                            android:textSize="14sp"
+                            tools:text="Bitcoin (BTC)"/>
+
+                        <ImageView
+                            android:id="@+id/blockchain_arrow"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginStart="8dp"
+                            android:alpha="0.3"
+                            android:gravity="center_vertical|end"
+                            android:src="@drawable/ic_keyboard_arrow_down_black_24dp"
+                            android:textSize="18sp"
+                            app:tint="?attr/colorTextPrimary"/>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_alignParentBottom="true"
+                            android:alpha="0.2"
+                            android:background="?attr/colorTextPrimary"/>
+
+                    </RelativeLayout>
+
+                </RelativeLayout>
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -155,7 +212,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="26dp"
+                        android:layout_marginTop="20dp"
                         android:alpha="0.4"
                         android:text="@string/enter_wallet_address_withdraw"
                         android:textColor="?attr/colorTextPrimary"

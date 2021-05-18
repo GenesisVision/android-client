@@ -45,6 +45,9 @@ public class CreateWithdrawalRequestModel implements Parcelable
 	@SerializedName("currency")
 	private Currency currency = null;
 
+	@SerializedName("blockchain")
+	private Blockchain blockchain = null;
+
 	@SerializedName("address")
 	private String address = null;
 
@@ -57,6 +60,7 @@ public class CreateWithdrawalRequestModel implements Parcelable
 	CreateWithdrawalRequestModel(Parcel in) {
 		amount = (Double) in.readValue(null);
 		currency = (Currency) in.readValue(Currency.class.getClassLoader());
+		blockchain = (Blockchain) in.readValue(Blockchain.class.getClassLoader());
 		address = (String) in.readValue(null);
 		twoFactorCode = (String) in.readValue(null);
 	}
@@ -97,6 +101,25 @@ public class CreateWithdrawalRequestModel implements Parcelable
 
 	public void setCurrency(Currency currency) {
 		this.currency = currency;
+	}
+
+	public CreateWithdrawalRequestModel blockchain(Blockchain blockchain) {
+		this.blockchain = blockchain;
+		return this;
+	}
+
+	/**
+	 * Get blockchain
+	 *
+	 * @return blockchain
+	 **/
+	@Schema(description = "")
+	public Blockchain getBlockchain() {
+		return blockchain;
+	}
+
+	public void setBlockchain(Blockchain blockchain) {
+		this.blockchain = blockchain;
 	}
 
 	public CreateWithdrawalRequestModel address(String address) {
@@ -148,13 +171,14 @@ public class CreateWithdrawalRequestModel implements Parcelable
 		CreateWithdrawalRequestModel createWithdrawalRequestModel = (CreateWithdrawalRequestModel) o;
 		return Objects.equals(this.amount, createWithdrawalRequestModel.amount) &&
 				Objects.equals(this.currency, createWithdrawalRequestModel.currency) &&
+				Objects.equals(this.blockchain, createWithdrawalRequestModel.blockchain) &&
 				Objects.equals(this.address, createWithdrawalRequestModel.address) &&
 				Objects.equals(this.twoFactorCode, createWithdrawalRequestModel.twoFactorCode);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(amount, currency, address, twoFactorCode);
+		return Objects.hash(amount, currency, blockchain, address, twoFactorCode);
 	}
 
 	@Override
@@ -164,6 +188,7 @@ public class CreateWithdrawalRequestModel implements Parcelable
 
 		sb.append("    amount: ").append(toIndentedString(amount)).append("\n");
 		sb.append("    currency: ").append(toIndentedString(currency)).append("\n");
+		sb.append("    blockchain: ").append(toIndentedString(blockchain)).append("\n");
 		sb.append("    address: ").append(toIndentedString(address)).append("\n");
 		sb.append("    twoFactorCode: ").append(toIndentedString(twoFactorCode)).append("\n");
 		sb.append("}");
@@ -184,6 +209,7 @@ public class CreateWithdrawalRequestModel implements Parcelable
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(amount);
 		out.writeValue(currency);
+		out.writeValue(blockchain);
 		out.writeValue(address);
 		out.writeValue(twoFactorCode);
 	}

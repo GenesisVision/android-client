@@ -15,6 +15,7 @@ import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.jakewharton.rxbinding.widget.RxTextView;
 
+import java.util.ArrayList;
 import java.util.Locale;
 import java.util.Objects;
 
@@ -24,6 +25,7 @@ import butterknife.OnClick;
 import io.swagger.client.model.WalletWithdrawalInfo;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseSwipeBackActivity;
+import vision.genesis.clientapp.feature.common.option.SelectOptionBottomSheetFragment;
 import vision.genesis.clientapp.feature.main.wallet.withdraw.confirm.ConfirmWalletWithdrawBottomSheetFragment;
 import vision.genesis.clientapp.model.WalletModel;
 import vision.genesis.clientapp.model.WithdrawalRequest;
@@ -64,6 +66,9 @@ public class WithdrawWalletActivity extends BaseSwipeBackActivity implements Wit
 	@BindView(R.id.wallet_balance)
 	public TextView walletBalance;
 
+	@BindView(R.id.blockchain)
+	public TextView blockchain;
+
 	@BindView(R.id.edittext_amount)
 	public EditText amount;
 
@@ -98,9 +103,13 @@ public class WithdrawWalletActivity extends BaseSwipeBackActivity implements Wit
 	public ProgressBar progressBar;
 
 	@InjectPresenter
-	WithdrawWalletPresenter withdrawWalletPresenter;
+	WithdrawWalletPresenter presenter;
 
 	private WalletModel model;
+
+	private ArrayList<String> blockchainOptions = new ArrayList<>();
+
+	private int selectedBlockchainOption = -1;
 
 	@OnClick(R.id.button_close)
 	public void onCloseClicked() {
@@ -114,7 +123,7 @@ public class WithdrawWalletActivity extends BaseSwipeBackActivity implements Wit
 
 	@OnClick(R.id.max)
 	public void onMaxClicked() {
-		withdrawWalletPresenter.onMaxClicked();
+		presenter.onMaxClicked();
 	}
 
 	@OnClick(R.id.scan_qr)
@@ -122,9 +131,17 @@ public class WithdrawWalletActivity extends BaseSwipeBackActivity implements Wit
 
 	}
 
+	@OnClick(R.id.group_blockchain)
+	public void onBlockchainClicked() {
+		SelectOptionBottomSheetFragment fragment = SelectOptionBottomSheetFragment.with(
+				getString(R.string.select_blockchain), blockchainOptions, selectedBlockchainOption);
+		fragment.setListener((position, text) -> presenter.onBlockchainSelected(position, text));
+		fragment.show(getSupportFragmentManager(), fragment.getTag());
+	}
+
 	@OnClick(R.id.button_continue)
 	public void onContinueClicked() {
-		withdrawWalletPresenter.onContinueClicked(address.getText().toString());
+		presenter.onContinueClicked(address.getText().toString());
 	}
 
 	@Override
@@ -138,7 +155,7 @@ public class WithdrawWalletActivity extends BaseSwipeBackActivity implements Wit
 
 		if (getIntent().getExtras() != null) {
 			model = Objects.requireNonNull(getIntent().getExtras().getParcelable(EXTRA_MODEL));
-			withdrawWalletPresenter.setModel(model);
+			presenter.setModel(model);
 		}
 
 		setFonts();
@@ -154,7 +171,7 @@ public class WithdrawWalletActivity extends BaseSwipeBackActivity implements Wit
 
 	private void setTextListener() {
 		RxTextView.textChanges(amount)
-				.subscribe(charSequence -> withdrawWalletPresenter.onAmountChanged(charSequence.toString()));
+				.subscribe(charSequence -> presenter.onAmountChanged(charSequence.toString()));
 		RxTextView.textChanges(address)
 				.subscribe(charSequence -> showAddressNotValidError(false));
 	}
@@ -167,6 +184,17 @@ public class WithdrawWalletActivity extends BaseSwipeBackActivity implements Wit
 				StringFormatUtil.formatCurrencyAmount(wallet.getAvailableToWithdrawal(), wallet.getCurrency().getValue()),
 				wallet.getCurrency().getValue()));
 		this.currency.setText(wallet.getCurrency().getValue());
+	}
+
+	@Override
+	public void setBlockchainOptions(ArrayList<String> blockchainOptions) {
+		this.blockchainOptions = blockchainOptions;
+	}
+
+	@Override
+	public void setBlockchain(String blockchain, int selectedBlockchainOption) {
+		this.blockchain.setText(blockchain);
+		this.selectedBlockchainOption = selectedBlockchainOption;
 	}
 
 	@Override
@@ -224,7 +252,7 @@ public class WithdrawWalletActivity extends BaseSwipeBackActivity implements Wit
 		ConfirmWalletWithdrawBottomSheetFragment bottomSheetDialog = new ConfirmWalletWithdrawBottomSheetFragment();
 		bottomSheetDialog.show(getSupportFragmentManager(), bottomSheetDialog.getTag());
 		bottomSheetDialog.setData(withdrawalRequest);
-		bottomSheetDialog.setListener(withdrawWalletPresenter);
+		bottomSheetDialog.setListener(presenter);
 	}
 
 	@Override

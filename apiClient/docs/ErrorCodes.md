@@ -7,3 +7,4 @@
 * `REQUIRESTWOFACTOR` (value: `"RequiresTwoFactor"`)
 * `WRONGCAPTCHA` (value: `"WrongCaptcha"`)
 * `REQUIRESEMAILCONFIRMATION` (value: `"RequiresEmailConfirmation"`)
+* `REQUIRESSIGNATURE` (value: `"RequiresSignature"`)

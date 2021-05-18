@@ -16,15 +16,18 @@ import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
 
 import net.glxn.qrgen.android.QRCode;
 
+import java.util.ArrayList;
 import java.util.Locale;
 import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.swagger.client.model.WalletDepositData;
 import timber.log.Timber;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseSwipeBackActivity;
+import vision.genesis.clientapp.feature.common.option.SelectOptionBottomSheetFragment;
 import vision.genesis.clientapp.model.WalletModel;
 import vision.genesis.clientapp.utils.ImageUtils;
 import vision.genesis.clientapp.utils.StringFormatUtil;
@@ -62,6 +65,9 @@ public class DepositWalletActivity extends BaseSwipeBackActivity implements Depo
 	@BindView(R.id.wallet_balance)
 	public TextView walletBalance;
 
+	@BindView(R.id.blockchain)
+	public TextView blockchain;
+
 	@BindView(R.id.label_deposit)
 	public TextView depositLabel;
 
@@ -76,6 +82,20 @@ public class DepositWalletActivity extends BaseSwipeBackActivity implements Depo
 
 	private WalletModel model;
 
+	private ArrayList<String> blockchainOptions = new ArrayList<>();
+
+	private int selectedBlockchainOption = -1;
+
+	private String selectedAddress = "";
+
+	@OnClick(R.id.group_blockchain)
+	public void onBlockchainClicked() {
+		SelectOptionBottomSheetFragment fragment = SelectOptionBottomSheetFragment.with(
+				getString(R.string.select_blockchain), blockchainOptions, selectedBlockchainOption);
+		fragment.setListener(this::onBlockchainSelected);
+		fragment.show(getSupportFragmentManager(), fragment.getTag());
+	}
+
 	@OnClick(R.id.button_close)
 	public void onCloseClicked() {
 		finishActivity();
@@ -84,7 +104,7 @@ public class DepositWalletActivity extends BaseSwipeBackActivity implements Depo
 	@OnClick(R.id.button_copy)
 	public void onCopyClicked() {
 		ClipboardManager clipboardManager = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
-		ClipData clipData = ClipData.newPlainText("address", model.getAddress());
+		ClipData clipData = ClipData.newPlainText("address", selectedAddress);
 		if (clipboardManager != null) {
 			clipboardManager.setPrimaryClip(clipData);
 			Toast.makeText(this, getString(R.string.copied_to_the_clipboard), Toast.LENGTH_SHORT).show();
@@ -120,17 +140,32 @@ public class DepositWalletActivity extends BaseSwipeBackActivity implements Depo
 		this.walletBalance.setText(String.format(Locale.getDefault(), "%s %s",
 				StringFormatUtil.formatCurrencyAmount(model.getAvailable(), model.getCurrency()),
 				model.getCurrency()));
+		this.depositLabel.setText(String.format(Locale.getDefault(), getString(R.string.deposit_to_this_address), model.getCurrency(), model.getTitle()));
 
-		if (model.getAddress() != null && !model.getAddress().isEmpty()) {
-			this.address.setText(model.getAddress());
-			this.qrCodeImage.setImageBitmap(QRCode.from(model.getAddress())
-					.withColor(ThemeUtil.getColorByAttrId(this, R.attr.colorTextPrimary),
-							ThemeUtil.getColorByAttrId(this, R.attr.colorCard))
-					.withSize(1000, 1000)
-					.withErrorCorrection(ErrorCorrectionLevel.H)
-					.bitmap());
-			this.depositLabel.setText(String.format(Locale.getDefault(), getString(R.string.deposit_to_this_address), model.getCurrency(), model.getTitle()));
+		initBlockchainOptions(model);
+	}
+
+	private void initBlockchainOptions(WalletModel model) {
+		blockchainOptions = new ArrayList<>();
+		selectedBlockchainOption = 0;
+
+		for (WalletDepositData modelAddress : model.getAddresses()) {
+			blockchainOptions.add(modelAddress.getBlockchain().toString());
 		}
+		onBlockchainSelected(selectedBlockchainOption, blockchainOptions.get(selectedBlockchainOption));
+	}
+
+	private void onBlockchainSelected(int position, String option) {
+		this.blockchain.setText(option);
+		this.selectedBlockchainOption = position;
+		this.selectedAddress = model.getAddresses().get(selectedBlockchainOption).getAddress();
+		this.address.setText(selectedAddress);
+		this.qrCodeImage.setImageBitmap(QRCode.from(selectedAddress)
+				.withColor(ThemeUtil.getColorByAttrId(this, R.attr.colorTextPrimary),
+						ThemeUtil.getColorByAttrId(this, R.attr.colorCard))
+				.withSize(1000, 1000)
+				.withErrorCorrection(ErrorCorrectionLevel.H)
+				.bitmap());
 	}
 
 	private void setFonts() {

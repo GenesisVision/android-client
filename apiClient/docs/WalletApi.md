@@ -15,7 +15,6 @@ Method | HTTP request | Description
 [**getWalletSummary**](WalletApi.md#getWalletSummary) | **GET** v2.0/wallet/{currency} | Wallet summary
 [**resendWithdrawalRequestEmail**](WalletApi.md#resendWithdrawalRequestEmail) | **POST** v2.0/wallet/withdraw/request/resend/{txId} | 
 [**transfer**](WalletApi.md#transfer) | **POST** v2.0/wallet/transfer | Transfer money
-[**updateDepositWallets**](WalletApi.md#updateDepositWallets) | **POST** v2.0/wallet/deposit/update | Update deposit wallets
 
 <a name="cancelWithdrawalRequest"></a>
 # **cancelWithdrawalRequest**
@@ -612,54 +611,5 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: application/json, text/json, application/_*+json
- - **Accept**: text/plain, application/json, text/json
-
-<a name="updateDepositWallets"></a>
-# **updateDepositWallets**
-> WalletDepositSummary updateDepositWallets()
-
-Update deposit wallets
-
-### Example
-```java
-// Import classes:
-//import io.swagger.client.ApiClient;
-//import io.swagger.client.ApiException;
-//import io.swagger.client.Configuration;
-//import io.swagger.client.auth.*;
-//import io.swagger.client.api.WalletApi;
-
-ApiClient defaultClient = Configuration.getDefaultApiClient();
-
-// Configure API key authorization: Bearer
-ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
-Bearer.setApiKey("YOUR API KEY");
-// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-//Bearer.setApiKeyPrefix("Token");
-
-WalletApi apiInstance = new WalletApi();
-try {
-    WalletDepositSummary result = apiInstance.updateDepositWallets();
-    System.out.println(result);
-} catch (ApiException e) {
-    System.err.println("Exception when calling WalletApi#updateDepositWallets");
-    e.printStackTrace();
-}
-```
-
-### Parameters
-This endpoint does not need any parameter.
-
-### Return type
-
-[**WalletDepositSummary**](WalletDepositSummary.md)
-
-### Authorization
-
-[Bearer](../README.md#Bearer)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
  - **Accept**: text/plain, application/json, text/json
 

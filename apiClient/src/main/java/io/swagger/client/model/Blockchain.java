@@ -20,20 +20,20 @@ import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
 
 /**
- * Gets or Sets ErrorCodes
+ * Gets or Sets Blockchain
  */
-@JsonAdapter(ErrorCodes.Adapter.class)
-public enum ErrorCodes
+@JsonAdapter(Blockchain.Adapter.class)
+public enum Blockchain
 {
-	INTERNALSERVERERROR("InternalServerError"),
-	VALIDATIONERROR("ValidationError"),
-	REQUIRESTWOFACTOR("RequiresTwoFactor"),
-	WRONGCAPTCHA("WrongCaptcha"),
-	REQUIRESEMAILCONFIRMATION("RequiresEmailConfirmation"),
-	REQUIRESSIGNATURE("RequiresSignature");
+	NONE("None"),
+	BITCOIN("Bitcoin"),
+	ETHEREUM("Ethereum"),
+	BINANCECHAIN("BinanceChain"),
+	XDAICHAIN("xDaiChain"),
+	ETHEREUMERC20("EthereumErc20");
 
-	public static ErrorCodes fromValue(String text) {
-		for (ErrorCodes b : ErrorCodes.values()) {
+	public static Blockchain fromValue(String text) {
+		for (Blockchain b : Blockchain.values()) {
 			if (String.valueOf(b.value).equals(text)) {
 				return b;
 			}
@@ -43,7 +43,7 @@ public enum ErrorCodes
 
 	private String value;
 
-	ErrorCodes(String value) {
+	Blockchain(String value) {
 		this.value = value;
 	}
 
@@ -56,17 +56,17 @@ public enum ErrorCodes
 		return String.valueOf(value);
 	}
 
-	public static class Adapter extends TypeAdapter<ErrorCodes>
+	public static class Adapter extends TypeAdapter<Blockchain>
 	{
 		@Override
-		public void write(final JsonWriter jsonWriter, final ErrorCodes enumeration) throws IOException {
+		public void write(final JsonWriter jsonWriter, final Blockchain enumeration) throws IOException {
 			jsonWriter.value(enumeration.getValue());
 		}
 
 		@Override
-		public ErrorCodes read(final JsonReader jsonReader) throws IOException {
+		public Blockchain read(final JsonReader jsonReader) throws IOException {
 			Object value = jsonReader.nextString();
-			return ErrorCodes.fromValue(String.valueOf(value));
+			return Blockchain.fromValue(String.valueOf(value));
 		}
 	}
 }

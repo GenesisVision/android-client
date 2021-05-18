@@ -17,6 +17,8 @@ import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -39,41 +41,26 @@ public class PlatformWithdrawalInfo implements Parcelable
 		}
 	};
 
-	@SerializedName("withdrawalFee")
-	private Double withdrawalFee = null;
-
 	@SerializedName("currency")
 	private Currency currency = null;
 
+	@SerializedName("logoUrl")
+	private String logoUrl = null;
+
 	@SerializedName("isWithdrawalEnabled")
 	private Boolean isWithdrawalEnabled = null;
+
+	@SerializedName("commissions")
+	private List<WalletWithdrawalCurrencyInfo> commissions = null;
 
 	public PlatformWithdrawalInfo() {
 	}
 
 	PlatformWithdrawalInfo(Parcel in) {
-		withdrawalFee = (Double) in.readValue(null);
 		currency = (Currency) in.readValue(Currency.class.getClassLoader());
+		logoUrl = (String) in.readValue(null);
 		isWithdrawalEnabled = (Boolean) in.readValue(null);
-	}
-
-	public PlatformWithdrawalInfo withdrawalFee(Double withdrawalFee) {
-		this.withdrawalFee = withdrawalFee;
-		return this;
-	}
-
-	/**
-	 * Get withdrawalFee
-	 *
-	 * @return withdrawalFee
-	 **/
-	@Schema(description = "")
-	public Double getWithdrawalFee() {
-		return withdrawalFee;
-	}
-
-	public void setWithdrawalFee(Double withdrawalFee) {
-		this.withdrawalFee = withdrawalFee;
+		commissions = (List<WalletWithdrawalCurrencyInfo>) in.readValue(WalletWithdrawalCurrencyInfo.class.getClassLoader());
 	}
 
 	public PlatformWithdrawalInfo currency(Currency currency) {
@@ -95,6 +82,25 @@ public class PlatformWithdrawalInfo implements Parcelable
 		this.currency = currency;
 	}
 
+	public PlatformWithdrawalInfo logoUrl(String logoUrl) {
+		this.logoUrl = logoUrl;
+		return this;
+	}
+
+	/**
+	 * Get logoUrl
+	 *
+	 * @return logoUrl
+	 **/
+	@Schema(description = "")
+	public String getLogoUrl() {
+		return logoUrl;
+	}
+
+	public void setLogoUrl(String logoUrl) {
+		this.logoUrl = logoUrl;
+	}
+
 	public PlatformWithdrawalInfo isWithdrawalEnabled(Boolean isWithdrawalEnabled) {
 		this.isWithdrawalEnabled = isWithdrawalEnabled;
 		return this;
@@ -114,6 +120,33 @@ public class PlatformWithdrawalInfo implements Parcelable
 		this.isWithdrawalEnabled = isWithdrawalEnabled;
 	}
 
+	public PlatformWithdrawalInfo commissions(List<WalletWithdrawalCurrencyInfo> commissions) {
+		this.commissions = commissions;
+		return this;
+	}
+
+	public PlatformWithdrawalInfo addCommissionsItem(WalletWithdrawalCurrencyInfo commissionsItem) {
+		if (this.commissions == null) {
+			this.commissions = new ArrayList<WalletWithdrawalCurrencyInfo>();
+		}
+		this.commissions.add(commissionsItem);
+		return this;
+	}
+
+	/**
+	 * Get commissions
+	 *
+	 * @return commissions
+	 **/
+	@Schema(description = "")
+	public List<WalletWithdrawalCurrencyInfo> getCommissions() {
+		return commissions;
+	}
+
+	public void setCommissions(List<WalletWithdrawalCurrencyInfo> commissions) {
+		this.commissions = commissions;
+	}
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -123,14 +156,15 @@ public class PlatformWithdrawalInfo implements Parcelable
 			return false;
 		}
 		PlatformWithdrawalInfo platformWithdrawalInfo = (PlatformWithdrawalInfo) o;
-		return Objects.equals(this.withdrawalFee, platformWithdrawalInfo.withdrawalFee) &&
-				Objects.equals(this.currency, platformWithdrawalInfo.currency) &&
-				Objects.equals(this.isWithdrawalEnabled, platformWithdrawalInfo.isWithdrawalEnabled);
+		return Objects.equals(this.currency, platformWithdrawalInfo.currency) &&
+				Objects.equals(this.logoUrl, platformWithdrawalInfo.logoUrl) &&
+				Objects.equals(this.isWithdrawalEnabled, platformWithdrawalInfo.isWithdrawalEnabled) &&
+				Objects.equals(this.commissions, platformWithdrawalInfo.commissions);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(withdrawalFee, currency, isWithdrawalEnabled);
+		return Objects.hash(currency, logoUrl, isWithdrawalEnabled, commissions);
 	}
 
 	@Override
@@ -138,9 +172,10 @@ public class PlatformWithdrawalInfo implements Parcelable
 		StringBuilder sb = new StringBuilder();
 		sb.append("class PlatformWithdrawalInfo {\n");
 
-		sb.append("    withdrawalFee: ").append(toIndentedString(withdrawalFee)).append("\n");
 		sb.append("    currency: ").append(toIndentedString(currency)).append("\n");
+		sb.append("    logoUrl: ").append(toIndentedString(logoUrl)).append("\n");
 		sb.append("    isWithdrawalEnabled: ").append(toIndentedString(isWithdrawalEnabled)).append("\n");
+		sb.append("    commissions: ").append(toIndentedString(commissions)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}
@@ -157,9 +192,10 @@ public class PlatformWithdrawalInfo implements Parcelable
 	}
 
 	public void writeToParcel(Parcel out, int flags) {
-		out.writeValue(withdrawalFee);
 		out.writeValue(currency);
+		out.writeValue(logoUrl);
 		out.writeValue(isWithdrawalEnabled);
+		out.writeValue(commissions);
 	}
 
 	public int describeContents() {

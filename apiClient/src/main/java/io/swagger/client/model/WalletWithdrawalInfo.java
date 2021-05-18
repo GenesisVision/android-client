@@ -17,6 +17,8 @@ import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -48,8 +50,8 @@ public class WalletWithdrawalInfo implements Parcelable
 	@SerializedName("logoUrl")
 	private String logoUrl = null;
 
-	@SerializedName("commission")
-	private Double commission = null;
+	@SerializedName("commissions")
+	private List<WalletWithdrawalCurrencyInfo> commissions = null;
 
 	@SerializedName("rateToGvt")
 	private Double rateToGvt = null;
@@ -64,7 +66,7 @@ public class WalletWithdrawalInfo implements Parcelable
 		currency = (Currency) in.readValue(Currency.class.getClassLoader());
 		description = (String) in.readValue(null);
 		logoUrl = (String) in.readValue(null);
-		commission = (Double) in.readValue(null);
+		commissions = (List<WalletWithdrawalCurrencyInfo>) in.readValue(WalletWithdrawalCurrencyInfo.class.getClassLoader());
 		rateToGvt = (Double) in.readValue(null);
 		availableToWithdrawal = (Double) in.readValue(null);
 	}
@@ -126,23 +128,31 @@ public class WalletWithdrawalInfo implements Parcelable
 		this.logoUrl = logoUrl;
 	}
 
-	public WalletWithdrawalInfo commission(Double commission) {
-		this.commission = commission;
+	public WalletWithdrawalInfo commissions(List<WalletWithdrawalCurrencyInfo> commissions) {
+		this.commissions = commissions;
+		return this;
+	}
+
+	public WalletWithdrawalInfo addCommissionsItem(WalletWithdrawalCurrencyInfo commissionsItem) {
+		if (this.commissions == null) {
+			this.commissions = new ArrayList<WalletWithdrawalCurrencyInfo>();
+		}
+		this.commissions.add(commissionsItem);
 		return this;
 	}
 
 	/**
-	 * Get commission
+	 * Get commissions
 	 *
-	 * @return commission
+	 * @return commissions
 	 **/
 	@Schema(description = "")
-	public Double getCommission() {
-		return commission;
+	public List<WalletWithdrawalCurrencyInfo> getCommissions() {
+		return commissions;
 	}
 
-	public void setCommission(Double commission) {
-		this.commission = commission;
+	public void setCommissions(List<WalletWithdrawalCurrencyInfo> commissions) {
+		this.commissions = commissions;
 	}
 
 	public WalletWithdrawalInfo rateToGvt(Double rateToGvt) {
@@ -195,14 +205,14 @@ public class WalletWithdrawalInfo implements Parcelable
 		return Objects.equals(this.currency, walletWithdrawalInfo.currency) &&
 				Objects.equals(this.description, walletWithdrawalInfo.description) &&
 				Objects.equals(this.logoUrl, walletWithdrawalInfo.logoUrl) &&
-				Objects.equals(this.commission, walletWithdrawalInfo.commission) &&
+				Objects.equals(this.commissions, walletWithdrawalInfo.commissions) &&
 				Objects.equals(this.rateToGvt, walletWithdrawalInfo.rateToGvt) &&
 				Objects.equals(this.availableToWithdrawal, walletWithdrawalInfo.availableToWithdrawal);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(currency, description, logoUrl, commission, rateToGvt, availableToWithdrawal);
+		return Objects.hash(currency, description, logoUrl, commissions, rateToGvt, availableToWithdrawal);
 	}
 
 	@Override
@@ -213,7 +223,7 @@ public class WalletWithdrawalInfo implements Parcelable
 		sb.append("    currency: ").append(toIndentedString(currency)).append("\n");
 		sb.append("    description: ").append(toIndentedString(description)).append("\n");
 		sb.append("    logoUrl: ").append(toIndentedString(logoUrl)).append("\n");
-		sb.append("    commission: ").append(toIndentedString(commission)).append("\n");
+		sb.append("    commissions: ").append(toIndentedString(commissions)).append("\n");
 		sb.append("    rateToGvt: ").append(toIndentedString(rateToGvt)).append("\n");
 		sb.append("    availableToWithdrawal: ").append(toIndentedString(availableToWithdrawal)).append("\n");
 		sb.append("}");
@@ -235,7 +245,7 @@ public class WalletWithdrawalInfo implements Parcelable
 		out.writeValue(currency);
 		out.writeValue(description);
 		out.writeValue(logoUrl);
-		out.writeValue(commission);
+		out.writeValue(commissions);
 		out.writeValue(rateToGvt);
 		out.writeValue(availableToWithdrawal);
 	}

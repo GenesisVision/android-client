@@ -5,10 +5,13 @@ import android.content.Context;
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
 import javax.inject.Inject;
 
+import io.swagger.client.model.WalletWithdrawalCurrencyInfo;
 import io.swagger.client.model.WalletWithdrawalInfo;
 import io.swagger.client.model.WithdrawalSummary;
 import rx.Subscription;
@@ -50,6 +53,10 @@ public class WithdrawWalletPresenter extends MvpPresenter<WithdrawWalletView> im
 	private Double finalAmount = 0.0;
 
 	private WalletModel model;
+
+	private int selectedBlockchainOption = -1;
+
+	private Double commission = 0.0;
 
 	@Override
 	protected void onFirstViewAttach() {
@@ -142,7 +149,7 @@ public class WithdrawWalletPresenter extends MvpPresenter<WithdrawWalletView> im
 
 	private void updateFinalAmount() {
 		if (walletInfo != null) {
-			finalAmount = amount - walletInfo.getCommission();
+			finalAmount = amount - commission;
 			if (finalAmount < 0) {
 				finalAmount = 0.0;
 			}
@@ -163,7 +170,7 @@ public class WithdrawWalletPresenter extends MvpPresenter<WithdrawWalletView> im
 	}
 
 	private String getFeeAmountString() {
-		return StringFormatUtil.getValueString(walletInfo.getCommission(), walletInfo.getCurrency().getValue());
+		return StringFormatUtil.getValueString(commission, walletInfo.getCurrency().getValue());
 	}
 
 	private void getWalletInfo() {
@@ -186,8 +193,7 @@ public class WithdrawWalletPresenter extends MvpPresenter<WithdrawWalletView> im
 				walletInfo = info;
 				availableInWallet = walletInfo.getAvailableToWithdrawal();
 				getViewState().setWalletInfo(walletInfo);
-				updateFinalAmount();
-				updateFeeAmount();
+				initBlockchainOptions(walletInfo.getCommissions());
 				break;
 			}
 		}
@@ -200,8 +206,27 @@ public class WithdrawWalletPresenter extends MvpPresenter<WithdrawWalletView> im
 				message -> getViewState().showSnackbarMessage(message));
 	}
 
+	private void initBlockchainOptions(List<WalletWithdrawalCurrencyInfo> model) {
+		ArrayList<String> blockchainOptions = new ArrayList<>();
+		selectedBlockchainOption = 0;
+
+		for (WalletWithdrawalCurrencyInfo info : model) {
+			blockchainOptions.add(info.getBlockchain());
+		}
+		getViewState().setBlockchainOptions(blockchainOptions);
+		onBlockchainSelected(selectedBlockchainOption, blockchainOptions.get(selectedBlockchainOption));
+	}
+
 	@Override
 	public void onWithdrawSucceeded() {
 		getViewState().finishActivity();
+	}
+
+	public void onBlockchainSelected(int position, String option) {
+		this.selectedBlockchainOption = position;
+		getViewState().setBlockchain(option, selectedBlockchainOption);
+		this.commission = walletInfo.getCommissions().get(selectedBlockchainOption).getValue();
+		updateFinalAmount();
+		updateFeeAmount();
 	}
 }

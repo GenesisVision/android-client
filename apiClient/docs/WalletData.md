@@ -19,6 +19,6 @@ Name | Type | Description | Notes
 **logoUrl** | **String** |  |  [optional]
 **isDepositEnabled** | **Boolean** |  |  [optional]
 **isWithdrawalEnabled** | **Boolean** |  |  [optional]
-**withdrawalCommission** | **Double** |  |  [optional]
-**depositAddress** | **String** |  |  [optional]
+**depositAddresses** | [**List&lt;WalletDepositData&gt;**](WalletDepositData.md) |  |  [optional]
+**withdrawalCommissions** | [**List&lt;WalletWithdrawalCurrencyInfo&gt;**](WalletWithdrawalCurrencyInfo.md) |  |  [optional]
 **depositUrlCoindirect** | **String** |  |  [optional]

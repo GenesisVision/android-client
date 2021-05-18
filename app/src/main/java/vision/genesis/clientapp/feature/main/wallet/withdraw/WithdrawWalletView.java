@@ -2,6 +2,8 @@ package vision.genesis.clientapp.feature.main.wallet.withdraw;
 
 import com.arellomobile.mvp.MvpView;
 
+import java.util.ArrayList;
+
 import io.swagger.client.model.WalletWithdrawalInfo;
 import vision.genesis.clientapp.model.WithdrawalRequest;
 
@@ -13,6 +15,10 @@ import vision.genesis.clientapp.model.WithdrawalRequest;
 interface WithdrawWalletView extends MvpView
 {
 	void setWalletInfo(WalletWithdrawalInfo selectedWallet);
+
+	void setBlockchainOptions(ArrayList<String> blockchainOptions);
+
+	void setBlockchain(String blockchain, int selectedBlockchainOption);
 
 	void setAmount(String amountString);
 

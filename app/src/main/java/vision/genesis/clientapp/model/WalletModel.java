@@ -3,9 +3,12 @@ package vision.genesis.clientapp.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 import io.swagger.client.model.WalletData;
+import io.swagger.client.model.WalletDepositData;
 
 /**
  * GenesisVisionAndroid
@@ -28,7 +31,7 @@ public class WalletModel implements Parcelable
 
 	public static WalletModel createFrom(WalletData walletData) {
 		return new WalletModel(walletData.getId(), walletData.getLogoUrl(), walletData.getTitle(),
-				walletData.getCurrency().getValue(), walletData.getAvailable(), walletData.getDepositAddress());
+				walletData.getCurrency().getValue(), walletData.getAvailable(), walletData.getDepositAddresses());
 	}
 
 	private UUID id;
@@ -41,7 +44,7 @@ public class WalletModel implements Parcelable
 
 	private Double available;
 
-	private String address;
+	private List<WalletDepositData> addresses = new ArrayList<>();
 
 	private WalletModel(Parcel in) {
 		id = (UUID) in.readSerializable();
@@ -49,16 +52,16 @@ public class WalletModel implements Parcelable
 		title = in.readString();
 		currency = in.readString();
 		available = in.readDouble();
-		address = in.readString();
+		in.readList(addresses, WalletDepositData.class.getClassLoader());
 	}
 
-	private WalletModel(UUID id, String logo, String title, String currency, Double available, String address) {
+	private WalletModel(UUID id, String logo, String title, String currency, Double available, List<WalletDepositData> addresses) {
 		this.id = id;
 		this.logo = logo;
 		this.title = title;
 		this.currency = currency;
 		this.available = available;
-		this.address = address;
+		this.addresses = addresses;
 	}
 
 	public UUID getId() {
@@ -109,10 +112,10 @@ public class WalletModel implements Parcelable
 		parcel.writeString(title);
 		parcel.writeString(currency);
 		parcel.writeDouble(available);
-		parcel.writeString(address);
+		parcel.writeList(addresses);
 	}
 
-	public String getAddress() {
-		return address;
+	public List<WalletDepositData> getAddresses() {
+		return addresses;
 	}
 }
