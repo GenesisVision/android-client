@@ -43,14 +43,18 @@ public class WalletWithdrawalCurrencyInfo implements Parcelable
 	private Double value = null;
 
 	@SerializedName("blockchain")
-	private String blockchain = null;
+	private Blockchain blockchain = null;
+
+	@SerializedName("blockchainTitle")
+	private String blockchainTitle = null;
 
 	public WalletWithdrawalCurrencyInfo() {
 	}
 
 	WalletWithdrawalCurrencyInfo(Parcel in) {
 		value = (Double) in.readValue(null);
-		blockchain = (String) in.readValue(null);
+		blockchain = (Blockchain) in.readValue(Blockchain.class.getClassLoader());
+		blockchainTitle = (String) in.readValue(null);
 	}
 
 	public WalletWithdrawalCurrencyInfo value(Double value) {
@@ -72,7 +76,7 @@ public class WalletWithdrawalCurrencyInfo implements Parcelable
 		this.value = value;
 	}
 
-	public WalletWithdrawalCurrencyInfo blockchain(String blockchain) {
+	public WalletWithdrawalCurrencyInfo blockchain(Blockchain blockchain) {
 		this.blockchain = blockchain;
 		return this;
 	}
@@ -83,12 +87,31 @@ public class WalletWithdrawalCurrencyInfo implements Parcelable
 	 * @return blockchain
 	 **/
 	@Schema(description = "")
-	public String getBlockchain() {
+	public Blockchain getBlockchain() {
 		return blockchain;
 	}
 
-	public void setBlockchain(String blockchain) {
+	public void setBlockchain(Blockchain blockchain) {
 		this.blockchain = blockchain;
+	}
+
+	public WalletWithdrawalCurrencyInfo blockchainTitle(String blockchainTitle) {
+		this.blockchainTitle = blockchainTitle;
+		return this;
+	}
+
+	/**
+	 * Get blockchainTitle
+	 *
+	 * @return blockchainTitle
+	 **/
+	@Schema(description = "")
+	public String getBlockchainTitle() {
+		return blockchainTitle;
+	}
+
+	public void setBlockchainTitle(String blockchainTitle) {
+		this.blockchainTitle = blockchainTitle;
 	}
 
 	@Override
@@ -101,12 +124,13 @@ public class WalletWithdrawalCurrencyInfo implements Parcelable
 		}
 		WalletWithdrawalCurrencyInfo walletWithdrawalCurrencyInfo = (WalletWithdrawalCurrencyInfo) o;
 		return Objects.equals(this.value, walletWithdrawalCurrencyInfo.value) &&
-				Objects.equals(this.blockchain, walletWithdrawalCurrencyInfo.blockchain);
+				Objects.equals(this.blockchain, walletWithdrawalCurrencyInfo.blockchain) &&
+				Objects.equals(this.blockchainTitle, walletWithdrawalCurrencyInfo.blockchainTitle);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(value, blockchain);
+		return Objects.hash(value, blockchain, blockchainTitle);
 	}
 
 	@Override
@@ -116,6 +140,7 @@ public class WalletWithdrawalCurrencyInfo implements Parcelable
 
 		sb.append("    value: ").append(toIndentedString(value)).append("\n");
 		sb.append("    blockchain: ").append(toIndentedString(blockchain)).append("\n");
+		sb.append("    blockchainTitle: ").append(toIndentedString(blockchainTitle)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}
@@ -134,6 +159,7 @@ public class WalletWithdrawalCurrencyInfo implements Parcelable
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(value);
 		out.writeValue(blockchain);
+		out.writeValue(blockchainTitle);
 	}
 
 	public int describeContents() {

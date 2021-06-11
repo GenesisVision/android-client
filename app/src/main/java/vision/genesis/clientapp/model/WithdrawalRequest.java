@@ -3,6 +3,8 @@ package vision.genesis.clientapp.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import io.swagger.client.model.Blockchain;
+
 /**
  * GenesisVisionAndroid
  * Created by Vitaly on 12/10/2018.
@@ -35,6 +37,8 @@ public class WithdrawalRequest implements Parcelable
 	private String feeAmountText;
 
 	private String tfaCode;
+
+	private Blockchain blockchain;
 
 	public WithdrawalRequest() {
 
@@ -131,5 +135,13 @@ public class WithdrawalRequest implements Parcelable
 
 	public void setTfaCode(String tfaCode) {
 		this.tfaCode = tfaCode;
+	}
+
+	public Blockchain getBlockchain() {
+		return blockchain;
+	}
+
+	public void setBlockchain(Blockchain blockchain) {
+		this.blockchain = blockchain;
 	}
 }

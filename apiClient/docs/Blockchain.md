@@ -5,6 +5,5 @@
 * `NONE` (value: `"None"`)
 * `BITCOIN` (value: `"Bitcoin"`)
 * `ETHEREUM` (value: `"Ethereum"`)
-* `BINANCECHAIN` (value: `"BinanceChain"`)
+* `BINANCESMARTCHAIN` (value: `"BinanceSmartChain"`)
 * `XDAICHAIN` (value: `"xDaiChain"`)
-* `ETHEREUMERC20` (value: `"EthereumErc20"`)

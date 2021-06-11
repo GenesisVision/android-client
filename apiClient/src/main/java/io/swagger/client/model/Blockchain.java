@@ -28,9 +28,8 @@ public enum Blockchain
 	NONE("None"),
 	BITCOIN("Bitcoin"),
 	ETHEREUM("Ethereum"),
-	BINANCECHAIN("BinanceChain"),
-	XDAICHAIN("xDaiChain"),
-	ETHEREUMERC20("EthereumErc20");
+	BINANCESMARTCHAIN("BinanceSmartChain"),
+	XDAICHAIN("xDaiChain");
 
 	public static Blockchain fromValue(String text) {
 		for (Blockchain b : Blockchain.values()) {

@@ -86,6 +86,7 @@ public class WalletManager
 		requestModel.setCurrency(Currency.fromValue(request.getCurrency()));
 		requestModel.setAddress(request.getAddress());
 		requestModel.setTwoFactorCode(request.getTfaCode());
+		requestModel.setBlockchain(request.getBlockchain());
 		return walletApi.createWithdrawalRequest(requestModel);
 	}
 

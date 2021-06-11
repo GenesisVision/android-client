@@ -11,6 +11,7 @@ import java.util.Locale;
 
 import javax.inject.Inject;
 
+import io.swagger.client.model.Blockchain;
 import io.swagger.client.model.WalletWithdrawalCurrencyInfo;
 import io.swagger.client.model.WalletWithdrawalInfo;
 import io.swagger.client.model.WithdrawalSummary;
@@ -57,6 +58,8 @@ public class WithdrawWalletPresenter extends MvpPresenter<WithdrawWalletView> im
 	private int selectedBlockchainOption = -1;
 
 	private Double commission = 0.0;
+
+	private List<Blockchain> blockchains = new ArrayList<>();
 
 	@Override
 	protected void onFirstViewAttach() {
@@ -113,6 +116,7 @@ public class WithdrawWalletPresenter extends MvpPresenter<WithdrawWalletView> im
 		request.setAmount(amount);
 		request.setCurrency(walletInfo.getCurrency().getValue());
 		request.setAddress(address);
+		request.setBlockchain(blockchains.get(selectedBlockchainOption));
 		request.setAmountText(String.format(Locale.getDefault(), "%s %s",
 				StringFormatUtil.formatCurrencyAmount(amount, walletInfo.getCurrency().getValue()),
 				walletInfo.getCurrency().getValue()));
@@ -211,7 +215,8 @@ public class WithdrawWalletPresenter extends MvpPresenter<WithdrawWalletView> im
 		selectedBlockchainOption = 0;
 
 		for (WalletWithdrawalCurrencyInfo info : model) {
-			blockchainOptions.add(info.getBlockchain());
+			blockchains.add(info.getBlockchain());
+			blockchainOptions.add(info.getBlockchainTitle());
 		}
 		getViewState().setBlockchainOptions(blockchainOptions);
 		onBlockchainSelected(selectedBlockchainOption, blockchainOptions.get(selectedBlockchainOption));

@@ -4,4 +4,5 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **value** | **Double** |  |  [optional]
-**blockchain** | **String** |  |  [optional]
+**blockchain** | [**Blockchain**](Blockchain.md) |  |  [optional]
+**blockchainTitle** | **String** |  |  [optional]

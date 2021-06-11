@@ -45,12 +45,16 @@ public class WalletDepositData implements Parcelable
 	@SerializedName("blockchain")
 	private Blockchain blockchain = null;
 
+	@SerializedName("blockchainTitle")
+	private String blockchainTitle = null;
+
 	public WalletDepositData() {
 	}
 
 	WalletDepositData(Parcel in) {
 		address = (String) in.readValue(null);
 		blockchain = (Blockchain) in.readValue(Blockchain.class.getClassLoader());
+		blockchainTitle = (String) in.readValue(null);
 	}
 
 	public WalletDepositData address(String address) {
@@ -91,6 +95,25 @@ public class WalletDepositData implements Parcelable
 		this.blockchain = blockchain;
 	}
 
+	public WalletDepositData blockchainTitle(String blockchainTitle) {
+		this.blockchainTitle = blockchainTitle;
+		return this;
+	}
+
+	/**
+	 * Get blockchainTitle
+	 *
+	 * @return blockchainTitle
+	 **/
+	@Schema(description = "")
+	public String getBlockchainTitle() {
+		return blockchainTitle;
+	}
+
+	public void setBlockchainTitle(String blockchainTitle) {
+		this.blockchainTitle = blockchainTitle;
+	}
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -101,12 +124,13 @@ public class WalletDepositData implements Parcelable
 		}
 		WalletDepositData walletDepositData = (WalletDepositData) o;
 		return Objects.equals(this.address, walletDepositData.address) &&
-				Objects.equals(this.blockchain, walletDepositData.blockchain);
+				Objects.equals(this.blockchain, walletDepositData.blockchain) &&
+				Objects.equals(this.blockchainTitle, walletDepositData.blockchainTitle);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(address, blockchain);
+		return Objects.hash(address, blockchain, blockchainTitle);
 	}
 
 	@Override
@@ -116,6 +140,7 @@ public class WalletDepositData implements Parcelable
 
 		sb.append("    address: ").append(toIndentedString(address)).append("\n");
 		sb.append("    blockchain: ").append(toIndentedString(blockchain)).append("\n");
+		sb.append("    blockchainTitle: ").append(toIndentedString(blockchainTitle)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}
@@ -134,6 +159,7 @@ public class WalletDepositData implements Parcelable
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(address);
 		out.writeValue(blockchain);
+		out.writeValue(blockchainTitle);
 	}
 
 	public int describeContents() {
