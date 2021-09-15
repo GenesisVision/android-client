@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/root"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/terminal_chart_height">
+
+    <!--    <HorizontalScrollView-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="@dimen/chart_timeframe_height"-->
+    <!--        android:scrollbars="none">-->
+    <!--        -->
+    <!--        <LinearLayout-->
+    <!--            android:id="@+id/group_timeframes"-->
+    <!--            android:layout_width="wrap_content"-->
+    <!--            android:layout_height="match_parent"-->
+    <!--            android:orientation="horizontal"/>-->
+    <!--        -->
+    <!--    </HorizontalScrollView>-->
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tablayout_timeframes"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/chart_timeframe_height"
+        android:clipToPadding="false"
+        android:paddingStart="@dimen/padding"
+        android:paddingEnd="@dimen/padding"
+        app:tabGravity="fill"
+        app:tabIndicatorColor="@android:color/transparent"
+        app:tabMode="scrollable"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/tablayout_timeframes">
+
+        <com.tradingview.lightweightcharts.view.ChartsView
+            android:id="@+id/chart"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clickable="true"
+            android:focusable="true"/>
+
+        <ProgressBar
+            android:id="@+id/chart_progress_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"/>
+
+    </RelativeLayout>
+
+</RelativeLayout>

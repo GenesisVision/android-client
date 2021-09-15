@@ -9,7 +9,6 @@ import com.google.gson.annotations.SerializedName;
 
 public class Error
 {
-
 	@SerializedName("message")
 	@Expose
 	public String message;
@@ -17,5 +16,4 @@ public class Error
 	@SerializedName("property")
 	@Expose
 	public String property;
-
 }

@@ -57,6 +57,7 @@ import vision.genesis.clientapp.feature.main.social.post.create.CreatePostActivi
 import vision.genesis.clientapp.feature.main.social.post.details.PostDetailsActivity;
 import vision.genesis.clientapp.feature.main.social.post.report.ReportPostActivity;
 import vision.genesis.clientapp.feature.main.social.users.SocialUsersListActivity;
+import vision.genesis.clientapp.feature.main.terminal.TerminalActivity;
 import vision.genesis.clientapp.feature.main.trading_account.TradingAccountDetailsActivity;
 import vision.genesis.clientapp.feature.main.user.UserDetailsActivity;
 import vision.genesis.clientapp.feature.main.verification.VerificationInfoActivity;
@@ -151,6 +152,9 @@ public class MainActivity extends MvpAppCompatActivity implements MainView, Bloc
 		if (mainPresenter != null) {
 			mainPresenter.onResume();
 		}
+		if (currentFragment != null) {
+			currentFragment.onResume();
+		}
 	}
 
 	@Override
@@ -172,6 +176,7 @@ public class MainActivity extends MvpAppCompatActivity implements MainView, Bloc
 		super.onStop();
 		isActive = false;
 	}
+
 
 	@Override
 	public void onBackPressed() {
@@ -277,11 +282,13 @@ public class MainActivity extends MvpAppCompatActivity implements MainView, Bloc
 	public void initBottomNavigation() {
 		AHBottomNavigationItem dashboardItem = new AHBottomNavigationItem(null, R.drawable.icon_dashboard);
 		AHBottomNavigationItem investItem = new AHBottomNavigationItem(null, R.drawable.icon_assets);
+		AHBottomNavigationItem terminalItem = new AHBottomNavigationItem(null, R.drawable.icon_terminal);
 		AHBottomNavigationItem socialItem = new AHBottomNavigationItem(null, R.drawable.icon_social);
 		AHBottomNavigationItem settingsItem = new AHBottomNavigationItem(null, R.drawable.icon_profile);
 
 		bottomNavigationView.addItem(dashboardItem);
 		bottomNavigationView.addItem(investItem);
+		bottomNavigationView.addItem(terminalItem);
 		bottomNavigationView.addItem(socialItem);
 		bottomNavigationView.addItem(settingsItem);
 
@@ -532,6 +539,11 @@ public class MainActivity extends MvpAppCompatActivity implements MainView, Bloc
 	@Override
 	public void showVerificationInfoActivity(UserVerificationStatus verificationStatus) {
 		VerificationInfoActivity.startWith(this, verificationStatus);
+	}
+
+	@Override
+	public void showTerminal(String symbol) {
+		TerminalActivity.startWith(this, symbol);
 	}
 
 	@Override

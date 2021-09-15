@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:id="@+id/root"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="@dimen/padding"
+                android:paddingEnd="@dimen/padding"
+                android:visibility="gone"
+                tools:visibility="visible">
+
+    <LinearLayout
+        android:id="@+id/group_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/icon_favorite"
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:layout_marginEnd="6dp"
+                app:srcCompat="@drawable/icon_favorite"/>
+
+            <TextView
+                android:id="@+id/base_asset"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="4dp"
+                android:fontFamily="@font/montserrat_semibold"
+                android:gravity="center_vertical"
+                android:textColor="?attr/colorTextPrimary"
+                android:textSize="16sp"
+                tools:text="BTC"/>
+
+            <TextView
+                android:id="@+id/quote_asset"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat_medium"
+                android:gravity="center_vertical"
+                android:textColor="?attr/colorTextSecondary"
+                android:textSize="14sp"
+                tools:text="/USDT"/>
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:fontFamily="@font/dinpro"
+            android:textColor="?attr/colorGreen"
+            android:textFontWeight="900"
+            android:textSize="30sp"
+            tools:text="120.12345678"/>
+
+        <TextView
+            android:id="@+id/change"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:fontFamily="@font/dinpro"
+            android:textColor="?attr/colorRed"
+            android:textFontWeight="600"
+            android:textSize="12sp"
+            tools:text="-1.53453 (-0.87%)"/>
+
+        <RelativeLayout
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp">
+
+            <TextView
+                android:id="@+id/label_low"
+                style="@style/symbol_watch_label"
+                android:layout_marginTop="2dp"
+                android:text="@string/header_24h_low"/>
+
+            <TextView
+                android:id="@+id/low"
+                style="@style/symbol_watch_value"
+                android:layout_below="@+id/label_low"
+                tools:text="109,432.99"/>
+
+            <RelativeLayout
+                android:id="@+id/group_line"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_marginEnd="4dp"
+                android:layout_toEndOf="@+id/label_low"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/arrow"
+                    android:layout_width="6dp"
+                    android:layout_height="12dp"
+                    android:tint="?attr/colorTextSecondary"
+                    app:srcCompat="@drawable/icon_arrow_down"/>
+
+                <LinearLayout
+                    android:id="@+id/line"
+                    android:layout_width="match_parent"
+                    android:layout_height="3dp"
+                    android:layout_marginStart="3dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="3dp">
+
+                    <View
+                        android:id="@+id/line_fill"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.7"
+                        android:background="?attr/colorTextSecondary"/>
+
+                    <View
+                        android:id="@+id/line_empty"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.7"
+                        android:background="?attr/colorCard"/>
+
+                </LinearLayout>
+
+
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/label_high"
+                style="@style/symbol_watch_label"
+                android:layout_marginTop="2dp"
+                android:layout_toEndOf="@+id/group_line"
+                android:text="@string/header_24h_high"/>
+
+            <TextView
+                android:id="@+id/high"
+                style="@style/symbol_watch_value"
+                android:layout_below="@+id/label_high"
+                android:layout_alignEnd="@+id/label_high"
+                tools:text="121,432.99"/>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/group_volume"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="8dp"
+        android:gravity="end"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/label_volume_base"
+            style="@style/symbol_watch_label"
+            android:layout_marginTop="2dp"
+            android:text="@string/header_template_24h_volume"/>
+
+        <TextView
+            android:id="@+id/volume_base"
+            style="@style/symbol_watch_value"
+            tools:text="999,999,999.99999"/>
+
+        <TextView
+            android:id="@+id/label_volume_quote"
+            style="@style/symbol_watch_label"
+            android:layout_marginTop="2dp"
+            android:text="@string/header_template_24h_volume"/>
+
+        <TextView
+            android:id="@+id/volume_quote"
+            style="@style/symbol_watch_value"
+            tools:text="999,999,999.99999"/>
+
+    </LinearLayout>
+
+</RelativeLayout>

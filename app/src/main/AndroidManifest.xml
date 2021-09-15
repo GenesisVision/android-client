@@ -614,6 +614,18 @@
             android:theme="@style/SwipeBackActivityTheme"
             android:windowSoftInputMode="adjustResize|stateAlwaysHidden"/>
 
+        <activity
+            android:name=".feature.main.terminal.TerminalActivity"
+            android:launchMode="singleTop"
+            android:theme="@style/SwipeBackActivityTheme"
+            android:windowSoftInputMode="adjustResize|stateAlwaysHidden"/>
+
+        <activity
+            android:name=".feature.main.terminal.place_order.PlaceOrderActivity"
+            android:launchMode="singleTop"
+            android:theme="@style/SwipeBackActivityTheme"
+            android:windowSoftInputMode="adjustResize|stateAlwaysHidden"/>
+
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="${applicationId}.provider"

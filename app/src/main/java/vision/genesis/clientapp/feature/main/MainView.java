@@ -119,6 +119,8 @@ public interface MainView extends MvpView
 
 	void showVerificationInfoActivity(UserVerificationStatus verificationStatus);
 
+	void showTerminal(String symbol);
+
 	void startKycProcess(KycVerificationManager manager, ExternalKycAccessToken model);
 
 	void showSnackbarMessage(String message);

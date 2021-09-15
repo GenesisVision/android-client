@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/padding"
+                android:paddingBottom="@dimen/padding">
+
+    <LinearLayout
+        android:id="@+id/group_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="gone"
+        tools:visibility="visible">
+
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/padding"
+            android:layout_marginEnd="@dimen/padding"
+            android:fontFamily="@font/montserrat_semibold"
+            android:textColor="?attr/colorTextPrimary"
+            android:textSize="14sp"
+            tools:text="Bitcoin | BTC"/>
+
+        <TextView
+            android:id="@+id/description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/padding"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="@dimen/padding"
+            android:fontFamily="@font/montserrat_medium"
+            android:lineSpacingMultiplier="1.2"
+            android:textColor="?attr/colorTextSecondary"
+            android:textSize="12sp"
+            tools:text="The theory behind Bitcoin was first described by Satoshi Nakomoto in a paper “Bitcoin: A Peer to Peer Electronic Cash System”published to a cryptographic mailing list on the 31st of October 2008. The total supply of Bitcoins is capped at 21 million coins (roughly 18 million are currently in circulation), with each coin being divisible to the 8th decimal place, with a single unit of the smallest division (0.00000001 BTC) being known colloquially as a Satoshi (or sat). The software to run miners and wallets is open source and decentralized, meaning that the network is accessible to anyone with a computer and an internet connection. Transactions are validated and written into the blockchain by miners selected via the Proof of Work (SHA-256) protocol."/>
+
+        <vision.genesis.clientapp.ui.SocialLinksView
+            android:id="@+id/social_links"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"/>
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/group_no_info"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:paddingStart="@dimen/padding"
+        android:paddingEnd="@dimen/padding"
+        android:visibility="gone"
+        tools:visibility="gone">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:fontFamily="@font/montserrat_regular"
+            android:gravity="center_horizontal"
+            android:text="@string/no_info_on_this_symbol"
+            android:textColor="?attr/colorTextSecondary"
+            android:textSize="14sp"/>
+
+    </RelativeLayout>
+
+</RelativeLayout>

@@ -220,9 +220,9 @@ public class DashboardInvestmentsView extends RelativeLayout
 				sign,
 				StringFormatUtil.getValueString(profit, baseCurrency.getValue())));
 		this.change.setTextColor(ThemeUtil.getColorByAttrId(getContext(),
-				profitPercent > 0
+				profit > 0
 						? R.attr.colorGreen
-						: profitPercent < 0
+						: profit < 0
 						? R.attr.colorRed
 						: R.attr.colorTextPrimary));
 	}

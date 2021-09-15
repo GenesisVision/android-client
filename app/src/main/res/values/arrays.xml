@@ -60,4 +60,22 @@
         <item>Warren Buffett</item>
         <item>Bernard Baruch</item>
     </string-array>
+
+    <string-array name="chart_timeframes">
+        <item>1m</item>
+        <item>3m</item>
+        <item>5m</item>
+        <item>15m</item>
+        <item>30m</item>
+        <item>1H</item>
+        <item>2H</item>
+        <item>4H</item>
+        <item>6H</item>
+        <item>8H</item>
+        <item>12H</item>
+        <item>1D</item>
+        <item>3D</item>
+        <item>1W</item>
+        <item>1M</item>
+    </string-array>
 </resources>

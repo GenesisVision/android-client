@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:id="@+id/root"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="?attr/colorBackground">
+
+    <RelativeLayout
+        android:id="@+id/group_delay"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="?attr/colorCard"
+        android:visibility="gone"
+        tools:visibility="visible">
+
+        <TextView
+            android:id="@+id/text_delay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="@dimen/padding"
+            android:fontFamily="@font/montserrat_regular"
+            android:textColor="?attr/colorTextPrimary"
+            android:textSize="14sp"
+            tools:text="6 hours delay"/>
+
+        <ImageView
+            android:id="@+id/delay_tooltip"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="4dp"
+            android:layout_toEndOf="@+id/text_delay"
+            android:padding="8dp"
+            app:srcCompat="@drawable/icon_tooltip_2"/>
+
+    </RelativeLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/group_delay"
+        android:clipToPadding="false"
+        android:paddingBottom="50dp"
+        android:visibility="gone"/>
+
+    <LinearLayout
+        android:id="@+id/group_no_orders"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/group_delay"
+        android:layout_centerHorizontal="true"
+        android:orientation="vertical"
+        android:padding="32dp"
+        android:visibility="gone"
+        tools:visibility="visible">
+
+        <TextView
+            android:id="@+id/text_no_orders"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="8dp"
+            android:alpha="0.3"
+            android:gravity="center"
+            android:text="@string/no_orders_found"
+            android:textColor="?attr/colorTextPrimary"
+            android:textSize="16sp"/>
+
+    </LinearLayout>
+
+    <vision.genesis.clientapp.ui.DateRangeView
+        android:id="@+id/date_range"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="10dp"
+        android:visibility="gone"
+        tools:visibility="visible"/>
+
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:indeterminate="true"
+        android:scaleY="4"
+        android:visibility="visible"/>
+
+</RelativeLayout>

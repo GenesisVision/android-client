@@ -14,12 +14,12 @@
 
         <ImageView
             android:id="@+id/icon"
-            android:layout_width="26dp"
-            android:layout_height="26dp"
-            android:tint="@color/colorFontMedium"
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:tint="?attr/colorTextSecondary"
             android:visibility="visible"
             app:srcCompat="@drawable/ic_star_border_black_24dp"
-            tools:visibility="gone"/>
+            tools:visibility="visible"/>
 
         <TextView
             android:id="@+id/text"
@@ -27,9 +27,10 @@
             android:layout_height="wrap_content"
             android:lines="1"
             android:textAllCaps="false"
+            android:fontFamily="@font/montserrat_semibold"
             android:textColor="?attr/colorTextSecondary"
             android:textSize="16sp"
-            tools:text="Programs"/>
+            tools:text="PROGRAMS"/>
 
         <RelativeLayout
             android:id="@+id/background_count"
@@ -44,6 +45,7 @@
                 android:id="@+id/count"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat_semibold"
                 android:layout_centerInParent="true"
                 android:gravity="center"
                 android:paddingEnd="6dp"

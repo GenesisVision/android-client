@@ -11,7 +11,7 @@ import rx.Observable;
 import rx.Subscription;
 import rx.schedulers.Schedulers;
 import rx.subjects.BehaviorSubject;
-import vision.genesis.clientapp.net.kyc.KycApi;
+import vision.genesis.clientapp.net.api.KycApi;
 
 /**
  * GenesisVisionAndroid

@@ -19,7 +19,6 @@ import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.utils.StringFormatUtil;
 import vision.genesis.clientapp.utils.ThemeUtil;
-import vision.genesis.clientapp.utils.TypefaceUtil;
 
 /**
  * GenesisVisionAndroid
@@ -72,9 +71,6 @@ public class CustomTabView extends RelativeLayout
 //		targetViewToApplyMargin.setLayoutParams(layoutParams);
 
 		unbinder = ButterKnife.bind(this);
-
-		text.setTypeface(TypefaceUtil.semibold());
-		count.setTypeface(TypefaceUtil.semibold());
 	}
 
 	public void setData(int iconResId, int textResId) {

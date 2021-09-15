@@ -167,7 +167,7 @@ public class CheckPinActivity extends MvpAppCompatActivity implements CheckPinVi
 
 	@Override
 	public void showToastMessage(String message) {
-		Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+		Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
 	}
 
 	@Override

@@ -11,7 +11,7 @@ import vision.genesis.clientapp.managers.AuthManager;
 import vision.genesis.clientapp.managers.KycVerificationManager;
 import vision.genesis.clientapp.managers.ProfileManager;
 import vision.genesis.clientapp.managers.SettingsManager;
-import vision.genesis.clientapp.net.kyc.KycApi;
+import vision.genesis.clientapp.net.api.KycApi;
 import vision.genesis.clientapp.utils.SharedPreferencesUtil;
 
 /**

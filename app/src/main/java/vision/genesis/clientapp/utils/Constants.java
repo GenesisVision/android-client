@@ -60,4 +60,12 @@ public class Constants
 	public static ArrayList<String> getStatusesForDashboardProgramsListFilter() {
 		return new ArrayList<>(Arrays.asList("All", "Active"));
 	}
+
+	public static ArrayList<String> getAltsQuoteAssets() {
+		return new ArrayList<>(Arrays.asList("ETH", "TRX", "XRP"));
+	}
+
+	public static ArrayList<String> getFiatsQuoteAssets() {
+		return new ArrayList<>(Arrays.asList("USDT", "BUSD", "TUSD", "USDC", "PAX", "BKRW", "EUR", "IDRT", "NGN", "RUB", "TRY", "ZAR"));
+	}
 }

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/option_view_height"
+                android:background="?attr/selectableItemBackground"
+                android:paddingStart="@dimen/padding"
+                android:paddingEnd="@dimen/padding">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
+        android:layout_centerVertical="true"
+        android:layout_toStartOf="@+id/check"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="4dp"
+            android:layout_toStartOf="@+id/balance"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <vision.genesis.clientapp.ui.ProgramLogoView
+                android:id="@+id/logo"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginEnd="12dp"/>
+
+            <TextView
+                android:id="@+id/name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:alpha="0.9"
+                android:ellipsize="end"
+                android:fontFamily="@font/montserrat_semibold"
+                android:lines="1"
+                android:textColor="?attr/colorTextPrimary"
+                android:textSize="14sp"
+                tools:text="Janus Capital Group"/>
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/balance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:alpha="0.9"
+            android:fontFamily="@font/montserrat_medium"
+            android:lines="1"
+            android:textColor="?attr/colorTextSecondary"
+            android:textSize="12sp"
+            tools:text="123.12345678 ETH"/>
+
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/check"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:tint="?attr/colorTextPrimary"
+        android:visibility="gone"
+        app:srcCompat="@drawable/ic_check_black_24dp"
+        tools:visibility="gone"/>
+
+</RelativeLayout>

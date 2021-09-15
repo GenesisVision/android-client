@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/item_view_bid_ask_height">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <View
+            android:id="@+id/fill"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:alpha="0.1"
+            android:background="?attr/colorRed"
+            tools:layout_weight="0.7"/>
+
+        <View
+            android:id="@+id/empty"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            tools:layout_weight="0.3"/>
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/amount"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="@dimen/padding"
+        android:fontFamily="@font/montserrat_medium"
+        android:gravity="center_vertical"
+        android:textColor="?attr/colorTextPrimary"
+        android:textSize="10sp"
+        tools:text="2.490"/>
+
+    <TextView
+        android:id="@+id/price"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginStart="4dp"
+        android:fontFamily="@font/montserrat_semibold"
+        android:gravity="center_vertical"
+        android:textColor="?attr/colorRed"
+        android:textSize="10sp"
+        tools:text="3.575"/>
+
+</RelativeLayout>

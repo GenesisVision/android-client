@@ -44,7 +44,7 @@ public class DigitsInputFilter implements InputFilter
 
 
 	private CharSequence checkMaxValueRule(double enteredValue, String onlyDigitsText) {
-		if (enteredValue > mMax) {
+		if (mMax != -1 && enteredValue > mMax) {
 			return "";
 		}
 		else {

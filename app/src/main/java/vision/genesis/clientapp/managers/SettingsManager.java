@@ -5,6 +5,7 @@ import java.util.Objects;
 
 import io.swagger.client.api.PlatformApi;
 import io.swagger.client.api.ProfileApi;
+import io.swagger.client.model.AssetInfo;
 import io.swagger.client.model.Currency;
 import io.swagger.client.model.DashboardAssetStatus;
 import io.swagger.client.model.PlatformInfo;
@@ -242,5 +243,9 @@ public class SettingsManager
 
 	public boolean getShowTrendingFirstTime() {
 		return sharedPreferencesUtil.getShowTrendingFirstTime();
+	}
+
+	public Observable<AssetInfo> getAssetInfo(String asset) {
+		return platformApi.getPlatformAssetInfo(asset);
 	}
 }

@@ -37,6 +37,7 @@ import vision.genesis.clientapp.feature.main.assets.AssetsFragment;
 import vision.genesis.clientapp.feature.main.dashboard.DashboardFragment;
 import vision.genesis.clientapp.feature.main.settings.SettingsFragment;
 import vision.genesis.clientapp.feature.main.social.SocialMainFragment;
+import vision.genesis.clientapp.feature.main.terminal.market_watch.MarketWatchFragment;
 import vision.genesis.clientapp.feature.main.unregistered.dashboard.UnregisteredDashboardFragment;
 import vision.genesis.clientapp.feature.main.unregistered.settings.UnregisteredSettingsFragment;
 import vision.genesis.clientapp.managers.AuthManager;
@@ -61,6 +62,7 @@ import vision.genesis.clientapp.model.events.OnShowRepostEvent;
 import vision.genesis.clientapp.model.events.OnShowUsersListActivityEvent;
 import vision.genesis.clientapp.model.events.OnStartKycClickedEvent;
 import vision.genesis.clientapp.model.events.OnThemeChangedEvent;
+import vision.genesis.clientapp.model.events.OnTickerSelectedEvent;
 import vision.genesis.clientapp.model.events.OpenUrlEvent;
 import vision.genesis.clientapp.model.events.ShowBottomNavigationEvent;
 import vision.genesis.clientapp.model.events.ShowCopytradingAccountDetailsEvent;
@@ -120,6 +122,8 @@ public class MainPresenter extends MvpPresenter<MainView>
 	private DashboardFragment dashboardFragment;
 
 	private AssetsFragment assetsFragment;
+
+	private MarketWatchFragment marketWatchFragment;
 
 	private SocialMainFragment socialMainFragment;
 
@@ -348,12 +352,18 @@ public class MainPresenter extends MvpPresenter<MainView>
 				showAssets();
 				break;
 			case 2:
+				if (wasSelected && marketWatchFragment != null) {
+					return false;
+				}
+				showTerminal();
+				break;
+			case 3:
 				if (wasSelected && socialMainFragment != null) {
 					return false;
 				}
 				showSocial();
 				break;
-			case 3:
+			case 4:
 				if (user == null) {
 					if (wasSelected && unregisteredSettingsFragment != null) {
 						return false;
@@ -408,6 +418,16 @@ public class MainPresenter extends MvpPresenter<MainView>
 		}
 		else {
 			getViewState().showFragment(assetsFragment);
+		}
+	}
+
+	private void showTerminal() {
+		if (marketWatchFragment == null) {
+			marketWatchFragment = new MarketWatchFragment();
+			getViewState().addFragmentToBackstack(marketWatchFragment);
+		}
+		else {
+			getViewState().showFragment(marketWatchFragment);
 		}
 	}
 
@@ -502,6 +522,9 @@ public class MainPresenter extends MvpPresenter<MainView>
 		if (assetsFragment != null) {
 			getViewState().removeFragment(assetsFragment);
 		}
+		if (marketWatchFragment != null) {
+			getViewState().removeFragment(marketWatchFragment);
+		}
 		if (socialMainFragment != null) {
 			getViewState().removeFragment(socialMainFragment);
 		}
@@ -510,6 +533,7 @@ public class MainPresenter extends MvpPresenter<MainView>
 		}
 		unregisteredDashboardFragment = null;
 		assetsFragment = null;
+		marketWatchFragment = null;
 		socialMainFragment = null;
 		unregisteredSettingsFragment = null;
 
@@ -527,6 +551,9 @@ public class MainPresenter extends MvpPresenter<MainView>
 		if (assetsFragment != null) {
 			getViewState().removeFragment(assetsFragment);
 		}
+		if (marketWatchFragment != null) {
+			getViewState().removeFragment(marketWatchFragment);
+		}
 		if (socialMainFragment != null) {
 			getViewState().removeFragment(socialMainFragment);
 		}
@@ -535,6 +562,7 @@ public class MainPresenter extends MvpPresenter<MainView>
 		}
 		dashboardFragment = null;
 		assetsFragment = null;
+		marketWatchFragment = null;
 		socialMainFragment = null;
 		settingsFragment = null;
 
@@ -746,5 +774,12 @@ public class MainPresenter extends MvpPresenter<MainView>
 	@Subscribe
 	public void onEventMainThread(OnNotificationClickedEvent event) {
 		handleNotificationLocation(event.getLocation());
+	}
+
+	@Subscribe
+	public void onEventMainThread(OnTickerSelectedEvent event) {
+		if (isActive) {
+			getViewState().showTerminal(event.getSymbol());
+		}
 	}
 }
