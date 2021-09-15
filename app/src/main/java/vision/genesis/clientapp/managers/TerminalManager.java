@@ -575,6 +575,17 @@ public class TerminalManager
 		return null;
 	}
 
+	public Integer getSymbolPrecision(String symbol) {
+		if (binanceServerInfoBehaviorSubject != null && binanceServerInfoBehaviorSubject.getValue() != null) {
+			for (BinanceRawSymbol ticker : binanceServerInfoBehaviorSubject.getValue().getSymbols()) {
+				if (ticker.getName().equals(symbol)) {
+					return (int) (Math.abs(Math.log10(ticker.getPriceFilter().getTickSize())));
+				}
+			}
+		}
+		return null;
+	}
+
 	public TickerModel getTickerData(String symbol) {
 		if (tickersSubject != null && tickersSubject.getValue() != null) {
 			for (TickerModel tickerModel : tickersSubject.getValue()) {

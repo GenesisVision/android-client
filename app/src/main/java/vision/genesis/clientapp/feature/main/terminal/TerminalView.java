@@ -5,6 +5,7 @@ import com.arellomobile.mvp.MvpView;
 import java.util.ArrayList;
 
 import io.swagger.client.model.ExchangeAsset;
+import vision.genesis.clientapp.model.terminal.binance_socket.KlineModel;
 
 /**
  * GenesisVisionAndroid
@@ -26,4 +27,6 @@ interface TerminalView extends MvpView
 	void showAccountArrow(boolean show);
 
 	void showPlaceOrderActivity(String selectedSymbol, ExchangeAsset selectedAccount, String operationType);
+
+	void updateChart(ArrayList<KlineModel> klines);
 }

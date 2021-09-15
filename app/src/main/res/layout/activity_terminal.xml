@@ -82,7 +82,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
 
-            <vision.genesis.clientapp.feature.main.terminal.chart.TerminalChartView
+            <!--            <vision.genesis.clientapp.feature.main.terminal.chart.TerminalChartView-->
+            <!--                android:id="@+id/view_chart"-->
+            <!--                android:layout_width="match_parent"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:layout_marginTop="8dp"/>-->
+
+            <vision.genesis.clientapp.feature.main.terminal.tradingview_chart.ChartView
                 android:id="@+id/view_chart"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

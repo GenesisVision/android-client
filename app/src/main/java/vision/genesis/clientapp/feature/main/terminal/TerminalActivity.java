@@ -20,13 +20,14 @@ import io.swagger.client.model.ExchangeAsset;
 import timber.log.Timber;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseSwipeBackActivity;
-import vision.genesis.clientapp.feature.main.terminal.chart.TerminalChartView;
 import vision.genesis.clientapp.feature.main.terminal.info.TerminalInfoView;
 import vision.genesis.clientapp.feature.main.terminal.market_trades.MarketTradesView;
 import vision.genesis.clientapp.feature.main.terminal.order_book.OrderBookView;
 import vision.genesis.clientapp.feature.main.terminal.place_order.PlaceOrderActivity;
 import vision.genesis.clientapp.feature.main.terminal.select_account.SelectAccountBottomSheetFragment;
 import vision.genesis.clientapp.feature.main.terminal.symbol_watch.SymbolWatchView;
+import vision.genesis.clientapp.feature.main.terminal.tradingview_chart.ChartView;
+import vision.genesis.clientapp.model.terminal.binance_socket.KlineModel;
 import vision.genesis.clientapp.ui.CustomTabView;
 import vision.genesis.clientapp.ui.PrimaryButton;
 import vision.genesis.clientapp.ui.ProgramLogoView;
@@ -64,8 +65,8 @@ public class TerminalActivity extends BaseSwipeBackActivity implements TerminalV
 	@BindView(R.id.view_symbol_watch)
 	public SymbolWatchView symbolWatchView;
 
-	@BindView(R.id.view_chart)
-	public TerminalChartView chartView;
+	//	@BindView(R.id.view_chart)
+	public ChartView chartView;
 
 	@BindView(R.id.tab_layout)
 	public TabLayout tabLayout;
@@ -124,6 +125,8 @@ public class TerminalActivity extends BaseSwipeBackActivity implements TerminalV
 
 		ButterKnife.bind(this);
 
+		chartView = (ChartView) findViewById(R.id.view_chart);
+
 		initTabs();
 		orderBookView.setActivity(this);
 
@@ -146,9 +149,9 @@ public class TerminalActivity extends BaseSwipeBackActivity implements TerminalV
 		if (symbolWatchView != null) {
 			symbolWatchView.onDestroy();
 		}
-		if (chartView != null) {
-			chartView.onDestroy();
-		}
+//		if (chartView != null) {
+//			chartView.onDestroy();
+//		}
 		if (orderBookView != null) {
 			orderBookView.onDestroy();
 		}
@@ -161,9 +164,9 @@ public class TerminalActivity extends BaseSwipeBackActivity implements TerminalV
 		if (symbolWatchView != null) {
 			symbolWatchView.onResume();
 		}
-		if (chartView != null) {
-			chartView.onResume();
-		}
+//		if (chartView != null) {
+//			chartView.onResume();
+//		}
 		if (orderBookView != null) {
 			orderBookView.onResume();
 		}
@@ -298,6 +301,11 @@ public class TerminalActivity extends BaseSwipeBackActivity implements TerminalV
 	@Override
 	public void showPlaceOrderActivity(String selectedSymbol, ExchangeAsset selectedAccount, String operationType) {
 		PlaceOrderActivity.startWith(this, selectedSymbol, selectedAccount, operationType);
+	}
+
+	@Override
+	public void updateChart(ArrayList<KlineModel> klines) {
+
 	}
 
 	public void showSnackbarMessage(String message) {
