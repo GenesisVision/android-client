@@ -1,5 +1,8 @@
 package vision.genesis.clientapp.feature.main.terminal.place_order;
 
+import static vision.genesis.clientapp.feature.main.terminal.place_order.PlaceOrderActivity.OPERATION_TYPE_BUY;
+import static vision.genesis.clientapp.feature.main.terminal.place_order.PlaceOrderActivity.OPERATION_TYPE_SELL;
+
 import android.content.Context;
 import android.util.Pair;
 
@@ -34,13 +37,12 @@ import vision.genesis.clientapp.model.terminal.binance_api.BinanceRawExchangeInf
 import vision.genesis.clientapp.model.terminal.binance_api.BinanceRawSymbol;
 import vision.genesis.clientapp.model.terminal.binance_api.BinanceSymbolFilter;
 import vision.genesis.clientapp.model.terminal.binance_api.BinanceSymbolFilterType;
+import vision.genesis.clientapp.model.terminal.binance_socket.AccountModel;
+import vision.genesis.clientapp.model.terminal.binance_socket.BinanceAccountBalance;
 import vision.genesis.clientapp.model.terminal.binance_socket.TickerModel;
 import vision.genesis.clientapp.net.ApiErrorResolver;
 import vision.genesis.clientapp.ui.SelectPercentView;
 import vision.genesis.clientapp.utils.StringFormatUtil;
-
-import static vision.genesis.clientapp.feature.main.terminal.place_order.PlaceOrderActivity.OPERATION_TYPE_BUY;
-import static vision.genesis.clientapp.feature.main.terminal.place_order.PlaceOrderActivity.OPERATION_TYPE_SELL;
 
 /**
  * GenesisVisionAndroid
@@ -67,6 +69,8 @@ public class PlaceOrderPresenter extends MvpPresenter<PlaceOrderView> implements
 	private Subscription getAccountInfoSubscription;
 
 	private Subscription tickerUpdateSubscription;
+
+	private Subscription accountUpdateSubscription;
 
 	private Subscription placeOrderSubscription;
 
@@ -125,6 +129,7 @@ public class PlaceOrderPresenter extends MvpPresenter<PlaceOrderView> implements
 		getSymbolInfo();
 		getBaseQuoteAssets();
 		subscribeToTickerUpdates();
+		subscribeToAccountUpdate();
 	}
 
 	@Override
@@ -137,6 +142,9 @@ public class PlaceOrderPresenter extends MvpPresenter<PlaceOrderView> implements
 		}
 		if (tickerUpdateSubscription != null) {
 			tickerUpdateSubscription.unsubscribe();
+		}
+		if (accountUpdateSubscription != null) {
+			accountUpdateSubscription.unsubscribe();
 		}
 		if (placeOrderSubscription != null) {
 			placeOrderSubscription.unsubscribe();
@@ -171,6 +179,34 @@ public class PlaceOrderPresenter extends MvpPresenter<PlaceOrderView> implements
 
 		if (orderTypePosition.equals(ORDER_TYPE_MARKET)) {
 			onPriceSelected(currentTickerPrice);
+		}
+	}
+
+	private void subscribeToAccountUpdate() {
+		if (terminalManager != null && selectedAccount != null) {
+			if (accountUpdateSubscription != null) {
+				accountUpdateSubscription.unsubscribe();
+			}
+			accountUpdateSubscription = terminalManager.getAccountSubject(selectedAccount.getId())
+					.subscribeOn(Schedulers.newThread())
+					.observeOn(AndroidSchedulers.mainThread())
+					.subscribe(this::handleAccountUpdate, error -> {
+					});
+		}
+	}
+
+	private void handleAccountUpdate(AccountModel model) {
+		if ("outboundAccountPosition".equals(model.getEventType())) {
+			for (BinanceRawBinanceBalance balance : accountInfo.getBalances()) {
+				for (BinanceAccountBalance modelBalance : model.getBalances()) {
+					if (modelBalance.getAsset().equals(balance.getAsset())) {
+						balance.setFree(modelBalance.getFree());
+						balance.setLocked(modelBalance.getLocked());
+						break;
+					}
+				}
+			}
+			updateAvailable();
 		}
 	}
 
@@ -239,6 +275,7 @@ public class PlaceOrderPresenter extends MvpPresenter<PlaceOrderView> implements
 		getSymbolInfo();
 		getAccountInfo();
 		getViewState().setSelectedSymbol(this.symbol);
+		subscribeToAccountUpdate();
 	}
 
 	void onSelectBuyClicked() {

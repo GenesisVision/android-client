@@ -26,6 +26,7 @@ import vision.genesis.clientapp.managers.TerminalManager;
 import vision.genesis.clientapp.model.events.OnOpenOrderClickedEvent;
 import vision.genesis.clientapp.model.events.OnOrderCloseClickedEvent;
 import vision.genesis.clientapp.model.events.SetOpenOrdersCountEvent;
+import vision.genesis.clientapp.model.terminal.binance_socket.AccountModel;
 import vision.genesis.clientapp.net.ApiErrorResolver;
 
 /**
@@ -42,7 +43,9 @@ public class OpenOrdersPresenter extends MvpPresenter<OpenOrdersView>
 	@Inject
 	public TerminalManager terminalManager;
 
-	private Subscription ordersSubscription;
+	private Subscription getOrdersSubscription;
+
+	private Subscription ordersUpdateSubscription;
 
 	private Subscription closeOrderSubscription;
 
@@ -65,8 +68,11 @@ public class OpenOrdersPresenter extends MvpPresenter<OpenOrdersView>
 
 	@Override
 	public void onDestroy() {
-		if (ordersSubscription != null) {
-			ordersSubscription.unsubscribe();
+		if (getOrdersSubscription != null) {
+			getOrdersSubscription.unsubscribe();
+		}
+		if (ordersUpdateSubscription != null) {
+			ordersUpdateSubscription.unsubscribe();
 		}
 		if (closeOrderSubscription != null) {
 			closeOrderSubscription.unsubscribe();
@@ -94,10 +100,10 @@ public class OpenOrdersPresenter extends MvpPresenter<OpenOrdersView>
 
 	private void getOrders() {
 		if (terminalManager != null && accountId != null) {
-			if (ordersSubscription != null) {
-				ordersSubscription.unsubscribe();
+			if (getOrdersSubscription != null) {
+				getOrdersSubscription.unsubscribe();
 			}
-			ordersSubscription = terminalManager.getOpenOrders(accountId)
+			getOrdersSubscription = terminalManager.getOpenOrders(accountId)
 					.observeOn(AndroidSchedulers.mainThread())
 					.subscribeOn(Schedulers.io())
 					.subscribe(this::handleGetOrdersResponse,
@@ -106,7 +112,7 @@ public class OpenOrdersPresenter extends MvpPresenter<OpenOrdersView>
 	}
 
 	private void handleGetOrdersResponse(BinanceRawOrderItemsViewModel model) {
-		ordersSubscription.unsubscribe();
+		getOrdersSubscription.unsubscribe();
 		getViewState().showProgress(false);
 
 		EventBus.getDefault().post(new SetOpenOrdersCountEvent(model.getTotal()));
@@ -116,15 +122,64 @@ public class OpenOrdersPresenter extends MvpPresenter<OpenOrdersView>
 		orders.addAll(newOrders);
 
 		getViewState().setOrders(newOrders);
+
+		subscribeToOrdersUpdates();
 	}
 
 	private void handleGetOrdersError(Throwable error) {
-		ordersSubscription.unsubscribe();
+		getOrdersSubscription.unsubscribe();
 		getViewState().showProgress(false);
 
 		if (ApiErrorResolver.isNetworkError(error)) {
 			getViewState().showSnackbarMessage(context.getResources().getString(R.string.network_error));
 		}
+	}
+
+	private void subscribeToOrdersUpdates() {
+		if (terminalManager != null) {
+			if (ordersUpdateSubscription != null) {
+				ordersUpdateSubscription.unsubscribe();
+			}
+			ordersUpdateSubscription = terminalManager.getAccountSubject(accountId)
+					.subscribeOn(Schedulers.newThread())
+					.observeOn(AndroidSchedulers.mainThread())
+					.subscribe(this::handleOpenOrdersUpdate, this::onOpenOrdersUpdateError);
+		}
+	}
+
+	private void handleOpenOrdersUpdate(AccountModel model) {
+		if ("executionReport".equals(model.getEventType())) {
+			switch (model.getExecutionType()) {
+				case NEW:
+					orders.add(0, model.toBinanceRawOrder());
+					break;
+				case TRADE:
+					for (int i = 0; i < orders.size(); i++) {
+						if (orders.get(i).getOrderId().equals(model.getOrderId())) {
+							orders.remove(i);
+							orders.add(i, model.toBinanceRawOrder());
+							break;
+						}
+					}
+					break;
+				case CANCELED:
+				case EXPIRED:
+					for (BinanceRawOrder order : orders) {
+						if (order.getOrderId().equals(model.getOrderId())) {
+							orders.remove(order);
+							break;
+						}
+					}
+					break;
+			}
+
+			getViewState().setOrders(orders);
+			EventBus.getDefault().post(new SetOpenOrdersCountEvent(orders.size()));
+		}
+	}
+
+	private void onOpenOrdersUpdateError(Throwable throwable) {
+
 	}
 
 	private void closeOrder(BinanceRawOrder order) {

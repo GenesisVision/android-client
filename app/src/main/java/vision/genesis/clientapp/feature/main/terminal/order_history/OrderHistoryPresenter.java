@@ -14,6 +14,7 @@ import java.util.UUID;
 
 import javax.inject.Inject;
 
+import io.swagger.client.model.BinanceExecutionType;
 import io.swagger.client.model.BinanceRawOrder;
 import io.swagger.client.model.BinanceRawOrderItemsViewModel;
 import io.swagger.client.model.TradingPlatformBinanceOrdersMode;
@@ -28,6 +29,7 @@ import vision.genesis.clientapp.model.DateRange;
 import vision.genesis.clientapp.model.events.OnOpenOrderClickedEvent;
 import vision.genesis.clientapp.model.events.SetOrderHistoryCountEvent;
 import vision.genesis.clientapp.model.events.SetTradeHistoryCountEvent;
+import vision.genesis.clientapp.model.terminal.binance_socket.AccountModel;
 import vision.genesis.clientapp.net.ApiErrorResolver;
 
 /**
@@ -46,7 +48,9 @@ public class OrderHistoryPresenter extends MvpPresenter<OrderHistoryView> implem
 	@Inject
 	public TerminalManager terminalManager;
 
-	private Subscription ordersSubscription;
+	private Subscription getOrdersSubscription;
+
+	private Subscription ordersUpdateSubscription;
 
 	private int skip = 0;
 
@@ -72,12 +76,16 @@ public class OrderHistoryPresenter extends MvpPresenter<OrderHistoryView> implem
 		getViewState().setDateRange(dateRange);
 
 		getOrders(true);
+		subscribeToOrdersUpdates();
 	}
 
 	@Override
 	public void onDestroy() {
-		if (ordersSubscription != null) {
-			ordersSubscription.unsubscribe();
+		if (getOrdersSubscription != null) {
+			getOrdersSubscription.unsubscribe();
+		}
+		if (ordersUpdateSubscription != null) {
+			ordersUpdateSubscription.unsubscribe();
 		}
 
 		EventBus.getDefault().unregister(this);
@@ -91,6 +99,7 @@ public class OrderHistoryPresenter extends MvpPresenter<OrderHistoryView> implem
 		this.mode = mode;
 
 		getOrders(true);
+		subscribeToOrdersUpdates();
 	}
 
 	void onShow() {
@@ -113,10 +122,10 @@ public class OrderHistoryPresenter extends MvpPresenter<OrderHistoryView> implem
 				skip = 0;
 			}
 
-			if (ordersSubscription != null) {
-				ordersSubscription.unsubscribe();
+			if (getOrdersSubscription != null) {
+				getOrdersSubscription.unsubscribe();
 			}
-			ordersSubscription = terminalManager.getOrderHistory(accountId, mode, dateRange, symbol, skip, TAKE)
+			getOrdersSubscription = terminalManager.getOrderHistory(accountId, mode, dateRange, symbol, skip, TAKE)
 					.observeOn(AndroidSchedulers.mainThread())
 					.subscribeOn(Schedulers.io())
 					.subscribe(this::handleGetOrdersResponse,
@@ -125,7 +134,7 @@ public class OrderHistoryPresenter extends MvpPresenter<OrderHistoryView> implem
 	}
 
 	private void handleGetOrdersResponse(BinanceRawOrderItemsViewModel model) {
-		ordersSubscription.unsubscribe();
+		getOrdersSubscription.unsubscribe();
 		getViewState().showProgress(false);
 
 		if (skip == 0) {
@@ -154,11 +163,57 @@ public class OrderHistoryPresenter extends MvpPresenter<OrderHistoryView> implem
 	}
 
 	private void handleGetOrdersError(Throwable error) {
-		ordersSubscription.unsubscribe();
+		getOrdersSubscription.unsubscribe();
 		getViewState().showProgress(false);
 
 		if (ApiErrorResolver.isNetworkError(error)) {
 			getViewState().showSnackbarMessage(context.getResources().getString(R.string.network_error));
+		}
+	}
+
+	private void subscribeToOrdersUpdates() {
+		if (terminalManager != null && accountId != null) {
+			if (ordersUpdateSubscription != null) {
+				ordersUpdateSubscription.unsubscribe();
+			}
+			ordersUpdateSubscription = terminalManager.getAccountSubject(accountId)
+					.subscribeOn(Schedulers.newThread())
+					.observeOn(AndroidSchedulers.mainThread())
+					.subscribe(this::handleOrdersUpdate, error -> {
+					});
+		}
+	}
+
+	private void handleOrdersUpdate(AccountModel model) {
+		model.setAccountId(accountId);
+		if ("executionReport".equals(model.getEventType())) {
+			if (mode.equals(TradingPlatformBinanceOrdersMode.ORDERHISTORY)) {
+				if (model.getExecutionType() == BinanceExecutionType.NEW) {
+					orders.add(0, model.toBinanceRawOrder());
+				}
+				else {
+					if (mode.equals(TradingPlatformBinanceOrdersMode.ORDERHISTORY)) {
+						for (int i = 0; i < orders.size(); i++) {
+							if (orders.get(i).getOrderId().equals(model.getOrderId())) {
+								orders.remove(i);
+								orders.add(i, model.toBinanceRawOrder());
+								break;
+							}
+						}
+					}
+				}
+			}
+			else {
+				getOrders(true);
+			}
+
+			getViewState().setOrders(orders);
+			if (mode.equals(TradingPlatformBinanceOrdersMode.ORDERHISTORY)) {
+				EventBus.getDefault().post(new SetOrderHistoryCountEvent(orders.size()));
+			}
+			else if (mode.equals(TradingPlatformBinanceOrdersMode.TRADEHISTORY)) {
+				EventBus.getDefault().post(new SetTradeHistoryCountEvent(orders.size()));
+			}
 		}
 	}
 

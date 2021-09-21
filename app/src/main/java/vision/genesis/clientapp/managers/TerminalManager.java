@@ -21,9 +21,13 @@ import java.util.UUID;
 import io.swagger.client.api.DashboardApi;
 import io.swagger.client.api.ExchangesApi;
 import io.swagger.client.api.TradingplatformApi;
+import io.swagger.client.model.BinanceExecutionType;
+import io.swagger.client.model.BinanceKlineInterval;
+import io.swagger.client.model.BinanceOrderSide;
+import io.swagger.client.model.BinanceOrderStatus;
+import io.swagger.client.model.BinanceOrderType;
 import io.swagger.client.model.BinanceRawAccountInfo;
 import io.swagger.client.model.BinanceRawCancelOrder;
-import io.swagger.client.model.BinanceRawKlineInterval;
 import io.swagger.client.model.BinanceRawKlineItemsViewModel;
 import io.swagger.client.model.BinanceRawOrder;
 import io.swagger.client.model.BinanceRawOrderItemsViewModel;
@@ -57,13 +61,14 @@ import vision.genesis.clientapp.model.terminal.binance_api.BinanceRawSymbol;
 import vision.genesis.clientapp.model.terminal.binance_api.DepthListModel;
 import vision.genesis.clientapp.model.terminal.binance_api.TickerPriceModel;
 import vision.genesis.clientapp.model.terminal.binance_api.TradeModel;
+import vision.genesis.clientapp.model.terminal.binance_socket.AccountModel;
 import vision.genesis.clientapp.model.terminal.binance_socket.DepthUpdateModel;
 import vision.genesis.clientapp.model.terminal.binance_socket.KlineModel;
 import vision.genesis.clientapp.model.terminal.binance_socket.KlinePayloadModel;
 import vision.genesis.clientapp.model.terminal.binance_socket.NewTradeModel;
 import vision.genesis.clientapp.model.terminal.binance_socket.TickerModel;
 import vision.genesis.clientapp.net.api.BinanceApi;
-import vision.genesis.clientapp.utils.BinanceRawKlineIntervalUtil;
+import vision.genesis.clientapp.utils.BinanceKlineIntervalUtil;
 
 /**
  * GenesisVisionAndroid
@@ -81,6 +86,8 @@ public class TerminalManager
 	public static final String STREAM_DEPTH = "ws/%s@depth";
 
 	public static final String STREAM_TRADE = "ws/%s@trade";
+
+	public static final String STREAM_ACCOUNT = "ws/%s";
 
 	private static final int MESSAGES_TO_CHECK_SOCKET_FOR_CLOSING = 50;
 
@@ -100,6 +107,8 @@ public class TerminalManager
 
 	private Subscription getAccountsSubscription;
 
+	private Subscription getAccountStreamSubscription;
+
 	private BehaviorSubject<BinanceRawExchangeInfo> binanceServerInfoBehaviorSubject;
 
 	private BehaviorSubject<List<TickerModel>> tickersSubject = BehaviorSubject.create();
@@ -112,11 +121,17 @@ public class TerminalManager
 
 	private HashMap<String, BehaviorSubject<NewTradeModel>> tradeSubjectsMap = new HashMap<>();
 
+	private HashMap<UUID, BehaviorSubject<AccountModel>> accountSubjectsMap = new HashMap<>();
+
 	private HashMap<String, WebSocket> sockets = new HashMap<>();
 
 	private List<ExchangeInfo> exchanges = new ArrayList<>();
 
 	private BehaviorSubject<List<ExchangeAsset>> accountsBehaviorSubject;
+
+	private HashMap<UUID, String> listenKeysMap = new HashMap<>();
+
+	private HashMap<String, UUID> streamNameAccountIdMap = new HashMap<>();
 
 	public TerminalManager(TradingplatformApi tradingplatformApi, BinanceApi binanceApi, ExchangesApi exchangesApi, DashboardApi dashboardApi) {
 		this.tradingplatformApi = tradingplatformApi;
@@ -227,7 +242,7 @@ public class TerminalManager
 		return tradingplatformApi.getTradesHistory(accountId, mode, dateRange.getFrom(), dateRange.getTo(), symbol, skip, take);
 	}
 
-	public Observable<BinanceRawKlineItemsViewModel> getKlineData(String symbol, BinanceRawKlineInterval interval, DateTime startTime, DateTime endTime, Integer limit) {
+	public Observable<BinanceRawKlineItemsViewModel> getKlineData(String symbol, BinanceKlineInterval interval, DateTime startTime, DateTime endTime, Integer limit) {
 		return tradingplatformApi.getKlines(symbol, interval, startTime, endTime, limit);
 	}
 
@@ -263,8 +278,8 @@ public class TerminalManager
 		return getTickerSubjectFromMap(streamName);
 	}
 
-	public BehaviorSubject<KlineModel> getKlineSubject(String symbol, BinanceRawKlineInterval interval) {
-		String streamName = String.format(STREAM_KLINE, symbol.toLowerCase(), BinanceRawKlineIntervalUtil.toShortString(interval));
+	public BehaviorSubject<KlineModel> getKlineSubject(String symbol, BinanceKlineInterval interval) {
+		String streamName = String.format(STREAM_KLINE, symbol.toLowerCase(), BinanceKlineIntervalUtil.toShortString(interval));
 		openSocketMaybe(streamName);
 		return getKlineSubjectFromMap(streamName);
 	}
@@ -279,6 +294,47 @@ public class TerminalManager
 		String streamName = String.format(STREAM_TRADE, symbol.toLowerCase());
 		openSocketMaybe(streamName);
 		return getTradeSubjectFromMap(streamName);
+	}
+
+	public BehaviorSubject<AccountModel> getAccountSubject(UUID accountId) {
+		if (listenKeysMap.get(accountId) == null) {
+			getListenKeyAndOpenAccountSocket(accountId);
+		}
+		else {
+			openAccountSocket(accountId);
+		}
+		return getAccountSubjectFromMap(accountId);
+	}
+
+	private void getListenKeyAndOpenAccountSocket(UUID accountId) {
+		if (getAccountStreamSubscription != null) {
+			getAccountStreamSubscription.unsubscribe();
+		}
+		getAccountStreamSubscription = tradingplatformApi.startAccountStream(accountId)
+				.observeOn(AndroidSchedulers.mainThread())
+				.subscribeOn(Schedulers.io())
+				.subscribe(response -> handleGetAccountStreamSuccess(accountId, response),
+						this::handleGetAccountStreamError);
+	}
+
+	private void handleGetAccountStreamSuccess(UUID accountId, String listenKey) {
+		getAccountStreamSubscription.unsubscribe();
+		listenKeysMap.put(accountId, listenKey);
+		openAccountSocket(accountId);
+	}
+
+	private void handleGetAccountStreamError(Throwable error) {
+		if (getAccountStreamSubscription != null) {
+			getAccountStreamSubscription.unsubscribe();
+		}
+	}
+
+	private void openAccountSocket(UUID accountId) {
+		if (listenKeysMap.get(accountId) != null) {
+			String streamName = String.format(STREAM_ACCOUNT, listenKeysMap.get(accountId));
+			openSocketMaybe(streamName);
+			streamNameAccountIdMap.put(streamName, accountId);
+		}
 	}
 
 	private BehaviorSubject<TickerModel> getTickerSubjectFromMap(String streamName) {
@@ -313,6 +369,15 @@ public class TerminalManager
 		if (subject == null) {
 			subject = BehaviorSubject.create();
 			tradeSubjectsMap.put(streamName, subject);
+		}
+		return subject;
+	}
+
+	private BehaviorSubject<AccountModel> getAccountSubjectFromMap(UUID accountId) {
+		BehaviorSubject<AccountModel> subject = accountSubjectsMap.get(accountId);
+		if (subject == null) {
+			subject = BehaviorSubject.create();
+			accountSubjectsMap.put(accountId, subject);
 		}
 		return subject;
 	}
@@ -401,6 +466,9 @@ public class TerminalManager
 			}
 			else if (streamName.contains("@trade")) {
 				parseTradeData(streamName, message);
+			}
+			else {
+				parseAccountData(streamName, message);
 			}
 		}
 	}
@@ -520,6 +588,47 @@ public class TerminalManager
 		}
 		if (model != null) {
 			BehaviorSubject<NewTradeModel> subject = getTradeSubjectFromMap(streamName);
+			subject.onNext(model);
+		}
+	}
+
+	private void parseAccountData(String streamName, String data) {
+		Gson gson = new GsonBuilder()
+				.registerTypeAdapter(
+						DateTime.class,
+						(JsonDeserializer<DateTime>) (json, typeOfT, context) -> new DateTime(json.getAsLong())
+				)
+				.registerTypeAdapter(
+						BinanceOrderType.class,
+						(JsonDeserializer<BinanceOrderType>) (json, typeOfT, context) -> BinanceOrderType.valueOf(json.getAsString())
+				)
+				.registerTypeAdapter(
+						BinanceOrderSide.class,
+						(JsonDeserializer<BinanceOrderSide>) (json, typeOfT, context) -> BinanceOrderSide.valueOf(json.getAsString())
+				)
+				.registerTypeAdapter(
+						BinanceExecutionType.class,
+						(JsonDeserializer<BinanceExecutionType>) (json, typeOfT, context) -> BinanceExecutionType.valueOf(json.getAsString())
+				)
+				.registerTypeAdapter(
+						BinanceOrderStatus.class,
+						(JsonDeserializer<BinanceOrderStatus>) (json, typeOfT, context) -> BinanceOrderStatus.valueOf(json.getAsString())
+				)
+				.create();
+
+		Type typeToken = new TypeToken<AccountModel>()
+		{
+		}.getType();
+
+		AccountModel model = new AccountModel();
+		try {
+			model = gson.fromJson(data, typeToken);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		UUID accountId = streamNameAccountIdMap.get(streamName);
+		if (model != null && accountId != null) {
+			BehaviorSubject<AccountModel> subject = getAccountSubjectFromMap(accountId);
 			subject.onNext(model);
 		}
 	}

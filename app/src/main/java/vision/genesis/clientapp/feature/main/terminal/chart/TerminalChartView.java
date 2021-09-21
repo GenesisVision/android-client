@@ -38,8 +38,8 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import io.swagger.client.model.BinanceKlineInterval;
 import io.swagger.client.model.BinanceRawKline;
-import io.swagger.client.model.BinanceRawKlineInterval;
 import io.swagger.client.model.BinanceRawKlineItemsViewModel;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
@@ -112,7 +112,7 @@ public class TerminalChartView extends RelativeLayout
 
 	private String symbol = "";
 
-	private BinanceRawKlineInterval interval = BinanceRawKlineInterval.ONEMINUTE;
+	private BinanceKlineInterval interval = BinanceKlineInterval.ONEMINUTE;
 
 	private DateTime startTime;
 
@@ -403,7 +403,7 @@ public class TerminalChartView extends RelativeLayout
 //		this.chart.getViewPortHandler().
 	}
 
-	private void updateXAxis(BinanceRawKlineInterval interval) {
+	private void updateXAxis(BinanceKlineInterval interval) {
 		XAxis xAxis = chart.getXAxis();
 //		if (!dateRange.getSelectedRange().equals(DateRange.DateRangeEnum.ALL_TIME)) {
 //			xAxis.setAxisMinimum(dateRange.getFrom().getMillis() / 1000 / 60);

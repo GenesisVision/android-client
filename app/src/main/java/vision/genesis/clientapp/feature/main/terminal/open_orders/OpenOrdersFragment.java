@@ -113,13 +113,13 @@ public class OpenOrdersFragment extends BaseFragment implements OpenOrdersView, 
 
 	@Override
 	public void setOrders(List<BinanceRawOrder> orders) {
+		adapter.setOrders(orders);
 		if (orders.isEmpty()) {
 			groupNoOrders.setVisibility(View.VISIBLE);
 			recyclerView.setVisibility(View.GONE);
 			return;
 		}
 
-		adapter.setOrders(orders);
 		groupNoOrders.setVisibility(View.GONE);
 		recyclerView.setVisibility(View.VISIBLE);
 	}

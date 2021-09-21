@@ -24,7 +24,7 @@ import com.tradingview.lightweightcharts.runtime.plugins.PriceFormatter
 import com.tradingview.lightweightcharts.runtime.plugins.TimeFormatter
 import com.tradingview.lightweightcharts.view.ChartsView
 import com.tradingview.lightweightcharts.view.gesture.TouchDelegate
-import io.swagger.client.model.BinanceRawKlineInterval
+import io.swagger.client.model.BinanceKlineInterval
 import io.swagger.client.model.BinanceRawKlineItemsViewModel
 import rx.Subscription
 import rx.android.schedulers.AndroidSchedulers
@@ -177,11 +177,11 @@ class ChartView @JvmOverloads constructor(
     }
 
     private fun updateDateTimeFormat() {
-        dateTimeFormat = when (BinanceRawKlineInterval.values()[selectedTimeframeIndex]) {
-            BinanceRawKlineInterval.ONEDAY -> DateTimeFormat.DATE
-            BinanceRawKlineInterval.THREEDAY -> DateTimeFormat.DATE
-            BinanceRawKlineInterval.ONEWEEK -> DateTimeFormat.DATE
-            BinanceRawKlineInterval.ONEMONTH -> DateTimeFormat.DATE
+        dateTimeFormat = when (BinanceKlineInterval.values()[selectedTimeframeIndex]) {
+            BinanceKlineInterval.ONEDAY -> DateTimeFormat.DATE
+            BinanceKlineInterval.THREEDAY -> DateTimeFormat.DATE
+            BinanceKlineInterval.ONEWEEK -> DateTimeFormat.DATE
+            BinanceKlineInterval.ONEMONTH -> DateTimeFormat.DATE
             else -> DateTimeFormat.DATE_TIME
         }
         updateChartOptions()
@@ -212,7 +212,7 @@ class ChartView @JvmOverloads constructor(
             this.series.clear()
             klineDataSubscription = terminalManager.getKlineData(
                 symbol,
-                BinanceRawKlineInterval.values()[selectedTimeframeIndex],
+                BinanceKlineInterval.values()[selectedTimeframeIndex],
                 null,
                 null,
                 null
@@ -235,7 +235,7 @@ class ChartView @JvmOverloads constructor(
             klineUpdateSubscription?.unsubscribe()
             klineUpdateSubscription = terminalManager.getKlineSubject(
                 symbol,
-                BinanceRawKlineInterval.values()[selectedTimeframeIndex]
+                BinanceKlineInterval.values()[selectedTimeframeIndex]
             )
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())

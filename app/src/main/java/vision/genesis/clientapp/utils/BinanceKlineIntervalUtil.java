@@ -1,14 +1,14 @@
 package vision.genesis.clientapp.utils;
 
-import io.swagger.client.model.BinanceRawKlineInterval;
+import io.swagger.client.model.BinanceKlineInterval;
 
 /**
  * GenesisVisionAndroid
  * Created by Vitaly on 05/02/2021.
  */
-public class BinanceRawKlineIntervalUtil
+public class BinanceKlineIntervalUtil
 {
-	public static String toShortString(BinanceRawKlineInterval interval) {
+	public static String toShortString(BinanceKlineInterval interval) {
 		switch (interval) {
 			case ONEMINUTE:
 				return "1m";
