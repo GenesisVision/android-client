@@ -256,7 +256,7 @@ public class TerminalActivity extends BaseSwipeBackActivity implements TerminalV
 		selectedSymbol = symbol;
 		this.symbolWatchView.setSymbol(symbol);
 		this.chartView.setSymbol(symbol);
-		this.orderBookView.setSymbol(symbol);
+		this.orderBookView.setData(symbol, null);
 		this.marketTradesView.setSymbol(symbol);
 		this.infoView.setSymbol(symbol);
 	}

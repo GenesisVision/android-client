@@ -8,6 +8,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
 import androidx.fragment.app.FragmentActivity;
 
 import java.util.ArrayList;
@@ -15,6 +16,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.inject.Inject;
 
@@ -22,6 +24,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+import io.swagger.client.model.BinanceOrderSide;
+import io.swagger.client.model.BinanceRawOrder;
+import io.swagger.client.model.BinanceRawOrderItemsViewModel;
 import rx.BackpressureOverflow;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
@@ -33,6 +38,7 @@ import vision.genesis.clientapp.managers.TerminalManager;
 import vision.genesis.clientapp.model.terminal.binance_api.BinanceRawExchangeInfo;
 import vision.genesis.clientapp.model.terminal.binance_api.BinanceRawSymbol;
 import vision.genesis.clientapp.model.terminal.binance_api.DepthListModel;
+import vision.genesis.clientapp.model.terminal.binance_socket.AccountModel;
 import vision.genesis.clientapp.model.terminal.binance_socket.DepthUpdateModel;
 import vision.genesis.clientapp.net.ApiErrorResolver;
 import vision.genesis.clientapp.utils.DepthPairsPriceComparator;
@@ -70,6 +76,10 @@ public class OrderBookView extends RelativeLayout
 
 	public Subscription depthUpdateSubscription;
 
+	public Subscription getOrdersSubscription;
+
+	public Subscription ordersUpdateSubscription;
+
 	protected ArrayList<DepthItemView> asksViews = new ArrayList<>();
 
 	protected String symbol = "";
@@ -99,6 +109,10 @@ public class OrderBookView extends RelativeLayout
 	private Double selectedTickSize = 1.0;
 
 	private int qtyDigits = 0;
+
+	private UUID accountId;
+
+	private List<BinanceRawOrder> orders = new ArrayList<>();
 
 	public OrderBookView(Context context) {
 		super(context);
@@ -162,6 +176,12 @@ public class OrderBookView extends RelativeLayout
 		if (depthUpdateSubscription != null) {
 			depthUpdateSubscription.unsubscribe();
 		}
+		if (getOrdersSubscription != null) {
+			getOrdersSubscription.unsubscribe();
+		}
+		if (ordersUpdateSubscription != null) {
+			ordersUpdateSubscription.unsubscribe();
+		}
 	}
 
 	public void onResume() {
@@ -174,8 +194,9 @@ public class OrderBookView extends RelativeLayout
 		this.activity = activity;
 	}
 
-	public void setSymbol(String symbol) {
+	public void setData(String symbol, @Nullable UUID accountId) {
 		this.symbol = symbol;
+		this.accountId = accountId;
 		onSymbolChanged();
 	}
 
@@ -217,6 +238,7 @@ public class OrderBookView extends RelativeLayout
 			initTickSizes();
 			getDepth();
 			subscribeToDepthUpdates();
+			getOrders();
 		}
 	}
 
@@ -243,6 +265,108 @@ public class OrderBookView extends RelativeLayout
 		this.selectedTickSizePosition = position;
 
 		updateView();
+	}
+
+	private void getOrders() {
+		if (terminalManager != null && accountId != null) {
+			if (getOrdersSubscription != null) {
+				getOrdersSubscription.unsubscribe();
+			}
+			getOrdersSubscription = terminalManager.getOpenOrders(accountId)
+					.observeOn(AndroidSchedulers.mainThread())
+					.subscribeOn(Schedulers.io())
+					.subscribe(this::handleGetOrdersResponse,
+							error -> {
+							});
+		}
+	}
+
+	private void handleGetOrdersResponse(BinanceRawOrderItemsViewModel model) {
+		getOrdersSubscription.unsubscribe();
+
+		orders.clear();
+		List<BinanceRawOrder> newOrders = model.getItems();
+		orders.addAll(newOrders);
+
+		updateBooksWithOrders();
+
+		subscribeToOpenOrdersUpdates();
+	}
+
+	private void subscribeToOpenOrdersUpdates() {
+		if (terminalManager != null && accountId != null) {
+			if (ordersUpdateSubscription != null) {
+				ordersUpdateSubscription.unsubscribe();
+			}
+			ordersUpdateSubscription = terminalManager.getAccountSubject(accountId)
+					.subscribeOn(Schedulers.newThread())
+					.observeOn(AndroidSchedulers.mainThread())
+					.subscribe(this::handleOpenOrdersUpdate, error -> {
+					});
+		}
+	}
+
+	private void handleOpenOrdersUpdate(AccountModel model) {
+		if ("executionReport".equals(model.getEventType())) {
+			switch (model.getExecutionType()) {
+				case NEW:
+					orders.add(0, model.toBinanceRawOrder());
+					break;
+				case TRADE:
+					for (int i = 0; i < orders.size(); i++) {
+						if (orders.get(i).getOrderId().equals(model.getOrderId())) {
+							orders.remove(i);
+							orders.add(i, model.toBinanceRawOrder());
+							break;
+						}
+					}
+					break;
+				case CANCELED:
+				case EXPIRED:
+					for (BinanceRawOrder order : orders) {
+						if (order.getOrderId().equals(model.getOrderId())) {
+							orders.remove(order);
+							break;
+						}
+					}
+					break;
+			}
+
+			updateBooksWithOrders();
+		}
+	}
+
+	private void updateBooksWithOrders() {
+		for (DepthItemView view : asksViews) {
+			view.clearOrders();
+		}
+		for (DepthItemView view : bidsViews) {
+			view.clearOrders();
+		}
+
+		for (BinanceRawOrder order : orders) {
+			if (order.getSide().equals(BinanceOrderSide.SELL)) {
+				updateBookWithOrders(asksViews, order);
+			}
+			else if (order.getSide().equals(BinanceOrderSide.BUY)) {
+				updateBookWithOrders(bidsViews, order);
+			}
+		}
+	}
+
+	private void updateBookWithOrders(ArrayList<DepthItemView> views, BinanceRawOrder order) {
+		if (!views.isEmpty()) {
+			for (int i = 0; i < views.size(); i++) {
+				if (views.get(i).getPrice() == null) {
+					continue;
+				}
+				if (views.get(i).getPrice() <= order.getPrice()
+						&& views.get(i).getPrice() + selectedTickSize > order.getPrice()) {
+					views.get(i).addOrder(order);
+					return;
+				}
+			}
+		}
 	}
 
 	private void getDepth() {

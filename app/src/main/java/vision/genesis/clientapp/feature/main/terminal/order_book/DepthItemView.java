@@ -10,9 +10,13 @@ import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import io.swagger.client.model.BinanceRawOrder;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.utils.StringFormatUtil;
 
@@ -40,6 +44,9 @@ public class DepthItemView extends RelativeLayout
 	@BindView(R.id.price)
 	public TextView price;
 
+	@BindView(R.id.order_dot)
+	public TextView orderDot;
+
 	@BindView(R.id.amount)
 	public TextView amount;
 
@@ -48,6 +55,8 @@ public class DepthItemView extends RelativeLayout
 	private OnPriceSelectedListener listener;
 
 	private Pair<Double, Double> data;
+
+	private List<BinanceRawOrder> orders = new ArrayList<>();
 
 	public DepthItemView(Context context) {
 		super(context);
@@ -106,7 +115,25 @@ public class DepthItemView extends RelativeLayout
 		lp2.weight = 1 - fill.floatValue();
 	}
 
+	public Double getPrice() {
+		return data == null ? null : data.first;
+	}
+
 	public void setListener(OnPriceSelectedListener listener) {
 		this.listener = listener;
+	}
+
+	public void clearOrders() {
+		this.orders.clear();
+		updateOrderDot();
+	}
+
+	private void updateOrderDot() {
+		this.orderDot.setVisibility(orders.isEmpty() ? View.GONE : View.VISIBLE);
+	}
+
+	public void addOrder(BinanceRawOrder order) {
+		this.orders.add(order);
+		updateOrderDot();
 	}
 }

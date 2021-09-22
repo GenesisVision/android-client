@@ -30,12 +30,25 @@
         android:id="@+id/price"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:layout_marginStart="2dp"
+        android:layout_marginStart="10dp"
         android:fontFamily="@font/montserrat_semibold"
         android:gravity="center_vertical|end"
         android:textColor="?attr/colorGreen"
         android:textSize="10sp"
         tools:text="3.575"/>
+
+    <TextView
+        android:id="@+id/order_dot"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginStart="2dp"
+        android:fontFamily="@font/montserrat_semibold"
+        android:gravity="center_vertical|end"
+        android:text="⬤"
+        android:textColor="@color/gold"
+        android:textSize="10sp"
+        android:visibility="gone"
+        tools:visibility="visible"/>
 
     <TextView
         android:id="@+id/amount"

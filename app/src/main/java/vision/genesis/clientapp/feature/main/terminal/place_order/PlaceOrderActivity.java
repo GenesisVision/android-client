@@ -542,7 +542,7 @@ public class PlaceOrderActivity extends BaseSwipeBackActivity implements PlaceOr
 	@Override
 	public void setSelectedSymbol(String symbol) {
 		selectedSymbol = symbol;
-		this.orderBookView.setSymbol(symbol);
+		this.orderBookView.setData(symbol, selectedAccount.getId());
 	}
 
 	@Override
