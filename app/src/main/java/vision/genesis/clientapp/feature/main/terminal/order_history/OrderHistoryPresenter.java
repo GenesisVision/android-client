@@ -10,6 +10,7 @@ import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 
 import javax.inject.Inject;
@@ -192,19 +193,20 @@ public class OrderHistoryPresenter extends MvpPresenter<OrderHistoryView> implem
 					orders.add(0, model.toBinanceRawOrder());
 				}
 				else {
-					if (mode.equals(TradingPlatformBinanceOrdersMode.ORDERHISTORY)) {
-						for (int i = 0; i < orders.size(); i++) {
-							if (orders.get(i).getOrderId().equals(model.getOrderId())) {
-								orders.remove(i);
-								orders.add(i, model.toBinanceRawOrder());
-								break;
-							}
+					for (int i = 0; i < orders.size(); i++) {
+						if (orders.get(i).getOrderId().equals(model.getOrderId())) {
+							orders.remove(i);
+							orders.add(i, model.toBinanceRawOrder());
+							break;
 						}
 					}
 				}
 			}
 			else {
-				getOrders(true);
+				if (model.getExecutionType().equals(BinanceExecutionType.TRADE)
+						&& Objects.equals(model.getQuantityFilled(), model.getQuantity())) {
+					getOrders(true);
+				}
 			}
 
 			getViewState().setOrders(orders);

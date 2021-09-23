@@ -16,6 +16,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.UUID;
 
 import javax.inject.Inject;
@@ -316,7 +317,9 @@ public class OrderBookView extends RelativeLayout
 					for (int i = 0; i < orders.size(); i++) {
 						if (orders.get(i).getOrderId().equals(model.getOrderId())) {
 							orders.remove(i);
-							orders.add(i, model.toBinanceRawOrder());
+							if (!Objects.equals(model.getQuantity(), model.getQuantityFilled())) {
+								orders.add(i, model.toBinanceRawOrder());
+							}
 							break;
 						}
 					}

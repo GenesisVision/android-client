@@ -342,6 +342,14 @@ public class AccountModel implements Parcelable
 		return executionType;
 	}
 
+	public Double getQuantity() {
+		return quantity;
+	}
+
+	public Double getQuantityFilled() {
+		return quantityFilled;
+	}
+
 	public List<BinanceAccountBalance> getBalances() {
 		return balances;
 	}
