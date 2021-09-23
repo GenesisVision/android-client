@@ -5,6 +5,9 @@ import android.content.Context;
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -13,11 +16,16 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import io.swagger.client.model.BrokerTradeServerType;
+import io.swagger.client.model.ExchangeAsset;
+import io.swagger.client.model.TradingAccountPermission;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
+import vision.genesis.clientapp.feature.main.terminal.select_account.SelectAccountBottomSheetFragment;
 import vision.genesis.clientapp.managers.TerminalManager;
+import vision.genesis.clientapp.model.events.OnFavoriteTickersSelectAccountClickedEvent;
 import vision.genesis.clientapp.model.terminal.MarketWatchTickerModel;
 import vision.genesis.clientapp.model.terminal.binance_api.BinanceRawExchangeInfo;
 import vision.genesis.clientapp.model.terminal.binance_api.BinanceRawSymbol;
@@ -33,7 +41,7 @@ import vision.genesis.clientapp.utils.Constants;
  */
 
 @InjectViewState
-public class MarketWatchPresenter extends MvpPresenter<MarketWatchView>
+public class MarketWatchPresenter extends MvpPresenter<MarketWatchView> implements SelectAccountBottomSheetFragment.OnAccountSelectedListener
 {
 	static final String SORTING_SYMBOL = "sorting_symbol";
 
@@ -73,11 +81,17 @@ public class MarketWatchPresenter extends MvpPresenter<MarketWatchView>
 	@Inject
 	public TerminalManager terminalManager;
 
+	private Subscription getAccountsSubscription;
+
+	private Subscription selectedAccountSubscription;
+
 	private Subscription serverInfoSubscription;
 
 	private Subscription tickersPricesSubscription;
 
 	private Subscription tickersUpdateSubscription;
+
+	private Subscription getFavoritesSubscription;
 
 	private HashMap<String, MarketWatchTickerModel> tickers = new HashMap<>();
 
@@ -85,18 +99,31 @@ public class MarketWatchPresenter extends MvpPresenter<MarketWatchView>
 
 	private String currentSorting = SORTING_SYMBOL;
 
+	private ArrayList<ExchangeAsset> accounts = new ArrayList<>();
+
+	private List<String> favoriteTickers = new ArrayList<>();
+
 	@Override
 	protected void onFirstViewAttach() {
 		super.onFirstViewAttach();
 
 		GenesisVisionApplication.getComponent().inject(this);
 
-//		subscribeToTickersUpdate();
+		EventBus.getDefault().register(this);
+
+		getAccounts();
 		getServerInfo();
+		subscribeToFavoriteTickers();
 	}
 
 	@Override
 	public void onDestroy() {
+		if (getAccountsSubscription != null) {
+			getAccountsSubscription.unsubscribe();
+		}
+		if (selectedAccountSubscription != null) {
+			selectedAccountSubscription.unsubscribe();
+		}
 		if (serverInfoSubscription != null) {
 			serverInfoSubscription.unsubscribe();
 		}
@@ -106,6 +133,11 @@ public class MarketWatchPresenter extends MvpPresenter<MarketWatchView>
 		if (tickersUpdateSubscription != null) {
 			tickersUpdateSubscription.unsubscribe();
 		}
+		if (getFavoritesSubscription != null) {
+			getFavoritesSubscription.unsubscribe();
+		}
+
+		EventBus.getDefault().unregister(this);
 
 		super.onDestroy();
 	}
@@ -160,6 +192,57 @@ public class MarketWatchPresenter extends MvpPresenter<MarketWatchView>
 		onTickersGetUpdateSuccess(getTickersListsFitMask());
 	}
 
+	private void getAccounts() {
+		if (terminalManager != null) {
+			getAccountsSubscription = terminalManager.getAccountsFor(BrokerTradeServerType.BINANCE, TradingAccountPermission.SPOT)
+					.observeOn(AndroidSchedulers.mainThread())
+					.subscribeOn(Schedulers.io())
+					.subscribe(this::handleGetAccountsSuccess,
+							this::handleGetAccountsError);
+		}
+	}
+
+	private void handleGetAccountsSuccess(List<ExchangeAsset> response) {
+		getAccountsSubscription.unsubscribe();
+
+		this.accounts = new ArrayList<>(response);
+		if (accounts.size() == 1) {
+			onAccountSelected(accounts.get(0));
+		}
+		subscribeToSelectedAccount();
+	}
+
+	private void handleGetAccountsError(Throwable throwable) {
+		getAccountsSubscription.unsubscribe();
+
+		ApiErrorResolver.resolveErrors(throwable, message -> getViewState().showSnackbarMessage(message));
+	}
+
+	private void subscribeToSelectedAccount() {
+		if (terminalManager != null) {
+			if (selectedAccountSubscription != null) {
+				selectedAccountSubscription.unsubscribe();
+			}
+			selectedAccountSubscription = terminalManager.subscribeToSelectedAccount()
+					.observeOn(AndroidSchedulers.mainThread())
+					.subscribeOn(Schedulers.io())
+					.subscribe(this::handleAccountChanged,
+							error -> {
+							});
+		}
+	}
+
+	private void handleAccountChanged(ExchangeAsset account) {
+		getViewState().showFavoriteTickersProgress();
+	}
+
+	@Override
+	public void onAccountSelected(ExchangeAsset account) {
+		if (terminalManager != null) {
+			terminalManager.setSelectedAccount(account);
+		}
+	}
+
 	private void getServerInfo() {
 		if (terminalManager != null) {
 			if (serverInfoSubscription != null) {
@@ -193,8 +276,26 @@ public class MarketWatchPresenter extends MvpPresenter<MarketWatchView>
 		ApiErrorResolver.resolveErrors(throwable, message -> getViewState().showSnackbarMessage(message));
 	}
 
+	private void subscribeToFavoriteTickers() {
+		if (terminalManager != null) {
+			if (getFavoritesSubscription != null) {
+				getFavoritesSubscription.unsubscribe();
+			}
+			getFavoritesSubscription = terminalManager.getFavoriteTickers()
+					.subscribeOn(Schedulers.io())
+					.observeOn(AndroidSchedulers.mainThread())
+					.subscribe(
+							response -> this.favoriteTickers = response,
+							throwable -> ApiErrorResolver.resolveErrors(throwable, message -> getViewState().showSnackbarMessage(message))
+					);
+		}
+	}
+
 	private void getTickersPrices() {
 		if (terminalManager != null) {
+			if (tickersPricesSubscription != null) {
+				tickersPricesSubscription.unsubscribe();
+			}
 			tickersPricesSubscription = terminalManager.getTickersPrices()
 					.subscribeOn(Schedulers.io())
 					.observeOn(AndroidSchedulers.mainThread())
@@ -261,6 +362,9 @@ public class MarketWatchPresenter extends MvpPresenter<MarketWatchView>
 			sortTickersList(tickersList);
 
 			for (MarketWatchTickerModel ticker : tickersList) {
+				if (favoriteTickers != null && favoriteTickers.contains(ticker.getSymbol())) {
+					favsList.add(ticker);
+				}
 				if (ticker.getQuoteAsset().equals("BTC")) {
 					addToListIfFitMask(ticker, btcList);
 				}
@@ -336,5 +440,12 @@ public class MarketWatchPresenter extends MvpPresenter<MarketWatchView>
 	}
 
 	private void onTickersGetUpdateError(Throwable throwable) {
+	}
+
+	@Subscribe
+	public void onEventMainThread(OnFavoriteTickersSelectAccountClickedEvent event) {
+		if (!accounts.isEmpty()) {
+			getViewState().showSelectAccount(accounts);
+		}
 	}
 }

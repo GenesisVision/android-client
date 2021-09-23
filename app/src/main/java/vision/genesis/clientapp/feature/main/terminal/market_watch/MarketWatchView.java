@@ -4,6 +4,7 @@ import com.arellomobile.mvp.MvpView;
 
 import java.util.ArrayList;
 
+import io.swagger.client.model.ExchangeAsset;
 import vision.genesis.clientapp.model.terminal.MarketWatchTickerModel;
 
 /**
@@ -21,7 +22,11 @@ interface MarketWatchView extends MvpView
 
 	void updateSorting(String currentSorting, int sortingDirection);
 
+	void showSelectAccount(ArrayList<ExchangeAsset> accounts);
+
 	void showClearButton(boolean show);
+
+	void showFavoriteTickersProgress();
 
 	void showProgress(boolean show);
 

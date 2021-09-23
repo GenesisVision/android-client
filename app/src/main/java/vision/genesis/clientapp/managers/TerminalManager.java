@@ -113,6 +113,10 @@ public class TerminalManager
 
 	private BehaviorSubject<List<TickerModel>> tickersSubject = BehaviorSubject.create();
 
+	private BehaviorSubject<List<String>> favoriteTickersSubject = BehaviorSubject.create();
+
+	private BehaviorSubject<ExchangeAsset> selectedAccountSubject = BehaviorSubject.create();
+
 	private HashMap<String, BehaviorSubject<TickerModel>> tickerSubjectsMap = new HashMap<>();
 
 	private HashMap<String, BehaviorSubject<KlineModel>> klineSubjectsMap = new HashMap<>();
@@ -132,6 +136,7 @@ public class TerminalManager
 	private HashMap<UUID, String> listenKeysMap = new HashMap<>();
 
 	private HashMap<String, UUID> streamNameAccountIdMap = new HashMap<>();
+
 
 	public TerminalManager(TradingplatformApi tradingplatformApi, BinanceApi binanceApi, ExchangesApi exchangesApi, DashboardApi dashboardApi) {
 		this.tradingplatformApi = tradingplatformApi;
@@ -244,6 +249,55 @@ public class TerminalManager
 
 	public Observable<BinanceRawKlineItemsViewModel> getKlineData(String symbol, BinanceKlineInterval interval, DateTime startTime, DateTime endTime, Integer limit) {
 		return tradingplatformApi.getKlines(symbol, interval, startTime, endTime, limit);
+	}
+
+	public BehaviorSubject<List<String>> getFavoriteTickers() {
+		if (selectedAccountSubject.getValue() != null) {
+			tradingplatformApi.getFavoriteSymbols(selectedAccountSubject.getValue().getId())
+					.subscribeOn(Schedulers.io())
+					.observeOn(AndroidSchedulers.mainThread())
+					.subscribe(response -> {
+								favoriteTickersSubject.onNext(response.getItems());
+							},
+							error -> {
+							});
+		}
+		return favoriteTickersSubject;
+	}
+
+	public void addFavoriteTicker(String symbol) {
+		if (selectedAccountSubject.getValue() != null) {
+			tradingplatformApi.addFavoriteSymbol(selectedAccountSubject.getValue().getId(), symbol)
+					.subscribeOn(Schedulers.io())
+					.observeOn(AndroidSchedulers.mainThread())
+					.subscribe(
+							response -> getFavoriteTickers(),
+							error -> {
+							}
+					);
+		}
+	}
+
+	public void removeFavoriteTicker(String symbol) {
+		if (selectedAccountSubject.getValue() != null) {
+			tradingplatformApi.removeFavoriteSymbol(selectedAccountSubject.getValue().getId(), symbol)
+					.subscribeOn(Schedulers.io())
+					.observeOn(AndroidSchedulers.mainThread())
+					.subscribe(
+							response -> getFavoriteTickers(),
+							error -> {
+							}
+					);
+		}
+	}
+
+	public BehaviorSubject<ExchangeAsset> subscribeToSelectedAccount() {
+		return selectedAccountSubject;
+	}
+
+	public void setSelectedAccount(ExchangeAsset selectedAccount) {
+		selectedAccountSubject.onNext(selectedAccount);
+		getFavoriteTickers();
 	}
 
 	public Observable<List<TickerPriceModel>> getTickersPrices() {

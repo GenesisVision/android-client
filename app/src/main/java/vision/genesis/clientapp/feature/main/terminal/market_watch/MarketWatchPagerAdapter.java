@@ -8,6 +8,7 @@ import com.google.android.material.tabs.TabLayout;
 
 import java.util.List;
 
+import vision.genesis.clientapp.feature.main.terminal.market_watch.list.FavoriteTickersListFragment;
 import vision.genesis.clientapp.feature.main.terminal.market_watch.list.TickersListFragment;
 import vision.genesis.clientapp.model.terminal.MarketWatchTickerModel;
 
@@ -25,7 +26,7 @@ public class MarketWatchPagerAdapter extends FragmentStatePagerAdapter
 		void pagerHide();
 	}
 
-	private TickersListFragment favoritesFragment;
+	private FavoriteTickersListFragment favoritesFragment;
 
 	private TickersListFragment btcFragment;
 
@@ -40,7 +41,7 @@ public class MarketWatchPagerAdapter extends FragmentStatePagerAdapter
 	MarketWatchPagerAdapter(FragmentManager fm, TabLayout tabLayout) {
 		super(fm);
 		this.tabLayout = tabLayout;
-		favoritesFragment = new TickersListFragment();
+		favoritesFragment = new FavoriteTickersListFragment();
 		btcFragment = new TickersListFragment();
 		bnbFragment = new TickersListFragment();
 		altsFragment = new TickersListFragment();
@@ -100,6 +101,12 @@ public class MarketWatchPagerAdapter extends FragmentStatePagerAdapter
 	public void setFiatsTickers(List<MarketWatchTickerModel> tickers) {
 		if (fiatsFragment != null) {
 			fiatsFragment.setTickers(tickers);
+		}
+	}
+
+	public void showFavoriteTickersProgress() {
+		if (favoritesFragment != null) {
+			favoritesFragment.showProgress();
 		}
 	}
 }

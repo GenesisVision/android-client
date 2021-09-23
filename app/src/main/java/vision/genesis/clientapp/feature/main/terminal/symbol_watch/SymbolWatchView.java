@@ -10,10 +10,15 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import androidx.core.content.ContextCompat;
+
+import java.util.List;
+
 import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
@@ -83,7 +88,11 @@ public class SymbolWatchView extends RelativeLayout
 	@BindView(R.id.line_empty)
 	public View emptyLine;
 
+	public Subscription getFavoritesSubscription;
+
 	public Subscription tickerUpdateSubscription;
+
+	private List<String> favoriteTickers;
 
 	private Unbinder unbinder;
 
@@ -116,6 +125,11 @@ public class SymbolWatchView extends RelativeLayout
 		initView();
 	}
 
+	@OnClick(R.id.icon_favorite)
+	public void onFavoriteClicked() {
+		changeSymbolIsFavorite();
+	}
+
 	private void initView() {
 		inflate(getContext(), R.layout.view_symbol_watch, this);
 
@@ -128,12 +142,70 @@ public class SymbolWatchView extends RelativeLayout
 		colorRed = ThemeUtil.getColorByAttrId(getContext(), R.attr.colorRed);
 
 		onSymbolChanged();
+		subscribeToFavoriteTickers();
+	}
+
+	private void subscribeToFavoriteTickers() {
+		if (terminalManager != null) {
+			if (getFavoritesSubscription != null) {
+				getFavoritesSubscription.unsubscribe();
+			}
+			getFavoritesSubscription = terminalManager.getFavoriteTickers()
+					.subscribeOn(Schedulers.io())
+					.observeOn(AndroidSchedulers.mainThread())
+					.subscribe(this::handleGetFavoriteTickersSuccess,
+							this::handleGetFavoriteTickersError);
+		}
+	}
+
+	private void handleGetFavoriteTickersSuccess(List<String> response) {
+		this.favoriteTickers = response;
+
+		checkSymbolIsFavorite();
+		iconFavorite.setEnabled(favoriteTickers != null);
+	}
+
+	private void checkSymbolIsFavorite() {
+		if (favoriteTickers == null) {
+			iconFavorite.setVisibility(View.GONE);
+			return;
+		}
+
+		iconFavorite.setVisibility(View.VISIBLE);
+		if (symbol != null) {
+			iconFavorite.setImageDrawable(ContextCompat.getDrawable(getContext(),
+					isSymbolFavorite() ? R.drawable.icon_favorite_fill : R.drawable.icon_favorite));
+		}
+	}
+
+	private boolean isSymbolFavorite() {
+		if (favoriteTickers == null || symbol == null) {
+			return false;
+		}
+		return favoriteTickers.contains(symbol);
+	}
+
+	private void handleGetFavoriteTickersError(Throwable throwable) {
+		getFavoritesSubscription.unsubscribe();
+	}
+
+	private void changeSymbolIsFavorite() {
+		if (terminalManager != null) {
+			iconFavorite.setEnabled(false);
+			if (!isSymbolFavorite()) {
+				terminalManager.addFavoriteTicker(symbol);
+			}
+			else {
+				terminalManager.removeFavoriteTicker(symbol);
+			}
+		}
 	}
 
 	private void onSymbolChanged() {
 		getTickerData();
 		updateLabels();
 		subscribeToTickerUpdates();
+		checkSymbolIsFavorite();
 	}
 
 	private void getTickerData() {
@@ -146,6 +218,9 @@ public class SymbolWatchView extends RelativeLayout
 	}
 
 	public void onDestroy() {
+		if (getFavoritesSubscription != null) {
+			getFavoritesSubscription.unsubscribe();
+		}
 		if (tickerUpdateSubscription != null) {
 			tickerUpdateSubscription.unsubscribe();
 		}

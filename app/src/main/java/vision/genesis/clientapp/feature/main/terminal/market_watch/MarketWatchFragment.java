@@ -1,5 +1,10 @@
 package vision.genesis.clientapp.feature.main.terminal.market_watch;
 
+import static vision.genesis.clientapp.feature.main.terminal.market_watch.MarketWatchPresenter.SORTING_CHANGE;
+import static vision.genesis.clientapp.feature.main.terminal.market_watch.MarketWatchPresenter.SORTING_PRICE;
+import static vision.genesis.clientapp.feature.main.terminal.market_watch.MarketWatchPresenter.SORTING_SYMBOL;
+import static vision.genesis.clientapp.feature.main.terminal.market_watch.MarketWatchPresenter.SORTING_VOLUME;
+
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -28,18 +33,15 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.OnEditorAction;
 import butterknife.Unbinder;
+import io.swagger.client.model.ExchangeAsset;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
+import vision.genesis.clientapp.feature.main.terminal.select_account.SelectAccountBottomSheetFragment;
 import vision.genesis.clientapp.model.terminal.MarketWatchTickerModel;
 import vision.genesis.clientapp.ui.CustomTabView;
 import vision.genesis.clientapp.utils.TabLayoutUtil;
 import vision.genesis.clientapp.utils.ThemeUtil;
 import vision.genesis.clientapp.utils.TypefaceUtil;
-
-import static vision.genesis.clientapp.feature.main.terminal.market_watch.MarketWatchPresenter.SORTING_CHANGE;
-import static vision.genesis.clientapp.feature.main.terminal.market_watch.MarketWatchPresenter.SORTING_PRICE;
-import static vision.genesis.clientapp.feature.main.terminal.market_watch.MarketWatchPresenter.SORTING_SYMBOL;
-import static vision.genesis.clientapp.feature.main.terminal.market_watch.MarketWatchPresenter.SORTING_VOLUME;
 
 /**
  * GenesisVisionAndroid
@@ -317,6 +319,13 @@ public class MarketWatchFragment extends BaseFragment implements MarketWatchView
 		}
 	}
 
+	@Override
+	public void showSelectAccount(ArrayList<ExchangeAsset> accounts) {
+		SelectAccountBottomSheetFragment fragment = SelectAccountBottomSheetFragment.with(accounts);
+		fragment.setListener(presenter);
+		fragment.show(getChildFragmentManager(), fragment.getTag());
+	}
+
 	private void selectSorting(TextView text, ImageView icon, int sortingDirection) {
 		Drawable newIcon = sortingDirection < 0
 				? AppCompatResources.getDrawable(getContext(), R.drawable.icon_sorting_high_to_low)
@@ -355,6 +364,11 @@ public class MarketWatchFragment extends BaseFragment implements MarketWatchView
 	public void showClearButton(boolean show) {
 		this.clearButton.setVisibility(show ? View.VISIBLE : View.GONE);
 		this.searchIcon.setVisibility(!show ? View.VISIBLE : View.GONE);
+	}
+
+	@Override
+	public void showFavoriteTickersProgress() {
+		pagerAdapter.showFavoriteTickersProgress();
 	}
 
 	private void hideSoftKeyboard() {

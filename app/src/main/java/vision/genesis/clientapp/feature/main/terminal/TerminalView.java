@@ -22,7 +22,7 @@ interface TerminalView extends MvpView
 
 	void showSelectAccount(ArrayList<ExchangeAsset> accounts);
 
-	void setSelectedAccount(ExchangeAsset account, int selectedAccountPosition);
+	void setSelectedAccount(ExchangeAsset account);
 
 	void showAccountArrow(boolean show);
 

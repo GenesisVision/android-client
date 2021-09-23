@@ -33,13 +33,13 @@ public class TerminalPresenter extends MvpPresenter<TerminalView> implements Sel
 
 	private Subscription getAccountsSubscription;
 
+	private Subscription selectedAccountSubscription;
+
 	private String selectedSymbol;
 
 	private ArrayList<ExchangeAsset> accounts = new ArrayList<>();
 
 	private ExchangeAsset selectedAccount;
-
-	private int selectedAccountPosition = -1;
 
 	private String pendingAction;
 
@@ -56,6 +56,9 @@ public class TerminalPresenter extends MvpPresenter<TerminalView> implements Sel
 	public void onDestroy() {
 		if (getAccountsSubscription != null) {
 			getAccountsSubscription.unsubscribe();
+		}
+		if (selectedAccountSubscription != null) {
+			selectedAccountSubscription.unsubscribe();
 		}
 
 		super.onDestroy();
@@ -76,15 +79,48 @@ public class TerminalPresenter extends MvpPresenter<TerminalView> implements Sel
 
 		this.accounts = new ArrayList<>(response);
 		if (accounts.size() == 1) {
-			onAccountSelected(accounts.get(0), 0);
+			onAccountSelected(accounts.get(0));
 		}
 		getViewState().showAccountArrow(accounts.size() > 1);
+
+		subscribeToSelectedAccount();
 	}
 
 	private void handleGetAccountsError(Throwable throwable) {
 		getAccountsSubscription.unsubscribe();
 
 		ApiErrorResolver.resolveErrors(throwable, message -> getViewState().showSnackbarMessage(message));
+	}
+
+	private void subscribeToSelectedAccount() {
+		if (terminalManager != null) {
+			if (selectedAccountSubscription != null) {
+				selectedAccountSubscription.unsubscribe();
+			}
+			selectedAccountSubscription = terminalManager.subscribeToSelectedAccount()
+					.observeOn(AndroidSchedulers.mainThread())
+					.subscribeOn(Schedulers.io())
+					.subscribe(this::handleAccountChanged,
+							error -> {
+							});
+		}
+	}
+
+	private void handleAccountChanged(ExchangeAsset account) {
+		this.selectedAccount = account;
+		getViewState().setSelectedAccount(account);
+
+		if (selectedAccount != null) {
+			if (pendingAction != null) {
+				if (pendingAction.equals(PlaceOrderActivity.OPERATION_TYPE_BUY)) {
+					onBuyClicked();
+				}
+				else if (pendingAction.equals(PlaceOrderActivity.OPERATION_TYPE_SELL)) {
+					onSellClicked();
+				}
+				pendingAction = null;
+			}
+		}
 	}
 
 	void onSymbolChanged(String selectedSymbol) {
@@ -100,19 +136,9 @@ public class TerminalPresenter extends MvpPresenter<TerminalView> implements Sel
 	}
 
 	@Override
-	public void onAccountSelected(ExchangeAsset account, Integer position) {
-		this.selectedAccount = account;
-		this.selectedAccountPosition = position;
-		getViewState().setSelectedAccount(account, selectedAccountPosition);
-
-		if (pendingAction != null) {
-			if (pendingAction.equals(PlaceOrderActivity.OPERATION_TYPE_BUY)) {
-				onBuyClicked();
-			}
-			else if (pendingAction.equals(PlaceOrderActivity.OPERATION_TYPE_SELL)) {
-				onSellClicked();
-			}
-			pendingAction = null;
+	public void onAccountSelected(ExchangeAsset account) {
+		if (terminalManager != null) {
+			terminalManager.setSelectedAccount(account);
 		}
 	}
 

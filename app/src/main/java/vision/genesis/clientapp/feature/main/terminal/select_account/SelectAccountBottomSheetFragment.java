@@ -29,18 +29,15 @@ public class SelectAccountBottomSheetFragment extends BottomSheetDialogFragment
 {
 	public interface OnAccountSelectedListener
 	{
-		void onAccountSelected(ExchangeAsset account, Integer position);
+		void onAccountSelected(ExchangeAsset account);
 	}
 
 	public static final String EXTRA_ACCOUNTS = "extra_accounts";
 
-	public static final String EXTRA_SELECTED_POSITION = "extra_selected_position";
-
-	public static SelectAccountBottomSheetFragment with(ArrayList<ExchangeAsset> accounts, Integer selectedPosition) {
+	public static SelectAccountBottomSheetFragment with(ArrayList<ExchangeAsset> accounts) {
 		SelectAccountBottomSheetFragment fragment = new SelectAccountBottomSheetFragment();
-		Bundle arguments = new Bundle(2);
+		Bundle arguments = new Bundle(1);
 		arguments.putParcelableArrayList(EXTRA_ACCOUNTS, accounts);
-		arguments.putInt(EXTRA_SELECTED_POSITION, selectedPosition);
 		fragment.setArguments(arguments);
 		return fragment;
 	}
@@ -50,7 +47,6 @@ public class SelectAccountBottomSheetFragment extends BottomSheetDialogFragment
 
 	private OnAccountSelectedListener listener;
 
-	private AccountView selectedAccount;
 
 	@Override
 	public void setupDialog(Dialog dialog, int style) {
@@ -63,8 +59,7 @@ public class SelectAccountBottomSheetFragment extends BottomSheetDialogFragment
 
 		try {
 			Objects.requireNonNull(getArguments());
-			setData(Objects.requireNonNull(getArguments().getParcelableArrayList(EXTRA_ACCOUNTS)),
-					getArguments().getInt(EXTRA_SELECTED_POSITION));
+			setData(Objects.requireNonNull(getArguments().getParcelableArrayList(EXTRA_ACCOUNTS)));
 		} catch (NullPointerException e) {
 			Timber.e("Passed empty arguments to %s", getClass().getSimpleName());
 			this.dismiss();
@@ -85,32 +80,21 @@ public class SelectAccountBottomSheetFragment extends BottomSheetDialogFragment
 		this.listener = listener;
 	}
 
-	private void setData(@NonNull List<ExchangeAsset> accounts, @NonNull Integer selectedPosition) {
-		Integer position = 0;
+	private void setData(@NonNull List<ExchangeAsset> accounts) {
 		for (ExchangeAsset account : accounts) {
-			accountsGroup.addView(createAccountView(account, position, position.equals(selectedPosition)));
-			position++;
+			accountsGroup.addView(createAccountView(account));
 		}
 	}
 
-	private AccountView createAccountView(ExchangeAsset account, Integer position, Boolean isSelected) {
+	private AccountView createAccountView(ExchangeAsset account) {
 		AccountView view = new AccountView(getContext());
 		view.setData(account);
-		view.setSelected(isSelected);
-		if (isSelected) {
-			selectedAccount = view;
-		}
-		view.setOnClickListener(v -> selectAccount(view, position, account));
+		view.setOnClickListener(v -> selectAccount(account));
 		return view;
 	}
 
-	private void selectAccount(AccountView newAccountView, Integer position, ExchangeAsset account) {
-		if (selectedAccount != null) {
-			selectedAccount.setSelected(false);
-		}
-		newAccountView.setSelected(true);
-
-		listener.onAccountSelected(account, position);
+	private void selectAccount(ExchangeAsset account) {
+		listener.onAccountSelected(account);
 		this.dismiss();
 	}
 }

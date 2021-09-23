@@ -94,8 +94,6 @@ public class TerminalActivity extends BaseSwipeBackActivity implements TerminalV
 
 	private String selectedSymbol = "";
 
-	private int selectedAccountPosition = -1;
-
 	@OnClick(R.id.button_back)
 	public void onBackClicked() {
 		finishActivity();
@@ -271,14 +269,13 @@ public class TerminalActivity extends BaseSwipeBackActivity implements TerminalV
 
 	@Override
 	public void showSelectAccount(ArrayList<ExchangeAsset> accounts) {
-		SelectAccountBottomSheetFragment fragment = SelectAccountBottomSheetFragment.with(
-				accounts, selectedAccountPosition);
+		SelectAccountBottomSheetFragment fragment = SelectAccountBottomSheetFragment.with(accounts);
 		fragment.setListener(presenter);
 		fragment.show(getSupportFragmentManager(), fragment.getTag());
 	}
 
 	@Override
-	public void setSelectedAccount(ExchangeAsset account, int selectedAccountPosition) {
+	public void setSelectedAccount(ExchangeAsset account) {
 		if (account.getAsset() != null) {
 			this.accountLogo.setVisibility(View.VISIBLE);
 			this.accountLogo.setImage(account.getAsset().getLogoUrl(), account.getAsset().getColor(), 50, 50);
@@ -289,7 +286,6 @@ public class TerminalActivity extends BaseSwipeBackActivity implements TerminalV
 			this.accountLogo.setVisibility(View.GONE);
 			this.accountName.setText(account.getTitle());
 		}
-		this.selectedAccountPosition = selectedAccountPosition;
 		this.accountName.setTextColor(ThemeUtil.getColorByAttrId(this, R.attr.colorTextPrimary));
 	}
 

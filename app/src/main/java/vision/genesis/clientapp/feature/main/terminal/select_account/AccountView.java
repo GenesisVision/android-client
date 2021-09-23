@@ -3,7 +3,6 @@ package vision.genesis.clientapp.feature.main.terminal.select_account;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -29,9 +28,6 @@ public class AccountView extends RelativeLayout
 
 	@BindView(R.id.balance)
 	public TextView balance;
-
-	@BindView(R.id.check)
-	public ImageView check;
 
 	public AccountView(Context context) {
 		super(context);
@@ -65,9 +61,5 @@ public class AccountView extends RelativeLayout
 			this.name.setText(account.getTitle());
 		}
 		this.balance.setText(StringFormatUtil.getValueString(account.getBalance(), account.getCurrency().getValue()));
-	}
-
-	public void setSelected(boolean selected) {
-//		check.setVisibility(selected ? View.VISIBLE : View.INVISIBLE);
 	}
 }

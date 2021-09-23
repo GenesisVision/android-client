@@ -69,7 +69,7 @@ public class TickersListFragment extends BaseFragment
 		recyclerView.setAdapter(tickersListAdapter);
 	}
 
-	private void showProgress(boolean show) {
+	protected void showProgress(boolean show) {
 		if (progressBar != null) {
 			progressBar.setVisibility(show ? View.VISIBLE : View.GONE);
 			if (!show) {
