@@ -23,6 +23,7 @@ import timber.log.Timber;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
 import vision.genesis.clientapp.feature.main.program.ProgramDetailsPagerAdapter;
+import vision.genesis.clientapp.feature.main.terminal.order_details.OrderDetailsDialog;
 
 /**
  * GenesisVisionAndroid
@@ -99,7 +100,7 @@ public class OpenOrdersFragment extends BaseFragment implements OpenOrdersView, 
 		LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
 		recyclerView.setLayoutManager(layoutManager);
 
-		adapter = new OpenOrdersListAdapter();
+		adapter = new OpenOrdersListAdapter(this::showOrderDetails);
 		recyclerView.setAdapter(adapter);
 	}
 
@@ -129,12 +130,11 @@ public class OpenOrdersFragment extends BaseFragment implements OpenOrdersView, 
 		showSnackbar(message, recyclerView);
 	}
 
-	@Override
 	public void showOrderDetails(BinanceRawOrder order) {
 		if (getActivity() != null) {
-//			TradeDetailsDialog dialog = new TradeDetailsDialog();
-//			dialog.show(getActivity().getSupportFragmentManager(), dialog.getTag());
-//			dialog.setData(trade, showSwaps, showTickets);
+			OrderDetailsDialog dialog = new OrderDetailsDialog();
+			dialog.show(getActivity().getSupportFragmentManager(), dialog.getTag());
+			dialog.setData(order);
 		}
 	}
 

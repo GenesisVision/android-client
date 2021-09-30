@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **apiKey** | **String** |  |  [optional]
 **login** | **String** |  |  [optional]
 **balance** | **Double** |  |  [optional]
-**balances** | [**List&lt;AmountWithCurrency&gt;**](AmountWithCurrency.md) |  |  [optional]
+**balances** | [**List&lt;AmountWithLogoCurrency&gt;**](AmountWithLogoCurrency.md) |  |  [optional]
 **type** | [**PrivateTradingAccountType**](PrivateTradingAccountType.md) |  |  [optional]
 **subscriptions** | **Integer** |  |  [optional]
 **isExternal** | **Boolean** |  |  [optional]

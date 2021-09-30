@@ -17,7 +17,9 @@ import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.feature.main.terminal.place_order.PlaceOrderActivity;
 import vision.genesis.clientapp.feature.main.terminal.select_account.SelectAccountBottomSheetFragment;
+import vision.genesis.clientapp.managers.AuthManager;
 import vision.genesis.clientapp.managers.TerminalManager;
+import vision.genesis.clientapp.model.User;
 import vision.genesis.clientapp.net.ApiErrorResolver;
 
 /**
@@ -29,7 +31,12 @@ import vision.genesis.clientapp.net.ApiErrorResolver;
 public class TerminalPresenter extends MvpPresenter<TerminalView> implements SelectAccountBottomSheetFragment.OnAccountSelectedListener
 {
 	@Inject
+	public AuthManager authManager;
+
+	@Inject
 	public TerminalManager terminalManager;
+
+	private Subscription userSubscription;
 
 	private Subscription getAccountsSubscription;
 
@@ -43,17 +50,22 @@ public class TerminalPresenter extends MvpPresenter<TerminalView> implements Sel
 
 	private String pendingAction;
 
+	private User user = null;
+
 	@Override
 	protected void onFirstViewAttach() {
 		super.onFirstViewAttach();
 
 		GenesisVisionApplication.getComponent().inject(this);
 
-		getAccounts();
+		subscribeToUser();
 	}
 
 	@Override
 	public void onDestroy() {
+		if (userSubscription != null) {
+			userSubscription.unsubscribe();
+		}
 		if (getAccountsSubscription != null) {
 			getAccountsSubscription.unsubscribe();
 		}
@@ -62,6 +74,26 @@ public class TerminalPresenter extends MvpPresenter<TerminalView> implements Sel
 		}
 
 		super.onDestroy();
+	}
+
+	private void subscribeToUser() {
+		userSubscription = authManager.userSubject
+				.observeOn(AndroidSchedulers.mainThread())
+				.subscribeOn(Schedulers.newThread())
+				.subscribe(this::handleUserUpdate, error -> this.user = null);
+	}
+
+	private void handleUserUpdate(User user) {
+		this.user = user;
+		if (user != null) {
+			getAccounts();
+		}
+		else {
+			if (getAccountsSubscription != null) {
+				getAccountsSubscription.unsubscribe();
+			}
+		}
+		getViewState().showAccountGroup(user != null);
 	}
 
 	private void getAccounts() {
@@ -143,22 +175,32 @@ public class TerminalPresenter extends MvpPresenter<TerminalView> implements Sel
 	}
 
 	void onBuyClicked() {
-		if (selectedAccount == null) {
-			onAccountClicked();
-			pendingAction = PlaceOrderActivity.OPERATION_TYPE_BUY;
+		if (user == null) {
+			getViewState().showLoginActivity();
 		}
 		else {
-			getViewState().showPlaceOrderActivity(selectedSymbol, selectedAccount, PlaceOrderActivity.OPERATION_TYPE_BUY);
+			if (selectedAccount == null) {
+				onAccountClicked();
+				pendingAction = PlaceOrderActivity.OPERATION_TYPE_BUY;
+			}
+			else {
+				getViewState().showPlaceOrderActivity(selectedSymbol, selectedAccount, PlaceOrderActivity.OPERATION_TYPE_BUY);
+			}
 		}
 	}
 
 	void onSellClicked() {
-		if (selectedAccount == null) {
-			onAccountClicked();
-			pendingAction = PlaceOrderActivity.OPERATION_TYPE_SELL;
+		if (user == null) {
+			getViewState().showLoginActivity();
 		}
 		else {
-			getViewState().showPlaceOrderActivity(selectedSymbol, selectedAccount, PlaceOrderActivity.OPERATION_TYPE_SELL);
+			if (selectedAccount == null) {
+				onAccountClicked();
+				pendingAction = PlaceOrderActivity.OPERATION_TYPE_SELL;
+			}
+			else {
+				getViewState().showPlaceOrderActivity(selectedSymbol, selectedAccount, PlaceOrderActivity.OPERATION_TYPE_SELL);
+			}
 		}
 	}
 }

@@ -30,201 +30,201 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class PlatformWithdrawalInfo implements Parcelable
 {
-	public static final Parcelable.Creator<PlatformWithdrawalInfo> CREATOR = new Parcelable.Creator<PlatformWithdrawalInfo>()
-	{
-		public PlatformWithdrawalInfo createFromParcel(Parcel in) {
-			return new PlatformWithdrawalInfo(in);
-		}
+  public static final Parcelable.Creator<PlatformWithdrawalInfo> CREATOR = new Parcelable.Creator<PlatformWithdrawalInfo>()
+  {
+    public PlatformWithdrawalInfo createFromParcel(Parcel in) {
+      return new PlatformWithdrawalInfo(in);
+    }
 
-		public PlatformWithdrawalInfo[] newArray(int size) {
-			return new PlatformWithdrawalInfo[size];
-		}
-	};
+    public PlatformWithdrawalInfo[] newArray(int size) {
+      return new PlatformWithdrawalInfo[size];
+    }
+  };
 
-	@SerializedName("currency")
-	private Currency currency = null;
+  @SerializedName("currency")
+  private Currency currency = null;
 
-	@SerializedName("title")
-	private String title = null;
+  @SerializedName("title")
+  private String title = null;
 
-	@SerializedName("logoUrl")
-	private String logoUrl = null;
+  @SerializedName("logoUrl")
+  private String logoUrl = null;
 
-	@SerializedName("isWithdrawalEnabled")
-	private Boolean isWithdrawalEnabled = null;
+  @SerializedName("isWithdrawalEnabled")
+  private Boolean isWithdrawalEnabled = null;
 
-	@SerializedName("commissions")
-	private List<WalletWithdrawalCurrencyInfo> commissions = null;
+  @SerializedName("commissions")
+  private List<WalletWithdrawalCurrencyInfo> commissions = null;
 
-	public PlatformWithdrawalInfo() {
-	}
+  public PlatformWithdrawalInfo() {
+  }
 
-	PlatformWithdrawalInfo(Parcel in) {
-		currency = (Currency) in.readValue(Currency.class.getClassLoader());
-		title = (String) in.readValue(null);
-		logoUrl = (String) in.readValue(null);
-		isWithdrawalEnabled = (Boolean) in.readValue(null);
-		commissions = (List<WalletWithdrawalCurrencyInfo>) in.readValue(WalletWithdrawalCurrencyInfo.class.getClassLoader());
-	}
+  PlatformWithdrawalInfo(Parcel in) {
+    currency = (Currency) in.readValue(Currency.class.getClassLoader());
+    title = (String) in.readValue(null);
+    logoUrl = (String) in.readValue(null);
+    isWithdrawalEnabled = (Boolean) in.readValue(null);
+    commissions = (List<WalletWithdrawalCurrencyInfo>) in.readValue(WalletWithdrawalCurrencyInfo.class.getClassLoader());
+  }
 
-	public PlatformWithdrawalInfo currency(Currency currency) {
-		this.currency = currency;
-		return this;
-	}
+  public PlatformWithdrawalInfo currency(Currency currency) {
+    this.currency = currency;
+    return this;
+  }
 
-	/**
-	 * Get currency
-	 *
-	 * @return currency
-	 **/
-	@Schema(description = "")
-	public Currency getCurrency() {
-		return currency;
-	}
+  /**
+   * Get currency
+   *
+   * @return currency
+   **/
+  @Schema(description = "")
+  public Currency getCurrency() {
+    return currency;
+  }
 
-	public void setCurrency(Currency currency) {
-		this.currency = currency;
-	}
+  public void setCurrency(Currency currency) {
+    this.currency = currency;
+  }
 
-	public PlatformWithdrawalInfo title(String title) {
-		this.title = title;
-		return this;
-	}
+  public PlatformWithdrawalInfo title(String title) {
+    this.title = title;
+    return this;
+  }
 
-	/**
-	 * Get title
-	 *
-	 * @return title
-	 **/
-	@Schema(description = "")
-	public String getTitle() {
-		return title;
-	}
+  /**
+   * Get title
+   *
+   * @return title
+   **/
+  @Schema(description = "")
+  public String getTitle() {
+    return title;
+  }
 
-	public void setTitle(String title) {
-		this.title = title;
-	}
+  public void setTitle(String title) {
+    this.title = title;
+  }
 
-	public PlatformWithdrawalInfo logoUrl(String logoUrl) {
-		this.logoUrl = logoUrl;
-		return this;
-	}
+  public PlatformWithdrawalInfo logoUrl(String logoUrl) {
+    this.logoUrl = logoUrl;
+    return this;
+  }
 
-	/**
-	 * Get logoUrl
-	 *
-	 * @return logoUrl
-	 **/
-	@Schema(description = "")
-	public String getLogoUrl() {
-		return logoUrl;
-	}
+  /**
+   * Get logoUrl
+   *
+   * @return logoUrl
+   **/
+  @Schema(description = "")
+  public String getLogoUrl() {
+    return logoUrl;
+  }
 
-	public void setLogoUrl(String logoUrl) {
-		this.logoUrl = logoUrl;
-	}
+  public void setLogoUrl(String logoUrl) {
+    this.logoUrl = logoUrl;
+  }
 
-	public PlatformWithdrawalInfo isWithdrawalEnabled(Boolean isWithdrawalEnabled) {
-		this.isWithdrawalEnabled = isWithdrawalEnabled;
-		return this;
-	}
+  public PlatformWithdrawalInfo isWithdrawalEnabled(Boolean isWithdrawalEnabled) {
+    this.isWithdrawalEnabled = isWithdrawalEnabled;
+    return this;
+  }
 
-	/**
-	 * Get isWithdrawalEnabled
-	 *
-	 * @return isWithdrawalEnabled
-	 **/
-	@Schema(description = "")
-	public Boolean isIsWithdrawalEnabled() {
-		return isWithdrawalEnabled;
-	}
+  /**
+   * Get isWithdrawalEnabled
+   *
+   * @return isWithdrawalEnabled
+   **/
+  @Schema(description = "")
+  public Boolean isIsWithdrawalEnabled() {
+    return isWithdrawalEnabled;
+  }
 
-	public void setIsWithdrawalEnabled(Boolean isWithdrawalEnabled) {
-		this.isWithdrawalEnabled = isWithdrawalEnabled;
-	}
+  public void setIsWithdrawalEnabled(Boolean isWithdrawalEnabled) {
+    this.isWithdrawalEnabled = isWithdrawalEnabled;
+  }
 
-	public PlatformWithdrawalInfo commissions(List<WalletWithdrawalCurrencyInfo> commissions) {
-		this.commissions = commissions;
-		return this;
-	}
+  public PlatformWithdrawalInfo commissions(List<WalletWithdrawalCurrencyInfo> commissions) {
+    this.commissions = commissions;
+    return this;
+  }
 
-	public PlatformWithdrawalInfo addCommissionsItem(WalletWithdrawalCurrencyInfo commissionsItem) {
-		if (this.commissions == null) {
-			this.commissions = new ArrayList<WalletWithdrawalCurrencyInfo>();
-		}
-		this.commissions.add(commissionsItem);
-		return this;
-	}
+  public PlatformWithdrawalInfo addCommissionsItem(WalletWithdrawalCurrencyInfo commissionsItem) {
+    if (this.commissions == null) {
+      this.commissions = new ArrayList<WalletWithdrawalCurrencyInfo>();
+    }
+    this.commissions.add(commissionsItem);
+    return this;
+  }
 
-	/**
-	 * Get commissions
-	 *
-	 * @return commissions
-	 **/
-	@Schema(description = "")
-	public List<WalletWithdrawalCurrencyInfo> getCommissions() {
-		return commissions;
-	}
+  /**
+   * Get commissions
+   *
+   * @return commissions
+   **/
+  @Schema(description = "")
+  public List<WalletWithdrawalCurrencyInfo> getCommissions() {
+    return commissions;
+  }
 
-	public void setCommissions(List<WalletWithdrawalCurrencyInfo> commissions) {
-		this.commissions = commissions;
-	}
+  public void setCommissions(List<WalletWithdrawalCurrencyInfo> commissions) {
+    this.commissions = commissions;
+  }
 
-	@Override
-	public boolean equals(java.lang.Object o) {
-		if (this == o) {
-			return true;
-		}
-		if (o == null || getClass() != o.getClass()) {
-			return false;
-		}
-		PlatformWithdrawalInfo platformWithdrawalInfo = (PlatformWithdrawalInfo) o;
-		return Objects.equals(this.currency, platformWithdrawalInfo.currency) &&
-				Objects.equals(this.title, platformWithdrawalInfo.title) &&
-				Objects.equals(this.logoUrl, platformWithdrawalInfo.logoUrl) &&
-				Objects.equals(this.isWithdrawalEnabled, platformWithdrawalInfo.isWithdrawalEnabled) &&
-				Objects.equals(this.commissions, platformWithdrawalInfo.commissions);
-	}
+  @Override
+  public boolean equals(java.lang.Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    PlatformWithdrawalInfo platformWithdrawalInfo = (PlatformWithdrawalInfo) o;
+    return Objects.equals(this.currency, platformWithdrawalInfo.currency) &&
+            Objects.equals(this.title, platformWithdrawalInfo.title) &&
+            Objects.equals(this.logoUrl, platformWithdrawalInfo.logoUrl) &&
+            Objects.equals(this.isWithdrawalEnabled, platformWithdrawalInfo.isWithdrawalEnabled) &&
+            Objects.equals(this.commissions, platformWithdrawalInfo.commissions);
+  }
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(currency, title, logoUrl, isWithdrawalEnabled, commissions);
-	}
+  @Override
+  public int hashCode() {
+    return Objects.hash(currency, title, logoUrl, isWithdrawalEnabled, commissions);
+  }
 
-	@Override
-	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		sb.append("class PlatformWithdrawalInfo {\n");
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class PlatformWithdrawalInfo {\n");
 
-		sb.append("    currency: ").append(toIndentedString(currency)).append("\n");
-		sb.append("    title: ").append(toIndentedString(title)).append("\n");
-		sb.append("    logoUrl: ").append(toIndentedString(logoUrl)).append("\n");
-		sb.append("    isWithdrawalEnabled: ").append(toIndentedString(isWithdrawalEnabled)).append("\n");
-		sb.append("    commissions: ").append(toIndentedString(commissions)).append("\n");
-		sb.append("}");
-		return sb.toString();
-	}
+    sb.append("    currency: ").append(toIndentedString(currency)).append("\n");
+    sb.append("    title: ").append(toIndentedString(title)).append("\n");
+    sb.append("    logoUrl: ").append(toIndentedString(logoUrl)).append("\n");
+    sb.append("    isWithdrawalEnabled: ").append(toIndentedString(isWithdrawalEnabled)).append("\n");
+    sb.append("    commissions: ").append(toIndentedString(commissions)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
 
-	/**
-	 * Convert the given object to string with each line indented by 4 spaces
-	 * (except the first line).
-	 */
-	private String toIndentedString(java.lang.Object o) {
-		if (o == null) {
-			return "null";
-		}
-		return o.toString().replace("\n", "\n    ");
-	}
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(java.lang.Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
 
-	public void writeToParcel(Parcel out, int flags) {
-		out.writeValue(currency);
-		out.writeValue(title);
-		out.writeValue(logoUrl);
-		out.writeValue(isWithdrawalEnabled);
-		out.writeValue(commissions);
-	}
+  public void writeToParcel(Parcel out, int flags) {
+    out.writeValue(currency);
+    out.writeValue(title);
+    out.writeValue(logoUrl);
+    out.writeValue(isWithdrawalEnabled);
+    out.writeValue(commissions);
+  }
 
-	public int describeContents() {
-		return 0;
-	}
+  public int describeContents() {
+    return 0;
+  }
 }

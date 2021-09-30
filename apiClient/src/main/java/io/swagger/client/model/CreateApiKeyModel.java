@@ -30,201 +30,201 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class CreateApiKeyModel implements Parcelable
 {
-	public static final Parcelable.Creator<CreateApiKeyModel> CREATOR = new Parcelable.Creator<CreateApiKeyModel>()
-	{
-		public CreateApiKeyModel createFromParcel(Parcel in) {
-			return new CreateApiKeyModel(in);
-		}
+  public static final Parcelable.Creator<CreateApiKeyModel> CREATOR = new Parcelable.Creator<CreateApiKeyModel>()
+  {
+    public CreateApiKeyModel createFromParcel(Parcel in) {
+      return new CreateApiKeyModel(in);
+    }
 
-		public CreateApiKeyModel[] newArray(int size) {
-			return new CreateApiKeyModel[size];
-		}
-	};
+    public CreateApiKeyModel[] newArray(int size) {
+      return new CreateApiKeyModel[size];
+    }
+  };
 
-	@SerializedName("isIpRestrict")
-	private Boolean isIpRestrict = null;
+  @SerializedName("isIpRestrict")
+  private Boolean isIpRestrict = null;
 
-	@SerializedName("allowedIps")
-	private List<String> allowedIps = null;
+  @SerializedName("allowedIps")
+  private List<String> allowedIps = null;
 
-	@SerializedName("isTradingEnabled")
-	private Boolean isTradingEnabled = null;
+  @SerializedName("isTradingEnabled")
+  private Boolean isTradingEnabled = null;
 
-	@SerializedName("twoFactorCode")
-	private String twoFactorCode = null;
+  @SerializedName("twoFactorCode")
+  private String twoFactorCode = null;
 
-	@SerializedName("title")
-	private String title = null;
+  @SerializedName("title")
+  private String title = null;
 
-	public CreateApiKeyModel() {
-	}
+  public CreateApiKeyModel() {
+  }
 
-	CreateApiKeyModel(Parcel in) {
-		isIpRestrict = (Boolean) in.readValue(null);
-		allowedIps = (List<String>) in.readValue(null);
-		isTradingEnabled = (Boolean) in.readValue(null);
-		twoFactorCode = (String) in.readValue(null);
-		title = (String) in.readValue(null);
-	}
+  CreateApiKeyModel(Parcel in) {
+    isIpRestrict = (Boolean) in.readValue(null);
+    allowedIps = (List<String>) in.readValue(null);
+    isTradingEnabled = (Boolean) in.readValue(null);
+    twoFactorCode = (String) in.readValue(null);
+    title = (String) in.readValue(null);
+  }
 
-	public CreateApiKeyModel isIpRestrict(Boolean isIpRestrict) {
-		this.isIpRestrict = isIpRestrict;
-		return this;
-	}
+  public CreateApiKeyModel isIpRestrict(Boolean isIpRestrict) {
+    this.isIpRestrict = isIpRestrict;
+    return this;
+  }
 
-	/**
-	 * Get isIpRestrict
-	 *
-	 * @return isIpRestrict
-	 **/
-	@Schema(description = "")
-	public Boolean isIsIpRestrict() {
-		return isIpRestrict;
-	}
+  /**
+   * Get isIpRestrict
+   *
+   * @return isIpRestrict
+   **/
+  @Schema(description = "")
+  public Boolean isIsIpRestrict() {
+    return isIpRestrict;
+  }
 
-	public void setIsIpRestrict(Boolean isIpRestrict) {
-		this.isIpRestrict = isIpRestrict;
-	}
+  public void setIsIpRestrict(Boolean isIpRestrict) {
+    this.isIpRestrict = isIpRestrict;
+  }
 
-	public CreateApiKeyModel allowedIps(List<String> allowedIps) {
-		this.allowedIps = allowedIps;
-		return this;
-	}
+  public CreateApiKeyModel allowedIps(List<String> allowedIps) {
+    this.allowedIps = allowedIps;
+    return this;
+  }
 
-	public CreateApiKeyModel addAllowedIpsItem(String allowedIpsItem) {
-		if (this.allowedIps == null) {
-			this.allowedIps = new ArrayList<String>();
-		}
-		this.allowedIps.add(allowedIpsItem);
-		return this;
-	}
+  public CreateApiKeyModel addAllowedIpsItem(String allowedIpsItem) {
+    if (this.allowedIps == null) {
+      this.allowedIps = new ArrayList<String>();
+    }
+    this.allowedIps.add(allowedIpsItem);
+    return this;
+  }
 
-	/**
-	 * Get allowedIps
-	 *
-	 * @return allowedIps
-	 **/
-	@Schema(description = "")
-	public List<String> getAllowedIps() {
-		return allowedIps;
-	}
+  /**
+   * Get allowedIps
+   *
+   * @return allowedIps
+   **/
+  @Schema(description = "")
+  public List<String> getAllowedIps() {
+    return allowedIps;
+  }
 
-	public void setAllowedIps(List<String> allowedIps) {
-		this.allowedIps = allowedIps;
-	}
+  public void setAllowedIps(List<String> allowedIps) {
+    this.allowedIps = allowedIps;
+  }
 
-	public CreateApiKeyModel isTradingEnabled(Boolean isTradingEnabled) {
-		this.isTradingEnabled = isTradingEnabled;
-		return this;
-	}
+  public CreateApiKeyModel isTradingEnabled(Boolean isTradingEnabled) {
+    this.isTradingEnabled = isTradingEnabled;
+    return this;
+  }
 
-	/**
-	 * Get isTradingEnabled
-	 *
-	 * @return isTradingEnabled
-	 **/
-	@Schema(description = "")
-	public Boolean isIsTradingEnabled() {
-		return isTradingEnabled;
-	}
+  /**
+   * Get isTradingEnabled
+   *
+   * @return isTradingEnabled
+   **/
+  @Schema(description = "")
+  public Boolean isIsTradingEnabled() {
+    return isTradingEnabled;
+  }
 
-	public void setIsTradingEnabled(Boolean isTradingEnabled) {
-		this.isTradingEnabled = isTradingEnabled;
-	}
+  public void setIsTradingEnabled(Boolean isTradingEnabled) {
+    this.isTradingEnabled = isTradingEnabled;
+  }
 
-	public CreateApiKeyModel twoFactorCode(String twoFactorCode) {
-		this.twoFactorCode = twoFactorCode;
-		return this;
-	}
+  public CreateApiKeyModel twoFactorCode(String twoFactorCode) {
+    this.twoFactorCode = twoFactorCode;
+    return this;
+  }
 
-	/**
-	 * Get twoFactorCode
-	 *
-	 * @return twoFactorCode
-	 **/
-	@Schema(description = "")
-	public String getTwoFactorCode() {
-		return twoFactorCode;
-	}
+  /**
+   * Get twoFactorCode
+   *
+   * @return twoFactorCode
+   **/
+  @Schema(description = "")
+  public String getTwoFactorCode() {
+    return twoFactorCode;
+  }
 
-	public void setTwoFactorCode(String twoFactorCode) {
-		this.twoFactorCode = twoFactorCode;
-	}
+  public void setTwoFactorCode(String twoFactorCode) {
+    this.twoFactorCode = twoFactorCode;
+  }
 
-	public CreateApiKeyModel title(String title) {
-		this.title = title;
-		return this;
-	}
+  public CreateApiKeyModel title(String title) {
+    this.title = title;
+    return this;
+  }
 
-	/**
-	 * Get title
-	 *
-	 * @return title
-	 **/
-	@Schema(description = "")
-	public String getTitle() {
-		return title;
-	}
+  /**
+   * Get title
+   *
+   * @return title
+   **/
+  @Schema(description = "")
+  public String getTitle() {
+    return title;
+  }
 
-	public void setTitle(String title) {
-		this.title = title;
-	}
+  public void setTitle(String title) {
+    this.title = title;
+  }
 
-	@Override
-	public boolean equals(java.lang.Object o) {
-		if (this == o) {
-			return true;
-		}
-		if (o == null || getClass() != o.getClass()) {
-			return false;
-		}
-		CreateApiKeyModel createApiKeyModel = (CreateApiKeyModel) o;
-		return Objects.equals(this.isIpRestrict, createApiKeyModel.isIpRestrict) &&
-				Objects.equals(this.allowedIps, createApiKeyModel.allowedIps) &&
-				Objects.equals(this.isTradingEnabled, createApiKeyModel.isTradingEnabled) &&
-				Objects.equals(this.twoFactorCode, createApiKeyModel.twoFactorCode) &&
-				Objects.equals(this.title, createApiKeyModel.title);
-	}
+  @Override
+  public boolean equals(java.lang.Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    CreateApiKeyModel createApiKeyModel = (CreateApiKeyModel) o;
+    return Objects.equals(this.isIpRestrict, createApiKeyModel.isIpRestrict) &&
+            Objects.equals(this.allowedIps, createApiKeyModel.allowedIps) &&
+            Objects.equals(this.isTradingEnabled, createApiKeyModel.isTradingEnabled) &&
+            Objects.equals(this.twoFactorCode, createApiKeyModel.twoFactorCode) &&
+            Objects.equals(this.title, createApiKeyModel.title);
+  }
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(isIpRestrict, allowedIps, isTradingEnabled, twoFactorCode, title);
-	}
+  @Override
+  public int hashCode() {
+    return Objects.hash(isIpRestrict, allowedIps, isTradingEnabled, twoFactorCode, title);
+  }
 
-	@Override
-	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		sb.append("class CreateApiKeyModel {\n");
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class CreateApiKeyModel {\n");
 
-		sb.append("    isIpRestrict: ").append(toIndentedString(isIpRestrict)).append("\n");
-		sb.append("    allowedIps: ").append(toIndentedString(allowedIps)).append("\n");
-		sb.append("    isTradingEnabled: ").append(toIndentedString(isTradingEnabled)).append("\n");
-		sb.append("    twoFactorCode: ").append(toIndentedString(twoFactorCode)).append("\n");
-		sb.append("    title: ").append(toIndentedString(title)).append("\n");
-		sb.append("}");
-		return sb.toString();
-	}
+    sb.append("    isIpRestrict: ").append(toIndentedString(isIpRestrict)).append("\n");
+    sb.append("    allowedIps: ").append(toIndentedString(allowedIps)).append("\n");
+    sb.append("    isTradingEnabled: ").append(toIndentedString(isTradingEnabled)).append("\n");
+    sb.append("    twoFactorCode: ").append(toIndentedString(twoFactorCode)).append("\n");
+    sb.append("    title: ").append(toIndentedString(title)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
 
-	/**
-	 * Convert the given object to string with each line indented by 4 spaces
-	 * (except the first line).
-	 */
-	private String toIndentedString(java.lang.Object o) {
-		if (o == null) {
-			return "null";
-		}
-		return o.toString().replace("\n", "\n    ");
-	}
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(java.lang.Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
 
-	public void writeToParcel(Parcel out, int flags) {
-		out.writeValue(isIpRestrict);
-		out.writeValue(allowedIps);
-		out.writeValue(isTradingEnabled);
-		out.writeValue(twoFactorCode);
-		out.writeValue(title);
-	}
+  public void writeToParcel(Parcel out, int flags) {
+    out.writeValue(isIpRestrict);
+    out.writeValue(allowedIps);
+    out.writeValue(isTradingEnabled);
+    out.writeValue(twoFactorCode);
+    out.writeValue(title);
+  }
 
-	public int describeContents() {
-		return 0;
-	}
+  public int describeContents() {
+    return 0;
+  }
 }

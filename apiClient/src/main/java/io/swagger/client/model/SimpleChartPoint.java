@@ -28,115 +28,115 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class SimpleChartPoint implements Parcelable
 {
-	public static final Parcelable.Creator<SimpleChartPoint> CREATOR = new Parcelable.Creator<SimpleChartPoint>()
-	{
-		public SimpleChartPoint createFromParcel(Parcel in) {
-			return new SimpleChartPoint(in);
-		}
+  public static final Parcelable.Creator<SimpleChartPoint> CREATOR = new Parcelable.Creator<SimpleChartPoint>()
+  {
+    public SimpleChartPoint createFromParcel(Parcel in) {
+      return new SimpleChartPoint(in);
+    }
 
-		public SimpleChartPoint[] newArray(int size) {
-			return new SimpleChartPoint[size];
-		}
-	};
+    public SimpleChartPoint[] newArray(int size) {
+      return new SimpleChartPoint[size];
+    }
+  };
 
-	@SerializedName("date")
-	private Long date = null;
+  @SerializedName("date")
+  private Long date = null;
 
-	@SerializedName("value")
-	private Double value = null;
+  @SerializedName("value")
+  private Double value = null;
 
-	public SimpleChartPoint() {
-	}
+  public SimpleChartPoint() {
+  }
 
-	SimpleChartPoint(Parcel in) {
-		date = (Long) in.readValue(null);
-		value = (Double) in.readValue(null);
-	}
+  SimpleChartPoint(Parcel in) {
+    date = (Long) in.readValue(null);
+    value = (Double) in.readValue(null);
+  }
 
-	public SimpleChartPoint date(Long date) {
-		this.date = date;
-		return this;
-	}
+  public SimpleChartPoint date(Long date) {
+    this.date = date;
+    return this;
+  }
 
-	/**
-	 * Get date
-	 *
-	 * @return date
-	 **/
-	@Schema(description = "")
-	public Long getDate() {
-		return date;
-	}
+  /**
+   * Get date
+   *
+   * @return date
+   **/
+  @Schema(description = "")
+  public Long getDate() {
+    return date;
+  }
 
-	public void setDate(Long date) {
-		this.date = date;
-	}
+  public void setDate(Long date) {
+    this.date = date;
+  }
 
-	public SimpleChartPoint value(Double value) {
-		this.value = value;
-		return this;
-	}
+  public SimpleChartPoint value(Double value) {
+    this.value = value;
+    return this;
+  }
 
-	/**
-	 * Get value
-	 *
-	 * @return value
-	 **/
-	@Schema(description = "")
-	public Double getValue() {
-		return value;
-	}
+  /**
+   * Get value
+   *
+   * @return value
+   **/
+  @Schema(description = "")
+  public Double getValue() {
+    return value;
+  }
 
-	public void setValue(Double value) {
-		this.value = value;
-	}
+  public void setValue(Double value) {
+    this.value = value;
+  }
 
-	@Override
-	public boolean equals(java.lang.Object o) {
-		if (this == o) {
-			return true;
-		}
-		if (o == null || getClass() != o.getClass()) {
-			return false;
-		}
-		SimpleChartPoint simpleChartPoint = (SimpleChartPoint) o;
-		return Objects.equals(this.date, simpleChartPoint.date) &&
-				Objects.equals(this.value, simpleChartPoint.value);
-	}
+  @Override
+  public boolean equals(java.lang.Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    SimpleChartPoint simpleChartPoint = (SimpleChartPoint) o;
+    return Objects.equals(this.date, simpleChartPoint.date) &&
+            Objects.equals(this.value, simpleChartPoint.value);
+  }
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(date, value);
-	}
+  @Override
+  public int hashCode() {
+    return Objects.hash(date, value);
+  }
 
-	@Override
-	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		sb.append("class SimpleChartPoint {\n");
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class SimpleChartPoint {\n");
 
-		sb.append("    date: ").append(toIndentedString(date)).append("\n");
-		sb.append("    value: ").append(toIndentedString(value)).append("\n");
-		sb.append("}");
-		return sb.toString();
-	}
+    sb.append("    date: ").append(toIndentedString(date)).append("\n");
+    sb.append("    value: ").append(toIndentedString(value)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
 
-	/**
-	 * Convert the given object to string with each line indented by 4 spaces
-	 * (except the first line).
-	 */
-	private String toIndentedString(java.lang.Object o) {
-		if (o == null) {
-			return "null";
-		}
-		return o.toString().replace("\n", "\n    ");
-	}
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(java.lang.Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
 
-	public void writeToParcel(Parcel out, int flags) {
-		out.writeValue(date);
-		out.writeValue(value);
-	}
+  public void writeToParcel(Parcel out, int flags) {
+    out.writeValue(date);
+    out.writeValue(value);
+  }
 
-	public int describeContents() {
-		return 0;
-	}
+  public int describeContents() {
+    return 0;
+  }
 }

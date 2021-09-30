@@ -144,7 +144,7 @@ class ChartView @JvmOverloads constructor(
 
         val timeframes = context.resources.getStringArray(R.array.chart_timeframes)
         timeframes.forEachIndexed { index, timeframe ->
-            addTab(tabLayout.newTab().setCustomView(getTabView(index, timeframe)), index == 0)
+            addTab(tabLayout.newTab().setCustomView(getTabView(index, timeframe)), index == 5)
         }
     }
 

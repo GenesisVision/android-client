@@ -28,115 +28,115 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class ProgramAssetDetails implements Parcelable
 {
-	public static final Parcelable.Creator<ProgramAssetDetails> CREATOR = new Parcelable.Creator<ProgramAssetDetails>()
-	{
-		public ProgramAssetDetails createFromParcel(Parcel in) {
-			return new ProgramAssetDetails(in);
-		}
+  public static final Parcelable.Creator<ProgramAssetDetails> CREATOR = new Parcelable.Creator<ProgramAssetDetails>()
+  {
+    public ProgramAssetDetails createFromParcel(Parcel in) {
+      return new ProgramAssetDetails(in);
+    }
 
-		public ProgramAssetDetails[] newArray(int size) {
-			return new ProgramAssetDetails[size];
-		}
-	};
+    public ProgramAssetDetails[] newArray(int size) {
+      return new ProgramAssetDetails[size];
+    }
+  };
 
-	@SerializedName("level")
-	private Integer level = null;
+  @SerializedName("level")
+  private Integer level = null;
 
-	@SerializedName("levelProgress")
-	private Double levelProgress = null;
+  @SerializedName("levelProgress")
+  private Double levelProgress = null;
 
-	public ProgramAssetDetails() {
-	}
+  public ProgramAssetDetails() {
+  }
 
-	ProgramAssetDetails(Parcel in) {
-		level = (Integer) in.readValue(null);
-		levelProgress = (Double) in.readValue(null);
-	}
+  ProgramAssetDetails(Parcel in) {
+    level = (Integer) in.readValue(null);
+    levelProgress = (Double) in.readValue(null);
+  }
 
-	public ProgramAssetDetails level(Integer level) {
-		this.level = level;
-		return this;
-	}
+  public ProgramAssetDetails level(Integer level) {
+    this.level = level;
+    return this;
+  }
 
-	/**
-	 * Get level
-	 *
-	 * @return level
-	 **/
-	@Schema(description = "")
-	public Integer getLevel() {
-		return level;
-	}
+  /**
+   * Get level
+   *
+   * @return level
+   **/
+  @Schema(description = "")
+  public Integer getLevel() {
+    return level;
+  }
 
-	public void setLevel(Integer level) {
-		this.level = level;
-	}
+  public void setLevel(Integer level) {
+    this.level = level;
+  }
 
-	public ProgramAssetDetails levelProgress(Double levelProgress) {
-		this.levelProgress = levelProgress;
-		return this;
-	}
+  public ProgramAssetDetails levelProgress(Double levelProgress) {
+    this.levelProgress = levelProgress;
+    return this;
+  }
 
-	/**
-	 * Get levelProgress
-	 *
-	 * @return levelProgress
-	 **/
-	@Schema(description = "")
-	public Double getLevelProgress() {
-		return levelProgress;
-	}
+  /**
+   * Get levelProgress
+   *
+   * @return levelProgress
+   **/
+  @Schema(description = "")
+  public Double getLevelProgress() {
+    return levelProgress;
+  }
 
-	public void setLevelProgress(Double levelProgress) {
-		this.levelProgress = levelProgress;
-	}
+  public void setLevelProgress(Double levelProgress) {
+    this.levelProgress = levelProgress;
+  }
 
-	@Override
-	public boolean equals(java.lang.Object o) {
-		if (this == o) {
-			return true;
-		}
-		if (o == null || getClass() != o.getClass()) {
-			return false;
-		}
-		ProgramAssetDetails programAssetDetails = (ProgramAssetDetails) o;
-		return Objects.equals(this.level, programAssetDetails.level) &&
-				Objects.equals(this.levelProgress, programAssetDetails.levelProgress);
-	}
+  @Override
+  public boolean equals(java.lang.Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    ProgramAssetDetails programAssetDetails = (ProgramAssetDetails) o;
+    return Objects.equals(this.level, programAssetDetails.level) &&
+            Objects.equals(this.levelProgress, programAssetDetails.levelProgress);
+  }
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(level, levelProgress);
-	}
+  @Override
+  public int hashCode() {
+    return Objects.hash(level, levelProgress);
+  }
 
-	@Override
-	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		sb.append("class ProgramAssetDetails {\n");
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class ProgramAssetDetails {\n");
 
-		sb.append("    level: ").append(toIndentedString(level)).append("\n");
-		sb.append("    levelProgress: ").append(toIndentedString(levelProgress)).append("\n");
-		sb.append("}");
-		return sb.toString();
-	}
+    sb.append("    level: ").append(toIndentedString(level)).append("\n");
+    sb.append("    levelProgress: ").append(toIndentedString(levelProgress)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
 
-	/**
-	 * Convert the given object to string with each line indented by 4 spaces
-	 * (except the first line).
-	 */
-	private String toIndentedString(java.lang.Object o) {
-		if (o == null) {
-			return "null";
-		}
-		return o.toString().replace("\n", "\n    ");
-	}
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(java.lang.Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
 
-	public void writeToParcel(Parcel out, int flags) {
-		out.writeValue(level);
-		out.writeValue(levelProgress);
-	}
+  public void writeToParcel(Parcel out, int flags) {
+    out.writeValue(level);
+    out.writeValue(levelProgress);
+  }
 
-	public int describeContents() {
-		return 0;
-	}
+  public int describeContents() {
+    return 0;
+  }
 }

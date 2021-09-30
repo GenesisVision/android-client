@@ -28,141 +28,141 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class CaptchaCheckResult implements Parcelable
 {
-	public static final Parcelable.Creator<CaptchaCheckResult> CREATOR = new Parcelable.Creator<CaptchaCheckResult>()
-	{
-		public CaptchaCheckResult createFromParcel(Parcel in) {
-			return new CaptchaCheckResult(in);
-		}
+  public static final Parcelable.Creator<CaptchaCheckResult> CREATOR = new Parcelable.Creator<CaptchaCheckResult>()
+  {
+    public CaptchaCheckResult createFromParcel(Parcel in) {
+      return new CaptchaCheckResult(in);
+    }
 
-		public CaptchaCheckResult[] newArray(int size) {
-			return new CaptchaCheckResult[size];
-		}
-	};
+    public CaptchaCheckResult[] newArray(int size) {
+      return new CaptchaCheckResult[size];
+    }
+  };
 
-	@SerializedName("id")
-	private String id = null;
+  @SerializedName("id")
+  private String id = null;
 
-	@SerializedName("pow")
-	private PowResult pow = null;
+  @SerializedName("pow")
+  private PowResult pow = null;
 
-	@SerializedName("geeTest")
-	private GeeTestResult geeTest = null;
+  @SerializedName("geeTest")
+  private GeeTestResult geeTest = null;
 
-	public CaptchaCheckResult() {
-	}
+  public CaptchaCheckResult() {
+  }
 
-	CaptchaCheckResult(Parcel in) {
-		id = (String) in.readValue(null);
-		pow = (PowResult) in.readValue(PowResult.class.getClassLoader());
-		geeTest = (GeeTestResult) in.readValue(GeeTestResult.class.getClassLoader());
-	}
+  CaptchaCheckResult(Parcel in) {
+    id = (String) in.readValue(null);
+    pow = (PowResult) in.readValue(PowResult.class.getClassLoader());
+    geeTest = (GeeTestResult) in.readValue(GeeTestResult.class.getClassLoader());
+  }
 
-	public CaptchaCheckResult id(String id) {
-		this.id = id;
-		return this;
-	}
+  public CaptchaCheckResult id(String id) {
+    this.id = id;
+    return this;
+  }
 
-	/**
-	 * Get id
-	 *
-	 * @return id
-	 **/
-	@Schema(description = "")
-	public String getId() {
-		return id;
-	}
+  /**
+   * Get id
+   *
+   * @return id
+   **/
+  @Schema(description = "")
+  public String getId() {
+    return id;
+  }
 
-	public void setId(String id) {
-		this.id = id;
-	}
+  public void setId(String id) {
+    this.id = id;
+  }
 
-	public CaptchaCheckResult pow(PowResult pow) {
-		this.pow = pow;
-		return this;
-	}
+  public CaptchaCheckResult pow(PowResult pow) {
+    this.pow = pow;
+    return this;
+  }
 
-	/**
-	 * Get pow
-	 *
-	 * @return pow
-	 **/
-	@Schema(description = "")
-	public PowResult getPow() {
-		return pow;
-	}
+  /**
+   * Get pow
+   *
+   * @return pow
+   **/
+  @Schema(description = "")
+  public PowResult getPow() {
+    return pow;
+  }
 
-	public void setPow(PowResult pow) {
-		this.pow = pow;
-	}
+  public void setPow(PowResult pow) {
+    this.pow = pow;
+  }
 
-	public CaptchaCheckResult geeTest(GeeTestResult geeTest) {
-		this.geeTest = geeTest;
-		return this;
-	}
+  public CaptchaCheckResult geeTest(GeeTestResult geeTest) {
+    this.geeTest = geeTest;
+    return this;
+  }
 
-	/**
-	 * Get geeTest
-	 *
-	 * @return geeTest
-	 **/
-	@Schema(description = "")
-	public GeeTestResult getGeeTest() {
-		return geeTest;
-	}
+  /**
+   * Get geeTest
+   *
+   * @return geeTest
+   **/
+  @Schema(description = "")
+  public GeeTestResult getGeeTest() {
+    return geeTest;
+  }
 
-	public void setGeeTest(GeeTestResult geeTest) {
-		this.geeTest = geeTest;
-	}
+  public void setGeeTest(GeeTestResult geeTest) {
+    this.geeTest = geeTest;
+  }
 
-	@Override
-	public boolean equals(java.lang.Object o) {
-		if (this == o) {
-			return true;
-		}
-		if (o == null || getClass() != o.getClass()) {
-			return false;
-		}
-		CaptchaCheckResult captchaCheckResult = (CaptchaCheckResult) o;
-		return Objects.equals(this.id, captchaCheckResult.id) &&
-				Objects.equals(this.pow, captchaCheckResult.pow) &&
-				Objects.equals(this.geeTest, captchaCheckResult.geeTest);
-	}
+  @Override
+  public boolean equals(java.lang.Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    CaptchaCheckResult captchaCheckResult = (CaptchaCheckResult) o;
+    return Objects.equals(this.id, captchaCheckResult.id) &&
+            Objects.equals(this.pow, captchaCheckResult.pow) &&
+            Objects.equals(this.geeTest, captchaCheckResult.geeTest);
+  }
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(id, pow, geeTest);
-	}
+  @Override
+  public int hashCode() {
+    return Objects.hash(id, pow, geeTest);
+  }
 
-	@Override
-	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		sb.append("class CaptchaCheckResult {\n");
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class CaptchaCheckResult {\n");
 
-		sb.append("    id: ").append(toIndentedString(id)).append("\n");
-		sb.append("    pow: ").append(toIndentedString(pow)).append("\n");
-		sb.append("    geeTest: ").append(toIndentedString(geeTest)).append("\n");
-		sb.append("}");
-		return sb.toString();
-	}
+    sb.append("    id: ").append(toIndentedString(id)).append("\n");
+    sb.append("    pow: ").append(toIndentedString(pow)).append("\n");
+    sb.append("    geeTest: ").append(toIndentedString(geeTest)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
 
-	/**
-	 * Convert the given object to string with each line indented by 4 spaces
-	 * (except the first line).
-	 */
-	private String toIndentedString(java.lang.Object o) {
-		if (o == null) {
-			return "null";
-		}
-		return o.toString().replace("\n", "\n    ");
-	}
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(java.lang.Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
 
-	public void writeToParcel(Parcel out, int flags) {
-		out.writeValue(id);
-		out.writeValue(pow);
-		out.writeValue(geeTest);
-	}
+  public void writeToParcel(Parcel out, int flags) {
+    out.writeValue(id);
+    out.writeValue(pow);
+    out.writeValue(geeTest);
+  }
 
-	public int describeContents() {
-		return 0;
-	}
+  public int describeContents() {
+    return 0;
+  }
 }

@@ -30,175 +30,175 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class ProgramBalanceChart implements Parcelable
 {
-	public static final Parcelable.Creator<ProgramBalanceChart> CREATOR = new Parcelable.Creator<ProgramBalanceChart>()
-	{
-		public ProgramBalanceChart createFromParcel(Parcel in) {
-			return new ProgramBalanceChart(in);
-		}
+  public static final Parcelable.Creator<ProgramBalanceChart> CREATOR = new Parcelable.Creator<ProgramBalanceChart>()
+  {
+    public ProgramBalanceChart createFromParcel(Parcel in) {
+      return new ProgramBalanceChart(in);
+    }
 
-		public ProgramBalanceChart[] newArray(int size) {
-			return new ProgramBalanceChart[size];
-		}
-	};
+    public ProgramBalanceChart[] newArray(int size) {
+      return new ProgramBalanceChart[size];
+    }
+  };
 
-	@SerializedName("balance")
-	private Double balance = null;
+  @SerializedName("balance")
+  private Double balance = null;
 
-	@SerializedName("programCurrency")
-	private Currency programCurrency = null;
+  @SerializedName("programCurrency")
+  private Currency programCurrency = null;
 
-	@SerializedName("color")
-	private String color = null;
+  @SerializedName("color")
+  private String color = null;
 
-	@SerializedName("chart")
-	private List<BalanceChartPoint> chart = null;
+  @SerializedName("chart")
+  private List<BalanceChartPoint> chart = null;
 
-	public ProgramBalanceChart() {
-	}
+  public ProgramBalanceChart() {
+  }
 
-	ProgramBalanceChart(Parcel in) {
-		balance = (Double) in.readValue(null);
-		programCurrency = (Currency) in.readValue(Currency.class.getClassLoader());
-		color = (String) in.readValue(null);
-		chart = (List<BalanceChartPoint>) in.readValue(BalanceChartPoint.class.getClassLoader());
-	}
+  ProgramBalanceChart(Parcel in) {
+    balance = (Double) in.readValue(null);
+    programCurrency = (Currency) in.readValue(Currency.class.getClassLoader());
+    color = (String) in.readValue(null);
+    chart = (List<BalanceChartPoint>) in.readValue(BalanceChartPoint.class.getClassLoader());
+  }
 
-	public ProgramBalanceChart balance(Double balance) {
-		this.balance = balance;
-		return this;
-	}
+  public ProgramBalanceChart balance(Double balance) {
+    this.balance = balance;
+    return this;
+  }
 
-	/**
-	 * Get balance
-	 *
-	 * @return balance
-	 **/
-	@Schema(description = "")
-	public Double getBalance() {
-		return balance;
-	}
+  /**
+   * Get balance
+   *
+   * @return balance
+   **/
+  @Schema(description = "")
+  public Double getBalance() {
+    return balance;
+  }
 
-	public void setBalance(Double balance) {
-		this.balance = balance;
-	}
+  public void setBalance(Double balance) {
+    this.balance = balance;
+  }
 
-	public ProgramBalanceChart programCurrency(Currency programCurrency) {
-		this.programCurrency = programCurrency;
-		return this;
-	}
+  public ProgramBalanceChart programCurrency(Currency programCurrency) {
+    this.programCurrency = programCurrency;
+    return this;
+  }
 
-	/**
-	 * Get programCurrency
-	 *
-	 * @return programCurrency
-	 **/
-	@Schema(description = "")
-	public Currency getProgramCurrency() {
-		return programCurrency;
-	}
+  /**
+   * Get programCurrency
+   *
+   * @return programCurrency
+   **/
+  @Schema(description = "")
+  public Currency getProgramCurrency() {
+    return programCurrency;
+  }
 
-	public void setProgramCurrency(Currency programCurrency) {
-		this.programCurrency = programCurrency;
-	}
+  public void setProgramCurrency(Currency programCurrency) {
+    this.programCurrency = programCurrency;
+  }
 
-	public ProgramBalanceChart color(String color) {
-		this.color = color;
-		return this;
-	}
+  public ProgramBalanceChart color(String color) {
+    this.color = color;
+    return this;
+  }
 
-	/**
-	 * Get color
-	 *
-	 * @return color
-	 **/
-	@Schema(description = "")
-	public String getColor() {
-		return color;
-	}
+  /**
+   * Get color
+   *
+   * @return color
+   **/
+  @Schema(description = "")
+  public String getColor() {
+    return color;
+  }
 
-	public void setColor(String color) {
-		this.color = color;
-	}
+  public void setColor(String color) {
+    this.color = color;
+  }
 
-	public ProgramBalanceChart chart(List<BalanceChartPoint> chart) {
-		this.chart = chart;
-		return this;
-	}
+  public ProgramBalanceChart chart(List<BalanceChartPoint> chart) {
+    this.chart = chart;
+    return this;
+  }
 
-	public ProgramBalanceChart addChartItem(BalanceChartPoint chartItem) {
-		if (this.chart == null) {
-			this.chart = new ArrayList<BalanceChartPoint>();
-		}
-		this.chart.add(chartItem);
-		return this;
-	}
+  public ProgramBalanceChart addChartItem(BalanceChartPoint chartItem) {
+    if (this.chart == null) {
+      this.chart = new ArrayList<BalanceChartPoint>();
+    }
+    this.chart.add(chartItem);
+    return this;
+  }
 
-	/**
-	 * Get chart
-	 *
-	 * @return chart
-	 **/
-	@Schema(description = "")
-	public List<BalanceChartPoint> getChart() {
-		return chart;
-	}
+  /**
+   * Get chart
+   *
+   * @return chart
+   **/
+  @Schema(description = "")
+  public List<BalanceChartPoint> getChart() {
+    return chart;
+  }
 
-	public void setChart(List<BalanceChartPoint> chart) {
-		this.chart = chart;
-	}
+  public void setChart(List<BalanceChartPoint> chart) {
+    this.chart = chart;
+  }
 
-	@Override
-	public boolean equals(java.lang.Object o) {
-		if (this == o) {
-			return true;
-		}
-		if (o == null || getClass() != o.getClass()) {
-			return false;
-		}
-		ProgramBalanceChart programBalanceChart = (ProgramBalanceChart) o;
-		return Objects.equals(this.balance, programBalanceChart.balance) &&
-				Objects.equals(this.programCurrency, programBalanceChart.programCurrency) &&
-				Objects.equals(this.color, programBalanceChart.color) &&
-				Objects.equals(this.chart, programBalanceChart.chart);
-	}
+  @Override
+  public boolean equals(java.lang.Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    ProgramBalanceChart programBalanceChart = (ProgramBalanceChart) o;
+    return Objects.equals(this.balance, programBalanceChart.balance) &&
+            Objects.equals(this.programCurrency, programBalanceChart.programCurrency) &&
+            Objects.equals(this.color, programBalanceChart.color) &&
+            Objects.equals(this.chart, programBalanceChart.chart);
+  }
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(balance, programCurrency, color, chart);
-	}
+  @Override
+  public int hashCode() {
+    return Objects.hash(balance, programCurrency, color, chart);
+  }
 
-	@Override
-	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		sb.append("class ProgramBalanceChart {\n");
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class ProgramBalanceChart {\n");
 
-		sb.append("    balance: ").append(toIndentedString(balance)).append("\n");
-		sb.append("    programCurrency: ").append(toIndentedString(programCurrency)).append("\n");
-		sb.append("    color: ").append(toIndentedString(color)).append("\n");
-		sb.append("    chart: ").append(toIndentedString(chart)).append("\n");
-		sb.append("}");
-		return sb.toString();
-	}
+    sb.append("    balance: ").append(toIndentedString(balance)).append("\n");
+    sb.append("    programCurrency: ").append(toIndentedString(programCurrency)).append("\n");
+    sb.append("    color: ").append(toIndentedString(color)).append("\n");
+    sb.append("    chart: ").append(toIndentedString(chart)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
 
-	/**
-	 * Convert the given object to string with each line indented by 4 spaces
-	 * (except the first line).
-	 */
-	private String toIndentedString(java.lang.Object o) {
-		if (o == null) {
-			return "null";
-		}
-		return o.toString().replace("\n", "\n    ");
-	}
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(java.lang.Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
 
-	public void writeToParcel(Parcel out, int flags) {
-		out.writeValue(balance);
-		out.writeValue(programCurrency);
-		out.writeValue(color);
-		out.writeValue(chart);
-	}
+  public void writeToParcel(Parcel out, int flags) {
+    out.writeValue(balance);
+    out.writeValue(programCurrency);
+    out.writeValue(color);
+    out.writeValue(chart);
+  }
 
-	public int describeContents() {
-		return 0;
-	}
+  public int describeContents() {
+    return 0;
+  }
 }

@@ -28,453 +28,453 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class PrivateTradingAccountOwnerActions implements Parcelable
 {
-	public static final Parcelable.Creator<PrivateTradingAccountOwnerActions> CREATOR = new Parcelable.Creator<PrivateTradingAccountOwnerActions>()
-	{
-		public PrivateTradingAccountOwnerActions createFromParcel(Parcel in) {
-			return new PrivateTradingAccountOwnerActions(in);
-		}
-
-		public PrivateTradingAccountOwnerActions[] newArray(int size) {
-			return new PrivateTradingAccountOwnerActions[size];
-		}
-	};
-
-	@SerializedName("canMakeProgramFromPrivateTradingAccount")
-	private Boolean canMakeProgramFromPrivateTradingAccount = null;
-
-	@SerializedName("canMakeExchangeProgramFromPrivateTradingAccount")
-	private Boolean canMakeExchangeProgramFromPrivateTradingAccount = null;
-
-	@SerializedName("canMakeSignalProviderFromPrivateTradingAccount")
-	private Boolean canMakeSignalProviderFromPrivateTradingAccount = null;
-
-	@SerializedName("canMakeSignalProviderFromPrivateExternalTradingAccount")
-	private Boolean canMakeSignalProviderFromPrivateExternalTradingAccount = null;
-
-	@SerializedName("canMakeProgramFromSignalProvider")
-	private Boolean canMakeProgramFromSignalProvider = null;
-
-	@SerializedName("canMakeSignalProviderFromProgram")
-	private Boolean canMakeSignalProviderFromProgram = null;
-
-	@SerializedName("canEditSignalProviderSettings")
-	private Boolean canEditSignalProviderSettings = null;
-
-	@SerializedName("isEnoughMoneyToCreateProgram")
-	private Boolean isEnoughMoneyToCreateProgram = null;
-
-	@SerializedName("canConfirm2FA")
-	private Boolean canConfirm2FA = null;
-
-	@SerializedName("canCreateApiKeys")
-	private Boolean canCreateApiKeys = null;
-
-	@SerializedName("canClose")
-	private Boolean canClose = null;
-
-	@SerializedName("canChangePassword")
-	private Boolean canChangePassword = null;
-
-	@SerializedName("canTransferMoney")
-	private Boolean canTransferMoney = null;
-
-	@SerializedName("canMakeDemoDeposit")
-	private Boolean canMakeDemoDeposit = null;
-
-	@SerializedName("canCloseOpenPositions")
-	private Boolean canCloseOpenPositions = null;
-
-	public PrivateTradingAccountOwnerActions() {
-	}
-
-	PrivateTradingAccountOwnerActions(Parcel in) {
-		canMakeProgramFromPrivateTradingAccount = (Boolean) in.readValue(null);
-		canMakeExchangeProgramFromPrivateTradingAccount = (Boolean) in.readValue(null);
-		canMakeSignalProviderFromPrivateTradingAccount = (Boolean) in.readValue(null);
-		canMakeSignalProviderFromPrivateExternalTradingAccount = (Boolean) in.readValue(null);
-		canMakeProgramFromSignalProvider = (Boolean) in.readValue(null);
-		canMakeSignalProviderFromProgram = (Boolean) in.readValue(null);
-		canEditSignalProviderSettings = (Boolean) in.readValue(null);
-		isEnoughMoneyToCreateProgram = (Boolean) in.readValue(null);
-		canConfirm2FA = (Boolean) in.readValue(null);
-		canCreateApiKeys = (Boolean) in.readValue(null);
-		canClose = (Boolean) in.readValue(null);
-		canChangePassword = (Boolean) in.readValue(null);
-		canTransferMoney = (Boolean) in.readValue(null);
-		canMakeDemoDeposit = (Boolean) in.readValue(null);
-		canCloseOpenPositions = (Boolean) in.readValue(null);
-	}
-
-	public PrivateTradingAccountOwnerActions canMakeProgramFromPrivateTradingAccount(Boolean canMakeProgramFromPrivateTradingAccount) {
-		this.canMakeProgramFromPrivateTradingAccount = canMakeProgramFromPrivateTradingAccount;
-		return this;
-	}
-
-	/**
-	 * Get canMakeProgramFromPrivateTradingAccount
-	 *
-	 * @return canMakeProgramFromPrivateTradingAccount
-	 **/
-	@Schema(description = "")
-	public Boolean isCanMakeProgramFromPrivateTradingAccount() {
-		return canMakeProgramFromPrivateTradingAccount;
-	}
-
-	public void setCanMakeProgramFromPrivateTradingAccount(Boolean canMakeProgramFromPrivateTradingAccount) {
-		this.canMakeProgramFromPrivateTradingAccount = canMakeProgramFromPrivateTradingAccount;
-	}
-
-	public PrivateTradingAccountOwnerActions canMakeExchangeProgramFromPrivateTradingAccount(Boolean canMakeExchangeProgramFromPrivateTradingAccount) {
-		this.canMakeExchangeProgramFromPrivateTradingAccount = canMakeExchangeProgramFromPrivateTradingAccount;
-		return this;
-	}
-
-	/**
-	 * Get canMakeExchangeProgramFromPrivateTradingAccount
-	 *
-	 * @return canMakeExchangeProgramFromPrivateTradingAccount
-	 **/
-	@Schema(description = "")
-	public Boolean isCanMakeExchangeProgramFromPrivateTradingAccount() {
-		return canMakeExchangeProgramFromPrivateTradingAccount;
-	}
-
-	public void setCanMakeExchangeProgramFromPrivateTradingAccount(Boolean canMakeExchangeProgramFromPrivateTradingAccount) {
-		this.canMakeExchangeProgramFromPrivateTradingAccount = canMakeExchangeProgramFromPrivateTradingAccount;
-	}
-
-	public PrivateTradingAccountOwnerActions canMakeSignalProviderFromPrivateTradingAccount(Boolean canMakeSignalProviderFromPrivateTradingAccount) {
-		this.canMakeSignalProviderFromPrivateTradingAccount = canMakeSignalProviderFromPrivateTradingAccount;
-		return this;
-	}
-
-	/**
-	 * Get canMakeSignalProviderFromPrivateTradingAccount
-	 *
-	 * @return canMakeSignalProviderFromPrivateTradingAccount
-	 **/
-	@Schema(description = "")
-	public Boolean isCanMakeSignalProviderFromPrivateTradingAccount() {
-		return canMakeSignalProviderFromPrivateTradingAccount;
-	}
-
-	public void setCanMakeSignalProviderFromPrivateTradingAccount(Boolean canMakeSignalProviderFromPrivateTradingAccount) {
-		this.canMakeSignalProviderFromPrivateTradingAccount = canMakeSignalProviderFromPrivateTradingAccount;
-	}
-
-	public PrivateTradingAccountOwnerActions canMakeSignalProviderFromPrivateExternalTradingAccount(Boolean canMakeSignalProviderFromPrivateExternalTradingAccount) {
-		this.canMakeSignalProviderFromPrivateExternalTradingAccount = canMakeSignalProviderFromPrivateExternalTradingAccount;
-		return this;
-	}
-
-	/**
-	 * Get canMakeSignalProviderFromPrivateExternalTradingAccount
-	 *
-	 * @return canMakeSignalProviderFromPrivateExternalTradingAccount
-	 **/
-	@Schema(description = "")
-	public Boolean isCanMakeSignalProviderFromPrivateExternalTradingAccount() {
-		return canMakeSignalProviderFromPrivateExternalTradingAccount;
-	}
-
-	public void setCanMakeSignalProviderFromPrivateExternalTradingAccount(Boolean canMakeSignalProviderFromPrivateExternalTradingAccount) {
-		this.canMakeSignalProviderFromPrivateExternalTradingAccount = canMakeSignalProviderFromPrivateExternalTradingAccount;
-	}
-
-	public PrivateTradingAccountOwnerActions canMakeProgramFromSignalProvider(Boolean canMakeProgramFromSignalProvider) {
-		this.canMakeProgramFromSignalProvider = canMakeProgramFromSignalProvider;
-		return this;
-	}
-
-	/**
-	 * Get canMakeProgramFromSignalProvider
-	 *
-	 * @return canMakeProgramFromSignalProvider
-	 **/
-	@Schema(description = "")
-	public Boolean isCanMakeProgramFromSignalProvider() {
-		return canMakeProgramFromSignalProvider;
-	}
-
-	public void setCanMakeProgramFromSignalProvider(Boolean canMakeProgramFromSignalProvider) {
-		this.canMakeProgramFromSignalProvider = canMakeProgramFromSignalProvider;
-	}
-
-	public PrivateTradingAccountOwnerActions canMakeSignalProviderFromProgram(Boolean canMakeSignalProviderFromProgram) {
-		this.canMakeSignalProviderFromProgram = canMakeSignalProviderFromProgram;
-		return this;
-	}
-
-	/**
-	 * Get canMakeSignalProviderFromProgram
-	 *
-	 * @return canMakeSignalProviderFromProgram
-	 **/
-	@Schema(description = "")
-	public Boolean isCanMakeSignalProviderFromProgram() {
-		return canMakeSignalProviderFromProgram;
-	}
-
-	public void setCanMakeSignalProviderFromProgram(Boolean canMakeSignalProviderFromProgram) {
-		this.canMakeSignalProviderFromProgram = canMakeSignalProviderFromProgram;
-	}
-
-	public PrivateTradingAccountOwnerActions canEditSignalProviderSettings(Boolean canEditSignalProviderSettings) {
-		this.canEditSignalProviderSettings = canEditSignalProviderSettings;
-		return this;
-	}
-
-	/**
-	 * Get canEditSignalProviderSettings
-	 *
-	 * @return canEditSignalProviderSettings
-	 **/
-	@Schema(description = "")
-	public Boolean isCanEditSignalProviderSettings() {
-		return canEditSignalProviderSettings;
-	}
-
-	public void setCanEditSignalProviderSettings(Boolean canEditSignalProviderSettings) {
-		this.canEditSignalProviderSettings = canEditSignalProviderSettings;
-	}
-
-	public PrivateTradingAccountOwnerActions isEnoughMoneyToCreateProgram(Boolean isEnoughMoneyToCreateProgram) {
-		this.isEnoughMoneyToCreateProgram = isEnoughMoneyToCreateProgram;
-		return this;
-	}
-
-	/**
-	 * Get isEnoughMoneyToCreateProgram
-	 *
-	 * @return isEnoughMoneyToCreateProgram
-	 **/
-	@Schema(description = "")
-	public Boolean isIsEnoughMoneyToCreateProgram() {
-		return isEnoughMoneyToCreateProgram;
-	}
-
-	public void setIsEnoughMoneyToCreateProgram(Boolean isEnoughMoneyToCreateProgram) {
-		this.isEnoughMoneyToCreateProgram = isEnoughMoneyToCreateProgram;
-	}
-
-	public PrivateTradingAccountOwnerActions canConfirm2FA(Boolean canConfirm2FA) {
-		this.canConfirm2FA = canConfirm2FA;
-		return this;
-	}
-
-	/**
-	 * Get canConfirm2FA
-	 *
-	 * @return canConfirm2FA
-	 **/
-	@Schema(description = "")
-	public Boolean isCanConfirm2FA() {
-		return canConfirm2FA;
-	}
-
-	public void setCanConfirm2FA(Boolean canConfirm2FA) {
-		this.canConfirm2FA = canConfirm2FA;
-	}
-
-	public PrivateTradingAccountOwnerActions canCreateApiKeys(Boolean canCreateApiKeys) {
-		this.canCreateApiKeys = canCreateApiKeys;
-		return this;
-	}
-
-	/**
-	 * Get canCreateApiKeys
-	 *
-	 * @return canCreateApiKeys
-	 **/
-	@Schema(description = "")
-	public Boolean isCanCreateApiKeys() {
-		return canCreateApiKeys;
-	}
-
-	public void setCanCreateApiKeys(Boolean canCreateApiKeys) {
-		this.canCreateApiKeys = canCreateApiKeys;
-	}
-
-	public PrivateTradingAccountOwnerActions canClose(Boolean canClose) {
-		this.canClose = canClose;
-		return this;
-	}
-
-	/**
-	 * Get canClose
-	 *
-	 * @return canClose
-	 **/
-	@Schema(description = "")
-	public Boolean isCanClose() {
-		return canClose;
-	}
-
-	public void setCanClose(Boolean canClose) {
-		this.canClose = canClose;
-	}
-
-	public PrivateTradingAccountOwnerActions canChangePassword(Boolean canChangePassword) {
-		this.canChangePassword = canChangePassword;
-		return this;
-	}
-
-	/**
-	 * Get canChangePassword
-	 *
-	 * @return canChangePassword
-	 **/
-	@Schema(description = "")
-	public Boolean isCanChangePassword() {
-		return canChangePassword;
-	}
-
-	public void setCanChangePassword(Boolean canChangePassword) {
-		this.canChangePassword = canChangePassword;
-	}
-
-	public PrivateTradingAccountOwnerActions canTransferMoney(Boolean canTransferMoney) {
-		this.canTransferMoney = canTransferMoney;
-		return this;
-	}
-
-	/**
-	 * Get canTransferMoney
-	 *
-	 * @return canTransferMoney
-	 **/
-	@Schema(description = "")
-	public Boolean isCanTransferMoney() {
-		return canTransferMoney;
-	}
-
-	public void setCanTransferMoney(Boolean canTransferMoney) {
-		this.canTransferMoney = canTransferMoney;
-	}
-
-	public PrivateTradingAccountOwnerActions canMakeDemoDeposit(Boolean canMakeDemoDeposit) {
-		this.canMakeDemoDeposit = canMakeDemoDeposit;
-		return this;
-	}
-
-	/**
-	 * Get canMakeDemoDeposit
-	 *
-	 * @return canMakeDemoDeposit
-	 **/
-	@Schema(description = "")
-	public Boolean isCanMakeDemoDeposit() {
-		return canMakeDemoDeposit;
-	}
-
-	public void setCanMakeDemoDeposit(Boolean canMakeDemoDeposit) {
-		this.canMakeDemoDeposit = canMakeDemoDeposit;
-	}
-
-	public PrivateTradingAccountOwnerActions canCloseOpenPositions(Boolean canCloseOpenPositions) {
-		this.canCloseOpenPositions = canCloseOpenPositions;
-		return this;
-	}
-
-	/**
-	 * Get canCloseOpenPositions
-	 *
-	 * @return canCloseOpenPositions
-	 **/
-	@Schema(description = "")
-	public Boolean isCanCloseOpenPositions() {
-		return canCloseOpenPositions;
-	}
-
-	public void setCanCloseOpenPositions(Boolean canCloseOpenPositions) {
-		this.canCloseOpenPositions = canCloseOpenPositions;
-	}
-
-	@Override
-	public boolean equals(java.lang.Object o) {
-		if (this == o) {
-			return true;
-		}
-		if (o == null || getClass() != o.getClass()) {
-			return false;
-		}
-		PrivateTradingAccountOwnerActions privateTradingAccountOwnerActions = (PrivateTradingAccountOwnerActions) o;
-		return Objects.equals(this.canMakeProgramFromPrivateTradingAccount, privateTradingAccountOwnerActions.canMakeProgramFromPrivateTradingAccount) &&
-				Objects.equals(this.canMakeExchangeProgramFromPrivateTradingAccount, privateTradingAccountOwnerActions.canMakeExchangeProgramFromPrivateTradingAccount) &&
-				Objects.equals(this.canMakeSignalProviderFromPrivateTradingAccount, privateTradingAccountOwnerActions.canMakeSignalProviderFromPrivateTradingAccount) &&
-				Objects.equals(this.canMakeSignalProviderFromPrivateExternalTradingAccount, privateTradingAccountOwnerActions.canMakeSignalProviderFromPrivateExternalTradingAccount) &&
-				Objects.equals(this.canMakeProgramFromSignalProvider, privateTradingAccountOwnerActions.canMakeProgramFromSignalProvider) &&
-				Objects.equals(this.canMakeSignalProviderFromProgram, privateTradingAccountOwnerActions.canMakeSignalProviderFromProgram) &&
-				Objects.equals(this.canEditSignalProviderSettings, privateTradingAccountOwnerActions.canEditSignalProviderSettings) &&
-				Objects.equals(this.isEnoughMoneyToCreateProgram, privateTradingAccountOwnerActions.isEnoughMoneyToCreateProgram) &&
-				Objects.equals(this.canConfirm2FA, privateTradingAccountOwnerActions.canConfirm2FA) &&
-				Objects.equals(this.canCreateApiKeys, privateTradingAccountOwnerActions.canCreateApiKeys) &&
-				Objects.equals(this.canClose, privateTradingAccountOwnerActions.canClose) &&
-				Objects.equals(this.canChangePassword, privateTradingAccountOwnerActions.canChangePassword) &&
-				Objects.equals(this.canTransferMoney, privateTradingAccountOwnerActions.canTransferMoney) &&
-				Objects.equals(this.canMakeDemoDeposit, privateTradingAccountOwnerActions.canMakeDemoDeposit) &&
-				Objects.equals(this.canCloseOpenPositions, privateTradingAccountOwnerActions.canCloseOpenPositions);
-	}
-
-	@Override
-	public int hashCode() {
-		return Objects.hash(canMakeProgramFromPrivateTradingAccount, canMakeExchangeProgramFromPrivateTradingAccount, canMakeSignalProviderFromPrivateTradingAccount, canMakeSignalProviderFromPrivateExternalTradingAccount, canMakeProgramFromSignalProvider, canMakeSignalProviderFromProgram, canEditSignalProviderSettings, isEnoughMoneyToCreateProgram, canConfirm2FA, canCreateApiKeys, canClose, canChangePassword, canTransferMoney, canMakeDemoDeposit, canCloseOpenPositions);
-	}
-
-	@Override
-	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		sb.append("class PrivateTradingAccountOwnerActions {\n");
-
-		sb.append("    canMakeProgramFromPrivateTradingAccount: ").append(toIndentedString(canMakeProgramFromPrivateTradingAccount)).append("\n");
-		sb.append("    canMakeExchangeProgramFromPrivateTradingAccount: ").append(toIndentedString(canMakeExchangeProgramFromPrivateTradingAccount)).append("\n");
-		sb.append("    canMakeSignalProviderFromPrivateTradingAccount: ").append(toIndentedString(canMakeSignalProviderFromPrivateTradingAccount)).append("\n");
-		sb.append("    canMakeSignalProviderFromPrivateExternalTradingAccount: ").append(toIndentedString(canMakeSignalProviderFromPrivateExternalTradingAccount)).append("\n");
-		sb.append("    canMakeProgramFromSignalProvider: ").append(toIndentedString(canMakeProgramFromSignalProvider)).append("\n");
-		sb.append("    canMakeSignalProviderFromProgram: ").append(toIndentedString(canMakeSignalProviderFromProgram)).append("\n");
-		sb.append("    canEditSignalProviderSettings: ").append(toIndentedString(canEditSignalProviderSettings)).append("\n");
-		sb.append("    isEnoughMoneyToCreateProgram: ").append(toIndentedString(isEnoughMoneyToCreateProgram)).append("\n");
-		sb.append("    canConfirm2FA: ").append(toIndentedString(canConfirm2FA)).append("\n");
-		sb.append("    canCreateApiKeys: ").append(toIndentedString(canCreateApiKeys)).append("\n");
-		sb.append("    canClose: ").append(toIndentedString(canClose)).append("\n");
-		sb.append("    canChangePassword: ").append(toIndentedString(canChangePassword)).append("\n");
-		sb.append("    canTransferMoney: ").append(toIndentedString(canTransferMoney)).append("\n");
-		sb.append("    canMakeDemoDeposit: ").append(toIndentedString(canMakeDemoDeposit)).append("\n");
-		sb.append("    canCloseOpenPositions: ").append(toIndentedString(canCloseOpenPositions)).append("\n");
-		sb.append("}");
-		return sb.toString();
-	}
-
-	/**
-	 * Convert the given object to string with each line indented by 4 spaces
-	 * (except the first line).
-	 */
-	private String toIndentedString(java.lang.Object o) {
-		if (o == null) {
-			return "null";
-		}
-		return o.toString().replace("\n", "\n    ");
-	}
-
-	public void writeToParcel(Parcel out, int flags) {
-		out.writeValue(canMakeProgramFromPrivateTradingAccount);
-		out.writeValue(canMakeExchangeProgramFromPrivateTradingAccount);
-		out.writeValue(canMakeSignalProviderFromPrivateTradingAccount);
-		out.writeValue(canMakeSignalProviderFromPrivateExternalTradingAccount);
-		out.writeValue(canMakeProgramFromSignalProvider);
-		out.writeValue(canMakeSignalProviderFromProgram);
-		out.writeValue(canEditSignalProviderSettings);
-		out.writeValue(isEnoughMoneyToCreateProgram);
-		out.writeValue(canConfirm2FA);
-		out.writeValue(canCreateApiKeys);
-		out.writeValue(canClose);
-		out.writeValue(canChangePassword);
-		out.writeValue(canTransferMoney);
-		out.writeValue(canMakeDemoDeposit);
-		out.writeValue(canCloseOpenPositions);
-	}
-
-	public int describeContents() {
-		return 0;
-	}
+  public static final Parcelable.Creator<PrivateTradingAccountOwnerActions> CREATOR = new Parcelable.Creator<PrivateTradingAccountOwnerActions>()
+  {
+    public PrivateTradingAccountOwnerActions createFromParcel(Parcel in) {
+      return new PrivateTradingAccountOwnerActions(in);
+    }
+
+    public PrivateTradingAccountOwnerActions[] newArray(int size) {
+      return new PrivateTradingAccountOwnerActions[size];
+    }
+  };
+
+  @SerializedName("canMakeProgramFromPrivateTradingAccount")
+  private Boolean canMakeProgramFromPrivateTradingAccount = null;
+
+  @SerializedName("canMakeExchangeProgramFromPrivateTradingAccount")
+  private Boolean canMakeExchangeProgramFromPrivateTradingAccount = null;
+
+  @SerializedName("canMakeSignalProviderFromPrivateTradingAccount")
+  private Boolean canMakeSignalProviderFromPrivateTradingAccount = null;
+
+  @SerializedName("canMakeSignalProviderFromPrivateExternalTradingAccount")
+  private Boolean canMakeSignalProviderFromPrivateExternalTradingAccount = null;
+
+  @SerializedName("canMakeProgramFromSignalProvider")
+  private Boolean canMakeProgramFromSignalProvider = null;
+
+  @SerializedName("canMakeSignalProviderFromProgram")
+  private Boolean canMakeSignalProviderFromProgram = null;
+
+  @SerializedName("canEditSignalProviderSettings")
+  private Boolean canEditSignalProviderSettings = null;
+
+  @SerializedName("isEnoughMoneyToCreateProgram")
+  private Boolean isEnoughMoneyToCreateProgram = null;
+
+  @SerializedName("canConfirm2FA")
+  private Boolean canConfirm2FA = null;
+
+  @SerializedName("canCreateApiKeys")
+  private Boolean canCreateApiKeys = null;
+
+  @SerializedName("canClose")
+  private Boolean canClose = null;
+
+  @SerializedName("canChangePassword")
+  private Boolean canChangePassword = null;
+
+  @SerializedName("canTransferMoney")
+  private Boolean canTransferMoney = null;
+
+  @SerializedName("canMakeDemoDeposit")
+  private Boolean canMakeDemoDeposit = null;
+
+  @SerializedName("canCloseOpenPositions")
+  private Boolean canCloseOpenPositions = null;
+
+  public PrivateTradingAccountOwnerActions() {
+  }
+
+  PrivateTradingAccountOwnerActions(Parcel in) {
+    canMakeProgramFromPrivateTradingAccount = (Boolean) in.readValue(null);
+    canMakeExchangeProgramFromPrivateTradingAccount = (Boolean) in.readValue(null);
+    canMakeSignalProviderFromPrivateTradingAccount = (Boolean) in.readValue(null);
+    canMakeSignalProviderFromPrivateExternalTradingAccount = (Boolean) in.readValue(null);
+    canMakeProgramFromSignalProvider = (Boolean) in.readValue(null);
+    canMakeSignalProviderFromProgram = (Boolean) in.readValue(null);
+    canEditSignalProviderSettings = (Boolean) in.readValue(null);
+    isEnoughMoneyToCreateProgram = (Boolean) in.readValue(null);
+    canConfirm2FA = (Boolean) in.readValue(null);
+    canCreateApiKeys = (Boolean) in.readValue(null);
+    canClose = (Boolean) in.readValue(null);
+    canChangePassword = (Boolean) in.readValue(null);
+    canTransferMoney = (Boolean) in.readValue(null);
+    canMakeDemoDeposit = (Boolean) in.readValue(null);
+    canCloseOpenPositions = (Boolean) in.readValue(null);
+  }
+
+  public PrivateTradingAccountOwnerActions canMakeProgramFromPrivateTradingAccount(Boolean canMakeProgramFromPrivateTradingAccount) {
+    this.canMakeProgramFromPrivateTradingAccount = canMakeProgramFromPrivateTradingAccount;
+    return this;
+  }
+
+  /**
+   * Get canMakeProgramFromPrivateTradingAccount
+   *
+   * @return canMakeProgramFromPrivateTradingAccount
+   **/
+  @Schema(description = "")
+  public Boolean isCanMakeProgramFromPrivateTradingAccount() {
+    return canMakeProgramFromPrivateTradingAccount;
+  }
+
+  public void setCanMakeProgramFromPrivateTradingAccount(Boolean canMakeProgramFromPrivateTradingAccount) {
+    this.canMakeProgramFromPrivateTradingAccount = canMakeProgramFromPrivateTradingAccount;
+  }
+
+  public PrivateTradingAccountOwnerActions canMakeExchangeProgramFromPrivateTradingAccount(Boolean canMakeExchangeProgramFromPrivateTradingAccount) {
+    this.canMakeExchangeProgramFromPrivateTradingAccount = canMakeExchangeProgramFromPrivateTradingAccount;
+    return this;
+  }
+
+  /**
+   * Get canMakeExchangeProgramFromPrivateTradingAccount
+   *
+   * @return canMakeExchangeProgramFromPrivateTradingAccount
+   **/
+  @Schema(description = "")
+  public Boolean isCanMakeExchangeProgramFromPrivateTradingAccount() {
+    return canMakeExchangeProgramFromPrivateTradingAccount;
+  }
+
+  public void setCanMakeExchangeProgramFromPrivateTradingAccount(Boolean canMakeExchangeProgramFromPrivateTradingAccount) {
+    this.canMakeExchangeProgramFromPrivateTradingAccount = canMakeExchangeProgramFromPrivateTradingAccount;
+  }
+
+  public PrivateTradingAccountOwnerActions canMakeSignalProviderFromPrivateTradingAccount(Boolean canMakeSignalProviderFromPrivateTradingAccount) {
+    this.canMakeSignalProviderFromPrivateTradingAccount = canMakeSignalProviderFromPrivateTradingAccount;
+    return this;
+  }
+
+  /**
+   * Get canMakeSignalProviderFromPrivateTradingAccount
+   *
+   * @return canMakeSignalProviderFromPrivateTradingAccount
+   **/
+  @Schema(description = "")
+  public Boolean isCanMakeSignalProviderFromPrivateTradingAccount() {
+    return canMakeSignalProviderFromPrivateTradingAccount;
+  }
+
+  public void setCanMakeSignalProviderFromPrivateTradingAccount(Boolean canMakeSignalProviderFromPrivateTradingAccount) {
+    this.canMakeSignalProviderFromPrivateTradingAccount = canMakeSignalProviderFromPrivateTradingAccount;
+  }
+
+  public PrivateTradingAccountOwnerActions canMakeSignalProviderFromPrivateExternalTradingAccount(Boolean canMakeSignalProviderFromPrivateExternalTradingAccount) {
+    this.canMakeSignalProviderFromPrivateExternalTradingAccount = canMakeSignalProviderFromPrivateExternalTradingAccount;
+    return this;
+  }
+
+  /**
+   * Get canMakeSignalProviderFromPrivateExternalTradingAccount
+   *
+   * @return canMakeSignalProviderFromPrivateExternalTradingAccount
+   **/
+  @Schema(description = "")
+  public Boolean isCanMakeSignalProviderFromPrivateExternalTradingAccount() {
+    return canMakeSignalProviderFromPrivateExternalTradingAccount;
+  }
+
+  public void setCanMakeSignalProviderFromPrivateExternalTradingAccount(Boolean canMakeSignalProviderFromPrivateExternalTradingAccount) {
+    this.canMakeSignalProviderFromPrivateExternalTradingAccount = canMakeSignalProviderFromPrivateExternalTradingAccount;
+  }
+
+  public PrivateTradingAccountOwnerActions canMakeProgramFromSignalProvider(Boolean canMakeProgramFromSignalProvider) {
+    this.canMakeProgramFromSignalProvider = canMakeProgramFromSignalProvider;
+    return this;
+  }
+
+  /**
+   * Get canMakeProgramFromSignalProvider
+   *
+   * @return canMakeProgramFromSignalProvider
+   **/
+  @Schema(description = "")
+  public Boolean isCanMakeProgramFromSignalProvider() {
+    return canMakeProgramFromSignalProvider;
+  }
+
+  public void setCanMakeProgramFromSignalProvider(Boolean canMakeProgramFromSignalProvider) {
+    this.canMakeProgramFromSignalProvider = canMakeProgramFromSignalProvider;
+  }
+
+  public PrivateTradingAccountOwnerActions canMakeSignalProviderFromProgram(Boolean canMakeSignalProviderFromProgram) {
+    this.canMakeSignalProviderFromProgram = canMakeSignalProviderFromProgram;
+    return this;
+  }
+
+  /**
+   * Get canMakeSignalProviderFromProgram
+   *
+   * @return canMakeSignalProviderFromProgram
+   **/
+  @Schema(description = "")
+  public Boolean isCanMakeSignalProviderFromProgram() {
+    return canMakeSignalProviderFromProgram;
+  }
+
+  public void setCanMakeSignalProviderFromProgram(Boolean canMakeSignalProviderFromProgram) {
+    this.canMakeSignalProviderFromProgram = canMakeSignalProviderFromProgram;
+  }
+
+  public PrivateTradingAccountOwnerActions canEditSignalProviderSettings(Boolean canEditSignalProviderSettings) {
+    this.canEditSignalProviderSettings = canEditSignalProviderSettings;
+    return this;
+  }
+
+  /**
+   * Get canEditSignalProviderSettings
+   *
+   * @return canEditSignalProviderSettings
+   **/
+  @Schema(description = "")
+  public Boolean isCanEditSignalProviderSettings() {
+    return canEditSignalProviderSettings;
+  }
+
+  public void setCanEditSignalProviderSettings(Boolean canEditSignalProviderSettings) {
+    this.canEditSignalProviderSettings = canEditSignalProviderSettings;
+  }
+
+  public PrivateTradingAccountOwnerActions isEnoughMoneyToCreateProgram(Boolean isEnoughMoneyToCreateProgram) {
+    this.isEnoughMoneyToCreateProgram = isEnoughMoneyToCreateProgram;
+    return this;
+  }
+
+  /**
+   * Get isEnoughMoneyToCreateProgram
+   *
+   * @return isEnoughMoneyToCreateProgram
+   **/
+  @Schema(description = "")
+  public Boolean isIsEnoughMoneyToCreateProgram() {
+    return isEnoughMoneyToCreateProgram;
+  }
+
+  public void setIsEnoughMoneyToCreateProgram(Boolean isEnoughMoneyToCreateProgram) {
+    this.isEnoughMoneyToCreateProgram = isEnoughMoneyToCreateProgram;
+  }
+
+  public PrivateTradingAccountOwnerActions canConfirm2FA(Boolean canConfirm2FA) {
+    this.canConfirm2FA = canConfirm2FA;
+    return this;
+  }
+
+  /**
+   * Get canConfirm2FA
+   *
+   * @return canConfirm2FA
+   **/
+  @Schema(description = "")
+  public Boolean isCanConfirm2FA() {
+    return canConfirm2FA;
+  }
+
+  public void setCanConfirm2FA(Boolean canConfirm2FA) {
+    this.canConfirm2FA = canConfirm2FA;
+  }
+
+  public PrivateTradingAccountOwnerActions canCreateApiKeys(Boolean canCreateApiKeys) {
+    this.canCreateApiKeys = canCreateApiKeys;
+    return this;
+  }
+
+  /**
+   * Get canCreateApiKeys
+   *
+   * @return canCreateApiKeys
+   **/
+  @Schema(description = "")
+  public Boolean isCanCreateApiKeys() {
+    return canCreateApiKeys;
+  }
+
+  public void setCanCreateApiKeys(Boolean canCreateApiKeys) {
+    this.canCreateApiKeys = canCreateApiKeys;
+  }
+
+  public PrivateTradingAccountOwnerActions canClose(Boolean canClose) {
+    this.canClose = canClose;
+    return this;
+  }
+
+  /**
+   * Get canClose
+   *
+   * @return canClose
+   **/
+  @Schema(description = "")
+  public Boolean isCanClose() {
+    return canClose;
+  }
+
+  public void setCanClose(Boolean canClose) {
+    this.canClose = canClose;
+  }
+
+  public PrivateTradingAccountOwnerActions canChangePassword(Boolean canChangePassword) {
+    this.canChangePassword = canChangePassword;
+    return this;
+  }
+
+  /**
+   * Get canChangePassword
+   *
+   * @return canChangePassword
+   **/
+  @Schema(description = "")
+  public Boolean isCanChangePassword() {
+    return canChangePassword;
+  }
+
+  public void setCanChangePassword(Boolean canChangePassword) {
+    this.canChangePassword = canChangePassword;
+  }
+
+  public PrivateTradingAccountOwnerActions canTransferMoney(Boolean canTransferMoney) {
+    this.canTransferMoney = canTransferMoney;
+    return this;
+  }
+
+  /**
+   * Get canTransferMoney
+   *
+   * @return canTransferMoney
+   **/
+  @Schema(description = "")
+  public Boolean isCanTransferMoney() {
+    return canTransferMoney;
+  }
+
+  public void setCanTransferMoney(Boolean canTransferMoney) {
+    this.canTransferMoney = canTransferMoney;
+  }
+
+  public PrivateTradingAccountOwnerActions canMakeDemoDeposit(Boolean canMakeDemoDeposit) {
+    this.canMakeDemoDeposit = canMakeDemoDeposit;
+    return this;
+  }
+
+  /**
+   * Get canMakeDemoDeposit
+   *
+   * @return canMakeDemoDeposit
+   **/
+  @Schema(description = "")
+  public Boolean isCanMakeDemoDeposit() {
+    return canMakeDemoDeposit;
+  }
+
+  public void setCanMakeDemoDeposit(Boolean canMakeDemoDeposit) {
+    this.canMakeDemoDeposit = canMakeDemoDeposit;
+  }
+
+  public PrivateTradingAccountOwnerActions canCloseOpenPositions(Boolean canCloseOpenPositions) {
+    this.canCloseOpenPositions = canCloseOpenPositions;
+    return this;
+  }
+
+  /**
+   * Get canCloseOpenPositions
+   *
+   * @return canCloseOpenPositions
+   **/
+  @Schema(description = "")
+  public Boolean isCanCloseOpenPositions() {
+    return canCloseOpenPositions;
+  }
+
+  public void setCanCloseOpenPositions(Boolean canCloseOpenPositions) {
+    this.canCloseOpenPositions = canCloseOpenPositions;
+  }
+
+  @Override
+  public boolean equals(java.lang.Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    PrivateTradingAccountOwnerActions privateTradingAccountOwnerActions = (PrivateTradingAccountOwnerActions) o;
+    return Objects.equals(this.canMakeProgramFromPrivateTradingAccount, privateTradingAccountOwnerActions.canMakeProgramFromPrivateTradingAccount) &&
+            Objects.equals(this.canMakeExchangeProgramFromPrivateTradingAccount, privateTradingAccountOwnerActions.canMakeExchangeProgramFromPrivateTradingAccount) &&
+            Objects.equals(this.canMakeSignalProviderFromPrivateTradingAccount, privateTradingAccountOwnerActions.canMakeSignalProviderFromPrivateTradingAccount) &&
+            Objects.equals(this.canMakeSignalProviderFromPrivateExternalTradingAccount, privateTradingAccountOwnerActions.canMakeSignalProviderFromPrivateExternalTradingAccount) &&
+            Objects.equals(this.canMakeProgramFromSignalProvider, privateTradingAccountOwnerActions.canMakeProgramFromSignalProvider) &&
+            Objects.equals(this.canMakeSignalProviderFromProgram, privateTradingAccountOwnerActions.canMakeSignalProviderFromProgram) &&
+            Objects.equals(this.canEditSignalProviderSettings, privateTradingAccountOwnerActions.canEditSignalProviderSettings) &&
+            Objects.equals(this.isEnoughMoneyToCreateProgram, privateTradingAccountOwnerActions.isEnoughMoneyToCreateProgram) &&
+            Objects.equals(this.canConfirm2FA, privateTradingAccountOwnerActions.canConfirm2FA) &&
+            Objects.equals(this.canCreateApiKeys, privateTradingAccountOwnerActions.canCreateApiKeys) &&
+            Objects.equals(this.canClose, privateTradingAccountOwnerActions.canClose) &&
+            Objects.equals(this.canChangePassword, privateTradingAccountOwnerActions.canChangePassword) &&
+            Objects.equals(this.canTransferMoney, privateTradingAccountOwnerActions.canTransferMoney) &&
+            Objects.equals(this.canMakeDemoDeposit, privateTradingAccountOwnerActions.canMakeDemoDeposit) &&
+            Objects.equals(this.canCloseOpenPositions, privateTradingAccountOwnerActions.canCloseOpenPositions);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(canMakeProgramFromPrivateTradingAccount, canMakeExchangeProgramFromPrivateTradingAccount, canMakeSignalProviderFromPrivateTradingAccount, canMakeSignalProviderFromPrivateExternalTradingAccount, canMakeProgramFromSignalProvider, canMakeSignalProviderFromProgram, canEditSignalProviderSettings, isEnoughMoneyToCreateProgram, canConfirm2FA, canCreateApiKeys, canClose, canChangePassword, canTransferMoney, canMakeDemoDeposit, canCloseOpenPositions);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class PrivateTradingAccountOwnerActions {\n");
+
+    sb.append("    canMakeProgramFromPrivateTradingAccount: ").append(toIndentedString(canMakeProgramFromPrivateTradingAccount)).append("\n");
+    sb.append("    canMakeExchangeProgramFromPrivateTradingAccount: ").append(toIndentedString(canMakeExchangeProgramFromPrivateTradingAccount)).append("\n");
+    sb.append("    canMakeSignalProviderFromPrivateTradingAccount: ").append(toIndentedString(canMakeSignalProviderFromPrivateTradingAccount)).append("\n");
+    sb.append("    canMakeSignalProviderFromPrivateExternalTradingAccount: ").append(toIndentedString(canMakeSignalProviderFromPrivateExternalTradingAccount)).append("\n");
+    sb.append("    canMakeProgramFromSignalProvider: ").append(toIndentedString(canMakeProgramFromSignalProvider)).append("\n");
+    sb.append("    canMakeSignalProviderFromProgram: ").append(toIndentedString(canMakeSignalProviderFromProgram)).append("\n");
+    sb.append("    canEditSignalProviderSettings: ").append(toIndentedString(canEditSignalProviderSettings)).append("\n");
+    sb.append("    isEnoughMoneyToCreateProgram: ").append(toIndentedString(isEnoughMoneyToCreateProgram)).append("\n");
+    sb.append("    canConfirm2FA: ").append(toIndentedString(canConfirm2FA)).append("\n");
+    sb.append("    canCreateApiKeys: ").append(toIndentedString(canCreateApiKeys)).append("\n");
+    sb.append("    canClose: ").append(toIndentedString(canClose)).append("\n");
+    sb.append("    canChangePassword: ").append(toIndentedString(canChangePassword)).append("\n");
+    sb.append("    canTransferMoney: ").append(toIndentedString(canTransferMoney)).append("\n");
+    sb.append("    canMakeDemoDeposit: ").append(toIndentedString(canMakeDemoDeposit)).append("\n");
+    sb.append("    canCloseOpenPositions: ").append(toIndentedString(canCloseOpenPositions)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(java.lang.Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+  public void writeToParcel(Parcel out, int flags) {
+    out.writeValue(canMakeProgramFromPrivateTradingAccount);
+    out.writeValue(canMakeExchangeProgramFromPrivateTradingAccount);
+    out.writeValue(canMakeSignalProviderFromPrivateTradingAccount);
+    out.writeValue(canMakeSignalProviderFromPrivateExternalTradingAccount);
+    out.writeValue(canMakeProgramFromSignalProvider);
+    out.writeValue(canMakeSignalProviderFromProgram);
+    out.writeValue(canEditSignalProviderSettings);
+    out.writeValue(isEnoughMoneyToCreateProgram);
+    out.writeValue(canConfirm2FA);
+    out.writeValue(canCreateApiKeys);
+    out.writeValue(canClose);
+    out.writeValue(canChangePassword);
+    out.writeValue(canTransferMoney);
+    out.writeValue(canMakeDemoDeposit);
+    out.writeValue(canCloseOpenPositions);
+  }
+
+  public int describeContents() {
+    return 0;
+  }
 }

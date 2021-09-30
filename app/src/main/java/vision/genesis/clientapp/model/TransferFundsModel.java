@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-import io.swagger.client.model.AmountWithCurrency;
+import io.swagger.client.model.AmountWithLogoCurrency;
 import io.swagger.client.model.InternalTransferRequestType;
 import io.swagger.client.model.PrivateTradingAccountFull;
 import io.swagger.client.model.ProgramFollowDetailsFull;
@@ -51,7 +51,7 @@ public class TransferFundsModel implements Parcelable
 	public static TransferFundsModel createFromExchangeAccount(PrivateTradingAccountFull account) {
 		String currency = account.getTradingAccountInfo().getCurrency() != null ? account.getTradingAccountInfo().getCurrency().getValue() : null;
 		Double balance = account.getTradingAccountInfo().getBalance();
-		List<AmountWithCurrency> balances = account.getTradingAccountInfo().getBalances();
+		List<AmountWithLogoCurrency> balances = account.getTradingAccountInfo().getBalances();
 		if (balances != null && !balances.isEmpty()) {
 			currency = balances.get(0).getCurrency().getValue();
 			balance = balances.get(0).getAmount();
@@ -84,7 +84,7 @@ public class TransferFundsModel implements Parcelable
 
 	private InternalTransferRequestType assetType;
 
-	private List<AmountWithCurrency> balances = new ArrayList<>();
+	private List<AmountWithLogoCurrency> balances = new ArrayList<>();
 
 	private TransferFundsModel(Parcel in) {
 		id = (UUID) in.readSerializable();
@@ -95,7 +95,7 @@ public class TransferFundsModel implements Parcelable
 		available = in.readDouble();
 		transferDirection = (TransferDirection) in.readSerializable();
 		assetType = (InternalTransferRequestType) in.readSerializable();
-		in.readTypedList(balances, AmountWithCurrency.CREATOR);
+		in.readTypedList(balances, AmountWithLogoCurrency.CREATOR);
 	}
 
 	private TransferFundsModel(UUID id, String logo, String title, String currency, Double available) {
@@ -188,11 +188,11 @@ public class TransferFundsModel implements Parcelable
 		parcel.writeTypedList(balances);
 	}
 
-	public List<AmountWithCurrency> getBalances() {
+	public List<AmountWithLogoCurrency> getBalances() {
 		return balances;
 	}
 
-	public void setBalances(List<AmountWithCurrency> balances) {
+	public void setBalances(List<AmountWithLogoCurrency> balances) {
 		this.balances = balances;
 	}
 

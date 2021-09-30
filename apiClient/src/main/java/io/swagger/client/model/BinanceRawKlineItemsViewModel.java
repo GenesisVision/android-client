@@ -17,6 +17,7 @@ import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -54,6 +55,19 @@ public class BinanceRawKlineItemsViewModel implements Parcelable
 		total = (Integer) in.readValue(null);
 	}
 
+	public BinanceRawKlineItemsViewModel items(List<BinanceRawKline> items) {
+		this.items = items;
+		return this;
+	}
+
+	public BinanceRawKlineItemsViewModel addItemsItem(BinanceRawKline itemsItem) {
+		if (this.items == null) {
+			this.items = new ArrayList<BinanceRawKline>();
+		}
+		this.items.add(itemsItem);
+		return this;
+	}
+
 	/**
 	 * Get items
 	 *
@@ -64,6 +78,15 @@ public class BinanceRawKlineItemsViewModel implements Parcelable
 		return items;
 	}
 
+	public void setItems(List<BinanceRawKline> items) {
+		this.items = items;
+	}
+
+	public BinanceRawKlineItemsViewModel total(Integer total) {
+		this.total = total;
+		return this;
+	}
+
 	/**
 	 * Get total
 	 *
@@ -72,6 +95,10 @@ public class BinanceRawKlineItemsViewModel implements Parcelable
 	@Schema(description = "")
 	public Integer getTotal() {
 		return total;
+	}
+
+	public void setTotal(Integer total) {
+		this.total = total;
 	}
 
 	@Override

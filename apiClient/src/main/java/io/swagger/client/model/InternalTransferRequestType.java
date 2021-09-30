@@ -31,7 +31,8 @@ public enum InternalTransferRequestType
 	PRIVATETRADINGACCOUNT("PrivateTradingAccount"),
 	SIGNALTRADINGACCOUNT("SignalTradingAccount"),
 	PUBLICTRADINGACCOUNT("PublicTradingAccount"),
-	EXCHANGEACCOUNT("ExchangeAccount");
+	EXCHANGEACCOUNT("ExchangeAccount"),
+	COINSMARKET("CoinsMarket");
 
 	public static InternalTransferRequestType fromValue(String text) {
 		for (InternalTransferRequestType b : InternalTransferRequestType.values()) {

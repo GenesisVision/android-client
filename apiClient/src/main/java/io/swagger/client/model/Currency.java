@@ -26,6 +26,7 @@ import java.io.IOException;
 public enum Currency
 {
 	UNDEFINED("Undefined"),
+	SYSTEMCOINMARKET("SystemCoinMarket"),
 	GVT("GVT"),
 	ETH("ETH"),
 	BTC("BTC"),

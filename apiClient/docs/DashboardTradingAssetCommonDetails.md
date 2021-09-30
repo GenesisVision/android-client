@@ -12,5 +12,5 @@ Name | Type | Description | Notes
 **originalCurrency** | [**Currency**](Currency.md) |  |  [optional]
 **leverage** | **Integer** |  |  [optional]
 **type** | [**PrivateTradingAccountType**](PrivateTradingAccountType.md) |  |  [optional]
-**balances** | [**List&lt;AmountWithCurrency&gt;**](AmountWithCurrency.md) |  |  [optional]
+**balances** | [**List&lt;AmountWithLogoCurrency&gt;**](AmountWithLogoCurrency.md) |  |  [optional]
 **supportedCurrencies** | [**List&lt;Currency&gt;**](Currency.md) |  |  [optional]

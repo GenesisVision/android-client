@@ -30,131 +30,131 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class PublicProfileFollow implements Parcelable
 {
-	public static final Parcelable.Creator<PublicProfileFollow> CREATOR = new Parcelable.Creator<PublicProfileFollow>()
-	{
-		public PublicProfileFollow createFromParcel(Parcel in) {
-			return new PublicProfileFollow(in);
-		}
+  public static final Parcelable.Creator<PublicProfileFollow> CREATOR = new Parcelable.Creator<PublicProfileFollow>()
+  {
+    public PublicProfileFollow createFromParcel(Parcel in) {
+      return new PublicProfileFollow(in);
+    }
 
-		public PublicProfileFollow[] newArray(int size) {
-			return new PublicProfileFollow[size];
-		}
-	};
+    public PublicProfileFollow[] newArray(int size) {
+      return new PublicProfileFollow[size];
+    }
+  };
 
-	@SerializedName("followers")
-	private List<ProfilePublicShort> followers = null;
+  @SerializedName("followers")
+  private List<ProfilePublicShort> followers = null;
 
-	@SerializedName("following")
-	private List<ProfilePublicShort> following = null;
+  @SerializedName("following")
+  private List<ProfilePublicShort> following = null;
 
-	public PublicProfileFollow() {
-	}
+  public PublicProfileFollow() {
+  }
 
-	PublicProfileFollow(Parcel in) {
-		followers = (List<ProfilePublicShort>) in.readValue(ProfilePublicShort.class.getClassLoader());
-		following = (List<ProfilePublicShort>) in.readValue(ProfilePublicShort.class.getClassLoader());
-	}
+  PublicProfileFollow(Parcel in) {
+    followers = (List<ProfilePublicShort>) in.readValue(ProfilePublicShort.class.getClassLoader());
+    following = (List<ProfilePublicShort>) in.readValue(ProfilePublicShort.class.getClassLoader());
+  }
 
-	public PublicProfileFollow followers(List<ProfilePublicShort> followers) {
-		this.followers = followers;
-		return this;
-	}
+  public PublicProfileFollow followers(List<ProfilePublicShort> followers) {
+    this.followers = followers;
+    return this;
+  }
 
-	public PublicProfileFollow addFollowersItem(ProfilePublicShort followersItem) {
-		if (this.followers == null) {
-			this.followers = new ArrayList<ProfilePublicShort>();
-		}
-		this.followers.add(followersItem);
-		return this;
-	}
+  public PublicProfileFollow addFollowersItem(ProfilePublicShort followersItem) {
+    if (this.followers == null) {
+      this.followers = new ArrayList<ProfilePublicShort>();
+    }
+    this.followers.add(followersItem);
+    return this;
+  }
 
-	/**
-	 * Get followers
-	 *
-	 * @return followers
-	 **/
-	@Schema(description = "")
-	public List<ProfilePublicShort> getFollowers() {
-		return followers;
-	}
+  /**
+   * Get followers
+   *
+   * @return followers
+   **/
+  @Schema(description = "")
+  public List<ProfilePublicShort> getFollowers() {
+    return followers;
+  }
 
-	public void setFollowers(List<ProfilePublicShort> followers) {
-		this.followers = followers;
-	}
+  public void setFollowers(List<ProfilePublicShort> followers) {
+    this.followers = followers;
+  }
 
-	public PublicProfileFollow following(List<ProfilePublicShort> following) {
-		this.following = following;
-		return this;
-	}
+  public PublicProfileFollow following(List<ProfilePublicShort> following) {
+    this.following = following;
+    return this;
+  }
 
-	public PublicProfileFollow addFollowingItem(ProfilePublicShort followingItem) {
-		if (this.following == null) {
-			this.following = new ArrayList<ProfilePublicShort>();
-		}
-		this.following.add(followingItem);
-		return this;
-	}
+  public PublicProfileFollow addFollowingItem(ProfilePublicShort followingItem) {
+    if (this.following == null) {
+      this.following = new ArrayList<ProfilePublicShort>();
+    }
+    this.following.add(followingItem);
+    return this;
+  }
 
-	/**
-	 * Get following
-	 *
-	 * @return following
-	 **/
-	@Schema(description = "")
-	public List<ProfilePublicShort> getFollowing() {
-		return following;
-	}
+  /**
+   * Get following
+   *
+   * @return following
+   **/
+  @Schema(description = "")
+  public List<ProfilePublicShort> getFollowing() {
+    return following;
+  }
 
-	public void setFollowing(List<ProfilePublicShort> following) {
-		this.following = following;
-	}
+  public void setFollowing(List<ProfilePublicShort> following) {
+    this.following = following;
+  }
 
-	@Override
-	public boolean equals(java.lang.Object o) {
-		if (this == o) {
-			return true;
-		}
-		if (o == null || getClass() != o.getClass()) {
-			return false;
-		}
-		PublicProfileFollow publicProfileFollow = (PublicProfileFollow) o;
-		return Objects.equals(this.followers, publicProfileFollow.followers) &&
-				Objects.equals(this.following, publicProfileFollow.following);
-	}
+  @Override
+  public boolean equals(java.lang.Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    PublicProfileFollow publicProfileFollow = (PublicProfileFollow) o;
+    return Objects.equals(this.followers, publicProfileFollow.followers) &&
+            Objects.equals(this.following, publicProfileFollow.following);
+  }
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(followers, following);
-	}
+  @Override
+  public int hashCode() {
+    return Objects.hash(followers, following);
+  }
 
-	@Override
-	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		sb.append("class PublicProfileFollow {\n");
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class PublicProfileFollow {\n");
 
-		sb.append("    followers: ").append(toIndentedString(followers)).append("\n");
-		sb.append("    following: ").append(toIndentedString(following)).append("\n");
-		sb.append("}");
-		return sb.toString();
-	}
+    sb.append("    followers: ").append(toIndentedString(followers)).append("\n");
+    sb.append("    following: ").append(toIndentedString(following)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
 
-	/**
-	 * Convert the given object to string with each line indented by 4 spaces
-	 * (except the first line).
-	 */
-	private String toIndentedString(java.lang.Object o) {
-		if (o == null) {
-			return "null";
-		}
-		return o.toString().replace("\n", "\n    ");
-	}
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(java.lang.Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
 
-	public void writeToParcel(Parcel out, int flags) {
-		out.writeValue(followers);
-		out.writeValue(following);
-	}
+  public void writeToParcel(Parcel out, int flags) {
+    out.writeValue(followers);
+    out.writeValue(following);
+  }
 
-	public int describeContents() {
-		return 0;
-	}
+  public int describeContents() {
+    return 0;
+  }
 }

@@ -28,115 +28,115 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class PlatformUrlInfo implements Parcelable
 {
-	public static final Parcelable.Creator<PlatformUrlInfo> CREATOR = new Parcelable.Creator<PlatformUrlInfo>()
-	{
-		public PlatformUrlInfo createFromParcel(Parcel in) {
-			return new PlatformUrlInfo(in);
-		}
+  public static final Parcelable.Creator<PlatformUrlInfo> CREATOR = new Parcelable.Creator<PlatformUrlInfo>()
+  {
+    public PlatformUrlInfo createFromParcel(Parcel in) {
+      return new PlatformUrlInfo(in);
+    }
 
-		public PlatformUrlInfo[] newArray(int size) {
-			return new PlatformUrlInfo[size];
-		}
-	};
+    public PlatformUrlInfo[] newArray(int size) {
+      return new PlatformUrlInfo[size];
+    }
+  };
 
-	@SerializedName("type")
-	private PlatformUrlType type = null;
+  @SerializedName("type")
+  private PlatformUrlType type = null;
 
-	@SerializedName("url")
-	private String url = null;
+  @SerializedName("url")
+  private String url = null;
 
-	public PlatformUrlInfo() {
-	}
+  public PlatformUrlInfo() {
+  }
 
-	PlatformUrlInfo(Parcel in) {
-		type = (PlatformUrlType) in.readValue(PlatformUrlType.class.getClassLoader());
-		url = (String) in.readValue(null);
-	}
+  PlatformUrlInfo(Parcel in) {
+    type = (PlatformUrlType) in.readValue(PlatformUrlType.class.getClassLoader());
+    url = (String) in.readValue(null);
+  }
 
-	public PlatformUrlInfo type(PlatformUrlType type) {
-		this.type = type;
-		return this;
-	}
+  public PlatformUrlInfo type(PlatformUrlType type) {
+    this.type = type;
+    return this;
+  }
 
-	/**
-	 * Get type
-	 *
-	 * @return type
-	 **/
-	@Schema(description = "")
-	public PlatformUrlType getType() {
-		return type;
-	}
+  /**
+   * Get type
+   *
+   * @return type
+   **/
+  @Schema(description = "")
+  public PlatformUrlType getType() {
+    return type;
+  }
 
-	public void setType(PlatformUrlType type) {
-		this.type = type;
-	}
+  public void setType(PlatformUrlType type) {
+    this.type = type;
+  }
 
-	public PlatformUrlInfo url(String url) {
-		this.url = url;
-		return this;
-	}
+  public PlatformUrlInfo url(String url) {
+    this.url = url;
+    return this;
+  }
 
-	/**
-	 * Get url
-	 *
-	 * @return url
-	 **/
-	@Schema(description = "")
-	public String getUrl() {
-		return url;
-	}
+  /**
+   * Get url
+   *
+   * @return url
+   **/
+  @Schema(description = "")
+  public String getUrl() {
+    return url;
+  }
 
-	public void setUrl(String url) {
-		this.url = url;
-	}
+  public void setUrl(String url) {
+    this.url = url;
+  }
 
-	@Override
-	public boolean equals(java.lang.Object o) {
-		if (this == o) {
-			return true;
-		}
-		if (o == null || getClass() != o.getClass()) {
-			return false;
-		}
-		PlatformUrlInfo platformUrlInfo = (PlatformUrlInfo) o;
-		return Objects.equals(this.type, platformUrlInfo.type) &&
-				Objects.equals(this.url, platformUrlInfo.url);
-	}
+  @Override
+  public boolean equals(java.lang.Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    PlatformUrlInfo platformUrlInfo = (PlatformUrlInfo) o;
+    return Objects.equals(this.type, platformUrlInfo.type) &&
+            Objects.equals(this.url, platformUrlInfo.url);
+  }
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(type, url);
-	}
+  @Override
+  public int hashCode() {
+    return Objects.hash(type, url);
+  }
 
-	@Override
-	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		sb.append("class PlatformUrlInfo {\n");
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class PlatformUrlInfo {\n");
 
-		sb.append("    type: ").append(toIndentedString(type)).append("\n");
-		sb.append("    url: ").append(toIndentedString(url)).append("\n");
-		sb.append("}");
-		return sb.toString();
-	}
+    sb.append("    type: ").append(toIndentedString(type)).append("\n");
+    sb.append("    url: ").append(toIndentedString(url)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
 
-	/**
-	 * Convert the given object to string with each line indented by 4 spaces
-	 * (except the first line).
-	 */
-	private String toIndentedString(java.lang.Object o) {
-		if (o == null) {
-			return "null";
-		}
-		return o.toString().replace("\n", "\n    ");
-	}
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(java.lang.Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
 
-	public void writeToParcel(Parcel out, int flags) {
-		out.writeValue(type);
-		out.writeValue(url);
-	}
+  public void writeToParcel(Parcel out, int flags) {
+    out.writeValue(type);
+    out.writeValue(url);
+  }
 
-	public int describeContents() {
-		return 0;
-	}
+  public int describeContents() {
+    return 0;
+  }
 }

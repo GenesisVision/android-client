@@ -25,43 +25,43 @@ import java.io.IOException;
 @JsonAdapter(SecureAlgorithm.Adapter.class)
 public enum SecureAlgorithm
 {
-	SHA256("Sha256");
+  SHA256("Sha256");
 
-	public static SecureAlgorithm fromValue(String text) {
-		for (SecureAlgorithm b : SecureAlgorithm.values()) {
-			if (String.valueOf(b.value).equals(text)) {
-				return b;
-			}
-		}
-		return null;
-	}
+  public static SecureAlgorithm fromValue(String text) {
+    for (SecureAlgorithm b : SecureAlgorithm.values()) {
+      if (String.valueOf(b.value).equals(text)) {
+        return b;
+      }
+    }
+    return null;
+  }
 
-	private String value;
+  private String value;
 
-	SecureAlgorithm(String value) {
-		this.value = value;
-	}
+  SecureAlgorithm(String value) {
+    this.value = value;
+  }
 
-	public String getValue() {
-		return value;
-	}
+  public String getValue() {
+    return value;
+  }
 
-	@Override
-	public String toString() {
-		return String.valueOf(value);
-	}
+  @Override
+  public String toString() {
+    return String.valueOf(value);
+  }
 
-	public static class Adapter extends TypeAdapter<SecureAlgorithm>
-	{
-		@Override
-		public void write(final JsonWriter jsonWriter, final SecureAlgorithm enumeration) throws IOException {
-			jsonWriter.value(enumeration.getValue());
-		}
+  public static class Adapter extends TypeAdapter<SecureAlgorithm>
+  {
+    @Override
+    public void write(final JsonWriter jsonWriter, final SecureAlgorithm enumeration) throws IOException {
+      jsonWriter.value(enumeration.getValue());
+    }
 
-		@Override
-		public SecureAlgorithm read(final JsonReader jsonReader) throws IOException {
-			Object value = jsonReader.nextString();
-			return SecureAlgorithm.fromValue(String.valueOf(value));
-		}
-	}
+    @Override
+    public SecureAlgorithm read(final JsonReader jsonReader) throws IOException {
+      Object value = jsonReader.nextString();
+      return SecureAlgorithm.fromValue(String.valueOf(value));
+    }
+  }
 }

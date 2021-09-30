@@ -8,3 +8,4 @@ Name | Type | Description | Notes
 **cap** | **Long** |  |  [optional]
 **floor** | **Long** |  |  [optional]
 **maintenanceMarginRatio** | **Double** |  |  [optional]
+**maintAmount** | **Double** |  |  [optional]

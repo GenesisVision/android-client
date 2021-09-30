@@ -30,97 +30,97 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class UpdateSocialLinksViewModel implements Parcelable
 {
-	public static final Parcelable.Creator<UpdateSocialLinksViewModel> CREATOR = new Parcelable.Creator<UpdateSocialLinksViewModel>()
-	{
-		public UpdateSocialLinksViewModel createFromParcel(Parcel in) {
-			return new UpdateSocialLinksViewModel(in);
-		}
+  public static final Parcelable.Creator<UpdateSocialLinksViewModel> CREATOR = new Parcelable.Creator<UpdateSocialLinksViewModel>()
+  {
+    public UpdateSocialLinksViewModel createFromParcel(Parcel in) {
+      return new UpdateSocialLinksViewModel(in);
+    }
 
-		public UpdateSocialLinksViewModel[] newArray(int size) {
-			return new UpdateSocialLinksViewModel[size];
-		}
-	};
+    public UpdateSocialLinksViewModel[] newArray(int size) {
+      return new UpdateSocialLinksViewModel[size];
+    }
+  };
 
-	@SerializedName("links")
-	private List<UpdateSocialLinkViewModel> links = null;
+  @SerializedName("links")
+  private List<UpdateSocialLinkViewModel> links = null;
 
-	public UpdateSocialLinksViewModel() {
-	}
+  public UpdateSocialLinksViewModel() {
+  }
 
-	UpdateSocialLinksViewModel(Parcel in) {
-		links = (List<UpdateSocialLinkViewModel>) in.readValue(UpdateSocialLinkViewModel.class.getClassLoader());
-	}
+  UpdateSocialLinksViewModel(Parcel in) {
+    links = (List<UpdateSocialLinkViewModel>) in.readValue(UpdateSocialLinkViewModel.class.getClassLoader());
+  }
 
-	public UpdateSocialLinksViewModel links(List<UpdateSocialLinkViewModel> links) {
-		this.links = links;
-		return this;
-	}
+  public UpdateSocialLinksViewModel links(List<UpdateSocialLinkViewModel> links) {
+    this.links = links;
+    return this;
+  }
 
-	public UpdateSocialLinksViewModel addLinksItem(UpdateSocialLinkViewModel linksItem) {
-		if (this.links == null) {
-			this.links = new ArrayList<UpdateSocialLinkViewModel>();
-		}
-		this.links.add(linksItem);
-		return this;
-	}
+  public UpdateSocialLinksViewModel addLinksItem(UpdateSocialLinkViewModel linksItem) {
+    if (this.links == null) {
+      this.links = new ArrayList<UpdateSocialLinkViewModel>();
+    }
+    this.links.add(linksItem);
+    return this;
+  }
 
-	/**
-	 * Get links
-	 *
-	 * @return links
-	 **/
-	@Schema(description = "")
-	public List<UpdateSocialLinkViewModel> getLinks() {
-		return links;
-	}
+  /**
+   * Get links
+   *
+   * @return links
+   **/
+  @Schema(description = "")
+  public List<UpdateSocialLinkViewModel> getLinks() {
+    return links;
+  }
 
-	public void setLinks(List<UpdateSocialLinkViewModel> links) {
-		this.links = links;
-	}
+  public void setLinks(List<UpdateSocialLinkViewModel> links) {
+    this.links = links;
+  }
 
-	@Override
-	public boolean equals(java.lang.Object o) {
-		if (this == o) {
-			return true;
-		}
-		if (o == null || getClass() != o.getClass()) {
-			return false;
-		}
-		UpdateSocialLinksViewModel updateSocialLinksViewModel = (UpdateSocialLinksViewModel) o;
-		return Objects.equals(this.links, updateSocialLinksViewModel.links);
-	}
+  @Override
+  public boolean equals(java.lang.Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    UpdateSocialLinksViewModel updateSocialLinksViewModel = (UpdateSocialLinksViewModel) o;
+    return Objects.equals(this.links, updateSocialLinksViewModel.links);
+  }
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(links);
-	}
+  @Override
+  public int hashCode() {
+    return Objects.hash(links);
+  }
 
-	@Override
-	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		sb.append("class UpdateSocialLinksViewModel {\n");
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class UpdateSocialLinksViewModel {\n");
 
-		sb.append("    links: ").append(toIndentedString(links)).append("\n");
-		sb.append("}");
-		return sb.toString();
-	}
+    sb.append("    links: ").append(toIndentedString(links)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
 
-	/**
-	 * Convert the given object to string with each line indented by 4 spaces
-	 * (except the first line).
-	 */
-	private String toIndentedString(java.lang.Object o) {
-		if (o == null) {
-			return "null";
-		}
-		return o.toString().replace("\n", "\n    ");
-	}
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(java.lang.Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
 
-	public void writeToParcel(Parcel out, int flags) {
-		out.writeValue(links);
-	}
+  public void writeToParcel(Parcel out, int flags) {
+    out.writeValue(links);
+  }
 
-	public int describeContents() {
-		return 0;
-	}
+  public int describeContents() {
+    return 0;
+  }
 }

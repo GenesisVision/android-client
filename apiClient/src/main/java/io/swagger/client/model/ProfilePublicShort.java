@@ -29,193 +29,193 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class ProfilePublicShort implements Parcelable
 {
-	public static final Parcelable.Creator<ProfilePublicShort> CREATOR = new Parcelable.Creator<ProfilePublicShort>()
-	{
-		public ProfilePublicShort createFromParcel(Parcel in) {
-			return new ProfilePublicShort(in);
-		}
+  public static final Parcelable.Creator<ProfilePublicShort> CREATOR = new Parcelable.Creator<ProfilePublicShort>()
+  {
+    public ProfilePublicShort createFromParcel(Parcel in) {
+      return new ProfilePublicShort(in);
+    }
 
-		public ProfilePublicShort[] newArray(int size) {
-			return new ProfilePublicShort[size];
-		}
-	};
+    public ProfilePublicShort[] newArray(int size) {
+      return new ProfilePublicShort[size];
+    }
+  };
 
-	@SerializedName("id")
-	private UUID id = null;
+  @SerializedName("id")
+  private UUID id = null;
 
-	@SerializedName("username")
-	private String username = null;
+  @SerializedName("username")
+  private String username = null;
 
-	@SerializedName("url")
-	private String url = null;
+  @SerializedName("url")
+  private String url = null;
 
-	@SerializedName("logoUrl")
-	private String logoUrl = null;
+  @SerializedName("logoUrl")
+  private String logoUrl = null;
 
-	@SerializedName("personalDetails")
-	private PublicProfilePersonalDetails personalDetails = null;
+  @SerializedName("personalDetails")
+  private PublicProfilePersonalDetails personalDetails = null;
 
-	public ProfilePublicShort() {
-	}
+  public ProfilePublicShort() {
+  }
 
-	ProfilePublicShort(Parcel in) {
-		id = (UUID) in.readValue(UUID.class.getClassLoader());
-		username = (String) in.readValue(null);
-		url = (String) in.readValue(null);
-		logoUrl = (String) in.readValue(null);
-		personalDetails = (PublicProfilePersonalDetails) in.readValue(PublicProfilePersonalDetails.class.getClassLoader());
-	}
+  ProfilePublicShort(Parcel in) {
+    id = (UUID) in.readValue(UUID.class.getClassLoader());
+    username = (String) in.readValue(null);
+    url = (String) in.readValue(null);
+    logoUrl = (String) in.readValue(null);
+    personalDetails = (PublicProfilePersonalDetails) in.readValue(PublicProfilePersonalDetails.class.getClassLoader());
+  }
 
-	public ProfilePublicShort id(UUID id) {
-		this.id = id;
-		return this;
-	}
+  public ProfilePublicShort id(UUID id) {
+    this.id = id;
+    return this;
+  }
 
-	/**
-	 * Get id
-	 *
-	 * @return id
-	 **/
-	@Schema(description = "")
-	public UUID getId() {
-		return id;
-	}
+  /**
+   * Get id
+   *
+   * @return id
+   **/
+  @Schema(description = "")
+  public UUID getId() {
+    return id;
+  }
 
-	public void setId(UUID id) {
-		this.id = id;
-	}
+  public void setId(UUID id) {
+    this.id = id;
+  }
 
-	public ProfilePublicShort username(String username) {
-		this.username = username;
-		return this;
-	}
+  public ProfilePublicShort username(String username) {
+    this.username = username;
+    return this;
+  }
 
-	/**
-	 * Get username
-	 *
-	 * @return username
-	 **/
-	@Schema(description = "")
-	public String getUsername() {
-		return username;
-	}
+  /**
+   * Get username
+   *
+   * @return username
+   **/
+  @Schema(description = "")
+  public String getUsername() {
+    return username;
+  }
 
-	public void setUsername(String username) {
-		this.username = username;
-	}
+  public void setUsername(String username) {
+    this.username = username;
+  }
 
-	public ProfilePublicShort url(String url) {
-		this.url = url;
-		return this;
-	}
+  public ProfilePublicShort url(String url) {
+    this.url = url;
+    return this;
+  }
 
-	/**
-	 * Get url
-	 *
-	 * @return url
-	 **/
-	@Schema(description = "")
-	public String getUrl() {
-		return url;
-	}
+  /**
+   * Get url
+   *
+   * @return url
+   **/
+  @Schema(description = "")
+  public String getUrl() {
+    return url;
+  }
 
-	public void setUrl(String url) {
-		this.url = url;
-	}
+  public void setUrl(String url) {
+    this.url = url;
+  }
 
-	public ProfilePublicShort logoUrl(String logoUrl) {
-		this.logoUrl = logoUrl;
-		return this;
-	}
+  public ProfilePublicShort logoUrl(String logoUrl) {
+    this.logoUrl = logoUrl;
+    return this;
+  }
 
-	/**
-	 * Get logoUrl
-	 *
-	 * @return logoUrl
-	 **/
-	@Schema(description = "")
-	public String getLogoUrl() {
-		return logoUrl;
-	}
+  /**
+   * Get logoUrl
+   *
+   * @return logoUrl
+   **/
+  @Schema(description = "")
+  public String getLogoUrl() {
+    return logoUrl;
+  }
 
-	public void setLogoUrl(String logoUrl) {
-		this.logoUrl = logoUrl;
-	}
+  public void setLogoUrl(String logoUrl) {
+    this.logoUrl = logoUrl;
+  }
 
-	public ProfilePublicShort personalDetails(PublicProfilePersonalDetails personalDetails) {
-		this.personalDetails = personalDetails;
-		return this;
-	}
+  public ProfilePublicShort personalDetails(PublicProfilePersonalDetails personalDetails) {
+    this.personalDetails = personalDetails;
+    return this;
+  }
 
-	/**
-	 * Get personalDetails
-	 *
-	 * @return personalDetails
-	 **/
-	@Schema(description = "")
-	public PublicProfilePersonalDetails getPersonalDetails() {
-		return personalDetails;
-	}
+  /**
+   * Get personalDetails
+   *
+   * @return personalDetails
+   **/
+  @Schema(description = "")
+  public PublicProfilePersonalDetails getPersonalDetails() {
+    return personalDetails;
+  }
 
-	public void setPersonalDetails(PublicProfilePersonalDetails personalDetails) {
-		this.personalDetails = personalDetails;
-	}
+  public void setPersonalDetails(PublicProfilePersonalDetails personalDetails) {
+    this.personalDetails = personalDetails;
+  }
 
-	@Override
-	public boolean equals(java.lang.Object o) {
-		if (this == o) {
-			return true;
-		}
-		if (o == null || getClass() != o.getClass()) {
-			return false;
-		}
-		ProfilePublicShort profilePublicShort = (ProfilePublicShort) o;
-		return Objects.equals(this.id, profilePublicShort.id) &&
-				Objects.equals(this.username, profilePublicShort.username) &&
-				Objects.equals(this.url, profilePublicShort.url) &&
-				Objects.equals(this.logoUrl, profilePublicShort.logoUrl) &&
-				Objects.equals(this.personalDetails, profilePublicShort.personalDetails);
-	}
+  @Override
+  public boolean equals(java.lang.Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    ProfilePublicShort profilePublicShort = (ProfilePublicShort) o;
+    return Objects.equals(this.id, profilePublicShort.id) &&
+            Objects.equals(this.username, profilePublicShort.username) &&
+            Objects.equals(this.url, profilePublicShort.url) &&
+            Objects.equals(this.logoUrl, profilePublicShort.logoUrl) &&
+            Objects.equals(this.personalDetails, profilePublicShort.personalDetails);
+  }
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(id, username, url, logoUrl, personalDetails);
-	}
+  @Override
+  public int hashCode() {
+    return Objects.hash(id, username, url, logoUrl, personalDetails);
+  }
 
-	@Override
-	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		sb.append("class ProfilePublicShort {\n");
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class ProfilePublicShort {\n");
 
-		sb.append("    id: ").append(toIndentedString(id)).append("\n");
-		sb.append("    username: ").append(toIndentedString(username)).append("\n");
-		sb.append("    url: ").append(toIndentedString(url)).append("\n");
-		sb.append("    logoUrl: ").append(toIndentedString(logoUrl)).append("\n");
-		sb.append("    personalDetails: ").append(toIndentedString(personalDetails)).append("\n");
-		sb.append("}");
-		return sb.toString();
-	}
+    sb.append("    id: ").append(toIndentedString(id)).append("\n");
+    sb.append("    username: ").append(toIndentedString(username)).append("\n");
+    sb.append("    url: ").append(toIndentedString(url)).append("\n");
+    sb.append("    logoUrl: ").append(toIndentedString(logoUrl)).append("\n");
+    sb.append("    personalDetails: ").append(toIndentedString(personalDetails)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
 
-	/**
-	 * Convert the given object to string with each line indented by 4 spaces
-	 * (except the first line).
-	 */
-	private String toIndentedString(java.lang.Object o) {
-		if (o == null) {
-			return "null";
-		}
-		return o.toString().replace("\n", "\n    ");
-	}
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(java.lang.Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
 
-	public void writeToParcel(Parcel out, int flags) {
-		out.writeValue(id);
-		out.writeValue(username);
-		out.writeValue(url);
-		out.writeValue(logoUrl);
-		out.writeValue(personalDetails);
-	}
+  public void writeToParcel(Parcel out, int flags) {
+    out.writeValue(id);
+    out.writeValue(username);
+    out.writeValue(url);
+    out.writeValue(logoUrl);
+    out.writeValue(personalDetails);
+  }
 
-	public int describeContents() {
-		return 0;
-	}
+  public int describeContents() {
+    return 0;
+  }
 }

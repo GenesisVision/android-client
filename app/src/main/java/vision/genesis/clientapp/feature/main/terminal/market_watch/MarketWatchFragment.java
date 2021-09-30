@@ -36,6 +36,7 @@ import butterknife.Unbinder;
 import io.swagger.client.model.ExchangeAsset;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
+import vision.genesis.clientapp.feature.auth.login.LoginActivity;
 import vision.genesis.clientapp.feature.main.terminal.select_account.SelectAccountBottomSheetFragment;
 import vision.genesis.clientapp.model.terminal.MarketWatchTickerModel;
 import vision.genesis.clientapp.ui.CustomTabView;
@@ -364,6 +365,13 @@ public class MarketWatchFragment extends BaseFragment implements MarketWatchView
 	public void showClearButton(boolean show) {
 		this.clearButton.setVisibility(show ? View.VISIBLE : View.GONE);
 		this.searchIcon.setVisibility(!show ? View.VISIBLE : View.GONE);
+	}
+
+	@Override
+	public void showLoginActivity() {
+		if (getActivity() != null) {
+			LoginActivity.startFrom(getActivity());
+		}
 	}
 
 	@Override

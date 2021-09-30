@@ -30,219 +30,219 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class ProgramWithdrawInfo implements Parcelable
 {
-	public static final Parcelable.Creator<ProgramWithdrawInfo> CREATOR = new Parcelable.Creator<ProgramWithdrawInfo>()
-	{
-		public ProgramWithdrawInfo createFromParcel(Parcel in) {
-			return new ProgramWithdrawInfo(in);
-		}
+  public static final Parcelable.Creator<ProgramWithdrawInfo> CREATOR = new Parcelable.Creator<ProgramWithdrawInfo>()
+  {
+    public ProgramWithdrawInfo createFromParcel(Parcel in) {
+      return new ProgramWithdrawInfo(in);
+    }
 
-		public ProgramWithdrawInfo[] newArray(int size) {
-			return new ProgramWithdrawInfo[size];
-		}
-	};
+    public ProgramWithdrawInfo[] newArray(int size) {
+      return new ProgramWithdrawInfo[size];
+    }
+  };
 
-	@SerializedName("title")
-	private String title = null;
+  @SerializedName("title")
+  private String title = null;
 
-	@SerializedName("availableToWithdraw")
-	private Double availableToWithdraw = null;
+  @SerializedName("availableToWithdraw")
+  private Double availableToWithdraw = null;
 
-	@SerializedName("isOwner")
-	private Boolean isOwner = null;
+  @SerializedName("isOwner")
+  private Boolean isOwner = null;
 
-	@SerializedName("withheldInvestment")
-	private Double withheldInvestment = null;
+  @SerializedName("withheldInvestment")
+  private Double withheldInvestment = null;
 
-	@SerializedName("periodEnds")
-	private DateTime periodEnds = null;
+  @SerializedName("periodEnds")
+  private DateTime periodEnds = null;
 
-	@SerializedName("withdrawInPercent")
-	private Boolean withdrawInPercent = null;
+  @SerializedName("withdrawInPercent")
+  private Boolean withdrawInPercent = null;
 
-	public ProgramWithdrawInfo() {
-	}
+  public ProgramWithdrawInfo() {
+  }
 
-	ProgramWithdrawInfo(Parcel in) {
-		title = (String) in.readValue(null);
-		availableToWithdraw = (Double) in.readValue(null);
-		isOwner = (Boolean) in.readValue(null);
-		withheldInvestment = (Double) in.readValue(null);
-		periodEnds = (DateTime) in.readValue(DateTime.class.getClassLoader());
-		withdrawInPercent = (Boolean) in.readValue(null);
-	}
+  ProgramWithdrawInfo(Parcel in) {
+    title = (String) in.readValue(null);
+    availableToWithdraw = (Double) in.readValue(null);
+    isOwner = (Boolean) in.readValue(null);
+    withheldInvestment = (Double) in.readValue(null);
+    periodEnds = (DateTime) in.readValue(DateTime.class.getClassLoader());
+    withdrawInPercent = (Boolean) in.readValue(null);
+  }
 
-	public ProgramWithdrawInfo title(String title) {
-		this.title = title;
-		return this;
-	}
+  public ProgramWithdrawInfo title(String title) {
+    this.title = title;
+    return this;
+  }
 
-	/**
-	 * Get title
-	 *
-	 * @return title
-	 **/
-	@Schema(description = "")
-	public String getTitle() {
-		return title;
-	}
+  /**
+   * Get title
+   *
+   * @return title
+   **/
+  @Schema(description = "")
+  public String getTitle() {
+    return title;
+  }
 
-	public void setTitle(String title) {
-		this.title = title;
-	}
+  public void setTitle(String title) {
+    this.title = title;
+  }
 
-	public ProgramWithdrawInfo availableToWithdraw(Double availableToWithdraw) {
-		this.availableToWithdraw = availableToWithdraw;
-		return this;
-	}
+  public ProgramWithdrawInfo availableToWithdraw(Double availableToWithdraw) {
+    this.availableToWithdraw = availableToWithdraw;
+    return this;
+  }
 
-	/**
-	 * Get availableToWithdraw
-	 *
-	 * @return availableToWithdraw
-	 **/
-	@Schema(description = "")
-	public Double getAvailableToWithdraw() {
-		return availableToWithdraw;
-	}
+  /**
+   * Get availableToWithdraw
+   *
+   * @return availableToWithdraw
+   **/
+  @Schema(description = "")
+  public Double getAvailableToWithdraw() {
+    return availableToWithdraw;
+  }
 
-	public void setAvailableToWithdraw(Double availableToWithdraw) {
-		this.availableToWithdraw = availableToWithdraw;
-	}
+  public void setAvailableToWithdraw(Double availableToWithdraw) {
+    this.availableToWithdraw = availableToWithdraw;
+  }
 
-	public ProgramWithdrawInfo isOwner(Boolean isOwner) {
-		this.isOwner = isOwner;
-		return this;
-	}
+  public ProgramWithdrawInfo isOwner(Boolean isOwner) {
+    this.isOwner = isOwner;
+    return this;
+  }
 
-	/**
-	 * Get isOwner
-	 *
-	 * @return isOwner
-	 **/
-	@Schema(description = "")
-	public Boolean isIsOwner() {
-		return isOwner;
-	}
+  /**
+   * Get isOwner
+   *
+   * @return isOwner
+   **/
+  @Schema(description = "")
+  public Boolean isIsOwner() {
+    return isOwner;
+  }
 
-	public void setIsOwner(Boolean isOwner) {
-		this.isOwner = isOwner;
-	}
+  public void setIsOwner(Boolean isOwner) {
+    this.isOwner = isOwner;
+  }
 
-	public ProgramWithdrawInfo withheldInvestment(Double withheldInvestment) {
-		this.withheldInvestment = withheldInvestment;
-		return this;
-	}
+  public ProgramWithdrawInfo withheldInvestment(Double withheldInvestment) {
+    this.withheldInvestment = withheldInvestment;
+    return this;
+  }
 
-	/**
-	 * Get withheldInvestment
-	 *
-	 * @return withheldInvestment
-	 **/
-	@Schema(description = "")
-	public Double getWithheldInvestment() {
-		return withheldInvestment;
-	}
+  /**
+   * Get withheldInvestment
+   *
+   * @return withheldInvestment
+   **/
+  @Schema(description = "")
+  public Double getWithheldInvestment() {
+    return withheldInvestment;
+  }
 
-	public void setWithheldInvestment(Double withheldInvestment) {
-		this.withheldInvestment = withheldInvestment;
-	}
+  public void setWithheldInvestment(Double withheldInvestment) {
+    this.withheldInvestment = withheldInvestment;
+  }
 
-	public ProgramWithdrawInfo periodEnds(DateTime periodEnds) {
-		this.periodEnds = periodEnds;
-		return this;
-	}
+  public ProgramWithdrawInfo periodEnds(DateTime periodEnds) {
+    this.periodEnds = periodEnds;
+    return this;
+  }
 
-	/**
-	 * Get periodEnds
-	 *
-	 * @return periodEnds
-	 **/
-	@Schema(description = "")
-	public DateTime getPeriodEnds() {
-		return periodEnds;
-	}
+  /**
+   * Get periodEnds
+   *
+   * @return periodEnds
+   **/
+  @Schema(description = "")
+  public DateTime getPeriodEnds() {
+    return periodEnds;
+  }
 
-	public void setPeriodEnds(DateTime periodEnds) {
-		this.periodEnds = periodEnds;
-	}
+  public void setPeriodEnds(DateTime periodEnds) {
+    this.periodEnds = periodEnds;
+  }
 
-	public ProgramWithdrawInfo withdrawInPercent(Boolean withdrawInPercent) {
-		this.withdrawInPercent = withdrawInPercent;
-		return this;
-	}
+  public ProgramWithdrawInfo withdrawInPercent(Boolean withdrawInPercent) {
+    this.withdrawInPercent = withdrawInPercent;
+    return this;
+  }
 
-	/**
-	 * Get withdrawInPercent
-	 *
-	 * @return withdrawInPercent
-	 **/
-	@Schema(description = "")
-	public Boolean isWithdrawInPercent() {
-		return withdrawInPercent;
-	}
+  /**
+   * Get withdrawInPercent
+   *
+   * @return withdrawInPercent
+   **/
+  @Schema(description = "")
+  public Boolean isWithdrawInPercent() {
+    return withdrawInPercent;
+  }
 
-	public void setWithdrawInPercent(Boolean withdrawInPercent) {
-		this.withdrawInPercent = withdrawInPercent;
-	}
+  public void setWithdrawInPercent(Boolean withdrawInPercent) {
+    this.withdrawInPercent = withdrawInPercent;
+  }
 
-	@Override
-	public boolean equals(java.lang.Object o) {
-		if (this == o) {
-			return true;
-		}
-		if (o == null || getClass() != o.getClass()) {
-			return false;
-		}
-		ProgramWithdrawInfo programWithdrawInfo = (ProgramWithdrawInfo) o;
-		return Objects.equals(this.title, programWithdrawInfo.title) &&
-				Objects.equals(this.availableToWithdraw, programWithdrawInfo.availableToWithdraw) &&
-				Objects.equals(this.isOwner, programWithdrawInfo.isOwner) &&
-				Objects.equals(this.withheldInvestment, programWithdrawInfo.withheldInvestment) &&
-				Objects.equals(this.periodEnds, programWithdrawInfo.periodEnds) &&
-				Objects.equals(this.withdrawInPercent, programWithdrawInfo.withdrawInPercent);
-	}
+  @Override
+  public boolean equals(java.lang.Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    ProgramWithdrawInfo programWithdrawInfo = (ProgramWithdrawInfo) o;
+    return Objects.equals(this.title, programWithdrawInfo.title) &&
+            Objects.equals(this.availableToWithdraw, programWithdrawInfo.availableToWithdraw) &&
+            Objects.equals(this.isOwner, programWithdrawInfo.isOwner) &&
+            Objects.equals(this.withheldInvestment, programWithdrawInfo.withheldInvestment) &&
+            Objects.equals(this.periodEnds, programWithdrawInfo.periodEnds) &&
+            Objects.equals(this.withdrawInPercent, programWithdrawInfo.withdrawInPercent);
+  }
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(title, availableToWithdraw, isOwner, withheldInvestment, periodEnds, withdrawInPercent);
-	}
+  @Override
+  public int hashCode() {
+    return Objects.hash(title, availableToWithdraw, isOwner, withheldInvestment, periodEnds, withdrawInPercent);
+  }
 
-	@Override
-	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		sb.append("class ProgramWithdrawInfo {\n");
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class ProgramWithdrawInfo {\n");
 
-		sb.append("    title: ").append(toIndentedString(title)).append("\n");
-		sb.append("    availableToWithdraw: ").append(toIndentedString(availableToWithdraw)).append("\n");
-		sb.append("    isOwner: ").append(toIndentedString(isOwner)).append("\n");
-		sb.append("    withheldInvestment: ").append(toIndentedString(withheldInvestment)).append("\n");
-		sb.append("    periodEnds: ").append(toIndentedString(periodEnds)).append("\n");
-		sb.append("    withdrawInPercent: ").append(toIndentedString(withdrawInPercent)).append("\n");
-		sb.append("}");
-		return sb.toString();
-	}
+    sb.append("    title: ").append(toIndentedString(title)).append("\n");
+    sb.append("    availableToWithdraw: ").append(toIndentedString(availableToWithdraw)).append("\n");
+    sb.append("    isOwner: ").append(toIndentedString(isOwner)).append("\n");
+    sb.append("    withheldInvestment: ").append(toIndentedString(withheldInvestment)).append("\n");
+    sb.append("    periodEnds: ").append(toIndentedString(periodEnds)).append("\n");
+    sb.append("    withdrawInPercent: ").append(toIndentedString(withdrawInPercent)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
 
-	/**
-	 * Convert the given object to string with each line indented by 4 spaces
-	 * (except the first line).
-	 */
-	private String toIndentedString(java.lang.Object o) {
-		if (o == null) {
-			return "null";
-		}
-		return o.toString().replace("\n", "\n    ");
-	}
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(java.lang.Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
 
-	public void writeToParcel(Parcel out, int flags) {
-		out.writeValue(title);
-		out.writeValue(availableToWithdraw);
-		out.writeValue(isOwner);
-		out.writeValue(withheldInvestment);
-		out.writeValue(periodEnds);
-		out.writeValue(withdrawInPercent);
-	}
+  public void writeToParcel(Parcel out, int flags) {
+    out.writeValue(title);
+    out.writeValue(availableToWithdraw);
+    out.writeValue(isOwner);
+    out.writeValue(withheldInvestment);
+    out.writeValue(periodEnds);
+    out.writeValue(withdrawInPercent);
+  }
 
-	public int describeContents() {
-		return 0;
-	}
+  public int describeContents() {
+    return 0;
+  }
 }

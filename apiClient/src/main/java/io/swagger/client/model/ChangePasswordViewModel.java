@@ -28,141 +28,141 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class ChangePasswordViewModel implements Parcelable
 {
-	public static final Parcelable.Creator<ChangePasswordViewModel> CREATOR = new Parcelable.Creator<ChangePasswordViewModel>()
-	{
-		public ChangePasswordViewModel createFromParcel(Parcel in) {
-			return new ChangePasswordViewModel(in);
-		}
+  public static final Parcelable.Creator<ChangePasswordViewModel> CREATOR = new Parcelable.Creator<ChangePasswordViewModel>()
+  {
+    public ChangePasswordViewModel createFromParcel(Parcel in) {
+      return new ChangePasswordViewModel(in);
+    }
 
-		public ChangePasswordViewModel[] newArray(int size) {
-			return new ChangePasswordViewModel[size];
-		}
-	};
+    public ChangePasswordViewModel[] newArray(int size) {
+      return new ChangePasswordViewModel[size];
+    }
+  };
 
-	@SerializedName("oldPassword")
-	private String oldPassword = null;
+  @SerializedName("oldPassword")
+  private String oldPassword = null;
 
-	@SerializedName("password")
-	private String password = null;
+  @SerializedName("password")
+  private String password = null;
 
-	@SerializedName("confirmPassword")
-	private String confirmPassword = null;
+  @SerializedName("confirmPassword")
+  private String confirmPassword = null;
 
-	public ChangePasswordViewModel() {
-	}
+  public ChangePasswordViewModel() {
+  }
 
-	ChangePasswordViewModel(Parcel in) {
-		oldPassword = (String) in.readValue(null);
-		password = (String) in.readValue(null);
-		confirmPassword = (String) in.readValue(null);
-	}
+  ChangePasswordViewModel(Parcel in) {
+    oldPassword = (String) in.readValue(null);
+    password = (String) in.readValue(null);
+    confirmPassword = (String) in.readValue(null);
+  }
 
-	public ChangePasswordViewModel oldPassword(String oldPassword) {
-		this.oldPassword = oldPassword;
-		return this;
-	}
+  public ChangePasswordViewModel oldPassword(String oldPassword) {
+    this.oldPassword = oldPassword;
+    return this;
+  }
 
-	/**
-	 * Get oldPassword
-	 *
-	 * @return oldPassword
-	 **/
-	@Schema(required = true, description = "")
-	public String getOldPassword() {
-		return oldPassword;
-	}
+  /**
+   * Get oldPassword
+   *
+   * @return oldPassword
+   **/
+  @Schema(required = true, description = "")
+  public String getOldPassword() {
+    return oldPassword;
+  }
 
-	public void setOldPassword(String oldPassword) {
-		this.oldPassword = oldPassword;
-	}
+  public void setOldPassword(String oldPassword) {
+    this.oldPassword = oldPassword;
+  }
 
-	public ChangePasswordViewModel password(String password) {
-		this.password = password;
-		return this;
-	}
+  public ChangePasswordViewModel password(String password) {
+    this.password = password;
+    return this;
+  }
 
-	/**
-	 * Get password
-	 *
-	 * @return password
-	 **/
-	@Schema(required = true, description = "")
-	public String getPassword() {
-		return password;
-	}
+  /**
+   * Get password
+   *
+   * @return password
+   **/
+  @Schema(required = true, description = "")
+  public String getPassword() {
+    return password;
+  }
 
-	public void setPassword(String password) {
-		this.password = password;
-	}
+  public void setPassword(String password) {
+    this.password = password;
+  }
 
-	public ChangePasswordViewModel confirmPassword(String confirmPassword) {
-		this.confirmPassword = confirmPassword;
-		return this;
-	}
+  public ChangePasswordViewModel confirmPassword(String confirmPassword) {
+    this.confirmPassword = confirmPassword;
+    return this;
+  }
 
-	/**
-	 * Get confirmPassword
-	 *
-	 * @return confirmPassword
-	 **/
-	@Schema(description = "")
-	public String getConfirmPassword() {
-		return confirmPassword;
-	}
+  /**
+   * Get confirmPassword
+   *
+   * @return confirmPassword
+   **/
+  @Schema(description = "")
+  public String getConfirmPassword() {
+    return confirmPassword;
+  }
 
-	public void setConfirmPassword(String confirmPassword) {
-		this.confirmPassword = confirmPassword;
-	}
+  public void setConfirmPassword(String confirmPassword) {
+    this.confirmPassword = confirmPassword;
+  }
 
-	@Override
-	public boolean equals(java.lang.Object o) {
-		if (this == o) {
-			return true;
-		}
-		if (o == null || getClass() != o.getClass()) {
-			return false;
-		}
-		ChangePasswordViewModel changePasswordViewModel = (ChangePasswordViewModel) o;
-		return Objects.equals(this.oldPassword, changePasswordViewModel.oldPassword) &&
-				Objects.equals(this.password, changePasswordViewModel.password) &&
-				Objects.equals(this.confirmPassword, changePasswordViewModel.confirmPassword);
-	}
+  @Override
+  public boolean equals(java.lang.Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    ChangePasswordViewModel changePasswordViewModel = (ChangePasswordViewModel) o;
+    return Objects.equals(this.oldPassword, changePasswordViewModel.oldPassword) &&
+            Objects.equals(this.password, changePasswordViewModel.password) &&
+            Objects.equals(this.confirmPassword, changePasswordViewModel.confirmPassword);
+  }
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(oldPassword, password, confirmPassword);
-	}
+  @Override
+  public int hashCode() {
+    return Objects.hash(oldPassword, password, confirmPassword);
+  }
 
-	@Override
-	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		sb.append("class ChangePasswordViewModel {\n");
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class ChangePasswordViewModel {\n");
 
-		sb.append("    oldPassword: ").append(toIndentedString(oldPassword)).append("\n");
-		sb.append("    password: ").append(toIndentedString(password)).append("\n");
-		sb.append("    confirmPassword: ").append(toIndentedString(confirmPassword)).append("\n");
-		sb.append("}");
-		return sb.toString();
-	}
+    sb.append("    oldPassword: ").append(toIndentedString(oldPassword)).append("\n");
+    sb.append("    password: ").append(toIndentedString(password)).append("\n");
+    sb.append("    confirmPassword: ").append(toIndentedString(confirmPassword)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
 
-	/**
-	 * Convert the given object to string with each line indented by 4 spaces
-	 * (except the first line).
-	 */
-	private String toIndentedString(java.lang.Object o) {
-		if (o == null) {
-			return "null";
-		}
-		return o.toString().replace("\n", "\n    ");
-	}
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(java.lang.Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
 
-	public void writeToParcel(Parcel out, int flags) {
-		out.writeValue(oldPassword);
-		out.writeValue(password);
-		out.writeValue(confirmPassword);
-	}
+  public void writeToParcel(Parcel out, int flags) {
+    out.writeValue(oldPassword);
+    out.writeValue(password);
+    out.writeValue(confirmPassword);
+  }
 
-	public int describeContents() {
-		return 0;
-	}
+  public int describeContents() {
+    return 0;
+  }
 }

@@ -654,7 +654,15 @@ public class TerminalManager
 				)
 				.registerTypeAdapter(
 						BinanceOrderType.class,
-						(JsonDeserializer<BinanceOrderType>) (json, typeOfT, context) -> BinanceOrderType.valueOf(json.getAsString())
+						(JsonDeserializer<BinanceOrderType>) (json, typeOfT, context) -> {
+							if (json.getAsString().equals("TAKE_PROFIT_LIMIT")) {
+								return BinanceOrderType.TAKEPROFITLIMIT;
+							}
+							else {
+								return
+										BinanceOrderType.valueOf(json.getAsString());
+							}
+						}
 				)
 				.registerTypeAdapter(
 						BinanceOrderSide.class,

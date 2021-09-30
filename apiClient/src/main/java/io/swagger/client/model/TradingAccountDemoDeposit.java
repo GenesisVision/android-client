@@ -28,89 +28,89 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class TradingAccountDemoDeposit implements Parcelable
 {
-	public static final Parcelable.Creator<TradingAccountDemoDeposit> CREATOR = new Parcelable.Creator<TradingAccountDemoDeposit>()
-	{
-		public TradingAccountDemoDeposit createFromParcel(Parcel in) {
-			return new TradingAccountDemoDeposit(in);
-		}
+  public static final Parcelable.Creator<TradingAccountDemoDeposit> CREATOR = new Parcelable.Creator<TradingAccountDemoDeposit>()
+  {
+    public TradingAccountDemoDeposit createFromParcel(Parcel in) {
+      return new TradingAccountDemoDeposit(in);
+    }
 
-		public TradingAccountDemoDeposit[] newArray(int size) {
-			return new TradingAccountDemoDeposit[size];
-		}
-	};
+    public TradingAccountDemoDeposit[] newArray(int size) {
+      return new TradingAccountDemoDeposit[size];
+    }
+  };
 
-	@SerializedName("amount")
-	private Double amount = null;
+  @SerializedName("amount")
+  private Double amount = null;
 
-	public TradingAccountDemoDeposit() {
-	}
+  public TradingAccountDemoDeposit() {
+  }
 
-	TradingAccountDemoDeposit(Parcel in) {
-		amount = (Double) in.readValue(null);
-	}
+  TradingAccountDemoDeposit(Parcel in) {
+    amount = (Double) in.readValue(null);
+  }
 
-	public TradingAccountDemoDeposit amount(Double amount) {
-		this.amount = amount;
-		return this;
-	}
+  public TradingAccountDemoDeposit amount(Double amount) {
+    this.amount = amount;
+    return this;
+  }
 
-	/**
-	 * Get amount
-	 *
-	 * @return amount
-	 **/
-	@Schema(description = "")
-	public Double getAmount() {
-		return amount;
-	}
+  /**
+   * Get amount
+   *
+   * @return amount
+   **/
+  @Schema(description = "")
+  public Double getAmount() {
+    return amount;
+  }
 
-	public void setAmount(Double amount) {
-		this.amount = amount;
-	}
+  public void setAmount(Double amount) {
+    this.amount = amount;
+  }
 
-	@Override
-	public boolean equals(java.lang.Object o) {
-		if (this == o) {
-			return true;
-		}
-		if (o == null || getClass() != o.getClass()) {
-			return false;
-		}
-		TradingAccountDemoDeposit tradingAccountDemoDeposit = (TradingAccountDemoDeposit) o;
-		return Objects.equals(this.amount, tradingAccountDemoDeposit.amount);
-	}
+  @Override
+  public boolean equals(java.lang.Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    TradingAccountDemoDeposit tradingAccountDemoDeposit = (TradingAccountDemoDeposit) o;
+    return Objects.equals(this.amount, tradingAccountDemoDeposit.amount);
+  }
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(amount);
-	}
+  @Override
+  public int hashCode() {
+    return Objects.hash(amount);
+  }
 
-	@Override
-	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		sb.append("class TradingAccountDemoDeposit {\n");
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class TradingAccountDemoDeposit {\n");
 
-		sb.append("    amount: ").append(toIndentedString(amount)).append("\n");
-		sb.append("}");
-		return sb.toString();
-	}
+    sb.append("    amount: ").append(toIndentedString(amount)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
 
-	/**
-	 * Convert the given object to string with each line indented by 4 spaces
-	 * (except the first line).
-	 */
-	private String toIndentedString(java.lang.Object o) {
-		if (o == null) {
-			return "null";
-		}
-		return o.toString().replace("\n", "\n    ");
-	}
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(java.lang.Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
 
-	public void writeToParcel(Parcel out, int flags) {
-		out.writeValue(amount);
-	}
+  public void writeToParcel(Parcel out, int flags) {
+    out.writeValue(amount);
+  }
 
-	public int describeContents() {
-		return 0;
-	}
+  public int describeContents() {
+    return 0;
+  }
 }

@@ -56,6 +56,9 @@ public class BinanceRawFuturesMarkPrice implements Parcelable
 	@SerializedName("time")
 	private DateTime time = null;
 
+	@SerializedName("indexPrice")
+	private Double indexPrice = null;
+
 	public BinanceRawFuturesMarkPrice() {
 	}
 
@@ -65,6 +68,7 @@ public class BinanceRawFuturesMarkPrice implements Parcelable
 		fundingRate = (Double) in.readValue(null);
 		nextFundingTime = (DateTime) in.readValue(DateTime.class.getClassLoader());
 		time = (DateTime) in.readValue(DateTime.class.getClassLoader());
+		indexPrice = (Double) in.readValue(null);
 	}
 
 	public BinanceRawFuturesMarkPrice symbol(String symbol) {
@@ -162,6 +166,25 @@ public class BinanceRawFuturesMarkPrice implements Parcelable
 		this.time = time;
 	}
 
+	public BinanceRawFuturesMarkPrice indexPrice(Double indexPrice) {
+		this.indexPrice = indexPrice;
+		return this;
+	}
+
+	/**
+	 * Get indexPrice
+	 *
+	 * @return indexPrice
+	 **/
+	@Schema(description = "")
+	public Double getIndexPrice() {
+		return indexPrice;
+	}
+
+	public void setIndexPrice(Double indexPrice) {
+		this.indexPrice = indexPrice;
+	}
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -175,12 +198,13 @@ public class BinanceRawFuturesMarkPrice implements Parcelable
 				Objects.equals(this.markPrice, binanceRawFuturesMarkPrice.markPrice) &&
 				Objects.equals(this.fundingRate, binanceRawFuturesMarkPrice.fundingRate) &&
 				Objects.equals(this.nextFundingTime, binanceRawFuturesMarkPrice.nextFundingTime) &&
-				Objects.equals(this.time, binanceRawFuturesMarkPrice.time);
+				Objects.equals(this.time, binanceRawFuturesMarkPrice.time) &&
+				Objects.equals(this.indexPrice, binanceRawFuturesMarkPrice.indexPrice);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(symbol, markPrice, fundingRate, nextFundingTime, time);
+		return Objects.hash(symbol, markPrice, fundingRate, nextFundingTime, time, indexPrice);
 	}
 
 	@Override
@@ -193,6 +217,7 @@ public class BinanceRawFuturesMarkPrice implements Parcelable
 		sb.append("    fundingRate: ").append(toIndentedString(fundingRate)).append("\n");
 		sb.append("    nextFundingTime: ").append(toIndentedString(nextFundingTime)).append("\n");
 		sb.append("    time: ").append(toIndentedString(time)).append("\n");
+		sb.append("    indexPrice: ").append(toIndentedString(indexPrice)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}
@@ -214,6 +239,7 @@ public class BinanceRawFuturesMarkPrice implements Parcelable
 		out.writeValue(fundingRate);
 		out.writeValue(nextFundingTime);
 		out.writeValue(time);
+		out.writeValue(indexPrice);
 	}
 
 	public int describeContents() {

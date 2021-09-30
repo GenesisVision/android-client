@@ -60,20 +60,20 @@ public class BinanceRawFuturesAccountAsset implements Parcelable
 	@SerializedName("positionInitialMargin")
 	private Double positionInitialMargin = null;
 
-	@SerializedName("unrealizedProfit")
-	private Double unrealizedProfit = null;
-
 	@SerializedName("walletBalance")
 	private Double walletBalance = null;
 
 	@SerializedName("crossWalletBalance")
 	private Double crossWalletBalance = null;
 
-	@SerializedName("crossUnPnl")
-	private Double crossUnPnl = null;
-
 	@SerializedName("availableBalance")
 	private Double availableBalance = null;
+
+	@SerializedName("unrealizedPnL")
+	private Double unrealizedPnL = null;
+
+	@SerializedName("crossUnrealizedPnL")
+	private Double crossUnrealizedPnL = null;
 
 	public BinanceRawFuturesAccountAsset() {
 	}
@@ -86,11 +86,11 @@ public class BinanceRawFuturesAccountAsset implements Parcelable
 		maxWithdrawAmount = (Double) in.readValue(null);
 		openOrderInitialMargin = (Double) in.readValue(null);
 		positionInitialMargin = (Double) in.readValue(null);
-		unrealizedProfit = (Double) in.readValue(null);
 		walletBalance = (Double) in.readValue(null);
 		crossWalletBalance = (Double) in.readValue(null);
-		crossUnPnl = (Double) in.readValue(null);
 		availableBalance = (Double) in.readValue(null);
+		unrealizedPnL = (Double) in.readValue(null);
+		crossUnrealizedPnL = (Double) in.readValue(null);
 	}
 
 	public BinanceRawFuturesAccountAsset asset(String asset) {
@@ -226,25 +226,6 @@ public class BinanceRawFuturesAccountAsset implements Parcelable
 		this.positionInitialMargin = positionInitialMargin;
 	}
 
-	public BinanceRawFuturesAccountAsset unrealizedProfit(Double unrealizedProfit) {
-		this.unrealizedProfit = unrealizedProfit;
-		return this;
-	}
-
-	/**
-	 * Get unrealizedProfit
-	 *
-	 * @return unrealizedProfit
-	 **/
-	@Schema(description = "")
-	public Double getUnrealizedProfit() {
-		return unrealizedProfit;
-	}
-
-	public void setUnrealizedProfit(Double unrealizedProfit) {
-		this.unrealizedProfit = unrealizedProfit;
-	}
-
 	public BinanceRawFuturesAccountAsset walletBalance(Double walletBalance) {
 		this.walletBalance = walletBalance;
 		return this;
@@ -283,25 +264,6 @@ public class BinanceRawFuturesAccountAsset implements Parcelable
 		this.crossWalletBalance = crossWalletBalance;
 	}
 
-	public BinanceRawFuturesAccountAsset crossUnPnl(Double crossUnPnl) {
-		this.crossUnPnl = crossUnPnl;
-		return this;
-	}
-
-	/**
-	 * Get crossUnPnl
-	 *
-	 * @return crossUnPnl
-	 **/
-	@Schema(description = "")
-	public Double getCrossUnPnl() {
-		return crossUnPnl;
-	}
-
-	public void setCrossUnPnl(Double crossUnPnl) {
-		this.crossUnPnl = crossUnPnl;
-	}
-
 	public BinanceRawFuturesAccountAsset availableBalance(Double availableBalance) {
 		this.availableBalance = availableBalance;
 		return this;
@@ -321,6 +283,44 @@ public class BinanceRawFuturesAccountAsset implements Parcelable
 		this.availableBalance = availableBalance;
 	}
 
+	public BinanceRawFuturesAccountAsset unrealizedPnL(Double unrealizedPnL) {
+		this.unrealizedPnL = unrealizedPnL;
+		return this;
+	}
+
+	/**
+	 * Get unrealizedPnL
+	 *
+	 * @return unrealizedPnL
+	 **/
+	@Schema(description = "")
+	public Double getUnrealizedPnL() {
+		return unrealizedPnL;
+	}
+
+	public void setUnrealizedPnL(Double unrealizedPnL) {
+		this.unrealizedPnL = unrealizedPnL;
+	}
+
+	public BinanceRawFuturesAccountAsset crossUnrealizedPnL(Double crossUnrealizedPnL) {
+		this.crossUnrealizedPnL = crossUnrealizedPnL;
+		return this;
+	}
+
+	/**
+	 * Get crossUnrealizedPnL
+	 *
+	 * @return crossUnrealizedPnL
+	 **/
+	@Schema(description = "")
+	public Double getCrossUnrealizedPnL() {
+		return crossUnrealizedPnL;
+	}
+
+	public void setCrossUnrealizedPnL(Double crossUnrealizedPnL) {
+		this.crossUnrealizedPnL = crossUnrealizedPnL;
+	}
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -337,16 +337,16 @@ public class BinanceRawFuturesAccountAsset implements Parcelable
 				Objects.equals(this.maxWithdrawAmount, binanceRawFuturesAccountAsset.maxWithdrawAmount) &&
 				Objects.equals(this.openOrderInitialMargin, binanceRawFuturesAccountAsset.openOrderInitialMargin) &&
 				Objects.equals(this.positionInitialMargin, binanceRawFuturesAccountAsset.positionInitialMargin) &&
-				Objects.equals(this.unrealizedProfit, binanceRawFuturesAccountAsset.unrealizedProfit) &&
 				Objects.equals(this.walletBalance, binanceRawFuturesAccountAsset.walletBalance) &&
 				Objects.equals(this.crossWalletBalance, binanceRawFuturesAccountAsset.crossWalletBalance) &&
-				Objects.equals(this.crossUnPnl, binanceRawFuturesAccountAsset.crossUnPnl) &&
-				Objects.equals(this.availableBalance, binanceRawFuturesAccountAsset.availableBalance);
+				Objects.equals(this.availableBalance, binanceRawFuturesAccountAsset.availableBalance) &&
+				Objects.equals(this.unrealizedPnL, binanceRawFuturesAccountAsset.unrealizedPnL) &&
+				Objects.equals(this.crossUnrealizedPnL, binanceRawFuturesAccountAsset.crossUnrealizedPnL);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(asset, initialMargin, maintMargin, marginBalance, maxWithdrawAmount, openOrderInitialMargin, positionInitialMargin, unrealizedProfit, walletBalance, crossWalletBalance, crossUnPnl, availableBalance);
+		return Objects.hash(asset, initialMargin, maintMargin, marginBalance, maxWithdrawAmount, openOrderInitialMargin, positionInitialMargin, walletBalance, crossWalletBalance, availableBalance, unrealizedPnL, crossUnrealizedPnL);
 	}
 
 	@Override
@@ -361,11 +361,11 @@ public class BinanceRawFuturesAccountAsset implements Parcelable
 		sb.append("    maxWithdrawAmount: ").append(toIndentedString(maxWithdrawAmount)).append("\n");
 		sb.append("    openOrderInitialMargin: ").append(toIndentedString(openOrderInitialMargin)).append("\n");
 		sb.append("    positionInitialMargin: ").append(toIndentedString(positionInitialMargin)).append("\n");
-		sb.append("    unrealizedProfit: ").append(toIndentedString(unrealizedProfit)).append("\n");
 		sb.append("    walletBalance: ").append(toIndentedString(walletBalance)).append("\n");
 		sb.append("    crossWalletBalance: ").append(toIndentedString(crossWalletBalance)).append("\n");
-		sb.append("    crossUnPnl: ").append(toIndentedString(crossUnPnl)).append("\n");
 		sb.append("    availableBalance: ").append(toIndentedString(availableBalance)).append("\n");
+		sb.append("    unrealizedPnL: ").append(toIndentedString(unrealizedPnL)).append("\n");
+		sb.append("    crossUnrealizedPnL: ").append(toIndentedString(crossUnrealizedPnL)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}
@@ -389,11 +389,11 @@ public class BinanceRawFuturesAccountAsset implements Parcelable
 		out.writeValue(maxWithdrawAmount);
 		out.writeValue(openOrderInitialMargin);
 		out.writeValue(positionInitialMargin);
-		out.writeValue(unrealizedProfit);
 		out.writeValue(walletBalance);
 		out.writeValue(crossWalletBalance);
-		out.writeValue(crossUnPnl);
 		out.writeValue(availableBalance);
+		out.writeValue(unrealizedPnL);
+		out.writeValue(crossUnrealizedPnL);
 	}
 
 	public int describeContents() {

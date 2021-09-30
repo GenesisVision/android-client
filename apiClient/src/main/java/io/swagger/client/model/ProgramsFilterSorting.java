@@ -25,62 +25,62 @@ import java.io.IOException;
 @JsonAdapter(ProgramsFilterSorting.Adapter.class)
 public enum ProgramsFilterSorting
 {
-	BYTITLEASC("ByTitleAsc"),
-	BYTITLEDESC("ByTitleDesc"),
-	BYEQUITYASC("ByEquityAsc"),
-	BYEQUITYDESC("ByEquityDesc"),
-	BYINVESTORSASC("ByInvestorsAsc"),
-	BYINVESTORSDESC("ByInvestorsDesc"),
-	BYPERIODASC("ByPeriodAsc"),
-	BYPERIODDESC("ByPeriodDesc"),
-	BYDRAWDOWNASC("ByDrawdownAsc"),
-	BYDRAWDOWNDESC("ByDrawdownDesc"),
-	BYPROFITASC("ByProfitAsc"),
-	BYPROFITDESC("ByProfitDesc"),
-	BYNEWASC("ByNewAsc"),
-	BYNEWDESC("ByNewDesc"),
-	BYLEVELPROGRESSASC("ByLevelProgressAsc"),
-	BYLEVELPROGRESSDESC("ByLevelProgressDesc"),
-	BYLEVELASC("ByLevelAsc"),
-	BYLEVELDESC("ByLevelDesc"),
-	BYVALUEASC("ByValueAsc"),
-	BYVALUEDESC("ByValueDesc");
+  BYTITLEASC("ByTitleAsc"),
+  BYTITLEDESC("ByTitleDesc"),
+  BYEQUITYASC("ByEquityAsc"),
+  BYEQUITYDESC("ByEquityDesc"),
+  BYINVESTORSASC("ByInvestorsAsc"),
+  BYINVESTORSDESC("ByInvestorsDesc"),
+  BYPERIODASC("ByPeriodAsc"),
+  BYPERIODDESC("ByPeriodDesc"),
+  BYDRAWDOWNASC("ByDrawdownAsc"),
+  BYDRAWDOWNDESC("ByDrawdownDesc"),
+  BYPROFITASC("ByProfitAsc"),
+  BYPROFITDESC("ByProfitDesc"),
+  BYNEWASC("ByNewAsc"),
+  BYNEWDESC("ByNewDesc"),
+  BYLEVELPROGRESSASC("ByLevelProgressAsc"),
+  BYLEVELPROGRESSDESC("ByLevelProgressDesc"),
+  BYLEVELASC("ByLevelAsc"),
+  BYLEVELDESC("ByLevelDesc"),
+  BYVALUEASC("ByValueAsc"),
+  BYVALUEDESC("ByValueDesc");
 
-	public static ProgramsFilterSorting fromValue(String text) {
-		for (ProgramsFilterSorting b : ProgramsFilterSorting.values()) {
-			if (String.valueOf(b.value).equals(text)) {
-				return b;
-			}
-		}
-		return null;
-	}
+  public static ProgramsFilterSorting fromValue(String text) {
+    for (ProgramsFilterSorting b : ProgramsFilterSorting.values()) {
+      if (String.valueOf(b.value).equals(text)) {
+        return b;
+      }
+    }
+    return null;
+  }
 
-	private String value;
+  private String value;
 
-	ProgramsFilterSorting(String value) {
-		this.value = value;
-	}
+  ProgramsFilterSorting(String value) {
+    this.value = value;
+  }
 
-	public String getValue() {
-		return value;
-	}
+  public String getValue() {
+    return value;
+  }
 
-	@Override
-	public String toString() {
-		return String.valueOf(value);
-	}
+  @Override
+  public String toString() {
+    return String.valueOf(value);
+  }
 
-	public static class Adapter extends TypeAdapter<ProgramsFilterSorting>
-	{
-		@Override
-		public void write(final JsonWriter jsonWriter, final ProgramsFilterSorting enumeration) throws IOException {
-			jsonWriter.value(enumeration.getValue());
-		}
+  public static class Adapter extends TypeAdapter<ProgramsFilterSorting>
+  {
+    @Override
+    public void write(final JsonWriter jsonWriter, final ProgramsFilterSorting enumeration) throws IOException {
+      jsonWriter.value(enumeration.getValue());
+    }
 
-		@Override
-		public ProgramsFilterSorting read(final JsonReader jsonReader) throws IOException {
-			Object value = jsonReader.nextString();
-			return ProgramsFilterSorting.fromValue(String.valueOf(value));
-		}
-	}
+    @Override
+    public ProgramsFilterSorting read(final JsonReader jsonReader) throws IOException {
+      Object value = jsonReader.nextString();
+      return ProgramsFilterSorting.fromValue(String.valueOf(value));
+    }
+  }
 }

@@ -28,115 +28,115 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class SignalDataMaster implements Parcelable
 {
-	public static final Parcelable.Creator<SignalDataMaster> CREATOR = new Parcelable.Creator<SignalDataMaster>()
-	{
-		public SignalDataMaster createFromParcel(Parcel in) {
-			return new SignalDataMaster(in);
-		}
+  public static final Parcelable.Creator<SignalDataMaster> CREATOR = new Parcelable.Creator<SignalDataMaster>()
+  {
+    public SignalDataMaster createFromParcel(Parcel in) {
+      return new SignalDataMaster(in);
+    }
 
-		public SignalDataMaster[] newArray(int size) {
-			return new SignalDataMaster[size];
-		}
-	};
+    public SignalDataMaster[] newArray(int size) {
+      return new SignalDataMaster[size];
+    }
+  };
 
-	@SerializedName("login")
-	private String login = null;
+  @SerializedName("login")
+  private String login = null;
 
-	@SerializedName("share")
-	private Double share = null;
+  @SerializedName("share")
+  private Double share = null;
 
-	public SignalDataMaster() {
-	}
+  public SignalDataMaster() {
+  }
 
-	SignalDataMaster(Parcel in) {
-		login = (String) in.readValue(null);
-		share = (Double) in.readValue(null);
-	}
+  SignalDataMaster(Parcel in) {
+    login = (String) in.readValue(null);
+    share = (Double) in.readValue(null);
+  }
 
-	public SignalDataMaster login(String login) {
-		this.login = login;
-		return this;
-	}
+  public SignalDataMaster login(String login) {
+    this.login = login;
+    return this;
+  }
 
-	/**
-	 * Get login
-	 *
-	 * @return login
-	 **/
-	@Schema(description = "")
-	public String getLogin() {
-		return login;
-	}
+  /**
+   * Get login
+   *
+   * @return login
+   **/
+  @Schema(description = "")
+  public String getLogin() {
+    return login;
+  }
 
-	public void setLogin(String login) {
-		this.login = login;
-	}
+  public void setLogin(String login) {
+    this.login = login;
+  }
 
-	public SignalDataMaster share(Double share) {
-		this.share = share;
-		return this;
-	}
+  public SignalDataMaster share(Double share) {
+    this.share = share;
+    return this;
+  }
 
-	/**
-	 * Get share
-	 *
-	 * @return share
-	 **/
-	@Schema(description = "")
-	public Double getShare() {
-		return share;
-	}
+  /**
+   * Get share
+   *
+   * @return share
+   **/
+  @Schema(description = "")
+  public Double getShare() {
+    return share;
+  }
 
-	public void setShare(Double share) {
-		this.share = share;
-	}
+  public void setShare(Double share) {
+    this.share = share;
+  }
 
-	@Override
-	public boolean equals(java.lang.Object o) {
-		if (this == o) {
-			return true;
-		}
-		if (o == null || getClass() != o.getClass()) {
-			return false;
-		}
-		SignalDataMaster signalDataMaster = (SignalDataMaster) o;
-		return Objects.equals(this.login, signalDataMaster.login) &&
-				Objects.equals(this.share, signalDataMaster.share);
-	}
+  @Override
+  public boolean equals(java.lang.Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    SignalDataMaster signalDataMaster = (SignalDataMaster) o;
+    return Objects.equals(this.login, signalDataMaster.login) &&
+            Objects.equals(this.share, signalDataMaster.share);
+  }
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(login, share);
-	}
+  @Override
+  public int hashCode() {
+    return Objects.hash(login, share);
+  }
 
-	@Override
-	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		sb.append("class SignalDataMaster {\n");
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class SignalDataMaster {\n");
 
-		sb.append("    login: ").append(toIndentedString(login)).append("\n");
-		sb.append("    share: ").append(toIndentedString(share)).append("\n");
-		sb.append("}");
-		return sb.toString();
-	}
+    sb.append("    login: ").append(toIndentedString(login)).append("\n");
+    sb.append("    share: ").append(toIndentedString(share)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
 
-	/**
-	 * Convert the given object to string with each line indented by 4 spaces
-	 * (except the first line).
-	 */
-	private String toIndentedString(java.lang.Object o) {
-		if (o == null) {
-			return "null";
-		}
-		return o.toString().replace("\n", "\n    ");
-	}
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(java.lang.Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
 
-	public void writeToParcel(Parcel out, int flags) {
-		out.writeValue(login);
-		out.writeValue(share);
-	}
+  public void writeToParcel(Parcel out, int flags) {
+    out.writeValue(login);
+    out.writeValue(share);
+  }
 
-	public int describeContents() {
-		return 0;
-	}
+  public int describeContents() {
+    return 0;
+  }
 }

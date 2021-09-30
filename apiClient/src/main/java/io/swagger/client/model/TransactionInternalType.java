@@ -25,54 +25,55 @@ import java.io.IOException;
 @JsonAdapter(TransactionInternalType.Adapter.class)
 public enum TransactionInternalType
 {
-	ALL("All"),
-	INVESTMENT("Investment"),
-	WITHDRAWAL("Withdrawal"),
-	CONVERSION("Conversion"),
-	COMMISSION("Commission"),
-	PROGRAM("Program"),
-	FUND("Fund"),
-	FOLLOW("Follow"),
-	TRADINGACCOUNTS("TradingAccounts"),
-	AGENTREWARD("AgentReward"),
-	EXCHANGEACCOUNTS("ExchangeAccounts"),
-	REBATE("Rebate");
+  ALL("All"),
+  INVESTMENT("Investment"),
+  WITHDRAWAL("Withdrawal"),
+  CONVERSION("Conversion"),
+  COMMISSION("Commission"),
+  PROGRAM("Program"),
+  FUND("Fund"),
+  FOLLOW("Follow"),
+  TRADINGACCOUNTS("TradingAccounts"),
+  AGENTREWARD("AgentReward"),
+  EXCHANGEACCOUNTS("ExchangeAccounts"),
+  REBATE("Rebate"),
+  COINS("Coins");
 
-	public static TransactionInternalType fromValue(String text) {
-		for (TransactionInternalType b : TransactionInternalType.values()) {
-			if (String.valueOf(b.value).equals(text)) {
-				return b;
-			}
-		}
-		return null;
-	}
+  public static TransactionInternalType fromValue(String text) {
+    for (TransactionInternalType b : TransactionInternalType.values()) {
+      if (String.valueOf(b.value).equals(text)) {
+        return b;
+      }
+    }
+    return null;
+  }
 
-	private String value;
+  private String value;
 
-	TransactionInternalType(String value) {
-		this.value = value;
-	}
+  TransactionInternalType(String value) {
+    this.value = value;
+  }
 
-	public String getValue() {
-		return value;
-	}
+  public String getValue() {
+    return value;
+  }
 
-	@Override
-	public String toString() {
-		return String.valueOf(value);
-	}
+  @Override
+  public String toString() {
+    return String.valueOf(value);
+  }
 
-	public static class Adapter extends TypeAdapter<TransactionInternalType>
-	{
-		@Override
-		public void write(final JsonWriter jsonWriter, final TransactionInternalType enumeration) throws IOException {
-			jsonWriter.value(enumeration.getValue());
-		}
+  public static class Adapter extends TypeAdapter<TransactionInternalType>
+  {
+    @Override
+    public void write(final JsonWriter jsonWriter, final TransactionInternalType enumeration) throws IOException {
+      jsonWriter.value(enumeration.getValue());
+    }
 
-		@Override
-		public TransactionInternalType read(final JsonReader jsonReader) throws IOException {
-			Object value = jsonReader.nextString();
-			return TransactionInternalType.fromValue(String.valueOf(value));
-		}
-	}
+    @Override
+    public TransactionInternalType read(final JsonReader jsonReader) throws IOException {
+      Object value = jsonReader.nextString();
+      return TransactionInternalType.fromValue(String.valueOf(value));
+    }
+  }
 }

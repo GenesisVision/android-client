@@ -29,141 +29,141 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class SignalSubscriberInfo implements Parcelable
 {
-	public static final Parcelable.Creator<SignalSubscriberInfo> CREATOR = new Parcelable.Creator<SignalSubscriberInfo>()
-	{
-		public SignalSubscriberInfo createFromParcel(Parcel in) {
-			return new SignalSubscriberInfo(in);
-		}
+  public static final Parcelable.Creator<SignalSubscriberInfo> CREATOR = new Parcelable.Creator<SignalSubscriberInfo>()
+  {
+    public SignalSubscriberInfo createFromParcel(Parcel in) {
+      return new SignalSubscriberInfo(in);
+    }
 
-		public SignalSubscriberInfo[] newArray(int size) {
-			return new SignalSubscriberInfo[size];
-		}
-	};
+    public SignalSubscriberInfo[] newArray(int size) {
+      return new SignalSubscriberInfo[size];
+    }
+  };
 
-	@SerializedName("tradingAccountId")
-	private UUID tradingAccountId = null;
+  @SerializedName("tradingAccountId")
+  private UUID tradingAccountId = null;
 
-	@SerializedName("tradingAccountLogin")
-	private String tradingAccountLogin = null;
+  @SerializedName("tradingAccountLogin")
+  private String tradingAccountLogin = null;
 
-	@SerializedName("asset")
-	private AssetDetails asset = null;
+  @SerializedName("asset")
+  private AssetDetails asset = null;
 
-	public SignalSubscriberInfo() {
-	}
+  public SignalSubscriberInfo() {
+  }
 
-	SignalSubscriberInfo(Parcel in) {
-		tradingAccountId = (UUID) in.readValue(UUID.class.getClassLoader());
-		tradingAccountLogin = (String) in.readValue(null);
-		asset = (AssetDetails) in.readValue(AssetDetails.class.getClassLoader());
-	}
+  SignalSubscriberInfo(Parcel in) {
+    tradingAccountId = (UUID) in.readValue(UUID.class.getClassLoader());
+    tradingAccountLogin = (String) in.readValue(null);
+    asset = (AssetDetails) in.readValue(AssetDetails.class.getClassLoader());
+  }
 
-	public SignalSubscriberInfo tradingAccountId(UUID tradingAccountId) {
-		this.tradingAccountId = tradingAccountId;
-		return this;
-	}
+  public SignalSubscriberInfo tradingAccountId(UUID tradingAccountId) {
+    this.tradingAccountId = tradingAccountId;
+    return this;
+  }
 
-	/**
-	 * Get tradingAccountId
-	 *
-	 * @return tradingAccountId
-	 **/
-	@Schema(description = "")
-	public UUID getTradingAccountId() {
-		return tradingAccountId;
-	}
+  /**
+   * Get tradingAccountId
+   *
+   * @return tradingAccountId
+   **/
+  @Schema(description = "")
+  public UUID getTradingAccountId() {
+    return tradingAccountId;
+  }
 
-	public void setTradingAccountId(UUID tradingAccountId) {
-		this.tradingAccountId = tradingAccountId;
-	}
+  public void setTradingAccountId(UUID tradingAccountId) {
+    this.tradingAccountId = tradingAccountId;
+  }
 
-	public SignalSubscriberInfo tradingAccountLogin(String tradingAccountLogin) {
-		this.tradingAccountLogin = tradingAccountLogin;
-		return this;
-	}
+  public SignalSubscriberInfo tradingAccountLogin(String tradingAccountLogin) {
+    this.tradingAccountLogin = tradingAccountLogin;
+    return this;
+  }
 
-	/**
-	 * Get tradingAccountLogin
-	 *
-	 * @return tradingAccountLogin
-	 **/
-	@Schema(description = "")
-	public String getTradingAccountLogin() {
-		return tradingAccountLogin;
-	}
+  /**
+   * Get tradingAccountLogin
+   *
+   * @return tradingAccountLogin
+   **/
+  @Schema(description = "")
+  public String getTradingAccountLogin() {
+    return tradingAccountLogin;
+  }
 
-	public void setTradingAccountLogin(String tradingAccountLogin) {
-		this.tradingAccountLogin = tradingAccountLogin;
-	}
+  public void setTradingAccountLogin(String tradingAccountLogin) {
+    this.tradingAccountLogin = tradingAccountLogin;
+  }
 
-	public SignalSubscriberInfo asset(AssetDetails asset) {
-		this.asset = asset;
-		return this;
-	}
+  public SignalSubscriberInfo asset(AssetDetails asset) {
+    this.asset = asset;
+    return this;
+  }
 
-	/**
-	 * Get asset
-	 *
-	 * @return asset
-	 **/
-	@Schema(description = "")
-	public AssetDetails getAsset() {
-		return asset;
-	}
+  /**
+   * Get asset
+   *
+   * @return asset
+   **/
+  @Schema(description = "")
+  public AssetDetails getAsset() {
+    return asset;
+  }
 
-	public void setAsset(AssetDetails asset) {
-		this.asset = asset;
-	}
+  public void setAsset(AssetDetails asset) {
+    this.asset = asset;
+  }
 
-	@Override
-	public boolean equals(java.lang.Object o) {
-		if (this == o) {
-			return true;
-		}
-		if (o == null || getClass() != o.getClass()) {
-			return false;
-		}
-		SignalSubscriberInfo signalSubscriberInfo = (SignalSubscriberInfo) o;
-		return Objects.equals(this.tradingAccountId, signalSubscriberInfo.tradingAccountId) &&
-				Objects.equals(this.tradingAccountLogin, signalSubscriberInfo.tradingAccountLogin) &&
-				Objects.equals(this.asset, signalSubscriberInfo.asset);
-	}
+  @Override
+  public boolean equals(java.lang.Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    SignalSubscriberInfo signalSubscriberInfo = (SignalSubscriberInfo) o;
+    return Objects.equals(this.tradingAccountId, signalSubscriberInfo.tradingAccountId) &&
+            Objects.equals(this.tradingAccountLogin, signalSubscriberInfo.tradingAccountLogin) &&
+            Objects.equals(this.asset, signalSubscriberInfo.asset);
+  }
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(tradingAccountId, tradingAccountLogin, asset);
-	}
+  @Override
+  public int hashCode() {
+    return Objects.hash(tradingAccountId, tradingAccountLogin, asset);
+  }
 
-	@Override
-	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		sb.append("class SignalSubscriberInfo {\n");
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class SignalSubscriberInfo {\n");
 
-		sb.append("    tradingAccountId: ").append(toIndentedString(tradingAccountId)).append("\n");
-		sb.append("    tradingAccountLogin: ").append(toIndentedString(tradingAccountLogin)).append("\n");
-		sb.append("    asset: ").append(toIndentedString(asset)).append("\n");
-		sb.append("}");
-		return sb.toString();
-	}
+    sb.append("    tradingAccountId: ").append(toIndentedString(tradingAccountId)).append("\n");
+    sb.append("    tradingAccountLogin: ").append(toIndentedString(tradingAccountLogin)).append("\n");
+    sb.append("    asset: ").append(toIndentedString(asset)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
 
-	/**
-	 * Convert the given object to string with each line indented by 4 spaces
-	 * (except the first line).
-	 */
-	private String toIndentedString(java.lang.Object o) {
-		if (o == null) {
-			return "null";
-		}
-		return o.toString().replace("\n", "\n    ");
-	}
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(java.lang.Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
 
-	public void writeToParcel(Parcel out, int flags) {
-		out.writeValue(tradingAccountId);
-		out.writeValue(tradingAccountLogin);
-		out.writeValue(asset);
-	}
+  public void writeToParcel(Parcel out, int flags) {
+    out.writeValue(tradingAccountId);
+    out.writeValue(tradingAccountLogin);
+    out.writeValue(asset);
+  }
 
-	public int describeContents() {
-		return 0;
-	}
+  public int describeContents() {
+    return 0;
+  }
 }

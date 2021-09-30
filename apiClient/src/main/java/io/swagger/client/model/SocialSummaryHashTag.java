@@ -28,141 +28,141 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class SocialSummaryHashTag implements Parcelable
 {
-	public static final Parcelable.Creator<SocialSummaryHashTag> CREATOR = new Parcelable.Creator<SocialSummaryHashTag>()
-	{
-		public SocialSummaryHashTag createFromParcel(Parcel in) {
-			return new SocialSummaryHashTag(in);
-		}
+  public static final Parcelable.Creator<SocialSummaryHashTag> CREATOR = new Parcelable.Creator<SocialSummaryHashTag>()
+  {
+    public SocialSummaryHashTag createFromParcel(Parcel in) {
+      return new SocialSummaryHashTag(in);
+    }
 
-		public SocialSummaryHashTag[] newArray(int size) {
-			return new SocialSummaryHashTag[size];
-		}
-	};
+    public SocialSummaryHashTag[] newArray(int size) {
+      return new SocialSummaryHashTag[size];
+    }
+  };
 
-	@SerializedName("hashTag")
-	private String hashTag = null;
+  @SerializedName("hashTag")
+  private String hashTag = null;
 
-	@SerializedName("impressionsCount")
-	private Integer impressionsCount = null;
+  @SerializedName("impressionsCount")
+  private Integer impressionsCount = null;
 
-	@SerializedName("discussCount")
-	private Integer discussCount = null;
+  @SerializedName("discussCount")
+  private Integer discussCount = null;
 
-	public SocialSummaryHashTag() {
-	}
+  public SocialSummaryHashTag() {
+  }
 
-	SocialSummaryHashTag(Parcel in) {
-		hashTag = (String) in.readValue(null);
-		impressionsCount = (Integer) in.readValue(null);
-		discussCount = (Integer) in.readValue(null);
-	}
+  SocialSummaryHashTag(Parcel in) {
+    hashTag = (String) in.readValue(null);
+    impressionsCount = (Integer) in.readValue(null);
+    discussCount = (Integer) in.readValue(null);
+  }
 
-	public SocialSummaryHashTag hashTag(String hashTag) {
-		this.hashTag = hashTag;
-		return this;
-	}
+  public SocialSummaryHashTag hashTag(String hashTag) {
+    this.hashTag = hashTag;
+    return this;
+  }
 
-	/**
-	 * Get hashTag
-	 *
-	 * @return hashTag
-	 **/
-	@Schema(description = "")
-	public String getHashTag() {
-		return hashTag;
-	}
+  /**
+   * Get hashTag
+   *
+   * @return hashTag
+   **/
+  @Schema(description = "")
+  public String getHashTag() {
+    return hashTag;
+  }
 
-	public void setHashTag(String hashTag) {
-		this.hashTag = hashTag;
-	}
+  public void setHashTag(String hashTag) {
+    this.hashTag = hashTag;
+  }
 
-	public SocialSummaryHashTag impressionsCount(Integer impressionsCount) {
-		this.impressionsCount = impressionsCount;
-		return this;
-	}
+  public SocialSummaryHashTag impressionsCount(Integer impressionsCount) {
+    this.impressionsCount = impressionsCount;
+    return this;
+  }
 
-	/**
-	 * Get impressionsCount
-	 *
-	 * @return impressionsCount
-	 **/
-	@Schema(description = "")
-	public Integer getImpressionsCount() {
-		return impressionsCount;
-	}
+  /**
+   * Get impressionsCount
+   *
+   * @return impressionsCount
+   **/
+  @Schema(description = "")
+  public Integer getImpressionsCount() {
+    return impressionsCount;
+  }
 
-	public void setImpressionsCount(Integer impressionsCount) {
-		this.impressionsCount = impressionsCount;
-	}
+  public void setImpressionsCount(Integer impressionsCount) {
+    this.impressionsCount = impressionsCount;
+  }
 
-	public SocialSummaryHashTag discussCount(Integer discussCount) {
-		this.discussCount = discussCount;
-		return this;
-	}
+  public SocialSummaryHashTag discussCount(Integer discussCount) {
+    this.discussCount = discussCount;
+    return this;
+  }
 
-	/**
-	 * Get discussCount
-	 *
-	 * @return discussCount
-	 **/
-	@Schema(description = "")
-	public Integer getDiscussCount() {
-		return discussCount;
-	}
+  /**
+   * Get discussCount
+   *
+   * @return discussCount
+   **/
+  @Schema(description = "")
+  public Integer getDiscussCount() {
+    return discussCount;
+  }
 
-	public void setDiscussCount(Integer discussCount) {
-		this.discussCount = discussCount;
-	}
+  public void setDiscussCount(Integer discussCount) {
+    this.discussCount = discussCount;
+  }
 
-	@Override
-	public boolean equals(java.lang.Object o) {
-		if (this == o) {
-			return true;
-		}
-		if (o == null || getClass() != o.getClass()) {
-			return false;
-		}
-		SocialSummaryHashTag socialSummaryHashTag = (SocialSummaryHashTag) o;
-		return Objects.equals(this.hashTag, socialSummaryHashTag.hashTag) &&
-				Objects.equals(this.impressionsCount, socialSummaryHashTag.impressionsCount) &&
-				Objects.equals(this.discussCount, socialSummaryHashTag.discussCount);
-	}
+  @Override
+  public boolean equals(java.lang.Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    SocialSummaryHashTag socialSummaryHashTag = (SocialSummaryHashTag) o;
+    return Objects.equals(this.hashTag, socialSummaryHashTag.hashTag) &&
+            Objects.equals(this.impressionsCount, socialSummaryHashTag.impressionsCount) &&
+            Objects.equals(this.discussCount, socialSummaryHashTag.discussCount);
+  }
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(hashTag, impressionsCount, discussCount);
-	}
+  @Override
+  public int hashCode() {
+    return Objects.hash(hashTag, impressionsCount, discussCount);
+  }
 
-	@Override
-	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		sb.append("class SocialSummaryHashTag {\n");
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class SocialSummaryHashTag {\n");
 
-		sb.append("    hashTag: ").append(toIndentedString(hashTag)).append("\n");
-		sb.append("    impressionsCount: ").append(toIndentedString(impressionsCount)).append("\n");
-		sb.append("    discussCount: ").append(toIndentedString(discussCount)).append("\n");
-		sb.append("}");
-		return sb.toString();
-	}
+    sb.append("    hashTag: ").append(toIndentedString(hashTag)).append("\n");
+    sb.append("    impressionsCount: ").append(toIndentedString(impressionsCount)).append("\n");
+    sb.append("    discussCount: ").append(toIndentedString(discussCount)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
 
-	/**
-	 * Convert the given object to string with each line indented by 4 spaces
-	 * (except the first line).
-	 */
-	private String toIndentedString(java.lang.Object o) {
-		if (o == null) {
-			return "null";
-		}
-		return o.toString().replace("\n", "\n    ");
-	}
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(java.lang.Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
 
-	public void writeToParcel(Parcel out, int flags) {
-		out.writeValue(hashTag);
-		out.writeValue(impressionsCount);
-		out.writeValue(discussCount);
-	}
+  public void writeToParcel(Parcel out, int flags) {
+    out.writeValue(hashTag);
+    out.writeValue(impressionsCount);
+    out.writeValue(discussCount);
+  }
 
-	public int describeContents() {
-		return 0;
-	}
+  public int describeContents() {
+    return 0;
+  }
 }

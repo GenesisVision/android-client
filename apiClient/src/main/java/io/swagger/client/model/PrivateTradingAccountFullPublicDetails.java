@@ -30,141 +30,141 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class PrivateTradingAccountFullPublicDetails implements Parcelable
 {
-	public static final Parcelable.Creator<PrivateTradingAccountFullPublicDetails> CREATOR = new Parcelable.Creator<PrivateTradingAccountFullPublicDetails>()
-	{
-		public PrivateTradingAccountFullPublicDetails createFromParcel(Parcel in) {
-			return new PrivateTradingAccountFullPublicDetails(in);
-		}
+  public static final Parcelable.Creator<PrivateTradingAccountFullPublicDetails> CREATOR = new Parcelable.Creator<PrivateTradingAccountFullPublicDetails>()
+  {
+    public PrivateTradingAccountFullPublicDetails createFromParcel(Parcel in) {
+      return new PrivateTradingAccountFullPublicDetails(in);
+    }
 
-		public PrivateTradingAccountFullPublicDetails[] newArray(int size) {
-			return new PrivateTradingAccountFullPublicDetails[size];
-		}
-	};
+    public PrivateTradingAccountFullPublicDetails[] newArray(int size) {
+      return new PrivateTradingAccountFullPublicDetails[size];
+    }
+  };
 
-	@SerializedName("title")
-	private String title = null;
+  @SerializedName("title")
+  private String title = null;
 
-	@SerializedName("creationDate")
-	private DateTime creationDate = null;
+  @SerializedName("creationDate")
+  private DateTime creationDate = null;
 
-	@SerializedName("status")
-	private DashboardTradingAssetStatus status = null;
+  @SerializedName("status")
+  private DashboardTradingAssetStatus status = null;
 
-	public PrivateTradingAccountFullPublicDetails() {
-	}
+  public PrivateTradingAccountFullPublicDetails() {
+  }
 
-	PrivateTradingAccountFullPublicDetails(Parcel in) {
-		title = (String) in.readValue(null);
-		creationDate = (DateTime) in.readValue(DateTime.class.getClassLoader());
-		status = (DashboardTradingAssetStatus) in.readValue(DashboardTradingAssetStatus.class.getClassLoader());
-	}
+  PrivateTradingAccountFullPublicDetails(Parcel in) {
+    title = (String) in.readValue(null);
+    creationDate = (DateTime) in.readValue(DateTime.class.getClassLoader());
+    status = (DashboardTradingAssetStatus) in.readValue(DashboardTradingAssetStatus.class.getClassLoader());
+  }
 
-	public PrivateTradingAccountFullPublicDetails title(String title) {
-		this.title = title;
-		return this;
-	}
+  public PrivateTradingAccountFullPublicDetails title(String title) {
+    this.title = title;
+    return this;
+  }
 
-	/**
-	 * Get title
-	 *
-	 * @return title
-	 **/
-	@Schema(description = "")
-	public String getTitle() {
-		return title;
-	}
+  /**
+   * Get title
+   *
+   * @return title
+   **/
+  @Schema(description = "")
+  public String getTitle() {
+    return title;
+  }
 
-	public void setTitle(String title) {
-		this.title = title;
-	}
+  public void setTitle(String title) {
+    this.title = title;
+  }
 
-	public PrivateTradingAccountFullPublicDetails creationDate(DateTime creationDate) {
-		this.creationDate = creationDate;
-		return this;
-	}
+  public PrivateTradingAccountFullPublicDetails creationDate(DateTime creationDate) {
+    this.creationDate = creationDate;
+    return this;
+  }
 
-	/**
-	 * Get creationDate
-	 *
-	 * @return creationDate
-	 **/
-	@Schema(description = "")
-	public DateTime getCreationDate() {
-		return creationDate;
-	}
+  /**
+   * Get creationDate
+   *
+   * @return creationDate
+   **/
+  @Schema(description = "")
+  public DateTime getCreationDate() {
+    return creationDate;
+  }
 
-	public void setCreationDate(DateTime creationDate) {
-		this.creationDate = creationDate;
-	}
+  public void setCreationDate(DateTime creationDate) {
+    this.creationDate = creationDate;
+  }
 
-	public PrivateTradingAccountFullPublicDetails status(DashboardTradingAssetStatus status) {
-		this.status = status;
-		return this;
-	}
+  public PrivateTradingAccountFullPublicDetails status(DashboardTradingAssetStatus status) {
+    this.status = status;
+    return this;
+  }
 
-	/**
-	 * Get status
-	 *
-	 * @return status
-	 **/
-	@Schema(description = "")
-	public DashboardTradingAssetStatus getStatus() {
-		return status;
-	}
+  /**
+   * Get status
+   *
+   * @return status
+   **/
+  @Schema(description = "")
+  public DashboardTradingAssetStatus getStatus() {
+    return status;
+  }
 
-	public void setStatus(DashboardTradingAssetStatus status) {
-		this.status = status;
-	}
+  public void setStatus(DashboardTradingAssetStatus status) {
+    this.status = status;
+  }
 
-	@Override
-	public boolean equals(java.lang.Object o) {
-		if (this == o) {
-			return true;
-		}
-		if (o == null || getClass() != o.getClass()) {
-			return false;
-		}
-		PrivateTradingAccountFullPublicDetails privateTradingAccountFullPublicDetails = (PrivateTradingAccountFullPublicDetails) o;
-		return Objects.equals(this.title, privateTradingAccountFullPublicDetails.title) &&
-				Objects.equals(this.creationDate, privateTradingAccountFullPublicDetails.creationDate) &&
-				Objects.equals(this.status, privateTradingAccountFullPublicDetails.status);
-	}
+  @Override
+  public boolean equals(java.lang.Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    PrivateTradingAccountFullPublicDetails privateTradingAccountFullPublicDetails = (PrivateTradingAccountFullPublicDetails) o;
+    return Objects.equals(this.title, privateTradingAccountFullPublicDetails.title) &&
+            Objects.equals(this.creationDate, privateTradingAccountFullPublicDetails.creationDate) &&
+            Objects.equals(this.status, privateTradingAccountFullPublicDetails.status);
+  }
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(title, creationDate, status);
-	}
+  @Override
+  public int hashCode() {
+    return Objects.hash(title, creationDate, status);
+  }
 
-	@Override
-	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		sb.append("class PrivateTradingAccountFullPublicDetails {\n");
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class PrivateTradingAccountFullPublicDetails {\n");
 
-		sb.append("    title: ").append(toIndentedString(title)).append("\n");
-		sb.append("    creationDate: ").append(toIndentedString(creationDate)).append("\n");
-		sb.append("    status: ").append(toIndentedString(status)).append("\n");
-		sb.append("}");
-		return sb.toString();
-	}
+    sb.append("    title: ").append(toIndentedString(title)).append("\n");
+    sb.append("    creationDate: ").append(toIndentedString(creationDate)).append("\n");
+    sb.append("    status: ").append(toIndentedString(status)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
 
-	/**
-	 * Convert the given object to string with each line indented by 4 spaces
-	 * (except the first line).
-	 */
-	private String toIndentedString(java.lang.Object o) {
-		if (o == null) {
-			return "null";
-		}
-		return o.toString().replace("\n", "\n    ");
-	}
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(java.lang.Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
 
-	public void writeToParcel(Parcel out, int flags) {
-		out.writeValue(title);
-		out.writeValue(creationDate);
-		out.writeValue(status);
-	}
+  public void writeToParcel(Parcel out, int flags) {
+    out.writeValue(title);
+    out.writeValue(creationDate);
+    out.writeValue(status);
+  }
 
-	public int describeContents() {
-		return 0;
-	}
+  public int describeContents() {
+    return 0;
+  }
 }

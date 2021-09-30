@@ -28,115 +28,115 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class UpdateProfileViewModel implements Parcelable
 {
-	public static final Parcelable.Creator<UpdateProfileViewModel> CREATOR = new Parcelable.Creator<UpdateProfileViewModel>()
-	{
-		public UpdateProfileViewModel createFromParcel(Parcel in) {
-			return new UpdateProfileViewModel(in);
-		}
+  public static final Parcelable.Creator<UpdateProfileViewModel> CREATOR = new Parcelable.Creator<UpdateProfileViewModel>()
+  {
+    public UpdateProfileViewModel createFromParcel(Parcel in) {
+      return new UpdateProfileViewModel(in);
+    }
 
-		public UpdateProfileViewModel[] newArray(int size) {
-			return new UpdateProfileViewModel[size];
-		}
-	};
+    public UpdateProfileViewModel[] newArray(int size) {
+      return new UpdateProfileViewModel[size];
+    }
+  };
 
-	@SerializedName("userName")
-	private String userName = null;
+  @SerializedName("userName")
+  private String userName = null;
 
-	@SerializedName("about")
-	private String about = null;
+  @SerializedName("about")
+  private String about = null;
 
-	public UpdateProfileViewModel() {
-	}
+  public UpdateProfileViewModel() {
+  }
 
-	UpdateProfileViewModel(Parcel in) {
-		userName = (String) in.readValue(null);
-		about = (String) in.readValue(null);
-	}
+  UpdateProfileViewModel(Parcel in) {
+    userName = (String) in.readValue(null);
+    about = (String) in.readValue(null);
+  }
 
-	public UpdateProfileViewModel userName(String userName) {
-		this.userName = userName;
-		return this;
-	}
+  public UpdateProfileViewModel userName(String userName) {
+    this.userName = userName;
+    return this;
+  }
 
-	/**
-	 * Get userName
-	 *
-	 * @return userName
-	 **/
-	@Schema(description = "")
-	public String getUserName() {
-		return userName;
-	}
+  /**
+   * Get userName
+   *
+   * @return userName
+   **/
+  @Schema(description = "")
+  public String getUserName() {
+    return userName;
+  }
 
-	public void setUserName(String userName) {
-		this.userName = userName;
-	}
+  public void setUserName(String userName) {
+    this.userName = userName;
+  }
 
-	public UpdateProfileViewModel about(String about) {
-		this.about = about;
-		return this;
-	}
+  public UpdateProfileViewModel about(String about) {
+    this.about = about;
+    return this;
+  }
 
-	/**
-	 * Get about
-	 *
-	 * @return about
-	 **/
-	@Schema(description = "")
-	public String getAbout() {
-		return about;
-	}
+  /**
+   * Get about
+   *
+   * @return about
+   **/
+  @Schema(description = "")
+  public String getAbout() {
+    return about;
+  }
 
-	public void setAbout(String about) {
-		this.about = about;
-	}
+  public void setAbout(String about) {
+    this.about = about;
+  }
 
-	@Override
-	public boolean equals(java.lang.Object o) {
-		if (this == o) {
-			return true;
-		}
-		if (o == null || getClass() != o.getClass()) {
-			return false;
-		}
-		UpdateProfileViewModel updateProfileViewModel = (UpdateProfileViewModel) o;
-		return Objects.equals(this.userName, updateProfileViewModel.userName) &&
-				Objects.equals(this.about, updateProfileViewModel.about);
-	}
+  @Override
+  public boolean equals(java.lang.Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    UpdateProfileViewModel updateProfileViewModel = (UpdateProfileViewModel) o;
+    return Objects.equals(this.userName, updateProfileViewModel.userName) &&
+            Objects.equals(this.about, updateProfileViewModel.about);
+  }
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(userName, about);
-	}
+  @Override
+  public int hashCode() {
+    return Objects.hash(userName, about);
+  }
 
-	@Override
-	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		sb.append("class UpdateProfileViewModel {\n");
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class UpdateProfileViewModel {\n");
 
-		sb.append("    userName: ").append(toIndentedString(userName)).append("\n");
-		sb.append("    about: ").append(toIndentedString(about)).append("\n");
-		sb.append("}");
-		return sb.toString();
-	}
+    sb.append("    userName: ").append(toIndentedString(userName)).append("\n");
+    sb.append("    about: ").append(toIndentedString(about)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
 
-	/**
-	 * Convert the given object to string with each line indented by 4 spaces
-	 * (except the first line).
-	 */
-	private String toIndentedString(java.lang.Object o) {
-		if (o == null) {
-			return "null";
-		}
-		return o.toString().replace("\n", "\n    ");
-	}
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(java.lang.Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
 
-	public void writeToParcel(Parcel out, int flags) {
-		out.writeValue(userName);
-		out.writeValue(about);
-	}
+  public void writeToParcel(Parcel out, int flags) {
+    out.writeValue(userName);
+    out.writeValue(about);
+  }
 
-	public int describeContents() {
-		return 0;
-	}
+  public int describeContents() {
+    return 0;
+  }
 }

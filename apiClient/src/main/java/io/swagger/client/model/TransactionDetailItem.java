@@ -28,167 +28,167 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class TransactionDetailItem implements Parcelable
 {
-	public static final Parcelable.Creator<TransactionDetailItem> CREATOR = new Parcelable.Creator<TransactionDetailItem>()
-	{
-		public TransactionDetailItem createFromParcel(Parcel in) {
-			return new TransactionDetailItem(in);
-		}
+  public static final Parcelable.Creator<TransactionDetailItem> CREATOR = new Parcelable.Creator<TransactionDetailItem>()
+  {
+    public TransactionDetailItem createFromParcel(Parcel in) {
+      return new TransactionDetailItem(in);
+    }
 
-		public TransactionDetailItem[] newArray(int size) {
-			return new TransactionDetailItem[size];
-		}
-	};
+    public TransactionDetailItem[] newArray(int size) {
+      return new TransactionDetailItem[size];
+    }
+  };
 
-	@SerializedName("title")
-	private String title = null;
+  @SerializedName("title")
+  private String title = null;
 
-	@SerializedName("details")
-	private String details = null;
+  @SerializedName("details")
+  private String details = null;
 
-	@SerializedName("url")
-	private String url = null;
+  @SerializedName("url")
+  private String url = null;
 
-	@SerializedName("canCopy")
-	private Boolean canCopy = null;
+  @SerializedName("canCopy")
+  private Boolean canCopy = null;
 
-	public TransactionDetailItem() {
-	}
+  public TransactionDetailItem() {
+  }
 
-	TransactionDetailItem(Parcel in) {
-		title = (String) in.readValue(null);
-		details = (String) in.readValue(null);
-		url = (String) in.readValue(null);
-		canCopy = (Boolean) in.readValue(null);
-	}
+  TransactionDetailItem(Parcel in) {
+    title = (String) in.readValue(null);
+    details = (String) in.readValue(null);
+    url = (String) in.readValue(null);
+    canCopy = (Boolean) in.readValue(null);
+  }
 
-	public TransactionDetailItem title(String title) {
-		this.title = title;
-		return this;
-	}
+  public TransactionDetailItem title(String title) {
+    this.title = title;
+    return this;
+  }
 
-	/**
-	 * Get title
-	 *
-	 * @return title
-	 **/
-	@Schema(description = "")
-	public String getTitle() {
-		return title;
-	}
+  /**
+   * Get title
+   *
+   * @return title
+   **/
+  @Schema(description = "")
+  public String getTitle() {
+    return title;
+  }
 
-	public void setTitle(String title) {
-		this.title = title;
-	}
+  public void setTitle(String title) {
+    this.title = title;
+  }
 
-	public TransactionDetailItem details(String details) {
-		this.details = details;
-		return this;
-	}
+  public TransactionDetailItem details(String details) {
+    this.details = details;
+    return this;
+  }
 
-	/**
-	 * Get details
-	 *
-	 * @return details
-	 **/
-	@Schema(description = "")
-	public String getDetails() {
-		return details;
-	}
+  /**
+   * Get details
+   *
+   * @return details
+   **/
+  @Schema(description = "")
+  public String getDetails() {
+    return details;
+  }
 
-	public void setDetails(String details) {
-		this.details = details;
-	}
+  public void setDetails(String details) {
+    this.details = details;
+  }
 
-	public TransactionDetailItem url(String url) {
-		this.url = url;
-		return this;
-	}
+  public TransactionDetailItem url(String url) {
+    this.url = url;
+    return this;
+  }
 
-	/**
-	 * Get url
-	 *
-	 * @return url
-	 **/
-	@Schema(description = "")
-	public String getUrl() {
-		return url;
-	}
+  /**
+   * Get url
+   *
+   * @return url
+   **/
+  @Schema(description = "")
+  public String getUrl() {
+    return url;
+  }
 
-	public void setUrl(String url) {
-		this.url = url;
-	}
+  public void setUrl(String url) {
+    this.url = url;
+  }
 
-	public TransactionDetailItem canCopy(Boolean canCopy) {
-		this.canCopy = canCopy;
-		return this;
-	}
+  public TransactionDetailItem canCopy(Boolean canCopy) {
+    this.canCopy = canCopy;
+    return this;
+  }
 
-	/**
-	 * Get canCopy
-	 *
-	 * @return canCopy
-	 **/
-	@Schema(description = "")
-	public Boolean isCanCopy() {
-		return canCopy;
-	}
+  /**
+   * Get canCopy
+   *
+   * @return canCopy
+   **/
+  @Schema(description = "")
+  public Boolean isCanCopy() {
+    return canCopy;
+  }
 
-	public void setCanCopy(Boolean canCopy) {
-		this.canCopy = canCopy;
-	}
+  public void setCanCopy(Boolean canCopy) {
+    this.canCopy = canCopy;
+  }
 
-	@Override
-	public boolean equals(java.lang.Object o) {
-		if (this == o) {
-			return true;
-		}
-		if (o == null || getClass() != o.getClass()) {
-			return false;
-		}
-		TransactionDetailItem transactionDetailItem = (TransactionDetailItem) o;
-		return Objects.equals(this.title, transactionDetailItem.title) &&
-				Objects.equals(this.details, transactionDetailItem.details) &&
-				Objects.equals(this.url, transactionDetailItem.url) &&
-				Objects.equals(this.canCopy, transactionDetailItem.canCopy);
-	}
+  @Override
+  public boolean equals(java.lang.Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    TransactionDetailItem transactionDetailItem = (TransactionDetailItem) o;
+    return Objects.equals(this.title, transactionDetailItem.title) &&
+            Objects.equals(this.details, transactionDetailItem.details) &&
+            Objects.equals(this.url, transactionDetailItem.url) &&
+            Objects.equals(this.canCopy, transactionDetailItem.canCopy);
+  }
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(title, details, url, canCopy);
-	}
+  @Override
+  public int hashCode() {
+    return Objects.hash(title, details, url, canCopy);
+  }
 
-	@Override
-	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		sb.append("class TransactionDetailItem {\n");
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class TransactionDetailItem {\n");
 
-		sb.append("    title: ").append(toIndentedString(title)).append("\n");
-		sb.append("    details: ").append(toIndentedString(details)).append("\n");
-		sb.append("    url: ").append(toIndentedString(url)).append("\n");
-		sb.append("    canCopy: ").append(toIndentedString(canCopy)).append("\n");
-		sb.append("}");
-		return sb.toString();
-	}
+    sb.append("    title: ").append(toIndentedString(title)).append("\n");
+    sb.append("    details: ").append(toIndentedString(details)).append("\n");
+    sb.append("    url: ").append(toIndentedString(url)).append("\n");
+    sb.append("    canCopy: ").append(toIndentedString(canCopy)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
 
-	/**
-	 * Convert the given object to string with each line indented by 4 spaces
-	 * (except the first line).
-	 */
-	private String toIndentedString(java.lang.Object o) {
-		if (o == null) {
-			return "null";
-		}
-		return o.toString().replace("\n", "\n    ");
-	}
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(java.lang.Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
 
-	public void writeToParcel(Parcel out, int flags) {
-		out.writeValue(title);
-		out.writeValue(details);
-		out.writeValue(url);
-		out.writeValue(canCopy);
-	}
+  public void writeToParcel(Parcel out, int flags) {
+    out.writeValue(title);
+    out.writeValue(details);
+    out.writeValue(url);
+    out.writeValue(canCopy);
+  }
 
-	public int describeContents() {
-		return 0;
-	}
+  public int describeContents() {
+    return 0;
+  }
 }

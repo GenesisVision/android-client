@@ -28,6 +28,7 @@ import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
 import vision.genesis.clientapp.feature.common.date_range.DateRangeBottomSheetFragment;
 import vision.genesis.clientapp.feature.main.program.ProgramDetailsPagerAdapter;
+import vision.genesis.clientapp.feature.main.terminal.order_details.OrderDetailsDialog;
 import vision.genesis.clientapp.model.DateRange;
 import vision.genesis.clientapp.ui.DateRangeView;
 
@@ -142,7 +143,7 @@ public class OrderHistoryFragment extends BaseFragment implements OrderHistoryVi
 		LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
 		recyclerView.setLayoutManager(layoutManager);
 
-		adapter = new OrderHistoryListAdapter(mode);
+		adapter = new OrderHistoryListAdapter(mode, this::showOrderDetails);
 		recyclerView.setAdapter(adapter);
 
 		recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener()
@@ -199,12 +200,11 @@ public class OrderHistoryFragment extends BaseFragment implements OrderHistoryVi
 		showSnackbar(message, recyclerView);
 	}
 
-	@Override
 	public void showOrderDetails(BinanceRawOrder order) {
 		if (getActivity() != null) {
-//			TradeDetailsDialog dialog = new TradeDetailsDialog();
-//			dialog.show(getActivity().getSupportFragmentManager(), dialog.getTag());
-//			dialog.setData(trade, showSwaps, showTickets);
+			OrderDetailsDialog dialog = new OrderDetailsDialog();
+			dialog.show(getActivity().getSupportFragmentManager(), dialog.getTag());
+			dialog.setData(order);
 		}
 	}
 

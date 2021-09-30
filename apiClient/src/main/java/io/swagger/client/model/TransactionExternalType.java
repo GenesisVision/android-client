@@ -25,46 +25,46 @@ import java.io.IOException;
 @JsonAdapter(TransactionExternalType.Adapter.class)
 public enum TransactionExternalType
 {
-	ALL("All"),
-	WITHDRAWAL("Withdrawal"),
-	DEPOSIT("Deposit"),
-	PLATFORM("Platform");
+  ALL("All"),
+  WITHDRAWAL("Withdrawal"),
+  DEPOSIT("Deposit"),
+  PLATFORM("Platform");
 
-	public static TransactionExternalType fromValue(String text) {
-		for (TransactionExternalType b : TransactionExternalType.values()) {
-			if (String.valueOf(b.value).equals(text)) {
-				return b;
-			}
-		}
-		return null;
-	}
+  public static TransactionExternalType fromValue(String text) {
+    for (TransactionExternalType b : TransactionExternalType.values()) {
+      if (String.valueOf(b.value).equals(text)) {
+        return b;
+      }
+    }
+    return null;
+  }
 
-	private String value;
+  private String value;
 
-	TransactionExternalType(String value) {
-		this.value = value;
-	}
+  TransactionExternalType(String value) {
+    this.value = value;
+  }
 
-	public String getValue() {
-		return value;
-	}
+  public String getValue() {
+    return value;
+  }
 
-	@Override
-	public String toString() {
-		return String.valueOf(value);
-	}
+  @Override
+  public String toString() {
+    return String.valueOf(value);
+  }
 
-	public static class Adapter extends TypeAdapter<TransactionExternalType>
-	{
-		@Override
-		public void write(final JsonWriter jsonWriter, final TransactionExternalType enumeration) throws IOException {
-			jsonWriter.value(enumeration.getValue());
-		}
+  public static class Adapter extends TypeAdapter<TransactionExternalType>
+  {
+    @Override
+    public void write(final JsonWriter jsonWriter, final TransactionExternalType enumeration) throws IOException {
+      jsonWriter.value(enumeration.getValue());
+    }
 
-		@Override
-		public TransactionExternalType read(final JsonReader jsonReader) throws IOException {
-			Object value = jsonReader.nextString();
-			return TransactionExternalType.fromValue(String.valueOf(value));
-		}
-	}
+    @Override
+    public TransactionExternalType read(final JsonReader jsonReader) throws IOException {
+      Object value = jsonReader.nextString();
+      return TransactionExternalType.fromValue(String.valueOf(value));
+    }
+  }
 }

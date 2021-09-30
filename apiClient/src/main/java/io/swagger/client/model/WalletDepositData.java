@@ -28,141 +28,141 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class WalletDepositData implements Parcelable
 {
-	public static final Parcelable.Creator<WalletDepositData> CREATOR = new Parcelable.Creator<WalletDepositData>()
-	{
-		public WalletDepositData createFromParcel(Parcel in) {
-			return new WalletDepositData(in);
-		}
+  public static final Parcelable.Creator<WalletDepositData> CREATOR = new Parcelable.Creator<WalletDepositData>()
+  {
+    public WalletDepositData createFromParcel(Parcel in) {
+      return new WalletDepositData(in);
+    }
 
-		public WalletDepositData[] newArray(int size) {
-			return new WalletDepositData[size];
-		}
-	};
+    public WalletDepositData[] newArray(int size) {
+      return new WalletDepositData[size];
+    }
+  };
 
-	@SerializedName("address")
-	private String address = null;
+  @SerializedName("address")
+  private String address = null;
 
-	@SerializedName("blockchain")
-	private Blockchain blockchain = null;
+  @SerializedName("blockchain")
+  private Blockchain blockchain = null;
 
-	@SerializedName("blockchainTitle")
-	private String blockchainTitle = null;
+  @SerializedName("blockchainTitle")
+  private String blockchainTitle = null;
 
-	public WalletDepositData() {
-	}
+  public WalletDepositData() {
+  }
 
-	WalletDepositData(Parcel in) {
-		address = (String) in.readValue(null);
-		blockchain = (Blockchain) in.readValue(Blockchain.class.getClassLoader());
-		blockchainTitle = (String) in.readValue(null);
-	}
+  WalletDepositData(Parcel in) {
+    address = (String) in.readValue(null);
+    blockchain = (Blockchain) in.readValue(Blockchain.class.getClassLoader());
+    blockchainTitle = (String) in.readValue(null);
+  }
 
-	public WalletDepositData address(String address) {
-		this.address = address;
-		return this;
-	}
+  public WalletDepositData address(String address) {
+    this.address = address;
+    return this;
+  }
 
-	/**
-	 * Get address
-	 *
-	 * @return address
-	 **/
-	@Schema(description = "")
-	public String getAddress() {
-		return address;
-	}
+  /**
+   * Get address
+   *
+   * @return address
+   **/
+  @Schema(description = "")
+  public String getAddress() {
+    return address;
+  }
 
-	public void setAddress(String address) {
-		this.address = address;
-	}
+  public void setAddress(String address) {
+    this.address = address;
+  }
 
-	public WalletDepositData blockchain(Blockchain blockchain) {
-		this.blockchain = blockchain;
-		return this;
-	}
+  public WalletDepositData blockchain(Blockchain blockchain) {
+    this.blockchain = blockchain;
+    return this;
+  }
 
-	/**
-	 * Get blockchain
-	 *
-	 * @return blockchain
-	 **/
-	@Schema(description = "")
-	public Blockchain getBlockchain() {
-		return blockchain;
-	}
+  /**
+   * Get blockchain
+   *
+   * @return blockchain
+   **/
+  @Schema(description = "")
+  public Blockchain getBlockchain() {
+    return blockchain;
+  }
 
-	public void setBlockchain(Blockchain blockchain) {
-		this.blockchain = blockchain;
-	}
+  public void setBlockchain(Blockchain blockchain) {
+    this.blockchain = blockchain;
+  }
 
-	public WalletDepositData blockchainTitle(String blockchainTitle) {
-		this.blockchainTitle = blockchainTitle;
-		return this;
-	}
+  public WalletDepositData blockchainTitle(String blockchainTitle) {
+    this.blockchainTitle = blockchainTitle;
+    return this;
+  }
 
-	/**
-	 * Get blockchainTitle
-	 *
-	 * @return blockchainTitle
-	 **/
-	@Schema(description = "")
-	public String getBlockchainTitle() {
-		return blockchainTitle;
-	}
+  /**
+   * Get blockchainTitle
+   *
+   * @return blockchainTitle
+   **/
+  @Schema(description = "")
+  public String getBlockchainTitle() {
+    return blockchainTitle;
+  }
 
-	public void setBlockchainTitle(String blockchainTitle) {
-		this.blockchainTitle = blockchainTitle;
-	}
+  public void setBlockchainTitle(String blockchainTitle) {
+    this.blockchainTitle = blockchainTitle;
+  }
 
-	@Override
-	public boolean equals(java.lang.Object o) {
-		if (this == o) {
-			return true;
-		}
-		if (o == null || getClass() != o.getClass()) {
-			return false;
-		}
-		WalletDepositData walletDepositData = (WalletDepositData) o;
-		return Objects.equals(this.address, walletDepositData.address) &&
-				Objects.equals(this.blockchain, walletDepositData.blockchain) &&
-				Objects.equals(this.blockchainTitle, walletDepositData.blockchainTitle);
-	}
+  @Override
+  public boolean equals(java.lang.Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    WalletDepositData walletDepositData = (WalletDepositData) o;
+    return Objects.equals(this.address, walletDepositData.address) &&
+            Objects.equals(this.blockchain, walletDepositData.blockchain) &&
+            Objects.equals(this.blockchainTitle, walletDepositData.blockchainTitle);
+  }
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(address, blockchain, blockchainTitle);
-	}
+  @Override
+  public int hashCode() {
+    return Objects.hash(address, blockchain, blockchainTitle);
+  }
 
-	@Override
-	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		sb.append("class WalletDepositData {\n");
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class WalletDepositData {\n");
 
-		sb.append("    address: ").append(toIndentedString(address)).append("\n");
-		sb.append("    blockchain: ").append(toIndentedString(blockchain)).append("\n");
-		sb.append("    blockchainTitle: ").append(toIndentedString(blockchainTitle)).append("\n");
-		sb.append("}");
-		return sb.toString();
-	}
+    sb.append("    address: ").append(toIndentedString(address)).append("\n");
+    sb.append("    blockchain: ").append(toIndentedString(blockchain)).append("\n");
+    sb.append("    blockchainTitle: ").append(toIndentedString(blockchainTitle)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
 
-	/**
-	 * Convert the given object to string with each line indented by 4 spaces
-	 * (except the first line).
-	 */
-	private String toIndentedString(java.lang.Object o) {
-		if (o == null) {
-			return "null";
-		}
-		return o.toString().replace("\n", "\n    ");
-	}
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(java.lang.Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
 
-	public void writeToParcel(Parcel out, int flags) {
-		out.writeValue(address);
-		out.writeValue(blockchain);
-		out.writeValue(blockchainTitle);
-	}
+  public void writeToParcel(Parcel out, int flags) {
+    out.writeValue(address);
+    out.writeValue(blockchain);
+    out.writeValue(blockchainTitle);
+  }
 
-	public int describeContents() {
-		return 0;
-	}
+  public int describeContents() {
+    return 0;
+  }
 }

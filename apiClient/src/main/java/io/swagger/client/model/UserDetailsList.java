@@ -33,417 +33,417 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class UserDetailsList implements Parcelable
 {
-	public static final Parcelable.Creator<UserDetailsList> CREATOR = new Parcelable.Creator<UserDetailsList>()
-	{
-		public UserDetailsList createFromParcel(Parcel in) {
-			return new UserDetailsList(in);
-		}
-
-		public UserDetailsList[] newArray(int size) {
-			return new UserDetailsList[size];
-		}
-	};
-
-	@SerializedName("userId")
-	private UUID userId = null;
-
-	@SerializedName("username")
-	private String username = null;
-
-	@SerializedName("logoUrl")
-	private String logoUrl = null;
-
-	@SerializedName("url")
-	private String url = null;
-
-	@SerializedName("tags")
-	private List<Tag> tags = null;
-
-	@SerializedName("regDate")
-	private DateTime regDate = null;
-
-	@SerializedName("assetsUnderManagement")
-	private Double assetsUnderManagement = null;
-
-	@SerializedName("investorsCount")
-	private Integer investorsCount = null;
-
-	@SerializedName("followersCount")
-	private Integer followersCount = null;
-
-	@SerializedName("totalProfit")
-	private Double totalProfit = null;
-
-	@SerializedName("about")
-	private String about = null;
-
-	@SerializedName("followers")
-	private List<ProfilePublicShort> followers = null;
-
-	@SerializedName("personalDetails")
-	private PublicProfilePersonalDetails personalDetails = null;
-
-	public UserDetailsList() {
-	}
-
-	UserDetailsList(Parcel in) {
-		userId = (UUID) in.readValue(UUID.class.getClassLoader());
-		username = (String) in.readValue(null);
-		logoUrl = (String) in.readValue(null);
-		url = (String) in.readValue(null);
-		tags = (List<Tag>) in.readValue(Tag.class.getClassLoader());
-		regDate = (DateTime) in.readValue(DateTime.class.getClassLoader());
-		assetsUnderManagement = (Double) in.readValue(null);
-		investorsCount = (Integer) in.readValue(null);
-		followersCount = (Integer) in.readValue(null);
-		totalProfit = (Double) in.readValue(null);
-		about = (String) in.readValue(null);
-		followers = (List<ProfilePublicShort>) in.readValue(ProfilePublicShort.class.getClassLoader());
-		personalDetails = (PublicProfilePersonalDetails) in.readValue(PublicProfilePersonalDetails.class.getClassLoader());
-	}
-
-	public UserDetailsList userId(UUID userId) {
-		this.userId = userId;
-		return this;
-	}
-
-	/**
-	 * Get userId
-	 *
-	 * @return userId
-	 **/
-	@Schema(description = "")
-	public UUID getUserId() {
-		return userId;
-	}
-
-	public void setUserId(UUID userId) {
-		this.userId = userId;
-	}
-
-	public UserDetailsList username(String username) {
-		this.username = username;
-		return this;
-	}
-
-	/**
-	 * Get username
-	 *
-	 * @return username
-	 **/
-	@Schema(description = "")
-	public String getUsername() {
-		return username;
-	}
-
-	public void setUsername(String username) {
-		this.username = username;
-	}
-
-	public UserDetailsList logoUrl(String logoUrl) {
-		this.logoUrl = logoUrl;
-		return this;
-	}
-
-	/**
-	 * Get logoUrl
-	 *
-	 * @return logoUrl
-	 **/
-	@Schema(description = "")
-	public String getLogoUrl() {
-		return logoUrl;
-	}
-
-	public void setLogoUrl(String logoUrl) {
-		this.logoUrl = logoUrl;
-	}
-
-	public UserDetailsList url(String url) {
-		this.url = url;
-		return this;
-	}
-
-	/**
-	 * Get url
-	 *
-	 * @return url
-	 **/
-	@Schema(description = "")
-	public String getUrl() {
-		return url;
-	}
-
-	public void setUrl(String url) {
-		this.url = url;
-	}
-
-	public UserDetailsList tags(List<Tag> tags) {
-		this.tags = tags;
-		return this;
-	}
-
-	public UserDetailsList addTagsItem(Tag tagsItem) {
-		if (this.tags == null) {
-			this.tags = new ArrayList<Tag>();
-		}
-		this.tags.add(tagsItem);
-		return this;
-	}
-
-	/**
-	 * Get tags
-	 *
-	 * @return tags
-	 **/
-	@Schema(description = "")
-	public List<Tag> getTags() {
-		return tags;
-	}
-
-	public void setTags(List<Tag> tags) {
-		this.tags = tags;
-	}
-
-	public UserDetailsList regDate(DateTime regDate) {
-		this.regDate = regDate;
-		return this;
-	}
-
-	/**
-	 * Get regDate
-	 *
-	 * @return regDate
-	 **/
-	@Schema(description = "")
-	public DateTime getRegDate() {
-		return regDate;
-	}
-
-	public void setRegDate(DateTime regDate) {
-		this.regDate = regDate;
-	}
-
-	public UserDetailsList assetsUnderManagement(Double assetsUnderManagement) {
-		this.assetsUnderManagement = assetsUnderManagement;
-		return this;
-	}
-
-	/**
-	 * Get assetsUnderManagement
-	 *
-	 * @return assetsUnderManagement
-	 **/
-	@Schema(description = "")
-	public Double getAssetsUnderManagement() {
-		return assetsUnderManagement;
-	}
-
-	public void setAssetsUnderManagement(Double assetsUnderManagement) {
-		this.assetsUnderManagement = assetsUnderManagement;
-	}
-
-	public UserDetailsList investorsCount(Integer investorsCount) {
-		this.investorsCount = investorsCount;
-		return this;
-	}
-
-	/**
-	 * Get investorsCount
-	 *
-	 * @return investorsCount
-	 **/
-	@Schema(description = "")
-	public Integer getInvestorsCount() {
-		return investorsCount;
-	}
-
-	public void setInvestorsCount(Integer investorsCount) {
-		this.investorsCount = investorsCount;
-	}
-
-	public UserDetailsList followersCount(Integer followersCount) {
-		this.followersCount = followersCount;
-		return this;
-	}
-
-	/**
-	 * Get followersCount
-	 *
-	 * @return followersCount
-	 **/
-	@Schema(description = "")
-	public Integer getFollowersCount() {
-		return followersCount;
-	}
-
-	public void setFollowersCount(Integer followersCount) {
-		this.followersCount = followersCount;
-	}
-
-	public UserDetailsList totalProfit(Double totalProfit) {
-		this.totalProfit = totalProfit;
-		return this;
-	}
-
-	/**
-	 * Get totalProfit
-	 *
-	 * @return totalProfit
-	 **/
-	@Schema(description = "")
-	public Double getTotalProfit() {
-		return totalProfit;
-	}
-
-	public void setTotalProfit(Double totalProfit) {
-		this.totalProfit = totalProfit;
-	}
-
-	public UserDetailsList about(String about) {
-		this.about = about;
-		return this;
-	}
-
-	/**
-	 * Get about
-	 *
-	 * @return about
-	 **/
-	@Schema(description = "")
-	public String getAbout() {
-		return about;
-	}
-
-	public void setAbout(String about) {
-		this.about = about;
-	}
-
-	public UserDetailsList followers(List<ProfilePublicShort> followers) {
-		this.followers = followers;
-		return this;
-	}
-
-	public UserDetailsList addFollowersItem(ProfilePublicShort followersItem) {
-		if (this.followers == null) {
-			this.followers = new ArrayList<ProfilePublicShort>();
-		}
-		this.followers.add(followersItem);
-		return this;
-	}
-
-	/**
-	 * Get followers
-	 *
-	 * @return followers
-	 **/
-	@Schema(description = "")
-	public List<ProfilePublicShort> getFollowers() {
-		return followers;
-	}
-
-	public void setFollowers(List<ProfilePublicShort> followers) {
-		this.followers = followers;
-	}
-
-	public UserDetailsList personalDetails(PublicProfilePersonalDetails personalDetails) {
-		this.personalDetails = personalDetails;
-		return this;
-	}
-
-	/**
-	 * Get personalDetails
-	 *
-	 * @return personalDetails
-	 **/
-	@Schema(description = "")
-	public PublicProfilePersonalDetails getPersonalDetails() {
-		return personalDetails;
-	}
-
-	public void setPersonalDetails(PublicProfilePersonalDetails personalDetails) {
-		this.personalDetails = personalDetails;
-	}
-
-	@Override
-	public boolean equals(java.lang.Object o) {
-		if (this == o) {
-			return true;
-		}
-		if (o == null || getClass() != o.getClass()) {
-			return false;
-		}
-		UserDetailsList userDetailsList = (UserDetailsList) o;
-		return Objects.equals(this.userId, userDetailsList.userId) &&
-				Objects.equals(this.username, userDetailsList.username) &&
-				Objects.equals(this.logoUrl, userDetailsList.logoUrl) &&
-				Objects.equals(this.url, userDetailsList.url) &&
-				Objects.equals(this.tags, userDetailsList.tags) &&
-				Objects.equals(this.regDate, userDetailsList.regDate) &&
-				Objects.equals(this.assetsUnderManagement, userDetailsList.assetsUnderManagement) &&
-				Objects.equals(this.investorsCount, userDetailsList.investorsCount) &&
-				Objects.equals(this.followersCount, userDetailsList.followersCount) &&
-				Objects.equals(this.totalProfit, userDetailsList.totalProfit) &&
-				Objects.equals(this.about, userDetailsList.about) &&
-				Objects.equals(this.followers, userDetailsList.followers) &&
-				Objects.equals(this.personalDetails, userDetailsList.personalDetails);
-	}
-
-	@Override
-	public int hashCode() {
-		return Objects.hash(userId, username, logoUrl, url, tags, regDate, assetsUnderManagement, investorsCount, followersCount, totalProfit, about, followers, personalDetails);
-	}
-
-	@Override
-	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		sb.append("class UserDetailsList {\n");
-
-		sb.append("    userId: ").append(toIndentedString(userId)).append("\n");
-		sb.append("    username: ").append(toIndentedString(username)).append("\n");
-		sb.append("    logoUrl: ").append(toIndentedString(logoUrl)).append("\n");
-		sb.append("    url: ").append(toIndentedString(url)).append("\n");
-		sb.append("    tags: ").append(toIndentedString(tags)).append("\n");
-		sb.append("    regDate: ").append(toIndentedString(regDate)).append("\n");
-		sb.append("    assetsUnderManagement: ").append(toIndentedString(assetsUnderManagement)).append("\n");
-		sb.append("    investorsCount: ").append(toIndentedString(investorsCount)).append("\n");
-		sb.append("    followersCount: ").append(toIndentedString(followersCount)).append("\n");
-		sb.append("    totalProfit: ").append(toIndentedString(totalProfit)).append("\n");
-		sb.append("    about: ").append(toIndentedString(about)).append("\n");
-		sb.append("    followers: ").append(toIndentedString(followers)).append("\n");
-		sb.append("    personalDetails: ").append(toIndentedString(personalDetails)).append("\n");
-		sb.append("}");
-		return sb.toString();
-	}
-
-	/**
-	 * Convert the given object to string with each line indented by 4 spaces
-	 * (except the first line).
-	 */
-	private String toIndentedString(java.lang.Object o) {
-		if (o == null) {
-			return "null";
-		}
-		return o.toString().replace("\n", "\n    ");
-	}
-
-	public void writeToParcel(Parcel out, int flags) {
-		out.writeValue(userId);
-		out.writeValue(username);
-		out.writeValue(logoUrl);
-		out.writeValue(url);
-		out.writeValue(tags);
-		out.writeValue(regDate);
-		out.writeValue(assetsUnderManagement);
-		out.writeValue(investorsCount);
-		out.writeValue(followersCount);
-		out.writeValue(totalProfit);
-		out.writeValue(about);
-		out.writeValue(followers);
-		out.writeValue(personalDetails);
-	}
-
-	public int describeContents() {
-		return 0;
-	}
+  public static final Parcelable.Creator<UserDetailsList> CREATOR = new Parcelable.Creator<UserDetailsList>()
+  {
+    public UserDetailsList createFromParcel(Parcel in) {
+      return new UserDetailsList(in);
+    }
+
+    public UserDetailsList[] newArray(int size) {
+      return new UserDetailsList[size];
+    }
+  };
+
+  @SerializedName("userId")
+  private UUID userId = null;
+
+  @SerializedName("username")
+  private String username = null;
+
+  @SerializedName("logoUrl")
+  private String logoUrl = null;
+
+  @SerializedName("url")
+  private String url = null;
+
+  @SerializedName("tags")
+  private List<Tag> tags = null;
+
+  @SerializedName("regDate")
+  private DateTime regDate = null;
+
+  @SerializedName("assetsUnderManagement")
+  private Double assetsUnderManagement = null;
+
+  @SerializedName("investorsCount")
+  private Integer investorsCount = null;
+
+  @SerializedName("followersCount")
+  private Integer followersCount = null;
+
+  @SerializedName("totalProfit")
+  private Double totalProfit = null;
+
+  @SerializedName("about")
+  private String about = null;
+
+  @SerializedName("followers")
+  private List<ProfilePublicShort> followers = null;
+
+  @SerializedName("personalDetails")
+  private PublicProfilePersonalDetails personalDetails = null;
+
+  public UserDetailsList() {
+  }
+
+  UserDetailsList(Parcel in) {
+    userId = (UUID) in.readValue(UUID.class.getClassLoader());
+    username = (String) in.readValue(null);
+    logoUrl = (String) in.readValue(null);
+    url = (String) in.readValue(null);
+    tags = (List<Tag>) in.readValue(Tag.class.getClassLoader());
+    regDate = (DateTime) in.readValue(DateTime.class.getClassLoader());
+    assetsUnderManagement = (Double) in.readValue(null);
+    investorsCount = (Integer) in.readValue(null);
+    followersCount = (Integer) in.readValue(null);
+    totalProfit = (Double) in.readValue(null);
+    about = (String) in.readValue(null);
+    followers = (List<ProfilePublicShort>) in.readValue(ProfilePublicShort.class.getClassLoader());
+    personalDetails = (PublicProfilePersonalDetails) in.readValue(PublicProfilePersonalDetails.class.getClassLoader());
+  }
+
+  public UserDetailsList userId(UUID userId) {
+    this.userId = userId;
+    return this;
+  }
+
+  /**
+   * Get userId
+   *
+   * @return userId
+   **/
+  @Schema(description = "")
+  public UUID getUserId() {
+    return userId;
+  }
+
+  public void setUserId(UUID userId) {
+    this.userId = userId;
+  }
+
+  public UserDetailsList username(String username) {
+    this.username = username;
+    return this;
+  }
+
+  /**
+   * Get username
+   *
+   * @return username
+   **/
+  @Schema(description = "")
+  public String getUsername() {
+    return username;
+  }
+
+  public void setUsername(String username) {
+    this.username = username;
+  }
+
+  public UserDetailsList logoUrl(String logoUrl) {
+    this.logoUrl = logoUrl;
+    return this;
+  }
+
+  /**
+   * Get logoUrl
+   *
+   * @return logoUrl
+   **/
+  @Schema(description = "")
+  public String getLogoUrl() {
+    return logoUrl;
+  }
+
+  public void setLogoUrl(String logoUrl) {
+    this.logoUrl = logoUrl;
+  }
+
+  public UserDetailsList url(String url) {
+    this.url = url;
+    return this;
+  }
+
+  /**
+   * Get url
+   *
+   * @return url
+   **/
+  @Schema(description = "")
+  public String getUrl() {
+    return url;
+  }
+
+  public void setUrl(String url) {
+    this.url = url;
+  }
+
+  public UserDetailsList tags(List<Tag> tags) {
+    this.tags = tags;
+    return this;
+  }
+
+  public UserDetailsList addTagsItem(Tag tagsItem) {
+    if (this.tags == null) {
+      this.tags = new ArrayList<Tag>();
+    }
+    this.tags.add(tagsItem);
+    return this;
+  }
+
+  /**
+   * Get tags
+   *
+   * @return tags
+   **/
+  @Schema(description = "")
+  public List<Tag> getTags() {
+    return tags;
+  }
+
+  public void setTags(List<Tag> tags) {
+    this.tags = tags;
+  }
+
+  public UserDetailsList regDate(DateTime regDate) {
+    this.regDate = regDate;
+    return this;
+  }
+
+  /**
+   * Get regDate
+   *
+   * @return regDate
+   **/
+  @Schema(description = "")
+  public DateTime getRegDate() {
+    return regDate;
+  }
+
+  public void setRegDate(DateTime regDate) {
+    this.regDate = regDate;
+  }
+
+  public UserDetailsList assetsUnderManagement(Double assetsUnderManagement) {
+    this.assetsUnderManagement = assetsUnderManagement;
+    return this;
+  }
+
+  /**
+   * Get assetsUnderManagement
+   *
+   * @return assetsUnderManagement
+   **/
+  @Schema(description = "")
+  public Double getAssetsUnderManagement() {
+    return assetsUnderManagement;
+  }
+
+  public void setAssetsUnderManagement(Double assetsUnderManagement) {
+    this.assetsUnderManagement = assetsUnderManagement;
+  }
+
+  public UserDetailsList investorsCount(Integer investorsCount) {
+    this.investorsCount = investorsCount;
+    return this;
+  }
+
+  /**
+   * Get investorsCount
+   *
+   * @return investorsCount
+   **/
+  @Schema(description = "")
+  public Integer getInvestorsCount() {
+    return investorsCount;
+  }
+
+  public void setInvestorsCount(Integer investorsCount) {
+    this.investorsCount = investorsCount;
+  }
+
+  public UserDetailsList followersCount(Integer followersCount) {
+    this.followersCount = followersCount;
+    return this;
+  }
+
+  /**
+   * Get followersCount
+   *
+   * @return followersCount
+   **/
+  @Schema(description = "")
+  public Integer getFollowersCount() {
+    return followersCount;
+  }
+
+  public void setFollowersCount(Integer followersCount) {
+    this.followersCount = followersCount;
+  }
+
+  public UserDetailsList totalProfit(Double totalProfit) {
+    this.totalProfit = totalProfit;
+    return this;
+  }
+
+  /**
+   * Get totalProfit
+   *
+   * @return totalProfit
+   **/
+  @Schema(description = "")
+  public Double getTotalProfit() {
+    return totalProfit;
+  }
+
+  public void setTotalProfit(Double totalProfit) {
+    this.totalProfit = totalProfit;
+  }
+
+  public UserDetailsList about(String about) {
+    this.about = about;
+    return this;
+  }
+
+  /**
+   * Get about
+   *
+   * @return about
+   **/
+  @Schema(description = "")
+  public String getAbout() {
+    return about;
+  }
+
+  public void setAbout(String about) {
+    this.about = about;
+  }
+
+  public UserDetailsList followers(List<ProfilePublicShort> followers) {
+    this.followers = followers;
+    return this;
+  }
+
+  public UserDetailsList addFollowersItem(ProfilePublicShort followersItem) {
+    if (this.followers == null) {
+      this.followers = new ArrayList<ProfilePublicShort>();
+    }
+    this.followers.add(followersItem);
+    return this;
+  }
+
+  /**
+   * Get followers
+   *
+   * @return followers
+   **/
+  @Schema(description = "")
+  public List<ProfilePublicShort> getFollowers() {
+    return followers;
+  }
+
+  public void setFollowers(List<ProfilePublicShort> followers) {
+    this.followers = followers;
+  }
+
+  public UserDetailsList personalDetails(PublicProfilePersonalDetails personalDetails) {
+    this.personalDetails = personalDetails;
+    return this;
+  }
+
+  /**
+   * Get personalDetails
+   *
+   * @return personalDetails
+   **/
+  @Schema(description = "")
+  public PublicProfilePersonalDetails getPersonalDetails() {
+    return personalDetails;
+  }
+
+  public void setPersonalDetails(PublicProfilePersonalDetails personalDetails) {
+    this.personalDetails = personalDetails;
+  }
+
+  @Override
+  public boolean equals(java.lang.Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    UserDetailsList userDetailsList = (UserDetailsList) o;
+    return Objects.equals(this.userId, userDetailsList.userId) &&
+            Objects.equals(this.username, userDetailsList.username) &&
+            Objects.equals(this.logoUrl, userDetailsList.logoUrl) &&
+            Objects.equals(this.url, userDetailsList.url) &&
+            Objects.equals(this.tags, userDetailsList.tags) &&
+            Objects.equals(this.regDate, userDetailsList.regDate) &&
+            Objects.equals(this.assetsUnderManagement, userDetailsList.assetsUnderManagement) &&
+            Objects.equals(this.investorsCount, userDetailsList.investorsCount) &&
+            Objects.equals(this.followersCount, userDetailsList.followersCount) &&
+            Objects.equals(this.totalProfit, userDetailsList.totalProfit) &&
+            Objects.equals(this.about, userDetailsList.about) &&
+            Objects.equals(this.followers, userDetailsList.followers) &&
+            Objects.equals(this.personalDetails, userDetailsList.personalDetails);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(userId, username, logoUrl, url, tags, regDate, assetsUnderManagement, investorsCount, followersCount, totalProfit, about, followers, personalDetails);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class UserDetailsList {\n");
+
+    sb.append("    userId: ").append(toIndentedString(userId)).append("\n");
+    sb.append("    username: ").append(toIndentedString(username)).append("\n");
+    sb.append("    logoUrl: ").append(toIndentedString(logoUrl)).append("\n");
+    sb.append("    url: ").append(toIndentedString(url)).append("\n");
+    sb.append("    tags: ").append(toIndentedString(tags)).append("\n");
+    sb.append("    regDate: ").append(toIndentedString(regDate)).append("\n");
+    sb.append("    assetsUnderManagement: ").append(toIndentedString(assetsUnderManagement)).append("\n");
+    sb.append("    investorsCount: ").append(toIndentedString(investorsCount)).append("\n");
+    sb.append("    followersCount: ").append(toIndentedString(followersCount)).append("\n");
+    sb.append("    totalProfit: ").append(toIndentedString(totalProfit)).append("\n");
+    sb.append("    about: ").append(toIndentedString(about)).append("\n");
+    sb.append("    followers: ").append(toIndentedString(followers)).append("\n");
+    sb.append("    personalDetails: ").append(toIndentedString(personalDetails)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(java.lang.Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+  public void writeToParcel(Parcel out, int flags) {
+    out.writeValue(userId);
+    out.writeValue(username);
+    out.writeValue(logoUrl);
+    out.writeValue(url);
+    out.writeValue(tags);
+    out.writeValue(regDate);
+    out.writeValue(assetsUnderManagement);
+    out.writeValue(investorsCount);
+    out.writeValue(followersCount);
+    out.writeValue(totalProfit);
+    out.writeValue(about);
+    out.writeValue(followers);
+    out.writeValue(personalDetails);
+  }
+
+  public int describeContents() {
+    return 0;
+  }
 }

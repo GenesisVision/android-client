@@ -71,7 +71,7 @@ public class DashboardTradingAssetCommonDetails implements Parcelable
 	private PrivateTradingAccountType type = null;
 
 	@SerializedName("balances")
-	private List<AmountWithCurrency> balances = null;
+	private List<AmountWithLogoCurrency> balances = null;
 
 	@SerializedName("supportedCurrencies")
 	private List<Currency> supportedCurrencies = null;
@@ -89,7 +89,7 @@ public class DashboardTradingAssetCommonDetails implements Parcelable
 		originalCurrency = (Currency) in.readValue(Currency.class.getClassLoader());
 		leverage = (Integer) in.readValue(null);
 		type = (PrivateTradingAccountType) in.readValue(PrivateTradingAccountType.class.getClassLoader());
-		balances = (List<AmountWithCurrency>) in.readValue(AmountWithCurrency.class.getClassLoader());
+		balances = (List<AmountWithLogoCurrency>) in.readValue(AmountWithLogoCurrency.class.getClassLoader());
 		supportedCurrencies = (List<Currency>) in.readValue(Currency.class.getClassLoader());
 	}
 
@@ -264,14 +264,14 @@ public class DashboardTradingAssetCommonDetails implements Parcelable
 		this.type = type;
 	}
 
-	public DashboardTradingAssetCommonDetails balances(List<AmountWithCurrency> balances) {
+	public DashboardTradingAssetCommonDetails balances(List<AmountWithLogoCurrency> balances) {
 		this.balances = balances;
 		return this;
 	}
 
-	public DashboardTradingAssetCommonDetails addBalancesItem(AmountWithCurrency balancesItem) {
+	public DashboardTradingAssetCommonDetails addBalancesItem(AmountWithLogoCurrency balancesItem) {
 		if (this.balances == null) {
-			this.balances = new ArrayList<AmountWithCurrency>();
+			this.balances = new ArrayList<AmountWithLogoCurrency>();
 		}
 		this.balances.add(balancesItem);
 		return this;
@@ -283,11 +283,11 @@ public class DashboardTradingAssetCommonDetails implements Parcelable
 	 * @return balances
 	 **/
 	@Schema(description = "")
-	public List<AmountWithCurrency> getBalances() {
+	public List<AmountWithLogoCurrency> getBalances() {
 		return balances;
 	}
 
-	public void setBalances(List<AmountWithCurrency> balances) {
+	public void setBalances(List<AmountWithLogoCurrency> balances) {
 		this.balances = balances;
 	}
 

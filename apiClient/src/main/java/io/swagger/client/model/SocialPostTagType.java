@@ -25,51 +25,51 @@ import java.io.IOException;
 @JsonAdapter(SocialPostTagType.Adapter.class)
 public enum SocialPostTagType
 {
-	UNDEFINED("Undefined"),
-	PROGRAM("Program"),
-	FUND("Fund"),
-	FOLLOW("Follow"),
-	USER("User"),
-	ASSET("Asset"),
-	EVENT("Event"),
-	POST("Post"),
-	URL("Url");
+  UNDEFINED("Undefined"),
+  PROGRAM("Program"),
+  FUND("Fund"),
+  FOLLOW("Follow"),
+  USER("User"),
+  ASSET("Asset"),
+  EVENT("Event"),
+  POST("Post"),
+  URL("Url");
 
-	public static SocialPostTagType fromValue(String text) {
-		for (SocialPostTagType b : SocialPostTagType.values()) {
-			if (String.valueOf(b.value).equals(text)) {
-				return b;
-			}
-		}
-		return null;
-	}
+  public static SocialPostTagType fromValue(String text) {
+    for (SocialPostTagType b : SocialPostTagType.values()) {
+      if (String.valueOf(b.value).equals(text)) {
+        return b;
+      }
+    }
+    return null;
+  }
 
-	private String value;
+  private String value;
 
-	SocialPostTagType(String value) {
-		this.value = value;
-	}
+  SocialPostTagType(String value) {
+    this.value = value;
+  }
 
-	public String getValue() {
-		return value;
-	}
+  public String getValue() {
+    return value;
+  }
 
-	@Override
-	public String toString() {
-		return String.valueOf(value);
-	}
+  @Override
+  public String toString() {
+    return String.valueOf(value);
+  }
 
-	public static class Adapter extends TypeAdapter<SocialPostTagType>
-	{
-		@Override
-		public void write(final JsonWriter jsonWriter, final SocialPostTagType enumeration) throws IOException {
-			jsonWriter.value(enumeration.getValue());
-		}
+  public static class Adapter extends TypeAdapter<SocialPostTagType>
+  {
+    @Override
+    public void write(final JsonWriter jsonWriter, final SocialPostTagType enumeration) throws IOException {
+      jsonWriter.value(enumeration.getValue());
+    }
 
-		@Override
-		public SocialPostTagType read(final JsonReader jsonReader) throws IOException {
-			Object value = jsonReader.nextString();
-			return SocialPostTagType.fromValue(String.valueOf(value));
-		}
-	}
+    @Override
+    public SocialPostTagType read(final JsonReader jsonReader) throws IOException {
+      Object value = jsonReader.nextString();
+      return SocialPostTagType.fromValue(String.valueOf(value));
+    }
+  }
 }

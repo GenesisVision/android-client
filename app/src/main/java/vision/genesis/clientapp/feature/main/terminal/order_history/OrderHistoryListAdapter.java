@@ -11,8 +11,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.recyclerview.widget.RecyclerView;
 
-import org.greenrobot.eventbus.EventBus;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,7 +20,7 @@ import io.swagger.client.model.BinanceOrderSide;
 import io.swagger.client.model.BinanceRawOrder;
 import io.swagger.client.model.TradingPlatformBinanceOrdersMode;
 import vision.genesis.clientapp.R;
-import vision.genesis.clientapp.model.events.OnOpenOrderClickedEvent;
+import vision.genesis.clientapp.feature.main.terminal.open_orders.OpenOrdersListAdapter;
 import vision.genesis.clientapp.utils.DateTimeUtil;
 import vision.genesis.clientapp.utils.StringFormatUtil;
 import vision.genesis.clientapp.utils.ThemeUtil;
@@ -34,19 +32,27 @@ import vision.genesis.clientapp.utils.ThemeUtil;
 
 public class OrderHistoryListAdapter extends RecyclerView.Adapter<OrderHistoryListAdapter.OrderViewHolder>
 {
+	public interface OnItemClickListener
+	{
+		void onClicked(BinanceRawOrder order);
+	}
+
 	public List<BinanceRawOrder> orders = new ArrayList<>();
 
 	private TradingPlatformBinanceOrdersMode mode;
 
-	public OrderHistoryListAdapter(TradingPlatformBinanceOrdersMode mode) {
+	private OpenOrdersListAdapter.OnItemClickListener listener;
+
+	public OrderHistoryListAdapter(TradingPlatformBinanceOrdersMode mode, OpenOrdersListAdapter.OnItemClickListener listener) {
 		this.mode = mode;
+		this.listener = listener;
 	}
 
 	@NonNull
 	@Override
 	public OrderViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 		View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_order, parent, false);
-		return new OrderViewHolder(itemView, mode);
+		return new OrderViewHolder(itemView, mode, listener);
 	}
 
 	@Override
@@ -118,7 +124,7 @@ public class OrderHistoryListAdapter extends RecyclerView.Adapter<OrderHistoryLi
 
 		private BinanceRawOrder order;
 
-		OrderViewHolder(View itemView, TradingPlatformBinanceOrdersMode mode) {
+		OrderViewHolder(View itemView, TradingPlatformBinanceOrdersMode mode, OpenOrdersListAdapter.OnItemClickListener listener) {
 			super(itemView);
 
 			this.mode = mode;
@@ -135,8 +141,8 @@ public class OrderHistoryListAdapter extends RecyclerView.Adapter<OrderHistoryLi
 			}
 
 			itemView.setOnClickListener(view -> {
-				if (order != null) {
-					EventBus.getDefault().post(new OnOpenOrderClickedEvent(order));
+				if (order != null && listener != null) {
+					listener.onClicked(order);
 				}
 			});
 		}

@@ -6,7 +6,6 @@ import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 
 import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +26,6 @@ import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.common.date_range.DateRangeBottomSheetFragment;
 import vision.genesis.clientapp.managers.TerminalManager;
 import vision.genesis.clientapp.model.DateRange;
-import vision.genesis.clientapp.model.events.OnOpenOrderClickedEvent;
 import vision.genesis.clientapp.model.events.SetOrderHistoryCountEvent;
 import vision.genesis.clientapp.model.events.SetTradeHistoryCountEvent;
 import vision.genesis.clientapp.model.terminal.binance_socket.AccountModel;
@@ -71,8 +69,6 @@ public class OrderHistoryPresenter extends MvpPresenter<OrderHistoryView> implem
 
 		GenesisVisionApplication.getComponent().inject(this);
 
-		EventBus.getDefault().register(this);
-
 		getViewState().showProgress(true);
 		getViewState().setDateRange(dateRange);
 
@@ -88,8 +84,6 @@ public class OrderHistoryPresenter extends MvpPresenter<OrderHistoryView> implem
 		if (ordersUpdateSubscription != null) {
 			ordersUpdateSubscription.unsubscribe();
 		}
-
-		EventBus.getDefault().unregister(this);
 
 		super.onDestroy();
 	}
@@ -126,7 +120,7 @@ public class OrderHistoryPresenter extends MvpPresenter<OrderHistoryView> implem
 			if (getOrdersSubscription != null) {
 				getOrdersSubscription.unsubscribe();
 			}
-			getOrdersSubscription = terminalManager.getOrderHistory(accountId, mode, dateRange, symbol, skip, TAKE)
+			getOrdersSubscription = terminalManager.getOrderHistory(accountId, mode, dateRange, null, skip, TAKE)
 					.observeOn(AndroidSchedulers.mainThread())
 					.subscribeOn(Schedulers.io())
 					.subscribe(this::handleGetOrdersResponse,
@@ -201,20 +195,19 @@ public class OrderHistoryPresenter extends MvpPresenter<OrderHistoryView> implem
 						}
 					}
 				}
+				getViewState().setOrders(orders);
+				if (mode.equals(TradingPlatformBinanceOrdersMode.ORDERHISTORY)) {
+					EventBus.getDefault().post(new SetOrderHistoryCountEvent(orders.size()));
+				}
+				else if (mode.equals(TradingPlatformBinanceOrdersMode.TRADEHISTORY)) {
+					EventBus.getDefault().post(new SetTradeHistoryCountEvent(orders.size()));
+				}
 			}
 			else {
 				if (model.getExecutionType().equals(BinanceExecutionType.TRADE)
 						&& Objects.equals(model.getQuantityFilled(), model.getQuantity())) {
 					getOrders(true);
 				}
-			}
-
-			getViewState().setOrders(orders);
-			if (mode.equals(TradingPlatformBinanceOrdersMode.ORDERHISTORY)) {
-				EventBus.getDefault().post(new SetOrderHistoryCountEvent(orders.size()));
-			}
-			else if (mode.equals(TradingPlatformBinanceOrdersMode.TRADEHISTORY)) {
-				EventBus.getDefault().post(new SetTradeHistoryCountEvent(orders.size()));
 			}
 		}
 	}
@@ -225,10 +218,5 @@ public class OrderHistoryPresenter extends MvpPresenter<OrderHistoryView> implem
 		getViewState().setDateRange(dateRange);
 		getViewState().showProgress(true);
 		getOrders(true);
-	}
-
-	@Subscribe
-	public void onEventMainThread(OnOpenOrderClickedEvent event) {
-		getViewState().showOrderDetails(event.getOrder());
 	}
 }

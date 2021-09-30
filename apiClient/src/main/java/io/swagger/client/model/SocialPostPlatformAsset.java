@@ -31,409 +31,409 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class SocialPostPlatformAsset implements Parcelable
 {
-	public static final Parcelable.Creator<SocialPostPlatformAsset> CREATOR = new Parcelable.Creator<SocialPostPlatformAsset>()
-	{
-		public SocialPostPlatformAsset createFromParcel(Parcel in) {
-			return new SocialPostPlatformAsset(in);
-		}
+  public static final Parcelable.Creator<SocialPostPlatformAsset> CREATOR = new Parcelable.Creator<SocialPostPlatformAsset>()
+  {
+    public SocialPostPlatformAsset createFromParcel(Parcel in) {
+      return new SocialPostPlatformAsset(in);
+    }
 
-		public SocialPostPlatformAsset[] newArray(int size) {
-			return new SocialPostPlatformAsset[size];
-		}
-	};
+    public SocialPostPlatformAsset[] newArray(int size) {
+      return new SocialPostPlatformAsset[size];
+    }
+  };
 
-	@SerializedName("id")
-	private UUID id = null;
+  @SerializedName("id")
+  private UUID id = null;
 
-	@SerializedName("name")
-	private String name = null;
+  @SerializedName("name")
+  private String name = null;
 
-	@SerializedName("asset")
-	private String asset = null;
+  @SerializedName("asset")
+  private String asset = null;
 
-	@SerializedName("description")
-	private String description = null;
+  @SerializedName("description")
+  private String description = null;
 
-	@SerializedName("logoUrl")
-	private String logoUrl = null;
+  @SerializedName("logoUrl")
+  private String logoUrl = null;
 
-	@SerializedName("color")
-	private String color = null;
+  @SerializedName("color")
+  private String color = null;
 
-	@SerializedName("url")
-	private String url = null;
+  @SerializedName("url")
+  private String url = null;
 
-	@SerializedName("provider")
-	private AssetProvider provider = null;
+  @SerializedName("provider")
+  private AssetProvider provider = null;
 
-	@SerializedName("price")
-	private Double price = null;
+  @SerializedName("price")
+  private Double price = null;
 
-	@SerializedName("priceCurrency")
-	private Currency priceCurrency = null;
+  @SerializedName("priceCurrency")
+  private Currency priceCurrency = null;
 
-	@SerializedName("change24Percent")
-	private Double change24Percent = null;
+  @SerializedName("change24Percent")
+  private Double change24Percent = null;
 
-	@SerializedName("changeState")
-	private ChangeState changeState = null;
+  @SerializedName("changeState")
+  private ChangeState changeState = null;
 
-	@SerializedName("chart")
-	private List<SimpleChartPoint> chart = null;
+  @SerializedName("chart")
+  private List<SimpleChartPoint> chart = null;
 
-	public SocialPostPlatformAsset() {
-	}
+  public SocialPostPlatformAsset() {
+  }
 
-	SocialPostPlatformAsset(Parcel in) {
-		id = (UUID) in.readValue(UUID.class.getClassLoader());
-		name = (String) in.readValue(null);
-		asset = (String) in.readValue(null);
-		description = (String) in.readValue(null);
-		logoUrl = (String) in.readValue(null);
-		color = (String) in.readValue(null);
-		url = (String) in.readValue(null);
-		provider = (AssetProvider) in.readValue(AssetProvider.class.getClassLoader());
-		price = (Double) in.readValue(null);
-		priceCurrency = (Currency) in.readValue(Currency.class.getClassLoader());
-		change24Percent = (Double) in.readValue(null);
-		changeState = (ChangeState) in.readValue(ChangeState.class.getClassLoader());
-		chart = (List<SimpleChartPoint>) in.readValue(SimpleChartPoint.class.getClassLoader());
-	}
+  SocialPostPlatformAsset(Parcel in) {
+    id = (UUID) in.readValue(UUID.class.getClassLoader());
+    name = (String) in.readValue(null);
+    asset = (String) in.readValue(null);
+    description = (String) in.readValue(null);
+    logoUrl = (String) in.readValue(null);
+    color = (String) in.readValue(null);
+    url = (String) in.readValue(null);
+    provider = (AssetProvider) in.readValue(AssetProvider.class.getClassLoader());
+    price = (Double) in.readValue(null);
+    priceCurrency = (Currency) in.readValue(Currency.class.getClassLoader());
+    change24Percent = (Double) in.readValue(null);
+    changeState = (ChangeState) in.readValue(ChangeState.class.getClassLoader());
+    chart = (List<SimpleChartPoint>) in.readValue(SimpleChartPoint.class.getClassLoader());
+  }
 
-	public SocialPostPlatformAsset id(UUID id) {
-		this.id = id;
-		return this;
-	}
+  public SocialPostPlatformAsset id(UUID id) {
+    this.id = id;
+    return this;
+  }
 
-	/**
-	 * Get id
-	 *
-	 * @return id
-	 **/
-	@Schema(description = "")
-	public UUID getId() {
-		return id;
-	}
+  /**
+   * Get id
+   *
+   * @return id
+   **/
+  @Schema(description = "")
+  public UUID getId() {
+    return id;
+  }
 
-	public void setId(UUID id) {
-		this.id = id;
-	}
+  public void setId(UUID id) {
+    this.id = id;
+  }
 
-	public SocialPostPlatformAsset name(String name) {
-		this.name = name;
-		return this;
-	}
+  public SocialPostPlatformAsset name(String name) {
+    this.name = name;
+    return this;
+  }
 
-	/**
-	 * Get name
-	 *
-	 * @return name
-	 **/
-	@Schema(description = "")
-	public String getName() {
-		return name;
-	}
+  /**
+   * Get name
+   *
+   * @return name
+   **/
+  @Schema(description = "")
+  public String getName() {
+    return name;
+  }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+  public void setName(String name) {
+    this.name = name;
+  }
 
-	public SocialPostPlatformAsset asset(String asset) {
-		this.asset = asset;
-		return this;
-	}
+  public SocialPostPlatformAsset asset(String asset) {
+    this.asset = asset;
+    return this;
+  }
 
-	/**
-	 * Get asset
-	 *
-	 * @return asset
-	 **/
-	@Schema(description = "")
-	public String getAsset() {
-		return asset;
-	}
+  /**
+   * Get asset
+   *
+   * @return asset
+   **/
+  @Schema(description = "")
+  public String getAsset() {
+    return asset;
+  }
 
-	public void setAsset(String asset) {
-		this.asset = asset;
-	}
+  public void setAsset(String asset) {
+    this.asset = asset;
+  }
 
-	public SocialPostPlatformAsset description(String description) {
-		this.description = description;
-		return this;
-	}
+  public SocialPostPlatformAsset description(String description) {
+    this.description = description;
+    return this;
+  }
 
-	/**
-	 * Get description
-	 *
-	 * @return description
-	 **/
-	@Schema(description = "")
-	public String getDescription() {
-		return description;
-	}
+  /**
+   * Get description
+   *
+   * @return description
+   **/
+  @Schema(description = "")
+  public String getDescription() {
+    return description;
+  }
 
-	public void setDescription(String description) {
-		this.description = description;
-	}
+  public void setDescription(String description) {
+    this.description = description;
+  }
 
-	public SocialPostPlatformAsset logoUrl(String logoUrl) {
-		this.logoUrl = logoUrl;
-		return this;
-	}
+  public SocialPostPlatformAsset logoUrl(String logoUrl) {
+    this.logoUrl = logoUrl;
+    return this;
+  }
 
-	/**
-	 * Get logoUrl
-	 *
-	 * @return logoUrl
-	 **/
-	@Schema(description = "")
-	public String getLogoUrl() {
-		return logoUrl;
-	}
+  /**
+   * Get logoUrl
+   *
+   * @return logoUrl
+   **/
+  @Schema(description = "")
+  public String getLogoUrl() {
+    return logoUrl;
+  }
 
-	public void setLogoUrl(String logoUrl) {
-		this.logoUrl = logoUrl;
-	}
+  public void setLogoUrl(String logoUrl) {
+    this.logoUrl = logoUrl;
+  }
 
-	public SocialPostPlatformAsset color(String color) {
-		this.color = color;
-		return this;
-	}
+  public SocialPostPlatformAsset color(String color) {
+    this.color = color;
+    return this;
+  }
 
-	/**
-	 * Get color
-	 *
-	 * @return color
-	 **/
-	@Schema(description = "")
-	public String getColor() {
-		return color;
-	}
+  /**
+   * Get color
+   *
+   * @return color
+   **/
+  @Schema(description = "")
+  public String getColor() {
+    return color;
+  }
 
-	public void setColor(String color) {
-		this.color = color;
-	}
+  public void setColor(String color) {
+    this.color = color;
+  }
 
-	public SocialPostPlatformAsset url(String url) {
-		this.url = url;
-		return this;
-	}
+  public SocialPostPlatformAsset url(String url) {
+    this.url = url;
+    return this;
+  }
 
-	/**
-	 * Get url
-	 *
-	 * @return url
-	 **/
-	@Schema(description = "")
-	public String getUrl() {
-		return url;
-	}
+  /**
+   * Get url
+   *
+   * @return url
+   **/
+  @Schema(description = "")
+  public String getUrl() {
+    return url;
+  }
 
-	public void setUrl(String url) {
-		this.url = url;
-	}
+  public void setUrl(String url) {
+    this.url = url;
+  }
 
-	public SocialPostPlatformAsset provider(AssetProvider provider) {
-		this.provider = provider;
-		return this;
-	}
+  public SocialPostPlatformAsset provider(AssetProvider provider) {
+    this.provider = provider;
+    return this;
+  }
 
-	/**
-	 * Get provider
-	 *
-	 * @return provider
-	 **/
-	@Schema(description = "")
-	public AssetProvider getProvider() {
-		return provider;
-	}
+  /**
+   * Get provider
+   *
+   * @return provider
+   **/
+  @Schema(description = "")
+  public AssetProvider getProvider() {
+    return provider;
+  }
 
-	public void setProvider(AssetProvider provider) {
-		this.provider = provider;
-	}
+  public void setProvider(AssetProvider provider) {
+    this.provider = provider;
+  }
 
-	public SocialPostPlatformAsset price(Double price) {
-		this.price = price;
-		return this;
-	}
+  public SocialPostPlatformAsset price(Double price) {
+    this.price = price;
+    return this;
+  }
 
-	/**
-	 * Get price
-	 *
-	 * @return price
-	 **/
-	@Schema(description = "")
-	public Double getPrice() {
-		return price;
-	}
+  /**
+   * Get price
+   *
+   * @return price
+   **/
+  @Schema(description = "")
+  public Double getPrice() {
+    return price;
+  }
 
-	public void setPrice(Double price) {
-		this.price = price;
-	}
+  public void setPrice(Double price) {
+    this.price = price;
+  }
 
-	public SocialPostPlatformAsset priceCurrency(Currency priceCurrency) {
-		this.priceCurrency = priceCurrency;
-		return this;
-	}
+  public SocialPostPlatformAsset priceCurrency(Currency priceCurrency) {
+    this.priceCurrency = priceCurrency;
+    return this;
+  }
 
-	/**
-	 * Get priceCurrency
-	 *
-	 * @return priceCurrency
-	 **/
-	@Schema(description = "")
-	public Currency getPriceCurrency() {
-		return priceCurrency;
-	}
+  /**
+   * Get priceCurrency
+   *
+   * @return priceCurrency
+   **/
+  @Schema(description = "")
+  public Currency getPriceCurrency() {
+    return priceCurrency;
+  }
 
-	public void setPriceCurrency(Currency priceCurrency) {
-		this.priceCurrency = priceCurrency;
-	}
+  public void setPriceCurrency(Currency priceCurrency) {
+    this.priceCurrency = priceCurrency;
+  }
 
-	public SocialPostPlatformAsset change24Percent(Double change24Percent) {
-		this.change24Percent = change24Percent;
-		return this;
-	}
+  public SocialPostPlatformAsset change24Percent(Double change24Percent) {
+    this.change24Percent = change24Percent;
+    return this;
+  }
 
-	/**
-	 * Get change24Percent
-	 *
-	 * @return change24Percent
-	 **/
-	@Schema(description = "")
-	public Double getChange24Percent() {
-		return change24Percent;
-	}
+  /**
+   * Get change24Percent
+   *
+   * @return change24Percent
+   **/
+  @Schema(description = "")
+  public Double getChange24Percent() {
+    return change24Percent;
+  }
 
-	public void setChange24Percent(Double change24Percent) {
-		this.change24Percent = change24Percent;
-	}
+  public void setChange24Percent(Double change24Percent) {
+    this.change24Percent = change24Percent;
+  }
 
-	public SocialPostPlatformAsset changeState(ChangeState changeState) {
-		this.changeState = changeState;
-		return this;
-	}
+  public SocialPostPlatformAsset changeState(ChangeState changeState) {
+    this.changeState = changeState;
+    return this;
+  }
 
-	/**
-	 * Get changeState
-	 *
-	 * @return changeState
-	 **/
-	@Schema(description = "")
-	public ChangeState getChangeState() {
-		return changeState;
-	}
+  /**
+   * Get changeState
+   *
+   * @return changeState
+   **/
+  @Schema(description = "")
+  public ChangeState getChangeState() {
+    return changeState;
+  }
 
-	public void setChangeState(ChangeState changeState) {
-		this.changeState = changeState;
-	}
+  public void setChangeState(ChangeState changeState) {
+    this.changeState = changeState;
+  }
 
-	public SocialPostPlatformAsset chart(List<SimpleChartPoint> chart) {
-		this.chart = chart;
-		return this;
-	}
+  public SocialPostPlatformAsset chart(List<SimpleChartPoint> chart) {
+    this.chart = chart;
+    return this;
+  }
 
-	public SocialPostPlatformAsset addChartItem(SimpleChartPoint chartItem) {
-		if (this.chart == null) {
-			this.chart = new ArrayList<SimpleChartPoint>();
-		}
-		this.chart.add(chartItem);
-		return this;
-	}
+  public SocialPostPlatformAsset addChartItem(SimpleChartPoint chartItem) {
+    if (this.chart == null) {
+      this.chart = new ArrayList<SimpleChartPoint>();
+    }
+    this.chart.add(chartItem);
+    return this;
+  }
 
-	/**
-	 * Get chart
-	 *
-	 * @return chart
-	 **/
-	@Schema(description = "")
-	public List<SimpleChartPoint> getChart() {
-		return chart;
-	}
+  /**
+   * Get chart
+   *
+   * @return chart
+   **/
+  @Schema(description = "")
+  public List<SimpleChartPoint> getChart() {
+    return chart;
+  }
 
-	public void setChart(List<SimpleChartPoint> chart) {
-		this.chart = chart;
-	}
+  public void setChart(List<SimpleChartPoint> chart) {
+    this.chart = chart;
+  }
 
-	@Override
-	public boolean equals(java.lang.Object o) {
-		if (this == o) {
-			return true;
-		}
-		if (o == null || getClass() != o.getClass()) {
-			return false;
-		}
-		SocialPostPlatformAsset socialPostPlatformAsset = (SocialPostPlatformAsset) o;
-		return Objects.equals(this.id, socialPostPlatformAsset.id) &&
-				Objects.equals(this.name, socialPostPlatformAsset.name) &&
-				Objects.equals(this.asset, socialPostPlatformAsset.asset) &&
-				Objects.equals(this.description, socialPostPlatformAsset.description) &&
-				Objects.equals(this.logoUrl, socialPostPlatformAsset.logoUrl) &&
-				Objects.equals(this.color, socialPostPlatformAsset.color) &&
-				Objects.equals(this.url, socialPostPlatformAsset.url) &&
-				Objects.equals(this.provider, socialPostPlatformAsset.provider) &&
-				Objects.equals(this.price, socialPostPlatformAsset.price) &&
-				Objects.equals(this.priceCurrency, socialPostPlatformAsset.priceCurrency) &&
-				Objects.equals(this.change24Percent, socialPostPlatformAsset.change24Percent) &&
-				Objects.equals(this.changeState, socialPostPlatformAsset.changeState) &&
-				Objects.equals(this.chart, socialPostPlatformAsset.chart);
-	}
+  @Override
+  public boolean equals(java.lang.Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    SocialPostPlatformAsset socialPostPlatformAsset = (SocialPostPlatformAsset) o;
+    return Objects.equals(this.id, socialPostPlatformAsset.id) &&
+            Objects.equals(this.name, socialPostPlatformAsset.name) &&
+            Objects.equals(this.asset, socialPostPlatformAsset.asset) &&
+            Objects.equals(this.description, socialPostPlatformAsset.description) &&
+            Objects.equals(this.logoUrl, socialPostPlatformAsset.logoUrl) &&
+            Objects.equals(this.color, socialPostPlatformAsset.color) &&
+            Objects.equals(this.url, socialPostPlatformAsset.url) &&
+            Objects.equals(this.provider, socialPostPlatformAsset.provider) &&
+            Objects.equals(this.price, socialPostPlatformAsset.price) &&
+            Objects.equals(this.priceCurrency, socialPostPlatformAsset.priceCurrency) &&
+            Objects.equals(this.change24Percent, socialPostPlatformAsset.change24Percent) &&
+            Objects.equals(this.changeState, socialPostPlatformAsset.changeState) &&
+            Objects.equals(this.chart, socialPostPlatformAsset.chart);
+  }
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(id, name, asset, description, logoUrl, color, url, provider, price, priceCurrency, change24Percent, changeState, chart);
-	}
+  @Override
+  public int hashCode() {
+    return Objects.hash(id, name, asset, description, logoUrl, color, url, provider, price, priceCurrency, change24Percent, changeState, chart);
+  }
 
-	@Override
-	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		sb.append("class SocialPostPlatformAsset {\n");
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class SocialPostPlatformAsset {\n");
 
-		sb.append("    id: ").append(toIndentedString(id)).append("\n");
-		sb.append("    name: ").append(toIndentedString(name)).append("\n");
-		sb.append("    asset: ").append(toIndentedString(asset)).append("\n");
-		sb.append("    description: ").append(toIndentedString(description)).append("\n");
-		sb.append("    logoUrl: ").append(toIndentedString(logoUrl)).append("\n");
-		sb.append("    color: ").append(toIndentedString(color)).append("\n");
-		sb.append("    url: ").append(toIndentedString(url)).append("\n");
-		sb.append("    provider: ").append(toIndentedString(provider)).append("\n");
-		sb.append("    price: ").append(toIndentedString(price)).append("\n");
-		sb.append("    priceCurrency: ").append(toIndentedString(priceCurrency)).append("\n");
-		sb.append("    change24Percent: ").append(toIndentedString(change24Percent)).append("\n");
-		sb.append("    changeState: ").append(toIndentedString(changeState)).append("\n");
-		sb.append("    chart: ").append(toIndentedString(chart)).append("\n");
-		sb.append("}");
-		return sb.toString();
-	}
+    sb.append("    id: ").append(toIndentedString(id)).append("\n");
+    sb.append("    name: ").append(toIndentedString(name)).append("\n");
+    sb.append("    asset: ").append(toIndentedString(asset)).append("\n");
+    sb.append("    description: ").append(toIndentedString(description)).append("\n");
+    sb.append("    logoUrl: ").append(toIndentedString(logoUrl)).append("\n");
+    sb.append("    color: ").append(toIndentedString(color)).append("\n");
+    sb.append("    url: ").append(toIndentedString(url)).append("\n");
+    sb.append("    provider: ").append(toIndentedString(provider)).append("\n");
+    sb.append("    price: ").append(toIndentedString(price)).append("\n");
+    sb.append("    priceCurrency: ").append(toIndentedString(priceCurrency)).append("\n");
+    sb.append("    change24Percent: ").append(toIndentedString(change24Percent)).append("\n");
+    sb.append("    changeState: ").append(toIndentedString(changeState)).append("\n");
+    sb.append("    chart: ").append(toIndentedString(chart)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
 
-	/**
-	 * Convert the given object to string with each line indented by 4 spaces
-	 * (except the first line).
-	 */
-	private String toIndentedString(java.lang.Object o) {
-		if (o == null) {
-			return "null";
-		}
-		return o.toString().replace("\n", "\n    ");
-	}
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(java.lang.Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
 
-	public void writeToParcel(Parcel out, int flags) {
-		out.writeValue(id);
-		out.writeValue(name);
-		out.writeValue(asset);
-		out.writeValue(description);
-		out.writeValue(logoUrl);
-		out.writeValue(color);
-		out.writeValue(url);
-		out.writeValue(provider);
-		out.writeValue(price);
-		out.writeValue(priceCurrency);
-		out.writeValue(change24Percent);
-		out.writeValue(changeState);
-		out.writeValue(chart);
-	}
+  public void writeToParcel(Parcel out, int flags) {
+    out.writeValue(id);
+    out.writeValue(name);
+    out.writeValue(asset);
+    out.writeValue(description);
+    out.writeValue(logoUrl);
+    out.writeValue(color);
+    out.writeValue(url);
+    out.writeValue(provider);
+    out.writeValue(price);
+    out.writeValue(priceCurrency);
+    out.writeValue(change24Percent);
+    out.writeValue(changeState);
+    out.writeValue(chart);
+  }
 
-	public int describeContents() {
-		return 0;
-	}
+  public int describeContents() {
+    return 0;
+  }
 }

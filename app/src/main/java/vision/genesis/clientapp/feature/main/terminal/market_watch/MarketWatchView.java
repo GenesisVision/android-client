@@ -26,6 +26,8 @@ interface MarketWatchView extends MvpView
 
 	void showClearButton(boolean show);
 
+	void showLoginActivity();
+
 	void showFavoriteTickersProgress();
 
 	void showProgress(boolean show);

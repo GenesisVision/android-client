@@ -30,123 +30,123 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class RecoveryCodesViewModel implements Parcelable
 {
-	public static final Parcelable.Creator<RecoveryCodesViewModel> CREATOR = new Parcelable.Creator<RecoveryCodesViewModel>()
-	{
-		public RecoveryCodesViewModel createFromParcel(Parcel in) {
-			return new RecoveryCodesViewModel(in);
-		}
+  public static final Parcelable.Creator<RecoveryCodesViewModel> CREATOR = new Parcelable.Creator<RecoveryCodesViewModel>()
+  {
+    public RecoveryCodesViewModel createFromParcel(Parcel in) {
+      return new RecoveryCodesViewModel(in);
+    }
 
-		public RecoveryCodesViewModel[] newArray(int size) {
-			return new RecoveryCodesViewModel[size];
-		}
-	};
+    public RecoveryCodesViewModel[] newArray(int size) {
+      return new RecoveryCodesViewModel[size];
+    }
+  };
 
-	@SerializedName("codes")
-	private List<RecoveryCode> codes = null;
+  @SerializedName("codes")
+  private List<RecoveryCode> codes = null;
 
-	@SerializedName("authToken")
-	private String authToken = null;
+  @SerializedName("authToken")
+  private String authToken = null;
 
-	public RecoveryCodesViewModel() {
-	}
+  public RecoveryCodesViewModel() {
+  }
 
-	RecoveryCodesViewModel(Parcel in) {
-		codes = (List<RecoveryCode>) in.readValue(RecoveryCode.class.getClassLoader());
-		authToken = (String) in.readValue(null);
-	}
+  RecoveryCodesViewModel(Parcel in) {
+    codes = (List<RecoveryCode>) in.readValue(RecoveryCode.class.getClassLoader());
+    authToken = (String) in.readValue(null);
+  }
 
-	public RecoveryCodesViewModel codes(List<RecoveryCode> codes) {
-		this.codes = codes;
-		return this;
-	}
+  public RecoveryCodesViewModel codes(List<RecoveryCode> codes) {
+    this.codes = codes;
+    return this;
+  }
 
-	public RecoveryCodesViewModel addCodesItem(RecoveryCode codesItem) {
-		if (this.codes == null) {
-			this.codes = new ArrayList<RecoveryCode>();
-		}
-		this.codes.add(codesItem);
-		return this;
-	}
+  public RecoveryCodesViewModel addCodesItem(RecoveryCode codesItem) {
+    if (this.codes == null) {
+      this.codes = new ArrayList<RecoveryCode>();
+    }
+    this.codes.add(codesItem);
+    return this;
+  }
 
-	/**
-	 * Get codes
-	 *
-	 * @return codes
-	 **/
-	@Schema(description = "")
-	public List<RecoveryCode> getCodes() {
-		return codes;
-	}
+  /**
+   * Get codes
+   *
+   * @return codes
+   **/
+  @Schema(description = "")
+  public List<RecoveryCode> getCodes() {
+    return codes;
+  }
 
-	public void setCodes(List<RecoveryCode> codes) {
-		this.codes = codes;
-	}
+  public void setCodes(List<RecoveryCode> codes) {
+    this.codes = codes;
+  }
 
-	public RecoveryCodesViewModel authToken(String authToken) {
-		this.authToken = authToken;
-		return this;
-	}
+  public RecoveryCodesViewModel authToken(String authToken) {
+    this.authToken = authToken;
+    return this;
+  }
 
-	/**
-	 * Get authToken
-	 *
-	 * @return authToken
-	 **/
-	@Schema(description = "")
-	public String getAuthToken() {
-		return authToken;
-	}
+  /**
+   * Get authToken
+   *
+   * @return authToken
+   **/
+  @Schema(description = "")
+  public String getAuthToken() {
+    return authToken;
+  }
 
-	public void setAuthToken(String authToken) {
-		this.authToken = authToken;
-	}
+  public void setAuthToken(String authToken) {
+    this.authToken = authToken;
+  }
 
-	@Override
-	public boolean equals(java.lang.Object o) {
-		if (this == o) {
-			return true;
-		}
-		if (o == null || getClass() != o.getClass()) {
-			return false;
-		}
-		RecoveryCodesViewModel recoveryCodesViewModel = (RecoveryCodesViewModel) o;
-		return Objects.equals(this.codes, recoveryCodesViewModel.codes) &&
-				Objects.equals(this.authToken, recoveryCodesViewModel.authToken);
-	}
+  @Override
+  public boolean equals(java.lang.Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    RecoveryCodesViewModel recoveryCodesViewModel = (RecoveryCodesViewModel) o;
+    return Objects.equals(this.codes, recoveryCodesViewModel.codes) &&
+            Objects.equals(this.authToken, recoveryCodesViewModel.authToken);
+  }
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(codes, authToken);
-	}
+  @Override
+  public int hashCode() {
+    return Objects.hash(codes, authToken);
+  }
 
-	@Override
-	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		sb.append("class RecoveryCodesViewModel {\n");
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class RecoveryCodesViewModel {\n");
 
-		sb.append("    codes: ").append(toIndentedString(codes)).append("\n");
-		sb.append("    authToken: ").append(toIndentedString(authToken)).append("\n");
-		sb.append("}");
-		return sb.toString();
-	}
+    sb.append("    codes: ").append(toIndentedString(codes)).append("\n");
+    sb.append("    authToken: ").append(toIndentedString(authToken)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
 
-	/**
-	 * Convert the given object to string with each line indented by 4 spaces
-	 * (except the first line).
-	 */
-	private String toIndentedString(java.lang.Object o) {
-		if (o == null) {
-			return "null";
-		}
-		return o.toString().replace("\n", "\n    ");
-	}
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(java.lang.Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
 
-	public void writeToParcel(Parcel out, int flags) {
-		out.writeValue(codes);
-		out.writeValue(authToken);
-	}
+  public void writeToParcel(Parcel out, int flags) {
+    out.writeValue(codes);
+    out.writeValue(authToken);
+  }
 
-	public int describeContents() {
-		return 0;
-	}
+  public int describeContents() {
+    return 0;
+  }
 }

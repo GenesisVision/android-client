@@ -28,89 +28,89 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class PlatformCommissionInfo implements Parcelable
 {
-	public static final Parcelable.Creator<PlatformCommissionInfo> CREATOR = new Parcelable.Creator<PlatformCommissionInfo>()
-	{
-		public PlatformCommissionInfo createFromParcel(Parcel in) {
-			return new PlatformCommissionInfo(in);
-		}
+  public static final Parcelable.Creator<PlatformCommissionInfo> CREATOR = new Parcelable.Creator<PlatformCommissionInfo>()
+  {
+    public PlatformCommissionInfo createFromParcel(Parcel in) {
+      return new PlatformCommissionInfo(in);
+    }
 
-		public PlatformCommissionInfo[] newArray(int size) {
-			return new PlatformCommissionInfo[size];
-		}
-	};
+    public PlatformCommissionInfo[] newArray(int size) {
+      return new PlatformCommissionInfo[size];
+    }
+  };
 
-	@SerializedName("investment")
-	private Double investment = null;
+  @SerializedName("investment")
+  private Double investment = null;
 
-	public PlatformCommissionInfo() {
-	}
+  public PlatformCommissionInfo() {
+  }
 
-	PlatformCommissionInfo(Parcel in) {
-		investment = (Double) in.readValue(null);
-	}
+  PlatformCommissionInfo(Parcel in) {
+    investment = (Double) in.readValue(null);
+  }
 
-	public PlatformCommissionInfo investment(Double investment) {
-		this.investment = investment;
-		return this;
-	}
+  public PlatformCommissionInfo investment(Double investment) {
+    this.investment = investment;
+    return this;
+  }
 
-	/**
-	 * Get investment
-	 *
-	 * @return investment
-	 **/
-	@Schema(description = "")
-	public Double getInvestment() {
-		return investment;
-	}
+  /**
+   * Get investment
+   *
+   * @return investment
+   **/
+  @Schema(description = "")
+  public Double getInvestment() {
+    return investment;
+  }
 
-	public void setInvestment(Double investment) {
-		this.investment = investment;
-	}
+  public void setInvestment(Double investment) {
+    this.investment = investment;
+  }
 
-	@Override
-	public boolean equals(java.lang.Object o) {
-		if (this == o) {
-			return true;
-		}
-		if (o == null || getClass() != o.getClass()) {
-			return false;
-		}
-		PlatformCommissionInfo platformCommissionInfo = (PlatformCommissionInfo) o;
-		return Objects.equals(this.investment, platformCommissionInfo.investment);
-	}
+  @Override
+  public boolean equals(java.lang.Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    PlatformCommissionInfo platformCommissionInfo = (PlatformCommissionInfo) o;
+    return Objects.equals(this.investment, platformCommissionInfo.investment);
+  }
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(investment);
-	}
+  @Override
+  public int hashCode() {
+    return Objects.hash(investment);
+  }
 
-	@Override
-	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		sb.append("class PlatformCommissionInfo {\n");
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class PlatformCommissionInfo {\n");
 
-		sb.append("    investment: ").append(toIndentedString(investment)).append("\n");
-		sb.append("}");
-		return sb.toString();
-	}
+    sb.append("    investment: ").append(toIndentedString(investment)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
 
-	/**
-	 * Convert the given object to string with each line indented by 4 spaces
-	 * (except the first line).
-	 */
-	private String toIndentedString(java.lang.Object o) {
-		if (o == null) {
-			return "null";
-		}
-		return o.toString().replace("\n", "\n    ");
-	}
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(java.lang.Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
 
-	public void writeToParcel(Parcel out, int flags) {
-		out.writeValue(investment);
-	}
+  public void writeToParcel(Parcel out, int flags) {
+    out.writeValue(investment);
+  }
 
-	public int describeContents() {
-		return 0;
-	}
+  public int describeContents() {
+    return 0;
+  }
 }

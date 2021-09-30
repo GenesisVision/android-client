@@ -30,115 +30,115 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class SignalTradingEvent implements Parcelable
 {
-	public static final Parcelable.Creator<SignalTradingEvent> CREATOR = new Parcelable.Creator<SignalTradingEvent>()
-	{
-		public SignalTradingEvent createFromParcel(Parcel in) {
-			return new SignalTradingEvent(in);
-		}
+  public static final Parcelable.Creator<SignalTradingEvent> CREATOR = new Parcelable.Creator<SignalTradingEvent>()
+  {
+    public SignalTradingEvent createFromParcel(Parcel in) {
+      return new SignalTradingEvent(in);
+    }
 
-		public SignalTradingEvent[] newArray(int size) {
-			return new SignalTradingEvent[size];
-		}
-	};
+    public SignalTradingEvent[] newArray(int size) {
+      return new SignalTradingEvent[size];
+    }
+  };
 
-	@SerializedName("date")
-	private DateTime date = null;
+  @SerializedName("date")
+  private DateTime date = null;
 
-	@SerializedName("message")
-	private String message = null;
+  @SerializedName("message")
+  private String message = null;
 
-	public SignalTradingEvent() {
-	}
+  public SignalTradingEvent() {
+  }
 
-	SignalTradingEvent(Parcel in) {
-		date = (DateTime) in.readValue(DateTime.class.getClassLoader());
-		message = (String) in.readValue(null);
-	}
+  SignalTradingEvent(Parcel in) {
+    date = (DateTime) in.readValue(DateTime.class.getClassLoader());
+    message = (String) in.readValue(null);
+  }
 
-	public SignalTradingEvent date(DateTime date) {
-		this.date = date;
-		return this;
-	}
+  public SignalTradingEvent date(DateTime date) {
+    this.date = date;
+    return this;
+  }
 
-	/**
-	 * Get date
-	 *
-	 * @return date
-	 **/
-	@Schema(description = "")
-	public DateTime getDate() {
-		return date;
-	}
+  /**
+   * Get date
+   *
+   * @return date
+   **/
+  @Schema(description = "")
+  public DateTime getDate() {
+    return date;
+  }
 
-	public void setDate(DateTime date) {
-		this.date = date;
-	}
+  public void setDate(DateTime date) {
+    this.date = date;
+  }
 
-	public SignalTradingEvent message(String message) {
-		this.message = message;
-		return this;
-	}
+  public SignalTradingEvent message(String message) {
+    this.message = message;
+    return this;
+  }
 
-	/**
-	 * Get message
-	 *
-	 * @return message
-	 **/
-	@Schema(description = "")
-	public String getMessage() {
-		return message;
-	}
+  /**
+   * Get message
+   *
+   * @return message
+   **/
+  @Schema(description = "")
+  public String getMessage() {
+    return message;
+  }
 
-	public void setMessage(String message) {
-		this.message = message;
-	}
+  public void setMessage(String message) {
+    this.message = message;
+  }
 
-	@Override
-	public boolean equals(java.lang.Object o) {
-		if (this == o) {
-			return true;
-		}
-		if (o == null || getClass() != o.getClass()) {
-			return false;
-		}
-		SignalTradingEvent signalTradingEvent = (SignalTradingEvent) o;
-		return Objects.equals(this.date, signalTradingEvent.date) &&
-				Objects.equals(this.message, signalTradingEvent.message);
-	}
+  @Override
+  public boolean equals(java.lang.Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    SignalTradingEvent signalTradingEvent = (SignalTradingEvent) o;
+    return Objects.equals(this.date, signalTradingEvent.date) &&
+            Objects.equals(this.message, signalTradingEvent.message);
+  }
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(date, message);
-	}
+  @Override
+  public int hashCode() {
+    return Objects.hash(date, message);
+  }
 
-	@Override
-	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		sb.append("class SignalTradingEvent {\n");
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class SignalTradingEvent {\n");
 
-		sb.append("    date: ").append(toIndentedString(date)).append("\n");
-		sb.append("    message: ").append(toIndentedString(message)).append("\n");
-		sb.append("}");
-		return sb.toString();
-	}
+    sb.append("    date: ").append(toIndentedString(date)).append("\n");
+    sb.append("    message: ").append(toIndentedString(message)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
 
-	/**
-	 * Convert the given object to string with each line indented by 4 spaces
-	 * (except the first line).
-	 */
-	private String toIndentedString(java.lang.Object o) {
-		if (o == null) {
-			return "null";
-		}
-		return o.toString().replace("\n", "\n    ");
-	}
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(java.lang.Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
 
-	public void writeToParcel(Parcel out, int flags) {
-		out.writeValue(date);
-		out.writeValue(message);
-	}
+  public void writeToParcel(Parcel out, int flags) {
+    out.writeValue(date);
+    out.writeValue(message);
+  }
 
-	public int describeContents() {
-		return 0;
-	}
+  public int describeContents() {
+    return 0;
+  }
 }

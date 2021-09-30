@@ -28,89 +28,89 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class TwoFactorCodeModel implements Parcelable
 {
-	public static final Parcelable.Creator<TwoFactorCodeModel> CREATOR = new Parcelable.Creator<TwoFactorCodeModel>()
-	{
-		public TwoFactorCodeModel createFromParcel(Parcel in) {
-			return new TwoFactorCodeModel(in);
-		}
+  public static final Parcelable.Creator<TwoFactorCodeModel> CREATOR = new Parcelable.Creator<TwoFactorCodeModel>()
+  {
+    public TwoFactorCodeModel createFromParcel(Parcel in) {
+      return new TwoFactorCodeModel(in);
+    }
 
-		public TwoFactorCodeModel[] newArray(int size) {
-			return new TwoFactorCodeModel[size];
-		}
-	};
+    public TwoFactorCodeModel[] newArray(int size) {
+      return new TwoFactorCodeModel[size];
+    }
+  };
 
-	@SerializedName("twoFactorCode")
-	private String twoFactorCode = null;
+  @SerializedName("twoFactorCode")
+  private String twoFactorCode = null;
 
-	public TwoFactorCodeModel() {
-	}
+  public TwoFactorCodeModel() {
+  }
 
-	TwoFactorCodeModel(Parcel in) {
-		twoFactorCode = (String) in.readValue(null);
-	}
+  TwoFactorCodeModel(Parcel in) {
+    twoFactorCode = (String) in.readValue(null);
+  }
 
-	public TwoFactorCodeModel twoFactorCode(String twoFactorCode) {
-		this.twoFactorCode = twoFactorCode;
-		return this;
-	}
+  public TwoFactorCodeModel twoFactorCode(String twoFactorCode) {
+    this.twoFactorCode = twoFactorCode;
+    return this;
+  }
 
-	/**
-	 * Get twoFactorCode
-	 *
-	 * @return twoFactorCode
-	 **/
-	@Schema(description = "")
-	public String getTwoFactorCode() {
-		return twoFactorCode;
-	}
+  /**
+   * Get twoFactorCode
+   *
+   * @return twoFactorCode
+   **/
+  @Schema(description = "")
+  public String getTwoFactorCode() {
+    return twoFactorCode;
+  }
 
-	public void setTwoFactorCode(String twoFactorCode) {
-		this.twoFactorCode = twoFactorCode;
-	}
+  public void setTwoFactorCode(String twoFactorCode) {
+    this.twoFactorCode = twoFactorCode;
+  }
 
-	@Override
-	public boolean equals(java.lang.Object o) {
-		if (this == o) {
-			return true;
-		}
-		if (o == null || getClass() != o.getClass()) {
-			return false;
-		}
-		TwoFactorCodeModel twoFactorCodeModel = (TwoFactorCodeModel) o;
-		return Objects.equals(this.twoFactorCode, twoFactorCodeModel.twoFactorCode);
-	}
+  @Override
+  public boolean equals(java.lang.Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    TwoFactorCodeModel twoFactorCodeModel = (TwoFactorCodeModel) o;
+    return Objects.equals(this.twoFactorCode, twoFactorCodeModel.twoFactorCode);
+  }
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(twoFactorCode);
-	}
+  @Override
+  public int hashCode() {
+    return Objects.hash(twoFactorCode);
+  }
 
-	@Override
-	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		sb.append("class TwoFactorCodeModel {\n");
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class TwoFactorCodeModel {\n");
 
-		sb.append("    twoFactorCode: ").append(toIndentedString(twoFactorCode)).append("\n");
-		sb.append("}");
-		return sb.toString();
-	}
+    sb.append("    twoFactorCode: ").append(toIndentedString(twoFactorCode)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
 
-	/**
-	 * Convert the given object to string with each line indented by 4 spaces
-	 * (except the first line).
-	 */
-	private String toIndentedString(java.lang.Object o) {
-		if (o == null) {
-			return "null";
-		}
-		return o.toString().replace("\n", "\n    ");
-	}
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(java.lang.Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
 
-	public void writeToParcel(Parcel out, int flags) {
-		out.writeValue(twoFactorCode);
-	}
+  public void writeToParcel(Parcel out, int flags) {
+    out.writeValue(twoFactorCode);
+  }
 
-	public int describeContents() {
-		return 0;
-	}
+  public int describeContents() {
+    return 0;
+  }
 }

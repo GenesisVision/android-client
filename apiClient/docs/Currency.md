@@ -3,6 +3,7 @@
 ## Enum
 
 * `UNDEFINED` (value: `"Undefined"`)
+* `SYSTEMCOINMARKET` (value: `"SystemCoinMarket"`)
 * `GVT` (value: `"GVT"`)
 * `ETH` (value: `"ETH"`)
 * `BTC` (value: `"BTC"`)

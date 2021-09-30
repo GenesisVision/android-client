@@ -28,141 +28,141 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class PartnershipDetails implements Parcelable
 {
-	public static final Parcelable.Creator<PartnershipDetails> CREATOR = new Parcelable.Creator<PartnershipDetails>()
-	{
-		public PartnershipDetails createFromParcel(Parcel in) {
-			return new PartnershipDetails(in);
-		}
+  public static final Parcelable.Creator<PartnershipDetails> CREATOR = new Parcelable.Creator<PartnershipDetails>()
+  {
+    public PartnershipDetails createFromParcel(Parcel in) {
+      return new PartnershipDetails(in);
+    }
 
-		public PartnershipDetails[] newArray(int size) {
-			return new PartnershipDetails[size];
-		}
-	};
+    public PartnershipDetails[] newArray(int size) {
+      return new PartnershipDetails[size];
+    }
+  };
 
-	@SerializedName("totalReferralsL1")
-	private Integer totalReferralsL1 = null;
+  @SerializedName("totalReferralsL1")
+  private Integer totalReferralsL1 = null;
 
-	@SerializedName("totalReferralsL2")
-	private Integer totalReferralsL2 = null;
+  @SerializedName("totalReferralsL2")
+  private Integer totalReferralsL2 = null;
 
-	@SerializedName("totalAmount")
-	private Double totalAmount = null;
+  @SerializedName("totalAmount")
+  private Double totalAmount = null;
 
-	public PartnershipDetails() {
-	}
+  public PartnershipDetails() {
+  }
 
-	PartnershipDetails(Parcel in) {
-		totalReferralsL1 = (Integer) in.readValue(null);
-		totalReferralsL2 = (Integer) in.readValue(null);
-		totalAmount = (Double) in.readValue(null);
-	}
+  PartnershipDetails(Parcel in) {
+    totalReferralsL1 = (Integer) in.readValue(null);
+    totalReferralsL2 = (Integer) in.readValue(null);
+    totalAmount = (Double) in.readValue(null);
+  }
 
-	public PartnershipDetails totalReferralsL1(Integer totalReferralsL1) {
-		this.totalReferralsL1 = totalReferralsL1;
-		return this;
-	}
+  public PartnershipDetails totalReferralsL1(Integer totalReferralsL1) {
+    this.totalReferralsL1 = totalReferralsL1;
+    return this;
+  }
 
-	/**
-	 * Get totalReferralsL1
-	 *
-	 * @return totalReferralsL1
-	 **/
-	@Schema(description = "")
-	public Integer getTotalReferralsL1() {
-		return totalReferralsL1;
-	}
+  /**
+   * Get totalReferralsL1
+   *
+   * @return totalReferralsL1
+   **/
+  @Schema(description = "")
+  public Integer getTotalReferralsL1() {
+    return totalReferralsL1;
+  }
 
-	public void setTotalReferralsL1(Integer totalReferralsL1) {
-		this.totalReferralsL1 = totalReferralsL1;
-	}
+  public void setTotalReferralsL1(Integer totalReferralsL1) {
+    this.totalReferralsL1 = totalReferralsL1;
+  }
 
-	public PartnershipDetails totalReferralsL2(Integer totalReferralsL2) {
-		this.totalReferralsL2 = totalReferralsL2;
-		return this;
-	}
+  public PartnershipDetails totalReferralsL2(Integer totalReferralsL2) {
+    this.totalReferralsL2 = totalReferralsL2;
+    return this;
+  }
 
-	/**
-	 * Get totalReferralsL2
-	 *
-	 * @return totalReferralsL2
-	 **/
-	@Schema(description = "")
-	public Integer getTotalReferralsL2() {
-		return totalReferralsL2;
-	}
+  /**
+   * Get totalReferralsL2
+   *
+   * @return totalReferralsL2
+   **/
+  @Schema(description = "")
+  public Integer getTotalReferralsL2() {
+    return totalReferralsL2;
+  }
 
-	public void setTotalReferralsL2(Integer totalReferralsL2) {
-		this.totalReferralsL2 = totalReferralsL2;
-	}
+  public void setTotalReferralsL2(Integer totalReferralsL2) {
+    this.totalReferralsL2 = totalReferralsL2;
+  }
 
-	public PartnershipDetails totalAmount(Double totalAmount) {
-		this.totalAmount = totalAmount;
-		return this;
-	}
+  public PartnershipDetails totalAmount(Double totalAmount) {
+    this.totalAmount = totalAmount;
+    return this;
+  }
 
-	/**
-	 * Get totalAmount
-	 *
-	 * @return totalAmount
-	 **/
-	@Schema(description = "")
-	public Double getTotalAmount() {
-		return totalAmount;
-	}
+  /**
+   * Get totalAmount
+   *
+   * @return totalAmount
+   **/
+  @Schema(description = "")
+  public Double getTotalAmount() {
+    return totalAmount;
+  }
 
-	public void setTotalAmount(Double totalAmount) {
-		this.totalAmount = totalAmount;
-	}
+  public void setTotalAmount(Double totalAmount) {
+    this.totalAmount = totalAmount;
+  }
 
-	@Override
-	public boolean equals(java.lang.Object o) {
-		if (this == o) {
-			return true;
-		}
-		if (o == null || getClass() != o.getClass()) {
-			return false;
-		}
-		PartnershipDetails partnershipDetails = (PartnershipDetails) o;
-		return Objects.equals(this.totalReferralsL1, partnershipDetails.totalReferralsL1) &&
-				Objects.equals(this.totalReferralsL2, partnershipDetails.totalReferralsL2) &&
-				Objects.equals(this.totalAmount, partnershipDetails.totalAmount);
-	}
+  @Override
+  public boolean equals(java.lang.Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    PartnershipDetails partnershipDetails = (PartnershipDetails) o;
+    return Objects.equals(this.totalReferralsL1, partnershipDetails.totalReferralsL1) &&
+            Objects.equals(this.totalReferralsL2, partnershipDetails.totalReferralsL2) &&
+            Objects.equals(this.totalAmount, partnershipDetails.totalAmount);
+  }
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(totalReferralsL1, totalReferralsL2, totalAmount);
-	}
+  @Override
+  public int hashCode() {
+    return Objects.hash(totalReferralsL1, totalReferralsL2, totalAmount);
+  }
 
-	@Override
-	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		sb.append("class PartnershipDetails {\n");
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class PartnershipDetails {\n");
 
-		sb.append("    totalReferralsL1: ").append(toIndentedString(totalReferralsL1)).append("\n");
-		sb.append("    totalReferralsL2: ").append(toIndentedString(totalReferralsL2)).append("\n");
-		sb.append("    totalAmount: ").append(toIndentedString(totalAmount)).append("\n");
-		sb.append("}");
-		return sb.toString();
-	}
+    sb.append("    totalReferralsL1: ").append(toIndentedString(totalReferralsL1)).append("\n");
+    sb.append("    totalReferralsL2: ").append(toIndentedString(totalReferralsL2)).append("\n");
+    sb.append("    totalAmount: ").append(toIndentedString(totalAmount)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
 
-	/**
-	 * Convert the given object to string with each line indented by 4 spaces
-	 * (except the first line).
-	 */
-	private String toIndentedString(java.lang.Object o) {
-		if (o == null) {
-			return "null";
-		}
-		return o.toString().replace("\n", "\n    ");
-	}
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(java.lang.Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
 
-	public void writeToParcel(Parcel out, int flags) {
-		out.writeValue(totalReferralsL1);
-		out.writeValue(totalReferralsL2);
-		out.writeValue(totalAmount);
-	}
+  public void writeToParcel(Parcel out, int flags) {
+    out.writeValue(totalReferralsL1);
+    out.writeValue(totalReferralsL2);
+    out.writeValue(totalAmount);
+  }
 
-	public int describeContents() {
-		return 0;
-	}
+  public int describeContents() {
+    return 0;
+  }
 }

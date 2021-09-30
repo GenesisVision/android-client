@@ -28,141 +28,141 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class TwoFactorAuthenticatorConfirm implements Parcelable
 {
-	public static final Parcelable.Creator<TwoFactorAuthenticatorConfirm> CREATOR = new Parcelable.Creator<TwoFactorAuthenticatorConfirm>()
-	{
-		public TwoFactorAuthenticatorConfirm createFromParcel(Parcel in) {
-			return new TwoFactorAuthenticatorConfirm(in);
-		}
+  public static final Parcelable.Creator<TwoFactorAuthenticatorConfirm> CREATOR = new Parcelable.Creator<TwoFactorAuthenticatorConfirm>()
+  {
+    public TwoFactorAuthenticatorConfirm createFromParcel(Parcel in) {
+      return new TwoFactorAuthenticatorConfirm(in);
+    }
 
-		public TwoFactorAuthenticatorConfirm[] newArray(int size) {
-			return new TwoFactorAuthenticatorConfirm[size];
-		}
-	};
+    public TwoFactorAuthenticatorConfirm[] newArray(int size) {
+      return new TwoFactorAuthenticatorConfirm[size];
+    }
+  };
 
-	@SerializedName("password")
-	private String password = null;
+  @SerializedName("password")
+  private String password = null;
 
-	@SerializedName("code")
-	private String code = null;
+  @SerializedName("code")
+  private String code = null;
 
-	@SerializedName("sharedKey")
-	private String sharedKey = null;
+  @SerializedName("sharedKey")
+  private String sharedKey = null;
 
-	public TwoFactorAuthenticatorConfirm() {
-	}
+  public TwoFactorAuthenticatorConfirm() {
+  }
 
-	TwoFactorAuthenticatorConfirm(Parcel in) {
-		password = (String) in.readValue(null);
-		code = (String) in.readValue(null);
-		sharedKey = (String) in.readValue(null);
-	}
+  TwoFactorAuthenticatorConfirm(Parcel in) {
+    password = (String) in.readValue(null);
+    code = (String) in.readValue(null);
+    sharedKey = (String) in.readValue(null);
+  }
 
-	public TwoFactorAuthenticatorConfirm password(String password) {
-		this.password = password;
-		return this;
-	}
+  public TwoFactorAuthenticatorConfirm password(String password) {
+    this.password = password;
+    return this;
+  }
 
-	/**
-	 * Get password
-	 *
-	 * @return password
-	 **/
-	@Schema(required = true, description = "")
-	public String getPassword() {
-		return password;
-	}
+  /**
+   * Get password
+   *
+   * @return password
+   **/
+  @Schema(required = true, description = "")
+  public String getPassword() {
+    return password;
+  }
 
-	public void setPassword(String password) {
-		this.password = password;
-	}
+  public void setPassword(String password) {
+    this.password = password;
+  }
 
-	public TwoFactorAuthenticatorConfirm code(String code) {
-		this.code = code;
-		return this;
-	}
+  public TwoFactorAuthenticatorConfirm code(String code) {
+    this.code = code;
+    return this;
+  }
 
-	/**
-	 * Get code
-	 *
-	 * @return code
-	 **/
-	@Schema(required = true, description = "")
-	public String getCode() {
-		return code;
-	}
+  /**
+   * Get code
+   *
+   * @return code
+   **/
+  @Schema(required = true, description = "")
+  public String getCode() {
+    return code;
+  }
 
-	public void setCode(String code) {
-		this.code = code;
-	}
+  public void setCode(String code) {
+    this.code = code;
+  }
 
-	public TwoFactorAuthenticatorConfirm sharedKey(String sharedKey) {
-		this.sharedKey = sharedKey;
-		return this;
-	}
+  public TwoFactorAuthenticatorConfirm sharedKey(String sharedKey) {
+    this.sharedKey = sharedKey;
+    return this;
+  }
 
-	/**
-	 * Get sharedKey
-	 *
-	 * @return sharedKey
-	 **/
-	@Schema(required = true, description = "")
-	public String getSharedKey() {
-		return sharedKey;
-	}
+  /**
+   * Get sharedKey
+   *
+   * @return sharedKey
+   **/
+  @Schema(required = true, description = "")
+  public String getSharedKey() {
+    return sharedKey;
+  }
 
-	public void setSharedKey(String sharedKey) {
-		this.sharedKey = sharedKey;
-	}
+  public void setSharedKey(String sharedKey) {
+    this.sharedKey = sharedKey;
+  }
 
-	@Override
-	public boolean equals(java.lang.Object o) {
-		if (this == o) {
-			return true;
-		}
-		if (o == null || getClass() != o.getClass()) {
-			return false;
-		}
-		TwoFactorAuthenticatorConfirm twoFactorAuthenticatorConfirm = (TwoFactorAuthenticatorConfirm) o;
-		return Objects.equals(this.password, twoFactorAuthenticatorConfirm.password) &&
-				Objects.equals(this.code, twoFactorAuthenticatorConfirm.code) &&
-				Objects.equals(this.sharedKey, twoFactorAuthenticatorConfirm.sharedKey);
-	}
+  @Override
+  public boolean equals(java.lang.Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    TwoFactorAuthenticatorConfirm twoFactorAuthenticatorConfirm = (TwoFactorAuthenticatorConfirm) o;
+    return Objects.equals(this.password, twoFactorAuthenticatorConfirm.password) &&
+            Objects.equals(this.code, twoFactorAuthenticatorConfirm.code) &&
+            Objects.equals(this.sharedKey, twoFactorAuthenticatorConfirm.sharedKey);
+  }
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(password, code, sharedKey);
-	}
+  @Override
+  public int hashCode() {
+    return Objects.hash(password, code, sharedKey);
+  }
 
-	@Override
-	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		sb.append("class TwoFactorAuthenticatorConfirm {\n");
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class TwoFactorAuthenticatorConfirm {\n");
 
-		sb.append("    password: ").append(toIndentedString(password)).append("\n");
-		sb.append("    code: ").append(toIndentedString(code)).append("\n");
-		sb.append("    sharedKey: ").append(toIndentedString(sharedKey)).append("\n");
-		sb.append("}");
-		return sb.toString();
-	}
+    sb.append("    password: ").append(toIndentedString(password)).append("\n");
+    sb.append("    code: ").append(toIndentedString(code)).append("\n");
+    sb.append("    sharedKey: ").append(toIndentedString(sharedKey)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
 
-	/**
-	 * Convert the given object to string with each line indented by 4 spaces
-	 * (except the first line).
-	 */
-	private String toIndentedString(java.lang.Object o) {
-		if (o == null) {
-			return "null";
-		}
-		return o.toString().replace("\n", "\n    ");
-	}
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(java.lang.Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
 
-	public void writeToParcel(Parcel out, int flags) {
-		out.writeValue(password);
-		out.writeValue(code);
-		out.writeValue(sharedKey);
-	}
+  public void writeToParcel(Parcel out, int flags) {
+    out.writeValue(password);
+    out.writeValue(code);
+    out.writeValue(sharedKey);
+  }
 
-	public int describeContents() {
-		return 0;
-	}
+  public int describeContents() {
+    return 0;
+  }
 }

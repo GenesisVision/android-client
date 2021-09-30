@@ -8,5 +8,6 @@ Name | Type | Description | Notes
 **logoUrl** | **String** |  |  [optional]
 **description** | **String** |  |  [optional]
 **chartSymbol** | **String** |  |  [optional]
+**lastModified** | [**DateTime**](DateTime.md) |  |  [optional]
 **tags** | [**List&lt;Tag&gt;**](Tag.md) |  |  [optional]
 **socialLinks** | [**List&lt;SocialLinkViewModel&gt;**](SocialLinkViewModel.md) |  |  [optional]

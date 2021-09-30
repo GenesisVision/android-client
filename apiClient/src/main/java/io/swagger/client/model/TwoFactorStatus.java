@@ -28,89 +28,89 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class TwoFactorStatus implements Parcelable
 {
-	public static final Parcelable.Creator<TwoFactorStatus> CREATOR = new Parcelable.Creator<TwoFactorStatus>()
-	{
-		public TwoFactorStatus createFromParcel(Parcel in) {
-			return new TwoFactorStatus(in);
-		}
+  public static final Parcelable.Creator<TwoFactorStatus> CREATOR = new Parcelable.Creator<TwoFactorStatus>()
+  {
+    public TwoFactorStatus createFromParcel(Parcel in) {
+      return new TwoFactorStatus(in);
+    }
 
-		public TwoFactorStatus[] newArray(int size) {
-			return new TwoFactorStatus[size];
-		}
-	};
+    public TwoFactorStatus[] newArray(int size) {
+      return new TwoFactorStatus[size];
+    }
+  };
 
-	@SerializedName("twoFactorEnabled")
-	private Boolean twoFactorEnabled = null;
+  @SerializedName("twoFactorEnabled")
+  private Boolean twoFactorEnabled = null;
 
-	public TwoFactorStatus() {
-	}
+  public TwoFactorStatus() {
+  }
 
-	TwoFactorStatus(Parcel in) {
-		twoFactorEnabled = (Boolean) in.readValue(null);
-	}
+  TwoFactorStatus(Parcel in) {
+    twoFactorEnabled = (Boolean) in.readValue(null);
+  }
 
-	public TwoFactorStatus twoFactorEnabled(Boolean twoFactorEnabled) {
-		this.twoFactorEnabled = twoFactorEnabled;
-		return this;
-	}
+  public TwoFactorStatus twoFactorEnabled(Boolean twoFactorEnabled) {
+    this.twoFactorEnabled = twoFactorEnabled;
+    return this;
+  }
 
-	/**
-	 * Get twoFactorEnabled
-	 *
-	 * @return twoFactorEnabled
-	 **/
-	@Schema(description = "")
-	public Boolean isTwoFactorEnabled() {
-		return twoFactorEnabled;
-	}
+  /**
+   * Get twoFactorEnabled
+   *
+   * @return twoFactorEnabled
+   **/
+  @Schema(description = "")
+  public Boolean isTwoFactorEnabled() {
+    return twoFactorEnabled;
+  }
 
-	public void setTwoFactorEnabled(Boolean twoFactorEnabled) {
-		this.twoFactorEnabled = twoFactorEnabled;
-	}
+  public void setTwoFactorEnabled(Boolean twoFactorEnabled) {
+    this.twoFactorEnabled = twoFactorEnabled;
+  }
 
-	@Override
-	public boolean equals(java.lang.Object o) {
-		if (this == o) {
-			return true;
-		}
-		if (o == null || getClass() != o.getClass()) {
-			return false;
-		}
-		TwoFactorStatus twoFactorStatus = (TwoFactorStatus) o;
-		return Objects.equals(this.twoFactorEnabled, twoFactorStatus.twoFactorEnabled);
-	}
+  @Override
+  public boolean equals(java.lang.Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    TwoFactorStatus twoFactorStatus = (TwoFactorStatus) o;
+    return Objects.equals(this.twoFactorEnabled, twoFactorStatus.twoFactorEnabled);
+  }
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(twoFactorEnabled);
-	}
+  @Override
+  public int hashCode() {
+    return Objects.hash(twoFactorEnabled);
+  }
 
-	@Override
-	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		sb.append("class TwoFactorStatus {\n");
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class TwoFactorStatus {\n");
 
-		sb.append("    twoFactorEnabled: ").append(toIndentedString(twoFactorEnabled)).append("\n");
-		sb.append("}");
-		return sb.toString();
-	}
+    sb.append("    twoFactorEnabled: ").append(toIndentedString(twoFactorEnabled)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
 
-	/**
-	 * Convert the given object to string with each line indented by 4 spaces
-	 * (except the first line).
-	 */
-	private String toIndentedString(java.lang.Object o) {
-		if (o == null) {
-			return "null";
-		}
-		return o.toString().replace("\n", "\n    ");
-	}
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(java.lang.Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
 
-	public void writeToParcel(Parcel out, int flags) {
-		out.writeValue(twoFactorEnabled);
-	}
+  public void writeToParcel(Parcel out, int flags) {
+    out.writeValue(twoFactorEnabled);
+  }
 
-	public int describeContents() {
-		return 0;
-	}
+  public int describeContents() {
+    return 0;
+  }
 }

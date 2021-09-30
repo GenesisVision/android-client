@@ -53,6 +53,18 @@ public interface WalletApi
 	);
 
 	/**
+	 * Export external transactions
+	 *
+	 * @param dateFrom (optional)
+	 * @param dateTo   (optional)
+	 * @return Call&lt;byte[]&gt;
+	 */
+	@POST("v2.0/wallet/transactions/external/export")
+	Observable<byte[]> exportWalletTransactions(
+			@retrofit2.http.Query("DateFrom") DateTime dateFrom, @retrofit2.http.Query("DateTo") DateTime dateTo
+	);
+
+	/**
 	 * GenesisMarkets commission data
 	 *
 	 * @return Call&lt;UserCommissionData&gt;

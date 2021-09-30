@@ -31,7 +31,6 @@ Method | HTTP request | Description
 [**getFuturesFundingRates**](TradingplatformApi.md#getFuturesFundingRates) | **GET** v2.0/tradingplatform/binance/futures/market/rates/funding | Get futures funding rate history
 [**getFuturesGlobalLongShortAccountRatio**](TradingplatformApi.md#getFuturesGlobalLongShortAccountRatio) | **GET** v2.0/tradingplatform/binance/futures/market/ratio/longshort/global/account | Get long/short ratio
 [**getFuturesKlines**](TradingplatformApi.md#getFuturesKlines) | **GET** v2.0/tradingplatform/binance/futures/market/klines | Get futures klines
-[**getFuturesLiquidationOrders**](TradingplatformApi.md#getFuturesLiquidationOrders) | **GET** v2.0/tradingplatform/binance/futures/market/orders/liquidation | Get futures liquidation orders
 [**getFuturesMarkPrices**](TradingplatformApi.md#getFuturesMarkPrices) | **GET** v2.0/tradingplatform/binance/futures/market/prices/mark | Get futures mark prices
 [**getFuturesOpenInterest**](TradingplatformApi.md#getFuturesOpenInterest) | **GET** v2.0/tradingplatform/binance/futures/market/rates/interest | Get present open interest of a specific symbol
 [**getFuturesOpenInterestHistory**](TradingplatformApi.md#getFuturesOpenInterestHistory) | **GET** v2.0/tradingplatform/binance/futures/market/rates/interest/history | Get open interest history
@@ -1529,65 +1528,6 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**BinanceRawKlineItemsViewModel**](BinanceRawKlineItemsViewModel.md)
-
-### Authorization
-
-[Bearer](../README.md#Bearer)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: text/plain, application/json, text/json
-
-<a name="getFuturesLiquidationOrders"></a>
-# **getFuturesLiquidationOrders**
-> List&lt;BinanceRawFuturesLiquidation&gt; getFuturesLiquidationOrders(symbol, startTime, endTime, limit)
-
-Get futures liquidation orders
-
-### Example
-```java
-// Import classes:
-//import io.swagger.client.ApiClient;
-//import io.swagger.client.ApiException;
-//import io.swagger.client.Configuration;
-//import io.swagger.client.auth.*;
-//import io.swagger.client.api.TradingplatformApi;
-
-ApiClient defaultClient = Configuration.getDefaultApiClient();
-
-// Configure API key authorization: Bearer
-ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
-Bearer.setApiKey("YOUR API KEY");
-// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-//Bearer.setApiKeyPrefix("Token");
-
-TradingplatformApi apiInstance = new TradingplatformApi();
-String symbol = "symbol_example"; // String | 
-DateTime startTime = new DateTime(); // DateTime | 
-DateTime endTime = new DateTime(); // DateTime | 
-Integer limit = 56; // Integer | 
-try {
-    List<BinanceRawFuturesLiquidation> result = apiInstance.getFuturesLiquidationOrders(symbol, startTime, endTime, limit);
-    System.out.println(result);
-} catch (ApiException e) {
-    System.err.println("Exception when calling TradingplatformApi#getFuturesLiquidationOrders");
-    e.printStackTrace();
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **symbol** | **String**|  | [optional]
- **startTime** | **DateTime**|  | [optional]
- **endTime** | **DateTime**|  | [optional]
- **limit** | **Integer**|  | [optional]
-
-### Return type
-
-[**List&lt;BinanceRawFuturesLiquidation&gt;**](BinanceRawFuturesLiquidation.md)
 
 ### Authorization
 

@@ -24,7 +24,6 @@ import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.managers.TerminalManager;
-import vision.genesis.clientapp.model.events.OnOpenOrderClickedEvent;
 import vision.genesis.clientapp.model.events.OnOrderCloseClickedEvent;
 import vision.genesis.clientapp.model.events.SetOpenOrdersCountEvent;
 import vision.genesis.clientapp.model.terminal.binance_socket.AccountModel;
@@ -208,11 +207,6 @@ public class OpenOrdersPresenter extends MvpPresenter<OpenOrdersView>
 		if (ApiErrorResolver.isNetworkError(error)) {
 			getViewState().showSnackbarMessage(context.getResources().getString(R.string.network_error));
 		}
-	}
-
-	@Subscribe
-	public void onEventMainThread(OnOpenOrderClickedEvent event) {
-		getViewState().showOrderDetails(event.getOrder());
 	}
 
 	@Subscribe

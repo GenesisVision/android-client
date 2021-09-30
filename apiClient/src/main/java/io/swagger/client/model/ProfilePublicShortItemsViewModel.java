@@ -17,6 +17,7 @@ import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -29,97 +30,123 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class ProfilePublicShortItemsViewModel implements Parcelable
 {
-	public static final Parcelable.Creator<ProfilePublicShortItemsViewModel> CREATOR = new Parcelable.Creator<ProfilePublicShortItemsViewModel>()
-	{
-		public ProfilePublicShortItemsViewModel createFromParcel(Parcel in) {
-			return new ProfilePublicShortItemsViewModel(in);
-		}
+  public static final Parcelable.Creator<ProfilePublicShortItemsViewModel> CREATOR = new Parcelable.Creator<ProfilePublicShortItemsViewModel>()
+  {
+    public ProfilePublicShortItemsViewModel createFromParcel(Parcel in) {
+      return new ProfilePublicShortItemsViewModel(in);
+    }
 
-		public ProfilePublicShortItemsViewModel[] newArray(int size) {
-			return new ProfilePublicShortItemsViewModel[size];
-		}
-	};
+    public ProfilePublicShortItemsViewModel[] newArray(int size) {
+      return new ProfilePublicShortItemsViewModel[size];
+    }
+  };
 
-	@SerializedName("items")
-	private List<ProfilePublicShort> items = null;
+  @SerializedName("items")
+  private List<ProfilePublicShort> items = null;
 
-	@SerializedName("total")
-	private Integer total = null;
+  @SerializedName("total")
+  private Integer total = null;
 
-	public ProfilePublicShortItemsViewModel() {
-	}
+  public ProfilePublicShortItemsViewModel() {
+  }
 
-	ProfilePublicShortItemsViewModel(Parcel in) {
-		items = (List<ProfilePublicShort>) in.readValue(ProfilePublicShort.class.getClassLoader());
-		total = (Integer) in.readValue(null);
-	}
+  ProfilePublicShortItemsViewModel(Parcel in) {
+    items = (List<ProfilePublicShort>) in.readValue(ProfilePublicShort.class.getClassLoader());
+    total = (Integer) in.readValue(null);
+  }
 
-	/**
-	 * Get items
-	 *
-	 * @return items
-	 **/
-	@Schema(description = "")
-	public List<ProfilePublicShort> getItems() {
-		return items;
-	}
+  public ProfilePublicShortItemsViewModel items(List<ProfilePublicShort> items) {
+    this.items = items;
+    return this;
+  }
 
-	/**
-	 * Get total
-	 *
-	 * @return total
-	 **/
-	@Schema(description = "")
-	public Integer getTotal() {
-		return total;
-	}
+  public ProfilePublicShortItemsViewModel addItemsItem(ProfilePublicShort itemsItem) {
+    if (this.items == null) {
+      this.items = new ArrayList<ProfilePublicShort>();
+    }
+    this.items.add(itemsItem);
+    return this;
+  }
 
-	@Override
-	public boolean equals(java.lang.Object o) {
-		if (this == o) {
-			return true;
-		}
-		if (o == null || getClass() != o.getClass()) {
-			return false;
-		}
-		ProfilePublicShortItemsViewModel profilePublicShortItemsViewModel = (ProfilePublicShortItemsViewModel) o;
-		return Objects.equals(this.items, profilePublicShortItemsViewModel.items) &&
-				Objects.equals(this.total, profilePublicShortItemsViewModel.total);
-	}
+  /**
+   * Get items
+   *
+   * @return items
+   **/
+  @Schema(description = "")
+  public List<ProfilePublicShort> getItems() {
+    return items;
+  }
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(items, total);
-	}
+  public void setItems(List<ProfilePublicShort> items) {
+    this.items = items;
+  }
 
-	@Override
-	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		sb.append("class ProfilePublicShortItemsViewModel {\n");
+  public ProfilePublicShortItemsViewModel total(Integer total) {
+    this.total = total;
+    return this;
+  }
 
-		sb.append("    items: ").append(toIndentedString(items)).append("\n");
-		sb.append("    total: ").append(toIndentedString(total)).append("\n");
-		sb.append("}");
-		return sb.toString();
-	}
+  /**
+   * Get total
+   *
+   * @return total
+   **/
+  @Schema(description = "")
+  public Integer getTotal() {
+    return total;
+  }
 
-	/**
-	 * Convert the given object to string with each line indented by 4 spaces
-	 * (except the first line).
-	 */
-	private String toIndentedString(java.lang.Object o) {
-		if (o == null) {
-			return "null";
-		}
-		return o.toString().replace("\n", "\n    ");
-	}
+  public void setTotal(Integer total) {
+    this.total = total;
+  }
 
-	public void writeToParcel(Parcel out, int flags) {
-		out.writeValue(items);
-		out.writeValue(total);
-	}
+  @Override
+  public boolean equals(java.lang.Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    ProfilePublicShortItemsViewModel profilePublicShortItemsViewModel = (ProfilePublicShortItemsViewModel) o;
+    return Objects.equals(this.items, profilePublicShortItemsViewModel.items) &&
+            Objects.equals(this.total, profilePublicShortItemsViewModel.total);
+  }
 
-	public int describeContents() {
-		return 0;
-	}
+  @Override
+  public int hashCode() {
+    return Objects.hash(items, total);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class ProfilePublicShortItemsViewModel {\n");
+
+    sb.append("    items: ").append(toIndentedString(items)).append("\n");
+    sb.append("    total: ").append(toIndentedString(total)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(java.lang.Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+  public void writeToParcel(Parcel out, int flags) {
+    out.writeValue(items);
+    out.writeValue(total);
+  }
+
+  public int describeContents() {
+    return 0;
+  }
 }

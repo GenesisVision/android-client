@@ -22,7 +22,6 @@ import butterknife.OnClick;
 import io.swagger.client.model.BinanceOrderSide;
 import io.swagger.client.model.BinanceRawOrder;
 import vision.genesis.clientapp.R;
-import vision.genesis.clientapp.model.events.OnOpenOrderClickedEvent;
 import vision.genesis.clientapp.model.events.OnOrderCloseClickedEvent;
 import vision.genesis.clientapp.utils.DateTimeUtil;
 import vision.genesis.clientapp.utils.StringFormatUtil;
@@ -35,13 +34,24 @@ import vision.genesis.clientapp.utils.ThemeUtil;
 
 public class OpenOrdersListAdapter extends RecyclerView.Adapter<OpenOrdersListAdapter.OrderViewHolder>
 {
+	public interface OnItemClickListener
+	{
+		void onClicked(BinanceRawOrder order);
+	}
+
 	public List<BinanceRawOrder> orders = new ArrayList<>();
+
+	private OnItemClickListener listener;
+
+	public OpenOrdersListAdapter(OnItemClickListener listener) {
+		this.listener = listener;
+	}
 
 	@NonNull
 	@Override
 	public OrderViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 		View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_order, parent, false);
-		return new OrderViewHolder(itemView);
+		return new OrderViewHolder(itemView, listener);
 	}
 
 	@Override
@@ -99,14 +109,14 @@ public class OpenOrdersListAdapter extends RecyclerView.Adapter<OpenOrdersListAd
 
 		private BinanceRawOrder order;
 
-		OrderViewHolder(View itemView) {
+		OrderViewHolder(View itemView, OnItemClickListener listener) {
 			super(itemView);
 
 			ButterKnife.bind(this, itemView);
 
 			itemView.setOnClickListener(view -> {
-				if (order != null) {
-					EventBus.getDefault().post(new OnOpenOrderClickedEvent(order));
+				if (order != null && listener != null) {
+					listener.onClicked(order);
 				}
 			});
 		}

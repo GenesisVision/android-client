@@ -30,399 +30,399 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class PrivateTradingAccountFullTradingAccountDetails implements Parcelable
 {
-	public static final Parcelable.Creator<PrivateTradingAccountFullTradingAccountDetails> CREATOR = new Parcelable.Creator<PrivateTradingAccountFullTradingAccountDetails>()
-	{
-		public PrivateTradingAccountFullTradingAccountDetails createFromParcel(Parcel in) {
-			return new PrivateTradingAccountFullTradingAccountDetails(in);
-		}
+  public static final Parcelable.Creator<PrivateTradingAccountFullTradingAccountDetails> CREATOR = new Parcelable.Creator<PrivateTradingAccountFullTradingAccountDetails>()
+  {
+    public PrivateTradingAccountFullTradingAccountDetails createFromParcel(Parcel in) {
+      return new PrivateTradingAccountFullTradingAccountDetails(in);
+    }
 
-		public PrivateTradingAccountFullTradingAccountDetails[] newArray(int size) {
-			return new PrivateTradingAccountFullTradingAccountDetails[size];
-		}
-	};
+    public PrivateTradingAccountFullTradingAccountDetails[] newArray(int size) {
+      return new PrivateTradingAccountFullTradingAccountDetails[size];
+    }
+  };
 
-	@SerializedName("currency")
-	private Currency currency = null;
+  @SerializedName("currency")
+  private Currency currency = null;
 
-	@SerializedName("leverage")
-	private Integer leverage = null;
+  @SerializedName("leverage")
+  private Integer leverage = null;
 
-	@SerializedName("apiKey")
-	private String apiKey = null;
+  @SerializedName("apiKey")
+  private String apiKey = null;
 
-	@SerializedName("login")
-	private String login = null;
+  @SerializedName("login")
+  private String login = null;
 
-	@SerializedName("balance")
-	private Double balance = null;
+  @SerializedName("balance")
+  private Double balance = null;
 
-	@SerializedName("balances")
-	private List<AmountWithCurrency> balances = null;
+  @SerializedName("balances")
+  private List<AmountWithLogoCurrency> balances = null;
 
-	@SerializedName("type")
-	private PrivateTradingAccountType type = null;
+  @SerializedName("type")
+  private PrivateTradingAccountType type = null;
 
-	@SerializedName("subscriptions")
-	private Integer subscriptions = null;
+  @SerializedName("subscriptions")
+  private Integer subscriptions = null;
 
-	@SerializedName("isExternal")
-	private Boolean isExternal = null;
+  @SerializedName("isExternal")
+  private Boolean isExternal = null;
 
-	@SerializedName("showTradingLog")
-	private Boolean showTradingLog = null;
+  @SerializedName("showTradingLog")
+  private Boolean showTradingLog = null;
 
-	@SerializedName("supportedCurrencies")
-	private List<Currency> supportedCurrencies = null;
+  @SerializedName("supportedCurrencies")
+  private List<Currency> supportedCurrencies = null;
 
-	@SerializedName("permissions")
-	private List<TradingAccountPermission> permissions = null;
+  @SerializedName("permissions")
+  private List<TradingAccountPermission> permissions = null;
 
-	public PrivateTradingAccountFullTradingAccountDetails() {
-	}
+  public PrivateTradingAccountFullTradingAccountDetails() {
+  }
 
-	PrivateTradingAccountFullTradingAccountDetails(Parcel in) {
-		currency = (Currency) in.readValue(Currency.class.getClassLoader());
-		leverage = (Integer) in.readValue(null);
-		apiKey = (String) in.readValue(null);
-		login = (String) in.readValue(null);
-		balance = (Double) in.readValue(null);
-		balances = (List<AmountWithCurrency>) in.readValue(AmountWithCurrency.class.getClassLoader());
-		type = (PrivateTradingAccountType) in.readValue(PrivateTradingAccountType.class.getClassLoader());
-		subscriptions = (Integer) in.readValue(null);
-		isExternal = (Boolean) in.readValue(null);
-		showTradingLog = (Boolean) in.readValue(null);
-		supportedCurrencies = (List<Currency>) in.readValue(Currency.class.getClassLoader());
-		permissions = (List<TradingAccountPermission>) in.readValue(TradingAccountPermission.class.getClassLoader());
-	}
+  PrivateTradingAccountFullTradingAccountDetails(Parcel in) {
+    currency = (Currency) in.readValue(Currency.class.getClassLoader());
+    leverage = (Integer) in.readValue(null);
+    apiKey = (String) in.readValue(null);
+    login = (String) in.readValue(null);
+    balance = (Double) in.readValue(null);
+    balances = (List<AmountWithLogoCurrency>) in.readValue(AmountWithLogoCurrency.class.getClassLoader());
+    type = (PrivateTradingAccountType) in.readValue(PrivateTradingAccountType.class.getClassLoader());
+    subscriptions = (Integer) in.readValue(null);
+    isExternal = (Boolean) in.readValue(null);
+    showTradingLog = (Boolean) in.readValue(null);
+    supportedCurrencies = (List<Currency>) in.readValue(Currency.class.getClassLoader());
+    permissions = (List<TradingAccountPermission>) in.readValue(TradingAccountPermission.class.getClassLoader());
+  }
 
-	public PrivateTradingAccountFullTradingAccountDetails currency(Currency currency) {
-		this.currency = currency;
-		return this;
-	}
+  public PrivateTradingAccountFullTradingAccountDetails currency(Currency currency) {
+    this.currency = currency;
+    return this;
+  }
 
-	/**
-	 * Get currency
-	 *
-	 * @return currency
-	 **/
-	@Schema(description = "")
-	public Currency getCurrency() {
-		return currency;
-	}
+  /**
+   * Get currency
+   *
+   * @return currency
+   **/
+  @Schema(description = "")
+  public Currency getCurrency() {
+    return currency;
+  }
 
-	public void setCurrency(Currency currency) {
-		this.currency = currency;
-	}
+  public void setCurrency(Currency currency) {
+    this.currency = currency;
+  }
 
-	public PrivateTradingAccountFullTradingAccountDetails leverage(Integer leverage) {
-		this.leverage = leverage;
-		return this;
-	}
+  public PrivateTradingAccountFullTradingAccountDetails leverage(Integer leverage) {
+    this.leverage = leverage;
+    return this;
+  }
 
-	/**
-	 * Get leverage
-	 *
-	 * @return leverage
-	 **/
-	@Schema(description = "")
-	public Integer getLeverage() {
-		return leverage;
-	}
+  /**
+   * Get leverage
+   *
+   * @return leverage
+   **/
+  @Schema(description = "")
+  public Integer getLeverage() {
+    return leverage;
+  }
 
-	public void setLeverage(Integer leverage) {
-		this.leverage = leverage;
-	}
+  public void setLeverage(Integer leverage) {
+    this.leverage = leverage;
+  }
 
-	public PrivateTradingAccountFullTradingAccountDetails apiKey(String apiKey) {
-		this.apiKey = apiKey;
-		return this;
-	}
+  public PrivateTradingAccountFullTradingAccountDetails apiKey(String apiKey) {
+    this.apiKey = apiKey;
+    return this;
+  }
 
-	/**
-	 * Get apiKey
-	 *
-	 * @return apiKey
-	 **/
-	@Schema(description = "")
-	public String getApiKey() {
-		return apiKey;
-	}
+  /**
+   * Get apiKey
+   *
+   * @return apiKey
+   **/
+  @Schema(description = "")
+  public String getApiKey() {
+    return apiKey;
+  }
 
-	public void setApiKey(String apiKey) {
-		this.apiKey = apiKey;
-	}
+  public void setApiKey(String apiKey) {
+    this.apiKey = apiKey;
+  }
 
-	public PrivateTradingAccountFullTradingAccountDetails login(String login) {
-		this.login = login;
-		return this;
-	}
+  public PrivateTradingAccountFullTradingAccountDetails login(String login) {
+    this.login = login;
+    return this;
+  }
 
-	/**
-	 * Get login
-	 *
-	 * @return login
-	 **/
-	@Schema(description = "")
-	public String getLogin() {
-		return login;
-	}
+  /**
+   * Get login
+   *
+   * @return login
+   **/
+  @Schema(description = "")
+  public String getLogin() {
+    return login;
+  }
 
-	public void setLogin(String login) {
-		this.login = login;
-	}
+  public void setLogin(String login) {
+    this.login = login;
+  }
 
-	public PrivateTradingAccountFullTradingAccountDetails balance(Double balance) {
-		this.balance = balance;
-		return this;
-	}
+  public PrivateTradingAccountFullTradingAccountDetails balance(Double balance) {
+    this.balance = balance;
+    return this;
+  }
 
-	/**
-	 * Get balance
-	 *
-	 * @return balance
-	 **/
-	@Schema(description = "")
-	public Double getBalance() {
-		return balance;
-	}
+  /**
+   * Get balance
+   *
+   * @return balance
+   **/
+  @Schema(description = "")
+  public Double getBalance() {
+    return balance;
+  }
 
-	public void setBalance(Double balance) {
-		this.balance = balance;
-	}
+  public void setBalance(Double balance) {
+    this.balance = balance;
+  }
 
-	public PrivateTradingAccountFullTradingAccountDetails balances(List<AmountWithCurrency> balances) {
-		this.balances = balances;
-		return this;
-	}
+  public PrivateTradingAccountFullTradingAccountDetails balances(List<AmountWithLogoCurrency> balances) {
+    this.balances = balances;
+    return this;
+  }
 
-	public PrivateTradingAccountFullTradingAccountDetails addBalancesItem(AmountWithCurrency balancesItem) {
-		if (this.balances == null) {
-			this.balances = new ArrayList<AmountWithCurrency>();
-		}
-		this.balances.add(balancesItem);
-		return this;
-	}
+  public PrivateTradingAccountFullTradingAccountDetails addBalancesItem(AmountWithLogoCurrency balancesItem) {
+    if (this.balances == null) {
+      this.balances = new ArrayList<AmountWithLogoCurrency>();
+    }
+    this.balances.add(balancesItem);
+    return this;
+  }
 
-	/**
-	 * Get balances
-	 *
-	 * @return balances
-	 **/
-	@Schema(description = "")
-	public List<AmountWithCurrency> getBalances() {
-		return balances;
-	}
+  /**
+   * Get balances
+   *
+   * @return balances
+   **/
+  @Schema(description = "")
+  public List<AmountWithLogoCurrency> getBalances() {
+    return balances;
+  }
 
-	public void setBalances(List<AmountWithCurrency> balances) {
-		this.balances = balances;
-	}
+  public void setBalances(List<AmountWithLogoCurrency> balances) {
+    this.balances = balances;
+  }
 
-	public PrivateTradingAccountFullTradingAccountDetails type(PrivateTradingAccountType type) {
-		this.type = type;
-		return this;
-	}
+  public PrivateTradingAccountFullTradingAccountDetails type(PrivateTradingAccountType type) {
+    this.type = type;
+    return this;
+  }
 
-	/**
-	 * Get type
-	 *
-	 * @return type
-	 **/
-	@Schema(description = "")
-	public PrivateTradingAccountType getType() {
-		return type;
-	}
+  /**
+   * Get type
+   *
+   * @return type
+   **/
+  @Schema(description = "")
+  public PrivateTradingAccountType getType() {
+    return type;
+  }
 
-	public void setType(PrivateTradingAccountType type) {
-		this.type = type;
-	}
+  public void setType(PrivateTradingAccountType type) {
+    this.type = type;
+  }
 
-	public PrivateTradingAccountFullTradingAccountDetails subscriptions(Integer subscriptions) {
-		this.subscriptions = subscriptions;
-		return this;
-	}
+  public PrivateTradingAccountFullTradingAccountDetails subscriptions(Integer subscriptions) {
+    this.subscriptions = subscriptions;
+    return this;
+  }
 
-	/**
-	 * Get subscriptions
-	 *
-	 * @return subscriptions
-	 **/
-	@Schema(description = "")
-	public Integer getSubscriptions() {
-		return subscriptions;
-	}
+  /**
+   * Get subscriptions
+   *
+   * @return subscriptions
+   **/
+  @Schema(description = "")
+  public Integer getSubscriptions() {
+    return subscriptions;
+  }
 
-	public void setSubscriptions(Integer subscriptions) {
-		this.subscriptions = subscriptions;
-	}
+  public void setSubscriptions(Integer subscriptions) {
+    this.subscriptions = subscriptions;
+  }
 
-	public PrivateTradingAccountFullTradingAccountDetails isExternal(Boolean isExternal) {
-		this.isExternal = isExternal;
-		return this;
-	}
+  public PrivateTradingAccountFullTradingAccountDetails isExternal(Boolean isExternal) {
+    this.isExternal = isExternal;
+    return this;
+  }
 
-	/**
-	 * Get isExternal
-	 *
-	 * @return isExternal
-	 **/
-	@Schema(description = "")
-	public Boolean isIsExternal() {
-		return isExternal;
-	}
+  /**
+   * Get isExternal
+   *
+   * @return isExternal
+   **/
+  @Schema(description = "")
+  public Boolean isIsExternal() {
+    return isExternal;
+  }
 
-	public void setIsExternal(Boolean isExternal) {
-		this.isExternal = isExternal;
-	}
+  public void setIsExternal(Boolean isExternal) {
+    this.isExternal = isExternal;
+  }
 
-	public PrivateTradingAccountFullTradingAccountDetails showTradingLog(Boolean showTradingLog) {
-		this.showTradingLog = showTradingLog;
-		return this;
-	}
+  public PrivateTradingAccountFullTradingAccountDetails showTradingLog(Boolean showTradingLog) {
+    this.showTradingLog = showTradingLog;
+    return this;
+  }
 
-	/**
-	 * Get showTradingLog
-	 *
-	 * @return showTradingLog
-	 **/
-	@Schema(description = "")
-	public Boolean isShowTradingLog() {
-		return showTradingLog;
-	}
+  /**
+   * Get showTradingLog
+   *
+   * @return showTradingLog
+   **/
+  @Schema(description = "")
+  public Boolean isShowTradingLog() {
+    return showTradingLog;
+  }
 
-	public void setShowTradingLog(Boolean showTradingLog) {
-		this.showTradingLog = showTradingLog;
-	}
+  public void setShowTradingLog(Boolean showTradingLog) {
+    this.showTradingLog = showTradingLog;
+  }
 
-	public PrivateTradingAccountFullTradingAccountDetails supportedCurrencies(List<Currency> supportedCurrencies) {
-		this.supportedCurrencies = supportedCurrencies;
-		return this;
-	}
+  public PrivateTradingAccountFullTradingAccountDetails supportedCurrencies(List<Currency> supportedCurrencies) {
+    this.supportedCurrencies = supportedCurrencies;
+    return this;
+  }
 
-	public PrivateTradingAccountFullTradingAccountDetails addSupportedCurrenciesItem(Currency supportedCurrenciesItem) {
-		if (this.supportedCurrencies == null) {
-			this.supportedCurrencies = new ArrayList<Currency>();
-		}
-		this.supportedCurrencies.add(supportedCurrenciesItem);
-		return this;
-	}
+  public PrivateTradingAccountFullTradingAccountDetails addSupportedCurrenciesItem(Currency supportedCurrenciesItem) {
+    if (this.supportedCurrencies == null) {
+      this.supportedCurrencies = new ArrayList<Currency>();
+    }
+    this.supportedCurrencies.add(supportedCurrenciesItem);
+    return this;
+  }
 
-	/**
-	 * Get supportedCurrencies
-	 *
-	 * @return supportedCurrencies
-	 **/
-	@Schema(description = "")
-	public List<Currency> getSupportedCurrencies() {
-		return supportedCurrencies;
-	}
+  /**
+   * Get supportedCurrencies
+   *
+   * @return supportedCurrencies
+   **/
+  @Schema(description = "")
+  public List<Currency> getSupportedCurrencies() {
+    return supportedCurrencies;
+  }
 
-	public void setSupportedCurrencies(List<Currency> supportedCurrencies) {
-		this.supportedCurrencies = supportedCurrencies;
-	}
+  public void setSupportedCurrencies(List<Currency> supportedCurrencies) {
+    this.supportedCurrencies = supportedCurrencies;
+  }
 
-	public PrivateTradingAccountFullTradingAccountDetails permissions(List<TradingAccountPermission> permissions) {
-		this.permissions = permissions;
-		return this;
-	}
+  public PrivateTradingAccountFullTradingAccountDetails permissions(List<TradingAccountPermission> permissions) {
+    this.permissions = permissions;
+    return this;
+  }
 
-	public PrivateTradingAccountFullTradingAccountDetails addPermissionsItem(TradingAccountPermission permissionsItem) {
-		if (this.permissions == null) {
-			this.permissions = new ArrayList<TradingAccountPermission>();
-		}
-		this.permissions.add(permissionsItem);
-		return this;
-	}
+  public PrivateTradingAccountFullTradingAccountDetails addPermissionsItem(TradingAccountPermission permissionsItem) {
+    if (this.permissions == null) {
+      this.permissions = new ArrayList<TradingAccountPermission>();
+    }
+    this.permissions.add(permissionsItem);
+    return this;
+  }
 
-	/**
-	 * Get permissions
-	 *
-	 * @return permissions
-	 **/
-	@Schema(description = "")
-	public List<TradingAccountPermission> getPermissions() {
-		return permissions;
-	}
+  /**
+   * Get permissions
+   *
+   * @return permissions
+   **/
+  @Schema(description = "")
+  public List<TradingAccountPermission> getPermissions() {
+    return permissions;
+  }
 
-	public void setPermissions(List<TradingAccountPermission> permissions) {
-		this.permissions = permissions;
-	}
+  public void setPermissions(List<TradingAccountPermission> permissions) {
+    this.permissions = permissions;
+  }
 
-	@Override
-	public boolean equals(java.lang.Object o) {
-		if (this == o) {
-			return true;
-		}
-		if (o == null || getClass() != o.getClass()) {
-			return false;
-		}
-		PrivateTradingAccountFullTradingAccountDetails privateTradingAccountFullTradingAccountDetails = (PrivateTradingAccountFullTradingAccountDetails) o;
-		return Objects.equals(this.currency, privateTradingAccountFullTradingAccountDetails.currency) &&
-				Objects.equals(this.leverage, privateTradingAccountFullTradingAccountDetails.leverage) &&
-				Objects.equals(this.apiKey, privateTradingAccountFullTradingAccountDetails.apiKey) &&
-				Objects.equals(this.login, privateTradingAccountFullTradingAccountDetails.login) &&
-				Objects.equals(this.balance, privateTradingAccountFullTradingAccountDetails.balance) &&
-				Objects.equals(this.balances, privateTradingAccountFullTradingAccountDetails.balances) &&
-				Objects.equals(this.type, privateTradingAccountFullTradingAccountDetails.type) &&
-				Objects.equals(this.subscriptions, privateTradingAccountFullTradingAccountDetails.subscriptions) &&
-				Objects.equals(this.isExternal, privateTradingAccountFullTradingAccountDetails.isExternal) &&
-				Objects.equals(this.showTradingLog, privateTradingAccountFullTradingAccountDetails.showTradingLog) &&
-				Objects.equals(this.supportedCurrencies, privateTradingAccountFullTradingAccountDetails.supportedCurrencies) &&
-				Objects.equals(this.permissions, privateTradingAccountFullTradingAccountDetails.permissions);
-	}
+  @Override
+  public boolean equals(java.lang.Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    PrivateTradingAccountFullTradingAccountDetails privateTradingAccountFullTradingAccountDetails = (PrivateTradingAccountFullTradingAccountDetails) o;
+    return Objects.equals(this.currency, privateTradingAccountFullTradingAccountDetails.currency) &&
+            Objects.equals(this.leverage, privateTradingAccountFullTradingAccountDetails.leverage) &&
+            Objects.equals(this.apiKey, privateTradingAccountFullTradingAccountDetails.apiKey) &&
+            Objects.equals(this.login, privateTradingAccountFullTradingAccountDetails.login) &&
+            Objects.equals(this.balance, privateTradingAccountFullTradingAccountDetails.balance) &&
+            Objects.equals(this.balances, privateTradingAccountFullTradingAccountDetails.balances) &&
+            Objects.equals(this.type, privateTradingAccountFullTradingAccountDetails.type) &&
+            Objects.equals(this.subscriptions, privateTradingAccountFullTradingAccountDetails.subscriptions) &&
+            Objects.equals(this.isExternal, privateTradingAccountFullTradingAccountDetails.isExternal) &&
+            Objects.equals(this.showTradingLog, privateTradingAccountFullTradingAccountDetails.showTradingLog) &&
+            Objects.equals(this.supportedCurrencies, privateTradingAccountFullTradingAccountDetails.supportedCurrencies) &&
+            Objects.equals(this.permissions, privateTradingAccountFullTradingAccountDetails.permissions);
+  }
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(currency, leverage, apiKey, login, balance, balances, type, subscriptions, isExternal, showTradingLog, supportedCurrencies, permissions);
-	}
+  @Override
+  public int hashCode() {
+    return Objects.hash(currency, leverage, apiKey, login, balance, balances, type, subscriptions, isExternal, showTradingLog, supportedCurrencies, permissions);
+  }
 
-	@Override
-	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		sb.append("class PrivateTradingAccountFullTradingAccountDetails {\n");
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class PrivateTradingAccountFullTradingAccountDetails {\n");
 
-		sb.append("    currency: ").append(toIndentedString(currency)).append("\n");
-		sb.append("    leverage: ").append(toIndentedString(leverage)).append("\n");
-		sb.append("    apiKey: ").append(toIndentedString(apiKey)).append("\n");
-		sb.append("    login: ").append(toIndentedString(login)).append("\n");
-		sb.append("    balance: ").append(toIndentedString(balance)).append("\n");
-		sb.append("    balances: ").append(toIndentedString(balances)).append("\n");
-		sb.append("    type: ").append(toIndentedString(type)).append("\n");
-		sb.append("    subscriptions: ").append(toIndentedString(subscriptions)).append("\n");
-		sb.append("    isExternal: ").append(toIndentedString(isExternal)).append("\n");
-		sb.append("    showTradingLog: ").append(toIndentedString(showTradingLog)).append("\n");
-		sb.append("    supportedCurrencies: ").append(toIndentedString(supportedCurrencies)).append("\n");
-		sb.append("    permissions: ").append(toIndentedString(permissions)).append("\n");
-		sb.append("}");
-		return sb.toString();
-	}
+    sb.append("    currency: ").append(toIndentedString(currency)).append("\n");
+    sb.append("    leverage: ").append(toIndentedString(leverage)).append("\n");
+    sb.append("    apiKey: ").append(toIndentedString(apiKey)).append("\n");
+    sb.append("    login: ").append(toIndentedString(login)).append("\n");
+    sb.append("    balance: ").append(toIndentedString(balance)).append("\n");
+    sb.append("    balances: ").append(toIndentedString(balances)).append("\n");
+    sb.append("    type: ").append(toIndentedString(type)).append("\n");
+    sb.append("    subscriptions: ").append(toIndentedString(subscriptions)).append("\n");
+    sb.append("    isExternal: ").append(toIndentedString(isExternal)).append("\n");
+    sb.append("    showTradingLog: ").append(toIndentedString(showTradingLog)).append("\n");
+    sb.append("    supportedCurrencies: ").append(toIndentedString(supportedCurrencies)).append("\n");
+    sb.append("    permissions: ").append(toIndentedString(permissions)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
 
-	/**
-	 * Convert the given object to string with each line indented by 4 spaces
-	 * (except the first line).
-	 */
-	private String toIndentedString(java.lang.Object o) {
-		if (o == null) {
-			return "null";
-		}
-		return o.toString().replace("\n", "\n    ");
-	}
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(java.lang.Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
 
-	public void writeToParcel(Parcel out, int flags) {
-		out.writeValue(currency);
-		out.writeValue(leverage);
-		out.writeValue(apiKey);
-		out.writeValue(login);
-		out.writeValue(balance);
-		out.writeValue(balances);
-		out.writeValue(type);
-		out.writeValue(subscriptions);
-		out.writeValue(isExternal);
-		out.writeValue(showTradingLog);
-		out.writeValue(supportedCurrencies);
-		out.writeValue(permissions);
-	}
+  public void writeToParcel(Parcel out, int flags) {
+    out.writeValue(currency);
+    out.writeValue(leverage);
+    out.writeValue(apiKey);
+    out.writeValue(login);
+    out.writeValue(balance);
+    out.writeValue(balances);
+    out.writeValue(type);
+    out.writeValue(subscriptions);
+    out.writeValue(isExternal);
+    out.writeValue(showTradingLog);
+    out.writeValue(supportedCurrencies);
+    out.writeValue(permissions);
+  }
 
-	public int describeContents() {
-		return 0;
-	}
+  public int describeContents() {
+    return 0;
+  }
 }

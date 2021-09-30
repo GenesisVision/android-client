@@ -41,37 +41,18 @@ public class BinanceRawFuturesSymbolBracket implements Parcelable
 		}
 	};
 
-	@SerializedName("symbolOrPair")
-	private String symbolOrPair = null;
-
 	@SerializedName("brackets")
 	private List<BinanceRawFuturesBracket> brackets = null;
+
+	@SerializedName("symbol")
+	private String symbol = null;
 
 	public BinanceRawFuturesSymbolBracket() {
 	}
 
 	BinanceRawFuturesSymbolBracket(Parcel in) {
-		symbolOrPair = (String) in.readValue(null);
 		brackets = (List<BinanceRawFuturesBracket>) in.readValue(BinanceRawFuturesBracket.class.getClassLoader());
-	}
-
-	public BinanceRawFuturesSymbolBracket symbolOrPair(String symbolOrPair) {
-		this.symbolOrPair = symbolOrPair;
-		return this;
-	}
-
-	/**
-	 * Get symbolOrPair
-	 *
-	 * @return symbolOrPair
-	 **/
-	@Schema(description = "")
-	public String getSymbolOrPair() {
-		return symbolOrPair;
-	}
-
-	public void setSymbolOrPair(String symbolOrPair) {
-		this.symbolOrPair = symbolOrPair;
+		symbol = (String) in.readValue(null);
 	}
 
 	public BinanceRawFuturesSymbolBracket brackets(List<BinanceRawFuturesBracket> brackets) {
@@ -101,6 +82,25 @@ public class BinanceRawFuturesSymbolBracket implements Parcelable
 		this.brackets = brackets;
 	}
 
+	public BinanceRawFuturesSymbolBracket symbol(String symbol) {
+		this.symbol = symbol;
+		return this;
+	}
+
+	/**
+	 * Get symbol
+	 *
+	 * @return symbol
+	 **/
+	@Schema(description = "")
+	public String getSymbol() {
+		return symbol;
+	}
+
+	public void setSymbol(String symbol) {
+		this.symbol = symbol;
+	}
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -110,13 +110,13 @@ public class BinanceRawFuturesSymbolBracket implements Parcelable
 			return false;
 		}
 		BinanceRawFuturesSymbolBracket binanceRawFuturesSymbolBracket = (BinanceRawFuturesSymbolBracket) o;
-		return Objects.equals(this.symbolOrPair, binanceRawFuturesSymbolBracket.symbolOrPair) &&
-				Objects.equals(this.brackets, binanceRawFuturesSymbolBracket.brackets);
+		return Objects.equals(this.brackets, binanceRawFuturesSymbolBracket.brackets) &&
+				Objects.equals(this.symbol, binanceRawFuturesSymbolBracket.symbol);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(symbolOrPair, brackets);
+		return Objects.hash(brackets, symbol);
 	}
 
 	@Override
@@ -124,8 +124,8 @@ public class BinanceRawFuturesSymbolBracket implements Parcelable
 		StringBuilder sb = new StringBuilder();
 		sb.append("class BinanceRawFuturesSymbolBracket {\n");
 
-		sb.append("    symbolOrPair: ").append(toIndentedString(symbolOrPair)).append("\n");
 		sb.append("    brackets: ").append(toIndentedString(brackets)).append("\n");
+		sb.append("    symbol: ").append(toIndentedString(symbol)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}
@@ -142,8 +142,8 @@ public class BinanceRawFuturesSymbolBracket implements Parcelable
 	}
 
 	public void writeToParcel(Parcel out, int flags) {
-		out.writeValue(symbolOrPair);
 		out.writeValue(brackets);
+		out.writeValue(symbol);
 	}
 
 	public int describeContents() {

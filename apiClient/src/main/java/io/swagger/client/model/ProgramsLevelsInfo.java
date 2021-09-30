@@ -30,97 +30,97 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class ProgramsLevelsInfo implements Parcelable
 {
-	public static final Parcelable.Creator<ProgramsLevelsInfo> CREATOR = new Parcelable.Creator<ProgramsLevelsInfo>()
-	{
-		public ProgramsLevelsInfo createFromParcel(Parcel in) {
-			return new ProgramsLevelsInfo(in);
-		}
+  public static final Parcelable.Creator<ProgramsLevelsInfo> CREATOR = new Parcelable.Creator<ProgramsLevelsInfo>()
+  {
+    public ProgramsLevelsInfo createFromParcel(Parcel in) {
+      return new ProgramsLevelsInfo(in);
+    }
 
-		public ProgramsLevelsInfo[] newArray(int size) {
-			return new ProgramsLevelsInfo[size];
-		}
-	};
+    public ProgramsLevelsInfo[] newArray(int size) {
+      return new ProgramsLevelsInfo[size];
+    }
+  };
 
-	@SerializedName("levels")
-	private List<LevelInfo> levels = null;
+  @SerializedName("levels")
+  private List<LevelInfo> levels = null;
 
-	public ProgramsLevelsInfo() {
-	}
+  public ProgramsLevelsInfo() {
+  }
 
-	ProgramsLevelsInfo(Parcel in) {
-		levels = (List<LevelInfo>) in.readValue(LevelInfo.class.getClassLoader());
-	}
+  ProgramsLevelsInfo(Parcel in) {
+    levels = (List<LevelInfo>) in.readValue(LevelInfo.class.getClassLoader());
+  }
 
-	public ProgramsLevelsInfo levels(List<LevelInfo> levels) {
-		this.levels = levels;
-		return this;
-	}
+  public ProgramsLevelsInfo levels(List<LevelInfo> levels) {
+    this.levels = levels;
+    return this;
+  }
 
-	public ProgramsLevelsInfo addLevelsItem(LevelInfo levelsItem) {
-		if (this.levels == null) {
-			this.levels = new ArrayList<LevelInfo>();
-		}
-		this.levels.add(levelsItem);
-		return this;
-	}
+  public ProgramsLevelsInfo addLevelsItem(LevelInfo levelsItem) {
+    if (this.levels == null) {
+      this.levels = new ArrayList<LevelInfo>();
+    }
+    this.levels.add(levelsItem);
+    return this;
+  }
 
-	/**
-	 * Get levels
-	 *
-	 * @return levels
-	 **/
-	@Schema(description = "")
-	public List<LevelInfo> getLevels() {
-		return levels;
-	}
+  /**
+   * Get levels
+   *
+   * @return levels
+   **/
+  @Schema(description = "")
+  public List<LevelInfo> getLevels() {
+    return levels;
+  }
 
-	public void setLevels(List<LevelInfo> levels) {
-		this.levels = levels;
-	}
+  public void setLevels(List<LevelInfo> levels) {
+    this.levels = levels;
+  }
 
-	@Override
-	public boolean equals(java.lang.Object o) {
-		if (this == o) {
-			return true;
-		}
-		if (o == null || getClass() != o.getClass()) {
-			return false;
-		}
-		ProgramsLevelsInfo programsLevelsInfo = (ProgramsLevelsInfo) o;
-		return Objects.equals(this.levels, programsLevelsInfo.levels);
-	}
+  @Override
+  public boolean equals(java.lang.Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    ProgramsLevelsInfo programsLevelsInfo = (ProgramsLevelsInfo) o;
+    return Objects.equals(this.levels, programsLevelsInfo.levels);
+  }
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(levels);
-	}
+  @Override
+  public int hashCode() {
+    return Objects.hash(levels);
+  }
 
-	@Override
-	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		sb.append("class ProgramsLevelsInfo {\n");
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class ProgramsLevelsInfo {\n");
 
-		sb.append("    levels: ").append(toIndentedString(levels)).append("\n");
-		sb.append("}");
-		return sb.toString();
-	}
+    sb.append("    levels: ").append(toIndentedString(levels)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
 
-	/**
-	 * Convert the given object to string with each line indented by 4 spaces
-	 * (except the first line).
-	 */
-	private String toIndentedString(java.lang.Object o) {
-		if (o == null) {
-			return "null";
-		}
-		return o.toString().replace("\n", "\n    ");
-	}
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(java.lang.Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
 
-	public void writeToParcel(Parcel out, int flags) {
-		out.writeValue(levels);
-	}
+  public void writeToParcel(Parcel out, int flags) {
+    out.writeValue(levels);
+  }
 
-	public int describeContents() {
-		return 0;
-	}
+  public int describeContents() {
+    return 0;
+  }
 }

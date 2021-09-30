@@ -28,271 +28,271 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class PersonalInvestingFundDetailsList implements Parcelable
 {
-	public static final Parcelable.Creator<PersonalInvestingFundDetailsList> CREATOR = new Parcelable.Creator<PersonalInvestingFundDetailsList>()
-	{
-		public PersonalInvestingFundDetailsList createFromParcel(Parcel in) {
-			return new PersonalInvestingFundDetailsList(in);
-		}
+  public static final Parcelable.Creator<PersonalInvestingFundDetailsList> CREATOR = new Parcelable.Creator<PersonalInvestingFundDetailsList>()
+  {
+    public PersonalInvestingFundDetailsList createFromParcel(Parcel in) {
+      return new PersonalInvestingFundDetailsList(in);
+    }
 
-		public PersonalInvestingFundDetailsList[] newArray(int size) {
-			return new PersonalInvestingFundDetailsList[size];
-		}
-	};
+    public PersonalInvestingFundDetailsList[] newArray(int size) {
+      return new PersonalInvestingFundDetailsList[size];
+    }
+  };
 
-	@SerializedName("isOwnAsset")
-	private Boolean isOwnAsset = null;
+  @SerializedName("isOwnAsset")
+  private Boolean isOwnAsset = null;
 
-	@SerializedName("isFavorite")
-	private Boolean isFavorite = null;
+  @SerializedName("isFavorite")
+  private Boolean isFavorite = null;
 
-	@SerializedName("canInvest")
-	private Boolean canInvest = null;
+  @SerializedName("canInvest")
+  private Boolean canInvest = null;
 
-	@SerializedName("canWithdraw")
-	private Boolean canWithdraw = null;
+  @SerializedName("canWithdraw")
+  private Boolean canWithdraw = null;
 
-	@SerializedName("share")
-	private Double share = null;
+  @SerializedName("share")
+  private Double share = null;
 
-	@SerializedName("value")
-	private Double value = null;
+  @SerializedName("value")
+  private Double value = null;
 
-	@SerializedName("exitFeePersonal")
-	private Double exitFeePersonal = null;
+  @SerializedName("exitFeePersonal")
+  private Double exitFeePersonal = null;
 
-	@SerializedName("status")
-	private AssetInvestmentStatus status = null;
+  @SerializedName("status")
+  private AssetInvestmentStatus status = null;
 
-	public PersonalInvestingFundDetailsList() {
-	}
+  public PersonalInvestingFundDetailsList() {
+  }
 
-	PersonalInvestingFundDetailsList(Parcel in) {
-		isOwnAsset = (Boolean) in.readValue(null);
-		isFavorite = (Boolean) in.readValue(null);
-		canInvest = (Boolean) in.readValue(null);
-		canWithdraw = (Boolean) in.readValue(null);
-		share = (Double) in.readValue(null);
-		value = (Double) in.readValue(null);
-		exitFeePersonal = (Double) in.readValue(null);
-		status = (AssetInvestmentStatus) in.readValue(AssetInvestmentStatus.class.getClassLoader());
-	}
+  PersonalInvestingFundDetailsList(Parcel in) {
+    isOwnAsset = (Boolean) in.readValue(null);
+    isFavorite = (Boolean) in.readValue(null);
+    canInvest = (Boolean) in.readValue(null);
+    canWithdraw = (Boolean) in.readValue(null);
+    share = (Double) in.readValue(null);
+    value = (Double) in.readValue(null);
+    exitFeePersonal = (Double) in.readValue(null);
+    status = (AssetInvestmentStatus) in.readValue(AssetInvestmentStatus.class.getClassLoader());
+  }
 
-	public PersonalInvestingFundDetailsList isOwnAsset(Boolean isOwnAsset) {
-		this.isOwnAsset = isOwnAsset;
-		return this;
-	}
+  public PersonalInvestingFundDetailsList isOwnAsset(Boolean isOwnAsset) {
+    this.isOwnAsset = isOwnAsset;
+    return this;
+  }
 
-	/**
-	 * Get isOwnAsset
-	 *
-	 * @return isOwnAsset
-	 **/
-	@Schema(description = "")
-	public Boolean isIsOwnAsset() {
-		return isOwnAsset;
-	}
+  /**
+   * Get isOwnAsset
+   *
+   * @return isOwnAsset
+   **/
+  @Schema(description = "")
+  public Boolean isIsOwnAsset() {
+    return isOwnAsset;
+  }
 
-	public void setIsOwnAsset(Boolean isOwnAsset) {
-		this.isOwnAsset = isOwnAsset;
-	}
+  public void setIsOwnAsset(Boolean isOwnAsset) {
+    this.isOwnAsset = isOwnAsset;
+  }
 
-	public PersonalInvestingFundDetailsList isFavorite(Boolean isFavorite) {
-		this.isFavorite = isFavorite;
-		return this;
-	}
+  public PersonalInvestingFundDetailsList isFavorite(Boolean isFavorite) {
+    this.isFavorite = isFavorite;
+    return this;
+  }
 
-	/**
-	 * Get isFavorite
-	 *
-	 * @return isFavorite
-	 **/
-	@Schema(description = "")
-	public Boolean isIsFavorite() {
-		return isFavorite;
-	}
+  /**
+   * Get isFavorite
+   *
+   * @return isFavorite
+   **/
+  @Schema(description = "")
+  public Boolean isIsFavorite() {
+    return isFavorite;
+  }
 
-	public void setIsFavorite(Boolean isFavorite) {
-		this.isFavorite = isFavorite;
-	}
+  public void setIsFavorite(Boolean isFavorite) {
+    this.isFavorite = isFavorite;
+  }
 
-	public PersonalInvestingFundDetailsList canInvest(Boolean canInvest) {
-		this.canInvest = canInvest;
-		return this;
-	}
+  public PersonalInvestingFundDetailsList canInvest(Boolean canInvest) {
+    this.canInvest = canInvest;
+    return this;
+  }
 
-	/**
-	 * Get canInvest
-	 *
-	 * @return canInvest
-	 **/
-	@Schema(description = "")
-	public Boolean isCanInvest() {
-		return canInvest;
-	}
+  /**
+   * Get canInvest
+   *
+   * @return canInvest
+   **/
+  @Schema(description = "")
+  public Boolean isCanInvest() {
+    return canInvest;
+  }
 
-	public void setCanInvest(Boolean canInvest) {
-		this.canInvest = canInvest;
-	}
+  public void setCanInvest(Boolean canInvest) {
+    this.canInvest = canInvest;
+  }
 
-	public PersonalInvestingFundDetailsList canWithdraw(Boolean canWithdraw) {
-		this.canWithdraw = canWithdraw;
-		return this;
-	}
+  public PersonalInvestingFundDetailsList canWithdraw(Boolean canWithdraw) {
+    this.canWithdraw = canWithdraw;
+    return this;
+  }
 
-	/**
-	 * Get canWithdraw
-	 *
-	 * @return canWithdraw
-	 **/
-	@Schema(description = "")
-	public Boolean isCanWithdraw() {
-		return canWithdraw;
-	}
+  /**
+   * Get canWithdraw
+   *
+   * @return canWithdraw
+   **/
+  @Schema(description = "")
+  public Boolean isCanWithdraw() {
+    return canWithdraw;
+  }
 
-	public void setCanWithdraw(Boolean canWithdraw) {
-		this.canWithdraw = canWithdraw;
-	}
+  public void setCanWithdraw(Boolean canWithdraw) {
+    this.canWithdraw = canWithdraw;
+  }
 
-	public PersonalInvestingFundDetailsList share(Double share) {
-		this.share = share;
-		return this;
-	}
+  public PersonalInvestingFundDetailsList share(Double share) {
+    this.share = share;
+    return this;
+  }
 
-	/**
-	 * Get share
-	 *
-	 * @return share
-	 **/
-	@Schema(description = "")
-	public Double getShare() {
-		return share;
-	}
+  /**
+   * Get share
+   *
+   * @return share
+   **/
+  @Schema(description = "")
+  public Double getShare() {
+    return share;
+  }
 
-	public void setShare(Double share) {
-		this.share = share;
-	}
+  public void setShare(Double share) {
+    this.share = share;
+  }
 
-	public PersonalInvestingFundDetailsList value(Double value) {
-		this.value = value;
-		return this;
-	}
+  public PersonalInvestingFundDetailsList value(Double value) {
+    this.value = value;
+    return this;
+  }
 
-	/**
-	 * Get value
-	 *
-	 * @return value
-	 **/
-	@Schema(description = "")
-	public Double getValue() {
-		return value;
-	}
+  /**
+   * Get value
+   *
+   * @return value
+   **/
+  @Schema(description = "")
+  public Double getValue() {
+    return value;
+  }
 
-	public void setValue(Double value) {
-		this.value = value;
-	}
+  public void setValue(Double value) {
+    this.value = value;
+  }
 
-	public PersonalInvestingFundDetailsList exitFeePersonal(Double exitFeePersonal) {
-		this.exitFeePersonal = exitFeePersonal;
-		return this;
-	}
+  public PersonalInvestingFundDetailsList exitFeePersonal(Double exitFeePersonal) {
+    this.exitFeePersonal = exitFeePersonal;
+    return this;
+  }
 
-	/**
-	 * Get exitFeePersonal
-	 *
-	 * @return exitFeePersonal
-	 **/
-	@Schema(description = "")
-	public Double getExitFeePersonal() {
-		return exitFeePersonal;
-	}
+  /**
+   * Get exitFeePersonal
+   *
+   * @return exitFeePersonal
+   **/
+  @Schema(description = "")
+  public Double getExitFeePersonal() {
+    return exitFeePersonal;
+  }
 
-	public void setExitFeePersonal(Double exitFeePersonal) {
-		this.exitFeePersonal = exitFeePersonal;
-	}
+  public void setExitFeePersonal(Double exitFeePersonal) {
+    this.exitFeePersonal = exitFeePersonal;
+  }
 
-	public PersonalInvestingFundDetailsList status(AssetInvestmentStatus status) {
-		this.status = status;
-		return this;
-	}
+  public PersonalInvestingFundDetailsList status(AssetInvestmentStatus status) {
+    this.status = status;
+    return this;
+  }
 
-	/**
-	 * Get status
-	 *
-	 * @return status
-	 **/
-	@Schema(description = "")
-	public AssetInvestmentStatus getStatus() {
-		return status;
-	}
+  /**
+   * Get status
+   *
+   * @return status
+   **/
+  @Schema(description = "")
+  public AssetInvestmentStatus getStatus() {
+    return status;
+  }
 
-	public void setStatus(AssetInvestmentStatus status) {
-		this.status = status;
-	}
+  public void setStatus(AssetInvestmentStatus status) {
+    this.status = status;
+  }
 
-	@Override
-	public boolean equals(java.lang.Object o) {
-		if (this == o) {
-			return true;
-		}
-		if (o == null || getClass() != o.getClass()) {
-			return false;
-		}
-		PersonalInvestingFundDetailsList personalInvestingFundDetailsList = (PersonalInvestingFundDetailsList) o;
-		return Objects.equals(this.isOwnAsset, personalInvestingFundDetailsList.isOwnAsset) &&
-				Objects.equals(this.isFavorite, personalInvestingFundDetailsList.isFavorite) &&
-				Objects.equals(this.canInvest, personalInvestingFundDetailsList.canInvest) &&
-				Objects.equals(this.canWithdraw, personalInvestingFundDetailsList.canWithdraw) &&
-				Objects.equals(this.share, personalInvestingFundDetailsList.share) &&
-				Objects.equals(this.value, personalInvestingFundDetailsList.value) &&
-				Objects.equals(this.exitFeePersonal, personalInvestingFundDetailsList.exitFeePersonal) &&
-				Objects.equals(this.status, personalInvestingFundDetailsList.status);
-	}
+  @Override
+  public boolean equals(java.lang.Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    PersonalInvestingFundDetailsList personalInvestingFundDetailsList = (PersonalInvestingFundDetailsList) o;
+    return Objects.equals(this.isOwnAsset, personalInvestingFundDetailsList.isOwnAsset) &&
+            Objects.equals(this.isFavorite, personalInvestingFundDetailsList.isFavorite) &&
+            Objects.equals(this.canInvest, personalInvestingFundDetailsList.canInvest) &&
+            Objects.equals(this.canWithdraw, personalInvestingFundDetailsList.canWithdraw) &&
+            Objects.equals(this.share, personalInvestingFundDetailsList.share) &&
+            Objects.equals(this.value, personalInvestingFundDetailsList.value) &&
+            Objects.equals(this.exitFeePersonal, personalInvestingFundDetailsList.exitFeePersonal) &&
+            Objects.equals(this.status, personalInvestingFundDetailsList.status);
+  }
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(isOwnAsset, isFavorite, canInvest, canWithdraw, share, value, exitFeePersonal, status);
-	}
+  @Override
+  public int hashCode() {
+    return Objects.hash(isOwnAsset, isFavorite, canInvest, canWithdraw, share, value, exitFeePersonal, status);
+  }
 
-	@Override
-	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		sb.append("class PersonalInvestingFundDetailsList {\n");
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class PersonalInvestingFundDetailsList {\n");
 
-		sb.append("    isOwnAsset: ").append(toIndentedString(isOwnAsset)).append("\n");
-		sb.append("    isFavorite: ").append(toIndentedString(isFavorite)).append("\n");
-		sb.append("    canInvest: ").append(toIndentedString(canInvest)).append("\n");
-		sb.append("    canWithdraw: ").append(toIndentedString(canWithdraw)).append("\n");
-		sb.append("    share: ").append(toIndentedString(share)).append("\n");
-		sb.append("    value: ").append(toIndentedString(value)).append("\n");
-		sb.append("    exitFeePersonal: ").append(toIndentedString(exitFeePersonal)).append("\n");
-		sb.append("    status: ").append(toIndentedString(status)).append("\n");
-		sb.append("}");
-		return sb.toString();
-	}
+    sb.append("    isOwnAsset: ").append(toIndentedString(isOwnAsset)).append("\n");
+    sb.append("    isFavorite: ").append(toIndentedString(isFavorite)).append("\n");
+    sb.append("    canInvest: ").append(toIndentedString(canInvest)).append("\n");
+    sb.append("    canWithdraw: ").append(toIndentedString(canWithdraw)).append("\n");
+    sb.append("    share: ").append(toIndentedString(share)).append("\n");
+    sb.append("    value: ").append(toIndentedString(value)).append("\n");
+    sb.append("    exitFeePersonal: ").append(toIndentedString(exitFeePersonal)).append("\n");
+    sb.append("    status: ").append(toIndentedString(status)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
 
-	/**
-	 * Convert the given object to string with each line indented by 4 spaces
-	 * (except the first line).
-	 */
-	private String toIndentedString(java.lang.Object o) {
-		if (o == null) {
-			return "null";
-		}
-		return o.toString().replace("\n", "\n    ");
-	}
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(java.lang.Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
 
-	public void writeToParcel(Parcel out, int flags) {
-		out.writeValue(isOwnAsset);
-		out.writeValue(isFavorite);
-		out.writeValue(canInvest);
-		out.writeValue(canWithdraw);
-		out.writeValue(share);
-		out.writeValue(value);
-		out.writeValue(exitFeePersonal);
-		out.writeValue(status);
-	}
+  public void writeToParcel(Parcel out, int flags) {
+    out.writeValue(isOwnAsset);
+    out.writeValue(isFavorite);
+    out.writeValue(canInvest);
+    out.writeValue(canWithdraw);
+    out.writeValue(share);
+    out.writeValue(value);
+    out.writeValue(exitFeePersonal);
+    out.writeValue(status);
+  }
 
-	public int describeContents() {
-		return 0;
-	}
+  public int describeContents() {
+    return 0;
+  }
 }

@@ -29,167 +29,167 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class TradingAccountCreateResult implements Parcelable
 {
-	public static final Parcelable.Creator<TradingAccountCreateResult> CREATOR = new Parcelable.Creator<TradingAccountCreateResult>()
-	{
-		public TradingAccountCreateResult createFromParcel(Parcel in) {
-			return new TradingAccountCreateResult(in);
-		}
+  public static final Parcelable.Creator<TradingAccountCreateResult> CREATOR = new Parcelable.Creator<TradingAccountCreateResult>()
+  {
+    public TradingAccountCreateResult createFromParcel(Parcel in) {
+      return new TradingAccountCreateResult(in);
+    }
 
-		public TradingAccountCreateResult[] newArray(int size) {
-			return new TradingAccountCreateResult[size];
-		}
-	};
+    public TradingAccountCreateResult[] newArray(int size) {
+      return new TradingAccountCreateResult[size];
+    }
+  };
 
-	@SerializedName("id")
-	private UUID id = null;
+  @SerializedName("id")
+  private UUID id = null;
 
-	@SerializedName("twoFactorRequired")
-	private Boolean twoFactorRequired = null;
+  @SerializedName("twoFactorRequired")
+  private Boolean twoFactorRequired = null;
 
-	@SerializedName("twoFactor")
-	private TwoFactorAuthenticator twoFactor = null;
+  @SerializedName("twoFactor")
+  private TwoFactorAuthenticator twoFactor = null;
 
-	@SerializedName("startDeposit")
-	private Double startDeposit = null;
+  @SerializedName("startDeposit")
+  private Double startDeposit = null;
 
-	public TradingAccountCreateResult() {
-	}
+  public TradingAccountCreateResult() {
+  }
 
-	TradingAccountCreateResult(Parcel in) {
-		id = (UUID) in.readValue(UUID.class.getClassLoader());
-		twoFactorRequired = (Boolean) in.readValue(null);
-		twoFactor = (TwoFactorAuthenticator) in.readValue(TwoFactorAuthenticator.class.getClassLoader());
-		startDeposit = (Double) in.readValue(null);
-	}
+  TradingAccountCreateResult(Parcel in) {
+    id = (UUID) in.readValue(UUID.class.getClassLoader());
+    twoFactorRequired = (Boolean) in.readValue(null);
+    twoFactor = (TwoFactorAuthenticator) in.readValue(TwoFactorAuthenticator.class.getClassLoader());
+    startDeposit = (Double) in.readValue(null);
+  }
 
-	public TradingAccountCreateResult id(UUID id) {
-		this.id = id;
-		return this;
-	}
+  public TradingAccountCreateResult id(UUID id) {
+    this.id = id;
+    return this;
+  }
 
-	/**
-	 * Get id
-	 *
-	 * @return id
-	 **/
-	@Schema(description = "")
-	public UUID getId() {
-		return id;
-	}
+  /**
+   * Get id
+   *
+   * @return id
+   **/
+  @Schema(description = "")
+  public UUID getId() {
+    return id;
+  }
 
-	public void setId(UUID id) {
-		this.id = id;
-	}
+  public void setId(UUID id) {
+    this.id = id;
+  }
 
-	public TradingAccountCreateResult twoFactorRequired(Boolean twoFactorRequired) {
-		this.twoFactorRequired = twoFactorRequired;
-		return this;
-	}
+  public TradingAccountCreateResult twoFactorRequired(Boolean twoFactorRequired) {
+    this.twoFactorRequired = twoFactorRequired;
+    return this;
+  }
 
-	/**
-	 * Get twoFactorRequired
-	 *
-	 * @return twoFactorRequired
-	 **/
-	@Schema(description = "")
-	public Boolean isTwoFactorRequired() {
-		return twoFactorRequired;
-	}
+  /**
+   * Get twoFactorRequired
+   *
+   * @return twoFactorRequired
+   **/
+  @Schema(description = "")
+  public Boolean isTwoFactorRequired() {
+    return twoFactorRequired;
+  }
 
-	public void setTwoFactorRequired(Boolean twoFactorRequired) {
-		this.twoFactorRequired = twoFactorRequired;
-	}
+  public void setTwoFactorRequired(Boolean twoFactorRequired) {
+    this.twoFactorRequired = twoFactorRequired;
+  }
 
-	public TradingAccountCreateResult twoFactor(TwoFactorAuthenticator twoFactor) {
-		this.twoFactor = twoFactor;
-		return this;
-	}
+  public TradingAccountCreateResult twoFactor(TwoFactorAuthenticator twoFactor) {
+    this.twoFactor = twoFactor;
+    return this;
+  }
 
-	/**
-	 * Get twoFactor
-	 *
-	 * @return twoFactor
-	 **/
-	@Schema(description = "")
-	public TwoFactorAuthenticator getTwoFactor() {
-		return twoFactor;
-	}
+  /**
+   * Get twoFactor
+   *
+   * @return twoFactor
+   **/
+  @Schema(description = "")
+  public TwoFactorAuthenticator getTwoFactor() {
+    return twoFactor;
+  }
 
-	public void setTwoFactor(TwoFactorAuthenticator twoFactor) {
-		this.twoFactor = twoFactor;
-	}
+  public void setTwoFactor(TwoFactorAuthenticator twoFactor) {
+    this.twoFactor = twoFactor;
+  }
 
-	public TradingAccountCreateResult startDeposit(Double startDeposit) {
-		this.startDeposit = startDeposit;
-		return this;
-	}
+  public TradingAccountCreateResult startDeposit(Double startDeposit) {
+    this.startDeposit = startDeposit;
+    return this;
+  }
 
-	/**
-	 * Get startDeposit
-	 *
-	 * @return startDeposit
-	 **/
-	@Schema(description = "")
-	public Double getStartDeposit() {
-		return startDeposit;
-	}
+  /**
+   * Get startDeposit
+   *
+   * @return startDeposit
+   **/
+  @Schema(description = "")
+  public Double getStartDeposit() {
+    return startDeposit;
+  }
 
-	public void setStartDeposit(Double startDeposit) {
-		this.startDeposit = startDeposit;
-	}
+  public void setStartDeposit(Double startDeposit) {
+    this.startDeposit = startDeposit;
+  }
 
-	@Override
-	public boolean equals(java.lang.Object o) {
-		if (this == o) {
-			return true;
-		}
-		if (o == null || getClass() != o.getClass()) {
-			return false;
-		}
-		TradingAccountCreateResult tradingAccountCreateResult = (TradingAccountCreateResult) o;
-		return Objects.equals(this.id, tradingAccountCreateResult.id) &&
-				Objects.equals(this.twoFactorRequired, tradingAccountCreateResult.twoFactorRequired) &&
-				Objects.equals(this.twoFactor, tradingAccountCreateResult.twoFactor) &&
-				Objects.equals(this.startDeposit, tradingAccountCreateResult.startDeposit);
-	}
+  @Override
+  public boolean equals(java.lang.Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    TradingAccountCreateResult tradingAccountCreateResult = (TradingAccountCreateResult) o;
+    return Objects.equals(this.id, tradingAccountCreateResult.id) &&
+            Objects.equals(this.twoFactorRequired, tradingAccountCreateResult.twoFactorRequired) &&
+            Objects.equals(this.twoFactor, tradingAccountCreateResult.twoFactor) &&
+            Objects.equals(this.startDeposit, tradingAccountCreateResult.startDeposit);
+  }
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(id, twoFactorRequired, twoFactor, startDeposit);
-	}
+  @Override
+  public int hashCode() {
+    return Objects.hash(id, twoFactorRequired, twoFactor, startDeposit);
+  }
 
-	@Override
-	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		sb.append("class TradingAccountCreateResult {\n");
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class TradingAccountCreateResult {\n");
 
-		sb.append("    id: ").append(toIndentedString(id)).append("\n");
-		sb.append("    twoFactorRequired: ").append(toIndentedString(twoFactorRequired)).append("\n");
-		sb.append("    twoFactor: ").append(toIndentedString(twoFactor)).append("\n");
-		sb.append("    startDeposit: ").append(toIndentedString(startDeposit)).append("\n");
-		sb.append("}");
-		return sb.toString();
-	}
+    sb.append("    id: ").append(toIndentedString(id)).append("\n");
+    sb.append("    twoFactorRequired: ").append(toIndentedString(twoFactorRequired)).append("\n");
+    sb.append("    twoFactor: ").append(toIndentedString(twoFactor)).append("\n");
+    sb.append("    startDeposit: ").append(toIndentedString(startDeposit)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
 
-	/**
-	 * Convert the given object to string with each line indented by 4 spaces
-	 * (except the first line).
-	 */
-	private String toIndentedString(java.lang.Object o) {
-		if (o == null) {
-			return "null";
-		}
-		return o.toString().replace("\n", "\n    ");
-	}
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(java.lang.Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
 
-	public void writeToParcel(Parcel out, int flags) {
-		out.writeValue(id);
-		out.writeValue(twoFactorRequired);
-		out.writeValue(twoFactor);
-		out.writeValue(startDeposit);
-	}
+  public void writeToParcel(Parcel out, int flags) {
+    out.writeValue(id);
+    out.writeValue(twoFactorRequired);
+    out.writeValue(twoFactor);
+    out.writeValue(startDeposit);
+  }
 
-	public int describeContents() {
-		return 0;
-	}
+  public int describeContents() {
+    return 0;
+  }
 }

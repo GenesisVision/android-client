@@ -29,349 +29,349 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class PostAssetDetailsWithPrices implements Parcelable
 {
-	public static final Parcelable.Creator<PostAssetDetailsWithPrices> CREATOR = new Parcelable.Creator<PostAssetDetailsWithPrices>()
-	{
-		public PostAssetDetailsWithPrices createFromParcel(Parcel in) {
-			return new PostAssetDetailsWithPrices(in);
-		}
+  public static final Parcelable.Creator<PostAssetDetailsWithPrices> CREATOR = new Parcelable.Creator<PostAssetDetailsWithPrices>()
+  {
+    public PostAssetDetailsWithPrices createFromParcel(Parcel in) {
+      return new PostAssetDetailsWithPrices(in);
+    }
 
-		public PostAssetDetailsWithPrices[] newArray(int size) {
-			return new PostAssetDetailsWithPrices[size];
-		}
-	};
+    public PostAssetDetailsWithPrices[] newArray(int size) {
+      return new PostAssetDetailsWithPrices[size];
+    }
+  };
 
-	@SerializedName("id")
-	private UUID id = null;
+  @SerializedName("id")
+  private UUID id = null;
 
-	@SerializedName("logoUrl")
-	private String logoUrl = null;
+  @SerializedName("logoUrl")
+  private String logoUrl = null;
 
-	@SerializedName("color")
-	private String color = null;
+  @SerializedName("color")
+  private String color = null;
 
-	@SerializedName("title")
-	private String title = null;
+  @SerializedName("title")
+  private String title = null;
 
-	@SerializedName("url")
-	private String url = null;
+  @SerializedName("url")
+  private String url = null;
 
-	@SerializedName("assetType")
-	private AssetType assetType = null;
+  @SerializedName("assetType")
+  private AssetType assetType = null;
 
-	@SerializedName("programDetails")
-	private ProgramAssetDetails programDetails = null;
+  @SerializedName("programDetails")
+  private ProgramAssetDetails programDetails = null;
 
-	@SerializedName("price")
-	private Double price = null;
+  @SerializedName("price")
+  private Double price = null;
 
-	@SerializedName("priceCurrency")
-	private Currency priceCurrency = null;
+  @SerializedName("priceCurrency")
+  private Currency priceCurrency = null;
 
-	@SerializedName("change24Percent")
-	private Double change24Percent = null;
+  @SerializedName("change24Percent")
+  private Double change24Percent = null;
 
-	@SerializedName("changeState")
-	private ChangeState changeState = null;
+  @SerializedName("changeState")
+  private ChangeState changeState = null;
 
-	public PostAssetDetailsWithPrices() {
-	}
+  public PostAssetDetailsWithPrices() {
+  }
 
-	PostAssetDetailsWithPrices(Parcel in) {
-		id = (UUID) in.readValue(UUID.class.getClassLoader());
-		logoUrl = (String) in.readValue(null);
-		color = (String) in.readValue(null);
-		title = (String) in.readValue(null);
-		url = (String) in.readValue(null);
-		assetType = (AssetType) in.readValue(AssetType.class.getClassLoader());
-		programDetails = (ProgramAssetDetails) in.readValue(ProgramAssetDetails.class.getClassLoader());
-		price = (Double) in.readValue(null);
-		priceCurrency = (Currency) in.readValue(Currency.class.getClassLoader());
-		change24Percent = (Double) in.readValue(null);
-		changeState = (ChangeState) in.readValue(ChangeState.class.getClassLoader());
-	}
+  PostAssetDetailsWithPrices(Parcel in) {
+    id = (UUID) in.readValue(UUID.class.getClassLoader());
+    logoUrl = (String) in.readValue(null);
+    color = (String) in.readValue(null);
+    title = (String) in.readValue(null);
+    url = (String) in.readValue(null);
+    assetType = (AssetType) in.readValue(AssetType.class.getClassLoader());
+    programDetails = (ProgramAssetDetails) in.readValue(ProgramAssetDetails.class.getClassLoader());
+    price = (Double) in.readValue(null);
+    priceCurrency = (Currency) in.readValue(Currency.class.getClassLoader());
+    change24Percent = (Double) in.readValue(null);
+    changeState = (ChangeState) in.readValue(ChangeState.class.getClassLoader());
+  }
 
-	public PostAssetDetailsWithPrices id(UUID id) {
-		this.id = id;
-		return this;
-	}
+  public PostAssetDetailsWithPrices id(UUID id) {
+    this.id = id;
+    return this;
+  }
 
-	/**
-	 * Get id
-	 *
-	 * @return id
-	 **/
-	@Schema(description = "")
-	public UUID getId() {
-		return id;
-	}
+  /**
+   * Get id
+   *
+   * @return id
+   **/
+  @Schema(description = "")
+  public UUID getId() {
+    return id;
+  }
 
-	public void setId(UUID id) {
-		this.id = id;
-	}
+  public void setId(UUID id) {
+    this.id = id;
+  }
 
-	public PostAssetDetailsWithPrices logoUrl(String logoUrl) {
-		this.logoUrl = logoUrl;
-		return this;
-	}
+  public PostAssetDetailsWithPrices logoUrl(String logoUrl) {
+    this.logoUrl = logoUrl;
+    return this;
+  }
 
-	/**
-	 * Get logoUrl
-	 *
-	 * @return logoUrl
-	 **/
-	@Schema(description = "")
-	public String getLogoUrl() {
-		return logoUrl;
-	}
+  /**
+   * Get logoUrl
+   *
+   * @return logoUrl
+   **/
+  @Schema(description = "")
+  public String getLogoUrl() {
+    return logoUrl;
+  }
 
-	public void setLogoUrl(String logoUrl) {
-		this.logoUrl = logoUrl;
-	}
+  public void setLogoUrl(String logoUrl) {
+    this.logoUrl = logoUrl;
+  }
 
-	public PostAssetDetailsWithPrices color(String color) {
-		this.color = color;
-		return this;
-	}
+  public PostAssetDetailsWithPrices color(String color) {
+    this.color = color;
+    return this;
+  }
 
-	/**
-	 * Get color
-	 *
-	 * @return color
-	 **/
-	@Schema(description = "")
-	public String getColor() {
-		return color;
-	}
+  /**
+   * Get color
+   *
+   * @return color
+   **/
+  @Schema(description = "")
+  public String getColor() {
+    return color;
+  }
 
-	public void setColor(String color) {
-		this.color = color;
-	}
+  public void setColor(String color) {
+    this.color = color;
+  }
 
-	public PostAssetDetailsWithPrices title(String title) {
-		this.title = title;
-		return this;
-	}
+  public PostAssetDetailsWithPrices title(String title) {
+    this.title = title;
+    return this;
+  }
 
-	/**
-	 * Get title
-	 *
-	 * @return title
-	 **/
-	@Schema(description = "")
-	public String getTitle() {
-		return title;
-	}
+  /**
+   * Get title
+   *
+   * @return title
+   **/
+  @Schema(description = "")
+  public String getTitle() {
+    return title;
+  }
 
-	public void setTitle(String title) {
-		this.title = title;
-	}
+  public void setTitle(String title) {
+    this.title = title;
+  }
 
-	public PostAssetDetailsWithPrices url(String url) {
-		this.url = url;
-		return this;
-	}
+  public PostAssetDetailsWithPrices url(String url) {
+    this.url = url;
+    return this;
+  }
 
-	/**
-	 * Get url
-	 *
-	 * @return url
-	 **/
-	@Schema(description = "")
-	public String getUrl() {
-		return url;
-	}
+  /**
+   * Get url
+   *
+   * @return url
+   **/
+  @Schema(description = "")
+  public String getUrl() {
+    return url;
+  }
 
-	public void setUrl(String url) {
-		this.url = url;
-	}
+  public void setUrl(String url) {
+    this.url = url;
+  }
 
-	public PostAssetDetailsWithPrices assetType(AssetType assetType) {
-		this.assetType = assetType;
-		return this;
-	}
+  public PostAssetDetailsWithPrices assetType(AssetType assetType) {
+    this.assetType = assetType;
+    return this;
+  }
 
-	/**
-	 * Get assetType
-	 *
-	 * @return assetType
-	 **/
-	@Schema(description = "")
-	public AssetType getAssetType() {
-		return assetType;
-	}
+  /**
+   * Get assetType
+   *
+   * @return assetType
+   **/
+  @Schema(description = "")
+  public AssetType getAssetType() {
+    return assetType;
+  }
 
-	public void setAssetType(AssetType assetType) {
-		this.assetType = assetType;
-	}
+  public void setAssetType(AssetType assetType) {
+    this.assetType = assetType;
+  }
 
-	public PostAssetDetailsWithPrices programDetails(ProgramAssetDetails programDetails) {
-		this.programDetails = programDetails;
-		return this;
-	}
+  public PostAssetDetailsWithPrices programDetails(ProgramAssetDetails programDetails) {
+    this.programDetails = programDetails;
+    return this;
+  }
 
-	/**
-	 * Get programDetails
-	 *
-	 * @return programDetails
-	 **/
-	@Schema(description = "")
-	public ProgramAssetDetails getProgramDetails() {
-		return programDetails;
-	}
+  /**
+   * Get programDetails
+   *
+   * @return programDetails
+   **/
+  @Schema(description = "")
+  public ProgramAssetDetails getProgramDetails() {
+    return programDetails;
+  }
 
-	public void setProgramDetails(ProgramAssetDetails programDetails) {
-		this.programDetails = programDetails;
-	}
+  public void setProgramDetails(ProgramAssetDetails programDetails) {
+    this.programDetails = programDetails;
+  }
 
-	public PostAssetDetailsWithPrices price(Double price) {
-		this.price = price;
-		return this;
-	}
+  public PostAssetDetailsWithPrices price(Double price) {
+    this.price = price;
+    return this;
+  }
 
-	/**
-	 * Get price
-	 *
-	 * @return price
-	 **/
-	@Schema(description = "")
-	public Double getPrice() {
-		return price;
-	}
+  /**
+   * Get price
+   *
+   * @return price
+   **/
+  @Schema(description = "")
+  public Double getPrice() {
+    return price;
+  }
 
-	public void setPrice(Double price) {
-		this.price = price;
-	}
+  public void setPrice(Double price) {
+    this.price = price;
+  }
 
-	public PostAssetDetailsWithPrices priceCurrency(Currency priceCurrency) {
-		this.priceCurrency = priceCurrency;
-		return this;
-	}
+  public PostAssetDetailsWithPrices priceCurrency(Currency priceCurrency) {
+    this.priceCurrency = priceCurrency;
+    return this;
+  }
 
-	/**
-	 * Get priceCurrency
-	 *
-	 * @return priceCurrency
-	 **/
-	@Schema(description = "")
-	public Currency getPriceCurrency() {
-		return priceCurrency;
-	}
+  /**
+   * Get priceCurrency
+   *
+   * @return priceCurrency
+   **/
+  @Schema(description = "")
+  public Currency getPriceCurrency() {
+    return priceCurrency;
+  }
 
-	public void setPriceCurrency(Currency priceCurrency) {
-		this.priceCurrency = priceCurrency;
-	}
+  public void setPriceCurrency(Currency priceCurrency) {
+    this.priceCurrency = priceCurrency;
+  }
 
-	public PostAssetDetailsWithPrices change24Percent(Double change24Percent) {
-		this.change24Percent = change24Percent;
-		return this;
-	}
+  public PostAssetDetailsWithPrices change24Percent(Double change24Percent) {
+    this.change24Percent = change24Percent;
+    return this;
+  }
 
-	/**
-	 * Get change24Percent
-	 *
-	 * @return change24Percent
-	 **/
-	@Schema(description = "")
-	public Double getChange24Percent() {
-		return change24Percent;
-	}
+  /**
+   * Get change24Percent
+   *
+   * @return change24Percent
+   **/
+  @Schema(description = "")
+  public Double getChange24Percent() {
+    return change24Percent;
+  }
 
-	public void setChange24Percent(Double change24Percent) {
-		this.change24Percent = change24Percent;
-	}
+  public void setChange24Percent(Double change24Percent) {
+    this.change24Percent = change24Percent;
+  }
 
-	public PostAssetDetailsWithPrices changeState(ChangeState changeState) {
-		this.changeState = changeState;
-		return this;
-	}
+  public PostAssetDetailsWithPrices changeState(ChangeState changeState) {
+    this.changeState = changeState;
+    return this;
+  }
 
-	/**
-	 * Get changeState
-	 *
-	 * @return changeState
-	 **/
-	@Schema(description = "")
-	public ChangeState getChangeState() {
-		return changeState;
-	}
+  /**
+   * Get changeState
+   *
+   * @return changeState
+   **/
+  @Schema(description = "")
+  public ChangeState getChangeState() {
+    return changeState;
+  }
 
-	public void setChangeState(ChangeState changeState) {
-		this.changeState = changeState;
-	}
+  public void setChangeState(ChangeState changeState) {
+    this.changeState = changeState;
+  }
 
-	@Override
-	public boolean equals(java.lang.Object o) {
-		if (this == o) {
-			return true;
-		}
-		if (o == null || getClass() != o.getClass()) {
-			return false;
-		}
-		PostAssetDetailsWithPrices postAssetDetailsWithPrices = (PostAssetDetailsWithPrices) o;
-		return Objects.equals(this.id, postAssetDetailsWithPrices.id) &&
-				Objects.equals(this.logoUrl, postAssetDetailsWithPrices.logoUrl) &&
-				Objects.equals(this.color, postAssetDetailsWithPrices.color) &&
-				Objects.equals(this.title, postAssetDetailsWithPrices.title) &&
-				Objects.equals(this.url, postAssetDetailsWithPrices.url) &&
-				Objects.equals(this.assetType, postAssetDetailsWithPrices.assetType) &&
-				Objects.equals(this.programDetails, postAssetDetailsWithPrices.programDetails) &&
-				Objects.equals(this.price, postAssetDetailsWithPrices.price) &&
-				Objects.equals(this.priceCurrency, postAssetDetailsWithPrices.priceCurrency) &&
-				Objects.equals(this.change24Percent, postAssetDetailsWithPrices.change24Percent) &&
-				Objects.equals(this.changeState, postAssetDetailsWithPrices.changeState);
-	}
+  @Override
+  public boolean equals(java.lang.Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    PostAssetDetailsWithPrices postAssetDetailsWithPrices = (PostAssetDetailsWithPrices) o;
+    return Objects.equals(this.id, postAssetDetailsWithPrices.id) &&
+            Objects.equals(this.logoUrl, postAssetDetailsWithPrices.logoUrl) &&
+            Objects.equals(this.color, postAssetDetailsWithPrices.color) &&
+            Objects.equals(this.title, postAssetDetailsWithPrices.title) &&
+            Objects.equals(this.url, postAssetDetailsWithPrices.url) &&
+            Objects.equals(this.assetType, postAssetDetailsWithPrices.assetType) &&
+            Objects.equals(this.programDetails, postAssetDetailsWithPrices.programDetails) &&
+            Objects.equals(this.price, postAssetDetailsWithPrices.price) &&
+            Objects.equals(this.priceCurrency, postAssetDetailsWithPrices.priceCurrency) &&
+            Objects.equals(this.change24Percent, postAssetDetailsWithPrices.change24Percent) &&
+            Objects.equals(this.changeState, postAssetDetailsWithPrices.changeState);
+  }
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(id, logoUrl, color, title, url, assetType, programDetails, price, priceCurrency, change24Percent, changeState);
-	}
+  @Override
+  public int hashCode() {
+    return Objects.hash(id, logoUrl, color, title, url, assetType, programDetails, price, priceCurrency, change24Percent, changeState);
+  }
 
-	@Override
-	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		sb.append("class PostAssetDetailsWithPrices {\n");
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class PostAssetDetailsWithPrices {\n");
 
-		sb.append("    id: ").append(toIndentedString(id)).append("\n");
-		sb.append("    logoUrl: ").append(toIndentedString(logoUrl)).append("\n");
-		sb.append("    color: ").append(toIndentedString(color)).append("\n");
-		sb.append("    title: ").append(toIndentedString(title)).append("\n");
-		sb.append("    url: ").append(toIndentedString(url)).append("\n");
-		sb.append("    assetType: ").append(toIndentedString(assetType)).append("\n");
-		sb.append("    programDetails: ").append(toIndentedString(programDetails)).append("\n");
-		sb.append("    price: ").append(toIndentedString(price)).append("\n");
-		sb.append("    priceCurrency: ").append(toIndentedString(priceCurrency)).append("\n");
-		sb.append("    change24Percent: ").append(toIndentedString(change24Percent)).append("\n");
-		sb.append("    changeState: ").append(toIndentedString(changeState)).append("\n");
-		sb.append("}");
-		return sb.toString();
-	}
+    sb.append("    id: ").append(toIndentedString(id)).append("\n");
+    sb.append("    logoUrl: ").append(toIndentedString(logoUrl)).append("\n");
+    sb.append("    color: ").append(toIndentedString(color)).append("\n");
+    sb.append("    title: ").append(toIndentedString(title)).append("\n");
+    sb.append("    url: ").append(toIndentedString(url)).append("\n");
+    sb.append("    assetType: ").append(toIndentedString(assetType)).append("\n");
+    sb.append("    programDetails: ").append(toIndentedString(programDetails)).append("\n");
+    sb.append("    price: ").append(toIndentedString(price)).append("\n");
+    sb.append("    priceCurrency: ").append(toIndentedString(priceCurrency)).append("\n");
+    sb.append("    change24Percent: ").append(toIndentedString(change24Percent)).append("\n");
+    sb.append("    changeState: ").append(toIndentedString(changeState)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
 
-	/**
-	 * Convert the given object to string with each line indented by 4 spaces
-	 * (except the first line).
-	 */
-	private String toIndentedString(java.lang.Object o) {
-		if (o == null) {
-			return "null";
-		}
-		return o.toString().replace("\n", "\n    ");
-	}
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(java.lang.Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
 
-	public void writeToParcel(Parcel out, int flags) {
-		out.writeValue(id);
-		out.writeValue(logoUrl);
-		out.writeValue(color);
-		out.writeValue(title);
-		out.writeValue(url);
-		out.writeValue(assetType);
-		out.writeValue(programDetails);
-		out.writeValue(price);
-		out.writeValue(priceCurrency);
-		out.writeValue(change24Percent);
-		out.writeValue(changeState);
-	}
+  public void writeToParcel(Parcel out, int flags) {
+    out.writeValue(id);
+    out.writeValue(logoUrl);
+    out.writeValue(color);
+    out.writeValue(title);
+    out.writeValue(url);
+    out.writeValue(assetType);
+    out.writeValue(programDetails);
+    out.writeValue(price);
+    out.writeValue(priceCurrency);
+    out.writeValue(change24Percent);
+    out.writeValue(changeState);
+  }
 
-	public int describeContents() {
-		return 0;
-	}
+  public int describeContents() {
+    return 0;
+  }
 }

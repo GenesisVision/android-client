@@ -29,115 +29,115 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class ChangeBrokerProgramRequest implements Parcelable
 {
-	public static final Parcelable.Creator<ChangeBrokerProgramRequest> CREATOR = new Parcelable.Creator<ChangeBrokerProgramRequest>()
-	{
-		public ChangeBrokerProgramRequest createFromParcel(Parcel in) {
-			return new ChangeBrokerProgramRequest(in);
-		}
+  public static final Parcelable.Creator<ChangeBrokerProgramRequest> CREATOR = new Parcelable.Creator<ChangeBrokerProgramRequest>()
+  {
+    public ChangeBrokerProgramRequest createFromParcel(Parcel in) {
+      return new ChangeBrokerProgramRequest(in);
+    }
 
-		public ChangeBrokerProgramRequest[] newArray(int size) {
-			return new ChangeBrokerProgramRequest[size];
-		}
-	};
+    public ChangeBrokerProgramRequest[] newArray(int size) {
+      return new ChangeBrokerProgramRequest[size];
+    }
+  };
 
-	@SerializedName("newBrokerAccountTypeId")
-	private UUID newBrokerAccountTypeId = null;
+  @SerializedName("newBrokerAccountTypeId")
+  private UUID newBrokerAccountTypeId = null;
 
-	@SerializedName("newLeverage")
-	private Integer newLeverage = null;
+  @SerializedName("newLeverage")
+  private Integer newLeverage = null;
 
-	public ChangeBrokerProgramRequest() {
-	}
+  public ChangeBrokerProgramRequest() {
+  }
 
-	ChangeBrokerProgramRequest(Parcel in) {
-		newBrokerAccountTypeId = (UUID) in.readValue(UUID.class.getClassLoader());
-		newLeverage = (Integer) in.readValue(null);
-	}
+  ChangeBrokerProgramRequest(Parcel in) {
+    newBrokerAccountTypeId = (UUID) in.readValue(UUID.class.getClassLoader());
+    newLeverage = (Integer) in.readValue(null);
+  }
 
-	public ChangeBrokerProgramRequest newBrokerAccountTypeId(UUID newBrokerAccountTypeId) {
-		this.newBrokerAccountTypeId = newBrokerAccountTypeId;
-		return this;
-	}
+  public ChangeBrokerProgramRequest newBrokerAccountTypeId(UUID newBrokerAccountTypeId) {
+    this.newBrokerAccountTypeId = newBrokerAccountTypeId;
+    return this;
+  }
 
-	/**
-	 * Get newBrokerAccountTypeId
-	 *
-	 * @return newBrokerAccountTypeId
-	 **/
-	@Schema(description = "")
-	public UUID getNewBrokerAccountTypeId() {
-		return newBrokerAccountTypeId;
-	}
+  /**
+   * Get newBrokerAccountTypeId
+   *
+   * @return newBrokerAccountTypeId
+   **/
+  @Schema(description = "")
+  public UUID getNewBrokerAccountTypeId() {
+    return newBrokerAccountTypeId;
+  }
 
-	public void setNewBrokerAccountTypeId(UUID newBrokerAccountTypeId) {
-		this.newBrokerAccountTypeId = newBrokerAccountTypeId;
-	}
+  public void setNewBrokerAccountTypeId(UUID newBrokerAccountTypeId) {
+    this.newBrokerAccountTypeId = newBrokerAccountTypeId;
+  }
 
-	public ChangeBrokerProgramRequest newLeverage(Integer newLeverage) {
-		this.newLeverage = newLeverage;
-		return this;
-	}
+  public ChangeBrokerProgramRequest newLeverage(Integer newLeverage) {
+    this.newLeverage = newLeverage;
+    return this;
+  }
 
-	/**
-	 * Get newLeverage
-	 *
-	 * @return newLeverage
-	 **/
-	@Schema(description = "")
-	public Integer getNewLeverage() {
-		return newLeverage;
-	}
+  /**
+   * Get newLeverage
+   *
+   * @return newLeverage
+   **/
+  @Schema(description = "")
+  public Integer getNewLeverage() {
+    return newLeverage;
+  }
 
-	public void setNewLeverage(Integer newLeverage) {
-		this.newLeverage = newLeverage;
-	}
+  public void setNewLeverage(Integer newLeverage) {
+    this.newLeverage = newLeverage;
+  }
 
-	@Override
-	public boolean equals(java.lang.Object o) {
-		if (this == o) {
-			return true;
-		}
-		if (o == null || getClass() != o.getClass()) {
-			return false;
-		}
-		ChangeBrokerProgramRequest changeBrokerProgramRequest = (ChangeBrokerProgramRequest) o;
-		return Objects.equals(this.newBrokerAccountTypeId, changeBrokerProgramRequest.newBrokerAccountTypeId) &&
-				Objects.equals(this.newLeverage, changeBrokerProgramRequest.newLeverage);
-	}
+  @Override
+  public boolean equals(java.lang.Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    ChangeBrokerProgramRequest changeBrokerProgramRequest = (ChangeBrokerProgramRequest) o;
+    return Objects.equals(this.newBrokerAccountTypeId, changeBrokerProgramRequest.newBrokerAccountTypeId) &&
+            Objects.equals(this.newLeverage, changeBrokerProgramRequest.newLeverage);
+  }
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(newBrokerAccountTypeId, newLeverage);
-	}
+  @Override
+  public int hashCode() {
+    return Objects.hash(newBrokerAccountTypeId, newLeverage);
+  }
 
-	@Override
-	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		sb.append("class ChangeBrokerProgramRequest {\n");
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class ChangeBrokerProgramRequest {\n");
 
-		sb.append("    newBrokerAccountTypeId: ").append(toIndentedString(newBrokerAccountTypeId)).append("\n");
-		sb.append("    newLeverage: ").append(toIndentedString(newLeverage)).append("\n");
-		sb.append("}");
-		return sb.toString();
-	}
+    sb.append("    newBrokerAccountTypeId: ").append(toIndentedString(newBrokerAccountTypeId)).append("\n");
+    sb.append("    newLeverage: ").append(toIndentedString(newLeverage)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
 
-	/**
-	 * Convert the given object to string with each line indented by 4 spaces
-	 * (except the first line).
-	 */
-	private String toIndentedString(java.lang.Object o) {
-		if (o == null) {
-			return "null";
-		}
-		return o.toString().replace("\n", "\n    ");
-	}
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(java.lang.Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
 
-	public void writeToParcel(Parcel out, int flags) {
-		out.writeValue(newBrokerAccountTypeId);
-		out.writeValue(newLeverage);
-	}
+  public void writeToParcel(Parcel out, int flags) {
+    out.writeValue(newBrokerAccountTypeId);
+    out.writeValue(newLeverage);
+  }
 
-	public int describeContents() {
-		return 0;
-	}
+  public int describeContents() {
+    return 0;
+  }
 }

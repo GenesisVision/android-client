@@ -17,6 +17,7 @@ import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -29,97 +30,123 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class SignalSubscriptionItemsViewModel implements Parcelable
 {
-	public static final Parcelable.Creator<SignalSubscriptionItemsViewModel> CREATOR = new Parcelable.Creator<SignalSubscriptionItemsViewModel>()
-	{
-		public SignalSubscriptionItemsViewModel createFromParcel(Parcel in) {
-			return new SignalSubscriptionItemsViewModel(in);
-		}
+  public static final Parcelable.Creator<SignalSubscriptionItemsViewModel> CREATOR = new Parcelable.Creator<SignalSubscriptionItemsViewModel>()
+  {
+    public SignalSubscriptionItemsViewModel createFromParcel(Parcel in) {
+      return new SignalSubscriptionItemsViewModel(in);
+    }
 
-		public SignalSubscriptionItemsViewModel[] newArray(int size) {
-			return new SignalSubscriptionItemsViewModel[size];
-		}
-	};
+    public SignalSubscriptionItemsViewModel[] newArray(int size) {
+      return new SignalSubscriptionItemsViewModel[size];
+    }
+  };
 
-	@SerializedName("items")
-	private List<SignalSubscription> items = null;
+  @SerializedName("items")
+  private List<SignalSubscription> items = null;
 
-	@SerializedName("total")
-	private Integer total = null;
+  @SerializedName("total")
+  private Integer total = null;
 
-	public SignalSubscriptionItemsViewModel() {
-	}
+  public SignalSubscriptionItemsViewModel() {
+  }
 
-	SignalSubscriptionItemsViewModel(Parcel in) {
-		items = (List<SignalSubscription>) in.readValue(SignalSubscription.class.getClassLoader());
-		total = (Integer) in.readValue(null);
-	}
+  SignalSubscriptionItemsViewModel(Parcel in) {
+    items = (List<SignalSubscription>) in.readValue(SignalSubscription.class.getClassLoader());
+    total = (Integer) in.readValue(null);
+  }
 
-	/**
-	 * Get items
-	 *
-	 * @return items
-	 **/
-	@Schema(description = "")
-	public List<SignalSubscription> getItems() {
-		return items;
-	}
+  public SignalSubscriptionItemsViewModel items(List<SignalSubscription> items) {
+    this.items = items;
+    return this;
+  }
 
-	/**
-	 * Get total
-	 *
-	 * @return total
-	 **/
-	@Schema(description = "")
-	public Integer getTotal() {
-		return total;
-	}
+  public SignalSubscriptionItemsViewModel addItemsItem(SignalSubscription itemsItem) {
+    if (this.items == null) {
+      this.items = new ArrayList<SignalSubscription>();
+    }
+    this.items.add(itemsItem);
+    return this;
+  }
 
-	@Override
-	public boolean equals(java.lang.Object o) {
-		if (this == o) {
-			return true;
-		}
-		if (o == null || getClass() != o.getClass()) {
-			return false;
-		}
-		SignalSubscriptionItemsViewModel signalSubscriptionItemsViewModel = (SignalSubscriptionItemsViewModel) o;
-		return Objects.equals(this.items, signalSubscriptionItemsViewModel.items) &&
-				Objects.equals(this.total, signalSubscriptionItemsViewModel.total);
-	}
+  /**
+   * Get items
+   *
+   * @return items
+   **/
+  @Schema(description = "")
+  public List<SignalSubscription> getItems() {
+    return items;
+  }
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(items, total);
-	}
+  public void setItems(List<SignalSubscription> items) {
+    this.items = items;
+  }
 
-	@Override
-	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		sb.append("class SignalSubscriptionItemsViewModel {\n");
+  public SignalSubscriptionItemsViewModel total(Integer total) {
+    this.total = total;
+    return this;
+  }
 
-		sb.append("    items: ").append(toIndentedString(items)).append("\n");
-		sb.append("    total: ").append(toIndentedString(total)).append("\n");
-		sb.append("}");
-		return sb.toString();
-	}
+  /**
+   * Get total
+   *
+   * @return total
+   **/
+  @Schema(description = "")
+  public Integer getTotal() {
+    return total;
+  }
 
-	/**
-	 * Convert the given object to string with each line indented by 4 spaces
-	 * (except the first line).
-	 */
-	private String toIndentedString(java.lang.Object o) {
-		if (o == null) {
-			return "null";
-		}
-		return o.toString().replace("\n", "\n    ");
-	}
+  public void setTotal(Integer total) {
+    this.total = total;
+  }
 
-	public void writeToParcel(Parcel out, int flags) {
-		out.writeValue(items);
-		out.writeValue(total);
-	}
+  @Override
+  public boolean equals(java.lang.Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    SignalSubscriptionItemsViewModel signalSubscriptionItemsViewModel = (SignalSubscriptionItemsViewModel) o;
+    return Objects.equals(this.items, signalSubscriptionItemsViewModel.items) &&
+            Objects.equals(this.total, signalSubscriptionItemsViewModel.total);
+  }
 
-	public int describeContents() {
-		return 0;
-	}
+  @Override
+  public int hashCode() {
+    return Objects.hash(items, total);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class SignalSubscriptionItemsViewModel {\n");
+
+    sb.append("    items: ").append(toIndentedString(items)).append("\n");
+    sb.append("    total: ").append(toIndentedString(total)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(java.lang.Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+  public void writeToParcel(Parcel out, int flags) {
+    out.writeValue(items);
+    out.writeValue(total);
+  }
+
+  public int describeContents() {
+    return 0;
+  }
 }

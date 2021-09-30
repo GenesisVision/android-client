@@ -30,7 +30,9 @@ public enum ErrorCodes
 	REQUIRESTWOFACTOR("RequiresTwoFactor"),
 	WRONGCAPTCHA("WrongCaptcha"),
 	REQUIRESEMAILCONFIRMATION("RequiresEmailConfirmation"),
-	REQUIRESSIGNATURE("RequiresSignature");
+	REQUIRESSIGNATURE("RequiresSignature"),
+	NOTFOUND("NotFound"),
+	FORBIDDEN("Forbidden");
 
 	public static ErrorCodes fromValue(String text) {
 		for (ErrorCodes b : ErrorCodes.values()) {

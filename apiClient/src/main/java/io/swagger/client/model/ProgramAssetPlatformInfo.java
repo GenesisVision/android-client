@@ -30,259 +30,259 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class ProgramAssetPlatformInfo implements Parcelable
 {
-	public static final Parcelable.Creator<ProgramAssetPlatformInfo> CREATOR = new Parcelable.Creator<ProgramAssetPlatformInfo>()
-	{
-		public ProgramAssetPlatformInfo createFromParcel(Parcel in) {
-			return new ProgramAssetPlatformInfo(in);
-		}
+  public static final Parcelable.Creator<ProgramAssetPlatformInfo> CREATOR = new Parcelable.Creator<ProgramAssetPlatformInfo>()
+  {
+    public ProgramAssetPlatformInfo createFromParcel(Parcel in) {
+      return new ProgramAssetPlatformInfo(in);
+    }
 
-		public ProgramAssetPlatformInfo[] newArray(int size) {
-			return new ProgramAssetPlatformInfo[size];
-		}
-	};
+    public ProgramAssetPlatformInfo[] newArray(int size) {
+      return new ProgramAssetPlatformInfo[size];
+    }
+  };
 
-	@SerializedName("facets")
-	private List<AssetFacet> facets = null;
+  @SerializedName("facets")
+  private List<AssetFacet> facets = null;
 
-	@SerializedName("tags")
-	private List<Tag> tags = null;
+  @SerializedName("tags")
+  private List<Tag> tags = null;
 
-	@SerializedName("availableProgramCurrencies")
-	private List<String> availableProgramCurrencies = null;
+  @SerializedName("availableProgramCurrencies")
+  private List<String> availableProgramCurrencies = null;
 
-	@SerializedName("minInvestAmounts")
-	private List<ProgramMinInvestAmount> minInvestAmounts = null;
+  @SerializedName("minInvestAmounts")
+  private List<ProgramMinInvestAmount> minInvestAmounts = null;
 
-	@SerializedName("periods")
-	private List<Integer> periods = null;
+  @SerializedName("periods")
+  private List<Integer> periods = null;
 
-	@SerializedName("createProgramInfo")
-	private ProgramCreateAssetPlatformInfo createProgramInfo = null;
+  @SerializedName("createProgramInfo")
+  private ProgramCreateAssetPlatformInfo createProgramInfo = null;
 
-	public ProgramAssetPlatformInfo() {
-	}
+  public ProgramAssetPlatformInfo() {
+  }
 
-	ProgramAssetPlatformInfo(Parcel in) {
-		facets = (List<AssetFacet>) in.readValue(AssetFacet.class.getClassLoader());
-		tags = (List<Tag>) in.readValue(Tag.class.getClassLoader());
-		availableProgramCurrencies = (List<String>) in.readValue(null);
-		minInvestAmounts = (List<ProgramMinInvestAmount>) in.readValue(ProgramMinInvestAmount.class.getClassLoader());
-		periods = (List<Integer>) in.readValue(null);
-		createProgramInfo = (ProgramCreateAssetPlatformInfo) in.readValue(ProgramCreateAssetPlatformInfo.class.getClassLoader());
-	}
+  ProgramAssetPlatformInfo(Parcel in) {
+    facets = (List<AssetFacet>) in.readValue(AssetFacet.class.getClassLoader());
+    tags = (List<Tag>) in.readValue(Tag.class.getClassLoader());
+    availableProgramCurrencies = (List<String>) in.readValue(null);
+    minInvestAmounts = (List<ProgramMinInvestAmount>) in.readValue(ProgramMinInvestAmount.class.getClassLoader());
+    periods = (List<Integer>) in.readValue(null);
+    createProgramInfo = (ProgramCreateAssetPlatformInfo) in.readValue(ProgramCreateAssetPlatformInfo.class.getClassLoader());
+  }
 
-	public ProgramAssetPlatformInfo facets(List<AssetFacet> facets) {
-		this.facets = facets;
-		return this;
-	}
+  public ProgramAssetPlatformInfo facets(List<AssetFacet> facets) {
+    this.facets = facets;
+    return this;
+  }
 
-	public ProgramAssetPlatformInfo addFacetsItem(AssetFacet facetsItem) {
-		if (this.facets == null) {
-			this.facets = new ArrayList<AssetFacet>();
-		}
-		this.facets.add(facetsItem);
-		return this;
-	}
+  public ProgramAssetPlatformInfo addFacetsItem(AssetFacet facetsItem) {
+    if (this.facets == null) {
+      this.facets = new ArrayList<AssetFacet>();
+    }
+    this.facets.add(facetsItem);
+    return this;
+  }
 
-	/**
-	 * Get facets
-	 *
-	 * @return facets
-	 **/
-	@Schema(description = "")
-	public List<AssetFacet> getFacets() {
-		return facets;
-	}
+  /**
+   * Get facets
+   *
+   * @return facets
+   **/
+  @Schema(description = "")
+  public List<AssetFacet> getFacets() {
+    return facets;
+  }
 
-	public void setFacets(List<AssetFacet> facets) {
-		this.facets = facets;
-	}
+  public void setFacets(List<AssetFacet> facets) {
+    this.facets = facets;
+  }
 
-	public ProgramAssetPlatformInfo tags(List<Tag> tags) {
-		this.tags = tags;
-		return this;
-	}
+  public ProgramAssetPlatformInfo tags(List<Tag> tags) {
+    this.tags = tags;
+    return this;
+  }
 
-	public ProgramAssetPlatformInfo addTagsItem(Tag tagsItem) {
-		if (this.tags == null) {
-			this.tags = new ArrayList<Tag>();
-		}
-		this.tags.add(tagsItem);
-		return this;
-	}
+  public ProgramAssetPlatformInfo addTagsItem(Tag tagsItem) {
+    if (this.tags == null) {
+      this.tags = new ArrayList<Tag>();
+    }
+    this.tags.add(tagsItem);
+    return this;
+  }
 
-	/**
-	 * Get tags
-	 *
-	 * @return tags
-	 **/
-	@Schema(description = "")
-	public List<Tag> getTags() {
-		return tags;
-	}
+  /**
+   * Get tags
+   *
+   * @return tags
+   **/
+  @Schema(description = "")
+  public List<Tag> getTags() {
+    return tags;
+  }
 
-	public void setTags(List<Tag> tags) {
-		this.tags = tags;
-	}
+  public void setTags(List<Tag> tags) {
+    this.tags = tags;
+  }
 
-	public ProgramAssetPlatformInfo availableProgramCurrencies(List<String> availableProgramCurrencies) {
-		this.availableProgramCurrencies = availableProgramCurrencies;
-		return this;
-	}
+  public ProgramAssetPlatformInfo availableProgramCurrencies(List<String> availableProgramCurrencies) {
+    this.availableProgramCurrencies = availableProgramCurrencies;
+    return this;
+  }
 
-	public ProgramAssetPlatformInfo addAvailableProgramCurrenciesItem(String availableProgramCurrenciesItem) {
-		if (this.availableProgramCurrencies == null) {
-			this.availableProgramCurrencies = new ArrayList<String>();
-		}
-		this.availableProgramCurrencies.add(availableProgramCurrenciesItem);
-		return this;
-	}
+  public ProgramAssetPlatformInfo addAvailableProgramCurrenciesItem(String availableProgramCurrenciesItem) {
+    if (this.availableProgramCurrencies == null) {
+      this.availableProgramCurrencies = new ArrayList<String>();
+    }
+    this.availableProgramCurrencies.add(availableProgramCurrenciesItem);
+    return this;
+  }
 
-	/**
-	 * Get availableProgramCurrencies
-	 *
-	 * @return availableProgramCurrencies
-	 **/
-	@Schema(description = "")
-	public List<String> getAvailableProgramCurrencies() {
-		return availableProgramCurrencies;
-	}
+  /**
+   * Get availableProgramCurrencies
+   *
+   * @return availableProgramCurrencies
+   **/
+  @Schema(description = "")
+  public List<String> getAvailableProgramCurrencies() {
+    return availableProgramCurrencies;
+  }
 
-	public void setAvailableProgramCurrencies(List<String> availableProgramCurrencies) {
-		this.availableProgramCurrencies = availableProgramCurrencies;
-	}
+  public void setAvailableProgramCurrencies(List<String> availableProgramCurrencies) {
+    this.availableProgramCurrencies = availableProgramCurrencies;
+  }
 
-	public ProgramAssetPlatformInfo minInvestAmounts(List<ProgramMinInvestAmount> minInvestAmounts) {
-		this.minInvestAmounts = minInvestAmounts;
-		return this;
-	}
+  public ProgramAssetPlatformInfo minInvestAmounts(List<ProgramMinInvestAmount> minInvestAmounts) {
+    this.minInvestAmounts = minInvestAmounts;
+    return this;
+  }
 
-	public ProgramAssetPlatformInfo addMinInvestAmountsItem(ProgramMinInvestAmount minInvestAmountsItem) {
-		if (this.minInvestAmounts == null) {
-			this.minInvestAmounts = new ArrayList<ProgramMinInvestAmount>();
-		}
-		this.minInvestAmounts.add(minInvestAmountsItem);
-		return this;
-	}
+  public ProgramAssetPlatformInfo addMinInvestAmountsItem(ProgramMinInvestAmount minInvestAmountsItem) {
+    if (this.minInvestAmounts == null) {
+      this.minInvestAmounts = new ArrayList<ProgramMinInvestAmount>();
+    }
+    this.minInvestAmounts.add(minInvestAmountsItem);
+    return this;
+  }
 
-	/**
-	 * Get minInvestAmounts
-	 *
-	 * @return minInvestAmounts
-	 **/
-	@Schema(description = "")
-	public List<ProgramMinInvestAmount> getMinInvestAmounts() {
-		return minInvestAmounts;
-	}
+  /**
+   * Get minInvestAmounts
+   *
+   * @return minInvestAmounts
+   **/
+  @Schema(description = "")
+  public List<ProgramMinInvestAmount> getMinInvestAmounts() {
+    return minInvestAmounts;
+  }
 
-	public void setMinInvestAmounts(List<ProgramMinInvestAmount> minInvestAmounts) {
-		this.minInvestAmounts = minInvestAmounts;
-	}
+  public void setMinInvestAmounts(List<ProgramMinInvestAmount> minInvestAmounts) {
+    this.minInvestAmounts = minInvestAmounts;
+  }
 
-	public ProgramAssetPlatformInfo periods(List<Integer> periods) {
-		this.periods = periods;
-		return this;
-	}
+  public ProgramAssetPlatformInfo periods(List<Integer> periods) {
+    this.periods = periods;
+    return this;
+  }
 
-	public ProgramAssetPlatformInfo addPeriodsItem(Integer periodsItem) {
-		if (this.periods == null) {
-			this.periods = new ArrayList<Integer>();
-		}
-		this.periods.add(periodsItem);
-		return this;
-	}
+  public ProgramAssetPlatformInfo addPeriodsItem(Integer periodsItem) {
+    if (this.periods == null) {
+      this.periods = new ArrayList<Integer>();
+    }
+    this.periods.add(periodsItem);
+    return this;
+  }
 
-	/**
-	 * Get periods
-	 *
-	 * @return periods
-	 **/
-	@Schema(description = "")
-	public List<Integer> getPeriods() {
-		return periods;
-	}
+  /**
+   * Get periods
+   *
+   * @return periods
+   **/
+  @Schema(description = "")
+  public List<Integer> getPeriods() {
+    return periods;
+  }
 
-	public void setPeriods(List<Integer> periods) {
-		this.periods = periods;
-	}
+  public void setPeriods(List<Integer> periods) {
+    this.periods = periods;
+  }
 
-	public ProgramAssetPlatformInfo createProgramInfo(ProgramCreateAssetPlatformInfo createProgramInfo) {
-		this.createProgramInfo = createProgramInfo;
-		return this;
-	}
+  public ProgramAssetPlatformInfo createProgramInfo(ProgramCreateAssetPlatformInfo createProgramInfo) {
+    this.createProgramInfo = createProgramInfo;
+    return this;
+  }
 
-	/**
-	 * Get createProgramInfo
-	 *
-	 * @return createProgramInfo
-	 **/
-	@Schema(description = "")
-	public ProgramCreateAssetPlatformInfo getCreateProgramInfo() {
-		return createProgramInfo;
-	}
+  /**
+   * Get createProgramInfo
+   *
+   * @return createProgramInfo
+   **/
+  @Schema(description = "")
+  public ProgramCreateAssetPlatformInfo getCreateProgramInfo() {
+    return createProgramInfo;
+  }
 
-	public void setCreateProgramInfo(ProgramCreateAssetPlatformInfo createProgramInfo) {
-		this.createProgramInfo = createProgramInfo;
-	}
+  public void setCreateProgramInfo(ProgramCreateAssetPlatformInfo createProgramInfo) {
+    this.createProgramInfo = createProgramInfo;
+  }
 
-	@Override
-	public boolean equals(java.lang.Object o) {
-		if (this == o) {
-			return true;
-		}
-		if (o == null || getClass() != o.getClass()) {
-			return false;
-		}
-		ProgramAssetPlatformInfo programAssetPlatformInfo = (ProgramAssetPlatformInfo) o;
-		return Objects.equals(this.facets, programAssetPlatformInfo.facets) &&
-				Objects.equals(this.tags, programAssetPlatformInfo.tags) &&
-				Objects.equals(this.availableProgramCurrencies, programAssetPlatformInfo.availableProgramCurrencies) &&
-				Objects.equals(this.minInvestAmounts, programAssetPlatformInfo.minInvestAmounts) &&
-				Objects.equals(this.periods, programAssetPlatformInfo.periods) &&
-				Objects.equals(this.createProgramInfo, programAssetPlatformInfo.createProgramInfo);
-	}
+  @Override
+  public boolean equals(java.lang.Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    ProgramAssetPlatformInfo programAssetPlatformInfo = (ProgramAssetPlatformInfo) o;
+    return Objects.equals(this.facets, programAssetPlatformInfo.facets) &&
+            Objects.equals(this.tags, programAssetPlatformInfo.tags) &&
+            Objects.equals(this.availableProgramCurrencies, programAssetPlatformInfo.availableProgramCurrencies) &&
+            Objects.equals(this.minInvestAmounts, programAssetPlatformInfo.minInvestAmounts) &&
+            Objects.equals(this.periods, programAssetPlatformInfo.periods) &&
+            Objects.equals(this.createProgramInfo, programAssetPlatformInfo.createProgramInfo);
+  }
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(facets, tags, availableProgramCurrencies, minInvestAmounts, periods, createProgramInfo);
-	}
+  @Override
+  public int hashCode() {
+    return Objects.hash(facets, tags, availableProgramCurrencies, minInvestAmounts, periods, createProgramInfo);
+  }
 
-	@Override
-	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		sb.append("class ProgramAssetPlatformInfo {\n");
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class ProgramAssetPlatformInfo {\n");
 
-		sb.append("    facets: ").append(toIndentedString(facets)).append("\n");
-		sb.append("    tags: ").append(toIndentedString(tags)).append("\n");
-		sb.append("    availableProgramCurrencies: ").append(toIndentedString(availableProgramCurrencies)).append("\n");
-		sb.append("    minInvestAmounts: ").append(toIndentedString(minInvestAmounts)).append("\n");
-		sb.append("    periods: ").append(toIndentedString(periods)).append("\n");
-		sb.append("    createProgramInfo: ").append(toIndentedString(createProgramInfo)).append("\n");
-		sb.append("}");
-		return sb.toString();
-	}
+    sb.append("    facets: ").append(toIndentedString(facets)).append("\n");
+    sb.append("    tags: ").append(toIndentedString(tags)).append("\n");
+    sb.append("    availableProgramCurrencies: ").append(toIndentedString(availableProgramCurrencies)).append("\n");
+    sb.append("    minInvestAmounts: ").append(toIndentedString(minInvestAmounts)).append("\n");
+    sb.append("    periods: ").append(toIndentedString(periods)).append("\n");
+    sb.append("    createProgramInfo: ").append(toIndentedString(createProgramInfo)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
 
-	/**
-	 * Convert the given object to string with each line indented by 4 spaces
-	 * (except the first line).
-	 */
-	private String toIndentedString(java.lang.Object o) {
-		if (o == null) {
-			return "null";
-		}
-		return o.toString().replace("\n", "\n    ");
-	}
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(java.lang.Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
 
-	public void writeToParcel(Parcel out, int flags) {
-		out.writeValue(facets);
-		out.writeValue(tags);
-		out.writeValue(availableProgramCurrencies);
-		out.writeValue(minInvestAmounts);
-		out.writeValue(periods);
-		out.writeValue(createProgramInfo);
-	}
+  public void writeToParcel(Parcel out, int flags) {
+    out.writeValue(facets);
+    out.writeValue(tags);
+    out.writeValue(availableProgramCurrencies);
+    out.writeValue(minInvestAmounts);
+    out.writeValue(periods);
+    out.writeValue(createProgramInfo);
+  }
 
-	public int describeContents() {
-		return 0;
-	}
+  public int describeContents() {
+    return 0;
+  }
 }

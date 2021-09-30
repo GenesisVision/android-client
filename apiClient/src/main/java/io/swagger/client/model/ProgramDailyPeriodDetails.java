@@ -30,141 +30,141 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class ProgramDailyPeriodDetails implements Parcelable
 {
-	public static final Parcelable.Creator<ProgramDailyPeriodDetails> CREATOR = new Parcelable.Creator<ProgramDailyPeriodDetails>()
-	{
-		public ProgramDailyPeriodDetails createFromParcel(Parcel in) {
-			return new ProgramDailyPeriodDetails(in);
-		}
+  public static final Parcelable.Creator<ProgramDailyPeriodDetails> CREATOR = new Parcelable.Creator<ProgramDailyPeriodDetails>()
+  {
+    public ProgramDailyPeriodDetails createFromParcel(Parcel in) {
+      return new ProgramDailyPeriodDetails(in);
+    }
 
-		public ProgramDailyPeriodDetails[] newArray(int size) {
-			return new ProgramDailyPeriodDetails[size];
-		}
-	};
+    public ProgramDailyPeriodDetails[] newArray(int size) {
+      return new ProgramDailyPeriodDetails[size];
+    }
+  };
 
-	@SerializedName("isProcessingRealTime")
-	private Boolean isProcessingRealTime = null;
+  @SerializedName("isProcessingRealTime")
+  private Boolean isProcessingRealTime = null;
 
-	@SerializedName("hourProcessing")
-	private Integer hourProcessing = null;
+  @SerializedName("hourProcessing")
+  private Integer hourProcessing = null;
 
-	@SerializedName("nextProcessingDate")
-	private DateTime nextProcessingDate = null;
+  @SerializedName("nextProcessingDate")
+  private DateTime nextProcessingDate = null;
 
-	public ProgramDailyPeriodDetails() {
-	}
+  public ProgramDailyPeriodDetails() {
+  }
 
-	ProgramDailyPeriodDetails(Parcel in) {
-		isProcessingRealTime = (Boolean) in.readValue(null);
-		hourProcessing = (Integer) in.readValue(null);
-		nextProcessingDate = (DateTime) in.readValue(DateTime.class.getClassLoader());
-	}
+  ProgramDailyPeriodDetails(Parcel in) {
+    isProcessingRealTime = (Boolean) in.readValue(null);
+    hourProcessing = (Integer) in.readValue(null);
+    nextProcessingDate = (DateTime) in.readValue(DateTime.class.getClassLoader());
+  }
 
-	public ProgramDailyPeriodDetails isProcessingRealTime(Boolean isProcessingRealTime) {
-		this.isProcessingRealTime = isProcessingRealTime;
-		return this;
-	}
+  public ProgramDailyPeriodDetails isProcessingRealTime(Boolean isProcessingRealTime) {
+    this.isProcessingRealTime = isProcessingRealTime;
+    return this;
+  }
 
-	/**
-	 * Get isProcessingRealTime
-	 *
-	 * @return isProcessingRealTime
-	 **/
-	@Schema(description = "")
-	public Boolean isIsProcessingRealTime() {
-		return isProcessingRealTime;
-	}
+  /**
+   * Get isProcessingRealTime
+   *
+   * @return isProcessingRealTime
+   **/
+  @Schema(description = "")
+  public Boolean isIsProcessingRealTime() {
+    return isProcessingRealTime;
+  }
 
-	public void setIsProcessingRealTime(Boolean isProcessingRealTime) {
-		this.isProcessingRealTime = isProcessingRealTime;
-	}
+  public void setIsProcessingRealTime(Boolean isProcessingRealTime) {
+    this.isProcessingRealTime = isProcessingRealTime;
+  }
 
-	public ProgramDailyPeriodDetails hourProcessing(Integer hourProcessing) {
-		this.hourProcessing = hourProcessing;
-		return this;
-	}
+  public ProgramDailyPeriodDetails hourProcessing(Integer hourProcessing) {
+    this.hourProcessing = hourProcessing;
+    return this;
+  }
 
-	/**
-	 * Get hourProcessing
-	 *
-	 * @return hourProcessing
-	 **/
-	@Schema(description = "")
-	public Integer getHourProcessing() {
-		return hourProcessing;
-	}
+  /**
+   * Get hourProcessing
+   *
+   * @return hourProcessing
+   **/
+  @Schema(description = "")
+  public Integer getHourProcessing() {
+    return hourProcessing;
+  }
 
-	public void setHourProcessing(Integer hourProcessing) {
-		this.hourProcessing = hourProcessing;
-	}
+  public void setHourProcessing(Integer hourProcessing) {
+    this.hourProcessing = hourProcessing;
+  }
 
-	public ProgramDailyPeriodDetails nextProcessingDate(DateTime nextProcessingDate) {
-		this.nextProcessingDate = nextProcessingDate;
-		return this;
-	}
+  public ProgramDailyPeriodDetails nextProcessingDate(DateTime nextProcessingDate) {
+    this.nextProcessingDate = nextProcessingDate;
+    return this;
+  }
 
-	/**
-	 * Get nextProcessingDate
-	 *
-	 * @return nextProcessingDate
-	 **/
-	@Schema(description = "")
-	public DateTime getNextProcessingDate() {
-		return nextProcessingDate;
-	}
+  /**
+   * Get nextProcessingDate
+   *
+   * @return nextProcessingDate
+   **/
+  @Schema(description = "")
+  public DateTime getNextProcessingDate() {
+    return nextProcessingDate;
+  }
 
-	public void setNextProcessingDate(DateTime nextProcessingDate) {
-		this.nextProcessingDate = nextProcessingDate;
-	}
+  public void setNextProcessingDate(DateTime nextProcessingDate) {
+    this.nextProcessingDate = nextProcessingDate;
+  }
 
-	@Override
-	public boolean equals(java.lang.Object o) {
-		if (this == o) {
-			return true;
-		}
-		if (o == null || getClass() != o.getClass()) {
-			return false;
-		}
-		ProgramDailyPeriodDetails programDailyPeriodDetails = (ProgramDailyPeriodDetails) o;
-		return Objects.equals(this.isProcessingRealTime, programDailyPeriodDetails.isProcessingRealTime) &&
-				Objects.equals(this.hourProcessing, programDailyPeriodDetails.hourProcessing) &&
-				Objects.equals(this.nextProcessingDate, programDailyPeriodDetails.nextProcessingDate);
-	}
+  @Override
+  public boolean equals(java.lang.Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    ProgramDailyPeriodDetails programDailyPeriodDetails = (ProgramDailyPeriodDetails) o;
+    return Objects.equals(this.isProcessingRealTime, programDailyPeriodDetails.isProcessingRealTime) &&
+            Objects.equals(this.hourProcessing, programDailyPeriodDetails.hourProcessing) &&
+            Objects.equals(this.nextProcessingDate, programDailyPeriodDetails.nextProcessingDate);
+  }
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(isProcessingRealTime, hourProcessing, nextProcessingDate);
-	}
+  @Override
+  public int hashCode() {
+    return Objects.hash(isProcessingRealTime, hourProcessing, nextProcessingDate);
+  }
 
-	@Override
-	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		sb.append("class ProgramDailyPeriodDetails {\n");
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class ProgramDailyPeriodDetails {\n");
 
-		sb.append("    isProcessingRealTime: ").append(toIndentedString(isProcessingRealTime)).append("\n");
-		sb.append("    hourProcessing: ").append(toIndentedString(hourProcessing)).append("\n");
-		sb.append("    nextProcessingDate: ").append(toIndentedString(nextProcessingDate)).append("\n");
-		sb.append("}");
-		return sb.toString();
-	}
+    sb.append("    isProcessingRealTime: ").append(toIndentedString(isProcessingRealTime)).append("\n");
+    sb.append("    hourProcessing: ").append(toIndentedString(hourProcessing)).append("\n");
+    sb.append("    nextProcessingDate: ").append(toIndentedString(nextProcessingDate)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
 
-	/**
-	 * Convert the given object to string with each line indented by 4 spaces
-	 * (except the first line).
-	 */
-	private String toIndentedString(java.lang.Object o) {
-		if (o == null) {
-			return "null";
-		}
-		return o.toString().replace("\n", "\n    ");
-	}
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(java.lang.Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
 
-	public void writeToParcel(Parcel out, int flags) {
-		out.writeValue(isProcessingRealTime);
-		out.writeValue(hourProcessing);
-		out.writeValue(nextProcessingDate);
-	}
+  public void writeToParcel(Parcel out, int flags) {
+    out.writeValue(isProcessingRealTime);
+    out.writeValue(hourProcessing);
+    out.writeValue(nextProcessingDate);
+  }
 
-	public int describeContents() {
-		return 0;
-	}
+  public int describeContents() {
+    return 0;
+  }
 }

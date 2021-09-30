@@ -29,219 +29,219 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class ProgramFollowDetailsFullTradingAccountDetails implements Parcelable
 {
-	public static final Parcelable.Creator<ProgramFollowDetailsFullTradingAccountDetails> CREATOR = new Parcelable.Creator<ProgramFollowDetailsFullTradingAccountDetails>()
-	{
-		public ProgramFollowDetailsFullTradingAccountDetails createFromParcel(Parcel in) {
-			return new ProgramFollowDetailsFullTradingAccountDetails(in);
-		}
+  public static final Parcelable.Creator<ProgramFollowDetailsFullTradingAccountDetails> CREATOR = new Parcelable.Creator<ProgramFollowDetailsFullTradingAccountDetails>()
+  {
+    public ProgramFollowDetailsFullTradingAccountDetails createFromParcel(Parcel in) {
+      return new ProgramFollowDetailsFullTradingAccountDetails(in);
+    }
 
-		public ProgramFollowDetailsFullTradingAccountDetails[] newArray(int size) {
-			return new ProgramFollowDetailsFullTradingAccountDetails[size];
-		}
-	};
+    public ProgramFollowDetailsFullTradingAccountDetails[] newArray(int size) {
+      return new ProgramFollowDetailsFullTradingAccountDetails[size];
+    }
+  };
 
-	@SerializedName("id")
-	private UUID id = null;
+  @SerializedName("id")
+  private UUID id = null;
 
-	@SerializedName("login")
-	private String login = null;
+  @SerializedName("login")
+  private String login = null;
 
-	@SerializedName("currency")
-	private Currency currency = null;
+  @SerializedName("currency")
+  private Currency currency = null;
 
-	@SerializedName("leverageMin")
-	private Integer leverageMin = null;
+  @SerializedName("leverageMin")
+  private Integer leverageMin = null;
 
-	@SerializedName("leverageMax")
-	private Integer leverageMax = null;
+  @SerializedName("leverageMax")
+  private Integer leverageMax = null;
 
-	@SerializedName("balance")
-	private Double balance = null;
+  @SerializedName("balance")
+  private Double balance = null;
 
-	public ProgramFollowDetailsFullTradingAccountDetails() {
-	}
+  public ProgramFollowDetailsFullTradingAccountDetails() {
+  }
 
-	ProgramFollowDetailsFullTradingAccountDetails(Parcel in) {
-		id = (UUID) in.readValue(UUID.class.getClassLoader());
-		login = (String) in.readValue(null);
-		currency = (Currency) in.readValue(Currency.class.getClassLoader());
-		leverageMin = (Integer) in.readValue(null);
-		leverageMax = (Integer) in.readValue(null);
-		balance = (Double) in.readValue(null);
-	}
+  ProgramFollowDetailsFullTradingAccountDetails(Parcel in) {
+    id = (UUID) in.readValue(UUID.class.getClassLoader());
+    login = (String) in.readValue(null);
+    currency = (Currency) in.readValue(Currency.class.getClassLoader());
+    leverageMin = (Integer) in.readValue(null);
+    leverageMax = (Integer) in.readValue(null);
+    balance = (Double) in.readValue(null);
+  }
 
-	public ProgramFollowDetailsFullTradingAccountDetails id(UUID id) {
-		this.id = id;
-		return this;
-	}
+  public ProgramFollowDetailsFullTradingAccountDetails id(UUID id) {
+    this.id = id;
+    return this;
+  }
 
-	/**
-	 * Get id
-	 *
-	 * @return id
-	 **/
-	@Schema(description = "")
-	public UUID getId() {
-		return id;
-	}
+  /**
+   * Get id
+   *
+   * @return id
+   **/
+  @Schema(description = "")
+  public UUID getId() {
+    return id;
+  }
 
-	public void setId(UUID id) {
-		this.id = id;
-	}
+  public void setId(UUID id) {
+    this.id = id;
+  }
 
-	public ProgramFollowDetailsFullTradingAccountDetails login(String login) {
-		this.login = login;
-		return this;
-	}
+  public ProgramFollowDetailsFullTradingAccountDetails login(String login) {
+    this.login = login;
+    return this;
+  }
 
-	/**
-	 * Get login
-	 *
-	 * @return login
-	 **/
-	@Schema(description = "")
-	public String getLogin() {
-		return login;
-	}
+  /**
+   * Get login
+   *
+   * @return login
+   **/
+  @Schema(description = "")
+  public String getLogin() {
+    return login;
+  }
 
-	public void setLogin(String login) {
-		this.login = login;
-	}
+  public void setLogin(String login) {
+    this.login = login;
+  }
 
-	public ProgramFollowDetailsFullTradingAccountDetails currency(Currency currency) {
-		this.currency = currency;
-		return this;
-	}
+  public ProgramFollowDetailsFullTradingAccountDetails currency(Currency currency) {
+    this.currency = currency;
+    return this;
+  }
 
-	/**
-	 * Get currency
-	 *
-	 * @return currency
-	 **/
-	@Schema(description = "")
-	public Currency getCurrency() {
-		return currency;
-	}
+  /**
+   * Get currency
+   *
+   * @return currency
+   **/
+  @Schema(description = "")
+  public Currency getCurrency() {
+    return currency;
+  }
 
-	public void setCurrency(Currency currency) {
-		this.currency = currency;
-	}
+  public void setCurrency(Currency currency) {
+    this.currency = currency;
+  }
 
-	public ProgramFollowDetailsFullTradingAccountDetails leverageMin(Integer leverageMin) {
-		this.leverageMin = leverageMin;
-		return this;
-	}
+  public ProgramFollowDetailsFullTradingAccountDetails leverageMin(Integer leverageMin) {
+    this.leverageMin = leverageMin;
+    return this;
+  }
 
-	/**
-	 * Get leverageMin
-	 *
-	 * @return leverageMin
-	 **/
-	@Schema(description = "")
-	public Integer getLeverageMin() {
-		return leverageMin;
-	}
+  /**
+   * Get leverageMin
+   *
+   * @return leverageMin
+   **/
+  @Schema(description = "")
+  public Integer getLeverageMin() {
+    return leverageMin;
+  }
 
-	public void setLeverageMin(Integer leverageMin) {
-		this.leverageMin = leverageMin;
-	}
+  public void setLeverageMin(Integer leverageMin) {
+    this.leverageMin = leverageMin;
+  }
 
-	public ProgramFollowDetailsFullTradingAccountDetails leverageMax(Integer leverageMax) {
-		this.leverageMax = leverageMax;
-		return this;
-	}
+  public ProgramFollowDetailsFullTradingAccountDetails leverageMax(Integer leverageMax) {
+    this.leverageMax = leverageMax;
+    return this;
+  }
 
-	/**
-	 * Get leverageMax
-	 *
-	 * @return leverageMax
-	 **/
-	@Schema(description = "")
-	public Integer getLeverageMax() {
-		return leverageMax;
-	}
+  /**
+   * Get leverageMax
+   *
+   * @return leverageMax
+   **/
+  @Schema(description = "")
+  public Integer getLeverageMax() {
+    return leverageMax;
+  }
 
-	public void setLeverageMax(Integer leverageMax) {
-		this.leverageMax = leverageMax;
-	}
+  public void setLeverageMax(Integer leverageMax) {
+    this.leverageMax = leverageMax;
+  }
 
-	public ProgramFollowDetailsFullTradingAccountDetails balance(Double balance) {
-		this.balance = balance;
-		return this;
-	}
+  public ProgramFollowDetailsFullTradingAccountDetails balance(Double balance) {
+    this.balance = balance;
+    return this;
+  }
 
-	/**
-	 * Get balance
-	 *
-	 * @return balance
-	 **/
-	@Schema(description = "")
-	public Double getBalance() {
-		return balance;
-	}
+  /**
+   * Get balance
+   *
+   * @return balance
+   **/
+  @Schema(description = "")
+  public Double getBalance() {
+    return balance;
+  }
 
-	public void setBalance(Double balance) {
-		this.balance = balance;
-	}
+  public void setBalance(Double balance) {
+    this.balance = balance;
+  }
 
-	@Override
-	public boolean equals(java.lang.Object o) {
-		if (this == o) {
-			return true;
-		}
-		if (o == null || getClass() != o.getClass()) {
-			return false;
-		}
-		ProgramFollowDetailsFullTradingAccountDetails programFollowDetailsFullTradingAccountDetails = (ProgramFollowDetailsFullTradingAccountDetails) o;
-		return Objects.equals(this.id, programFollowDetailsFullTradingAccountDetails.id) &&
-				Objects.equals(this.login, programFollowDetailsFullTradingAccountDetails.login) &&
-				Objects.equals(this.currency, programFollowDetailsFullTradingAccountDetails.currency) &&
-				Objects.equals(this.leverageMin, programFollowDetailsFullTradingAccountDetails.leverageMin) &&
-				Objects.equals(this.leverageMax, programFollowDetailsFullTradingAccountDetails.leverageMax) &&
-				Objects.equals(this.balance, programFollowDetailsFullTradingAccountDetails.balance);
-	}
+  @Override
+  public boolean equals(java.lang.Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    ProgramFollowDetailsFullTradingAccountDetails programFollowDetailsFullTradingAccountDetails = (ProgramFollowDetailsFullTradingAccountDetails) o;
+    return Objects.equals(this.id, programFollowDetailsFullTradingAccountDetails.id) &&
+            Objects.equals(this.login, programFollowDetailsFullTradingAccountDetails.login) &&
+            Objects.equals(this.currency, programFollowDetailsFullTradingAccountDetails.currency) &&
+            Objects.equals(this.leverageMin, programFollowDetailsFullTradingAccountDetails.leverageMin) &&
+            Objects.equals(this.leverageMax, programFollowDetailsFullTradingAccountDetails.leverageMax) &&
+            Objects.equals(this.balance, programFollowDetailsFullTradingAccountDetails.balance);
+  }
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(id, login, currency, leverageMin, leverageMax, balance);
-	}
+  @Override
+  public int hashCode() {
+    return Objects.hash(id, login, currency, leverageMin, leverageMax, balance);
+  }
 
-	@Override
-	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		sb.append("class ProgramFollowDetailsFullTradingAccountDetails {\n");
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class ProgramFollowDetailsFullTradingAccountDetails {\n");
 
-		sb.append("    id: ").append(toIndentedString(id)).append("\n");
-		sb.append("    login: ").append(toIndentedString(login)).append("\n");
-		sb.append("    currency: ").append(toIndentedString(currency)).append("\n");
-		sb.append("    leverageMin: ").append(toIndentedString(leverageMin)).append("\n");
-		sb.append("    leverageMax: ").append(toIndentedString(leverageMax)).append("\n");
-		sb.append("    balance: ").append(toIndentedString(balance)).append("\n");
-		sb.append("}");
-		return sb.toString();
-	}
+    sb.append("    id: ").append(toIndentedString(id)).append("\n");
+    sb.append("    login: ").append(toIndentedString(login)).append("\n");
+    sb.append("    currency: ").append(toIndentedString(currency)).append("\n");
+    sb.append("    leverageMin: ").append(toIndentedString(leverageMin)).append("\n");
+    sb.append("    leverageMax: ").append(toIndentedString(leverageMax)).append("\n");
+    sb.append("    balance: ").append(toIndentedString(balance)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
 
-	/**
-	 * Convert the given object to string with each line indented by 4 spaces
-	 * (except the first line).
-	 */
-	private String toIndentedString(java.lang.Object o) {
-		if (o == null) {
-			return "null";
-		}
-		return o.toString().replace("\n", "\n    ");
-	}
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(java.lang.Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
 
-	public void writeToParcel(Parcel out, int flags) {
-		out.writeValue(id);
-		out.writeValue(login);
-		out.writeValue(currency);
-		out.writeValue(leverageMin);
-		out.writeValue(leverageMax);
-		out.writeValue(balance);
-	}
+  public void writeToParcel(Parcel out, int flags) {
+    out.writeValue(id);
+    out.writeValue(login);
+    out.writeValue(currency);
+    out.writeValue(leverageMin);
+    out.writeValue(leverageMax);
+    out.writeValue(balance);
+  }
 
-	public int describeContents() {
-		return 0;
-	}
+  public int describeContents() {
+    return 0;
+  }
 }

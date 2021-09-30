@@ -28,115 +28,115 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class ProgramCreateAssetPlatformInfo implements Parcelable
 {
-	public static final Parcelable.Creator<ProgramCreateAssetPlatformInfo> CREATOR = new Parcelable.Creator<ProgramCreateAssetPlatformInfo>()
-	{
-		public ProgramCreateAssetPlatformInfo createFromParcel(Parcel in) {
-			return new ProgramCreateAssetPlatformInfo(in);
-		}
+  public static final Parcelable.Creator<ProgramCreateAssetPlatformInfo> CREATOR = new Parcelable.Creator<ProgramCreateAssetPlatformInfo>()
+  {
+    public ProgramCreateAssetPlatformInfo createFromParcel(Parcel in) {
+      return new ProgramCreateAssetPlatformInfo(in);
+    }
 
-		public ProgramCreateAssetPlatformInfo[] newArray(int size) {
-			return new ProgramCreateAssetPlatformInfo[size];
-		}
-	};
+    public ProgramCreateAssetPlatformInfo[] newArray(int size) {
+      return new ProgramCreateAssetPlatformInfo[size];
+    }
+  };
 
-	@SerializedName("maxSuccessFee")
-	private Double maxSuccessFee = null;
+  @SerializedName("maxSuccessFee")
+  private Double maxSuccessFee = null;
 
-	@SerializedName("maxManagementFee")
-	private Double maxManagementFee = null;
+  @SerializedName("maxManagementFee")
+  private Double maxManagementFee = null;
 
-	public ProgramCreateAssetPlatformInfo() {
-	}
+  public ProgramCreateAssetPlatformInfo() {
+  }
 
-	ProgramCreateAssetPlatformInfo(Parcel in) {
-		maxSuccessFee = (Double) in.readValue(null);
-		maxManagementFee = (Double) in.readValue(null);
-	}
+  ProgramCreateAssetPlatformInfo(Parcel in) {
+    maxSuccessFee = (Double) in.readValue(null);
+    maxManagementFee = (Double) in.readValue(null);
+  }
 
-	public ProgramCreateAssetPlatformInfo maxSuccessFee(Double maxSuccessFee) {
-		this.maxSuccessFee = maxSuccessFee;
-		return this;
-	}
+  public ProgramCreateAssetPlatformInfo maxSuccessFee(Double maxSuccessFee) {
+    this.maxSuccessFee = maxSuccessFee;
+    return this;
+  }
 
-	/**
-	 * Get maxSuccessFee
-	 *
-	 * @return maxSuccessFee
-	 **/
-	@Schema(description = "")
-	public Double getMaxSuccessFee() {
-		return maxSuccessFee;
-	}
+  /**
+   * Get maxSuccessFee
+   *
+   * @return maxSuccessFee
+   **/
+  @Schema(description = "")
+  public Double getMaxSuccessFee() {
+    return maxSuccessFee;
+  }
 
-	public void setMaxSuccessFee(Double maxSuccessFee) {
-		this.maxSuccessFee = maxSuccessFee;
-	}
+  public void setMaxSuccessFee(Double maxSuccessFee) {
+    this.maxSuccessFee = maxSuccessFee;
+  }
 
-	public ProgramCreateAssetPlatformInfo maxManagementFee(Double maxManagementFee) {
-		this.maxManagementFee = maxManagementFee;
-		return this;
-	}
+  public ProgramCreateAssetPlatformInfo maxManagementFee(Double maxManagementFee) {
+    this.maxManagementFee = maxManagementFee;
+    return this;
+  }
 
-	/**
-	 * Get maxManagementFee
-	 *
-	 * @return maxManagementFee
-	 **/
-	@Schema(description = "")
-	public Double getMaxManagementFee() {
-		return maxManagementFee;
-	}
+  /**
+   * Get maxManagementFee
+   *
+   * @return maxManagementFee
+   **/
+  @Schema(description = "")
+  public Double getMaxManagementFee() {
+    return maxManagementFee;
+  }
 
-	public void setMaxManagementFee(Double maxManagementFee) {
-		this.maxManagementFee = maxManagementFee;
-	}
+  public void setMaxManagementFee(Double maxManagementFee) {
+    this.maxManagementFee = maxManagementFee;
+  }
 
-	@Override
-	public boolean equals(java.lang.Object o) {
-		if (this == o) {
-			return true;
-		}
-		if (o == null || getClass() != o.getClass()) {
-			return false;
-		}
-		ProgramCreateAssetPlatformInfo programCreateAssetPlatformInfo = (ProgramCreateAssetPlatformInfo) o;
-		return Objects.equals(this.maxSuccessFee, programCreateAssetPlatformInfo.maxSuccessFee) &&
-				Objects.equals(this.maxManagementFee, programCreateAssetPlatformInfo.maxManagementFee);
-	}
+  @Override
+  public boolean equals(java.lang.Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    ProgramCreateAssetPlatformInfo programCreateAssetPlatformInfo = (ProgramCreateAssetPlatformInfo) o;
+    return Objects.equals(this.maxSuccessFee, programCreateAssetPlatformInfo.maxSuccessFee) &&
+            Objects.equals(this.maxManagementFee, programCreateAssetPlatformInfo.maxManagementFee);
+  }
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(maxSuccessFee, maxManagementFee);
-	}
+  @Override
+  public int hashCode() {
+    return Objects.hash(maxSuccessFee, maxManagementFee);
+  }
 
-	@Override
-	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		sb.append("class ProgramCreateAssetPlatformInfo {\n");
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class ProgramCreateAssetPlatformInfo {\n");
 
-		sb.append("    maxSuccessFee: ").append(toIndentedString(maxSuccessFee)).append("\n");
-		sb.append("    maxManagementFee: ").append(toIndentedString(maxManagementFee)).append("\n");
-		sb.append("}");
-		return sb.toString();
-	}
+    sb.append("    maxSuccessFee: ").append(toIndentedString(maxSuccessFee)).append("\n");
+    sb.append("    maxManagementFee: ").append(toIndentedString(maxManagementFee)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
 
-	/**
-	 * Convert the given object to string with each line indented by 4 spaces
-	 * (except the first line).
-	 */
-	private String toIndentedString(java.lang.Object o) {
-		if (o == null) {
-			return "null";
-		}
-		return o.toString().replace("\n", "\n    ");
-	}
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(java.lang.Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
 
-	public void writeToParcel(Parcel out, int flags) {
-		out.writeValue(maxSuccessFee);
-		out.writeValue(maxManagementFee);
-	}
+  public void writeToParcel(Parcel out, int flags) {
+    out.writeValue(maxSuccessFee);
+    out.writeValue(maxManagementFee);
+  }
 
-	public int describeContents() {
-		return 0;
-	}
+  public int describeContents() {
+    return 0;
+  }
 }

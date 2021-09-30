@@ -28,193 +28,193 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class CreateWithdrawalRequestModel implements Parcelable
 {
-	public static final Parcelable.Creator<CreateWithdrawalRequestModel> CREATOR = new Parcelable.Creator<CreateWithdrawalRequestModel>()
-	{
-		public CreateWithdrawalRequestModel createFromParcel(Parcel in) {
-			return new CreateWithdrawalRequestModel(in);
-		}
+  public static final Parcelable.Creator<CreateWithdrawalRequestModel> CREATOR = new Parcelable.Creator<CreateWithdrawalRequestModel>()
+  {
+    public CreateWithdrawalRequestModel createFromParcel(Parcel in) {
+      return new CreateWithdrawalRequestModel(in);
+    }
 
-		public CreateWithdrawalRequestModel[] newArray(int size) {
-			return new CreateWithdrawalRequestModel[size];
-		}
-	};
+    public CreateWithdrawalRequestModel[] newArray(int size) {
+      return new CreateWithdrawalRequestModel[size];
+    }
+  };
 
-	@SerializedName("amount")
-	private Double amount = null;
+  @SerializedName("amount")
+  private Double amount = null;
 
-	@SerializedName("currency")
-	private Currency currency = null;
+  @SerializedName("currency")
+  private Currency currency = null;
 
-	@SerializedName("blockchain")
-	private Blockchain blockchain = null;
+  @SerializedName("blockchain")
+  private Blockchain blockchain = null;
 
-	@SerializedName("address")
-	private String address = null;
+  @SerializedName("address")
+  private String address = null;
 
-	@SerializedName("twoFactorCode")
-	private String twoFactorCode = null;
+  @SerializedName("twoFactorCode")
+  private String twoFactorCode = null;
 
-	public CreateWithdrawalRequestModel() {
-	}
+  public CreateWithdrawalRequestModel() {
+  }
 
-	CreateWithdrawalRequestModel(Parcel in) {
-		amount = (Double) in.readValue(null);
-		currency = (Currency) in.readValue(Currency.class.getClassLoader());
-		blockchain = (Blockchain) in.readValue(Blockchain.class.getClassLoader());
-		address = (String) in.readValue(null);
-		twoFactorCode = (String) in.readValue(null);
-	}
+  CreateWithdrawalRequestModel(Parcel in) {
+    amount = (Double) in.readValue(null);
+    currency = (Currency) in.readValue(Currency.class.getClassLoader());
+    blockchain = (Blockchain) in.readValue(Blockchain.class.getClassLoader());
+    address = (String) in.readValue(null);
+    twoFactorCode = (String) in.readValue(null);
+  }
 
-	public CreateWithdrawalRequestModel amount(Double amount) {
-		this.amount = amount;
-		return this;
-	}
+  public CreateWithdrawalRequestModel amount(Double amount) {
+    this.amount = amount;
+    return this;
+  }
 
-	/**
-	 * Get amount
-	 *
-	 * @return amount
-	 **/
-	@Schema(description = "")
-	public Double getAmount() {
-		return amount;
-	}
+  /**
+   * Get amount
+   *
+   * @return amount
+   **/
+  @Schema(description = "")
+  public Double getAmount() {
+    return amount;
+  }
 
-	public void setAmount(Double amount) {
-		this.amount = amount;
-	}
+  public void setAmount(Double amount) {
+    this.amount = amount;
+  }
 
-	public CreateWithdrawalRequestModel currency(Currency currency) {
-		this.currency = currency;
-		return this;
-	}
+  public CreateWithdrawalRequestModel currency(Currency currency) {
+    this.currency = currency;
+    return this;
+  }
 
-	/**
-	 * Get currency
-	 *
-	 * @return currency
-	 **/
-	@Schema(description = "")
-	public Currency getCurrency() {
-		return currency;
-	}
+  /**
+   * Get currency
+   *
+   * @return currency
+   **/
+  @Schema(description = "")
+  public Currency getCurrency() {
+    return currency;
+  }
 
-	public void setCurrency(Currency currency) {
-		this.currency = currency;
-	}
+  public void setCurrency(Currency currency) {
+    this.currency = currency;
+  }
 
-	public CreateWithdrawalRequestModel blockchain(Blockchain blockchain) {
-		this.blockchain = blockchain;
-		return this;
-	}
+  public CreateWithdrawalRequestModel blockchain(Blockchain blockchain) {
+    this.blockchain = blockchain;
+    return this;
+  }
 
-	/**
-	 * Get blockchain
-	 *
-	 * @return blockchain
-	 **/
-	@Schema(description = "")
-	public Blockchain getBlockchain() {
-		return blockchain;
-	}
+  /**
+   * Get blockchain
+   *
+   * @return blockchain
+   **/
+  @Schema(description = "")
+  public Blockchain getBlockchain() {
+    return blockchain;
+  }
 
-	public void setBlockchain(Blockchain blockchain) {
-		this.blockchain = blockchain;
-	}
+  public void setBlockchain(Blockchain blockchain) {
+    this.blockchain = blockchain;
+  }
 
-	public CreateWithdrawalRequestModel address(String address) {
-		this.address = address;
-		return this;
-	}
+  public CreateWithdrawalRequestModel address(String address) {
+    this.address = address;
+    return this;
+  }
 
-	/**
-	 * Get address
-	 *
-	 * @return address
-	 **/
-	@Schema(description = "")
-	public String getAddress() {
-		return address;
-	}
+  /**
+   * Get address
+   *
+   * @return address
+   **/
+  @Schema(description = "")
+  public String getAddress() {
+    return address;
+  }
 
-	public void setAddress(String address) {
-		this.address = address;
-	}
+  public void setAddress(String address) {
+    this.address = address;
+  }
 
-	public CreateWithdrawalRequestModel twoFactorCode(String twoFactorCode) {
-		this.twoFactorCode = twoFactorCode;
-		return this;
-	}
+  public CreateWithdrawalRequestModel twoFactorCode(String twoFactorCode) {
+    this.twoFactorCode = twoFactorCode;
+    return this;
+  }
 
-	/**
-	 * Get twoFactorCode
-	 *
-	 * @return twoFactorCode
-	 **/
-	@Schema(description = "")
-	public String getTwoFactorCode() {
-		return twoFactorCode;
-	}
+  /**
+   * Get twoFactorCode
+   *
+   * @return twoFactorCode
+   **/
+  @Schema(description = "")
+  public String getTwoFactorCode() {
+    return twoFactorCode;
+  }
 
-	public void setTwoFactorCode(String twoFactorCode) {
-		this.twoFactorCode = twoFactorCode;
-	}
+  public void setTwoFactorCode(String twoFactorCode) {
+    this.twoFactorCode = twoFactorCode;
+  }
 
-	@Override
-	public boolean equals(java.lang.Object o) {
-		if (this == o) {
-			return true;
-		}
-		if (o == null || getClass() != o.getClass()) {
-			return false;
-		}
-		CreateWithdrawalRequestModel createWithdrawalRequestModel = (CreateWithdrawalRequestModel) o;
-		return Objects.equals(this.amount, createWithdrawalRequestModel.amount) &&
-				Objects.equals(this.currency, createWithdrawalRequestModel.currency) &&
-				Objects.equals(this.blockchain, createWithdrawalRequestModel.blockchain) &&
-				Objects.equals(this.address, createWithdrawalRequestModel.address) &&
-				Objects.equals(this.twoFactorCode, createWithdrawalRequestModel.twoFactorCode);
-	}
+  @Override
+  public boolean equals(java.lang.Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    CreateWithdrawalRequestModel createWithdrawalRequestModel = (CreateWithdrawalRequestModel) o;
+    return Objects.equals(this.amount, createWithdrawalRequestModel.amount) &&
+            Objects.equals(this.currency, createWithdrawalRequestModel.currency) &&
+            Objects.equals(this.blockchain, createWithdrawalRequestModel.blockchain) &&
+            Objects.equals(this.address, createWithdrawalRequestModel.address) &&
+            Objects.equals(this.twoFactorCode, createWithdrawalRequestModel.twoFactorCode);
+  }
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(amount, currency, blockchain, address, twoFactorCode);
-	}
+  @Override
+  public int hashCode() {
+    return Objects.hash(amount, currency, blockchain, address, twoFactorCode);
+  }
 
-	@Override
-	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		sb.append("class CreateWithdrawalRequestModel {\n");
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class CreateWithdrawalRequestModel {\n");
 
-		sb.append("    amount: ").append(toIndentedString(amount)).append("\n");
-		sb.append("    currency: ").append(toIndentedString(currency)).append("\n");
-		sb.append("    blockchain: ").append(toIndentedString(blockchain)).append("\n");
-		sb.append("    address: ").append(toIndentedString(address)).append("\n");
-		sb.append("    twoFactorCode: ").append(toIndentedString(twoFactorCode)).append("\n");
-		sb.append("}");
-		return sb.toString();
-	}
+    sb.append("    amount: ").append(toIndentedString(amount)).append("\n");
+    sb.append("    currency: ").append(toIndentedString(currency)).append("\n");
+    sb.append("    blockchain: ").append(toIndentedString(blockchain)).append("\n");
+    sb.append("    address: ").append(toIndentedString(address)).append("\n");
+    sb.append("    twoFactorCode: ").append(toIndentedString(twoFactorCode)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
 
-	/**
-	 * Convert the given object to string with each line indented by 4 spaces
-	 * (except the first line).
-	 */
-	private String toIndentedString(java.lang.Object o) {
-		if (o == null) {
-			return "null";
-		}
-		return o.toString().replace("\n", "\n    ");
-	}
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(java.lang.Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
 
-	public void writeToParcel(Parcel out, int flags) {
-		out.writeValue(amount);
-		out.writeValue(currency);
-		out.writeValue(blockchain);
-		out.writeValue(address);
-		out.writeValue(twoFactorCode);
-	}
+  public void writeToParcel(Parcel out, int flags) {
+    out.writeValue(amount);
+    out.writeValue(currency);
+    out.writeValue(blockchain);
+    out.writeValue(address);
+    out.writeValue(twoFactorCode);
+  }
 
-	public int describeContents() {
-		return 0;
-	}
+  public int describeContents() {
+    return 0;
+  }
 }

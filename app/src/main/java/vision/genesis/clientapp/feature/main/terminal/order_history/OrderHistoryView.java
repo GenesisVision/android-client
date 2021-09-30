@@ -24,8 +24,6 @@ interface OrderHistoryView extends MvpView
 
 	void showSnackbarMessage(String message);
 
-	void showOrderDetails(BinanceRawOrder order);
-
 	@StateStrategyType(AddToEndSingleStrategy.class)
 	void showProgress(boolean show);
 }

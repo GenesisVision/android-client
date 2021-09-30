@@ -25,46 +25,46 @@ import java.io.IOException;
 @JsonAdapter(TradingAccountPermission.Adapter.class)
 public enum TradingAccountPermission
 {
-	NONE("None"),
-	SPOT("Spot"),
-	MARGIN("Margin"),
-	FUTURES("Futures");
+  NONE("None"),
+  SPOT("Spot"),
+  MARGIN("Margin"),
+  FUTURES("Futures");
 
-	public static TradingAccountPermission fromValue(String text) {
-		for (TradingAccountPermission b : TradingAccountPermission.values()) {
-			if (String.valueOf(b.value).equals(text)) {
-				return b;
-			}
-		}
-		return null;
-	}
+  public static TradingAccountPermission fromValue(String text) {
+    for (TradingAccountPermission b : TradingAccountPermission.values()) {
+      if (String.valueOf(b.value).equals(text)) {
+        return b;
+      }
+    }
+    return null;
+  }
 
-	private String value;
+  private String value;
 
-	TradingAccountPermission(String value) {
-		this.value = value;
-	}
+  TradingAccountPermission(String value) {
+    this.value = value;
+  }
 
-	public String getValue() {
-		return value;
-	}
+  public String getValue() {
+    return value;
+  }
 
-	@Override
-	public String toString() {
-		return String.valueOf(value);
-	}
+  @Override
+  public String toString() {
+    return String.valueOf(value);
+  }
 
-	public static class Adapter extends TypeAdapter<TradingAccountPermission>
-	{
-		@Override
-		public void write(final JsonWriter jsonWriter, final TradingAccountPermission enumeration) throws IOException {
-			jsonWriter.value(enumeration.getValue());
-		}
+  public static class Adapter extends TypeAdapter<TradingAccountPermission>
+  {
+    @Override
+    public void write(final JsonWriter jsonWriter, final TradingAccountPermission enumeration) throws IOException {
+      jsonWriter.value(enumeration.getValue());
+    }
 
-		@Override
-		public TradingAccountPermission read(final JsonReader jsonReader) throws IOException {
-			Object value = jsonReader.nextString();
-			return TradingAccountPermission.fromValue(String.valueOf(value));
-		}
-	}
+    @Override
+    public TradingAccountPermission read(final JsonReader jsonReader) throws IOException {
+      Object value = jsonReader.nextString();
+      return TradingAccountPermission.fromValue(String.valueOf(value));
+    }
+  }
 }

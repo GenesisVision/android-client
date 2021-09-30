@@ -25,44 +25,44 @@ import java.io.IOException;
 @JsonAdapter(TradingPlatformBinanceOrdersMode.Adapter.class)
 public enum TradingPlatformBinanceOrdersMode
 {
-	TRADEHISTORY("TradeHistory"),
-	ORDERHISTORY("OrderHistory");
+  TRADEHISTORY("TradeHistory"),
+  ORDERHISTORY("OrderHistory");
 
-	public static TradingPlatformBinanceOrdersMode fromValue(String text) {
-		for (TradingPlatformBinanceOrdersMode b : TradingPlatformBinanceOrdersMode.values()) {
-			if (String.valueOf(b.value).equals(text)) {
-				return b;
-			}
-		}
-		return null;
-	}
+  public static TradingPlatformBinanceOrdersMode fromValue(String text) {
+    for (TradingPlatformBinanceOrdersMode b : TradingPlatformBinanceOrdersMode.values()) {
+      if (String.valueOf(b.value).equals(text)) {
+        return b;
+      }
+    }
+    return null;
+  }
 
-	private String value;
+  private String value;
 
-	TradingPlatformBinanceOrdersMode(String value) {
-		this.value = value;
-	}
+  TradingPlatformBinanceOrdersMode(String value) {
+    this.value = value;
+  }
 
-	public String getValue() {
-		return value;
-	}
+  public String getValue() {
+    return value;
+  }
 
-	@Override
-	public String toString() {
-		return String.valueOf(value);
-	}
+  @Override
+  public String toString() {
+    return String.valueOf(value);
+  }
 
-	public static class Adapter extends TypeAdapter<TradingPlatformBinanceOrdersMode>
-	{
-		@Override
-		public void write(final JsonWriter jsonWriter, final TradingPlatformBinanceOrdersMode enumeration) throws IOException {
-			jsonWriter.value(enumeration.getValue());
-		}
+  public static class Adapter extends TypeAdapter<TradingPlatformBinanceOrdersMode>
+  {
+    @Override
+    public void write(final JsonWriter jsonWriter, final TradingPlatformBinanceOrdersMode enumeration) throws IOException {
+      jsonWriter.value(enumeration.getValue());
+    }
 
-		@Override
-		public TradingPlatformBinanceOrdersMode read(final JsonReader jsonReader) throws IOException {
-			Object value = jsonReader.nextString();
-			return TradingPlatformBinanceOrdersMode.fromValue(String.valueOf(value));
-		}
-	}
+    @Override
+    public TradingPlatformBinanceOrdersMode read(final JsonReader jsonReader) throws IOException {
+      Object value = jsonReader.nextString();
+      return TradingPlatformBinanceOrdersMode.fromValue(String.valueOf(value));
+    }
+  }
 }

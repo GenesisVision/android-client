@@ -31,313 +31,313 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class ProgramNotificationSettingList implements Parcelable
 {
-	public static final Parcelable.Creator<ProgramNotificationSettingList> CREATOR = new Parcelable.Creator<ProgramNotificationSettingList>()
-	{
-		public ProgramNotificationSettingList createFromParcel(Parcel in) {
-			return new ProgramNotificationSettingList(in);
-		}
+  public static final Parcelable.Creator<ProgramNotificationSettingList> CREATOR = new Parcelable.Creator<ProgramNotificationSettingList>()
+  {
+    public ProgramNotificationSettingList createFromParcel(Parcel in) {
+      return new ProgramNotificationSettingList(in);
+    }
 
-		public ProgramNotificationSettingList[] newArray(int size) {
-			return new ProgramNotificationSettingList[size];
-		}
-	};
+    public ProgramNotificationSettingList[] newArray(int size) {
+      return new ProgramNotificationSettingList[size];
+    }
+  };
 
-	@SerializedName("assetId")
-	private UUID assetId = null;
+  @SerializedName("assetId")
+  private UUID assetId = null;
 
-	@SerializedName("title")
-	private String title = null;
+  @SerializedName("title")
+  private String title = null;
 
-	@SerializedName("url")
-	private String url = null;
+  @SerializedName("url")
+  private String url = null;
 
-	@SerializedName("logoUrl")
-	private String logoUrl = null;
+  @SerializedName("logoUrl")
+  private String logoUrl = null;
 
-	@SerializedName("color")
-	private String color = null;
+  @SerializedName("color")
+  private String color = null;
 
-	@SerializedName("settingsGeneral")
-	private List<NotificationSettingViewModel> settingsGeneral = null;
+  @SerializedName("settingsGeneral")
+  private List<NotificationSettingViewModel> settingsGeneral = null;
 
-	@SerializedName("level")
-	private Integer level = null;
+  @SerializedName("level")
+  private Integer level = null;
 
-	@SerializedName("levelProgress")
-	private Double levelProgress = null;
+  @SerializedName("levelProgress")
+  private Double levelProgress = null;
 
-	@SerializedName("settingsCustom")
-	private List<NotificationSettingViewModel> settingsCustom = null;
+  @SerializedName("settingsCustom")
+  private List<NotificationSettingViewModel> settingsCustom = null;
 
-	public ProgramNotificationSettingList() {
-	}
+  public ProgramNotificationSettingList() {
+  }
 
-	ProgramNotificationSettingList(Parcel in) {
-		assetId = (UUID) in.readValue(UUID.class.getClassLoader());
-		title = (String) in.readValue(null);
-		url = (String) in.readValue(null);
-		logoUrl = (String) in.readValue(null);
-		color = (String) in.readValue(null);
-		settingsGeneral = (List<NotificationSettingViewModel>) in.readValue(NotificationSettingViewModel.class.getClassLoader());
-		level = (Integer) in.readValue(null);
-		levelProgress = (Double) in.readValue(null);
-		settingsCustom = (List<NotificationSettingViewModel>) in.readValue(NotificationSettingViewModel.class.getClassLoader());
-	}
+  ProgramNotificationSettingList(Parcel in) {
+    assetId = (UUID) in.readValue(UUID.class.getClassLoader());
+    title = (String) in.readValue(null);
+    url = (String) in.readValue(null);
+    logoUrl = (String) in.readValue(null);
+    color = (String) in.readValue(null);
+    settingsGeneral = (List<NotificationSettingViewModel>) in.readValue(NotificationSettingViewModel.class.getClassLoader());
+    level = (Integer) in.readValue(null);
+    levelProgress = (Double) in.readValue(null);
+    settingsCustom = (List<NotificationSettingViewModel>) in.readValue(NotificationSettingViewModel.class.getClassLoader());
+  }
 
-	public ProgramNotificationSettingList assetId(UUID assetId) {
-		this.assetId = assetId;
-		return this;
-	}
+  public ProgramNotificationSettingList assetId(UUID assetId) {
+    this.assetId = assetId;
+    return this;
+  }
 
-	/**
-	 * Get assetId
-	 *
-	 * @return assetId
-	 **/
-	@Schema(description = "")
-	public UUID getAssetId() {
-		return assetId;
-	}
+  /**
+   * Get assetId
+   *
+   * @return assetId
+   **/
+  @Schema(description = "")
+  public UUID getAssetId() {
+    return assetId;
+  }
 
-	public void setAssetId(UUID assetId) {
-		this.assetId = assetId;
-	}
+  public void setAssetId(UUID assetId) {
+    this.assetId = assetId;
+  }
 
-	public ProgramNotificationSettingList title(String title) {
-		this.title = title;
-		return this;
-	}
+  public ProgramNotificationSettingList title(String title) {
+    this.title = title;
+    return this;
+  }
 
-	/**
-	 * Get title
-	 *
-	 * @return title
-	 **/
-	@Schema(description = "")
-	public String getTitle() {
-		return title;
-	}
+  /**
+   * Get title
+   *
+   * @return title
+   **/
+  @Schema(description = "")
+  public String getTitle() {
+    return title;
+  }
 
-	public void setTitle(String title) {
-		this.title = title;
-	}
+  public void setTitle(String title) {
+    this.title = title;
+  }
 
-	public ProgramNotificationSettingList url(String url) {
-		this.url = url;
-		return this;
-	}
+  public ProgramNotificationSettingList url(String url) {
+    this.url = url;
+    return this;
+  }
 
-	/**
-	 * Get url
-	 *
-	 * @return url
-	 **/
-	@Schema(description = "")
-	public String getUrl() {
-		return url;
-	}
+  /**
+   * Get url
+   *
+   * @return url
+   **/
+  @Schema(description = "")
+  public String getUrl() {
+    return url;
+  }
 
-	public void setUrl(String url) {
-		this.url = url;
-	}
+  public void setUrl(String url) {
+    this.url = url;
+  }
 
-	public ProgramNotificationSettingList logoUrl(String logoUrl) {
-		this.logoUrl = logoUrl;
-		return this;
-	}
+  public ProgramNotificationSettingList logoUrl(String logoUrl) {
+    this.logoUrl = logoUrl;
+    return this;
+  }
 
-	/**
-	 * Get logoUrl
-	 *
-	 * @return logoUrl
-	 **/
-	@Schema(description = "")
-	public String getLogoUrl() {
-		return logoUrl;
-	}
+  /**
+   * Get logoUrl
+   *
+   * @return logoUrl
+   **/
+  @Schema(description = "")
+  public String getLogoUrl() {
+    return logoUrl;
+  }
 
-	public void setLogoUrl(String logoUrl) {
-		this.logoUrl = logoUrl;
-	}
+  public void setLogoUrl(String logoUrl) {
+    this.logoUrl = logoUrl;
+  }
 
-	public ProgramNotificationSettingList color(String color) {
-		this.color = color;
-		return this;
-	}
+  public ProgramNotificationSettingList color(String color) {
+    this.color = color;
+    return this;
+  }
 
-	/**
-	 * Get color
-	 *
-	 * @return color
-	 **/
-	@Schema(description = "")
-	public String getColor() {
-		return color;
-	}
+  /**
+   * Get color
+   *
+   * @return color
+   **/
+  @Schema(description = "")
+  public String getColor() {
+    return color;
+  }
 
-	public void setColor(String color) {
-		this.color = color;
-	}
+  public void setColor(String color) {
+    this.color = color;
+  }
 
-	public ProgramNotificationSettingList settingsGeneral(List<NotificationSettingViewModel> settingsGeneral) {
-		this.settingsGeneral = settingsGeneral;
-		return this;
-	}
+  public ProgramNotificationSettingList settingsGeneral(List<NotificationSettingViewModel> settingsGeneral) {
+    this.settingsGeneral = settingsGeneral;
+    return this;
+  }
 
-	public ProgramNotificationSettingList addSettingsGeneralItem(NotificationSettingViewModel settingsGeneralItem) {
-		if (this.settingsGeneral == null) {
-			this.settingsGeneral = new ArrayList<NotificationSettingViewModel>();
-		}
-		this.settingsGeneral.add(settingsGeneralItem);
-		return this;
-	}
+  public ProgramNotificationSettingList addSettingsGeneralItem(NotificationSettingViewModel settingsGeneralItem) {
+    if (this.settingsGeneral == null) {
+      this.settingsGeneral = new ArrayList<NotificationSettingViewModel>();
+    }
+    this.settingsGeneral.add(settingsGeneralItem);
+    return this;
+  }
 
-	/**
-	 * Get settingsGeneral
-	 *
-	 * @return settingsGeneral
-	 **/
-	@Schema(description = "")
-	public List<NotificationSettingViewModel> getSettingsGeneral() {
-		return settingsGeneral;
-	}
+  /**
+   * Get settingsGeneral
+   *
+   * @return settingsGeneral
+   **/
+  @Schema(description = "")
+  public List<NotificationSettingViewModel> getSettingsGeneral() {
+    return settingsGeneral;
+  }
 
-	public void setSettingsGeneral(List<NotificationSettingViewModel> settingsGeneral) {
-		this.settingsGeneral = settingsGeneral;
-	}
+  public void setSettingsGeneral(List<NotificationSettingViewModel> settingsGeneral) {
+    this.settingsGeneral = settingsGeneral;
+  }
 
-	public ProgramNotificationSettingList level(Integer level) {
-		this.level = level;
-		return this;
-	}
+  public ProgramNotificationSettingList level(Integer level) {
+    this.level = level;
+    return this;
+  }
 
-	/**
-	 * Get level
-	 *
-	 * @return level
-	 **/
-	@Schema(description = "")
-	public Integer getLevel() {
-		return level;
-	}
+  /**
+   * Get level
+   *
+   * @return level
+   **/
+  @Schema(description = "")
+  public Integer getLevel() {
+    return level;
+  }
 
-	public void setLevel(Integer level) {
-		this.level = level;
-	}
+  public void setLevel(Integer level) {
+    this.level = level;
+  }
 
-	public ProgramNotificationSettingList levelProgress(Double levelProgress) {
-		this.levelProgress = levelProgress;
-		return this;
-	}
+  public ProgramNotificationSettingList levelProgress(Double levelProgress) {
+    this.levelProgress = levelProgress;
+    return this;
+  }
 
-	/**
-	 * Get levelProgress
-	 *
-	 * @return levelProgress
-	 **/
-	@Schema(description = "")
-	public Double getLevelProgress() {
-		return levelProgress;
-	}
+  /**
+   * Get levelProgress
+   *
+   * @return levelProgress
+   **/
+  @Schema(description = "")
+  public Double getLevelProgress() {
+    return levelProgress;
+  }
 
-	public void setLevelProgress(Double levelProgress) {
-		this.levelProgress = levelProgress;
-	}
+  public void setLevelProgress(Double levelProgress) {
+    this.levelProgress = levelProgress;
+  }
 
-	public ProgramNotificationSettingList settingsCustom(List<NotificationSettingViewModel> settingsCustom) {
-		this.settingsCustom = settingsCustom;
-		return this;
-	}
+  public ProgramNotificationSettingList settingsCustom(List<NotificationSettingViewModel> settingsCustom) {
+    this.settingsCustom = settingsCustom;
+    return this;
+  }
 
-	public ProgramNotificationSettingList addSettingsCustomItem(NotificationSettingViewModel settingsCustomItem) {
-		if (this.settingsCustom == null) {
-			this.settingsCustom = new ArrayList<NotificationSettingViewModel>();
-		}
-		this.settingsCustom.add(settingsCustomItem);
-		return this;
-	}
+  public ProgramNotificationSettingList addSettingsCustomItem(NotificationSettingViewModel settingsCustomItem) {
+    if (this.settingsCustom == null) {
+      this.settingsCustom = new ArrayList<NotificationSettingViewModel>();
+    }
+    this.settingsCustom.add(settingsCustomItem);
+    return this;
+  }
 
-	/**
-	 * Get settingsCustom
-	 *
-	 * @return settingsCustom
-	 **/
-	@Schema(description = "")
-	public List<NotificationSettingViewModel> getSettingsCustom() {
-		return settingsCustom;
-	}
+  /**
+   * Get settingsCustom
+   *
+   * @return settingsCustom
+   **/
+  @Schema(description = "")
+  public List<NotificationSettingViewModel> getSettingsCustom() {
+    return settingsCustom;
+  }
 
-	public void setSettingsCustom(List<NotificationSettingViewModel> settingsCustom) {
-		this.settingsCustom = settingsCustom;
-	}
+  public void setSettingsCustom(List<NotificationSettingViewModel> settingsCustom) {
+    this.settingsCustom = settingsCustom;
+  }
 
-	@Override
-	public boolean equals(java.lang.Object o) {
-		if (this == o) {
-			return true;
-		}
-		if (o == null || getClass() != o.getClass()) {
-			return false;
-		}
-		ProgramNotificationSettingList programNotificationSettingList = (ProgramNotificationSettingList) o;
-		return Objects.equals(this.assetId, programNotificationSettingList.assetId) &&
-				Objects.equals(this.title, programNotificationSettingList.title) &&
-				Objects.equals(this.url, programNotificationSettingList.url) &&
-				Objects.equals(this.logoUrl, programNotificationSettingList.logoUrl) &&
-				Objects.equals(this.color, programNotificationSettingList.color) &&
-				Objects.equals(this.settingsGeneral, programNotificationSettingList.settingsGeneral) &&
-				Objects.equals(this.level, programNotificationSettingList.level) &&
-				Objects.equals(this.levelProgress, programNotificationSettingList.levelProgress) &&
-				Objects.equals(this.settingsCustom, programNotificationSettingList.settingsCustom);
-	}
+  @Override
+  public boolean equals(java.lang.Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    ProgramNotificationSettingList programNotificationSettingList = (ProgramNotificationSettingList) o;
+    return Objects.equals(this.assetId, programNotificationSettingList.assetId) &&
+            Objects.equals(this.title, programNotificationSettingList.title) &&
+            Objects.equals(this.url, programNotificationSettingList.url) &&
+            Objects.equals(this.logoUrl, programNotificationSettingList.logoUrl) &&
+            Objects.equals(this.color, programNotificationSettingList.color) &&
+            Objects.equals(this.settingsGeneral, programNotificationSettingList.settingsGeneral) &&
+            Objects.equals(this.level, programNotificationSettingList.level) &&
+            Objects.equals(this.levelProgress, programNotificationSettingList.levelProgress) &&
+            Objects.equals(this.settingsCustom, programNotificationSettingList.settingsCustom);
+  }
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(assetId, title, url, logoUrl, color, settingsGeneral, level, levelProgress, settingsCustom);
-	}
+  @Override
+  public int hashCode() {
+    return Objects.hash(assetId, title, url, logoUrl, color, settingsGeneral, level, levelProgress, settingsCustom);
+  }
 
-	@Override
-	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		sb.append("class ProgramNotificationSettingList {\n");
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class ProgramNotificationSettingList {\n");
 
-		sb.append("    assetId: ").append(toIndentedString(assetId)).append("\n");
-		sb.append("    title: ").append(toIndentedString(title)).append("\n");
-		sb.append("    url: ").append(toIndentedString(url)).append("\n");
-		sb.append("    logoUrl: ").append(toIndentedString(logoUrl)).append("\n");
-		sb.append("    color: ").append(toIndentedString(color)).append("\n");
-		sb.append("    settingsGeneral: ").append(toIndentedString(settingsGeneral)).append("\n");
-		sb.append("    level: ").append(toIndentedString(level)).append("\n");
-		sb.append("    levelProgress: ").append(toIndentedString(levelProgress)).append("\n");
-		sb.append("    settingsCustom: ").append(toIndentedString(settingsCustom)).append("\n");
-		sb.append("}");
-		return sb.toString();
-	}
+    sb.append("    assetId: ").append(toIndentedString(assetId)).append("\n");
+    sb.append("    title: ").append(toIndentedString(title)).append("\n");
+    sb.append("    url: ").append(toIndentedString(url)).append("\n");
+    sb.append("    logoUrl: ").append(toIndentedString(logoUrl)).append("\n");
+    sb.append("    color: ").append(toIndentedString(color)).append("\n");
+    sb.append("    settingsGeneral: ").append(toIndentedString(settingsGeneral)).append("\n");
+    sb.append("    level: ").append(toIndentedString(level)).append("\n");
+    sb.append("    levelProgress: ").append(toIndentedString(levelProgress)).append("\n");
+    sb.append("    settingsCustom: ").append(toIndentedString(settingsCustom)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
 
-	/**
-	 * Convert the given object to string with each line indented by 4 spaces
-	 * (except the first line).
-	 */
-	private String toIndentedString(java.lang.Object o) {
-		if (o == null) {
-			return "null";
-		}
-		return o.toString().replace("\n", "\n    ");
-	}
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(java.lang.Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
 
-	public void writeToParcel(Parcel out, int flags) {
-		out.writeValue(assetId);
-		out.writeValue(title);
-		out.writeValue(url);
-		out.writeValue(logoUrl);
-		out.writeValue(color);
-		out.writeValue(settingsGeneral);
-		out.writeValue(level);
-		out.writeValue(levelProgress);
-		out.writeValue(settingsCustom);
-	}
+  public void writeToParcel(Parcel out, int flags) {
+    out.writeValue(assetId);
+    out.writeValue(title);
+    out.writeValue(url);
+    out.writeValue(logoUrl);
+    out.writeValue(color);
+    out.writeValue(settingsGeneral);
+    out.writeValue(level);
+    out.writeValue(levelProgress);
+    out.writeValue(settingsCustom);
+  }
 
-	public int describeContents() {
-		return 0;
-	}
+  public int describeContents() {
+    return 0;
+  }
 }

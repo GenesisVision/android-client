@@ -24,9 +24,9 @@ import java.util.Objects;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 /**
- * ErrorViewModel
+ * GV copy of ErrorResult
  */
-
+@Schema(description = "GV copy of ErrorResult")
 
 public class ErrorViewModel implements Parcelable
 {

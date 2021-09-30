@@ -25,48 +25,48 @@ import java.io.IOException;
 @JsonAdapter(TradeDirectionType.Adapter.class)
 public enum TradeDirectionType
 {
-	BUY("Buy"),
-	SELL("Sell"),
-	BALANCE("Balance"),
-	CREDIT("Credit"),
-	UNDEFINED("Undefined"),
-	MANUALBALANCING("ManualBalancing");
+  BUY("Buy"),
+  SELL("Sell"),
+  BALANCE("Balance"),
+  CREDIT("Credit"),
+  UNDEFINED("Undefined"),
+  MANUALBALANCING("ManualBalancing");
 
-	public static TradeDirectionType fromValue(String text) {
-		for (TradeDirectionType b : TradeDirectionType.values()) {
-			if (String.valueOf(b.value).equals(text)) {
-				return b;
-			}
-		}
-		return null;
-	}
+  public static TradeDirectionType fromValue(String text) {
+    for (TradeDirectionType b : TradeDirectionType.values()) {
+      if (String.valueOf(b.value).equals(text)) {
+        return b;
+      }
+    }
+    return null;
+  }
 
-	private String value;
+  private String value;
 
-	TradeDirectionType(String value) {
-		this.value = value;
-	}
+  TradeDirectionType(String value) {
+    this.value = value;
+  }
 
-	public String getValue() {
-		return value;
-	}
+  public String getValue() {
+    return value;
+  }
 
-	@Override
-	public String toString() {
-		return String.valueOf(value);
-	}
+  @Override
+  public String toString() {
+    return String.valueOf(value);
+  }
 
-	public static class Adapter extends TypeAdapter<TradeDirectionType>
-	{
-		@Override
-		public void write(final JsonWriter jsonWriter, final TradeDirectionType enumeration) throws IOException {
-			jsonWriter.value(enumeration.getValue());
-		}
+  public static class Adapter extends TypeAdapter<TradeDirectionType>
+  {
+    @Override
+    public void write(final JsonWriter jsonWriter, final TradeDirectionType enumeration) throws IOException {
+      jsonWriter.value(enumeration.getValue());
+    }
 
-		@Override
-		public TradeDirectionType read(final JsonReader jsonReader) throws IOException {
-			Object value = jsonReader.nextString();
-			return TradeDirectionType.fromValue(String.valueOf(value));
-		}
-	}
+    @Override
+    public TradeDirectionType read(final JsonReader jsonReader) throws IOException {
+      Object value = jsonReader.nextString();
+      return TradeDirectionType.fromValue(String.valueOf(value));
+    }
+  }
 }

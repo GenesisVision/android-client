@@ -30,401 +30,401 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class SignalSubscriber implements Parcelable
 {
-	public static final Parcelable.Creator<SignalSubscriber> CREATOR = new Parcelable.Creator<SignalSubscriber>()
-	{
-		public SignalSubscriber createFromParcel(Parcel in) {
-			return new SignalSubscriber(in);
-		}
+  public static final Parcelable.Creator<SignalSubscriber> CREATOR = new Parcelable.Creator<SignalSubscriber>()
+  {
+    public SignalSubscriber createFromParcel(Parcel in) {
+      return new SignalSubscriber(in);
+    }
 
-		public SignalSubscriber[] newArray(int size) {
-			return new SignalSubscriber[size];
-		}
-	};
+    public SignalSubscriber[] newArray(int size) {
+      return new SignalSubscriber[size];
+    }
+  };
 
-	@SerializedName("number")
-	private Integer number = null;
+  @SerializedName("number")
+  private Integer number = null;
 
-	@SerializedName("trades")
-	private Integer trades = null;
+  @SerializedName("trades")
+  private Integer trades = null;
 
-	@SerializedName("profit")
-	private Double profit = null;
+  @SerializedName("profit")
+  private Double profit = null;
 
-	@SerializedName("volume")
-	private Double volume = null;
+  @SerializedName("volume")
+  private Double volume = null;
 
-	@SerializedName("subscriptionDate")
-	private DateTime subscriptionDate = null;
+  @SerializedName("subscriptionDate")
+  private DateTime subscriptionDate = null;
 
-	@SerializedName("unsubscriptionDate")
-	private DateTime unsubscriptionDate = null;
+  @SerializedName("unsubscriptionDate")
+  private DateTime unsubscriptionDate = null;
 
-	@SerializedName("status")
-	private SignalSubscriberStatus status = null;
+  @SerializedName("status")
+  private SignalSubscriberStatus status = null;
 
-	@SerializedName("totalCommissionAmount")
-	private Double totalCommissionAmount = null;
+  @SerializedName("totalCommissionAmount")
+  private Double totalCommissionAmount = null;
 
-	@SerializedName("totalCommissionCurrency")
-	private Currency totalCommissionCurrency = null;
+  @SerializedName("totalCommissionCurrency")
+  private Currency totalCommissionCurrency = null;
 
-	@SerializedName("totalSuccessFeeAmount")
-	private Double totalSuccessFeeAmount = null;
+  @SerializedName("totalSuccessFeeAmount")
+  private Double totalSuccessFeeAmount = null;
 
-	@SerializedName("totalSuccessFeeCurrency")
-	private Currency totalSuccessFeeCurrency = null;
+  @SerializedName("totalSuccessFeeCurrency")
+  private Currency totalSuccessFeeCurrency = null;
 
-	@SerializedName("totalVolumeFeeAmount")
-	private Double totalVolumeFeeAmount = null;
+  @SerializedName("totalVolumeFeeAmount")
+  private Double totalVolumeFeeAmount = null;
 
-	@SerializedName("totalVolumeFeeCurrency")
-	private Currency totalVolumeFeeCurrency = null;
+  @SerializedName("totalVolumeFeeCurrency")
+  private Currency totalVolumeFeeCurrency = null;
 
-	public SignalSubscriber() {
-	}
+  public SignalSubscriber() {
+  }
 
-	SignalSubscriber(Parcel in) {
-		number = (Integer) in.readValue(null);
-		trades = (Integer) in.readValue(null);
-		profit = (Double) in.readValue(null);
-		volume = (Double) in.readValue(null);
-		subscriptionDate = (DateTime) in.readValue(DateTime.class.getClassLoader());
-		unsubscriptionDate = (DateTime) in.readValue(DateTime.class.getClassLoader());
-		status = (SignalSubscriberStatus) in.readValue(SignalSubscriberStatus.class.getClassLoader());
-		totalCommissionAmount = (Double) in.readValue(null);
-		totalCommissionCurrency = (Currency) in.readValue(Currency.class.getClassLoader());
-		totalSuccessFeeAmount = (Double) in.readValue(null);
-		totalSuccessFeeCurrency = (Currency) in.readValue(Currency.class.getClassLoader());
-		totalVolumeFeeAmount = (Double) in.readValue(null);
-		totalVolumeFeeCurrency = (Currency) in.readValue(Currency.class.getClassLoader());
-	}
+  SignalSubscriber(Parcel in) {
+    number = (Integer) in.readValue(null);
+    trades = (Integer) in.readValue(null);
+    profit = (Double) in.readValue(null);
+    volume = (Double) in.readValue(null);
+    subscriptionDate = (DateTime) in.readValue(DateTime.class.getClassLoader());
+    unsubscriptionDate = (DateTime) in.readValue(DateTime.class.getClassLoader());
+    status = (SignalSubscriberStatus) in.readValue(SignalSubscriberStatus.class.getClassLoader());
+    totalCommissionAmount = (Double) in.readValue(null);
+    totalCommissionCurrency = (Currency) in.readValue(Currency.class.getClassLoader());
+    totalSuccessFeeAmount = (Double) in.readValue(null);
+    totalSuccessFeeCurrency = (Currency) in.readValue(Currency.class.getClassLoader());
+    totalVolumeFeeAmount = (Double) in.readValue(null);
+    totalVolumeFeeCurrency = (Currency) in.readValue(Currency.class.getClassLoader());
+  }
 
-	public SignalSubscriber number(Integer number) {
-		this.number = number;
-		return this;
-	}
+  public SignalSubscriber number(Integer number) {
+    this.number = number;
+    return this;
+  }
 
-	/**
-	 * Get number
-	 *
-	 * @return number
-	 **/
-	@Schema(description = "")
-	public Integer getNumber() {
-		return number;
-	}
+  /**
+   * Get number
+   *
+   * @return number
+   **/
+  @Schema(description = "")
+  public Integer getNumber() {
+    return number;
+  }
 
-	public void setNumber(Integer number) {
-		this.number = number;
-	}
+  public void setNumber(Integer number) {
+    this.number = number;
+  }
 
-	public SignalSubscriber trades(Integer trades) {
-		this.trades = trades;
-		return this;
-	}
+  public SignalSubscriber trades(Integer trades) {
+    this.trades = trades;
+    return this;
+  }
 
-	/**
-	 * Get trades
-	 *
-	 * @return trades
-	 **/
-	@Schema(description = "")
-	public Integer getTrades() {
-		return trades;
-	}
+  /**
+   * Get trades
+   *
+   * @return trades
+   **/
+  @Schema(description = "")
+  public Integer getTrades() {
+    return trades;
+  }
 
-	public void setTrades(Integer trades) {
-		this.trades = trades;
-	}
+  public void setTrades(Integer trades) {
+    this.trades = trades;
+  }
 
-	public SignalSubscriber profit(Double profit) {
-		this.profit = profit;
-		return this;
-	}
+  public SignalSubscriber profit(Double profit) {
+    this.profit = profit;
+    return this;
+  }
 
-	/**
-	 * Get profit
-	 *
-	 * @return profit
-	 **/
-	@Schema(description = "")
-	public Double getProfit() {
-		return profit;
-	}
+  /**
+   * Get profit
+   *
+   * @return profit
+   **/
+  @Schema(description = "")
+  public Double getProfit() {
+    return profit;
+  }
 
-	public void setProfit(Double profit) {
-		this.profit = profit;
-	}
+  public void setProfit(Double profit) {
+    this.profit = profit;
+  }
 
-	public SignalSubscriber volume(Double volume) {
-		this.volume = volume;
-		return this;
-	}
+  public SignalSubscriber volume(Double volume) {
+    this.volume = volume;
+    return this;
+  }
 
-	/**
-	 * Get volume
-	 *
-	 * @return volume
-	 **/
-	@Schema(description = "")
-	public Double getVolume() {
-		return volume;
-	}
+  /**
+   * Get volume
+   *
+   * @return volume
+   **/
+  @Schema(description = "")
+  public Double getVolume() {
+    return volume;
+  }
 
-	public void setVolume(Double volume) {
-		this.volume = volume;
-	}
+  public void setVolume(Double volume) {
+    this.volume = volume;
+  }
 
-	public SignalSubscriber subscriptionDate(DateTime subscriptionDate) {
-		this.subscriptionDate = subscriptionDate;
-		return this;
-	}
+  public SignalSubscriber subscriptionDate(DateTime subscriptionDate) {
+    this.subscriptionDate = subscriptionDate;
+    return this;
+  }
 
-	/**
-	 * Get subscriptionDate
-	 *
-	 * @return subscriptionDate
-	 **/
-	@Schema(description = "")
-	public DateTime getSubscriptionDate() {
-		return subscriptionDate;
-	}
+  /**
+   * Get subscriptionDate
+   *
+   * @return subscriptionDate
+   **/
+  @Schema(description = "")
+  public DateTime getSubscriptionDate() {
+    return subscriptionDate;
+  }
 
-	public void setSubscriptionDate(DateTime subscriptionDate) {
-		this.subscriptionDate = subscriptionDate;
-	}
+  public void setSubscriptionDate(DateTime subscriptionDate) {
+    this.subscriptionDate = subscriptionDate;
+  }
 
-	public SignalSubscriber unsubscriptionDate(DateTime unsubscriptionDate) {
-		this.unsubscriptionDate = unsubscriptionDate;
-		return this;
-	}
+  public SignalSubscriber unsubscriptionDate(DateTime unsubscriptionDate) {
+    this.unsubscriptionDate = unsubscriptionDate;
+    return this;
+  }
 
-	/**
-	 * Get unsubscriptionDate
-	 *
-	 * @return unsubscriptionDate
-	 **/
-	@Schema(description = "")
-	public DateTime getUnsubscriptionDate() {
-		return unsubscriptionDate;
-	}
+  /**
+   * Get unsubscriptionDate
+   *
+   * @return unsubscriptionDate
+   **/
+  @Schema(description = "")
+  public DateTime getUnsubscriptionDate() {
+    return unsubscriptionDate;
+  }
 
-	public void setUnsubscriptionDate(DateTime unsubscriptionDate) {
-		this.unsubscriptionDate = unsubscriptionDate;
-	}
+  public void setUnsubscriptionDate(DateTime unsubscriptionDate) {
+    this.unsubscriptionDate = unsubscriptionDate;
+  }
 
-	public SignalSubscriber status(SignalSubscriberStatus status) {
-		this.status = status;
-		return this;
-	}
+  public SignalSubscriber status(SignalSubscriberStatus status) {
+    this.status = status;
+    return this;
+  }
 
-	/**
-	 * Get status
-	 *
-	 * @return status
-	 **/
-	@Schema(description = "")
-	public SignalSubscriberStatus getStatus() {
-		return status;
-	}
+  /**
+   * Get status
+   *
+   * @return status
+   **/
+  @Schema(description = "")
+  public SignalSubscriberStatus getStatus() {
+    return status;
+  }
 
-	public void setStatus(SignalSubscriberStatus status) {
-		this.status = status;
-	}
+  public void setStatus(SignalSubscriberStatus status) {
+    this.status = status;
+  }
 
-	public SignalSubscriber totalCommissionAmount(Double totalCommissionAmount) {
-		this.totalCommissionAmount = totalCommissionAmount;
-		return this;
-	}
+  public SignalSubscriber totalCommissionAmount(Double totalCommissionAmount) {
+    this.totalCommissionAmount = totalCommissionAmount;
+    return this;
+  }
 
-	/**
-	 * Get totalCommissionAmount
-	 *
-	 * @return totalCommissionAmount
-	 **/
-	@Schema(description = "")
-	public Double getTotalCommissionAmount() {
-		return totalCommissionAmount;
-	}
+  /**
+   * Get totalCommissionAmount
+   *
+   * @return totalCommissionAmount
+   **/
+  @Schema(description = "")
+  public Double getTotalCommissionAmount() {
+    return totalCommissionAmount;
+  }
 
-	public void setTotalCommissionAmount(Double totalCommissionAmount) {
-		this.totalCommissionAmount = totalCommissionAmount;
-	}
+  public void setTotalCommissionAmount(Double totalCommissionAmount) {
+    this.totalCommissionAmount = totalCommissionAmount;
+  }
 
-	public SignalSubscriber totalCommissionCurrency(Currency totalCommissionCurrency) {
-		this.totalCommissionCurrency = totalCommissionCurrency;
-		return this;
-	}
+  public SignalSubscriber totalCommissionCurrency(Currency totalCommissionCurrency) {
+    this.totalCommissionCurrency = totalCommissionCurrency;
+    return this;
+  }
 
-	/**
-	 * Get totalCommissionCurrency
-	 *
-	 * @return totalCommissionCurrency
-	 **/
-	@Schema(description = "")
-	public Currency getTotalCommissionCurrency() {
-		return totalCommissionCurrency;
-	}
+  /**
+   * Get totalCommissionCurrency
+   *
+   * @return totalCommissionCurrency
+   **/
+  @Schema(description = "")
+  public Currency getTotalCommissionCurrency() {
+    return totalCommissionCurrency;
+  }
 
-	public void setTotalCommissionCurrency(Currency totalCommissionCurrency) {
-		this.totalCommissionCurrency = totalCommissionCurrency;
-	}
+  public void setTotalCommissionCurrency(Currency totalCommissionCurrency) {
+    this.totalCommissionCurrency = totalCommissionCurrency;
+  }
 
-	public SignalSubscriber totalSuccessFeeAmount(Double totalSuccessFeeAmount) {
-		this.totalSuccessFeeAmount = totalSuccessFeeAmount;
-		return this;
-	}
+  public SignalSubscriber totalSuccessFeeAmount(Double totalSuccessFeeAmount) {
+    this.totalSuccessFeeAmount = totalSuccessFeeAmount;
+    return this;
+  }
 
-	/**
-	 * Get totalSuccessFeeAmount
-	 *
-	 * @return totalSuccessFeeAmount
-	 **/
-	@Schema(description = "")
-	public Double getTotalSuccessFeeAmount() {
-		return totalSuccessFeeAmount;
-	}
+  /**
+   * Get totalSuccessFeeAmount
+   *
+   * @return totalSuccessFeeAmount
+   **/
+  @Schema(description = "")
+  public Double getTotalSuccessFeeAmount() {
+    return totalSuccessFeeAmount;
+  }
 
-	public void setTotalSuccessFeeAmount(Double totalSuccessFeeAmount) {
-		this.totalSuccessFeeAmount = totalSuccessFeeAmount;
-	}
+  public void setTotalSuccessFeeAmount(Double totalSuccessFeeAmount) {
+    this.totalSuccessFeeAmount = totalSuccessFeeAmount;
+  }
 
-	public SignalSubscriber totalSuccessFeeCurrency(Currency totalSuccessFeeCurrency) {
-		this.totalSuccessFeeCurrency = totalSuccessFeeCurrency;
-		return this;
-	}
+  public SignalSubscriber totalSuccessFeeCurrency(Currency totalSuccessFeeCurrency) {
+    this.totalSuccessFeeCurrency = totalSuccessFeeCurrency;
+    return this;
+  }
 
-	/**
-	 * Get totalSuccessFeeCurrency
-	 *
-	 * @return totalSuccessFeeCurrency
-	 **/
-	@Schema(description = "")
-	public Currency getTotalSuccessFeeCurrency() {
-		return totalSuccessFeeCurrency;
-	}
+  /**
+   * Get totalSuccessFeeCurrency
+   *
+   * @return totalSuccessFeeCurrency
+   **/
+  @Schema(description = "")
+  public Currency getTotalSuccessFeeCurrency() {
+    return totalSuccessFeeCurrency;
+  }
 
-	public void setTotalSuccessFeeCurrency(Currency totalSuccessFeeCurrency) {
-		this.totalSuccessFeeCurrency = totalSuccessFeeCurrency;
-	}
+  public void setTotalSuccessFeeCurrency(Currency totalSuccessFeeCurrency) {
+    this.totalSuccessFeeCurrency = totalSuccessFeeCurrency;
+  }
 
-	public SignalSubscriber totalVolumeFeeAmount(Double totalVolumeFeeAmount) {
-		this.totalVolumeFeeAmount = totalVolumeFeeAmount;
-		return this;
-	}
+  public SignalSubscriber totalVolumeFeeAmount(Double totalVolumeFeeAmount) {
+    this.totalVolumeFeeAmount = totalVolumeFeeAmount;
+    return this;
+  }
 
-	/**
-	 * Get totalVolumeFeeAmount
-	 *
-	 * @return totalVolumeFeeAmount
-	 **/
-	@Schema(description = "")
-	public Double getTotalVolumeFeeAmount() {
-		return totalVolumeFeeAmount;
-	}
+  /**
+   * Get totalVolumeFeeAmount
+   *
+   * @return totalVolumeFeeAmount
+   **/
+  @Schema(description = "")
+  public Double getTotalVolumeFeeAmount() {
+    return totalVolumeFeeAmount;
+  }
 
-	public void setTotalVolumeFeeAmount(Double totalVolumeFeeAmount) {
-		this.totalVolumeFeeAmount = totalVolumeFeeAmount;
-	}
+  public void setTotalVolumeFeeAmount(Double totalVolumeFeeAmount) {
+    this.totalVolumeFeeAmount = totalVolumeFeeAmount;
+  }
 
-	public SignalSubscriber totalVolumeFeeCurrency(Currency totalVolumeFeeCurrency) {
-		this.totalVolumeFeeCurrency = totalVolumeFeeCurrency;
-		return this;
-	}
+  public SignalSubscriber totalVolumeFeeCurrency(Currency totalVolumeFeeCurrency) {
+    this.totalVolumeFeeCurrency = totalVolumeFeeCurrency;
+    return this;
+  }
 
-	/**
-	 * Get totalVolumeFeeCurrency
-	 *
-	 * @return totalVolumeFeeCurrency
-	 **/
-	@Schema(description = "")
-	public Currency getTotalVolumeFeeCurrency() {
-		return totalVolumeFeeCurrency;
-	}
+  /**
+   * Get totalVolumeFeeCurrency
+   *
+   * @return totalVolumeFeeCurrency
+   **/
+  @Schema(description = "")
+  public Currency getTotalVolumeFeeCurrency() {
+    return totalVolumeFeeCurrency;
+  }
 
-	public void setTotalVolumeFeeCurrency(Currency totalVolumeFeeCurrency) {
-		this.totalVolumeFeeCurrency = totalVolumeFeeCurrency;
-	}
+  public void setTotalVolumeFeeCurrency(Currency totalVolumeFeeCurrency) {
+    this.totalVolumeFeeCurrency = totalVolumeFeeCurrency;
+  }
 
-	@Override
-	public boolean equals(java.lang.Object o) {
-		if (this == o) {
-			return true;
-		}
-		if (o == null || getClass() != o.getClass()) {
-			return false;
-		}
-		SignalSubscriber signalSubscriber = (SignalSubscriber) o;
-		return Objects.equals(this.number, signalSubscriber.number) &&
-				Objects.equals(this.trades, signalSubscriber.trades) &&
-				Objects.equals(this.profit, signalSubscriber.profit) &&
-				Objects.equals(this.volume, signalSubscriber.volume) &&
-				Objects.equals(this.subscriptionDate, signalSubscriber.subscriptionDate) &&
-				Objects.equals(this.unsubscriptionDate, signalSubscriber.unsubscriptionDate) &&
-				Objects.equals(this.status, signalSubscriber.status) &&
-				Objects.equals(this.totalCommissionAmount, signalSubscriber.totalCommissionAmount) &&
-				Objects.equals(this.totalCommissionCurrency, signalSubscriber.totalCommissionCurrency) &&
-				Objects.equals(this.totalSuccessFeeAmount, signalSubscriber.totalSuccessFeeAmount) &&
-				Objects.equals(this.totalSuccessFeeCurrency, signalSubscriber.totalSuccessFeeCurrency) &&
-				Objects.equals(this.totalVolumeFeeAmount, signalSubscriber.totalVolumeFeeAmount) &&
-				Objects.equals(this.totalVolumeFeeCurrency, signalSubscriber.totalVolumeFeeCurrency);
-	}
+  @Override
+  public boolean equals(java.lang.Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    SignalSubscriber signalSubscriber = (SignalSubscriber) o;
+    return Objects.equals(this.number, signalSubscriber.number) &&
+            Objects.equals(this.trades, signalSubscriber.trades) &&
+            Objects.equals(this.profit, signalSubscriber.profit) &&
+            Objects.equals(this.volume, signalSubscriber.volume) &&
+            Objects.equals(this.subscriptionDate, signalSubscriber.subscriptionDate) &&
+            Objects.equals(this.unsubscriptionDate, signalSubscriber.unsubscriptionDate) &&
+            Objects.equals(this.status, signalSubscriber.status) &&
+            Objects.equals(this.totalCommissionAmount, signalSubscriber.totalCommissionAmount) &&
+            Objects.equals(this.totalCommissionCurrency, signalSubscriber.totalCommissionCurrency) &&
+            Objects.equals(this.totalSuccessFeeAmount, signalSubscriber.totalSuccessFeeAmount) &&
+            Objects.equals(this.totalSuccessFeeCurrency, signalSubscriber.totalSuccessFeeCurrency) &&
+            Objects.equals(this.totalVolumeFeeAmount, signalSubscriber.totalVolumeFeeAmount) &&
+            Objects.equals(this.totalVolumeFeeCurrency, signalSubscriber.totalVolumeFeeCurrency);
+  }
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(number, trades, profit, volume, subscriptionDate, unsubscriptionDate, status, totalCommissionAmount, totalCommissionCurrency, totalSuccessFeeAmount, totalSuccessFeeCurrency, totalVolumeFeeAmount, totalVolumeFeeCurrency);
-	}
+  @Override
+  public int hashCode() {
+    return Objects.hash(number, trades, profit, volume, subscriptionDate, unsubscriptionDate, status, totalCommissionAmount, totalCommissionCurrency, totalSuccessFeeAmount, totalSuccessFeeCurrency, totalVolumeFeeAmount, totalVolumeFeeCurrency);
+  }
 
-	@Override
-	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		sb.append("class SignalSubscriber {\n");
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class SignalSubscriber {\n");
 
-		sb.append("    number: ").append(toIndentedString(number)).append("\n");
-		sb.append("    trades: ").append(toIndentedString(trades)).append("\n");
-		sb.append("    profit: ").append(toIndentedString(profit)).append("\n");
-		sb.append("    volume: ").append(toIndentedString(volume)).append("\n");
-		sb.append("    subscriptionDate: ").append(toIndentedString(subscriptionDate)).append("\n");
-		sb.append("    unsubscriptionDate: ").append(toIndentedString(unsubscriptionDate)).append("\n");
-		sb.append("    status: ").append(toIndentedString(status)).append("\n");
-		sb.append("    totalCommissionAmount: ").append(toIndentedString(totalCommissionAmount)).append("\n");
-		sb.append("    totalCommissionCurrency: ").append(toIndentedString(totalCommissionCurrency)).append("\n");
-		sb.append("    totalSuccessFeeAmount: ").append(toIndentedString(totalSuccessFeeAmount)).append("\n");
-		sb.append("    totalSuccessFeeCurrency: ").append(toIndentedString(totalSuccessFeeCurrency)).append("\n");
-		sb.append("    totalVolumeFeeAmount: ").append(toIndentedString(totalVolumeFeeAmount)).append("\n");
-		sb.append("    totalVolumeFeeCurrency: ").append(toIndentedString(totalVolumeFeeCurrency)).append("\n");
-		sb.append("}");
-		return sb.toString();
-	}
+    sb.append("    number: ").append(toIndentedString(number)).append("\n");
+    sb.append("    trades: ").append(toIndentedString(trades)).append("\n");
+    sb.append("    profit: ").append(toIndentedString(profit)).append("\n");
+    sb.append("    volume: ").append(toIndentedString(volume)).append("\n");
+    sb.append("    subscriptionDate: ").append(toIndentedString(subscriptionDate)).append("\n");
+    sb.append("    unsubscriptionDate: ").append(toIndentedString(unsubscriptionDate)).append("\n");
+    sb.append("    status: ").append(toIndentedString(status)).append("\n");
+    sb.append("    totalCommissionAmount: ").append(toIndentedString(totalCommissionAmount)).append("\n");
+    sb.append("    totalCommissionCurrency: ").append(toIndentedString(totalCommissionCurrency)).append("\n");
+    sb.append("    totalSuccessFeeAmount: ").append(toIndentedString(totalSuccessFeeAmount)).append("\n");
+    sb.append("    totalSuccessFeeCurrency: ").append(toIndentedString(totalSuccessFeeCurrency)).append("\n");
+    sb.append("    totalVolumeFeeAmount: ").append(toIndentedString(totalVolumeFeeAmount)).append("\n");
+    sb.append("    totalVolumeFeeCurrency: ").append(toIndentedString(totalVolumeFeeCurrency)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
 
-	/**
-	 * Convert the given object to string with each line indented by 4 spaces
-	 * (except the first line).
-	 */
-	private String toIndentedString(java.lang.Object o) {
-		if (o == null) {
-			return "null";
-		}
-		return o.toString().replace("\n", "\n    ");
-	}
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(java.lang.Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
 
-	public void writeToParcel(Parcel out, int flags) {
-		out.writeValue(number);
-		out.writeValue(trades);
-		out.writeValue(profit);
-		out.writeValue(volume);
-		out.writeValue(subscriptionDate);
-		out.writeValue(unsubscriptionDate);
-		out.writeValue(status);
-		out.writeValue(totalCommissionAmount);
-		out.writeValue(totalCommissionCurrency);
-		out.writeValue(totalSuccessFeeAmount);
-		out.writeValue(totalSuccessFeeCurrency);
-		out.writeValue(totalVolumeFeeAmount);
-		out.writeValue(totalVolumeFeeCurrency);
-	}
+  public void writeToParcel(Parcel out, int flags) {
+    out.writeValue(number);
+    out.writeValue(trades);
+    out.writeValue(profit);
+    out.writeValue(volume);
+    out.writeValue(subscriptionDate);
+    out.writeValue(unsubscriptionDate);
+    out.writeValue(status);
+    out.writeValue(totalCommissionAmount);
+    out.writeValue(totalCommissionCurrency);
+    out.writeValue(totalSuccessFeeAmount);
+    out.writeValue(totalSuccessFeeCurrency);
+    out.writeValue(totalVolumeFeeAmount);
+    out.writeValue(totalVolumeFeeCurrency);
+  }
 
-	public int describeContents() {
-		return 0;
-	}
+  public int describeContents() {
+    return 0;
+  }
 }

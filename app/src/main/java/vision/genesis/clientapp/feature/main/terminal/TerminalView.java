@@ -29,4 +29,8 @@ interface TerminalView extends MvpView
 	void showPlaceOrderActivity(String selectedSymbol, ExchangeAsset selectedAccount, String operationType);
 
 	void updateChart(ArrayList<KlineModel> klines);
+
+	void showLoginActivity();
+
+	void showAccountGroup(boolean show);
 }

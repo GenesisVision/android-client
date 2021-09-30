@@ -30,7 +30,8 @@ public enum BinanceExecutionType
 	REPLACED("Replaced"),
 	REJECTED("Rejected"),
 	TRADE("Trade"),
-	EXPIRED("Expired");
+	EXPIRED("Expired"),
+	AMENDMENT("Amendment");
 
 	public static BinanceExecutionType fromValue(String text) {
 		for (BinanceExecutionType b : BinanceExecutionType.values()) {

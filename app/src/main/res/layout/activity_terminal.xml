@@ -27,7 +27,9 @@
             android:layout_centerInParent="true"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:gravity="center_vertical"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:visibility="gone"
+            tools:visibility="visible">
 
             <vision.genesis.clientapp.ui.ProgramLogoView
                 android:id="@+id/account_logo"

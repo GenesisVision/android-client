@@ -28,167 +28,167 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class CommonPublicAssetsViewModel implements Parcelable
 {
-	public static final Parcelable.Creator<CommonPublicAssetsViewModel> CREATOR = new Parcelable.Creator<CommonPublicAssetsViewModel>()
-	{
-		public CommonPublicAssetsViewModel createFromParcel(Parcel in) {
-			return new CommonPublicAssetsViewModel(in);
-		}
+  public static final Parcelable.Creator<CommonPublicAssetsViewModel> CREATOR = new Parcelable.Creator<CommonPublicAssetsViewModel>()
+  {
+    public CommonPublicAssetsViewModel createFromParcel(Parcel in) {
+      return new CommonPublicAssetsViewModel(in);
+    }
 
-		public CommonPublicAssetsViewModel[] newArray(int size) {
-			return new CommonPublicAssetsViewModel[size];
-		}
-	};
+    public CommonPublicAssetsViewModel[] newArray(int size) {
+      return new CommonPublicAssetsViewModel[size];
+    }
+  };
 
-	@SerializedName("programs")
-	private ProgramDetailsListItemItemsViewModel programs = null;
+  @SerializedName("programs")
+  private ProgramDetailsListItemItemsViewModel programs = null;
 
-	@SerializedName("funds")
-	private FundDetailsListItemItemsViewModel funds = null;
+  @SerializedName("funds")
+  private FundDetailsListItemItemsViewModel funds = null;
 
-	@SerializedName("follows")
-	private FollowDetailsListItemItemsViewModel follows = null;
+  @SerializedName("follows")
+  private FollowDetailsListItemItemsViewModel follows = null;
 
-	@SerializedName("managers")
-	private PublicProfileItemsViewModel managers = null;
+  @SerializedName("managers")
+  private PublicProfileItemsViewModel managers = null;
 
-	public CommonPublicAssetsViewModel() {
-	}
+  public CommonPublicAssetsViewModel() {
+  }
 
-	CommonPublicAssetsViewModel(Parcel in) {
-		programs = (ProgramDetailsListItemItemsViewModel) in.readValue(ProgramDetailsListItemItemsViewModel.class.getClassLoader());
-		funds = (FundDetailsListItemItemsViewModel) in.readValue(FundDetailsListItemItemsViewModel.class.getClassLoader());
-		follows = (FollowDetailsListItemItemsViewModel) in.readValue(FollowDetailsListItemItemsViewModel.class.getClassLoader());
-		managers = (PublicProfileItemsViewModel) in.readValue(PublicProfileItemsViewModel.class.getClassLoader());
-	}
+  CommonPublicAssetsViewModel(Parcel in) {
+    programs = (ProgramDetailsListItemItemsViewModel) in.readValue(ProgramDetailsListItemItemsViewModel.class.getClassLoader());
+    funds = (FundDetailsListItemItemsViewModel) in.readValue(FundDetailsListItemItemsViewModel.class.getClassLoader());
+    follows = (FollowDetailsListItemItemsViewModel) in.readValue(FollowDetailsListItemItemsViewModel.class.getClassLoader());
+    managers = (PublicProfileItemsViewModel) in.readValue(PublicProfileItemsViewModel.class.getClassLoader());
+  }
 
-	public CommonPublicAssetsViewModel programs(ProgramDetailsListItemItemsViewModel programs) {
-		this.programs = programs;
-		return this;
-	}
+  public CommonPublicAssetsViewModel programs(ProgramDetailsListItemItemsViewModel programs) {
+    this.programs = programs;
+    return this;
+  }
 
-	/**
-	 * Get programs
-	 *
-	 * @return programs
-	 **/
-	@Schema(description = "")
-	public ProgramDetailsListItemItemsViewModel getPrograms() {
-		return programs;
-	}
+  /**
+   * Get programs
+   *
+   * @return programs
+   **/
+  @Schema(description = "")
+  public ProgramDetailsListItemItemsViewModel getPrograms() {
+    return programs;
+  }
 
-	public void setPrograms(ProgramDetailsListItemItemsViewModel programs) {
-		this.programs = programs;
-	}
+  public void setPrograms(ProgramDetailsListItemItemsViewModel programs) {
+    this.programs = programs;
+  }
 
-	public CommonPublicAssetsViewModel funds(FundDetailsListItemItemsViewModel funds) {
-		this.funds = funds;
-		return this;
-	}
+  public CommonPublicAssetsViewModel funds(FundDetailsListItemItemsViewModel funds) {
+    this.funds = funds;
+    return this;
+  }
 
-	/**
-	 * Get funds
-	 *
-	 * @return funds
-	 **/
-	@Schema(description = "")
-	public FundDetailsListItemItemsViewModel getFunds() {
-		return funds;
-	}
+  /**
+   * Get funds
+   *
+   * @return funds
+   **/
+  @Schema(description = "")
+  public FundDetailsListItemItemsViewModel getFunds() {
+    return funds;
+  }
 
-	public void setFunds(FundDetailsListItemItemsViewModel funds) {
-		this.funds = funds;
-	}
+  public void setFunds(FundDetailsListItemItemsViewModel funds) {
+    this.funds = funds;
+  }
 
-	public CommonPublicAssetsViewModel follows(FollowDetailsListItemItemsViewModel follows) {
-		this.follows = follows;
-		return this;
-	}
+  public CommonPublicAssetsViewModel follows(FollowDetailsListItemItemsViewModel follows) {
+    this.follows = follows;
+    return this;
+  }
 
-	/**
-	 * Get follows
-	 *
-	 * @return follows
-	 **/
-	@Schema(description = "")
-	public FollowDetailsListItemItemsViewModel getFollows() {
-		return follows;
-	}
+  /**
+   * Get follows
+   *
+   * @return follows
+   **/
+  @Schema(description = "")
+  public FollowDetailsListItemItemsViewModel getFollows() {
+    return follows;
+  }
 
-	public void setFollows(FollowDetailsListItemItemsViewModel follows) {
-		this.follows = follows;
-	}
+  public void setFollows(FollowDetailsListItemItemsViewModel follows) {
+    this.follows = follows;
+  }
 
-	public CommonPublicAssetsViewModel managers(PublicProfileItemsViewModel managers) {
-		this.managers = managers;
-		return this;
-	}
+  public CommonPublicAssetsViewModel managers(PublicProfileItemsViewModel managers) {
+    this.managers = managers;
+    return this;
+  }
 
-	/**
-	 * Get managers
-	 *
-	 * @return managers
-	 **/
-	@Schema(description = "")
-	public PublicProfileItemsViewModel getManagers() {
-		return managers;
-	}
+  /**
+   * Get managers
+   *
+   * @return managers
+   **/
+  @Schema(description = "")
+  public PublicProfileItemsViewModel getManagers() {
+    return managers;
+  }
 
-	public void setManagers(PublicProfileItemsViewModel managers) {
-		this.managers = managers;
-	}
+  public void setManagers(PublicProfileItemsViewModel managers) {
+    this.managers = managers;
+  }
 
-	@Override
-	public boolean equals(java.lang.Object o) {
-		if (this == o) {
-			return true;
-		}
-		if (o == null || getClass() != o.getClass()) {
-			return false;
-		}
-		CommonPublicAssetsViewModel commonPublicAssetsViewModel = (CommonPublicAssetsViewModel) o;
-		return Objects.equals(this.programs, commonPublicAssetsViewModel.programs) &&
-				Objects.equals(this.funds, commonPublicAssetsViewModel.funds) &&
-				Objects.equals(this.follows, commonPublicAssetsViewModel.follows) &&
-				Objects.equals(this.managers, commonPublicAssetsViewModel.managers);
-	}
+  @Override
+  public boolean equals(java.lang.Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    CommonPublicAssetsViewModel commonPublicAssetsViewModel = (CommonPublicAssetsViewModel) o;
+    return Objects.equals(this.programs, commonPublicAssetsViewModel.programs) &&
+            Objects.equals(this.funds, commonPublicAssetsViewModel.funds) &&
+            Objects.equals(this.follows, commonPublicAssetsViewModel.follows) &&
+            Objects.equals(this.managers, commonPublicAssetsViewModel.managers);
+  }
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(programs, funds, follows, managers);
-	}
+  @Override
+  public int hashCode() {
+    return Objects.hash(programs, funds, follows, managers);
+  }
 
-	@Override
-	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		sb.append("class CommonPublicAssetsViewModel {\n");
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class CommonPublicAssetsViewModel {\n");
 
-		sb.append("    programs: ").append(toIndentedString(programs)).append("\n");
-		sb.append("    funds: ").append(toIndentedString(funds)).append("\n");
-		sb.append("    follows: ").append(toIndentedString(follows)).append("\n");
-		sb.append("    managers: ").append(toIndentedString(managers)).append("\n");
-		sb.append("}");
-		return sb.toString();
-	}
+    sb.append("    programs: ").append(toIndentedString(programs)).append("\n");
+    sb.append("    funds: ").append(toIndentedString(funds)).append("\n");
+    sb.append("    follows: ").append(toIndentedString(follows)).append("\n");
+    sb.append("    managers: ").append(toIndentedString(managers)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
 
-	/**
-	 * Convert the given object to string with each line indented by 4 spaces
-	 * (except the first line).
-	 */
-	private String toIndentedString(java.lang.Object o) {
-		if (o == null) {
-			return "null";
-		}
-		return o.toString().replace("\n", "\n    ");
-	}
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(java.lang.Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
 
-	public void writeToParcel(Parcel out, int flags) {
-		out.writeValue(programs);
-		out.writeValue(funds);
-		out.writeValue(follows);
-		out.writeValue(managers);
-	}
+  public void writeToParcel(Parcel out, int flags) {
+    out.writeValue(programs);
+    out.writeValue(funds);
+    out.writeValue(follows);
+    out.writeValue(managers);
+  }
 
-	public int describeContents() {
-		return 0;
-	}
+  public int describeContents() {
+    return 0;
+  }
 }

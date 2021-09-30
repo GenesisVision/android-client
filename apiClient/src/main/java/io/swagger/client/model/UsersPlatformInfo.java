@@ -30,165 +30,165 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class UsersPlatformInfo implements Parcelable
 {
-	public static final Parcelable.Creator<UsersPlatformInfo> CREATOR = new Parcelable.Creator<UsersPlatformInfo>()
-	{
-		public UsersPlatformInfo createFromParcel(Parcel in) {
-			return new UsersPlatformInfo(in);
-		}
+  public static final Parcelable.Creator<UsersPlatformInfo> CREATOR = new Parcelable.Creator<UsersPlatformInfo>()
+  {
+    public UsersPlatformInfo createFromParcel(Parcel in) {
+      return new UsersPlatformInfo(in);
+    }
 
-		public UsersPlatformInfo[] newArray(int size) {
-			return new UsersPlatformInfo[size];
-		}
-	};
+    public UsersPlatformInfo[] newArray(int size) {
+      return new UsersPlatformInfo[size];
+    }
+  };
 
-	@SerializedName("tags")
-	private List<Tag> tags = null;
+  @SerializedName("tags")
+  private List<Tag> tags = null;
 
-	@SerializedName("availableBetaFeatures")
-	private List<BetaTestingType> availableBetaFeatures = null;
+  @SerializedName("availableBetaFeatures")
+  private List<BetaTestingType> availableBetaFeatures = null;
 
-	@SerializedName("socialLinkTypes")
-	private List<UsersSocialLinkInfo> socialLinkTypes = null;
+  @SerializedName("socialLinkTypes")
+  private List<UsersSocialLinkInfo> socialLinkTypes = null;
 
-	public UsersPlatformInfo() {
-	}
+  public UsersPlatformInfo() {
+  }
 
-	UsersPlatformInfo(Parcel in) {
-		tags = (List<Tag>) in.readValue(Tag.class.getClassLoader());
-		availableBetaFeatures = (List<BetaTestingType>) in.readValue(BetaTestingType.class.getClassLoader());
-		socialLinkTypes = (List<UsersSocialLinkInfo>) in.readValue(UsersSocialLinkInfo.class.getClassLoader());
-	}
+  UsersPlatformInfo(Parcel in) {
+    tags = (List<Tag>) in.readValue(Tag.class.getClassLoader());
+    availableBetaFeatures = (List<BetaTestingType>) in.readValue(BetaTestingType.class.getClassLoader());
+    socialLinkTypes = (List<UsersSocialLinkInfo>) in.readValue(UsersSocialLinkInfo.class.getClassLoader());
+  }
 
-	public UsersPlatformInfo tags(List<Tag> tags) {
-		this.tags = tags;
-		return this;
-	}
+  public UsersPlatformInfo tags(List<Tag> tags) {
+    this.tags = tags;
+    return this;
+  }
 
-	public UsersPlatformInfo addTagsItem(Tag tagsItem) {
-		if (this.tags == null) {
-			this.tags = new ArrayList<Tag>();
-		}
-		this.tags.add(tagsItem);
-		return this;
-	}
+  public UsersPlatformInfo addTagsItem(Tag tagsItem) {
+    if (this.tags == null) {
+      this.tags = new ArrayList<Tag>();
+    }
+    this.tags.add(tagsItem);
+    return this;
+  }
 
-	/**
-	 * Get tags
-	 *
-	 * @return tags
-	 **/
-	@Schema(description = "")
-	public List<Tag> getTags() {
-		return tags;
-	}
+  /**
+   * Get tags
+   *
+   * @return tags
+   **/
+  @Schema(description = "")
+  public List<Tag> getTags() {
+    return tags;
+  }
 
-	public void setTags(List<Tag> tags) {
-		this.tags = tags;
-	}
+  public void setTags(List<Tag> tags) {
+    this.tags = tags;
+  }
 
-	public UsersPlatformInfo availableBetaFeatures(List<BetaTestingType> availableBetaFeatures) {
-		this.availableBetaFeatures = availableBetaFeatures;
-		return this;
-	}
+  public UsersPlatformInfo availableBetaFeatures(List<BetaTestingType> availableBetaFeatures) {
+    this.availableBetaFeatures = availableBetaFeatures;
+    return this;
+  }
 
-	public UsersPlatformInfo addAvailableBetaFeaturesItem(BetaTestingType availableBetaFeaturesItem) {
-		if (this.availableBetaFeatures == null) {
-			this.availableBetaFeatures = new ArrayList<BetaTestingType>();
-		}
-		this.availableBetaFeatures.add(availableBetaFeaturesItem);
-		return this;
-	}
+  public UsersPlatformInfo addAvailableBetaFeaturesItem(BetaTestingType availableBetaFeaturesItem) {
+    if (this.availableBetaFeatures == null) {
+      this.availableBetaFeatures = new ArrayList<BetaTestingType>();
+    }
+    this.availableBetaFeatures.add(availableBetaFeaturesItem);
+    return this;
+  }
 
-	/**
-	 * Get availableBetaFeatures
-	 *
-	 * @return availableBetaFeatures
-	 **/
-	@Schema(description = "")
-	public List<BetaTestingType> getAvailableBetaFeatures() {
-		return availableBetaFeatures;
-	}
+  /**
+   * Get availableBetaFeatures
+   *
+   * @return availableBetaFeatures
+   **/
+  @Schema(description = "")
+  public List<BetaTestingType> getAvailableBetaFeatures() {
+    return availableBetaFeatures;
+  }
 
-	public void setAvailableBetaFeatures(List<BetaTestingType> availableBetaFeatures) {
-		this.availableBetaFeatures = availableBetaFeatures;
-	}
+  public void setAvailableBetaFeatures(List<BetaTestingType> availableBetaFeatures) {
+    this.availableBetaFeatures = availableBetaFeatures;
+  }
 
-	public UsersPlatformInfo socialLinkTypes(List<UsersSocialLinkInfo> socialLinkTypes) {
-		this.socialLinkTypes = socialLinkTypes;
-		return this;
-	}
+  public UsersPlatformInfo socialLinkTypes(List<UsersSocialLinkInfo> socialLinkTypes) {
+    this.socialLinkTypes = socialLinkTypes;
+    return this;
+  }
 
-	public UsersPlatformInfo addSocialLinkTypesItem(UsersSocialLinkInfo socialLinkTypesItem) {
-		if (this.socialLinkTypes == null) {
-			this.socialLinkTypes = new ArrayList<UsersSocialLinkInfo>();
-		}
-		this.socialLinkTypes.add(socialLinkTypesItem);
-		return this;
-	}
+  public UsersPlatformInfo addSocialLinkTypesItem(UsersSocialLinkInfo socialLinkTypesItem) {
+    if (this.socialLinkTypes == null) {
+      this.socialLinkTypes = new ArrayList<UsersSocialLinkInfo>();
+    }
+    this.socialLinkTypes.add(socialLinkTypesItem);
+    return this;
+  }
 
-	/**
-	 * Get socialLinkTypes
-	 *
-	 * @return socialLinkTypes
-	 **/
-	@Schema(description = "")
-	public List<UsersSocialLinkInfo> getSocialLinkTypes() {
-		return socialLinkTypes;
-	}
+  /**
+   * Get socialLinkTypes
+   *
+   * @return socialLinkTypes
+   **/
+  @Schema(description = "")
+  public List<UsersSocialLinkInfo> getSocialLinkTypes() {
+    return socialLinkTypes;
+  }
 
-	public void setSocialLinkTypes(List<UsersSocialLinkInfo> socialLinkTypes) {
-		this.socialLinkTypes = socialLinkTypes;
-	}
+  public void setSocialLinkTypes(List<UsersSocialLinkInfo> socialLinkTypes) {
+    this.socialLinkTypes = socialLinkTypes;
+  }
 
-	@Override
-	public boolean equals(java.lang.Object o) {
-		if (this == o) {
-			return true;
-		}
-		if (o == null || getClass() != o.getClass()) {
-			return false;
-		}
-		UsersPlatformInfo usersPlatformInfo = (UsersPlatformInfo) o;
-		return Objects.equals(this.tags, usersPlatformInfo.tags) &&
-				Objects.equals(this.availableBetaFeatures, usersPlatformInfo.availableBetaFeatures) &&
-				Objects.equals(this.socialLinkTypes, usersPlatformInfo.socialLinkTypes);
-	}
+  @Override
+  public boolean equals(java.lang.Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    UsersPlatformInfo usersPlatformInfo = (UsersPlatformInfo) o;
+    return Objects.equals(this.tags, usersPlatformInfo.tags) &&
+            Objects.equals(this.availableBetaFeatures, usersPlatformInfo.availableBetaFeatures) &&
+            Objects.equals(this.socialLinkTypes, usersPlatformInfo.socialLinkTypes);
+  }
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(tags, availableBetaFeatures, socialLinkTypes);
-	}
+  @Override
+  public int hashCode() {
+    return Objects.hash(tags, availableBetaFeatures, socialLinkTypes);
+  }
 
-	@Override
-	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		sb.append("class UsersPlatformInfo {\n");
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class UsersPlatformInfo {\n");
 
-		sb.append("    tags: ").append(toIndentedString(tags)).append("\n");
-		sb.append("    availableBetaFeatures: ").append(toIndentedString(availableBetaFeatures)).append("\n");
-		sb.append("    socialLinkTypes: ").append(toIndentedString(socialLinkTypes)).append("\n");
-		sb.append("}");
-		return sb.toString();
-	}
+    sb.append("    tags: ").append(toIndentedString(tags)).append("\n");
+    sb.append("    availableBetaFeatures: ").append(toIndentedString(availableBetaFeatures)).append("\n");
+    sb.append("    socialLinkTypes: ").append(toIndentedString(socialLinkTypes)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
 
-	/**
-	 * Convert the given object to string with each line indented by 4 spaces
-	 * (except the first line).
-	 */
-	private String toIndentedString(java.lang.Object o) {
-		if (o == null) {
-			return "null";
-		}
-		return o.toString().replace("\n", "\n    ");
-	}
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(java.lang.Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
 
-	public void writeToParcel(Parcel out, int flags) {
-		out.writeValue(tags);
-		out.writeValue(availableBetaFeatures);
-		out.writeValue(socialLinkTypes);
-	}
+  public void writeToParcel(Parcel out, int flags) {
+    out.writeValue(tags);
+    out.writeValue(availableBetaFeatures);
+    out.writeValue(socialLinkTypes);
+  }
 
-	public int describeContents() {
-		return 0;
-	}
+  public int describeContents() {
+    return 0;
+  }
 }

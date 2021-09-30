@@ -65,6 +65,9 @@ public class AssetPublicDetails implements Parcelable
 	@SerializedName("creationDate")
 	private DateTime creationDate = null;
 
+	@SerializedName("lastModified")
+	private DateTime lastModified = null;
+
 	@SerializedName("status")
 	private String status = null;
 
@@ -89,6 +92,7 @@ public class AssetPublicDetails implements Parcelable
 		color = (String) in.readValue(null);
 		index = (Integer) in.readValue(null);
 		creationDate = (DateTime) in.readValue(DateTime.class.getClassLoader());
+		lastModified = (DateTime) in.readValue(DateTime.class.getClassLoader());
 		status = (String) in.readValue(null);
 		isOwnAsset = (Boolean) in.readValue(null);
 		typeExt = (AssetTypeExt) in.readValue(AssetTypeExt.class.getClassLoader());
@@ -247,6 +251,25 @@ public class AssetPublicDetails implements Parcelable
 		this.creationDate = creationDate;
 	}
 
+	public AssetPublicDetails lastModified(DateTime lastModified) {
+		this.lastModified = lastModified;
+		return this;
+	}
+
+	/**
+	 * Get lastModified
+	 *
+	 * @return lastModified
+	 **/
+	@Schema(description = "")
+	public DateTime getLastModified() {
+		return lastModified;
+	}
+
+	public void setLastModified(DateTime lastModified) {
+		this.lastModified = lastModified;
+	}
+
 	public AssetPublicDetails status(String status) {
 		this.status = status;
 		return this;
@@ -340,6 +363,7 @@ public class AssetPublicDetails implements Parcelable
 				Objects.equals(this.color, assetPublicDetails.color) &&
 				Objects.equals(this.index, assetPublicDetails.index) &&
 				Objects.equals(this.creationDate, assetPublicDetails.creationDate) &&
+				Objects.equals(this.lastModified, assetPublicDetails.lastModified) &&
 				Objects.equals(this.status, assetPublicDetails.status) &&
 				Objects.equals(this.isOwnAsset, assetPublicDetails.isOwnAsset) &&
 				Objects.equals(this.typeExt, assetPublicDetails.typeExt) &&
@@ -348,7 +372,7 @@ public class AssetPublicDetails implements Parcelable
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(title, description, logo, logoUrl, url, color, index, creationDate, status, isOwnAsset, typeExt, systemUrl);
+		return Objects.hash(title, description, logo, logoUrl, url, color, index, creationDate, lastModified, status, isOwnAsset, typeExt, systemUrl);
 	}
 
 	@Override
@@ -364,6 +388,7 @@ public class AssetPublicDetails implements Parcelable
 		sb.append("    color: ").append(toIndentedString(color)).append("\n");
 		sb.append("    index: ").append(toIndentedString(index)).append("\n");
 		sb.append("    creationDate: ").append(toIndentedString(creationDate)).append("\n");
+		sb.append("    lastModified: ").append(toIndentedString(lastModified)).append("\n");
 		sb.append("    status: ").append(toIndentedString(status)).append("\n");
 		sb.append("    isOwnAsset: ").append(toIndentedString(isOwnAsset)).append("\n");
 		sb.append("    typeExt: ").append(toIndentedString(typeExt)).append("\n");
@@ -392,6 +417,7 @@ public class AssetPublicDetails implements Parcelable
 		out.writeValue(color);
 		out.writeValue(index);
 		out.writeValue(creationDate);
+		out.writeValue(lastModified);
 		out.writeValue(status);
 		out.writeValue(isOwnAsset);
 		out.writeValue(typeExt);

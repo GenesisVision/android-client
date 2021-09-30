@@ -17,6 +17,7 @@ import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -54,6 +55,19 @@ public class FundHistoryEventViewModelItemsViewModel implements Parcelable
 		total = (Integer) in.readValue(null);
 	}
 
+	public FundHistoryEventViewModelItemsViewModel items(List<FundHistoryEventViewModel> items) {
+		this.items = items;
+		return this;
+	}
+
+	public FundHistoryEventViewModelItemsViewModel addItemsItem(FundHistoryEventViewModel itemsItem) {
+		if (this.items == null) {
+			this.items = new ArrayList<FundHistoryEventViewModel>();
+		}
+		this.items.add(itemsItem);
+		return this;
+	}
+
 	/**
 	 * Get items
 	 *
@@ -64,6 +78,15 @@ public class FundHistoryEventViewModelItemsViewModel implements Parcelable
 		return items;
 	}
 
+	public void setItems(List<FundHistoryEventViewModel> items) {
+		this.items = items;
+	}
+
+	public FundHistoryEventViewModelItemsViewModel total(Integer total) {
+		this.total = total;
+		return this;
+	}
+
 	/**
 	 * Get total
 	 *
@@ -72,6 +95,10 @@ public class FundHistoryEventViewModelItemsViewModel implements Parcelable
 	@Schema(description = "")
 	public Integer getTotal() {
 		return total;
+	}
+
+	public void setTotal(Integer total) {
+		this.total = total;
 	}
 
 	@Override

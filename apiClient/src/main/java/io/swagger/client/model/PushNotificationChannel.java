@@ -25,49 +25,49 @@ import java.io.IOException;
 @JsonAdapter(PushNotificationChannel.Adapter.class)
 public enum PushNotificationChannel
 {
-	PLATFORM("Platform"),
-	PROFILE("Profile"),
-	ASSET("Asset"),
-	USER("User"),
-	SIGNAL("Signal"),
-	SOCIAL("Social"),
-	OTHER("Other");
+  PLATFORM("Platform"),
+  PROFILE("Profile"),
+  ASSET("Asset"),
+  USER("User"),
+  SIGNAL("Signal"),
+  SOCIAL("Social"),
+  OTHER("Other");
 
-	public static PushNotificationChannel fromValue(String text) {
-		for (PushNotificationChannel b : PushNotificationChannel.values()) {
-			if (String.valueOf(b.value).equals(text)) {
-				return b;
-			}
-		}
-		return null;
-	}
+  public static PushNotificationChannel fromValue(String text) {
+    for (PushNotificationChannel b : PushNotificationChannel.values()) {
+      if (String.valueOf(b.value).equals(text)) {
+        return b;
+      }
+    }
+    return null;
+  }
 
-	private String value;
+  private String value;
 
-	PushNotificationChannel(String value) {
-		this.value = value;
-	}
+  PushNotificationChannel(String value) {
+    this.value = value;
+  }
 
-	public String getValue() {
-		return value;
-	}
+  public String getValue() {
+    return value;
+  }
 
-	@Override
-	public String toString() {
-		return String.valueOf(value);
-	}
+  @Override
+  public String toString() {
+    return String.valueOf(value);
+  }
 
-	public static class Adapter extends TypeAdapter<PushNotificationChannel>
-	{
-		@Override
-		public void write(final JsonWriter jsonWriter, final PushNotificationChannel enumeration) throws IOException {
-			jsonWriter.value(enumeration.getValue());
-		}
+  public static class Adapter extends TypeAdapter<PushNotificationChannel>
+  {
+    @Override
+    public void write(final JsonWriter jsonWriter, final PushNotificationChannel enumeration) throws IOException {
+      jsonWriter.value(enumeration.getValue());
+    }
 
-		@Override
-		public PushNotificationChannel read(final JsonReader jsonReader) throws IOException {
-			Object value = jsonReader.nextString();
-			return PushNotificationChannel.fromValue(String.valueOf(value));
-		}
-	}
+    @Override
+    public PushNotificationChannel read(final JsonReader jsonReader) throws IOException {
+      Object value = jsonReader.nextString();
+      return PushNotificationChannel.fromValue(String.valueOf(value));
+    }
+  }
 }

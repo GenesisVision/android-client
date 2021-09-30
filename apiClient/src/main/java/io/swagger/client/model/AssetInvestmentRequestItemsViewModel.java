@@ -17,6 +17,7 @@ import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -44,45 +45,71 @@ public class AssetInvestmentRequestItemsViewModel implements Parcelable
 	private List<AssetInvestmentRequest> items = null;
 
 	@SerializedName("total")
-	private Integer total = null;
+    private Integer total = null;
 
-	public AssetInvestmentRequestItemsViewModel() {
-	}
+  public AssetInvestmentRequestItemsViewModel() {
+  }
 
-	AssetInvestmentRequestItemsViewModel(Parcel in) {
-		items = (List<AssetInvestmentRequest>) in.readValue(AssetInvestmentRequest.class.getClassLoader());
-		total = (Integer) in.readValue(null);
-	}
+  AssetInvestmentRequestItemsViewModel(Parcel in) {
+    items = (List<AssetInvestmentRequest>) in.readValue(AssetInvestmentRequest.class.getClassLoader());
+    total = (Integer) in.readValue(null);
+  }
 
-	/**
-	 * Get items
-	 *
-	 * @return items
-	 **/
-	@Schema(description = "")
-	public List<AssetInvestmentRequest> getItems() {
-		return items;
-	}
+  public AssetInvestmentRequestItemsViewModel items(List<AssetInvestmentRequest> items) {
+    this.items = items;
+    return this;
+  }
 
-	/**
-	 * Get total
-	 *
-	 * @return total
-	 **/
-	@Schema(description = "")
-	public Integer getTotal() {
-		return total;
-	}
+  public AssetInvestmentRequestItemsViewModel addItemsItem(AssetInvestmentRequest itemsItem) {
+    if (this.items == null) {
+      this.items = new ArrayList<AssetInvestmentRequest>();
+    }
+    this.items.add(itemsItem);
+    return this;
+  }
 
-	@Override
-	public boolean equals(java.lang.Object o) {
-		if (this == o) {
-			return true;
-		}
-		if (o == null || getClass() != o.getClass()) {
-			return false;
-		}
-		AssetInvestmentRequestItemsViewModel assetInvestmentRequestItemsViewModel = (AssetInvestmentRequestItemsViewModel) o;
+  /**
+   * Get items
+   *
+   * @return items
+   **/
+  @Schema(description = "")
+  public List<AssetInvestmentRequest> getItems() {
+    return items;
+  }
+
+  public void setItems(List<AssetInvestmentRequest> items) {
+    this.items = items;
+  }
+
+  public AssetInvestmentRequestItemsViewModel total(Integer total) {
+    this.total = total;
+    return this;
+  }
+
+  /**
+   * Get total
+   *
+   * @return total
+   **/
+  @Schema(description = "")
+  public Integer getTotal() {
+    return total;
+  }
+
+  public void setTotal(Integer total) {
+    this.total = total;
+  }
+
+  @Override
+  public boolean equals(java.lang.Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    AssetInvestmentRequestItemsViewModel assetInvestmentRequestItemsViewModel = (AssetInvestmentRequestItemsViewModel) o;
 		return Objects.equals(this.items, assetInvestmentRequestItemsViewModel.items) &&
 				Objects.equals(this.total, assetInvestmentRequestItemsViewModel.total);
 	}

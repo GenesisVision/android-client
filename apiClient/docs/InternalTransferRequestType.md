@@ -9,3 +9,4 @@
 * `SIGNALTRADINGACCOUNT` (value: `"SignalTradingAccount"`)
 * `PUBLICTRADINGACCOUNT` (value: `"PublicTradingAccount"`)
 * `EXCHANGEACCOUNT` (value: `"ExchangeAccount"`)
+* `COINSMARKET` (value: `"CoinsMarket"`)

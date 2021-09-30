@@ -25,45 +25,45 @@ import java.io.IOException;
 @JsonAdapter(UsersFilterTimeframe.Adapter.class)
 public enum UsersFilterTimeframe
 {
-	DAY("Day"),
-	WEEK("Week"),
-	MONTH("Month");
+  DAY("Day"),
+  WEEK("Week"),
+  MONTH("Month");
 
-	public static UsersFilterTimeframe fromValue(String text) {
-		for (UsersFilterTimeframe b : UsersFilterTimeframe.values()) {
-			if (String.valueOf(b.value).equals(text)) {
-				return b;
-			}
-		}
-		return null;
-	}
+  public static UsersFilterTimeframe fromValue(String text) {
+    for (UsersFilterTimeframe b : UsersFilterTimeframe.values()) {
+      if (String.valueOf(b.value).equals(text)) {
+        return b;
+      }
+    }
+    return null;
+  }
 
-	private String value;
+  private String value;
 
-	UsersFilterTimeframe(String value) {
-		this.value = value;
-	}
+  UsersFilterTimeframe(String value) {
+    this.value = value;
+  }
 
-	public String getValue() {
-		return value;
-	}
+  public String getValue() {
+    return value;
+  }
 
-	@Override
-	public String toString() {
-		return String.valueOf(value);
-	}
+  @Override
+  public String toString() {
+    return String.valueOf(value);
+  }
 
-	public static class Adapter extends TypeAdapter<UsersFilterTimeframe>
-	{
-		@Override
-		public void write(final JsonWriter jsonWriter, final UsersFilterTimeframe enumeration) throws IOException {
-			jsonWriter.value(enumeration.getValue());
-		}
+  public static class Adapter extends TypeAdapter<UsersFilterTimeframe>
+  {
+    @Override
+    public void write(final JsonWriter jsonWriter, final UsersFilterTimeframe enumeration) throws IOException {
+      jsonWriter.value(enumeration.getValue());
+    }
 
-		@Override
-		public UsersFilterTimeframe read(final JsonReader jsonReader) throws IOException {
-			Object value = jsonReader.nextString();
-			return UsersFilterTimeframe.fromValue(String.valueOf(value));
-		}
-	}
+    @Override
+    public UsersFilterTimeframe read(final JsonReader jsonReader) throws IOException {
+      Object value = jsonReader.nextString();
+      return UsersFilterTimeframe.fromValue(String.valueOf(value));
+    }
+  }
 }

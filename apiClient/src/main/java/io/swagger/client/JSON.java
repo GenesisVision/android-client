@@ -38,291 +38,291 @@ import io.gsonfire.GsonFireBuilder;
 
 public class JSON
 {
-	public static GsonBuilder createGson() {
-		GsonFireBuilder fireBuilder = new GsonFireBuilder();
-		return fireBuilder.createGsonBuilder();
-	}
+    public static GsonBuilder createGson() {
+        GsonFireBuilder fireBuilder = new GsonFireBuilder();
+        return fireBuilder.createGsonBuilder();
+    }
 
-	private static String getDiscriminatorValue(JsonElement readElement, String discriminatorField) {
-		JsonElement element = readElement.getAsJsonObject().get(discriminatorField);
-		if (null == element) {
-			throw new IllegalArgumentException("missing discriminator field: <" + discriminatorField + ">");
-		}
-		return element.getAsString();
-	}
+    private static String getDiscriminatorValue(JsonElement readElement, String discriminatorField) {
+        JsonElement element = readElement.getAsJsonObject().get(discriminatorField);
+        if (null == element) {
+            throw new IllegalArgumentException("missing discriminator field: <" + discriminatorField + ">");
+        }
+        return element.getAsString();
+    }
 
-	private static Class getClassByDiscriminator(Map classByDiscriminatorValue, String discriminatorValue) {
-		Class clazz = (Class) classByDiscriminatorValue.get(discriminatorValue.toUpperCase());
-		if (null == clazz) {
-			throw new IllegalArgumentException("cannot determine model class of name: <" + discriminatorValue + ">");
-		}
-		return clazz;
-	}
+    private static Class getClassByDiscriminator(Map classByDiscriminatorValue, String discriminatorValue) {
+        Class clazz = (Class) classByDiscriminatorValue.get(discriminatorValue.toUpperCase());
+        if (null == clazz) {
+            throw new IllegalArgumentException("cannot determine model class of name: <" + discriminatorValue + ">");
+        }
+        return clazz;
+    }
 
-	private Gson gson;
+    private Gson gson;
 
-	private DateTypeAdapter dateTypeAdapter = new DateTypeAdapter();
+    private DateTypeAdapter dateTypeAdapter = new DateTypeAdapter();
 
-	private SqlDateTypeAdapter sqlDateTypeAdapter = new SqlDateTypeAdapter();
+    private SqlDateTypeAdapter sqlDateTypeAdapter = new SqlDateTypeAdapter();
 
-	private DateTimeTypeAdapter dateTimeTypeAdapter = new DateTimeTypeAdapter();
+    private DateTimeTypeAdapter dateTimeTypeAdapter = new DateTimeTypeAdapter();
 
-	private LocalDateTypeAdapter localDateTypeAdapter = new LocalDateTypeAdapter();
+    private LocalDateTypeAdapter localDateTypeAdapter = new LocalDateTypeAdapter();
 
-	public JSON() {
-		gson = createGson()
-				.registerTypeAdapter(Date.class, dateTypeAdapter)
-				.registerTypeAdapter(java.sql.Date.class, sqlDateTypeAdapter)
-				.registerTypeAdapter(DateTime.class, dateTimeTypeAdapter)
-				.registerTypeAdapter(LocalDate.class, localDateTypeAdapter)
-				.create();
-	}
+    public JSON() {
+        gson = createGson()
+                .registerTypeAdapter(Date.class, dateTypeAdapter)
+                .registerTypeAdapter(java.sql.Date.class, sqlDateTypeAdapter)
+                .registerTypeAdapter(DateTime.class, dateTimeTypeAdapter)
+                .registerTypeAdapter(LocalDate.class, localDateTypeAdapter)
+                .create();
+    }
 
-	/**
-	 * Get Gson.
-	 *
-	 * @return Gson
-	 */
-	public Gson getGson() {
-		return gson;
-	}
+    /**
+     * Get Gson.
+     *
+     * @return Gson
+     */
+    public Gson getGson() {
+        return gson;
+    }
 
-	/**
-	 * Set Gson.
-	 *
-	 * @param gson Gson
-	 * @return JSON
-	 */
-	public JSON setGson(Gson gson) {
-		this.gson = gson;
-		return this;
-	}
+    /**
+     * Set Gson.
+     *
+     * @param gson Gson
+     * @return JSON
+     */
+    public JSON setGson(Gson gson) {
+        this.gson = gson;
+        return this;
+    }
 
-	public JSON setDateTimeFormat(DateTimeFormatter dateFormat) {
-		dateTimeTypeAdapter.setFormat(dateFormat);
-		return this;
-	}
+    public JSON setDateTimeFormat(DateTimeFormatter dateFormat) {
+        dateTimeTypeAdapter.setFormat(dateFormat);
+        return this;
+    }
 
-	public JSON setLocalDateFormat(DateTimeFormatter dateFormat) {
-		localDateTypeAdapter.setFormat(dateFormat);
-		return this;
-	}
+    public JSON setLocalDateFormat(DateTimeFormatter dateFormat) {
+        localDateTypeAdapter.setFormat(dateFormat);
+        return this;
+    }
 
-	public JSON setDateFormat(DateFormat dateFormat) {
-		dateTypeAdapter.setFormat(dateFormat);
-		return this;
-	}
+    public JSON setDateFormat(DateFormat dateFormat) {
+        dateTypeAdapter.setFormat(dateFormat);
+        return this;
+    }
 
-	public JSON setSqlDateFormat(DateFormat dateFormat) {
-		sqlDateTypeAdapter.setFormat(dateFormat);
-		return this;
-	}
+    public JSON setSqlDateFormat(DateFormat dateFormat) {
+        sqlDateTypeAdapter.setFormat(dateFormat);
+        return this;
+    }
 
-	/**
-	 * Gson TypeAdapter for Joda DateTime type
-	 */
-	public static class DateTimeTypeAdapter extends TypeAdapter<DateTime>
-	{
+    /**
+     * Gson TypeAdapter for Joda DateTime type
+     */
+    public static class DateTimeTypeAdapter extends TypeAdapter<DateTime>
+    {
 
-		private DateTimeFormatter formatter;
+        private DateTimeFormatter formatter;
 
-		public DateTimeTypeAdapter() {
-			this(new DateTimeFormatterBuilder()
-					.append(ISODateTimeFormat.dateTime().getPrinter(), ISODateTimeFormat.dateOptionalTimeParser().getParser())
-					.toFormatter());
-		}
+        public DateTimeTypeAdapter() {
+            this(new DateTimeFormatterBuilder()
+                    .append(ISODateTimeFormat.dateTime().getPrinter(), ISODateTimeFormat.dateOptionalTimeParser().getParser())
+                    .toFormatter());
+        }
 
-		public DateTimeTypeAdapter(DateTimeFormatter formatter) {
-			this.formatter = formatter;
-		}
+        public DateTimeTypeAdapter(DateTimeFormatter formatter) {
+            this.formatter = formatter;
+        }
 
-		public void setFormat(DateTimeFormatter dateFormat) {
-			this.formatter = dateFormat;
-		}
+        public void setFormat(DateTimeFormatter dateFormat) {
+            this.formatter = dateFormat;
+        }
 
-		@Override
-		public void write(JsonWriter out, DateTime date) throws IOException {
-			if (date == null) {
-				out.nullValue();
-			}
-			else {
-				out.value(formatter.print(date));
-			}
-		}
+        @Override
+        public void write(JsonWriter out, DateTime date) throws IOException {
+            if (date == null) {
+                out.nullValue();
+            }
+            else {
+                out.value(formatter.print(date));
+            }
+        }
 
-		@Override
-		public DateTime read(JsonReader in) throws IOException {
-			switch (in.peek()) {
-				case NULL:
-					in.nextNull();
-					return null;
-				default:
-					String date = in.nextString();
-					return formatter.parseDateTime(date);
-			}
-		}
-	}
+        @Override
+        public DateTime read(JsonReader in) throws IOException {
+            switch (in.peek()) {
+                case NULL:
+                    in.nextNull();
+                    return null;
+                default:
+                    String date = in.nextString();
+                    return formatter.parseDateTime(date);
+            }
+        }
+    }
 
-	/**
-	 * Gson TypeAdapter for java.sql.Date type
-	 * If the dateFormat is null, a simple "yyyy-MM-dd" format will be used
-	 * (more efficient than SimpleDateFormat).
-	 */
-	public static class SqlDateTypeAdapter extends TypeAdapter<java.sql.Date>
-	{
+    /**
+     * Gson TypeAdapter for java.sql.Date type
+     * If the dateFormat is null, a simple "yyyy-MM-dd" format will be used
+     * (more efficient than SimpleDateFormat).
+     */
+    public static class SqlDateTypeAdapter extends TypeAdapter<java.sql.Date>
+    {
 
-		private DateFormat dateFormat;
+        private DateFormat dateFormat;
 
-		public SqlDateTypeAdapter() {
-		}
+        public SqlDateTypeAdapter() {
+        }
 
-		public SqlDateTypeAdapter(DateFormat dateFormat) {
-			this.dateFormat = dateFormat;
-		}
+        public SqlDateTypeAdapter(DateFormat dateFormat) {
+            this.dateFormat = dateFormat;
+        }
 
-		public void setFormat(DateFormat dateFormat) {
-			this.dateFormat = dateFormat;
-		}
+        public void setFormat(DateFormat dateFormat) {
+            this.dateFormat = dateFormat;
+        }
 
-		@Override
-		public void write(JsonWriter out, java.sql.Date date) throws IOException {
-			if (date == null) {
-				out.nullValue();
-			}
-			else {
-				String value;
-				if (dateFormat != null) {
-					value = dateFormat.format(date);
-				}
-				else {
-					value = date.toString();
-				}
-				out.value(value);
-			}
-		}
+        @Override
+        public void write(JsonWriter out, java.sql.Date date) throws IOException {
+            if (date == null) {
+                out.nullValue();
+            }
+            else {
+                String value;
+                if (dateFormat != null) {
+                    value = dateFormat.format(date);
+                }
+                else {
+                    value = date.toString();
+                }
+                out.value(value);
+            }
+        }
 
-		@Override
-		public java.sql.Date read(JsonReader in) throws IOException {
-			switch (in.peek()) {
-				case NULL:
-					in.nextNull();
-					return null;
-				default:
-					String date = in.nextString();
-					try {
-						if (dateFormat != null) {
-							return new java.sql.Date(dateFormat.parse(date).getTime());
-						}
-						return new java.sql.Date(ISO8601Utils.parse(date, new ParsePosition(0)).getTime());
-					} catch (ParseException e) {
-						throw new JsonParseException(e);
-					}
-			}
-		}
-	}
+        @Override
+        public java.sql.Date read(JsonReader in) throws IOException {
+            switch (in.peek()) {
+                case NULL:
+                    in.nextNull();
+                    return null;
+                default:
+                    String date = in.nextString();
+                    try {
+                        if (dateFormat != null) {
+                            return new java.sql.Date(dateFormat.parse(date).getTime());
+                        }
+                        return new java.sql.Date(ISO8601Utils.parse(date, new ParsePosition(0)).getTime());
+                    } catch (ParseException e) {
+                        throw new JsonParseException(e);
+                    }
+            }
+        }
+    }
 
-	/**
-	 * Gson TypeAdapter for java.util.Date type
-	 * If the dateFormat is null, ISO8601Utils will be used.
-	 */
-	public static class DateTypeAdapter extends TypeAdapter<Date>
-	{
+    /**
+     * Gson TypeAdapter for java.util.Date type
+     * If the dateFormat is null, ISO8601Utils will be used.
+     */
+    public static class DateTypeAdapter extends TypeAdapter<Date>
+    {
 
-		private DateFormat dateFormat;
+        private DateFormat dateFormat;
 
-		public DateTypeAdapter() {
-		}
+        public DateTypeAdapter() {
+        }
 
-		public DateTypeAdapter(DateFormat dateFormat) {
-			this.dateFormat = dateFormat;
-		}
+        public DateTypeAdapter(DateFormat dateFormat) {
+            this.dateFormat = dateFormat;
+        }
 
-		public void setFormat(DateFormat dateFormat) {
-			this.dateFormat = dateFormat;
-		}
+        public void setFormat(DateFormat dateFormat) {
+            this.dateFormat = dateFormat;
+        }
 
-		@Override
-		public void write(JsonWriter out, Date date) throws IOException {
-			if (date == null) {
-				out.nullValue();
-			}
-			else {
-				String value;
-				if (dateFormat != null) {
-					value = dateFormat.format(date);
-				}
-				else {
-					value = ISO8601Utils.format(date, true);
-				}
-				out.value(value);
-			}
-		}
+        @Override
+        public void write(JsonWriter out, Date date) throws IOException {
+            if (date == null) {
+                out.nullValue();
+            }
+            else {
+                String value;
+                if (dateFormat != null) {
+                    value = dateFormat.format(date);
+                }
+                else {
+                    value = ISO8601Utils.format(date, true);
+                }
+                out.value(value);
+            }
+        }
 
-		@Override
-		public Date read(JsonReader in) throws IOException {
-			try {
-				switch (in.peek()) {
-					case NULL:
-						in.nextNull();
-						return null;
-					default:
-						String date = in.nextString();
-						try {
-							if (dateFormat != null) {
-								return dateFormat.parse(date);
-							}
-							return ISO8601Utils.parse(date, new ParsePosition(0));
-						} catch (ParseException e) {
-							throw new JsonParseException(e);
-						}
-				}
-			} catch (IllegalArgumentException e) {
-				throw new JsonParseException(e);
-			}
-		}
-	}
+        @Override
+        public Date read(JsonReader in) throws IOException {
+            try {
+                switch (in.peek()) {
+                    case NULL:
+                        in.nextNull();
+                        return null;
+                    default:
+                        String date = in.nextString();
+                        try {
+                            if (dateFormat != null) {
+                                return dateFormat.parse(date);
+                            }
+                            return ISO8601Utils.parse(date, new ParsePosition(0));
+                        } catch (ParseException e) {
+                            throw new JsonParseException(e);
+                        }
+                }
+            } catch (IllegalArgumentException e) {
+                throw new JsonParseException(e);
+            }
+        }
+    }
 
-	/**
-	 * Gson TypeAdapter for Joda LocalDate type
-	 */
-	public class LocalDateTypeAdapter extends TypeAdapter<LocalDate>
-	{
+    /**
+     * Gson TypeAdapter for Joda LocalDate type
+     */
+    public class LocalDateTypeAdapter extends TypeAdapter<LocalDate>
+    {
 
-		private DateTimeFormatter formatter;
+        private DateTimeFormatter formatter;
 
-		public LocalDateTypeAdapter() {
-			this(ISODateTimeFormat.date());
-		}
+        public LocalDateTypeAdapter() {
+            this(ISODateTimeFormat.date());
+        }
 
-		public LocalDateTypeAdapter(DateTimeFormatter formatter) {
-			this.formatter = formatter;
-		}
+        public LocalDateTypeAdapter(DateTimeFormatter formatter) {
+            this.formatter = formatter;
+        }
 
-		public void setFormat(DateTimeFormatter dateFormat) {
-			this.formatter = dateFormat;
-		}
+        public void setFormat(DateTimeFormatter dateFormat) {
+            this.formatter = dateFormat;
+        }
 
-		@Override
-		public void write(JsonWriter out, LocalDate date) throws IOException {
-			if (date == null) {
-				out.nullValue();
-			}
-			else {
-				out.value(formatter.print(date));
-			}
-		}
+        @Override
+        public void write(JsonWriter out, LocalDate date) throws IOException {
+            if (date == null) {
+                out.nullValue();
+            }
+            else {
+                out.value(formatter.print(date));
+            }
+        }
 
-		@Override
-		public LocalDate read(JsonReader in) throws IOException {
-			switch (in.peek()) {
-				case NULL:
-					in.nextNull();
-					return null;
-				default:
-					String date = in.nextString();
-					return formatter.parseLocalDate(date);
-			}
-		}
-	}
+        @Override
+        public LocalDate read(JsonReader in) throws IOException {
+            switch (in.peek()) {
+                case NULL:
+                    in.nextNull();
+                    return null;
+                default:
+                    String date = in.nextString();
+                    return formatter.parseLocalDate(date);
+            }
+        }
+    }
 
 }

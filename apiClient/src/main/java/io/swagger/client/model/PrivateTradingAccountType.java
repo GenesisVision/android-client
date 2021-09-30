@@ -25,46 +25,46 @@ import java.io.IOException;
 @JsonAdapter(PrivateTradingAccountType.Adapter.class)
 public enum PrivateTradingAccountType
 {
-	NONE("None"),
-	TRADINGACCOUNT("TradingAccount"),
-	EXCHANGEACCOUNT("ExchangeAccount"),
-	EXTERNALTRADINGACCOUNT("ExternalTradingAccount");
+  NONE("None"),
+  TRADINGACCOUNT("TradingAccount"),
+  EXCHANGEACCOUNT("ExchangeAccount"),
+  EXTERNALTRADINGACCOUNT("ExternalTradingAccount");
 
-	public static PrivateTradingAccountType fromValue(String text) {
-		for (PrivateTradingAccountType b : PrivateTradingAccountType.values()) {
-			if (String.valueOf(b.value).equals(text)) {
-				return b;
-			}
-		}
-		return null;
-	}
+  public static PrivateTradingAccountType fromValue(String text) {
+    for (PrivateTradingAccountType b : PrivateTradingAccountType.values()) {
+      if (String.valueOf(b.value).equals(text)) {
+        return b;
+      }
+    }
+    return null;
+  }
 
-	private String value;
+  private String value;
 
-	PrivateTradingAccountType(String value) {
-		this.value = value;
-	}
+  PrivateTradingAccountType(String value) {
+    this.value = value;
+  }
 
-	public String getValue() {
-		return value;
-	}
+  public String getValue() {
+    return value;
+  }
 
-	@Override
-	public String toString() {
-		return String.valueOf(value);
-	}
+  @Override
+  public String toString() {
+    return String.valueOf(value);
+  }
 
-	public static class Adapter extends TypeAdapter<PrivateTradingAccountType>
-	{
-		@Override
-		public void write(final JsonWriter jsonWriter, final PrivateTradingAccountType enumeration) throws IOException {
-			jsonWriter.value(enumeration.getValue());
-		}
+  public static class Adapter extends TypeAdapter<PrivateTradingAccountType>
+  {
+    @Override
+    public void write(final JsonWriter jsonWriter, final PrivateTradingAccountType enumeration) throws IOException {
+      jsonWriter.value(enumeration.getValue());
+    }
 
-		@Override
-		public PrivateTradingAccountType read(final JsonReader jsonReader) throws IOException {
-			Object value = jsonReader.nextString();
-			return PrivateTradingAccountType.fromValue(String.valueOf(value));
-		}
-	}
+    @Override
+    public PrivateTradingAccountType read(final JsonReader jsonReader) throws IOException {
+      Object value = jsonReader.nextString();
+      return PrivateTradingAccountType.fromValue(String.valueOf(value));
+    }
+  }
 }

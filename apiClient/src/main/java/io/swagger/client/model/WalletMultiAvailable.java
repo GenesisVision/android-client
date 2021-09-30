@@ -30,97 +30,97 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class WalletMultiAvailable implements Parcelable
 {
-	public static final Parcelable.Creator<WalletMultiAvailable> CREATOR = new Parcelable.Creator<WalletMultiAvailable>()
-	{
-		public WalletMultiAvailable createFromParcel(Parcel in) {
-			return new WalletMultiAvailable(in);
-		}
+  public static final Parcelable.Creator<WalletMultiAvailable> CREATOR = new Parcelable.Creator<WalletMultiAvailable>()
+  {
+    public WalletMultiAvailable createFromParcel(Parcel in) {
+      return new WalletMultiAvailable(in);
+    }
 
-		public WalletMultiAvailable[] newArray(int size) {
-			return new WalletMultiAvailable[size];
-		}
-	};
+    public WalletMultiAvailable[] newArray(int size) {
+      return new WalletMultiAvailable[size];
+    }
+  };
 
-	@SerializedName("wallets")
-	private List<WalletBaseData> wallets = null;
+  @SerializedName("wallets")
+  private List<WalletBaseData> wallets = null;
 
-	public WalletMultiAvailable() {
-	}
+  public WalletMultiAvailable() {
+  }
 
-	WalletMultiAvailable(Parcel in) {
-		wallets = (List<WalletBaseData>) in.readValue(WalletBaseData.class.getClassLoader());
-	}
+  WalletMultiAvailable(Parcel in) {
+    wallets = (List<WalletBaseData>) in.readValue(WalletBaseData.class.getClassLoader());
+  }
 
-	public WalletMultiAvailable wallets(List<WalletBaseData> wallets) {
-		this.wallets = wallets;
-		return this;
-	}
+  public WalletMultiAvailable wallets(List<WalletBaseData> wallets) {
+    this.wallets = wallets;
+    return this;
+  }
 
-	public WalletMultiAvailable addWalletsItem(WalletBaseData walletsItem) {
-		if (this.wallets == null) {
-			this.wallets = new ArrayList<WalletBaseData>();
-		}
-		this.wallets.add(walletsItem);
-		return this;
-	}
+  public WalletMultiAvailable addWalletsItem(WalletBaseData walletsItem) {
+    if (this.wallets == null) {
+      this.wallets = new ArrayList<WalletBaseData>();
+    }
+    this.wallets.add(walletsItem);
+    return this;
+  }
 
-	/**
-	 * Get wallets
-	 *
-	 * @return wallets
-	 **/
-	@Schema(description = "")
-	public List<WalletBaseData> getWallets() {
-		return wallets;
-	}
+  /**
+   * Get wallets
+   *
+   * @return wallets
+   **/
+  @Schema(description = "")
+  public List<WalletBaseData> getWallets() {
+    return wallets;
+  }
 
-	public void setWallets(List<WalletBaseData> wallets) {
-		this.wallets = wallets;
-	}
+  public void setWallets(List<WalletBaseData> wallets) {
+    this.wallets = wallets;
+  }
 
-	@Override
-	public boolean equals(java.lang.Object o) {
-		if (this == o) {
-			return true;
-		}
-		if (o == null || getClass() != o.getClass()) {
-			return false;
-		}
-		WalletMultiAvailable walletMultiAvailable = (WalletMultiAvailable) o;
-		return Objects.equals(this.wallets, walletMultiAvailable.wallets);
-	}
+  @Override
+  public boolean equals(java.lang.Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    WalletMultiAvailable walletMultiAvailable = (WalletMultiAvailable) o;
+    return Objects.equals(this.wallets, walletMultiAvailable.wallets);
+  }
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(wallets);
-	}
+  @Override
+  public int hashCode() {
+    return Objects.hash(wallets);
+  }
 
-	@Override
-	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		sb.append("class WalletMultiAvailable {\n");
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class WalletMultiAvailable {\n");
 
-		sb.append("    wallets: ").append(toIndentedString(wallets)).append("\n");
-		sb.append("}");
-		return sb.toString();
-	}
+    sb.append("    wallets: ").append(toIndentedString(wallets)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
 
-	/**
-	 * Convert the given object to string with each line indented by 4 spaces
-	 * (except the first line).
-	 */
-	private String toIndentedString(java.lang.Object o) {
-		if (o == null) {
-			return "null";
-		}
-		return o.toString().replace("\n", "\n    ");
-	}
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(java.lang.Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
 
-	public void writeToParcel(Parcel out, int flags) {
-		out.writeValue(wallets);
-	}
+  public void writeToParcel(Parcel out, int flags) {
+    out.writeValue(wallets);
+  }
 
-	public int describeContents() {
-		return 0;
-	}
+  public int describeContents() {
+    return 0;
+  }
 }

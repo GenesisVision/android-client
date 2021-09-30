@@ -8,3 +8,5 @@
 * `WRONGCAPTCHA` (value: `"WrongCaptcha"`)
 * `REQUIRESEMAILCONFIRMATION` (value: `"RequiresEmailConfirmation"`)
 * `REQUIRESSIGNATURE` (value: `"RequiresSignature"`)
+* `NOTFOUND` (value: `"NotFound"`)
+* `FORBIDDEN` (value: `"Forbidden"`)

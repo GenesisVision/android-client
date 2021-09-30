@@ -17,6 +17,7 @@ import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -29,97 +30,123 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class StringItemsViewModel implements Parcelable
 {
-	public static final Parcelable.Creator<StringItemsViewModel> CREATOR = new Parcelable.Creator<StringItemsViewModel>()
-	{
-		public StringItemsViewModel createFromParcel(Parcel in) {
-			return new StringItemsViewModel(in);
-		}
+  public static final Parcelable.Creator<StringItemsViewModel> CREATOR = new Parcelable.Creator<StringItemsViewModel>()
+  {
+    public StringItemsViewModel createFromParcel(Parcel in) {
+      return new StringItemsViewModel(in);
+    }
 
-		public StringItemsViewModel[] newArray(int size) {
-			return new StringItemsViewModel[size];
-		}
-	};
+    public StringItemsViewModel[] newArray(int size) {
+      return new StringItemsViewModel[size];
+    }
+  };
 
-	@SerializedName("items")
-	private List<String> items = null;
+  @SerializedName("items")
+  private List<String> items = null;
 
-	@SerializedName("total")
-	private Integer total = null;
+  @SerializedName("total")
+  private Integer total = null;
 
-	public StringItemsViewModel() {
-	}
+  public StringItemsViewModel() {
+  }
 
-	StringItemsViewModel(Parcel in) {
-		items = (List<String>) in.readValue(null);
-		total = (Integer) in.readValue(null);
-	}
+  StringItemsViewModel(Parcel in) {
+    items = (List<String>) in.readValue(null);
+    total = (Integer) in.readValue(null);
+  }
 
-	/**
-	 * Get items
-	 *
-	 * @return items
-	 **/
-	@Schema(description = "")
-	public List<String> getItems() {
-		return items;
-	}
+  public StringItemsViewModel items(List<String> items) {
+    this.items = items;
+    return this;
+  }
 
-	/**
-	 * Get total
-	 *
-	 * @return total
-	 **/
-	@Schema(description = "")
-	public Integer getTotal() {
-		return total;
-	}
+  public StringItemsViewModel addItemsItem(String itemsItem) {
+    if (this.items == null) {
+      this.items = new ArrayList<String>();
+    }
+    this.items.add(itemsItem);
+    return this;
+  }
 
-	@Override
-	public boolean equals(java.lang.Object o) {
-		if (this == o) {
-			return true;
-		}
-		if (o == null || getClass() != o.getClass()) {
-			return false;
-		}
-		StringItemsViewModel stringItemsViewModel = (StringItemsViewModel) o;
-		return Objects.equals(this.items, stringItemsViewModel.items) &&
-				Objects.equals(this.total, stringItemsViewModel.total);
-	}
+  /**
+   * Get items
+   *
+   * @return items
+   **/
+  @Schema(description = "")
+  public List<String> getItems() {
+    return items;
+  }
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(items, total);
-	}
+  public void setItems(List<String> items) {
+    this.items = items;
+  }
 
-	@Override
-	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		sb.append("class StringItemsViewModel {\n");
+  public StringItemsViewModel total(Integer total) {
+    this.total = total;
+    return this;
+  }
 
-		sb.append("    items: ").append(toIndentedString(items)).append("\n");
-		sb.append("    total: ").append(toIndentedString(total)).append("\n");
-		sb.append("}");
-		return sb.toString();
-	}
+  /**
+   * Get total
+   *
+   * @return total
+   **/
+  @Schema(description = "")
+  public Integer getTotal() {
+    return total;
+  }
 
-	/**
-	 * Convert the given object to string with each line indented by 4 spaces
-	 * (except the first line).
-	 */
-	private String toIndentedString(java.lang.Object o) {
-		if (o == null) {
-			return "null";
-		}
-		return o.toString().replace("\n", "\n    ");
-	}
+  public void setTotal(Integer total) {
+    this.total = total;
+  }
 
-	public void writeToParcel(Parcel out, int flags) {
-		out.writeValue(items);
-		out.writeValue(total);
-	}
+  @Override
+  public boolean equals(java.lang.Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    StringItemsViewModel stringItemsViewModel = (StringItemsViewModel) o;
+    return Objects.equals(this.items, stringItemsViewModel.items) &&
+            Objects.equals(this.total, stringItemsViewModel.total);
+  }
 
-	public int describeContents() {
-		return 0;
-	}
+  @Override
+  public int hashCode() {
+    return Objects.hash(items, total);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class StringItemsViewModel {\n");
+
+    sb.append("    items: ").append(toIndentedString(items)).append("\n");
+    sb.append("    total: ").append(toIndentedString(total)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(java.lang.Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+  public void writeToParcel(Parcel out, int flags) {
+    out.writeValue(items);
+    out.writeValue(total);
+  }
+
+  public int describeContents() {
+    return 0;
+  }
 }

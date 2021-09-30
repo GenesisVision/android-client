@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -20,6 +21,7 @@ import io.swagger.client.model.ExchangeAsset;
 import timber.log.Timber;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseSwipeBackActivity;
+import vision.genesis.clientapp.feature.auth.login.LoginActivity;
 import vision.genesis.clientapp.feature.main.terminal.info.TerminalInfoView;
 import vision.genesis.clientapp.feature.main.terminal.market_trades.MarketTradesView;
 import vision.genesis.clientapp.feature.main.terminal.order_book.OrderBookView;
@@ -49,6 +51,9 @@ public class TerminalActivity extends BaseSwipeBackActivity implements TerminalV
 		activity.startActivity(intent);
 		activity.overridePendingTransition(R.anim.slide_from_right, R.anim.hold);
 	}
+
+	@BindView(R.id.group_account)
+	public ViewGroup accountGroup;
 
 	@BindView(R.id.account_logo)
 	public ProgramLogoView accountLogo;
@@ -302,6 +307,16 @@ public class TerminalActivity extends BaseSwipeBackActivity implements TerminalV
 	@Override
 	public void updateChart(ArrayList<KlineModel> klines) {
 
+	}
+
+	@Override
+	public void showLoginActivity() {
+		LoginActivity.startFrom(this);
+	}
+
+	@Override
+	public void showAccountGroup(boolean show) {
+		accountGroup.setVisibility(show ? View.VISIBLE : View.GONE);
 	}
 
 	public void showSnackbarMessage(String message) {

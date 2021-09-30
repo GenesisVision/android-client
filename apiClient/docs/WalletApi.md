@@ -7,6 +7,7 @@ Method | HTTP request | Description
 [**cancelWithdrawalRequest**](WalletApi.md#cancelWithdrawalRequest) | **POST** v2.0/wallet/withdraw/request/cancel/{txId} | 
 [**confirmWithdrawalRequestByCode**](WalletApi.md#confirmWithdrawalRequestByCode) | **POST** v2.0/wallet/withdraw/request/confirm | 
 [**createWithdrawalRequest**](WalletApi.md#createWithdrawalRequest) | **POST** v2.0/wallet/withdraw/request/new | 
+[**exportWalletTransactions**](WalletApi.md#exportWalletTransactions) | **POST** v2.0/wallet/transactions/external/export | Export external transactions
 [**getGMCommissionData**](WalletApi.md#getGMCommissionData) | **GET** v2.0/wallet/fee/gvtholding | GenesisMarkets commission data
 [**getTransactionsExternal**](WalletApi.md#getTransactionsExternal) | **GET** v2.0/wallet/transactions/external | External transactions
 [**getTransactionsInternal**](WalletApi.md#getTransactionsInternal) | **GET** v2.0/wallet/transactions/internal | Internal transactions
@@ -175,6 +176,61 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: application/json, text/json, application/_*+json
+ - **Accept**: text/plain, application/json, text/json
+
+<a name="exportWalletTransactions"></a>
+# **exportWalletTransactions**
+> byte[] exportWalletTransactions(dateFrom, dateTo)
+
+Export external transactions
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiClient;
+//import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
+//import io.swagger.client.api.WalletApi;
+
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
+
+WalletApi apiInstance = new WalletApi();
+DateTime dateFrom = new DateTime(); // DateTime | 
+DateTime dateTo = new DateTime(); // DateTime | 
+try {
+    byte[] result = apiInstance.exportWalletTransactions(dateFrom, dateTo);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling WalletApi#exportWalletTransactions");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **dateFrom** | **DateTime**|  | [optional]
+ **dateTo** | **DateTime**|  | [optional]
+
+### Return type
+
+**byte[]**
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
  - **Accept**: text/plain, application/json, text/json
 
 <a name="getGMCommissionData"></a>

@@ -28,297 +28,297 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class ProgramLevelInfo implements Parcelable
 {
-	public static final Parcelable.Creator<ProgramLevelInfo> CREATOR = new Parcelable.Creator<ProgramLevelInfo>()
-	{
-		public ProgramLevelInfo createFromParcel(Parcel in) {
-			return new ProgramLevelInfo(in);
-		}
+  public static final Parcelable.Creator<ProgramLevelInfo> CREATOR = new Parcelable.Creator<ProgramLevelInfo>()
+  {
+    public ProgramLevelInfo createFromParcel(Parcel in) {
+      return new ProgramLevelInfo(in);
+    }
 
-		public ProgramLevelInfo[] newArray(int size) {
-			return new ProgramLevelInfo[size];
-		}
-	};
+    public ProgramLevelInfo[] newArray(int size) {
+      return new ProgramLevelInfo[size];
+    }
+  };
 
-	@SerializedName("isKycPassed")
-	private Boolean isKycPassed = null;
+  @SerializedName("isKycPassed")
+  private Boolean isKycPassed = null;
 
-	@SerializedName("level")
-	private Integer level = null;
+  @SerializedName("level")
+  private Integer level = null;
 
-	@SerializedName("levelProgressPercent")
-	private Double levelProgressPercent = null;
+  @SerializedName("levelProgressPercent")
+  private Double levelProgressPercent = null;
 
-	@SerializedName("genesisRatio")
-	private Double genesisRatio = null;
+  @SerializedName("genesisRatio")
+  private Double genesisRatio = null;
 
-	@SerializedName("programAge")
-	private Double programAge = null;
+  @SerializedName("programAge")
+  private Double programAge = null;
 
-	@SerializedName("weightedVolumeScale")
-	private Double weightedVolumeScale = null;
+  @SerializedName("weightedVolumeScale")
+  private Double weightedVolumeScale = null;
 
-	@SerializedName("managerBalance")
-	private Double managerBalance = null;
+  @SerializedName("managerBalance")
+  private Double managerBalance = null;
 
-	@SerializedName("investmentScale")
-	private Double investmentScale = null;
+  @SerializedName("investmentScale")
+  private Double investmentScale = null;
 
-	@SerializedName("totalAvailableToInvest")
-	private Double totalAvailableToInvest = null;
+  @SerializedName("totalAvailableToInvest")
+  private Double totalAvailableToInvest = null;
 
-	public ProgramLevelInfo() {
-	}
+  public ProgramLevelInfo() {
+  }
 
-	ProgramLevelInfo(Parcel in) {
-		isKycPassed = (Boolean) in.readValue(null);
-		level = (Integer) in.readValue(null);
-		levelProgressPercent = (Double) in.readValue(null);
-		genesisRatio = (Double) in.readValue(null);
-		programAge = (Double) in.readValue(null);
-		weightedVolumeScale = (Double) in.readValue(null);
-		managerBalance = (Double) in.readValue(null);
-		investmentScale = (Double) in.readValue(null);
-		totalAvailableToInvest = (Double) in.readValue(null);
-	}
+  ProgramLevelInfo(Parcel in) {
+    isKycPassed = (Boolean) in.readValue(null);
+    level = (Integer) in.readValue(null);
+    levelProgressPercent = (Double) in.readValue(null);
+    genesisRatio = (Double) in.readValue(null);
+    programAge = (Double) in.readValue(null);
+    weightedVolumeScale = (Double) in.readValue(null);
+    managerBalance = (Double) in.readValue(null);
+    investmentScale = (Double) in.readValue(null);
+    totalAvailableToInvest = (Double) in.readValue(null);
+  }
 
-	public ProgramLevelInfo isKycPassed(Boolean isKycPassed) {
-		this.isKycPassed = isKycPassed;
-		return this;
-	}
+  public ProgramLevelInfo isKycPassed(Boolean isKycPassed) {
+    this.isKycPassed = isKycPassed;
+    return this;
+  }
 
-	/**
-	 * Get isKycPassed
-	 *
-	 * @return isKycPassed
-	 **/
-	@Schema(description = "")
-	public Boolean isIsKycPassed() {
-		return isKycPassed;
-	}
+  /**
+   * Get isKycPassed
+   *
+   * @return isKycPassed
+   **/
+  @Schema(description = "")
+  public Boolean isIsKycPassed() {
+    return isKycPassed;
+  }
 
-	public void setIsKycPassed(Boolean isKycPassed) {
-		this.isKycPassed = isKycPassed;
-	}
+  public void setIsKycPassed(Boolean isKycPassed) {
+    this.isKycPassed = isKycPassed;
+  }
 
-	public ProgramLevelInfo level(Integer level) {
-		this.level = level;
-		return this;
-	}
+  public ProgramLevelInfo level(Integer level) {
+    this.level = level;
+    return this;
+  }
 
-	/**
-	 * Get level
-	 *
-	 * @return level
-	 **/
-	@Schema(description = "")
-	public Integer getLevel() {
-		return level;
-	}
+  /**
+   * Get level
+   *
+   * @return level
+   **/
+  @Schema(description = "")
+  public Integer getLevel() {
+    return level;
+  }
 
-	public void setLevel(Integer level) {
-		this.level = level;
-	}
+  public void setLevel(Integer level) {
+    this.level = level;
+  }
 
-	public ProgramLevelInfo levelProgressPercent(Double levelProgressPercent) {
-		this.levelProgressPercent = levelProgressPercent;
-		return this;
-	}
+  public ProgramLevelInfo levelProgressPercent(Double levelProgressPercent) {
+    this.levelProgressPercent = levelProgressPercent;
+    return this;
+  }
 
-	/**
-	 * Get levelProgressPercent
-	 *
-	 * @return levelProgressPercent
-	 **/
-	@Schema(description = "")
-	public Double getLevelProgressPercent() {
-		return levelProgressPercent;
-	}
+  /**
+   * Get levelProgressPercent
+   *
+   * @return levelProgressPercent
+   **/
+  @Schema(description = "")
+  public Double getLevelProgressPercent() {
+    return levelProgressPercent;
+  }
 
-	public void setLevelProgressPercent(Double levelProgressPercent) {
-		this.levelProgressPercent = levelProgressPercent;
-	}
+  public void setLevelProgressPercent(Double levelProgressPercent) {
+    this.levelProgressPercent = levelProgressPercent;
+  }
 
-	public ProgramLevelInfo genesisRatio(Double genesisRatio) {
-		this.genesisRatio = genesisRatio;
-		return this;
-	}
+  public ProgramLevelInfo genesisRatio(Double genesisRatio) {
+    this.genesisRatio = genesisRatio;
+    return this;
+  }
 
-	/**
-	 * Get genesisRatio
-	 *
-	 * @return genesisRatio
-	 **/
-	@Schema(description = "")
-	public Double getGenesisRatio() {
-		return genesisRatio;
-	}
+  /**
+   * Get genesisRatio
+   *
+   * @return genesisRatio
+   **/
+  @Schema(description = "")
+  public Double getGenesisRatio() {
+    return genesisRatio;
+  }
 
-	public void setGenesisRatio(Double genesisRatio) {
-		this.genesisRatio = genesisRatio;
-	}
+  public void setGenesisRatio(Double genesisRatio) {
+    this.genesisRatio = genesisRatio;
+  }
 
-	public ProgramLevelInfo programAge(Double programAge) {
-		this.programAge = programAge;
-		return this;
-	}
+  public ProgramLevelInfo programAge(Double programAge) {
+    this.programAge = programAge;
+    return this;
+  }
 
-	/**
-	 * Get programAge
-	 *
-	 * @return programAge
-	 **/
-	@Schema(description = "")
-	public Double getProgramAge() {
-		return programAge;
-	}
+  /**
+   * Get programAge
+   *
+   * @return programAge
+   **/
+  @Schema(description = "")
+  public Double getProgramAge() {
+    return programAge;
+  }
 
-	public void setProgramAge(Double programAge) {
-		this.programAge = programAge;
-	}
+  public void setProgramAge(Double programAge) {
+    this.programAge = programAge;
+  }
 
-	public ProgramLevelInfo weightedVolumeScale(Double weightedVolumeScale) {
-		this.weightedVolumeScale = weightedVolumeScale;
-		return this;
-	}
+  public ProgramLevelInfo weightedVolumeScale(Double weightedVolumeScale) {
+    this.weightedVolumeScale = weightedVolumeScale;
+    return this;
+  }
 
-	/**
-	 * Get weightedVolumeScale
-	 *
-	 * @return weightedVolumeScale
-	 **/
-	@Schema(description = "")
-	public Double getWeightedVolumeScale() {
-		return weightedVolumeScale;
-	}
+  /**
+   * Get weightedVolumeScale
+   *
+   * @return weightedVolumeScale
+   **/
+  @Schema(description = "")
+  public Double getWeightedVolumeScale() {
+    return weightedVolumeScale;
+  }
 
-	public void setWeightedVolumeScale(Double weightedVolumeScale) {
-		this.weightedVolumeScale = weightedVolumeScale;
-	}
+  public void setWeightedVolumeScale(Double weightedVolumeScale) {
+    this.weightedVolumeScale = weightedVolumeScale;
+  }
 
-	public ProgramLevelInfo managerBalance(Double managerBalance) {
-		this.managerBalance = managerBalance;
-		return this;
-	}
+  public ProgramLevelInfo managerBalance(Double managerBalance) {
+    this.managerBalance = managerBalance;
+    return this;
+  }
 
-	/**
-	 * Get managerBalance
-	 *
-	 * @return managerBalance
-	 **/
-	@Schema(description = "")
-	public Double getManagerBalance() {
-		return managerBalance;
-	}
+  /**
+   * Get managerBalance
+   *
+   * @return managerBalance
+   **/
+  @Schema(description = "")
+  public Double getManagerBalance() {
+    return managerBalance;
+  }
 
-	public void setManagerBalance(Double managerBalance) {
-		this.managerBalance = managerBalance;
-	}
+  public void setManagerBalance(Double managerBalance) {
+    this.managerBalance = managerBalance;
+  }
 
-	public ProgramLevelInfo investmentScale(Double investmentScale) {
-		this.investmentScale = investmentScale;
-		return this;
-	}
+  public ProgramLevelInfo investmentScale(Double investmentScale) {
+    this.investmentScale = investmentScale;
+    return this;
+  }
 
-	/**
-	 * Get investmentScale
-	 *
-	 * @return investmentScale
-	 **/
-	@Schema(description = "")
-	public Double getInvestmentScale() {
-		return investmentScale;
-	}
+  /**
+   * Get investmentScale
+   *
+   * @return investmentScale
+   **/
+  @Schema(description = "")
+  public Double getInvestmentScale() {
+    return investmentScale;
+  }
 
-	public void setInvestmentScale(Double investmentScale) {
-		this.investmentScale = investmentScale;
-	}
+  public void setInvestmentScale(Double investmentScale) {
+    this.investmentScale = investmentScale;
+  }
 
-	public ProgramLevelInfo totalAvailableToInvest(Double totalAvailableToInvest) {
-		this.totalAvailableToInvest = totalAvailableToInvest;
-		return this;
-	}
+  public ProgramLevelInfo totalAvailableToInvest(Double totalAvailableToInvest) {
+    this.totalAvailableToInvest = totalAvailableToInvest;
+    return this;
+  }
 
-	/**
-	 * Get totalAvailableToInvest
-	 *
-	 * @return totalAvailableToInvest
-	 **/
-	@Schema(description = "")
-	public Double getTotalAvailableToInvest() {
-		return totalAvailableToInvest;
-	}
+  /**
+   * Get totalAvailableToInvest
+   *
+   * @return totalAvailableToInvest
+   **/
+  @Schema(description = "")
+  public Double getTotalAvailableToInvest() {
+    return totalAvailableToInvest;
+  }
 
-	public void setTotalAvailableToInvest(Double totalAvailableToInvest) {
-		this.totalAvailableToInvest = totalAvailableToInvest;
-	}
+  public void setTotalAvailableToInvest(Double totalAvailableToInvest) {
+    this.totalAvailableToInvest = totalAvailableToInvest;
+  }
 
-	@Override
-	public boolean equals(java.lang.Object o) {
-		if (this == o) {
-			return true;
-		}
-		if (o == null || getClass() != o.getClass()) {
-			return false;
-		}
-		ProgramLevelInfo programLevelInfo = (ProgramLevelInfo) o;
-		return Objects.equals(this.isKycPassed, programLevelInfo.isKycPassed) &&
-				Objects.equals(this.level, programLevelInfo.level) &&
-				Objects.equals(this.levelProgressPercent, programLevelInfo.levelProgressPercent) &&
-				Objects.equals(this.genesisRatio, programLevelInfo.genesisRatio) &&
-				Objects.equals(this.programAge, programLevelInfo.programAge) &&
-				Objects.equals(this.weightedVolumeScale, programLevelInfo.weightedVolumeScale) &&
-				Objects.equals(this.managerBalance, programLevelInfo.managerBalance) &&
-				Objects.equals(this.investmentScale, programLevelInfo.investmentScale) &&
-				Objects.equals(this.totalAvailableToInvest, programLevelInfo.totalAvailableToInvest);
-	}
+  @Override
+  public boolean equals(java.lang.Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    ProgramLevelInfo programLevelInfo = (ProgramLevelInfo) o;
+    return Objects.equals(this.isKycPassed, programLevelInfo.isKycPassed) &&
+            Objects.equals(this.level, programLevelInfo.level) &&
+            Objects.equals(this.levelProgressPercent, programLevelInfo.levelProgressPercent) &&
+            Objects.equals(this.genesisRatio, programLevelInfo.genesisRatio) &&
+            Objects.equals(this.programAge, programLevelInfo.programAge) &&
+            Objects.equals(this.weightedVolumeScale, programLevelInfo.weightedVolumeScale) &&
+            Objects.equals(this.managerBalance, programLevelInfo.managerBalance) &&
+            Objects.equals(this.investmentScale, programLevelInfo.investmentScale) &&
+            Objects.equals(this.totalAvailableToInvest, programLevelInfo.totalAvailableToInvest);
+  }
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(isKycPassed, level, levelProgressPercent, genesisRatio, programAge, weightedVolumeScale, managerBalance, investmentScale, totalAvailableToInvest);
-	}
+  @Override
+  public int hashCode() {
+    return Objects.hash(isKycPassed, level, levelProgressPercent, genesisRatio, programAge, weightedVolumeScale, managerBalance, investmentScale, totalAvailableToInvest);
+  }
 
-	@Override
-	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		sb.append("class ProgramLevelInfo {\n");
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class ProgramLevelInfo {\n");
 
-		sb.append("    isKycPassed: ").append(toIndentedString(isKycPassed)).append("\n");
-		sb.append("    level: ").append(toIndentedString(level)).append("\n");
-		sb.append("    levelProgressPercent: ").append(toIndentedString(levelProgressPercent)).append("\n");
-		sb.append("    genesisRatio: ").append(toIndentedString(genesisRatio)).append("\n");
-		sb.append("    programAge: ").append(toIndentedString(programAge)).append("\n");
-		sb.append("    weightedVolumeScale: ").append(toIndentedString(weightedVolumeScale)).append("\n");
-		sb.append("    managerBalance: ").append(toIndentedString(managerBalance)).append("\n");
-		sb.append("    investmentScale: ").append(toIndentedString(investmentScale)).append("\n");
-		sb.append("    totalAvailableToInvest: ").append(toIndentedString(totalAvailableToInvest)).append("\n");
-		sb.append("}");
-		return sb.toString();
-	}
+    sb.append("    isKycPassed: ").append(toIndentedString(isKycPassed)).append("\n");
+    sb.append("    level: ").append(toIndentedString(level)).append("\n");
+    sb.append("    levelProgressPercent: ").append(toIndentedString(levelProgressPercent)).append("\n");
+    sb.append("    genesisRatio: ").append(toIndentedString(genesisRatio)).append("\n");
+    sb.append("    programAge: ").append(toIndentedString(programAge)).append("\n");
+    sb.append("    weightedVolumeScale: ").append(toIndentedString(weightedVolumeScale)).append("\n");
+    sb.append("    managerBalance: ").append(toIndentedString(managerBalance)).append("\n");
+    sb.append("    investmentScale: ").append(toIndentedString(investmentScale)).append("\n");
+    sb.append("    totalAvailableToInvest: ").append(toIndentedString(totalAvailableToInvest)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
 
-	/**
-	 * Convert the given object to string with each line indented by 4 spaces
-	 * (except the first line).
-	 */
-	private String toIndentedString(java.lang.Object o) {
-		if (o == null) {
-			return "null";
-		}
-		return o.toString().replace("\n", "\n    ");
-	}
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(java.lang.Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
 
-	public void writeToParcel(Parcel out, int flags) {
-		out.writeValue(isKycPassed);
-		out.writeValue(level);
-		out.writeValue(levelProgressPercent);
-		out.writeValue(genesisRatio);
-		out.writeValue(programAge);
-		out.writeValue(weightedVolumeScale);
-		out.writeValue(managerBalance);
-		out.writeValue(investmentScale);
-		out.writeValue(totalAvailableToInvest);
-	}
+  public void writeToParcel(Parcel out, int flags) {
+    out.writeValue(isKycPassed);
+    out.writeValue(level);
+    out.writeValue(levelProgressPercent);
+    out.writeValue(genesisRatio);
+    out.writeValue(programAge);
+    out.writeValue(weightedVolumeScale);
+    out.writeValue(managerBalance);
+    out.writeValue(investmentScale);
+    out.writeValue(totalAvailableToInvest);
+  }
 
-	public int describeContents() {
-		return 0;
-	}
+  public int describeContents() {
+    return 0;
+  }
 }

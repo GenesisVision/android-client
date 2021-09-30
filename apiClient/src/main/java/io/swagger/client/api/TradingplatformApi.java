@@ -26,7 +26,6 @@ import io.swagger.client.model.BinanceRawFuturesChangeMarginTypeResult;
 import io.swagger.client.model.BinanceRawFuturesCompositeIndexInfo;
 import io.swagger.client.model.BinanceRawFuturesFundingRateHistory;
 import io.swagger.client.model.BinanceRawFuturesInitialLeverageChangeResult;
-import io.swagger.client.model.BinanceRawFuturesLiquidation;
 import io.swagger.client.model.BinanceRawFuturesLongShortRatio;
 import io.swagger.client.model.BinanceRawFuturesMarkPrice;
 import io.swagger.client.model.BinanceRawFuturesOpenInterest;
@@ -371,20 +370,6 @@ public interface TradingplatformApi
 	@GET("v2.0/tradingplatform/binance/futures/market/klines")
 	Observable<BinanceRawKlineItemsViewModel> getFuturesKlines(
 			@retrofit2.http.Query("symbol") String symbol, @retrofit2.http.Query("interval") BinanceKlineInterval interval, @retrofit2.http.Query("startTime") DateTime startTime, @retrofit2.http.Query("endTime") DateTime endTime, @retrofit2.http.Query("limit") Integer limit
-	);
-
-	/**
-	 * Get futures liquidation orders
-	 *
-	 * @param symbol    (optional)
-	 * @param startTime (optional)
-	 * @param endTime   (optional)
-	 * @param limit     (optional)
-	 * @return Call&lt;List&lt;BinanceRawFuturesLiquidation&gt;&gt;
-	 */
-	@GET("v2.0/tradingplatform/binance/futures/market/orders/liquidation")
-	Observable<List<BinanceRawFuturesLiquidation>> getFuturesLiquidationOrders(
-			@retrofit2.http.Query("symbol") String symbol, @retrofit2.http.Query("startTime") DateTime startTime, @retrofit2.http.Query("endTime") DateTime endTime, @retrofit2.http.Query("limit") Integer limit
 	);
 
 	/**

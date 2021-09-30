@@ -28,193 +28,193 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class UserCommissionData implements Parcelable
 {
-	public static final Parcelable.Creator<UserCommissionData> CREATOR = new Parcelable.Creator<UserCommissionData>()
-	{
-		public UserCommissionData createFromParcel(Parcel in) {
-			return new UserCommissionData(in);
-		}
+  public static final Parcelable.Creator<UserCommissionData> CREATOR = new Parcelable.Creator<UserCommissionData>()
+  {
+    public UserCommissionData createFromParcel(Parcel in) {
+      return new UserCommissionData(in);
+    }
 
-		public UserCommissionData[] newArray(int size) {
-			return new UserCommissionData[size];
-		}
-	};
+    public UserCommissionData[] newArray(int size) {
+      return new UserCommissionData[size];
+    }
+  };
 
-	@SerializedName("isPayingCommissionInGvt")
-	private Boolean isPayingCommissionInGvt = null;
+  @SerializedName("isPayingCommissionInGvt")
+  private Boolean isPayingCommissionInGvt = null;
 
-	@SerializedName("gvtHolderTradingFee")
-	private Double gvtHolderTradingFee = null;
+  @SerializedName("gvtHolderTradingFee")
+  private Double gvtHolderTradingFee = null;
 
-	@SerializedName("gvtHolderDiscount")
-	private Double gvtHolderDiscount = null;
+  @SerializedName("gvtHolderDiscount")
+  private Double gvtHolderDiscount = null;
 
-	@SerializedName("regularTradingFee")
-	private Double regularTradingFee = null;
+  @SerializedName("regularTradingFee")
+  private Double regularTradingFee = null;
 
-	@SerializedName("regularDiscount")
-	private Double regularDiscount = null;
+  @SerializedName("regularDiscount")
+  private Double regularDiscount = null;
 
-	public UserCommissionData() {
-	}
+  public UserCommissionData() {
+  }
 
-	UserCommissionData(Parcel in) {
-		isPayingCommissionInGvt = (Boolean) in.readValue(null);
-		gvtHolderTradingFee = (Double) in.readValue(null);
-		gvtHolderDiscount = (Double) in.readValue(null);
-		regularTradingFee = (Double) in.readValue(null);
-		regularDiscount = (Double) in.readValue(null);
-	}
+  UserCommissionData(Parcel in) {
+    isPayingCommissionInGvt = (Boolean) in.readValue(null);
+    gvtHolderTradingFee = (Double) in.readValue(null);
+    gvtHolderDiscount = (Double) in.readValue(null);
+    regularTradingFee = (Double) in.readValue(null);
+    regularDiscount = (Double) in.readValue(null);
+  }
 
-	public UserCommissionData isPayingCommissionInGvt(Boolean isPayingCommissionInGvt) {
-		this.isPayingCommissionInGvt = isPayingCommissionInGvt;
-		return this;
-	}
+  public UserCommissionData isPayingCommissionInGvt(Boolean isPayingCommissionInGvt) {
+    this.isPayingCommissionInGvt = isPayingCommissionInGvt;
+    return this;
+  }
 
-	/**
-	 * Get isPayingCommissionInGvt
-	 *
-	 * @return isPayingCommissionInGvt
-	 **/
-	@Schema(description = "")
-	public Boolean isIsPayingCommissionInGvt() {
-		return isPayingCommissionInGvt;
-	}
+  /**
+   * Get isPayingCommissionInGvt
+   *
+   * @return isPayingCommissionInGvt
+   **/
+  @Schema(description = "")
+  public Boolean isIsPayingCommissionInGvt() {
+    return isPayingCommissionInGvt;
+  }
 
-	public void setIsPayingCommissionInGvt(Boolean isPayingCommissionInGvt) {
-		this.isPayingCommissionInGvt = isPayingCommissionInGvt;
-	}
+  public void setIsPayingCommissionInGvt(Boolean isPayingCommissionInGvt) {
+    this.isPayingCommissionInGvt = isPayingCommissionInGvt;
+  }
 
-	public UserCommissionData gvtHolderTradingFee(Double gvtHolderTradingFee) {
-		this.gvtHolderTradingFee = gvtHolderTradingFee;
-		return this;
-	}
+  public UserCommissionData gvtHolderTradingFee(Double gvtHolderTradingFee) {
+    this.gvtHolderTradingFee = gvtHolderTradingFee;
+    return this;
+  }
 
-	/**
-	 * Get gvtHolderTradingFee
-	 *
-	 * @return gvtHolderTradingFee
-	 **/
-	@Schema(description = "")
-	public Double getGvtHolderTradingFee() {
-		return gvtHolderTradingFee;
-	}
+  /**
+   * Get gvtHolderTradingFee
+   *
+   * @return gvtHolderTradingFee
+   **/
+  @Schema(description = "")
+  public Double getGvtHolderTradingFee() {
+    return gvtHolderTradingFee;
+  }
 
-	public void setGvtHolderTradingFee(Double gvtHolderTradingFee) {
-		this.gvtHolderTradingFee = gvtHolderTradingFee;
-	}
+  public void setGvtHolderTradingFee(Double gvtHolderTradingFee) {
+    this.gvtHolderTradingFee = gvtHolderTradingFee;
+  }
 
-	public UserCommissionData gvtHolderDiscount(Double gvtHolderDiscount) {
-		this.gvtHolderDiscount = gvtHolderDiscount;
-		return this;
-	}
+  public UserCommissionData gvtHolderDiscount(Double gvtHolderDiscount) {
+    this.gvtHolderDiscount = gvtHolderDiscount;
+    return this;
+  }
 
-	/**
-	 * Get gvtHolderDiscount
-	 *
-	 * @return gvtHolderDiscount
-	 **/
-	@Schema(description = "")
-	public Double getGvtHolderDiscount() {
-		return gvtHolderDiscount;
-	}
+  /**
+   * Get gvtHolderDiscount
+   *
+   * @return gvtHolderDiscount
+   **/
+  @Schema(description = "")
+  public Double getGvtHolderDiscount() {
+    return gvtHolderDiscount;
+  }
 
-	public void setGvtHolderDiscount(Double gvtHolderDiscount) {
-		this.gvtHolderDiscount = gvtHolderDiscount;
-	}
+  public void setGvtHolderDiscount(Double gvtHolderDiscount) {
+    this.gvtHolderDiscount = gvtHolderDiscount;
+  }
 
-	public UserCommissionData regularTradingFee(Double regularTradingFee) {
-		this.regularTradingFee = regularTradingFee;
-		return this;
-	}
+  public UserCommissionData regularTradingFee(Double regularTradingFee) {
+    this.regularTradingFee = regularTradingFee;
+    return this;
+  }
 
-	/**
-	 * Get regularTradingFee
-	 *
-	 * @return regularTradingFee
-	 **/
-	@Schema(description = "")
-	public Double getRegularTradingFee() {
-		return regularTradingFee;
-	}
+  /**
+   * Get regularTradingFee
+   *
+   * @return regularTradingFee
+   **/
+  @Schema(description = "")
+  public Double getRegularTradingFee() {
+    return regularTradingFee;
+  }
 
-	public void setRegularTradingFee(Double regularTradingFee) {
-		this.regularTradingFee = regularTradingFee;
-	}
+  public void setRegularTradingFee(Double regularTradingFee) {
+    this.regularTradingFee = regularTradingFee;
+  }
 
-	public UserCommissionData regularDiscount(Double regularDiscount) {
-		this.regularDiscount = regularDiscount;
-		return this;
-	}
+  public UserCommissionData regularDiscount(Double regularDiscount) {
+    this.regularDiscount = regularDiscount;
+    return this;
+  }
 
-	/**
-	 * Get regularDiscount
-	 *
-	 * @return regularDiscount
-	 **/
-	@Schema(description = "")
-	public Double getRegularDiscount() {
-		return regularDiscount;
-	}
+  /**
+   * Get regularDiscount
+   *
+   * @return regularDiscount
+   **/
+  @Schema(description = "")
+  public Double getRegularDiscount() {
+    return regularDiscount;
+  }
 
-	public void setRegularDiscount(Double regularDiscount) {
-		this.regularDiscount = regularDiscount;
-	}
+  public void setRegularDiscount(Double regularDiscount) {
+    this.regularDiscount = regularDiscount;
+  }
 
-	@Override
-	public boolean equals(java.lang.Object o) {
-		if (this == o) {
-			return true;
-		}
-		if (o == null || getClass() != o.getClass()) {
-			return false;
-		}
-		UserCommissionData userCommissionData = (UserCommissionData) o;
-		return Objects.equals(this.isPayingCommissionInGvt, userCommissionData.isPayingCommissionInGvt) &&
-				Objects.equals(this.gvtHolderTradingFee, userCommissionData.gvtHolderTradingFee) &&
-				Objects.equals(this.gvtHolderDiscount, userCommissionData.gvtHolderDiscount) &&
-				Objects.equals(this.regularTradingFee, userCommissionData.regularTradingFee) &&
-				Objects.equals(this.regularDiscount, userCommissionData.regularDiscount);
-	}
+  @Override
+  public boolean equals(java.lang.Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    UserCommissionData userCommissionData = (UserCommissionData) o;
+    return Objects.equals(this.isPayingCommissionInGvt, userCommissionData.isPayingCommissionInGvt) &&
+            Objects.equals(this.gvtHolderTradingFee, userCommissionData.gvtHolderTradingFee) &&
+            Objects.equals(this.gvtHolderDiscount, userCommissionData.gvtHolderDiscount) &&
+            Objects.equals(this.regularTradingFee, userCommissionData.regularTradingFee) &&
+            Objects.equals(this.regularDiscount, userCommissionData.regularDiscount);
+  }
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(isPayingCommissionInGvt, gvtHolderTradingFee, gvtHolderDiscount, regularTradingFee, regularDiscount);
-	}
+  @Override
+  public int hashCode() {
+    return Objects.hash(isPayingCommissionInGvt, gvtHolderTradingFee, gvtHolderDiscount, regularTradingFee, regularDiscount);
+  }
 
-	@Override
-	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		sb.append("class UserCommissionData {\n");
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class UserCommissionData {\n");
 
-		sb.append("    isPayingCommissionInGvt: ").append(toIndentedString(isPayingCommissionInGvt)).append("\n");
-		sb.append("    gvtHolderTradingFee: ").append(toIndentedString(gvtHolderTradingFee)).append("\n");
-		sb.append("    gvtHolderDiscount: ").append(toIndentedString(gvtHolderDiscount)).append("\n");
-		sb.append("    regularTradingFee: ").append(toIndentedString(regularTradingFee)).append("\n");
-		sb.append("    regularDiscount: ").append(toIndentedString(regularDiscount)).append("\n");
-		sb.append("}");
-		return sb.toString();
-	}
+    sb.append("    isPayingCommissionInGvt: ").append(toIndentedString(isPayingCommissionInGvt)).append("\n");
+    sb.append("    gvtHolderTradingFee: ").append(toIndentedString(gvtHolderTradingFee)).append("\n");
+    sb.append("    gvtHolderDiscount: ").append(toIndentedString(gvtHolderDiscount)).append("\n");
+    sb.append("    regularTradingFee: ").append(toIndentedString(regularTradingFee)).append("\n");
+    sb.append("    regularDiscount: ").append(toIndentedString(regularDiscount)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
 
-	/**
-	 * Convert the given object to string with each line indented by 4 spaces
-	 * (except the first line).
-	 */
-	private String toIndentedString(java.lang.Object o) {
-		if (o == null) {
-			return "null";
-		}
-		return o.toString().replace("\n", "\n    ");
-	}
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(java.lang.Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
 
-	public void writeToParcel(Parcel out, int flags) {
-		out.writeValue(isPayingCommissionInGvt);
-		out.writeValue(gvtHolderTradingFee);
-		out.writeValue(gvtHolderDiscount);
-		out.writeValue(regularTradingFee);
-		out.writeValue(regularDiscount);
-	}
+  public void writeToParcel(Parcel out, int flags) {
+    out.writeValue(isPayingCommissionInGvt);
+    out.writeValue(gvtHolderTradingFee);
+    out.writeValue(gvtHolderDiscount);
+    out.writeValue(regularTradingFee);
+    out.writeValue(regularDiscount);
+  }
 
-	public int describeContents() {
-		return 0;
-	}
+  public int describeContents() {
+    return 0;
+  }
 }

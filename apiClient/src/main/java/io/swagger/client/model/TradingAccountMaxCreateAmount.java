@@ -30,123 +30,123 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class TradingAccountMaxCreateAmount implements Parcelable
 {
-	public static final Parcelable.Creator<TradingAccountMaxCreateAmount> CREATOR = new Parcelable.Creator<TradingAccountMaxCreateAmount>()
-	{
-		public TradingAccountMaxCreateAmount createFromParcel(Parcel in) {
-			return new TradingAccountMaxCreateAmount(in);
-		}
+  public static final Parcelable.Creator<TradingAccountMaxCreateAmount> CREATOR = new Parcelable.Creator<TradingAccountMaxCreateAmount>()
+  {
+    public TradingAccountMaxCreateAmount createFromParcel(Parcel in) {
+      return new TradingAccountMaxCreateAmount(in);
+    }
 
-		public TradingAccountMaxCreateAmount[] newArray(int size) {
-			return new TradingAccountMaxCreateAmount[size];
-		}
-	};
+    public TradingAccountMaxCreateAmount[] newArray(int size) {
+      return new TradingAccountMaxCreateAmount[size];
+    }
+  };
 
-	@SerializedName("serverType")
-	private BrokerTradeServerType serverType = null;
+  @SerializedName("serverType")
+  private BrokerTradeServerType serverType = null;
 
-	@SerializedName("transferDemo")
-	private List<AmountWithCurrency> transferDemo = null;
+  @SerializedName("transferDemo")
+  private List<AmountWithCurrency> transferDemo = null;
 
-	public TradingAccountMaxCreateAmount() {
-	}
+  public TradingAccountMaxCreateAmount() {
+  }
 
-	TradingAccountMaxCreateAmount(Parcel in) {
-		serverType = (BrokerTradeServerType) in.readValue(BrokerTradeServerType.class.getClassLoader());
-		transferDemo = (List<AmountWithCurrency>) in.readValue(AmountWithCurrency.class.getClassLoader());
-	}
+  TradingAccountMaxCreateAmount(Parcel in) {
+    serverType = (BrokerTradeServerType) in.readValue(BrokerTradeServerType.class.getClassLoader());
+    transferDemo = (List<AmountWithCurrency>) in.readValue(AmountWithCurrency.class.getClassLoader());
+  }
 
-	public TradingAccountMaxCreateAmount serverType(BrokerTradeServerType serverType) {
-		this.serverType = serverType;
-		return this;
-	}
+  public TradingAccountMaxCreateAmount serverType(BrokerTradeServerType serverType) {
+    this.serverType = serverType;
+    return this;
+  }
 
-	/**
-	 * Get serverType
-	 *
-	 * @return serverType
-	 **/
-	@Schema(description = "")
-	public BrokerTradeServerType getServerType() {
-		return serverType;
-	}
+  /**
+   * Get serverType
+   *
+   * @return serverType
+   **/
+  @Schema(description = "")
+  public BrokerTradeServerType getServerType() {
+    return serverType;
+  }
 
-	public void setServerType(BrokerTradeServerType serverType) {
-		this.serverType = serverType;
-	}
+  public void setServerType(BrokerTradeServerType serverType) {
+    this.serverType = serverType;
+  }
 
-	public TradingAccountMaxCreateAmount transferDemo(List<AmountWithCurrency> transferDemo) {
-		this.transferDemo = transferDemo;
-		return this;
-	}
+  public TradingAccountMaxCreateAmount transferDemo(List<AmountWithCurrency> transferDemo) {
+    this.transferDemo = transferDemo;
+    return this;
+  }
 
-	public TradingAccountMaxCreateAmount addTransferDemoItem(AmountWithCurrency transferDemoItem) {
-		if (this.transferDemo == null) {
-			this.transferDemo = new ArrayList<AmountWithCurrency>();
-		}
-		this.transferDemo.add(transferDemoItem);
-		return this;
-	}
+  public TradingAccountMaxCreateAmount addTransferDemoItem(AmountWithCurrency transferDemoItem) {
+    if (this.transferDemo == null) {
+      this.transferDemo = new ArrayList<AmountWithCurrency>();
+    }
+    this.transferDemo.add(transferDemoItem);
+    return this;
+  }
 
-	/**
-	 * Get transferDemo
-	 *
-	 * @return transferDemo
-	 **/
-	@Schema(description = "")
-	public List<AmountWithCurrency> getTransferDemo() {
-		return transferDemo;
-	}
+  /**
+   * Get transferDemo
+   *
+   * @return transferDemo
+   **/
+  @Schema(description = "")
+  public List<AmountWithCurrency> getTransferDemo() {
+    return transferDemo;
+  }
 
-	public void setTransferDemo(List<AmountWithCurrency> transferDemo) {
-		this.transferDemo = transferDemo;
-	}
+  public void setTransferDemo(List<AmountWithCurrency> transferDemo) {
+    this.transferDemo = transferDemo;
+  }
 
-	@Override
-	public boolean equals(java.lang.Object o) {
-		if (this == o) {
-			return true;
-		}
-		if (o == null || getClass() != o.getClass()) {
-			return false;
-		}
-		TradingAccountMaxCreateAmount tradingAccountMaxCreateAmount = (TradingAccountMaxCreateAmount) o;
-		return Objects.equals(this.serverType, tradingAccountMaxCreateAmount.serverType) &&
-				Objects.equals(this.transferDemo, tradingAccountMaxCreateAmount.transferDemo);
-	}
+  @Override
+  public boolean equals(java.lang.Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    TradingAccountMaxCreateAmount tradingAccountMaxCreateAmount = (TradingAccountMaxCreateAmount) o;
+    return Objects.equals(this.serverType, tradingAccountMaxCreateAmount.serverType) &&
+            Objects.equals(this.transferDemo, tradingAccountMaxCreateAmount.transferDemo);
+  }
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(serverType, transferDemo);
-	}
+  @Override
+  public int hashCode() {
+    return Objects.hash(serverType, transferDemo);
+  }
 
-	@Override
-	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		sb.append("class TradingAccountMaxCreateAmount {\n");
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class TradingAccountMaxCreateAmount {\n");
 
-		sb.append("    serverType: ").append(toIndentedString(serverType)).append("\n");
-		sb.append("    transferDemo: ").append(toIndentedString(transferDemo)).append("\n");
-		sb.append("}");
-		return sb.toString();
-	}
+    sb.append("    serverType: ").append(toIndentedString(serverType)).append("\n");
+    sb.append("    transferDemo: ").append(toIndentedString(transferDemo)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
 
-	/**
-	 * Convert the given object to string with each line indented by 4 spaces
-	 * (except the first line).
-	 */
-	private String toIndentedString(java.lang.Object o) {
-		if (o == null) {
-			return "null";
-		}
-		return o.toString().replace("\n", "\n    ");
-	}
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(java.lang.Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
 
-	public void writeToParcel(Parcel out, int flags) {
-		out.writeValue(serverType);
-		out.writeValue(transferDemo);
-	}
+  public void writeToParcel(Parcel out, int flags) {
+    out.writeValue(serverType);
+    out.writeValue(transferDemo);
+  }
 
-	public int describeContents() {
-		return 0;
-	}
+  public int describeContents() {
+    return 0;
+  }
 }

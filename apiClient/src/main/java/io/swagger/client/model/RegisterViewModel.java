@@ -28,271 +28,271 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class RegisterViewModel implements Parcelable
 {
-	public static final Parcelable.Creator<RegisterViewModel> CREATOR = new Parcelable.Creator<RegisterViewModel>()
-	{
-		public RegisterViewModel createFromParcel(Parcel in) {
-			return new RegisterViewModel(in);
-		}
+  public static final Parcelable.Creator<RegisterViewModel> CREATOR = new Parcelable.Creator<RegisterViewModel>()
+  {
+    public RegisterViewModel createFromParcel(Parcel in) {
+      return new RegisterViewModel(in);
+    }
 
-		public RegisterViewModel[] newArray(int size) {
-			return new RegisterViewModel[size];
-		}
-	};
+    public RegisterViewModel[] newArray(int size) {
+      return new RegisterViewModel[size];
+    }
+  };
 
-	@SerializedName("email")
-	private String email = null;
+  @SerializedName("email")
+  private String email = null;
 
-	@SerializedName("captchaCheckResult")
-	private CaptchaCheckResult captchaCheckResult = null;
+  @SerializedName("captchaCheckResult")
+  private CaptchaCheckResult captchaCheckResult = null;
 
-	@SerializedName("password")
-	private String password = null;
+  @SerializedName("password")
+  private String password = null;
 
-	@SerializedName("confirmPassword")
-	private String confirmPassword = null;
+  @SerializedName("confirmPassword")
+  private String confirmPassword = null;
 
-	@SerializedName("userName")
-	private String userName = null;
+  @SerializedName("userName")
+  private String userName = null;
 
-	@SerializedName("refCode")
-	private String refCode = null;
+  @SerializedName("refCode")
+  private String refCode = null;
 
-	@SerializedName("isAuto")
-	private Boolean isAuto = null;
+  @SerializedName("isAuto")
+  private Boolean isAuto = null;
 
-	@SerializedName("utmSource")
-	private UtmSource utmSource = null;
+  @SerializedName("utmSource")
+  private UtmSource utmSource = null;
 
-	public RegisterViewModel() {
-	}
+  public RegisterViewModel() {
+  }
 
-	RegisterViewModel(Parcel in) {
-		email = (String) in.readValue(null);
-		captchaCheckResult = (CaptchaCheckResult) in.readValue(CaptchaCheckResult.class.getClassLoader());
-		password = (String) in.readValue(null);
-		confirmPassword = (String) in.readValue(null);
-		userName = (String) in.readValue(null);
-		refCode = (String) in.readValue(null);
-		isAuto = (Boolean) in.readValue(null);
-		utmSource = (UtmSource) in.readValue(UtmSource.class.getClassLoader());
-	}
+  RegisterViewModel(Parcel in) {
+    email = (String) in.readValue(null);
+    captchaCheckResult = (CaptchaCheckResult) in.readValue(CaptchaCheckResult.class.getClassLoader());
+    password = (String) in.readValue(null);
+    confirmPassword = (String) in.readValue(null);
+    userName = (String) in.readValue(null);
+    refCode = (String) in.readValue(null);
+    isAuto = (Boolean) in.readValue(null);
+    utmSource = (UtmSource) in.readValue(UtmSource.class.getClassLoader());
+  }
 
-	public RegisterViewModel email(String email) {
-		this.email = email;
-		return this;
-	}
+  public RegisterViewModel email(String email) {
+    this.email = email;
+    return this;
+  }
 
-	/**
-	 * Get email
-	 *
-	 * @return email
-	 **/
-	@Schema(required = true, description = "")
-	public String getEmail() {
-		return email;
-	}
+  /**
+   * Get email
+   *
+   * @return email
+   **/
+  @Schema(required = true, description = "")
+  public String getEmail() {
+    return email;
+  }
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
+  public void setEmail(String email) {
+    this.email = email;
+  }
 
-	public RegisterViewModel captchaCheckResult(CaptchaCheckResult captchaCheckResult) {
-		this.captchaCheckResult = captchaCheckResult;
-		return this;
-	}
+  public RegisterViewModel captchaCheckResult(CaptchaCheckResult captchaCheckResult) {
+    this.captchaCheckResult = captchaCheckResult;
+    return this;
+  }
 
-	/**
-	 * Get captchaCheckResult
-	 *
-	 * @return captchaCheckResult
-	 **/
-	@Schema(description = "")
-	public CaptchaCheckResult getCaptchaCheckResult() {
-		return captchaCheckResult;
-	}
+  /**
+   * Get captchaCheckResult
+   *
+   * @return captchaCheckResult
+   **/
+  @Schema(description = "")
+  public CaptchaCheckResult getCaptchaCheckResult() {
+    return captchaCheckResult;
+  }
 
-	public void setCaptchaCheckResult(CaptchaCheckResult captchaCheckResult) {
-		this.captchaCheckResult = captchaCheckResult;
-	}
+  public void setCaptchaCheckResult(CaptchaCheckResult captchaCheckResult) {
+    this.captchaCheckResult = captchaCheckResult;
+  }
 
-	public RegisterViewModel password(String password) {
-		this.password = password;
-		return this;
-	}
+  public RegisterViewModel password(String password) {
+    this.password = password;
+    return this;
+  }
 
-	/**
-	 * Get password
-	 *
-	 * @return password
-	 **/
-	@Schema(required = true, description = "")
-	public String getPassword() {
-		return password;
-	}
+  /**
+   * Get password
+   *
+   * @return password
+   **/
+  @Schema(required = true, description = "")
+  public String getPassword() {
+    return password;
+  }
 
-	public void setPassword(String password) {
-		this.password = password;
-	}
+  public void setPassword(String password) {
+    this.password = password;
+  }
 
-	public RegisterViewModel confirmPassword(String confirmPassword) {
-		this.confirmPassword = confirmPassword;
-		return this;
-	}
+  public RegisterViewModel confirmPassword(String confirmPassword) {
+    this.confirmPassword = confirmPassword;
+    return this;
+  }
 
-	/**
-	 * Get confirmPassword
-	 *
-	 * @return confirmPassword
-	 **/
-	@Schema(description = "")
-	public String getConfirmPassword() {
-		return confirmPassword;
-	}
+  /**
+   * Get confirmPassword
+   *
+   * @return confirmPassword
+   **/
+  @Schema(description = "")
+  public String getConfirmPassword() {
+    return confirmPassword;
+  }
 
-	public void setConfirmPassword(String confirmPassword) {
-		this.confirmPassword = confirmPassword;
-	}
+  public void setConfirmPassword(String confirmPassword) {
+    this.confirmPassword = confirmPassword;
+  }
 
-	public RegisterViewModel userName(String userName) {
-		this.userName = userName;
-		return this;
-	}
+  public RegisterViewModel userName(String userName) {
+    this.userName = userName;
+    return this;
+  }
 
-	/**
-	 * Get userName
-	 *
-	 * @return userName
-	 **/
-	@Schema(description = "")
-	public String getUserName() {
-		return userName;
-	}
+  /**
+   * Get userName
+   *
+   * @return userName
+   **/
+  @Schema(description = "")
+  public String getUserName() {
+    return userName;
+  }
 
-	public void setUserName(String userName) {
-		this.userName = userName;
-	}
+  public void setUserName(String userName) {
+    this.userName = userName;
+  }
 
-	public RegisterViewModel refCode(String refCode) {
-		this.refCode = refCode;
-		return this;
-	}
+  public RegisterViewModel refCode(String refCode) {
+    this.refCode = refCode;
+    return this;
+  }
 
-	/**
-	 * Get refCode
-	 *
-	 * @return refCode
-	 **/
-	@Schema(description = "")
-	public String getRefCode() {
-		return refCode;
-	}
+  /**
+   * Get refCode
+   *
+   * @return refCode
+   **/
+  @Schema(description = "")
+  public String getRefCode() {
+    return refCode;
+  }
 
-	public void setRefCode(String refCode) {
-		this.refCode = refCode;
-	}
+  public void setRefCode(String refCode) {
+    this.refCode = refCode;
+  }
 
-	public RegisterViewModel isAuto(Boolean isAuto) {
-		this.isAuto = isAuto;
-		return this;
-	}
+  public RegisterViewModel isAuto(Boolean isAuto) {
+    this.isAuto = isAuto;
+    return this;
+  }
 
-	/**
-	 * Get isAuto
-	 *
-	 * @return isAuto
-	 **/
-	@Schema(description = "")
-	public Boolean isIsAuto() {
-		return isAuto;
-	}
+  /**
+   * Get isAuto
+   *
+   * @return isAuto
+   **/
+  @Schema(description = "")
+  public Boolean isIsAuto() {
+    return isAuto;
+  }
 
-	public void setIsAuto(Boolean isAuto) {
-		this.isAuto = isAuto;
-	}
+  public void setIsAuto(Boolean isAuto) {
+    this.isAuto = isAuto;
+  }
 
-	public RegisterViewModel utmSource(UtmSource utmSource) {
-		this.utmSource = utmSource;
-		return this;
-	}
+  public RegisterViewModel utmSource(UtmSource utmSource) {
+    this.utmSource = utmSource;
+    return this;
+  }
 
-	/**
-	 * Get utmSource
-	 *
-	 * @return utmSource
-	 **/
-	@Schema(description = "")
-	public UtmSource getUtmSource() {
-		return utmSource;
-	}
+  /**
+   * Get utmSource
+   *
+   * @return utmSource
+   **/
+  @Schema(description = "")
+  public UtmSource getUtmSource() {
+    return utmSource;
+  }
 
-	public void setUtmSource(UtmSource utmSource) {
-		this.utmSource = utmSource;
-	}
+  public void setUtmSource(UtmSource utmSource) {
+    this.utmSource = utmSource;
+  }
 
-	@Override
-	public boolean equals(java.lang.Object o) {
-		if (this == o) {
-			return true;
-		}
-		if (o == null || getClass() != o.getClass()) {
-			return false;
-		}
-		RegisterViewModel registerViewModel = (RegisterViewModel) o;
-		return Objects.equals(this.email, registerViewModel.email) &&
-				Objects.equals(this.captchaCheckResult, registerViewModel.captchaCheckResult) &&
-				Objects.equals(this.password, registerViewModel.password) &&
-				Objects.equals(this.confirmPassword, registerViewModel.confirmPassword) &&
-				Objects.equals(this.userName, registerViewModel.userName) &&
-				Objects.equals(this.refCode, registerViewModel.refCode) &&
-				Objects.equals(this.isAuto, registerViewModel.isAuto) &&
-				Objects.equals(this.utmSource, registerViewModel.utmSource);
-	}
+  @Override
+  public boolean equals(java.lang.Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    RegisterViewModel registerViewModel = (RegisterViewModel) o;
+    return Objects.equals(this.email, registerViewModel.email) &&
+            Objects.equals(this.captchaCheckResult, registerViewModel.captchaCheckResult) &&
+            Objects.equals(this.password, registerViewModel.password) &&
+            Objects.equals(this.confirmPassword, registerViewModel.confirmPassword) &&
+            Objects.equals(this.userName, registerViewModel.userName) &&
+            Objects.equals(this.refCode, registerViewModel.refCode) &&
+            Objects.equals(this.isAuto, registerViewModel.isAuto) &&
+            Objects.equals(this.utmSource, registerViewModel.utmSource);
+  }
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(email, captchaCheckResult, password, confirmPassword, userName, refCode, isAuto, utmSource);
-	}
+  @Override
+  public int hashCode() {
+    return Objects.hash(email, captchaCheckResult, password, confirmPassword, userName, refCode, isAuto, utmSource);
+  }
 
-	@Override
-	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		sb.append("class RegisterViewModel {\n");
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class RegisterViewModel {\n");
 
-		sb.append("    email: ").append(toIndentedString(email)).append("\n");
-		sb.append("    captchaCheckResult: ").append(toIndentedString(captchaCheckResult)).append("\n");
-		sb.append("    password: ").append(toIndentedString(password)).append("\n");
-		sb.append("    confirmPassword: ").append(toIndentedString(confirmPassword)).append("\n");
-		sb.append("    userName: ").append(toIndentedString(userName)).append("\n");
-		sb.append("    refCode: ").append(toIndentedString(refCode)).append("\n");
-		sb.append("    isAuto: ").append(toIndentedString(isAuto)).append("\n");
-		sb.append("    utmSource: ").append(toIndentedString(utmSource)).append("\n");
-		sb.append("}");
-		return sb.toString();
-	}
+    sb.append("    email: ").append(toIndentedString(email)).append("\n");
+    sb.append("    captchaCheckResult: ").append(toIndentedString(captchaCheckResult)).append("\n");
+    sb.append("    password: ").append(toIndentedString(password)).append("\n");
+    sb.append("    confirmPassword: ").append(toIndentedString(confirmPassword)).append("\n");
+    sb.append("    userName: ").append(toIndentedString(userName)).append("\n");
+    sb.append("    refCode: ").append(toIndentedString(refCode)).append("\n");
+    sb.append("    isAuto: ").append(toIndentedString(isAuto)).append("\n");
+    sb.append("    utmSource: ").append(toIndentedString(utmSource)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
 
-	/**
-	 * Convert the given object to string with each line indented by 4 spaces
-	 * (except the first line).
-	 */
-	private String toIndentedString(java.lang.Object o) {
-		if (o == null) {
-			return "null";
-		}
-		return o.toString().replace("\n", "\n    ");
-	}
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(java.lang.Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
 
-	public void writeToParcel(Parcel out, int flags) {
-		out.writeValue(email);
-		out.writeValue(captchaCheckResult);
-		out.writeValue(password);
-		out.writeValue(confirmPassword);
-		out.writeValue(userName);
-		out.writeValue(refCode);
-		out.writeValue(isAuto);
-		out.writeValue(utmSource);
-	}
+  public void writeToParcel(Parcel out, int flags) {
+    out.writeValue(email);
+    out.writeValue(captchaCheckResult);
+    out.writeValue(password);
+    out.writeValue(confirmPassword);
+    out.writeValue(userName);
+    out.writeValue(refCode);
+    out.writeValue(isAuto);
+    out.writeValue(utmSource);
+  }
 
-	public int describeContents() {
-		return 0;
-	}
+  public int describeContents() {
+    return 0;
+  }
 }

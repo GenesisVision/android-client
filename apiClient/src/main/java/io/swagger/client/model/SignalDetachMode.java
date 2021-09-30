@@ -25,45 +25,45 @@ import java.io.IOException;
 @JsonAdapter(SignalDetachMode.Adapter.class)
 public enum SignalDetachMode
 {
-	NONE("None"),
-	PROVIDERCLOSEONLY("ProviderCloseOnly"),
-	CLOSEALLIMMEDIATELY("CloseAllImmediately");
+  NONE("None"),
+  PROVIDERCLOSEONLY("ProviderCloseOnly"),
+  CLOSEALLIMMEDIATELY("CloseAllImmediately");
 
-	public static SignalDetachMode fromValue(String text) {
-		for (SignalDetachMode b : SignalDetachMode.values()) {
-			if (String.valueOf(b.value).equals(text)) {
-				return b;
-			}
-		}
-		return null;
-	}
+  public static SignalDetachMode fromValue(String text) {
+    for (SignalDetachMode b : SignalDetachMode.values()) {
+      if (String.valueOf(b.value).equals(text)) {
+        return b;
+      }
+    }
+    return null;
+  }
 
-	private String value;
+  private String value;
 
-	SignalDetachMode(String value) {
-		this.value = value;
-	}
+  SignalDetachMode(String value) {
+    this.value = value;
+  }
 
-	public String getValue() {
-		return value;
-	}
+  public String getValue() {
+    return value;
+  }
 
-	@Override
-	public String toString() {
-		return String.valueOf(value);
-	}
+  @Override
+  public String toString() {
+    return String.valueOf(value);
+  }
 
-	public static class Adapter extends TypeAdapter<SignalDetachMode>
-	{
-		@Override
-		public void write(final JsonWriter jsonWriter, final SignalDetachMode enumeration) throws IOException {
-			jsonWriter.value(enumeration.getValue());
-		}
+  public static class Adapter extends TypeAdapter<SignalDetachMode>
+  {
+    @Override
+    public void write(final JsonWriter jsonWriter, final SignalDetachMode enumeration) throws IOException {
+      jsonWriter.value(enumeration.getValue());
+    }
 
-		@Override
-		public SignalDetachMode read(final JsonReader jsonReader) throws IOException {
-			Object value = jsonReader.nextString();
-			return SignalDetachMode.fromValue(String.valueOf(value));
-		}
-	}
+    @Override
+    public SignalDetachMode read(final JsonReader jsonReader) throws IOException {
+      Object value = jsonReader.nextString();
+      return SignalDetachMode.fromValue(String.valueOf(value));
+    }
+  }
 }

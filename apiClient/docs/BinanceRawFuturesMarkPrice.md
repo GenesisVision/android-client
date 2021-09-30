@@ -8,3 +8,4 @@ Name | Type | Description | Notes
 **fundingRate** | **Double** |  |  [optional]
 **nextFundingTime** | [**DateTime**](DateTime.md) |  |  [optional]
 **time** | [**DateTime**](DateTime.md) |  |  [optional]
+**indexPrice** | **Double** |  |  [optional]

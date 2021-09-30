@@ -17,6 +17,8 @@ import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
 
+import org.joda.time.DateTime;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -56,6 +58,9 @@ public class AssetInfo implements Parcelable
 	@SerializedName("chartSymbol")
 	private String chartSymbol = null;
 
+	@SerializedName("lastModified")
+	private DateTime lastModified = null;
+
 	@SerializedName("tags")
 	private List<Tag> tags = null;
 
@@ -71,6 +76,7 @@ public class AssetInfo implements Parcelable
 		logoUrl = (String) in.readValue(null);
 		description = (String) in.readValue(null);
 		chartSymbol = (String) in.readValue(null);
+		lastModified = (DateTime) in.readValue(DateTime.class.getClassLoader());
 		tags = (List<Tag>) in.readValue(Tag.class.getClassLoader());
 		socialLinks = (List<SocialLinkViewModel>) in.readValue(SocialLinkViewModel.class.getClassLoader());
 	}
@@ -170,6 +176,25 @@ public class AssetInfo implements Parcelable
 		this.chartSymbol = chartSymbol;
 	}
 
+	public AssetInfo lastModified(DateTime lastModified) {
+		this.lastModified = lastModified;
+		return this;
+	}
+
+	/**
+	 * Get lastModified
+	 *
+	 * @return lastModified
+	 **/
+	@Schema(description = "")
+	public DateTime getLastModified() {
+		return lastModified;
+	}
+
+	public void setLastModified(DateTime lastModified) {
+		this.lastModified = lastModified;
+	}
+
 	public AssetInfo tags(List<Tag> tags) {
 		this.tags = tags;
 		return this;
@@ -238,13 +263,14 @@ public class AssetInfo implements Parcelable
 				Objects.equals(this.logoUrl, assetInfo.logoUrl) &&
 				Objects.equals(this.description, assetInfo.description) &&
 				Objects.equals(this.chartSymbol, assetInfo.chartSymbol) &&
+				Objects.equals(this.lastModified, assetInfo.lastModified) &&
 				Objects.equals(this.tags, assetInfo.tags) &&
 				Objects.equals(this.socialLinks, assetInfo.socialLinks);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(name, symbol, logoUrl, description, chartSymbol, tags, socialLinks);
+		return Objects.hash(name, symbol, logoUrl, description, chartSymbol, lastModified, tags, socialLinks);
 	}
 
 	@Override
@@ -257,6 +283,7 @@ public class AssetInfo implements Parcelable
 		sb.append("    logoUrl: ").append(toIndentedString(logoUrl)).append("\n");
 		sb.append("    description: ").append(toIndentedString(description)).append("\n");
 		sb.append("    chartSymbol: ").append(toIndentedString(chartSymbol)).append("\n");
+		sb.append("    lastModified: ").append(toIndentedString(lastModified)).append("\n");
 		sb.append("    tags: ").append(toIndentedString(tags)).append("\n");
 		sb.append("    socialLinks: ").append(toIndentedString(socialLinks)).append("\n");
 		sb.append("}");
@@ -280,6 +307,7 @@ public class AssetInfo implements Parcelable
 		out.writeValue(logoUrl);
 		out.writeValue(description);
 		out.writeValue(chartSymbol);
+		out.writeValue(lastModified);
 		out.writeValue(tags);
 		out.writeValue(socialLinks);
 	}

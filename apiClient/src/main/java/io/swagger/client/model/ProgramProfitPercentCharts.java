@@ -30,123 +30,123 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class ProgramProfitPercentCharts implements Parcelable
 {
-	public static final Parcelable.Creator<ProgramProfitPercentCharts> CREATOR = new Parcelable.Creator<ProgramProfitPercentCharts>()
-	{
-		public ProgramProfitPercentCharts createFromParcel(Parcel in) {
-			return new ProgramProfitPercentCharts(in);
-		}
+  public static final Parcelable.Creator<ProgramProfitPercentCharts> CREATOR = new Parcelable.Creator<ProgramProfitPercentCharts>()
+  {
+    public ProgramProfitPercentCharts createFromParcel(Parcel in) {
+      return new ProgramProfitPercentCharts(in);
+    }
 
-		public ProgramProfitPercentCharts[] newArray(int size) {
-			return new ProgramProfitPercentCharts[size];
-		}
-	};
+    public ProgramProfitPercentCharts[] newArray(int size) {
+      return new ProgramProfitPercentCharts[size];
+    }
+  };
 
-	@SerializedName("statistic")
-	private ProgramChartStatistic statistic = null;
+  @SerializedName("statistic")
+  private ProgramChartStatistic statistic = null;
 
-	@SerializedName("charts")
-	private List<SimpleChart> charts = null;
+  @SerializedName("charts")
+  private List<SimpleChart> charts = null;
 
-	public ProgramProfitPercentCharts() {
-	}
+  public ProgramProfitPercentCharts() {
+  }
 
-	ProgramProfitPercentCharts(Parcel in) {
-		statistic = (ProgramChartStatistic) in.readValue(ProgramChartStatistic.class.getClassLoader());
-		charts = (List<SimpleChart>) in.readValue(SimpleChart.class.getClassLoader());
-	}
+  ProgramProfitPercentCharts(Parcel in) {
+    statistic = (ProgramChartStatistic) in.readValue(ProgramChartStatistic.class.getClassLoader());
+    charts = (List<SimpleChart>) in.readValue(SimpleChart.class.getClassLoader());
+  }
 
-	public ProgramProfitPercentCharts statistic(ProgramChartStatistic statistic) {
-		this.statistic = statistic;
-		return this;
-	}
+  public ProgramProfitPercentCharts statistic(ProgramChartStatistic statistic) {
+    this.statistic = statistic;
+    return this;
+  }
 
-	/**
-	 * Get statistic
-	 *
-	 * @return statistic
-	 **/
-	@Schema(description = "")
-	public ProgramChartStatistic getStatistic() {
-		return statistic;
-	}
+  /**
+   * Get statistic
+   *
+   * @return statistic
+   **/
+  @Schema(description = "")
+  public ProgramChartStatistic getStatistic() {
+    return statistic;
+  }
 
-	public void setStatistic(ProgramChartStatistic statistic) {
-		this.statistic = statistic;
-	}
+  public void setStatistic(ProgramChartStatistic statistic) {
+    this.statistic = statistic;
+  }
 
-	public ProgramProfitPercentCharts charts(List<SimpleChart> charts) {
-		this.charts = charts;
-		return this;
-	}
+  public ProgramProfitPercentCharts charts(List<SimpleChart> charts) {
+    this.charts = charts;
+    return this;
+  }
 
-	public ProgramProfitPercentCharts addChartsItem(SimpleChart chartsItem) {
-		if (this.charts == null) {
-			this.charts = new ArrayList<SimpleChart>();
-		}
-		this.charts.add(chartsItem);
-		return this;
-	}
+  public ProgramProfitPercentCharts addChartsItem(SimpleChart chartsItem) {
+    if (this.charts == null) {
+      this.charts = new ArrayList<SimpleChart>();
+    }
+    this.charts.add(chartsItem);
+    return this;
+  }
 
-	/**
-	 * Get charts
-	 *
-	 * @return charts
-	 **/
-	@Schema(description = "")
-	public List<SimpleChart> getCharts() {
-		return charts;
-	}
+  /**
+   * Get charts
+   *
+   * @return charts
+   **/
+  @Schema(description = "")
+  public List<SimpleChart> getCharts() {
+    return charts;
+  }
 
-	public void setCharts(List<SimpleChart> charts) {
-		this.charts = charts;
-	}
+  public void setCharts(List<SimpleChart> charts) {
+    this.charts = charts;
+  }
 
-	@Override
-	public boolean equals(java.lang.Object o) {
-		if (this == o) {
-			return true;
-		}
-		if (o == null || getClass() != o.getClass()) {
-			return false;
-		}
-		ProgramProfitPercentCharts programProfitPercentCharts = (ProgramProfitPercentCharts) o;
-		return Objects.equals(this.statistic, programProfitPercentCharts.statistic) &&
-				Objects.equals(this.charts, programProfitPercentCharts.charts);
-	}
+  @Override
+  public boolean equals(java.lang.Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    ProgramProfitPercentCharts programProfitPercentCharts = (ProgramProfitPercentCharts) o;
+    return Objects.equals(this.statistic, programProfitPercentCharts.statistic) &&
+            Objects.equals(this.charts, programProfitPercentCharts.charts);
+  }
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(statistic, charts);
-	}
+  @Override
+  public int hashCode() {
+    return Objects.hash(statistic, charts);
+  }
 
-	@Override
-	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		sb.append("class ProgramProfitPercentCharts {\n");
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class ProgramProfitPercentCharts {\n");
 
-		sb.append("    statistic: ").append(toIndentedString(statistic)).append("\n");
-		sb.append("    charts: ").append(toIndentedString(charts)).append("\n");
-		sb.append("}");
-		return sb.toString();
-	}
+    sb.append("    statistic: ").append(toIndentedString(statistic)).append("\n");
+    sb.append("    charts: ").append(toIndentedString(charts)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
 
-	/**
-	 * Convert the given object to string with each line indented by 4 spaces
-	 * (except the first line).
-	 */
-	private String toIndentedString(java.lang.Object o) {
-		if (o == null) {
-			return "null";
-		}
-		return o.toString().replace("\n", "\n    ");
-	}
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(java.lang.Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
 
-	public void writeToParcel(Parcel out, int flags) {
-		out.writeValue(statistic);
-		out.writeValue(charts);
-	}
+  public void writeToParcel(Parcel out, int flags) {
+    out.writeValue(statistic);
+    out.writeValue(charts);
+  }
 
-	public int describeContents() {
-		return 0;
-	}
+  public int describeContents() {
+    return 0;
+  }
 }

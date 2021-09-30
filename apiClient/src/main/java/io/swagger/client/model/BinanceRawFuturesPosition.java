@@ -48,9 +48,6 @@ public class BinanceRawFuturesPosition implements Parcelable
 	@SerializedName("isAutoAddMargin")
 	private Boolean isAutoAddMargin = null;
 
-	@SerializedName("positionAmount")
-	private Double positionAmount = null;
-
 	@SerializedName("isolatedMargin")
 	private Double isolatedMargin = null;
 
@@ -63,17 +60,20 @@ public class BinanceRawFuturesPosition implements Parcelable
 	@SerializedName("markPrice")
 	private Double markPrice = null;
 
-	@SerializedName("maxNotionalValue")
-	private Double maxNotionalValue = null;
-
 	@SerializedName("symbol")
 	private String symbol = null;
 
-	@SerializedName("unrealizedProfit")
-	private Double unrealizedProfit = null;
-
 	@SerializedName("positionSide")
 	private BinancePositionSide positionSide = null;
+
+	@SerializedName("quantity")
+	private Double quantity = null;
+
+	@SerializedName("unrealizedPnL")
+	private Double unrealizedPnL = null;
+
+	@SerializedName("maxNotional")
+	private Double maxNotional = null;
 
 	public BinanceRawFuturesPosition() {
 	}
@@ -82,15 +82,15 @@ public class BinanceRawFuturesPosition implements Parcelable
 		entryPrice = (Double) in.readValue(null);
 		marginType = (BinanceFuturesMarginType) in.readValue(BinanceFuturesMarginType.class.getClassLoader());
 		isAutoAddMargin = (Boolean) in.readValue(null);
-		positionAmount = (Double) in.readValue(null);
 		isolatedMargin = (Double) in.readValue(null);
 		leverage = (Integer) in.readValue(null);
 		liquidationPrice = (Double) in.readValue(null);
 		markPrice = (Double) in.readValue(null);
-		maxNotionalValue = (Double) in.readValue(null);
 		symbol = (String) in.readValue(null);
-		unrealizedProfit = (Double) in.readValue(null);
 		positionSide = (BinancePositionSide) in.readValue(BinancePositionSide.class.getClassLoader());
+		quantity = (Double) in.readValue(null);
+		unrealizedPnL = (Double) in.readValue(null);
+		maxNotional = (Double) in.readValue(null);
 	}
 
 	public BinanceRawFuturesPosition entryPrice(Double entryPrice) {
@@ -148,25 +148,6 @@ public class BinanceRawFuturesPosition implements Parcelable
 
 	public void setIsAutoAddMargin(Boolean isAutoAddMargin) {
 		this.isAutoAddMargin = isAutoAddMargin;
-	}
-
-	public BinanceRawFuturesPosition positionAmount(Double positionAmount) {
-		this.positionAmount = positionAmount;
-		return this;
-	}
-
-	/**
-	 * Get positionAmount
-	 *
-	 * @return positionAmount
-	 **/
-	@Schema(description = "")
-	public Double getPositionAmount() {
-		return positionAmount;
-	}
-
-	public void setPositionAmount(Double positionAmount) {
-		this.positionAmount = positionAmount;
 	}
 
 	public BinanceRawFuturesPosition isolatedMargin(Double isolatedMargin) {
@@ -245,25 +226,6 @@ public class BinanceRawFuturesPosition implements Parcelable
 		this.markPrice = markPrice;
 	}
 
-	public BinanceRawFuturesPosition maxNotionalValue(Double maxNotionalValue) {
-		this.maxNotionalValue = maxNotionalValue;
-		return this;
-	}
-
-	/**
-	 * Get maxNotionalValue
-	 *
-	 * @return maxNotionalValue
-	 **/
-	@Schema(description = "")
-	public Double getMaxNotionalValue() {
-		return maxNotionalValue;
-	}
-
-	public void setMaxNotionalValue(Double maxNotionalValue) {
-		this.maxNotionalValue = maxNotionalValue;
-	}
-
 	public BinanceRawFuturesPosition symbol(String symbol) {
 		this.symbol = symbol;
 		return this;
@@ -281,25 +243,6 @@ public class BinanceRawFuturesPosition implements Parcelable
 
 	public void setSymbol(String symbol) {
 		this.symbol = symbol;
-	}
-
-	public BinanceRawFuturesPosition unrealizedProfit(Double unrealizedProfit) {
-		this.unrealizedProfit = unrealizedProfit;
-		return this;
-	}
-
-	/**
-	 * Get unrealizedProfit
-	 *
-	 * @return unrealizedProfit
-	 **/
-	@Schema(description = "")
-	public Double getUnrealizedProfit() {
-		return unrealizedProfit;
-	}
-
-	public void setUnrealizedProfit(Double unrealizedProfit) {
-		this.unrealizedProfit = unrealizedProfit;
 	}
 
 	public BinanceRawFuturesPosition positionSide(BinancePositionSide positionSide) {
@@ -321,6 +264,63 @@ public class BinanceRawFuturesPosition implements Parcelable
 		this.positionSide = positionSide;
 	}
 
+	public BinanceRawFuturesPosition quantity(Double quantity) {
+		this.quantity = quantity;
+		return this;
+	}
+
+	/**
+	 * Get quantity
+	 *
+	 * @return quantity
+	 **/
+	@Schema(description = "")
+	public Double getQuantity() {
+		return quantity;
+	}
+
+	public void setQuantity(Double quantity) {
+		this.quantity = quantity;
+	}
+
+	public BinanceRawFuturesPosition unrealizedPnL(Double unrealizedPnL) {
+		this.unrealizedPnL = unrealizedPnL;
+		return this;
+	}
+
+	/**
+	 * Get unrealizedPnL
+	 *
+	 * @return unrealizedPnL
+	 **/
+	@Schema(description = "")
+	public Double getUnrealizedPnL() {
+		return unrealizedPnL;
+	}
+
+	public void setUnrealizedPnL(Double unrealizedPnL) {
+		this.unrealizedPnL = unrealizedPnL;
+	}
+
+	public BinanceRawFuturesPosition maxNotional(Double maxNotional) {
+		this.maxNotional = maxNotional;
+		return this;
+	}
+
+	/**
+	 * Get maxNotional
+	 *
+	 * @return maxNotional
+	 **/
+	@Schema(description = "")
+	public Double getMaxNotional() {
+		return maxNotional;
+	}
+
+	public void setMaxNotional(Double maxNotional) {
+		this.maxNotional = maxNotional;
+	}
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -333,20 +333,20 @@ public class BinanceRawFuturesPosition implements Parcelable
 		return Objects.equals(this.entryPrice, binanceRawFuturesPosition.entryPrice) &&
 				Objects.equals(this.marginType, binanceRawFuturesPosition.marginType) &&
 				Objects.equals(this.isAutoAddMargin, binanceRawFuturesPosition.isAutoAddMargin) &&
-				Objects.equals(this.positionAmount, binanceRawFuturesPosition.positionAmount) &&
 				Objects.equals(this.isolatedMargin, binanceRawFuturesPosition.isolatedMargin) &&
 				Objects.equals(this.leverage, binanceRawFuturesPosition.leverage) &&
 				Objects.equals(this.liquidationPrice, binanceRawFuturesPosition.liquidationPrice) &&
 				Objects.equals(this.markPrice, binanceRawFuturesPosition.markPrice) &&
-				Objects.equals(this.maxNotionalValue, binanceRawFuturesPosition.maxNotionalValue) &&
 				Objects.equals(this.symbol, binanceRawFuturesPosition.symbol) &&
-				Objects.equals(this.unrealizedProfit, binanceRawFuturesPosition.unrealizedProfit) &&
-				Objects.equals(this.positionSide, binanceRawFuturesPosition.positionSide);
+				Objects.equals(this.positionSide, binanceRawFuturesPosition.positionSide) &&
+				Objects.equals(this.quantity, binanceRawFuturesPosition.quantity) &&
+				Objects.equals(this.unrealizedPnL, binanceRawFuturesPosition.unrealizedPnL) &&
+				Objects.equals(this.maxNotional, binanceRawFuturesPosition.maxNotional);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(entryPrice, marginType, isAutoAddMargin, positionAmount, isolatedMargin, leverage, liquidationPrice, markPrice, maxNotionalValue, symbol, unrealizedProfit, positionSide);
+		return Objects.hash(entryPrice, marginType, isAutoAddMargin, isolatedMargin, leverage, liquidationPrice, markPrice, symbol, positionSide, quantity, unrealizedPnL, maxNotional);
 	}
 
 	@Override
@@ -357,15 +357,15 @@ public class BinanceRawFuturesPosition implements Parcelable
 		sb.append("    entryPrice: ").append(toIndentedString(entryPrice)).append("\n");
 		sb.append("    marginType: ").append(toIndentedString(marginType)).append("\n");
 		sb.append("    isAutoAddMargin: ").append(toIndentedString(isAutoAddMargin)).append("\n");
-		sb.append("    positionAmount: ").append(toIndentedString(positionAmount)).append("\n");
 		sb.append("    isolatedMargin: ").append(toIndentedString(isolatedMargin)).append("\n");
 		sb.append("    leverage: ").append(toIndentedString(leverage)).append("\n");
 		sb.append("    liquidationPrice: ").append(toIndentedString(liquidationPrice)).append("\n");
 		sb.append("    markPrice: ").append(toIndentedString(markPrice)).append("\n");
-		sb.append("    maxNotionalValue: ").append(toIndentedString(maxNotionalValue)).append("\n");
 		sb.append("    symbol: ").append(toIndentedString(symbol)).append("\n");
-		sb.append("    unrealizedProfit: ").append(toIndentedString(unrealizedProfit)).append("\n");
 		sb.append("    positionSide: ").append(toIndentedString(positionSide)).append("\n");
+		sb.append("    quantity: ").append(toIndentedString(quantity)).append("\n");
+		sb.append("    unrealizedPnL: ").append(toIndentedString(unrealizedPnL)).append("\n");
+		sb.append("    maxNotional: ").append(toIndentedString(maxNotional)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}
@@ -385,15 +385,15 @@ public class BinanceRawFuturesPosition implements Parcelable
 		out.writeValue(entryPrice);
 		out.writeValue(marginType);
 		out.writeValue(isAutoAddMargin);
-		out.writeValue(positionAmount);
 		out.writeValue(isolatedMargin);
 		out.writeValue(leverage);
 		out.writeValue(liquidationPrice);
 		out.writeValue(markPrice);
-		out.writeValue(maxNotionalValue);
 		out.writeValue(symbol);
-		out.writeValue(unrealizedProfit);
 		out.writeValue(positionSide);
+		out.writeValue(quantity);
+		out.writeValue(unrealizedPnL);
+		out.writeValue(maxNotional);
 	}
 
 	public int describeContents() {

@@ -54,6 +54,9 @@ public class BinanceRawFuturesBracket implements Parcelable
 	@SerializedName("maintenanceMarginRatio")
 	private Double maintenanceMarginRatio = null;
 
+	@SerializedName("maintAmount")
+	private Double maintAmount = null;
+
 	public BinanceRawFuturesBracket() {
 	}
 
@@ -63,6 +66,7 @@ public class BinanceRawFuturesBracket implements Parcelable
 		cap = (Long) in.readValue(null);
 		floor = (Long) in.readValue(null);
 		maintenanceMarginRatio = (Double) in.readValue(null);
+		maintAmount = (Double) in.readValue(null);
 	}
 
 	public BinanceRawFuturesBracket bracket(Integer bracket) {
@@ -160,6 +164,25 @@ public class BinanceRawFuturesBracket implements Parcelable
 		this.maintenanceMarginRatio = maintenanceMarginRatio;
 	}
 
+	public BinanceRawFuturesBracket maintAmount(Double maintAmount) {
+		this.maintAmount = maintAmount;
+		return this;
+	}
+
+	/**
+	 * Get maintAmount
+	 *
+	 * @return maintAmount
+	 **/
+	@Schema(description = "")
+	public Double getMaintAmount() {
+		return maintAmount;
+	}
+
+	public void setMaintAmount(Double maintAmount) {
+		this.maintAmount = maintAmount;
+	}
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -173,12 +196,13 @@ public class BinanceRawFuturesBracket implements Parcelable
 				Objects.equals(this.initialLeverage, binanceRawFuturesBracket.initialLeverage) &&
 				Objects.equals(this.cap, binanceRawFuturesBracket.cap) &&
 				Objects.equals(this.floor, binanceRawFuturesBracket.floor) &&
-				Objects.equals(this.maintenanceMarginRatio, binanceRawFuturesBracket.maintenanceMarginRatio);
+				Objects.equals(this.maintenanceMarginRatio, binanceRawFuturesBracket.maintenanceMarginRatio) &&
+				Objects.equals(this.maintAmount, binanceRawFuturesBracket.maintAmount);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(bracket, initialLeverage, cap, floor, maintenanceMarginRatio);
+		return Objects.hash(bracket, initialLeverage, cap, floor, maintenanceMarginRatio, maintAmount);
 	}
 
 	@Override
@@ -191,6 +215,7 @@ public class BinanceRawFuturesBracket implements Parcelable
 		sb.append("    cap: ").append(toIndentedString(cap)).append("\n");
 		sb.append("    floor: ").append(toIndentedString(floor)).append("\n");
 		sb.append("    maintenanceMarginRatio: ").append(toIndentedString(maintenanceMarginRatio)).append("\n");
+		sb.append("    maintAmount: ").append(toIndentedString(maintAmount)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}
@@ -212,6 +237,7 @@ public class BinanceRawFuturesBracket implements Parcelable
 		out.writeValue(cap);
 		out.writeValue(floor);
 		out.writeValue(maintenanceMarginRatio);
+		out.writeValue(maintAmount);
 	}
 
 	public int describeContents() {

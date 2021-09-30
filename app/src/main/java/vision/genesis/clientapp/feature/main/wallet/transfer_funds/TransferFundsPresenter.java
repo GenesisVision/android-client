@@ -11,7 +11,7 @@ import java.util.Locale;
 
 import javax.inject.Inject;
 
-import io.swagger.client.model.AmountWithCurrency;
+import io.swagger.client.model.AmountWithLogoCurrency;
 import io.swagger.client.model.InternalTransferRequest;
 import io.swagger.client.model.InternalTransferRequestType;
 import io.swagger.client.model.WalletData;
@@ -284,7 +284,7 @@ public class TransferFundsPresenter extends MvpPresenter<TransferWalletView> imp
 			getViewState().setAmount("");
 		}
 		if (model.getAssetType().equals(InternalTransferRequestType.EXCHANGEACCOUNT)) {
-			for (AmountWithCurrency balance : model.getBalances()) {
+			for (AmountWithLogoCurrency balance : model.getBalances()) {
 				if (balance.getCurrency().equals(selectedWallet.getCurrency())) {
 					if (model.getTransferDirection().equals(TransferFundsModel.TransferDirection.WITHDRAW)) {
 						available = balance.getAmount();

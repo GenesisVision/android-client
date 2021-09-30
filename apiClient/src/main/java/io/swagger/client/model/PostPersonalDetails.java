@@ -28,193 +28,193 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class PostPersonalDetails implements Parcelable
 {
-	public static final Parcelable.Creator<PostPersonalDetails> CREATOR = new Parcelable.Creator<PostPersonalDetails>()
-	{
-		public PostPersonalDetails createFromParcel(Parcel in) {
-			return new PostPersonalDetails(in);
-		}
+  public static final Parcelable.Creator<PostPersonalDetails> CREATOR = new Parcelable.Creator<PostPersonalDetails>()
+  {
+    public PostPersonalDetails createFromParcel(Parcel in) {
+      return new PostPersonalDetails(in);
+    }
 
-		public PostPersonalDetails[] newArray(int size) {
-			return new PostPersonalDetails[size];
-		}
-	};
+    public PostPersonalDetails[] newArray(int size) {
+      return new PostPersonalDetails[size];
+    }
+  };
 
-	@SerializedName("isLiked")
-	private Boolean isLiked = null;
+  @SerializedName("isLiked")
+  private Boolean isLiked = null;
 
-	@SerializedName("canEdit")
-	private Boolean canEdit = null;
+  @SerializedName("canEdit")
+  private Boolean canEdit = null;
 
-	@SerializedName("canDelete")
-	private Boolean canDelete = null;
+  @SerializedName("canDelete")
+  private Boolean canDelete = null;
 
-	@SerializedName("canPin")
-	private Boolean canPin = null;
+  @SerializedName("canPin")
+  private Boolean canPin = null;
 
-	@SerializedName("canComment")
-	private Boolean canComment = null;
+  @SerializedName("canComment")
+  private Boolean canComment = null;
 
-	public PostPersonalDetails() {
-	}
+  public PostPersonalDetails() {
+  }
 
-	PostPersonalDetails(Parcel in) {
-		isLiked = (Boolean) in.readValue(null);
-		canEdit = (Boolean) in.readValue(null);
-		canDelete = (Boolean) in.readValue(null);
-		canPin = (Boolean) in.readValue(null);
-		canComment = (Boolean) in.readValue(null);
-	}
+  PostPersonalDetails(Parcel in) {
+    isLiked = (Boolean) in.readValue(null);
+    canEdit = (Boolean) in.readValue(null);
+    canDelete = (Boolean) in.readValue(null);
+    canPin = (Boolean) in.readValue(null);
+    canComment = (Boolean) in.readValue(null);
+  }
 
-	public PostPersonalDetails isLiked(Boolean isLiked) {
-		this.isLiked = isLiked;
-		return this;
-	}
+  public PostPersonalDetails isLiked(Boolean isLiked) {
+    this.isLiked = isLiked;
+    return this;
+  }
 
-	/**
-	 * Get isLiked
-	 *
-	 * @return isLiked
-	 **/
-	@Schema(description = "")
-	public Boolean isIsLiked() {
-		return isLiked;
-	}
+  /**
+   * Get isLiked
+   *
+   * @return isLiked
+   **/
+  @Schema(description = "")
+  public Boolean isIsLiked() {
+    return isLiked;
+  }
 
-	public void setIsLiked(Boolean isLiked) {
-		this.isLiked = isLiked;
-	}
+  public void setIsLiked(Boolean isLiked) {
+    this.isLiked = isLiked;
+  }
 
-	public PostPersonalDetails canEdit(Boolean canEdit) {
-		this.canEdit = canEdit;
-		return this;
-	}
+  public PostPersonalDetails canEdit(Boolean canEdit) {
+    this.canEdit = canEdit;
+    return this;
+  }
 
-	/**
-	 * Get canEdit
-	 *
-	 * @return canEdit
-	 **/
-	@Schema(description = "")
-	public Boolean isCanEdit() {
-		return canEdit;
-	}
+  /**
+   * Get canEdit
+   *
+   * @return canEdit
+   **/
+  @Schema(description = "")
+  public Boolean isCanEdit() {
+    return canEdit;
+  }
 
-	public void setCanEdit(Boolean canEdit) {
-		this.canEdit = canEdit;
-	}
+  public void setCanEdit(Boolean canEdit) {
+    this.canEdit = canEdit;
+  }
 
-	public PostPersonalDetails canDelete(Boolean canDelete) {
-		this.canDelete = canDelete;
-		return this;
-	}
+  public PostPersonalDetails canDelete(Boolean canDelete) {
+    this.canDelete = canDelete;
+    return this;
+  }
 
-	/**
-	 * Get canDelete
-	 *
-	 * @return canDelete
-	 **/
-	@Schema(description = "")
-	public Boolean isCanDelete() {
-		return canDelete;
-	}
+  /**
+   * Get canDelete
+   *
+   * @return canDelete
+   **/
+  @Schema(description = "")
+  public Boolean isCanDelete() {
+    return canDelete;
+  }
 
-	public void setCanDelete(Boolean canDelete) {
-		this.canDelete = canDelete;
-	}
+  public void setCanDelete(Boolean canDelete) {
+    this.canDelete = canDelete;
+  }
 
-	public PostPersonalDetails canPin(Boolean canPin) {
-		this.canPin = canPin;
-		return this;
-	}
+  public PostPersonalDetails canPin(Boolean canPin) {
+    this.canPin = canPin;
+    return this;
+  }
 
-	/**
-	 * Get canPin
-	 *
-	 * @return canPin
-	 **/
-	@Schema(description = "")
-	public Boolean isCanPin() {
-		return canPin;
-	}
+  /**
+   * Get canPin
+   *
+   * @return canPin
+   **/
+  @Schema(description = "")
+  public Boolean isCanPin() {
+    return canPin;
+  }
 
-	public void setCanPin(Boolean canPin) {
-		this.canPin = canPin;
-	}
+  public void setCanPin(Boolean canPin) {
+    this.canPin = canPin;
+  }
 
-	public PostPersonalDetails canComment(Boolean canComment) {
-		this.canComment = canComment;
-		return this;
-	}
+  public PostPersonalDetails canComment(Boolean canComment) {
+    this.canComment = canComment;
+    return this;
+  }
 
-	/**
-	 * Get canComment
-	 *
-	 * @return canComment
-	 **/
-	@Schema(description = "")
-	public Boolean isCanComment() {
-		return canComment;
-	}
+  /**
+   * Get canComment
+   *
+   * @return canComment
+   **/
+  @Schema(description = "")
+  public Boolean isCanComment() {
+    return canComment;
+  }
 
-	public void setCanComment(Boolean canComment) {
-		this.canComment = canComment;
-	}
+  public void setCanComment(Boolean canComment) {
+    this.canComment = canComment;
+  }
 
-	@Override
-	public boolean equals(java.lang.Object o) {
-		if (this == o) {
-			return true;
-		}
-		if (o == null || getClass() != o.getClass()) {
-			return false;
-		}
-		PostPersonalDetails postPersonalDetails = (PostPersonalDetails) o;
-		return Objects.equals(this.isLiked, postPersonalDetails.isLiked) &&
-				Objects.equals(this.canEdit, postPersonalDetails.canEdit) &&
-				Objects.equals(this.canDelete, postPersonalDetails.canDelete) &&
-				Objects.equals(this.canPin, postPersonalDetails.canPin) &&
-				Objects.equals(this.canComment, postPersonalDetails.canComment);
-	}
+  @Override
+  public boolean equals(java.lang.Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    PostPersonalDetails postPersonalDetails = (PostPersonalDetails) o;
+    return Objects.equals(this.isLiked, postPersonalDetails.isLiked) &&
+            Objects.equals(this.canEdit, postPersonalDetails.canEdit) &&
+            Objects.equals(this.canDelete, postPersonalDetails.canDelete) &&
+            Objects.equals(this.canPin, postPersonalDetails.canPin) &&
+            Objects.equals(this.canComment, postPersonalDetails.canComment);
+  }
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(isLiked, canEdit, canDelete, canPin, canComment);
-	}
+  @Override
+  public int hashCode() {
+    return Objects.hash(isLiked, canEdit, canDelete, canPin, canComment);
+  }
 
-	@Override
-	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		sb.append("class PostPersonalDetails {\n");
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class PostPersonalDetails {\n");
 
-		sb.append("    isLiked: ").append(toIndentedString(isLiked)).append("\n");
-		sb.append("    canEdit: ").append(toIndentedString(canEdit)).append("\n");
-		sb.append("    canDelete: ").append(toIndentedString(canDelete)).append("\n");
-		sb.append("    canPin: ").append(toIndentedString(canPin)).append("\n");
-		sb.append("    canComment: ").append(toIndentedString(canComment)).append("\n");
-		sb.append("}");
-		return sb.toString();
-	}
+    sb.append("    isLiked: ").append(toIndentedString(isLiked)).append("\n");
+    sb.append("    canEdit: ").append(toIndentedString(canEdit)).append("\n");
+    sb.append("    canDelete: ").append(toIndentedString(canDelete)).append("\n");
+    sb.append("    canPin: ").append(toIndentedString(canPin)).append("\n");
+    sb.append("    canComment: ").append(toIndentedString(canComment)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
 
-	/**
-	 * Convert the given object to string with each line indented by 4 spaces
-	 * (except the first line).
-	 */
-	private String toIndentedString(java.lang.Object o) {
-		if (o == null) {
-			return "null";
-		}
-		return o.toString().replace("\n", "\n    ");
-	}
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(java.lang.Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
 
-	public void writeToParcel(Parcel out, int flags) {
-		out.writeValue(isLiked);
-		out.writeValue(canEdit);
-		out.writeValue(canDelete);
-		out.writeValue(canPin);
-		out.writeValue(canComment);
-	}
+  public void writeToParcel(Parcel out, int flags) {
+    out.writeValue(isLiked);
+    out.writeValue(canEdit);
+    out.writeValue(canDelete);
+    out.writeValue(canPin);
+    out.writeValue(canComment);
+  }
 
-	public int describeContents() {
-		return 0;
-	}
+  public int describeContents() {
+    return 0;
+  }
 }

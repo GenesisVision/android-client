@@ -25,45 +25,45 @@ import java.io.IOException;
 @JsonAdapter(SubscriptionMode.Adapter.class)
 public enum SubscriptionMode
 {
-	BYBALANCE("ByBalance"),
-	PERCENT("Percent"),
-	FIXED("Fixed");
+  BYBALANCE("ByBalance"),
+  PERCENT("Percent"),
+  FIXED("Fixed");
 
-	public static SubscriptionMode fromValue(String text) {
-		for (SubscriptionMode b : SubscriptionMode.values()) {
-			if (String.valueOf(b.value).equals(text)) {
-				return b;
-			}
-		}
-		return null;
-	}
+  public static SubscriptionMode fromValue(String text) {
+    for (SubscriptionMode b : SubscriptionMode.values()) {
+      if (String.valueOf(b.value).equals(text)) {
+        return b;
+      }
+    }
+    return null;
+  }
 
-	private String value;
+  private String value;
 
-	SubscriptionMode(String value) {
-		this.value = value;
-	}
+  SubscriptionMode(String value) {
+    this.value = value;
+  }
 
-	public String getValue() {
-		return value;
-	}
+  public String getValue() {
+    return value;
+  }
 
-	@Override
-	public String toString() {
-		return String.valueOf(value);
-	}
+  @Override
+  public String toString() {
+    return String.valueOf(value);
+  }
 
-	public static class Adapter extends TypeAdapter<SubscriptionMode>
-	{
-		@Override
-		public void write(final JsonWriter jsonWriter, final SubscriptionMode enumeration) throws IOException {
-			jsonWriter.value(enumeration.getValue());
-		}
+  public static class Adapter extends TypeAdapter<SubscriptionMode>
+  {
+    @Override
+    public void write(final JsonWriter jsonWriter, final SubscriptionMode enumeration) throws IOException {
+      jsonWriter.value(enumeration.getValue());
+    }
 
-		@Override
-		public SubscriptionMode read(final JsonReader jsonReader) throws IOException {
-			Object value = jsonReader.nextString();
-			return SubscriptionMode.fromValue(String.valueOf(value));
-		}
-	}
+    @Override
+    public SubscriptionMode read(final JsonReader jsonReader) throws IOException {
+      Object value = jsonReader.nextString();
+      return SubscriptionMode.fromValue(String.valueOf(value));
+    }
+  }
 }
