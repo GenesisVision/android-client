@@ -244,7 +244,7 @@ public class TerminalManager
 	}
 
 	public Observable<BinanceRawOrderItemsViewModel> getOrderHistory(@NonNull UUID accountId, TradingPlatformBinanceOrdersMode mode, @NonNull DateRange dateRange, String symbol, int skip, int take) {
-		return tradingplatformApi.getTradesHistory(accountId, mode, dateRange.getFrom(), dateRange.getTo(), symbol, skip, take);
+		return tradingplatformApi.getTradesHistory(accountId, mode, dateRange.getFrom(), dateRange.getSelectedRange().equals(DateRange.DateRangeEnum.CUSTOM) ? dateRange.getTo() : null, symbol, skip, take);
 	}
 
 	public Observable<BinanceRawKlineItemsViewModel> getKlineData(String symbol, BinanceKlineInterval interval, DateTime startTime, DateTime endTime, Integer limit) {

@@ -13,6 +13,8 @@ import android.widget.TextView;
 import androidx.core.content.ContextCompat;
 
 import java.util.List;
+import java.util.Locale;
+import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
 
@@ -20,11 +22,14 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+import io.swagger.client.model.Currency;
+import rx.Observable;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
+import vision.genesis.clientapp.managers.RateManager;
 import vision.genesis.clientapp.managers.TerminalManager;
 import vision.genesis.clientapp.model.terminal.binance_socket.TickerModel;
 import vision.genesis.clientapp.utils.StringFormatUtil;
@@ -40,6 +45,9 @@ public class SymbolWatchView extends RelativeLayout
 	@Inject
 	public TerminalManager terminalManager;
 
+	@Inject
+	public RateManager rateManager;
+
 	@BindView(R.id.root)
 	public ViewGroup root;
 
@@ -54,6 +62,9 @@ public class SymbolWatchView extends RelativeLayout
 
 	@BindView(R.id.price)
 	public TextView price;
+
+	@BindView(R.id.usd_price)
+	public TextView usdPrice;
 
 	@BindView(R.id.change)
 	public TextView change;
@@ -92,11 +103,15 @@ public class SymbolWatchView extends RelativeLayout
 
 	public Subscription tickerUpdateSubscription;
 
+	public Subscription usdRateTimerSubscription;
+
+	public Subscription getRateSubscription;
+
 	private List<String> favoriteTickers;
 
 	private Unbinder unbinder;
 
-	private String symbol = "";
+	private String symbol;
 
 	private String baseAssetString = "";
 
@@ -109,6 +124,12 @@ public class SymbolWatchView extends RelativeLayout
 	private int colorRed;
 
 	private double previousPrice = 0.0;
+
+	private TickerModel tickerData;
+
+	private Double usdRate = 0.0;
+
+	private TickerModel ticker;
 
 	public SymbolWatchView(Context context) {
 		super(context);
@@ -206,11 +227,53 @@ public class SymbolWatchView extends RelativeLayout
 		updateLabels();
 		subscribeToTickerUpdates();
 		checkSymbolIsFavorite();
+		startUsdRateTimer();
+	}
+
+	private void startUsdRateTimer() {
+		if (usdRateTimerSubscription != null) {
+			usdRateTimerSubscription.unsubscribe();
+		}
+		getUsdRate();
+		usdRateTimerSubscription = Observable.interval(30, TimeUnit.SECONDS)
+				.onBackpressureDrop()
+				.retry()
+				.observeOn(AndroidSchedulers.mainThread())
+				.subscribe(time -> getUsdRate(),
+						Throwable::printStackTrace, System.out::println);
+	}
+
+	private void getUsdRate() {
+		if (rateManager != null) {
+			if (getRateSubscription != null) {
+				getRateSubscription.unsubscribe();
+			}
+			Pair<String, String> baseQuoteAssetsPair = terminalManager.getBaseQuoteAssets(symbol);
+			if (baseQuoteAssetsPair != null) {
+				getRateSubscription = rateManager.getRate(baseQuoteAssetsPair.second, Currency.USD.getValue())
+						.observeOn(AndroidSchedulers.mainThread())
+						.subscribeOn(Schedulers.io())
+						.subscribe(this::handleGetRateSuccess,
+								Throwable::printStackTrace, System.out::println);
+			}
+		}
+	}
+
+	private void handleGetRateSuccess(Double rate) {
+		this.usdRate = rate;
+		updateUsdPrice();
+	}
+
+	private void updateUsdPrice() {
+		if (usdRate > 0.0 && ticker != null && ticker.getLastPrice() != null) {
+			this.usdPrice.setText(String.format(Locale.getDefault(), "$%s",
+					StringFormatUtil.formatCurrencyAmount(usdRate * ticker.getLastPrice(), Currency.USD.getValue())));
+		}
 	}
 
 	private void getTickerData() {
 		if (symbol != null && terminalManager != null) {
-			TickerModel tickerData = terminalManager.getTickerData(symbol);
+			tickerData = terminalManager.getTickerData(symbol);
 			if (tickerData != null) {
 				updateView(tickerData);
 			}
@@ -223,6 +286,12 @@ public class SymbolWatchView extends RelativeLayout
 		}
 		if (tickerUpdateSubscription != null) {
 			tickerUpdateSubscription.unsubscribe();
+		}
+		if (usdRateTimerSubscription != null) {
+			usdRateTimerSubscription.unsubscribe();
+		}
+		if (getRateSubscription != null) {
+			getRateSubscription.unsubscribe();
 		}
 
 		if (unbinder != null) {
@@ -264,9 +333,11 @@ public class SymbolWatchView extends RelativeLayout
 	}
 
 	private void updateView(TickerModel ticker) {
+		this.ticker = ticker;
 		this.root.setVisibility(ViewGroup.VISIBLE);
 
 		if (ticker.getLastPrice() != null) {
+			updateUsdPrice();
 			price.setText(StringFormatUtil.formatAmount(ticker.getLastPrice()));
 
 			int color = colorTextPrimary;

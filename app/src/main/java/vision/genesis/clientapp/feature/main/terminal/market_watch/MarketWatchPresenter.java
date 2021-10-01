@@ -31,6 +31,7 @@ import vision.genesis.clientapp.model.events.OnFavoriteTickersSelectAccountClick
 import vision.genesis.clientapp.model.terminal.MarketWatchTickerModel;
 import vision.genesis.clientapp.model.terminal.binance_api.BinanceRawExchangeInfo;
 import vision.genesis.clientapp.model.terminal.binance_api.BinanceRawSymbol;
+import vision.genesis.clientapp.model.terminal.binance_api.BinanceSymbolStatus;
 import vision.genesis.clientapp.model.terminal.binance_api.TickerPriceModel;
 import vision.genesis.clientapp.model.terminal.binance_socket.TickerModel;
 import vision.genesis.clientapp.net.ApiErrorResolver;
@@ -296,9 +297,9 @@ public class MarketWatchPresenter extends MvpPresenter<MarketWatchView> implemen
 		tickers = new HashMap<>();
 
 		for (BinanceRawSymbol symbol : info.getSymbols()) {
-//			if (symbol.getStatus() != null && symbol.getStatus().equals(BinanceSymbolStatus.TRADING)) {
+			if (symbol.getStatus() != null && symbol.getStatus().equals(BinanceSymbolStatus.TRADING)) {
 				tickers.put(symbol.getName(), MarketWatchTickerModel.from(symbol));
-//			}
+			}
 		}
 
 		getTickersPrices();

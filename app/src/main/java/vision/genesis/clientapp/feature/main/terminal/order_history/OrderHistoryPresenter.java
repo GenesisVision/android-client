@@ -9,7 +9,6 @@ import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.UUID;
 
 import javax.inject.Inject;
@@ -62,6 +61,8 @@ public class OrderHistoryPresenter extends MvpPresenter<OrderHistoryView> implem
 	private String symbol = "";
 
 	private TradingPlatformBinanceOrdersMode mode = TradingPlatformBinanceOrdersMode.ORDERHISTORY;
+
+	private Integer ordersTotal = 0;
 
 	@Override
 	protected void onFirstViewAttach() {
@@ -132,6 +133,8 @@ public class OrderHistoryPresenter extends MvpPresenter<OrderHistoryView> implem
 		getOrdersSubscription.unsubscribe();
 		getViewState().showProgress(false);
 
+		ordersTotal = model.getTotal();
+
 		if (skip == 0) {
 			orders.clear();
 		}
@@ -185,6 +188,7 @@ public class OrderHistoryPresenter extends MvpPresenter<OrderHistoryView> implem
 			if (mode.equals(TradingPlatformBinanceOrdersMode.ORDERHISTORY)) {
 				if (model.getExecutionType() == BinanceExecutionType.NEW) {
 					orders.add(0, model.toBinanceRawOrder());
+					ordersTotal++;
 				}
 				else {
 					for (int i = 0; i < orders.size(); i++) {
@@ -196,16 +200,12 @@ public class OrderHistoryPresenter extends MvpPresenter<OrderHistoryView> implem
 					}
 				}
 				getViewState().setOrders(orders);
-				if (mode.equals(TradingPlatformBinanceOrdersMode.ORDERHISTORY)) {
-					EventBus.getDefault().post(new SetOrderHistoryCountEvent(orders.size()));
-				}
-				else if (mode.equals(TradingPlatformBinanceOrdersMode.TRADEHISTORY)) {
-					EventBus.getDefault().post(new SetTradeHistoryCountEvent(orders.size()));
-				}
+				EventBus.getDefault().post(new SetOrderHistoryCountEvent(ordersTotal));
+
 			}
 			else {
 				if (model.getExecutionType().equals(BinanceExecutionType.TRADE)
-						&& Objects.equals(model.getQuantityFilled(), model.getQuantity())) {
+						&& ((int) (model.getQuantityFilled() / model.getQuantity() * 100)) == 100) {
 					getOrders(true);
 				}
 			}

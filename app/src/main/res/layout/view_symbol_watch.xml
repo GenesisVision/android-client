@@ -75,6 +75,17 @@
             android:textSize="12sp"
             tools:text="-1.53453 (-0.87%)"/>
 
+        <TextView
+            android:id="@+id/usd_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:fontFamily="@font/dinpro"
+            android:textColor="?attr/colorTextSecondary"
+            android:textFontWeight="600"
+            android:textSize="12sp"
+            tools:text="$42,876.56"/>
+
         <RelativeLayout
             android:layout_width="250dp"
             android:layout_height="wrap_content"
