@@ -28,45 +28,30 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class SimpleChartPoint implements Parcelable
 {
-  public static final Parcelable.Creator<SimpleChartPoint> CREATOR = new Parcelable.Creator<SimpleChartPoint>()
-  {
-    public SimpleChartPoint createFromParcel(Parcel in) {
-      return new SimpleChartPoint(in);
-    }
+	public static final Parcelable.Creator<SimpleChartPoint> CREATOR = new Parcelable.Creator<SimpleChartPoint>()
+	{
+		public SimpleChartPoint createFromParcel(Parcel in) {
+			return new SimpleChartPoint(in);
+		}
 
-    public SimpleChartPoint[] newArray(int size) {
-      return new SimpleChartPoint[size];
-    }
-  };
+		public SimpleChartPoint[] newArray(int size) {
+			return new SimpleChartPoint[size];
+		}
+	};
 
-  @SerializedName("date")
-  private Long date = null;
+	@SerializedName("date")
+	private Long date = null;
 
-  @SerializedName("value")
-  private Double value = null;
+	@SerializedName("value")
+	private Double value = null;
 
-  public SimpleChartPoint() {
-  }
+	public SimpleChartPoint() {
+	}
 
-  SimpleChartPoint(Parcel in) {
-    date = (Long) in.readValue(null);
-    value = (Double) in.readValue(null);
-  }
-
-  public SimpleChartPoint date(Long date) {
-    this.date = date;
-    return this;
-  }
-
-  /**
-   * Get date
-   *
-   * @return date
-   **/
-  @Schema(description = "")
-  public Long getDate() {
-    return date;
-  }
+	SimpleChartPoint(Parcel in) {
+		date = (Long) in.readValue(null);
+		value = (Double) in.readValue(null);
+	}
 
   public void setDate(Long date) {
     this.date = date;
@@ -77,18 +62,37 @@ public class SimpleChartPoint implements Parcelable
     return this;
   }
 
-  /**
-   * Get value
-   *
-   * @return value
-   **/
-  @Schema(description = "")
-  public Double getValue() {
-    return value;
+	public SimpleChartPoint date(Long date) {
+		this.date = date;
+    return this;
   }
 
   public void setValue(Double value) {
     this.value = value;
+  }
+
+	/**
+	 * Get date
+	 *
+	 * @return date
+	 **/
+  @Schema(description = "")
+  public Long getDate() {
+    return date;
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(date, value);
+  }
+
+	/**
+	 * Get value
+	 * @return value
+  **/
+  @Schema(description = "")
+  public Double getValue() {
+    return value;
   }
 
   @Override
@@ -100,13 +104,8 @@ public class SimpleChartPoint implements Parcelable
       return false;
     }
     SimpleChartPoint simpleChartPoint = (SimpleChartPoint) o;
-    return Objects.equals(this.date, simpleChartPoint.date) &&
-            Objects.equals(this.value, simpleChartPoint.value);
-  }
-
-  @Override
-  public int hashCode() {
-    return Objects.hash(date, value);
+	  return Objects.equals(this.date, simpleChartPoint.date) &&
+			  Objects.equals(this.value, simpleChartPoint.value);
   }
 
   @Override
@@ -128,15 +127,15 @@ public class SimpleChartPoint implements Parcelable
     if (o == null) {
       return "null";
     }
-    return o.toString().replace("\n", "\n    ");
+	  return o.toString().replace("\n", "\n    ");
   }
 
-  public void writeToParcel(Parcel out, int flags) {
-    out.writeValue(date);
-    out.writeValue(value);
-  }
+	public void writeToParcel(Parcel out, int flags) {
+		out.writeValue(date);
+		out.writeValue(value);
+	}
 
-  public int describeContents() {
-    return 0;
-  }
+	public int describeContents() {
+		return 0;
+	}
 }

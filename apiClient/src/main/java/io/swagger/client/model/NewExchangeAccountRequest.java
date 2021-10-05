@@ -29,17 +29,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class NewExchangeAccountRequest implements Parcelable
 {
-	public static final Parcelable.Creator<NewExchangeAccountRequest> CREATOR = new Parcelable.Creator<NewExchangeAccountRequest>()
-	{
-		public NewExchangeAccountRequest createFromParcel(Parcel in) {
-			return new NewExchangeAccountRequest(in);
-		}
-
-		public NewExchangeAccountRequest[] newArray(int size) {
-			return new NewExchangeAccountRequest[size];
-		}
-	};
-
 	@SerializedName("depositAmount")
 	private Double depositAmount = null;
 
@@ -50,12 +39,6 @@ public class NewExchangeAccountRequest implements Parcelable
 	private UUID brokerAccountTypeId = null;
 
 	public NewExchangeAccountRequest() {
-	}
-
-	NewExchangeAccountRequest(Parcel in) {
-		depositAmount = (Double) in.readValue(null);
-		depositWalletId = (UUID) in.readValue(UUID.class.getClassLoader());
-		brokerAccountTypeId = (UUID) in.readValue(UUID.class.getClassLoader());
 	}
 
 	public NewExchangeAccountRequest depositAmount(Double depositAmount) {
@@ -115,6 +98,7 @@ public class NewExchangeAccountRequest implements Parcelable
 		this.brokerAccountTypeId = brokerAccountTypeId;
 	}
 
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -133,6 +117,7 @@ public class NewExchangeAccountRequest implements Parcelable
 	public int hashCode() {
 		return Objects.hash(depositAmount, depositWalletId, brokerAccountTypeId);
 	}
+
 
 	@Override
 	public String toString() {
@@ -157,13 +142,31 @@ public class NewExchangeAccountRequest implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
+
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(depositAmount);
 		out.writeValue(depositWalletId);
 		out.writeValue(brokerAccountTypeId);
 	}
 
+	public static final Parcelable.Creator<NewExchangeAccountRequest> CREATOR = new Parcelable.Creator<NewExchangeAccountRequest>()
+	{
+		public NewExchangeAccountRequest createFromParcel(Parcel in) {
+			return new NewExchangeAccountRequest(in);
+		}
+
+		public NewExchangeAccountRequest[] newArray(int size) {
+			return new NewExchangeAccountRequest[size];
+		}
+	};
+
 	public int describeContents() {
 		return 0;
+	}
+
+	NewExchangeAccountRequest(Parcel in) {
+		depositAmount = (Double) in.readValue(null);
+		depositWalletId = (UUID) in.readValue(UUID.class.getClassLoader());
+		brokerAccountTypeId = (UUID) in.readValue(UUID.class.getClassLoader());
 	}
 }

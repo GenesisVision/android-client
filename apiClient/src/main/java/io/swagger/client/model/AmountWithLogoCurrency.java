@@ -28,17 +28,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class AmountWithLogoCurrency implements Parcelable
 {
-	public static final Parcelable.Creator<AmountWithLogoCurrency> CREATOR = new Parcelable.Creator<AmountWithLogoCurrency>()
-	{
-		public AmountWithLogoCurrency createFromParcel(Parcel in) {
-			return new AmountWithLogoCurrency(in);
-		}
-
-		public AmountWithLogoCurrency[] newArray(int size) {
-			return new AmountWithLogoCurrency[size];
-		}
-	};
-
 	@SerializedName("amount")
 	private Double amount = null;
 
@@ -49,12 +38,6 @@ public class AmountWithLogoCurrency implements Parcelable
 	private String logoUrl = null;
 
 	public AmountWithLogoCurrency() {
-	}
-
-	AmountWithLogoCurrency(Parcel in) {
-		amount = (Double) in.readValue(null);
-		currency = (Currency) in.readValue(Currency.class.getClassLoader());
-		logoUrl = (String) in.readValue(null);
 	}
 
 	public AmountWithLogoCurrency amount(Double amount) {
@@ -114,6 +97,7 @@ public class AmountWithLogoCurrency implements Parcelable
 		this.logoUrl = logoUrl;
 	}
 
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -132,6 +116,7 @@ public class AmountWithLogoCurrency implements Parcelable
 	public int hashCode() {
 		return Objects.hash(amount, currency, logoUrl);
 	}
+
 
 	@Override
 	public String toString() {
@@ -156,13 +141,31 @@ public class AmountWithLogoCurrency implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
+
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(amount);
 		out.writeValue(currency);
 		out.writeValue(logoUrl);
 	}
 
+	public static final Parcelable.Creator<AmountWithLogoCurrency> CREATOR = new Parcelable.Creator<AmountWithLogoCurrency>()
+	{
+		public AmountWithLogoCurrency createFromParcel(Parcel in) {
+			return new AmountWithLogoCurrency(in);
+		}
+
+		public AmountWithLogoCurrency[] newArray(int size) {
+			return new AmountWithLogoCurrency[size];
+		}
+	};
+
 	public int describeContents() {
 		return 0;
+	}
+
+	AmountWithLogoCurrency(Parcel in) {
+		amount = (Double) in.readValue(null);
+		currency = (Currency) in.readValue(Currency.class.getClassLoader());
+		logoUrl = (String) in.readValue(null);
 	}
 }

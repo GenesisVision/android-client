@@ -34,15 +34,6 @@ public enum InternalTransferRequestType
 	EXCHANGEACCOUNT("ExchangeAccount"),
 	COINSMARKET("CoinsMarket");
 
-	public static InternalTransferRequestType fromValue(String text) {
-		for (InternalTransferRequestType b : InternalTransferRequestType.values()) {
-			if (String.valueOf(b.value).equals(text)) {
-				return b;
-			}
-		}
-		return null;
-	}
-
 	private String value;
 
 	InternalTransferRequestType(String value) {
@@ -56,6 +47,15 @@ public enum InternalTransferRequestType
 	@Override
 	public String toString() {
 		return String.valueOf(value);
+	}
+
+	public static InternalTransferRequestType fromValue(String text) {
+		for (InternalTransferRequestType b : InternalTransferRequestType.values()) {
+			if (String.valueOf(b.value).equals(text)) {
+				return b;
+			}
+		}
+		return null;
 	}
 
 	public static class Adapter extends TypeAdapter<InternalTransferRequestType>

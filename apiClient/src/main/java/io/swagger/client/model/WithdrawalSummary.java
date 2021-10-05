@@ -30,45 +30,30 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class WithdrawalSummary implements Parcelable
 {
-  public static final Parcelable.Creator<WithdrawalSummary> CREATOR = new Parcelable.Creator<WithdrawalSummary>()
-  {
-    public WithdrawalSummary createFromParcel(Parcel in) {
-      return new WithdrawalSummary(in);
-    }
+	public static final Parcelable.Creator<WithdrawalSummary> CREATOR = new Parcelable.Creator<WithdrawalSummary>()
+	{
+		public WithdrawalSummary createFromParcel(Parcel in) {
+			return new WithdrawalSummary(in);
+		}
 
-    public WithdrawalSummary[] newArray(int size) {
-      return new WithdrawalSummary[size];
-    }
-  };
+		public WithdrawalSummary[] newArray(int size) {
+			return new WithdrawalSummary[size];
+		}
+	};
 
-  @SerializedName("availableToWithdrawal")
-  private Double availableToWithdrawal = null;
+	@SerializedName("availableToWithdrawal")
+	private Double availableToWithdrawal = null;
 
-  @SerializedName("wallets")
-  private List<WalletWithdrawalInfo> wallets = null;
+	@SerializedName("wallets")
+	private List<WalletWithdrawalInfo> wallets = null;
 
-  public WithdrawalSummary() {
-  }
+	public WithdrawalSummary() {
+	}
 
-  WithdrawalSummary(Parcel in) {
-    availableToWithdrawal = (Double) in.readValue(null);
-    wallets = (List<WalletWithdrawalInfo>) in.readValue(WalletWithdrawalInfo.class.getClassLoader());
-  }
-
-  public WithdrawalSummary availableToWithdrawal(Double availableToWithdrawal) {
-    this.availableToWithdrawal = availableToWithdrawal;
-    return this;
-  }
-
-  /**
-   * Get availableToWithdrawal
-   *
-   * @return availableToWithdrawal
-   **/
-  @Schema(description = "")
-  public Double getAvailableToWithdrawal() {
-    return availableToWithdrawal;
-  }
+	WithdrawalSummary(Parcel in) {
+		availableToWithdrawal = (Double) in.readValue(null);
+		wallets = (List<WalletWithdrawalInfo>) in.readValue(WalletWithdrawalInfo.class.getClassLoader());
+	}
 
   public void setAvailableToWithdrawal(Double availableToWithdrawal) {
     this.availableToWithdrawal = availableToWithdrawal;
@@ -87,18 +72,37 @@ public class WithdrawalSummary implements Parcelable
     return this;
   }
 
-  /**
-   * Get wallets
-   *
-   * @return wallets
-   **/
-  @Schema(description = "")
-  public List<WalletWithdrawalInfo> getWallets() {
-    return wallets;
+	public WithdrawalSummary availableToWithdrawal(Double availableToWithdrawal) {
+		this.availableToWithdrawal = availableToWithdrawal;
+    return this;
   }
 
   public void setWallets(List<WalletWithdrawalInfo> wallets) {
     this.wallets = wallets;
+  }
+
+	/**
+	 * Get availableToWithdrawal
+	 *
+	 * @return availableToWithdrawal
+	 **/
+  @Schema(description = "")
+  public Double getAvailableToWithdrawal() {
+    return availableToWithdrawal;
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(availableToWithdrawal, wallets);
+  }
+
+	/**
+	 * Get wallets
+	 * @return wallets
+  **/
+  @Schema(description = "")
+  public List<WalletWithdrawalInfo> getWallets() {
+    return wallets;
   }
 
   @Override
@@ -110,13 +114,8 @@ public class WithdrawalSummary implements Parcelable
       return false;
     }
     WithdrawalSummary withdrawalSummary = (WithdrawalSummary) o;
-    return Objects.equals(this.availableToWithdrawal, withdrawalSummary.availableToWithdrawal) &&
-            Objects.equals(this.wallets, withdrawalSummary.wallets);
-  }
-
-  @Override
-  public int hashCode() {
-    return Objects.hash(availableToWithdrawal, wallets);
+	  return Objects.equals(this.availableToWithdrawal, withdrawalSummary.availableToWithdrawal) &&
+			  Objects.equals(this.wallets, withdrawalSummary.wallets);
   }
 
   @Override
@@ -138,15 +137,15 @@ public class WithdrawalSummary implements Parcelable
     if (o == null) {
       return "null";
     }
-    return o.toString().replace("\n", "\n    ");
+	  return o.toString().replace("\n", "\n    ");
   }
 
-  public void writeToParcel(Parcel out, int flags) {
-    out.writeValue(availableToWithdrawal);
-    out.writeValue(wallets);
-  }
+	public void writeToParcel(Parcel out, int flags) {
+		out.writeValue(availableToWithdrawal);
+		out.writeValue(wallets);
+	}
 
-  public int describeContents() {
-    return 0;
-  }
+	public int describeContents() {
+		return 0;
+	}
 }

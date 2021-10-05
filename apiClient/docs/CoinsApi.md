@@ -11,7 +11,7 @@ Method | HTTP request | Description
 
 <a name="getCoins"></a>
 # **getCoins**
-> CoinsAssetItemsViewModel getCoins(sorting, showIn, assets, dateFrom, dateTo, chartPointsCount, facetId, mask, ownerId, showFavorites, skipStatistic, skip, take)
+> CoinsAssetItemsViewModel getCoins(sorting, assets, skip, take)
 
 Coins list
 
@@ -34,20 +34,11 @@ Bearer.setApiKey("YOUR API KEY");
 
 CoinsApi apiInstance = new CoinsApi();
 CoinsFilterSorting sorting = new CoinsFilterSorting(); // CoinsFilterSorting | 
-Currency showIn = new Currency(); // Currency | 
 List<String> assets = Arrays.asList("assets_example"); // List<String> | 
-DateTime dateFrom = new DateTime(); // DateTime | 
-DateTime dateTo = new DateTime(); // DateTime | 
-Integer chartPointsCount = 56; // Integer | 
-String facetId = "facetId_example"; // String | 
-String mask = "mask_example"; // String | 
-UUID ownerId = new UUID(); // UUID | 
-Boolean showFavorites = true; // Boolean | 
-Boolean skipStatistic = true; // Boolean | 
 Integer skip = 56; // Integer | 
 Integer take = 56; // Integer | 
 try {
-    CoinsAssetItemsViewModel result = apiInstance.getCoins(sorting, showIn, assets, dateFrom, dateTo, chartPointsCount, facetId, mask, ownerId, showFavorites, skipStatistic, skip, take);
+    CoinsAssetItemsViewModel result = apiInstance.getCoins(sorting, assets, skip, take);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling CoinsApi#getCoins");
@@ -60,16 +51,7 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **sorting** | [**CoinsFilterSorting**](.md)|  | [optional]
- **showIn** | [**Currency**](.md)|  | [optional]
  **assets** | [**List&lt;String&gt;**](String.md)|  | [optional]
- **dateFrom** | **DateTime**|  | [optional]
- **dateTo** | **DateTime**|  | [optional]
- **chartPointsCount** | **Integer**|  | [optional]
- **facetId** | **String**|  | [optional]
- **mask** | **String**|  | [optional]
- **ownerId** | [**UUID**](.md)|  | [optional]
- **showFavorites** | **Boolean**|  | [optional]
- **skipStatistic** | **Boolean**|  | [optional]
  **skip** | **Integer**|  | [optional]
  **take** | **Integer**|  | [optional]
 
@@ -149,7 +131,7 @@ Name | Type | Description  | Notes
 
 <a name="getUserCoins"></a>
 # **getUserCoins**
-> CoinsAssetItemsViewModel getUserCoins(sorting, showIn, assets, dateFrom, dateTo, chartPointsCount, facetId, mask, ownerId, showFavorites, skipStatistic, skip, take)
+> CoinsAssetItemsViewModel getUserCoins(sorting, assets, skip, take)
 
 Get user coins
 
@@ -172,20 +154,11 @@ Bearer.setApiKey("YOUR API KEY");
 
 CoinsApi apiInstance = new CoinsApi();
 CoinsFilterSorting sorting = new CoinsFilterSorting(); // CoinsFilterSorting | 
-Currency showIn = new Currency(); // Currency | 
 List<String> assets = Arrays.asList("assets_example"); // List<String> | 
-DateTime dateFrom = new DateTime(); // DateTime | 
-DateTime dateTo = new DateTime(); // DateTime | 
-Integer chartPointsCount = 56; // Integer | 
-String facetId = "facetId_example"; // String | 
-String mask = "mask_example"; // String | 
-UUID ownerId = new UUID(); // UUID | 
-Boolean showFavorites = true; // Boolean | 
-Boolean skipStatistic = true; // Boolean | 
 Integer skip = 56; // Integer | 
 Integer take = 56; // Integer | 
 try {
-    CoinsAssetItemsViewModel result = apiInstance.getUserCoins(sorting, showIn, assets, dateFrom, dateTo, chartPointsCount, facetId, mask, ownerId, showFavorites, skipStatistic, skip, take);
+    CoinsAssetItemsViewModel result = apiInstance.getUserCoins(sorting, assets, skip, take);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling CoinsApi#getUserCoins");
@@ -198,16 +171,7 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **sorting** | [**CoinsFilterSorting**](.md)|  | [optional]
- **showIn** | [**Currency**](.md)|  | [optional]
  **assets** | [**List&lt;String&gt;**](String.md)|  | [optional]
- **dateFrom** | **DateTime**|  | [optional]
- **dateTo** | **DateTime**|  | [optional]
- **chartPointsCount** | **Integer**|  | [optional]
- **facetId** | **String**|  | [optional]
- **mask** | **String**|  | [optional]
- **ownerId** | [**UUID**](.md)|  | [optional]
- **showFavorites** | **Boolean**|  | [optional]
- **skipStatistic** | **Boolean**|  | [optional]
  **skip** | **Integer**|  | [optional]
  **take** | **Integer**|  | [optional]
 

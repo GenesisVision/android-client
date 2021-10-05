@@ -30,35 +30,25 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class StringItemsViewModel implements Parcelable
 {
-  public static final Parcelable.Creator<StringItemsViewModel> CREATOR = new Parcelable.Creator<StringItemsViewModel>()
-  {
-    public StringItemsViewModel createFromParcel(Parcel in) {
-      return new StringItemsViewModel(in);
-    }
+	public static final Parcelable.Creator<StringItemsViewModel> CREATOR = new Parcelable.Creator<StringItemsViewModel>()
+	{
+		public StringItemsViewModel createFromParcel(Parcel in) {
+			return new StringItemsViewModel(in);
+		}
 
-    public StringItemsViewModel[] newArray(int size) {
-      return new StringItemsViewModel[size];
-    }
-  };
+		public StringItemsViewModel[] newArray(int size) {
+			return new StringItemsViewModel[size];
+		}
+	};
 
-  @SerializedName("items")
-  private List<String> items = null;
+	@SerializedName("items")
+	private List<String> items = null;
 
-  @SerializedName("total")
-  private Integer total = null;
+	@SerializedName("total")
+	private Integer total = null;
 
-  public StringItemsViewModel() {
-  }
-
-  StringItemsViewModel(Parcel in) {
-    items = (List<String>) in.readValue(null);
-    total = (Integer) in.readValue(null);
-  }
-
-  public StringItemsViewModel items(List<String> items) {
-    this.items = items;
-    return this;
-  }
+	public StringItemsViewModel() {
+	}
 
   public StringItemsViewModel addItemsItem(String itemsItem) {
     if (this.items == null) {
@@ -68,15 +58,10 @@ public class StringItemsViewModel implements Parcelable
     return this;
   }
 
-  /**
-   * Get items
-   *
-   * @return items
-   **/
-  @Schema(description = "")
-  public List<String> getItems() {
-    return items;
-  }
+	StringItemsViewModel(Parcel in) {
+		items = (List<String>) in.readValue(null);
+		total = (Integer) in.readValue(null);
+	}
 
   public void setItems(List<String> items) {
     this.items = items;
@@ -87,18 +72,37 @@ public class StringItemsViewModel implements Parcelable
     return this;
   }
 
-  /**
-   * Get total
-   *
-   * @return total
-   **/
-  @Schema(description = "")
-  public Integer getTotal() {
-    return total;
+	public StringItemsViewModel items(List<String> items) {
+		this.items = items;
+    return this;
   }
 
   public void setTotal(Integer total) {
     this.total = total;
+  }
+
+	/**
+	 * Get items
+	 *
+	 * @return items
+	 **/
+  @Schema(description = "")
+  public List<String> getItems() {
+    return items;
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(items, total);
+  }
+
+	/**
+	 * Get total
+	 * @return total
+  **/
+  @Schema(description = "")
+  public Integer getTotal() {
+    return total;
   }
 
   @Override
@@ -110,13 +114,8 @@ public class StringItemsViewModel implements Parcelable
       return false;
     }
     StringItemsViewModel stringItemsViewModel = (StringItemsViewModel) o;
-    return Objects.equals(this.items, stringItemsViewModel.items) &&
-            Objects.equals(this.total, stringItemsViewModel.total);
-  }
-
-  @Override
-  public int hashCode() {
-    return Objects.hash(items, total);
+	  return Objects.equals(this.items, stringItemsViewModel.items) &&
+			  Objects.equals(this.total, stringItemsViewModel.total);
   }
 
   @Override
@@ -138,15 +137,15 @@ public class StringItemsViewModel implements Parcelable
     if (o == null) {
       return "null";
     }
-    return o.toString().replace("\n", "\n    ");
+	  return o.toString().replace("\n", "\n    ");
   }
 
-  public void writeToParcel(Parcel out, int flags) {
-    out.writeValue(items);
-    out.writeValue(total);
-  }
+	public void writeToParcel(Parcel out, int flags) {
+		out.writeValue(items);
+		out.writeValue(total);
+	}
 
-  public int describeContents() {
-    return 0;
-  }
+	public int describeContents() {
+		return 0;
+	}
 }

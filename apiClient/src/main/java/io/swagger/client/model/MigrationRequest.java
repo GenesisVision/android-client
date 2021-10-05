@@ -30,17 +30,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class MigrationRequest implements Parcelable
 {
-	public static final Parcelable.Creator<MigrationRequest> CREATOR = new Parcelable.Creator<MigrationRequest>()
-	{
-		public MigrationRequest createFromParcel(Parcel in) {
-			return new MigrationRequest(in);
-		}
-
-		public MigrationRequest[] newArray(int size) {
-			return new MigrationRequest[size];
-		}
-	};
-
 	@SerializedName("dateCreate")
 	private DateTime dateCreate = null;
 
@@ -51,12 +40,6 @@ public class MigrationRequest implements Parcelable
 	private Broker newBroker = null;
 
 	public MigrationRequest() {
-	}
-
-	MigrationRequest(Parcel in) {
-		dateCreate = (DateTime) in.readValue(DateTime.class.getClassLoader());
-		newLeverage = (Integer) in.readValue(null);
-		newBroker = (Broker) in.readValue(Broker.class.getClassLoader());
 	}
 
 	public MigrationRequest dateCreate(DateTime dateCreate) {
@@ -116,6 +99,7 @@ public class MigrationRequest implements Parcelable
 		this.newBroker = newBroker;
 	}
 
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -134,6 +118,7 @@ public class MigrationRequest implements Parcelable
 	public int hashCode() {
 		return Objects.hash(dateCreate, newLeverage, newBroker);
 	}
+
 
 	@Override
 	public String toString() {
@@ -158,13 +143,31 @@ public class MigrationRequest implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
+
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(dateCreate);
 		out.writeValue(newLeverage);
 		out.writeValue(newBroker);
 	}
 
+	public static final Parcelable.Creator<MigrationRequest> CREATOR = new Parcelable.Creator<MigrationRequest>()
+	{
+		public MigrationRequest createFromParcel(Parcel in) {
+			return new MigrationRequest(in);
+		}
+
+		public MigrationRequest[] newArray(int size) {
+			return new MigrationRequest[size];
+		}
+	};
+
 	public int describeContents() {
 		return 0;
+	}
+
+	MigrationRequest(Parcel in) {
+		dateCreate = (DateTime) in.readValue(DateTime.class.getClassLoader());
+		newLeverage = (Integer) in.readValue(null);
+		newBroker = (Broker) in.readValue(Broker.class.getClassLoader());
 	}
 }

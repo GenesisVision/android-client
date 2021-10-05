@@ -32,17 +32,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class BinanceRawFuturesUsdtExchangeInfo implements Parcelable
 {
-	public static final Parcelable.Creator<BinanceRawFuturesUsdtExchangeInfo> CREATOR = new Parcelable.Creator<BinanceRawFuturesUsdtExchangeInfo>()
-	{
-		public BinanceRawFuturesUsdtExchangeInfo createFromParcel(Parcel in) {
-			return new BinanceRawFuturesUsdtExchangeInfo(in);
-		}
-
-		public BinanceRawFuturesUsdtExchangeInfo[] newArray(int size) {
-			return new BinanceRawFuturesUsdtExchangeInfo[size];
-		}
-	};
-
 	@SerializedName("timeZone")
 	private String timeZone = null;
 
@@ -56,13 +45,6 @@ public class BinanceRawFuturesUsdtExchangeInfo implements Parcelable
 	private List<BinanceRawFuturesUsdtSymbol> symbols = null;
 
 	public BinanceRawFuturesUsdtExchangeInfo() {
-	}
-
-	BinanceRawFuturesUsdtExchangeInfo(Parcel in) {
-		timeZone = (String) in.readValue(null);
-		serverTime = (DateTime) in.readValue(DateTime.class.getClassLoader());
-		rateLimits = (List<BinanceRawRateLimit>) in.readValue(BinanceRawRateLimit.class.getClassLoader());
-		symbols = (List<BinanceRawFuturesUsdtSymbol>) in.readValue(BinanceRawFuturesUsdtSymbol.class.getClassLoader());
 	}
 
 	public BinanceRawFuturesUsdtExchangeInfo timeZone(String timeZone) {
@@ -157,6 +139,7 @@ public class BinanceRawFuturesUsdtExchangeInfo implements Parcelable
 		this.symbols = symbols;
 	}
 
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -176,6 +159,7 @@ public class BinanceRawFuturesUsdtExchangeInfo implements Parcelable
 	public int hashCode() {
 		return Objects.hash(timeZone, serverTime, rateLimits, symbols);
 	}
+
 
 	@Override
 	public String toString() {
@@ -201,6 +185,7 @@ public class BinanceRawFuturesUsdtExchangeInfo implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
+
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(timeZone);
 		out.writeValue(serverTime);
@@ -208,7 +193,25 @@ public class BinanceRawFuturesUsdtExchangeInfo implements Parcelable
 		out.writeValue(symbols);
 	}
 
+	public static final Parcelable.Creator<BinanceRawFuturesUsdtExchangeInfo> CREATOR = new Parcelable.Creator<BinanceRawFuturesUsdtExchangeInfo>()
+	{
+		public BinanceRawFuturesUsdtExchangeInfo createFromParcel(Parcel in) {
+			return new BinanceRawFuturesUsdtExchangeInfo(in);
+		}
+
+		public BinanceRawFuturesUsdtExchangeInfo[] newArray(int size) {
+			return new BinanceRawFuturesUsdtExchangeInfo[size];
+		}
+	};
+
 	public int describeContents() {
 		return 0;
+	}
+
+	BinanceRawFuturesUsdtExchangeInfo(Parcel in) {
+		timeZone = (String) in.readValue(null);
+		serverTime = (DateTime) in.readValue(DateTime.class.getClassLoader());
+		rateLimits = (List<BinanceRawRateLimit>) in.readValue(BinanceRawRateLimit.class.getClassLoader());
+		symbols = (List<BinanceRawFuturesUsdtSymbol>) in.readValue(BinanceRawFuturesUsdtSymbol.class.getClassLoader());
 	}
 }

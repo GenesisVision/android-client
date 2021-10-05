@@ -25,46 +25,46 @@ import java.io.IOException;
 @JsonAdapter(UserVerificationStatus.Adapter.class)
 public enum UserVerificationStatus
 {
-  NOTVERIFIED("NotVerified"),
-  VERIFIED("Verified"),
-  UNDERREVIEW("UnderReview"),
-  REJECTED("Rejected");
+	NOTVERIFIED("NotVerified"),
+	VERIFIED("Verified"),
+	UNDERREVIEW("UnderReview"),
+	REJECTED("Rejected");
 
-  public static UserVerificationStatus fromValue(String text) {
-    for (UserVerificationStatus b : UserVerificationStatus.values()) {
-      if (String.valueOf(b.value).equals(text)) {
-        return b;
-      }
-    }
-    return null;
-  }
+	public static UserVerificationStatus fromValue(String text) {
+		for (UserVerificationStatus b : UserVerificationStatus.values()) {
+			if (String.valueOf(b.value).equals(text)) {
+				return b;
+			}
+		}
+		return null;
+	}
 
-  private String value;
+	private String value;
 
-  UserVerificationStatus(String value) {
-    this.value = value;
-  }
+	UserVerificationStatus(String value) {
+		this.value = value;
+	}
 
-  public String getValue() {
-    return value;
-  }
+	public String getValue() {
+		return value;
+	}
 
-  @Override
-  public String toString() {
-    return String.valueOf(value);
-  }
+	@Override
+	public String toString() {
+		return String.valueOf(value);
+	}
 
-  public static class Adapter extends TypeAdapter<UserVerificationStatus>
-  {
-    @Override
-    public void write(final JsonWriter jsonWriter, final UserVerificationStatus enumeration) throws IOException {
-      jsonWriter.value(enumeration.getValue());
-    }
+	public static class Adapter extends TypeAdapter<UserVerificationStatus>
+	{
+		@Override
+		public void write(final JsonWriter jsonWriter, final UserVerificationStatus enumeration) throws IOException {
+			jsonWriter.value(enumeration.getValue());
+		}
 
-    @Override
-    public UserVerificationStatus read(final JsonReader jsonReader) throws IOException {
-      Object value = jsonReader.nextString();
-      return UserVerificationStatus.fromValue(String.valueOf(value));
-    }
+		@Override
+		public UserVerificationStatus read(final JsonReader jsonReader) throws IOException {
+			Object value = jsonReader.nextString();
+			return UserVerificationStatus.fromValue(String.valueOf(value));
+		}
   }
 }

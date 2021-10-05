@@ -30,17 +30,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class EventInvestingItemFilters implements Parcelable
 {
-	public static final Parcelable.Creator<EventInvestingItemFilters> CREATOR = new Parcelable.Creator<EventInvestingItemFilters>()
-	{
-		public EventInvestingItemFilters createFromParcel(Parcel in) {
-			return new EventInvestingItemFilters(in);
-		}
-
-		public EventInvestingItemFilters[] newArray(int size) {
-			return new EventInvestingItemFilters[size];
-		}
-	};
-
 	@SerializedName("all")
 	private List<FilterItemInfo> all = null;
 
@@ -51,12 +40,6 @@ public class EventInvestingItemFilters implements Parcelable
 	private List<FilterItemInfo> fund = null;
 
 	public EventInvestingItemFilters() {
-	}
-
-	EventInvestingItemFilters(Parcel in) {
-		all = (List<FilterItemInfo>) in.readValue(FilterItemInfo.class.getClassLoader());
-		program = (List<FilterItemInfo>) in.readValue(FilterItemInfo.class.getClassLoader());
-		fund = (List<FilterItemInfo>) in.readValue(FilterItemInfo.class.getClassLoader());
 	}
 
 	public EventInvestingItemFilters all(List<FilterItemInfo> all) {
@@ -140,6 +123,7 @@ public class EventInvestingItemFilters implements Parcelable
 		this.fund = fund;
 	}
 
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -158,6 +142,7 @@ public class EventInvestingItemFilters implements Parcelable
 	public int hashCode() {
 		return Objects.hash(all, program, fund);
 	}
+
 
 	@Override
 	public String toString() {
@@ -182,13 +167,31 @@ public class EventInvestingItemFilters implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
+
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(all);
 		out.writeValue(program);
 		out.writeValue(fund);
 	}
 
+	public static final Parcelable.Creator<EventInvestingItemFilters> CREATOR = new Parcelable.Creator<EventInvestingItemFilters>()
+	{
+		public EventInvestingItemFilters createFromParcel(Parcel in) {
+			return new EventInvestingItemFilters(in);
+		}
+
+		public EventInvestingItemFilters[] newArray(int size) {
+			return new EventInvestingItemFilters[size];
+		}
+	};
+
 	public int describeContents() {
 		return 0;
+	}
+
+	EventInvestingItemFilters(Parcel in) {
+		all = (List<FilterItemInfo>) in.readValue(FilterItemInfo.class.getClassLoader());
+		program = (List<FilterItemInfo>) in.readValue(FilterItemInfo.class.getClassLoader());
+		fund = (List<FilterItemInfo>) in.readValue(FilterItemInfo.class.getClassLoader());
 	}
 }

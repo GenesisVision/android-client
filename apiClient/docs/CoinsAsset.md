@@ -15,7 +15,6 @@ Name | Type | Description | Notes
 **change24Percent** | **Double** |  |  [optional]
 **totalVolume** | **Double** |  |  [optional]
 **marketCap** | **Double** |  |  [optional]
-**oefAssetId** | [**UUID**](UUID.md) |  |  [optional]
 **details** | [**AssetInfo**](AssetInfo.md) |  |  [optional]
 **chart** | [**TickerChart**](TickerChart.md) |  |  [optional]
 **amount** | **Double** |  |  [optional]

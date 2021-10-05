@@ -76,9 +76,6 @@ public class CoinsAsset implements Parcelable
 	@SerializedName("marketCap")
 	private Double marketCap = null;
 
-	@SerializedName("oefAssetId")
-	private UUID oefAssetId = null;
-
 	@SerializedName("details")
 	private AssetInfo details = null;
 
@@ -110,7 +107,6 @@ public class CoinsAsset implements Parcelable
 		change24Percent = (Double) in.readValue(null);
 		totalVolume = (Double) in.readValue(null);
 		marketCap = (Double) in.readValue(null);
-		oefAssetId = (UUID) in.readValue(UUID.class.getClassLoader());
 		details = (AssetInfo) in.readValue(AssetInfo.class.getClassLoader());
 		chart = (TickerChart) in.readValue(TickerChart.class.getClassLoader());
 		amount = (Double) in.readValue(null);
@@ -346,25 +342,6 @@ public class CoinsAsset implements Parcelable
 		this.marketCap = marketCap;
 	}
 
-	public CoinsAsset oefAssetId(UUID oefAssetId) {
-		this.oefAssetId = oefAssetId;
-		return this;
-	}
-
-	/**
-	 * Get oefAssetId
-	 *
-	 * @return oefAssetId
-	 **/
-	@Schema(description = "")
-	public UUID getOefAssetId() {
-		return oefAssetId;
-	}
-
-	public void setOefAssetId(UUID oefAssetId) {
-		this.oefAssetId = oefAssetId;
-	}
-
 	public CoinsAsset details(AssetInfo details) {
 		this.details = details;
 		return this;
@@ -481,7 +458,6 @@ public class CoinsAsset implements Parcelable
 				Objects.equals(this.change24Percent, coinsAsset.change24Percent) &&
 				Objects.equals(this.totalVolume, coinsAsset.totalVolume) &&
 				Objects.equals(this.marketCap, coinsAsset.marketCap) &&
-				Objects.equals(this.oefAssetId, coinsAsset.oefAssetId) &&
 				Objects.equals(this.details, coinsAsset.details) &&
 				Objects.equals(this.chart, coinsAsset.chart) &&
 				Objects.equals(this.amount, coinsAsset.amount) &&
@@ -491,7 +467,7 @@ public class CoinsAsset implements Parcelable
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, name, asset, description, logoUrl, color, url, provider, price, change24Percent, totalVolume, marketCap, oefAssetId, details, chart, amount, averagePrice, profitCurrent);
+		return Objects.hash(id, name, asset, description, logoUrl, color, url, provider, price, change24Percent, totalVolume, marketCap, details, chart, amount, averagePrice, profitCurrent);
 	}
 
 	@Override
@@ -511,7 +487,6 @@ public class CoinsAsset implements Parcelable
 		sb.append("    change24Percent: ").append(toIndentedString(change24Percent)).append("\n");
 		sb.append("    totalVolume: ").append(toIndentedString(totalVolume)).append("\n");
 		sb.append("    marketCap: ").append(toIndentedString(marketCap)).append("\n");
-		sb.append("    oefAssetId: ").append(toIndentedString(oefAssetId)).append("\n");
 		sb.append("    details: ").append(toIndentedString(details)).append("\n");
 		sb.append("    chart: ").append(toIndentedString(chart)).append("\n");
 		sb.append("    amount: ").append(toIndentedString(amount)).append("\n");
@@ -545,7 +520,6 @@ public class CoinsAsset implements Parcelable
 		out.writeValue(change24Percent);
 		out.writeValue(totalVolume);
 		out.writeValue(marketCap);
-		out.writeValue(oefAssetId);
 		out.writeValue(details);
 		out.writeValue(chart);
 		out.writeValue(amount);

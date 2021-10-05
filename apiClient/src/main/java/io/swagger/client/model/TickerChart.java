@@ -44,19 +44,11 @@ public class TickerChart implements Parcelable
 	@SerializedName("chart")
 	private List<SimpleChartPoint> chart = null;
 
-	@SerializedName("lastPrice")
-	private Double lastPrice = null;
-
-	@SerializedName("changePercent")
-	private Double changePercent = null;
-
 	public TickerChart() {
 	}
 
 	TickerChart(Parcel in) {
 		chart = (List<SimpleChartPoint>) in.readValue(SimpleChartPoint.class.getClassLoader());
-		lastPrice = (Double) in.readValue(null);
-		changePercent = (Double) in.readValue(null);
 	}
 
 	public TickerChart chart(List<SimpleChartPoint> chart) {
@@ -86,44 +78,6 @@ public class TickerChart implements Parcelable
 		this.chart = chart;
 	}
 
-	public TickerChart lastPrice(Double lastPrice) {
-		this.lastPrice = lastPrice;
-		return this;
-	}
-
-	/**
-	 * Get lastPrice
-	 *
-	 * @return lastPrice
-	 **/
-	@Schema(description = "")
-	public Double getLastPrice() {
-		return lastPrice;
-	}
-
-	public void setLastPrice(Double lastPrice) {
-		this.lastPrice = lastPrice;
-	}
-
-	public TickerChart changePercent(Double changePercent) {
-		this.changePercent = changePercent;
-		return this;
-	}
-
-	/**
-	 * Get changePercent
-	 *
-	 * @return changePercent
-	 **/
-	@Schema(description = "")
-	public Double getChangePercent() {
-		return changePercent;
-	}
-
-	public void setChangePercent(Double changePercent) {
-		this.changePercent = changePercent;
-	}
-
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -133,14 +87,12 @@ public class TickerChart implements Parcelable
 			return false;
 		}
 		TickerChart tickerChart = (TickerChart) o;
-		return Objects.equals(this.chart, tickerChart.chart) &&
-				Objects.equals(this.lastPrice, tickerChart.lastPrice) &&
-				Objects.equals(this.changePercent, tickerChart.changePercent);
+		return Objects.equals(this.chart, tickerChart.chart);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(chart, lastPrice, changePercent);
+		return Objects.hash(chart);
 	}
 
 	@Override
@@ -149,8 +101,6 @@ public class TickerChart implements Parcelable
 		sb.append("class TickerChart {\n");
 
 		sb.append("    chart: ").append(toIndentedString(chart)).append("\n");
-		sb.append("    lastPrice: ").append(toIndentedString(lastPrice)).append("\n");
-		sb.append("    changePercent: ").append(toIndentedString(changePercent)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}
@@ -168,8 +118,6 @@ public class TickerChart implements Parcelable
 
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(chart);
-		out.writeValue(lastPrice);
-		out.writeValue(changePercent);
 	}
 
 	public int describeContents() {

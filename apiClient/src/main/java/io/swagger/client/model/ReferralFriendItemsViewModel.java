@@ -30,94 +30,94 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class ReferralFriendItemsViewModel implements Parcelable
 {
-  public static final Parcelable.Creator<ReferralFriendItemsViewModel> CREATOR = new Parcelable.Creator<ReferralFriendItemsViewModel>()
-  {
-    public ReferralFriendItemsViewModel createFromParcel(Parcel in) {
-      return new ReferralFriendItemsViewModel(in);
-    }
+	public static final Parcelable.Creator<ReferralFriendItemsViewModel> CREATOR = new Parcelable.Creator<ReferralFriendItemsViewModel>()
+	{
+		public ReferralFriendItemsViewModel createFromParcel(Parcel in) {
+			return new ReferralFriendItemsViewModel(in);
+		}
 
-    public ReferralFriendItemsViewModel[] newArray(int size) {
-      return new ReferralFriendItemsViewModel[size];
-    }
-  };
+		public ReferralFriendItemsViewModel[] newArray(int size) {
+			return new ReferralFriendItemsViewModel[size];
+		}
+	};
 
-  @SerializedName("items")
-  private List<ReferralFriend> items = null;
+	@SerializedName("items")
+	private List<ReferralFriend> items = null;
 
-  @SerializedName("total")
-  private Integer total = null;
+	@SerializedName("total")
+	private Integer total = null;
 
-  public ReferralFriendItemsViewModel() {
-  }
+	public ReferralFriendItemsViewModel() {
+	}
 
-  ReferralFriendItemsViewModel(Parcel in) {
-    items = (List<ReferralFriend>) in.readValue(ReferralFriend.class.getClassLoader());
-    total = (Integer) in.readValue(null);
-  }
+	ReferralFriendItemsViewModel(Parcel in) {
+		items = (List<ReferralFriend>) in.readValue(ReferralFriend.class.getClassLoader());
+		total = (Integer) in.readValue(null);
+	}
 
-  public ReferralFriendItemsViewModel items(List<ReferralFriend> items) {
-    this.items = items;
-    return this;
-  }
+	public ReferralFriendItemsViewModel addItemsItem(ReferralFriend itemsItem) {
+		if (this.items == null) {
+			this.items = new ArrayList<ReferralFriend>();
+		}
+		this.items.add(itemsItem);
+		return this;
+	}
 
-  public ReferralFriendItemsViewModel addItemsItem(ReferralFriend itemsItem) {
-    if (this.items == null) {
-      this.items = new ArrayList<ReferralFriend>();
-    }
-    this.items.add(itemsItem);
-    return this;
-  }
+	public ReferralFriendItemsViewModel total(Integer total) {
+		this.total = total;
+		return this;
+	}
 
-  /**
-   * Get items
-   *
-   * @return items
-   **/
-  @Schema(description = "")
-  public List<ReferralFriend> getItems() {
-    return items;
-  }
+	public ReferralFriendItemsViewModel items(List<ReferralFriend> items) {
+		this.items = items;
+		return this;
+	}
 
-  public void setItems(List<ReferralFriend> items) {
-    this.items = items;
-  }
+	/**
+	 * Get items
+	 *
+	 * @return items
+	 **/
+	@Schema(description = "")
+	public List<ReferralFriend> getItems() {
+		return items;
+	}
 
-  public ReferralFriendItemsViewModel total(Integer total) {
-    this.total = total;
-    return this;
-  }
+	public void setItems(List<ReferralFriend> items) {
+		this.items = items;
+	}
 
-  /**
-   * Get total
-   *
-   * @return total
-   **/
-  @Schema(description = "")
-  public Integer getTotal() {
-    return total;
-  }
+	@Override
+	public int hashCode() {
+		return Objects.hash(items, total);
+	}
 
-  public void setTotal(Integer total) {
-    this.total = total;
-  }
+	/**
+	 * Get total
+	 *
+	 * @return total
+	 **/
+	@Schema(description = "")
+	public Integer getTotal() {
+		return total;
+	}
 
-  @Override
-  public boolean equals(java.lang.Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-    ReferralFriendItemsViewModel referralFriendItemsViewModel = (ReferralFriendItemsViewModel) o;
-    return Objects.equals(this.items, referralFriendItemsViewModel.items) &&
-            Objects.equals(this.total, referralFriendItemsViewModel.total);
-  }
+	public void setTotal(Integer total) {
+		this.total = total;
+	}
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(items, total);
-  }
+	@Override
+	public boolean equals(java.lang.Object o) {
+		if (this == o) {
+			return true;
+		}
+		if (o == null || getClass() != o.getClass()) {
+			return false;
+		}
+		ReferralFriendItemsViewModel referralFriendItemsViewModel = (ReferralFriendItemsViewModel) o;
+		return Objects.equals(this.items, referralFriendItemsViewModel.items) &&
+				Objects.equals(this.total, referralFriendItemsViewModel.total);
+	}
 
   @Override
   public String toString() {
@@ -130,23 +130,23 @@ public class ReferralFriendItemsViewModel implements Parcelable
     return sb.toString();
   }
 
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(java.lang.Object o) {
-    if (o == null) {
-      return "null";
-    }
-    return o.toString().replace("\n", "\n    ");
-  }
+	/**
+	 * Convert the given object to string with each line indented by 4 spaces
+	 * (except the first line).
+	 */
+	private String toIndentedString(java.lang.Object o) {
+		if (o == null) {
+			return "null";
+		}
+		return o.toString().replace("\n", "\n    ");
+	}
 
-  public void writeToParcel(Parcel out, int flags) {
-    out.writeValue(items);
-    out.writeValue(total);
-  }
+	public void writeToParcel(Parcel out, int flags) {
+		out.writeValue(items);
+		out.writeValue(total);
+	}
 
-  public int describeContents() {
-    return 0;
-  }
+	public int describeContents() {
+		return 0;
+	}
 }

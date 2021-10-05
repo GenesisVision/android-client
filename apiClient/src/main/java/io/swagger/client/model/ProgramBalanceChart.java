@@ -30,53 +30,35 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class ProgramBalanceChart implements Parcelable
 {
-  public static final Parcelable.Creator<ProgramBalanceChart> CREATOR = new Parcelable.Creator<ProgramBalanceChart>()
-  {
-    public ProgramBalanceChart createFromParcel(Parcel in) {
-      return new ProgramBalanceChart(in);
-    }
+	public static final Parcelable.Creator<ProgramBalanceChart> CREATOR = new Parcelable.Creator<ProgramBalanceChart>()
+	{
+		public ProgramBalanceChart createFromParcel(Parcel in) {
+			return new ProgramBalanceChart(in);
+		}
 
-    public ProgramBalanceChart[] newArray(int size) {
-      return new ProgramBalanceChart[size];
-    }
-  };
+		public ProgramBalanceChart[] newArray(int size) {
+			return new ProgramBalanceChart[size];
+		}
+	};
 
-  @SerializedName("balance")
-  private Double balance = null;
+	@SerializedName("balance")
+	private Double balance = null;
 
-  @SerializedName("programCurrency")
-  private Currency programCurrency = null;
+	@SerializedName("programCurrency")
+	private Currency programCurrency = null;
 
-  @SerializedName("color")
-  private String color = null;
-
-  @SerializedName("chart")
-  private List<BalanceChartPoint> chart = null;
+	@SerializedName("color")
+	private String color = null;
 
   public ProgramBalanceChart() {
   }
-
-  ProgramBalanceChart(Parcel in) {
-    balance = (Double) in.readValue(null);
-    programCurrency = (Currency) in.readValue(Currency.class.getClassLoader());
-    color = (String) in.readValue(null);
-    chart = (List<BalanceChartPoint>) in.readValue(BalanceChartPoint.class.getClassLoader());
-  }
-
   public ProgramBalanceChart balance(Double balance) {
     this.balance = balance;
     return this;
   }
 
-  /**
-   * Get balance
-   *
-   * @return balance
-   **/
-  @Schema(description = "")
-  public Double getBalance() {
-    return balance;
-  }
+	@SerializedName("chart")
+  private List<BalanceChartPoint> chart = null;
 
   public void setBalance(Double balance) {
     this.balance = balance;
@@ -87,15 +69,12 @@ public class ProgramBalanceChart implements Parcelable
     return this;
   }
 
-  /**
-   * Get programCurrency
-   *
-   * @return programCurrency
-   **/
-  @Schema(description = "")
-  public Currency getProgramCurrency() {
-    return programCurrency;
-  }
+	ProgramBalanceChart(Parcel in) {
+		balance = (Double) in.readValue(null);
+		programCurrency = (Currency) in.readValue(Currency.class.getClassLoader());
+		color = (String) in.readValue(null);
+		chart = (List<BalanceChartPoint>) in.readValue(BalanceChartPoint.class.getClassLoader());
+	}
 
   public void setProgramCurrency(Currency programCurrency) {
     this.programCurrency = programCurrency;
@@ -106,14 +85,14 @@ public class ProgramBalanceChart implements Parcelable
     return this;
   }
 
-  /**
-   * Get color
-   *
-   * @return color
-   **/
+	/**
+	 * Get balance
+	 *
+	 * @return balance
+	 **/
   @Schema(description = "")
-  public String getColor() {
-    return color;
+  public Double getBalance() {
+    return balance;
   }
 
   public void setColor(String color) {
@@ -133,18 +112,51 @@ public class ProgramBalanceChart implements Parcelable
     return this;
   }
 
-  /**
-   * Get chart
-   *
-   * @return chart
-   **/
+	/**
+	 * Get programCurrency
+	 * @return programCurrency
+  **/
+  @Schema(description = "")
+  public Currency getProgramCurrency() {
+    return programCurrency;
+  }
+
+  public void setChart(List<BalanceChartPoint> chart) {
+    this.chart = chart;
+  }
+
+	/**
+	 * Get color
+	 * @return color
+  **/
+  @Schema(description = "")
+  public String getColor() {
+    return color;
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(balance, programCurrency, color, chart);
+  }
+
+	/**
+	 * Get chart
+	 * @return chart
+  **/
   @Schema(description = "")
   public List<BalanceChartPoint> getChart() {
     return chart;
   }
 
-  public void setChart(List<BalanceChartPoint> chart) {
-    this.chart = chart;
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(java.lang.Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
   }
 
   @Override
@@ -156,15 +168,10 @@ public class ProgramBalanceChart implements Parcelable
       return false;
     }
     ProgramBalanceChart programBalanceChart = (ProgramBalanceChart) o;
-    return Objects.equals(this.balance, programBalanceChart.balance) &&
-            Objects.equals(this.programCurrency, programBalanceChart.programCurrency) &&
-            Objects.equals(this.color, programBalanceChart.color) &&
-            Objects.equals(this.chart, programBalanceChart.chart);
-  }
-
-  @Override
-  public int hashCode() {
-    return Objects.hash(balance, programCurrency, color, chart);
+	  return Objects.equals(this.balance, programBalanceChart.balance) &&
+			  Objects.equals(this.programCurrency, programBalanceChart.programCurrency) &&
+			  Objects.equals(this.color, programBalanceChart.color) &&
+			  Objects.equals(this.chart, programBalanceChart.chart);
   }
 
   @Override
@@ -180,25 +187,14 @@ public class ProgramBalanceChart implements Parcelable
     return sb.toString();
   }
 
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(java.lang.Object o) {
-    if (o == null) {
-      return "null";
-    }
-    return o.toString().replace("\n", "\n    ");
-  }
+	public void writeToParcel(Parcel out, int flags) {
+		out.writeValue(balance);
+		out.writeValue(programCurrency);
+		out.writeValue(color);
+		out.writeValue(chart);
+	}
 
-  public void writeToParcel(Parcel out, int flags) {
-    out.writeValue(balance);
-    out.writeValue(programCurrency);
-    out.writeValue(color);
-    out.writeValue(chart);
-  }
-
-  public int describeContents() {
-    return 0;
-  }
+	public int describeContents() {
+		return 0;
+	}
 }

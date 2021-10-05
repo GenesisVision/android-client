@@ -30,17 +30,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class EditApiKeyRestrictionsModel implements Parcelable
 {
-	public static final Parcelable.Creator<EditApiKeyRestrictionsModel> CREATOR = new Parcelable.Creator<EditApiKeyRestrictionsModel>()
-	{
-		public EditApiKeyRestrictionsModel createFromParcel(Parcel in) {
-			return new EditApiKeyRestrictionsModel(in);
-		}
-
-		public EditApiKeyRestrictionsModel[] newArray(int size) {
-			return new EditApiKeyRestrictionsModel[size];
-		}
-	};
-
 	@SerializedName("isIpRestrict")
 	private Boolean isIpRestrict = null;
 
@@ -54,13 +43,6 @@ public class EditApiKeyRestrictionsModel implements Parcelable
 	private String twoFactorCode = null;
 
 	public EditApiKeyRestrictionsModel() {
-	}
-
-	EditApiKeyRestrictionsModel(Parcel in) {
-		isIpRestrict = (Boolean) in.readValue(null);
-		allowedIps = (List<String>) in.readValue(null);
-		isTradingEnabled = (Boolean) in.readValue(null);
-		twoFactorCode = (String) in.readValue(null);
 	}
 
 	public EditApiKeyRestrictionsModel isIpRestrict(Boolean isIpRestrict) {
@@ -147,6 +129,7 @@ public class EditApiKeyRestrictionsModel implements Parcelable
 		this.twoFactorCode = twoFactorCode;
 	}
 
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -166,6 +149,7 @@ public class EditApiKeyRestrictionsModel implements Parcelable
 	public int hashCode() {
 		return Objects.hash(isIpRestrict, allowedIps, isTradingEnabled, twoFactorCode);
 	}
+
 
 	@Override
 	public String toString() {
@@ -191,6 +175,7 @@ public class EditApiKeyRestrictionsModel implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
+
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(isIpRestrict);
 		out.writeValue(allowedIps);
@@ -198,7 +183,25 @@ public class EditApiKeyRestrictionsModel implements Parcelable
 		out.writeValue(twoFactorCode);
 	}
 
+	public static final Parcelable.Creator<EditApiKeyRestrictionsModel> CREATOR = new Parcelable.Creator<EditApiKeyRestrictionsModel>()
+	{
+		public EditApiKeyRestrictionsModel createFromParcel(Parcel in) {
+			return new EditApiKeyRestrictionsModel(in);
+		}
+
+		public EditApiKeyRestrictionsModel[] newArray(int size) {
+			return new EditApiKeyRestrictionsModel[size];
+		}
+	};
+
 	public int describeContents() {
 		return 0;
+	}
+
+	EditApiKeyRestrictionsModel(Parcel in) {
+		isIpRestrict = (Boolean) in.readValue(null);
+		allowedIps = (List<String>) in.readValue(null);
+		isTradingEnabled = (Boolean) in.readValue(null);
+		twoFactorCode = (String) in.readValue(null);
 	}
 }

@@ -28,110 +28,110 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class ThreeFactorAuthenticatorConfirm implements Parcelable
 {
-  public static final Parcelable.Creator<ThreeFactorAuthenticatorConfirm> CREATOR = new Parcelable.Creator<ThreeFactorAuthenticatorConfirm>()
-  {
-    public ThreeFactorAuthenticatorConfirm createFromParcel(Parcel in) {
-      return new ThreeFactorAuthenticatorConfirm(in);
-    }
+	public static final Parcelable.Creator<ThreeFactorAuthenticatorConfirm> CREATOR = new Parcelable.Creator<ThreeFactorAuthenticatorConfirm>()
+	{
+		public ThreeFactorAuthenticatorConfirm createFromParcel(Parcel in) {
+			return new ThreeFactorAuthenticatorConfirm(in);
+		}
 
-    public ThreeFactorAuthenticatorConfirm[] newArray(int size) {
-      return new ThreeFactorAuthenticatorConfirm[size];
-    }
-  };
+		public ThreeFactorAuthenticatorConfirm[] newArray(int size) {
+			return new ThreeFactorAuthenticatorConfirm[size];
+		}
+	};
 
-  @SerializedName("email")
-  private String email = null;
+	@SerializedName("email")
+	private String email = null;
 
-  @SerializedName("code")
-  private String code = null;
+	@SerializedName("code")
+	private String code = null;
 
-  @SerializedName("token")
-  private String token = null;
+	@SerializedName("token")
+	private String token = null;
 
-  public ThreeFactorAuthenticatorConfirm() {
-  }
+	public ThreeFactorAuthenticatorConfirm() {
+	}
 
-  ThreeFactorAuthenticatorConfirm(Parcel in) {
-    email = (String) in.readValue(null);
-    code = (String) in.readValue(null);
-    token = (String) in.readValue(null);
-  }
+	ThreeFactorAuthenticatorConfirm(Parcel in) {
+		email = (String) in.readValue(null);
+		code = (String) in.readValue(null);
+		token = (String) in.readValue(null);
+	}
 
-  public ThreeFactorAuthenticatorConfirm email(String email) {
-    this.email = email;
-    return this;
-  }
+	public ThreeFactorAuthenticatorConfirm email(String email) {
+		this.email = email;
+		return this;
+	}
 
-  /**
-   * Get email
-   *
-   * @return email
-   **/
-  @Schema(required = true, description = "")
-  public String getEmail() {
-    return email;
-  }
+	public ThreeFactorAuthenticatorConfirm code(String code) {
+		this.code = code;
+		return this;
+	}
 
-  public void setEmail(String email) {
-    this.email = email;
-  }
+	public ThreeFactorAuthenticatorConfirm token(String token) {
+		this.token = token;
+		return this;
+	}
 
-  public ThreeFactorAuthenticatorConfirm code(String code) {
-    this.code = code;
-    return this;
-  }
+	/**
+	 * Get email
+	 *
+	 * @return email
+	 **/
+	@Schema(required = true, description = "")
+	public String getEmail() {
+		return email;
+	}
 
-  /**
-   * Get code
-   *
-   * @return code
-   **/
-  @Schema(description = "")
-  public String getCode() {
-    return code;
-  }
+	public void setEmail(String email) {
+		this.email = email;
+	}
 
-  public void setCode(String code) {
-    this.code = code;
-  }
+	/**
+	 * Get code
+	 *
+	 * @return code
+	 **/
+	@Schema(description = "")
+	public String getCode() {
+		return code;
+	}
 
-  public ThreeFactorAuthenticatorConfirm token(String token) {
-    this.token = token;
-    return this;
-  }
+	public void setCode(String code) {
+		this.code = code;
+	}
 
-  /**
-   * Get token
-   *
-   * @return token
-   **/
-  @Schema(description = "")
-  public String getToken() {
-    return token;
-  }
+	@Override
+	public int hashCode() {
+		return Objects.hash(email, code, token);
+	}
 
-  public void setToken(String token) {
-    this.token = token;
-  }
+	/**
+	 * Get token
+	 *
+	 * @return token
+	 **/
+	@Schema(description = "")
+	public String getToken() {
+		return token;
+	}
 
-  @Override
-  public boolean equals(java.lang.Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-    ThreeFactorAuthenticatorConfirm threeFactorAuthenticatorConfirm = (ThreeFactorAuthenticatorConfirm) o;
-    return Objects.equals(this.email, threeFactorAuthenticatorConfirm.email) &&
-            Objects.equals(this.code, threeFactorAuthenticatorConfirm.code) &&
-            Objects.equals(this.token, threeFactorAuthenticatorConfirm.token);
-  }
+	public void setToken(String token) {
+		this.token = token;
+	}
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(email, code, token);
-  }
+	@Override
+	public boolean equals(java.lang.Object o) {
+		if (this == o) {
+			return true;
+		}
+		if (o == null || getClass() != o.getClass()) {
+			return false;
+		}
+		ThreeFactorAuthenticatorConfirm threeFactorAuthenticatorConfirm = (ThreeFactorAuthenticatorConfirm) o;
+		return Objects.equals(this.email, threeFactorAuthenticatorConfirm.email) &&
+				Objects.equals(this.code, threeFactorAuthenticatorConfirm.code) &&
+				Objects.equals(this.token, threeFactorAuthenticatorConfirm.token);
+	}
 
   @Override
   public String toString() {
@@ -142,27 +142,27 @@ public class ThreeFactorAuthenticatorConfirm implements Parcelable
     sb.append("    code: ").append(toIndentedString(code)).append("\n");
     sb.append("    token: ").append(toIndentedString(token)).append("\n");
     sb.append("}");
-    return sb.toString();
+	  return sb.toString();
   }
 
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(java.lang.Object o) {
-    if (o == null) {
-      return "null";
-    }
-    return o.toString().replace("\n", "\n    ");
-  }
+	/**
+	 * Convert the given object to string with each line indented by 4 spaces
+	 * (except the first line).
+	 */
+	private String toIndentedString(java.lang.Object o) {
+		if (o == null) {
+			return "null";
+		}
+		return o.toString().replace("\n", "\n    ");
+	}
 
-  public void writeToParcel(Parcel out, int flags) {
-    out.writeValue(email);
-    out.writeValue(code);
-    out.writeValue(token);
-  }
+	public void writeToParcel(Parcel out, int flags) {
+		out.writeValue(email);
+		out.writeValue(code);
+		out.writeValue(token);
+	}
 
-  public int describeContents() {
-    return 0;
-  }
+	public int describeContents() {
+		return 0;
+	}
 }

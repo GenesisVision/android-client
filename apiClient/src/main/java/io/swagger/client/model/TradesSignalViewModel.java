@@ -30,201 +30,201 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class TradesSignalViewModel implements Parcelable
 {
-  public static final Parcelable.Creator<TradesSignalViewModel> CREATOR = new Parcelable.Creator<TradesSignalViewModel>()
-  {
-    public TradesSignalViewModel createFromParcel(Parcel in) {
-      return new TradesSignalViewModel(in);
-    }
+	public static final Parcelable.Creator<TradesSignalViewModel> CREATOR = new Parcelable.Creator<TradesSignalViewModel>()
+	{
+		public TradesSignalViewModel createFromParcel(Parcel in) {
+			return new TradesSignalViewModel(in);
+		}
 
-    public TradesSignalViewModel[] newArray(int size) {
-      return new TradesSignalViewModel[size];
-    }
-  };
+		public TradesSignalViewModel[] newArray(int size) {
+			return new TradesSignalViewModel[size];
+		}
+	};
 
-  @SerializedName("items")
-  private List<OrderSignalModel> items = null;
+	@SerializedName("items")
+	private List<OrderSignalModel> items = null;
 
-  @SerializedName("total")
-  private Integer total = null;
+	@SerializedName("total")
+	private Integer total = null;
 
-  @SerializedName("showSwaps")
-  private Boolean showSwaps = null;
+	@SerializedName("showSwaps")
+	private Boolean showSwaps = null;
 
-  @SerializedName("showTickets")
-  private Boolean showTickets = null;
+	@SerializedName("tradesDelay")
+	private TradesDelay tradesDelay = null;
 
-  @SerializedName("tradesDelay")
-  private TradesDelay tradesDelay = null;
+	@SerializedName("showTickets")
+	private Boolean showTickets = null;
 
-  public TradesSignalViewModel() {
-  }
+	public TradesSignalViewModel() {
+	}
 
-  TradesSignalViewModel(Parcel in) {
-    items = (List<OrderSignalModel>) in.readValue(OrderSignalModel.class.getClassLoader());
-    total = (Integer) in.readValue(null);
-    showSwaps = (Boolean) in.readValue(null);
-    showTickets = (Boolean) in.readValue(null);
-    tradesDelay = (TradesDelay) in.readValue(TradesDelay.class.getClassLoader());
-  }
+	TradesSignalViewModel(Parcel in) {
+		items = (List<OrderSignalModel>) in.readValue(OrderSignalModel.class.getClassLoader());
+		total = (Integer) in.readValue(null);
+		showSwaps = (Boolean) in.readValue(null);
+		showTickets = (Boolean) in.readValue(null);
+		tradesDelay = (TradesDelay) in.readValue(TradesDelay.class.getClassLoader());
+	}
 
-  public TradesSignalViewModel items(List<OrderSignalModel> items) {
-    this.items = items;
-    return this;
-  }
+	public TradesSignalViewModel items(List<OrderSignalModel> items) {
+		this.items = items;
+		return this;
+	}
 
-  public TradesSignalViewModel addItemsItem(OrderSignalModel itemsItem) {
-    if (this.items == null) {
-      this.items = new ArrayList<OrderSignalModel>();
-    }
-    this.items.add(itemsItem);
-    return this;
-  }
+	public TradesSignalViewModel addItemsItem(OrderSignalModel itemsItem) {
+		if (this.items == null) {
+			this.items = new ArrayList<OrderSignalModel>();
+		}
+		this.items.add(itemsItem);
+		return this;
+	}
 
-  /**
-   * Get items
-   *
-   * @return items
-   **/
-  @Schema(description = "")
-  public List<OrderSignalModel> getItems() {
-    return items;
-  }
+	public TradesSignalViewModel total(Integer total) {
+		this.total = total;
+		return this;
+	}
 
-  public void setItems(List<OrderSignalModel> items) {
-    this.items = items;
-  }
+	public TradesSignalViewModel showSwaps(Boolean showSwaps) {
+		this.showSwaps = showSwaps;
+		return this;
+	}
 
-  public TradesSignalViewModel total(Integer total) {
-    this.total = total;
-    return this;
-  }
+	/**
+	 * Get items
+	 *
+	 * @return items
+	 **/
+	@Schema(description = "")
+	public List<OrderSignalModel> getItems() {
+		return items;
+	}
 
-  /**
-   * Get total
-   *
-   * @return total
-   **/
-  @Schema(description = "")
-  public Integer getTotal() {
-    return total;
-  }
+	public void setItems(List<OrderSignalModel> items) {
+		this.items = items;
+	}
 
-  public void setTotal(Integer total) {
-    this.total = total;
-  }
+	public void setShowSwaps(Boolean showSwaps) {
+		this.showSwaps = showSwaps;
+	}
 
-  public TradesSignalViewModel showSwaps(Boolean showSwaps) {
-    this.showSwaps = showSwaps;
-    return this;
-  }
+	public TradesSignalViewModel showTickets(Boolean showTickets) {
+		this.showTickets = showTickets;
+		return this;
+	}
 
-  /**
-   * Get showSwaps
-   *
-   * @return showSwaps
-   **/
-  @Schema(description = "")
-  public Boolean isShowSwaps() {
-    return showSwaps;
-  }
+	/**
+	 * Get total
+	 *
+	 * @return total
+	 **/
+	@Schema(description = "")
+	public Integer getTotal() {
+		return total;
+	}
 
-  public void setShowSwaps(Boolean showSwaps) {
-    this.showSwaps = showSwaps;
-  }
+	public void setTotal(Integer total) {
+		this.total = total;
+	}
 
-  public TradesSignalViewModel showTickets(Boolean showTickets) {
-    this.showTickets = showTickets;
-    return this;
-  }
+	public void setShowTickets(Boolean showTickets) {
+		this.showTickets = showTickets;
+	}
 
-  /**
-   * Get showTickets
-   *
-   * @return showTickets
-   **/
-  @Schema(description = "")
-  public Boolean isShowTickets() {
-    return showTickets;
-  }
+	public TradesSignalViewModel tradesDelay(TradesDelay tradesDelay) {
+		this.tradesDelay = tradesDelay;
+		return this;
+	}
 
-  public void setShowTickets(Boolean showTickets) {
-    this.showTickets = showTickets;
-  }
+	/**
+	 * Get showSwaps
+	 *
+	 * @return showSwaps
+	 **/
+	@Schema(description = "")
+	public Boolean isShowSwaps() {
+		return showSwaps;
+	}
 
-  public TradesSignalViewModel tradesDelay(TradesDelay tradesDelay) {
-    this.tradesDelay = tradesDelay;
-    return this;
-  }
+	/**
+	 * Get showTickets
+	 *
+	 * @return showTickets
+	 **/
+	@Schema(description = "")
+	public Boolean isShowTickets() {
+		return showTickets;
+	}
 
-  /**
-   * Get tradesDelay
-   *
-   * @return tradesDelay
-   **/
-  @Schema(description = "")
-  public TradesDelay getTradesDelay() {
-    return tradesDelay;
-  }
+	@Override
+	public int hashCode() {
+		return Objects.hash(items, total, showSwaps, showTickets, tradesDelay);
+	}
 
-  public void setTradesDelay(TradesDelay tradesDelay) {
-    this.tradesDelay = tradesDelay;
-  }
+	/**
+	 * Get tradesDelay
+	 *
+	 * @return tradesDelay
+	 **/
+	@Schema(description = "")
+	public TradesDelay getTradesDelay() {
+		return tradesDelay;
+	}
 
-  @Override
-  public boolean equals(java.lang.Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-    TradesSignalViewModel tradesSignalViewModel = (TradesSignalViewModel) o;
-    return Objects.equals(this.items, tradesSignalViewModel.items) &&
-            Objects.equals(this.total, tradesSignalViewModel.total) &&
-            Objects.equals(this.showSwaps, tradesSignalViewModel.showSwaps) &&
-            Objects.equals(this.showTickets, tradesSignalViewModel.showTickets) &&
-            Objects.equals(this.tradesDelay, tradesSignalViewModel.tradesDelay);
-  }
+	public void setTradesDelay(TradesDelay tradesDelay) {
+		this.tradesDelay = tradesDelay;
+	}
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(items, total, showSwaps, showTickets, tradesDelay);
-  }
+	/**
+	 * Convert the given object to string with each line indented by 4 spaces
+	 * (except the first line).
+	 */
+	private String toIndentedString(java.lang.Object o) {
+		if (o == null) {
+			return "null";
+		}
+		return o.toString().replace("\n", "\n    ");
+	}
+
+	@Override
+	public boolean equals(java.lang.Object o) {
+		if (this == o) {
+			return true;
+		}
+		if (o == null || getClass() != o.getClass()) {
+			return false;
+		}
+		TradesSignalViewModel tradesSignalViewModel = (TradesSignalViewModel) o;
+		return Objects.equals(this.items, tradesSignalViewModel.items) &&
+				Objects.equals(this.total, tradesSignalViewModel.total) &&
+				Objects.equals(this.showSwaps, tradesSignalViewModel.showSwaps) &&
+				Objects.equals(this.showTickets, tradesSignalViewModel.showTickets) &&
+				Objects.equals(this.tradesDelay, tradesSignalViewModel.tradesDelay);
+	}
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class TradesSignalViewModel {\n");
+	  sb.append("class TradesSignalViewModel {\n");
 
-    sb.append("    items: ").append(toIndentedString(items)).append("\n");
-    sb.append("    total: ").append(toIndentedString(total)).append("\n");
-    sb.append("    showSwaps: ").append(toIndentedString(showSwaps)).append("\n");
-    sb.append("    showTickets: ").append(toIndentedString(showTickets)).append("\n");
-    sb.append("    tradesDelay: ").append(toIndentedString(tradesDelay)).append("\n");
-    sb.append("}");
-    return sb.toString();
+	  sb.append("    items: ").append(toIndentedString(items)).append("\n");
+	  sb.append("    total: ").append(toIndentedString(total)).append("\n");
+	  sb.append("    showSwaps: ").append(toIndentedString(showSwaps)).append("\n");
+	  sb.append("    showTickets: ").append(toIndentedString(showTickets)).append("\n");
+	  sb.append("    tradesDelay: ").append(toIndentedString(tradesDelay)).append("\n");
+	  sb.append("}");
+	  return sb.toString();
   }
 
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(java.lang.Object o) {
-    if (o == null) {
-      return "null";
-    }
-    return o.toString().replace("\n", "\n    ");
-  }
+	public void writeToParcel(Parcel out, int flags) {
+		out.writeValue(items);
+		out.writeValue(total);
+		out.writeValue(showSwaps);
+		out.writeValue(showTickets);
+		out.writeValue(tradesDelay);
+	}
 
-  public void writeToParcel(Parcel out, int flags) {
-    out.writeValue(items);
-    out.writeValue(total);
-    out.writeValue(showSwaps);
-    out.writeValue(showTickets);
-    out.writeValue(tradesDelay);
-  }
-
-  public int describeContents() {
-    return 0;
-  }
+	public int describeContents() {
+		return 0;
+	}
 }

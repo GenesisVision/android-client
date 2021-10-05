@@ -30,35 +30,25 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class PublicProfileItemsViewModel implements Parcelable
 {
-  public static final Parcelable.Creator<PublicProfileItemsViewModel> CREATOR = new Parcelable.Creator<PublicProfileItemsViewModel>()
-  {
-    public PublicProfileItemsViewModel createFromParcel(Parcel in) {
-      return new PublicProfileItemsViewModel(in);
-    }
+	public static final Parcelable.Creator<PublicProfileItemsViewModel> CREATOR = new Parcelable.Creator<PublicProfileItemsViewModel>()
+	{
+		public PublicProfileItemsViewModel createFromParcel(Parcel in) {
+			return new PublicProfileItemsViewModel(in);
+		}
 
-    public PublicProfileItemsViewModel[] newArray(int size) {
-      return new PublicProfileItemsViewModel[size];
-    }
-  };
+		public PublicProfileItemsViewModel[] newArray(int size) {
+			return new PublicProfileItemsViewModel[size];
+		}
+	};
 
-  @SerializedName("items")
-  private List<PublicProfile> items = null;
+	@SerializedName("items")
+	private List<PublicProfile> items = null;
 
-  @SerializedName("total")
-  private Integer total = null;
+	@SerializedName("total")
+	private Integer total = null;
 
-  public PublicProfileItemsViewModel() {
-  }
-
-  PublicProfileItemsViewModel(Parcel in) {
-    items = (List<PublicProfile>) in.readValue(PublicProfile.class.getClassLoader());
-    total = (Integer) in.readValue(null);
-  }
-
-  public PublicProfileItemsViewModel items(List<PublicProfile> items) {
-    this.items = items;
-    return this;
-  }
+	public PublicProfileItemsViewModel() {
+	}
 
   public PublicProfileItemsViewModel addItemsItem(PublicProfile itemsItem) {
     if (this.items == null) {
@@ -68,15 +58,10 @@ public class PublicProfileItemsViewModel implements Parcelable
     return this;
   }
 
-  /**
-   * Get items
-   *
-   * @return items
-   **/
-  @Schema(description = "")
-  public List<PublicProfile> getItems() {
-    return items;
-  }
+	PublicProfileItemsViewModel(Parcel in) {
+		items = (List<PublicProfile>) in.readValue(PublicProfile.class.getClassLoader());
+		total = (Integer) in.readValue(null);
+	}
 
   public void setItems(List<PublicProfile> items) {
     this.items = items;
@@ -87,18 +72,37 @@ public class PublicProfileItemsViewModel implements Parcelable
     return this;
   }
 
-  /**
-   * Get total
-   *
-   * @return total
-   **/
-  @Schema(description = "")
-  public Integer getTotal() {
-    return total;
+	public PublicProfileItemsViewModel items(List<PublicProfile> items) {
+		this.items = items;
+    return this;
   }
 
   public void setTotal(Integer total) {
     this.total = total;
+  }
+
+	/**
+	 * Get items
+	 *
+	 * @return items
+	 **/
+  @Schema(description = "")
+  public List<PublicProfile> getItems() {
+    return items;
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(items, total);
+  }
+
+	/**
+	 * Get total
+	 * @return total
+  **/
+  @Schema(description = "")
+  public Integer getTotal() {
+    return total;
   }
 
   @Override
@@ -110,13 +114,8 @@ public class PublicProfileItemsViewModel implements Parcelable
       return false;
     }
     PublicProfileItemsViewModel publicProfileItemsViewModel = (PublicProfileItemsViewModel) o;
-    return Objects.equals(this.items, publicProfileItemsViewModel.items) &&
-            Objects.equals(this.total, publicProfileItemsViewModel.total);
-  }
-
-  @Override
-  public int hashCode() {
-    return Objects.hash(items, total);
+	  return Objects.equals(this.items, publicProfileItemsViewModel.items) &&
+			  Objects.equals(this.total, publicProfileItemsViewModel.total);
   }
 
   @Override
@@ -138,15 +137,15 @@ public class PublicProfileItemsViewModel implements Parcelable
     if (o == null) {
       return "null";
     }
-    return o.toString().replace("\n", "\n    ");
+	  return o.toString().replace("\n", "\n    ");
   }
 
-  public void writeToParcel(Parcel out, int flags) {
-    out.writeValue(items);
-    out.writeValue(total);
-  }
+	public void writeToParcel(Parcel out, int flags) {
+		out.writeValue(items);
+		out.writeValue(total);
+	}
 
-  public int describeContents() {
-    return 0;
-  }
+	public int describeContents() {
+		return 0;
+	}
 }

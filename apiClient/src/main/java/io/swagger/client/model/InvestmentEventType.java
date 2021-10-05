@@ -46,15 +46,6 @@ public enum InvestmentEventType
 	ASSETENTERINVESTMENT("AssetEnterInvestment"),
 	ASSETWEEKLYCHALLENGEWINNER("AssetWeeklyChallengeWinner");
 
-	public static InvestmentEventType fromValue(String text) {
-		for (InvestmentEventType b : InvestmentEventType.values()) {
-			if (String.valueOf(b.value).equals(text)) {
-				return b;
-			}
-		}
-		return null;
-	}
-
 	private String value;
 
 	InvestmentEventType(String value) {
@@ -68,6 +59,15 @@ public enum InvestmentEventType
 	@Override
 	public String toString() {
 		return String.valueOf(value);
+	}
+
+	public static InvestmentEventType fromValue(String text) {
+		for (InvestmentEventType b : InvestmentEventType.values()) {
+			if (String.valueOf(b.value).equals(text)) {
+				return b;
+			}
+		}
+		return null;
 	}
 
 	public static class Adapter extends TypeAdapter<InvestmentEventType>

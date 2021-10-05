@@ -28,53 +28,35 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class TransactionDetailItem implements Parcelable
 {
-  public static final Parcelable.Creator<TransactionDetailItem> CREATOR = new Parcelable.Creator<TransactionDetailItem>()
-  {
-    public TransactionDetailItem createFromParcel(Parcel in) {
-      return new TransactionDetailItem(in);
-    }
+	public static final Parcelable.Creator<TransactionDetailItem> CREATOR = new Parcelable.Creator<TransactionDetailItem>()
+	{
+		public TransactionDetailItem createFromParcel(Parcel in) {
+			return new TransactionDetailItem(in);
+		}
 
-    public TransactionDetailItem[] newArray(int size) {
-      return new TransactionDetailItem[size];
-    }
-  };
+		public TransactionDetailItem[] newArray(int size) {
+			return new TransactionDetailItem[size];
+		}
+	};
 
-  @SerializedName("title")
-  private String title = null;
+	@SerializedName("title")
+	private String title = null;
 
-  @SerializedName("details")
-  private String details = null;
+	@SerializedName("details")
+	private String details = null;
 
-  @SerializedName("url")
-  private String url = null;
-
-  @SerializedName("canCopy")
-  private Boolean canCopy = null;
+	@SerializedName("url")
+	private String url = null;
 
   public TransactionDetailItem() {
   }
-
-  TransactionDetailItem(Parcel in) {
-    title = (String) in.readValue(null);
-    details = (String) in.readValue(null);
-    url = (String) in.readValue(null);
-    canCopy = (Boolean) in.readValue(null);
-  }
-
   public TransactionDetailItem title(String title) {
     this.title = title;
     return this;
   }
 
-  /**
-   * Get title
-   *
-   * @return title
-   **/
-  @Schema(description = "")
-  public String getTitle() {
-    return title;
-  }
+	@SerializedName("canCopy")
+  private Boolean canCopy = null;
 
   public void setTitle(String title) {
     this.title = title;
@@ -85,15 +67,12 @@ public class TransactionDetailItem implements Parcelable
     return this;
   }
 
-  /**
-   * Get details
-   *
-   * @return details
-   **/
-  @Schema(description = "")
-  public String getDetails() {
-    return details;
-  }
+	TransactionDetailItem(Parcel in) {
+		title = (String) in.readValue(null);
+		details = (String) in.readValue(null);
+		url = (String) in.readValue(null);
+		canCopy = (Boolean) in.readValue(null);
+	}
 
   public void setDetails(String details) {
     this.details = details;
@@ -104,14 +83,14 @@ public class TransactionDetailItem implements Parcelable
     return this;
   }
 
-  /**
-   * Get url
-   *
-   * @return url
-   **/
+	/**
+	 * Get title
+	 *
+	 * @return title
+	 **/
   @Schema(description = "")
-  public String getUrl() {
-    return url;
+  public String getTitle() {
+    return title;
   }
 
   public void setUrl(String url) {
@@ -123,18 +102,51 @@ public class TransactionDetailItem implements Parcelable
     return this;
   }
 
-  /**
-   * Get canCopy
-   *
-   * @return canCopy
-   **/
+	/**
+	 * Get details
+	 * @return details
+  **/
+  @Schema(description = "")
+  public String getDetails() {
+    return details;
+  }
+
+  public void setCanCopy(Boolean canCopy) {
+    this.canCopy = canCopy;
+  }
+
+	/**
+	 * Get url
+	 * @return url
+  **/
+  @Schema(description = "")
+  public String getUrl() {
+    return url;
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(title, details, url, canCopy);
+  }
+
+	/**
+	 * Get canCopy
+	 * @return canCopy
+  **/
   @Schema(description = "")
   public Boolean isCanCopy() {
     return canCopy;
   }
 
-  public void setCanCopy(Boolean canCopy) {
-    this.canCopy = canCopy;
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(java.lang.Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
   }
 
   @Override
@@ -146,15 +158,10 @@ public class TransactionDetailItem implements Parcelable
       return false;
     }
     TransactionDetailItem transactionDetailItem = (TransactionDetailItem) o;
-    return Objects.equals(this.title, transactionDetailItem.title) &&
-            Objects.equals(this.details, transactionDetailItem.details) &&
-            Objects.equals(this.url, transactionDetailItem.url) &&
-            Objects.equals(this.canCopy, transactionDetailItem.canCopy);
-  }
-
-  @Override
-  public int hashCode() {
-    return Objects.hash(title, details, url, canCopy);
+	  return Objects.equals(this.title, transactionDetailItem.title) &&
+			  Objects.equals(this.details, transactionDetailItem.details) &&
+			  Objects.equals(this.url, transactionDetailItem.url) &&
+			  Objects.equals(this.canCopy, transactionDetailItem.canCopy);
   }
 
   @Override
@@ -170,25 +177,14 @@ public class TransactionDetailItem implements Parcelable
     return sb.toString();
   }
 
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(java.lang.Object o) {
-    if (o == null) {
-      return "null";
-    }
-    return o.toString().replace("\n", "\n    ");
-  }
+	public void writeToParcel(Parcel out, int flags) {
+		out.writeValue(title);
+		out.writeValue(details);
+		out.writeValue(url);
+		out.writeValue(canCopy);
+	}
 
-  public void writeToParcel(Parcel out, int flags) {
-    out.writeValue(title);
-    out.writeValue(details);
-    out.writeValue(url);
-    out.writeValue(canCopy);
-  }
-
-  public int describeContents() {
-    return 0;
-  }
+	public int describeContents() {
+		return 0;
+	}
 }

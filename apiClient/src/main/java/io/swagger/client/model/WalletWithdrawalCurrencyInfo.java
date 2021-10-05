@@ -12,14 +12,22 @@
 
 package io.swagger.client.model;
 
-import android.os.Parcel;
-import android.os.Parcelable;
-
-import com.google.gson.annotations.SerializedName;
-
 import java.util.Objects;
+import java.util.Arrays;
 
+import com.google.gson.TypeAdapter;
+import com.google.gson.annotations.JsonAdapter;
+import com.google.gson.annotations.SerializedName;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
+
+import io.swagger.client.model.Blockchain;
 import io.swagger.v3.oas.annotations.media.Schema;
+
+import java.io.IOException;
+
+import android.os.Parcelable;
+import android.os.Parcel;
 
 /**
  * WalletWithdrawalCurrencyInfo
@@ -28,45 +36,27 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class WalletWithdrawalCurrencyInfo implements Parcelable
 {
-  public static final Parcelable.Creator<WalletWithdrawalCurrencyInfo> CREATOR = new Parcelable.Creator<WalletWithdrawalCurrencyInfo>()
-  {
-    public WalletWithdrawalCurrencyInfo createFromParcel(Parcel in) {
-      return new WalletWithdrawalCurrencyInfo(in);
-    }
+	@SerializedName("value")
+	private Double value = null;
 
-    public WalletWithdrawalCurrencyInfo[] newArray(int size) {
-      return new WalletWithdrawalCurrencyInfo[size];
-    }
-  };
+	@SerializedName("blockchain")
+	private Blockchain blockchain = null;
 
-  @SerializedName("value")
-  private Double value = null;
+	@SerializedName("blockchainTitle")
+	private String blockchainTitle = null;
 
-  @SerializedName("blockchain")
-  private Blockchain blockchain = null;
-
-  @SerializedName("blockchainTitle")
-  private String blockchainTitle = null;
-
-  public WalletWithdrawalCurrencyInfo() {
+	public WalletWithdrawalCurrencyInfo() {
   }
-
-  WalletWithdrawalCurrencyInfo(Parcel in) {
-    value = (Double) in.readValue(null);
-    blockchain = (Blockchain) in.readValue(Blockchain.class.getClassLoader());
-    blockchainTitle = (String) in.readValue(null);
-  }
-
   public WalletWithdrawalCurrencyInfo value(Double value) {
     this.value = value;
     return this;
   }
 
-  /**
-   * Get value
-   *
-   * @return value
-   **/
+	/**
+	 * Get value
+	 *
+	 * @return value
+	 **/
   @Schema(description = "")
   public Double getValue() {
     return value;
@@ -81,11 +71,10 @@ public class WalletWithdrawalCurrencyInfo implements Parcelable
     return this;
   }
 
-  /**
-   * Get blockchain
-   *
-   * @return blockchain
-   **/
+	/**
+	 * Get blockchain
+	 * @return blockchain
+  **/
   @Schema(description = "")
   public Blockchain getBlockchain() {
     return blockchain;
@@ -100,11 +89,10 @@ public class WalletWithdrawalCurrencyInfo implements Parcelable
     return this;
   }
 
-  /**
-   * Get blockchainTitle
-   *
-   * @return blockchainTitle
-   **/
+	/**
+	 * Get blockchainTitle
+	 * @return blockchainTitle
+  **/
   @Schema(description = "")
   public String getBlockchainTitle() {
     return blockchainTitle;
@@ -113,6 +101,7 @@ public class WalletWithdrawalCurrencyInfo implements Parcelable
   public void setBlockchainTitle(String blockchainTitle) {
     this.blockchainTitle = blockchainTitle;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -123,9 +112,9 @@ public class WalletWithdrawalCurrencyInfo implements Parcelable
       return false;
     }
     WalletWithdrawalCurrencyInfo walletWithdrawalCurrencyInfo = (WalletWithdrawalCurrencyInfo) o;
-    return Objects.equals(this.value, walletWithdrawalCurrencyInfo.value) &&
-            Objects.equals(this.blockchain, walletWithdrawalCurrencyInfo.blockchain) &&
-            Objects.equals(this.blockchainTitle, walletWithdrawalCurrencyInfo.blockchainTitle);
+	  return Objects.equals(this.value, walletWithdrawalCurrencyInfo.value) &&
+			  Objects.equals(this.blockchain, walletWithdrawalCurrencyInfo.blockchain) &&
+			  Objects.equals(this.blockchainTitle, walletWithdrawalCurrencyInfo.blockchainTitle);
   }
 
   @Override
@@ -133,11 +122,12 @@ public class WalletWithdrawalCurrencyInfo implements Parcelable
     return Objects.hash(value, blockchain, blockchainTitle);
   }
 
+
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class WalletWithdrawalCurrencyInfo {\n");
-
+    
     sb.append("    value: ").append(toIndentedString(value)).append("\n");
     sb.append("    blockchain: ").append(toIndentedString(blockchain)).append("\n");
     sb.append("    blockchainTitle: ").append(toIndentedString(blockchainTitle)).append("\n");
@@ -153,16 +143,34 @@ public class WalletWithdrawalCurrencyInfo implements Parcelable
     if (o == null) {
       return "null";
     }
-    return o.toString().replace("\n", "\n    ");
+	  return o.toString().replace("\n", "\n    ");
   }
 
-  public void writeToParcel(Parcel out, int flags) {
-    out.writeValue(value);
-    out.writeValue(blockchain);
-    out.writeValue(blockchainTitle);
-  }
 
-  public int describeContents() {
-    return 0;
-  }
+	public void writeToParcel(Parcel out, int flags) {
+		out.writeValue(value);
+		out.writeValue(blockchain);
+		out.writeValue(blockchainTitle);
+	}
+
+	WalletWithdrawalCurrencyInfo(Parcel in) {
+		value = (Double) in.readValue(null);
+		blockchain = (Blockchain) in.readValue(Blockchain.class.getClassLoader());
+		blockchainTitle = (String) in.readValue(null);
+	}
+
+	public int describeContents() {
+		return 0;
+	}
+
+	public static final Parcelable.Creator<WalletWithdrawalCurrencyInfo> CREATOR = new Parcelable.Creator<WalletWithdrawalCurrencyInfo>()
+	{
+		public WalletWithdrawalCurrencyInfo createFromParcel(Parcel in) {
+			return new WalletWithdrawalCurrencyInfo(in);
+		}
+
+		public WalletWithdrawalCurrencyInfo[] newArray(int size) {
+			return new WalletWithdrawalCurrencyInfo[size];
+		}
+	};
 }

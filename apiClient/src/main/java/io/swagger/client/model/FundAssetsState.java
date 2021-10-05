@@ -30,17 +30,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class FundAssetsState implements Parcelable
 {
-	public static final Parcelable.Creator<FundAssetsState> CREATOR = new Parcelable.Creator<FundAssetsState>()
-	{
-		public FundAssetsState createFromParcel(Parcel in) {
-			return new FundAssetsState(in);
-		}
-
-		public FundAssetsState[] newArray(int size) {
-			return new FundAssetsState[size];
-		}
-	};
-
 	@SerializedName("date")
 	private Long date = null;
 
@@ -51,12 +40,6 @@ public class FundAssetsState implements Parcelable
 	private List<FundAssetPartWithIcon> assets = null;
 
 	public FundAssetsState() {
-	}
-
-	FundAssetsState(Parcel in) {
-		date = (Long) in.readValue(null);
-		value = (Double) in.readValue(null);
-		assets = (List<FundAssetPartWithIcon>) in.readValue(FundAssetPartWithIcon.class.getClassLoader());
 	}
 
 	public FundAssetsState date(Long date) {
@@ -124,6 +107,7 @@ public class FundAssetsState implements Parcelable
 		this.assets = assets;
 	}
 
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -142,6 +126,7 @@ public class FundAssetsState implements Parcelable
 	public int hashCode() {
 		return Objects.hash(date, value, assets);
 	}
+
 
 	@Override
 	public String toString() {
@@ -166,13 +151,31 @@ public class FundAssetsState implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
+
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(date);
 		out.writeValue(value);
 		out.writeValue(assets);
 	}
 
+	public static final Parcelable.Creator<FundAssetsState> CREATOR = new Parcelable.Creator<FundAssetsState>()
+	{
+		public FundAssetsState createFromParcel(Parcel in) {
+			return new FundAssetsState(in);
+		}
+
+		public FundAssetsState[] newArray(int size) {
+			return new FundAssetsState[size];
+		}
+	};
+
 	public int describeContents() {
 		return 0;
+	}
+
+	FundAssetsState(Parcel in) {
+		date = (Long) in.readValue(null);
+		value = (Double) in.readValue(null);
+		assets = (List<FundAssetPartWithIcon>) in.readValue(FundAssetPartWithIcon.class.getClassLoader());
 	}
 }

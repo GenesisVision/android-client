@@ -32,15 +32,6 @@ public enum FundHistoryEventType
 	REALLOCATION("Reallocation"),
 	CHALLENGEWINNER("ChallengeWinner");
 
-	public static FundHistoryEventType fromValue(String text) {
-		for (FundHistoryEventType b : FundHistoryEventType.values()) {
-			if (String.valueOf(b.value).equals(text)) {
-				return b;
-			}
-		}
-		return null;
-	}
-
 	private String value;
 
 	FundHistoryEventType(String value) {
@@ -54,6 +45,15 @@ public enum FundHistoryEventType
 	@Override
 	public String toString() {
 		return String.valueOf(value);
+	}
+
+	public static FundHistoryEventType fromValue(String text) {
+		for (FundHistoryEventType b : FundHistoryEventType.values()) {
+			if (String.valueOf(b.value).equals(text)) {
+				return b;
+			}
+		}
+		return null;
 	}
 
 	public static class Adapter extends TypeAdapter<FundHistoryEventType>

@@ -28,17 +28,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class BinanceRawFuturesPlaceOrder implements Parcelable
 {
-	public static final Parcelable.Creator<BinanceRawFuturesPlaceOrder> CREATOR = new Parcelable.Creator<BinanceRawFuturesPlaceOrder>()
-	{
-		public BinanceRawFuturesPlaceOrder createFromParcel(Parcel in) {
-			return new BinanceRawFuturesPlaceOrder(in);
-		}
-
-		public BinanceRawFuturesPlaceOrder[] newArray(int size) {
-			return new BinanceRawFuturesPlaceOrder[size];
-		}
-	};
-
 	@SerializedName("symbol")
 	private String symbol = null;
 
@@ -85,24 +74,6 @@ public class BinanceRawFuturesPlaceOrder implements Parcelable
 	private BinanceOrderResponseType orderResponseType = null;
 
 	public BinanceRawFuturesPlaceOrder() {
-	}
-
-	BinanceRawFuturesPlaceOrder(Parcel in) {
-		symbol = (String) in.readValue(null);
-		side = (BinanceOrderSide) in.readValue(BinanceOrderSide.class.getClassLoader());
-		type = (BinanceOrderType) in.readValue(BinanceOrderType.class.getClassLoader());
-		quantity = (Double) in.readValue(null);
-		positionSide = (BinancePositionSide) in.readValue(BinancePositionSide.class.getClassLoader());
-		timeInForce = (BinanceTimeInForce) in.readValue(BinanceTimeInForce.class.getClassLoader());
-		reduceOnly = (Boolean) in.readValue(null);
-		price = (Double) in.readValue(null);
-		newClientOrderId = (String) in.readValue(null);
-		stopPrice = (Double) in.readValue(null);
-		activationPrice = (Double) in.readValue(null);
-		callbackRate = (Double) in.readValue(null);
-		workingType = (BinanceWorkingType) in.readValue(BinanceWorkingType.class.getClassLoader());
-		closePosition = (Boolean) in.readValue(null);
-		orderResponseType = (BinanceOrderResponseType) in.readValue(BinanceOrderResponseType.class.getClassLoader());
 	}
 
 	public BinanceRawFuturesPlaceOrder symbol(String symbol) {
@@ -390,6 +361,7 @@ public class BinanceRawFuturesPlaceOrder implements Parcelable
 		this.orderResponseType = orderResponseType;
 	}
 
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -420,6 +392,7 @@ public class BinanceRawFuturesPlaceOrder implements Parcelable
 	public int hashCode() {
 		return Objects.hash(symbol, side, type, quantity, positionSide, timeInForce, reduceOnly, price, newClientOrderId, stopPrice, activationPrice, callbackRate, workingType, closePosition, orderResponseType);
 	}
+
 
 	@Override
 	public String toString() {
@@ -456,6 +429,7 @@ public class BinanceRawFuturesPlaceOrder implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
+
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(symbol);
 		out.writeValue(side);
@@ -474,7 +448,36 @@ public class BinanceRawFuturesPlaceOrder implements Parcelable
 		out.writeValue(orderResponseType);
 	}
 
+	public static final Parcelable.Creator<BinanceRawFuturesPlaceOrder> CREATOR = new Parcelable.Creator<BinanceRawFuturesPlaceOrder>()
+	{
+		public BinanceRawFuturesPlaceOrder createFromParcel(Parcel in) {
+			return new BinanceRawFuturesPlaceOrder(in);
+		}
+
+		public BinanceRawFuturesPlaceOrder[] newArray(int size) {
+			return new BinanceRawFuturesPlaceOrder[size];
+		}
+	};
+
 	public int describeContents() {
 		return 0;
+	}
+
+	BinanceRawFuturesPlaceOrder(Parcel in) {
+		symbol = (String) in.readValue(null);
+		side = (BinanceOrderSide) in.readValue(BinanceOrderSide.class.getClassLoader());
+		type = (BinanceOrderType) in.readValue(BinanceOrderType.class.getClassLoader());
+		quantity = (Double) in.readValue(null);
+		positionSide = (BinancePositionSide) in.readValue(BinancePositionSide.class.getClassLoader());
+		timeInForce = (BinanceTimeInForce) in.readValue(BinanceTimeInForce.class.getClassLoader());
+		reduceOnly = (Boolean) in.readValue(null);
+		price = (Double) in.readValue(null);
+		newClientOrderId = (String) in.readValue(null);
+		stopPrice = (Double) in.readValue(null);
+		activationPrice = (Double) in.readValue(null);
+		callbackRate = (Double) in.readValue(null);
+		workingType = (BinanceWorkingType) in.readValue(BinanceWorkingType.class.getClassLoader());
+		closePosition = (Boolean) in.readValue(null);
+		orderResponseType = (BinanceOrderResponseType) in.readValue(BinanceOrderResponseType.class.getClassLoader());
 	}
 }

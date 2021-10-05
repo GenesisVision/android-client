@@ -30,53 +30,36 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class UpdateSocialLinksViewModel implements Parcelable
 {
-  public static final Parcelable.Creator<UpdateSocialLinksViewModel> CREATOR = new Parcelable.Creator<UpdateSocialLinksViewModel>()
-  {
-    public UpdateSocialLinksViewModel createFromParcel(Parcel in) {
-      return new UpdateSocialLinksViewModel(in);
-    }
+	public static final Parcelable.Creator<UpdateSocialLinksViewModel> CREATOR = new Parcelable.Creator<UpdateSocialLinksViewModel>()
+	{
+		public UpdateSocialLinksViewModel createFromParcel(Parcel in) {
+			return new UpdateSocialLinksViewModel(in);
+		}
 
-    public UpdateSocialLinksViewModel[] newArray(int size) {
-      return new UpdateSocialLinksViewModel[size];
-    }
-  };
+		public UpdateSocialLinksViewModel[] newArray(int size) {
+			return new UpdateSocialLinksViewModel[size];
+		}
+	};
 
-  @SerializedName("links")
-  private List<UpdateSocialLinkViewModel> links = null;
+	@SerializedName("links")
+	private List<UpdateSocialLinkViewModel> links = null;
 
-  public UpdateSocialLinksViewModel() {
-  }
+	public UpdateSocialLinksViewModel() {
+	}
 
-  UpdateSocialLinksViewModel(Parcel in) {
-    links = (List<UpdateSocialLinkViewModel>) in.readValue(UpdateSocialLinkViewModel.class.getClassLoader());
-  }
+	UpdateSocialLinksViewModel(Parcel in) {
+		links = (List<UpdateSocialLinkViewModel>) in.readValue(UpdateSocialLinkViewModel.class.getClassLoader());
+	}
 
-  public UpdateSocialLinksViewModel links(List<UpdateSocialLinkViewModel> links) {
-    this.links = links;
-    return this;
-  }
-
-  public UpdateSocialLinksViewModel addLinksItem(UpdateSocialLinkViewModel linksItem) {
-    if (this.links == null) {
-      this.links = new ArrayList<UpdateSocialLinkViewModel>();
-    }
-    this.links.add(linksItem);
-    return this;
-  }
-
-  /**
-   * Get links
-   *
-   * @return links
-   **/
-  @Schema(description = "")
-  public List<UpdateSocialLinkViewModel> getLinks() {
-    return links;
-  }
+	public UpdateSocialLinksViewModel links(List<UpdateSocialLinkViewModel> links) {
+		this.links = links;
+		return this;
+	}
 
   public void setLinks(List<UpdateSocialLinkViewModel> links) {
     this.links = links;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -95,6 +78,24 @@ public class UpdateSocialLinksViewModel implements Parcelable
     return Objects.hash(links);
   }
 
+	public UpdateSocialLinksViewModel addLinksItem(UpdateSocialLinkViewModel linksItem) {
+    if (this.links == null) {
+      this.links = new ArrayList<UpdateSocialLinkViewModel>();
+    }
+    this.links.add(linksItem);
+    return this;
+  }
+
+	/**
+	 * Get links
+	 *
+	 * @return links
+	 **/
+  @Schema(description = "")
+  public List<UpdateSocialLinkViewModel> getLinks() {
+    return links;
+  }
+
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
@@ -111,16 +112,16 @@ public class UpdateSocialLinksViewModel implements Parcelable
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
-      return "null";
+	    return "null";
     }
-    return o.toString().replace("\n", "\n    ");
+	  return o.toString().replace("\n", "\n    ");
   }
 
-  public void writeToParcel(Parcel out, int flags) {
-    out.writeValue(links);
-  }
+	public void writeToParcel(Parcel out, int flags) {
+		out.writeValue(links);
+	}
 
-  public int describeContents() {
-    return 0;
-  }
+	public int describeContents() {
+		return 0;
+	}
 }

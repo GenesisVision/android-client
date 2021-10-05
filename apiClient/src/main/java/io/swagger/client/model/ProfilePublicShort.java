@@ -29,57 +29,38 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class ProfilePublicShort implements Parcelable
 {
-  public static final Parcelable.Creator<ProfilePublicShort> CREATOR = new Parcelable.Creator<ProfilePublicShort>()
-  {
-    public ProfilePublicShort createFromParcel(Parcel in) {
-      return new ProfilePublicShort(in);
-    }
+	public static final Parcelable.Creator<ProfilePublicShort> CREATOR = new Parcelable.Creator<ProfilePublicShort>()
+	{
+		public ProfilePublicShort createFromParcel(Parcel in) {
+			return new ProfilePublicShort(in);
+		}
 
-    public ProfilePublicShort[] newArray(int size) {
-      return new ProfilePublicShort[size];
-    }
-  };
+		public ProfilePublicShort[] newArray(int size) {
+			return new ProfilePublicShort[size];
+		}
+	};
 
-  @SerializedName("id")
-  private UUID id = null;
+	@SerializedName("id")
+	private UUID id = null;
 
-  @SerializedName("username")
-  private String username = null;
+	@SerializedName("username")
+	private String username = null;
 
-  @SerializedName("url")
-  private String url = null;
-
-  @SerializedName("logoUrl")
-  private String logoUrl = null;
+	@SerializedName("url")
+	private String url = null;
 
   @SerializedName("personalDetails")
   private PublicProfilePersonalDetails personalDetails = null;
 
   public ProfilePublicShort() {
   }
-
-  ProfilePublicShort(Parcel in) {
-    id = (UUID) in.readValue(UUID.class.getClassLoader());
-    username = (String) in.readValue(null);
-    url = (String) in.readValue(null);
-    logoUrl = (String) in.readValue(null);
-    personalDetails = (PublicProfilePersonalDetails) in.readValue(PublicProfilePersonalDetails.class.getClassLoader());
-  }
-
   public ProfilePublicShort id(UUID id) {
     this.id = id;
     return this;
   }
 
-  /**
-   * Get id
-   *
-   * @return id
-   **/
-  @Schema(description = "")
-  public UUID getId() {
-    return id;
-  }
+	@SerializedName("logoUrl")
+  private String logoUrl = null;
 
   public void setId(UUID id) {
     this.id = id;
@@ -90,15 +71,13 @@ public class ProfilePublicShort implements Parcelable
     return this;
   }
 
-  /**
-   * Get username
-   *
-   * @return username
-   **/
-  @Schema(description = "")
-  public String getUsername() {
-    return username;
-  }
+	ProfilePublicShort(Parcel in) {
+		id = (UUID) in.readValue(UUID.class.getClassLoader());
+		username = (String) in.readValue(null);
+		url = (String) in.readValue(null);
+		logoUrl = (String) in.readValue(null);
+		personalDetails = (PublicProfilePersonalDetails) in.readValue(PublicProfilePersonalDetails.class.getClassLoader());
+	}
 
   public void setUsername(String username) {
     this.username = username;
@@ -109,14 +88,14 @@ public class ProfilePublicShort implements Parcelable
     return this;
   }
 
-  /**
-   * Get url
-   *
-   * @return url
-   **/
+	/**
+	 * Get id
+	 *
+	 * @return id
+	 **/
   @Schema(description = "")
-  public String getUrl() {
-    return url;
+  public UUID getId() {
+    return id;
   }
 
   public void setUrl(String url) {
@@ -128,14 +107,13 @@ public class ProfilePublicShort implements Parcelable
     return this;
   }
 
-  /**
-   * Get logoUrl
-   *
-   * @return logoUrl
-   **/
+	/**
+	 * Get username
+	 * @return username
+  **/
   @Schema(description = "")
-  public String getLogoUrl() {
-    return logoUrl;
+  public String getUsername() {
+    return username;
   }
 
   public void setLogoUrl(String logoUrl) {
@@ -147,18 +125,51 @@ public class ProfilePublicShort implements Parcelable
     return this;
   }
 
-  /**
-   * Get personalDetails
-   *
-   * @return personalDetails
-   **/
+	/**
+	 * Get url
+	 * @return url
+  **/
+  @Schema(description = "")
+  public String getUrl() {
+    return url;
+  }
+
+  public void setPersonalDetails(PublicProfilePersonalDetails personalDetails) {
+    this.personalDetails = personalDetails;
+  }
+
+	/**
+	 * Get logoUrl
+	 * @return logoUrl
+  **/
+  @Schema(description = "")
+  public String getLogoUrl() {
+    return logoUrl;
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(id, username, url, logoUrl, personalDetails);
+  }
+
+	/**
+	 * Get personalDetails
+	 * @return personalDetails
+  **/
   @Schema(description = "")
   public PublicProfilePersonalDetails getPersonalDetails() {
     return personalDetails;
   }
 
-  public void setPersonalDetails(PublicProfilePersonalDetails personalDetails) {
-    this.personalDetails = personalDetails;
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(java.lang.Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
   }
 
   @Override
@@ -170,16 +181,11 @@ public class ProfilePublicShort implements Parcelable
       return false;
     }
     ProfilePublicShort profilePublicShort = (ProfilePublicShort) o;
-    return Objects.equals(this.id, profilePublicShort.id) &&
-            Objects.equals(this.username, profilePublicShort.username) &&
-            Objects.equals(this.url, profilePublicShort.url) &&
-            Objects.equals(this.logoUrl, profilePublicShort.logoUrl) &&
-            Objects.equals(this.personalDetails, profilePublicShort.personalDetails);
-  }
-
-  @Override
-  public int hashCode() {
-    return Objects.hash(id, username, url, logoUrl, personalDetails);
+	  return Objects.equals(this.id, profilePublicShort.id) &&
+			  Objects.equals(this.username, profilePublicShort.username) &&
+			  Objects.equals(this.url, profilePublicShort.url) &&
+			  Objects.equals(this.logoUrl, profilePublicShort.logoUrl) &&
+			  Objects.equals(this.personalDetails, profilePublicShort.personalDetails);
   }
 
   @Override
@@ -196,26 +202,15 @@ public class ProfilePublicShort implements Parcelable
     return sb.toString();
   }
 
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(java.lang.Object o) {
-    if (o == null) {
-      return "null";
-    }
-    return o.toString().replace("\n", "\n    ");
-  }
+	public void writeToParcel(Parcel out, int flags) {
+		out.writeValue(id);
+		out.writeValue(username);
+		out.writeValue(url);
+		out.writeValue(logoUrl);
+		out.writeValue(personalDetails);
+	}
 
-  public void writeToParcel(Parcel out, int flags) {
-    out.writeValue(id);
-    out.writeValue(username);
-    out.writeValue(url);
-    out.writeValue(logoUrl);
-    out.writeValue(personalDetails);
-  }
-
-  public int describeContents() {
-    return 0;
-  }
+	public int describeContents() {
+		return 0;
+	}
 }

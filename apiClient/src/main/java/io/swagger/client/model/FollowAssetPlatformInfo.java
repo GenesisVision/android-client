@@ -30,17 +30,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class FollowAssetPlatformInfo implements Parcelable
 {
-	public static final Parcelable.Creator<FollowAssetPlatformInfo> CREATOR = new Parcelable.Creator<FollowAssetPlatformInfo>()
-	{
-		public FollowAssetPlatformInfo createFromParcel(Parcel in) {
-			return new FollowAssetPlatformInfo(in);
-		}
-
-		public FollowAssetPlatformInfo[] newArray(int size) {
-			return new FollowAssetPlatformInfo[size];
-		}
-	};
-
 	@SerializedName("facets")
 	private List<AssetFacet> facets = null;
 
@@ -54,13 +43,6 @@ public class FollowAssetPlatformInfo implements Parcelable
 	private List<String> subscribeFixedCurrencies = null;
 
 	public FollowAssetPlatformInfo() {
-	}
-
-	FollowAssetPlatformInfo(Parcel in) {
-		facets = (List<AssetFacet>) in.readValue(AssetFacet.class.getClassLoader());
-		tags = (List<Tag>) in.readValue(Tag.class.getClassLoader());
-		createFollowInfo = (FollowCreateAssetPlatformInfo) in.readValue(FollowCreateAssetPlatformInfo.class.getClassLoader());
-		subscribeFixedCurrencies = (List<String>) in.readValue(null);
 	}
 
 	public FollowAssetPlatformInfo facets(List<AssetFacet> facets) {
@@ -163,6 +145,7 @@ public class FollowAssetPlatformInfo implements Parcelable
 		this.subscribeFixedCurrencies = subscribeFixedCurrencies;
 	}
 
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -182,6 +165,7 @@ public class FollowAssetPlatformInfo implements Parcelable
 	public int hashCode() {
 		return Objects.hash(facets, tags, createFollowInfo, subscribeFixedCurrencies);
 	}
+
 
 	@Override
 	public String toString() {
@@ -207,6 +191,7 @@ public class FollowAssetPlatformInfo implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
+
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(facets);
 		out.writeValue(tags);
@@ -214,7 +199,25 @@ public class FollowAssetPlatformInfo implements Parcelable
 		out.writeValue(subscribeFixedCurrencies);
 	}
 
+	public static final Parcelable.Creator<FollowAssetPlatformInfo> CREATOR = new Parcelable.Creator<FollowAssetPlatformInfo>()
+	{
+		public FollowAssetPlatformInfo createFromParcel(Parcel in) {
+			return new FollowAssetPlatformInfo(in);
+		}
+
+		public FollowAssetPlatformInfo[] newArray(int size) {
+			return new FollowAssetPlatformInfo[size];
+		}
+	};
+
 	public int describeContents() {
 		return 0;
+	}
+
+	FollowAssetPlatformInfo(Parcel in) {
+		facets = (List<AssetFacet>) in.readValue(AssetFacet.class.getClassLoader());
+		tags = (List<Tag>) in.readValue(Tag.class.getClassLoader());
+		createFollowInfo = (FollowCreateAssetPlatformInfo) in.readValue(FollowCreateAssetPlatformInfo.class.getClassLoader());
+		subscribeFixedCurrencies = (List<String>) in.readValue(null);
 	}
 }

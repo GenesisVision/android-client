@@ -65,6 +65,9 @@ public class ExchangeAsset implements Parcelable
 	@SerializedName("asset")
 	private AssetDetails asset = null;
 
+	@SerializedName("status")
+	private DashboardTradingAssetStatus status = null;
+
 	public ExchangeAsset() {
 	}
 
@@ -76,6 +79,7 @@ public class ExchangeAsset implements Parcelable
 		currency = (Currency) in.readValue(Currency.class.getClassLoader());
 		permissions = (List<TradingAccountPermission>) in.readValue(TradingAccountPermission.class.getClassLoader());
 		asset = (AssetDetails) in.readValue(AssetDetails.class.getClassLoader());
+		status = (DashboardTradingAssetStatus) in.readValue(DashboardTradingAssetStatus.class.getClassLoader());
 	}
 
 	public ExchangeAsset id(UUID id) {
@@ -219,6 +223,25 @@ public class ExchangeAsset implements Parcelable
 		this.asset = asset;
 	}
 
+	public ExchangeAsset status(DashboardTradingAssetStatus status) {
+		this.status = status;
+		return this;
+	}
+
+	/**
+	 * Get status
+	 *
+	 * @return status
+	 **/
+	@Schema(description = "")
+	public DashboardTradingAssetStatus getStatus() {
+		return status;
+	}
+
+	public void setStatus(DashboardTradingAssetStatus status) {
+		this.status = status;
+	}
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -234,12 +257,13 @@ public class ExchangeAsset implements Parcelable
 				Objects.equals(this.balance, exchangeAsset.balance) &&
 				Objects.equals(this.currency, exchangeAsset.currency) &&
 				Objects.equals(this.permissions, exchangeAsset.permissions) &&
-				Objects.equals(this.asset, exchangeAsset.asset);
+				Objects.equals(this.asset, exchangeAsset.asset) &&
+				Objects.equals(this.status, exchangeAsset.status);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, title, creationDate, balance, currency, permissions, asset);
+		return Objects.hash(id, title, creationDate, balance, currency, permissions, asset, status);
 	}
 
 	@Override
@@ -254,6 +278,7 @@ public class ExchangeAsset implements Parcelable
 		sb.append("    currency: ").append(toIndentedString(currency)).append("\n");
 		sb.append("    permissions: ").append(toIndentedString(permissions)).append("\n");
 		sb.append("    asset: ").append(toIndentedString(asset)).append("\n");
+		sb.append("    status: ").append(toIndentedString(status)).append("\n");
 		sb.append("}");
 		return sb.toString();
 	}
@@ -277,6 +302,7 @@ public class ExchangeAsset implements Parcelable
 		out.writeValue(currency);
 		out.writeValue(permissions);
 		out.writeValue(asset);
+		out.writeValue(status);
 	}
 
 	public int describeContents() {

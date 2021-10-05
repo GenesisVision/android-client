@@ -28,45 +28,30 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class TradingAccountPwdUpdate implements Parcelable
 {
-  public static final Parcelable.Creator<TradingAccountPwdUpdate> CREATOR = new Parcelable.Creator<TradingAccountPwdUpdate>()
-  {
-    public TradingAccountPwdUpdate createFromParcel(Parcel in) {
-      return new TradingAccountPwdUpdate(in);
-    }
+	public static final Parcelable.Creator<TradingAccountPwdUpdate> CREATOR = new Parcelable.Creator<TradingAccountPwdUpdate>()
+	{
+		public TradingAccountPwdUpdate createFromParcel(Parcel in) {
+			return new TradingAccountPwdUpdate(in);
+		}
 
-    public TradingAccountPwdUpdate[] newArray(int size) {
-      return new TradingAccountPwdUpdate[size];
-    }
-  };
+		public TradingAccountPwdUpdate[] newArray(int size) {
+			return new TradingAccountPwdUpdate[size];
+		}
+	};
 
-  @SerializedName("password")
-  private String password = null;
+	@SerializedName("password")
+	private String password = null;
 
-  @SerializedName("twoFactorCode")
-  private String twoFactorCode = null;
+	@SerializedName("twoFactorCode")
+	private String twoFactorCode = null;
 
-  public TradingAccountPwdUpdate() {
-  }
+	public TradingAccountPwdUpdate() {
+	}
 
-  TradingAccountPwdUpdate(Parcel in) {
-    password = (String) in.readValue(null);
-    twoFactorCode = (String) in.readValue(null);
-  }
-
-  public TradingAccountPwdUpdate password(String password) {
-    this.password = password;
-    return this;
-  }
-
-  /**
-   * Get password
-   *
-   * @return password
-   **/
-  @Schema(description = "")
-  public String getPassword() {
-    return password;
-  }
+	TradingAccountPwdUpdate(Parcel in) {
+		password = (String) in.readValue(null);
+		twoFactorCode = (String) in.readValue(null);
+	}
 
   public void setPassword(String password) {
     this.password = password;
@@ -77,18 +62,37 @@ public class TradingAccountPwdUpdate implements Parcelable
     return this;
   }
 
-  /**
-   * Get twoFactorCode
-   *
-   * @return twoFactorCode
-   **/
-  @Schema(description = "")
-  public String getTwoFactorCode() {
-    return twoFactorCode;
+	public TradingAccountPwdUpdate password(String password) {
+		this.password = password;
+    return this;
   }
 
   public void setTwoFactorCode(String twoFactorCode) {
     this.twoFactorCode = twoFactorCode;
+  }
+
+	/**
+	 * Get password
+	 *
+	 * @return password
+	 **/
+  @Schema(description = "")
+  public String getPassword() {
+    return password;
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(password, twoFactorCode);
+  }
+
+	/**
+	 * Get twoFactorCode
+	 * @return twoFactorCode
+  **/
+  @Schema(description = "")
+  public String getTwoFactorCode() {
+    return twoFactorCode;
   }
 
   @Override
@@ -100,13 +104,8 @@ public class TradingAccountPwdUpdate implements Parcelable
       return false;
     }
     TradingAccountPwdUpdate tradingAccountPwdUpdate = (TradingAccountPwdUpdate) o;
-    return Objects.equals(this.password, tradingAccountPwdUpdate.password) &&
-            Objects.equals(this.twoFactorCode, tradingAccountPwdUpdate.twoFactorCode);
-  }
-
-  @Override
-  public int hashCode() {
-    return Objects.hash(password, twoFactorCode);
+	  return Objects.equals(this.password, tradingAccountPwdUpdate.password) &&
+			  Objects.equals(this.twoFactorCode, tradingAccountPwdUpdate.twoFactorCode);
   }
 
   @Override
@@ -128,15 +127,15 @@ public class TradingAccountPwdUpdate implements Parcelable
     if (o == null) {
       return "null";
     }
-    return o.toString().replace("\n", "\n    ");
+	  return o.toString().replace("\n", "\n    ");
   }
 
-  public void writeToParcel(Parcel out, int flags) {
-    out.writeValue(password);
-    out.writeValue(twoFactorCode);
-  }
+	public void writeToParcel(Parcel out, int flags) {
+		out.writeValue(password);
+		out.writeValue(twoFactorCode);
+	}
 
-  public int describeContents() {
-    return 0;
-  }
+	public int describeContents() {
+		return 0;
+	}
 }

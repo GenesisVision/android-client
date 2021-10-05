@@ -30,48 +30,31 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class PrivateTradingAccountFullPublicDetails implements Parcelable
 {
-  public static final Parcelable.Creator<PrivateTradingAccountFullPublicDetails> CREATOR = new Parcelable.Creator<PrivateTradingAccountFullPublicDetails>()
-  {
-    public PrivateTradingAccountFullPublicDetails createFromParcel(Parcel in) {
-      return new PrivateTradingAccountFullPublicDetails(in);
-    }
+	public static final Parcelable.Creator<PrivateTradingAccountFullPublicDetails> CREATOR = new Parcelable.Creator<PrivateTradingAccountFullPublicDetails>()
+	{
+		public PrivateTradingAccountFullPublicDetails createFromParcel(Parcel in) {
+			return new PrivateTradingAccountFullPublicDetails(in);
+		}
 
-    public PrivateTradingAccountFullPublicDetails[] newArray(int size) {
-      return new PrivateTradingAccountFullPublicDetails[size];
-    }
-  };
+		public PrivateTradingAccountFullPublicDetails[] newArray(int size) {
+			return new PrivateTradingAccountFullPublicDetails[size];
+		}
+	};
 
-  @SerializedName("title")
-  private String title = null;
+	@SerializedName("title")
+	private String title = null;
 
-  @SerializedName("creationDate")
-  private DateTime creationDate = null;
+	@SerializedName("creationDate")
+	private DateTime creationDate = null;
 
-  @SerializedName("status")
-  private DashboardTradingAssetStatus status = null;
-
-  public PrivateTradingAccountFullPublicDetails() {
-  }
-
-  PrivateTradingAccountFullPublicDetails(Parcel in) {
-    title = (String) in.readValue(null);
-    creationDate = (DateTime) in.readValue(DateTime.class.getClassLoader());
-    status = (DashboardTradingAssetStatus) in.readValue(DashboardTradingAssetStatus.class.getClassLoader());
-  }
-
+	@SerializedName("status")
+	private DashboardTradingAssetStatus status = null;
   public PrivateTradingAccountFullPublicDetails title(String title) {
     this.title = title;
     return this;
   }
 
-  /**
-   * Get title
-   *
-   * @return title
-   **/
-  @Schema(description = "")
-  public String getTitle() {
-    return title;
+	public PrivateTradingAccountFullPublicDetails() {
   }
 
   public void setTitle(String title) {
@@ -83,15 +66,11 @@ public class PrivateTradingAccountFullPublicDetails implements Parcelable
     return this;
   }
 
-  /**
-   * Get creationDate
-   *
-   * @return creationDate
-   **/
-  @Schema(description = "")
-  public DateTime getCreationDate() {
-    return creationDate;
-  }
+	PrivateTradingAccountFullPublicDetails(Parcel in) {
+		title = (String) in.readValue(null);
+		creationDate = (DateTime) in.readValue(DateTime.class.getClassLoader());
+		status = (DashboardTradingAssetStatus) in.readValue(DashboardTradingAssetStatus.class.getClassLoader());
+	}
 
   public void setCreationDate(DateTime creationDate) {
     this.creationDate = creationDate;
@@ -102,18 +81,41 @@ public class PrivateTradingAccountFullPublicDetails implements Parcelable
     return this;
   }
 
-  /**
-   * Get status
-   *
-   * @return status
-   **/
+	/**
+	 * Get title
+	 *
+	 * @return title
+	 **/
   @Schema(description = "")
-  public DashboardTradingAssetStatus getStatus() {
-    return status;
+  public String getTitle() {
+    return title;
   }
 
   public void setStatus(DashboardTradingAssetStatus status) {
     this.status = status;
+  }
+
+	/**
+	 * Get creationDate
+	 * @return creationDate
+  **/
+  @Schema(description = "")
+  public DateTime getCreationDate() {
+    return creationDate;
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(title, creationDate, status);
+  }
+
+	/**
+	 * Get status
+	 * @return status
+  **/
+  @Schema(description = "")
+  public DashboardTradingAssetStatus getStatus() {
+    return status;
   }
 
   @Override
@@ -125,14 +127,9 @@ public class PrivateTradingAccountFullPublicDetails implements Parcelable
       return false;
     }
     PrivateTradingAccountFullPublicDetails privateTradingAccountFullPublicDetails = (PrivateTradingAccountFullPublicDetails) o;
-    return Objects.equals(this.title, privateTradingAccountFullPublicDetails.title) &&
-            Objects.equals(this.creationDate, privateTradingAccountFullPublicDetails.creationDate) &&
-            Objects.equals(this.status, privateTradingAccountFullPublicDetails.status);
-  }
-
-  @Override
-  public int hashCode() {
-    return Objects.hash(title, creationDate, status);
+	  return Objects.equals(this.title, privateTradingAccountFullPublicDetails.title) &&
+			  Objects.equals(this.creationDate, privateTradingAccountFullPublicDetails.creationDate) &&
+			  Objects.equals(this.status, privateTradingAccountFullPublicDetails.status);
   }
 
   @Override
@@ -155,16 +152,16 @@ public class PrivateTradingAccountFullPublicDetails implements Parcelable
     if (o == null) {
       return "null";
     }
-    return o.toString().replace("\n", "\n    ");
+	  return o.toString().replace("\n", "\n    ");
   }
 
-  public void writeToParcel(Parcel out, int flags) {
-    out.writeValue(title);
-    out.writeValue(creationDate);
-    out.writeValue(status);
-  }
+	public void writeToParcel(Parcel out, int flags) {
+		out.writeValue(title);
+		out.writeValue(creationDate);
+		out.writeValue(status);
+	}
 
-  public int describeContents() {
-    return 0;
-  }
+	public int describeContents() {
+		return 0;
+	}
 }

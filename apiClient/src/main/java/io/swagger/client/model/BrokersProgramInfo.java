@@ -134,6 +134,15 @@ public class BrokersProgramInfo implements Parcelable
 		out.writeValue(currentAccountTypeId);
 	}
 
+	BrokersProgramInfo(Parcel in) {
+		brokers = (List<Broker>) in.readValue(Broker.class.getClassLoader());
+		currentAccountTypeId = (UUID) in.readValue(UUID.class.getClassLoader());
+	}
+
+	public int describeContents() {
+		return 0;
+	}
+
 	public static final Parcelable.Creator<BrokersProgramInfo> CREATOR = new Parcelable.Creator<BrokersProgramInfo>()
 	{
 		public BrokersProgramInfo createFromParcel(Parcel in) {
@@ -144,13 +153,4 @@ public class BrokersProgramInfo implements Parcelable
 			return new BrokersProgramInfo[size];
 		}
 	};
-
-	public int describeContents() {
-		return 0;
-	}
-
-	BrokersProgramInfo(Parcel in) {
-		brokers = (List<Broker>) in.readValue(Broker.class.getClassLoader());
-		currentAccountTypeId = (UUID) in.readValue(UUID.class.getClassLoader());
-	}
 }

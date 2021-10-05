@@ -28,86 +28,86 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class UpdateSocialLinkViewModel implements Parcelable
 {
-  public static final Parcelable.Creator<UpdateSocialLinkViewModel> CREATOR = new Parcelable.Creator<UpdateSocialLinkViewModel>()
-  {
-    public UpdateSocialLinkViewModel createFromParcel(Parcel in) {
-      return new UpdateSocialLinkViewModel(in);
-    }
+	public static final Parcelable.Creator<UpdateSocialLinkViewModel> CREATOR = new Parcelable.Creator<UpdateSocialLinkViewModel>()
+	{
+		public UpdateSocialLinkViewModel createFromParcel(Parcel in) {
+			return new UpdateSocialLinkViewModel(in);
+		}
 
-    public UpdateSocialLinkViewModel[] newArray(int size) {
-      return new UpdateSocialLinkViewModel[size];
-    }
-  };
+		public UpdateSocialLinkViewModel[] newArray(int size) {
+			return new UpdateSocialLinkViewModel[size];
+		}
+	};
 
-  @SerializedName("type")
-  private SocialLinkType type = null;
+	@SerializedName("type")
+	private SocialLinkType type = null;
 
-  @SerializedName("value")
-  private String value = null;
+	@SerializedName("value")
+	private String value = null;
 
-  public UpdateSocialLinkViewModel() {
-  }
+	public UpdateSocialLinkViewModel() {
+	}
 
-  UpdateSocialLinkViewModel(Parcel in) {
-    type = (SocialLinkType) in.readValue(SocialLinkType.class.getClassLoader());
-    value = (String) in.readValue(null);
-  }
+	UpdateSocialLinkViewModel(Parcel in) {
+		type = (SocialLinkType) in.readValue(SocialLinkType.class.getClassLoader());
+		value = (String) in.readValue(null);
+	}
 
-  public UpdateSocialLinkViewModel type(SocialLinkType type) {
-    this.type = type;
-    return this;
-  }
+	public UpdateSocialLinkViewModel value(String value) {
+		this.value = value;
+		return this;
+	}
 
-  /**
-   * Get type
-   *
-   * @return type
-   **/
-  @Schema(description = "")
-  public SocialLinkType getType() {
-    return type;
-  }
+	public UpdateSocialLinkViewModel type(SocialLinkType type) {
+		this.type = type;
+		return this;
+	}
 
-  public void setType(SocialLinkType type) {
-    this.type = type;
-  }
+	/**
+	 * Get type
+	 *
+	 * @return type
+	 **/
+	@Schema(description = "")
+	public SocialLinkType getType() {
+		return type;
+	}
 
-  public UpdateSocialLinkViewModel value(String value) {
-    this.value = value;
-    return this;
-  }
+	public void setType(SocialLinkType type) {
+		this.type = type;
+	}
 
-  /**
-   * Get value
-   *
-   * @return value
-   **/
-  @Schema(description = "")
-  public String getValue() {
-    return value;
-  }
+	@Override
+	public int hashCode() {
+		return Objects.hash(type, value);
+	}
 
-  public void setValue(String value) {
-    this.value = value;
-  }
+	/**
+	 * Get value
+	 *
+	 * @return value
+	 **/
+	@Schema(description = "")
+	public String getValue() {
+		return value;
+	}
 
-  @Override
-  public boolean equals(java.lang.Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-    UpdateSocialLinkViewModel updateSocialLinkViewModel = (UpdateSocialLinkViewModel) o;
-    return Objects.equals(this.type, updateSocialLinkViewModel.type) &&
-            Objects.equals(this.value, updateSocialLinkViewModel.value);
-  }
+	public void setValue(String value) {
+		this.value = value;
+	}
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(type, value);
-  }
+	@Override
+	public boolean equals(java.lang.Object o) {
+		if (this == o) {
+			return true;
+		}
+		if (o == null || getClass() != o.getClass()) {
+			return false;
+		}
+		UpdateSocialLinkViewModel updateSocialLinkViewModel = (UpdateSocialLinkViewModel) o;
+		return Objects.equals(this.type, updateSocialLinkViewModel.type) &&
+				Objects.equals(this.value, updateSocialLinkViewModel.value);
+	}
 
   @Override
   public String toString() {
@@ -120,23 +120,23 @@ public class UpdateSocialLinkViewModel implements Parcelable
     return sb.toString();
   }
 
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(java.lang.Object o) {
-    if (o == null) {
-      return "null";
-    }
-    return o.toString().replace("\n", "\n    ");
-  }
+	/**
+	 * Convert the given object to string with each line indented by 4 spaces
+	 * (except the first line).
+	 */
+	private String toIndentedString(java.lang.Object o) {
+		if (o == null) {
+			return "null";
+		}
+		return o.toString().replace("\n", "\n    ");
+	}
 
-  public void writeToParcel(Parcel out, int flags) {
-    out.writeValue(type);
-    out.writeValue(value);
-  }
+	public void writeToParcel(Parcel out, int flags) {
+		out.writeValue(type);
+		out.writeValue(value);
+	}
 
-  public int describeContents() {
-    return 0;
-  }
+	public int describeContents() {
+		return 0;
+	}
 }

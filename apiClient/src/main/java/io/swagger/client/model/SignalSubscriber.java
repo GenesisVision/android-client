@@ -30,28 +30,25 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class SignalSubscriber implements Parcelable
 {
-  public static final Parcelable.Creator<SignalSubscriber> CREATOR = new Parcelable.Creator<SignalSubscriber>()
-  {
-    public SignalSubscriber createFromParcel(Parcel in) {
-      return new SignalSubscriber(in);
-    }
+	public static final Parcelable.Creator<SignalSubscriber> CREATOR = new Parcelable.Creator<SignalSubscriber>()
+	{
+		public SignalSubscriber createFromParcel(Parcel in) {
+			return new SignalSubscriber(in);
+		}
 
-    public SignalSubscriber[] newArray(int size) {
-      return new SignalSubscriber[size];
-    }
-  };
+		public SignalSubscriber[] newArray(int size) {
+			return new SignalSubscriber[size];
+		}
+	};
 
-  @SerializedName("number")
-  private Integer number = null;
+	@SerializedName("number")
+	private Integer number = null;
 
-  @SerializedName("trades")
-  private Integer trades = null;
+	@SerializedName("trades")
+	private Integer trades = null;
 
-  @SerializedName("profit")
-  private Double profit = null;
-
-  @SerializedName("volume")
-  private Double volume = null;
+	@SerializedName("profit")
+	private Double profit = null;
 
   @SerializedName("subscriptionDate")
   private DateTime subscriptionDate = null;
@@ -82,37 +79,13 @@ public class SignalSubscriber implements Parcelable
 
   public SignalSubscriber() {
   }
-
-  SignalSubscriber(Parcel in) {
-    number = (Integer) in.readValue(null);
-    trades = (Integer) in.readValue(null);
-    profit = (Double) in.readValue(null);
-    volume = (Double) in.readValue(null);
-    subscriptionDate = (DateTime) in.readValue(DateTime.class.getClassLoader());
-    unsubscriptionDate = (DateTime) in.readValue(DateTime.class.getClassLoader());
-    status = (SignalSubscriberStatus) in.readValue(SignalSubscriberStatus.class.getClassLoader());
-    totalCommissionAmount = (Double) in.readValue(null);
-    totalCommissionCurrency = (Currency) in.readValue(Currency.class.getClassLoader());
-    totalSuccessFeeAmount = (Double) in.readValue(null);
-    totalSuccessFeeCurrency = (Currency) in.readValue(Currency.class.getClassLoader());
-    totalVolumeFeeAmount = (Double) in.readValue(null);
-    totalVolumeFeeCurrency = (Currency) in.readValue(Currency.class.getClassLoader());
-  }
-
   public SignalSubscriber number(Integer number) {
     this.number = number;
     return this;
   }
 
-  /**
-   * Get number
-   *
-   * @return number
-   **/
-  @Schema(description = "")
-  public Integer getNumber() {
-    return number;
-  }
+	@SerializedName("volume")
+  private Double volume = null;
 
   public void setNumber(Integer number) {
     this.number = number;
@@ -123,15 +96,21 @@ public class SignalSubscriber implements Parcelable
     return this;
   }
 
-  /**
-   * Get trades
-   *
-   * @return trades
-   **/
-  @Schema(description = "")
-  public Integer getTrades() {
-    return trades;
-  }
+	SignalSubscriber(Parcel in) {
+		number = (Integer) in.readValue(null);
+		trades = (Integer) in.readValue(null);
+		profit = (Double) in.readValue(null);
+		volume = (Double) in.readValue(null);
+		subscriptionDate = (DateTime) in.readValue(DateTime.class.getClassLoader());
+		unsubscriptionDate = (DateTime) in.readValue(DateTime.class.getClassLoader());
+		status = (SignalSubscriberStatus) in.readValue(SignalSubscriberStatus.class.getClassLoader());
+		totalCommissionAmount = (Double) in.readValue(null);
+		totalCommissionCurrency = (Currency) in.readValue(Currency.class.getClassLoader());
+		totalSuccessFeeAmount = (Double) in.readValue(null);
+		totalSuccessFeeCurrency = (Currency) in.readValue(Currency.class.getClassLoader());
+		totalVolumeFeeAmount = (Double) in.readValue(null);
+		totalVolumeFeeCurrency = (Currency) in.readValue(Currency.class.getClassLoader());
+	}
 
   public void setTrades(Integer trades) {
     this.trades = trades;
@@ -142,14 +121,14 @@ public class SignalSubscriber implements Parcelable
     return this;
   }
 
-  /**
-   * Get profit
-   *
-   * @return profit
-   **/
+	/**
+	 * Get number
+	 *
+	 * @return number
+	 **/
   @Schema(description = "")
-  public Double getProfit() {
-    return profit;
+  public Integer getNumber() {
+    return number;
   }
 
   public void setProfit(Double profit) {
@@ -161,14 +140,13 @@ public class SignalSubscriber implements Parcelable
     return this;
   }
 
-  /**
-   * Get volume
-   *
-   * @return volume
-   **/
+	/**
+	 * Get trades
+	 * @return trades
+  **/
   @Schema(description = "")
-  public Double getVolume() {
-    return volume;
+  public Integer getTrades() {
+    return trades;
   }
 
   public void setVolume(Double volume) {
@@ -180,14 +158,13 @@ public class SignalSubscriber implements Parcelable
     return this;
   }
 
-  /**
-   * Get subscriptionDate
-   *
-   * @return subscriptionDate
-   **/
+	/**
+	 * Get profit
+	 * @return profit
+  **/
   @Schema(description = "")
-  public DateTime getSubscriptionDate() {
-    return subscriptionDate;
+  public Double getProfit() {
+    return profit;
   }
 
   public void setSubscriptionDate(DateTime subscriptionDate) {
@@ -199,14 +176,13 @@ public class SignalSubscriber implements Parcelable
     return this;
   }
 
-  /**
-   * Get unsubscriptionDate
-   *
-   * @return unsubscriptionDate
-   **/
+	/**
+	 * Get volume
+	 * @return volume
+  **/
   @Schema(description = "")
-  public DateTime getUnsubscriptionDate() {
-    return unsubscriptionDate;
+  public Double getVolume() {
+    return volume;
   }
 
   public void setUnsubscriptionDate(DateTime unsubscriptionDate) {
@@ -218,14 +194,13 @@ public class SignalSubscriber implements Parcelable
     return this;
   }
 
-  /**
-   * Get status
-   *
-   * @return status
-   **/
+	/**
+	 * Get subscriptionDate
+	 * @return subscriptionDate
+  **/
   @Schema(description = "")
-  public SignalSubscriberStatus getStatus() {
-    return status;
+  public DateTime getSubscriptionDate() {
+    return subscriptionDate;
   }
 
   public void setStatus(SignalSubscriberStatus status) {
@@ -237,14 +212,13 @@ public class SignalSubscriber implements Parcelable
     return this;
   }
 
-  /**
-   * Get totalCommissionAmount
-   *
-   * @return totalCommissionAmount
-   **/
+	/**
+	 * Get unsubscriptionDate
+	 * @return unsubscriptionDate
+  **/
   @Schema(description = "")
-  public Double getTotalCommissionAmount() {
-    return totalCommissionAmount;
+  public DateTime getUnsubscriptionDate() {
+    return unsubscriptionDate;
   }
 
   public void setTotalCommissionAmount(Double totalCommissionAmount) {
@@ -256,14 +230,13 @@ public class SignalSubscriber implements Parcelable
     return this;
   }
 
-  /**
-   * Get totalCommissionCurrency
-   *
-   * @return totalCommissionCurrency
-   **/
+	/**
+	 * Get status
+	 * @return status
+  **/
   @Schema(description = "")
-  public Currency getTotalCommissionCurrency() {
-    return totalCommissionCurrency;
+  public SignalSubscriberStatus getStatus() {
+    return status;
   }
 
   public void setTotalCommissionCurrency(Currency totalCommissionCurrency) {
@@ -275,14 +248,13 @@ public class SignalSubscriber implements Parcelable
     return this;
   }
 
-  /**
-   * Get totalSuccessFeeAmount
-   *
-   * @return totalSuccessFeeAmount
-   **/
+	/**
+	 * Get totalCommissionAmount
+	 * @return totalCommissionAmount
+  **/
   @Schema(description = "")
-  public Double getTotalSuccessFeeAmount() {
-    return totalSuccessFeeAmount;
+  public Double getTotalCommissionAmount() {
+    return totalCommissionAmount;
   }
 
   public void setTotalSuccessFeeAmount(Double totalSuccessFeeAmount) {
@@ -294,14 +266,13 @@ public class SignalSubscriber implements Parcelable
     return this;
   }
 
-  /**
-   * Get totalSuccessFeeCurrency
-   *
-   * @return totalSuccessFeeCurrency
-   **/
+	/**
+	 * Get totalCommissionCurrency
+	 * @return totalCommissionCurrency
+  **/
   @Schema(description = "")
-  public Currency getTotalSuccessFeeCurrency() {
-    return totalSuccessFeeCurrency;
+  public Currency getTotalCommissionCurrency() {
+    return totalCommissionCurrency;
   }
 
   public void setTotalSuccessFeeCurrency(Currency totalSuccessFeeCurrency) {
@@ -313,14 +284,13 @@ public class SignalSubscriber implements Parcelable
     return this;
   }
 
-  /**
-   * Get totalVolumeFeeAmount
-   *
-   * @return totalVolumeFeeAmount
-   **/
+	/**
+	 * Get totalSuccessFeeAmount
+	 * @return totalSuccessFeeAmount
+  **/
   @Schema(description = "")
-  public Double getTotalVolumeFeeAmount() {
-    return totalVolumeFeeAmount;
+  public Double getTotalSuccessFeeAmount() {
+    return totalSuccessFeeAmount;
   }
 
   public void setTotalVolumeFeeAmount(Double totalVolumeFeeAmount) {
@@ -332,18 +302,51 @@ public class SignalSubscriber implements Parcelable
     return this;
   }
 
-  /**
-   * Get totalVolumeFeeCurrency
-   *
-   * @return totalVolumeFeeCurrency
-   **/
+	/**
+	 * Get totalSuccessFeeCurrency
+	 * @return totalSuccessFeeCurrency
+  **/
+  @Schema(description = "")
+  public Currency getTotalSuccessFeeCurrency() {
+    return totalSuccessFeeCurrency;
+  }
+
+  public void setTotalVolumeFeeCurrency(Currency totalVolumeFeeCurrency) {
+    this.totalVolumeFeeCurrency = totalVolumeFeeCurrency;
+  }
+
+	/**
+	 * Get totalVolumeFeeAmount
+	 * @return totalVolumeFeeAmount
+  **/
+  @Schema(description = "")
+  public Double getTotalVolumeFeeAmount() {
+    return totalVolumeFeeAmount;
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(number, trades, profit, volume, subscriptionDate, unsubscriptionDate, status, totalCommissionAmount, totalCommissionCurrency, totalSuccessFeeAmount, totalSuccessFeeCurrency, totalVolumeFeeAmount, totalVolumeFeeCurrency);
+  }
+
+	/**
+	 * Get totalVolumeFeeCurrency
+	 * @return totalVolumeFeeCurrency
+  **/
   @Schema(description = "")
   public Currency getTotalVolumeFeeCurrency() {
     return totalVolumeFeeCurrency;
   }
 
-  public void setTotalVolumeFeeCurrency(Currency totalVolumeFeeCurrency) {
-    this.totalVolumeFeeCurrency = totalVolumeFeeCurrency;
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(java.lang.Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
   }
 
   @Override
@@ -355,24 +358,19 @@ public class SignalSubscriber implements Parcelable
       return false;
     }
     SignalSubscriber signalSubscriber = (SignalSubscriber) o;
-    return Objects.equals(this.number, signalSubscriber.number) &&
-            Objects.equals(this.trades, signalSubscriber.trades) &&
-            Objects.equals(this.profit, signalSubscriber.profit) &&
-            Objects.equals(this.volume, signalSubscriber.volume) &&
-            Objects.equals(this.subscriptionDate, signalSubscriber.subscriptionDate) &&
-            Objects.equals(this.unsubscriptionDate, signalSubscriber.unsubscriptionDate) &&
-            Objects.equals(this.status, signalSubscriber.status) &&
-            Objects.equals(this.totalCommissionAmount, signalSubscriber.totalCommissionAmount) &&
-            Objects.equals(this.totalCommissionCurrency, signalSubscriber.totalCommissionCurrency) &&
-            Objects.equals(this.totalSuccessFeeAmount, signalSubscriber.totalSuccessFeeAmount) &&
-            Objects.equals(this.totalSuccessFeeCurrency, signalSubscriber.totalSuccessFeeCurrency) &&
-            Objects.equals(this.totalVolumeFeeAmount, signalSubscriber.totalVolumeFeeAmount) &&
-            Objects.equals(this.totalVolumeFeeCurrency, signalSubscriber.totalVolumeFeeCurrency);
-  }
-
-  @Override
-  public int hashCode() {
-    return Objects.hash(number, trades, profit, volume, subscriptionDate, unsubscriptionDate, status, totalCommissionAmount, totalCommissionCurrency, totalSuccessFeeAmount, totalSuccessFeeCurrency, totalVolumeFeeAmount, totalVolumeFeeCurrency);
+	  return Objects.equals(this.number, signalSubscriber.number) &&
+			  Objects.equals(this.trades, signalSubscriber.trades) &&
+			  Objects.equals(this.profit, signalSubscriber.profit) &&
+			  Objects.equals(this.volume, signalSubscriber.volume) &&
+			  Objects.equals(this.subscriptionDate, signalSubscriber.subscriptionDate) &&
+			  Objects.equals(this.unsubscriptionDate, signalSubscriber.unsubscriptionDate) &&
+			  Objects.equals(this.status, signalSubscriber.status) &&
+			  Objects.equals(this.totalCommissionAmount, signalSubscriber.totalCommissionAmount) &&
+			  Objects.equals(this.totalCommissionCurrency, signalSubscriber.totalCommissionCurrency) &&
+			  Objects.equals(this.totalSuccessFeeAmount, signalSubscriber.totalSuccessFeeAmount) &&
+			  Objects.equals(this.totalSuccessFeeCurrency, signalSubscriber.totalSuccessFeeCurrency) &&
+			  Objects.equals(this.totalVolumeFeeAmount, signalSubscriber.totalVolumeFeeAmount) &&
+			  Objects.equals(this.totalVolumeFeeCurrency, signalSubscriber.totalVolumeFeeCurrency);
   }
 
   @Override
@@ -397,34 +395,23 @@ public class SignalSubscriber implements Parcelable
     return sb.toString();
   }
 
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(java.lang.Object o) {
-    if (o == null) {
-      return "null";
-    }
-    return o.toString().replace("\n", "\n    ");
-  }
+	public void writeToParcel(Parcel out, int flags) {
+		out.writeValue(number);
+		out.writeValue(trades);
+		out.writeValue(profit);
+		out.writeValue(volume);
+		out.writeValue(subscriptionDate);
+		out.writeValue(unsubscriptionDate);
+		out.writeValue(status);
+		out.writeValue(totalCommissionAmount);
+		out.writeValue(totalCommissionCurrency);
+		out.writeValue(totalSuccessFeeAmount);
+		out.writeValue(totalSuccessFeeCurrency);
+		out.writeValue(totalVolumeFeeAmount);
+		out.writeValue(totalVolumeFeeCurrency);
+	}
 
-  public void writeToParcel(Parcel out, int flags) {
-    out.writeValue(number);
-    out.writeValue(trades);
-    out.writeValue(profit);
-    out.writeValue(volume);
-    out.writeValue(subscriptionDate);
-    out.writeValue(unsubscriptionDate);
-    out.writeValue(status);
-    out.writeValue(totalCommissionAmount);
-    out.writeValue(totalCommissionCurrency);
-    out.writeValue(totalSuccessFeeAmount);
-    out.writeValue(totalSuccessFeeCurrency);
-    out.writeValue(totalVolumeFeeAmount);
-    out.writeValue(totalVolumeFeeCurrency);
-  }
-
-  public int describeContents() {
-    return 0;
-  }
+	public int describeContents() {
+		return 0;
+	}
 }

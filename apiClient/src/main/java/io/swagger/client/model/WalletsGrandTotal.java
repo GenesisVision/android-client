@@ -28,184 +28,184 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class WalletsGrandTotal implements Parcelable
 {
-  public static final Parcelable.Creator<WalletsGrandTotal> CREATOR = new Parcelable.Creator<WalletsGrandTotal>()
-  {
-    public WalletsGrandTotal createFromParcel(Parcel in) {
-      return new WalletsGrandTotal(in);
-    }
+	public static final Parcelable.Creator<WalletsGrandTotal> CREATOR = new Parcelable.Creator<WalletsGrandTotal>()
+	{
+		public WalletsGrandTotal createFromParcel(Parcel in) {
+			return new WalletsGrandTotal(in);
+		}
 
-    public WalletsGrandTotal[] newArray(int size) {
-      return new WalletsGrandTotal[size];
-    }
-  };
+		public WalletsGrandTotal[] newArray(int size) {
+			return new WalletsGrandTotal[size];
+		}
+	};
 
-  @SerializedName("currency")
-  private Currency currency = null;
+	@SerializedName("currency")
+	private Currency currency = null;
 
-  @SerializedName("available")
-  private Double available = null;
+	@SerializedName("available")
+	private Double available = null;
 
-  @SerializedName("invested")
-  private Double invested = null;
+	@SerializedName("invested")
+	private Double invested = null;
 
-  @SerializedName("trading")
-  private Double trading = null;
+	@SerializedName("total")
+	private Double total = null;
 
-  @SerializedName("total")
-  private Double total = null;
+	@SerializedName("trading")
+	private Double trading = null;
 
-  public WalletsGrandTotal() {
-  }
+	public WalletsGrandTotal() {
+	}
 
-  WalletsGrandTotal(Parcel in) {
-    currency = (Currency) in.readValue(Currency.class.getClassLoader());
-    available = (Double) in.readValue(null);
-    invested = (Double) in.readValue(null);
-    trading = (Double) in.readValue(null);
-    total = (Double) in.readValue(null);
-  }
+	WalletsGrandTotal(Parcel in) {
+		currency = (Currency) in.readValue(Currency.class.getClassLoader());
+		available = (Double) in.readValue(null);
+		invested = (Double) in.readValue(null);
+		trading = (Double) in.readValue(null);
+		total = (Double) in.readValue(null);
+	}
 
-  public WalletsGrandTotal currency(Currency currency) {
-    this.currency = currency;
-    return this;
-  }
+	public WalletsGrandTotal currency(Currency currency) {
+		this.currency = currency;
+		return this;
+	}
 
-  /**
-   * Get currency
-   *
-   * @return currency
-   **/
-  @Schema(description = "")
-  public Currency getCurrency() {
-    return currency;
-  }
+	public WalletsGrandTotal available(Double available) {
+		this.available = available;
+		return this;
+	}
 
-  public void setCurrency(Currency currency) {
-    this.currency = currency;
-  }
+	public WalletsGrandTotal invested(Double invested) {
+		this.invested = invested;
+		return this;
+	}
 
-  public WalletsGrandTotal available(Double available) {
-    this.available = available;
-    return this;
-  }
+	/**
+	 * Get currency
+	 *
+	 * @return currency
+	 **/
+	@Schema(description = "")
+	public Currency getCurrency() {
+		return currency;
+	}
 
-  /**
-   * Get available
-   *
-   * @return available
-   **/
-  @Schema(description = "")
-  public Double getAvailable() {
-    return available;
-  }
+	public void setCurrency(Currency currency) {
+		this.currency = currency;
+	}
 
-  public void setAvailable(Double available) {
-    this.available = available;
-  }
+	public WalletsGrandTotal trading(Double trading) {
+		this.trading = trading;
+		return this;
+	}
 
-  public WalletsGrandTotal invested(Double invested) {
-    this.invested = invested;
-    return this;
-  }
+	/**
+	 * Get available
+	 *
+	 * @return available
+	 **/
+	@Schema(description = "")
+	public Double getAvailable() {
+		return available;
+	}
 
-  /**
-   * Get invested
-   *
-   * @return invested
-   **/
-  @Schema(description = "")
-  public Double getInvested() {
-    return invested;
-  }
+	public void setAvailable(Double available) {
+		this.available = available;
+	}
 
-  public void setInvested(Double invested) {
-    this.invested = invested;
-  }
+	/**
+	 * Get invested
+	 *
+	 * @return invested
+	 **/
+	@Schema(description = "")
+	public Double getInvested() {
+		return invested;
+	}
 
-  public WalletsGrandTotal trading(Double trading) {
-    this.trading = trading;
-    return this;
-  }
+	public void setInvested(Double invested) {
+		this.invested = invested;
+	}
 
-  /**
-   * Get trading
-   *
-   * @return trading
-   **/
-  @Schema(description = "")
-  public Double getTrading() {
-    return trading;
-  }
+	/**
+	 * Get trading
+	 *
+	 * @return trading
+	 **/
+	@Schema(description = "")
+	public Double getTrading() {
+		return trading;
+	}
 
-  public void setTrading(Double trading) {
-    this.trading = trading;
-  }
+	public void setTrading(Double trading) {
+		this.trading = trading;
+	}
 
-  /**
-   * Get total
-   *
-   * @return total
-   **/
-  @Schema(description = "")
-  public Double getTotal() {
-    return total;
-  }
+	@Override
+	public int hashCode() {
+		return Objects.hash(currency, available, invested, trading, total);
+	}
 
-  @Override
-  public boolean equals(java.lang.Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-    WalletsGrandTotal walletsGrandTotal = (WalletsGrandTotal) o;
-    return Objects.equals(this.currency, walletsGrandTotal.currency) &&
-            Objects.equals(this.available, walletsGrandTotal.available) &&
-            Objects.equals(this.invested, walletsGrandTotal.invested) &&
-            Objects.equals(this.trading, walletsGrandTotal.trading) &&
-            Objects.equals(this.total, walletsGrandTotal.total);
-  }
+	/**
+	 * Get total
+	 *
+	 * @return total
+	 **/
+	@Schema(description = "")
+	public Double getTotal() {
+		return total;
+	}
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(currency, available, invested, trading, total);
-  }
+	/**
+	 * Convert the given object to string with each line indented by 4 spaces
+	 * (except the first line).
+	 */
+	private String toIndentedString(java.lang.Object o) {
+		if (o == null) {
+			return "null";
+		}
+		return o.toString().replace("\n", "\n    ");
+	}
+
+	@Override
+	public boolean equals(java.lang.Object o) {
+		if (this == o) {
+			return true;
+		}
+		if (o == null || getClass() != o.getClass()) {
+			return false;
+		}
+		WalletsGrandTotal walletsGrandTotal = (WalletsGrandTotal) o;
+		return Objects.equals(this.currency, walletsGrandTotal.currency) &&
+				Objects.equals(this.available, walletsGrandTotal.available) &&
+				Objects.equals(this.invested, walletsGrandTotal.invested) &&
+				Objects.equals(this.trading, walletsGrandTotal.trading) &&
+				Objects.equals(this.total, walletsGrandTotal.total);
+	}
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class WalletsGrandTotal {\n");
+	  sb.append("class WalletsGrandTotal {\n");
 
-    sb.append("    currency: ").append(toIndentedString(currency)).append("\n");
-    sb.append("    available: ").append(toIndentedString(available)).append("\n");
-    sb.append("    invested: ").append(toIndentedString(invested)).append("\n");
-    sb.append("    trading: ").append(toIndentedString(trading)).append("\n");
-    sb.append("    total: ").append(toIndentedString(total)).append("\n");
-    sb.append("}");
-    return sb.toString();
+	  sb.append("    currency: ").append(toIndentedString(currency)).append("\n");
+	  sb.append("    available: ").append(toIndentedString(available)).append("\n");
+	  sb.append("    invested: ").append(toIndentedString(invested)).append("\n");
+	  sb.append("    trading: ").append(toIndentedString(trading)).append("\n");
+	  sb.append("    total: ").append(toIndentedString(total)).append("\n");
+	  sb.append("}");
+	  return sb.toString();
   }
 
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(java.lang.Object o) {
-    if (o == null) {
-      return "null";
-    }
-    return o.toString().replace("\n", "\n    ");
-  }
+	public void writeToParcel(Parcel out, int flags) {
+		out.writeValue(currency);
+		out.writeValue(available);
+		out.writeValue(invested);
+		out.writeValue(trading);
+		out.writeValue(total);
+	}
 
-  public void writeToParcel(Parcel out, int flags) {
-    out.writeValue(currency);
-    out.writeValue(available);
-    out.writeValue(invested);
-    out.writeValue(trading);
-    out.writeValue(total);
-  }
-
-  public int describeContents() {
-    return 0;
-  }
+	public int describeContents() {
+		return 0;
+	}
 }

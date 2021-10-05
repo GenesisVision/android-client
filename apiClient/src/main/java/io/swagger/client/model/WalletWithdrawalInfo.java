@@ -30,227 +30,227 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class WalletWithdrawalInfo implements Parcelable
 {
-  public static final Parcelable.Creator<WalletWithdrawalInfo> CREATOR = new Parcelable.Creator<WalletWithdrawalInfo>()
-  {
-    public WalletWithdrawalInfo createFromParcel(Parcel in) {
-      return new WalletWithdrawalInfo(in);
-    }
+	public static final Parcelable.Creator<WalletWithdrawalInfo> CREATOR = new Parcelable.Creator<WalletWithdrawalInfo>()
+	{
+		public WalletWithdrawalInfo createFromParcel(Parcel in) {
+			return new WalletWithdrawalInfo(in);
+		}
 
-    public WalletWithdrawalInfo[] newArray(int size) {
-      return new WalletWithdrawalInfo[size];
-    }
-  };
+		public WalletWithdrawalInfo[] newArray(int size) {
+			return new WalletWithdrawalInfo[size];
+		}
+	};
 
-  @SerializedName("currency")
-  private Currency currency = null;
+	@SerializedName("currency")
+	private Currency currency = null;
 
-  @SerializedName("description")
-  private String description = null;
+	@SerializedName("description")
+	private String description = null;
 
-  @SerializedName("logoUrl")
-  private String logoUrl = null;
+	@SerializedName("logoUrl")
+	private String logoUrl = null;
 
-  @SerializedName("commissions")
-  private List<WalletWithdrawalCurrencyInfo> commissions = null;
+	@SerializedName("rateToGvt")
+	private Double rateToGvt = null;
 
-  @SerializedName("rateToGvt")
-  private Double rateToGvt = null;
+	@SerializedName("availableToWithdrawal")
+	private Double availableToWithdrawal = null;
 
-  @SerializedName("availableToWithdrawal")
-  private Double availableToWithdrawal = null;
+	@SerializedName("commissions")
+	private List<WalletWithdrawalCurrencyInfo> commissions = null;
 
-  public WalletWithdrawalInfo() {
-  }
+	public WalletWithdrawalInfo() {
+	}
 
-  WalletWithdrawalInfo(Parcel in) {
-    currency = (Currency) in.readValue(Currency.class.getClassLoader());
-    description = (String) in.readValue(null);
-    logoUrl = (String) in.readValue(null);
-    commissions = (List<WalletWithdrawalCurrencyInfo>) in.readValue(WalletWithdrawalCurrencyInfo.class.getClassLoader());
-    rateToGvt = (Double) in.readValue(null);
-    availableToWithdrawal = (Double) in.readValue(null);
-  }
+	WalletWithdrawalInfo(Parcel in) {
+		currency = (Currency) in.readValue(Currency.class.getClassLoader());
+		description = (String) in.readValue(null);
+		logoUrl = (String) in.readValue(null);
+		commissions = (List<WalletWithdrawalCurrencyInfo>) in.readValue(WalletWithdrawalCurrencyInfo.class.getClassLoader());
+		rateToGvt = (Double) in.readValue(null);
+		availableToWithdrawal = (Double) in.readValue(null);
+	}
 
-  public WalletWithdrawalInfo currency(Currency currency) {
-    this.currency = currency;
-    return this;
-  }
+	public WalletWithdrawalInfo currency(Currency currency) {
+		this.currency = currency;
+		return this;
+	}
 
-  /**
-   * Get currency
-   *
-   * @return currency
-   **/
-  @Schema(description = "")
-  public Currency getCurrency() {
-    return currency;
-  }
+	public WalletWithdrawalInfo description(String description) {
+		this.description = description;
+		return this;
+	}
 
-  public void setCurrency(Currency currency) {
-    this.currency = currency;
-  }
+	public WalletWithdrawalInfo logoUrl(String logoUrl) {
+		this.logoUrl = logoUrl;
+		return this;
+	}
 
-  public WalletWithdrawalInfo description(String description) {
-    this.description = description;
-    return this;
-  }
+	/**
+	 * Get currency
+	 *
+	 * @return currency
+	 **/
+	@Schema(description = "")
+	public Currency getCurrency() {
+		return currency;
+	}
 
-  /**
-   * Get description
-   *
-   * @return description
-   **/
-  @Schema(description = "")
-  public String getDescription() {
-    return description;
-  }
+	public void setCurrency(Currency currency) {
+		this.currency = currency;
+	}
 
-  public void setDescription(String description) {
-    this.description = description;
-  }
-
-  public WalletWithdrawalInfo logoUrl(String logoUrl) {
-    this.logoUrl = logoUrl;
-    return this;
-  }
-
-  /**
-   * Get logoUrl
-   *
-   * @return logoUrl
-   **/
-  @Schema(description = "")
-  public String getLogoUrl() {
-    return logoUrl;
-  }
-
-  public void setLogoUrl(String logoUrl) {
-    this.logoUrl = logoUrl;
-  }
-
-  public WalletWithdrawalInfo commissions(List<WalletWithdrawalCurrencyInfo> commissions) {
+	public WalletWithdrawalInfo commissions(List<WalletWithdrawalCurrencyInfo> commissions) {
     this.commissions = commissions;
     return this;
-  }
+	}
 
-  public WalletWithdrawalInfo addCommissionsItem(WalletWithdrawalCurrencyInfo commissionsItem) {
-    if (this.commissions == null) {
-      this.commissions = new ArrayList<WalletWithdrawalCurrencyInfo>();
-    }
-    this.commissions.add(commissionsItem);
-    return this;
-  }
+	public WalletWithdrawalInfo addCommissionsItem(WalletWithdrawalCurrencyInfo commissionsItem) {
+		if (this.commissions == null) {
+			this.commissions = new ArrayList<WalletWithdrawalCurrencyInfo>();
+		}
+		this.commissions.add(commissionsItem);
+		return this;
+	}
 
-  /**
-   * Get commissions
-   *
-   * @return commissions
-   **/
-  @Schema(description = "")
-  public List<WalletWithdrawalCurrencyInfo> getCommissions() {
-    return commissions;
-  }
+	/**
+	 * Get description
+	 *
+	 * @return description
+	 **/
+	@Schema(description = "")
+	public String getDescription() {
+		return description;
+	}
 
-  public void setCommissions(List<WalletWithdrawalCurrencyInfo> commissions) {
-    this.commissions = commissions;
-  }
+	public void setDescription(String description) {
+		this.description = description;
+	}
 
-  public WalletWithdrawalInfo rateToGvt(Double rateToGvt) {
-    this.rateToGvt = rateToGvt;
-    return this;
-  }
+	public WalletWithdrawalInfo rateToGvt(Double rateToGvt) {
+		this.rateToGvt = rateToGvt;
+		return this;
+	}
 
-  /**
-   * Get rateToGvt
-   *
-   * @return rateToGvt
-   **/
-  @Schema(description = "")
-  public Double getRateToGvt() {
-    return rateToGvt;
-  }
+	/**
+	 * Get logoUrl
+	 *
+	 * @return logoUrl
+	 **/
+	@Schema(description = "")
+	public String getLogoUrl() {
+		return logoUrl;
+	}
 
-  public void setRateToGvt(Double rateToGvt) {
-    this.rateToGvt = rateToGvt;
-  }
+	public void setLogoUrl(String logoUrl) {
+		this.logoUrl = logoUrl;
+	}
 
-  public WalletWithdrawalInfo availableToWithdrawal(Double availableToWithdrawal) {
-    this.availableToWithdrawal = availableToWithdrawal;
-    return this;
-  }
+	public WalletWithdrawalInfo availableToWithdrawal(Double availableToWithdrawal) {
+		this.availableToWithdrawal = availableToWithdrawal;
+		return this;
+	}
 
-  /**
-   * Get availableToWithdrawal
-   *
-   * @return availableToWithdrawal
-   **/
-  @Schema(description = "")
-  public Double getAvailableToWithdrawal() {
-    return availableToWithdrawal;
-  }
+	/**
+	 * Get commissions
+	 *
+	 * @return commissions
+	 **/
+	@Schema(description = "")
+	public List<WalletWithdrawalCurrencyInfo> getCommissions() {
+		return commissions;
+	}
 
-  public void setAvailableToWithdrawal(Double availableToWithdrawal) {
-    this.availableToWithdrawal = availableToWithdrawal;
-  }
+	public void setCommissions(List<WalletWithdrawalCurrencyInfo> commissions) {
+		this.commissions = commissions;
+	}
 
-  @Override
-  public boolean equals(java.lang.Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-    WalletWithdrawalInfo walletWithdrawalInfo = (WalletWithdrawalInfo) o;
-    return Objects.equals(this.currency, walletWithdrawalInfo.currency) &&
-            Objects.equals(this.description, walletWithdrawalInfo.description) &&
-            Objects.equals(this.logoUrl, walletWithdrawalInfo.logoUrl) &&
-            Objects.equals(this.commissions, walletWithdrawalInfo.commissions) &&
-            Objects.equals(this.rateToGvt, walletWithdrawalInfo.rateToGvt) &&
-            Objects.equals(this.availableToWithdrawal, walletWithdrawalInfo.availableToWithdrawal);
-  }
+	/**
+	 * Get rateToGvt
+	 *
+	 * @return rateToGvt
+	 **/
+	@Schema(description = "")
+	public Double getRateToGvt() {
+		return rateToGvt;
+	}
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(currency, description, logoUrl, commissions, rateToGvt, availableToWithdrawal);
+	public void setRateToGvt(Double rateToGvt) {
+		this.rateToGvt = rateToGvt;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(currency, description, logoUrl, commissions, rateToGvt, availableToWithdrawal);
+	}
+
+	/**
+	 * Get availableToWithdrawal
+	 *
+	 * @return availableToWithdrawal
+	 **/
+	@Schema(description = "")
+	public Double getAvailableToWithdrawal() {
+		return availableToWithdrawal;
+	}
+
+	public void setAvailableToWithdrawal(Double availableToWithdrawal) {
+		this.availableToWithdrawal = availableToWithdrawal;
+	}
+
+	/**
+	 * Convert the given object to string with each line indented by 4 spaces
+	 * (except the first line).
+	 */
+	private String toIndentedString(java.lang.Object o) {
+		if (o == null) {
+			return "null";
+		}
+		return o.toString().replace("\n", "\n    ");
+	}
+
+	@Override
+	public boolean equals(java.lang.Object o) {
+		if (this == o) {
+			return true;
+		}
+		if (o == null || getClass() != o.getClass()) {
+			return false;
+		}
+		WalletWithdrawalInfo walletWithdrawalInfo = (WalletWithdrawalInfo) o;
+		return Objects.equals(this.currency, walletWithdrawalInfo.currency) &&
+				Objects.equals(this.description, walletWithdrawalInfo.description) &&
+				Objects.equals(this.logoUrl, walletWithdrawalInfo.logoUrl) &&
+				Objects.equals(this.commissions, walletWithdrawalInfo.commissions) &&
+				Objects.equals(this.rateToGvt, walletWithdrawalInfo.rateToGvt) &&
+				Objects.equals(this.availableToWithdrawal, walletWithdrawalInfo.availableToWithdrawal);
   }
 
   @Override
   public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class WalletWithdrawalInfo {\n");
+	  StringBuilder sb = new StringBuilder();
+	  sb.append("class WalletWithdrawalInfo {\n");
 
-    sb.append("    currency: ").append(toIndentedString(currency)).append("\n");
-    sb.append("    description: ").append(toIndentedString(description)).append("\n");
-    sb.append("    logoUrl: ").append(toIndentedString(logoUrl)).append("\n");
-    sb.append("    commissions: ").append(toIndentedString(commissions)).append("\n");
-    sb.append("    rateToGvt: ").append(toIndentedString(rateToGvt)).append("\n");
-    sb.append("    availableToWithdrawal: ").append(toIndentedString(availableToWithdrawal)).append("\n");
-    sb.append("}");
-    return sb.toString();
+	  sb.append("    currency: ").append(toIndentedString(currency)).append("\n");
+	  sb.append("    description: ").append(toIndentedString(description)).append("\n");
+	  sb.append("    logoUrl: ").append(toIndentedString(logoUrl)).append("\n");
+	  sb.append("    commissions: ").append(toIndentedString(commissions)).append("\n");
+	  sb.append("    rateToGvt: ").append(toIndentedString(rateToGvt)).append("\n");
+	  sb.append("    availableToWithdrawal: ").append(toIndentedString(availableToWithdrawal)).append("\n");
+	  sb.append("}");
+	  return sb.toString();
   }
 
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(java.lang.Object o) {
-    if (o == null) {
-      return "null";
-    }
-    return o.toString().replace("\n", "\n    ");
-  }
+	public void writeToParcel(Parcel out, int flags) {
+		out.writeValue(currency);
+		out.writeValue(description);
+		out.writeValue(logoUrl);
+		out.writeValue(commissions);
+		out.writeValue(rateToGvt);
+		out.writeValue(availableToWithdrawal);
+	}
 
-  public void writeToParcel(Parcel out, int flags) {
-    out.writeValue(currency);
-    out.writeValue(description);
-    out.writeValue(logoUrl);
-    out.writeValue(commissions);
-    out.writeValue(rateToGvt);
-    out.writeValue(availableToWithdrawal);
-  }
-
-  public int describeContents() {
-    return 0;
-  }
+	public int describeContents() {
+		return 0;
+	}
 }

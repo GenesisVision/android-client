@@ -33,238 +33,249 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class OrderSignalProgramInfo implements Parcelable
 {
-  public static final Parcelable.Creator<OrderSignalProgramInfo> CREATOR = new Parcelable.Creator<OrderSignalProgramInfo>()
-  {
-    public OrderSignalProgramInfo createFromParcel(Parcel in) {
-      return new OrderSignalProgramInfo(in);
-    }
+	public static final Parcelable.Creator<OrderSignalProgramInfo> CREATOR = new Parcelable.Creator<OrderSignalProgramInfo>()
+	{
+		public OrderSignalProgramInfo createFromParcel(Parcel in) {
+			return new OrderSignalProgramInfo(in);
+		}
 
-    public OrderSignalProgramInfo[] newArray(int size) {
-      return new OrderSignalProgramInfo[size];
-    }
-  };
+		public OrderSignalProgramInfo[] newArray(int size) {
+			return new OrderSignalProgramInfo[size];
+		}
+	};
 
-  @SerializedName("manager")
-  private ProfilePublic manager = null;
+	@SerializedName("manager")
+	private ProfilePublic manager = null;
 
-  @SerializedName("program")
-  private OrderProgramData program = null;
+	@SerializedName("program")
+	private OrderProgramData program = null;
 
-  @SerializedName("programId")
-  private UUID programId = null;
+	@SerializedName("programId")
+	private UUID programId = null;
 
-  @SerializedName("volume")
-  private Double volume = null;
+	@SerializedName("priceOpenAvg")
+	private Double priceOpenAvg = null;
 
-  @SerializedName("priceOpenAvg")
-  private Double priceOpenAvg = null;
+	@SerializedName("profit")
+	private Double profit = null;
 
-  @SerializedName("profit")
-  private Double profit = null;
+	@SerializedName("firstOrderDate")
+	private DateTime firstOrderDate = null;
 
-  @SerializedName("firstOrderDate")
-  private DateTime firstOrderDate = null;
+	@SerializedName("fees")
+	private List<OrderSignalFee> fees = null;
 
-  @SerializedName("fees")
-  private List<OrderSignalFee> fees = null;
+	@SerializedName("volume")
+	private Double volume = null;
 
-  public OrderSignalProgramInfo() {
-  }
+	public OrderSignalProgramInfo() {
+	}
 
-  OrderSignalProgramInfo(Parcel in) {
-    manager = (ProfilePublic) in.readValue(ProfilePublic.class.getClassLoader());
-    program = (OrderProgramData) in.readValue(OrderProgramData.class.getClassLoader());
-    programId = (UUID) in.readValue(UUID.class.getClassLoader());
-    volume = (Double) in.readValue(null);
-    priceOpenAvg = (Double) in.readValue(null);
-    profit = (Double) in.readValue(null);
-    firstOrderDate = (DateTime) in.readValue(DateTime.class.getClassLoader());
-    fees = (List<OrderSignalFee>) in.readValue(OrderSignalFee.class.getClassLoader());
-  }
+	OrderSignalProgramInfo(Parcel in) {
+		manager = (ProfilePublic) in.readValue(ProfilePublic.class.getClassLoader());
+		program = (OrderProgramData) in.readValue(OrderProgramData.class.getClassLoader());
+		programId = (UUID) in.readValue(UUID.class.getClassLoader());
+		volume = (Double) in.readValue(null);
+		priceOpenAvg = (Double) in.readValue(null);
+		profit = (Double) in.readValue(null);
+		firstOrderDate = (DateTime) in.readValue(DateTime.class.getClassLoader());
+		fees = (List<OrderSignalFee>) in.readValue(OrderSignalFee.class.getClassLoader());
+	}
 
-  public OrderSignalProgramInfo manager(ProfilePublic manager) {
-    this.manager = manager;
-    return this;
-  }
+	public OrderSignalProgramInfo manager(ProfilePublic manager) {
+		this.manager = manager;
+		return this;
+	}
 
-  /**
-   * Get manager
-   *
-   * @return manager
-   **/
-  @Schema(description = "")
-  public ProfilePublic getManager() {
-    return manager;
-  }
+	public OrderSignalProgramInfo program(OrderProgramData program) {
+		this.program = program;
+		return this;
+	}
 
-  public void setManager(ProfilePublic manager) {
-    this.manager = manager;
-  }
+	public OrderSignalProgramInfo programId(UUID programId) {
+		this.programId = programId;
+		return this;
+	}
 
-  public OrderSignalProgramInfo program(OrderProgramData program) {
-    this.program = program;
-    return this;
-  }
+	/**
+	 * Get manager
+	 *
+	 * @return manager
+	 **/
+	@Schema(description = "")
+	public ProfilePublic getManager() {
+		return manager;
+	}
 
-  /**
-   * Get program
-   *
-   * @return program
-   **/
-  @Schema(description = "")
-  public OrderProgramData getProgram() {
-    return program;
-  }
+	public void setManager(ProfilePublic manager) {
+		this.manager = manager;
+	}
 
-  public void setProgram(OrderProgramData program) {
-    this.program = program;
-  }
+	public OrderSignalProgramInfo volume(Double volume) {
+		this.volume = volume;
+		return this;
+	}
 
-  public OrderSignalProgramInfo programId(UUID programId) {
-    this.programId = programId;
-    return this;
-  }
+	/**
+	 * Get program
+	 *
+	 * @return program
+	 **/
+	@Schema(description = "")
+	public OrderProgramData getProgram() {
+		return program;
+	}
 
-  /**
-   * Get programId
-   *
-   * @return programId
-   **/
-  @Schema(description = "")
-  public UUID getProgramId() {
-    return programId;
-  }
+	public void setProgram(OrderProgramData program) {
+		this.program = program;
+	}
 
-  public void setProgramId(UUID programId) {
-    this.programId = programId;
-  }
+	public OrderSignalProgramInfo priceOpenAvg(Double priceOpenAvg) {
+		this.priceOpenAvg = priceOpenAvg;
+		return this;
+	}
 
-  public OrderSignalProgramInfo volume(Double volume) {
-    this.volume = volume;
-    return this;
-  }
+	/**
+	 * Get programId
+	 *
+	 * @return programId
+	 **/
+	@Schema(description = "")
+	public UUID getProgramId() {
+		return programId;
+	}
 
-  /**
-   * Get volume
-   *
-   * @return volume
-   **/
-  @Schema(description = "")
-  public Double getVolume() {
-    return volume;
-  }
+	public void setProgramId(UUID programId) {
+		this.programId = programId;
+	}
 
-  public void setVolume(Double volume) {
-    this.volume = volume;
-  }
+	public OrderSignalProgramInfo profit(Double profit) {
+		this.profit = profit;
+		return this;
+	}
 
-  public OrderSignalProgramInfo priceOpenAvg(Double priceOpenAvg) {
-    this.priceOpenAvg = priceOpenAvg;
-    return this;
-  }
+	/**
+	 * Get volume
+	 *
+	 * @return volume
+	 **/
+	@Schema(description = "")
+	public Double getVolume() {
+		return volume;
+	}
 
-  /**
-   * Get priceOpenAvg
-   *
-   * @return priceOpenAvg
-   **/
-  @Schema(description = "")
-  public Double getPriceOpenAvg() {
-    return priceOpenAvg;
-  }
+	public void setVolume(Double volume) {
+		this.volume = volume;
+	}
 
-  public void setPriceOpenAvg(Double priceOpenAvg) {
-    this.priceOpenAvg = priceOpenAvg;
-  }
+	public OrderSignalProgramInfo firstOrderDate(DateTime firstOrderDate) {
+		this.firstOrderDate = firstOrderDate;
+		return this;
+	}
 
-  public OrderSignalProgramInfo profit(Double profit) {
-    this.profit = profit;
-    return this;
-  }
+	/**
+	 * Get priceOpenAvg
+	 *
+	 * @return priceOpenAvg
+	 **/
+	@Schema(description = "")
+	public Double getPriceOpenAvg() {
+		return priceOpenAvg;
+	}
 
-  /**
-   * Get profit
-   *
-   * @return profit
-   **/
-  @Schema(description = "")
-  public Double getProfit() {
-    return profit;
-  }
+	public void setPriceOpenAvg(Double priceOpenAvg) {
+		this.priceOpenAvg = priceOpenAvg;
+	}
 
-  public void setProfit(Double profit) {
-    this.profit = profit;
-  }
+	public OrderSignalProgramInfo fees(List<OrderSignalFee> fees) {
+		this.fees = fees;
+		return this;
+	}
 
-  public OrderSignalProgramInfo firstOrderDate(DateTime firstOrderDate) {
-    this.firstOrderDate = firstOrderDate;
-    return this;
-  }
+	public OrderSignalProgramInfo addFeesItem(OrderSignalFee feesItem) {
+		if (this.fees == null) {
+			this.fees = new ArrayList<OrderSignalFee>();
+		}
+		this.fees.add(feesItem);
+		return this;
+	}
 
-  /**
-   * Get firstOrderDate
-   *
-   * @return firstOrderDate
-   **/
-  @Schema(description = "")
-  public DateTime getFirstOrderDate() {
-    return firstOrderDate;
-  }
+	/**
+	 * Get profit
+	 *
+	 * @return profit
+	 **/
+	@Schema(description = "")
+	public Double getProfit() {
+		return profit;
+	}
 
-  public void setFirstOrderDate(DateTime firstOrderDate) {
-    this.firstOrderDate = firstOrderDate;
-  }
+	public void setProfit(Double profit) {
+		this.profit = profit;
+	}
 
-  public OrderSignalProgramInfo fees(List<OrderSignalFee> fees) {
-    this.fees = fees;
-    return this;
-  }
+	/**
+	 * Get firstOrderDate
+	 *
+	 * @return firstOrderDate
+	 **/
+	@Schema(description = "")
+	public DateTime getFirstOrderDate() {
+		return firstOrderDate;
+	}
 
-  public OrderSignalProgramInfo addFeesItem(OrderSignalFee feesItem) {
-    if (this.fees == null) {
-      this.fees = new ArrayList<OrderSignalFee>();
-    }
-    this.fees.add(feesItem);
-    return this;
-  }
+	public void setFirstOrderDate(DateTime firstOrderDate) {
+		this.firstOrderDate = firstOrderDate;
+	}
 
-  /**
-   * Get fees
-   *
-   * @return fees
-   **/
-  @Schema(description = "")
-  public List<OrderSignalFee> getFees() {
-    return fees;
-  }
+	@Override
+	public int hashCode() {
+		return Objects.hash(manager, program, programId, volume, priceOpenAvg, profit, firstOrderDate, fees);
+	}
 
-  public void setFees(List<OrderSignalFee> fees) {
-    this.fees = fees;
-  }
+	/**
+	 * Get fees
+	 *
+	 * @return fees
+	 **/
+	@Schema(description = "")
+	public List<OrderSignalFee> getFees() {
+		return fees;
+	}
 
-  @Override
-  public boolean equals(java.lang.Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-    OrderSignalProgramInfo orderSignalProgramInfo = (OrderSignalProgramInfo) o;
-    return Objects.equals(this.manager, orderSignalProgramInfo.manager) &&
-            Objects.equals(this.program, orderSignalProgramInfo.program) &&
-            Objects.equals(this.programId, orderSignalProgramInfo.programId) &&
-            Objects.equals(this.volume, orderSignalProgramInfo.volume) &&
-            Objects.equals(this.priceOpenAvg, orderSignalProgramInfo.priceOpenAvg) &&
-            Objects.equals(this.profit, orderSignalProgramInfo.profit) &&
-            Objects.equals(this.firstOrderDate, orderSignalProgramInfo.firstOrderDate) &&
-            Objects.equals(this.fees, orderSignalProgramInfo.fees);
-  }
+	public void setFees(List<OrderSignalFee> fees) {
+		this.fees = fees;
+	}
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(manager, program, programId, volume, priceOpenAvg, profit, firstOrderDate, fees);
-  }
+	/**
+	 * Convert the given object to string with each line indented by 4 spaces
+	 * (except the first line).
+	 */
+	private String toIndentedString(java.lang.Object o) {
+		if (o == null) {
+			return "null";
+		}
+		return o.toString().replace("\n", "\n    ");
+	}
+
+	@Override
+	public boolean equals(java.lang.Object o) {
+		if (this == o) {
+			return true;
+		}
+		if (o == null || getClass() != o.getClass()) {
+			return false;
+		}
+		OrderSignalProgramInfo orderSignalProgramInfo = (OrderSignalProgramInfo) o;
+		return Objects.equals(this.manager, orderSignalProgramInfo.manager) &&
+				Objects.equals(this.program, orderSignalProgramInfo.program) &&
+				Objects.equals(this.programId, orderSignalProgramInfo.programId) &&
+				Objects.equals(this.volume, orderSignalProgramInfo.volume) &&
+				Objects.equals(this.priceOpenAvg, orderSignalProgramInfo.priceOpenAvg) &&
+				Objects.equals(this.profit, orderSignalProgramInfo.profit) &&
+				Objects.equals(this.firstOrderDate, orderSignalProgramInfo.firstOrderDate) &&
+				Objects.equals(this.fees, orderSignalProgramInfo.fees);
+	}
 
   @Override
   public String toString() {
@@ -272,40 +283,29 @@ public class OrderSignalProgramInfo implements Parcelable
     sb.append("class OrderSignalProgramInfo {\n");
 
     sb.append("    manager: ").append(toIndentedString(manager)).append("\n");
-    sb.append("    program: ").append(toIndentedString(program)).append("\n");
-    sb.append("    programId: ").append(toIndentedString(programId)).append("\n");
-    sb.append("    volume: ").append(toIndentedString(volume)).append("\n");
-    sb.append("    priceOpenAvg: ").append(toIndentedString(priceOpenAvg)).append("\n");
-    sb.append("    profit: ").append(toIndentedString(profit)).append("\n");
-    sb.append("    firstOrderDate: ").append(toIndentedString(firstOrderDate)).append("\n");
-    sb.append("    fees: ").append(toIndentedString(fees)).append("\n");
-    sb.append("}");
-    return sb.toString();
+	  sb.append("    program: ").append(toIndentedString(program)).append("\n");
+	  sb.append("    programId: ").append(toIndentedString(programId)).append("\n");
+	  sb.append("    volume: ").append(toIndentedString(volume)).append("\n");
+	  sb.append("    priceOpenAvg: ").append(toIndentedString(priceOpenAvg)).append("\n");
+	  sb.append("    profit: ").append(toIndentedString(profit)).append("\n");
+	  sb.append("    firstOrderDate: ").append(toIndentedString(firstOrderDate)).append("\n");
+	  sb.append("    fees: ").append(toIndentedString(fees)).append("\n");
+	  sb.append("}");
+	  return sb.toString();
   }
 
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(java.lang.Object o) {
-    if (o == null) {
-      return "null";
-    }
-    return o.toString().replace("\n", "\n    ");
-  }
+	public void writeToParcel(Parcel out, int flags) {
+		out.writeValue(manager);
+		out.writeValue(program);
+		out.writeValue(programId);
+		out.writeValue(volume);
+		out.writeValue(priceOpenAvg);
+		out.writeValue(profit);
+		out.writeValue(firstOrderDate);
+		out.writeValue(fees);
+	}
 
-  public void writeToParcel(Parcel out, int flags) {
-    out.writeValue(manager);
-    out.writeValue(program);
-    out.writeValue(programId);
-    out.writeValue(volume);
-    out.writeValue(priceOpenAvg);
-    out.writeValue(profit);
-    out.writeValue(firstOrderDate);
-    out.writeValue(fees);
-  }
-
-  public int describeContents() {
-    return 0;
-  }
+	public int describeContents() {
+		return 0;
+	}
 }

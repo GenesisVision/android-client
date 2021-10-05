@@ -33,17 +33,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class BrokerAccountType implements Parcelable
 {
-	public static final Parcelable.Creator<BrokerAccountType> CREATOR = new Parcelable.Creator<BrokerAccountType>()
-	{
-		public BrokerAccountType createFromParcel(Parcel in) {
-			return new BrokerAccountType(in);
-		}
-
-		public BrokerAccountType[] newArray(int size) {
-			return new BrokerAccountType[size];
-		}
-	};
-
 	@SerializedName("id")
 	private UUID id = null;
 
@@ -81,21 +70,6 @@ public class BrokerAccountType implements Parcelable
 	private Boolean isDepositRequired = null;
 
 	public BrokerAccountType() {
-	}
-
-	BrokerAccountType(Parcel in) {
-		id = (UUID) in.readValue(UUID.class.getClassLoader());
-		name = (String) in.readValue(null);
-		description = (String) in.readValue(null);
-		type = (BrokerTradeServerType) in.readValue(BrokerTradeServerType.class.getClassLoader());
-		typeTitle = (String) in.readValue(null);
-		leverages = (List<Integer>) in.readValue(null);
-		currencies = (List<String>) in.readValue(null);
-		minimumDepositsAmount = (Map<String, Double>) in.readValue(null);
-		isKycRequired = (Boolean) in.readValue(null);
-		isCountryNotUSRequired = (Boolean) in.readValue(null);
-		isSignalsAvailable = (Boolean) in.readValue(null);
-		isDepositRequired = (Boolean) in.readValue(null);
 	}
 
 	public BrokerAccountType id(UUID id) {
@@ -350,6 +324,7 @@ public class BrokerAccountType implements Parcelable
 		this.isDepositRequired = isDepositRequired;
 	}
 
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -377,6 +352,7 @@ public class BrokerAccountType implements Parcelable
 	public int hashCode() {
 		return Objects.hash(id, name, description, type, typeTitle, leverages, currencies, minimumDepositsAmount, isKycRequired, isCountryNotUSRequired, isSignalsAvailable, isDepositRequired);
 	}
+
 
 	@Override
 	public String toString() {
@@ -410,6 +386,7 @@ public class BrokerAccountType implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
+
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(id);
 		out.writeValue(name);
@@ -425,7 +402,33 @@ public class BrokerAccountType implements Parcelable
 		out.writeValue(isDepositRequired);
 	}
 
+	public static final Parcelable.Creator<BrokerAccountType> CREATOR = new Parcelable.Creator<BrokerAccountType>()
+	{
+		public BrokerAccountType createFromParcel(Parcel in) {
+			return new BrokerAccountType(in);
+		}
+
+		public BrokerAccountType[] newArray(int size) {
+			return new BrokerAccountType[size];
+		}
+	};
+
 	public int describeContents() {
 		return 0;
+	}
+
+	BrokerAccountType(Parcel in) {
+		id = (UUID) in.readValue(UUID.class.getClassLoader());
+		name = (String) in.readValue(null);
+		description = (String) in.readValue(null);
+		type = (BrokerTradeServerType) in.readValue(BrokerTradeServerType.class.getClassLoader());
+		typeTitle = (String) in.readValue(null);
+		leverages = (List<Integer>) in.readValue(null);
+		currencies = (List<String>) in.readValue(null);
+		minimumDepositsAmount = (Map<String, Double>) in.readValue(null);
+		isKycRequired = (Boolean) in.readValue(null);
+		isCountryNotUSRequired = (Boolean) in.readValue(null);
+		isSignalsAvailable = (Boolean) in.readValue(null);
+		isDepositRequired = (Boolean) in.readValue(null);
 	}
 }

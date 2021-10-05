@@ -28,17 +28,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class FcmTokenViewModel implements Parcelable
 {
-	public static final Parcelable.Creator<FcmTokenViewModel> CREATOR = new Parcelable.Creator<FcmTokenViewModel>()
-	{
-		public FcmTokenViewModel createFromParcel(Parcel in) {
-			return new FcmTokenViewModel(in);
-		}
-
-		public FcmTokenViewModel[] newArray(int size) {
-			return new FcmTokenViewModel[size];
-		}
-	};
-
 	@SerializedName("token")
 	private String token = null;
 
@@ -46,11 +35,6 @@ public class FcmTokenViewModel implements Parcelable
 	private AppPlatform platform = null;
 
 	public FcmTokenViewModel() {
-	}
-
-	FcmTokenViewModel(Parcel in) {
-		token = (String) in.readValue(null);
-		platform = (AppPlatform) in.readValue(AppPlatform.class.getClassLoader());
 	}
 
 	public FcmTokenViewModel token(String token) {
@@ -91,6 +75,7 @@ public class FcmTokenViewModel implements Parcelable
 		this.platform = platform;
 	}
 
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -108,6 +93,7 @@ public class FcmTokenViewModel implements Parcelable
 	public int hashCode() {
 		return Objects.hash(token, platform);
 	}
+
 
 	@Override
 	public String toString() {
@@ -131,12 +117,29 @@ public class FcmTokenViewModel implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
+
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(token);
 		out.writeValue(platform);
 	}
 
+	public static final Parcelable.Creator<FcmTokenViewModel> CREATOR = new Parcelable.Creator<FcmTokenViewModel>()
+	{
+		public FcmTokenViewModel createFromParcel(Parcel in) {
+			return new FcmTokenViewModel(in);
+		}
+
+		public FcmTokenViewModel[] newArray(int size) {
+			return new FcmTokenViewModel[size];
+		}
+	};
+
 	public int describeContents() {
 		return 0;
+	}
+
+	FcmTokenViewModel(Parcel in) {
+		token = (String) in.readValue(null);
+		platform = (AppPlatform) in.readValue(AppPlatform.class.getClassLoader());
 	}
 }

@@ -28,17 +28,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class BinanceRawFuturesAccountAsset implements Parcelable
 {
-	public static final Parcelable.Creator<BinanceRawFuturesAccountAsset> CREATOR = new Parcelable.Creator<BinanceRawFuturesAccountAsset>()
-	{
-		public BinanceRawFuturesAccountAsset createFromParcel(Parcel in) {
-			return new BinanceRawFuturesAccountAsset(in);
-		}
-
-		public BinanceRawFuturesAccountAsset[] newArray(int size) {
-			return new BinanceRawFuturesAccountAsset[size];
-		}
-	};
-
 	@SerializedName("asset")
 	private String asset = null;
 
@@ -76,21 +65,6 @@ public class BinanceRawFuturesAccountAsset implements Parcelable
 	private Double crossUnrealizedPnL = null;
 
 	public BinanceRawFuturesAccountAsset() {
-	}
-
-	BinanceRawFuturesAccountAsset(Parcel in) {
-		asset = (String) in.readValue(null);
-		initialMargin = (Double) in.readValue(null);
-		maintMargin = (Double) in.readValue(null);
-		marginBalance = (Double) in.readValue(null);
-		maxWithdrawAmount = (Double) in.readValue(null);
-		openOrderInitialMargin = (Double) in.readValue(null);
-		positionInitialMargin = (Double) in.readValue(null);
-		walletBalance = (Double) in.readValue(null);
-		crossWalletBalance = (Double) in.readValue(null);
-		availableBalance = (Double) in.readValue(null);
-		unrealizedPnL = (Double) in.readValue(null);
-		crossUnrealizedPnL = (Double) in.readValue(null);
 	}
 
 	public BinanceRawFuturesAccountAsset asset(String asset) {
@@ -321,6 +295,7 @@ public class BinanceRawFuturesAccountAsset implements Parcelable
 		this.crossUnrealizedPnL = crossUnrealizedPnL;
 	}
 
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -348,6 +323,7 @@ public class BinanceRawFuturesAccountAsset implements Parcelable
 	public int hashCode() {
 		return Objects.hash(asset, initialMargin, maintMargin, marginBalance, maxWithdrawAmount, openOrderInitialMargin, positionInitialMargin, walletBalance, crossWalletBalance, availableBalance, unrealizedPnL, crossUnrealizedPnL);
 	}
+
 
 	@Override
 	public String toString() {
@@ -381,6 +357,7 @@ public class BinanceRawFuturesAccountAsset implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
+
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(asset);
 		out.writeValue(initialMargin);
@@ -396,7 +373,33 @@ public class BinanceRawFuturesAccountAsset implements Parcelable
 		out.writeValue(crossUnrealizedPnL);
 	}
 
+	public static final Parcelable.Creator<BinanceRawFuturesAccountAsset> CREATOR = new Parcelable.Creator<BinanceRawFuturesAccountAsset>()
+	{
+		public BinanceRawFuturesAccountAsset createFromParcel(Parcel in) {
+			return new BinanceRawFuturesAccountAsset(in);
+		}
+
+		public BinanceRawFuturesAccountAsset[] newArray(int size) {
+			return new BinanceRawFuturesAccountAsset[size];
+		}
+	};
+
 	public int describeContents() {
 		return 0;
+	}
+
+	BinanceRawFuturesAccountAsset(Parcel in) {
+		asset = (String) in.readValue(null);
+		initialMargin = (Double) in.readValue(null);
+		maintMargin = (Double) in.readValue(null);
+		marginBalance = (Double) in.readValue(null);
+		maxWithdrawAmount = (Double) in.readValue(null);
+		openOrderInitialMargin = (Double) in.readValue(null);
+		positionInitialMargin = (Double) in.readValue(null);
+		walletBalance = (Double) in.readValue(null);
+		crossWalletBalance = (Double) in.readValue(null);
+		availableBalance = (Double) in.readValue(null);
+		unrealizedPnL = (Double) in.readValue(null);
+		crossUnrealizedPnL = (Double) in.readValue(null);
 	}
 }

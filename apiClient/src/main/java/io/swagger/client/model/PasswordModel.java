@@ -28,25 +28,10 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class PasswordModel implements Parcelable
 {
-	public static final Parcelable.Creator<PasswordModel> CREATOR = new Parcelable.Creator<PasswordModel>()
-	{
-		public PasswordModel createFromParcel(Parcel in) {
-			return new PasswordModel(in);
-		}
-
-		public PasswordModel[] newArray(int size) {
-			return new PasswordModel[size];
-		}
-	};
-
 	@SerializedName("password")
 	private String password = null;
 
 	public PasswordModel() {
-	}
-
-	PasswordModel(Parcel in) {
-		password = (String) in.readValue(null);
 	}
 
 	public PasswordModel password(String password) {
@@ -68,6 +53,7 @@ public class PasswordModel implements Parcelable
 		this.password = password;
 	}
 
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -84,6 +70,7 @@ public class PasswordModel implements Parcelable
 	public int hashCode() {
 		return Objects.hash(password);
 	}
+
 
 	@Override
 	public String toString() {
@@ -106,11 +93,27 @@ public class PasswordModel implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
+
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(password);
 	}
 
+	public static final Parcelable.Creator<PasswordModel> CREATOR = new Parcelable.Creator<PasswordModel>()
+	{
+		public PasswordModel createFromParcel(Parcel in) {
+			return new PasswordModel(in);
+		}
+
+		public PasswordModel[] newArray(int size) {
+			return new PasswordModel[size];
+		}
+	};
+
 	public int describeContents() {
 		return 0;
+	}
+
+	PasswordModel(Parcel in) {
+		password = (String) in.readValue(null);
 	}
 }

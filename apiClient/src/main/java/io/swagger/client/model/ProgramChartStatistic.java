@@ -30,28 +30,25 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class ProgramChartStatistic implements Parcelable
 {
-  public static final Parcelable.Creator<ProgramChartStatistic> CREATOR = new Parcelable.Creator<ProgramChartStatistic>()
-  {
-    public ProgramChartStatistic createFromParcel(Parcel in) {
-      return new ProgramChartStatistic(in);
-    }
+	public static final Parcelable.Creator<ProgramChartStatistic> CREATOR = new Parcelable.Creator<ProgramChartStatistic>()
+	{
+		public ProgramChartStatistic createFromParcel(Parcel in) {
+			return new ProgramChartStatistic(in);
+		}
 
-    public ProgramChartStatistic[] newArray(int size) {
-      return new ProgramChartStatistic[size];
-    }
-  };
+		public ProgramChartStatistic[] newArray(int size) {
+			return new ProgramChartStatistic[size];
+		}
+	};
 
-  @SerializedName("balance")
-  private Double balance = null;
+	@SerializedName("balance")
+	private Double balance = null;
 
-  @SerializedName("profitPercent")
-  private Double profitPercent = null;
+	@SerializedName("profitPercent")
+	private Double profitPercent = null;
 
-  @SerializedName("sharpeRatio")
-  private Double sharpeRatio = null;
-
-  @SerializedName("sortinoRatio")
-  private Double sortinoRatio = null;
+	@SerializedName("sharpeRatio")
+	private Double sharpeRatio = null;
 
   @SerializedName("calmarRatio")
   private Double calmarRatio = null;
@@ -85,38 +82,13 @@ public class ProgramChartStatistic implements Parcelable
 
   public ProgramChartStatistic() {
   }
-
-  ProgramChartStatistic(Parcel in) {
-    balance = (Double) in.readValue(null);
-    profitPercent = (Double) in.readValue(null);
-    sharpeRatio = (Double) in.readValue(null);
-    sortinoRatio = (Double) in.readValue(null);
-    calmarRatio = (Double) in.readValue(null);
-    maxDrawdown = (Double) in.readValue(null);
-    tradingVolume = (Double) in.readValue(null);
-    trades = (Integer) in.readValue(null);
-    successTradesPercent = (Double) in.readValue(null);
-    profitFactor = (Double) in.readValue(null);
-    investors = (Integer) in.readValue(null);
-    lastPeriodStarts = (DateTime) in.readValue(DateTime.class.getClassLoader());
-    lastPeriodEnds = (DateTime) in.readValue(DateTime.class.getClassLoader());
-    subscribers = (Integer) in.readValue(null);
-  }
-
   public ProgramChartStatistic balance(Double balance) {
     this.balance = balance;
     return this;
   }
 
-  /**
-   * Get balance
-   *
-   * @return balance
-   **/
-  @Schema(description = "")
-  public Double getBalance() {
-    return balance;
-  }
+	@SerializedName("sortinoRatio")
+  private Double sortinoRatio = null;
 
   public void setBalance(Double balance) {
     this.balance = balance;
@@ -127,15 +99,22 @@ public class ProgramChartStatistic implements Parcelable
     return this;
   }
 
-  /**
-   * Get profitPercent
-   *
-   * @return profitPercent
-   **/
-  @Schema(description = "")
-  public Double getProfitPercent() {
-    return profitPercent;
-  }
+	ProgramChartStatistic(Parcel in) {
+		balance = (Double) in.readValue(null);
+		profitPercent = (Double) in.readValue(null);
+		sharpeRatio = (Double) in.readValue(null);
+		sortinoRatio = (Double) in.readValue(null);
+		calmarRatio = (Double) in.readValue(null);
+		maxDrawdown = (Double) in.readValue(null);
+		tradingVolume = (Double) in.readValue(null);
+		trades = (Integer) in.readValue(null);
+		successTradesPercent = (Double) in.readValue(null);
+		profitFactor = (Double) in.readValue(null);
+		investors = (Integer) in.readValue(null);
+		lastPeriodStarts = (DateTime) in.readValue(DateTime.class.getClassLoader());
+		lastPeriodEnds = (DateTime) in.readValue(DateTime.class.getClassLoader());
+		subscribers = (Integer) in.readValue(null);
+	}
 
   public void setProfitPercent(Double profitPercent) {
     this.profitPercent = profitPercent;
@@ -146,14 +125,14 @@ public class ProgramChartStatistic implements Parcelable
     return this;
   }
 
-  /**
-   * Get sharpeRatio
-   *
-   * @return sharpeRatio
-   **/
+	/**
+	 * Get balance
+	 *
+	 * @return balance
+	 **/
   @Schema(description = "")
-  public Double getSharpeRatio() {
-    return sharpeRatio;
+  public Double getBalance() {
+    return balance;
   }
 
   public void setSharpeRatio(Double sharpeRatio) {
@@ -165,14 +144,13 @@ public class ProgramChartStatistic implements Parcelable
     return this;
   }
 
-  /**
-   * Get sortinoRatio
-   *
-   * @return sortinoRatio
-   **/
+	/**
+	 * Get profitPercent
+	 * @return profitPercent
+  **/
   @Schema(description = "")
-  public Double getSortinoRatio() {
-    return sortinoRatio;
+  public Double getProfitPercent() {
+    return profitPercent;
   }
 
   public void setSortinoRatio(Double sortinoRatio) {
@@ -184,14 +162,13 @@ public class ProgramChartStatistic implements Parcelable
     return this;
   }
 
-  /**
-   * Get calmarRatio
-   *
-   * @return calmarRatio
-   **/
+	/**
+	 * Get sharpeRatio
+	 * @return sharpeRatio
+  **/
   @Schema(description = "")
-  public Double getCalmarRatio() {
-    return calmarRatio;
+  public Double getSharpeRatio() {
+    return sharpeRatio;
   }
 
   public void setCalmarRatio(Double calmarRatio) {
@@ -203,14 +180,13 @@ public class ProgramChartStatistic implements Parcelable
     return this;
   }
 
-  /**
-   * Get maxDrawdown
-   *
-   * @return maxDrawdown
-   **/
+	/**
+	 * Get sortinoRatio
+	 * @return sortinoRatio
+  **/
   @Schema(description = "")
-  public Double getMaxDrawdown() {
-    return maxDrawdown;
+  public Double getSortinoRatio() {
+    return sortinoRatio;
   }
 
   public void setMaxDrawdown(Double maxDrawdown) {
@@ -222,14 +198,13 @@ public class ProgramChartStatistic implements Parcelable
     return this;
   }
 
-  /**
-   * Get tradingVolume
-   *
-   * @return tradingVolume
-   **/
+	/**
+	 * Get calmarRatio
+	 * @return calmarRatio
+  **/
   @Schema(description = "")
-  public Double getTradingVolume() {
-    return tradingVolume;
+  public Double getCalmarRatio() {
+    return calmarRatio;
   }
 
   public void setTradingVolume(Double tradingVolume) {
@@ -241,14 +216,13 @@ public class ProgramChartStatistic implements Parcelable
     return this;
   }
 
-  /**
-   * Get trades
-   *
-   * @return trades
-   **/
+	/**
+	 * Get maxDrawdown
+	 * @return maxDrawdown
+  **/
   @Schema(description = "")
-  public Integer getTrades() {
-    return trades;
+  public Double getMaxDrawdown() {
+    return maxDrawdown;
   }
 
   public void setTrades(Integer trades) {
@@ -260,14 +234,13 @@ public class ProgramChartStatistic implements Parcelable
     return this;
   }
 
-  /**
-   * Get successTradesPercent
-   *
-   * @return successTradesPercent
-   **/
+	/**
+	 * Get tradingVolume
+	 * @return tradingVolume
+  **/
   @Schema(description = "")
-  public Double getSuccessTradesPercent() {
-    return successTradesPercent;
+  public Double getTradingVolume() {
+    return tradingVolume;
   }
 
   public void setSuccessTradesPercent(Double successTradesPercent) {
@@ -279,14 +252,13 @@ public class ProgramChartStatistic implements Parcelable
     return this;
   }
 
-  /**
-   * Get profitFactor
-   *
-   * @return profitFactor
-   **/
+	/**
+	 * Get trades
+	 * @return trades
+  **/
   @Schema(description = "")
-  public Double getProfitFactor() {
-    return profitFactor;
+  public Integer getTrades() {
+    return trades;
   }
 
   public void setProfitFactor(Double profitFactor) {
@@ -298,14 +270,13 @@ public class ProgramChartStatistic implements Parcelable
     return this;
   }
 
-  /**
-   * Always filled for program
-   *
-   * @return investors
-   **/
-  @Schema(description = "Always filled for program")
-  public Integer getInvestors() {
-    return investors;
+	/**
+	 * Get successTradesPercent
+	 * @return successTradesPercent
+  **/
+  @Schema(description = "")
+  public Double getSuccessTradesPercent() {
+    return successTradesPercent;
   }
 
   public void setInvestors(Integer investors) {
@@ -317,14 +288,13 @@ public class ProgramChartStatistic implements Parcelable
     return this;
   }
 
-  /**
-   * Get lastPeriodStarts
-   *
-   * @return lastPeriodStarts
-   **/
+	/**
+	 * Get profitFactor
+	 * @return profitFactor
+  **/
   @Schema(description = "")
-  public DateTime getLastPeriodStarts() {
-    return lastPeriodStarts;
+  public Double getProfitFactor() {
+    return profitFactor;
   }
 
   public void setLastPeriodStarts(DateTime lastPeriodStarts) {
@@ -336,14 +306,13 @@ public class ProgramChartStatistic implements Parcelable
     return this;
   }
 
-  /**
-   * Get lastPeriodEnds
-   *
-   * @return lastPeriodEnds
-   **/
-  @Schema(description = "")
-  public DateTime getLastPeriodEnds() {
-    return lastPeriodEnds;
+	/**
+	 * Always filled for program
+	 * @return investors
+  **/
+  @Schema(description = "Always filled for program")
+  public Integer getInvestors() {
+    return investors;
   }
 
   public void setLastPeriodEnds(DateTime lastPeriodEnds) {
@@ -355,18 +324,51 @@ public class ProgramChartStatistic implements Parcelable
     return this;
   }
 
-  /**
-   * Always filled for signal
-   *
-   * @return subscribers
-   **/
+	/**
+	 * Get lastPeriodStarts
+	 * @return lastPeriodStarts
+  **/
+  @Schema(description = "")
+  public DateTime getLastPeriodStarts() {
+    return lastPeriodStarts;
+  }
+
+  public void setSubscribers(Integer subscribers) {
+    this.subscribers = subscribers;
+  }
+
+	/**
+	 * Get lastPeriodEnds
+	 * @return lastPeriodEnds
+  **/
+  @Schema(description = "")
+  public DateTime getLastPeriodEnds() {
+    return lastPeriodEnds;
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(balance, profitPercent, sharpeRatio, sortinoRatio, calmarRatio, maxDrawdown, tradingVolume, trades, successTradesPercent, profitFactor, investors, lastPeriodStarts, lastPeriodEnds, subscribers);
+  }
+
+	/**
+	 * Always filled for signal
+	 * @return subscribers
+  **/
   @Schema(description = "Always filled for signal")
   public Integer getSubscribers() {
     return subscribers;
   }
 
-  public void setSubscribers(Integer subscribers) {
-    this.subscribers = subscribers;
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(java.lang.Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
   }
 
   @Override
@@ -378,25 +380,20 @@ public class ProgramChartStatistic implements Parcelable
       return false;
     }
     ProgramChartStatistic programChartStatistic = (ProgramChartStatistic) o;
-    return Objects.equals(this.balance, programChartStatistic.balance) &&
-            Objects.equals(this.profitPercent, programChartStatistic.profitPercent) &&
-            Objects.equals(this.sharpeRatio, programChartStatistic.sharpeRatio) &&
-            Objects.equals(this.sortinoRatio, programChartStatistic.sortinoRatio) &&
-            Objects.equals(this.calmarRatio, programChartStatistic.calmarRatio) &&
-            Objects.equals(this.maxDrawdown, programChartStatistic.maxDrawdown) &&
-            Objects.equals(this.tradingVolume, programChartStatistic.tradingVolume) &&
-            Objects.equals(this.trades, programChartStatistic.trades) &&
-            Objects.equals(this.successTradesPercent, programChartStatistic.successTradesPercent) &&
-            Objects.equals(this.profitFactor, programChartStatistic.profitFactor) &&
-            Objects.equals(this.investors, programChartStatistic.investors) &&
-            Objects.equals(this.lastPeriodStarts, programChartStatistic.lastPeriodStarts) &&
-            Objects.equals(this.lastPeriodEnds, programChartStatistic.lastPeriodEnds) &&
-            Objects.equals(this.subscribers, programChartStatistic.subscribers);
-  }
-
-  @Override
-  public int hashCode() {
-    return Objects.hash(balance, profitPercent, sharpeRatio, sortinoRatio, calmarRatio, maxDrawdown, tradingVolume, trades, successTradesPercent, profitFactor, investors, lastPeriodStarts, lastPeriodEnds, subscribers);
+	  return Objects.equals(this.balance, programChartStatistic.balance) &&
+			  Objects.equals(this.profitPercent, programChartStatistic.profitPercent) &&
+			  Objects.equals(this.sharpeRatio, programChartStatistic.sharpeRatio) &&
+			  Objects.equals(this.sortinoRatio, programChartStatistic.sortinoRatio) &&
+			  Objects.equals(this.calmarRatio, programChartStatistic.calmarRatio) &&
+			  Objects.equals(this.maxDrawdown, programChartStatistic.maxDrawdown) &&
+			  Objects.equals(this.tradingVolume, programChartStatistic.tradingVolume) &&
+			  Objects.equals(this.trades, programChartStatistic.trades) &&
+			  Objects.equals(this.successTradesPercent, programChartStatistic.successTradesPercent) &&
+			  Objects.equals(this.profitFactor, programChartStatistic.profitFactor) &&
+			  Objects.equals(this.investors, programChartStatistic.investors) &&
+			  Objects.equals(this.lastPeriodStarts, programChartStatistic.lastPeriodStarts) &&
+			  Objects.equals(this.lastPeriodEnds, programChartStatistic.lastPeriodEnds) &&
+			  Objects.equals(this.subscribers, programChartStatistic.subscribers);
   }
 
   @Override
@@ -422,35 +419,24 @@ public class ProgramChartStatistic implements Parcelable
     return sb.toString();
   }
 
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(java.lang.Object o) {
-    if (o == null) {
-      return "null";
-    }
-    return o.toString().replace("\n", "\n    ");
-  }
+	public void writeToParcel(Parcel out, int flags) {
+		out.writeValue(balance);
+		out.writeValue(profitPercent);
+		out.writeValue(sharpeRatio);
+		out.writeValue(sortinoRatio);
+		out.writeValue(calmarRatio);
+		out.writeValue(maxDrawdown);
+		out.writeValue(tradingVolume);
+		out.writeValue(trades);
+		out.writeValue(successTradesPercent);
+		out.writeValue(profitFactor);
+		out.writeValue(investors);
+		out.writeValue(lastPeriodStarts);
+		out.writeValue(lastPeriodEnds);
+		out.writeValue(subscribers);
+	}
 
-  public void writeToParcel(Parcel out, int flags) {
-    out.writeValue(balance);
-    out.writeValue(profitPercent);
-    out.writeValue(sharpeRatio);
-    out.writeValue(sortinoRatio);
-    out.writeValue(calmarRatio);
-    out.writeValue(maxDrawdown);
-    out.writeValue(tradingVolume);
-    out.writeValue(trades);
-    out.writeValue(successTradesPercent);
-    out.writeValue(profitFactor);
-    out.writeValue(investors);
-    out.writeValue(lastPeriodStarts);
-    out.writeValue(lastPeriodEnds);
-    out.writeValue(subscribers);
-  }
-
-  public int describeContents() {
-    return 0;
-  }
+	public int describeContents() {
+		return 0;
+	}
 }

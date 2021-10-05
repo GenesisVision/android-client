@@ -31,48 +31,31 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class DashboardAssetChart implements Parcelable
 {
-  public static final Parcelable.Creator<DashboardAssetChart> CREATOR = new Parcelable.Creator<DashboardAssetChart>()
-  {
-    public DashboardAssetChart createFromParcel(Parcel in) {
-      return new DashboardAssetChart(in);
-    }
+	public static final Parcelable.Creator<DashboardAssetChart> CREATOR = new Parcelable.Creator<DashboardAssetChart>()
+	{
+		public DashboardAssetChart createFromParcel(Parcel in) {
+			return new DashboardAssetChart(in);
+		}
 
-    public DashboardAssetChart[] newArray(int size) {
-      return new DashboardAssetChart[size];
-    }
-  };
+		public DashboardAssetChart[] newArray(int size) {
+			return new DashboardAssetChart[size];
+		}
+	};
 
-  @SerializedName("assetId")
-  private UUID assetId = null;
+	@SerializedName("assetId")
+	private UUID assetId = null;
 
-  @SerializedName("color")
-  private String color = null;
+	@SerializedName("color")
+	private String color = null;
 
-  @SerializedName("chart")
-  private List<SimpleChartPoint> chart = null;
-
-  public DashboardAssetChart() {
-  }
-
-  DashboardAssetChart(Parcel in) {
-    assetId = (UUID) in.readValue(UUID.class.getClassLoader());
-    color = (String) in.readValue(null);
-    chart = (List<SimpleChartPoint>) in.readValue(SimpleChartPoint.class.getClassLoader());
-  }
-
+	@SerializedName("chart")
+	private List<SimpleChartPoint> chart = null;
   public DashboardAssetChart assetId(UUID assetId) {
     this.assetId = assetId;
     return this;
   }
 
-  /**
-   * Get assetId
-   *
-   * @return assetId
-   **/
-  @Schema(description = "")
-  public UUID getAssetId() {
-    return assetId;
+	public DashboardAssetChart() {
   }
 
   public void setAssetId(UUID assetId) {
@@ -84,15 +67,11 @@ public class DashboardAssetChart implements Parcelable
     return this;
   }
 
-  /**
-   * Get color
-   *
-   * @return color
-   **/
-  @Schema(description = "")
-  public String getColor() {
-    return color;
-  }
+	DashboardAssetChart(Parcel in) {
+		assetId = (UUID) in.readValue(UUID.class.getClassLoader());
+		color = (String) in.readValue(null);
+		chart = (List<SimpleChartPoint>) in.readValue(SimpleChartPoint.class.getClassLoader());
+	}
 
   public void setColor(String color) {
     this.color = color;
@@ -111,18 +90,41 @@ public class DashboardAssetChart implements Parcelable
     return this;
   }
 
-  /**
-   * Get chart
-   *
-   * @return chart
-   **/
+	/**
+	 * Get assetId
+	 *
+	 * @return assetId
+	 **/
   @Schema(description = "")
-  public List<SimpleChartPoint> getChart() {
-    return chart;
+  public UUID getAssetId() {
+    return assetId;
   }
 
   public void setChart(List<SimpleChartPoint> chart) {
     this.chart = chart;
+  }
+
+	/**
+	 * Get color
+	 * @return color
+  **/
+  @Schema(description = "")
+  public String getColor() {
+    return color;
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(assetId, color, chart);
+  }
+
+	/**
+	 * Get chart
+	 * @return chart
+  **/
+  @Schema(description = "")
+  public List<SimpleChartPoint> getChart() {
+    return chart;
   }
 
   @Override
@@ -134,14 +136,9 @@ public class DashboardAssetChart implements Parcelable
       return false;
     }
     DashboardAssetChart dashboardAssetChart = (DashboardAssetChart) o;
-    return Objects.equals(this.assetId, dashboardAssetChart.assetId) &&
-            Objects.equals(this.color, dashboardAssetChart.color) &&
-            Objects.equals(this.chart, dashboardAssetChart.chart);
-  }
-
-  @Override
-  public int hashCode() {
-    return Objects.hash(assetId, color, chart);
+	  return Objects.equals(this.assetId, dashboardAssetChart.assetId) &&
+			  Objects.equals(this.color, dashboardAssetChart.color) &&
+			  Objects.equals(this.chart, dashboardAssetChart.chart);
   }
 
   @Override
@@ -164,16 +161,16 @@ public class DashboardAssetChart implements Parcelable
     if (o == null) {
       return "null";
     }
-    return o.toString().replace("\n", "\n    ");
+	  return o.toString().replace("\n", "\n    ");
   }
 
-  public void writeToParcel(Parcel out, int flags) {
-    out.writeValue(assetId);
-    out.writeValue(color);
-    out.writeValue(chart);
-  }
+	public void writeToParcel(Parcel out, int flags) {
+		out.writeValue(assetId);
+		out.writeValue(color);
+		out.writeValue(chart);
+	}
 
-  public int describeContents() {
-    return 0;
-  }
+	public int describeContents() {
+		return 0;
+	}
 }

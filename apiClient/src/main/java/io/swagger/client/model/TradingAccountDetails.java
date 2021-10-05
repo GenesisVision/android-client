@@ -29,193 +29,193 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class TradingAccountDetails implements Parcelable
 {
-  public static final Parcelable.Creator<TradingAccountDetails> CREATOR = new Parcelable.Creator<TradingAccountDetails>()
-  {
-    public TradingAccountDetails createFromParcel(Parcel in) {
-      return new TradingAccountDetails(in);
-    }
+	public static final Parcelable.Creator<TradingAccountDetails> CREATOR = new Parcelable.Creator<TradingAccountDetails>()
+	{
+		public TradingAccountDetails createFromParcel(Parcel in) {
+			return new TradingAccountDetails(in);
+		}
 
-    public TradingAccountDetails[] newArray(int size) {
-      return new TradingAccountDetails[size];
-    }
-  };
+		public TradingAccountDetails[] newArray(int size) {
+			return new TradingAccountDetails[size];
+		}
+	};
 
-  @SerializedName("id")
-  private UUID id = null;
+	@SerializedName("id")
+	private UUID id = null;
 
-  @SerializedName("currency")
-  private Currency currency = null;
+	@SerializedName("currency")
+	private Currency currency = null;
 
-  @SerializedName("login")
-  private String login = null;
+	@SerializedName("login")
+	private String login = null;
 
-  @SerializedName("apiKey")
-  private String apiKey = null;
+	@SerializedName("asset")
+	private AssetDetails asset = null;
 
-  @SerializedName("asset")
-  private AssetDetails asset = null;
+	@SerializedName("apiKey")
+	private String apiKey = null;
 
-  public TradingAccountDetails() {
-  }
+	public TradingAccountDetails() {
+	}
 
-  TradingAccountDetails(Parcel in) {
-    id = (UUID) in.readValue(UUID.class.getClassLoader());
-    currency = (Currency) in.readValue(Currency.class.getClassLoader());
-    login = (String) in.readValue(null);
-    apiKey = (String) in.readValue(null);
-    asset = (AssetDetails) in.readValue(AssetDetails.class.getClassLoader());
-  }
+	TradingAccountDetails(Parcel in) {
+		id = (UUID) in.readValue(UUID.class.getClassLoader());
+		currency = (Currency) in.readValue(Currency.class.getClassLoader());
+		login = (String) in.readValue(null);
+		apiKey = (String) in.readValue(null);
+		asset = (AssetDetails) in.readValue(AssetDetails.class.getClassLoader());
+	}
 
-  public TradingAccountDetails id(UUID id) {
-    this.id = id;
-    return this;
-  }
+	public TradingAccountDetails id(UUID id) {
+		this.id = id;
+		return this;
+	}
 
-  /**
-   * Get id
-   *
-   * @return id
-   **/
-  @Schema(description = "")
-  public UUID getId() {
-    return id;
-  }
+	public TradingAccountDetails currency(Currency currency) {
+		this.currency = currency;
+		return this;
+	}
 
-  public void setId(UUID id) {
-    this.id = id;
-  }
+	public TradingAccountDetails login(String login) {
+		this.login = login;
+		return this;
+	}
 
-  public TradingAccountDetails currency(Currency currency) {
-    this.currency = currency;
-    return this;
-  }
+	/**
+	 * Get id
+	 *
+	 * @return id
+	 **/
+	@Schema(description = "")
+	public UUID getId() {
+		return id;
+	}
 
-  /**
-   * Get currency
-   *
-   * @return currency
-   **/
-  @Schema(description = "")
-  public Currency getCurrency() {
-    return currency;
-  }
+	public void setId(UUID id) {
+		this.id = id;
+	}
 
-  public void setCurrency(Currency currency) {
-    this.currency = currency;
-  }
+	public TradingAccountDetails apiKey(String apiKey) {
+		this.apiKey = apiKey;
+		return this;
+	}
 
-  public TradingAccountDetails login(String login) {
-    this.login = login;
-    return this;
-  }
+	/**
+	 * Get currency
+	 *
+	 * @return currency
+	 **/
+	@Schema(description = "")
+	public Currency getCurrency() {
+		return currency;
+	}
 
-  /**
-   * Get login
-   *
-   * @return login
-   **/
-  @Schema(description = "")
-  public String getLogin() {
-    return login;
-  }
+	public void setCurrency(Currency currency) {
+		this.currency = currency;
+	}
 
-  public void setLogin(String login) {
-    this.login = login;
-  }
+	public TradingAccountDetails asset(AssetDetails asset) {
+		this.asset = asset;
+		return this;
+	}
 
-  public TradingAccountDetails apiKey(String apiKey) {
-    this.apiKey = apiKey;
-    return this;
-  }
+	/**
+	 * Get login
+	 *
+	 * @return login
+	 **/
+	@Schema(description = "")
+	public String getLogin() {
+		return login;
+	}
 
-  /**
-   * Get apiKey
-   *
-   * @return apiKey
-   **/
-  @Schema(description = "")
-  public String getApiKey() {
-    return apiKey;
-  }
+	public void setLogin(String login) {
+		this.login = login;
+	}
 
-  public void setApiKey(String apiKey) {
-    this.apiKey = apiKey;
-  }
+	/**
+	 * Get apiKey
+	 *
+	 * @return apiKey
+	 **/
+	@Schema(description = "")
+	public String getApiKey() {
+		return apiKey;
+	}
 
-  public TradingAccountDetails asset(AssetDetails asset) {
-    this.asset = asset;
-    return this;
-  }
+	public void setApiKey(String apiKey) {
+		this.apiKey = apiKey;
+	}
 
-  /**
-   * Get asset
-   *
-   * @return asset
-   **/
-  @Schema(description = "")
-  public AssetDetails getAsset() {
-    return asset;
-  }
+	@Override
+	public int hashCode() {
+		return Objects.hash(id, currency, login, apiKey, asset);
+	}
 
-  public void setAsset(AssetDetails asset) {
-    this.asset = asset;
-  }
+	/**
+	 * Get asset
+	 *
+	 * @return asset
+	 **/
+	@Schema(description = "")
+	public AssetDetails getAsset() {
+		return asset;
+	}
 
-  @Override
-  public boolean equals(java.lang.Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-    TradingAccountDetails tradingAccountDetails = (TradingAccountDetails) o;
-    return Objects.equals(this.id, tradingAccountDetails.id) &&
-            Objects.equals(this.currency, tradingAccountDetails.currency) &&
-            Objects.equals(this.login, tradingAccountDetails.login) &&
-            Objects.equals(this.apiKey, tradingAccountDetails.apiKey) &&
-            Objects.equals(this.asset, tradingAccountDetails.asset);
-  }
+	public void setAsset(AssetDetails asset) {
+		this.asset = asset;
+	}
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(id, currency, login, apiKey, asset);
-  }
+	/**
+	 * Convert the given object to string with each line indented by 4 spaces
+	 * (except the first line).
+	 */
+	private String toIndentedString(java.lang.Object o) {
+		if (o == null) {
+			return "null";
+		}
+		return o.toString().replace("\n", "\n    ");
+	}
+
+	@Override
+	public boolean equals(java.lang.Object o) {
+		if (this == o) {
+			return true;
+		}
+		if (o == null || getClass() != o.getClass()) {
+			return false;
+		}
+		TradingAccountDetails tradingAccountDetails = (TradingAccountDetails) o;
+		return Objects.equals(this.id, tradingAccountDetails.id) &&
+				Objects.equals(this.currency, tradingAccountDetails.currency) &&
+				Objects.equals(this.login, tradingAccountDetails.login) &&
+				Objects.equals(this.apiKey, tradingAccountDetails.apiKey) &&
+				Objects.equals(this.asset, tradingAccountDetails.asset);
+	}
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class TradingAccountDetails {\n");
+	  sb.append("class TradingAccountDetails {\n");
 
-    sb.append("    id: ").append(toIndentedString(id)).append("\n");
-    sb.append("    currency: ").append(toIndentedString(currency)).append("\n");
-    sb.append("    login: ").append(toIndentedString(login)).append("\n");
-    sb.append("    apiKey: ").append(toIndentedString(apiKey)).append("\n");
-    sb.append("    asset: ").append(toIndentedString(asset)).append("\n");
-    sb.append("}");
-    return sb.toString();
+	  sb.append("    id: ").append(toIndentedString(id)).append("\n");
+	  sb.append("    currency: ").append(toIndentedString(currency)).append("\n");
+	  sb.append("    login: ").append(toIndentedString(login)).append("\n");
+	  sb.append("    apiKey: ").append(toIndentedString(apiKey)).append("\n");
+	  sb.append("    asset: ").append(toIndentedString(asset)).append("\n");
+	  sb.append("}");
+	  return sb.toString();
   }
 
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(java.lang.Object o) {
-    if (o == null) {
-      return "null";
-    }
-    return o.toString().replace("\n", "\n    ");
-  }
+	public void writeToParcel(Parcel out, int flags) {
+		out.writeValue(id);
+		out.writeValue(currency);
+		out.writeValue(login);
+		out.writeValue(apiKey);
+		out.writeValue(asset);
+	}
 
-  public void writeToParcel(Parcel out, int flags) {
-    out.writeValue(id);
-    out.writeValue(currency);
-    out.writeValue(login);
-    out.writeValue(apiKey);
-    out.writeValue(asset);
-  }
-
-  public int describeContents() {
-    return 0;
-  }
+	public int describeContents() {
+		return 0;
+	}
 }

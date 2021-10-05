@@ -40,15 +40,6 @@ public enum FollowFilterSorting
 	BYEQUITYASC("ByEquityAsc"),
 	BYEQUITYDESC("ByEquityDesc");
 
-	public static FollowFilterSorting fromValue(String text) {
-		for (FollowFilterSorting b : FollowFilterSorting.values()) {
-			if (String.valueOf(b.value).equals(text)) {
-				return b;
-			}
-		}
-		return null;
-	}
-
 	private String value;
 
 	FollowFilterSorting(String value) {
@@ -62,6 +53,15 @@ public enum FollowFilterSorting
 	@Override
 	public String toString() {
 		return String.valueOf(value);
+	}
+
+	public static FollowFilterSorting fromValue(String text) {
+		for (FollowFilterSorting b : FollowFilterSorting.values()) {
+			if (String.valueOf(b.value).equals(text)) {
+				return b;
+			}
+		}
+		return null;
 	}
 
 	public static class Adapter extends TypeAdapter<FollowFilterSorting>

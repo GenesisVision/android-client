@@ -30,94 +30,94 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class CoinsHistoryEventItemsViewModel implements Parcelable
 {
-  public static final Parcelable.Creator<CoinsHistoryEventItemsViewModel> CREATOR = new Parcelable.Creator<CoinsHistoryEventItemsViewModel>()
-  {
-    public CoinsHistoryEventItemsViewModel createFromParcel(Parcel in) {
-      return new CoinsHistoryEventItemsViewModel(in);
-    }
+	public static final Parcelable.Creator<CoinsHistoryEventItemsViewModel> CREATOR = new Parcelable.Creator<CoinsHistoryEventItemsViewModel>()
+	{
+		public CoinsHistoryEventItemsViewModel createFromParcel(Parcel in) {
+			return new CoinsHistoryEventItemsViewModel(in);
+		}
 
-    public CoinsHistoryEventItemsViewModel[] newArray(int size) {
-      return new CoinsHistoryEventItemsViewModel[size];
-    }
-  };
+		public CoinsHistoryEventItemsViewModel[] newArray(int size) {
+			return new CoinsHistoryEventItemsViewModel[size];
+		}
+	};
 
-  @SerializedName("items")
-  private List<CoinsHistoryEvent> items = null;
+	@SerializedName("items")
+	private List<CoinsHistoryEvent> items = null;
 
-  @SerializedName("total")
-  private Integer total = null;
+	@SerializedName("total")
+	private Integer total = null;
 
-  public CoinsHistoryEventItemsViewModel() {
-  }
+	public CoinsHistoryEventItemsViewModel() {
+	}
 
-  CoinsHistoryEventItemsViewModel(Parcel in) {
-    items = (List<CoinsHistoryEvent>) in.readValue(CoinsHistoryEvent.class.getClassLoader());
-    total = (Integer) in.readValue(null);
-  }
+	CoinsHistoryEventItemsViewModel(Parcel in) {
+		items = (List<CoinsHistoryEvent>) in.readValue(CoinsHistoryEvent.class.getClassLoader());
+		total = (Integer) in.readValue(null);
+	}
 
-  public CoinsHistoryEventItemsViewModel items(List<CoinsHistoryEvent> items) {
-    this.items = items;
-    return this;
-  }
+	public CoinsHistoryEventItemsViewModel addItemsItem(CoinsHistoryEvent itemsItem) {
+		if (this.items == null) {
+			this.items = new ArrayList<CoinsHistoryEvent>();
+		}
+		this.items.add(itemsItem);
+		return this;
+	}
 
-  public CoinsHistoryEventItemsViewModel addItemsItem(CoinsHistoryEvent itemsItem) {
-    if (this.items == null) {
-      this.items = new ArrayList<CoinsHistoryEvent>();
-    }
-    this.items.add(itemsItem);
-    return this;
-  }
+	public CoinsHistoryEventItemsViewModel total(Integer total) {
+		this.total = total;
+		return this;
+	}
 
-  /**
-   * Get items
-   *
-   * @return items
-   **/
-  @Schema(description = "")
-  public List<CoinsHistoryEvent> getItems() {
-    return items;
-  }
+	public CoinsHistoryEventItemsViewModel items(List<CoinsHistoryEvent> items) {
+		this.items = items;
+		return this;
+	}
 
-  public void setItems(List<CoinsHistoryEvent> items) {
-    this.items = items;
-  }
+	/**
+	 * Get items
+	 *
+	 * @return items
+	 **/
+	@Schema(description = "")
+	public List<CoinsHistoryEvent> getItems() {
+		return items;
+	}
 
-  public CoinsHistoryEventItemsViewModel total(Integer total) {
-    this.total = total;
-    return this;
-  }
+	public void setItems(List<CoinsHistoryEvent> items) {
+		this.items = items;
+	}
 
-  /**
-   * Get total
-   *
-   * @return total
-   **/
-  @Schema(description = "")
-  public Integer getTotal() {
-    return total;
-  }
+	@Override
+	public int hashCode() {
+		return Objects.hash(items, total);
+	}
 
-  public void setTotal(Integer total) {
-    this.total = total;
-  }
+	/**
+	 * Get total
+	 *
+	 * @return total
+	 **/
+	@Schema(description = "")
+	public Integer getTotal() {
+		return total;
+	}
 
-  @Override
-  public boolean equals(java.lang.Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-    CoinsHistoryEventItemsViewModel coinsHistoryEventItemsViewModel = (CoinsHistoryEventItemsViewModel) o;
-    return Objects.equals(this.items, coinsHistoryEventItemsViewModel.items) &&
-            Objects.equals(this.total, coinsHistoryEventItemsViewModel.total);
-  }
+	public void setTotal(Integer total) {
+		this.total = total;
+	}
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(items, total);
-  }
+	@Override
+	public boolean equals(java.lang.Object o) {
+		if (this == o) {
+			return true;
+		}
+		if (o == null || getClass() != o.getClass()) {
+			return false;
+		}
+		CoinsHistoryEventItemsViewModel coinsHistoryEventItemsViewModel = (CoinsHistoryEventItemsViewModel) o;
+		return Objects.equals(this.items, coinsHistoryEventItemsViewModel.items) &&
+				Objects.equals(this.total, coinsHistoryEventItemsViewModel.total);
+	}
 
   @Override
   public String toString() {
@@ -130,23 +130,23 @@ public class CoinsHistoryEventItemsViewModel implements Parcelable
     return sb.toString();
   }
 
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(java.lang.Object o) {
-    if (o == null) {
-      return "null";
-    }
-    return o.toString().replace("\n", "\n    ");
-  }
+	/**
+	 * Convert the given object to string with each line indented by 4 spaces
+	 * (except the first line).
+	 */
+	private String toIndentedString(java.lang.Object o) {
+		if (o == null) {
+			return "null";
+		}
+		return o.toString().replace("\n", "\n    ");
+	}
 
-  public void writeToParcel(Parcel out, int flags) {
-    out.writeValue(items);
-    out.writeValue(total);
-  }
+	public void writeToParcel(Parcel out, int flags) {
+		out.writeValue(items);
+		out.writeValue(total);
+	}
 
-  public int describeContents() {
-    return 0;
-  }
+	public int describeContents() {
+		return 0;
+	}
 }

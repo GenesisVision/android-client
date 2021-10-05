@@ -29,28 +29,25 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class PostPlatformAssetDetailsWithPrices implements Parcelable
 {
-  public static final Parcelable.Creator<PostPlatformAssetDetailsWithPrices> CREATOR = new Parcelable.Creator<PostPlatformAssetDetailsWithPrices>()
-  {
-    public PostPlatformAssetDetailsWithPrices createFromParcel(Parcel in) {
-      return new PostPlatformAssetDetailsWithPrices(in);
-    }
+	public static final Parcelable.Creator<PostPlatformAssetDetailsWithPrices> CREATOR = new Parcelable.Creator<PostPlatformAssetDetailsWithPrices>()
+	{
+		public PostPlatformAssetDetailsWithPrices createFromParcel(Parcel in) {
+			return new PostPlatformAssetDetailsWithPrices(in);
+		}
 
-    public PostPlatformAssetDetailsWithPrices[] newArray(int size) {
-      return new PostPlatformAssetDetailsWithPrices[size];
-    }
-  };
+		public PostPlatformAssetDetailsWithPrices[] newArray(int size) {
+			return new PostPlatformAssetDetailsWithPrices[size];
+		}
+	};
 
-  @SerializedName("id")
-  private UUID id = null;
+	@SerializedName("id")
+	private UUID id = null;
 
-  @SerializedName("name")
-  private String name = null;
+	@SerializedName("name")
+	private String name = null;
 
-  @SerializedName("asset")
-  private String asset = null;
-
-  @SerializedName("description")
-  private String description = null;
+	@SerializedName("asset")
+	private String asset = null;
 
   @SerializedName("logoUrl")
   private String logoUrl = null;
@@ -78,36 +75,13 @@ public class PostPlatformAssetDetailsWithPrices implements Parcelable
 
   public PostPlatformAssetDetailsWithPrices() {
   }
-
-  PostPlatformAssetDetailsWithPrices(Parcel in) {
-    id = (UUID) in.readValue(UUID.class.getClassLoader());
-    name = (String) in.readValue(null);
-    asset = (String) in.readValue(null);
-    description = (String) in.readValue(null);
-    logoUrl = (String) in.readValue(null);
-    color = (String) in.readValue(null);
-    url = (String) in.readValue(null);
-    provider = (AssetProvider) in.readValue(AssetProvider.class.getClassLoader());
-    price = (Double) in.readValue(null);
-    priceCurrency = (Currency) in.readValue(Currency.class.getClassLoader());
-    change24Percent = (Double) in.readValue(null);
-    changeState = (ChangeState) in.readValue(ChangeState.class.getClassLoader());
-  }
-
   public PostPlatformAssetDetailsWithPrices id(UUID id) {
     this.id = id;
     return this;
   }
 
-  /**
-   * Get id
-   *
-   * @return id
-   **/
-  @Schema(description = "")
-  public UUID getId() {
-    return id;
-  }
+	@SerializedName("description")
+  private String description = null;
 
   public void setId(UUID id) {
     this.id = id;
@@ -118,15 +92,20 @@ public class PostPlatformAssetDetailsWithPrices implements Parcelable
     return this;
   }
 
-  /**
-   * Get name
-   *
-   * @return name
-   **/
-  @Schema(description = "")
-  public String getName() {
-    return name;
-  }
+	PostPlatformAssetDetailsWithPrices(Parcel in) {
+		id = (UUID) in.readValue(UUID.class.getClassLoader());
+		name = (String) in.readValue(null);
+		asset = (String) in.readValue(null);
+		description = (String) in.readValue(null);
+		logoUrl = (String) in.readValue(null);
+		color = (String) in.readValue(null);
+		url = (String) in.readValue(null);
+		provider = (AssetProvider) in.readValue(AssetProvider.class.getClassLoader());
+		price = (Double) in.readValue(null);
+		priceCurrency = (Currency) in.readValue(Currency.class.getClassLoader());
+		change24Percent = (Double) in.readValue(null);
+		changeState = (ChangeState) in.readValue(ChangeState.class.getClassLoader());
+	}
 
   public void setName(String name) {
     this.name = name;
@@ -137,14 +116,14 @@ public class PostPlatformAssetDetailsWithPrices implements Parcelable
     return this;
   }
 
-  /**
-   * Get asset
-   *
-   * @return asset
-   **/
+	/**
+	 * Get id
+	 *
+	 * @return id
+	 **/
   @Schema(description = "")
-  public String getAsset() {
-    return asset;
+  public UUID getId() {
+    return id;
   }
 
   public void setAsset(String asset) {
@@ -156,14 +135,13 @@ public class PostPlatformAssetDetailsWithPrices implements Parcelable
     return this;
   }
 
-  /**
-   * Get description
-   *
-   * @return description
-   **/
+	/**
+	 * Get name
+	 * @return name
+  **/
   @Schema(description = "")
-  public String getDescription() {
-    return description;
+  public String getName() {
+    return name;
   }
 
   public void setDescription(String description) {
@@ -175,14 +153,13 @@ public class PostPlatformAssetDetailsWithPrices implements Parcelable
     return this;
   }
 
-  /**
-   * Get logoUrl
-   *
-   * @return logoUrl
-   **/
+	/**
+	 * Get asset
+	 * @return asset
+  **/
   @Schema(description = "")
-  public String getLogoUrl() {
-    return logoUrl;
+  public String getAsset() {
+    return asset;
   }
 
   public void setLogoUrl(String logoUrl) {
@@ -194,14 +171,13 @@ public class PostPlatformAssetDetailsWithPrices implements Parcelable
     return this;
   }
 
-  /**
-   * Get color
-   *
-   * @return color
-   **/
+	/**
+	 * Get description
+	 * @return description
+  **/
   @Schema(description = "")
-  public String getColor() {
-    return color;
+  public String getDescription() {
+    return description;
   }
 
   public void setColor(String color) {
@@ -213,14 +189,13 @@ public class PostPlatformAssetDetailsWithPrices implements Parcelable
     return this;
   }
 
-  /**
-   * Get url
-   *
-   * @return url
-   **/
+	/**
+	 * Get logoUrl
+	 * @return logoUrl
+  **/
   @Schema(description = "")
-  public String getUrl() {
-    return url;
+  public String getLogoUrl() {
+    return logoUrl;
   }
 
   public void setUrl(String url) {
@@ -232,14 +207,13 @@ public class PostPlatformAssetDetailsWithPrices implements Parcelable
     return this;
   }
 
-  /**
-   * Get provider
-   *
-   * @return provider
-   **/
+	/**
+	 * Get color
+	 * @return color
+  **/
   @Schema(description = "")
-  public AssetProvider getProvider() {
-    return provider;
+  public String getColor() {
+    return color;
   }
 
   public void setProvider(AssetProvider provider) {
@@ -251,14 +225,13 @@ public class PostPlatformAssetDetailsWithPrices implements Parcelable
     return this;
   }
 
-  /**
-   * Get price
-   *
-   * @return price
-   **/
+	/**
+	 * Get url
+	 * @return url
+  **/
   @Schema(description = "")
-  public Double getPrice() {
-    return price;
+  public String getUrl() {
+    return url;
   }
 
   public void setPrice(Double price) {
@@ -270,14 +243,13 @@ public class PostPlatformAssetDetailsWithPrices implements Parcelable
     return this;
   }
 
-  /**
-   * Get priceCurrency
-   *
-   * @return priceCurrency
-   **/
+	/**
+	 * Get provider
+	 * @return provider
+  **/
   @Schema(description = "")
-  public Currency getPriceCurrency() {
-    return priceCurrency;
+  public AssetProvider getProvider() {
+    return provider;
   }
 
   public void setPriceCurrency(Currency priceCurrency) {
@@ -289,14 +261,13 @@ public class PostPlatformAssetDetailsWithPrices implements Parcelable
     return this;
   }
 
-  /**
-   * Get change24Percent
-   *
-   * @return change24Percent
-   **/
+	/**
+	 * Get price
+	 * @return price
+  **/
   @Schema(description = "")
-  public Double getChange24Percent() {
-    return change24Percent;
+  public Double getPrice() {
+    return price;
   }
 
   public void setChange24Percent(Double change24Percent) {
@@ -308,18 +279,51 @@ public class PostPlatformAssetDetailsWithPrices implements Parcelable
     return this;
   }
 
-  /**
-   * Get changeState
-   *
-   * @return changeState
-   **/
+	/**
+	 * Get priceCurrency
+	 * @return priceCurrency
+  **/
+  @Schema(description = "")
+  public Currency getPriceCurrency() {
+    return priceCurrency;
+  }
+
+  public void setChangeState(ChangeState changeState) {
+    this.changeState = changeState;
+  }
+
+	/**
+	 * Get change24Percent
+	 * @return change24Percent
+  **/
+  @Schema(description = "")
+  public Double getChange24Percent() {
+    return change24Percent;
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(id, name, asset, description, logoUrl, color, url, provider, price, priceCurrency, change24Percent, changeState);
+  }
+
+	/**
+	 * Get changeState
+	 * @return changeState
+  **/
   @Schema(description = "")
   public ChangeState getChangeState() {
     return changeState;
   }
 
-  public void setChangeState(ChangeState changeState) {
-    this.changeState = changeState;
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(java.lang.Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
   }
 
   @Override
@@ -331,23 +335,18 @@ public class PostPlatformAssetDetailsWithPrices implements Parcelable
       return false;
     }
     PostPlatformAssetDetailsWithPrices postPlatformAssetDetailsWithPrices = (PostPlatformAssetDetailsWithPrices) o;
-    return Objects.equals(this.id, postPlatformAssetDetailsWithPrices.id) &&
-            Objects.equals(this.name, postPlatformAssetDetailsWithPrices.name) &&
-            Objects.equals(this.asset, postPlatformAssetDetailsWithPrices.asset) &&
-            Objects.equals(this.description, postPlatformAssetDetailsWithPrices.description) &&
-            Objects.equals(this.logoUrl, postPlatformAssetDetailsWithPrices.logoUrl) &&
-            Objects.equals(this.color, postPlatformAssetDetailsWithPrices.color) &&
-            Objects.equals(this.url, postPlatformAssetDetailsWithPrices.url) &&
-            Objects.equals(this.provider, postPlatformAssetDetailsWithPrices.provider) &&
-            Objects.equals(this.price, postPlatformAssetDetailsWithPrices.price) &&
-            Objects.equals(this.priceCurrency, postPlatformAssetDetailsWithPrices.priceCurrency) &&
-            Objects.equals(this.change24Percent, postPlatformAssetDetailsWithPrices.change24Percent) &&
-            Objects.equals(this.changeState, postPlatformAssetDetailsWithPrices.changeState);
-  }
-
-  @Override
-  public int hashCode() {
-    return Objects.hash(id, name, asset, description, logoUrl, color, url, provider, price, priceCurrency, change24Percent, changeState);
+	  return Objects.equals(this.id, postPlatformAssetDetailsWithPrices.id) &&
+			  Objects.equals(this.name, postPlatformAssetDetailsWithPrices.name) &&
+			  Objects.equals(this.asset, postPlatformAssetDetailsWithPrices.asset) &&
+			  Objects.equals(this.description, postPlatformAssetDetailsWithPrices.description) &&
+			  Objects.equals(this.logoUrl, postPlatformAssetDetailsWithPrices.logoUrl) &&
+			  Objects.equals(this.color, postPlatformAssetDetailsWithPrices.color) &&
+			  Objects.equals(this.url, postPlatformAssetDetailsWithPrices.url) &&
+			  Objects.equals(this.provider, postPlatformAssetDetailsWithPrices.provider) &&
+			  Objects.equals(this.price, postPlatformAssetDetailsWithPrices.price) &&
+			  Objects.equals(this.priceCurrency, postPlatformAssetDetailsWithPrices.priceCurrency) &&
+			  Objects.equals(this.change24Percent, postPlatformAssetDetailsWithPrices.change24Percent) &&
+			  Objects.equals(this.changeState, postPlatformAssetDetailsWithPrices.changeState);
   }
 
   @Override
@@ -371,33 +370,22 @@ public class PostPlatformAssetDetailsWithPrices implements Parcelable
     return sb.toString();
   }
 
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(java.lang.Object o) {
-    if (o == null) {
-      return "null";
-    }
-    return o.toString().replace("\n", "\n    ");
-  }
+	public void writeToParcel(Parcel out, int flags) {
+		out.writeValue(id);
+		out.writeValue(name);
+		out.writeValue(asset);
+		out.writeValue(description);
+		out.writeValue(logoUrl);
+		out.writeValue(color);
+		out.writeValue(url);
+		out.writeValue(provider);
+		out.writeValue(price);
+		out.writeValue(priceCurrency);
+		out.writeValue(change24Percent);
+		out.writeValue(changeState);
+	}
 
-  public void writeToParcel(Parcel out, int flags) {
-    out.writeValue(id);
-    out.writeValue(name);
-    out.writeValue(asset);
-    out.writeValue(description);
-    out.writeValue(logoUrl);
-    out.writeValue(color);
-    out.writeValue(url);
-    out.writeValue(provider);
-    out.writeValue(price);
-    out.writeValue(priceCurrency);
-    out.writeValue(change24Percent);
-    out.writeValue(changeState);
-  }
-
-  public int describeContents() {
-    return 0;
-  }
+	public int describeContents() {
+		return 0;
+	}
 }

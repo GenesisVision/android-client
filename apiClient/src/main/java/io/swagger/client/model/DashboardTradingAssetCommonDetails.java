@@ -32,17 +32,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class DashboardTradingAssetCommonDetails implements Parcelable
 {
-	public static final Parcelable.Creator<DashboardTradingAssetCommonDetails> CREATOR = new Parcelable.Creator<DashboardTradingAssetCommonDetails>()
-	{
-		public DashboardTradingAssetCommonDetails createFromParcel(Parcel in) {
-			return new DashboardTradingAssetCommonDetails(in);
-		}
-
-		public DashboardTradingAssetCommonDetails[] newArray(int size) {
-			return new DashboardTradingAssetCommonDetails[size];
-		}
-	};
-
 	@SerializedName("title")
 	private String title = null;
 
@@ -77,20 +66,6 @@ public class DashboardTradingAssetCommonDetails implements Parcelable
 	private List<Currency> supportedCurrencies = null;
 
 	public DashboardTradingAssetCommonDetails() {
-	}
-
-	DashboardTradingAssetCommonDetails(Parcel in) {
-		title = (String) in.readValue(null);
-		status = (DashboardTradingAssetStatus) in.readValue(DashboardTradingAssetStatus.class.getClassLoader());
-		creationDate = (DateTime) in.readValue(DateTime.class.getClassLoader());
-		balance = (Double) in.readValue(null);
-		login = (String) in.readValue(null);
-		currency = (Currency) in.readValue(Currency.class.getClassLoader());
-		originalCurrency = (Currency) in.readValue(Currency.class.getClassLoader());
-		leverage = (Integer) in.readValue(null);
-		type = (PrivateTradingAccountType) in.readValue(PrivateTradingAccountType.class.getClassLoader());
-		balances = (List<AmountWithLogoCurrency>) in.readValue(AmountWithLogoCurrency.class.getClassLoader());
-		supportedCurrencies = (List<Currency>) in.readValue(Currency.class.getClassLoader());
 	}
 
 	public DashboardTradingAssetCommonDetails title(String title) {
@@ -318,6 +293,7 @@ public class DashboardTradingAssetCommonDetails implements Parcelable
 		this.supportedCurrencies = supportedCurrencies;
 	}
 
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -344,6 +320,7 @@ public class DashboardTradingAssetCommonDetails implements Parcelable
 	public int hashCode() {
 		return Objects.hash(title, status, creationDate, balance, login, currency, originalCurrency, leverage, type, balances, supportedCurrencies);
 	}
+
 
 	@Override
 	public String toString() {
@@ -376,6 +353,7 @@ public class DashboardTradingAssetCommonDetails implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
+
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(title);
 		out.writeValue(status);
@@ -390,7 +368,32 @@ public class DashboardTradingAssetCommonDetails implements Parcelable
 		out.writeValue(supportedCurrencies);
 	}
 
+	public static final Parcelable.Creator<DashboardTradingAssetCommonDetails> CREATOR = new Parcelable.Creator<DashboardTradingAssetCommonDetails>()
+	{
+		public DashboardTradingAssetCommonDetails createFromParcel(Parcel in) {
+			return new DashboardTradingAssetCommonDetails(in);
+		}
+
+		public DashboardTradingAssetCommonDetails[] newArray(int size) {
+			return new DashboardTradingAssetCommonDetails[size];
+		}
+	};
+
 	public int describeContents() {
 		return 0;
+	}
+
+	DashboardTradingAssetCommonDetails(Parcel in) {
+		title = (String) in.readValue(null);
+		status = (DashboardTradingAssetStatus) in.readValue(DashboardTradingAssetStatus.class.getClassLoader());
+		creationDate = (DateTime) in.readValue(DateTime.class.getClassLoader());
+		balance = (Double) in.readValue(null);
+		login = (String) in.readValue(null);
+		currency = (Currency) in.readValue(Currency.class.getClassLoader());
+		originalCurrency = (Currency) in.readValue(Currency.class.getClassLoader());
+		leverage = (Integer) in.readValue(null);
+		type = (PrivateTradingAccountType) in.readValue(PrivateTradingAccountType.class.getClassLoader());
+		balances = (List<AmountWithLogoCurrency>) in.readValue(AmountWithLogoCurrency.class.getClassLoader());
+		supportedCurrencies = (List<Currency>) in.readValue(Currency.class.getClassLoader());
 	}
 }

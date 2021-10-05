@@ -39,15 +39,6 @@ public enum SocialLinkType
 	MEDIUM("Medium"),
 	INSTAGRAM("Instagram");
 
-	public static SocialLinkType fromValue(String text) {
-		for (SocialLinkType b : SocialLinkType.values()) {
-			if (String.valueOf(b.value).equals(text)) {
-				return b;
-			}
-		}
-		return null;
-	}
-
 	private String value;
 
 	SocialLinkType(String value) {
@@ -61,6 +52,15 @@ public enum SocialLinkType
 	@Override
 	public String toString() {
 		return String.valueOf(value);
+	}
+
+	public static SocialLinkType fromValue(String text) {
+		for (SocialLinkType b : SocialLinkType.values()) {
+			if (String.valueOf(b.value).equals(text)) {
+				return b;
+			}
+		}
+		return null;
 	}
 
 	public static class Adapter extends TypeAdapter<SocialLinkType>

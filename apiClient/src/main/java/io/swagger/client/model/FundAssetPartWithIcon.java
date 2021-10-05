@@ -28,17 +28,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class FundAssetPartWithIcon implements Parcelable
 {
-	public static final Parcelable.Creator<FundAssetPartWithIcon> CREATOR = new Parcelable.Creator<FundAssetPartWithIcon>()
-	{
-		public FundAssetPartWithIcon createFromParcel(Parcel in) {
-			return new FundAssetPartWithIcon(in);
-		}
-
-		public FundAssetPartWithIcon[] newArray(int size) {
-			return new FundAssetPartWithIcon[size];
-		}
-	};
-
 	@SerializedName("name")
 	private String name = null;
 
@@ -58,15 +47,6 @@ public class FundAssetPartWithIcon implements Parcelable
 	private String url = null;
 
 	public FundAssetPartWithIcon() {
-	}
-
-	FundAssetPartWithIcon(Parcel in) {
-		name = (String) in.readValue(null);
-		asset = (String) in.readValue(null);
-		percent = (Double) in.readValue(null);
-		logoUrl = (String) in.readValue(null);
-		color = (String) in.readValue(null);
-		url = (String) in.readValue(null);
 	}
 
 	public FundAssetPartWithIcon name(String name) {
@@ -183,6 +163,7 @@ public class FundAssetPartWithIcon implements Parcelable
 		this.url = url;
 	}
 
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -204,6 +185,7 @@ public class FundAssetPartWithIcon implements Parcelable
 	public int hashCode() {
 		return Objects.hash(name, asset, percent, logoUrl, color, url);
 	}
+
 
 	@Override
 	public String toString() {
@@ -231,6 +213,7 @@ public class FundAssetPartWithIcon implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
+
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(name);
 		out.writeValue(asset);
@@ -240,7 +223,27 @@ public class FundAssetPartWithIcon implements Parcelable
 		out.writeValue(url);
 	}
 
+	public static final Parcelable.Creator<FundAssetPartWithIcon> CREATOR = new Parcelable.Creator<FundAssetPartWithIcon>()
+	{
+		public FundAssetPartWithIcon createFromParcel(Parcel in) {
+			return new FundAssetPartWithIcon(in);
+		}
+
+		public FundAssetPartWithIcon[] newArray(int size) {
+			return new FundAssetPartWithIcon[size];
+		}
+	};
+
 	public int describeContents() {
 		return 0;
+	}
+
+	FundAssetPartWithIcon(Parcel in) {
+		name = (String) in.readValue(null);
+		asset = (String) in.readValue(null);
+		percent = (Double) in.readValue(null);
+		logoUrl = (String) in.readValue(null);
+		color = (String) in.readValue(null);
+		url = (String) in.readValue(null);
 	}
 }

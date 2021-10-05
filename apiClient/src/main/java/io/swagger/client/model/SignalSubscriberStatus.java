@@ -25,44 +25,44 @@ import java.io.IOException;
 @JsonAdapter(SignalSubscriberStatus.Adapter.class)
 public enum SignalSubscriberStatus
 {
-  ACTIVE("Active"),
-  ENDED("Ended");
+	ACTIVE("Active"),
+	ENDED("Ended");
 
-  public static SignalSubscriberStatus fromValue(String text) {
-    for (SignalSubscriberStatus b : SignalSubscriberStatus.values()) {
-      if (String.valueOf(b.value).equals(text)) {
-        return b;
-      }
-    }
-    return null;
-  }
+	public static SignalSubscriberStatus fromValue(String text) {
+		for (SignalSubscriberStatus b : SignalSubscriberStatus.values()) {
+			if (String.valueOf(b.value).equals(text)) {
+				return b;
+			}
+		}
+		return null;
+	}
 
-  private String value;
+	private String value;
 
-  SignalSubscriberStatus(String value) {
-    this.value = value;
-  }
+	SignalSubscriberStatus(String value) {
+		this.value = value;
+	}
 
-  public String getValue() {
-    return value;
-  }
+	public String getValue() {
+		return value;
+	}
 
-  @Override
-  public String toString() {
-    return String.valueOf(value);
-  }
+	@Override
+	public String toString() {
+		return String.valueOf(value);
+	}
 
-  public static class Adapter extends TypeAdapter<SignalSubscriberStatus>
-  {
-    @Override
-    public void write(final JsonWriter jsonWriter, final SignalSubscriberStatus enumeration) throws IOException {
-      jsonWriter.value(enumeration.getValue());
-    }
+	public static class Adapter extends TypeAdapter<SignalSubscriberStatus>
+	{
+		@Override
+		public void write(final JsonWriter jsonWriter, final SignalSubscriberStatus enumeration) throws IOException {
+			jsonWriter.value(enumeration.getValue());
+		}
 
-    @Override
-    public SignalSubscriberStatus read(final JsonReader jsonReader) throws IOException {
-      Object value = jsonReader.nextString();
-      return SignalSubscriberStatus.fromValue(String.valueOf(value));
-    }
+		@Override
+		public SignalSubscriberStatus read(final JsonReader jsonReader) throws IOException {
+			Object value = jsonReader.nextString();
+			return SignalSubscriberStatus.fromValue(String.valueOf(value));
+		}
   }
 }

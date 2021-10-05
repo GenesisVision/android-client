@@ -719,21 +719,6 @@ public class OrderSignalModel implements Parcelable
 		out.writeValue(currency);
 	}
 
-	public static final Parcelable.Creator<OrderSignalModel> CREATOR = new Parcelable.Creator<OrderSignalModel>()
-	{
-		public OrderSignalModel createFromParcel(Parcel in) {
-			return new OrderSignalModel(in);
-		}
-
-		public OrderSignalModel[] newArray(int size) {
-			return new OrderSignalModel[size];
-		}
-	};
-
-	public int describeContents() {
-		return 0;
-	}
-
 	OrderSignalModel(Parcel in) {
 		id = (UUID) in.readValue(UUID.class.getClassLoader());
 		login = (String) in.readValue(null);
@@ -760,5 +745,20 @@ public class OrderSignalModel implements Parcelable
 		totalCommissionByType = (List<FeeDetails>) in.readValue(FeeDetails.class.getClassLoader());
 		tradingAccountId = (UUID) in.readValue(UUID.class.getClassLoader());
 		currency = (Currency) in.readValue(Currency.class.getClassLoader());
+	}
+
+	public static final Parcelable.Creator<OrderSignalModel> CREATOR = new Parcelable.Creator<OrderSignalModel>()
+	{
+		public OrderSignalModel createFromParcel(Parcel in) {
+			return new OrderSignalModel(in);
+		}
+
+		public OrderSignalModel[] newArray(int size) {
+			return new OrderSignalModel[size];
+		}
+	};
+
+	public int describeContents() {
+		return 0;
 	}
 }

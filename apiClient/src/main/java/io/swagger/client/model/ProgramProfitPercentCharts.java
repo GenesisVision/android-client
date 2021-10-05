@@ -30,45 +30,30 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class ProgramProfitPercentCharts implements Parcelable
 {
-  public static final Parcelable.Creator<ProgramProfitPercentCharts> CREATOR = new Parcelable.Creator<ProgramProfitPercentCharts>()
-  {
-    public ProgramProfitPercentCharts createFromParcel(Parcel in) {
-      return new ProgramProfitPercentCharts(in);
-    }
+	public static final Parcelable.Creator<ProgramProfitPercentCharts> CREATOR = new Parcelable.Creator<ProgramProfitPercentCharts>()
+	{
+		public ProgramProfitPercentCharts createFromParcel(Parcel in) {
+			return new ProgramProfitPercentCharts(in);
+		}
 
-    public ProgramProfitPercentCharts[] newArray(int size) {
-      return new ProgramProfitPercentCharts[size];
-    }
-  };
+		public ProgramProfitPercentCharts[] newArray(int size) {
+			return new ProgramProfitPercentCharts[size];
+		}
+	};
 
-  @SerializedName("statistic")
-  private ProgramChartStatistic statistic = null;
+	@SerializedName("statistic")
+	private ProgramChartStatistic statistic = null;
 
-  @SerializedName("charts")
-  private List<SimpleChart> charts = null;
+	@SerializedName("charts")
+	private List<SimpleChart> charts = null;
 
-  public ProgramProfitPercentCharts() {
-  }
+	public ProgramProfitPercentCharts() {
+	}
 
-  ProgramProfitPercentCharts(Parcel in) {
-    statistic = (ProgramChartStatistic) in.readValue(ProgramChartStatistic.class.getClassLoader());
-    charts = (List<SimpleChart>) in.readValue(SimpleChart.class.getClassLoader());
-  }
-
-  public ProgramProfitPercentCharts statistic(ProgramChartStatistic statistic) {
-    this.statistic = statistic;
-    return this;
-  }
-
-  /**
-   * Get statistic
-   *
-   * @return statistic
-   **/
-  @Schema(description = "")
-  public ProgramChartStatistic getStatistic() {
-    return statistic;
-  }
+	ProgramProfitPercentCharts(Parcel in) {
+		statistic = (ProgramChartStatistic) in.readValue(ProgramChartStatistic.class.getClassLoader());
+		charts = (List<SimpleChart>) in.readValue(SimpleChart.class.getClassLoader());
+	}
 
   public void setStatistic(ProgramChartStatistic statistic) {
     this.statistic = statistic;
@@ -87,18 +72,37 @@ public class ProgramProfitPercentCharts implements Parcelable
     return this;
   }
 
-  /**
-   * Get charts
-   *
-   * @return charts
-   **/
-  @Schema(description = "")
-  public List<SimpleChart> getCharts() {
-    return charts;
+	public ProgramProfitPercentCharts statistic(ProgramChartStatistic statistic) {
+		this.statistic = statistic;
+    return this;
   }
 
   public void setCharts(List<SimpleChart> charts) {
     this.charts = charts;
+  }
+
+	/**
+	 * Get statistic
+	 *
+	 * @return statistic
+	 **/
+  @Schema(description = "")
+  public ProgramChartStatistic getStatistic() {
+    return statistic;
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(statistic, charts);
+  }
+
+	/**
+	 * Get charts
+	 * @return charts
+  **/
+  @Schema(description = "")
+  public List<SimpleChart> getCharts() {
+    return charts;
   }
 
   @Override
@@ -110,13 +114,8 @@ public class ProgramProfitPercentCharts implements Parcelable
       return false;
     }
     ProgramProfitPercentCharts programProfitPercentCharts = (ProgramProfitPercentCharts) o;
-    return Objects.equals(this.statistic, programProfitPercentCharts.statistic) &&
-            Objects.equals(this.charts, programProfitPercentCharts.charts);
-  }
-
-  @Override
-  public int hashCode() {
-    return Objects.hash(statistic, charts);
+	  return Objects.equals(this.statistic, programProfitPercentCharts.statistic) &&
+			  Objects.equals(this.charts, programProfitPercentCharts.charts);
   }
 
   @Override
@@ -138,15 +137,15 @@ public class ProgramProfitPercentCharts implements Parcelable
     if (o == null) {
       return "null";
     }
-    return o.toString().replace("\n", "\n    ");
+	  return o.toString().replace("\n", "\n    ");
   }
 
-  public void writeToParcel(Parcel out, int flags) {
-    out.writeValue(statistic);
-    out.writeValue(charts);
-  }
+	public void writeToParcel(Parcel out, int flags) {
+		out.writeValue(statistic);
+		out.writeValue(charts);
+	}
 
-  public int describeContents() {
-    return 0;
-  }
+	public int describeContents() {
+		return 0;
+	}
 }

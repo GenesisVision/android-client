@@ -30,28 +30,25 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class ProgramPeriodViewModel implements Parcelable
 {
-  public static final Parcelable.Creator<ProgramPeriodViewModel> CREATOR = new Parcelable.Creator<ProgramPeriodViewModel>()
-  {
-    public ProgramPeriodViewModel createFromParcel(Parcel in) {
-      return new ProgramPeriodViewModel(in);
-    }
+	public static final Parcelable.Creator<ProgramPeriodViewModel> CREATOR = new Parcelable.Creator<ProgramPeriodViewModel>()
+	{
+		public ProgramPeriodViewModel createFromParcel(Parcel in) {
+			return new ProgramPeriodViewModel(in);
+		}
 
-    public ProgramPeriodViewModel[] newArray(int size) {
-      return new ProgramPeriodViewModel[size];
-    }
-  };
+		public ProgramPeriodViewModel[] newArray(int size) {
+			return new ProgramPeriodViewModel[size];
+		}
+	};
 
-  @SerializedName("dateFrom")
-  private DateTime dateFrom = null;
+	@SerializedName("dateFrom")
+	private DateTime dateFrom = null;
 
-  @SerializedName("dateTo")
-  private DateTime dateTo = null;
+	@SerializedName("dateTo")
+	private DateTime dateTo = null;
 
-  @SerializedName("periodLength")
-  private Double periodLength = null;
-
-  @SerializedName("status")
-  private PeriodStatus status = null;
+	@SerializedName("periodLength")
+	private Double periodLength = null;
 
   @SerializedName("number")
   private Integer number = null;
@@ -97,42 +94,13 @@ public class ProgramPeriodViewModel implements Parcelable
 
   public ProgramPeriodViewModel() {
   }
-
-  ProgramPeriodViewModel(Parcel in) {
-    dateFrom = (DateTime) in.readValue(DateTime.class.getClassLoader());
-    dateTo = (DateTime) in.readValue(DateTime.class.getClassLoader());
-    periodLength = (Double) in.readValue(null);
-    status = (PeriodStatus) in.readValue(PeriodStatus.class.getClassLoader());
-    number = (Integer) in.readValue(null);
-    profit = (Double) in.readValue(null);
-    profitPercent = (Double) in.readValue(null);
-    balance = (Double) in.readValue(null);
-    investors = (Integer) in.readValue(null);
-    managerDeposit = (Double) in.readValue(null);
-    managerWithdraw = (Double) in.readValue(null);
-    managerCommissionRebate = (Double) in.readValue(null);
-    investorsDeposit = (Double) in.readValue(null);
-    investorsWithdraw = (Double) in.readValue(null);
-    investorsProfitWithdraw = (Double) in.readValue(null);
-    platformSuccessFee = (Double) in.readValue(null);
-    managerStatistic = (ManagerFinancialStatistic) in.readValue(ManagerFinancialStatistic.class.getClassLoader());
-    investorStatistic = (InvestorFinancialStatistic) in.readValue(InvestorFinancialStatistic.class.getClassLoader());
-  }
-
   public ProgramPeriodViewModel dateFrom(DateTime dateFrom) {
     this.dateFrom = dateFrom;
     return this;
   }
 
-  /**
-   * Get dateFrom
-   *
-   * @return dateFrom
-   **/
-  @Schema(description = "")
-  public DateTime getDateFrom() {
-    return dateFrom;
-  }
+	@SerializedName("status")
+  private PeriodStatus status = null;
 
   public void setDateFrom(DateTime dateFrom) {
     this.dateFrom = dateFrom;
@@ -143,15 +111,26 @@ public class ProgramPeriodViewModel implements Parcelable
     return this;
   }
 
-  /**
-   * Get dateTo
-   *
-   * @return dateTo
-   **/
-  @Schema(description = "")
-  public DateTime getDateTo() {
-    return dateTo;
-  }
+	ProgramPeriodViewModel(Parcel in) {
+		dateFrom = (DateTime) in.readValue(DateTime.class.getClassLoader());
+		dateTo = (DateTime) in.readValue(DateTime.class.getClassLoader());
+		periodLength = (Double) in.readValue(null);
+		status = (PeriodStatus) in.readValue(PeriodStatus.class.getClassLoader());
+		number = (Integer) in.readValue(null);
+		profit = (Double) in.readValue(null);
+		profitPercent = (Double) in.readValue(null);
+		balance = (Double) in.readValue(null);
+		investors = (Integer) in.readValue(null);
+		managerDeposit = (Double) in.readValue(null);
+		managerWithdraw = (Double) in.readValue(null);
+		managerCommissionRebate = (Double) in.readValue(null);
+		investorsDeposit = (Double) in.readValue(null);
+		investorsWithdraw = (Double) in.readValue(null);
+		investorsProfitWithdraw = (Double) in.readValue(null);
+		platformSuccessFee = (Double) in.readValue(null);
+		managerStatistic = (ManagerFinancialStatistic) in.readValue(ManagerFinancialStatistic.class.getClassLoader());
+		investorStatistic = (InvestorFinancialStatistic) in.readValue(InvestorFinancialStatistic.class.getClassLoader());
+	}
 
   public void setDateTo(DateTime dateTo) {
     this.dateTo = dateTo;
@@ -162,14 +141,14 @@ public class ProgramPeriodViewModel implements Parcelable
     return this;
   }
 
-  /**
-   * Get periodLength
-   *
-   * @return periodLength
-   **/
+	/**
+	 * Get dateFrom
+	 *
+	 * @return dateFrom
+	 **/
   @Schema(description = "")
-  public Double getPeriodLength() {
-    return periodLength;
+  public DateTime getDateFrom() {
+    return dateFrom;
   }
 
   public void setPeriodLength(Double periodLength) {
@@ -181,14 +160,13 @@ public class ProgramPeriodViewModel implements Parcelable
     return this;
   }
 
-  /**
-   * Get status
-   *
-   * @return status
-   **/
+	/**
+	 * Get dateTo
+	 * @return dateTo
+  **/
   @Schema(description = "")
-  public PeriodStatus getStatus() {
-    return status;
+  public DateTime getDateTo() {
+    return dateTo;
   }
 
   public void setStatus(PeriodStatus status) {
@@ -200,14 +178,13 @@ public class ProgramPeriodViewModel implements Parcelable
     return this;
   }
 
-  /**
-   * Get number
-   *
-   * @return number
-   **/
+	/**
+	 * Get periodLength
+	 * @return periodLength
+  **/
   @Schema(description = "")
-  public Integer getNumber() {
-    return number;
+  public Double getPeriodLength() {
+    return periodLength;
   }
 
   public void setNumber(Integer number) {
@@ -219,14 +196,13 @@ public class ProgramPeriodViewModel implements Parcelable
     return this;
   }
 
-  /**
-   * Get profit
-   *
-   * @return profit
-   **/
+	/**
+	 * Get status
+	 * @return status
+  **/
   @Schema(description = "")
-  public Double getProfit() {
-    return profit;
+  public PeriodStatus getStatus() {
+    return status;
   }
 
   public void setProfit(Double profit) {
@@ -238,14 +214,13 @@ public class ProgramPeriodViewModel implements Parcelable
     return this;
   }
 
-  /**
-   * Get profitPercent
-   *
-   * @return profitPercent
-   **/
+	/**
+	 * Get number
+	 * @return number
+  **/
   @Schema(description = "")
-  public Double getProfitPercent() {
-    return profitPercent;
+  public Integer getNumber() {
+    return number;
   }
 
   public void setProfitPercent(Double profitPercent) {
@@ -257,14 +232,13 @@ public class ProgramPeriodViewModel implements Parcelable
     return this;
   }
 
-  /**
-   * Get balance
-   *
-   * @return balance
-   **/
+	/**
+	 * Get profit
+	 * @return profit
+  **/
   @Schema(description = "")
-  public Double getBalance() {
-    return balance;
+  public Double getProfit() {
+    return profit;
   }
 
   public void setBalance(Double balance) {
@@ -276,14 +250,13 @@ public class ProgramPeriodViewModel implements Parcelable
     return this;
   }
 
-  /**
-   * Get investors
-   *
-   * @return investors
-   **/
+	/**
+	 * Get profitPercent
+	 * @return profitPercent
+  **/
   @Schema(description = "")
-  public Integer getInvestors() {
-    return investors;
+  public Double getProfitPercent() {
+    return profitPercent;
   }
 
   public void setInvestors(Integer investors) {
@@ -295,14 +268,13 @@ public class ProgramPeriodViewModel implements Parcelable
     return this;
   }
 
-  /**
-   * Get managerDeposit
-   *
-   * @return managerDeposit
-   **/
+	/**
+	 * Get balance
+	 * @return balance
+  **/
   @Schema(description = "")
-  public Double getManagerDeposit() {
-    return managerDeposit;
+  public Double getBalance() {
+    return balance;
   }
 
   public void setManagerDeposit(Double managerDeposit) {
@@ -314,14 +286,13 @@ public class ProgramPeriodViewModel implements Parcelable
     return this;
   }
 
-  /**
-   * Get managerWithdraw
-   *
-   * @return managerWithdraw
-   **/
+	/**
+	 * Get investors
+	 * @return investors
+  **/
   @Schema(description = "")
-  public Double getManagerWithdraw() {
-    return managerWithdraw;
+  public Integer getInvestors() {
+    return investors;
   }
 
   public void setManagerWithdraw(Double managerWithdraw) {
@@ -333,14 +304,13 @@ public class ProgramPeriodViewModel implements Parcelable
     return this;
   }
 
-  /**
-   * Get managerCommissionRebate
-   *
-   * @return managerCommissionRebate
-   **/
+	/**
+	 * Get managerDeposit
+	 * @return managerDeposit
+  **/
   @Schema(description = "")
-  public Double getManagerCommissionRebate() {
-    return managerCommissionRebate;
+  public Double getManagerDeposit() {
+    return managerDeposit;
   }
 
   public void setManagerCommissionRebate(Double managerCommissionRebate) {
@@ -352,14 +322,13 @@ public class ProgramPeriodViewModel implements Parcelable
     return this;
   }
 
-  /**
-   * Get investorsDeposit
-   *
-   * @return investorsDeposit
-   **/
+	/**
+	 * Get managerWithdraw
+	 * @return managerWithdraw
+  **/
   @Schema(description = "")
-  public Double getInvestorsDeposit() {
-    return investorsDeposit;
+  public Double getManagerWithdraw() {
+    return managerWithdraw;
   }
 
   public void setInvestorsDeposit(Double investorsDeposit) {
@@ -371,14 +340,13 @@ public class ProgramPeriodViewModel implements Parcelable
     return this;
   }
 
-  /**
-   * Get investorsWithdraw
-   *
-   * @return investorsWithdraw
-   **/
+	/**
+	 * Get managerCommissionRebate
+	 * @return managerCommissionRebate
+  **/
   @Schema(description = "")
-  public Double getInvestorsWithdraw() {
-    return investorsWithdraw;
+  public Double getManagerCommissionRebate() {
+    return managerCommissionRebate;
   }
 
   public void setInvestorsWithdraw(Double investorsWithdraw) {
@@ -390,14 +358,13 @@ public class ProgramPeriodViewModel implements Parcelable
     return this;
   }
 
-  /**
-   * Get investorsProfitWithdraw
-   *
-   * @return investorsProfitWithdraw
-   **/
+	/**
+	 * Get investorsDeposit
+	 * @return investorsDeposit
+  **/
   @Schema(description = "")
-  public Double getInvestorsProfitWithdraw() {
-    return investorsProfitWithdraw;
+  public Double getInvestorsDeposit() {
+    return investorsDeposit;
   }
 
   public void setInvestorsProfitWithdraw(Double investorsProfitWithdraw) {
@@ -409,14 +376,13 @@ public class ProgramPeriodViewModel implements Parcelable
     return this;
   }
 
-  /**
-   * Get platformSuccessFee
-   *
-   * @return platformSuccessFee
-   **/
+	/**
+	 * Get investorsWithdraw
+	 * @return investorsWithdraw
+  **/
   @Schema(description = "")
-  public Double getPlatformSuccessFee() {
-    return platformSuccessFee;
+  public Double getInvestorsWithdraw() {
+    return investorsWithdraw;
   }
 
   public void setPlatformSuccessFee(Double platformSuccessFee) {
@@ -428,14 +394,13 @@ public class ProgramPeriodViewModel implements Parcelable
     return this;
   }
 
-  /**
-   * Get managerStatistic
-   *
-   * @return managerStatistic
-   **/
+	/**
+	 * Get investorsProfitWithdraw
+	 * @return investorsProfitWithdraw
+  **/
   @Schema(description = "")
-  public ManagerFinancialStatistic getManagerStatistic() {
-    return managerStatistic;
+  public Double getInvestorsProfitWithdraw() {
+    return investorsProfitWithdraw;
   }
 
   public void setManagerStatistic(ManagerFinancialStatistic managerStatistic) {
@@ -447,18 +412,51 @@ public class ProgramPeriodViewModel implements Parcelable
     return this;
   }
 
-  /**
-   * Get investorStatistic
-   *
-   * @return investorStatistic
-   **/
+	/**
+	 * Get platformSuccessFee
+	 * @return platformSuccessFee
+  **/
+  @Schema(description = "")
+  public Double getPlatformSuccessFee() {
+    return platformSuccessFee;
+  }
+
+  public void setInvestorStatistic(InvestorFinancialStatistic investorStatistic) {
+    this.investorStatistic = investorStatistic;
+  }
+
+	/**
+	 * Get managerStatistic
+	 * @return managerStatistic
+  **/
+  @Schema(description = "")
+  public ManagerFinancialStatistic getManagerStatistic() {
+    return managerStatistic;
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(dateFrom, dateTo, periodLength, status, number, profit, profitPercent, balance, investors, managerDeposit, managerWithdraw, managerCommissionRebate, investorsDeposit, investorsWithdraw, investorsProfitWithdraw, platformSuccessFee, managerStatistic, investorStatistic);
+  }
+
+	/**
+	 * Get investorStatistic
+	 * @return investorStatistic
+  **/
   @Schema(description = "")
   public InvestorFinancialStatistic getInvestorStatistic() {
     return investorStatistic;
   }
 
-  public void setInvestorStatistic(InvestorFinancialStatistic investorStatistic) {
-    this.investorStatistic = investorStatistic;
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(java.lang.Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
   }
 
   @Override
@@ -470,29 +468,24 @@ public class ProgramPeriodViewModel implements Parcelable
       return false;
     }
     ProgramPeriodViewModel programPeriodViewModel = (ProgramPeriodViewModel) o;
-    return Objects.equals(this.dateFrom, programPeriodViewModel.dateFrom) &&
-            Objects.equals(this.dateTo, programPeriodViewModel.dateTo) &&
-            Objects.equals(this.periodLength, programPeriodViewModel.periodLength) &&
-            Objects.equals(this.status, programPeriodViewModel.status) &&
-            Objects.equals(this.number, programPeriodViewModel.number) &&
-            Objects.equals(this.profit, programPeriodViewModel.profit) &&
-            Objects.equals(this.profitPercent, programPeriodViewModel.profitPercent) &&
-            Objects.equals(this.balance, programPeriodViewModel.balance) &&
-            Objects.equals(this.investors, programPeriodViewModel.investors) &&
-            Objects.equals(this.managerDeposit, programPeriodViewModel.managerDeposit) &&
-            Objects.equals(this.managerWithdraw, programPeriodViewModel.managerWithdraw) &&
-            Objects.equals(this.managerCommissionRebate, programPeriodViewModel.managerCommissionRebate) &&
-            Objects.equals(this.investorsDeposit, programPeriodViewModel.investorsDeposit) &&
-            Objects.equals(this.investorsWithdraw, programPeriodViewModel.investorsWithdraw) &&
-            Objects.equals(this.investorsProfitWithdraw, programPeriodViewModel.investorsProfitWithdraw) &&
-            Objects.equals(this.platformSuccessFee, programPeriodViewModel.platformSuccessFee) &&
-            Objects.equals(this.managerStatistic, programPeriodViewModel.managerStatistic) &&
-            Objects.equals(this.investorStatistic, programPeriodViewModel.investorStatistic);
-  }
-
-  @Override
-  public int hashCode() {
-    return Objects.hash(dateFrom, dateTo, periodLength, status, number, profit, profitPercent, balance, investors, managerDeposit, managerWithdraw, managerCommissionRebate, investorsDeposit, investorsWithdraw, investorsProfitWithdraw, platformSuccessFee, managerStatistic, investorStatistic);
+	  return Objects.equals(this.dateFrom, programPeriodViewModel.dateFrom) &&
+			  Objects.equals(this.dateTo, programPeriodViewModel.dateTo) &&
+			  Objects.equals(this.periodLength, programPeriodViewModel.periodLength) &&
+			  Objects.equals(this.status, programPeriodViewModel.status) &&
+			  Objects.equals(this.number, programPeriodViewModel.number) &&
+			  Objects.equals(this.profit, programPeriodViewModel.profit) &&
+			  Objects.equals(this.profitPercent, programPeriodViewModel.profitPercent) &&
+			  Objects.equals(this.balance, programPeriodViewModel.balance) &&
+			  Objects.equals(this.investors, programPeriodViewModel.investors) &&
+			  Objects.equals(this.managerDeposit, programPeriodViewModel.managerDeposit) &&
+			  Objects.equals(this.managerWithdraw, programPeriodViewModel.managerWithdraw) &&
+			  Objects.equals(this.managerCommissionRebate, programPeriodViewModel.managerCommissionRebate) &&
+			  Objects.equals(this.investorsDeposit, programPeriodViewModel.investorsDeposit) &&
+			  Objects.equals(this.investorsWithdraw, programPeriodViewModel.investorsWithdraw) &&
+			  Objects.equals(this.investorsProfitWithdraw, programPeriodViewModel.investorsProfitWithdraw) &&
+			  Objects.equals(this.platformSuccessFee, programPeriodViewModel.platformSuccessFee) &&
+			  Objects.equals(this.managerStatistic, programPeriodViewModel.managerStatistic) &&
+			  Objects.equals(this.investorStatistic, programPeriodViewModel.investorStatistic);
   }
 
   @Override
@@ -522,39 +515,28 @@ public class ProgramPeriodViewModel implements Parcelable
     return sb.toString();
   }
 
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(java.lang.Object o) {
-    if (o == null) {
-      return "null";
-    }
-    return o.toString().replace("\n", "\n    ");
-  }
+	public void writeToParcel(Parcel out, int flags) {
+		out.writeValue(dateFrom);
+		out.writeValue(dateTo);
+		out.writeValue(periodLength);
+		out.writeValue(status);
+		out.writeValue(number);
+		out.writeValue(profit);
+		out.writeValue(profitPercent);
+		out.writeValue(balance);
+		out.writeValue(investors);
+		out.writeValue(managerDeposit);
+		out.writeValue(managerWithdraw);
+		out.writeValue(managerCommissionRebate);
+		out.writeValue(investorsDeposit);
+		out.writeValue(investorsWithdraw);
+		out.writeValue(investorsProfitWithdraw);
+		out.writeValue(platformSuccessFee);
+		out.writeValue(managerStatistic);
+		out.writeValue(investorStatistic);
+	}
 
-  public void writeToParcel(Parcel out, int flags) {
-    out.writeValue(dateFrom);
-    out.writeValue(dateTo);
-    out.writeValue(periodLength);
-    out.writeValue(status);
-    out.writeValue(number);
-    out.writeValue(profit);
-    out.writeValue(profitPercent);
-    out.writeValue(balance);
-    out.writeValue(investors);
-    out.writeValue(managerDeposit);
-    out.writeValue(managerWithdraw);
-    out.writeValue(managerCommissionRebate);
-    out.writeValue(investorsDeposit);
-    out.writeValue(investorsWithdraw);
-    out.writeValue(investorsProfitWithdraw);
-    out.writeValue(platformSuccessFee);
-    out.writeValue(managerStatistic);
-    out.writeValue(investorStatistic);
-  }
-
-  public int describeContents() {
-    return 0;
-  }
+	public int describeContents() {
+		return 0;
+	}
 }

@@ -28,17 +28,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class BinanceRawBinanceBalance implements Parcelable
 {
-	public static final Parcelable.Creator<BinanceRawBinanceBalance> CREATOR = new Parcelable.Creator<BinanceRawBinanceBalance>()
-	{
-		public BinanceRawBinanceBalance createFromParcel(Parcel in) {
-			return new BinanceRawBinanceBalance(in);
-		}
-
-		public BinanceRawBinanceBalance[] newArray(int size) {
-			return new BinanceRawBinanceBalance[size];
-		}
-	};
-
 	@SerializedName("asset")
 	private String asset = null;
 
@@ -55,14 +44,6 @@ public class BinanceRawBinanceBalance implements Parcelable
 	private Double amountInCurrency = null;
 
 	public BinanceRawBinanceBalance() {
-	}
-
-	BinanceRawBinanceBalance(Parcel in) {
-		asset = (String) in.readValue(null);
-		free = (Double) in.readValue(null);
-		locked = (Double) in.readValue(null);
-		total = (Double) in.readValue(null);
-		amountInCurrency = (Double) in.readValue(null);
 	}
 
 	public BinanceRawBinanceBalance asset(String asset) {
@@ -151,6 +132,7 @@ public class BinanceRawBinanceBalance implements Parcelable
 		this.amountInCurrency = amountInCurrency;
 	}
 
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -171,6 +153,7 @@ public class BinanceRawBinanceBalance implements Parcelable
 	public int hashCode() {
 		return Objects.hash(asset, free, locked, total, amountInCurrency);
 	}
+
 
 	@Override
 	public String toString() {
@@ -197,6 +180,7 @@ public class BinanceRawBinanceBalance implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
+
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(asset);
 		out.writeValue(free);
@@ -205,7 +189,26 @@ public class BinanceRawBinanceBalance implements Parcelable
 		out.writeValue(amountInCurrency);
 	}
 
+	public static final Parcelable.Creator<BinanceRawBinanceBalance> CREATOR = new Parcelable.Creator<BinanceRawBinanceBalance>()
+	{
+		public BinanceRawBinanceBalance createFromParcel(Parcel in) {
+			return new BinanceRawBinanceBalance(in);
+		}
+
+		public BinanceRawBinanceBalance[] newArray(int size) {
+			return new BinanceRawBinanceBalance[size];
+		}
+	};
+
 	public int describeContents() {
 		return 0;
+	}
+
+	BinanceRawBinanceBalance(Parcel in) {
+		asset = (String) in.readValue(null);
+		free = (Double) in.readValue(null);
+		locked = (Double) in.readValue(null);
+		total = (Double) in.readValue(null);
+		amountInCurrency = (Double) in.readValue(null);
 	}
 }

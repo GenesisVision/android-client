@@ -28,86 +28,86 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class TwoFactorAuthenticator implements Parcelable
 {
-  public static final Parcelable.Creator<TwoFactorAuthenticator> CREATOR = new Parcelable.Creator<TwoFactorAuthenticator>()
-  {
-    public TwoFactorAuthenticator createFromParcel(Parcel in) {
-      return new TwoFactorAuthenticator(in);
-    }
+	public static final Parcelable.Creator<TwoFactorAuthenticator> CREATOR = new Parcelable.Creator<TwoFactorAuthenticator>()
+	{
+		public TwoFactorAuthenticator createFromParcel(Parcel in) {
+			return new TwoFactorAuthenticator(in);
+		}
 
-    public TwoFactorAuthenticator[] newArray(int size) {
-      return new TwoFactorAuthenticator[size];
-    }
-  };
+		public TwoFactorAuthenticator[] newArray(int size) {
+			return new TwoFactorAuthenticator[size];
+		}
+	};
 
-  @SerializedName("sharedKey")
-  private String sharedKey = null;
+	@SerializedName("sharedKey")
+	private String sharedKey = null;
 
-  @SerializedName("authenticatorUri")
-  private String authenticatorUri = null;
+	@SerializedName("authenticatorUri")
+	private String authenticatorUri = null;
 
-  public TwoFactorAuthenticator() {
-  }
+	public TwoFactorAuthenticator() {
+	}
 
-  TwoFactorAuthenticator(Parcel in) {
-    sharedKey = (String) in.readValue(null);
-    authenticatorUri = (String) in.readValue(null);
-  }
+	TwoFactorAuthenticator(Parcel in) {
+		sharedKey = (String) in.readValue(null);
+		authenticatorUri = (String) in.readValue(null);
+	}
 
-  public TwoFactorAuthenticator sharedKey(String sharedKey) {
-    this.sharedKey = sharedKey;
-    return this;
-  }
+	public TwoFactorAuthenticator authenticatorUri(String authenticatorUri) {
+		this.authenticatorUri = authenticatorUri;
+		return this;
+	}
 
-  /**
-   * Get sharedKey
-   *
-   * @return sharedKey
-   **/
-  @Schema(description = "")
-  public String getSharedKey() {
-    return sharedKey;
-  }
+	public TwoFactorAuthenticator sharedKey(String sharedKey) {
+		this.sharedKey = sharedKey;
+		return this;
+	}
 
-  public void setSharedKey(String sharedKey) {
-    this.sharedKey = sharedKey;
-  }
+	/**
+	 * Get sharedKey
+	 *
+	 * @return sharedKey
+	 **/
+	@Schema(description = "")
+	public String getSharedKey() {
+		return sharedKey;
+	}
 
-  public TwoFactorAuthenticator authenticatorUri(String authenticatorUri) {
-    this.authenticatorUri = authenticatorUri;
-    return this;
-  }
+	public void setSharedKey(String sharedKey) {
+		this.sharedKey = sharedKey;
+	}
 
-  /**
-   * Get authenticatorUri
-   *
-   * @return authenticatorUri
-   **/
-  @Schema(description = "")
-  public String getAuthenticatorUri() {
-    return authenticatorUri;
-  }
+	@Override
+	public int hashCode() {
+		return Objects.hash(sharedKey, authenticatorUri);
+	}
 
-  public void setAuthenticatorUri(String authenticatorUri) {
-    this.authenticatorUri = authenticatorUri;
-  }
+	/**
+	 * Get authenticatorUri
+	 *
+	 * @return authenticatorUri
+	 **/
+	@Schema(description = "")
+	public String getAuthenticatorUri() {
+		return authenticatorUri;
+	}
 
-  @Override
-  public boolean equals(java.lang.Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-    TwoFactorAuthenticator twoFactorAuthenticator = (TwoFactorAuthenticator) o;
-    return Objects.equals(this.sharedKey, twoFactorAuthenticator.sharedKey) &&
-            Objects.equals(this.authenticatorUri, twoFactorAuthenticator.authenticatorUri);
-  }
+	public void setAuthenticatorUri(String authenticatorUri) {
+		this.authenticatorUri = authenticatorUri;
+	}
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(sharedKey, authenticatorUri);
-  }
+	@Override
+	public boolean equals(java.lang.Object o) {
+		if (this == o) {
+			return true;
+		}
+		if (o == null || getClass() != o.getClass()) {
+			return false;
+		}
+		TwoFactorAuthenticator twoFactorAuthenticator = (TwoFactorAuthenticator) o;
+		return Objects.equals(this.sharedKey, twoFactorAuthenticator.sharedKey) &&
+				Objects.equals(this.authenticatorUri, twoFactorAuthenticator.authenticatorUri);
+	}
 
   @Override
   public String toString() {
@@ -120,23 +120,23 @@ public class TwoFactorAuthenticator implements Parcelable
     return sb.toString();
   }
 
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(java.lang.Object o) {
-    if (o == null) {
-      return "null";
-    }
-    return o.toString().replace("\n", "\n    ");
-  }
+	/**
+	 * Convert the given object to string with each line indented by 4 spaces
+	 * (except the first line).
+	 */
+	private String toIndentedString(java.lang.Object o) {
+		if (o == null) {
+			return "null";
+		}
+		return o.toString().replace("\n", "\n    ");
+	}
 
-  public void writeToParcel(Parcel out, int flags) {
-    out.writeValue(sharedKey);
-    out.writeValue(authenticatorUri);
-  }
+	public void writeToParcel(Parcel out, int flags) {
+		out.writeValue(sharedKey);
+		out.writeValue(authenticatorUri);
+	}
 
-  public int describeContents() {
-    return 0;
-  }
+	public int describeContents() {
+		return 0;
+	}
 }

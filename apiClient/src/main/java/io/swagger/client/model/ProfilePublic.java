@@ -33,17 +33,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class ProfilePublic implements Parcelable
 {
-	public static final Parcelable.Creator<ProfilePublic> CREATOR = new Parcelable.Creator<ProfilePublic>()
-	{
-		public ProfilePublic createFromParcel(Parcel in) {
-			return new ProfilePublic(in);
-		}
-
-		public ProfilePublic[] newArray(int size) {
-			return new ProfilePublic[size];
-		}
-	};
-
 	@SerializedName("id")
 	private UUID id = null;
 
@@ -63,15 +52,6 @@ public class ProfilePublic implements Parcelable
 	private List<SocialLinkViewModel> socialLinks = null;
 
 	public ProfilePublic() {
-	}
-
-	ProfilePublic(Parcel in) {
-		id = (UUID) in.readValue(UUID.class.getClassLoader());
-		username = (String) in.readValue(null);
-		logoUrl = (String) in.readValue(null);
-		registrationDate = (DateTime) in.readValue(DateTime.class.getClassLoader());
-		url = (String) in.readValue(null);
-		socialLinks = (List<SocialLinkViewModel>) in.readValue(SocialLinkViewModel.class.getClassLoader());
 	}
 
 	public ProfilePublic id(UUID id) {
@@ -196,6 +176,7 @@ public class ProfilePublic implements Parcelable
 		this.socialLinks = socialLinks;
 	}
 
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -217,6 +198,7 @@ public class ProfilePublic implements Parcelable
 	public int hashCode() {
 		return Objects.hash(id, username, logoUrl, registrationDate, url, socialLinks);
 	}
+
 
 	@Override
 	public String toString() {
@@ -244,6 +226,7 @@ public class ProfilePublic implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
+
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(id);
 		out.writeValue(username);
@@ -253,7 +236,27 @@ public class ProfilePublic implements Parcelable
 		out.writeValue(socialLinks);
 	}
 
+	public static final Parcelable.Creator<ProfilePublic> CREATOR = new Parcelable.Creator<ProfilePublic>()
+	{
+		public ProfilePublic createFromParcel(Parcel in) {
+			return new ProfilePublic(in);
+		}
+
+		public ProfilePublic[] newArray(int size) {
+			return new ProfilePublic[size];
+		}
+	};
+
 	public int describeContents() {
 		return 0;
+	}
+
+	ProfilePublic(Parcel in) {
+		id = (UUID) in.readValue(UUID.class.getClassLoader());
+		username = (String) in.readValue(null);
+		logoUrl = (String) in.readValue(null);
+		registrationDate = (DateTime) in.readValue(DateTime.class.getClassLoader());
+		url = (String) in.readValue(null);
+		socialLinks = (List<SocialLinkViewModel>) in.readValue(SocialLinkViewModel.class.getClassLoader());
 	}
 }

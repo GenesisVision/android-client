@@ -31,17 +31,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class ProgramFollowDetailsFull implements Parcelable
 {
-  public static final Parcelable.Creator<ProgramFollowDetailsFull> CREATOR = new Parcelable.Creator<ProgramFollowDetailsFull>()
-  {
-    public ProgramFollowDetailsFull createFromParcel(Parcel in) {
-      return new ProgramFollowDetailsFull(in);
-    }
-
-    public ProgramFollowDetailsFull[] newArray(int size) {
-      return new ProgramFollowDetailsFull[size];
-    }
-  };
-
   @SerializedName("id")
   private UUID id = null;
 
@@ -71,19 +60,6 @@ public class ProgramFollowDetailsFull implements Parcelable
 
   public ProgramFollowDetailsFull() {
   }
-
-  ProgramFollowDetailsFull(Parcel in) {
-    id = (UUID) in.readValue(UUID.class.getClassLoader());
-    publicInfo = (AssetPublicDetails) in.readValue(AssetPublicDetails.class.getClassLoader());
-    tradingAccountInfo = (ProgramFollowDetailsFullTradingAccountDetails) in.readValue(ProgramFollowDetailsFullTradingAccountDetails.class.getClassLoader());
-    owner = (ProfilePublic) in.readValue(ProfilePublic.class.getClassLoader());
-    brokerDetails = (BrokerDetails) in.readValue(BrokerDetails.class.getClassLoader());
-    tags = (List<Tag>) in.readValue(Tag.class.getClassLoader());
-    programDetails = (ProgramDetailsFull) in.readValue(ProgramDetailsFull.class.getClassLoader());
-    followDetails = (FollowDetailsFull) in.readValue(FollowDetailsFull.class.getClassLoader());
-    ownerActions = (ProgramFollowOwnerActions) in.readValue(ProgramFollowOwnerActions.class.getClassLoader());
-  }
-
   public ProgramFollowDetailsFull id(UUID id) {
     this.id = id;
     return this;
@@ -108,15 +84,16 @@ public class ProgramFollowDetailsFull implements Parcelable
     return this;
   }
 
-  /**
-   * Get publicInfo
-   *
-   * @return publicInfo
-   **/
-  @Schema(description = "")
-  public AssetPublicDetails getPublicInfo() {
-    return publicInfo;
-  }
+  public static final Parcelable.Creator<ProgramFollowDetailsFull> CREATOR = new Parcelable.Creator<ProgramFollowDetailsFull>()
+  {
+    public ProgramFollowDetailsFull createFromParcel(Parcel in) {
+      return new ProgramFollowDetailsFull(in);
+    }
+
+    public ProgramFollowDetailsFull[] newArray(int size) {
+      return new ProgramFollowDetailsFull[size];
+    }
+  };
 
   public void setPublicInfo(AssetPublicDetails publicInfo) {
     this.publicInfo = publicInfo;
@@ -127,14 +104,16 @@ public class ProgramFollowDetailsFull implements Parcelable
     return this;
   }
 
-  /**
-   * Get tradingAccountInfo
-   *
-   * @return tradingAccountInfo
-   **/
-  @Schema(description = "")
-  public ProgramFollowDetailsFullTradingAccountDetails getTradingAccountInfo() {
-    return tradingAccountInfo;
+  ProgramFollowDetailsFull(Parcel in) {
+    id = (UUID) in.readValue(UUID.class.getClassLoader());
+    publicInfo = (AssetPublicDetails) in.readValue(AssetPublicDetails.class.getClassLoader());
+    tradingAccountInfo = (ProgramFollowDetailsFullTradingAccountDetails) in.readValue(ProgramFollowDetailsFullTradingAccountDetails.class.getClassLoader());
+    owner = (ProfilePublic) in.readValue(ProfilePublic.class.getClassLoader());
+    brokerDetails = (BrokerDetails) in.readValue(BrokerDetails.class.getClassLoader());
+    tags = (List<Tag>) in.readValue(Tag.class.getClassLoader());
+    programDetails = (ProgramDetailsFull) in.readValue(ProgramDetailsFull.class.getClassLoader());
+    followDetails = (FollowDetailsFull) in.readValue(FollowDetailsFull.class.getClassLoader());
+    ownerActions = (ProgramFollowOwnerActions) in.readValue(ProgramFollowOwnerActions.class.getClassLoader());
   }
 
   public void setTradingAccountInfo(ProgramFollowDetailsFullTradingAccountDetails tradingAccountInfo) {
@@ -147,13 +126,13 @@ public class ProgramFollowDetailsFull implements Parcelable
   }
 
   /**
-   * Get owner
+   * Get publicInfo
    *
-   * @return owner
+   * @return publicInfo
    **/
   @Schema(description = "")
-  public ProfilePublic getOwner() {
-    return owner;
+  public AssetPublicDetails getPublicInfo() {
+    return publicInfo;
   }
 
   public void setOwner(ProfilePublic owner) {
@@ -166,13 +145,13 @@ public class ProgramFollowDetailsFull implements Parcelable
   }
 
   /**
-   * Get brokerDetails
+   * Get tradingAccountInfo
    *
-   * @return brokerDetails
+   * @return tradingAccountInfo
    **/
   @Schema(description = "")
-  public BrokerDetails getBrokerDetails() {
-    return brokerDetails;
+  public ProgramFollowDetailsFullTradingAccountDetails getTradingAccountInfo() {
+    return tradingAccountInfo;
   }
 
   public void setBrokerDetails(BrokerDetails brokerDetails) {
@@ -193,6 +172,44 @@ public class ProgramFollowDetailsFull implements Parcelable
   }
 
   /**
+   * Get owner
+   *
+   * @return owner
+   **/
+  @Schema(description = "")
+  public ProfilePublic getOwner() {
+    return owner;
+  }
+
+  public void setTags(List<Tag> tags) {
+    this.tags = tags;
+  }
+
+  public ProgramFollowDetailsFull programDetails(ProgramDetailsFull programDetails) {
+    this.programDetails = programDetails;
+    return this;
+  }
+
+  /**
+   * Get brokerDetails
+   *
+   * @return brokerDetails
+   **/
+  @Schema(description = "")
+  public BrokerDetails getBrokerDetails() {
+    return brokerDetails;
+  }
+
+  public void setProgramDetails(ProgramDetailsFull programDetails) {
+    this.programDetails = programDetails;
+  }
+
+  public ProgramFollowDetailsFull followDetails(FollowDetailsFull followDetails) {
+    this.followDetails = followDetails;
+    return this;
+  }
+
+  /**
    * Get tags
    *
    * @return tags
@@ -202,12 +219,12 @@ public class ProgramFollowDetailsFull implements Parcelable
     return tags;
   }
 
-  public void setTags(List<Tag> tags) {
-    this.tags = tags;
+  public void setFollowDetails(FollowDetailsFull followDetails) {
+    this.followDetails = followDetails;
   }
 
-  public ProgramFollowDetailsFull programDetails(ProgramDetailsFull programDetails) {
-    this.programDetails = programDetails;
+  public ProgramFollowDetailsFull ownerActions(ProgramFollowOwnerActions ownerActions) {
+    this.ownerActions = ownerActions;
     return this;
   }
 
@@ -221,47 +238,10 @@ public class ProgramFollowDetailsFull implements Parcelable
     return programDetails;
   }
 
-  public void setProgramDetails(ProgramDetailsFull programDetails) {
-    this.programDetails = programDetails;
-  }
-
-  public ProgramFollowDetailsFull followDetails(FollowDetailsFull followDetails) {
-    this.followDetails = followDetails;
-    return this;
-  }
-
-  /**
-   * Get followDetails
-   *
-   * @return followDetails
-   **/
-  @Schema(description = "")
-  public FollowDetailsFull getFollowDetails() {
-    return followDetails;
-  }
-
-  public void setFollowDetails(FollowDetailsFull followDetails) {
-    this.followDetails = followDetails;
-  }
-
-  public ProgramFollowDetailsFull ownerActions(ProgramFollowOwnerActions ownerActions) {
-    this.ownerActions = ownerActions;
-    return this;
-  }
-
-  /**
-   * Get ownerActions
-   *
-   * @return ownerActions
-   **/
-  @Schema(description = "")
-  public ProgramFollowOwnerActions getOwnerActions() {
-    return ownerActions;
-  }
-
   public void setOwnerActions(ProgramFollowOwnerActions ownerActions) {
     this.ownerActions = ownerActions;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -288,6 +268,54 @@ public class ProgramFollowDetailsFull implements Parcelable
     return Objects.hash(id, publicInfo, tradingAccountInfo, owner, brokerDetails, tags, programDetails, followDetails, ownerActions);
   }
 
+  /**
+   * Get followDetails
+   *
+   * @return followDetails
+   **/
+  @Schema(description = "")
+  public FollowDetailsFull getFollowDetails() {
+    return followDetails;
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(java.lang.Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+
+  public void writeToParcel(Parcel out, int flags) {
+    out.writeValue(id);
+    out.writeValue(publicInfo);
+    out.writeValue(tradingAccountInfo);
+    out.writeValue(owner);
+    out.writeValue(brokerDetails);
+    out.writeValue(tags);
+    out.writeValue(programDetails);
+    out.writeValue(followDetails);
+    out.writeValue(ownerActions);
+  }
+
+  /**
+   * Get ownerActions
+   *
+   * @return ownerActions
+   **/
+  @Schema(description = "")
+  public ProgramFollowOwnerActions getOwnerActions() {
+    return ownerActions;
+  }
+
+  public int describeContents() {
+    return 0;
+  }
+
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
@@ -304,32 +332,5 @@ public class ProgramFollowDetailsFull implements Parcelable
     sb.append("    ownerActions: ").append(toIndentedString(ownerActions)).append("\n");
     sb.append("}");
     return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(java.lang.Object o) {
-    if (o == null) {
-      return "null";
-    }
-    return o.toString().replace("\n", "\n    ");
-  }
-
-  public void writeToParcel(Parcel out, int flags) {
-    out.writeValue(id);
-    out.writeValue(publicInfo);
-    out.writeValue(tradingAccountInfo);
-    out.writeValue(owner);
-    out.writeValue(brokerDetails);
-    out.writeValue(tags);
-    out.writeValue(programDetails);
-    out.writeValue(followDetails);
-    out.writeValue(ownerActions);
-  }
-
-  public int describeContents() {
-    return 0;
   }
 }

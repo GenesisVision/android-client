@@ -28,17 +28,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class AssetGuestActions implements Parcelable
 {
-	public static final Parcelable.Creator<AssetGuestActions> CREATOR = new Parcelable.Creator<AssetGuestActions>()
-	{
-		public AssetGuestActions createFromParcel(Parcel in) {
-			return new AssetGuestActions(in);
-		}
-
-		public AssetGuestActions[] newArray(int size) {
-			return new AssetGuestActions[size];
-		}
-	};
-
 	@SerializedName("canSubscribeToInternalSignal")
 	private Boolean canSubscribeToInternalSignal = null;
 
@@ -49,12 +38,6 @@ public class AssetGuestActions implements Parcelable
 	private Boolean canSubscribeToExternalSignalCommonAccount = null;
 
 	public AssetGuestActions() {
-	}
-
-	AssetGuestActions(Parcel in) {
-		canSubscribeToInternalSignal = (Boolean) in.readValue(null);
-		canSubscribeToExternalSignalPrivateAccount = (Boolean) in.readValue(null);
-		canSubscribeToExternalSignalCommonAccount = (Boolean) in.readValue(null);
 	}
 
 	public AssetGuestActions canSubscribeToInternalSignal(Boolean canSubscribeToInternalSignal) {
@@ -114,6 +97,7 @@ public class AssetGuestActions implements Parcelable
 		this.canSubscribeToExternalSignalCommonAccount = canSubscribeToExternalSignalCommonAccount;
 	}
 
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -132,6 +116,7 @@ public class AssetGuestActions implements Parcelable
 	public int hashCode() {
 		return Objects.hash(canSubscribeToInternalSignal, canSubscribeToExternalSignalPrivateAccount, canSubscribeToExternalSignalCommonAccount);
 	}
+
 
 	@Override
 	public String toString() {
@@ -156,13 +141,31 @@ public class AssetGuestActions implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
+
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(canSubscribeToInternalSignal);
 		out.writeValue(canSubscribeToExternalSignalPrivateAccount);
 		out.writeValue(canSubscribeToExternalSignalCommonAccount);
 	}
 
+	public static final Parcelable.Creator<AssetGuestActions> CREATOR = new Parcelable.Creator<AssetGuestActions>()
+	{
+		public AssetGuestActions createFromParcel(Parcel in) {
+			return new AssetGuestActions(in);
+		}
+
+		public AssetGuestActions[] newArray(int size) {
+			return new AssetGuestActions[size];
+		}
+	};
+
 	public int describeContents() {
 		return 0;
+	}
+
+	AssetGuestActions(Parcel in) {
+		canSubscribeToInternalSignal = (Boolean) in.readValue(null);
+		canSubscribeToExternalSignalPrivateAccount = (Boolean) in.readValue(null);
+		canSubscribeToExternalSignalCommonAccount = (Boolean) in.readValue(null);
 	}
 }

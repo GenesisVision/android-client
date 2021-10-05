@@ -10,3 +10,4 @@ Name | Type | Description | Notes
 **currency** | [**Currency**](Currency.md) |  |  [optional]
 **permissions** | [**List&lt;TradingAccountPermission&gt;**](TradingAccountPermission.md) |  |  [optional]
 **asset** | [**AssetDetails**](AssetDetails.md) |  |  [optional]
+**status** | [**DashboardTradingAssetStatus**](DashboardTradingAssetStatus.md) |  |  [optional]

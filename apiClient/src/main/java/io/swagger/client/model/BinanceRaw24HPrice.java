@@ -30,17 +30,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class BinanceRaw24HPrice implements Parcelable
 {
-	public static final Parcelable.Creator<BinanceRaw24HPrice> CREATOR = new Parcelable.Creator<BinanceRaw24HPrice>()
-	{
-		public BinanceRaw24HPrice createFromParcel(Parcel in) {
-			return new BinanceRaw24HPrice(in);
-		}
-
-		public BinanceRaw24HPrice[] newArray(int size) {
-			return new BinanceRaw24HPrice[size];
-		}
-	};
-
 	@SerializedName("symbol")
 	private String symbol = null;
 
@@ -105,30 +94,6 @@ public class BinanceRaw24HPrice implements Parcelable
 	private Double askQuantity = null;
 
 	public BinanceRaw24HPrice() {
-	}
-
-	BinanceRaw24HPrice(Parcel in) {
-		symbol = (String) in.readValue(null);
-		priceChange = (Double) in.readValue(null);
-		priceChangePercent = (Double) in.readValue(null);
-		weightedAveragePrice = (Double) in.readValue(null);
-		lastPrice = (Double) in.readValue(null);
-		lastQuantity = (Double) in.readValue(null);
-		openPrice = (Double) in.readValue(null);
-		highPrice = (Double) in.readValue(null);
-		lowPrice = (Double) in.readValue(null);
-		baseVolume = (Double) in.readValue(null);
-		quoteVolume = (Double) in.readValue(null);
-		openTime = (DateTime) in.readValue(DateTime.class.getClassLoader());
-		closeTime = (DateTime) in.readValue(DateTime.class.getClassLoader());
-		firstTradeId = (Long) in.readValue(null);
-		lastTradeId = (Long) in.readValue(null);
-		totalTrades = (Long) in.readValue(null);
-		prevDayClosePrice = (Double) in.readValue(null);
-		bidPrice = (Double) in.readValue(null);
-		bidQuantity = (Double) in.readValue(null);
-		askPrice = (Double) in.readValue(null);
-		askQuantity = (Double) in.readValue(null);
 	}
 
 	public BinanceRaw24HPrice symbol(String symbol) {
@@ -530,6 +495,7 @@ public class BinanceRaw24HPrice implements Parcelable
 		this.askQuantity = askQuantity;
 	}
 
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -566,6 +532,7 @@ public class BinanceRaw24HPrice implements Parcelable
 	public int hashCode() {
 		return Objects.hash(symbol, priceChange, priceChangePercent, weightedAveragePrice, lastPrice, lastQuantity, openPrice, highPrice, lowPrice, baseVolume, quoteVolume, openTime, closeTime, firstTradeId, lastTradeId, totalTrades, prevDayClosePrice, bidPrice, bidQuantity, askPrice, askQuantity);
 	}
+
 
 	@Override
 	public String toString() {
@@ -608,6 +575,7 @@ public class BinanceRaw24HPrice implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
+
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(symbol);
 		out.writeValue(priceChange);
@@ -632,7 +600,42 @@ public class BinanceRaw24HPrice implements Parcelable
 		out.writeValue(askQuantity);
 	}
 
+	public static final Parcelable.Creator<BinanceRaw24HPrice> CREATOR = new Parcelable.Creator<BinanceRaw24HPrice>()
+	{
+		public BinanceRaw24HPrice createFromParcel(Parcel in) {
+			return new BinanceRaw24HPrice(in);
+		}
+
+		public BinanceRaw24HPrice[] newArray(int size) {
+			return new BinanceRaw24HPrice[size];
+		}
+	};
+
 	public int describeContents() {
 		return 0;
+	}
+
+	BinanceRaw24HPrice(Parcel in) {
+		symbol = (String) in.readValue(null);
+		priceChange = (Double) in.readValue(null);
+		priceChangePercent = (Double) in.readValue(null);
+		weightedAveragePrice = (Double) in.readValue(null);
+		lastPrice = (Double) in.readValue(null);
+		lastQuantity = (Double) in.readValue(null);
+		openPrice = (Double) in.readValue(null);
+		highPrice = (Double) in.readValue(null);
+		lowPrice = (Double) in.readValue(null);
+		baseVolume = (Double) in.readValue(null);
+		quoteVolume = (Double) in.readValue(null);
+		openTime = (DateTime) in.readValue(DateTime.class.getClassLoader());
+		closeTime = (DateTime) in.readValue(DateTime.class.getClassLoader());
+		firstTradeId = (Long) in.readValue(null);
+		lastTradeId = (Long) in.readValue(null);
+		totalTrades = (Long) in.readValue(null);
+		prevDayClosePrice = (Double) in.readValue(null);
+		bidPrice = (Double) in.readValue(null);
+		bidQuantity = (Double) in.readValue(null);
+		askPrice = (Double) in.readValue(null);
+		askQuantity = (Double) in.readValue(null);
 	}
 }

@@ -30,17 +30,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class BinanceRawAggregatedTrade implements Parcelable
 {
-	public static final Parcelable.Creator<BinanceRawAggregatedTrade> CREATOR = new Parcelable.Creator<BinanceRawAggregatedTrade>()
-	{
-		public BinanceRawAggregatedTrade createFromParcel(Parcel in) {
-			return new BinanceRawAggregatedTrade(in);
-		}
-
-		public BinanceRawAggregatedTrade[] newArray(int size) {
-			return new BinanceRawAggregatedTrade[size];
-		}
-	};
-
 	@SerializedName("aggregateTradeId")
 	private Long aggregateTradeId = null;
 
@@ -66,17 +55,6 @@ public class BinanceRawAggregatedTrade implements Parcelable
 	private Boolean wasBestPriceMatch = null;
 
 	public BinanceRawAggregatedTrade() {
-	}
-
-	BinanceRawAggregatedTrade(Parcel in) {
-		aggregateTradeId = (Long) in.readValue(null);
-		price = (Double) in.readValue(null);
-		quantity = (Double) in.readValue(null);
-		firstTradeId = (Long) in.readValue(null);
-		lastTradeId = (Long) in.readValue(null);
-		tradeTime = (DateTime) in.readValue(DateTime.class.getClassLoader());
-		buyerIsMaker = (Boolean) in.readValue(null);
-		wasBestPriceMatch = (Boolean) in.readValue(null);
 	}
 
 	public BinanceRawAggregatedTrade aggregateTradeId(Long aggregateTradeId) {
@@ -231,6 +209,7 @@ public class BinanceRawAggregatedTrade implements Parcelable
 		this.wasBestPriceMatch = wasBestPriceMatch;
 	}
 
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -254,6 +233,7 @@ public class BinanceRawAggregatedTrade implements Parcelable
 	public int hashCode() {
 		return Objects.hash(aggregateTradeId, price, quantity, firstTradeId, lastTradeId, tradeTime, buyerIsMaker, wasBestPriceMatch);
 	}
+
 
 	@Override
 	public String toString() {
@@ -283,6 +263,7 @@ public class BinanceRawAggregatedTrade implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
+
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(aggregateTradeId);
 		out.writeValue(price);
@@ -294,7 +275,29 @@ public class BinanceRawAggregatedTrade implements Parcelable
 		out.writeValue(wasBestPriceMatch);
 	}
 
+	public static final Parcelable.Creator<BinanceRawAggregatedTrade> CREATOR = new Parcelable.Creator<BinanceRawAggregatedTrade>()
+	{
+		public BinanceRawAggregatedTrade createFromParcel(Parcel in) {
+			return new BinanceRawAggregatedTrade(in);
+		}
+
+		public BinanceRawAggregatedTrade[] newArray(int size) {
+			return new BinanceRawAggregatedTrade[size];
+		}
+	};
+
 	public int describeContents() {
 		return 0;
+	}
+
+	BinanceRawAggregatedTrade(Parcel in) {
+		aggregateTradeId = (Long) in.readValue(null);
+		price = (Double) in.readValue(null);
+		quantity = (Double) in.readValue(null);
+		firstTradeId = (Long) in.readValue(null);
+		lastTradeId = (Long) in.readValue(null);
+		tradeTime = (DateTime) in.readValue(DateTime.class.getClassLoader());
+		buyerIsMaker = (Boolean) in.readValue(null);
+		wasBestPriceMatch = (Boolean) in.readValue(null);
 	}
 }

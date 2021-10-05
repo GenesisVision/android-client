@@ -28,45 +28,30 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class PlatformUrlInfo implements Parcelable
 {
-  public static final Parcelable.Creator<PlatformUrlInfo> CREATOR = new Parcelable.Creator<PlatformUrlInfo>()
-  {
-    public PlatformUrlInfo createFromParcel(Parcel in) {
-      return new PlatformUrlInfo(in);
-    }
+	public static final Parcelable.Creator<PlatformUrlInfo> CREATOR = new Parcelable.Creator<PlatformUrlInfo>()
+	{
+		public PlatformUrlInfo createFromParcel(Parcel in) {
+			return new PlatformUrlInfo(in);
+		}
 
-    public PlatformUrlInfo[] newArray(int size) {
-      return new PlatformUrlInfo[size];
-    }
-  };
+		public PlatformUrlInfo[] newArray(int size) {
+			return new PlatformUrlInfo[size];
+		}
+	};
 
-  @SerializedName("type")
-  private PlatformUrlType type = null;
+	@SerializedName("type")
+	private PlatformUrlType type = null;
 
-  @SerializedName("url")
-  private String url = null;
+	@SerializedName("url")
+	private String url = null;
 
-  public PlatformUrlInfo() {
-  }
+	public PlatformUrlInfo() {
+	}
 
-  PlatformUrlInfo(Parcel in) {
-    type = (PlatformUrlType) in.readValue(PlatformUrlType.class.getClassLoader());
-    url = (String) in.readValue(null);
-  }
-
-  public PlatformUrlInfo type(PlatformUrlType type) {
-    this.type = type;
-    return this;
-  }
-
-  /**
-   * Get type
-   *
-   * @return type
-   **/
-  @Schema(description = "")
-  public PlatformUrlType getType() {
-    return type;
-  }
+	PlatformUrlInfo(Parcel in) {
+		type = (PlatformUrlType) in.readValue(PlatformUrlType.class.getClassLoader());
+		url = (String) in.readValue(null);
+	}
 
   public void setType(PlatformUrlType type) {
     this.type = type;
@@ -77,18 +62,37 @@ public class PlatformUrlInfo implements Parcelable
     return this;
   }
 
-  /**
-   * Get url
-   *
-   * @return url
-   **/
-  @Schema(description = "")
-  public String getUrl() {
-    return url;
+	public PlatformUrlInfo type(PlatformUrlType type) {
+		this.type = type;
+    return this;
   }
 
   public void setUrl(String url) {
     this.url = url;
+  }
+
+	/**
+	 * Get type
+	 *
+	 * @return type
+	 **/
+  @Schema(description = "")
+  public PlatformUrlType getType() {
+    return type;
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(type, url);
+  }
+
+	/**
+	 * Get url
+	 * @return url
+  **/
+  @Schema(description = "")
+  public String getUrl() {
+    return url;
   }
 
   @Override
@@ -100,13 +104,8 @@ public class PlatformUrlInfo implements Parcelable
       return false;
     }
     PlatformUrlInfo platformUrlInfo = (PlatformUrlInfo) o;
-    return Objects.equals(this.type, platformUrlInfo.type) &&
-            Objects.equals(this.url, platformUrlInfo.url);
-  }
-
-  @Override
-  public int hashCode() {
-    return Objects.hash(type, url);
+	  return Objects.equals(this.type, platformUrlInfo.type) &&
+			  Objects.equals(this.url, platformUrlInfo.url);
   }
 
   @Override
@@ -128,15 +127,15 @@ public class PlatformUrlInfo implements Parcelable
     if (o == null) {
       return "null";
     }
-    return o.toString().replace("\n", "\n    ");
+	  return o.toString().replace("\n", "\n    ");
   }
 
-  public void writeToParcel(Parcel out, int flags) {
-    out.writeValue(type);
-    out.writeValue(url);
-  }
+	public void writeToParcel(Parcel out, int flags) {
+		out.writeValue(type);
+		out.writeValue(url);
+	}
 
-  public int describeContents() {
-    return 0;
-  }
+	public int describeContents() {
+		return 0;
+	}
 }

@@ -30,149 +30,149 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class AccountBalanceChart implements Parcelable
 {
-	public static final Parcelable.Creator<AccountBalanceChart> CREATOR = new Parcelable.Creator<AccountBalanceChart>()
-	{
-		public AccountBalanceChart createFromParcel(Parcel in) {
-			return new AccountBalanceChart(in);
-		}
+  public static final Parcelable.Creator<AccountBalanceChart> CREATOR = new Parcelable.Creator<AccountBalanceChart>()
+  {
+    public AccountBalanceChart createFromParcel(Parcel in) {
+      return new AccountBalanceChart(in);
+    }
 
-		public AccountBalanceChart[] newArray(int size) {
-			return new AccountBalanceChart[size];
-		}
-	};
+    public AccountBalanceChart[] newArray(int size) {
+      return new AccountBalanceChart[size];
+    }
+  };
 
-	@SerializedName("balance")
-	private Double balance = null;
+  @SerializedName("balance")
+  private Double balance = null;
 
-	@SerializedName("color")
-	private String color = null;
+  @SerializedName("color")
+  private String color = null;
 
-	@SerializedName("chart")
-	private List<SimpleChartPoint> chart = null;
+  @SerializedName("chart")
+  private List<SimpleChartPoint> chart = null;
 
-	public AccountBalanceChart() {
-	}
+  public AccountBalanceChart() {
+  }
 
-	AccountBalanceChart(Parcel in) {
-		balance = (Double) in.readValue(null);
-		color = (String) in.readValue(null);
-		chart = (List<SimpleChartPoint>) in.readValue(SimpleChartPoint.class.getClassLoader());
-	}
+  AccountBalanceChart(Parcel in) {
+    balance = (Double) in.readValue(null);
+    color = (String) in.readValue(null);
+    chart = (List<SimpleChartPoint>) in.readValue(SimpleChartPoint.class.getClassLoader());
+  }
 
-	public AccountBalanceChart balance(Double balance) {
-		this.balance = balance;
-		return this;
-	}
+  public AccountBalanceChart balance(Double balance) {
+    this.balance = balance;
+    return this;
+  }
 
-	/**
-	 * Get balance
-	 *
-	 * @return balance
-	 **/
-	@Schema(description = "")
-	public Double getBalance() {
-		return balance;
-	}
+  /**
+   * Get balance
+   *
+   * @return balance
+   **/
+  @Schema(description = "")
+  public Double getBalance() {
+    return balance;
+  }
 
-	public void setBalance(Double balance) {
-		this.balance = balance;
-	}
+  public void setBalance(Double balance) {
+    this.balance = balance;
+  }
 
-	public AccountBalanceChart color(String color) {
-		this.color = color;
-		return this;
-	}
+  public AccountBalanceChart color(String color) {
+    this.color = color;
+    return this;
+  }
 
-	/**
-	 * Get color
-	 *
-	 * @return color
-	 **/
-	@Schema(description = "")
-	public String getColor() {
-		return color;
-	}
+  /**
+   * Get color
+   *
+   * @return color
+   **/
+  @Schema(description = "")
+  public String getColor() {
+    return color;
+  }
 
-	public void setColor(String color) {
-		this.color = color;
-	}
+  public void setColor(String color) {
+    this.color = color;
+  }
 
-	public AccountBalanceChart chart(List<SimpleChartPoint> chart) {
-		this.chart = chart;
-		return this;
-	}
+  public AccountBalanceChart chart(List<SimpleChartPoint> chart) {
+    this.chart = chart;
+    return this;
+  }
 
-	public AccountBalanceChart addChartItem(SimpleChartPoint chartItem) {
-		if (this.chart == null) {
-			this.chart = new ArrayList<SimpleChartPoint>();
-		}
-		this.chart.add(chartItem);
-		return this;
-	}
+  public AccountBalanceChart addChartItem(SimpleChartPoint chartItem) {
+    if (this.chart == null) {
+      this.chart = new ArrayList<SimpleChartPoint>();
+    }
+    this.chart.add(chartItem);
+    return this;
+  }
 
-	/**
-	 * Get chart
-	 *
-	 * @return chart
-	 **/
-	@Schema(description = "")
-	public List<SimpleChartPoint> getChart() {
-		return chart;
-	}
+  /**
+   * Get chart
+   *
+   * @return chart
+   **/
+  @Schema(description = "")
+  public List<SimpleChartPoint> getChart() {
+    return chart;
+  }
 
-	public void setChart(List<SimpleChartPoint> chart) {
-		this.chart = chart;
-	}
+  public void setChart(List<SimpleChartPoint> chart) {
+    this.chart = chart;
+  }
 
-	@Override
-	public boolean equals(java.lang.Object o) {
-		if (this == o) {
-			return true;
-		}
-		if (o == null || getClass() != o.getClass()) {
-			return false;
-		}
-		AccountBalanceChart accountBalanceChart = (AccountBalanceChart) o;
-		return Objects.equals(this.balance, accountBalanceChart.balance) &&
-				Objects.equals(this.color, accountBalanceChart.color) &&
-				Objects.equals(this.chart, accountBalanceChart.chart);
-	}
+  @Override
+  public boolean equals(java.lang.Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    AccountBalanceChart accountBalanceChart = (AccountBalanceChart) o;
+    return Objects.equals(this.balance, accountBalanceChart.balance) &&
+            Objects.equals(this.color, accountBalanceChart.color) &&
+            Objects.equals(this.chart, accountBalanceChart.chart);
+  }
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(balance, color, chart);
-	}
+  @Override
+  public int hashCode() {
+    return Objects.hash(balance, color, chart);
+  }
 
-	@Override
-	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		sb.append("class AccountBalanceChart {\n");
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class AccountBalanceChart {\n");
 
-		sb.append("    balance: ").append(toIndentedString(balance)).append("\n");
-		sb.append("    color: ").append(toIndentedString(color)).append("\n");
-		sb.append("    chart: ").append(toIndentedString(chart)).append("\n");
-		sb.append("}");
-		return sb.toString();
-	}
+    sb.append("    balance: ").append(toIndentedString(balance)).append("\n");
+    sb.append("    color: ").append(toIndentedString(color)).append("\n");
+    sb.append("    chart: ").append(toIndentedString(chart)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
 
-	/**
-	 * Convert the given object to string with each line indented by 4 spaces
-	 * (except the first line).
-	 */
-	private String toIndentedString(java.lang.Object o) {
-		if (o == null) {
-			return "null";
-		}
-		return o.toString().replace("\n", "\n    ");
-	}
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(java.lang.Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
 
-	public void writeToParcel(Parcel out, int flags) {
-		out.writeValue(balance);
-		out.writeValue(color);
-		out.writeValue(chart);
-	}
+  public void writeToParcel(Parcel out, int flags) {
+    out.writeValue(balance);
+    out.writeValue(color);
+    out.writeValue(chart);
+  }
 
-	public int describeContents() {
-		return 0;
-	}
+  public int describeContents() {
+    return 0;
+  }
 }

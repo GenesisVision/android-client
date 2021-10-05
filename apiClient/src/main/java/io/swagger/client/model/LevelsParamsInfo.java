@@ -28,17 +28,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class LevelsParamsInfo implements Parcelable
 {
-	public static final Parcelable.Creator<LevelsParamsInfo> CREATOR = new Parcelable.Creator<LevelsParamsInfo>()
-	{
-		public LevelsParamsInfo createFromParcel(Parcel in) {
-			return new LevelsParamsInfo(in);
-		}
-
-		public LevelsParamsInfo[] newArray(int size) {
-			return new LevelsParamsInfo[size];
-		}
-	};
-
 	@SerializedName("minAvailableToInvest")
 	private Double minAvailableToInvest = null;
 
@@ -79,22 +68,6 @@ public class LevelsParamsInfo implements Parcelable
 	private Double investmentScaleHighRisk = null;
 
 	public LevelsParamsInfo() {
-	}
-
-	LevelsParamsInfo(Parcel in) {
-		minAvailableToInvest = (Double) in.readValue(null);
-		maxAvailableToInvest = (Double) in.readValue(null);
-		unverifiedAvailableToInvest = (Double) in.readValue(null);
-		genesisRatioMin = (Double) in.readValue(null);
-		genesisRatioMax = (Double) in.readValue(null);
-		genesisRatioHighRisk = (Double) in.readValue(null);
-		volumeScaleMin = (Double) in.readValue(null);
-		volumeScaleMax = (Double) in.readValue(null);
-		programAgeMax = (Double) in.readValue(null);
-		ageByVolumeMax = (Double) in.readValue(null);
-		investmentScaleMin = (Double) in.readValue(null);
-		investmentScaleMax = (Double) in.readValue(null);
-		investmentScaleHighRisk = (Double) in.readValue(null);
 	}
 
 	public LevelsParamsInfo minAvailableToInvest(Double minAvailableToInvest) {
@@ -344,6 +317,7 @@ public class LevelsParamsInfo implements Parcelable
 		this.investmentScaleHighRisk = investmentScaleHighRisk;
 	}
 
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -372,6 +346,7 @@ public class LevelsParamsInfo implements Parcelable
 	public int hashCode() {
 		return Objects.hash(minAvailableToInvest, maxAvailableToInvest, unverifiedAvailableToInvest, genesisRatioMin, genesisRatioMax, genesisRatioHighRisk, volumeScaleMin, volumeScaleMax, programAgeMax, ageByVolumeMax, investmentScaleMin, investmentScaleMax, investmentScaleHighRisk);
 	}
+
 
 	@Override
 	public String toString() {
@@ -406,6 +381,7 @@ public class LevelsParamsInfo implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
+
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(minAvailableToInvest);
 		out.writeValue(maxAvailableToInvest);
@@ -422,7 +398,34 @@ public class LevelsParamsInfo implements Parcelable
 		out.writeValue(investmentScaleHighRisk);
 	}
 
+	public static final Parcelable.Creator<LevelsParamsInfo> CREATOR = new Parcelable.Creator<LevelsParamsInfo>()
+	{
+		public LevelsParamsInfo createFromParcel(Parcel in) {
+			return new LevelsParamsInfo(in);
+		}
+
+		public LevelsParamsInfo[] newArray(int size) {
+			return new LevelsParamsInfo[size];
+		}
+	};
+
 	public int describeContents() {
 		return 0;
+	}
+
+	LevelsParamsInfo(Parcel in) {
+		minAvailableToInvest = (Double) in.readValue(null);
+		maxAvailableToInvest = (Double) in.readValue(null);
+		unverifiedAvailableToInvest = (Double) in.readValue(null);
+		genesisRatioMin = (Double) in.readValue(null);
+		genesisRatioMax = (Double) in.readValue(null);
+		genesisRatioHighRisk = (Double) in.readValue(null);
+		volumeScaleMin = (Double) in.readValue(null);
+		volumeScaleMax = (Double) in.readValue(null);
+		programAgeMax = (Double) in.readValue(null);
+		ageByVolumeMax = (Double) in.readValue(null);
+		investmentScaleMin = (Double) in.readValue(null);
+		investmentScaleMax = (Double) in.readValue(null);
+		investmentScaleHighRisk = (Double) in.readValue(null);
 	}
 }

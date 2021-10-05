@@ -28,245 +28,245 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class TradingScheduleInfo implements Parcelable
 {
-  public static final Parcelable.Creator<TradingScheduleInfo> CREATOR = new Parcelable.Creator<TradingScheduleInfo>()
-  {
-    public TradingScheduleInfo createFromParcel(Parcel in) {
-      return new TradingScheduleInfo(in);
-    }
+	public static final Parcelable.Creator<TradingScheduleInfo> CREATOR = new Parcelable.Creator<TradingScheduleInfo>()
+	{
+		public TradingScheduleInfo createFromParcel(Parcel in) {
+			return new TradingScheduleInfo(in);
+		}
 
-    public TradingScheduleInfo[] newArray(int size) {
-      return new TradingScheduleInfo[size];
-    }
-  };
+		public TradingScheduleInfo[] newArray(int size) {
+			return new TradingScheduleInfo[size];
+		}
+	};
 
-  @SerializedName("hasTradingSchedule")
-  private Boolean hasTradingSchedule = null;
+	@SerializedName("hasTradingSchedule")
+	private Boolean hasTradingSchedule = null;
 
-  @SerializedName("dayStart")
-  private DayOfWeekType dayStart = null;
+	@SerializedName("dayStart")
+	private DayOfWeekType dayStart = null;
 
-  @SerializedName("hourStart")
-  private Integer hourStart = null;
+	@SerializedName("hourStart")
+	private Integer hourStart = null;
 
-  @SerializedName("minuteStart")
-  private Integer minuteStart = null;
+	@SerializedName("dayEnd")
+	private DayOfWeekType dayEnd = null;
 
-  @SerializedName("dayEnd")
-  private DayOfWeekType dayEnd = null;
+	@SerializedName("hourEnd")
+	private Integer hourEnd = null;
 
-  @SerializedName("hourEnd")
-  private Integer hourEnd = null;
+	@SerializedName("minuteEnd")
+	private Integer minuteEnd = null;
 
-  @SerializedName("minuteEnd")
-  private Integer minuteEnd = null;
+	@SerializedName("minuteStart")
+	private Integer minuteStart = null;
 
-  public TradingScheduleInfo() {
-  }
+	public TradingScheduleInfo() {
+	}
 
-  TradingScheduleInfo(Parcel in) {
-    hasTradingSchedule = (Boolean) in.readValue(null);
-    dayStart = (DayOfWeekType) in.readValue(DayOfWeekType.class.getClassLoader());
-    hourStart = (Integer) in.readValue(null);
-    minuteStart = (Integer) in.readValue(null);
-    dayEnd = (DayOfWeekType) in.readValue(DayOfWeekType.class.getClassLoader());
-    hourEnd = (Integer) in.readValue(null);
-    minuteEnd = (Integer) in.readValue(null);
-  }
+	TradingScheduleInfo(Parcel in) {
+		hasTradingSchedule = (Boolean) in.readValue(null);
+		dayStart = (DayOfWeekType) in.readValue(DayOfWeekType.class.getClassLoader());
+		hourStart = (Integer) in.readValue(null);
+		minuteStart = (Integer) in.readValue(null);
+		dayEnd = (DayOfWeekType) in.readValue(DayOfWeekType.class.getClassLoader());
+		hourEnd = (Integer) in.readValue(null);
+		minuteEnd = (Integer) in.readValue(null);
+	}
 
-  public TradingScheduleInfo hasTradingSchedule(Boolean hasTradingSchedule) {
-    this.hasTradingSchedule = hasTradingSchedule;
-    return this;
-  }
+	public TradingScheduleInfo hasTradingSchedule(Boolean hasTradingSchedule) {
+		this.hasTradingSchedule = hasTradingSchedule;
+		return this;
+	}
 
-  /**
-   * Get hasTradingSchedule
-   *
-   * @return hasTradingSchedule
-   **/
-  @Schema(description = "")
-  public Boolean isHasTradingSchedule() {
-    return hasTradingSchedule;
-  }
+	public void setHasTradingSchedule(Boolean hasTradingSchedule) {
+		this.hasTradingSchedule = hasTradingSchedule;
+	}
 
-  public void setHasTradingSchedule(Boolean hasTradingSchedule) {
-    this.hasTradingSchedule = hasTradingSchedule;
-  }
+	public TradingScheduleInfo dayStart(DayOfWeekType dayStart) {
+		this.dayStart = dayStart;
+		return this;
+	}
 
-  public TradingScheduleInfo dayStart(DayOfWeekType dayStart) {
-    this.dayStart = dayStart;
-    return this;
-  }
+	public TradingScheduleInfo hourStart(Integer hourStart) {
+		this.hourStart = hourStart;
+		return this;
+	}
 
-  /**
-   * Get dayStart
-   *
-   * @return dayStart
-   **/
-  @Schema(description = "")
-  public DayOfWeekType getDayStart() {
-    return dayStart;
-  }
+	/**
+	 * Get hasTradingSchedule
+	 *
+	 * @return hasTradingSchedule
+	 **/
+	@Schema(description = "")
+	public Boolean isHasTradingSchedule() {
+		return hasTradingSchedule;
+	}
 
-  public void setDayStart(DayOfWeekType dayStart) {
-    this.dayStart = dayStart;
-  }
+	public TradingScheduleInfo minuteStart(Integer minuteStart) {
+		this.minuteStart = minuteStart;
+		return this;
+	}
 
-  public TradingScheduleInfo hourStart(Integer hourStart) {
-    this.hourStart = hourStart;
-    return this;
-  }
+	/**
+	 * Get dayStart
+	 *
+	 * @return dayStart
+	 **/
+	@Schema(description = "")
+	public DayOfWeekType getDayStart() {
+		return dayStart;
+	}
 
-  /**
-   * Get hourStart
-   *
-   * @return hourStart
-   **/
-  @Schema(description = "")
-  public Integer getHourStart() {
-    return hourStart;
-  }
+	public void setDayStart(DayOfWeekType dayStart) {
+		this.dayStart = dayStart;
+	}
 
-  public void setHourStart(Integer hourStart) {
-    this.hourStart = hourStart;
-  }
+	public TradingScheduleInfo dayEnd(DayOfWeekType dayEnd) {
+		this.dayEnd = dayEnd;
+		return this;
+	}
 
-  public TradingScheduleInfo minuteStart(Integer minuteStart) {
-    this.minuteStart = minuteStart;
-    return this;
-  }
+	/**
+	 * Get hourStart
+	 *
+	 * @return hourStart
+	 **/
+	@Schema(description = "")
+	public Integer getHourStart() {
+		return hourStart;
+	}
 
-  /**
-   * Get minuteStart
-   *
-   * @return minuteStart
-   **/
-  @Schema(description = "")
-  public Integer getMinuteStart() {
-    return minuteStart;
-  }
+	public void setHourStart(Integer hourStart) {
+		this.hourStart = hourStart;
+	}
 
-  public void setMinuteStart(Integer minuteStart) {
-    this.minuteStart = minuteStart;
-  }
+	public TradingScheduleInfo hourEnd(Integer hourEnd) {
+		this.hourEnd = hourEnd;
+		return this;
+	}
 
-  public TradingScheduleInfo dayEnd(DayOfWeekType dayEnd) {
-    this.dayEnd = dayEnd;
-    return this;
-  }
+	/**
+	 * Get minuteStart
+	 *
+	 * @return minuteStart
+	 **/
+	@Schema(description = "")
+	public Integer getMinuteStart() {
+		return minuteStart;
+	}
 
-  /**
-   * Get dayEnd
-   *
-   * @return dayEnd
-   **/
-  @Schema(description = "")
-  public DayOfWeekType getDayEnd() {
-    return dayEnd;
-  }
+	public void setMinuteStart(Integer minuteStart) {
+		this.minuteStart = minuteStart;
+	}
 
-  public void setDayEnd(DayOfWeekType dayEnd) {
-    this.dayEnd = dayEnd;
-  }
+	public TradingScheduleInfo minuteEnd(Integer minuteEnd) {
+		this.minuteEnd = minuteEnd;
+		return this;
+	}
 
-  public TradingScheduleInfo hourEnd(Integer hourEnd) {
-    this.hourEnd = hourEnd;
-    return this;
-  }
+	/**
+	 * Get dayEnd
+	 *
+	 * @return dayEnd
+	 **/
+	@Schema(description = "")
+	public DayOfWeekType getDayEnd() {
+		return dayEnd;
+	}
 
-  /**
-   * Get hourEnd
-   *
-   * @return hourEnd
-   **/
-  @Schema(description = "")
-  public Integer getHourEnd() {
-    return hourEnd;
-  }
+	public void setDayEnd(DayOfWeekType dayEnd) {
+		this.dayEnd = dayEnd;
+	}
 
-  public void setHourEnd(Integer hourEnd) {
-    this.hourEnd = hourEnd;
-  }
+	/**
+	 * Get hourEnd
+	 *
+	 * @return hourEnd
+	 **/
+	@Schema(description = "")
+	public Integer getHourEnd() {
+		return hourEnd;
+	}
 
-  public TradingScheduleInfo minuteEnd(Integer minuteEnd) {
-    this.minuteEnd = minuteEnd;
-    return this;
-  }
+	public void setHourEnd(Integer hourEnd) {
+		this.hourEnd = hourEnd;
+	}
 
-  /**
-   * Get minuteEnd
-   *
-   * @return minuteEnd
-   **/
-  @Schema(description = "")
-  public Integer getMinuteEnd() {
-    return minuteEnd;
-  }
+	@Override
+	public int hashCode() {
+		return Objects.hash(hasTradingSchedule, dayStart, hourStart, minuteStart, dayEnd, hourEnd, minuteEnd);
+	}
 
-  public void setMinuteEnd(Integer minuteEnd) {
-    this.minuteEnd = minuteEnd;
-  }
+	/**
+	 * Get minuteEnd
+	 *
+	 * @return minuteEnd
+	 **/
+	@Schema(description = "")
+	public Integer getMinuteEnd() {
+		return minuteEnd;
+	}
 
-  @Override
-  public boolean equals(java.lang.Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-    TradingScheduleInfo tradingScheduleInfo = (TradingScheduleInfo) o;
-    return Objects.equals(this.hasTradingSchedule, tradingScheduleInfo.hasTradingSchedule) &&
-            Objects.equals(this.dayStart, tradingScheduleInfo.dayStart) &&
-            Objects.equals(this.hourStart, tradingScheduleInfo.hourStart) &&
-            Objects.equals(this.minuteStart, tradingScheduleInfo.minuteStart) &&
-            Objects.equals(this.dayEnd, tradingScheduleInfo.dayEnd) &&
-            Objects.equals(this.hourEnd, tradingScheduleInfo.hourEnd) &&
-            Objects.equals(this.minuteEnd, tradingScheduleInfo.minuteEnd);
-  }
+	public void setMinuteEnd(Integer minuteEnd) {
+		this.minuteEnd = minuteEnd;
+	}
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(hasTradingSchedule, dayStart, hourStart, minuteStart, dayEnd, hourEnd, minuteEnd);
-  }
+	/**
+	 * Convert the given object to string with each line indented by 4 spaces
+	 * (except the first line).
+	 */
+	private String toIndentedString(java.lang.Object o) {
+		if (o == null) {
+			return "null";
+		}
+		return o.toString().replace("\n", "\n    ");
+	}
+
+	@Override
+	public boolean equals(java.lang.Object o) {
+		if (this == o) {
+			return true;
+		}
+		if (o == null || getClass() != o.getClass()) {
+			return false;
+		}
+		TradingScheduleInfo tradingScheduleInfo = (TradingScheduleInfo) o;
+		return Objects.equals(this.hasTradingSchedule, tradingScheduleInfo.hasTradingSchedule) &&
+				Objects.equals(this.dayStart, tradingScheduleInfo.dayStart) &&
+				Objects.equals(this.hourStart, tradingScheduleInfo.hourStart) &&
+				Objects.equals(this.minuteStart, tradingScheduleInfo.minuteStart) &&
+				Objects.equals(this.dayEnd, tradingScheduleInfo.dayEnd) &&
+				Objects.equals(this.hourEnd, tradingScheduleInfo.hourEnd) &&
+				Objects.equals(this.minuteEnd, tradingScheduleInfo.minuteEnd);
+	}
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class TradingScheduleInfo {\n");
 
-    sb.append("    hasTradingSchedule: ").append(toIndentedString(hasTradingSchedule)).append("\n");
-    sb.append("    dayStart: ").append(toIndentedString(dayStart)).append("\n");
-    sb.append("    hourStart: ").append(toIndentedString(hourStart)).append("\n");
-    sb.append("    minuteStart: ").append(toIndentedString(minuteStart)).append("\n");
-    sb.append("    dayEnd: ").append(toIndentedString(dayEnd)).append("\n");
-    sb.append("    hourEnd: ").append(toIndentedString(hourEnd)).append("\n");
-    sb.append("    minuteEnd: ").append(toIndentedString(minuteEnd)).append("\n");
-    sb.append("}");
-    return sb.toString();
+	  sb.append("    hasTradingSchedule: ").append(toIndentedString(hasTradingSchedule)).append("\n");
+	  sb.append("    dayStart: ").append(toIndentedString(dayStart)).append("\n");
+	  sb.append("    hourStart: ").append(toIndentedString(hourStart)).append("\n");
+	  sb.append("    minuteStart: ").append(toIndentedString(minuteStart)).append("\n");
+	  sb.append("    dayEnd: ").append(toIndentedString(dayEnd)).append("\n");
+	  sb.append("    hourEnd: ").append(toIndentedString(hourEnd)).append("\n");
+	  sb.append("    minuteEnd: ").append(toIndentedString(minuteEnd)).append("\n");
+	  sb.append("}");
+	  return sb.toString();
   }
 
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(java.lang.Object o) {
-    if (o == null) {
-      return "null";
-    }
-    return o.toString().replace("\n", "\n    ");
-  }
+	public void writeToParcel(Parcel out, int flags) {
+		out.writeValue(hasTradingSchedule);
+		out.writeValue(dayStart);
+		out.writeValue(hourStart);
+		out.writeValue(minuteStart);
+		out.writeValue(dayEnd);
+		out.writeValue(hourEnd);
+		out.writeValue(minuteEnd);
+	}
 
-  public void writeToParcel(Parcel out, int flags) {
-    out.writeValue(hasTradingSchedule);
-    out.writeValue(dayStart);
-    out.writeValue(hourStart);
-    out.writeValue(minuteStart);
-    out.writeValue(dayEnd);
-    out.writeValue(hourEnd);
-    out.writeValue(minuteEnd);
-  }
-
-  public int describeContents() {
-    return 0;
-  }
+	public int describeContents() {
+		return 0;
+	}
 }

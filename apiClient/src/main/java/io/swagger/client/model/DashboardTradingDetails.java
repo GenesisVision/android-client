@@ -28,17 +28,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class DashboardTradingDetails implements Parcelable
 {
-	public static final Parcelable.Creator<DashboardTradingDetails> CREATOR = new Parcelable.Creator<DashboardTradingDetails>()
-	{
-		public DashboardTradingDetails createFromParcel(Parcel in) {
-			return new DashboardTradingDetails(in);
-		}
-
-		public DashboardTradingDetails[] newArray(int size) {
-			return new DashboardTradingDetails[size];
-		}
-	};
-
 	@SerializedName("equity")
 	private Double equity = null;
 
@@ -55,14 +44,6 @@ public class DashboardTradingDetails implements Parcelable
 	private InvestmentEventViewModelItemsViewModel events = null;
 
 	public DashboardTradingDetails() {
-	}
-
-	DashboardTradingDetails(Parcel in) {
-		equity = (Double) in.readValue(null);
-		aum = (Double) in.readValue(null);
-		total = (Double) in.readValue(null);
-		profits = (DashboardProfits) in.readValue(DashboardProfits.class.getClassLoader());
-		events = (InvestmentEventViewModelItemsViewModel) in.readValue(InvestmentEventViewModelItemsViewModel.class.getClassLoader());
 	}
 
 	public DashboardTradingDetails equity(Double equity) {
@@ -151,6 +132,7 @@ public class DashboardTradingDetails implements Parcelable
 		this.events = events;
 	}
 
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -171,6 +153,7 @@ public class DashboardTradingDetails implements Parcelable
 	public int hashCode() {
 		return Objects.hash(equity, aum, total, profits, events);
 	}
+
 
 	@Override
 	public String toString() {
@@ -197,6 +180,7 @@ public class DashboardTradingDetails implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
+
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(equity);
 		out.writeValue(aum);
@@ -205,7 +189,26 @@ public class DashboardTradingDetails implements Parcelable
 		out.writeValue(events);
 	}
 
+	public static final Parcelable.Creator<DashboardTradingDetails> CREATOR = new Parcelable.Creator<DashboardTradingDetails>()
+	{
+		public DashboardTradingDetails createFromParcel(Parcel in) {
+			return new DashboardTradingDetails(in);
+		}
+
+		public DashboardTradingDetails[] newArray(int size) {
+			return new DashboardTradingDetails[size];
+		}
+	};
+
 	public int describeContents() {
 		return 0;
+	}
+
+	DashboardTradingDetails(Parcel in) {
+		equity = (Double) in.readValue(null);
+		aum = (Double) in.readValue(null);
+		total = (Double) in.readValue(null);
+		profits = (DashboardProfits) in.readValue(DashboardProfits.class.getClassLoader());
+		events = (InvestmentEventViewModelItemsViewModel) in.readValue(InvestmentEventViewModelItemsViewModel.class.getClassLoader());
 	}
 }

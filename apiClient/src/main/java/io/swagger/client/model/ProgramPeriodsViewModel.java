@@ -30,94 +30,94 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class ProgramPeriodsViewModel implements Parcelable
 {
-  public static final Parcelable.Creator<ProgramPeriodsViewModel> CREATOR = new Parcelable.Creator<ProgramPeriodsViewModel>()
-  {
-    public ProgramPeriodsViewModel createFromParcel(Parcel in) {
-      return new ProgramPeriodsViewModel(in);
-    }
+	public static final Parcelable.Creator<ProgramPeriodsViewModel> CREATOR = new Parcelable.Creator<ProgramPeriodsViewModel>()
+	{
+		public ProgramPeriodsViewModel createFromParcel(Parcel in) {
+			return new ProgramPeriodsViewModel(in);
+		}
 
-    public ProgramPeriodsViewModel[] newArray(int size) {
-      return new ProgramPeriodsViewModel[size];
-    }
-  };
+		public ProgramPeriodsViewModel[] newArray(int size) {
+			return new ProgramPeriodsViewModel[size];
+		}
+	};
 
-  @SerializedName("periods")
-  private List<ProgramPeriodViewModel> periods = null;
+	@SerializedName("periods")
+	private List<ProgramPeriodViewModel> periods = null;
 
-  @SerializedName("total")
-  private Integer total = null;
+	@SerializedName("total")
+	private Integer total = null;
 
-  public ProgramPeriodsViewModel() {
-  }
+	public ProgramPeriodsViewModel() {
+	}
 
-  ProgramPeriodsViewModel(Parcel in) {
-    periods = (List<ProgramPeriodViewModel>) in.readValue(ProgramPeriodViewModel.class.getClassLoader());
-    total = (Integer) in.readValue(null);
-  }
+	ProgramPeriodsViewModel(Parcel in) {
+		periods = (List<ProgramPeriodViewModel>) in.readValue(ProgramPeriodViewModel.class.getClassLoader());
+		total = (Integer) in.readValue(null);
+	}
 
-  public ProgramPeriodsViewModel periods(List<ProgramPeriodViewModel> periods) {
-    this.periods = periods;
-    return this;
-  }
+	public ProgramPeriodsViewModel addPeriodsItem(ProgramPeriodViewModel periodsItem) {
+		if (this.periods == null) {
+			this.periods = new ArrayList<ProgramPeriodViewModel>();
+		}
+		this.periods.add(periodsItem);
+		return this;
+	}
 
-  public ProgramPeriodsViewModel addPeriodsItem(ProgramPeriodViewModel periodsItem) {
-    if (this.periods == null) {
-      this.periods = new ArrayList<ProgramPeriodViewModel>();
-    }
-    this.periods.add(periodsItem);
-    return this;
-  }
+	public ProgramPeriodsViewModel total(Integer total) {
+		this.total = total;
+		return this;
+	}
 
-  /**
-   * Get periods
-   *
-   * @return periods
-   **/
-  @Schema(description = "")
-  public List<ProgramPeriodViewModel> getPeriods() {
-    return periods;
-  }
+	public ProgramPeriodsViewModel periods(List<ProgramPeriodViewModel> periods) {
+		this.periods = periods;
+		return this;
+	}
 
-  public void setPeriods(List<ProgramPeriodViewModel> periods) {
-    this.periods = periods;
-  }
+	/**
+	 * Get periods
+	 *
+	 * @return periods
+	 **/
+	@Schema(description = "")
+	public List<ProgramPeriodViewModel> getPeriods() {
+		return periods;
+	}
 
-  public ProgramPeriodsViewModel total(Integer total) {
-    this.total = total;
-    return this;
-  }
+	public void setPeriods(List<ProgramPeriodViewModel> periods) {
+		this.periods = periods;
+	}
 
-  /**
-   * Get total
-   *
-   * @return total
-   **/
-  @Schema(description = "")
-  public Integer getTotal() {
-    return total;
-  }
+	@Override
+	public int hashCode() {
+		return Objects.hash(periods, total);
+	}
 
-  public void setTotal(Integer total) {
-    this.total = total;
-  }
+	/**
+	 * Get total
+	 *
+	 * @return total
+	 **/
+	@Schema(description = "")
+	public Integer getTotal() {
+		return total;
+	}
 
-  @Override
-  public boolean equals(java.lang.Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-    ProgramPeriodsViewModel programPeriodsViewModel = (ProgramPeriodsViewModel) o;
-    return Objects.equals(this.periods, programPeriodsViewModel.periods) &&
-            Objects.equals(this.total, programPeriodsViewModel.total);
-  }
+	public void setTotal(Integer total) {
+		this.total = total;
+	}
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(periods, total);
-  }
+	@Override
+	public boolean equals(java.lang.Object o) {
+		if (this == o) {
+			return true;
+		}
+		if (o == null || getClass() != o.getClass()) {
+			return false;
+		}
+		ProgramPeriodsViewModel programPeriodsViewModel = (ProgramPeriodsViewModel) o;
+		return Objects.equals(this.periods, programPeriodsViewModel.periods) &&
+				Objects.equals(this.total, programPeriodsViewModel.total);
+	}
 
   @Override
   public String toString() {
@@ -130,23 +130,23 @@ public class ProgramPeriodsViewModel implements Parcelable
     return sb.toString();
   }
 
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(java.lang.Object o) {
-    if (o == null) {
-      return "null";
-    }
-    return o.toString().replace("\n", "\n    ");
-  }
+	/**
+	 * Convert the given object to string with each line indented by 4 spaces
+	 * (except the first line).
+	 */
+	private String toIndentedString(java.lang.Object o) {
+		if (o == null) {
+			return "null";
+		}
+		return o.toString().replace("\n", "\n    ");
+	}
 
-  public void writeToParcel(Parcel out, int flags) {
-    out.writeValue(periods);
-    out.writeValue(total);
-  }
+	public void writeToParcel(Parcel out, int flags) {
+		out.writeValue(periods);
+		out.writeValue(total);
+	}
 
-  public int describeContents() {
-    return 0;
-  }
+	public int describeContents() {
+		return 0;
+	}
 }
