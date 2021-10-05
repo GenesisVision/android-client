@@ -6,6 +6,7 @@ import static vision.genesis.clientapp.feature.main.terminal.market_watch.Market
 import static vision.genesis.clientapp.feature.main.terminal.market_watch.MarketWatchPresenter.SORTING_VOLUME;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -18,7 +19,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.content.res.AppCompatResources;
+import androidx.core.content.ContextCompat;
 import androidx.viewpager.widget.ViewPager;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
@@ -38,6 +41,8 @@ import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
 import vision.genesis.clientapp.feature.auth.login.LoginActivity;
 import vision.genesis.clientapp.feature.main.terminal.select_account.SelectAccountBottomSheetFragment;
+import vision.genesis.clientapp.feature.main.trading_account.create.CreateAccountActivity;
+import vision.genesis.clientapp.model.CreateAccountModel;
 import vision.genesis.clientapp.model.terminal.MarketWatchTickerModel;
 import vision.genesis.clientapp.ui.CustomTabView;
 import vision.genesis.clientapp.utils.TabLayoutUtil;
@@ -49,7 +54,7 @@ import vision.genesis.clientapp.utils.TypefaceUtil;
  * Created by Vitaly on 21/01/2021.
  */
 
-public class MarketWatchFragment extends BaseFragment implements MarketWatchView
+public class MarketWatchFragment extends BaseFragment implements MarketWatchView, MarketWatchPagerAdapter.OnPageVisibilityChanged
 {
 	@BindView(R.id.appBarLayout)
 	public AppBarLayout appBarLayout;
@@ -327,6 +332,13 @@ public class MarketWatchFragment extends BaseFragment implements MarketWatchView
 		fragment.show(getChildFragmentManager(), fragment.getTag());
 	}
 
+	@Override
+	public void showCreateAccount(CreateAccountModel model) {
+		if (getActivity() != null) {
+			CreateAccountActivity.startWith(getActivity(), model);
+		}
+	}
+
 	private void selectSorting(TextView text, ImageView icon, int sortingDirection) {
 		Drawable newIcon = sortingDirection < 0
 				? AppCompatResources.getDrawable(getContext(), R.drawable.icon_sorting_high_to_low)
@@ -368,6 +380,11 @@ public class MarketWatchFragment extends BaseFragment implements MarketWatchView
 	}
 
 	@Override
+	public void setButtonCreateAccount() {
+		pagerAdapter.setFavoriteButtonCreateAccount();
+	}
+
+	@Override
 	public void showLoginActivity() {
 		if (getActivity() != null) {
 			LoginActivity.startFrom(getActivity());
@@ -379,11 +396,35 @@ public class MarketWatchFragment extends BaseFragment implements MarketWatchView
 		pagerAdapter.showFavoriteTickersProgress();
 	}
 
+	@Override
+	public void showNewAccountProcessingDialog() {
+		if (getContext() != null) {
+			AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+			builder.setMessage(getString(R.string.your_trading_account_is_being_processing));
+			builder.setPositiveButton(getString(R.string.ok), (dialogInterface, i) -> dialogInterface.cancel());
+
+			AlertDialog dialog = builder.create();
+			dialog.show();
+
+			dialog.getButton(DialogInterface.BUTTON_POSITIVE).setTextColor(ContextCompat.getColor(getContext(), R.color.colorAccent));
+		}
+	}
+
 	private void hideSoftKeyboard() {
 		InputMethodManager imm = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
 		searchEditText.clearFocus();
 		if (imm != null) {
 			imm.hideSoftInputFromWindow(searchEditText.getWindowToken(), 0);
 		}
+	}
+
+	@Override
+	public void pagerShow() {
+
+	}
+
+	@Override
+	public void pagerHide() {
+
 	}
 }

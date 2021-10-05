@@ -3,13 +3,20 @@ package vision.genesis.clientapp.feature.main.terminal;
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
 
 import io.swagger.client.model.BrokerTradeServerType;
+import io.swagger.client.model.Currency;
+import io.swagger.client.model.ExchangeAccountType;
 import io.swagger.client.model.ExchangeAsset;
+import io.swagger.client.model.ExchangeInfo;
+import io.swagger.client.model.ExchangeInfoItemsViewModel;
 import io.swagger.client.model.TradingAccountPermission;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
@@ -18,8 +25,11 @@ import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.feature.main.terminal.place_order.PlaceOrderActivity;
 import vision.genesis.clientapp.feature.main.terminal.select_account.SelectAccountBottomSheetFragment;
 import vision.genesis.clientapp.managers.AuthManager;
+import vision.genesis.clientapp.managers.BrokersManager;
 import vision.genesis.clientapp.managers.TerminalManager;
+import vision.genesis.clientapp.model.CreateAccountModel;
 import vision.genesis.clientapp.model.User;
+import vision.genesis.clientapp.model.events.OnCreateAccountSuccessEvent;
 import vision.genesis.clientapp.net.ApiErrorResolver;
 
 /**
@@ -36,11 +46,16 @@ public class TerminalPresenter extends MvpPresenter<TerminalView> implements Sel
 	@Inject
 	public TerminalManager terminalManager;
 
+	@Inject
+	public BrokersManager brokersManager;
+
 	private Subscription userSubscription;
 
 	private Subscription getAccountsSubscription;
 
 	private Subscription selectedAccountSubscription;
+
+	private Subscription getBrokersSubscription;
 
 	private String selectedSymbol;
 
@@ -52,11 +67,15 @@ public class TerminalPresenter extends MvpPresenter<TerminalView> implements Sel
 
 	private User user = null;
 
+	private boolean isWaitingForNewAccount = false;
+
 	@Override
 	protected void onFirstViewAttach() {
 		super.onFirstViewAttach();
 
 		GenesisVisionApplication.getComponent().inject(this);
+
+		EventBus.getDefault().register(this);
 
 		subscribeToUser();
 	}
@@ -72,8 +91,19 @@ public class TerminalPresenter extends MvpPresenter<TerminalView> implements Sel
 		if (selectedAccountSubscription != null) {
 			selectedAccountSubscription.unsubscribe();
 		}
+		if (getBrokersSubscription != null) {
+			getBrokersSubscription.unsubscribe();
+		}
+
+		EventBus.getDefault().unregister(this);
 
 		super.onDestroy();
+	}
+
+	public void onResume() {
+		if (user != null && accounts.isEmpty()) {
+			getAccounts();
+		}
 	}
 
 	private void subscribeToUser() {
@@ -111,6 +141,7 @@ public class TerminalPresenter extends MvpPresenter<TerminalView> implements Sel
 
 		this.accounts = new ArrayList<>(response);
 		if (accounts.size() == 1) {
+			isWaitingForNewAccount = false;
 			onAccountSelected(accounts.get(0));
 		}
 		getViewState().showAccountArrow(accounts.size() > 1);
@@ -175,32 +206,76 @@ public class TerminalPresenter extends MvpPresenter<TerminalView> implements Sel
 	}
 
 	void onBuyClicked() {
+		handleOperationButtonClick(PlaceOrderActivity.OPERATION_TYPE_BUY);
+	}
+
+	void onSellClicked() {
+		handleOperationButtonClick(PlaceOrderActivity.OPERATION_TYPE_SELL);
+	}
+
+	private void handleOperationButtonClick(String operationType) {
 		if (user == null) {
 			getViewState().showLoginActivity();
+		}
+		else if (accounts.isEmpty()) {
+			showCreateAccount();
 		}
 		else {
 			if (selectedAccount == null) {
 				onAccountClicked();
-				pendingAction = PlaceOrderActivity.OPERATION_TYPE_BUY;
+				pendingAction = operationType;
 			}
 			else {
-				getViewState().showPlaceOrderActivity(selectedSymbol, selectedAccount, PlaceOrderActivity.OPERATION_TYPE_BUY);
+				getViewState().showPlaceOrderActivity(selectedSymbol, selectedAccount, operationType);
 			}
 		}
 	}
 
-	void onSellClicked() {
-		if (user == null) {
-			getViewState().showLoginActivity();
+	private void showCreateAccount() {
+		if (brokersManager != null) {
+			if (getBrokersSubscription != null) {
+				getBrokersSubscription.unsubscribe();
+			}
+			getBrokersSubscription = brokersManager.getExchanges()
+					.observeOn(AndroidSchedulers.mainThread())
+					.subscribeOn(Schedulers.newThread())
+					.subscribe(this::handleGetBrokersSuccess,
+							this::handleGetBrokersError);
 		}
-		else {
-			if (selectedAccount == null) {
-				onAccountClicked();
-				pendingAction = PlaceOrderActivity.OPERATION_TYPE_SELL;
+	}
+
+	private void handleGetBrokersSuccess(ExchangeInfoItemsViewModel response) {
+		getBrokersSubscription.unsubscribe();
+		if (!response.getItems().isEmpty()) {
+			brokersLoop:
+			for (ExchangeInfo exchange : response.getItems()) {
+				for (ExchangeAccountType accountType : exchange.getAccountTypes()) {
+					if (accountType.getType().equals(BrokerTradeServerType.BINANCE)) {
+						CreateAccountModel model = new CreateAccountModel(
+								exchange.getAccountTypes().get(0).getId(),
+								exchange.getLogoUrl(),
+								Currency.fromValue(exchange.getAccountTypes().get(0).getCurrencies().get(0)),
+								1
+						);
+						getViewState().showCreateAccount(model);
+						isWaitingForNewAccount = true;
+						break brokersLoop;
+					}
+				}
 			}
-			else {
-				getViewState().showPlaceOrderActivity(selectedSymbol, selectedAccount, PlaceOrderActivity.OPERATION_TYPE_SELL);
-			}
+		}
+	}
+
+	private void handleGetBrokersError(Throwable throwable) {
+		getBrokersSubscription.unsubscribe();
+
+		ApiErrorResolver.resolveErrors(throwable, message -> getViewState().showSnackbarMessage(message));
+	}
+
+	@Subscribe
+	public void onEventMainThread(OnCreateAccountSuccessEvent event) {
+		if (isWaitingForNewAccount) {
+			getViewState().showNewAccountProcessingDialog();
 		}
 	}
 }

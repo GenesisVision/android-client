@@ -109,4 +109,10 @@ public class MarketWatchPagerAdapter extends FragmentStatePagerAdapter
 			favoritesFragment.showProgress();
 		}
 	}
+
+	public void setFavoriteButtonCreateAccount() {
+		if (favoritesFragment != null) {
+			favoritesFragment.setButtonCreateAccount();
+		}
+	}
 }

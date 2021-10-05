@@ -17,7 +17,11 @@ import java.util.List;
 import javax.inject.Inject;
 
 import io.swagger.client.model.BrokerTradeServerType;
+import io.swagger.client.model.Currency;
+import io.swagger.client.model.ExchangeAccountType;
 import io.swagger.client.model.ExchangeAsset;
+import io.swagger.client.model.ExchangeInfo;
+import io.swagger.client.model.ExchangeInfoItemsViewModel;
 import io.swagger.client.model.TradingAccountPermission;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
@@ -25,8 +29,11 @@ import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.feature.main.terminal.select_account.SelectAccountBottomSheetFragment;
 import vision.genesis.clientapp.managers.AuthManager;
+import vision.genesis.clientapp.managers.BrokersManager;
 import vision.genesis.clientapp.managers.TerminalManager;
+import vision.genesis.clientapp.model.CreateAccountModel;
 import vision.genesis.clientapp.model.User;
+import vision.genesis.clientapp.model.events.OnCreateAccountSuccessEvent;
 import vision.genesis.clientapp.model.events.OnFavoriteTickersSelectAccountClickedEvent;
 import vision.genesis.clientapp.model.terminal.MarketWatchTickerModel;
 import vision.genesis.clientapp.model.terminal.binance_api.BinanceRawExchangeInfo;
@@ -86,6 +93,9 @@ public class MarketWatchPresenter extends MvpPresenter<MarketWatchView> implemen
 	@Inject
 	public TerminalManager terminalManager;
 
+	@Inject
+	public BrokersManager brokersManager;
+
 	private Subscription userSubscription;
 
 	private Subscription getAccountsSubscription;
@@ -100,6 +110,8 @@ public class MarketWatchPresenter extends MvpPresenter<MarketWatchView> implemen
 
 	private Subscription getFavoritesSubscription;
 
+	private Subscription getBrokersSubscription;
+
 	private HashMap<String, MarketWatchTickerModel> tickers = new HashMap<>();
 
 	private String mask;
@@ -111,6 +123,8 @@ public class MarketWatchPresenter extends MvpPresenter<MarketWatchView> implemen
 	private List<String> favoriteTickers = new ArrayList<>();
 
 	private User user = null;
+
+	private boolean isWaitingForNewAccount = false;
 
 	@Override
 	protected void onFirstViewAttach() {
@@ -147,6 +161,9 @@ public class MarketWatchPresenter extends MvpPresenter<MarketWatchView> implemen
 		if (getFavoritesSubscription != null) {
 			getFavoritesSubscription.unsubscribe();
 		}
+		if (getBrokersSubscription != null) {
+			getBrokersSubscription.unsubscribe();
+		}
 
 		EventBus.getDefault().unregister(this);
 
@@ -159,6 +176,9 @@ public class MarketWatchPresenter extends MvpPresenter<MarketWatchView> implemen
 		}
 		if ((tickers == null || tickers.isEmpty())) {
 			getServerInfo();
+		}
+		if (user != null && accounts.isEmpty()) {
+			getAccounts();
 		}
 	}
 
@@ -218,7 +238,11 @@ public class MarketWatchPresenter extends MvpPresenter<MarketWatchView> implemen
 
 		this.accounts = new ArrayList<>(response);
 		if (accounts.size() == 1) {
+			isWaitingForNewAccount = false;
 			onAccountSelected(accounts.get(0));
+		}
+		else if (accounts.isEmpty()) {
+			getViewState().setButtonCreateAccount();
 		}
 		subscribeToSelectedAccount();
 	}
@@ -485,5 +509,57 @@ public class MarketWatchPresenter extends MvpPresenter<MarketWatchView> implemen
 		else if (!accounts.isEmpty()) {
 			getViewState().showSelectAccount(accounts);
 		}
+		else {
+			showCreateAccount();
+		}
+	}
+
+	@Subscribe
+	public void onEventMainThread(OnCreateAccountSuccessEvent event) {
+		if (isWaitingForNewAccount) {
+			getViewState().showFavoriteTickersProgress();
+			getViewState().showNewAccountProcessingDialog();
+		}
+	}
+
+	private void showCreateAccount() {
+		if (brokersManager != null) {
+			if (getBrokersSubscription != null) {
+				getBrokersSubscription.unsubscribe();
+			}
+			getBrokersSubscription = brokersManager.getExchanges()
+					.observeOn(AndroidSchedulers.mainThread())
+					.subscribeOn(Schedulers.newThread())
+					.subscribe(this::handleGetBrokersSuccess,
+							this::handleGetBrokersError);
+		}
+	}
+
+	private void handleGetBrokersSuccess(ExchangeInfoItemsViewModel response) {
+		getBrokersSubscription.unsubscribe();
+		if (!response.getItems().isEmpty()) {
+			brokersLoop:
+			for (ExchangeInfo exchange : response.getItems()) {
+				for (ExchangeAccountType accountType : exchange.getAccountTypes()) {
+					if (accountType.getType().equals(BrokerTradeServerType.BINANCE)) {
+						CreateAccountModel model = new CreateAccountModel(
+								exchange.getAccountTypes().get(0).getId(),
+								exchange.getLogoUrl(),
+								Currency.fromValue(exchange.getAccountTypes().get(0).getCurrencies().get(0)),
+								1
+						);
+						getViewState().showCreateAccount(model);
+						isWaitingForNewAccount = true;
+						break brokersLoop;
+					}
+				}
+			}
+		}
+	}
+
+	private void handleGetBrokersError(Throwable throwable) {
+		getBrokersSubscription.unsubscribe();
+
+		ApiErrorResolver.resolveErrors(throwable, message -> getViewState().showSnackbarMessage(message));
 	}
 }

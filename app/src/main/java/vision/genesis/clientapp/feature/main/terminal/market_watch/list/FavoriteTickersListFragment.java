@@ -39,5 +39,10 @@ public class FavoriteTickersListFragment extends TickersListFragment
 	public void showProgress() {
 		progressBar.setVisibility(View.VISIBLE);
 		selectAccountButton.setVisibility(View.GONE);
+		selectAccountButton.setText(getString(R.string.select_account));
+	}
+
+	public void setButtonCreateAccount() {
+		selectAccountButton.setText(getString(R.string.create_account));
 	}
 }

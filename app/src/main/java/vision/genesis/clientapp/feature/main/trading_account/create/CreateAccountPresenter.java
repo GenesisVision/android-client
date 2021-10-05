@@ -16,6 +16,7 @@ import io.swagger.client.model.BrokersInfo;
 import io.swagger.client.model.Currency;
 import io.swagger.client.model.ExchangeAccountType;
 import io.swagger.client.model.ExchangeInfo;
+import io.swagger.client.model.ExchangeInfoItemsViewModel;
 import io.swagger.client.model.NewExchangeAccountRequest;
 import io.swagger.client.model.NewTradingAccountRequest;
 import io.swagger.client.model.TradingAccountCreateResult;
@@ -59,6 +60,8 @@ public class CreateAccountPresenter extends MvpPresenter<CreateAccountView>
 
 	private Subscription getBrokersSubscription;
 
+	private Subscription getExchangesSubscription;
+
 	private Subscription createAccountSubscription;
 
 	private ExchangeInfo selectedExchange;
@@ -89,6 +92,9 @@ public class CreateAccountPresenter extends MvpPresenter<CreateAccountView>
 		}
 		if (getBrokersSubscription != null) {
 			getBrokersSubscription.unsubscribe();
+		}
+		if (getExchangesSubscription != null) {
+			getExchangesSubscription.unsubscribe();
 		}
 		if (createAccountSubscription != null) {
 			createAccountSubscription.unsubscribe();
@@ -146,8 +152,8 @@ public class CreateAccountPresenter extends MvpPresenter<CreateAccountView>
 			brokersLoop:
 			for (Broker broker : response.getBrokers()) {
 				for (BrokerAccountType accountType : broker.getAccountTypes()) {
-					if (accountType.getId().equals(model.getBroker().getId())) {
-						request.setBrokerAccountTypeId(model.getBroker().getId());
+					if (accountType.getId().equals(model.getBrokerId())) {
+						request.setBrokerAccountTypeId(model.getBrokerId());
 						request.setCurrency(model.getCurrency());
 						request.setLeverage(model.getLeverage());
 
@@ -157,6 +163,9 @@ public class CreateAccountPresenter extends MvpPresenter<CreateAccountView>
 						break brokersLoop;
 					}
 				}
+			}
+			if (selectedBroker == null) {
+				getExchanges();
 			}
 		}
 		else {
@@ -169,6 +178,38 @@ public class CreateAccountPresenter extends MvpPresenter<CreateAccountView>
 		getViewState().showProgress(false);
 
 		ApiErrorResolver.resolveErrors(throwable, message -> getViewState().showSnackbarMessage(message));
+	}
+
+	private void getExchanges() {
+		if (getExchangesSubscription != null) {
+			getExchangesSubscription.unsubscribe();
+		}
+		getExchangesSubscription = brokersManager.getExchanges()
+				.observeOn(AndroidSchedulers.mainThread())
+				.subscribeOn(Schedulers.newThread())
+				.subscribe(this::handleGetExchangesSuccess,
+						this::handleGetBrokersError);
+	}
+
+	private void handleGetExchangesSuccess(ExchangeInfoItemsViewModel response) {
+		getExchangesSubscription.unsubscribe();
+		if (!response.getItems().isEmpty()) {
+			brokersLoop:
+			for (ExchangeInfo exchange : response.getItems()) {
+				for (ExchangeAccountType accountType : exchange.getAccountTypes()) {
+					if (accountType.getId().equals(model.getBrokerId())) {
+						request.setBrokerAccountTypeId(model.getBrokerId());
+						request.setCurrency(model.getCurrency());
+						request.setLeverage(model.getLeverage());
+
+						this.selectedExchange = exchange;
+						showExchangeAccountDepositOrCreateAccount(accountType);
+						getViewState().showProgress(false);
+						break brokersLoop;
+					}
+				}
+			}
+		}
 	}
 
 	private void sendCreateAccountRequest() {

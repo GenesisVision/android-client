@@ -3,7 +3,8 @@ package vision.genesis.clientapp.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import io.swagger.client.model.BrokerDetails;
+import java.util.UUID;
+
 import io.swagger.client.model.Currency;
 
 /**
@@ -25,20 +26,24 @@ public class CreateAccountModel implements Parcelable
 		}
 	};
 
-	private BrokerDetails broker;
+	private UUID brokerId;
+
+	private String logoUrl;
 
 	private Currency currency;
 
 	private Integer leverage;
 
-	public CreateAccountModel(BrokerDetails broker, Currency currency, Integer leverage) {
-		this.broker = broker;
+	public CreateAccountModel(UUID brokerId, String logoUrl, Currency currency, Integer leverage) {
+		this.brokerId = brokerId;
+		this.logoUrl = logoUrl;
 		this.currency = currency;
 		this.leverage = leverage;
 	}
 
 	protected CreateAccountModel(Parcel in) {
-		broker = in.readParcelable(BrokerDetails.class.getClassLoader());
+		brokerId = (UUID) in.readSerializable();
+		logoUrl = in.readString();
 		currency = (Currency) in.readValue(Currency.class.getClassLoader());
 		if (in.readByte() == 0) {
 			leverage = null;
@@ -48,8 +53,12 @@ public class CreateAccountModel implements Parcelable
 		}
 	}
 
-	public BrokerDetails getBroker() {
-		return broker;
+	public UUID getBrokerId() {
+		return brokerId;
+	}
+
+	public String getLogoUrl() {
+		return logoUrl;
 	}
 
 	public Currency getCurrency() {
@@ -67,7 +76,8 @@ public class CreateAccountModel implements Parcelable
 
 	@Override
 	public void writeToParcel(Parcel dest, int flags) {
-		dest.writeParcelable(broker, flags);
+		dest.writeSerializable(brokerId);
+		dest.writeString(logoUrl);
 		dest.writeValue(currency);
 		if (leverage == null) {
 			dest.writeByte((byte) 0);

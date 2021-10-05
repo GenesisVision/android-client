@@ -206,7 +206,7 @@ public class CreateAccountDepositFragment extends BaseFragment implements Create
 			this.stepGroup.setVisibility(View.GONE);
 			this.accountInfoGroup.setVisibility(View.VISIBLE);
 
-			this.brokerLogo.setImageURI(ImageUtils.getImageUri(model.getBroker().getLogoUrl()));
+			this.brokerLogo.setImageURI(ImageUtils.getImageUri(model.getLogoUrl()));
 			this.accountCurrency.setText(model.getCurrency().getValue());
 			this.leverage.setText(String.format(Locale.getDefault(), "1:%d", model.getLeverage()));
 

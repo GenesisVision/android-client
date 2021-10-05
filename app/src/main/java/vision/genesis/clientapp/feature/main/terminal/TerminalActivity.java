@@ -1,6 +1,7 @@
 package vision.genesis.clientapp.feature.main.terminal;
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -8,6 +9,9 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.ScrollView;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AlertDialog;
+import androidx.core.content.ContextCompat;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.google.android.material.tabs.TabLayout;
@@ -29,7 +33,8 @@ import vision.genesis.clientapp.feature.main.terminal.place_order.PlaceOrderActi
 import vision.genesis.clientapp.feature.main.terminal.select_account.SelectAccountBottomSheetFragment;
 import vision.genesis.clientapp.feature.main.terminal.symbol_watch.SymbolWatchView;
 import vision.genesis.clientapp.feature.main.terminal.tradingview_chart.ChartView;
-import vision.genesis.clientapp.model.terminal.binance_socket.KlineModel;
+import vision.genesis.clientapp.feature.main.trading_account.create.CreateAccountActivity;
+import vision.genesis.clientapp.model.CreateAccountModel;
 import vision.genesis.clientapp.ui.CustomTabView;
 import vision.genesis.clientapp.ui.PrimaryButton;
 import vision.genesis.clientapp.ui.ProgramLogoView;
@@ -174,6 +179,10 @@ public class TerminalActivity extends BaseSwipeBackActivity implements TerminalV
 			orderBookView.onResume();
 		}
 
+		if (presenter != null) {
+			presenter.onResume();
+		}
+
 		super.onResume();
 	}
 
@@ -305,8 +314,20 @@ public class TerminalActivity extends BaseSwipeBackActivity implements TerminalV
 	}
 
 	@Override
-	public void updateChart(ArrayList<KlineModel> klines) {
+	public void showNewAccountProcessingDialog() {
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		builder.setMessage(getString(R.string.your_trading_account_is_being_processing));
+		builder.setPositiveButton(getString(R.string.ok), (dialogInterface, i) -> dialogInterface.cancel());
 
+		AlertDialog dialog = builder.create();
+		dialog.show();
+
+		dialog.getButton(DialogInterface.BUTTON_POSITIVE).setTextColor(ContextCompat.getColor(this, R.color.colorAccent));
+	}
+
+	@Override
+	public void showCreateAccount(CreateAccountModel model) {
+		CreateAccountActivity.startWith(this, model);
 	}
 
 	@Override

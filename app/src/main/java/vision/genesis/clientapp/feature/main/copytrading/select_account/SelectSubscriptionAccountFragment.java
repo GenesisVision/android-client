@@ -104,7 +104,8 @@ public class SelectSubscriptionAccountFragment extends BaseFragment implements S
 			}
 			else {
 				CreateAccountActivity.startWith(getActivity(),
-						new CreateAccountModel(followDetails.getBrokerDetails(),
+						new CreateAccountModel(followDetails.getBrokerDetails().getId(),
+								followDetails.getBrokerDetails().getLogoUrl(),
 								followDetails.getTradingAccountInfo().getCurrency(),
 								followDetails.getTradingAccountInfo().getLeverageMax()));
 			}

@@ -1086,6 +1086,7 @@
     <string name="status_adl">ADL</string>
     <string name="fee">Fee</string>
     <string name="executed">Executed</string>
+    <string name="your_trading_account_is_being_processing">Please wait a moment, your new trading account is being created.</string>
 
     <plurals name="assets">
         <item quantity="one">asset</item>
