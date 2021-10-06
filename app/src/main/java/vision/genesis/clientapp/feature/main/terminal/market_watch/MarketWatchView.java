@@ -27,7 +27,7 @@ interface MarketWatchView extends MvpView
 
 	void showCreateAccount(CreateAccountModel model);
 
-	void showClearButton(boolean show);
+	void showSearchFragment(boolean show);
 
 	void setButtonCreateAccount();
 

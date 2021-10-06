@@ -10,6 +10,7 @@ import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -35,6 +36,8 @@ public class TickersListFragment extends BaseFragment
 	private TickersListAdapter tickersListAdapter;
 
 	private Unbinder unbinder;
+
+	private List<MarketWatchTickerModel> tickers = new ArrayList<>();
 
 	@Nullable
 	@Override
@@ -67,6 +70,7 @@ public class TickersListFragment extends BaseFragment
 
 		tickersListAdapter = new TickersListAdapter();
 		recyclerView.setAdapter(tickersListAdapter);
+		tickersListAdapter.setTickers(tickers);
 	}
 
 	protected void showProgress(boolean show) {
@@ -80,6 +84,9 @@ public class TickersListFragment extends BaseFragment
 
 	public void setTickers(List<MarketWatchTickerModel> tickers) {
 		showProgress(false);
-		tickersListAdapter.setTickers(tickers);
+		this.tickers = tickers;
+		if (tickersListAdapter != null) {
+			tickersListAdapter.setTickers(tickers);
+		}
 	}
 }

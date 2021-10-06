@@ -193,7 +193,7 @@ public class MarketWatchPresenter extends MvpPresenter<MarketWatchView> implemen
 		if (mask != null && tickers != null) {
 			onTickersGetUpdateSuccess(getTickersListsFitMask());
 		}
-		getViewState().showClearButton(mask != null && !mask.isEmpty());
+		getViewState().showSearchFragment(mask != null && !mask.isEmpty());
 	}
 
 	void onSortSymbolClicked() {

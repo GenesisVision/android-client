@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -40,6 +41,7 @@ import io.swagger.client.model.ExchangeAsset;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
 import vision.genesis.clientapp.feature.auth.login.LoginActivity;
+import vision.genesis.clientapp.feature.main.terminal.market_watch.list.TickersListFragment;
 import vision.genesis.clientapp.feature.main.terminal.select_account.SelectAccountBottomSheetFragment;
 import vision.genesis.clientapp.feature.main.trading_account.create.CreateAccountActivity;
 import vision.genesis.clientapp.model.CreateAccountModel;
@@ -97,6 +99,11 @@ public class MarketWatchFragment extends BaseFragment implements MarketWatchView
 
 	@BindView(R.id.sort_change)
 	public ImageView sortChange;
+
+	@BindView(R.id.search_fragment)
+	public FrameLayout searchFragmentContainer;
+
+	private TickersListFragment searchFragment;
 
 	@InjectPresenter
 	MarketWatchPresenter presenter;
@@ -159,6 +166,16 @@ public class MarketWatchFragment extends BaseFragment implements MarketWatchView
 		initViewPager();
 		initTabs();
 		setTextListener();
+		initSearchFragment();
+	}
+
+	private void initSearchFragment() {
+		searchFragment = new TickersListFragment();
+		requireActivity().getSupportFragmentManager()
+				.beginTransaction()
+				.setCustomAnimations(R.anim.fragment_fade_in, R.anim.fragment_fade_out)
+				.add(R.id.search_fragment, searchFragment)
+				.commit();
 	}
 
 	private void setTextListener() {
@@ -302,6 +319,14 @@ public class MarketWatchFragment extends BaseFragment implements MarketWatchView
 			pagerAdapter.setAltsTickers(altsTickers);
 			pagerAdapter.setFiatsTickers(fiatsTickers);
 		}
+		if (searchFragment != null && searchFragmentContainer.getVisibility() == View.VISIBLE) {
+			ArrayList<MarketWatchTickerModel> searchList = new ArrayList<>();
+			searchList.addAll(btcTickers);
+			searchList.addAll(bnbTickers);
+			searchList.addAll(altsTickers);
+			searchList.addAll(fiatsTickers);
+			searchFragment.setTickers(searchList);
+		}
 	}
 
 	@Override
@@ -374,9 +399,14 @@ public class MarketWatchFragment extends BaseFragment implements MarketWatchView
 	}
 
 	@Override
-	public void showClearButton(boolean show) {
+	public void showSearchFragment(boolean show) {
 		this.clearButton.setVisibility(show ? View.VISIBLE : View.GONE);
 		this.searchIcon.setVisibility(!show ? View.VISIBLE : View.GONE);
+		this.searchFragmentContainer.setVisibility(show ? View.VISIBLE : View.GONE);
+		this.tabLayout.setVisibility(!show ? View.VISIBLE : View.GONE);
+		if (!show && searchFragment != null) {
+			searchFragment.setTickers(new ArrayList<>());
+		}
 	}
 
 	@Override
