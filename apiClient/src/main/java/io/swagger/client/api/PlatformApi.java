@@ -17,134 +17,133 @@ import retrofit2.http.GET;
 import retrofit2.http.POST;
 import rx.Observable;
 
-public interface PlatformApi
-{
-	/**
-	 * Get all supported assets for funds
-	 *
-	 * @return Call&lt;PlatformAssets&gt;
-	 */
-	@GET("v2.0/platform/trading/assets")
-	Observable<PlatformAssets> getAllPlatformTradingAssets();
+public interface PlatformApi {
+  /**
+   * Get all supported assets for funds
+   * 
+   * @return Call&lt;PlatformAssets&gt;
+   */
+  @GET("v2.0/platform/trading/assets")
+  Observable<PlatformAssets> getAllPlatformTradingAssets();
+    
 
+  /**
+   * Get message for signature
+   * 
+   * @param type  (optional)
+   * @return Call&lt;SignMessage&gt;
+   */
+  @POST("v2.0/platform/signature/message")
+  Observable<SignMessage> getMsgForSignature(
+        @retrofit2.http.Query("type") RouteType type                
+  );
 
-	/**
-	 * Get message for signature
-	 *
-	 * @param type (optional)
-	 * @return Call&lt;SignMessage&gt;
-	 */
-	@POST("v2.0/platform/signature/message")
-	Observable<SignMessage> getMsgForSignature(
-			@retrofit2.http.Query("type") RouteType type
-	);
+  /**
+   * Get asset description
+   * 
+   * @param asset  (required)
+   * @return Call&lt;AssetInfo&gt;
+   */
+  @GET("v2.0/platform/asset/{asset}")
+  Observable<AssetInfo> getPlatformAssetInfo(
+            @retrofit2.http.Path("asset") String asset            
+  );
 
-	/**
-	 * Get asset description
-	 *
-	 * @param asset (required)
-	 * @return Call&lt;AssetInfo&gt;
-	 */
-	@GET("v2.0/platform/asset/{asset}")
-	Observable<AssetInfo> getPlatformAssetInfo(
-			@retrofit2.http.Path("asset") String asset
-	);
+  /**
+   * Server date
+   * 
+   * @return Call&lt;String&gt;
+   */
+  @POST("v2.0/platform/date")
+  Observable<String> getPlatformDate();
+    
 
-	/**
-	 * Server date
-	 *
-	 * @return Call&lt;String&gt;
-	 */
-	@POST("v2.0/platform/date")
-	Observable<String> getPlatformDate();
+  /**
+   * Get platform events
+   * 
+   * @param take  (optional)
+   * @return Call&lt;PlatformEvents&gt;
+   */
+  @GET("v2.0/platform/events")
+  Observable<PlatformEvents> getPlatformEvents(
+        @retrofit2.http.Query("take") Integer take                
+  );
 
+  /**
+   * Platform info
+   * 
+   * @return Call&lt;PlatformInfo&gt;
+   */
+  @GET("v2.0/platform/info")
+  Observable<PlatformInfo> getPlatformInfo();
+    
 
-	/**
-	 * Get platform events
-	 *
-	 * @param take (optional)
-	 * @return Call&lt;PlatformEvents&gt;
-	 */
-	@GET("v2.0/platform/events")
-	Observable<PlatformEvents> getPlatformEvents(
-			@retrofit2.http.Query("take") Integer take
-	);
+  /**
+   * Platform landing info
+   * 
+   * @param eventsTake  (optional)
+   * @param followTake  (optional)
+   * @param programsTake  (optional)
+   * @param fundsTake  (optional)
+   * @param newsTake  (optional)
+   * @return Call&lt;LandingInfo&gt;
+   */
+  @GET("v2.0/platform/landing")
+  Observable<LandingInfo> getPlatformLandingInfo(
+        @retrofit2.http.Query("eventsTake") Integer eventsTake                ,     @retrofit2.http.Query("followTake") Integer followTake                ,     @retrofit2.http.Query("programsTake") Integer programsTake                ,     @retrofit2.http.Query("fundsTake") Integer fundsTake                ,     @retrofit2.http.Query("newsTake") Integer newsTake                
+  );
 
-	/**
-	 * Platform info
-	 *
-	 * @return Call&lt;PlatformInfo&gt;
-	 */
-	@GET("v2.0/platform/info")
-	Observable<PlatformInfo> getPlatformInfo();
+  /**
+   * Server time
+   * 
+   * @return Call&lt;PushNotificationViewModel&gt;
+   */
+  @POST("v2.0/platform/time")
+  Observable<PushNotificationViewModel> getPlatformTime();
+    
 
+  /**
+   * Investment programs levels
+   * 
+   * @param currency  (optional)
+   * @return Call&lt;ProgramsLevelsInfo&gt;
+   */
+  @GET("v2.0/platform/levels")
+  Observable<ProgramsLevelsInfo> getProgramLevels(
+        @retrofit2.http.Query("currency") Currency currency                
+  );
 
-	/**
-	 * Platform landing info
-	 *
-	 * @param eventsTake   (optional)
-	 * @param followTake   (optional)
-	 * @param programsTake (optional)
-	 * @param fundsTake    (optional)
-	 * @param newsTake     (optional)
-	 * @return Call&lt;LandingInfo&gt;
-	 */
-	@GET("v2.0/platform/landing")
-	Observable<LandingInfo> getPlatformLandingInfo(
-			@retrofit2.http.Query("eventsTake") Integer eventsTake, @retrofit2.http.Query("followTake") Integer followTake, @retrofit2.http.Query("programsTake") Integer programsTake, @retrofit2.http.Query("fundsTake") Integer fundsTake, @retrofit2.http.Query("newsTake") Integer newsTake
-	);
+  /**
+   * Investment programs levels parameters
+   * 
+   * @param currency  (optional)
+   * @return Call&lt;LevelsParamsInfo&gt;
+   */
+  @GET("v2.0/platform/levels/parameters")
+  Observable<LevelsParamsInfo> getProgramLevelsParams(
+        @retrofit2.http.Query("currency") Currency currency                
+  );
 
-	/**
-	 * Server time
-	 *
-	 * @return Call&lt;PushNotificationViewModel&gt;
-	 */
-	@POST("v2.0/platform/time")
-	Observable<PushNotificationViewModel> getPlatformTime();
+  /**
+   * Risk control
+   * 
+   * @param route  (required)
+   * @param client  (optional)
+   * @param version  (optional)
+   * @return Call&lt;CaptchaDetails&gt;
+   */
+  @GET("v2.0/platform/riskcontrol")
+  Observable<CaptchaDetails> getRiskControlInfo(
+        @retrofit2.http.Query("Route") String route                ,     @retrofit2.http.Query("Client") String client                ,     @retrofit2.http.Query("Version") String version                
+  );
 
-
-	/**
-	 * Investment programs levels
-	 *
-	 * @param currency (optional)
-	 * @return Call&lt;ProgramsLevelsInfo&gt;
-	 */
-	@GET("v2.0/platform/levels")
-	Observable<ProgramsLevelsInfo> getProgramLevels(
-			@retrofit2.http.Query("currency") Currency currency
-	);
-
-	/**
-	 * Investment programs levels parameters
-	 *
-	 * @param currency (optional)
-	 * @return Call&lt;LevelsParamsInfo&gt;
-	 */
-	@GET("v2.0/platform/levels/parameters")
-	Observable<LevelsParamsInfo> getProgramLevelsParams(
-			@retrofit2.http.Query("currency") Currency currency
-	);
-
-	/**
-	 * Risk control
-	 *
-	 * @param route   (required)
-	 * @param client  (optional)
-	 * @param version (optional)
-	 * @return Call&lt;CaptchaDetails&gt;
-	 */
-	@GET("v2.0/platform/riskcontrol")
-	Observable<CaptchaDetails> getRiskControlInfo(
-			@retrofit2.http.Query("Route") String route, @retrofit2.http.Query("Client") String client, @retrofit2.http.Query("Version") String version
-	);
-
-	/**
-	 * Sitemap info
-	 *
-	 * @return Call&lt;SiteMapInfo&gt;
-	 */
-	@GET("v2.0/platform/sitemap")
-	Observable<SiteMapInfo> getSitemapInfo();
-
+  /**
+   * Sitemap info
+   * 
+   * @return Call&lt;SiteMapInfo&gt;
+   */
+  @GET("v2.0/platform/sitemap")
+  Observable<SiteMapInfo> getSitemapInfo();
+    
 
 }

@@ -12,18 +12,25 @@
 
 package io.swagger.client.model;
 
-import android.os.Parcel;
-import android.os.Parcelable;
-
+import java.util.Objects;
+import java.util.Arrays;
+import com.google.gson.TypeAdapter;
+import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
-
-import org.joda.time.DateTime;
-
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
+import io.swagger.client.model.BinanceOrderSide;
+import io.swagger.client.model.BinanceOrderStatus;
+import io.swagger.client.model.BinanceOrderType;
+import io.swagger.client.model.BinanceRawOrderTrade;
+import io.swagger.client.model.BinanceTimeInForce;
+import io.swagger.v3.oas.annotations.media.Schema;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
-
-import io.swagger.v3.oas.annotations.media.Schema;
+import org.joda.time.DateTime;
+import android.os.Parcelable;
+import android.os.Parcel;
 /**
  * BinanceRawPlacedOrder
  */

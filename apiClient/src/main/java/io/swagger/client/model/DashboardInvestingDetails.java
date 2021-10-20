@@ -12,14 +12,19 @@
 
 package io.swagger.client.model;
 
-import android.os.Parcel;
-import android.os.Parcelable;
-
-import com.google.gson.annotations.SerializedName;
-
 import java.util.Objects;
-
+import java.util.Arrays;
+import com.google.gson.TypeAdapter;
+import com.google.gson.annotations.JsonAdapter;
+import com.google.gson.annotations.SerializedName;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
+import io.swagger.client.model.DashboardProfits;
+import io.swagger.client.model.InvestmentEventViewModelItemsViewModel;
 import io.swagger.v3.oas.annotations.media.Schema;
+import java.io.IOException;
+import android.os.Parcelable;
+import android.os.Parcel;
 /**
  * DashboardInvestingDetails
  */
@@ -34,6 +39,9 @@ public class DashboardInvestingDetails implements Parcelable {
 
   @SerializedName("fundsCount")
   private Integer fundsCount = null;
+
+  @SerializedName("coinsCount")
+  private Integer coinsCount = null;
 
   @SerializedName("profits")
   private DashboardProfits profits = null;
@@ -97,6 +105,24 @@ public class DashboardInvestingDetails implements Parcelable {
     this.fundsCount = fundsCount;
   }
 
+  public DashboardInvestingDetails coinsCount(Integer coinsCount) {
+    this.coinsCount = coinsCount;
+    return this;
+  }
+
+   /**
+   * Get coinsCount
+   * @return coinsCount
+  **/
+  @Schema(description = "")
+  public Integer getCoinsCount() {
+    return coinsCount;
+  }
+
+  public void setCoinsCount(Integer coinsCount) {
+    this.coinsCount = coinsCount;
+  }
+
   public DashboardInvestingDetails profits(DashboardProfits profits) {
     this.profits = profits;
     return this;
@@ -146,13 +172,14 @@ public class DashboardInvestingDetails implements Parcelable {
     return Objects.equals(this.equity, dashboardInvestingDetails.equity) &&
         Objects.equals(this.programsCount, dashboardInvestingDetails.programsCount) &&
         Objects.equals(this.fundsCount, dashboardInvestingDetails.fundsCount) &&
+        Objects.equals(this.coinsCount, dashboardInvestingDetails.coinsCount) &&
         Objects.equals(this.profits, dashboardInvestingDetails.profits) &&
         Objects.equals(this.events, dashboardInvestingDetails.events);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(equity, programsCount, fundsCount, profits, events);
+    return Objects.hash(equity, programsCount, fundsCount, coinsCount, profits, events);
   }
 
 
@@ -164,6 +191,7 @@ public class DashboardInvestingDetails implements Parcelable {
     sb.append("    equity: ").append(toIndentedString(equity)).append("\n");
     sb.append("    programsCount: ").append(toIndentedString(programsCount)).append("\n");
     sb.append("    fundsCount: ").append(toIndentedString(fundsCount)).append("\n");
+    sb.append("    coinsCount: ").append(toIndentedString(coinsCount)).append("\n");
     sb.append("    profits: ").append(toIndentedString(profits)).append("\n");
     sb.append("    events: ").append(toIndentedString(events)).append("\n");
     sb.append("}");
@@ -186,6 +214,7 @@ public class DashboardInvestingDetails implements Parcelable {
     out.writeValue(equity);
     out.writeValue(programsCount);
     out.writeValue(fundsCount);
+    out.writeValue(coinsCount);
     out.writeValue(profits);
     out.writeValue(events);
   }
@@ -194,6 +223,7 @@ public class DashboardInvestingDetails implements Parcelable {
     equity = (Double)in.readValue(null);
     programsCount = (Integer)in.readValue(null);
     fundsCount = (Integer)in.readValue(null);
+    coinsCount = (Integer)in.readValue(null);
     profits = (DashboardProfits)in.readValue(DashboardProfits.class.getClassLoader());
     events = (InvestmentEventViewModelItemsViewModel)in.readValue(InvestmentEventViewModelItemsViewModel.class.getClassLoader());
   }

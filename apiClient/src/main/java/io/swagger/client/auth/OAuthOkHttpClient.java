@@ -18,55 +18,53 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 
 
-public class OAuthOkHttpClient implements HttpClient
-{
+public class OAuthOkHttpClient implements HttpClient {
 
-	private OkHttpClient client;
+    private OkHttpClient client;
 
-	public OAuthOkHttpClient() {
-		this.client = new OkHttpClient();
-	}
+    public OAuthOkHttpClient() {
+        this.client = new OkHttpClient();
+    }
 
-	public OAuthOkHttpClient(OkHttpClient client) {
-		this.client = client;
-	}
+    public OAuthOkHttpClient(OkHttpClient client) {
+        this.client = client;
+    }
 
-	public <T extends OAuthClientResponse> T execute(OAuthClientRequest request, Map<String, String> headers,
-	                                                 String requestMethod, Class<T> responseClass)
-			throws OAuthSystemException, OAuthProblemException {
+    public <T extends OAuthClientResponse> T execute(OAuthClientRequest request, Map<String, String> headers,
+            String requestMethod, Class<T> responseClass)
+                    throws OAuthSystemException, OAuthProblemException {
 
-		MediaType mediaType = MediaType.parse("application/json");
-		Request.Builder requestBuilder = new Request.Builder().url(request.getLocationUri());
+        MediaType mediaType = MediaType.parse("application/json");
+        Request.Builder requestBuilder = new Request.Builder().url(request.getLocationUri());
 
-		if (headers != null) {
-			for (Entry<String, String> entry : headers.entrySet()) {
-				if (entry.getKey().equalsIgnoreCase("Content-Type")) {
-					mediaType = MediaType.parse(entry.getValue());
-				}
-				else {
-					requestBuilder.addHeader(entry.getKey(), entry.getValue());
-				}
-			}
-		}
+        if(headers != null) {
+            for (Entry<String, String> entry : headers.entrySet()) {
+                if (entry.getKey().equalsIgnoreCase("Content-Type")) {
+                    mediaType = MediaType.parse(entry.getValue());
+                } else {
+                    requestBuilder.addHeader(entry.getKey(), entry.getValue());
+                }
+            }
+        }
 
-		RequestBody body = request.getBody() != null ? RequestBody.create(mediaType, request.getBody()) : null;
-		requestBuilder.method(requestMethod, body);
+        RequestBody body = request.getBody() != null ? RequestBody.create(mediaType, request.getBody()) : null;
+        requestBuilder.method(requestMethod, body);
 
-		try {
-			Response response = client.newCall(requestBuilder.build()).execute();
-			return OAuthClientResponseFactory.createCustomResponse(
-					response.body().string(),
-					response.body().contentType().toString(),
-					response.code(),
-					response.headers().toMultimap(),
-					responseClass);
-		} catch (IOException e) {
-			throw new OAuthSystemException(e);
-		}
-	}
+        try {
+            Response response = client.newCall(requestBuilder.build()).execute();
+            return OAuthClientResponseFactory.createCustomResponse(
+                    response.body().string(), 
+                    response.body().contentType().toString(),
+                    response.code(),
+                    response.headers().toMultimap(),
+                    responseClass);
+        } catch (IOException e) {
+            throw new OAuthSystemException(e);
+        }
+    }
 
-	public void shutdown() {
-		// Nothing to do here
-	}
+    public void shutdown() {
+        // Nothing to do here
+    }
 
 }

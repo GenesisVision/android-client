@@ -9,6 +9,7 @@ Method | HTTP request | Description
 [**cancelOrder**](TradingplatformApi.md#cancelOrder) | **POST** v2.0/tradingplatform/binance/spot/orders/cancel | Cancel order
 [**changeFuturesInitialLeverageAsync**](TradingplatformApi.md#changeFuturesInitialLeverageAsync) | **POST** v2.0/tradingplatform/binance/account/futures/leverage/initial | 
 [**changeFuturesMarginType**](TradingplatformApi.md#changeFuturesMarginType) | **POST** v2.0/tradingplatform/binance/account/futures/margin/type | 
+[**changeFuturesPositionMargin**](TradingplatformApi.md#changeFuturesPositionMargin) | **POST** v2.0/tradingplatform/binance/account/futures/position/margin | 
 [**futuresCancelAllOpenOrders**](TradingplatformApi.md#futuresCancelAllOpenOrders) | **POST** v2.0/tradingplatform/binance/futures/orders/cancel/all | Cancel all futures orders
 [**futuresCancelOrder**](TradingplatformApi.md#futuresCancelOrder) | **POST** v2.0/tradingplatform/binance/futures/orders/cancel | Cancel futures order
 [**futuresKeepAliveAccountStream**](TradingplatformApi.md#futuresKeepAliveAccountStream) | **POST** v2.0/tradingplatform/binance/futures/stream/ping | Ping futures account stream
@@ -28,8 +29,10 @@ Method | HTTP request | Description
 [**getFuturesBrackets**](TradingplatformApi.md#getFuturesBrackets) | **GET** v2.0/tradingplatform/binance/account/futures/symbols/brackets | Get notional and leverage brackets
 [**getFuturesCompositeIndexInfo**](TradingplatformApi.md#getFuturesCompositeIndexInfo) | **GET** v2.0/tradingplatform/binance/futures/market/index/composite/info | Gets composite index info
 [**getFuturesExchangeInfo**](TradingplatformApi.md#getFuturesExchangeInfo) | **GET** v2.0/tradingplatform/binance/futures/server/info | Exchange futures info
+[**getFuturesForcedOrders**](TradingplatformApi.md#getFuturesForcedOrders) | **GET** v2.0/tradingplatform/binance/account/futures/orders/force | 
 [**getFuturesFundingRates**](TradingplatformApi.md#getFuturesFundingRates) | **GET** v2.0/tradingplatform/binance/futures/market/rates/funding | Get futures funding rate history
 [**getFuturesGlobalLongShortAccountRatio**](TradingplatformApi.md#getFuturesGlobalLongShortAccountRatio) | **GET** v2.0/tradingplatform/binance/futures/market/ratio/longshort/global/account | Get long/short ratio
+[**getFuturesIncomeHistory**](TradingplatformApi.md#getFuturesIncomeHistory) | **GET** v2.0/tradingplatform/binance/account/futures/income/history | 
 [**getFuturesKlines**](TradingplatformApi.md#getFuturesKlines) | **GET** v2.0/tradingplatform/binance/futures/market/klines | Get futures klines
 [**getFuturesMarkPrices**](TradingplatformApi.md#getFuturesMarkPrices) | **GET** v2.0/tradingplatform/binance/futures/market/prices/mark | Get futures mark prices
 [**getFuturesOpenInterest**](TradingplatformApi.md#getFuturesOpenInterest) | **GET** v2.0/tradingplatform/binance/futures/market/rates/interest | Get present open interest of a specific symbol
@@ -45,6 +48,8 @@ Method | HTTP request | Description
 [**getFuturesTickerPrices**](TradingplatformApi.md#getFuturesTickerPrices) | **GET** v2.0/tradingplatform/binance/futures/market/ticker/price | Get futures symbol price
 [**getFuturesTopLongShortAccountRatio**](TradingplatformApi.md#getFuturesTopLongShortAccountRatio) | **GET** v2.0/tradingplatform/binance/futures/market/ratio/longshort/top/account | Get top trader long/short ratio (Accounts)
 [**getFuturesTopLongShortPositionRatio**](TradingplatformApi.md#getFuturesTopLongShortPositionRatio) | **GET** v2.0/tradingplatform/binance/futures/market/ratio/longshort/top/position | Get top trader long/short ratio (Positions)
+[**getFuturesTrades**](TradingplatformApi.md#getFuturesTrades) | **GET** v2.0/tradingplatform/binance/account/futures/trades | 
+[**getFuturesTradesHistory**](TradingplatformApi.md#getFuturesTradesHistory) | **GET** v2.0/tradingplatform/binance/futures/trades | Account futures history
 [**getKlines**](TradingplatformApi.md#getKlines) | **GET** v2.0/tradingplatform/binance/market/{symbol}/klines | Get klines
 [**getOpenOrders**](TradingplatformApi.md#getOpenOrders) | **GET** v2.0/tradingplatform/binance/spot/orders | Open positions
 [**getOrderBook**](TradingplatformApi.md#getOrderBook) | **GET** v2.0/tradingplatform/binance/market/{symbol}/depth | Get order book
@@ -328,6 +333,67 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**BinanceRawFuturesChangeMarginTypeResult**](BinanceRawFuturesChangeMarginTypeResult.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
+
+<a name="changeFuturesPositionMargin"></a>
+# **changeFuturesPositionMargin**
+> BinanceRawFuturesPositionMarginResult changeFuturesPositionMargin(accountId, symbol, amount, type, positionSide)
+
+
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiClient;
+//import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
+//import io.swagger.client.api.TradingplatformApi;
+
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
+
+TradingplatformApi apiInstance = new TradingplatformApi();
+UUID accountId = new UUID(); // UUID | 
+String symbol = "symbol_example"; // String | 
+Double amount = 3.4D; // Double | 
+BinanceFuturesMarginChangeDirectionType type = new BinanceFuturesMarginChangeDirectionType(); // BinanceFuturesMarginChangeDirectionType | 
+BinancePositionSide positionSide = new BinancePositionSide(); // BinancePositionSide | 
+try {
+    BinanceRawFuturesPositionMarginResult result = apiInstance.changeFuturesPositionMargin(accountId, symbol, amount, type, positionSide);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling TradingplatformApi#changeFuturesPositionMargin");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **accountId** | [**UUID**](.md)|  | [optional]
+ **symbol** | **String**|  | [optional]
+ **amount** | **Double**|  | [optional]
+ **type** | [**BinanceFuturesMarginChangeDirectionType**](.md)|  | [optional]
+ **positionSide** | [**BinancePositionSide**](.md)|  | [optional]
+
+### Return type
+
+[**BinanceRawFuturesPositionMarginResult**](BinanceRawFuturesPositionMarginResult.md)
 
 ### Authorization
 
@@ -1357,6 +1423,67 @@ This endpoint does not need any parameter.
  - **Content-Type**: Not defined
  - **Accept**: text/plain, application/json, text/json
 
+<a name="getFuturesForcedOrders"></a>
+# **getFuturesForcedOrders**
+> List&lt;BinanceRawFuturesOrder&gt; getFuturesForcedOrders(accountId, symbol, closeType, startTime, endTime)
+
+
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiClient;
+//import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
+//import io.swagger.client.api.TradingplatformApi;
+
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
+
+TradingplatformApi apiInstance = new TradingplatformApi();
+UUID accountId = new UUID(); // UUID | 
+String symbol = "symbol_example"; // String | 
+BinanceAutoCloseType closeType = new BinanceAutoCloseType(); // BinanceAutoCloseType | 
+DateTime startTime = new DateTime(); // DateTime | 
+DateTime endTime = new DateTime(); // DateTime | 
+try {
+    List<BinanceRawFuturesOrder> result = apiInstance.getFuturesForcedOrders(accountId, symbol, closeType, startTime, endTime);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling TradingplatformApi#getFuturesForcedOrders");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **accountId** | [**UUID**](.md)|  | [optional]
+ **symbol** | **String**|  | [optional]
+ **closeType** | [**BinanceAutoCloseType**](.md)|  | [optional]
+ **startTime** | **DateTime**|  | [optional]
+ **endTime** | **DateTime**|  | [optional]
+
+### Return type
+
+[**List&lt;BinanceRawFuturesOrder&gt;**](BinanceRawFuturesOrder.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
+
 <a name="getFuturesFundingRates"></a>
 # **getFuturesFundingRates**
 > List&lt;BinanceRawFuturesFundingRateHistory&gt; getFuturesFundingRates(symbol, startTime, endTime, limit)
@@ -1467,6 +1594,69 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**List&lt;BinanceRawFuturesLongShortRatio&gt;**](BinanceRawFuturesLongShortRatio.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
+
+<a name="getFuturesIncomeHistory"></a>
+# **getFuturesIncomeHistory**
+> List&lt;BinanceRawFuturesIncomeHistory&gt; getFuturesIncomeHistory(accountId, symbol, incomeType, startTime, endTime, limit)
+
+
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiClient;
+//import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
+//import io.swagger.client.api.TradingplatformApi;
+
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
+
+TradingplatformApi apiInstance = new TradingplatformApi();
+UUID accountId = new UUID(); // UUID | 
+String symbol = "symbol_example"; // String | 
+String incomeType = "incomeType_example"; // String | 
+DateTime startTime = new DateTime(); // DateTime | 
+DateTime endTime = new DateTime(); // DateTime | 
+Integer limit = 56; // Integer | 
+try {
+    List<BinanceRawFuturesIncomeHistory> result = apiInstance.getFuturesIncomeHistory(accountId, symbol, incomeType, startTime, endTime, limit);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling TradingplatformApi#getFuturesIncomeHistory");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **accountId** | [**UUID**](.md)|  | [optional]
+ **symbol** | **String**|  | [optional]
+ **incomeType** | **String**|  | [optional]
+ **startTime** | **DateTime**|  | [optional]
+ **endTime** | **DateTime**|  | [optional]
+ **limit** | **Integer**|  | [optional]
+
+### Return type
+
+[**List&lt;BinanceRawFuturesIncomeHistory&gt;**](BinanceRawFuturesIncomeHistory.md)
 
 ### Authorization
 
@@ -2320,6 +2510,132 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**List&lt;BinanceRawFuturesLongShortRatio&gt;**](BinanceRawFuturesLongShortRatio.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
+
+<a name="getFuturesTrades"></a>
+# **getFuturesTrades**
+> List&lt;BinanceRawFuturesUsdtTrade&gt; getFuturesTrades(accountId, symbol, startTime, endTime, limit)
+
+
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiClient;
+//import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
+//import io.swagger.client.api.TradingplatformApi;
+
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
+
+TradingplatformApi apiInstance = new TradingplatformApi();
+UUID accountId = new UUID(); // UUID | 
+String symbol = "symbol_example"; // String | 
+DateTime startTime = new DateTime(); // DateTime | 
+DateTime endTime = new DateTime(); // DateTime | 
+Integer limit = 56; // Integer | 
+try {
+    List<BinanceRawFuturesUsdtTrade> result = apiInstance.getFuturesTrades(accountId, symbol, startTime, endTime, limit);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling TradingplatformApi#getFuturesTrades");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **accountId** | [**UUID**](.md)|  | [optional]
+ **symbol** | **String**|  | [optional]
+ **startTime** | **DateTime**|  | [optional]
+ **endTime** | **DateTime**|  | [optional]
+ **limit** | **Integer**|  | [optional]
+
+### Return type
+
+[**List&lt;BinanceRawFuturesUsdtTrade&gt;**](BinanceRawFuturesUsdtTrade.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
+
+<a name="getFuturesTradesHistory"></a>
+# **getFuturesTradesHistory**
+> BinanceRawFuturesOrderItemsViewModel getFuturesTradesHistory(accountId, mode, dateFrom, dateTo, symbol, skip, take)
+
+Account futures history
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiClient;
+//import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
+//import io.swagger.client.api.TradingplatformApi;
+
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
+
+TradingplatformApi apiInstance = new TradingplatformApi();
+UUID accountId = new UUID(); // UUID | 
+TradingPlatformBinanceOrdersMode mode = new TradingPlatformBinanceOrdersMode(); // TradingPlatformBinanceOrdersMode | 
+DateTime dateFrom = new DateTime(); // DateTime | 
+DateTime dateTo = new DateTime(); // DateTime | 
+String symbol = "symbol_example"; // String | 
+Integer skip = 56; // Integer | 
+Integer take = 56; // Integer | 
+try {
+    BinanceRawFuturesOrderItemsViewModel result = apiInstance.getFuturesTradesHistory(accountId, mode, dateFrom, dateTo, symbol, skip, take);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling TradingplatformApi#getFuturesTradesHistory");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **accountId** | [**UUID**](.md)|  | [optional]
+ **mode** | [**TradingPlatformBinanceOrdersMode**](.md)|  | [optional]
+ **dateFrom** | **DateTime**|  | [optional]
+ **dateTo** | **DateTime**|  | [optional]
+ **symbol** | **String**|  | [optional]
+ **skip** | **Integer**|  | [optional]
+ **take** | **Integer**|  | [optional]
+
+### Return type
+
+[**BinanceRawFuturesOrderItemsViewModel**](BinanceRawFuturesOrderItemsViewModel.md)
 
 ### Authorization
 

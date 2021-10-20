@@ -20,3 +20,5 @@
 * `BYAVERAGEPRICEDESC` (value: `"ByAveragePriceDesc"`)
 * `BYPROFITASC` (value: `"ByProfitAsc"`)
 * `BYPROFITDESC` (value: `"ByProfitDesc"`)
+* `BYTOTALASC` (value: `"ByTotalAsc"`)
+* `BYTOTALDESC` (value: `"ByTotalDesc"`)

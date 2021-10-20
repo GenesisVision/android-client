@@ -12,16 +12,31 @@
 
 package io.swagger.client.model;
 
-import android.os.Parcel;
-import android.os.Parcelable;
-
+import java.util.Objects;
+import java.util.Arrays;
+import com.google.gson.TypeAdapter;
+import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
-
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
+import io.swagger.client.model.BinanceContractType;
+import io.swagger.client.model.BinanceOrderType;
+import io.swagger.client.model.BinanceRawFuturesSymbolLotSizeFilter;
+import io.swagger.client.model.BinanceRawFuturesSymbolMarketLotSizeFilter;
+import io.swagger.client.model.BinanceRawFuturesSymbolMaxAlgorithmicOrdersFilter;
+import io.swagger.client.model.BinanceRawFuturesSymbolMaxOrdersFilter;
+import io.swagger.client.model.BinanceRawFuturesSymbolPercentPriceFilter;
+import io.swagger.client.model.BinanceRawFuturesSymbolPriceFilter;
+import io.swagger.client.model.BinanceSymbolStatus;
+import io.swagger.client.model.BinanceTimeInForce;
+import io.swagger.client.model.BinanceUnderlyingType;
+import io.swagger.v3.oas.annotations.media.Schema;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
-
-import io.swagger.v3.oas.annotations.media.Schema;
+import org.joda.time.DateTime;
+import android.os.Parcelable;
+import android.os.Parcel;
 /**
  * BinanceRawFuturesUsdtSymbol
  */
@@ -30,6 +45,12 @@ import io.swagger.v3.oas.annotations.media.Schema;
 public class BinanceRawFuturesUsdtSymbol implements Parcelable {
   @SerializedName("name")
   private String name = null;
+
+  @SerializedName("pair")
+  private String pair = null;
+
+  @SerializedName("contractType")
+  private BinanceContractType contractType = null;
 
   @SerializedName("maintenanceMarginPercent")
   private Double maintenanceMarginPercent = null;
@@ -42,6 +63,15 @@ public class BinanceRawFuturesUsdtSymbol implements Parcelable {
 
   @SerializedName("requiredMarginPercent")
   private Double requiredMarginPercent = null;
+
+  @SerializedName("settlePlan")
+  private Double settlePlan = null;
+
+  @SerializedName("maintMarginPercent")
+  private Double maintMarginPercent = null;
+
+  @SerializedName("triggerProtect")
+  private Double triggerProtect = null;
 
   @SerializedName("baseAsset")
   private String baseAsset = null;
@@ -60,6 +90,15 @@ public class BinanceRawFuturesUsdtSymbol implements Parcelable {
 
   @SerializedName("status")
   private BinanceSymbolStatus status = null;
+
+  @SerializedName("underlyingType")
+  private BinanceUnderlyingType underlyingType = null;
+
+  @SerializedName("deliveryDate")
+  private DateTime deliveryDate = null;
+
+  @SerializedName("listingDate")
+  private DateTime listingDate = null;
 
   @SerializedName("orderTypes")
   private List<BinanceOrderType> orderTypes = null;
@@ -103,6 +142,42 @@ public class BinanceRawFuturesUsdtSymbol implements Parcelable {
 
   public void setName(String name) {
     this.name = name;
+  }
+
+  public BinanceRawFuturesUsdtSymbol pair(String pair) {
+    this.pair = pair;
+    return this;
+  }
+
+   /**
+   * Get pair
+   * @return pair
+  **/
+  @Schema(description = "")
+  public String getPair() {
+    return pair;
+  }
+
+  public void setPair(String pair) {
+    this.pair = pair;
+  }
+
+  public BinanceRawFuturesUsdtSymbol contractType(BinanceContractType contractType) {
+    this.contractType = contractType;
+    return this;
+  }
+
+   /**
+   * Get contractType
+   * @return contractType
+  **/
+  @Schema(description = "")
+  public BinanceContractType getContractType() {
+    return contractType;
+  }
+
+  public void setContractType(BinanceContractType contractType) {
+    this.contractType = contractType;
   }
 
   public BinanceRawFuturesUsdtSymbol maintenanceMarginPercent(Double maintenanceMarginPercent) {
@@ -175,6 +250,60 @@ public class BinanceRawFuturesUsdtSymbol implements Parcelable {
 
   public void setRequiredMarginPercent(Double requiredMarginPercent) {
     this.requiredMarginPercent = requiredMarginPercent;
+  }
+
+  public BinanceRawFuturesUsdtSymbol settlePlan(Double settlePlan) {
+    this.settlePlan = settlePlan;
+    return this;
+  }
+
+   /**
+   * Get settlePlan
+   * @return settlePlan
+  **/
+  @Schema(description = "")
+  public Double getSettlePlan() {
+    return settlePlan;
+  }
+
+  public void setSettlePlan(Double settlePlan) {
+    this.settlePlan = settlePlan;
+  }
+
+  public BinanceRawFuturesUsdtSymbol maintMarginPercent(Double maintMarginPercent) {
+    this.maintMarginPercent = maintMarginPercent;
+    return this;
+  }
+
+   /**
+   * Get maintMarginPercent
+   * @return maintMarginPercent
+  **/
+  @Schema(description = "")
+  public Double getMaintMarginPercent() {
+    return maintMarginPercent;
+  }
+
+  public void setMaintMarginPercent(Double maintMarginPercent) {
+    this.maintMarginPercent = maintMarginPercent;
+  }
+
+  public BinanceRawFuturesUsdtSymbol triggerProtect(Double triggerProtect) {
+    this.triggerProtect = triggerProtect;
+    return this;
+  }
+
+   /**
+   * Get triggerProtect
+   * @return triggerProtect
+  **/
+  @Schema(description = "")
+  public Double getTriggerProtect() {
+    return triggerProtect;
+  }
+
+  public void setTriggerProtect(Double triggerProtect) {
+    this.triggerProtect = triggerProtect;
   }
 
   public BinanceRawFuturesUsdtSymbol baseAsset(String baseAsset) {
@@ -283,6 +412,60 @@ public class BinanceRawFuturesUsdtSymbol implements Parcelable {
 
   public void setStatus(BinanceSymbolStatus status) {
     this.status = status;
+  }
+
+  public BinanceRawFuturesUsdtSymbol underlyingType(BinanceUnderlyingType underlyingType) {
+    this.underlyingType = underlyingType;
+    return this;
+  }
+
+   /**
+   * Get underlyingType
+   * @return underlyingType
+  **/
+  @Schema(description = "")
+  public BinanceUnderlyingType getUnderlyingType() {
+    return underlyingType;
+  }
+
+  public void setUnderlyingType(BinanceUnderlyingType underlyingType) {
+    this.underlyingType = underlyingType;
+  }
+
+  public BinanceRawFuturesUsdtSymbol deliveryDate(DateTime deliveryDate) {
+    this.deliveryDate = deliveryDate;
+    return this;
+  }
+
+   /**
+   * Get deliveryDate
+   * @return deliveryDate
+  **/
+  @Schema(description = "")
+  public DateTime getDeliveryDate() {
+    return deliveryDate;
+  }
+
+  public void setDeliveryDate(DateTime deliveryDate) {
+    this.deliveryDate = deliveryDate;
+  }
+
+  public BinanceRawFuturesUsdtSymbol listingDate(DateTime listingDate) {
+    this.listingDate = listingDate;
+    return this;
+  }
+
+   /**
+   * Get listingDate
+   * @return listingDate
+  **/
+  @Schema(description = "")
+  public DateTime getListingDate() {
+    return listingDate;
+  }
+
+  public void setListingDate(DateTime listingDate) {
+    this.listingDate = listingDate;
   }
 
   public BinanceRawFuturesUsdtSymbol orderTypes(List<BinanceOrderType> orderTypes) {
@@ -456,16 +639,24 @@ public class BinanceRawFuturesUsdtSymbol implements Parcelable {
     }
     BinanceRawFuturesUsdtSymbol binanceRawFuturesUsdtSymbol = (BinanceRawFuturesUsdtSymbol) o;
     return Objects.equals(this.name, binanceRawFuturesUsdtSymbol.name) &&
+        Objects.equals(this.pair, binanceRawFuturesUsdtSymbol.pair) &&
+        Objects.equals(this.contractType, binanceRawFuturesUsdtSymbol.contractType) &&
         Objects.equals(this.maintenanceMarginPercent, binanceRawFuturesUsdtSymbol.maintenanceMarginPercent) &&
         Objects.equals(this.pricePrecision, binanceRawFuturesUsdtSymbol.pricePrecision) &&
         Objects.equals(this.quantityPrecision, binanceRawFuturesUsdtSymbol.quantityPrecision) &&
         Objects.equals(this.requiredMarginPercent, binanceRawFuturesUsdtSymbol.requiredMarginPercent) &&
+        Objects.equals(this.settlePlan, binanceRawFuturesUsdtSymbol.settlePlan) &&
+        Objects.equals(this.maintMarginPercent, binanceRawFuturesUsdtSymbol.maintMarginPercent) &&
+        Objects.equals(this.triggerProtect, binanceRawFuturesUsdtSymbol.triggerProtect) &&
         Objects.equals(this.baseAsset, binanceRawFuturesUsdtSymbol.baseAsset) &&
         Objects.equals(this.marginAsset, binanceRawFuturesUsdtSymbol.marginAsset) &&
         Objects.equals(this.quoteAsset, binanceRawFuturesUsdtSymbol.quoteAsset) &&
         Objects.equals(this.baseAssetPrecision, binanceRawFuturesUsdtSymbol.baseAssetPrecision) &&
         Objects.equals(this.quoteAssetPrecision, binanceRawFuturesUsdtSymbol.quoteAssetPrecision) &&
         Objects.equals(this.status, binanceRawFuturesUsdtSymbol.status) &&
+        Objects.equals(this.underlyingType, binanceRawFuturesUsdtSymbol.underlyingType) &&
+        Objects.equals(this.deliveryDate, binanceRawFuturesUsdtSymbol.deliveryDate) &&
+        Objects.equals(this.listingDate, binanceRawFuturesUsdtSymbol.listingDate) &&
         Objects.equals(this.orderTypes, binanceRawFuturesUsdtSymbol.orderTypes) &&
         Objects.equals(this.timeInForce, binanceRawFuturesUsdtSymbol.timeInForce) &&
         Objects.equals(this.priceFilter, binanceRawFuturesUsdtSymbol.priceFilter) &&
@@ -478,7 +669,7 @@ public class BinanceRawFuturesUsdtSymbol implements Parcelable {
 
   @Override
   public int hashCode() {
-    return Objects.hash(name, maintenanceMarginPercent, pricePrecision, quantityPrecision, requiredMarginPercent, baseAsset, marginAsset, quoteAsset, baseAssetPrecision, quoteAssetPrecision, status, orderTypes, timeInForce, priceFilter, lotSizeFilter, marketLotSizeFilter, maxOrdersFilter, maxAlgoOrdersFilter, pricePercentFilter);
+    return Objects.hash(name, pair, contractType, maintenanceMarginPercent, pricePrecision, quantityPrecision, requiredMarginPercent, settlePlan, maintMarginPercent, triggerProtect, baseAsset, marginAsset, quoteAsset, baseAssetPrecision, quoteAssetPrecision, status, underlyingType, deliveryDate, listingDate, orderTypes, timeInForce, priceFilter, lotSizeFilter, marketLotSizeFilter, maxOrdersFilter, maxAlgoOrdersFilter, pricePercentFilter);
   }
 
 
@@ -488,16 +679,24 @@ public class BinanceRawFuturesUsdtSymbol implements Parcelable {
     sb.append("class BinanceRawFuturesUsdtSymbol {\n");
     
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
+    sb.append("    pair: ").append(toIndentedString(pair)).append("\n");
+    sb.append("    contractType: ").append(toIndentedString(contractType)).append("\n");
     sb.append("    maintenanceMarginPercent: ").append(toIndentedString(maintenanceMarginPercent)).append("\n");
     sb.append("    pricePrecision: ").append(toIndentedString(pricePrecision)).append("\n");
     sb.append("    quantityPrecision: ").append(toIndentedString(quantityPrecision)).append("\n");
     sb.append("    requiredMarginPercent: ").append(toIndentedString(requiredMarginPercent)).append("\n");
+    sb.append("    settlePlan: ").append(toIndentedString(settlePlan)).append("\n");
+    sb.append("    maintMarginPercent: ").append(toIndentedString(maintMarginPercent)).append("\n");
+    sb.append("    triggerProtect: ").append(toIndentedString(triggerProtect)).append("\n");
     sb.append("    baseAsset: ").append(toIndentedString(baseAsset)).append("\n");
     sb.append("    marginAsset: ").append(toIndentedString(marginAsset)).append("\n");
     sb.append("    quoteAsset: ").append(toIndentedString(quoteAsset)).append("\n");
     sb.append("    baseAssetPrecision: ").append(toIndentedString(baseAssetPrecision)).append("\n");
     sb.append("    quoteAssetPrecision: ").append(toIndentedString(quoteAssetPrecision)).append("\n");
     sb.append("    status: ").append(toIndentedString(status)).append("\n");
+    sb.append("    underlyingType: ").append(toIndentedString(underlyingType)).append("\n");
+    sb.append("    deliveryDate: ").append(toIndentedString(deliveryDate)).append("\n");
+    sb.append("    listingDate: ").append(toIndentedString(listingDate)).append("\n");
     sb.append("    orderTypes: ").append(toIndentedString(orderTypes)).append("\n");
     sb.append("    timeInForce: ").append(toIndentedString(timeInForce)).append("\n");
     sb.append("    priceFilter: ").append(toIndentedString(priceFilter)).append("\n");
@@ -524,16 +723,24 @@ public class BinanceRawFuturesUsdtSymbol implements Parcelable {
 
   public void writeToParcel(Parcel out, int flags) {
     out.writeValue(name);
+    out.writeValue(pair);
+    out.writeValue(contractType);
     out.writeValue(maintenanceMarginPercent);
     out.writeValue(pricePrecision);
     out.writeValue(quantityPrecision);
     out.writeValue(requiredMarginPercent);
+    out.writeValue(settlePlan);
+    out.writeValue(maintMarginPercent);
+    out.writeValue(triggerProtect);
     out.writeValue(baseAsset);
     out.writeValue(marginAsset);
     out.writeValue(quoteAsset);
     out.writeValue(baseAssetPrecision);
     out.writeValue(quoteAssetPrecision);
     out.writeValue(status);
+    out.writeValue(underlyingType);
+    out.writeValue(deliveryDate);
+    out.writeValue(listingDate);
     out.writeValue(orderTypes);
     out.writeValue(timeInForce);
     out.writeValue(priceFilter);
@@ -546,16 +753,24 @@ public class BinanceRawFuturesUsdtSymbol implements Parcelable {
 
   BinanceRawFuturesUsdtSymbol(Parcel in) {
     name = (String)in.readValue(null);
+    pair = (String)in.readValue(null);
+    contractType = (BinanceContractType)in.readValue(BinanceContractType.class.getClassLoader());
     maintenanceMarginPercent = (Double)in.readValue(null);
     pricePrecision = (Integer)in.readValue(null);
     quantityPrecision = (Integer)in.readValue(null);
     requiredMarginPercent = (Double)in.readValue(null);
+    settlePlan = (Double)in.readValue(null);
+    maintMarginPercent = (Double)in.readValue(null);
+    triggerProtect = (Double)in.readValue(null);
     baseAsset = (String)in.readValue(null);
     marginAsset = (String)in.readValue(null);
     quoteAsset = (String)in.readValue(null);
     baseAssetPrecision = (Integer)in.readValue(null);
     quoteAssetPrecision = (Integer)in.readValue(null);
     status = (BinanceSymbolStatus)in.readValue(BinanceSymbolStatus.class.getClassLoader());
+    underlyingType = (BinanceUnderlyingType)in.readValue(BinanceUnderlyingType.class.getClassLoader());
+    deliveryDate = (DateTime)in.readValue(DateTime.class.getClassLoader());
+    listingDate = (DateTime)in.readValue(DateTime.class.getClassLoader());
     orderTypes = (List<BinanceOrderType>)in.readValue(BinanceOrderType.class.getClassLoader());
     timeInForce = (List<BinanceTimeInForce>)in.readValue(BinanceTimeInForce.class.getClassLoader());
     priceFilter = (BinanceRawFuturesSymbolPriceFilter)in.readValue(BinanceRawFuturesSymbolPriceFilter.class.getClassLoader());
