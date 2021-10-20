@@ -154,14 +154,14 @@ public class StringFormatUtil
 
 	public static String getValueString(Double baseValue, String currency) {
 		if (currency.equals(Currency.USD.getValue())) {
-			return String.format(Locale.getDefault(), "%s $", StringFormatUtil.formatCurrencyAmount(baseValue, currency));
+			return String.format(Locale.getDefault(), "$ %s", StringFormatUtil.formatCurrencyAmount(baseValue, currency));
 		}
 		return String.format(Locale.getDefault(), "%s %s", StringFormatUtil.formatCurrencyAmount(baseValue, currency), currency);
 	}
 
 	public static String getMinAmountValueString(Double baseValue, String currency) {
 		if (currency.equals(Currency.USD.getValue())) {
-			return String.format(Locale.getDefault(), "%s $", formatAmount(baseValue, 2, getCurrencyMaxFraction(currency)));
+			return String.format(Locale.getDefault(), "$ %s", formatAmount(baseValue, 2, getCurrencyMaxFraction(currency)));
 		}
 		return String.format(Locale.getDefault(), "%s %s", formatAmount(baseValue, 2, getCurrencyMaxFraction(currency)), currency);
 	}

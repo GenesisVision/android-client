@@ -39,6 +39,7 @@ import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
 import vision.genesis.clientapp.feature.auth.login.LoginActivity;
 import vision.genesis.clientapp.feature.main.app_update.AppUpdateDialog;
+import vision.genesis.clientapp.feature.main.coin.CoinDetailsActivity;
 import vision.genesis.clientapp.feature.main.copytrading.open_trade_details.OpenTradeDetailsActivity;
 import vision.genesis.clientapp.feature.main.events.details.EventDetailsBottomSheetFragment;
 import vision.genesis.clientapp.feature.main.facet.follows.FollowsFacetActivity;
@@ -559,6 +560,11 @@ public class MainActivity extends MvpAppCompatActivity implements MainView, Bloc
 	@Override
 	public void showSnackbarMessage(String message) {
 		Snackbar.make(root, message, Snackbar.LENGTH_LONG).show();
+	}
+
+	@Override
+	public void showAssetDetails(String symbol) {
+		CoinDetailsActivity.startWith(this, symbol);
 	}
 
 	@Override

@@ -33,6 +33,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.swagger.client.model.AssetInvestmentRequestItemsViewModel;
+import io.swagger.client.model.CoinsAsset;
 import io.swagger.client.model.DashboardInvestingDetails;
 import io.swagger.client.model.DashboardTimeframeProfit;
 import io.swagger.client.model.FundInvestingDetailsList;
@@ -43,10 +44,17 @@ import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseSwipeBackActivity;
 import vision.genesis.clientapp.feature.common.requests.RequestsAdapter;
 import vision.genesis.clientapp.feature.common.timeframe_profit.TimeframeProfitView;
+import vision.genesis.clientapp.feature.main.coin.buy_sell.BuySellCoinsActivity;
+import vision.genesis.clientapp.feature.main.dashboard.investments.coins.CoinsPortfolioActivity;
+import vision.genesis.clientapp.feature.main.dashboard.investments.funds.FundsPortfolioActivity;
+import vision.genesis.clientapp.feature.main.dashboard.investments.programs.ProgramsPortfolioActivity;
 import vision.genesis.clientapp.feature.main.events.EventsActivity;
+import vision.genesis.clientapp.model.BuySellCoinsModel;
 import vision.genesis.clientapp.model.CurrencyEnum;
+import vision.genesis.clientapp.model.events.ShowAssetsListEvent;
 import vision.genesis.clientapp.model.events.ShowFundsListEvent;
 import vision.genesis.clientapp.model.events.ShowProgramsListEvent;
+import vision.genesis.clientapp.ui.CoinDashboardShortView;
 import vision.genesis.clientapp.ui.DividerItemDecoration;
 import vision.genesis.clientapp.ui.FundDashboardShortView;
 import vision.genesis.clientapp.ui.PortfolioEventDashboardView;
@@ -170,6 +178,28 @@ public class InvestmentsDetailsActivity extends BaseSwipeBackActivity implements
 	@BindView(R.id.group_funds_empty)
 	public LinearLayout fundsEmptyGroup;
 
+
+	@BindView(R.id.label_assets)
+	public TextView assetsLabel;
+
+	@BindView(R.id.assets_count_background)
+	public ViewGroup assetsCountBackground;
+
+	@BindView(R.id.assets_count)
+	public TextView assetsCount;
+
+	@BindView(R.id.assets_progress_bar)
+	public ProgressBar assetsProgressBar;
+
+	@BindView(R.id.assets_arrow)
+	public View assetsArrow;
+
+	@BindView(R.id.assets)
+	public LinearLayout assets;
+
+	@BindView(R.id.group_assets_empty)
+	public LinearLayout assetsEmptyGroup;
+
 	@BindDimen(R.dimen.toolbar_height)
 	public int toolbarHeight;
 
@@ -213,6 +243,27 @@ public class InvestmentsDetailsActivity extends BaseSwipeBackActivity implements
 	public void onFindFundClicked() {
 		EventBus.getDefault().post(new ShowFundsListEvent());
 		finishActivity();
+	}
+
+	@OnClick(R.id.button_buy_assets)
+	public void onBuyAssetsClicked() {
+		EventBus.getDefault().post(new ShowAssetsListEvent());
+		finishActivity();
+	}
+
+	@OnClick(R.id.programs_arrow)
+	public void onProgramsArrowClicked() {
+		ProgramsPortfolioActivity.startWith(this);
+	}
+
+	@OnClick(R.id.funds_arrow)
+	public void onFundsArrowClicked() {
+		FundsPortfolioActivity.startWith(this);
+	}
+
+	@OnClick(R.id.assets_arrow)
+	public void onAssetsArrowClicked() {
+		CoinsPortfolioActivity.startWith(this);
 	}
 
 	@Override
@@ -450,20 +501,28 @@ public class InvestmentsDetailsActivity extends BaseSwipeBackActivity implements
 
 			showProgramsCountMaybe();
 			showFundsCountMaybe();
+			showAssetsCountMaybe();
 		}
 	}
 
 	private void showProgramsCountMaybe() {
 		if (details != null && details.getProgramsCount() > 0 && programsProgressBar.getVisibility() != View.VISIBLE) {
-//			programsArrow.setVisibility(View.VISIBLE);
+			programsArrow.setVisibility(View.VISIBLE);
 			programsCountBackground.setVisibility(View.VISIBLE);
 		}
 	}
 
 	private void showFundsCountMaybe() {
 		if (details != null && details.getFundsCount() > 0 && fundsProgressBar.getVisibility() != View.VISIBLE) {
-//			fundsArrow.setVisibility(View.VISIBLE);
+			fundsArrow.setVisibility(View.VISIBLE);
 			fundsCountBackground.setVisibility(View.VISIBLE);
+		}
+	}
+
+	private void showAssetsCountMaybe() {
+		if (details != null && details.getCoinsCount() > 0 && assetsProgressBar.getVisibility() != View.VISIBLE) {
+			assetsArrow.setVisibility(View.VISIBLE);
+			assetsCountBackground.setVisibility(View.VISIBLE);
 		}
 	}
 
@@ -506,7 +565,7 @@ public class InvestmentsDetailsActivity extends BaseSwipeBackActivity implements
 	}
 
 	@Override
-	public void setPrograms(List<ProgramInvestingDetailsList> items) {
+	public void setPrograms(List<ProgramInvestingDetailsList> items, int size) {
 		if (baseCurrency != null) {
 			programs.removeAllViews();
 			int index = 0;
@@ -519,14 +578,14 @@ public class InvestmentsDetailsActivity extends BaseSwipeBackActivity implements
 				}
 				index++;
 			}
-			programsCount.setText(String.valueOf(items.size()));
+			programsCount.setText(String.valueOf(size));
 			programs.setVisibility(items.size() > 0 ? View.VISIBLE : View.GONE);
 			programsEmptyGroup.setVisibility(items.size() > 0 ? View.GONE : View.VISIBLE);
 		}
 	}
 
 	@Override
-	public void setFunds(List<FundInvestingDetailsList> items) {
+	public void setFunds(List<FundInvestingDetailsList> items, int size) {
 		if (baseCurrency != null) {
 			funds.removeAllViews();
 			int index = 0;
@@ -539,9 +598,45 @@ public class InvestmentsDetailsActivity extends BaseSwipeBackActivity implements
 				}
 				index++;
 			}
-			fundsCount.setText(String.valueOf(items.size()));
+			fundsCount.setText(String.valueOf(size));
 			funds.setVisibility(items.size() > 0 ? View.VISIBLE : View.GONE);
 			fundsEmptyGroup.setVisibility(items.size() > 0 ? View.GONE : View.VISIBLE);
+		}
+	}
+
+	@Override
+	public void setAssets(List<CoinsAsset> items, int size) {
+		if (baseCurrency != null) {
+			assets.removeAllViews();
+			int index = 0;
+			for (CoinsAsset coin : items) {
+				CoinDashboardShortView view = new CoinDashboardShortView(this);
+				view.setData(coin);
+				view.setListener(new CoinDashboardShortView.Listener()
+				{
+					@Override
+					public void onBuyClicked(CoinsAsset coin) {
+						BuySellCoinsModel model = BuySellCoinsModel.createFrom(coin);
+						model.setTransferDirection(BuySellCoinsModel.Direction.BUY);
+						BuySellCoinsActivity.startWith(InvestmentsDetailsActivity.this, model);
+					}
+
+					@Override
+					public void onSellClicked(CoinsAsset coin) {
+						BuySellCoinsModel model = BuySellCoinsModel.createFrom(coin);
+						model.setTransferDirection(BuySellCoinsModel.Direction.SELL);
+						BuySellCoinsActivity.startWith(InvestmentsDetailsActivity.this, model);
+					}
+				});
+				assets.addView(view);
+				if (index == items.size() - 1) {
+					view.removeDelimiter();
+				}
+				index++;
+			}
+			assetsCount.setText(String.valueOf(size));
+			assets.setVisibility(items.size() > 0 ? View.VISIBLE : View.GONE);
+			assetsEmptyGroup.setVisibility(items.size() > 0 ? View.GONE : View.VISIBLE);
 		}
 	}
 
@@ -555,6 +650,12 @@ public class InvestmentsDetailsActivity extends BaseSwipeBackActivity implements
 	public void hideFundsProgress() {
 		fundsProgressBar.setVisibility(View.GONE);
 		showFundsCountMaybe();
+	}
+
+	@Override
+	public void hideAssetsProgress() {
+		assetsProgressBar.setVisibility(View.GONE);
+		showAssetsCountMaybe();
 	}
 
 	@Override

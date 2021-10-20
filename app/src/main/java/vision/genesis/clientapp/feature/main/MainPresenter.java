@@ -64,7 +64,9 @@ import vision.genesis.clientapp.model.events.OnStartKycClickedEvent;
 import vision.genesis.clientapp.model.events.OnThemeChangedEvent;
 import vision.genesis.clientapp.model.events.OnTickerSelectedEvent;
 import vision.genesis.clientapp.model.events.OpenUrlEvent;
+import vision.genesis.clientapp.model.events.ShowAssetsListEvent;
 import vision.genesis.clientapp.model.events.ShowBottomNavigationEvent;
+import vision.genesis.clientapp.model.events.ShowCoinDetailsEvent;
 import vision.genesis.clientapp.model.events.ShowCopytradingAccountDetailsEvent;
 import vision.genesis.clientapp.model.events.ShowDisableTfaActivityEvent;
 import vision.genesis.clientapp.model.events.ShowEventDetailsEvent;
@@ -709,6 +711,11 @@ public class MainPresenter extends MvpPresenter<MainView>
 	}
 
 	@Subscribe
+	public void onEventMainThread(ShowAssetsListEvent event) {
+		getViewState().setNavigationItemSelected(1);
+	}
+
+	@Subscribe
 	public void onEventMainThread(ShowFeedActivityEvent event) {
 		getViewState().showSocialActivity(event.getType());
 	}
@@ -781,5 +788,10 @@ public class MainPresenter extends MvpPresenter<MainView>
 		if (isActive) {
 			getViewState().showTerminal(event.getSymbol());
 		}
+	}
+
+	@Subscribe
+	public void onEventMainThread(ShowCoinDetailsEvent event) {
+		getViewState().showAssetDetails(event.getSymbol());
 	}
 }

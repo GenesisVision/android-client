@@ -124,4 +124,6 @@ public interface MainView extends MvpView
 	void startKycProcess(KycVerificationManager manager, ExternalKycAccessToken model);
 
 	void showSnackbarMessage(String message);
+
+	void showAssetDetails(String symbol);
 }

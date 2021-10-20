@@ -57,6 +57,8 @@ public class AssetsFragment extends BaseFragment implements AssetsView, ViewPage
 
 	private TabLayout.Tab followsTab;
 
+	private TabLayout.Tab coinsTab;
+
 	private AssetsPagerAdapter pagerAdapter;
 
 	private Fragment currentFragment;
@@ -122,6 +124,7 @@ public class AssetsFragment extends BaseFragment implements AssetsView, ViewPage
 		programsTab = tabLayout.newTab().setCustomView(getProgramsTabView()).setTag("programs");
 		fundsTab = tabLayout.newTab().setCustomView(getFundsTabView()).setTag("funds");
 		followsTab = tabLayout.newTab().setCustomView(getFollowsTabView()).setTag("follows");
+		coinsTab = tabLayout.newTab().setCustomView(getCoinsTabView()).setTag("coins");
 
 		tabSelectedListener = new TabLayout.OnTabSelectedListener()
 		{
@@ -153,6 +156,7 @@ public class AssetsFragment extends BaseFragment implements AssetsView, ViewPage
 		addPage(programsTab, true);
 		addPage(fundsTab, false);
 		addPage(followsTab, false);
+		addPage(coinsTab, false);
 	}
 
 	private View getProgramsTabView() {
@@ -170,6 +174,12 @@ public class AssetsFragment extends BaseFragment implements AssetsView, ViewPage
 	private View getFollowsTabView() {
 		CustomTabView view = new CustomTabView(getContext());
 		view.setData(0, R.string.follow);
+		return view;
+	}
+
+	private View getCoinsTabView() {
+		CustomTabView view = new CustomTabView(getContext());
+		view.setData(0, R.string.assets);
 		return view;
 	}
 
@@ -246,5 +256,10 @@ public class AssetsFragment extends BaseFragment implements AssetsView, ViewPage
 	@Override
 	public void showFunds() {
 		viewPager.setCurrentItem(1);
+	}
+
+	@Override
+	public void showAssets() {
+		viewPager.setCurrentItem(3);
 	}
 }

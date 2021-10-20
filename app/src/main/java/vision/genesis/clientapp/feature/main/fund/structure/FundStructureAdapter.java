@@ -9,6 +9,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -17,6 +19,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.swagger.client.model.FundAssetInfo;
 import vision.genesis.clientapp.R;
+import vision.genesis.clientapp.model.events.ShowCoinDetailsEvent;
 import vision.genesis.clientapp.utils.ImageUtils;
 import vision.genesis.clientapp.utils.StringFormatUtil;
 
@@ -65,13 +68,23 @@ public class FundStructureAdapter extends RecyclerView.Adapter<FundStructureAdap
 		@BindView(R.id.target_current)
 		public TextView targetCurrent;
 
+		private FundAssetInfo asset;
+
 		AssetViewHolder(View itemView) {
 			super(itemView);
 
 			ButterKnife.bind(this, itemView);
+
+			itemView.setOnClickListener((view) -> {
+				if (asset != null) {
+					EventBus.getDefault().post(new ShowCoinDetailsEvent(asset.getSymbol()));
+				}
+			});
 		}
 
 		void setAsset(FundAssetInfo asset) {
+			this.asset = asset;
+
 			icon.setImageURI(ImageUtils.getImageUri(asset.getLogoUrl()));
 			name.setText(asset.getAsset());
 			amount.setText(String.format(Locale.getDefault(), "%s", StringFormatUtil.formatAmount(asset.getCurrentAmount(), 2, 8)));

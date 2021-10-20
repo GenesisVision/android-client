@@ -1087,6 +1087,12 @@
     <string name="fee">Fee</string>
     <string name="executed">Executed</string>
     <string name="your_trading_account_is_being_processing">Please wait a moment, your new trading account is being created.</string>
+    <string name="market_cap">Market Cap</string>
+    <string name="volume_24">Volume 24h</string>
+    <string name="buy_assets">Buy assets</string>
+    <string name="assets_list_empty_text">You have no assets in your portfolio</string>
+    <string name="asset_price_template">%s (avg. %s)</string>
+    <string name="asset_change_24_template">%s%s%% (24h)</string>
 
     <plurals name="assets">
         <item quantity="one">asset</item>

@@ -15,6 +15,8 @@ import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.managers.AuthManager;
 import vision.genesis.clientapp.managers.SettingsManager;
+import vision.genesis.clientapp.managers.TerminalManager;
+import vision.genesis.clientapp.model.terminal.binance_api.BinanceRawExchangeInfo;
 import vision.genesis.clientapp.net.ApiErrorResolver;
 import vision.genesis.clientapp.net.NetworkManager;
 
@@ -33,9 +35,14 @@ public class SplashScreenPresenter extends MvpPresenter<SplashScreenView>
 	public SettingsManager settingsManager;
 
 	@Inject
+	public TerminalManager terminalManager;
+
+	@Inject
 	public NetworkManager networkManager;
 
 	private Subscription platformStatusSubscription;
+
+	private Subscription serverInfoSubscription;
 
 	private Subscription baseCurrencySubscription;
 
@@ -56,6 +63,9 @@ public class SplashScreenPresenter extends MvpPresenter<SplashScreenView>
 	public void onDestroy() {
 		if (platformStatusSubscription != null) {
 			platformStatusSubscription.unsubscribe();
+		}
+		if (serverInfoSubscription != null) {
+			serverInfoSubscription.unsubscribe();
 		}
 		if (baseCurrencySubscription != null) {
 			baseCurrencySubscription.unsubscribe();
@@ -87,10 +97,43 @@ public class SplashScreenPresenter extends MvpPresenter<SplashScreenView>
 		if (platformStatusSubscription != null) {
 			platformStatusSubscription.unsubscribe();
 		}
-		initBaseCurrency();
+		getBinanceServerInfo();
 	}
 
 	private void onPlatformStatusError(Throwable error) {
+		getViewState().showProgress(false);
+		if (ApiErrorResolver.isNetworkError(error)) {
+			getViewState().showNetworkError();
+			subscribeToNetworkAvailability();
+		}
+		else {
+			getViewState().showServerError();
+			subscribeToServerAvailability();
+		}
+	}
+
+	private void getBinanceServerInfo() {
+		if (terminalManager != null) {
+			if (serverInfoSubscription != null) {
+				serverInfoSubscription.unsubscribe();
+			}
+			serverInfoSubscription = terminalManager.getBinanceServerInfo()
+					.subscribeOn(Schedulers.io())
+					.observeOn(AndroidSchedulers.mainThread())
+					.subscribe(this::onGetBinanceServerInfoSuccess,
+							this::onGetBinanceServerInfoError);
+		}
+	}
+
+	private void onGetBinanceServerInfoSuccess(BinanceRawExchangeInfo response) {
+		if (serverInfoSubscription != null) {
+			serverInfoSubscription.unsubscribe();
+		}
+
+		initBaseCurrency();
+	}
+
+	private void onGetBinanceServerInfoError(Throwable error) {
 		getViewState().showProgress(false);
 		if (ApiErrorResolver.isNetworkError(error)) {
 			getViewState().showNetworkError();

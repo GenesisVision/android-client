@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:id="@+id/root"
+              android:layout_width="match_parent"
+              android:layout_height="@dimen/item_list_coin_height"
+              android:layout_marginStart="@dimen/assets_padding"
+              android:layout_marginLeft="@dimen/assets_padding"
+              android:layout_marginEnd="@dimen/assets_padding"
+              android:layout_marginRight="@dimen/assets_padding"
+              android:layout_marginBottom="@dimen/assets_padding"
+              android:background="@drawable/program_list_item_background"
+              android:gravity="center_vertical"
+              android:orientation="vertical"
+              android:padding="@dimen/assets_padding"
+              tools:layout_height="@dimen/item_list_coin_height_with_button">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/logo"
+            android:layout_width="@dimen/dashboard_program_logo_height"
+            android:layout_height="@dimen/dashboard_program_logo_height"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="16dp"
+            android:layout_toStartOf="@+id/favorite"
+            android:layout_toEndOf="@+id/logo"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:fontFamily="@font/montserrat_semibold"
+                android:maxLines="1"
+                android:textColor="?attr/colorTextPrimary"
+                android:textSize="16sp"
+                tools:text="Bitcoin"/>
+
+            <TextView
+                android:id="@+id/short_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:ellipsize="end"
+                android:fontFamily="@font/montserrat_medium"
+                android:maxLines="1"
+                android:textColor="?attr/colorTextSecondary"
+                android:textSize="14sp"
+                tools:text="BTC"/>
+
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/favorite"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentEnd="true"
+            android:alpha="0.3"
+            android:paddingBottom="24dp"
+            app:srcCompat="@drawable/icon_favorite"
+            app:tint="?attr/colorTextPrimary"/>
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_marginTop="16dp"
+        android:orientation="horizontal">
+
+        <vision.genesis.clientapp.ui.chart.ProfitSmallChartView
+            android:id="@+id/chart"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginEnd="16dp"
+            android:layout_weight="20"/>
+
+        <LinearLayout
+            android:id="@+id/group_price"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_weight="12"
+            android:gravity="center_vertical"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/price"
+                style="@style/text_value"
+                android:fontFamily="@font/montserrat_semibold"
+                app:autoSizeMaxTextSize="16sp"
+                app:autoSizeMinTextSize="10sp"
+                app:autoSizeTextType="uniform"
+                tools:text="$42 217.34"/>
+
+            <TextView
+                android:id="@+id/change"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat_semibold"
+                android:textColor="?attr/colorGreen"
+                android:textSize="14sp"
+                tools:text="5.4%"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="16dp">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="12dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/market_cap"
+                style="@style/text_value"
+                android:fontFamily="@font/montserrat_semibold"
+                app:autoSizeMaxTextSize="16sp"
+                app:autoSizeMinTextSize="10sp"
+                app:autoSizeTextType="uniform"
+                tools:text="$1 085 054 483 889	"/>
+
+            <TextView
+                android:id="@+id/market_cap_label"
+                style="@style/text_label"
+                android:layout_marginTop="4dp"
+                android:text="@string/market_cap"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/volume"
+                style="@style/text_value"
+                android:fontFamily="@font/montserrat_semibold"
+                app:autoSizeMaxTextSize="16sp"
+                app:autoSizeMinTextSize="10sp"
+                app:autoSizeTextType="uniform"
+                tools:text="$42 677 630 242"/>
+
+            <TextView
+                android:id="@+id/volume_label"
+                style="@style/text_label"
+                android:layout_marginTop="4dp"
+                android:text="@string/volume_24"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+    <vision.genesis.clientapp.ui.PrimaryButton
+        android:id="@+id/button_buy"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/button_height"
+        android:layout_marginTop="16dp"
+        android:text="@string/buy"/>
+
+</LinearLayout>

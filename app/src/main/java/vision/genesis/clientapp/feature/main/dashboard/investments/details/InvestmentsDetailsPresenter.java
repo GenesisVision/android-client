@@ -13,6 +13,7 @@ import java.util.UUID;
 import javax.inject.Inject;
 
 import io.swagger.client.model.AssetInvestmentRequestItemsViewModel;
+import io.swagger.client.model.CoinsAssetItemsViewModel;
 import io.swagger.client.model.DashboardAssetStatus;
 import io.swagger.client.model.DashboardInvestingDetails;
 import io.swagger.client.model.FundInvestingDetailsListItemsViewModel;
@@ -23,6 +24,7 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.feature.common.timeframe_profit.TimeframeProfitView;
+import vision.genesis.clientapp.managers.CoinsManager;
 import vision.genesis.clientapp.managers.DashboardManager;
 import vision.genesis.clientapp.managers.FundsManager;
 import vision.genesis.clientapp.managers.SettingsManager;
@@ -41,7 +43,7 @@ import vision.genesis.clientapp.net.ApiErrorResolver;
 @InjectViewState
 public class InvestmentsDetailsPresenter extends MvpPresenter<InvestmentsDetailsView> implements TimeframeProfitView.Listener
 {
-	private static final int TAKE = 20;
+	private static final int TAKE = 5;
 
 	private static final int EVENTS_TAKE = 5;
 
@@ -57,6 +59,9 @@ public class InvestmentsDetailsPresenter extends MvpPresenter<InvestmentsDetails
 	@Inject
 	public FundsManager fundsManager;
 
+	@Inject
+	public CoinsManager coinsManager;
+
 	private Subscription baseCurrencySubscription;
 
 	private Subscription getRequestsSubscription;
@@ -66,6 +71,8 @@ public class InvestmentsDetailsPresenter extends MvpPresenter<InvestmentsDetails
 	private Subscription programsSubscription;
 
 	private Subscription fundsSubscription;
+
+	private Subscription assetsSubscription;
 
 	private Subscription cancelRequestSubscription;
 
@@ -107,6 +114,9 @@ public class InvestmentsDetailsPresenter extends MvpPresenter<InvestmentsDetails
 		}
 		if (fundsSubscription != null) {
 			fundsSubscription.unsubscribe();
+		}
+		if (assetsSubscription != null) {
+			assetsSubscription.unsubscribe();
 		}
 		if (cancelRequestSubscription != null) {
 			cancelRequestSubscription.unsubscribe();
@@ -150,6 +160,7 @@ public class InvestmentsDetailsPresenter extends MvpPresenter<InvestmentsDetails
 		getInvesting();
 		getPrograms();
 		getFunds();
+		getAssets();
 	}
 
 	private void getRequests() {
@@ -229,7 +240,7 @@ public class InvestmentsDetailsPresenter extends MvpPresenter<InvestmentsDetails
 		programsSubscription.unsubscribe();
 		getViewState().hideProgramsProgress();
 
-		getViewState().setPrograms(response.getItems());
+		getViewState().setPrograms(response.getItems(), response.getTotal());
 	}
 
 	private void handleGetProgramsError(Throwable throwable) {
@@ -265,12 +276,41 @@ public class InvestmentsDetailsPresenter extends MvpPresenter<InvestmentsDetails
 		fundsSubscription.unsubscribe();
 		getViewState().hideFundsProgress();
 
-		getViewState().setFunds(response.getItems());
+		getViewState().setFunds(response.getItems(), response.getTotal());
 	}
 
 	private void handleGetFundsError(Throwable throwable) {
 		fundsSubscription.unsubscribe();
 		getViewState().hideFundsProgress();
+
+		ApiErrorResolver.resolveErrors(throwable,
+				message -> getViewState().showSnackbarMessage(message));
+	}
+
+	private void getAssets() {
+		if (coinsManager != null) {
+			if (assetsSubscription != null) {
+				assetsSubscription.unsubscribe();
+			}
+
+			assetsSubscription = coinsManager.getPortfolio(0, TAKE)
+					.observeOn(AndroidSchedulers.mainThread())
+					.subscribeOn(Schedulers.newThread())
+					.subscribe(this::handleGetAssetsResponse,
+							this::handleGetAssetsError);
+		}
+	}
+
+	private void handleGetAssetsResponse(CoinsAssetItemsViewModel response) {
+		assetsSubscription.unsubscribe();
+		getViewState().hideAssetsProgress();
+
+		getViewState().setAssets(response.getItems(), response.getTotal());
+	}
+
+	private void handleGetAssetsError(Throwable throwable) {
+		assetsSubscription.unsubscribe();
+		getViewState().hideAssetsProgress();
 
 		ApiErrorResolver.resolveErrors(throwable,
 				message -> getViewState().showSnackbarMessage(message));
@@ -315,9 +355,4 @@ public class InvestmentsDetailsPresenter extends MvpPresenter<InvestmentsDetails
 	public void onEventMainThread(OnRequestCancelledEvent event) {
 		getRequests();
 	}
-
-//	@Subscribe
-//	public void onEventMainThread(ShowFundDetailsEvent event) {
-//		getViewState().showFundDetails(event.getFundDetailsModel());
-//	}
 }

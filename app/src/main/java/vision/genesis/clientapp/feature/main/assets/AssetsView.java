@@ -22,4 +22,6 @@ interface AssetsView extends MvpView
 	void showPrograms();
 
 	void showFunds();
+
+	void showAssets();
 }

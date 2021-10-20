@@ -27,6 +27,9 @@ import vision.genesis.clientapp.feature.main.MainPresenter;
 import vision.genesis.clientapp.feature.main.about_levels.AboutLevelsPresenter;
 import vision.genesis.clientapp.feature.main.app_update.AppUpdateDialog;
 import vision.genesis.clientapp.feature.main.assets.AssetsPresenter;
+import vision.genesis.clientapp.feature.main.coin.CoinDetailsPresenter;
+import vision.genesis.clientapp.feature.main.coin.buy_sell.BuySellCoinsPresenter;
+import vision.genesis.clientapp.feature.main.coins_list.CoinsListPresenter;
 import vision.genesis.clientapp.feature.main.copytrading.create_account.CreateCopytradingAccountPresenter;
 import vision.genesis.clientapp.feature.main.copytrading.details.CopytradingDetailsPresenter;
 import vision.genesis.clientapp.feature.main.copytrading.edit_subscription.EditSubscriptionPresenter;
@@ -41,7 +44,12 @@ import vision.genesis.clientapp.feature.main.copytrading.trading_log.TradingLogP
 import vision.genesis.clientapp.feature.main.copytrading.unfollow_trades.UnfollowTradesPresenter;
 import vision.genesis.clientapp.feature.main.dashboard.DashboardPresenter;
 import vision.genesis.clientapp.feature.main.dashboard.investments.DashboardInvestmentsView;
+import vision.genesis.clientapp.feature.main.dashboard.investments.coins.CoinsPortfolioPresenter;
+import vision.genesis.clientapp.feature.main.dashboard.investments.coins.history.CoinsHistoryPresenter;
+import vision.genesis.clientapp.feature.main.dashboard.investments.coins.portfolio.CoinsAssetsPresenter;
 import vision.genesis.clientapp.feature.main.dashboard.investments.details.InvestmentsDetailsPresenter;
+import vision.genesis.clientapp.feature.main.dashboard.investments.funds.FundsPortfolioPresenter;
+import vision.genesis.clientapp.feature.main.dashboard.investments.programs.ProgramsPortfolioPresenter;
 import vision.genesis.clientapp.feature.main.dashboard.limit.DashboardLimitView;
 import vision.genesis.clientapp.feature.main.dashboard.old.investor.copytrading.DashboardCopytradingPresenter;
 import vision.genesis.clientapp.feature.main.dashboard.old.investor.funds.DashboardFundsPresenter;
@@ -559,4 +567,20 @@ public interface AppComponent
 	void inject(OpenOrdersPresenter openOrdersPresenter);
 
 	void inject(OrderHistoryPresenter orderHistoryPresenter);
+
+	void inject(CoinDetailsPresenter coinDetailsPresenter);
+
+	void inject(CoinsListPresenter coinsListPresenter);
+
+	void inject(BuySellCoinsPresenter buySellCoinsPresenter);
+
+	void inject(CoinsPortfolioPresenter coinsPortfolioPresenter);
+
+	void inject(CoinsAssetsPresenter coinsAssetsPresenter);
+
+	void inject(CoinsHistoryPresenter coinsHistoryPresenter);
+
+	void inject(ProgramsPortfolioPresenter programsPortfolioPresenter);
+
+	void inject(FundsPortfolioPresenter fundsPortfolioPresenter);
 }

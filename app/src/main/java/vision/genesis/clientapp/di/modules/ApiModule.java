@@ -9,6 +9,7 @@ import io.swagger.client.JSON;
 import io.swagger.client.api.AssetsApi;
 import io.swagger.client.api.AuthApi;
 import io.swagger.client.api.BrokersApi;
+import io.swagger.client.api.CoinsApi;
 import io.swagger.client.api.CopytradingApi;
 import io.swagger.client.api.DashboardApi;
 import io.swagger.client.api.EventsApi;
@@ -93,6 +94,12 @@ public class ApiModule
 	@Singleton
 	public BrokersApi provideBrokersApi(ApiClient apiClient) {
 		return apiClient.createService(BrokersApi.class);
+	}
+
+	@Provides
+	@Singleton
+	public CoinsApi provideCoinsApi(ApiClient apiClient) {
+		return apiClient.createService(CoinsApi.class);
 	}
 
 	@Provides

@@ -6,6 +6,7 @@ import dagger.Module;
 import dagger.Provides;
 import io.swagger.client.api.AssetsApi;
 import io.swagger.client.api.BrokersApi;
+import io.swagger.client.api.CoinsApi;
 import io.swagger.client.api.CopytradingApi;
 import io.swagger.client.api.DashboardApi;
 import io.swagger.client.api.EventsApi;
@@ -24,6 +25,7 @@ import io.swagger.client.api.UsersApi;
 import io.swagger.client.api.WalletApi;
 import vision.genesis.clientapp.managers.AssetsManager;
 import vision.genesis.clientapp.managers.BrokersManager;
+import vision.genesis.clientapp.managers.CoinsManager;
 import vision.genesis.clientapp.managers.DashboardManager;
 import vision.genesis.clientapp.managers.EventsManager;
 import vision.genesis.clientapp.managers.FollowsManager;
@@ -62,6 +64,12 @@ public class AssetsModule
 	@Singleton
 	public BrokersManager provideBrokersManager(BrokersApi brokersApi, ExchangesApi exchangesApi) {
 		return new BrokersManager(brokersApi, exchangesApi);
+	}
+
+	@Provides
+	@Singleton
+	public CoinsManager provideCoinsManager(CoinsApi coinsApi) {
+		return new CoinsManager(coinsApi);
 	}
 
 	@Provides

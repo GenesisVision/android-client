@@ -76,6 +76,12 @@ public class DashboardInvestmentsView extends RelativeLayout
 	@BindView(R.id.funds_label)
 	public TextView fundsLabel;
 
+	@BindView(R.id.assets)
+	public TextView assets;
+
+	@BindView(R.id.assets_label)
+	public TextView assetsLabel;
+
 //	@BindView(R.id.label_events)
 //	public TextView eventsLabel;
 
@@ -164,6 +170,7 @@ public class DashboardInvestmentsView extends RelativeLayout
 
 		programsLabel.setText(getContext().getString(R.string.programs).toLowerCase());
 		fundsLabel.setText(getContext().getString(R.string.funds).toLowerCase());
+		assetsLabel.setText(getContext().getString(R.string.assets).toLowerCase());
 	}
 
 	public void update() {
@@ -200,6 +207,7 @@ public class DashboardInvestmentsView extends RelativeLayout
 
 		programs.setText(String.valueOf(details.getProgramsCount()));
 		funds.setText(String.valueOf(details.getFundsCount()));
+		assets.setText(String.valueOf(details.getCoinsCount()));
 		setEvents(details.getEvents().getItems());
 		setTimeframe(selectedTimeframe);
 

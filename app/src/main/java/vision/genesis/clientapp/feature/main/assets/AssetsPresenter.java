@@ -16,6 +16,7 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.managers.SettingsManager;
+import vision.genesis.clientapp.model.events.ShowAssetsListEvent;
 import vision.genesis.clientapp.model.events.ShowFundsListEvent;
 import vision.genesis.clientapp.model.events.ShowProgramsListEvent;
 
@@ -82,5 +83,10 @@ public class AssetsPresenter extends MvpPresenter<AssetsView>
 	@Subscribe
 	public void onEventMainThread(ShowFundsListEvent event) {
 		getViewState().showFunds();
+	}
+
+	@Subscribe
+	public void onEventMainThread(ShowAssetsListEvent event) {
+		getViewState().showAssets();
 	}
 }
