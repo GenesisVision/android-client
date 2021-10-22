@@ -61,17 +61,229 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
+            <TextView
+                android:id="@+id/label_chart"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/padding"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="@dimen/padding"
+                android:fontFamily="@font/montserrat_medium"
+                android:textColor="?attr/colorTextPrimary"
+                android:textSize="14sp"
+                tools:text="Chart BTCUSDT"/>
+
             <vision.genesis.clientapp.feature.main.terminal.tradingview_chart.ChartView
                 android:id="@+id/view_chart"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"/>
+                android:layout_marginTop="4dp"/>
+
+            <LinearLayout
+                android:id="@+id/group_your_investment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:background="?attr/colorCard"
+                android:orientation="vertical"
+                android:paddingLeft="@dimen/program_details_padding"
+                android:paddingTop="24dp"
+                android:paddingRight="@dimen/program_details_padding"
+                android:paddingBottom="24dp"
+                android:visibility="gone"
+                tools:visibility="visible">
+
+                <TextView
+                    android:id="@+id/label_your_investment"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="@font/montserrat_semibold"
+                    android:text="@string/your_investment"
+                    android:textColor="?attr/colorTextPrimary"
+                    android:textSize="20sp"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="32dp"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="6dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/amount"
+                            style="@style/program_info_invest_value"
+                            tools:text="0.93135335 BTC"/>
+
+                        <TextView
+                            android:id="@+id/label_amount"
+                            style="@style/program_info_invest_label"
+                            android:text="@string/amount"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/group_total"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/total"
+                            style="@style/program_info_invest_value"
+                            tools:text="$ 3 665.83"/>
+
+                        <TextView
+                            android:id="@+id/label_total"
+                            style="@style/program_info_invest_label"
+                            android:text="@string/total"/>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="6dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/price"
+                            style="@style/program_info_invest_value"
+                            tools:text="$ 3 936.02"/>
+
+                        <TextView
+                            android:id="@+id/label_price"
+                            style="@style/program_info_invest_label"
+                            android:text="@string/price"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/group_avg_price"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/avg_price"
+                            style="@style/program_info_invest_value"
+                            tools:text="$ 3 817.08"/>
+
+                        <TextView
+                            android:id="@+id/label_avg_price"
+                            style="@style/program_info_invest_label"
+                            android:text="@string/average_price"/>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="6dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/change"
+                            style="@style/program_info_invest_value"
+                            android:textColor="?attr/colorGreen"
+                            tools:text="+3.56%"/>
+
+                        <TextView
+                            android:id="@+id/label_change"
+                            style="@style/program_info_invest_label"
+                            android:text="@string/change_24h"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/group_profit"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/profit"
+                            style="@style/program_info_invest_value"
+                            android:textColor="?attr/colorGreen"
+                            tools:text="$ 110.78"/>
+
+                        <TextView
+                            android:id="@+id/label_profit"
+                            style="@style/program_info_invest_label"
+                            android:text="@string/profit"/>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/button_height"
+                    android:layout_marginTop="20dp"
+                    android:orientation="horizontal">
+
+                    <vision.genesis.clientapp.ui.PrimaryButton
+                        android:id="@+id/button_buy"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:text="@string/buy"/>
+
+                    <vision.genesis.clientapp.ui.PrimaryButton
+                        android:id="@+id/button_sell"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="12dp"
+                        android:layout_weight="1"
+                        android:text="@string/sell"/>
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+            <vision.genesis.clientapp.ui.PrimaryButton
+                android:id="@+id/button_buy_big"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/button_height"
+                android:layout_marginStart="@dimen/padding"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="@dimen/padding"
+                android:text="@string/buy"/>
 
             <LinearLayout
                 android:id="@+id/group_info"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
+                android:layout_marginTop="20dp"
                 android:visibility="gone"
                 tools:visibility="visible">
 

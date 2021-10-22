@@ -35,6 +35,8 @@ import vision.genesis.clientapp.utils.StringFormatUtil;
 @InjectViewState
 public class BuySellCoinsPresenter extends MvpPresenter<BuySellCoinsView> implements SelectWalletBottomSheetFragment.OnWalletSelectedListener
 {
+	private final double FEE_SHARE = 0.001;
+
 	@Inject
 	public Context context;
 
@@ -54,6 +56,8 @@ public class BuySellCoinsPresenter extends MvpPresenter<BuySellCoinsView> implem
 	private Double amount = 0.0;
 
 	private Double finalAmount = 0.0;
+
+	private Double fee = 0.0;
 
 	private BuySellCoinsModel model;
 
@@ -128,8 +132,15 @@ public class BuySellCoinsPresenter extends MvpPresenter<BuySellCoinsView> implem
 
 	private void updateFinalAmount() {
 		if (rate != null) {
-			finalAmount = amount * rate;
+			if (selectedWallet.getCurrency().getValue().equals(model.getCurrency())) {
+				fee = 0.0;
+			}
+			else {
+				fee = amount * rate * FEE_SHARE;
+			}
+			finalAmount = amount * rate - fee;
 
+			getViewState().setFee(getFeeString());
 			getViewState().setFinalAmount(getFinalAmountString());
 		}
 	}
@@ -138,6 +149,12 @@ public class BuySellCoinsPresenter extends MvpPresenter<BuySellCoinsView> implem
 		return String.format(Locale.getDefault(), "%s%s",
 				model.getCurrency().equals(selectedWallet.getCurrency().getValue()) ? "" : StringFormatUtil.getApproxSymbolIfNeeded(finalAmount),
 				StringFormatUtil.getValueString(finalAmount, secondRateCurrency));
+	}
+
+	private String getFeeString() {
+		return String.format(Locale.getDefault(), "%s%s",
+				model.getCurrency().equals(selectedWallet.getCurrency().getValue()) ? "" : StringFormatUtil.getApproxSymbolIfNeeded(fee),
+				StringFormatUtil.getValueString(fee, secondRateCurrency));
 	}
 
 	private String getRateString(Double rate, String wallet1Currency, String wallet2Currency) {

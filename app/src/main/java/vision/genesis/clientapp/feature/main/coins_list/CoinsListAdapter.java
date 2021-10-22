@@ -25,10 +25,8 @@ import io.swagger.client.model.CoinsAsset;
 import io.swagger.client.model.Currency;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
-import vision.genesis.clientapp.model.events.OnCoinListBuyButtonClickedEvent;
-import vision.genesis.clientapp.model.events.OnListFundFavoriteClickedEvent;
+import vision.genesis.clientapp.model.events.OnListCoinFavoriteClickedEvent;
 import vision.genesis.clientapp.model.events.ShowCoinDetailsEvent;
-import vision.genesis.clientapp.ui.PrimaryButton;
 import vision.genesis.clientapp.ui.chart.ProfitSmallChartView;
 import vision.genesis.clientapp.utils.StringFormatUtil;
 import vision.genesis.clientapp.utils.ThemeUtil;
@@ -42,12 +40,10 @@ public class CoinsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 {
 	private List<CoinsAsset> coins = new ArrayList<>();
 
-	private boolean isUserLoggedIn = false;
-
 	@NonNull
 	@Override
 	public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-		return new CoinViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_coin, parent, false), isUserLoggedIn);
+		return new CoinViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_coin, parent, false));
 	}
 
 	@Override
@@ -88,10 +84,6 @@ public class CoinsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 		}
 	}
 
-	public void setUserLoggedIn(boolean isUserLoggedIn) {
-		this.isUserLoggedIn = isUserLoggedIn;
-	}
-
 	static class CoinViewHolder extends RecyclerView.ViewHolder
 	{
 		@BindView(R.id.root)
@@ -124,21 +116,12 @@ public class CoinsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 		@BindView(R.id.volume)
 		public TextView volume;
 
-		@BindView(R.id.button_buy)
-		public PrimaryButton buyButton;
-
 		private CoinsAsset coin;
 
-		CoinViewHolder(View itemView, boolean isUserLoggedIn) {
+		CoinViewHolder(View itemView) {
 			super(itemView);
 
 			ButterKnife.bind(this, itemView);
-
-			root.getLayoutParams().height = itemView.getResources().getDimensionPixelSize(
-					isUserLoggedIn ? R.dimen.item_list_coin_height_with_button : R.dimen.item_list_coin_height);
-
-			buyButton.setVisibility(isUserLoggedIn ? View.VISIBLE : View.GONE);
-			buyButton.setGreen();
 
 			itemView.setOnClickListener(v -> {
 				if (coin != null) {
@@ -147,19 +130,12 @@ public class CoinsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 			});
 		}
 
-		@OnClick(R.id.button_buy)
-		public void onBuyClicked() {
-			if (coin != null) {
-				EventBus.getDefault().post(new OnCoinListBuyButtonClickedEvent(coin));
-			}
-		}
-
 		@OnClick(R.id.favorite)
 		public void onFavoriteClicked() {
 			if (coin != null) {
 				coin.setIsFavorite(!coin.isIsFavorite());
 				updateData();
-				EventBus.getDefault().post(new OnListFundFavoriteClickedEvent(coin.getId(), coin.isIsFavorite()));
+				EventBus.getDefault().post(new OnListCoinFavoriteClickedEvent(coin.getId(), coin.isIsFavorite()));
 			}
 		}
 
@@ -185,8 +161,8 @@ public class CoinsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 			this.price.setText(StringFormatUtil.getValueString(coin.getPrice(), Currency.USD.getValue()));
 			this.change.setText(StringFormatUtil.getPercentString(coin.getChange24Percent()));
 
-			this.marketCap.setText(StringFormatUtil.getValueString(coin.getMarketCap(), Currency.USD.getValue()));
-			this.volume.setText(StringFormatUtil.getValueString(coin.getTotalVolume(), Currency.USD.getValue()));
+			setMillionValue(coin.getMarketCap(), marketCap);
+			setMillionValue(coin.getTotalVolume(), volume);
 
 			int changeColorResId = R.attr.colorTextPrimary;
 			if (coin.getChange24Percent() > 0) {
@@ -196,6 +172,15 @@ public class CoinsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 				changeColorResId = R.attr.colorRed;
 			}
 			this.change.setTextColor(ThemeUtil.getColorByAttrId(itemView.getContext(), changeColorResId));
+		}
+
+		private void setMillionValue(Double value, TextView textView) {
+			if (value > 1000000) {
+				textView.setText("$ ".concat(StringFormatUtil.getShortenedAmount(value).toString()));
+			}
+			else {
+				textView.setText(StringFormatUtil.getValueString(value, Currency.USD.getValue()));
+			}
 		}
 	}
 }

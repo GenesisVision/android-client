@@ -281,7 +281,35 @@
                         android:textSize="24sp"
                         tools:text="12.08 BTC"/>
 
+                    <LinearLayout
+                        android:id="@+id/group_fee"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:lines="1"
+                            android:text="@string/fee"
+                            android:textColor="?attr/colorTextSecondary"
+                            android:textSize="12sp"/>
+
+                        <TextView
+                            android:id="@+id/fee"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:lines="1"
+                            android:textColor="?attr/colorTextSecondary"
+                            android:textSize="14sp"
+                            tools:text="123.12345678 ETH"/>
+
+                    </LinearLayout>
+
                 </LinearLayout>
+
 
                 <TextView
                     android:id="@+id/converting_info"

@@ -1,10 +1,13 @@
 package vision.genesis.clientapp.feature.main.dashboard.investments.coins.history;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -23,10 +26,10 @@ import io.swagger.client.model.CoinsHistoryEvent;
 import io.swagger.client.model.FundHistoryEventViewModel;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
-import vision.genesis.clientapp.feature.common.date_range.DateRangeBottomSheetFragment;
+import vision.genesis.clientapp.feature.main.filters.FiltersActivity;
 import vision.genesis.clientapp.feature.main.fund.reallocate_history.details.FundHistoryDetailsBottomSheetFragment;
-import vision.genesis.clientapp.model.DateRange;
-import vision.genesis.clientapp.ui.DateRangeView;
+import vision.genesis.clientapp.model.filter.ProgramsFilter;
+import vision.genesis.clientapp.model.filter.UserFilter;
 
 /**
  * GenesisVisionAndroid
@@ -41,8 +44,14 @@ public class CoinsHistoryFragment extends BaseFragment implements CoinsHistoryVi
 	@BindView(R.id.progress_bar)
 	public ProgressBar progressBar;
 
-	@BindView(R.id.date_range)
-	public DateRangeView dateRangeView;
+	@BindView(R.id.filters)
+	public ViewGroup filters;
+
+	@BindView(R.id.text_filters)
+	public TextView filtersText;
+
+	@BindView(R.id.filters_dot)
+	public View filtersDot;
 
 	@BindView(R.id.group_no_history)
 	public View groupNoHistory;
@@ -51,7 +60,12 @@ public class CoinsHistoryFragment extends BaseFragment implements CoinsHistoryVi
 	public RecyclerView recyclerView;
 
 	@BindDimen(R.dimen.date_range_margin_bottom)
-	public int dateRangeMarginBottom;
+	public int filtersMarginBottom;
+
+	@OnClick(R.id.filters)
+	public void onFiltersClicked() {
+		presenter.onFiltersClicked();
+	}
 
 	@InjectPresenter
 	public CoinsHistoryPresenter presenter;
@@ -59,18 +73,6 @@ public class CoinsHistoryFragment extends BaseFragment implements CoinsHistoryVi
 	private CoinsHistoryAdapter coinsHistoryAdapter;
 
 	private Unbinder unbinder;
-
-	private DateRange dateRange = DateRange.createFromEnum(DateRange.DateRangeEnum.ALL_TIME);
-
-	@OnClick(R.id.date_range)
-	public void onDateRangeClicked() {
-		if (getActivity() != null) {
-			DateRangeBottomSheetFragment bottomSheetDialog = new DateRangeBottomSheetFragment();
-			bottomSheetDialog.show(getActivity().getSupportFragmentManager(), bottomSheetDialog.getTag());
-			bottomSheetDialog.setDateRange(dateRange);
-			bottomSheetDialog.setListener(presenter);
-		}
-	}
 
 	@Nullable
 	@Override
@@ -139,6 +141,11 @@ public class CoinsHistoryFragment extends BaseFragment implements CoinsHistoryVi
 	}
 
 	@Override
+	public void showFiltersActivity(ProgramsFilter filter) {
+		FiltersActivity.startFromFragment(this, filter.getUserFilter(UserFilter.TYPE_COINS_HISTORY_FILTER));
+	}
+
+	@Override
 	public void showEventDetails(FundHistoryEventViewModel event) {
 		if (getActivity() != null) {
 			FundHistoryDetailsBottomSheetFragment bottomSheetFragment = new FundHistoryDetailsBottomSheetFragment();
@@ -151,15 +158,9 @@ public class CoinsHistoryFragment extends BaseFragment implements CoinsHistoryVi
 	public void showProgress(boolean show) {
 		progressBar.setVisibility(show ? View.VISIBLE : View.GONE);
 		if (!show) {
-			dateRangeView.setVisibility(View.VISIBLE);
+			filters.setVisibility(View.VISIBLE);
 			recyclerView.setVisibility(View.VISIBLE);
 		}
-	}
-
-	@Override
-	public void setDateRange(DateRange dateRange) {
-		this.dateRange = dateRange;
-		dateRangeView.setDateRange(dateRange);
 	}
 
 	@Override
@@ -174,8 +175,21 @@ public class CoinsHistoryFragment extends BaseFragment implements CoinsHistoryVi
 	}
 
 	public void onOffsetChanged(int verticalOffset) {
-		if (dateRangeView != null && root.getHeight() != 0) {
-			dateRangeView.setY(root.getHeight() - verticalOffset - dateRangeView.getHeight() - dateRangeMarginBottom);
+		if (filters != null && root.getHeight() != 0) {
+			filters.setY(root.getHeight() - verticalOffset - filters.getHeight() - filtersMarginBottom);
+		}
+	}
+
+	@Override
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+		if (requestCode == UserFilter.TYPE_COINS_HISTORY_FILTER && resultCode == Activity.RESULT_OK) {
+			UserFilter userFilter = data.getParcelableExtra("filter");
+			if (userFilter != null) {
+				presenter.onFilterUpdated(userFilter);
+			}
+		}
+		else {
+			super.onActivityResult(requestCode, resultCode, data);
 		}
 	}
 }

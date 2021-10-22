@@ -94,6 +94,9 @@ public class BuySellCoinsActivity extends BaseSwipeBackActivity implements BuySe
 	@BindView(R.id.final_amount)
 	public TextView finalAmount;
 
+	@BindView(R.id.fee)
+	public TextView fee;
+
 	@BindView(R.id.converting_info)
 	public TextView convertingInfo;
 
@@ -242,6 +245,11 @@ public class BuySellCoinsActivity extends BaseSwipeBackActivity implements BuySe
 	@Override
 	public void setFinalAmount(String finalAmountString) {
 		this.finalAmount.setText(finalAmountString);
+	}
+
+	@Override
+	public void setFee(String feeString) {
+		this.fee.setText(feeString);
 	}
 
 	@Override

@@ -64,7 +64,20 @@ public enum SortingEnum
 
 	BYNEWASC("ByNewAsc"),
 
-	BYNEWDESC("ByNewDesc");
+	BYNEWDESC("ByNewDesc"),
+
+	BYASSETASC("ByAssetAsc"),
+	BYASSETDESC("ByAssetDesc"),
+	BYSYMBOLASC("BySymbolAsc"),
+	BYSYMBOLDESC("BySymbolDesc"),
+	BYPRICEASC("ByPriceAsc"),
+	BYPRICEDESC("ByPriceDesc"),
+	BYCHANGEASC("ByChangeAsc"),
+	BYCHANGEDESC("ByChangeDesc"),
+	BYMARKETCAPASC("ByMarketCapAsc"),
+	BYMARKETCAPDESC("ByMarketCapDesc"),
+	BYVOLUMEASC("ByVolumeAsc"),
+	BYVOLUMEDESC("ByVolumeDesc");
 
 	public static SortingEnum fromValue(String text) {
 		for (SortingEnum b : SortingEnum.values()) {

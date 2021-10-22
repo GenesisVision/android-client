@@ -14,7 +14,6 @@ import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 import butterknife.Unbinder;
 import io.swagger.client.model.CoinsAsset;
 import io.swagger.client.model.Currency;
@@ -30,13 +29,6 @@ import vision.genesis.clientapp.utils.ThemeUtil;
 
 public class CoinDashboardShortView extends RelativeLayout
 {
-	public interface Listener
-	{
-		void onBuyClicked(CoinsAsset coin);
-
-		void onSellClicked(CoinsAsset coin);
-	}
-
 	@BindView(R.id.logo)
 	public SimpleDraweeView logo;
 
@@ -55,20 +47,12 @@ public class CoinDashboardShortView extends RelativeLayout
 	@BindView(R.id.change)
 	public TextView change;
 
-	@BindView(R.id.button_buy)
-	public PrimaryButton buyButton;
-
-	@BindView(R.id.button_sell)
-	public PrimaryButton sellButton;
-
 	@BindView(R.id.delimiter)
 	public View delimiter;
 
 	private Unbinder unbinder;
 
 	private CoinsAsset coin;
-
-	private Listener listener;
 
 	public CoinDashboardShortView(Context context) {
 		super(context);
@@ -85,20 +69,6 @@ public class CoinDashboardShortView extends RelativeLayout
 		initView();
 	}
 
-	@OnClick(R.id.button_buy)
-	public void onBuyClicked() {
-		if (coin != null && listener != null) {
-			listener.onBuyClicked(coin);
-		}
-	}
-
-	@OnClick(R.id.button_sell)
-	public void onSellClicked() {
-		if (coin != null && listener != null) {
-			listener.onSellClicked(coin);
-		}
-	}
-
 	public void onDestroy() {
 		if (unbinder != null) {
 			unbinder.unbind();
@@ -111,10 +81,6 @@ public class CoinDashboardShortView extends RelativeLayout
 
 		unbinder = ButterKnife.bind(this);
 
-		buyButton.setGreen();
-		sellButton.setRed();
-
-
 		setOnClickListener(v -> {
 			if (coin != null) {
 				EventBus.getDefault().post(new ShowCoinDetailsEvent(coin.getAsset()));
@@ -124,10 +90,6 @@ public class CoinDashboardShortView extends RelativeLayout
 
 	public void removeDelimiter() {
 		delimiter.setVisibility(View.INVISIBLE);
-	}
-
-	public void setListener(Listener listener) {
-		this.listener = listener;
 	}
 
 	public void setData(CoinsAsset coin) {
@@ -146,7 +108,7 @@ public class CoinDashboardShortView extends RelativeLayout
 	}
 
 	private void updateProfitText(double value, double profit) {
-		String sign = profit > 0 ? "+" : "-";
+		String sign = profit > 0 ? "+" : profit < 0 ? "-" : "";
 		this.profit.setText(String.format(Locale.getDefault(), "%s (%s %s)",
 				StringFormatUtil.getValueString(value, Currency.USD.getValue()),
 				sign,

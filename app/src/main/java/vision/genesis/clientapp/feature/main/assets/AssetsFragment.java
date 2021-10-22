@@ -153,10 +153,10 @@ public class AssetsFragment extends BaseFragment implements AssetsView, ViewPage
 
 		tabLayout.addOnTabSelectedListener(tabSelectedListener);
 
-		addPage(programsTab, true);
+		addPage(coinsTab, true);
 		addPage(fundsTab, false);
+		addPage(programsTab, false);
 		addPage(followsTab, false);
-		addPage(coinsTab, false);
 	}
 
 	private View getProgramsTabView() {
@@ -250,7 +250,7 @@ public class AssetsFragment extends BaseFragment implements AssetsView, ViewPage
 
 	@Override
 	public void showPrograms() {
-		viewPager.setCurrentItem(0);
+		viewPager.setCurrentItem(2);
 	}
 
 	@Override
@@ -260,6 +260,6 @@ public class AssetsFragment extends BaseFragment implements AssetsView, ViewPage
 
 	@Override
 	public void showAssets() {
-		viewPager.setCurrentItem(3);
+		viewPager.setCurrentItem(0);
 	}
 }

@@ -62,6 +62,53 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"/>
 
+
+            <RelativeLayout
+                android:id="@+id/assets"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?attr/selectableItemBackground"
+                android:minHeight="@dimen/filter_option_height"
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp"
+                android:visibility="gone"
+                tools:visibility="visible">
+
+                <TextView
+                    android:id="@+id/assets_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="@string/assets"
+                    android:textColor="?attr/colorTextPrimary"
+                    android:textSize="14sp"/>
+
+                <TextView
+                    android:id="@+id/assets_all"
+                    style="@style/filter_option_value"
+                    android:layout_toEndOf="@+id/assets_label"
+                    android:alpha="1"
+                    android:text="@string/all"
+                    android:textColor="?attr/colorAccent"/>
+
+
+                <com.google.android.flexbox.FlexboxLayout
+                    android:id="@+id/assets_flex_box"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_toEndOf="@+id/assets_label"
+                    app:alignContent="flex_end"
+                    app:alignItems="flex_end"
+                    app:flexDirection="row"
+                    app:flexWrap="wrap"/>
+
+            </RelativeLayout>
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="20dp"
@@ -74,8 +121,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/filter_option_height"
                 android:background="?attr/selectableItemBackground"
-                android:paddingEnd="20dp"
-                android:paddingStart="20dp">
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp">
 
                 <TextView
                     android:id="@+id/date_range_label"
@@ -109,8 +156,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/filter_option_height"
                 android:background="?attr/selectableItemBackground"
-                android:paddingEnd="20dp"
-                android:paddingStart="20dp">
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp">
 
                 <TextView
                     android:id="@+id/sorting_label"
@@ -138,14 +185,33 @@
                     android:textColor="?attr/colorAccent"
                     tools:text="Profit"/>
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_alignParentBottom="true"
-                    android:alpha="0.5"
-                    android:background="?attr/colorDelimiterLight"/>
 
             </RelativeLayout>
+
+            <LinearLayout
+                android:id="@+id/group_favorite"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp"
+                    android:background="?attr/colorBackgroundDark"
+                    android:visibility="visible"/>
+
+                <androidx.appcompat.widget.SwitchCompat
+                    android:id="@+id/favorite_switch"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/filter_option_height"
+                    android:checked="false"
+                    android:gravity="center_vertical"
+                    android:paddingStart="20dp"
+                    android:paddingEnd="20dp"
+                    android:text="@string/favorites_only"
+                    android:textColor="?attr/colorTextPrimary"/>
+
+            </LinearLayout>
 
         </LinearLayout>
 

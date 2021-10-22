@@ -17,4 +17,10 @@ interface FiltersView extends MvpView
 	void setApplyButtonEnabled(boolean enabled);
 
 	void showSingleValueChooser(FilterOption filterOption);
+
+	void addAsset(String asset);
+
+	void showAssetAlreadyAdded();
+
+	void removeAsset(String asset);
 }

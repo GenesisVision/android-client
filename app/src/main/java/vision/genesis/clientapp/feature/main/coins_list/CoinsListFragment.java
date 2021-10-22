@@ -7,7 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
@@ -31,12 +30,9 @@ import timber.log.Timber;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
-import vision.genesis.clientapp.feature.main.coin.buy_sell.BuySellCoinsActivity;
 import vision.genesis.clientapp.feature.main.filters.FiltersActivity;
-import vision.genesis.clientapp.model.BuySellCoinsModel;
 import vision.genesis.clientapp.model.filter.ProgramsFilter;
 import vision.genesis.clientapp.model.filter.UserFilter;
-import vision.genesis.clientapp.utils.TypefaceUtil;
 
 /**
  * GenesisVisionAndroid
@@ -76,9 +72,6 @@ public class CoinsListFragment extends BaseFragment implements CoinsListView
 
 	@BindView(R.id.filters)
 	public ViewGroup filters;
-
-	@BindView(R.id.text_filters)
-	public TextView filtersText;
 
 	@BindView(R.id.filters_dot)
 	public View filtersDot;
@@ -149,8 +142,6 @@ public class CoinsListFragment extends BaseFragment implements CoinsListView
 				presenter.setData(location, filter);
 			}
 
-
-			setFonts();
 			initRefreshLayout();
 			initRecyclerView();
 		}
@@ -172,10 +163,6 @@ public class CoinsListFragment extends BaseFragment implements CoinsListView
 		}
 
 		super.onDestroyView();
-	}
-
-	private void setFonts() {
-		filtersText.setTypeface(TypefaceUtil.semibold());
 	}
 
 	private void initRefreshLayout() {
@@ -212,13 +199,6 @@ public class CoinsListFragment extends BaseFragment implements CoinsListView
 		boolean endHasBeenReached = lastVisible + 1 >= totalItemCount;
 		if (totalItemCount > 0 && endHasBeenReached) {
 			presenter.onLastListItemVisible();
-		}
-	}
-
-	@Override
-	public void setAdapterUserLoggedIn(boolean isLoggedIn) {
-		if (coinsListAdapter != null) {
-			coinsListAdapter.setUserLoggedIn(isLoggedIn);
 		}
 	}
 
@@ -273,7 +253,7 @@ public class CoinsListFragment extends BaseFragment implements CoinsListView
 
 	@Override
 	public void showFiltersActivity(ProgramsFilter filter) {
-		FiltersActivity.startFromFragment(this, filter.getUserFilter(UserFilter.TYPE_FUNDS_LIST_FILTER));
+		FiltersActivity.startFromFragment(this, filter.getUserFilter(UserFilter.TYPE_COINS_LIST_FILTER));
 	}
 
 	@Override
@@ -282,17 +262,8 @@ public class CoinsListFragment extends BaseFragment implements CoinsListView
 	}
 
 	@Override
-	public void showBuyCoinActivity(CoinsAsset coin) {
-		if (getActivity() != null) {
-			BuySellCoinsModel model = BuySellCoinsModel.createFrom(coin);
-			model.setTransferDirection(BuySellCoinsModel.Direction.BUY);
-			BuySellCoinsActivity.startWith(getActivity(), model);
-		}
-	}
-
-	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
-		if (requestCode == UserFilter.TYPE_FUNDS_LIST_FILTER && resultCode == Activity.RESULT_OK) {
+		if (requestCode == UserFilter.TYPE_COINS_LIST_FILTER && resultCode == Activity.RESULT_OK) {
 			UserFilter userFilter = data.getParcelableExtra("filter");
 			if (userFilter != null) {
 				presenter.onFilterUpdated(userFilter);

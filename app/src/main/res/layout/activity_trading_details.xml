@@ -20,7 +20,7 @@
             android:layout_centerVertical="true"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:padding="20dp"
-            android:tint="?attr/colorTextPrimary"
+            app:tint="?attr/colorTextPrimary"
             app:srcCompat="@drawable/icon_back"/>
 
         <TextView
@@ -166,7 +166,7 @@
                             android:layout_height="wrap_content"
                             android:layout_alignParentEnd="true"
                             android:layout_centerVertical="true"
-                            android:tint="?attr/colorTextPrimary"
+                            app:tint="?attr/colorTextPrimary"
                             app:srcCompat="@drawable/ic_chevron_right_black_24dp"/>
 
                     </RelativeLayout>
@@ -262,20 +262,8 @@
                                 android:layout_toEndOf="@+id/private_count_background"
                                 android:background="?attr/selectableItemBackgroundBorderless"
                                 android:padding="18dp"
-                                android:tint="?attr/colorTextPrimary"
+                                app:tint="?attr/colorTextPrimary"
                                 app:srcCompat="@drawable/ic_add_black_24dp"/>
-
-                            <ImageView
-                                android:id="@+id/private_arrow"
-                                android:layout_width="60dp"
-                                android:layout_height="60dp"
-                                android:layout_alignParentEnd="true"
-                                android:layout_centerVertical="true"
-                                android:background="?attr/selectableItemBackgroundBorderless"
-                                android:padding="18dp"
-                                android:tint="?attr/colorTextPrimary"
-                                android:visibility="invisible"
-                                app:srcCompat="@drawable/ic_chevron_right_black_24dp"/>
 
                         </RelativeLayout>
 
@@ -283,8 +271,7 @@
                             android:id="@+id/group_private_status"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
-                            android:layout_alignParentEnd="true"
-                            android:layout_marginEnd="@dimen/padding"
+                            android:layout_toStartOf="@+id/private_arrow"
                             android:background="?attr/selectableItemBackgroundBorderless"
                             android:gravity="center_vertical"
                             android:orientation="horizontal">
@@ -304,10 +291,21 @@
                                 android:layout_marginTop="2dp"
                                 android:padding="2dp"
                                 android:scaleType="centerCrop"
-                                android:tint="?attr/colorAccent"
+                                app:tint="?attr/colorAccent"
                                 app:srcCompat="@drawable/ic_keyboard_arrow_down_black_24dp"/>
 
                         </LinearLayout>
+
+                        <ImageView
+                            android:id="@+id/private_arrow"
+                            android:layout_width="60dp"
+                            android:layout_height="60dp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true"
+                            android:background="?attr/selectableItemBackgroundBorderless"
+                            android:padding="18dp"
+                            app:srcCompat="@drawable/ic_chevron_right_black_24dp"
+                            app:tint="?attr/colorTextPrimary"/>
 
                     </RelativeLayout>
 
@@ -499,20 +497,8 @@
                                 android:layout_toEndOf="@+id/public_count_background"
                                 android:background="?attr/selectableItemBackgroundBorderless"
                                 android:padding="18dp"
-                                android:tint="?attr/colorTextPrimary"
+                                app:tint="?attr/colorTextPrimary"
                                 app:srcCompat="@drawable/ic_add_black_24dp"/>
-
-                            <ImageView
-                                android:id="@+id/public_arrow"
-                                android:layout_width="60dp"
-                                android:layout_height="60dp"
-                                android:layout_alignParentEnd="true"
-                                android:layout_centerVertical="true"
-                                android:background="?attr/selectableItemBackgroundBorderless"
-                                android:padding="18dp"
-                                android:tint="?attr/colorTextPrimary"
-                                android:visibility="invisible"
-                                app:srcCompat="@drawable/ic_chevron_right_black_24dp"/>
 
                         </RelativeLayout>
 
@@ -520,8 +506,7 @@
                             android:id="@+id/group_public_status"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
-                            android:layout_alignParentEnd="true"
-                            android:layout_marginEnd="@dimen/padding"
+                            android:layout_toStartOf="@+id/public_arrow"
                             android:background="?attr/selectableItemBackgroundBorderless"
                             android:gravity="center_vertical"
                             android:orientation="horizontal">
@@ -541,10 +526,22 @@
                                 android:layout_marginTop="2dp"
                                 android:padding="2dp"
                                 android:scaleType="centerCrop"
-                                android:tint="?attr/colorAccent"
+                                app:tint="?attr/colorAccent"
                                 app:srcCompat="@drawable/ic_keyboard_arrow_down_black_24dp"/>
 
                         </LinearLayout>
+
+
+                        <ImageView
+                            android:id="@+id/public_arrow"
+                            android:layout_width="60dp"
+                            android:layout_height="60dp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true"
+                            android:background="?attr/selectableItemBackgroundBorderless"
+                            android:padding="18dp"
+                            app:srcCompat="@drawable/ic_chevron_right_black_24dp"
+                            app:tint="?attr/colorTextPrimary"/>
 
                     </RelativeLayout>
 

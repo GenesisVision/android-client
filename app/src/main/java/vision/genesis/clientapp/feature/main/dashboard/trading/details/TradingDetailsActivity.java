@@ -38,6 +38,8 @@ import vision.genesis.clientapp.feature.BaseSwipeBackActivity;
 import vision.genesis.clientapp.feature.common.option.SelectOptionBottomSheetFragment;
 import vision.genesis.clientapp.feature.common.timeframe_profit.TimeframeProfitView;
 import vision.genesis.clientapp.feature.main.dashboard.select_product.SelectProductActivity;
+import vision.genesis.clientapp.feature.main.dashboard.trading.private_assets.PrivateTradingActivity;
+import vision.genesis.clientapp.feature.main.dashboard.trading.public_assets.PublicTradingActivity;
 import vision.genesis.clientapp.feature.main.events.EventsActivity;
 import vision.genesis.clientapp.feature.main.external.attach.AttachExternalAccountActivity;
 import vision.genesis.clientapp.feature.main.fund.create.CreateFundActivity;
@@ -287,6 +289,16 @@ public class TradingDetailsActivity extends BaseSwipeBackActivity implements Tra
 	@OnClick(R.id.button_select_product)
 	public void onSelectProductClicked() {
 		SelectProductActivity.startFrom(this);
+	}
+
+	@OnClick(R.id.private_arrow)
+	public void onPrivateArrowClicked() {
+		PrivateTradingActivity.startWith(this);
+	}
+
+	@OnClick(R.id.public_arrow)
+	public void onPublicArrowClicked() {
+		PublicTradingActivity.startWith(this);
 	}
 
 	@Override

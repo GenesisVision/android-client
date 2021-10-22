@@ -1093,6 +1093,12 @@
     <string name="assets_list_empty_text">You have no assets in your portfolio</string>
     <string name="asset_price_template">%s (avg. %s)</string>
     <string name="asset_change_24_template">%s%s%% (24h)</string>
+    <string name="average_price">Average price</string>
+    <string name="change_24h">Change 24h</string>
+    <string name="chart">Chart</string>
+    <string name="name">Name</string>
+    <string name="error_asset_added">This asset is already added</string>
+    <string name="favorites_only">Favorites only</string>
 
     <plurals name="assets">
         <item quantity="one">asset</item>

@@ -21,14 +21,12 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
-import vision.genesis.clientapp.managers.AuthManager;
 import vision.genesis.clientapp.managers.CoinsManager;
 import vision.genesis.clientapp.managers.SettingsManager;
 import vision.genesis.clientapp.model.CurrencyEnum;
 import vision.genesis.clientapp.model.DateRange;
-import vision.genesis.clientapp.model.User;
+import vision.genesis.clientapp.model.SortingEnum;
 import vision.genesis.clientapp.model.events.OnCoinFavoriteChangedEvent;
-import vision.genesis.clientapp.model.events.OnCoinListBuyButtonClickedEvent;
 import vision.genesis.clientapp.model.events.OnFundFavoriteChangedEvent;
 import vision.genesis.clientapp.model.events.OnListCoinFavoriteClickedEvent;
 import vision.genesis.clientapp.model.events.ProgramsListFiltersAppliedEvent;
@@ -51,15 +49,10 @@ public class CoinsListPresenter extends MvpPresenter<CoinsListView>
 	public Context context;
 
 	@Inject
-	public AuthManager authManager;
-
-	@Inject
 	public SettingsManager settingsManager;
 
 	@Inject
 	public CoinsManager coinsManager;
-
-	private Subscription userSubscription;
 
 	private Subscription baseCurrencySubscription;
 
@@ -83,8 +76,6 @@ public class CoinsListPresenter extends MvpPresenter<CoinsListView>
 
 	private CurrencyEnum baseCurrency;
 
-	private User user = null;
-
 	@Override
 	protected void onFirstViewAttach() {
 		super.onFirstViewAttach();
@@ -93,7 +84,6 @@ public class CoinsListPresenter extends MvpPresenter<CoinsListView>
 
 		EventBus.getDefault().register(this);
 
-		subscribeToUser();
 		subscribeToBaseCurrency();
 		getViewState().setRefreshing(true);
 		getCoinsList(true);
@@ -101,9 +91,6 @@ public class CoinsListPresenter extends MvpPresenter<CoinsListView>
 
 	@Override
 	public void onDestroy() {
-		if (userSubscription != null) {
-			userSubscription.unsubscribe();
-		}
 		if (baseCurrencySubscription != null) {
 			baseCurrencySubscription.unsubscribe();
 		}
@@ -152,21 +139,6 @@ public class CoinsListPresenter extends MvpPresenter<CoinsListView>
 		getViewState().showFiltersActivity(filter);
 	}
 
-	private void subscribeToUser() {
-		userSubscription = authManager.userSubject
-				.observeOn(AndroidSchedulers.mainThread())
-				.subscribeOn(Schedulers.newThread())
-				.subscribe(this::userUpdated, error -> {
-				});
-	}
-
-	private void userUpdated(User user) {
-		this.user = user;
-
-		getViewState().setAdapterUserLoggedIn(user != null);
-		getCoinsList(true);
-	}
-
 	private void subscribeToBaseCurrency() {
 		if (settingsManager != null) {
 			baseCurrencySubscription = settingsManager.getBaseCurrency()
@@ -192,7 +164,7 @@ public class CoinsListPresenter extends MvpPresenter<CoinsListView>
 		if (this.filter.getDateRange() == null) {
 			this.filter.setDateRange(dateRange);
 		}
-//		filter.setEquityChartLength(10);
+		this.filter.setSorting(SortingEnum.BYMARKETCAPDESC);
 	}
 
 	public void onFilterUpdated(UserFilter userFilter) {
@@ -207,7 +179,6 @@ public class CoinsListPresenter extends MvpPresenter<CoinsListView>
 				skip = 0;
 				filter.setSkip(skip);
 			}
-			filter.setShowIn(baseCurrency);
 
 			if (getCoinsSubscription != null) {
 				getCoinsSubscription.unsubscribe();
@@ -312,10 +283,5 @@ public class CoinsListPresenter extends MvpPresenter<CoinsListView>
 	@Subscribe
 	public void onEventMainThread(OnListCoinFavoriteClickedEvent event) {
 		setFavorite(event.getCoinId(), event.isFavorite());
-	}
-
-	@Subscribe
-	public void onEventMainThread(OnCoinListBuyButtonClickedEvent event) {
-		getViewState().showBuyCoinActivity(event.getCoin());
 	}
 }

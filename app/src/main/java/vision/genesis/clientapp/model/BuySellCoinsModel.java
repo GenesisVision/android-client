@@ -31,7 +31,7 @@ public class BuySellCoinsModel implements Parcelable
 	};
 
 	public static BuySellCoinsModel createFrom(CoinsAsset coin) {
-		return new BuySellCoinsModel(coin.getOefAssetId(), coin.getLogoUrl(), coin.getName(),
+		return new BuySellCoinsModel(coin.getOefAssetId() != null ? coin.getOefAssetId() : coin.getId(), coin.getLogoUrl(), coin.getName(),
 				coin.getAsset(), coin.getAmount());
 	}
 

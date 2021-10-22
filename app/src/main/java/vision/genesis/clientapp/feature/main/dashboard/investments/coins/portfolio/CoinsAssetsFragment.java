@@ -22,8 +22,6 @@ import io.swagger.client.model.CoinsAsset;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
-import vision.genesis.clientapp.feature.main.coin.buy_sell.BuySellCoinsActivity;
-import vision.genesis.clientapp.model.BuySellCoinsModel;
 import vision.genesis.clientapp.ui.CoinDashboardShortView;
 
 /**
@@ -104,26 +102,6 @@ public class CoinsAssetsFragment extends BaseFragment implements CoinsAssetsView
 		for (CoinsAsset coin : coins) {
 			CoinDashboardShortView view = new CoinDashboardShortView(getContext());
 			view.setData(coin);
-			view.setListener(new CoinDashboardShortView.Listener()
-			{
-				@Override
-				public void onBuyClicked(CoinsAsset coin) {
-					if (getActivity() != null) {
-						BuySellCoinsModel model = BuySellCoinsModel.createFrom(coin);
-						model.setTransferDirection(BuySellCoinsModel.Direction.BUY);
-						BuySellCoinsActivity.startWith(getActivity(), model);
-					}
-				}
-
-				@Override
-				public void onSellClicked(CoinsAsset coin) {
-					if (getActivity() != null) {
-						BuySellCoinsModel model = BuySellCoinsModel.createFrom(coin);
-						model.setTransferDirection(BuySellCoinsModel.Direction.SELL);
-						BuySellCoinsActivity.startWith(getActivity(), model);
-					}
-				}
-			});
 			assetsGroup.addView(view);
 			if (index == coins.size() - 1) {
 				view.removeDelimiter();

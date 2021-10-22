@@ -17,8 +17,6 @@ import vision.genesis.clientapp.model.filter.ProgramsFilter;
 
 interface CoinsListView extends MvpView
 {
-	void setAdapterUserLoggedIn(boolean isLoggedIn);
-
 	void setCoins(List<CoinsAsset> coins);
 
 	void addCoins(List<CoinsAsset> coins);
@@ -41,6 +39,4 @@ interface CoinsListView extends MvpView
 	void showFiltersActivity(ProgramsFilter filter);
 
 	void showBottomProgress(boolean show);
-
-	void showBuyCoinActivity(CoinsAsset coin);
 }

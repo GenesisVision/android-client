@@ -176,6 +176,78 @@
                     android:layout_marginStart="20dp"
                     android:background="?attr/colorDelimiterLight"/>
 
+                <vision.genesis.clientapp.feature.main.filters.sorting.SortingOptionView
+                    android:id="@+id/asset"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+                <View
+                    android:id="@+id/asset_delimiter"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginStart="20dp"
+                    android:background="?attr/colorDelimiterLight"/>
+
+                <vision.genesis.clientapp.feature.main.filters.sorting.SortingOptionView
+                    android:id="@+id/name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+                <View
+                    android:id="@+id/name_delimiter"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginStart="20dp"
+                    android:background="?attr/colorDelimiterLight"/>
+
+                <vision.genesis.clientapp.feature.main.filters.sorting.SortingOptionView
+                    android:id="@+id/price"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+                <View
+                    android:id="@+id/price_delimiter"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginStart="20dp"
+                    android:background="?attr/colorDelimiterLight"/>
+
+                <vision.genesis.clientapp.feature.main.filters.sorting.SortingOptionView
+                    android:id="@+id/change"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+                <View
+                    android:id="@+id/change_delimiter"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginStart="20dp"
+                    android:background="?attr/colorDelimiterLight"/>
+
+                <vision.genesis.clientapp.feature.main.filters.sorting.SortingOptionView
+                    android:id="@+id/market_cap"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+                <View
+                    android:id="@+id/market_cap_delimiter"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginStart="20dp"
+                    android:background="?attr/colorDelimiterLight"/>
+
+                <vision.genesis.clientapp.feature.main.filters.sorting.SortingOptionView
+                    android:id="@+id/volume"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+                <View
+                    android:id="@+id/volume_delimiter"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginStart="20dp"
+                    android:background="?attr/colorDelimiterLight"/>
+
             </LinearLayout>
 
         </ScrollView>

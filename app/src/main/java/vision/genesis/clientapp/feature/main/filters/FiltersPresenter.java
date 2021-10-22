@@ -3,11 +3,17 @@ package vision.genesis.clientapp.feature.main.filters;
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+
+import java.util.ArrayList;
+
 import vision.genesis.clientapp.feature.common.date_range.DateRangeBottomSheetFragment;
 import vision.genesis.clientapp.feature.common.option.SelectOptionBottomSheetFragment;
 import vision.genesis.clientapp.feature.main.filters.sorting.SortingDialogFragment;
 import vision.genesis.clientapp.model.DateRange;
 import vision.genesis.clientapp.model.SortingEnum;
+import vision.genesis.clientapp.model.events.OnAddAssetAssetSelectedEvent;
 import vision.genesis.clientapp.model.filter.FilterOption;
 import vision.genesis.clientapp.model.filter.UserFilter;
 
@@ -29,6 +35,14 @@ public class FiltersPresenter extends MvpPresenter<FiltersView> implements DateR
 	protected void onFirstViewAttach() {
 		super.onFirstViewAttach();
 
+		EventBus.getDefault().register(this);
+	}
+
+	@Override
+	public void onDestroy() {
+		EventBus.getDefault().unregister(this);
+
+		super.onDestroy();
 	}
 
 	void setFilter(UserFilter filter) {
@@ -49,7 +63,10 @@ public class FiltersPresenter extends MvpPresenter<FiltersView> implements DateR
 		}
 
 		filter.setDateRange(DateRange.createFromEnum(DateRange.DateRangeEnum.MONTH));
-		filter.setSorting(SortingEnum.BYPROFITDESC);
+		filter.setSorting(filter.getType() == UserFilter.TYPE_COINS_LIST_FILTER
+				? SortingEnum.BYMARKETCAPDESC : SortingEnum.BYPROFITDESC);
+		filter.setAssets(new ArrayList<>());
+		filter.setFavorite(false);
 
 		onFilterUpdated();
 	}
@@ -145,6 +162,60 @@ public class FiltersPresenter extends MvpPresenter<FiltersView> implements DateR
 					sortingEnum = SortingEnum.BYDRAWDOWNDESC;
 				}
 				break;
+
+			case "asset":
+				if (direction.equals("asc")) {
+					sortingEnum = SortingEnum.BYASSETASC;
+				}
+				else {
+					sortingEnum = SortingEnum.BYASSETDESC;
+				}
+				break;
+
+			case "name":
+				if (direction.equals("asc")) {
+					sortingEnum = SortingEnum.BYSYMBOLASC;
+				}
+				else {
+					sortingEnum = SortingEnum.BYSYMBOLDESC;
+				}
+				break;
+
+			case "price":
+				if (direction.equals("asc")) {
+					sortingEnum = SortingEnum.BYPRICEASC;
+				}
+				else {
+					sortingEnum = SortingEnum.BYPRICEDESC;
+				}
+				break;
+
+			case "change":
+				if (direction.equals("asc")) {
+					sortingEnum = SortingEnum.BYCHANGEASC;
+				}
+				else {
+					sortingEnum = SortingEnum.BYCHANGEDESC;
+				}
+				break;
+
+			case "market cap":
+				if (direction.equals("asc")) {
+					sortingEnum = SortingEnum.BYMARKETCAPASC;
+				}
+				else {
+					sortingEnum = SortingEnum.BYMARKETCAPDESC;
+				}
+				break;
+
+			case "volume":
+				if (direction.equals("asc")) {
+					sortingEnum = SortingEnum.BYVOLUMEASC;
+				}
+				else {
+					sortingEnum = SortingEnum.BYVOLUMEDESC;
+				}
+				break;
 			default:
 				sortingEnum = SortingEnum.BYPROFITDESC;
 				break;
@@ -173,5 +244,29 @@ public class FiltersPresenter extends MvpPresenter<FiltersView> implements DateR
 			selectedFilterOption.setSelectedPosition(position);
 			onFilterUpdated();
 		}
+	}
+
+	@Subscribe
+	public void onEventMainThread(OnAddAssetAssetSelectedEvent event) {
+		String newAsset = event.getAsset().getAsset();
+		if (filter.getAssets().contains(newAsset)) {
+			getViewState().showAssetAlreadyAdded();
+		}
+		else {
+			filter.addAsset(newAsset);
+			getViewState().addAsset(newAsset);
+			getViewState().setApplyButtonEnabled(!oldFilter.equals(filter));
+		}
+	}
+
+	public void onRemoveAssetClicked(String asset) {
+		filter.removeAsset(asset);
+		getViewState().removeAsset(asset);
+		getViewState().setApplyButtonEnabled(!oldFilter.equals(filter));
+	}
+
+	public void onFavoriteClicked() {
+		filter.setFavorite(!filter.isFavorite());
+		onFilterUpdated();
 	}
 }

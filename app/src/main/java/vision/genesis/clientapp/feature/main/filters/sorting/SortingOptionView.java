@@ -17,8 +17,8 @@ import vision.genesis.clientapp.R;
  */
 public class SortingOptionView extends RelativeLayout
 {
-	@BindView(R.id.name)
-	public TextView name;
+	@BindView(R.id.option_name)
+	public TextView optionName;
 
 	@BindView(R.id.check)
 	public ImageView check;
@@ -45,11 +45,11 @@ public class SortingOptionView extends RelativeLayout
 	}
 
 	public String getText() {
-		return name.getText().toString();
+		return optionName.getText().toString();
 	}
 
 	public void setText(String text) {
-		name.setText(text);
+		optionName.setText(text);
 	}
 
 	public void setSelected(boolean selected) {

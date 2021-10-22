@@ -68,6 +68,26 @@ public class SortingDialogFragment extends AppCompatDialogFragment
 	@BindView(R.id.drawdown)
 	public SortingOptionView drawdown;
 
+
+	@BindView(R.id.asset)
+	public SortingOptionView asset;
+
+	@BindView(R.id.name)
+	public SortingOptionView name;
+
+	@BindView(R.id.price)
+	public SortingOptionView price;
+
+	@BindView(R.id.change)
+	public SortingOptionView change;
+
+	@BindView(R.id.market_cap)
+	public SortingOptionView marketCap;
+
+	@BindView(R.id.volume)
+	public SortingOptionView volume;
+
+
 	@BindView(R.id.profit_delimiter)
 	public View profitDelimiter;
 
@@ -94,6 +114,26 @@ public class SortingDialogFragment extends AppCompatDialogFragment
 
 	@BindView(R.id.drawdown_delimiter)
 	public View drawdownDelimiter;
+
+
+	@BindView(R.id.asset_delimiter)
+	public View assetDelimiter;
+
+	@BindView(R.id.name_delimiter)
+	public View nameDelimiter;
+
+	@BindView(R.id.price_delimiter)
+	public View priceDelimiter;
+
+	@BindView(R.id.change_delimiter)
+	public View changeDelimiter;
+
+	@BindView(R.id.market_cap_delimiter)
+	public View marketCapDelimiter;
+
+	@BindView(R.id.volume_delimiter)
+	public View volumeDelimiter;
+
 
 	@BindView(R.id.button_apply)
 	public TextView applyButton;
@@ -161,6 +201,37 @@ public class SortingDialogFragment extends AppCompatDialogFragment
 	@OnClick(R.id.drawdown)
 	public void onDrawdownClicked() {
 		selectOption(drawdown);
+	}
+
+
+	@OnClick(R.id.asset)
+	public void onAssetClicked() {
+		selectOption(asset);
+	}
+
+	@OnClick(R.id.name)
+	public void onNameClicked() {
+		selectOption(name);
+	}
+
+	@OnClick(R.id.price)
+	public void onPriceClicked() {
+		selectOption(price);
+	}
+
+	@OnClick(R.id.change)
+	public void onChangeClicked() {
+		selectOption(change);
+	}
+
+	@OnClick(R.id.market_cap)
+	public void onMarketCapClicked() {
+		selectOption(marketCap);
+	}
+
+	@OnClick(R.id.volume)
+	public void onVolumeClicked() {
+		selectOption(volume);
 	}
 
 	@OnClick(R.id.button_apply)
@@ -235,6 +306,19 @@ public class SortingDialogFragment extends AppCompatDialogFragment
 				investorsDelimiter.setVisibility(View.GONE);
 				drawdown.setVisibility(View.GONE);
 				drawdownDelimiter.setVisibility(View.GONE);
+
+				asset.setVisibility(View.GONE);
+				assetDelimiter.setVisibility(View.GONE);
+				name.setVisibility(View.GONE);
+				nameDelimiter.setVisibility(View.GONE);
+				price.setVisibility(View.GONE);
+				priceDelimiter.setVisibility(View.GONE);
+				change.setVisibility(View.GONE);
+				changeDelimiter.setVisibility(View.GONE);
+				marketCap.setVisibility(View.GONE);
+				marketCapDelimiter.setVisibility(View.GONE);
+				volume.setVisibility(View.GONE);
+				volumeDelimiter.setVisibility(View.GONE);
 			}
 			else if (assetType == UserFilter.TYPE_FUNDS_LIST_FILTER) {
 				profit.setVisibility(View.VISIBLE);
@@ -255,6 +339,19 @@ public class SortingDialogFragment extends AppCompatDialogFragment
 				investorsDelimiter.setVisibility(View.VISIBLE);
 				drawdown.setVisibility(View.VISIBLE);
 				drawdownDelimiter.setVisibility(View.VISIBLE);
+
+				asset.setVisibility(View.GONE);
+				assetDelimiter.setVisibility(View.GONE);
+				name.setVisibility(View.GONE);
+				nameDelimiter.setVisibility(View.GONE);
+				price.setVisibility(View.GONE);
+				priceDelimiter.setVisibility(View.GONE);
+				change.setVisibility(View.GONE);
+				changeDelimiter.setVisibility(View.GONE);
+				marketCap.setVisibility(View.GONE);
+				marketCapDelimiter.setVisibility(View.GONE);
+				volume.setVisibility(View.GONE);
+				volumeDelimiter.setVisibility(View.GONE);
 			}
 			else if (assetType == UserFilter.TYPE_FOLLOWS_LIST_FILTER) {
 				profit.setVisibility(View.VISIBLE);
@@ -275,6 +372,52 @@ public class SortingDialogFragment extends AppCompatDialogFragment
 				investorsDelimiter.setVisibility(View.GONE);
 				drawdown.setVisibility(View.VISIBLE);
 				drawdownDelimiter.setVisibility(View.VISIBLE);
+
+				asset.setVisibility(View.GONE);
+				assetDelimiter.setVisibility(View.GONE);
+				name.setVisibility(View.GONE);
+				nameDelimiter.setVisibility(View.GONE);
+				price.setVisibility(View.GONE);
+				priceDelimiter.setVisibility(View.GONE);
+				change.setVisibility(View.GONE);
+				changeDelimiter.setVisibility(View.GONE);
+				marketCap.setVisibility(View.GONE);
+				marketCapDelimiter.setVisibility(View.GONE);
+				volume.setVisibility(View.GONE);
+				volumeDelimiter.setVisibility(View.GONE);
+			}
+			else if (assetType == UserFilter.TYPE_COINS_LIST_FILTER) {
+				profit.setVisibility(View.GONE);
+				profitDelimiter.setVisibility(View.GONE);
+				level.setVisibility(View.GONE);
+				levelDelimiter.setVisibility(View.GONE);
+				endOfPeriod.setVisibility(View.GONE);
+				endOfPeriodDelimiter.setVisibility(View.GONE);
+				equity.setVisibility(View.GONE);
+				equityDelimiter.setVisibility(View.GONE);
+				size.setVisibility(View.GONE);
+				sizeDelimiter.setVisibility(View.GONE);
+				title.setVisibility(View.GONE);
+				titleDelimiter.setVisibility(View.GONE);
+				subscribers.setVisibility(View.GONE);
+				subscribersDelimiter.setVisibility(View.GONE);
+				investors.setVisibility(View.GONE);
+				investorsDelimiter.setVisibility(View.GONE);
+				drawdown.setVisibility(View.GONE);
+				drawdownDelimiter.setVisibility(View.GONE);
+
+				asset.setVisibility(View.VISIBLE);
+				assetDelimiter.setVisibility(View.VISIBLE);
+				name.setVisibility(View.VISIBLE);
+				nameDelimiter.setVisibility(View.VISIBLE);
+				price.setVisibility(View.VISIBLE);
+				priceDelimiter.setVisibility(View.VISIBLE);
+				change.setVisibility(View.VISIBLE);
+				changeDelimiter.setVisibility(View.VISIBLE);
+				marketCap.setVisibility(View.VISIBLE);
+				marketCapDelimiter.setVisibility(View.VISIBLE);
+				volume.setVisibility(View.VISIBLE);
+				volumeDelimiter.setVisibility(View.VISIBLE);
 			}
 		}
 	}
@@ -300,6 +443,13 @@ public class SortingDialogFragment extends AppCompatDialogFragment
 		subscribers.setText(getString(R.string.subscribers));
 		investors.setText(getString(R.string.investors));
 		drawdown.setText(getString(R.string.drawdown));
+
+		asset.setText(getString(R.string.asset));
+		name.setText(getString(R.string.name));
+		price.setText(getString(R.string.price));
+		change.setText(getString(R.string.change));
+		marketCap.setText(getString(R.string.market_cap));
+		volume.setText(getString(R.string.volume));
 	}
 
 	private void updateSelections() {
@@ -330,6 +480,24 @@ public class SortingDialogFragment extends AppCompatDialogFragment
 				break;
 			case "drawdown":
 				selectOption(drawdown);
+				break;
+			case "asset":
+				selectOption(asset);
+				break;
+			case "name":
+				selectOption(name);
+				break;
+			case "price":
+				selectOption(price);
+				break;
+			case "change":
+				selectOption(change);
+				break;
+			case "market cap":
+				selectOption(marketCap);
+				break;
+			case "volume":
+				selectOption(volume);
 				break;
 			default:
 				break;

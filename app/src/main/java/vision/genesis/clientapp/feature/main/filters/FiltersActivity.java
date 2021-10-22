@@ -9,12 +9,15 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.content.res.AppCompatResources;
+import androidx.appcompat.widget.SwitchCompat;
 import androidx.fragment.app.Fragment;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
+import com.google.android.flexbox.FlexboxLayout;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import butterknife.BindInt;
 import butterknife.BindView;
@@ -26,11 +29,14 @@ import vision.genesis.clientapp.feature.BaseSwipeBackActivity;
 import vision.genesis.clientapp.feature.common.date_range.DateRangeBottomSheetFragment;
 import vision.genesis.clientapp.feature.common.option.SelectOptionBottomSheetFragment;
 import vision.genesis.clientapp.feature.main.filters.sorting.SortingDialogFragment;
+import vision.genesis.clientapp.feature.main.fund.add_asset.AddAssetActivity;
 import vision.genesis.clientapp.model.filter.FilterOption;
 import vision.genesis.clientapp.model.filter.UserFilter;
 import vision.genesis.clientapp.ui.PrimaryButton;
+import vision.genesis.clientapp.ui.SocialTagView;
 import vision.genesis.clientapp.utils.StringFormatUtil;
 import vision.genesis.clientapp.utils.ThemeUtil;
+import vision.genesis.clientapp.utils.TypedValueFormatter;
 import vision.genesis.clientapp.utils.TypefaceUtil;
 
 /**
@@ -60,6 +66,17 @@ public class FiltersActivity extends BaseSwipeBackActivity implements FiltersVie
 	@BindView(R.id.group_filters)
 	public ViewGroup filtersGroup;
 
+
+	@BindView(R.id.assets)
+	public ViewGroup assets;
+
+	@BindView(R.id.assets_all)
+	public TextView assetsAll;
+
+	@BindView(R.id.assets_flex_box)
+	public FlexboxLayout assetsFlexBox;
+
+
 	@BindView(R.id.date_range)
 	public ViewGroup dateRange;
 
@@ -75,6 +92,12 @@ public class FiltersActivity extends BaseSwipeBackActivity implements FiltersVie
 	@BindView(R.id.sorting_value)
 	public TextView sortingValue;
 
+	@BindView(R.id.group_favorite)
+	public ViewGroup favoriteGroup;
+
+	@BindView(R.id.favorite_switch)
+	public SwitchCompat favoriteSwitch;
+
 	@BindView(R.id.button_apply)
 	public PrimaryButton applyButton;
 
@@ -85,7 +108,7 @@ public class FiltersActivity extends BaseSwipeBackActivity implements FiltersVie
 	public int defaultLevelMaxLevel;
 
 	@InjectPresenter
-	FiltersPresenter filtersPresenter;
+	FiltersPresenter presenter;
 
 	private UserFilter filter;
 
@@ -102,12 +125,22 @@ public class FiltersActivity extends BaseSwipeBackActivity implements FiltersVie
 
 	@OnClick(R.id.button_reset)
 	public void onResetClicked() {
-		filtersPresenter.onResetClicked();
+		presenter.onResetClicked();
 	}
 
 	@OnClick(R.id.button_apply)
 	public void onApplyClicked() {
 		finish(Activity.RESULT_OK);
+	}
+
+	@OnClick(R.id.favorite_switch)
+	public void onFavoriteSwitchClicked() {
+		presenter.onFavoriteClicked();
+	}
+
+	@OnClick(R.id.assets)
+	public void onAssetsClicked() {
+		AddAssetActivity.startWith(this, false);
 	}
 
 	@OnClick(R.id.sorting)
@@ -116,7 +149,7 @@ public class FiltersActivity extends BaseSwipeBackActivity implements FiltersVie
 		dialog.show(getSupportFragmentManager(), dialog.getTag());
 		dialog.setCurrentSorting(currentSortingName, currentSortingDirection);
 		dialog.setAssetType(filter.getType());
-		dialog.setListener(filtersPresenter);
+		dialog.setListener(presenter);
 	}
 
 	@OnClick(R.id.date_range)
@@ -124,7 +157,7 @@ public class FiltersActivity extends BaseSwipeBackActivity implements FiltersVie
 		DateRangeBottomSheetFragment bottomSheetDialog = new DateRangeBottomSheetFragment();
 		bottomSheetDialog.show(getSupportFragmentManager(), bottomSheetDialog.getTag());
 		bottomSheetDialog.setDateRange(filter.getDateRange());
-		bottomSheetDialog.setListener(filtersPresenter);
+		bottomSheetDialog.setListener(presenter);
 	}
 
 	@Override
@@ -139,7 +172,7 @@ public class FiltersActivity extends BaseSwipeBackActivity implements FiltersVie
 		setFonts();
 
 		if (getIntent().getExtras() != null && !getIntent().getExtras().isEmpty()) {
-			filtersPresenter.setFilter(getIntent().getExtras().getParcelable(EXTRA_FILTER));
+			presenter.setFilter(getIntent().getExtras().getParcelable(EXTRA_FILTER));
 			filter = getIntent().getExtras().getParcelable(EXTRA_FILTER);
 
 			setupFilterOptions();
@@ -161,6 +194,8 @@ public class FiltersActivity extends BaseSwipeBackActivity implements FiltersVie
 
 		dateRange.setVisibility(filter.isDateRangeEnabled() ? View.VISIBLE : View.GONE);
 		sorting.setVisibility(filter.isSortingEnabled() ? View.VISIBLE : View.GONE);
+		assets.setVisibility(filter.isAssetsEnabled() ? View.VISIBLE : View.GONE);
+		favoriteGroup.setVisibility(filter.isFavoritesEnabled() ? View.VISIBLE : View.GONE);
 		this.dateRangeValue.setText(filter.getDateRange().toString());
 		updateSortingFromFilter();
 	}
@@ -168,7 +203,7 @@ public class FiltersActivity extends BaseSwipeBackActivity implements FiltersVie
 	private FilterOptionView getFilterOptionView(FilterOption filterOption) {
 		FilterOptionView view = new FilterOptionView(this);
 		view.setFilterOption(filterOption);
-		view.setClickListener(filtersPresenter);
+		view.setClickListener(presenter);
 		return view;
 	}
 
@@ -181,7 +216,21 @@ public class FiltersActivity extends BaseSwipeBackActivity implements FiltersVie
 		}
 
 		this.dateRangeValue.setText(filter.getDateRange().toString());
+		this.favoriteSwitch.setChecked(filter.isFavorite());
 		updateSortingFromFilter();
+		updateAssets();
+	}
+
+	private void updateAssets() {
+		assetsFlexBox.removeAllViews();
+		for (String asset : filter.getAssets()) {
+			addAsset(asset);
+		}
+
+		if (filter.getAssets().size() == 0) {
+			assetsFlexBox.setVisibility(View.GONE);
+			assetsAll.setVisibility(View.VISIBLE);
+		}
 	}
 
 	private void updateSortingFromFilter() {
@@ -270,6 +319,55 @@ public class FiltersActivity extends BaseSwipeBackActivity implements FiltersVie
 				currentSortingName = "drawdown";
 				currentSortingDirection = "desc";
 				break;
+
+			case BYASSETASC:
+				currentSortingName = "asset";
+				currentSortingDirection = "asc";
+				break;
+			case BYASSETDESC:
+				currentSortingName = "asset";
+				currentSortingDirection = "desc";
+				break;
+			case BYSYMBOLASC:
+				currentSortingName = "name";
+				currentSortingDirection = "asc";
+				break;
+			case BYSYMBOLDESC:
+				currentSortingName = "name";
+				currentSortingDirection = "desc";
+				break;
+			case BYPRICEASC:
+				currentSortingName = "price";
+				currentSortingDirection = "asc";
+				break;
+			case BYPRICEDESC:
+				currentSortingName = "price";
+				currentSortingDirection = "desc";
+				break;
+			case BYCHANGEASC:
+				currentSortingName = "change";
+				currentSortingDirection = "asc";
+				break;
+			case BYCHANGEDESC:
+				currentSortingName = "change";
+				currentSortingDirection = "desc";
+				break;
+			case BYMARKETCAPASC:
+				currentSortingName = "market cap";
+				currentSortingDirection = "asc";
+				break;
+			case BYMARKETCAPDESC:
+				currentSortingName = "market cap";
+				currentSortingDirection = "desc";
+				break;
+			case BYVOLUMEASC:
+				currentSortingName = "volume";
+				currentSortingDirection = "asc";
+				break;
+			case BYVOLUMEDESC:
+				currentSortingName = "volume";
+				currentSortingDirection = "desc";
+				break;
 			default:
 				currentSortingName = "profit";
 				currentSortingDirection = "desc";
@@ -287,17 +385,51 @@ public class FiltersActivity extends BaseSwipeBackActivity implements FiltersVie
 	@Override
 	public void setApplyButtonEnabled(boolean enabled) {
 		applyButton.setEnabled(enabled);
-		if (enabled) {
-			Timber.d("stop");
-		}
 	}
 
 	@Override
 	public void showSingleValueChooser(FilterOption filterOption) {
 		SelectOptionBottomSheetFragment fragment = SelectOptionBottomSheetFragment.with(
 				filterOption.getName(), filterOption.getValues(), filterOption.getSelectedPosition());
-		fragment.setListener(filtersPresenter);
+		fragment.setListener(presenter);
 		fragment.show(getSupportFragmentManager(), fragment.getTag());
+	}
+
+	@Override
+	public void showAssetAlreadyAdded() {
+		showSnackbar(getString(R.string.error_asset_added), assets);
+	}
+
+	@Override
+	public void removeAsset(String asset) {
+		for (int i = 0; i < assetsFlexBox.getChildCount(); i++) {
+			if (((SocialTagView) assetsFlexBox.getChildAt(i)).getHashTag().equals(asset)) {
+				assetsFlexBox.removeViewAt(i);
+				break;
+			}
+		}
+
+		if (assetsFlexBox.getChildCount() == 0) {
+			assetsFlexBox.setVisibility(View.GONE);
+			assetsAll.setVisibility(View.VISIBLE);
+		}
+	}
+
+	@Override
+	public void addAsset(String asset) {
+		SocialTagView view = new SocialTagView(this);
+		int[] colors = getResources().getIntArray(R.array.assetsColors);
+		view.setTag(asset, colors[(new Random()).nextInt(colors.length)], null);
+		view.setListener((tag, contentId) -> presenter.onRemoveAssetClicked(tag));
+		assetsFlexBox.addView(view);
+		FlexboxLayout.LayoutParams lp = (FlexboxLayout.LayoutParams) view.getLayoutParams();
+		lp.setMargins(0, 0, TypedValueFormatter.toDp(10), TypedValueFormatter.toDp(4));
+		view.setLayoutParams(lp);
+
+		if (assetsFlexBox.getChildCount() > 0) {
+			assetsFlexBox.setVisibility(View.VISIBLE);
+			assetsAll.setVisibility(View.GONE);
+		}
 	}
 
 	private void setFonts() {

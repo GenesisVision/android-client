@@ -44,12 +44,10 @@ import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseSwipeBackActivity;
 import vision.genesis.clientapp.feature.common.requests.RequestsAdapter;
 import vision.genesis.clientapp.feature.common.timeframe_profit.TimeframeProfitView;
-import vision.genesis.clientapp.feature.main.coin.buy_sell.BuySellCoinsActivity;
 import vision.genesis.clientapp.feature.main.dashboard.investments.coins.CoinsPortfolioActivity;
 import vision.genesis.clientapp.feature.main.dashboard.investments.funds.FundsPortfolioActivity;
 import vision.genesis.clientapp.feature.main.dashboard.investments.programs.ProgramsPortfolioActivity;
 import vision.genesis.clientapp.feature.main.events.EventsActivity;
-import vision.genesis.clientapp.model.BuySellCoinsModel;
 import vision.genesis.clientapp.model.CurrencyEnum;
 import vision.genesis.clientapp.model.events.ShowAssetsListEvent;
 import vision.genesis.clientapp.model.events.ShowFundsListEvent;
@@ -612,22 +610,6 @@ public class InvestmentsDetailsActivity extends BaseSwipeBackActivity implements
 			for (CoinsAsset coin : items) {
 				CoinDashboardShortView view = new CoinDashboardShortView(this);
 				view.setData(coin);
-				view.setListener(new CoinDashboardShortView.Listener()
-				{
-					@Override
-					public void onBuyClicked(CoinsAsset coin) {
-						BuySellCoinsModel model = BuySellCoinsModel.createFrom(coin);
-						model.setTransferDirection(BuySellCoinsModel.Direction.BUY);
-						BuySellCoinsActivity.startWith(InvestmentsDetailsActivity.this, model);
-					}
-
-					@Override
-					public void onSellClicked(CoinsAsset coin) {
-						BuySellCoinsModel model = BuySellCoinsModel.createFrom(coin);
-						model.setTransferDirection(BuySellCoinsModel.Direction.SELL);
-						BuySellCoinsActivity.startWith(InvestmentsDetailsActivity.this, model);
-					}
-				});
 				assets.addView(view);
 				if (index == items.size() - 1) {
 					view.removeDelimiter();

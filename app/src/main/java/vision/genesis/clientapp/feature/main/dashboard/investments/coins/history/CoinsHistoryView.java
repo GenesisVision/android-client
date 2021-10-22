@@ -8,7 +8,7 @@ import java.util.List;
 
 import io.swagger.client.model.CoinsHistoryEvent;
 import io.swagger.client.model.FundHistoryEventViewModel;
-import vision.genesis.clientapp.model.DateRange;
+import vision.genesis.clientapp.model.filter.ProgramsFilter;
 
 /**
  * GenesisVisionAndroid
@@ -21,12 +21,12 @@ interface CoinsHistoryView extends MvpView
 
 	void addHistory(List<CoinsHistoryEvent> history);
 
+	void showFiltersActivity(ProgramsFilter filter);
+
 	void showEventDetails(FundHistoryEventViewModel event);
 
 	@StateStrategyType(AddToEndSingleStrategy.class)
 	void showProgress(boolean show);
-
-	void setDateRange(DateRange dateRange);
 
 	void showSnackbarMessage(String message);
 }

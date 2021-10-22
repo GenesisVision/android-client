@@ -12,14 +12,20 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <LinearLayout
-            android:id="@+id/group_assets"
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:clipToPadding="false"
-            android:orientation="vertical"
             android:paddingTop="16dp"
-            android:paddingBottom="70dp"/>
+            android:paddingBottom="70dp">
+
+            <LinearLayout
+                android:id="@+id/group_assets"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"/>
+
+        </ScrollView>
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 

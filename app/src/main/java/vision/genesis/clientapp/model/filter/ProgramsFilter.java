@@ -50,7 +50,7 @@ public class ProgramsFilter implements Parcelable
 
 	private UUID facetId;
 
-	private Boolean isFavorite;
+	private Boolean isFavorite = false;
 
 	private Boolean isEnabled;
 
@@ -69,6 +69,8 @@ public class ProgramsFilter implements Parcelable
 	private Integer take;
 
 	private List<String> tags;
+
+	private List<String> assets;
 
 	private Integer chartPointsCount;
 
@@ -99,6 +101,7 @@ public class ProgramsFilter implements Parcelable
 			this.skip = filter.getSkip();
 			this.take = filter.getTake();
 			this.tags = filter.getTags();
+			this.assets = filter.getAssets();
 			this.chartPointsCount = filter.getChartPointsCount();
 		}
 	}
@@ -170,6 +173,7 @@ public class ProgramsFilter implements Parcelable
 			take = in.readInt();
 		}
 		in.readList(tags, String.class.getClassLoader());
+		in.readList(assets, String.class.getClassLoader());
 		if (in.readByte() == 0) {
 			chartPointsCount = null;
 		}
@@ -325,6 +329,14 @@ public class ProgramsFilter implements Parcelable
 		this.tags = tags;
 	}
 
+	public List<String> getAssets() {
+		return assets;
+	}
+
+	public void setAssets(List<String> assets) {
+		this.assets = assets;
+	}
+
 	public Integer getChartPointsCount() {
 		return chartPointsCount;
 	}
@@ -430,6 +442,7 @@ public class ProgramsFilter implements Parcelable
 			dest.writeInt(take);
 		}
 		dest.writeList(tags);
+		dest.writeList(assets);
 		if (chartPointsCount == null) {
 			dest.writeByte((byte) 0);
 		}
@@ -468,6 +481,7 @@ public class ProgramsFilter implements Parcelable
 				Objects.equals(getSkip(), filter.getSkip()) &&
 				Objects.equals(getTake(), filter.getTake()) &&
 				Objects.equals(getTags(), filter.getTags()) &&
+				Objects.equals(getAssets(), filter.getAssets()) &&
 				Objects.equals(getChartPointsCount(), filter.getChartPointsCount());
 	}
 
@@ -480,7 +494,31 @@ public class ProgramsFilter implements Parcelable
 		List<FilterOption> filterOptionList = new ArrayList<>();
 		switch (type) {
 			case UserFilter.TYPE_PROGRAMS_LIST_FILTER:
+				userFilter.setFavoritesEnabled(true);
+				userFilter.setFavorite(this.getIsFavorite());
 				filterOptionList.add(getCurrencyFilterOption());
+				break;
+			case UserFilter.TYPE_FUNDS_LIST_FILTER:
+				userFilter.setFavoritesEnabled(true);
+				userFilter.setFavorite(this.getIsFavorite());
+				userFilter.setAssetsEnabled(true);
+				userFilter.setAssets(this.getAssets());
+				break;
+			case UserFilter.TYPE_FOLLOWS_LIST_FILTER:
+				userFilter.setFavoritesEnabled(true);
+				userFilter.setFavorite(this.getIsFavorite());
+				break;
+			case UserFilter.TYPE_COINS_LIST_FILTER:
+				userFilter.setFavoritesEnabled(true);
+				userFilter.setFavorite(this.getIsFavorite());
+				userFilter.setDateRangeEnabled(false);
+				userFilter.setAssetsEnabled(true);
+				userFilter.setAssets(this.getAssets());
+				break;
+			case UserFilter.TYPE_COINS_HISTORY_FILTER:
+				userFilter.setSortingEnabled(false);
+				userFilter.setAssetsEnabled(true);
+				userFilter.setAssets(this.getAssets());
 				break;
 		}
 		userFilter.setOptions(filterOptionList);
@@ -509,6 +547,8 @@ public class ProgramsFilter implements Parcelable
 	public void updateWithUserFilter(UserFilter userFilter) {
 		setDateRange(userFilter.getDateRange());
 		setSorting(userFilter.getSorting());
+		setAssets(userFilter.getAssets());
+		setIsFavorite(userFilter.isFavorite());
 
 		for (FilterOption filterOption : userFilter.getOptions()) {
 			switch (filterOption.getName().toLowerCase()) {

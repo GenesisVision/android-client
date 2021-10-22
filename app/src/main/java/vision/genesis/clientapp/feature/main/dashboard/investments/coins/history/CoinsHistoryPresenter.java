@@ -20,11 +20,12 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
-import vision.genesis.clientapp.feature.common.date_range.DateRangeBottomSheetFragment;
 import vision.genesis.clientapp.managers.CoinsManager;
 import vision.genesis.clientapp.model.DateRange;
 import vision.genesis.clientapp.model.events.SetCoinsPortfolioHistoryCountEvent;
 import vision.genesis.clientapp.model.events.ShowFundEventDetailsEvent;
+import vision.genesis.clientapp.model.filter.ProgramsFilter;
+import vision.genesis.clientapp.model.filter.UserFilter;
 import vision.genesis.clientapp.net.ApiErrorResolver;
 
 /**
@@ -33,7 +34,7 @@ import vision.genesis.clientapp.net.ApiErrorResolver;
  */
 
 @InjectViewState
-public class CoinsHistoryPresenter extends MvpPresenter<CoinsHistoryView> implements DateRangeBottomSheetFragment.OnDateRangeChangedListener
+public class CoinsHistoryPresenter extends MvpPresenter<CoinsHistoryView>
 {
 	private static final int TAKE = 20;
 
@@ -45,11 +46,13 @@ public class CoinsHistoryPresenter extends MvpPresenter<CoinsHistoryView> implem
 
 	private Subscription historySubscription;
 
-	private int skip = 0;
+	private ProgramsFilter filter;
 
 	private DateRange dateRange = DateRange.createFromEnum(DateRange.DateRangeEnum.ALL_TIME);
 
 	private List<CoinsHistoryEvent> historyItems = new ArrayList<CoinsHistoryEvent>();
+
+	private int skip = 0;
 
 	@Override
 	protected void onFirstViewAttach() {
@@ -60,8 +63,7 @@ public class CoinsHistoryPresenter extends MvpPresenter<CoinsHistoryView> implem
 		EventBus.getDefault().register(this);
 
 		getViewState().showProgress(true);
-		getViewState().setDateRange(dateRange);
-
+		createFilter();
 		getHistory(true);
 	}
 
@@ -86,16 +88,36 @@ public class CoinsHistoryPresenter extends MvpPresenter<CoinsHistoryView> implem
 		getHistory(false);
 	}
 
+	private void createFilter() {
+		this.filter = new ProgramsFilter();
+		this.filter.setSkip(0);
+		this.filter.setTake(TAKE);
+		if (this.filter.getDateRange() == null) {
+			this.filter.setDateRange(dateRange);
+		}
+	}
+
+	public void onFilterUpdated(UserFilter userFilter) {
+		this.filter.updateWithUserFilter(userFilter);
+		getViewState().showProgress(true);
+		getHistory(true);
+	}
+
+	void onFiltersClicked() {
+		getViewState().showFiltersActivity(filter);
+	}
+
 	private void getHistory(boolean forceUpdate) {
 		if (dateRange != null) {
 			if (forceUpdate) {
 				skip = 0;
+				filter.setSkip(0);
 			}
 
 			if (historySubscription != null) {
 				historySubscription.unsubscribe();
 			}
-			historySubscription = coinsManager.getHistory(dateRange, skip, TAKE)
+			historySubscription = coinsManager.getHistory(filter)
 					.observeOn(AndroidSchedulers.mainThread())
 					.subscribeOn(Schedulers.io())
 					.subscribe(this::handleGetHistoryResponse,
@@ -125,6 +147,8 @@ public class CoinsHistoryPresenter extends MvpPresenter<CoinsHistoryView> implem
 		}
 
 		skip += TAKE;
+		filter.setTake(TAKE);
+		filter.setSkip(skip);
 	}
 
 	private void handleGetHistoryError(Throwable error) {
@@ -134,14 +158,6 @@ public class CoinsHistoryPresenter extends MvpPresenter<CoinsHistoryView> implem
 		if (ApiErrorResolver.isNetworkError(error)) {
 			getViewState().showSnackbarMessage(context.getResources().getString(R.string.network_error));
 		}
-	}
-
-	@Override
-	public void onDateRangeChanged(DateRange dateRange) {
-		this.dateRange = dateRange;
-		getViewState().setDateRange(dateRange);
-		getViewState().showProgress(true);
-		getHistory(true);
 	}
 
 	@Subscribe

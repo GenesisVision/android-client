@@ -57,7 +57,7 @@ public class ProgramsManager
 				filter.getDateRange().getFrom(), filter.getDateRange().getTo(),
 				filter.getChartPointsCount(), filter.getFacetId() == null ? null : filter.getFacetId().toString(),
 				filter.getMask(), filter.getManagerId(),
-				false, false,
+				filter.getIsFavorite(), false,
 				filter.getSkip(), filter.getTake());
 	}
 

@@ -57,6 +57,8 @@ import vision.genesis.clientapp.feature.main.dashboard.old.investor.header.Inves
 import vision.genesis.clientapp.feature.main.dashboard.old.investor.programs.DashboardProgramsPresenter;
 import vision.genesis.clientapp.feature.main.dashboard.trading.DashboardTradingView;
 import vision.genesis.clientapp.feature.main.dashboard.trading.details.TradingDetailsPresenter;
+import vision.genesis.clientapp.feature.main.dashboard.trading.private_assets.PrivateTradingPresenter;
+import vision.genesis.clientapp.feature.main.dashboard.trading.public_assets.PublicTradingPresenter;
 import vision.genesis.clientapp.feature.main.dashboard.wallet.DashboardWalletView;
 import vision.genesis.clientapp.feature.main.events.EventsPresenter;
 import vision.genesis.clientapp.feature.main.external.attach.AttachExternalAccountPresenter;
@@ -583,4 +585,8 @@ public interface AppComponent
 	void inject(ProgramsPortfolioPresenter programsPortfolioPresenter);
 
 	void inject(FundsPortfolioPresenter fundsPortfolioPresenter);
+
+	void inject(PublicTradingPresenter publicTradingPresenter);
+
+	void inject(PrivateTradingPresenter privateTradingPresenter);
 }

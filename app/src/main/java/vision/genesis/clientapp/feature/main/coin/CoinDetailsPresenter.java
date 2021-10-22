@@ -6,12 +6,14 @@ import com.arellomobile.mvp.MvpPresenter;
 import javax.inject.Inject;
 
 import io.swagger.client.model.AssetInfo;
+import io.swagger.client.model.CoinsAsset;
+import io.swagger.client.model.CoinsAssetItemsViewModel;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
+import vision.genesis.clientapp.managers.CoinsManager;
 import vision.genesis.clientapp.managers.SettingsManager;
-import vision.genesis.clientapp.managers.TerminalManager;
 import vision.genesis.clientapp.net.ApiErrorResolver;
 
 /**
@@ -23,14 +25,16 @@ import vision.genesis.clientapp.net.ApiErrorResolver;
 public class CoinDetailsPresenter extends MvpPresenter<CoinDetailsView>
 {
 	@Inject
-	public SettingsManager settingsManager;
+	public CoinsManager coinsManager;
 
 	@Inject
-	public TerminalManager terminalManager;
-
-	private Subscription serverInfoSubscription;
+	public SettingsManager settingsManager;
 
 	private Subscription getInfoSubscription;
+
+	private Subscription getPortfolioSubscription;
+
+	private Subscription getCoinInfoSubscription;
 
 	private String symbol;
 
@@ -40,17 +44,19 @@ public class CoinDetailsPresenter extends MvpPresenter<CoinDetailsView>
 
 		GenesisVisionApplication.getComponent().inject(this);
 
-		getServerInfo();
 		getInfo();
 	}
 
 	@Override
 	public void onDestroy() {
-		if (serverInfoSubscription != null) {
-			serverInfoSubscription.unsubscribe();
-		}
 		if (getInfoSubscription != null) {
 			getInfoSubscription.unsubscribe();
+		}
+		if (getPortfolioSubscription != null) {
+			getPortfolioSubscription.unsubscribe();
+		}
+		if (getCoinInfoSubscription != null) {
+			getCoinInfoSubscription.unsubscribe();
 		}
 
 		super.onDestroy();
@@ -61,29 +67,8 @@ public class CoinDetailsPresenter extends MvpPresenter<CoinDetailsView>
 		getInfo();
 	}
 
-//	private void getBaseAssetName() {
-//		if (symbol != null && terminalManager != null) {
-//			Pair<String, String> baseQuoteAssets = terminalManager.getBaseQuoteAssets(symbol);
-//			if (baseQuoteAssets != null) {
-//				baseAssetName = baseQuoteAssets.first;
-//				getInfo();
-//			}
-//		}
-//	}
-
-	private void getServerInfo() {
-		if (terminalManager != null) {
-			if (serverInfoSubscription != null) {
-				serverInfoSubscription.unsubscribe();
-			}
-			serverInfoSubscription = terminalManager.getBinanceServerInfo()
-					.subscribeOn(Schedulers.io())
-					.observeOn(AndroidSchedulers.mainThread())
-					.subscribe((response -> {
-							}),
-							error -> {
-							});
-		}
+	public void onResume() {
+		getPortfolio();
 	}
 
 	private void getInfo() {
@@ -101,13 +86,78 @@ public class CoinDetailsPresenter extends MvpPresenter<CoinDetailsView>
 
 	private void handleGetInfoSuccess(AssetInfo response) {
 		getInfoSubscription.unsubscribe();
-		getViewState().showProgress(false);
 
 		getViewState().setAssetInfo(response);
+
+		getPortfolio();
 	}
 
 	private void handleGetInfoError(Throwable throwable) {
 		getInfoSubscription.unsubscribe();
+
+		ApiErrorResolver.resolveErrors(throwable, message -> getViewState().showSnackbarMessage(message));
+	}
+
+	private void getPortfolio() {
+		if (symbol != null && coinsManager != null) {
+			if (getPortfolioSubscription != null) {
+				getPortfolioSubscription.unsubscribe();
+			}
+			getPortfolioSubscription = coinsManager.getPortfolio(0, 1000)
+					.subscribeOn(Schedulers.io())
+					.observeOn(AndroidSchedulers.mainThread())
+					.subscribe(this::handleGetPortfolioSuccess,
+							this::handleGetPortfolioError);
+		}
+	}
+
+	private void handleGetPortfolioSuccess(CoinsAssetItemsViewModel response) {
+		getPortfolioSubscription.unsubscribe();
+		getViewState().showProgress(false);
+
+		CoinsAsset coin = null;
+
+		for (CoinsAsset item : response.getItems()) {
+			if (item.getAsset().equals(symbol)) {
+				coin = item;
+				break;
+			}
+		}
+		getViewState().setInvestment(coin);
+
+		if (coin == null) {
+			getCoinInfo();
+		}
+	}
+
+	private void handleGetPortfolioError(Throwable throwable) {
+		getPortfolioSubscription.unsubscribe();
+
+		ApiErrorResolver.resolveErrors(throwable, message -> getViewState().showSnackbarMessage(message));
+	}
+
+	private void getCoinInfo() {
+		if (symbol != null && coinsManager != null) {
+			if (getCoinInfoSubscription != null) {
+				getCoinInfoSubscription.unsubscribe();
+			}
+			getCoinInfoSubscription = coinsManager.getCoin(symbol)
+					.subscribeOn(Schedulers.io())
+					.observeOn(AndroidSchedulers.mainThread())
+					.subscribe(this::handleGetCoinInfoSuccess,
+							this::handleGetCoinInfoError);
+		}
+	}
+
+	private void handleGetCoinInfoSuccess(CoinsAssetItemsViewModel response) {
+		getCoinInfoSubscription.unsubscribe();
+		getViewState().showProgress(false);
+
+		getViewState().setCoinInfo(response.getItems().get(0));
+	}
+
+	private void handleGetCoinInfoError(Throwable throwable) {
+		getCoinInfoSubscription.unsubscribe();
 
 		ApiErrorResolver.resolveErrors(throwable, message -> getViewState().showSnackbarMessage(message));
 	}

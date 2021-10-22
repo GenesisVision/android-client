@@ -111,10 +111,39 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/group_commission"
+        android:id="@+id/group_price"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/trade"
+        android:layout_marginStart="@dimen/padding"
+        android:layout_marginTop="12dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:lines="1"
+            android:text="@string/price"
+            android:textColor="?attr/colorTextSecondary"
+            android:textSize="14sp"/>
+
+        <TextView
+            android:id="@+id/price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:lines="1"
+            android:textColor="?attr/colorTextSecondary"
+            android:textSize="14sp"
+            tools:text="$ 1231.12"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/group_commission"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/group_price"
         android:layout_marginStart="@dimen/padding"
         android:layout_marginTop="12dp"
         android:orientation="horizontal">

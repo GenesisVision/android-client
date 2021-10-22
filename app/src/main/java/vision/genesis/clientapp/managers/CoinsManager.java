@@ -26,8 +26,8 @@ public class CoinsManager
 	}
 
 	public Observable<CoinsAssetItemsViewModel> getCoinsList(ProgramsFilter filter) {
-		return coinsApi.getCoins(CoinsFilterSorting.BYMARKETCAPDESC,
-				null, null,
+		return coinsApi.getCoins(CoinsFilterSorting.fromValue(filter.getSorting().getValue()),
+				filter.getAssets(), filter.getIsFavorite(),
 				filter.getSkip(), filter.getTake());
 	}
 
@@ -52,15 +52,16 @@ public class CoinsManager
 	}
 
 	public Observable<CoinsAssetItemsViewModel> getPortfolio(int skip, int take) {
-		return coinsApi.getUserCoins(CoinsFilterSorting.BYASSETASC,
+		return coinsApi.getUserCoins(CoinsFilterSorting.BYTOTALDESC,
 				null, null,
 				skip, take);
 	}
 
-	public Observable<CoinsHistoryEventItemsViewModel> getHistory(DateRange dateRange, int skip, int take) {
+	public Observable<CoinsHistoryEventItemsViewModel> getHistory(ProgramsFilter filter) {
+		DateRange dateRange = filter.getDateRange();
 		return coinsApi.getCoinsConvertingHistory(
 				dateRange != null ? dateRange.getFrom() : null,
 				dateRange != null ? dateRange.getTo() : null,
-				null, skip, take);
+				filter.getAssets(), filter.getSkip(), filter.getTake());
 	}
 }

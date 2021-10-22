@@ -28,6 +28,8 @@ interface BuySellCoinsView extends MvpView
 
 	void setFinalAmount(String finalAmountString);
 
+	void setFee(String feeString);
+
 	void setConfirmButtonEnabled(boolean enabled);
 
 	void showProgress(boolean show);

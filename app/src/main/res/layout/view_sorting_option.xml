@@ -10,7 +10,7 @@
                 android:paddingRight="20dp">
 
     <TextView
-        android:id="@+id/name"
+        android:id="@+id/option_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
