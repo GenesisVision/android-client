@@ -163,7 +163,7 @@ public class FiltersPresenter extends MvpPresenter<FiltersView> implements DateR
 				}
 				break;
 
-			case "asset":
+			case "name":
 				if (direction.equals("asc")) {
 					sortingEnum = SortingEnum.BYASSETASC;
 				}
@@ -172,7 +172,7 @@ public class FiltersPresenter extends MvpPresenter<FiltersView> implements DateR
 				}
 				break;
 
-			case "name":
+			case "asset":
 				if (direction.equals("asc")) {
 					sortingEnum = SortingEnum.BYSYMBOLASC;
 				}

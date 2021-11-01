@@ -321,19 +321,19 @@ public class FiltersActivity extends BaseSwipeBackActivity implements FiltersVie
 				break;
 
 			case BYASSETASC:
-				currentSortingName = "asset";
+				currentSortingName = "name";
 				currentSortingDirection = "asc";
 				break;
 			case BYASSETDESC:
-				currentSortingName = "asset";
+				currentSortingName = "name";
 				currentSortingDirection = "desc";
 				break;
 			case BYSYMBOLASC:
-				currentSortingName = "name";
+				currentSortingName = "asset";
 				currentSortingDirection = "asc";
 				break;
 			case BYSYMBOLDESC:
-				currentSortingName = "name";
+				currentSortingName = "asset";
 				currentSortingDirection = "desc";
 				break;
 			case BYPRICEASC:

@@ -42,7 +42,7 @@ import vision.genesis.clientapp.utils.StringFormatUtil;
 @InjectViewState
 public class TradingDetailsPresenter extends MvpPresenter<TradingDetailsView> implements TimeframeProfitView.Listener
 {
-	private static final int TAKE = 100;
+	private static final int TAKE = 5;
 
 	private static final int EVENTS_TAKE = 5;
 

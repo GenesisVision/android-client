@@ -19,7 +19,6 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.swagger.client.model.AssetInfo;
 import io.swagger.client.model.CoinsAsset;
-import io.swagger.client.model.Currency;
 import timber.log.Timber;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseSwipeBackActivity;
@@ -241,9 +240,9 @@ public class CoinDetailsActivity extends BaseSwipeBackActivity implements CoinDe
 
 		this.amount.setText(StringFormatUtil.getValueString(coin.getAmount(), coin.getAsset()));
 
-		this.total.setText(StringFormatUtil.getValueString(coin.getTotal(), Currency.USD.getValue()));
-		this.price.setText(StringFormatUtil.getValueString(coin.getPrice(), Currency.USD.getValue()));
-		this.avgPrice.setText(StringFormatUtil.getValueString(coin.getAveragePrice(), Currency.USD.getValue()));
+		this.total.setText(String.format(Locale.getDefault(), "$ %s", StringFormatUtil.formatAmount(coin.getTotal(), 0, 8)));
+		this.price.setText(String.format(Locale.getDefault(), "$ %s", StringFormatUtil.formatAmount(coin.getPrice(), 0, 8)));
+		this.avgPrice.setText(String.format(Locale.getDefault(), "$ %s", StringFormatUtil.formatAmount(coin.getAveragePrice(), 0, 8)));
 
 		updateProfitText(coin.getProfitCurrent());
 		updateChangeText(coin.getChange24Percent());
@@ -255,7 +254,7 @@ public class CoinDetailsActivity extends BaseSwipeBackActivity implements CoinDe
 	}
 
 	private void updateProfitText(double profit) {
-		this.profit.setText(StringFormatUtil.getValueString(Math.abs(profit), Currency.USD.getValue()));
+		this.profit.setText(String.format(Locale.getDefault(), "$ %s", StringFormatUtil.formatAmount(Math.abs(profit), 0, 8)));
 		this.profit.setTextColor(ThemeUtil.getColorByAttrId(this,
 				profit > 0
 						? R.attr.colorGreen
@@ -265,9 +264,9 @@ public class CoinDetailsActivity extends BaseSwipeBackActivity implements CoinDe
 	}
 
 	private void updateChangeText(double change) {
-		String sign = change > 0 ? "+" : "";
+		String sign = change > 0 ? "+ " : "";
 		this.change.setText(String.format(Locale.getDefault(),
-				"%s %s",
+				"%s%s",
 				sign,
 				StringFormatUtil.getPercentString(change)));
 		this.change.setTextColor(ThemeUtil.getColorByAttrId(this,

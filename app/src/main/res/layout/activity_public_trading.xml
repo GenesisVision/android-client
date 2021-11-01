@@ -51,45 +51,45 @@
         android:layout_height="match_parent"
         android:layout_below="@+id/toolbar">
 
-        <RelativeLayout
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:clipToPadding="false"
+            android:paddingTop="16dp"
+            android:paddingBottom="70dp">
 
             <LinearLayout
                 android:id="@+id/group_public"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:clipToPadding="false"
-                android:orientation="vertical"
-                android:paddingTop="16dp"
-                android:paddingBottom="70dp"/>
-
-            <LinearLayout
-                android:id="@+id/group_empty"
-                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:orientation="vertical"
-                android:paddingStart="20dp"
-                android:paddingEnd="20dp"
-                android:paddingBottom="20dp"
-                android:visibility="gone"
-                tools:visibility="visible">
+                android:orientation="vertical"/>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:gravity="center"
-                    android:text="@string/public_assets_empty_text"
-                    android:textColor="?attr/colorTextSecondary"
-                    android:textSize="14sp"/>
-
-            </LinearLayout>
-
-        </RelativeLayout>
+        </ScrollView>
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+    <LinearLayout
+        android:id="@+id/group_empty"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:orientation="vertical"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        android:paddingBottom="20dp"
+        android:visibility="gone"
+        tools:visibility="visible">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="@string/public_assets_empty_text"
+            android:textColor="?attr/colorTextSecondary"
+            android:textSize="14sp"/>
+
+    </LinearLayout>
 
     <ProgressBar
         android:id="@+id/progress_bar"

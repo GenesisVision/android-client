@@ -16,7 +16,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import io.swagger.client.model.CoinsAsset;
-import io.swagger.client.model.Currency;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.model.events.ShowCoinDetailsEvent;
 import vision.genesis.clientapp.utils.StringFormatUtil;
@@ -100,8 +99,8 @@ public class CoinDashboardShortView extends RelativeLayout
 		this.amount.setText(StringFormatUtil.getValueString(coin.getAmount(), coin.getAsset()));
 
 		this.price.setText(String.format(Locale.getDefault(), getContext().getString(R.string.asset_price_template),
-				StringFormatUtil.getValueString(coin.getPrice(), Currency.USD.getValue()),
-				StringFormatUtil.getValueString(coin.getAveragePrice(), Currency.USD.getValue())));
+				String.format(Locale.getDefault(), "$ %s", StringFormatUtil.formatAmount(coin.getPrice(), 0, 8)),
+				String.format(Locale.getDefault(), "$ %s", StringFormatUtil.formatAmount(coin.getAveragePrice(), 0, 8))));
 
 		updateProfitText(coin.getTotal(), coin.getProfitCurrent());
 		updateChangeText(coin.getChange24Percent());
@@ -110,9 +109,9 @@ public class CoinDashboardShortView extends RelativeLayout
 	private void updateProfitText(double value, double profit) {
 		String sign = profit > 0 ? "+" : profit < 0 ? "-" : "";
 		this.profit.setText(String.format(Locale.getDefault(), "%s (%s %s)",
-				StringFormatUtil.getValueString(value, Currency.USD.getValue()),
+				String.format(Locale.getDefault(), "$ %s", StringFormatUtil.formatAmount(value, 0, 8)),
 				sign,
-				StringFormatUtil.getValueString(Math.abs(profit), Currency.USD.getValue())));
+				String.format(Locale.getDefault(), "$ %s", StringFormatUtil.formatAmount(Math.abs(profit), 0, 8))));
 		this.profit.setTextColor(ThemeUtil.getColorByAttrId(getContext(),
 				profit > 0
 						? R.attr.colorGreen

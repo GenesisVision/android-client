@@ -12,12 +12,12 @@ import com.facebook.drawee.view.SimpleDraweeView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.swagger.client.model.CoinsHistoryEvent;
 import io.swagger.client.model.CoinsTrade;
-import io.swagger.client.model.Currency;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.utils.DateTimeUtil;
 import vision.genesis.clientapp.utils.ImageUtils;
@@ -106,7 +106,7 @@ public class CoinsHistoryAdapter extends RecyclerView.Adapter<CoinsHistoryAdapte
 			this.boughtAmount.setText(StringFormatUtil.getValueString(trade.getBoughtAmount(), trade.getBoughtAsset().getAsset()));
 			this.boughtIcon.setImageURI(ImageUtils.getImageUri(trade.getBoughtAsset().getLogoUrl()));
 
-			this.price.setText(StringFormatUtil.getValueString(trade.getPrice(), Currency.USD.getValue()));
+			this.price.setText(String.format(Locale.getDefault(), "$ %s", StringFormatUtil.formatAmount(trade.getPrice(), 0, 8)));
 			this.commission.setText(StringFormatUtil.getValueString(trade.getCommission(), trade.getCommissionCurrency()));
 		}
 	}

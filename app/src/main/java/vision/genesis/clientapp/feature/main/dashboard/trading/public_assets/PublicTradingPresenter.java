@@ -26,7 +26,7 @@ import vision.genesis.clientapp.net.ApiErrorResolver;
 @InjectViewState
 public class PublicTradingPresenter extends MvpPresenter<PublicTradingView>
 {
-	private static final int TAKE = 20;
+	private static final int TAKE = 1000;
 
 	@Inject
 	public Context context;
@@ -103,6 +103,7 @@ public class PublicTradingPresenter extends MvpPresenter<PublicTradingView>
 	private void handleGetPublicResponse(DashboardTradingAssetItemsViewModel response) {
 		publicSubscription.unsubscribe();
 		getViewState().showProgress(false);
+		getViewState().setRefreshing(false);
 
 		getViewState().setPublic(response.getItems());
 	}
@@ -110,6 +111,7 @@ public class PublicTradingPresenter extends MvpPresenter<PublicTradingView>
 	private void handleGetPublicError(Throwable throwable) {
 		publicSubscription.unsubscribe();
 		getViewState().showProgress(false);
+		getViewState().setRefreshing(false);
 
 		ApiErrorResolver.resolveErrors(throwable,
 				message -> getViewState().showSnackbarMessage(message));

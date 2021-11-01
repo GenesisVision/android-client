@@ -16,13 +16,13 @@ import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.UUID;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.swagger.client.model.CoinsAsset;
-import io.swagger.client.model.Currency;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.model.events.OnListCoinFavoriteClickedEvent;
@@ -158,7 +158,7 @@ public class CoinsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
 			this.chart.setChart(coin.getChart().getChart());
 
-			this.price.setText(StringFormatUtil.getValueString(coin.getPrice(), Currency.USD.getValue()));
+			this.price.setText(String.format(Locale.getDefault(), "$ %s", StringFormatUtil.formatAmount(coin.getPrice(), 0, 8)));
 			this.change.setText(StringFormatUtil.getPercentString(coin.getChange24Percent()));
 
 			setMillionValue(coin.getMarketCap(), marketCap);
@@ -179,7 +179,7 @@ public class CoinsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 				textView.setText("$ ".concat(StringFormatUtil.getShortenedAmount(value).toString()));
 			}
 			else {
-				textView.setText(StringFormatUtil.getValueString(value, Currency.USD.getValue()));
+				textView.setText(String.format(Locale.getDefault(), "$ %s", StringFormatUtil.formatAmount(value, 0, 8)));
 			}
 		}
 	}

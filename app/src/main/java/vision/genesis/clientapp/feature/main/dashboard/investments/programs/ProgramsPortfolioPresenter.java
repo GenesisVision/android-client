@@ -28,7 +28,7 @@ import vision.genesis.clientapp.net.ApiErrorResolver;
 @InjectViewState
 public class ProgramsPortfolioPresenter extends MvpPresenter<ProgramsPortfolioView>
 {
-	private static final int TAKE = 20;
+	private static final int TAKE = 1000;
 
 	@Inject
 	public Context context;
