@@ -86,7 +86,7 @@ public class InvestFundPresenter extends MvpPresenter<InvestFundView> implements
 
 	private PlatformInfo info;
 
-	private Double minInvestment = 0.0;
+	private Double minInvestAmount = 0.0;
 
 	private Double gvCommissionPercent = 0.0;
 
@@ -146,7 +146,7 @@ public class InvestFundPresenter extends MvpPresenter<InvestFundView> implements
 			getViewState().setEntryFee(getEntryFeeString());
 			getViewState().setGvCommission(getGvCommissionString());
 			getViewState().setInvestmentAmount(getInvestmentAmountString());
-			getViewState().setContinueButtonEnabled(amount >= minInvestment && amount > 0 && amount <= availableInWallet);
+			getViewState().setContinueButtonEnabled(amount >= minInvestAmount && amount > 0 && amount <= availableInWallet);
 		}
 	}
 
@@ -184,6 +184,15 @@ public class InvestFundPresenter extends MvpPresenter<InvestFundView> implements
 				StringFormatUtil.getValueString(gvCommission, selectedWalletFrom.getCurrency().getValue()),
 				StringFormatUtil.formatAmount(fundRequest.getEntryFee(), 0, 5),
 				StringFormatUtil.getValueString(entryFee, selectedWalletFrom.getCurrency().getValue()));
+	}
+
+	void onMinClicked() {
+		if (selectedWalletFrom != null) {
+			double minAmount = selectedWalletFrom.getAvailable() > minInvestAmount
+					? minInvestAmount
+					: selectedWalletFrom.getAvailable();
+			getViewState().setAmount(StringFormatUtil.formatAmountWithoutGrouping(minAmount));
+		}
 	}
 
 	void onMaxClicked() {
@@ -307,10 +316,10 @@ public class InvestFundPresenter extends MvpPresenter<InvestFundView> implements
 
 	private void updateMinInvestmentAmount() {
 		if (selectedWalletFrom != null && minInvestInfo != null) {
-			minInvestment = minInvestInfo.get(selectedWalletFrom.getCurrency().getValue());
+			minInvestAmount = minInvestInfo.get(selectedWalletFrom.getCurrency().getValue());
 		}
 
-		getViewState().setMinInvestmentAmount(minInvestment);
+		getViewState().setMinInvestmentAmount(minInvestAmount);
 		getViewState().setAmount("");
 	}
 

@@ -120,7 +120,7 @@ public class InvestProgramActivity extends BaseSwipeBackActivity implements Inve
 	public ProgressBar amountProgress;
 
 	@InjectPresenter
-	InvestProgramPresenter investProgramPresenter;
+	InvestProgramPresenter presenter;
 
 	private List<WalletData> walletsFrom;
 
@@ -135,7 +135,7 @@ public class InvestProgramActivity extends BaseSwipeBackActivity implements Inve
 	public void onWalletClicked() {
 		SelectWalletBottomSheetFragment fragment = new SelectWalletBottomSheetFragment();
 		fragment.setData(getString(R.string.select_wallet), walletsFrom);
-		fragment.setListener(investProgramPresenter);
+		fragment.setListener(presenter);
 		fragment.show(getSupportFragmentManager(), fragment.getTag());
 	}
 
@@ -144,14 +144,19 @@ public class InvestProgramActivity extends BaseSwipeBackActivity implements Inve
 		showSoftKeyboard();
 	}
 
+	@OnClick(R.id.amount_to_invest_label)
+	public void onMinClicked() {
+		presenter.onMinClicked();
+	}
+
 	@OnClick(R.id.max)
 	public void onMaxClicked() {
-		investProgramPresenter.onMaxClicked();
+		presenter.onMaxClicked();
 	}
 
 	@OnClick(R.id.button_continue)
 	public void onContinueClicked() {
-		investProgramPresenter.onContinueClicked();
+		presenter.onContinueClicked();
 	}
 
 	@Override
@@ -166,7 +171,7 @@ public class InvestProgramActivity extends BaseSwipeBackActivity implements Inve
 		if (getIntent().getExtras() != null) {
 			request = getIntent().getExtras().getParcelable(EXTRA_PROGRAM_REQUEST);
 			if (request != null) {
-				investProgramPresenter.setProgramRequest(request);
+				presenter.setProgramRequest(request);
 
 				updateView(request);
 				setFonts();
@@ -190,7 +195,7 @@ public class InvestProgramActivity extends BaseSwipeBackActivity implements Inve
 
 	private void setTextListener() {
 		RxTextView.textChanges(amount)
-				.subscribe(charSequence -> investProgramPresenter.onAmountChanged(charSequence.toString()));
+				.subscribe(charSequence -> presenter.onAmountChanged(charSequence.toString()));
 	}
 
 	private void setFonts() {
@@ -304,7 +309,7 @@ public class InvestProgramActivity extends BaseSwipeBackActivity implements Inve
 		ConfirmProgramInvestBottomSheetFragment bottomSheetDialog = new ConfirmProgramInvestBottomSheetFragment();
 		bottomSheetDialog.show(getSupportFragmentManager(), bottomSheetDialog.getTag());
 		bottomSheetDialog.setData(programRequest);
-		bottomSheetDialog.setListener(investProgramPresenter);
+		bottomSheetDialog.setListener(presenter);
 	}
 
 	private void showSoftKeyboard() {

@@ -109,7 +109,7 @@ public class InvestFundActivity extends BaseSwipeBackActivity implements InvestF
 	public ProgressBar amountProgress;
 
 	@InjectPresenter
-	InvestFundPresenter investFundPresenter;
+	InvestFundPresenter presenter;
 
 	private List<WalletData> walletsFrom;
 
@@ -124,7 +124,7 @@ public class InvestFundActivity extends BaseSwipeBackActivity implements InvestF
 	public void onWalletClicked() {
 		SelectWalletBottomSheetFragment fragment = new SelectWalletBottomSheetFragment();
 		fragment.setData(getString(R.string.select_wallet), walletsFrom);
-		fragment.setListener(investFundPresenter);
+		fragment.setListener(presenter);
 		fragment.show(getSupportFragmentManager(), fragment.getTag());
 	}
 
@@ -133,14 +133,19 @@ public class InvestFundActivity extends BaseSwipeBackActivity implements InvestF
 		showSoftKeyboard();
 	}
 
+	@OnClick(R.id.label_amount_to_invest)
+	public void onMinClicked() {
+		presenter.onMinClicked();
+	}
+
 	@OnClick(R.id.max)
 	public void onMaxClicked() {
-		investFundPresenter.onMaxClicked();
+		presenter.onMaxClicked();
 	}
 
 	@OnClick(R.id.button_continue)
 	public void onContinueClicked() {
-		investFundPresenter.onContinueClicked();
+		presenter.onContinueClicked();
 	}
 
 	@Override
@@ -155,7 +160,7 @@ public class InvestFundActivity extends BaseSwipeBackActivity implements InvestF
 		if (getIntent().getExtras() != null) {
 			request = getIntent().getExtras().getParcelable(EXTRA_FUND_REQUEST);
 			if (request != null) {
-				investFundPresenter.setFundRequest(request);
+				presenter.setFundRequest(request);
 
 				updateView(request);
 
@@ -180,7 +185,7 @@ public class InvestFundActivity extends BaseSwipeBackActivity implements InvestF
 
 	private void setTextListener() {
 		RxTextView.textChanges(amount)
-				.subscribe(charSequence -> investFundPresenter.onAmountChanged(charSequence.toString()));
+				.subscribe(charSequence -> presenter.onAmountChanged(charSequence.toString()));
 	}
 
 	private void setFonts() {
@@ -283,7 +288,7 @@ public class InvestFundActivity extends BaseSwipeBackActivity implements InvestF
 		ConfirmFundInvestBottomSheetFragment bottomSheetDialog = new ConfirmFundInvestBottomSheetFragment();
 		bottomSheetDialog.show(getSupportFragmentManager(), bottomSheetDialog.getTag());
 		bottomSheetDialog.setData(fundRequest);
-		bottomSheetDialog.setListener(investFundPresenter);
+		bottomSheetDialog.setListener(presenter);
 	}
 
 	private void showSoftKeyboard() {

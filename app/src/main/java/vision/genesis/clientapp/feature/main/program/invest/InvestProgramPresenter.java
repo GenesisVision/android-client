@@ -194,6 +194,15 @@ public class InvestProgramPresenter extends MvpPresenter<InvestProgramView> impl
 				StringFormatUtil.getValueString(gvCommission, selectedWalletFrom.getCurrency().getValue()));
 	}
 
+	void onMinClicked() {
+		if (selectedWalletFrom != null) {
+			double minAmount = selectedWalletFrom.getAvailable() > minInvestAmount
+					? minInvestAmount
+					: selectedWalletFrom.getAvailable();
+			getViewState().setAmount(StringFormatUtil.formatAmountWithoutGrouping(minAmount));
+		}
+	}
+
 	void onMaxClicked() {
 		if (info != null) {
 			getViewState().setAmount(StringFormatUtil.formatAmountWithoutGrouping(availableToInvest));
