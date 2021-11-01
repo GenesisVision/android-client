@@ -28,7 +28,7 @@ public class RateManager
 
 	static {
 		for (Currency currency : Currency.values()) {
-			if (currency != Currency.UNDEFINED) {
+			if (currency != Currency.UNDEFINED && currency != Currency.SYSTEMCOINMARKET) {
 				baseCurrenciesList.add(currency.getValue());
 			}
 		}
