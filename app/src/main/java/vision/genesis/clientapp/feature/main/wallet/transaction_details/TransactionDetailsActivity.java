@@ -2,6 +2,7 @@ package vision.genesis.clientapp.feature.main.wallet.transaction_details;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.TypedValue;
 import android.view.View;
@@ -126,7 +127,7 @@ public class TransactionDetailsActivity extends BaseSwipeBackActivity implements
 
 		if (details.getDetails() != null && !details.getDetails().isEmpty()) {
 			for (TransactionDetailItem detail : details.getDetails()) {
-				addValue(detail.getTitle(), detail.getDetails());
+				addValue(detail);
 			}
 		}
 
@@ -163,9 +164,15 @@ public class TransactionDetailsActivity extends BaseSwipeBackActivity implements
 		addView(view);
 	}
 
-	private void addValue(String title, String value) {
+	private void addValue(TransactionDetailItem value) {
 		ValueView view = new ValueView(this);
-		view.setData(title, value);
+		view.setData(value.getTitle(), value.getDetails());
+		if (value.getUrl() != null) {
+			view.setOnClickListener(view1 -> {
+				Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(value.getUrl()));
+				startActivity(browserIntent);
+			});
+		}
 		addView(view);
 	}
 
