@@ -42,13 +42,13 @@ public class UnregisteredSettingsFragment extends BaseFragment implements Unregi
 
 	@OnClick(R.id.terms_conditions)
 	public void onTermsConditionsClicked() {
-		Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.terms_and_conditions_address)));
+		Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(BuildConfig.WEB_ADDRESS.concat(getString(R.string.term_conditions_address))));
 		startActivity(browserIntent);
 	}
 
 	@OnClick(R.id.privacy_policy)
 	public void onPrivacyPolicyClicked() {
-		Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.privacy_policy_address)));
+		Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(BuildConfig.WEB_ADDRESS.concat(getString(R.string.privacy_policy_address))));
 		startActivity(browserIntent);
 	}
 

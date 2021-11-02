@@ -169,15 +169,33 @@ public class SettingsFragment extends BaseFragment implements SettingsView
 		}
 	}
 
+	@OnClick(R.id.faq)
+	public void onFaqClicked() {
+		Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(BuildConfig.WEB_ADDRESS.concat(getString(R.string.faq_address))));
+		startActivity(browserIntent);
+	}
+
+	@OnClick(R.id.fees)
+	public void onFeesClicked() {
+		Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(BuildConfig.WEB_ADDRESS.concat(getString(R.string.fees_address))));
+		startActivity(browserIntent);
+	}
+
+	@OnClick(R.id.guides)
+	public void onGuidesClicked() {
+		Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(BuildConfig.WEB_ADDRESS.concat(getString(R.string.guides_address))));
+		startActivity(browserIntent);
+	}
+
 	@OnClick(R.id.terms_conditions)
 	public void onTermsConditionsClicked() {
-		Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.terms_and_conditions_address)));
+		Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(BuildConfig.WEB_ADDRESS.concat(getString(R.string.term_conditions_address))));
 		startActivity(browserIntent);
 	}
 
 	@OnClick(R.id.privacy_policy)
 	public void onPrivacyPolicyClicked() {
-		Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.privacy_policy_address)));
+		Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(BuildConfig.WEB_ADDRESS.concat(getString(R.string.privacy_policy_address))));
 		startActivity(browserIntent);
 	}
 

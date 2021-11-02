@@ -373,6 +373,75 @@
                 android:background="?attr/colorBackgroundDark"/>
 
             <RelativeLayout
+                android:id="@+id/faq"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/settings_item_height"
+                android:background="?attr/selectableItemBackground"
+                android:paddingStart="@dimen/settings_padding"
+                android:paddingEnd="@dimen/settings_padding">
+
+                <TextView
+                    style="@style/settings_text"
+                    android:text="@string/faq"/>
+
+                <ImageView style="@style/menu_item_arrow_right"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_alignParentBottom="true"
+                    android:alpha="0.05"
+                    android:background="?attr/colorTextPrimary"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/fees"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/settings_item_height"
+                android:background="?attr/selectableItemBackground"
+                android:paddingStart="@dimen/settings_padding"
+                android:paddingEnd="@dimen/settings_padding">
+
+                <TextView
+                    style="@style/settings_text"
+                    android:text="@string/fees"/>
+
+                <ImageView style="@style/menu_item_arrow_right"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_alignParentBottom="true"
+                    android:alpha="0.05"
+                    android:background="?attr/colorTextPrimary"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/guides"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/settings_item_height"
+                android:background="?attr/selectableItemBackground"
+                android:paddingStart="@dimen/settings_padding"
+                android:paddingEnd="@dimen/settings_padding">
+
+                <TextView
+                    style="@style/settings_text"
+                    android:text="@string/guides"/>
+
+                <ImageView style="@style/menu_item_arrow_right"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_alignParentBottom="true"
+                    android:alpha="0.05"
+                    android:background="?attr/colorTextPrimary"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
                 android:id="@+id/terms_conditions"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/settings_item_height"

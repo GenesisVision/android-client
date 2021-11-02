@@ -2,6 +2,7 @@ package vision.genesis.clientapp.feature.main.settings.referral_program;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -17,6 +18,7 @@ import com.google.android.material.tabs.TabLayout;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import vision.genesis.clientapp.BuildConfig;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseSwipeBackActivity;
 import vision.genesis.clientapp.ui.common.DetailsTabView;
@@ -73,6 +75,12 @@ public class ReferralProgramActivity extends BaseSwipeBackActivity implements Re
 	@OnClick(R.id.button_back)
 	public void onBackClicked() {
 		onBackPressed();
+	}
+
+	@OnClick(R.id.button_info)
+	public void onInfoClicked() {
+		Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(BuildConfig.WEB_ADDRESS.concat(getString(R.string.referral_address))));
+		startActivity(browserIntent);
 	}
 
 	@Override

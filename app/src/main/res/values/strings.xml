@@ -372,9 +372,8 @@
     <string name="privacy_policy">Privacy Policy</string>
     <string name="terms_conditions">Terms and Conditions</string>
     <string name="terms_and_conditions">Terms and Conditions</string>
-    <string name="privacy_policy_address">https://genesis.vision/privacy-policy.html</string>
-    <string name="term_conditions_address">https://genesis.vision/terms.html</string>
-    <string name="terms_and_conditions_address">https://genesis.vision/terms.html</string>
+    <string name="privacy_policy_address">privacy-policy</string>
+    <string name="term_conditions_address">terms</string>
     <string name="are_you_sure_logout">Are you sure you want to log out?</string>
     <string name="settings">Settings</string>
     <string name="enter_pin_code">Enter PIN code</string>
@@ -1099,6 +1098,13 @@
     <string name="name">Name</string>
     <string name="error_asset_added">This asset is already added</string>
     <string name="favorites_only">Favorites only</string>
+    <string name="faq">FAQ</string>
+    <string name="fees">Fees</string>
+    <string name="guides">Guides</string>
+    <string name="faq_address">faq</string>
+    <string name="fees_address">fees</string>
+    <string name="guides_address">guides</string>
+    <string name="referral_address">referral-program</string>
 
     <plurals name="assets">
         <item quantity="one">asset</item>
