@@ -1105,6 +1105,7 @@
     <string name="fees_address">fees</string>
     <string name="guides_address">guides</string>
     <string name="referral_address">referral-program</string>
+    <string name="login">Login</string>
 
     <plurals name="assets">
         <item quantity="one">asset</item>

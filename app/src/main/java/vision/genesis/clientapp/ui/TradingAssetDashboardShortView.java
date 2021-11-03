@@ -54,6 +54,9 @@ public class TradingAssetDashboardShortView extends RelativeLayout
 	@BindView(R.id.type)
 	public TextView type;
 
+	@BindView(R.id.login)
+	public TextView login;
+
 	@BindView(R.id.value)
 	public TextView value;
 
@@ -227,6 +230,14 @@ public class TradingAssetDashboardShortView extends RelativeLayout
 			this.logo.hideLevel();
 
 			this.name.setText(asset.getPublicInfo().getTitle());
+		}
+
+		if (asset.getAssetType().equals(AssetType.PROGRAM)) {
+			login.setVisibility(View.VISIBLE);
+			login.setText(String.format("%s %s", getContext().getString(R.string.login), asset.getAccountInfo().getLogin()));
+		}
+		else {
+			login.setVisibility(View.GONE);
 		}
 
 		if (asset.getAccountInfo().getStatus().equals(DashboardTradingAssetStatus.ACTIVE)) {
