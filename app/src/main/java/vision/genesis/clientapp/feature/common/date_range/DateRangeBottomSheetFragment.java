@@ -107,9 +107,14 @@ public class DateRangeBottomSheetFragment extends BottomSheetDialogFragment
 		onOptionButtonClicked(allTime);
 	}
 
+	@OnClick(R.id.custom)
+	public void onCustomClicked() {
+		showDateFromPicker(true);
+	}
+
 	@OnClick(R.id.group_date_from)
 	public void onDateFromClicked() {
-		showDateFromPicker();
+		showDateFromPicker(false);
 	}
 
 	@OnClick(R.id.group_date_to)
@@ -278,14 +283,20 @@ public class DateRangeBottomSheetFragment extends BottomSheetDialogFragment
 //		applyButton.setEnabled(!dateRange.equals(oldDateRange));
 	}
 
-	public void showDateFromPicker() {
+	public void showDateFromPicker(Boolean showTo) {
 		DateTime dateFrom = dateRange.getFrom();
 		if (dateRange.getSelectedRange().equals(DateRange.DateRangeEnum.ALL_TIME)) {
 			dateFrom = dateRange.getTo();
 		}
-		DatePickerDialog dpd = DatePickerDialog.newInstance((view, year, monthOfYear, dayOfMonth) ->
-						setFrom(new DateTime(year, monthOfYear + 1, dayOfMonth, 0, 0, 0)),
+		DatePickerDialog dpd = DatePickerDialog.newInstance((view, year, monthOfYear, dayOfMonth) -> {
+					setFrom(new DateTime(year, monthOfYear + 1, dayOfMonth, 0, 0, 0));
+					if (showTo) {
+						showDateToPicker();
+					}
+				},
 				dateFrom.getYear(), dateFrom.getMonthOfYear() - 1, dateFrom.getDayOfMonth());
+
+		dpd.setTitle(getString(R.string.from));
 		dpd.setMaxDate(dateRange.getTo().toCalendar(Locale.getDefault()));
 		if (getActivity() != null) {
 			dpd.show(getActivity().getFragmentManager(), "DateFromPickerDialog");
@@ -296,6 +307,7 @@ public class DateRangeBottomSheetFragment extends BottomSheetDialogFragment
 		DatePickerDialog dpd = DatePickerDialog.newInstance((view, year, monthOfYear, dayOfMonth) ->
 						setTo(new DateTime(year, monthOfYear + 1, dayOfMonth, 0, 0)),
 				dateRange.getTo().getYear(), dateRange.getTo().getMonthOfYear() - 1, dateRange.getTo().getDayOfMonth());
+		dpd.setTitle(getString(R.string.to));
 		dpd.setMinDate(dateRange.getFrom().toCalendar(Locale.getDefault()));
 		dpd.setMaxDate(DateTime.now().toCalendar(Locale.getDefault()));
 		if (getActivity() != null) {
