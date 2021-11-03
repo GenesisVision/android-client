@@ -192,7 +192,7 @@ public class PeriodHistoryAdapter extends RecyclerView.Adapter<PeriodHistoryAdap
 					periodLength = 0;
 					break;
 				case INPROCCESS:
-					periodLength = Seconds.secondsBetween(period.getDateFrom(), DateTime.now()).getSeconds() * 1000;
+					periodLength = Seconds.secondsBetween(period.getDateFrom(), DateTime.now()).getSeconds() * 1000L;
 					break;
 				case CLOSED:
 					break;
