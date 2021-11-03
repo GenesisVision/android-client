@@ -25,6 +25,7 @@ import com.arellomobile.mvp.presenter.InjectPresenter;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -42,6 +43,7 @@ import io.swagger.client.model.ProgramInvestingDetailsList;
 import io.swagger.client.model.Timeframe;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseSwipeBackActivity;
+import vision.genesis.clientapp.feature.common.option.SelectOptionBottomSheetFragment;
 import vision.genesis.clientapp.feature.common.requests.RequestsAdapter;
 import vision.genesis.clientapp.feature.common.timeframe_profit.TimeframeProfitView;
 import vision.genesis.clientapp.feature.main.dashboard.investments.coins.CoinsPortfolioActivity;
@@ -145,6 +147,9 @@ public class InvestmentsDetailsActivity extends BaseSwipeBackActivity implements
 	@BindView(R.id.programs_progress_bar)
 	public ProgressBar programsProgressBar;
 
+	@BindView(R.id.programs_status)
+	public TextView programsStatus;
+
 	@BindView(R.id.programs_arrow)
 	public View programsArrow;
 
@@ -166,6 +171,9 @@ public class InvestmentsDetailsActivity extends BaseSwipeBackActivity implements
 
 	@BindView(R.id.funds_progress_bar)
 	public ProgressBar fundsProgressBar;
+
+	@BindView(R.id.funds_status)
+	public TextView fundsStatus;
 
 	@BindView(R.id.funds_arrow)
 	public View fundsArrow;
@@ -221,6 +229,14 @@ public class InvestmentsDetailsActivity extends BaseSwipeBackActivity implements
 
 	private boolean hideAnimInProcess = false;
 
+	private ArrayList<String> statusProgramsOptions;
+
+	private ArrayList<String> statusFundsOptions;
+
+	private Integer selectedProgramsStatusPosition = -1;
+
+	private Integer selectedFundsStatusPosition = -1;
+
 	@OnClick(R.id.button_back)
 	public void onBackClicked() {
 		onBackPressed();
@@ -262,6 +278,26 @@ public class InvestmentsDetailsActivity extends BaseSwipeBackActivity implements
 	@OnClick(R.id.assets_arrow)
 	public void onAssetsArrowClicked() {
 		CoinsPortfolioActivity.startWith(this);
+	}
+
+	@OnClick(R.id.group_programs_status)
+	public void onProgramsStatusClicked() {
+		if (statusProgramsOptions != null) {
+			SelectOptionBottomSheetFragment fragment = SelectOptionBottomSheetFragment.with(
+					"", statusProgramsOptions, selectedProgramsStatusPosition);
+			fragment.setListener((position, text) -> presenter.onProgramsStatusOptionSelected(position, text));
+			fragment.show(getSupportFragmentManager(), fragment.getTag());
+		}
+	}
+
+	@OnClick(R.id.group_funds_status)
+	public void onFundsStatusClicked() {
+		if (statusFundsOptions != null) {
+			SelectOptionBottomSheetFragment fragment = SelectOptionBottomSheetFragment.with(
+					"", statusFundsOptions, selectedFundsStatusPosition);
+			fragment.setListener((position, text) -> presenter.onFundsStatusOptionSelected(position, text));
+			fragment.show(getSupportFragmentManager(), fragment.getTag());
+		}
 	}
 
 	@Override
@@ -549,6 +585,24 @@ public class InvestmentsDetailsActivity extends BaseSwipeBackActivity implements
 		headerChangePeriod.setText(String.format(Locale.getDefault(),
 				getString(R.string.template_dashboard_header_change_period),
 				periodName.toLowerCase()));
+	}
+
+	@Override
+	public void setStatusOptions(ArrayList<String> statusProgramsOptions, ArrayList<String> statusFundsOptions) {
+		this.statusProgramsOptions = statusProgramsOptions;
+		this.statusFundsOptions = statusFundsOptions;
+	}
+
+	@Override
+	public void setProgramsStatus(String text, Integer position) {
+		this.selectedProgramsStatusPosition = position;
+		this.programsStatus.setText(text);
+	}
+
+	@Override
+	public void setFundsStatus(String text, Integer position) {
+		this.selectedFundsStatusPosition = position;
+		this.fundsStatus.setText(text);
 	}
 
 	@Override

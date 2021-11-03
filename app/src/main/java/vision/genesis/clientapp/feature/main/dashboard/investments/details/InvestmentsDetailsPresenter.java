@@ -8,6 +8,7 @@ import com.arellomobile.mvp.MvpPresenter;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
+import java.util.ArrayList;
 import java.util.UUID;
 
 import javax.inject.Inject;
@@ -23,6 +24,7 @@ import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
+import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.common.timeframe_profit.TimeframeProfitView;
 import vision.genesis.clientapp.managers.CoinsManager;
 import vision.genesis.clientapp.managers.DashboardManager;
@@ -86,6 +88,10 @@ public class InvestmentsDetailsPresenter extends MvpPresenter<InvestmentsDetails
 
 	private boolean isActive = false;
 
+	private DashboardAssetStatus programsStatus;
+
+	private DashboardAssetStatus fundsStatus;
+
 	@Override
 	protected void onFirstViewAttach() {
 		super.onFirstViewAttach();
@@ -93,6 +99,8 @@ public class InvestmentsDetailsPresenter extends MvpPresenter<InvestmentsDetails
 		GenesisVisionApplication.getComponent().inject(this);
 
 		EventBus.getDefault().register(this);
+
+		initStatusOptions();
 
 		getViewState().showProgress(true);
 		subscribeToBaseCurrency();
@@ -139,6 +147,35 @@ public class InvestmentsDetailsPresenter extends MvpPresenter<InvestmentsDetails
 	void onSwipeRefresh() {
 		getViewState().setRefreshing(true);
 		updateAll();
+	}
+
+	private void initStatusOptions() {
+		ArrayList<String> statusProgramsOptions = new ArrayList<>();
+		ArrayList<String> statusFundsOptions = new ArrayList<>();
+
+		statusProgramsOptions.add(context.getString(R.string.active));
+		statusProgramsOptions.add(context.getString(R.string.all));
+
+		statusFundsOptions.add(context.getString(R.string.active));
+		statusFundsOptions.add(context.getString(R.string.all));
+
+		getViewState().setStatusOptions(statusProgramsOptions, statusFundsOptions);
+
+		int programsPosition = getStatusPosition(settingsManager.getSavedInvestmentsProgramsStatus());
+		onProgramsStatusOptionSelected(programsPosition, statusProgramsOptions.get(programsPosition));
+
+		int fundsPosition = getStatusPosition(settingsManager.getSavedInvestmentsFundsStatus());
+		onFundsStatusOptionSelected(fundsPosition, statusFundsOptions.get(fundsPosition));
+	}
+
+	private int getStatusPosition(DashboardAssetStatus status) {
+		switch (status) {
+			case ALL:
+				return 1;
+			default:
+			case ACTIVE:
+				return 0;
+		}
 	}
 
 	private void subscribeToBaseCurrency() {
@@ -224,7 +261,7 @@ public class InvestmentsDetailsPresenter extends MvpPresenter<InvestmentsDetails
 			ProgramsFilter filter = new ProgramsFilter();
 			filter.setSkip(0);
 			filter.setTake(TAKE);
-			filter.setStatus(DashboardAssetStatus.ACTIVE.getValue());
+			filter.setStatus(programsStatus.getValue());
 			filter.setDateRange(dateRange);
 			filter.setChartPointsCount(10);
 			filter.setShowIn(CurrencyEnum.fromValue(baseCurrency.getValue()));
@@ -260,7 +297,7 @@ public class InvestmentsDetailsPresenter extends MvpPresenter<InvestmentsDetails
 			ProgramsFilter filter = new ProgramsFilter();
 			filter.setSkip(0);
 			filter.setTake(TAKE);
-			filter.setStatus(DashboardAssetStatus.ACTIVE.getValue());
+			filter.setStatus(fundsStatus.getValue());
 			filter.setDateRange(dateRange);
 			filter.setChartPointsCount(10);
 			filter.setShowIn(CurrencyEnum.fromValue(baseCurrency.getValue()));
@@ -354,5 +391,33 @@ public class InvestmentsDetailsPresenter extends MvpPresenter<InvestmentsDetails
 	@Subscribe
 	public void onEventMainThread(OnRequestCancelledEvent event) {
 		getRequests();
+	}
+
+	void onProgramsStatusOptionSelected(Integer position, String text) {
+		switch (position) {
+			case 0:
+				this.programsStatus = DashboardAssetStatus.ACTIVE;
+				break;
+			case 1:
+				this.programsStatus = DashboardAssetStatus.ALL;
+				break;
+		}
+		settingsManager.saveInvestmentsProgramsStatus(programsStatus);
+		getViewState().setProgramsStatus(text, position);
+		getPrograms();
+	}
+
+	void onFundsStatusOptionSelected(Integer position, String text) {
+		switch (position) {
+			case 0:
+				this.fundsStatus = DashboardAssetStatus.ACTIVE;
+				break;
+			case 1:
+				this.fundsStatus = DashboardAssetStatus.ALL;
+				break;
+		}
+		settingsManager.saveInvestmentsFundsStatus(fundsStatus);
+		getViewState().setFundsStatus(text, position);
+		getFunds();
 	}
 }

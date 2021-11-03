@@ -4,6 +4,7 @@ import com.arellomobile.mvp.MvpView;
 import com.arellomobile.mvp.viewstate.strategy.AddToEndSingleStrategy;
 import com.arellomobile.mvp.viewstate.strategy.StateStrategyType;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import io.swagger.client.model.AssetInvestmentRequestItemsViewModel;
@@ -29,6 +30,12 @@ interface InvestmentsDetailsView extends MvpView
 	void setRequests(AssetInvestmentRequestItemsViewModel data);
 
 	void setInvesting(DashboardInvestingDetails details);
+
+	void setStatusOptions(ArrayList<String> statusProgramsOptions, ArrayList<String> statusFundsOptions);
+
+	void setProgramsStatus(String text, Integer position);
+
+	void setFundsStatus(String text, Integer position);
 
 	void setEvents(List<InvestmentEventViewModel> items);
 

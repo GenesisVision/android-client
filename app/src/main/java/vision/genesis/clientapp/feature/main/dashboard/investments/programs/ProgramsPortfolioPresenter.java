@@ -7,7 +7,6 @@ import com.arellomobile.mvp.MvpPresenter;
 
 import javax.inject.Inject;
 
-import io.swagger.client.model.DashboardAssetStatus;
 import io.swagger.client.model.ProgramInvestingDetailsListItemsViewModel;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
@@ -97,7 +96,7 @@ public class ProgramsPortfolioPresenter extends MvpPresenter<ProgramsPortfolioVi
 			ProgramsFilter filter = new ProgramsFilter();
 			filter.setSkip(0);
 			filter.setTake(TAKE);
-			filter.setStatus(DashboardAssetStatus.ACTIVE.getValue());
+			filter.setStatus(settingsManager.getSavedInvestmentsProgramsStatus().getValue());
 			filter.setDateRange(dateRange);
 			filter.setChartPointsCount(10);
 			filter.setShowIn(CurrencyEnum.fromValue(baseCurrency.getValue()));

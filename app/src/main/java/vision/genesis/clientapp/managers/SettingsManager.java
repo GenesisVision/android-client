@@ -197,6 +197,22 @@ public class SettingsManager
 		sharedPreferencesUtil.saveTradingPublicStatus(tradingPublicStatus.getValue());
 	}
 
+	public DashboardAssetStatus getSavedInvestmentsProgramsStatus() {
+		return DashboardAssetStatus.fromValue(sharedPreferencesUtil.getInvestmentsProgramsStatus());
+	}
+
+	public void saveInvestmentsProgramsStatus(DashboardAssetStatus investmentsProgramsStatus) {
+		sharedPreferencesUtil.saveInvestmentsProgramsStatus(investmentsProgramsStatus.getValue());
+	}
+
+	public DashboardAssetStatus getSavedInvestmentsFundsStatus() {
+		return DashboardAssetStatus.fromValue(sharedPreferencesUtil.getInvestmentsFundsStatus());
+	}
+
+	public void saveInvestmentsFundsStatus(DashboardAssetStatus investmentsFundsStatus) {
+		sharedPreferencesUtil.saveInvestmentsFundsStatus(investmentsFundsStatus.getValue());
+	}
+
 	public BehaviorSubject<CurrencyEnum> getBaseCurrency() {
 		if (baseCurrencySubject.getValue() == null && (getProfileSubscription == null || getProfileSubscription.isUnsubscribed())) {
 			getProfileSubscription = profileApi.getProfileFull()

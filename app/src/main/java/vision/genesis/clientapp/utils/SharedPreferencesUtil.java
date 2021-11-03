@@ -53,6 +53,10 @@ public class SharedPreferencesUtil
 
 	private static final String KEY_TRADING_PUBLIC_STATUS = "keyTradingPublicStatus";
 
+	private static final String KEY_INVESTMENTS_PROGRAMS_STATUS = "keyInvestmentsProgramsStatus";
+
+	private static final String KEY_INVESTMENTS_FUNDS_STATUS = "keyInvestmentsFundsStatus";
+
 	private Context context;
 
 	public SharedPreferencesUtil(Context context) {
@@ -249,6 +253,30 @@ public class SharedPreferencesUtil
 	public String getTradingPublicStatus() {
 		SharedPreferences sharedPreferences = context.getSharedPreferences(USER_PREFS, Context.MODE_PRIVATE);
 		return sharedPreferences.getString(KEY_TRADING_PUBLIC_STATUS, DashboardAssetStatus.ACTIVE.getValue());
+	}
+
+	public void saveInvestmentsProgramsStatus(String status) {
+		SharedPreferences sharedPreferences = context.getSharedPreferences(USER_PREFS, Context.MODE_PRIVATE);
+		sharedPreferences.edit()
+				.putString(KEY_INVESTMENTS_PROGRAMS_STATUS, status)
+				.apply();
+	}
+
+	public String getInvestmentsProgramsStatus() {
+		SharedPreferences sharedPreferences = context.getSharedPreferences(USER_PREFS, Context.MODE_PRIVATE);
+		return sharedPreferences.getString(KEY_INVESTMENTS_PROGRAMS_STATUS, DashboardAssetStatus.ACTIVE.getValue());
+	}
+
+	public void saveInvestmentsFundsStatus(String status) {
+		SharedPreferences sharedPreferences = context.getSharedPreferences(USER_PREFS, Context.MODE_PRIVATE);
+		sharedPreferences.edit()
+				.putString(KEY_INVESTMENTS_FUNDS_STATUS, status)
+				.apply();
+	}
+
+	public String getInvestmentsFundsStatus() {
+		SharedPreferences sharedPreferences = context.getSharedPreferences(USER_PREFS, Context.MODE_PRIVATE);
+		return sharedPreferences.getString(KEY_INVESTMENTS_FUNDS_STATUS, DashboardAssetStatus.ACTIVE.getValue());
 	}
 
 	public void saveTempToken(String tempToken) {
