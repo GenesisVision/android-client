@@ -46,8 +46,6 @@ public class SpecificWalletPresenter extends MvpPresenter<SpecificWalletView>
 
 	private CurrencyEnum baseCurrency;
 
-	private WalletData walletData;
-
 	@Override
 	protected void onFirstViewAttach() {
 		super.onFirstViewAttach();
@@ -120,7 +118,6 @@ public class SpecificWalletPresenter extends MvpPresenter<SpecificWalletView>
 
 		for (WalletData walletData : response.getWallets()) {
 			if (walletData.getId().equals(walletId)) {
-				this.walletData = walletData;
 				getViewState().showProgress(false);
 				getViewState().setRefreshing(false);
 				getViewState().setWalletData(walletData);

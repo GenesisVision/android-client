@@ -224,9 +224,9 @@
                                         style="?android:attr/progressBarStyleHorizontal"
                                         android:layout_width="match_parent"
                                         android:layout_height="match_parent"
-                                        android:background="@drawable/circular_background_wallet_pending"
+                                        android:background="@drawable/circular_background_wallet_trading"
                                         android:indeterminate="false"
-                                        android:progressDrawable="@drawable/circular_progress_wallet_pending"
+                                        android:progressDrawable="@drawable/circular_progress_wallet_trading"
                                         tools:max="100"
                                         tools:min="1"
                                         tools:progress="25"/>

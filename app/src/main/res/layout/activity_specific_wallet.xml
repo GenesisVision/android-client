@@ -207,7 +207,7 @@
                             </LinearLayout>
 
                             <LinearLayout
-                                android:id="@+id/group_pending"
+                                android:id="@+id/group_trading"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="16dp"
@@ -218,19 +218,19 @@
                                     android:layout_height="48dp">
 
                                     <ProgressBar
-                                        android:id="@+id/pending_share"
+                                        android:id="@+id/trading_share"
                                         style="?android:attr/progressBarStyleHorizontal"
                                         android:layout_width="match_parent"
                                         android:layout_height="match_parent"
-                                        android:background="@drawable/circular_background_wallet_pending"
+                                        android:background="@drawable/circular_background_wallet_trading"
                                         android:indeterminate="false"
-                                        android:progressDrawable="@drawable/circular_progress_wallet_pending"
+                                        android:progressDrawable="@drawable/circular_progress_wallet_trading"
                                         tools:max="100"
                                         tools:min="1"
                                         tools:progress="25"/>
 
                                     <TextView
-                                        android:id="@+id/pending_percent"
+                                        android:id="@+id/trading_percent"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_centerInParent="true"
@@ -248,17 +248,17 @@
                                     android:orientation="vertical">
 
                                     <TextView
-                                        android:id="@+id/label_pending"
+                                        android:id="@+id/label_trading"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:alpha="0.4"
                                         android:lines="1"
-                                        android:text="@string/pending"
+                                        android:text="@string/trading"
                                         android:textColor="?attr/colorTextPrimary"
                                         android:textSize="12sp"/>
 
                                     <TextView
-                                        android:id="@+id/pending"
+                                        android:id="@+id/trading"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_marginTop="2dp"
@@ -447,7 +447,7 @@
             android:layout_height="@dimen/toolbar_height"
             android:layout_centerVertical="true"
             android:padding="20dp"
-            android:tint="?attr/colorTextPrimary"
+            app:tint="?attr/colorTextPrimary"
             app:srcCompat="@drawable/icon_back"/>
 
         <RelativeLayout

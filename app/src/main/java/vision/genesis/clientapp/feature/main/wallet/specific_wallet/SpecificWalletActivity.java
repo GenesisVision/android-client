@@ -103,14 +103,14 @@ public class SpecificWalletActivity extends BaseSwipeBackActivity implements Spe
 	@BindView(R.id.invested)
 	public TextView invested;
 
-	@BindView(R.id.pending_share)
-	public ProgressBar pendingShare;
+	@BindView(R.id.trading_share)
+	public ProgressBar tradingShare;
 
-	@BindView(R.id.pending_percent)
-	public TextView pendingPercent;
+	@BindView(R.id.trading_percent)
+	public TextView tradingPercent;
 
-	@BindView(R.id.pending)
-	public TextView pending;
+	@BindView(R.id.trading)
+	public TextView trading;
 
 	@BindView(R.id.label_withdraw)
 	public TextView withdrawLabel;
@@ -134,7 +134,7 @@ public class SpecificWalletActivity extends BaseSwipeBackActivity implements Spe
 	public ProgressBar progressBar;
 
 	@InjectPresenter
-	SpecificWalletPresenter specificWalletPresenter;
+	SpecificWalletPresenter presenter;
 
 	private TabLayout.OnTabSelectedListener tabSelectedListener;
 
@@ -240,7 +240,7 @@ public class SpecificWalletActivity extends BaseSwipeBackActivity implements Spe
 			initTabs();
 			initViewPager(model.getCurrency());
 
-			specificWalletPresenter.setWalletId(model.getId());
+			presenter.setWalletId(model.getId());
 		}
 		else {
 			Timber.e("Passed empty model to SpecificWalletActivity");
@@ -257,7 +257,7 @@ public class SpecificWalletActivity extends BaseSwipeBackActivity implements Spe
 	public void onResume() {
 		super.onResume();
 
-		specificWalletPresenter.onResume();
+		presenter.onResume();
 	}
 
 	@Override
@@ -296,11 +296,11 @@ public class SpecificWalletActivity extends BaseSwipeBackActivity implements Spe
 
 		available.setTypeface(TypefaceUtil.semibold());
 		invested.setTypeface(TypefaceUtil.semibold());
-		pending.setTypeface(TypefaceUtil.semibold());
+		trading.setTypeface(TypefaceUtil.semibold());
 
 		availablePercent.setTypeface(TypefaceUtil.semibold());
 		investedPercent.setTypeface(TypefaceUtil.semibold());
-		pendingPercent.setTypeface(TypefaceUtil.semibold());
+		tradingPercent.setTypeface(TypefaceUtil.semibold());
 
 		withdrawLabel.setTypeface(TypefaceUtil.semibold());
 		addFundsLabel.setTypeface(TypefaceUtil.semibold());
@@ -313,7 +313,7 @@ public class SpecificWalletActivity extends BaseSwipeBackActivity implements Spe
 				ThemeUtil.getColorByAttrId(this, R.attr.colorTextPrimary),
 				ThemeUtil.getColorByAttrId(this, R.attr.colorTextSecondary));
 		refreshLayout.setOnRefreshListener(() -> {
-			specificWalletPresenter.onSwipeRefresh();
+			presenter.onSwipeRefresh();
 			if (pagerAdapter != null) {
 				pagerAdapter.sendSwipeRefresh();
 			}
@@ -418,10 +418,10 @@ public class SpecificWalletActivity extends BaseSwipeBackActivity implements Spe
 		this.invested.setText(StringFormatUtil.getValueString(data.getInvested(), currency));
 //		this.investedBase.setText(StringFormatUtil.getValueString(data.getGrandTotal().getInvestedCcy(), baseCurrency.getValue()));
 
-		int pendingPercent = (int) Math.round(data.getPending() * 100 / data.getTotal());
-		this.pendingShare.setProgress(pendingPercent);
-		this.pendingPercent.setText(String.format(Locale.getDefault(), "%d%%", pendingPercent));
-		this.pending.setText(StringFormatUtil.getValueString(data.getPending(), currency));
+		int tradingPercent = (int) Math.round(data.getTrading() * 100 / data.getTotal());
+		this.tradingShare.setProgress(tradingPercent);
+		this.tradingPercent.setText(String.format(Locale.getDefault(), "%d%%", tradingPercent));
+		this.trading.setText(StringFormatUtil.getValueString(data.getTrading(), currency));
 
 		this.addFunds.setVisibility(data.isIsDepositEnabled() ? View.VISIBLE : View.GONE);
 		this.withdraw.setVisibility(data.isIsWithdrawalEnabled() ? View.VISIBLE : View.GONE);
