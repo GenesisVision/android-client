@@ -168,6 +168,7 @@ public class TransactionDetailsActivity extends BaseSwipeBackActivity implements
 		ValueView view = new ValueView(this);
 		view.setData(value.getTitle(), value.getDetails());
 		if (value.getUrl() != null) {
+			view.setIsUrl(true);
 			view.setOnClickListener(view1 -> {
 				Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(value.getUrl()));
 				startActivity(browserIntent);

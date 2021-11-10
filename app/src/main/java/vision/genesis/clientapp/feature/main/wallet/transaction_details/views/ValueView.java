@@ -9,6 +9,7 @@ import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import vision.genesis.clientapp.R;
+import vision.genesis.clientapp.utils.ThemeUtil;
 import vision.genesis.clientapp.utils.TypefaceUtil;
 
 /**
@@ -54,5 +55,9 @@ public class ValueView extends RelativeLayout
 			this.value.setTypeface(TypefaceUtil.semibold());
 		}
 		this.value.setTextSize(TypedValue.COMPLEX_UNIT_SP, textSizeSp);
+	}
+
+	public void setIsUrl(boolean isUrl) {
+		this.value.setTextColor(ThemeUtil.getColorByAttrId(getContext(), isUrl ? R.attr.colorAccent : R.attr.colorTextPrimary));
 	}
 }
