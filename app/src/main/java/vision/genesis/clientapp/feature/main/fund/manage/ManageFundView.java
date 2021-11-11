@@ -28,6 +28,8 @@ interface ManageFundView extends MvpView
 
 	void showProgress(boolean show);
 
+	void showCheckTfaActivity();
+
 	@StateStrategyType(OneExecutionStateStrategy.class)
 	void finishActivity();
 }

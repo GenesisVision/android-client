@@ -30,6 +30,7 @@ import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseSwipeBackActivity;
 import vision.genesis.clientapp.feature.main.fund.change_settings.ChangeFundSettingsActivity;
 import vision.genesis.clientapp.feature.main.fund.reallocate.ReallocateFundActivity;
+import vision.genesis.clientapp.feature.two_factor.check.CheckTfaActivity;
 import vision.genesis.clientapp.ui.CreateFundAssetView;
 import vision.genesis.clientapp.ui.PrimaryButton;
 import vision.genesis.clientapp.utils.StringFormatUtil;
@@ -225,6 +226,11 @@ public class ManageFundActivity extends BaseSwipeBackActivity implements ManageF
 	@Override
 	public void showProgress(boolean show) {
 		progressBarGroup.setVisibility(show ? View.VISIBLE : View.GONE);
+	}
+
+	@Override
+	public void showCheckTfaActivity() {
+		CheckTfaActivity.startWith(this, "");
 	}
 
 	@Override

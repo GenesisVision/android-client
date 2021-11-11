@@ -22,9 +22,17 @@ import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.managers.AssetsManager;
+import vision.genesis.clientapp.managers.AuthManager;
+import vision.genesis.clientapp.model.User;
+import vision.genesis.clientapp.model.api.Error;
+import vision.genesis.clientapp.model.api.ErrorResponse;
+import vision.genesis.clientapp.model.events.OnCheckTfaConfirmClickedEvent;
+import vision.genesis.clientapp.model.events.OnCheckTfaErrorEvent;
+import vision.genesis.clientapp.model.events.OnCheckTfaSuccessEvent;
 import vision.genesis.clientapp.model.events.OnFundAssetsChangedEvent;
 import vision.genesis.clientapp.model.events.OnFundSettingsChangedEvent;
 import vision.genesis.clientapp.net.ApiErrorResolver;
+import vision.genesis.clientapp.net.ErrorResponseConverter;
 
 /**
  * GenesisVisionAndroid
@@ -40,9 +48,18 @@ public class ManageFundPresenter extends MvpPresenter<ManageFundView>
 	@Inject
 	public AssetsManager assetsManager;
 
+	@Inject
+	public AuthManager authManager;
+
+	private Subscription userSubscription;
+
 	private Subscription closeFundSubscription;
 
 	private FundDetailsFull details;
+
+	private Boolean twoFactorEnabled = false;
+
+	private boolean tfaEnabled = false;
 
 	@Override
 	protected void onFirstViewAttach() {
@@ -51,10 +68,15 @@ public class ManageFundPresenter extends MvpPresenter<ManageFundView>
 		GenesisVisionApplication.getComponent().inject(this);
 
 		EventBus.getDefault().register(this);
+
+		subscribeToUser();
 	}
 
 	@Override
 	public void onDestroy() {
+		if (userSubscription != null) {
+			userSubscription.unsubscribe();
+		}
 		if (closeFundSubscription != null) {
 			closeFundSubscription.unsubscribe();
 		}
@@ -89,31 +111,77 @@ public class ManageFundPresenter extends MvpPresenter<ManageFundView>
 	}
 
 	void onCloseFundClicked() {
-		closeFund();
+		if (twoFactorEnabled) {
+			getViewState().showCheckTfaActivity();
+		}
+		else {
+			closeFund(null);
+		}
 	}
 
-	private void closeFund() {
+	private void subscribeToUser() {
+		userSubscription = authManager.userSubject
+				.observeOn(AndroidSchedulers.mainThread())
+				.subscribeOn(Schedulers.newThread())
+				.subscribe(this::userUpdated);
+	}
+
+	private void userUpdated(User user) {
+		this.twoFactorEnabled = user.getTwoFactorStatus();
+	}
+
+	private void closeFund(String code) {
 		if (details != null && assetsManager != null) {
 			getViewState().showProgress(true);
 			TwoFactorCodeModel model = new TwoFactorCodeModel();
+			model.setTwoFactorCode(code);
 			closeFundSubscription = assetsManager.closeFund(details.getId(), model)
 					.observeOn(AndroidSchedulers.mainThread())
 					.subscribeOn(Schedulers.io())
 					.subscribe(this::handleCloseFundSuccess,
-							this::handleCloseProgramError);
+							this::handleCloseFundError);
 		}
 	}
 
 	private void handleCloseFundSuccess(Void response) {
 		closeFundSubscription.unsubscribe();
 		getViewState().showProgress(false);
+
+		if (tfaEnabled) {
+			EventBus.getDefault().post(new OnCheckTfaSuccessEvent());
+		}
+
+		getViewState().finishActivity();
 	}
 
-	private void handleCloseProgramError(Throwable throwable) {
+	private void handleCloseFundError(Throwable throwable) {
 		closeFundSubscription.unsubscribe();
 		getViewState().showProgress(false);
 
-		ApiErrorResolver.resolveErrors(throwable, message -> getViewState().showSnackbarMessage(message));
+		if (ApiErrorResolver.isNetworkError(throwable)) {
+			if (tfaEnabled) {
+				EventBus.getDefault().post(new OnCheckTfaErrorEvent(context.getResources().getString(R.string.network_error)));
+			}
+			else {
+				getViewState().showSnackbarMessage(context.getResources().getString(R.string.network_error));
+			}
+		}
+		else {
+			ErrorResponse response = ErrorResponseConverter.createFromThrowable(throwable);
+			if (response != null) {
+				for (Error error : response.errors) {
+					if (error.property == null || error.property.isEmpty()) {
+						if (tfaEnabled) {
+							EventBus.getDefault().post(new OnCheckTfaErrorEvent(error.message));
+						}
+						else {
+							getViewState().showSnackbarMessage(error.message);
+						}
+					}
+				}
+			}
+			tfaEnabled = false;
+		}
 	}
 
 	@Subscribe
@@ -128,5 +196,11 @@ public class ManageFundPresenter extends MvpPresenter<ManageFundView>
 //		details.setAssetsStructure(event.getNewAssets());
 		details.getPersonalDetails().getOwnerActions().setCanReallocate(false);
 		getViewState().updateView(details);
+	}
+
+	@Subscribe
+	public void onEventMainThread(OnCheckTfaConfirmClickedEvent event) {
+		tfaEnabled = true;
+		closeFund(event.getCode());
 	}
 }
