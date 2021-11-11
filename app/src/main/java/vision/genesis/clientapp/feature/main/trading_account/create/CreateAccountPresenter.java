@@ -230,8 +230,9 @@ public class CreateAccountPresenter extends MvpPresenter<CreateAccountView>
 
 	private void handleCreateAccountSuccess(TradingAccountCreateResult response) {
 		createAccountSubscription.unsubscribe();
-		//TODO:
-//		if (response.isTwoFactorRequired())
+		if (response.isTwoFactorRequired()) {
+			getViewState().showSetup2Fa(response.getId());
+		}
 		EventBus.getDefault().post(new OnCreateAccountSuccessEvent(response.getId()));
 		getViewState().finishActivity();
 	}

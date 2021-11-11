@@ -54,6 +54,7 @@ import vision.genesis.clientapp.feature.main.program.invest.InvestProgramActivit
 import vision.genesis.clientapp.feature.main.program.manage.ManageProgramActivity;
 import vision.genesis.clientapp.feature.main.program.withdraw.WithdrawProgramActivity;
 import vision.genesis.clientapp.feature.main.trading_account.manage.ManageTradingAccountActivity;
+import vision.genesis.clientapp.feature.main.trading_account.two_factor.SetupAccountTfaActivity;
 import vision.genesis.clientapp.feature.main.wallet.transfer_funds.TransferFundsActivity;
 import vision.genesis.clientapp.model.CreateProgramModel;
 import vision.genesis.clientapp.model.ProgramRequest;
@@ -306,6 +307,10 @@ public class OwnerInfoFragment extends BaseFragment implements OwnerInfoView, Pr
 	public PrimaryButton createFollowButton;
 
 
+	@BindView(R.id.button_confirm_2fa)
+	public PrimaryButton confirm2FaButton;
+
+
 	@InjectPresenter
 	public OwnerInfoPresenter presenter;
 
@@ -315,6 +320,13 @@ public class OwnerInfoFragment extends BaseFragment implements OwnerInfoView, Pr
 	private ProgramFollowDetailsFull details;
 
 	private Unbinder unbinder;
+
+	@OnClick(R.id.button_confirm_2fa)
+	public void onConfirm2FaClicked() {
+		if (getActivity() != null) {
+			SetupAccountTfaActivity.startWith(getActivity(), details.getId());
+		}
+	}
 
 	@OnClick(R.id.button_edit_public_info)
 	public void onEditPublicInfoClicked() {
@@ -571,6 +583,8 @@ public class OwnerInfoFragment extends BaseFragment implements OwnerInfoView, Pr
 					followGroup.setVisibility(details.getOwnerActions().isCanMakeSignalProviderFromProgram() ? View.VISIBLE : View.GONE);
 				}
 				createProgramMinDepositText.setVisibility(details.getOwnerActions().isIsEnoughMoneyToCreateProgram() ? View.GONE : View.VISIBLE);
+
+				confirm2FaButton.setVisibility(details.getOwnerActions().isCanConfirm2FA() ? View.VISIBLE : View.GONE);
 			}
 		}
 	}

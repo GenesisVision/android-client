@@ -1106,6 +1106,14 @@
     <string name="guides_address">guides</string>
     <string name="referral_address">referral-program</string>
     <string name="login">Login</string>
+    <string name="download_app">Download app</string>
+    <string name="get_it_on_google_play">Get it on Google Play</string>
+    <string name="scan_code">Scan code</string>
+    <string name="or_enter_secret_key">Or enter this secret key into your Google Authenticator device:</string>
+    <string name="enter_6_digit_code">Enter the 6-digit authentication code:</string>
+    <string name="activate">Activate</string>
+    <string name="six_digit_code">6-digit code</string>
+    <string name="confirm_tfa">Confirm 2FA</string>
 
     <plurals name="assets">
         <item quantity="one">asset</item>

@@ -24,6 +24,7 @@ import io.swagger.client.model.ProgramUpdate;
 import io.swagger.client.model.TradingAccountCreateResult;
 import io.swagger.client.model.TradingAccountDemoDeposit;
 import io.swagger.client.model.TradingAccountPwdUpdate;
+import io.swagger.client.model.TwoFactorAuthenticator;
 import io.swagger.client.model.TwoFactorCodeModel;
 import rx.Observable;
 
@@ -148,5 +149,13 @@ public class AssetsManager
 
 	public Observable<Void> makePublicFund(MakeSelfManagedFundPublicRequest request) {
 		return assetsApi.makeSelfManagedFundPublic(request);
+	}
+
+	public Observable<TwoFactorAuthenticator> getProgram2fa(UUID programId) {
+		return assetsApi.getProgram2FA(programId);
+	}
+
+	public Observable<Void> confirmProgram2fa(UUID programId, TwoFactorCodeModel body) {
+		return assetsApi.confirmProgram2FA(programId, body);
 	}
 }

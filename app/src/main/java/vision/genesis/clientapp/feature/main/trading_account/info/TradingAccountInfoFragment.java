@@ -37,6 +37,7 @@ import vision.genesis.clientapp.feature.main.settings.public_info.ProfilePublicI
 import vision.genesis.clientapp.feature.main.trading_account.TradingAccountDetailsPagerAdapter;
 import vision.genesis.clientapp.feature.main.trading_account.add_demo_funds.AddDemoFundsActivity;
 import vision.genesis.clientapp.feature.main.trading_account.manage.ManageTradingAccountActivity;
+import vision.genesis.clientapp.feature.main.trading_account.two_factor.SetupAccountTfaActivity;
 import vision.genesis.clientapp.feature.main.wallet.transfer_funds.TransferFundsActivity;
 import vision.genesis.clientapp.model.CreateProgramModel;
 import vision.genesis.clientapp.model.ProgramRequest;
@@ -105,6 +106,10 @@ public class TradingAccountInfoFragment extends BaseFragment implements TradingA
 
 	@BindView(R.id.label_age)
 	public TextView labelAge;
+
+
+	@BindView(R.id.button_confirm_2fa)
+	public PrimaryButton confirm2FaButton;
 
 
 	@BindView(R.id.group_your_deposit)
@@ -216,6 +221,13 @@ public class TradingAccountInfoFragment extends BaseFragment implements TradingA
 		presenter.onSubscriptionsDetailsClicked();
 	}
 
+	@OnClick(R.id.button_confirm_2fa)
+	public void onConfirm2FaClicked() {
+		if (getActivity() != null) {
+			SetupAccountTfaActivity.startWith(getActivity(), accountDetails.getId());
+		}
+	}
+
 	@Nullable
 	@Override
 	public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -286,6 +298,7 @@ public class TradingAccountInfoFragment extends BaseFragment implements TradingA
 
 			updateAccountInfo(accountDetails);
 
+			confirm2FaButton.setVisibility(accountDetails.getOwnerActions().isCanConfirm2FA() ? View.VISIBLE : View.GONE);
 
 			value.setText(StringFormatUtil.getValueString(accountDetails.getTradingAccountInfo().getBalance(),
 					accountDetails.getTradingAccountInfo().getCurrency().getValue()));

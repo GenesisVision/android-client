@@ -3,6 +3,7 @@ package vision.genesis.clientapp.feature.main.trading_account.create;
 import com.arellomobile.mvp.MvpView;
 
 import java.util.Map;
+import java.util.UUID;
 
 import io.swagger.client.model.Broker;
 import io.swagger.client.model.NewTradingAccountRequest;
@@ -29,4 +30,6 @@ public interface CreateAccountView extends MvpView
 	void showProgress(boolean show);
 
 	void showNextStep();
+
+	void showSetup2Fa(UUID id);
 }

@@ -346,6 +346,17 @@
 
             </LinearLayout>
 
+            <vision.genesis.clientapp.ui.PrimaryButton
+                android:id="@+id/button_confirm_2fa"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/button_height"
+                android:layout_marginStart="@dimen/program_details_padding"
+                android:layout_marginEnd="@dimen/program_details_padding"
+                android:layout_marginBottom="24dp"
+                android:text="@string/confirm_tfa"
+                android:visibility="gone"
+                tools:visibility="visible"/>
+
             <LinearLayout
                 android:id="@+id/group_your_deposit"
                 android:layout_width="match_parent"

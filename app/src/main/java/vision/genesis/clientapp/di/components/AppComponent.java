@@ -169,6 +169,7 @@ import vision.genesis.clientapp.feature.main.trading_account.manage.ManageTradin
 import vision.genesis.clientapp.feature.main.trading_account.open_positions.TradingAccountOpenPositionsPresenter;
 import vision.genesis.clientapp.feature.main.trading_account.profit.TradingAccountProfitPresenter;
 import vision.genesis.clientapp.feature.main.trading_account.trades.TradingAccountTradesPresenter;
+import vision.genesis.clientapp.feature.main.trading_account.two_factor.SetupAccountTfaPresenter;
 import vision.genesis.clientapp.feature.main.unregistered.dashboard.UnregisteredDashboardPresenter;
 import vision.genesis.clientapp.feature.main.user.UserDetailsPresenter;
 import vision.genesis.clientapp.feature.main.user.followers.UserFollowersPresenter;
@@ -589,4 +590,6 @@ public interface AppComponent
 	void inject(PublicTradingPresenter publicTradingPresenter);
 
 	void inject(PrivateTradingPresenter privateTradingPresenter);
+
+	void inject(SetupAccountTfaPresenter setupAccountTfaPresenter);
 }

@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.arellomobile.mvp.presenter.InjectPresenter;
 
 import java.util.Map;
+import java.util.UUID;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -19,6 +20,7 @@ import io.swagger.client.model.NewTradingAccountRequest;
 import timber.log.Timber;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseSwipeBackActivity;
+import vision.genesis.clientapp.feature.main.trading_account.two_factor.SetupAccountTfaActivity;
 import vision.genesis.clientapp.model.CreateAccountModel;
 import vision.genesis.clientapp.ui.NonSwipeableViewPager;
 import vision.genesis.clientapp.utils.ThemeUtil;
@@ -115,6 +117,11 @@ public class CreateAccountActivity extends BaseSwipeBackActivity implements Crea
 	@Override
 	public void showNextStep() {
 		viewPager.setCurrentItem(viewPager.getCurrentItem() + 1);
+	}
+
+	@Override
+	public void showSetup2Fa(UUID id) {
+		SetupAccountTfaActivity.startWith(this, id);
 	}
 
 	@Override
