@@ -8,41 +8,75 @@
                 android:background="?attr/colorBackground">
 
     <RelativeLayout
-        android:id="@+id/group_delay"
+        android:id="@+id/group_top"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:background="?attr/colorCard"
-        android:visibility="gone"
-        tools:visibility="visible">
+        android:background="?attr/colorCard">
 
-        <TextView
-            android:id="@+id/text_delay"
+        <RelativeLayout
+            android:id="@+id/group_delay"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginStart="@dimen/padding"
-            android:fontFamily="@font/montserrat_regular"
-            android:textColor="?attr/colorTextPrimary"
-            android:textSize="14sp"
-            tools:text="6 hours delay"/>
+            android:visibility="gone"
+            tools:visibility="visible">
 
-        <ImageView
-            android:id="@+id/delay_tooltip"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_centerVertical="true"
-            android:layout_marginStart="4dp"
-            android:layout_toEndOf="@+id/text_delay"
-            android:padding="8dp"
-            app:srcCompat="@drawable/icon_tooltip_2"/>
+            <TextView
+                android:id="@+id/text_delay"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="@dimen/padding"
+                android:fontFamily="@font/montserrat_regular"
+                android:textColor="?attr/colorTextPrimary"
+                android:textSize="14sp"
+                tools:text="6 hours delay"/>
+
+            <ImageView
+                android:id="@+id/delay_tooltip"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="4dp"
+                android:layout_toEndOf="@+id/text_delay"
+                android:padding="8dp"
+                app:srcCompat="@drawable/icon_tooltip_2"/>
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/button_export"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="@dimen/padding"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat_semibold"
+                android:text="@string/export"
+                android:textColor="?attr/colorAccent"
+                android:textSize="14sp"/>
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginStart="8dp"
+                app:srcCompat="@drawable/ic_baseline_upload_24"
+                app:tint="?attr/colorAccent"/>
+
+        </LinearLayout>
 
     </RelativeLayout>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_view"
         android:layout_width="match_parent"
+        android:id="@+id/recycler_view"
+        android:layout_below="@+id/group_top"
         android:layout_height="match_parent"
-        android:layout_below="@+id/group_delay"
         android:clipToPadding="false"
         android:paddingBottom="50dp"
         android:visibility="gone"/>
@@ -50,9 +84,9 @@
     <LinearLayout
         android:id="@+id/group_no_trades"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/group_delay"
         android:layout_centerHorizontal="true"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/group_top"
         android:orientation="vertical"
         android:padding="32dp"
         android:visibility="gone"

@@ -24,6 +24,7 @@ import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.common.date_range.DateRangeBottomSheetFragment;
+import vision.genesis.clientapp.managers.ExportManager;
 import vision.genesis.clientapp.managers.ProgramsManager;
 import vision.genesis.clientapp.model.DateRange;
 import vision.genesis.clientapp.model.events.SetProgramDetailsFinancialStatisticsCountEvent;
@@ -46,6 +47,9 @@ public class ProgramFinancialStatisticsPresenter extends MvpPresenter<ProgramFin
 	@Inject
 	public ProgramsManager programsManager;
 
+	@Inject
+	public ExportManager exportManager;
+
 	private Subscription historySubscription;
 
 	private int skip = 0;
@@ -61,6 +65,8 @@ public class ProgramFinancialStatisticsPresenter extends MvpPresenter<ProgramFin
 	private Timeframe interval;
 
 	private Integer selectedIntervalPosition = -1;
+
+	private String programName = "";
 
 	@Override
 	protected void onFirstViewAttach() {
@@ -86,8 +92,9 @@ public class ProgramFinancialStatisticsPresenter extends MvpPresenter<ProgramFin
 		super.onDestroy();
 	}
 
-	void setProgramId(UUID programId) {
+	void setData(UUID programId, String programName) {
 		this.programId = programId;
+		this.programName = programName;
 		getData(true);
 	}
 
@@ -103,6 +110,12 @@ public class ProgramFinancialStatisticsPresenter extends MvpPresenter<ProgramFin
 	void onLastListItemVisible() {
 		getViewState().showProgress(true);
 		getData(false);
+	}
+
+	void onExportClicked() {
+		if (exportManager != null && dateRange != null && programId != null) {
+			exportManager.exportFinancialStatistics(programId, programName, dateRange, interval);
+		}
 	}
 
 	private void getData(boolean forceUpdate) {

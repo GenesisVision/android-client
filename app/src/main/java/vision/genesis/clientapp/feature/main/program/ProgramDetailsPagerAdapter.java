@@ -80,16 +80,16 @@ public class ProgramDetailsPagerAdapter extends FragmentStatePagerAdapter
 			ownerInfoFragment = OwnerInfoFragment.with(details);
 			openPositionsFragment = OpenPositionsFragment.with(assetId);
 			programProfitFragment = ProgramProfitFragment.with(details);
-			programTradesFragment = ProgramTradesFragment.with(assetId);
+			programTradesFragment = ProgramTradesFragment.with(assetId, details.getPublicInfo().getTitle());
 			if (programDetails != null) {
 				programEquityFragment = ProgramBalanceFragment.with(details);
 				if (programDetails.getType().equals(ProgramType.DAILYPERIOD)) {
-					programAnalyticsFragment = ProgramAnalyticsFragment.with(assetId, details.getTradingAccountInfo().getCurrency().getValue(), programDetails.getPeriodDuration());
+					programAnalyticsFragment = ProgramAnalyticsFragment.with(assetId, details.getPublicInfo().getTitle(), details.getTradingAccountInfo().getCurrency().getValue(), programDetails.getPeriodDuration());
 				}
 				else {
-					periodHistoryFragment = PeriodHistoryFragment.with(assetId, details.getTradingAccountInfo().getCurrency().getValue(), programDetails.getPeriodDuration());
+					periodHistoryFragment = PeriodHistoryFragment.with(assetId, details.getPublicInfo().getTitle(), details.getTradingAccountInfo().getCurrency().getValue(), programDetails.getPeriodDuration());
 				}
-				financialStatisticsFragment = ProgramFinancialStatisticsFragment.with(assetId, details.getTradingAccountInfo().getCurrency().getValue(), programDetails.getType());
+				financialStatisticsFragment = ProgramFinancialStatisticsFragment.with(assetId, details.getPublicInfo().getTitle(), details.getTradingAccountInfo().getCurrency().getValue(), programDetails.getType());
 			}
 			else {
 				followEquityFragment = FollowBalanceFragment.with(details);
@@ -101,16 +101,16 @@ public class ProgramDetailsPagerAdapter extends FragmentStatePagerAdapter
 			openPositionsFragment = OpenPositionsFragment.with(assetId);
 			programProfitFragment = ProgramProfitFragment.with(details);
 			programEquityFragment = ProgramBalanceFragment.with(details);
-			programTradesFragment = ProgramTradesFragment.with(assetId);
+			programTradesFragment = ProgramTradesFragment.with(assetId, details.getPublicInfo().getTitle());
 			if (programDetails.getType().equals(ProgramType.DAILYPERIOD)) {
-				programAnalyticsFragment = ProgramAnalyticsFragment.with(assetId, details.getTradingAccountInfo().getCurrency().getValue(), programDetails.getPeriodDuration());
+				programAnalyticsFragment = ProgramAnalyticsFragment.with(assetId, details.getPublicInfo().getTitle(), details.getTradingAccountInfo().getCurrency().getValue(), programDetails.getPeriodDuration());
 			}
 			else {
-				periodHistoryFragment = PeriodHistoryFragment.with(assetId, details.getTradingAccountInfo().getCurrency().getValue(), programDetails.getPeriodDuration());
+				periodHistoryFragment = PeriodHistoryFragment.with(assetId, details.getPublicInfo().getTitle(), details.getTradingAccountInfo().getCurrency().getValue(), programDetails.getPeriodDuration());
 			}
 			if (details.getProgramDetails().getPersonalDetails() != null
 					&& details.getProgramDetails().getPersonalDetails().isIsInvested()) {
-				reportsFragment = ProgramReportsFragment.with(assetId, details.getTradingAccountInfo().getCurrency().getValue(), programDetails.getPeriodDuration());
+				reportsFragment = ProgramReportsFragment.with(assetId, details.getPublicInfo().getTitle(), details.getTradingAccountInfo().getCurrency().getValue(), programDetails.getPeriodDuration());
 			}
 			programEventsFragment = ProgramEventsFragment.with(ProgramEventsFragment.LOCATION_PROGRAM, assetId);
 		}
@@ -119,7 +119,7 @@ public class ProgramDetailsPagerAdapter extends FragmentStatePagerAdapter
 			openPositionsFragment = OpenPositionsFragment.with(assetId);
 			programProfitFragment = ProgramProfitFragment.with(details);
 			followEquityFragment = FollowBalanceFragment.with(details);
-			programTradesFragment = ProgramTradesFragment.with(assetId);
+			programTradesFragment = ProgramTradesFragment.with(assetId, details.getPublicInfo().getTitle());
 			programEventsFragment = ProgramEventsFragment.with(ProgramEventsFragment.LOCATION_PROGRAM, assetId);
 		}
 	}

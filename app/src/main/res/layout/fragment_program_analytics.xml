@@ -49,6 +49,33 @@
 
         </LinearLayout>
 
+        <LinearLayout
+            android:id="@+id/button_export"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="@dimen/padding"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat_semibold"
+                android:text="@string/export"
+                android:textColor="?attr/colorAccent"
+                android:textSize="14sp"/>
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginStart="8dp"
+                app:srcCompat="@drawable/ic_baseline_upload_24"
+                app:tint="?attr/colorAccent"/>
+
+        </LinearLayout>
+
     </RelativeLayout>
 
     <androidx.recyclerview.widget.RecyclerView

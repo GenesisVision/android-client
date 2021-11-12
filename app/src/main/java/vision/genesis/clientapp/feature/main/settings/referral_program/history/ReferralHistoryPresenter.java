@@ -17,6 +17,7 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.feature.common.date_range.DateRangeBottomSheetFragment;
+import vision.genesis.clientapp.managers.ExportManager;
 import vision.genesis.clientapp.managers.PartnershipManager;
 import vision.genesis.clientapp.model.DateRange;
 import vision.genesis.clientapp.model.events.SetReferralHistoryCountEvent;
@@ -34,6 +35,9 @@ public class ReferralHistoryPresenter extends MvpPresenter<ReferralHistoryView> 
 
 	@Inject
 	public PartnershipManager partnershipManager;
+
+	@Inject
+	public ExportManager exportManager;
 
 	private Subscription getEventsSubscription;
 
@@ -72,6 +76,12 @@ public class ReferralHistoryPresenter extends MvpPresenter<ReferralHistoryView> 
 	void onLastListItemVisible() {
 		getViewState().showProgress(true);
 		getEvents(false);
+	}
+
+	void onExportClicked() {
+		if (exportManager != null && dateRange != null) {
+			exportManager.exportReferralHistory(dateRange);
+		}
 	}
 
 	private void getEvents(boolean forceUpdate) {

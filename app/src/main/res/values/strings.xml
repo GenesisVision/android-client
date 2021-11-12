@@ -1115,6 +1115,8 @@
     <string name="six_digit_code">6-digit code</string>
     <string name="confirm_tfa">Confirm 2FA</string>
     <string name="financial_statistics">Financial statistics</string>
+    <string name="export">Export</string>
+    <string name="downloading_file">Downloading file…</string>
 
     <plurals name="assets">
         <item quantity="one">asset</item>

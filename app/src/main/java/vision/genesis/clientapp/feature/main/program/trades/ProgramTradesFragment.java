@@ -44,10 +44,13 @@ public class ProgramTradesFragment extends BaseFragment implements ProgramTrades
 {
 	private static final String EXTRA_PROGRAM_ID = "extra_program_id";
 
-	public static ProgramTradesFragment with(UUID programId) {
+	private static final String EXTRA_PROGRAM_NAME = "extra_program_name";
+
+	public static ProgramTradesFragment with(UUID programId, String programName) {
 		ProgramTradesFragment programTradesFragment = new ProgramTradesFragment();
-		Bundle arguments = new Bundle(1);
+		Bundle arguments = new Bundle(2);
 		arguments.putSerializable(EXTRA_PROGRAM_ID, programId);
+		arguments.putString(EXTRA_PROGRAM_NAME, programName);
 		programTradesFragment.setArguments(arguments);
 		return programTradesFragment;
 	}
@@ -80,7 +83,7 @@ public class ProgramTradesFragment extends BaseFragment implements ProgramTrades
 //	public int paddingLeft;
 
 	@InjectPresenter
-	public ProgramTradesPresenter programTradesPresenter;
+	public ProgramTradesPresenter presenter;
 
 	private TradesListAdapter tradesListAdapter;
 
@@ -104,13 +107,19 @@ public class ProgramTradesFragment extends BaseFragment implements ProgramTrades
 		}
 	}
 
+	@OnClick(R.id.button_export)
+	public void onExportClicked() {
+		presenter.onExportClicked();
+	}
+
+
 	@OnClick(R.id.date_range)
 	public void onDateRangeClicked() {
 		if (getActivity() != null) {
 			DateRangeBottomSheetFragment bottomSheetDialog = new DateRangeBottomSheetFragment();
 			bottomSheetDialog.show(getActivity().getSupportFragmentManager(), bottomSheetDialog.getTag());
 			bottomSheetDialog.setDateRange(dateRange);
-			bottomSheetDialog.setListener(programTradesPresenter);
+			bottomSheetDialog.setListener(presenter);
 		}
 	}
 
@@ -130,7 +139,7 @@ public class ProgramTradesFragment extends BaseFragment implements ProgramTrades
 		setFonts();
 
 		if (getArguments() != null) {
-			programTradesPresenter.setProgramId((UUID) getArguments().getSerializable(EXTRA_PROGRAM_ID));
+			presenter.setData((UUID) getArguments().getSerializable(EXTRA_PROGRAM_ID), getArguments().getString(EXTRA_PROGRAM_NAME));
 		}
 		else {
 			Timber.e("Passed empty programId to TradesFragment");
@@ -169,7 +178,7 @@ public class ProgramTradesFragment extends BaseFragment implements ProgramTrades
 
 				boolean endHasBeenReached = lastVisible + 1 >= totalItemCount;
 				if (totalItemCount > 0 && endHasBeenReached) {
-					programTradesPresenter.onLastListItemVisible();
+					presenter.onLastListItemVisible();
 				}
 			}
 		});
@@ -240,8 +249,8 @@ public class ProgramTradesFragment extends BaseFragment implements ProgramTrades
 
 	@Override
 	public void pagerShow() {
-		if (programTradesPresenter != null) {
-			programTradesPresenter.onShow();
+		if (presenter != null) {
+			presenter.onShow();
 		}
 	}
 
@@ -250,8 +259,8 @@ public class ProgramTradesFragment extends BaseFragment implements ProgramTrades
 	}
 
 	public void onSwipeRefresh() {
-		if (programTradesPresenter != null) {
-			programTradesPresenter.onSwipeRefresh();
+		if (presenter != null) {
+			presenter.onSwipeRefresh();
 		}
 	}
 

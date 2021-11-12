@@ -66,6 +66,11 @@ public class ReferralHistoryFragment extends BaseFragment implements ReferralHis
 
 	private ReferralHistoryListAdapter adapter;
 
+	@OnClick(R.id.button_export)
+	public void onExportClicked() {
+		presenter.onExportClicked();
+	}
+
 	@OnClick(R.id.date_range)
 	public void onDateRangeClicked() {
 		if (getActivity() != null) {

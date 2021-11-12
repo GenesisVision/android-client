@@ -19,6 +19,7 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.feature.common.date_range.DateRangeBottomSheetFragment;
+import vision.genesis.clientapp.managers.ExportManager;
 import vision.genesis.clientapp.managers.FollowsManager;
 import vision.genesis.clientapp.managers.TradingAccountManager;
 import vision.genesis.clientapp.model.DateRange;
@@ -42,6 +43,9 @@ public class CopytradingTradesHistoryPresenter extends MvpPresenter<CopytradingT
 
 	@Inject
 	public TradingAccountManager tradingAccountManager;
+
+	@Inject
+	public ExportManager exportManager;
 
 	private Subscription getTradesHistorySubscription;
 
@@ -172,5 +176,11 @@ public class CopytradingTradesHistoryPresenter extends MvpPresenter<CopytradingT
 		getViewState().setDateRange(dateRange);
 		getViewState().showProgress(true);
 		getTradesHistory(true);
+	}
+
+	void onExportClicked() {
+		if (exportManager != null && dateRange != null && model != null) {
+			exportManager.exportFollowTrades(model.getAssetId(), model.getAccountName(), dateRange);
+		}
 	}
 }

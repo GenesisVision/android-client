@@ -24,6 +24,7 @@ import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.common.date_range.DateRangeBottomSheetFragment;
+import vision.genesis.clientapp.managers.ExportManager;
 import vision.genesis.clientapp.managers.ProgramsManager;
 import vision.genesis.clientapp.model.DateRange;
 import vision.genesis.clientapp.model.events.SetProgramDetailsReportsCountEvent;
@@ -46,6 +47,9 @@ public class ProgramReportsPresenter extends MvpPresenter<ProgramReportsView> im
 	@Inject
 	public ProgramsManager programsManager;
 
+	@Inject
+	public ExportManager exportManager;
+
 	private Subscription historySubscription;
 
 	private int skip = 0;
@@ -61,6 +65,8 @@ public class ProgramReportsPresenter extends MvpPresenter<ProgramReportsView> im
 	private Timeframe interval;
 
 	private Integer selectedIntervalPosition = -1;
+
+	private String programName = "";
 
 	@Override
 	protected void onFirstViewAttach() {
@@ -86,8 +92,9 @@ public class ProgramReportsPresenter extends MvpPresenter<ProgramReportsView> im
 		super.onDestroy();
 	}
 
-	void setProgramId(UUID programId) {
+	void setData(UUID programId, String programName) {
 		this.programId = programId;
+		this.programName = programName;
 		getData(true);
 	}
 
@@ -215,5 +222,11 @@ public class ProgramReportsPresenter extends MvpPresenter<ProgramReportsView> im
 
 		getViewState().showProgress(true);
 		getData(true);
+	}
+
+	void onExportClicked() {
+		if (exportManager != null && dateRange != null && programId != null) {
+			exportManager.exportReports(programId, programName, dateRange, interval);
+		}
 	}
 }

@@ -22,6 +22,7 @@ import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.common.date_range.DateRangeBottomSheetFragment;
+import vision.genesis.clientapp.managers.ExportManager;
 import vision.genesis.clientapp.managers.ProgramsManager;
 import vision.genesis.clientapp.model.DateRange;
 import vision.genesis.clientapp.model.events.SetProgramDetailsPeriodHistoryCountEvent;
@@ -44,6 +45,9 @@ public class PeriodHistoryPresenter extends MvpPresenter<PeriodHistoryView> impl
 	@Inject
 	public ProgramsManager programsManager;
 
+	@Inject
+	public ExportManager exportManager;
+
 	private Subscription historySubscription;
 
 	private int skip = 0;
@@ -53,6 +57,8 @@ public class PeriodHistoryPresenter extends MvpPresenter<PeriodHistoryView> impl
 	private DateRange dateRange = DateRange.createFromEnum(DateRange.DateRangeEnum.ALL_TIME);
 
 	private List<ProgramPeriodViewModel> periods = new ArrayList<>();
+
+	private String programName = "";
 
 	@Override
 	protected void onFirstViewAttach() {
@@ -81,8 +87,9 @@ public class PeriodHistoryPresenter extends MvpPresenter<PeriodHistoryView> impl
 		super.onDestroy();
 	}
 
-	void setProgramId(UUID programId) {
+	void setData(UUID programId, String programName) {
 		this.programId = programId;
+		this.programName = programName;
 		if (programsManager != null) {
 			getHistory(true);
 		}
@@ -163,5 +170,11 @@ public class PeriodHistoryPresenter extends MvpPresenter<PeriodHistoryView> impl
 	@Subscribe
 	public void onEventMainThread(ShowPeriodDetailsEvent event) {
 		getViewState().showPeriodDetails(event.getPeriod());
+	}
+
+	void onExportClicked() {
+		if (exportManager != null && dateRange != null && programId != null) {
+			exportManager.exportPeriods(programId, programName, dateRange);
+		}
 	}
 }

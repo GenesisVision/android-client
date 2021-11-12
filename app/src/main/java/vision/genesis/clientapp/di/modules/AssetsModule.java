@@ -1,5 +1,7 @@
 package vision.genesis.clientapp.di.modules;
 
+import android.content.Context;
+
 import javax.inject.Singleton;
 
 import dagger.Module;
@@ -28,6 +30,7 @@ import vision.genesis.clientapp.managers.BrokersManager;
 import vision.genesis.clientapp.managers.CoinsManager;
 import vision.genesis.clientapp.managers.DashboardManager;
 import vision.genesis.clientapp.managers.EventsManager;
+import vision.genesis.clientapp.managers.ExportManager;
 import vision.genesis.clientapp.managers.FollowsManager;
 import vision.genesis.clientapp.managers.FundsManager;
 import vision.genesis.clientapp.managers.PartnershipManager;
@@ -70,6 +73,12 @@ public class AssetsModule
 	@Singleton
 	public CoinsManager provideCoinsManager(CoinsApi coinsApi) {
 		return new CoinsManager(coinsApi);
+	}
+
+	@Provides
+	@Singleton
+	public ExportManager provideExportManager(Context context, ProgramsApi programsApi) {
+		return new ExportManager(context, programsApi);
 	}
 
 	@Provides

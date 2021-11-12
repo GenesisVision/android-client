@@ -22,6 +22,7 @@ import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.common.date_range.DateRangeBottomSheetFragment;
+import vision.genesis.clientapp.managers.ExportManager;
 import vision.genesis.clientapp.managers.ProgramsManager;
 import vision.genesis.clientapp.model.DateRange;
 import vision.genesis.clientapp.model.events.OnTradeClickedEvent;
@@ -46,6 +47,9 @@ public class ProgramTradesPresenter extends MvpPresenter<ProgramTradesView> impl
 	@Inject
 	public ProgramsManager programsManager;
 
+	@Inject
+	public ExportManager exportManager;
+
 	private Subscription tradesSubscription;
 
 	private int skip = 0;
@@ -61,6 +65,8 @@ public class ProgramTradesPresenter extends MvpPresenter<ProgramTradesView> impl
 	private Boolean showSwaps = false;
 
 	private Boolean showTickets = false;
+
+	private String programName = "";
 
 	@Override
 	protected void onFirstViewAttach() {
@@ -89,8 +95,9 @@ public class ProgramTradesPresenter extends MvpPresenter<ProgramTradesView> impl
 		super.onDestroy();
 	}
 
-	void setProgramId(UUID programId) {
+	void setData(UUID programId, String programName) {
 		this.programId = programId;
+		this.programName = programName;
 		if (programsManager != null) {
 			getTrades(true);
 		}
@@ -187,5 +194,11 @@ public class ProgramTradesPresenter extends MvpPresenter<ProgramTradesView> impl
 	@Subscribe
 	public void onEventMainThread(OnTradeClickedEvent event) {
 		getViewState().showTradeDetails(event.getTrade(), showSwaps, showTickets);
+	}
+
+	void onExportClicked() {
+		if (exportManager != null && dateRange != null && programId != null) {
+			exportManager.exportProgramTrades(programId, programName, dateRange);
+		}
 	}
 }

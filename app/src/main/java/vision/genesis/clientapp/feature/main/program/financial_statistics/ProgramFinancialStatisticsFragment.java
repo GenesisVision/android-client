@@ -43,14 +43,17 @@ public class ProgramFinancialStatisticsFragment extends BaseFragment implements 
 {
 	private static final String EXTRA_PROGRAM_ID = "extra_program_id";
 
+	private static final String EXTRA_PROGRAM_NAME = "extra_program_name";
+
 	private static final String EXTRA_PROGRAM_CURRENCY = "extra_program_currency";
 
 	private static final String EXTRA_PROGRAM_TYPE = "extra_program_period_duration_days";
 
-	public static ProgramFinancialStatisticsFragment with(UUID programId, String programCurrency, ProgramType programType) {
+	public static ProgramFinancialStatisticsFragment with(UUID programId, String programName, String programCurrency, ProgramType programType) {
 		ProgramFinancialStatisticsFragment programAnalyticsFragment = new ProgramFinancialStatisticsFragment();
-		Bundle arguments = new Bundle(2);
+		Bundle arguments = new Bundle(4);
 		arguments.putSerializable(EXTRA_PROGRAM_ID, programId);
+		arguments.putString(EXTRA_PROGRAM_NAME, programName);
 		arguments.putString(EXTRA_PROGRAM_CURRENCY, programCurrency);
 		arguments.putString(EXTRA_PROGRAM_TYPE, programType.toString());
 		programAnalyticsFragment.setArguments(arguments);
@@ -115,6 +118,11 @@ public class ProgramFinancialStatisticsFragment extends BaseFragment implements 
 		}
 	}
 
+	@OnClick(R.id.button_export)
+	public void onExportClicked() {
+		presenter.onExportClicked();
+	}
+
 	@Nullable
 	@Override
 	public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -130,14 +138,14 @@ public class ProgramFinancialStatisticsFragment extends BaseFragment implements 
 		setFonts();
 
 		if (getArguments() != null) {
-			presenter.setProgramId((UUID) getArguments().getSerializable(EXTRA_PROGRAM_ID));
+			presenter.setData((UUID) getArguments().getSerializable(EXTRA_PROGRAM_ID), getArguments().getString(EXTRA_PROGRAM_NAME));
 			programCurrency = getArguments().getString(EXTRA_PROGRAM_CURRENCY);
 			programType = ProgramType.fromValue(getArguments().getString(EXTRA_PROGRAM_TYPE));
 
 			initRecyclerView();
 		}
 		else {
-			Timber.e("Passed empty programId to TradesFragment");
+			Timber.e("Passed empty data to %s", getClass().getSimpleName());
 			onBackPressed();
 		}
 	}

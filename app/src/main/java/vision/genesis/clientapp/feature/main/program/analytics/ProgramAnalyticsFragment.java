@@ -42,14 +42,17 @@ public class ProgramAnalyticsFragment extends BaseFragment implements ProgramAna
 {
 	private static final String EXTRA_PROGRAM_ID = "extra_program_id";
 
+	private static final String EXTRA_PROGRAM_NAME = "extra_program_name";
+
 	private static final String EXTRA_PROGRAM_CURRENCY = "extra_program_currency";
 
 	private static final String EXTRA_PROGRAM_PERIOD_DURATION_DAYS = "extra_program_period_duration_days";
 
-	public static ProgramAnalyticsFragment with(UUID programId, String programCurrency, Integer periodDurationDays) {
+	public static ProgramAnalyticsFragment with(UUID programId, String programName, String programCurrency, Integer periodDurationDays) {
 		ProgramAnalyticsFragment programAnalyticsFragment = new ProgramAnalyticsFragment();
 		Bundle arguments = new Bundle(2);
 		arguments.putSerializable(EXTRA_PROGRAM_ID, programId);
+		arguments.putString(EXTRA_PROGRAM_NAME, programName);
 		arguments.putString(EXTRA_PROGRAM_CURRENCY, programCurrency);
 		arguments.putInt(EXTRA_PROGRAM_PERIOD_DURATION_DAYS, periodDurationDays);
 		programAnalyticsFragment.setArguments(arguments);
@@ -104,6 +107,11 @@ public class ProgramAnalyticsFragment extends BaseFragment implements ProgramAna
 		}
 	}
 
+	@OnClick(R.id.button_export)
+	public void onExportClicked() {
+		presenter.onExportClicked();
+	}
+
 	@OnClick(R.id.date_range)
 	public void onDateRangeClicked() {
 		if (getActivity() != null) {
@@ -129,7 +137,7 @@ public class ProgramAnalyticsFragment extends BaseFragment implements ProgramAna
 		setFonts();
 
 		if (getArguments() != null) {
-			presenter.setProgramId((UUID) getArguments().getSerializable(EXTRA_PROGRAM_ID));
+			presenter.setData((UUID) getArguments().getSerializable(EXTRA_PROGRAM_ID), getArguments().getString(EXTRA_PROGRAM_NAME));
 			programCurrency = getArguments().getString(EXTRA_PROGRAM_CURRENCY);
 			periodDurationDays = getArguments().getInt(EXTRA_PROGRAM_PERIOD_DURATION_DAYS);
 

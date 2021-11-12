@@ -80,6 +80,11 @@ public class CopytradingTradesHistoryFragment extends BaseFragment implements Co
 
 	private TradingAccountDetailsModel model;
 
+	@OnClick(R.id.button_export)
+	public void onExportClicked() {
+		presenter.onExportClicked();
+	}
+
 	@OnClick(R.id.date_range)
 	public void onDateRangeClicked() {
 		if (getActivity() != null) {
