@@ -12,57 +12,56 @@
 
 package io.swagger.client.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import com.google.gson.annotations.SerializedName;
-import android.os.Parcelable;
-import android.os.Parcel;
-import java.io.IOException;
 import com.google.gson.TypeAdapter;
 import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 
+import java.io.IOException;
+
 /**
  * Gets or Sets FeeType
  */
 @JsonAdapter(FeeType.Adapter.class)
-public enum FeeType {
-  UNDEFINED("Undefined"),
-  GVPROGRAMENTRY("GvProgramEntry"),
-  GVPROGRAMSUCCESS("GvProgramSuccess"),
-  GVPROGRAMSUCCESSSUM("GvProgramSuccessSum"),
-  GVFUNDENTRY("GvFundEntry"),
-  GVGMGVTHOLDERFEE("GvGmGvtHolderFee"),
-  GVGMREGULARFEE("GvGmRegularFee"),
-  MANAGERPROGRAMENTRY("ManagerProgramEntry"),
-  MANAGERPROGRAMSUCCESS("ManagerProgramSuccess"),
-  MANAGERPROGRAMSUCCESSSUM("ManagerProgramSuccessSum"),
-  MANAGERPROGRAMMANAGEMENT("ManagerProgramManagement"),
-  MANAGERFUNDENTRY("ManagerFundEntry"),
-  MANAGERFUNDEXIT("ManagerFundExit"),
-  GVWITHDRAWAL("GvWithdrawal"),
-  GVCONVERTINGFIAT("GvConvertingFiat"),
-  MANAGERSIGNALMASTERSUCCESSFEE("ManagerSignalMasterSuccessFee"),
-  MANAGERSIGNALMASTERVOLUMEFEE("ManagerSignalMasterVolumeFee"),
-  GVSIGNALSUCCESSFEE("GvSignalSuccessFee"),
-  GVSIGNALVOLUMEFEE("GvSignalVolumeFee"),
-  GVFUNDTRADE("GvFundTrade");
+public enum FeeType
+{
+	UNDEFINED("Undefined"),
+	GVPROGRAMENTRY("GvProgramEntry"),
+	GVPROGRAMSUCCESS("GvProgramSuccess"),
+	GVPROGRAMSUCCESSSUM("GvProgramSuccessSum"),
+	GVFUNDENTRY("GvFundEntry"),
+	GVGMGVTHOLDERFEE("GvGmGvtHolderFee"),
+	GVGMREGULARFEE("GvGmRegularFee"),
+	MANAGERPROGRAMENTRY("ManagerProgramEntry"),
+	MANAGERPROGRAMSUCCESS("ManagerProgramSuccess"),
+	MANAGERPROGRAMSUCCESSSUM("ManagerProgramSuccessSum"),
+	MANAGERPROGRAMMANAGEMENT("ManagerProgramManagement"),
+	MANAGERFUNDENTRY("ManagerFundEntry"),
+	MANAGERFUNDEXIT("ManagerFundExit"),
+	GVWITHDRAWAL("GvWithdrawal"),
+	GVCONVERTINGFIAT("GvConvertingFiat"),
+	GVCONVERTING("GvConverting"),
+	GVCONVERTINGSUM("GvConvertingSum"),
+	MANAGERSIGNALMASTERSUCCESSFEE("ManagerSignalMasterSuccessFee"),
+	MANAGERSIGNALMASTERVOLUMEFEE("ManagerSignalMasterVolumeFee"),
+	GVSIGNALSUCCESSFEE("GvSignalSuccessFee"),
+	GVSIGNALVOLUMEFEE("GvSignalVolumeFee"),
+	GVFUNDTRADE("GvFundTrade");
 
-  private String value;
+	private String value;
 
-  FeeType(String value) {
-    this.value = value;
-  }
+	FeeType(String value) {
+		this.value = value;
+	}
 
-  public String getValue() {
-    return value;
-  }
+	public String getValue() {
+		return value;
+	}
 
-  @Override
-  public String toString() {
-    return String.valueOf(value);
-  }
+	@Override
+	public String toString() {
+		return String.valueOf(value);
+	}
 
   public static FeeType fromValue(String text) {
     for (FeeType b : FeeType.values()) {

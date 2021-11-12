@@ -578,7 +578,7 @@
     <string name="enter_correct_amount">Enter correct amount</string>
     <string name="transfer">Transfer</string>
     <string name="enter_amount_to_transfer">Enter amount to transfer</string>
-    <string name="transfer_disclaimer">The funds will be converted according to the current market price (Market order on Binance).</string>
+    <string name="transfer_disclaimer">The funds will be converted according to the current market price (Market order).</string>
     <string name="transaction_details">Transaction details</string>
     <string name="status">Status</string>
     <string name="to_the_program">To the program</string>
@@ -1114,6 +1114,7 @@
     <string name="activate">Activate</string>
     <string name="six_digit_code">6-digit code</string>
     <string name="confirm_tfa">Confirm 2FA</string>
+    <string name="financial_statistics">Financial statistics</string>
 
     <plurals name="assets">
         <item quantity="one">asset</item>

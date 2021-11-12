@@ -104,6 +104,7 @@ import vision.genesis.clientapp.feature.main.program.create.CreateProgramPresent
 import vision.genesis.clientapp.feature.main.program.create.deposit.CreateProgramDepositPresenter;
 import vision.genesis.clientapp.feature.main.program.create.settings.ProgramSettingsPresenter;
 import vision.genesis.clientapp.feature.main.program.events.ProgramEventsPresenter;
+import vision.genesis.clientapp.feature.main.program.financial_statistics.ProgramFinancialStatisticsPresenter;
 import vision.genesis.clientapp.feature.main.program.info.follow.FollowInfoPresenter;
 import vision.genesis.clientapp.feature.main.program.info.owner.OwnerInfoPresenter;
 import vision.genesis.clientapp.feature.main.program.info.program.ProgramInfoPresenter;
@@ -592,4 +593,6 @@ public interface AppComponent
 	void inject(PrivateTradingPresenter privateTradingPresenter);
 
 	void inject(SetupAccountTfaPresenter setupAccountTfaPresenter);
+
+	void inject(ProgramFinancialStatisticsPresenter programFinancialStatisticsPresenter);
 }

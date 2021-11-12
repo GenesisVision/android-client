@@ -169,6 +169,8 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 
 	private TabLayout.Tab periodHistoryTab;
 
+	private TabLayout.Tab financialStatisticsTab;
+
 	private TabLayout.Tab reportsTab;
 
 	private TabLayout.Tab eventsTab;
@@ -410,6 +412,7 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 		tradesTab = tabLayout.newTab().setCustomView(getTabView(R.string.trades)).setTag("trades");
 		programAnalyticsTab = tabLayout.newTab().setCustomView(getTabView(R.string.analytics)).setTag("program_analytics");
 		periodHistoryTab = tabLayout.newTab().setCustomView(getTabView(R.string.period_history)).setTag("period_history");
+		financialStatisticsTab = tabLayout.newTab().setCustomView(getTabView(R.string.financial_statistics)).setTag("financial_statistics");
 		reportsTab = tabLayout.newTab().setCustomView(getTabView(R.string.reports)).setTag("reports");
 		eventsTab = tabLayout.newTab().setCustomView(getTabView(R.string.my_history)).setTag("events");
 
@@ -530,6 +533,7 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 				addPage(periodHistoryTab, false);
 			}
 		}
+		addPage(financialStatisticsTab, false);
 	}
 
 	@Override
@@ -660,6 +664,11 @@ public class ProgramDetailsActivity extends BaseSwipeBackActivity implements Pro
 	@Override
 	public void setPeriodHistoryCount(Integer periodHistoryCount) {
 		((DetailsTabView) periodHistoryTab.getCustomView()).setCount(periodHistoryCount);
+	}
+
+	@Override
+	public void setFinancialStatisticsCount(Integer count) {
+		((DetailsTabView) financialStatisticsTab.getCustomView()).setCount(count);
 	}
 
 	@Override

@@ -18,6 +18,7 @@ Name | Type | Description | Notes
 **details** | [**AssetInfo**](AssetInfo.md) |  |  [optional]
 **chart** | [**TickerChart**](TickerChart.md) |  |  [optional]
 **isFavorite** | **Boolean** |  |  [optional]
+**isTransferred** | **Boolean** |  |  [optional]
 **oefAssetId** | [**UUID**](UUID.md) |  |  [optional]
 **amount** | **Double** |  |  [optional]
 **averagePrice** | **Double** |  |  [optional]

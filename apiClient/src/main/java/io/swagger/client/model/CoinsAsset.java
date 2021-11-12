@@ -12,21 +12,15 @@
 
 package io.swagger.client.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import com.google.gson.TypeAdapter;
-import com.google.gson.annotations.JsonAdapter;
-import com.google.gson.annotations.SerializedName;
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonWriter;
-import io.swagger.client.model.AssetInfo;
-import io.swagger.client.model.AssetProvider;
-import io.swagger.client.model.TickerChart;
-import io.swagger.v3.oas.annotations.media.Schema;
-import java.io.IOException;
-import java.util.UUID;
-import android.os.Parcelable;
 import android.os.Parcel;
+import android.os.Parcelable;
+
+import com.google.gson.annotations.SerializedName;
+
+import java.util.Objects;
+import java.util.UUID;
+
+import io.swagger.v3.oas.annotations.media.Schema;
 /**
  * CoinsAsset
  */
@@ -78,6 +72,9 @@ public class CoinsAsset implements Parcelable {
   @SerializedName("isFavorite")
   private Boolean isFavorite = null;
 
+  @SerializedName("isTransferred")
+  private Boolean isTransferred = null;
+
   @SerializedName("oefAssetId")
   private UUID oefAssetId = null;
 
@@ -95,6 +92,7 @@ public class CoinsAsset implements Parcelable {
 
   public CoinsAsset() {
   }
+
   public CoinsAsset id(UUID id) {
     this.id = id;
     return this;
@@ -352,10 +350,35 @@ public class CoinsAsset implements Parcelable {
     return this;
   }
 
-   /**
+  CoinsAsset(Parcel in) {
+    id = (UUID) in.readValue(UUID.class.getClassLoader());
+    name = (String) in.readValue(null);
+    asset = (String) in.readValue(null);
+    description = (String) in.readValue(null);
+    logoUrl = (String) in.readValue(null);
+    color = (String) in.readValue(null);
+    url = (String) in.readValue(null);
+    provider = (AssetProvider) in.readValue(AssetProvider.class.getClassLoader());
+    price = (Double) in.readValue(null);
+    change24Percent = (Double) in.readValue(null);
+    totalVolume = (Double) in.readValue(null);
+    marketCap = (Double) in.readValue(null);
+    details = (AssetInfo) in.readValue(AssetInfo.class.getClassLoader());
+    chart = (TickerChart) in.readValue(TickerChart.class.getClassLoader());
+    isFavorite = (Boolean) in.readValue(null);
+    isTransferred = (Boolean) in.readValue(null);
+    oefAssetId = (UUID) in.readValue(UUID.class.getClassLoader());
+    amount = (Double) in.readValue(null);
+    averagePrice = (Double) in.readValue(null);
+    profitCurrent = (Double) in.readValue(null);
+    total = (Double) in.readValue(null);
+  }
+
+  /**
    * Get isFavorite
+   *
    * @return isFavorite
-  **/
+   **/
   @Schema(description = "")
   public Boolean isIsFavorite() {
     return isFavorite;
@@ -365,18 +388,28 @@ public class CoinsAsset implements Parcelable {
     this.isFavorite = isFavorite;
   }
 
-  public CoinsAsset oefAssetId(UUID oefAssetId) {
-    this.oefAssetId = oefAssetId;
+  public CoinsAsset isTransferred(Boolean isTransferred) {
+    this.isTransferred = isTransferred;
     return this;
   }
 
-   /**
-   * Get oefAssetId
-   * @return oefAssetId
-  **/
+  /**
+   * Get isTransferred
+   *
+   * @return isTransferred
+   **/
   @Schema(description = "")
-  public UUID getOefAssetId() {
-    return oefAssetId;
+  public Boolean isIsTransferred() {
+    return isTransferred;
+  }
+
+  public void setIsTransferred(Boolean isTransferred) {
+    this.isTransferred = isTransferred;
+  }
+
+  public CoinsAsset oefAssetId(UUID oefAssetId) {
+    this.oefAssetId = oefAssetId;
+    return this;
   }
 
   public void setOefAssetId(UUID oefAssetId) {
@@ -444,17 +477,26 @@ public class CoinsAsset implements Parcelable {
 
    /**
    * Get total
-   * @return total
-  **/
-  @Schema(description = "")
-  public Double getTotal() {
-    return total;
-  }
+    * @return total
+    **/
+   @Schema(description = "")
+   public Double getTotal() {
+     return total;
+   }
 
   public void setTotal(Double total) {
     this.total = total;
   }
 
+  /**
+   * Get oefAssetId
+   *
+   * @return oefAssetId
+   **/
+  @Schema(description = "")
+  public UUID getOefAssetId() {
+    return oefAssetId;
+  }
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -466,38 +508,49 @@ public class CoinsAsset implements Parcelable {
     }
     CoinsAsset coinsAsset = (CoinsAsset) o;
     return Objects.equals(this.id, coinsAsset.id) &&
-        Objects.equals(this.name, coinsAsset.name) &&
-        Objects.equals(this.asset, coinsAsset.asset) &&
-        Objects.equals(this.description, coinsAsset.description) &&
-        Objects.equals(this.logoUrl, coinsAsset.logoUrl) &&
-        Objects.equals(this.color, coinsAsset.color) &&
-        Objects.equals(this.url, coinsAsset.url) &&
-        Objects.equals(this.provider, coinsAsset.provider) &&
-        Objects.equals(this.price, coinsAsset.price) &&
-        Objects.equals(this.change24Percent, coinsAsset.change24Percent) &&
-        Objects.equals(this.totalVolume, coinsAsset.totalVolume) &&
-        Objects.equals(this.marketCap, coinsAsset.marketCap) &&
-        Objects.equals(this.details, coinsAsset.details) &&
-        Objects.equals(this.chart, coinsAsset.chart) &&
-        Objects.equals(this.isFavorite, coinsAsset.isFavorite) &&
-        Objects.equals(this.oefAssetId, coinsAsset.oefAssetId) &&
-        Objects.equals(this.amount, coinsAsset.amount) &&
-        Objects.equals(this.averagePrice, coinsAsset.averagePrice) &&
-        Objects.equals(this.profitCurrent, coinsAsset.profitCurrent) &&
-        Objects.equals(this.total, coinsAsset.total);
+            Objects.equals(this.name, coinsAsset.name) &&
+            Objects.equals(this.asset, coinsAsset.asset) &&
+            Objects.equals(this.description, coinsAsset.description) &&
+            Objects.equals(this.logoUrl, coinsAsset.logoUrl) &&
+            Objects.equals(this.color, coinsAsset.color) &&
+            Objects.equals(this.url, coinsAsset.url) &&
+            Objects.equals(this.provider, coinsAsset.provider) &&
+            Objects.equals(this.price, coinsAsset.price) &&
+            Objects.equals(this.change24Percent, coinsAsset.change24Percent) &&
+            Objects.equals(this.totalVolume, coinsAsset.totalVolume) &&
+            Objects.equals(this.marketCap, coinsAsset.marketCap) &&
+            Objects.equals(this.details, coinsAsset.details) &&
+            Objects.equals(this.chart, coinsAsset.chart) &&
+            Objects.equals(this.isFavorite, coinsAsset.isFavorite) &&
+            Objects.equals(this.isTransferred, coinsAsset.isTransferred) &&
+            Objects.equals(this.oefAssetId, coinsAsset.oefAssetId) &&
+            Objects.equals(this.amount, coinsAsset.amount) &&
+            Objects.equals(this.averagePrice, coinsAsset.averagePrice) &&
+            Objects.equals(this.profitCurrent, coinsAsset.profitCurrent) &&
+            Objects.equals(this.total, coinsAsset.total);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, name, asset, description, logoUrl, color, url, provider, price, change24Percent, totalVolume, marketCap, details, chart, isFavorite, oefAssetId, amount, averagePrice, profitCurrent, total);
+    return Objects.hash(id, name, asset, description, logoUrl, color, url, provider, price, change24Percent, totalVolume, marketCap, details, chart, isFavorite, isTransferred, oefAssetId, amount, averagePrice, profitCurrent, total);
   }
 
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(java.lang.Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class CoinsAsset {\n");
-    
+
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("    asset: ").append(toIndentedString(asset)).append("\n");
@@ -513,6 +566,7 @@ public class CoinsAsset implements Parcelable {
     sb.append("    details: ").append(toIndentedString(details)).append("\n");
     sb.append("    chart: ").append(toIndentedString(chart)).append("\n");
     sb.append("    isFavorite: ").append(toIndentedString(isFavorite)).append("\n");
+    sb.append("    isTransferred: ").append(toIndentedString(isTransferred)).append("\n");
     sb.append("    oefAssetId: ").append(toIndentedString(oefAssetId)).append("\n");
     sb.append("    amount: ").append(toIndentedString(amount)).append("\n");
     sb.append("    averagePrice: ").append(toIndentedString(averagePrice)).append("\n");
@@ -521,18 +575,6 @@ public class CoinsAsset implements Parcelable {
     sb.append("}");
     return sb.toString();
   }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(java.lang.Object o) {
-    if (o == null) {
-      return "null";
-    }
-    return o.toString().replace("\n", "\n    ");
-  }
-
 
   public void writeToParcel(Parcel out, int flags) {
     out.writeValue(id);
@@ -550,34 +592,12 @@ public class CoinsAsset implements Parcelable {
     out.writeValue(details);
     out.writeValue(chart);
     out.writeValue(isFavorite);
+    out.writeValue(isTransferred);
     out.writeValue(oefAssetId);
     out.writeValue(amount);
     out.writeValue(averagePrice);
     out.writeValue(profitCurrent);
     out.writeValue(total);
-  }
-
-  CoinsAsset(Parcel in) {
-    id = (UUID)in.readValue(UUID.class.getClassLoader());
-    name = (String)in.readValue(null);
-    asset = (String)in.readValue(null);
-    description = (String)in.readValue(null);
-    logoUrl = (String)in.readValue(null);
-    color = (String)in.readValue(null);
-    url = (String)in.readValue(null);
-    provider = (AssetProvider)in.readValue(AssetProvider.class.getClassLoader());
-    price = (Double)in.readValue(null);
-    change24Percent = (Double)in.readValue(null);
-    totalVolume = (Double)in.readValue(null);
-    marketCap = (Double)in.readValue(null);
-    details = (AssetInfo)in.readValue(AssetInfo.class.getClassLoader());
-    chart = (TickerChart)in.readValue(TickerChart.class.getClassLoader());
-    isFavorite = (Boolean)in.readValue(null);
-    oefAssetId = (UUID)in.readValue(UUID.class.getClassLoader());
-    amount = (Double)in.readValue(null);
-    averagePrice = (Double)in.readValue(null);
-    profitCurrent = (Double)in.readValue(null);
-    total = (Double)in.readValue(null);
   }
 
   public int describeContents() {

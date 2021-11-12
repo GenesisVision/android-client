@@ -5,6 +5,7 @@ import org.joda.time.DateTime;
 import java.util.List;
 import java.util.UUID;
 
+import io.swagger.client.model.BasePlatformAssetItemsViewModel;
 import io.swagger.client.model.CoinsAssetItemsViewModel;
 import io.swagger.client.model.CoinsFilterSorting;
 import io.swagger.client.model.CoinsHistoryEventItemsViewModel;
@@ -17,34 +18,43 @@ import rx.Observable;
 public interface CoinsApi {
   /**
    * Add to favorites
-   * 
+   *
    * @param id  (required)
    * @return Call&lt;Void&gt;
    */
   @POST("v2.0/coins/coins/{id}/favorite/add")
   Observable<Void> addToFavorites(
-            @retrofit2.http.Path("id") UUID id            
+		  @retrofit2.http.Path("id") UUID id
   );
 
-  /**
-   * Coins list
-   * 
-   * @param sorting  (optional)
-   * @param assets  (optional)
-   * @param isFavorite  (optional)
-   * @param skip  (optional)
-   * @param take  (optional)
-   * @return Call&lt;CoinsAssetItemsViewModel&gt;
-   */
-  @GET("v2.0/coins")
-  Observable<CoinsAssetItemsViewModel> getCoins(
-        @retrofit2.http.Query("Sorting") CoinsFilterSorting sorting                ,     @retrofit2.http.Query("Assets") List<String> assets                ,     @retrofit2.http.Query("IsFavorite") Boolean isFavorite                ,     @retrofit2.http.Query("Skip") Integer skip                ,     @retrofit2.http.Query("Take") Integer take                
-  );
+	/**
+	 * All coins list
+	 *
+	 * @return Call&lt;BasePlatformAssetItemsViewModel&gt;
+	 */
+	@GET("v2.0/coins/all")
+	Observable<BasePlatformAssetItemsViewModel> getAllCoins();
 
-  /**
-   * Get coins history
-   * 
-   * @param dateFrom  (optional)
+
+	/**
+	 * Coins list
+	 *
+	 * @param sorting    (optional)
+	 * @param assets     (optional)
+	 * @param isFavorite (optional)
+	 * @param skip       (optional)
+	 * @param take       (optional)
+	 * @return Call&lt;CoinsAssetItemsViewModel&gt;
+	 */
+	@GET("v2.0/coins")
+	Observable<CoinsAssetItemsViewModel> getCoins(
+			@retrofit2.http.Query("Sorting") CoinsFilterSorting sorting, @retrofit2.http.Query("Assets") List<String> assets, @retrofit2.http.Query("IsFavorite") Boolean isFavorite, @retrofit2.http.Query("Skip") Integer skip, @retrofit2.http.Query("Take") Integer take
+	);
+
+	/**
+	 * Get coins history
+	 *
+	 * @param dateFrom  (optional)
    * @param dateTo  (optional)
    * @param assets  (optional)
    * @param skip  (optional)

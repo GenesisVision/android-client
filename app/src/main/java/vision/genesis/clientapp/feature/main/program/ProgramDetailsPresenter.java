@@ -31,6 +31,7 @@ import vision.genesis.clientapp.model.events.OnFollowFavoriteChangedEvent;
 import vision.genesis.clientapp.model.events.OnProgramFavoriteChangedEvent;
 import vision.genesis.clientapp.model.events.SetProgramDetailsAnalyticsCountEvent;
 import vision.genesis.clientapp.model.events.SetProgramDetailsEventsCountEvent;
+import vision.genesis.clientapp.model.events.SetProgramDetailsFinancialStatisticsCountEvent;
 import vision.genesis.clientapp.model.events.SetProgramDetailsOpenPositionsCountEvent;
 import vision.genesis.clientapp.model.events.SetProgramDetailsPeriodHistoryCountEvent;
 import vision.genesis.clientapp.model.events.SetProgramDetailsReportsCountEvent;
@@ -297,6 +298,11 @@ public class ProgramDetailsPresenter extends MvpPresenter<ProgramDetailsView>
 	@Subscribe
 	public void onEventMainThread(SetProgramDetailsPeriodHistoryCountEvent event) {
 		getViewState().setPeriodHistoryCount(event.getPeriodHistoryCount());
+	}
+
+	@Subscribe
+	public void onEventMainThread(SetProgramDetailsFinancialStatisticsCountEvent event) {
+		getViewState().setFinancialStatisticsCount(event.getCount());
 	}
 
 	@Subscribe

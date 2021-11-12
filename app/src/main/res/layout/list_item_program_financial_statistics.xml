@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/item_program_financial_statistics_height">
+
+    <LinearLayout
+        android:id="@+id/group_main"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:orientation="vertical"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="12dp"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/balance_label"
+                    style="@style/period_text_label"
+                    android:fontFamily="@font/montserrat_regular"
+                    android:text="@string/balance"/>
+
+                <TextView
+                    android:id="@+id/profit_label"
+                    style="@style/period_text_label"
+                    android:fontFamily="@font/montserrat_regular"
+                    android:text="@string/profit"/>
+
+                <TextView
+                    android:id="@+id/success_fee_label"
+                    style="@style/period_text_label"
+                    android:fontFamily="@font/montserrat_regular"
+                    android:text="@string/success_fee"/>
+
+                <TextView
+                    android:id="@+id/entry_fee_label"
+                    style="@style/period_text_label"
+                    android:fontFamily="@font/montserrat_regular"
+                    android:text="@string/entry_fee"/>
+
+                <TextView
+                    android:id="@+id/deposit_withdraw_label"
+                    style="@style/period_text_label"
+                    android:fontFamily="@font/montserrat_regular"
+                    android:text="@string/deposit_withdraw"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/balance"
+                    style="@style/period_text_value"
+                    android:fontFamily="@font/montserrat_semibold"
+                    tools:text="235k GVT"/>
+
+                <TextView
+                    android:id="@+id/profit"
+                    style="@style/period_text_value"
+                    android:fontFamily="@font/montserrat_semibold"
+                    tools:text="12k GVT"/>
+
+                <TextView
+                    android:id="@+id/success_fee"
+                    style="@style/period_text_value"
+                    android:fontFamily="@font/montserrat_semibold"
+                    tools:text="164 GVT"/>
+
+                <TextView
+                    android:id="@+id/entry_fee"
+                    style="@style/period_text_value"
+                    android:fontFamily="@font/montserrat_semibold"
+                    tools:text="164 GVT"/>
+
+                <TextView
+                    android:id="@+id/deposit_withdraw"
+                    style="@style/period_text_value"
+                    android:fontFamily="@font/montserrat_semibold"
+                    tools:text="164 GVT"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/group_main"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="20dp"
+        android:gravity="end"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/date_started"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/montserrat_semibold"
+            android:textColor="?attr/colorTextPrimary"
+            android:textSize="14sp"
+            tools:text="16 Aug, 2019 04:20pm"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/period_number"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat_regular"
+                android:textColor="?attr/colorTextSecondary"
+                android:textSize="12sp"
+                tools:text="#1"/>
+
+            <TextView
+                android:id="@+id/period_length"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:fontFamily="@font/montserrat_regular"
+                android:textColor="?attr/colorTextSecondary"
+                android:textSize="12sp"
+                tools:text="12d 7h 32m"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="20dp"
+        android:alpha="0.5"
+        android:background="?attr/colorDelimiterLight"/>
+
+</RelativeLayout>

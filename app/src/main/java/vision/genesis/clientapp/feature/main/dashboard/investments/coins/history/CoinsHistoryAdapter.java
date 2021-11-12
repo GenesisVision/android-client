@@ -107,7 +107,12 @@ public class CoinsHistoryAdapter extends RecyclerView.Adapter<CoinsHistoryAdapte
 			this.boughtIcon.setImageURI(ImageUtils.getImageUri(trade.getBoughtAsset().getLogoUrl()));
 
 			this.price.setText(String.format(Locale.getDefault(), "$ %s", StringFormatUtil.formatAmount(trade.getPrice(), 0, 8)));
-			this.commission.setText(StringFormatUtil.getValueString(trade.getCommission(), trade.getCommissionCurrency()));
+			if (trade.getCommissionCurrency() != null) {
+				this.commission.setText(StringFormatUtil.getValueString(trade.getCommission(), trade.getCommissionCurrency()));
+			}
+			else {
+				this.commission.setText(StringFormatUtil.formatAmount(trade.getCommission()));
+			}
 		}
 	}
 }

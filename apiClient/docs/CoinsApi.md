@@ -5,6 +5,7 @@ All URIs are relative to *https://red.genesis.vision/api*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**addToFavorites**](CoinsApi.md#addToFavorites) | **POST** v2.0/coins/coins/{id}/favorite/add | Add to favorites
+[**getAllCoins**](CoinsApi.md#getAllCoins) | **GET** v2.0/coins/all | All coins list
 [**getCoins**](CoinsApi.md#getCoins) | **GET** v2.0/coins | Coins list
 [**getCoinsConvertingHistory**](CoinsApi.md#getCoinsConvertingHistory) | **GET** v2.0/coins/history | Get coins history
 [**getUserCoins**](CoinsApi.md#getUserCoins) | **GET** v2.0/coins/portfolio | Get user coins
@@ -54,6 +55,55 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**Void**](.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
+
+<a name="getAllCoins"></a>
+# **getAllCoins**
+> BasePlatformAssetItemsViewModel getAllCoins()
+
+All coins list
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiClient;
+//import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
+//import io.swagger.client.api.CoinsApi;
+
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
+
+CoinsApi apiInstance = new CoinsApi();
+try {
+    BasePlatformAssetItemsViewModel result = apiInstance.getAllCoins();
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling CoinsApi#getAllCoins");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+[**BasePlatformAssetItemsViewModel**](BasePlatformAssetItemsViewModel.md)
 
 ### Authorization
 

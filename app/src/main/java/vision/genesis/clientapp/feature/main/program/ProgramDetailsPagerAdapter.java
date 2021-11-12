@@ -16,6 +16,7 @@ import vision.genesis.clientapp.feature.main.follow.balance.FollowBalanceFragmen
 import vision.genesis.clientapp.feature.main.program.analytics.ProgramAnalyticsFragment;
 import vision.genesis.clientapp.feature.main.program.balance.ProgramBalanceFragment;
 import vision.genesis.clientapp.feature.main.program.events.ProgramEventsFragment;
+import vision.genesis.clientapp.feature.main.program.financial_statistics.ProgramFinancialStatisticsFragment;
 import vision.genesis.clientapp.feature.main.program.info.follow.FollowInfoFragment;
 import vision.genesis.clientapp.feature.main.program.info.owner.OwnerInfoFragment;
 import vision.genesis.clientapp.feature.main.program.info.program.ProgramInfoFragment;
@@ -59,6 +60,8 @@ public class ProgramDetailsPagerAdapter extends FragmentStatePagerAdapter
 
 	private PeriodHistoryFragment periodHistoryFragment;
 
+	private ProgramFinancialStatisticsFragment financialStatisticsFragment;
+
 	private ProgramReportsFragment reportsFragment;
 
 	private ProgramEventsFragment programEventsFragment;
@@ -86,6 +89,7 @@ public class ProgramDetailsPagerAdapter extends FragmentStatePagerAdapter
 				else {
 					periodHistoryFragment = PeriodHistoryFragment.with(assetId, details.getTradingAccountInfo().getCurrency().getValue(), programDetails.getPeriodDuration());
 				}
+				financialStatisticsFragment = ProgramFinancialStatisticsFragment.with(assetId, details.getTradingAccountInfo().getCurrency().getValue(), programDetails.getType());
 			}
 			else {
 				followEquityFragment = FollowBalanceFragment.with(details);
@@ -141,6 +145,8 @@ public class ProgramDetailsPagerAdapter extends FragmentStatePagerAdapter
 				return programAnalyticsFragment;
 			case "period_history":
 				return periodHistoryFragment;
+			case "financial_statistics":
+				return financialStatisticsFragment;
 			case "reports":
 				return reportsFragment;
 			case "events":
@@ -189,6 +195,9 @@ public class ProgramDetailsPagerAdapter extends FragmentStatePagerAdapter
 		if (periodHistoryFragment != null) {
 			periodHistoryFragment.pagerShow();
 		}
+		if (financialStatisticsFragment != null) {
+			financialStatisticsFragment.pagerShow();
+		}
 		if (reportsFragment != null) {
 			reportsFragment.pagerShow();
 		}
@@ -209,6 +218,9 @@ public class ProgramDetailsPagerAdapter extends FragmentStatePagerAdapter
 		}
 		if (periodHistoryFragment != null) {
 			periodHistoryFragment.onSwipeRefresh();
+		}
+		if (financialStatisticsFragment != null) {
+			financialStatisticsFragment.onSwipeRefresh();
 		}
 		if (reportsFragment != null) {
 			reportsFragment.onSwipeRefresh();
@@ -236,6 +248,9 @@ public class ProgramDetailsPagerAdapter extends FragmentStatePagerAdapter
 		}
 		if (periodHistoryFragment != null) {
 			periodHistoryFragment.onOffsetChanged(verticalOffset);
+		}
+		if (financialStatisticsFragment != null) {
+			financialStatisticsFragment.onOffsetChanged(verticalOffset);
 		}
 		if (reportsFragment != null) {
 			reportsFragment.onOffsetChanged(verticalOffset);

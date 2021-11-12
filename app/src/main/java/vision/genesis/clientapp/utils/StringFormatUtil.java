@@ -153,7 +153,7 @@ public class StringFormatUtil
 	}
 
 	public static String getValueString(Double baseValue, String currency) {
-		if (currency.equals(Currency.USD.getValue())) {
+		if (Currency.USD.getValue().equals(currency)) {
 			return String.format(Locale.getDefault(), "$ %s", StringFormatUtil.formatCurrencyAmount(baseValue, currency));
 		}
 		return String.format(Locale.getDefault(), "%s %s", StringFormatUtil.formatCurrencyAmount(baseValue, currency), currency);
