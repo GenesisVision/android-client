@@ -8,6 +8,7 @@ import dagger.Module;
 import dagger.Provides;
 import vision.genesis.clientapp.net.NetworkManager;
 import vision.genesis.clientapp.utils.ImageUtils;
+import vision.genesis.clientapp.utils.PermissionsProvider;
 import vision.genesis.clientapp.utils.SharedPreferencesUtil;
 
 /**
@@ -34,5 +35,11 @@ public class UtilsModule
 	@Singleton
 	public NetworkManager provideNetworkManager(Context context) {
 		return new NetworkManager(context);
+	}
+
+	@Provides
+	@Singleton
+	public PermissionsProvider providePermissionsProvider(Context context) {
+		return new PermissionsProvider(context);
 	}
 }

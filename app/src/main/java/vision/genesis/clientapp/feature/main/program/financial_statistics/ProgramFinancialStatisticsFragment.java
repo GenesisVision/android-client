@@ -66,6 +66,9 @@ public class ProgramFinancialStatisticsFragment extends BaseFragment implements 
 	@BindView(R.id.progress_bar)
 	public ProgressBar progressBar;
 
+	@BindView(R.id.group_interval)
+	public ViewGroup groupInterval;
+
 	@BindView(R.id.interval)
 	public TextView interval;
 
@@ -135,14 +138,13 @@ public class ProgramFinancialStatisticsFragment extends BaseFragment implements 
 
 		unbinder = ButterKnife.bind(this, view);
 
-		setFonts();
-
 		if (getArguments() != null) {
 			presenter.setData((UUID) getArguments().getSerializable(EXTRA_PROGRAM_ID), getArguments().getString(EXTRA_PROGRAM_NAME));
 			programCurrency = getArguments().getString(EXTRA_PROGRAM_CURRENCY);
 			programType = ProgramType.fromValue(getArguments().getString(EXTRA_PROGRAM_TYPE));
 
 			initRecyclerView();
+			setIntervalVisibility(programType);
 		}
 		else {
 			Timber.e("Passed empty data to %s", getClass().getSimpleName());
@@ -158,9 +160,6 @@ public class ProgramFinancialStatisticsFragment extends BaseFragment implements 
 		}
 
 		super.onDestroyView();
-	}
-
-	private void setFonts() {
 	}
 
 	private void initRecyclerView() {
@@ -184,6 +183,10 @@ public class ProgramFinancialStatisticsFragment extends BaseFragment implements 
 				}
 			}
 		});
+	}
+
+	private void setIntervalVisibility(ProgramType programType) {
+		this.groupInterval.setVisibility(programType.equals(ProgramType.DAILYPERIOD) ? View.VISIBLE : View.GONE);
 	}
 
 	@Override

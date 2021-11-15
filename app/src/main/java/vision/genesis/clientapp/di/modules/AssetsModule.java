@@ -42,6 +42,7 @@ import vision.genesis.clientapp.managers.TradingAccountManager;
 import vision.genesis.clientapp.managers.UsersManager;
 import vision.genesis.clientapp.managers.WalletManager;
 import vision.genesis.clientapp.net.api.BinanceApi;
+import vision.genesis.clientapp.utils.PermissionsProvider;
 
 /**
  * GenesisVision
@@ -77,8 +78,8 @@ public class AssetsModule
 
 	@Provides
 	@Singleton
-	public ExportManager provideExportManager(Context context, ProgramsApi programsApi) {
-		return new ExportManager(context, programsApi);
+	public ExportManager provideExportManager(Context context, PermissionsProvider permissionsProvider, ProgramsApi programsApi) {
+		return new ExportManager(context, permissionsProvider, programsApi);
 	}
 
 	@Provides

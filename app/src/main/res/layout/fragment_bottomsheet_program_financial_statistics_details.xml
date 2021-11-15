@@ -71,9 +71,14 @@
                         android:text="@string/entry_fee"/>
 
                     <TextView
-                        android:id="@+id/deposit_withdraw_label"
+                        android:id="@+id/deposit_label"
                         style="@style/text_label_period_details"
-                        android:text="@string/deposit_withdraw"/>
+                        android:text="@string/deposit"/>
+
+                    <TextView
+                        android:id="@+id/withdraw_label"
+                        style="@style/text_label_period_details"
+                        android:text="@string/withdraw"/>
 
                 </LinearLayout>
 
@@ -118,7 +123,12 @@
                         tools:text="12k GVT"/>
 
                     <TextView
-                        android:id="@+id/deposit_withdraw"
+                        android:id="@+id/deposit"
+                        style="@style/text_value_period_details"
+                        tools:text="12k GVT"/>
+
+                    <TextView
+                        android:id="@+id/withdraw"
                         style="@style/text_value_period_details"
                         tools:text="12k GVT"/>
 

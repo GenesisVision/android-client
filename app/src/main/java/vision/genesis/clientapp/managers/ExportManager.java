@@ -1,5 +1,6 @@
 package vision.genesis.clientapp.managers;
 
+import android.Manifest;
 import android.app.DownloadManager;
 import android.content.Context;
 import android.net.Uri;
@@ -15,6 +16,7 @@ import vision.genesis.clientapp.BuildConfig;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.model.DateRange;
 import vision.genesis.clientapp.utils.DateTimeUtil;
+import vision.genesis.clientapp.utils.PermissionsProvider;
 
 /**
  * GenesisVisionAndroid
@@ -25,10 +27,13 @@ public class ExportManager
 {
 	private Context context;
 
+	private PermissionsProvider permissionsProvider;
+
 	private ProgramsApi programsApi;
 
-	public ExportManager(Context context, ProgramsApi programsApi) {
+	public ExportManager(Context context, PermissionsProvider permissionsProvider, ProgramsApi programsApi) {
 		this.context = context;
+		this.permissionsProvider = permissionsProvider;
 		this.programsApi = programsApi;
 	}
 
@@ -129,19 +134,24 @@ public class ExportManager
 	}
 
 	private void downloadFile(String url, String fileName) {
-		DownloadManager downloadManager = (DownloadManager) context.getSystemService(Context.DOWNLOAD_SERVICE);
-		if (downloadManager != null) {
-			Uri uri = Uri.parse(url);
-			DownloadManager.Request request = new DownloadManager.Request(uri);
-			request.setTitle(fileName);
-			request.setDescription(context.getString(R.string.downloading_file));
-			request.addRequestHeader("Authorization", AuthManager.token.getValue() != null ? AuthManager.token.getValue() : "");
-			request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
-			request.setDestinationInExternalPublicDir(
-					Environment.DIRECTORY_DOWNLOADS,
-					fileName
-			);
-			downloadManager.enqueue(request);
-		}
+		permissionsProvider.requestPermissions(
+				new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}
+		).subscribe(() -> {
+			DownloadManager downloadManager = (DownloadManager) context.getSystemService(Context.DOWNLOAD_SERVICE);
+			if (downloadManager != null) {
+				Uri uri = Uri.parse(url);
+				DownloadManager.Request request = new DownloadManager.Request(uri);
+				request.setTitle(fileName);
+				request.setDescription(context.getString(R.string.downloading_file));
+				request.addRequestHeader("Authorization", AuthManager.token.getValue() != null ? AuthManager.token.getValue() : "");
+				request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+				request.setDestinationInExternalPublicDir(
+						Environment.DIRECTORY_DOWNLOADS,
+						fileName
+				);
+				downloadManager.enqueue(request);
+			}
+		}, throwable -> {
+		});
 	}
 }

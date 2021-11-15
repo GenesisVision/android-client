@@ -50,8 +50,11 @@ public class ProgramFinancialStatisticsDetailsBottomSheetFragment extends Bottom
 	@BindView(R.id.entry_fee)
 	public TextView entryFee;
 
-	@BindView(R.id.deposit_withdraw)
-	public TextView depositWithdraw;
+	@BindView(R.id.deposit)
+	public TextView deposit;
+
+	@BindView(R.id.withdraw)
+	public TextView withdraw;
 
 	@BindView(R.id.balance_label)
 	public TextView balanceLabel;
@@ -70,9 +73,6 @@ public class ProgramFinancialStatisticsDetailsBottomSheetFragment extends Bottom
 
 	@BindView(R.id.entry_fee_label)
 	public TextView entryFeeLabel;
-
-	@BindView(R.id.deposit_withdraw_label)
-	public TextView depositWithdrawLabel;
 
 	private ProgramPeriodViewModel period;
 
@@ -144,15 +144,6 @@ public class ProgramFinancialStatisticsDetailsBottomSheetFragment extends Bottom
 			}
 			dateStarted.setText(DateTimeUtil.formatEventDateTime(period.getDateFrom()));
 
-			if (period.getBalance() != null) {
-				balance.setText(StringFormatUtil.getValueString(period.getBalance(), programCurrency));
-			}
-			if (period.getProfit() != null) {
-				String profitValue = StringFormatUtil.getValueString(period.getProfit(), programCurrency);
-				profit.setText(profitValue);
-				profit.setTextColor(ThemeUtil.getColorByAttrId(getContext(),
-						period.getProfit() >= 0 ? (period.getProfit() == 0 ? R.attr.colorTextPrimary : R.attr.colorGreen) : R.attr.colorRed));
-			}
 			ManagerFinancialStatistic statistic = period.getManagerStatistic();
 			if (statistic != null) {
 				if (statistic.getSuccessFee() != null) {
@@ -161,14 +152,23 @@ public class ProgramFinancialStatisticsDetailsBottomSheetFragment extends Bottom
 				if (statistic.getEntryFee() != null) {
 					entryFee.setText(StringFormatUtil.getValueString(statistic.getEntryFee(), programCurrency));
 				}
+				if (statistic.getBalance() != null) {
+					balance.setText(StringFormatUtil.getValueString(statistic.getBalance(), programCurrency));
+				}
+				if (statistic.getProfit() != null) {
+					String profitValue = StringFormatUtil.getValueString(statistic.getProfit(), programCurrency);
+					profit.setText(profitValue);
+					profit.setTextColor(ThemeUtil.getColorByAttrId(getContext(),
+							statistic.getProfit() >= 0 ? (statistic.getProfit() == 0 ? R.attr.colorTextPrimary : R.attr.colorGreen) : R.attr.colorRed));
+				}
 			}
 
-			if (period.getManagerDeposit() != null && period.getManagerWithdraw() != null) {
-				double depositWithdrawValue = period.getManagerDeposit() - period.getManagerWithdraw();
-				String depositWithdrawStringValue = StringFormatUtil.getValueString(depositWithdrawValue, programCurrency);
-				depositWithdraw.setText(depositWithdrawStringValue);
-				depositWithdraw.setTextColor(ThemeUtil.getColorByAttrId(getContext(),
-						depositWithdrawValue >= 0 ? (depositWithdrawValue == 0 ? R.attr.colorTextPrimary : R.attr.colorGreen) : R.attr.colorRed));
+			if (period.getManagerDeposit() != null) {
+				deposit.setText(StringFormatUtil.getValueString(period.getManagerDeposit(), programCurrency));
+			}
+
+			if (period.getManagerWithdraw() != null) {
+				withdraw.setText(StringFormatUtil.getValueString(period.getManagerWithdraw(), programCurrency));
 			}
 		}
 	}

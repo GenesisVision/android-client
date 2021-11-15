@@ -162,15 +162,6 @@ public class ProgramFinancialStatisticsAdapter extends RecyclerView.Adapter<Prog
 			}
 			dateStarted.setText(DateTimeUtil.formatEventDateTime(period.getDateFrom()));
 
-			if (period.getBalance() != null) {
-				balance.setText(StringFormatUtil.getValueString(period.getBalance(), programCurrency));
-			}
-			if (period.getProfit() != null) {
-				String profitValue = StringFormatUtil.getValueString(period.getProfit(), programCurrency);
-				profit.setText(profitValue);
-				profit.setTextColor(ThemeUtil.getColorByAttrId(itemView.getContext(),
-						period.getProfit() >= 0 ? (period.getProfit() == 0 ? R.attr.colorTextPrimary : R.attr.colorGreen) : R.attr.colorRed));
-			}
 			ManagerFinancialStatistic statistic = period.getManagerStatistic();
 			if (statistic != null) {
 				if (statistic.getSuccessFee() != null) {
@@ -178,6 +169,15 @@ public class ProgramFinancialStatisticsAdapter extends RecyclerView.Adapter<Prog
 				}
 				if (statistic.getEntryFee() != null) {
 					entryFee.setText(StringFormatUtil.getValueString(statistic.getEntryFee(), programCurrency));
+				}
+				if (statistic.getBalance() != null) {
+					balance.setText(StringFormatUtil.getValueString(statistic.getBalance(), programCurrency));
+				}
+				if (statistic.getProfit() != null) {
+					String profitValue = StringFormatUtil.getValueString(statistic.getProfit(), programCurrency);
+					profit.setText(profitValue);
+					profit.setTextColor(ThemeUtil.getColorByAttrId(itemView.getContext(),
+							statistic.getProfit() >= 0 ? (statistic.getProfit() == 0 ? R.attr.colorTextPrimary : R.attr.colorGreen) : R.attr.colorRed));
 				}
 			}
 
