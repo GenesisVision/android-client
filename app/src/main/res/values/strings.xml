@@ -1120,6 +1120,15 @@
     <string name="current">Current</string>
     <string name="for_selected_date_range">For selected date range</string>
     <string name="trading_volume">Trading volume</string>
+    <string name="investors_definition">The current number of investors in the program.</string>
+    <string name="subscribers_definition">The current number of subscribers.</string>
+    <string name="trading_volume_definition">The total Trading volume for the selected period, divided by the leverage.</string>
+    <string name="profit_factor_definition">An indicator which is defined as the gross profit divided by the gross loss for the selected date range.</string>
+    <string name="success_trades_definition">The percentage of successful trades among the number of total trades during the selected date range.</string>
+    <string name="trades_definition">The number of trades the manager has performed during the selected date range.</string>
+    <string name="sharpe_ratio_program_definition">A measure of the effectiveness of a program, which is calculated as the mathematical ratio of the average yield to the average deviation of this yield. The higher the ratio, the lower the risk of investments, and higher the hypothetical profit.</string>
+    <string name="sortino_ratio_program_definition">Is a variation of the Sharpe ratio that only factors in the downside risk. The larger this indicator, the better and more effective the program in terms of combining risk and profitability.</string>
+    <string name="max_drawdown_program_definition">The biggest drawdown of a program during the selected date range.</string>
 
     <plurals name="assets">
         <item quantity="one">asset</item>

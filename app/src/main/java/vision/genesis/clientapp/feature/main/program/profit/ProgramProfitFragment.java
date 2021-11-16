@@ -30,6 +30,7 @@ import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
 import vision.genesis.clientapp.feature.common.date_range.DateRangeBottomSheetFragment;
 import vision.genesis.clientapp.feature.main.program.ProgramDetailsPagerAdapter;
+import vision.genesis.clientapp.feature.main.program.profit.glossary.ProgramStatisticsGlossaryBottomSheetDialog;
 import vision.genesis.clientapp.model.DateRange;
 import vision.genesis.clientapp.ui.DateRangeView;
 import vision.genesis.clientapp.ui.chart.ProfitChartView;
@@ -138,6 +139,17 @@ public class ProgramProfitFragment extends BaseFragment implements ProgramProfit
 
 	private ProgramFollowDetailsFull details;
 
+	private ProgramChartStatistic statistic = null;
+
+	@OnClick(R.id.glossary)
+	public void onGlossaryClicked() {
+		if (getActivity() != null && statistic != null) {
+			ProgramStatisticsGlossaryBottomSheetDialog dialog = new ProgramStatisticsGlossaryBottomSheetDialog(
+					statistic.getInvestors() != null, statistic.getSubscribers() != null);
+			dialog.show(getActivity().getSupportFragmentManager(), dialog.getTag());
+		}
+	}
+
 	@OnClick(R.id.date_range)
 	public void onDateRangeClicked() {
 		if (getActivity() != null) {
@@ -204,6 +216,7 @@ public class ProgramProfitFragment extends BaseFragment implements ProgramProfit
 
 	@Override
 	public void updateStatistics(ProgramChartStatistic statistic, Currency baseCurrency) {
+		this.statistic = statistic;
 		if (statistic.getSubscribers() != null) {
 			this.subscribersGroup.setVisibility(View.VISIBLE);
 			this.subscribers.setText(String.valueOf(statistic.getSubscribers()));

@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/background_bottomsheet"
+        android:orientation="vertical">
+
+        <View
+            android:layout_width="45dp"
+            android:layout_height="3dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/line_bottomsheet"/>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clipToPadding="false"
+            android:nestedScrollingEnabled="true"
+            android:paddingBottom="20dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="24dp">
+
+                <LinearLayout
+                    android:id="@+id/group_investors"
+                    style="@style/glossary_group">
+
+                    <TextView
+                        style="@style/glossary_label"
+                        android:text="@string/investors"/>
+
+                    <TextView
+                        style="@style/glossary_value"
+                        android:text="@string/investors_definition"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/group_subscribers"
+                    style="@style/glossary_group">
+
+                    <TextView
+                        style="@style/glossary_label"
+                        android:text="@string/subscribers"/>
+
+                    <TextView
+                        style="@style/glossary_value"
+                        android:text="@string/subscribers_definition"/>
+
+                </LinearLayout>
+
+                <LinearLayout style="@style/glossary_group">
+
+                    <TextView
+                        style="@style/glossary_label"
+                        android:text="@string/trades"/>
+
+                    <TextView
+                        style="@style/glossary_value"
+                        android:text="@string/trades_definition"/>
+
+                </LinearLayout>
+
+                <LinearLayout style="@style/glossary_group">
+
+                    <TextView
+                        style="@style/glossary_label"
+                        android:text="@string/success_trades"/>
+
+                    <TextView
+                        style="@style/glossary_value"
+                        android:text="@string/success_trades_definition"/>
+
+                </LinearLayout>
+
+                <LinearLayout style="@style/glossary_group">
+
+                    <TextView
+                        style="@style/glossary_label"
+                        android:text="@string/profit_factor"/>
+
+                    <TextView
+                        style="@style/glossary_value"
+                        android:text="@string/profit_factor_definition"/>
+
+                </LinearLayout>
+
+                <LinearLayout style="@style/glossary_group">
+
+                    <TextView
+                        style="@style/glossary_label"
+                        android:text="@string/sharpe_ratio"/>
+
+                    <TextView
+                        style="@style/glossary_value"
+                        android:text="@string/sharpe_ratio_program_definition"/>
+
+                </LinearLayout>
+
+                <LinearLayout style="@style/glossary_group">
+
+                    <TextView
+                        style="@style/glossary_label"
+                        android:text="@string/sortino_ratio"/>
+
+                    <TextView
+                        style="@style/glossary_value"
+                        android:text="@string/sortino_ratio_program_definition"/>
+
+                </LinearLayout>
+
+                <LinearLayout style="@style/glossary_group">
+
+                    <TextView
+                        style="@style/glossary_label"
+                        android:text="@string/max_drawdown"/>
+
+                    <TextView
+                        style="@style/glossary_value"
+                        android:text="@string/max_drawdown_program_definition"/>
+
+                </LinearLayout>
+
+                <LinearLayout style="@style/glossary_group">
+
+                    <TextView
+                        style="@style/glossary_label"
+                        android:text="@string/trading_volume"/>
+
+                    <TextView
+                        style="@style/glossary_value"
+                        android:text="@string/trading_volume_definition"/>
+
+                </LinearLayout>
+
+                <vision.genesis.clientapp.ui.PrimaryButton
+                    android:id="@+id/button_close"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/button_height"
+                    android:text="@string/ok"/>
+
+            </LinearLayout>
+
+        </ScrollView>
+
+    </LinearLayout>
+
+</RelativeLayout>

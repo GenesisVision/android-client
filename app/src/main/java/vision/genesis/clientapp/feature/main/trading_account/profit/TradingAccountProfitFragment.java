@@ -29,6 +29,7 @@ import timber.log.Timber;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
 import vision.genesis.clientapp.feature.common.date_range.DateRangeBottomSheetFragment;
+import vision.genesis.clientapp.feature.main.program.profit.glossary.ProgramStatisticsGlossaryBottomSheetDialog;
 import vision.genesis.clientapp.feature.main.trading_account.TradingAccountDetailsPagerAdapter;
 import vision.genesis.clientapp.model.DateRange;
 import vision.genesis.clientapp.ui.DateRangeView;
@@ -134,6 +135,14 @@ public class TradingAccountProfitFragment extends BaseFragment implements Tradin
 	private DateRange dateRange = DateRange.createFromEnum(DateRange.DateRangeEnum.WEEK);
 
 	private PrivateTradingAccountFull details;
+
+	@OnClick(R.id.glossary)
+	public void onGlossaryClicked() {
+		if (getActivity() != null) {
+			ProgramStatisticsGlossaryBottomSheetDialog dialog = new ProgramStatisticsGlossaryBottomSheetDialog(false, false);
+			dialog.show(getActivity().getSupportFragmentManager(), dialog.getTag());
+		}
+	}
 
 	@OnClick(R.id.date_range)
 	public void onDateRangeClicked() {

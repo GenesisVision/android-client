@@ -300,6 +300,15 @@
 
                 </RelativeLayout>
 
+                <TextView
+                    android:id="@+id/glossary"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="8dp"
+                    android:gravity="center"
+                    android:text="@string/what_does_it_mean"
+                    android:textColor="?attr/colorAccent"/>
+
             </LinearLayout>
 
         </LinearLayout>
