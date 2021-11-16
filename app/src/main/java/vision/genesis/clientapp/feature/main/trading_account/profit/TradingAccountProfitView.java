@@ -7,6 +7,7 @@ import com.arellomobile.mvp.viewstate.strategy.StateStrategyType;
 import java.util.List;
 
 import io.swagger.client.model.AccountChartStatistic;
+import io.swagger.client.model.Currency;
 import io.swagger.client.model.SimpleChart;
 import io.swagger.client.model.SimpleChartPoint;
 import vision.genesis.clientapp.model.DateRange;
@@ -22,7 +23,7 @@ interface TradingAccountProfitView extends MvpView
 
 	void setPercentChart(List<SimpleChart> chart);
 
-	void updateStatistics(AccountChartStatistic statistic);
+	void updateStatistics(AccountChartStatistic statistic, Currency baseCurrency);
 
 	void setValue(Boolean isNegative, String value);
 

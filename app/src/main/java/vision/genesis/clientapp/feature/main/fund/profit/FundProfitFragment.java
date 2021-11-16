@@ -21,6 +21,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+import io.swagger.client.model.Currency;
 import io.swagger.client.model.FundChartStatistic;
 import io.swagger.client.model.SimpleChart;
 import io.swagger.client.model.SimpleChartPoint;
@@ -32,6 +33,7 @@ import vision.genesis.clientapp.feature.main.fund.profit.glossary.FundStatistics
 import vision.genesis.clientapp.model.DateRange;
 import vision.genesis.clientapp.ui.DateRangeView;
 import vision.genesis.clientapp.ui.chart.ProfitChartView;
+import vision.genesis.clientapp.utils.DateTimeUtil;
 import vision.genesis.clientapp.utils.StringFormatUtil;
 import vision.genesis.clientapp.utils.ThemeUtil;
 
@@ -75,6 +77,15 @@ public class FundProfitFragment extends BaseFragment implements FundProfitView, 
 
 	@BindView(R.id.label_statistics)
 	public TextView statisticsLabel;
+
+	@BindView(R.id.start_day)
+	public TextView startDay;
+
+	@BindView(R.id.investors)
+	public TextView investors;
+
+	@BindView(R.id.balance)
+	public TextView balance;
 
 	@BindView(R.id.sharpe_ratio)
 	public TextView sharpeRatio;
@@ -166,7 +177,12 @@ public class FundProfitFragment extends BaseFragment implements FundProfitView, 
 	}
 
 	@Override
-	public void updateStatistics(FundChartStatistic statistic) {
+	public void updateStatistics(FundChartStatistic statistic, Currency baseCurrency) {
+		this.startDay.setText(DateTimeUtil.formatDate(statistic.getCreationDate()));
+		this.balance.setText(StringFormatUtil.getValueString(statistic.getBalance(), baseCurrency.getValue()));
+		this.investors.setText(String.valueOf(statistic.getInvestors()));
+
+
 		this.sharpeRatio.setText(StringFormatUtil.formatAmount(statistic.getSharpeRatio(), 0, 4));
 		this.sortinoRatio.setText(StringFormatUtil.formatAmount(statistic.getSortinoRatio(), 0, 4));
 		this.calmarRatio.setText(StringFormatUtil.formatAmount(statistic.getCalmarRatio(), 0, 4));

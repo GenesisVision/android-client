@@ -1117,6 +1117,9 @@
     <string name="financial_statistics">Financial statistics</string>
     <string name="export">Export</string>
     <string name="downloading_file">Downloading file…</string>
+    <string name="current">Current</string>
+    <string name="for_selected_date_range">For selected date range</string>
+    <string name="trading_volume">Trading volume</string>
 
     <plurals name="assets">
         <item quantity="one">asset</item>

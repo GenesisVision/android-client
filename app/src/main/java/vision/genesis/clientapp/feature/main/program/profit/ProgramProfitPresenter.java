@@ -177,7 +177,7 @@ public class ProgramProfitPresenter extends MvpPresenter<ProgramProfitView> impl
 		this.percentChart = response;
 
 		getViewState().setPercentChart(percentChart.getCharts());
-		getViewState().updateStatistics(percentChart.getStatistic());
+		getViewState().updateStatistics(percentChart.getStatistic(), baseCurrency);
 //		resetValuesSelection();
 	}
 

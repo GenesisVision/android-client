@@ -20,6 +20,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+import io.swagger.client.model.Currency;
 import io.swagger.client.model.ProgramChartStatistic;
 import io.swagger.client.model.ProgramFollowDetailsFull;
 import io.swagger.client.model.SimpleChart;
@@ -86,14 +87,20 @@ public class ProgramProfitFragment extends BaseFragment implements ProgramProfit
 	@BindView(R.id.label_statistics)
 	public TextView statisticsLabel;
 
-	@BindView(R.id.start_day)
-	public TextView startDay;
+	@BindView(R.id.equity)
+	public TextView equity;
 
-	@BindView(R.id.start_balance)
-	public TextView startBalance;
+	@BindView(R.id.group_investors)
+	public ViewGroup investorsGroup;
 
-	@BindView(R.id.invested)
-	public TextView invested;
+	@BindView(R.id.investors)
+	public TextView investors;
+
+	@BindView(R.id.group_subscribers)
+	public ViewGroup subscribersGroup;
+
+	@BindView(R.id.subscribers)
+	public TextView subscribers;
 
 	@BindView(R.id.success_trades)
 	public TextView successTrades;
@@ -113,11 +120,11 @@ public class ProgramProfitFragment extends BaseFragment implements ProgramProfit
 	@BindView(R.id.trades)
 	public TextView trades;
 
-	@BindView(R.id.investors)
-	public TextView investors;
-
 	@BindView(R.id.max_drawdown)
 	public TextView maxDrawdown;
+
+	@BindView(R.id.trading_volume)
+	public TextView tradingVolume;
 
 	@BindDimen(R.dimen.date_range_margin_bottom)
 	public int dateRangeMarginBottom;
@@ -183,19 +190,6 @@ public class ProgramProfitFragment extends BaseFragment implements ProgramProfit
 		amountValue.setTypeface(TypefaceUtil.semibold());
 		changeValue.setTypeface(TypefaceUtil.semibold());
 		amountValueSecondary.setTypeface(TypefaceUtil.medium());
-
-		statisticsLabel.setTypeface(TypefaceUtil.semibold());
-		startDay.setTypeface(TypefaceUtil.semibold());
-		startBalance.setTypeface(TypefaceUtil.semibold());
-		invested.setTypeface(TypefaceUtil.semibold());
-		successTrades.setTypeface(TypefaceUtil.semibold());
-		profitFactor.setTypeface(TypefaceUtil.semibold());
-		sharpeRatio.setTypeface(TypefaceUtil.semibold());
-		sortinoRatio.setTypeface(TypefaceUtil.semibold());
-		calmarRatio.setTypeface(TypefaceUtil.semibold());
-		trades.setTypeface(TypefaceUtil.semibold());
-		investors.setTypeface(TypefaceUtil.semibold());
-		maxDrawdown.setTypeface(TypefaceUtil.semibold());
 	}
 
 	@Override
@@ -209,7 +203,17 @@ public class ProgramProfitFragment extends BaseFragment implements ProgramProfit
 	}
 
 	@Override
-	public void updateStatistics(ProgramChartStatistic statistic) {
+	public void updateStatistics(ProgramChartStatistic statistic, Currency baseCurrency) {
+		if (statistic.getSubscribers() != null) {
+			this.subscribersGroup.setVisibility(View.VISIBLE);
+			this.subscribers.setText(String.valueOf(statistic.getSubscribers()));
+		}
+		if (statistic.getInvestors() != null) {
+			this.investorsGroup.setVisibility(View.VISIBLE);
+			this.investors.setText(String.valueOf(statistic.getInvestors()));
+		}
+		this.equity.setText(StringFormatUtil.getValueString(statistic.getBalance(), baseCurrency.getValue()));
+
 		this.trades.setText(String.valueOf(statistic.getTrades()));
 		this.successTrades.setText(String.format(Locale.getDefault(), "%s%%", StringFormatUtil.formatAmount(statistic.getSuccessTradesPercent(), 0, 4)));
 		this.profitFactor.setText(statistic.getProfitFactor() == null ? "-" : StringFormatUtil.formatAmount(statistic.getProfitFactor(), 0, 4));
@@ -217,6 +221,7 @@ public class ProgramProfitFragment extends BaseFragment implements ProgramProfit
 		this.sortinoRatio.setText(StringFormatUtil.formatAmount(statistic.getSortinoRatio(), 0, 4));
 		this.calmarRatio.setText(StringFormatUtil.formatAmount(statistic.getCalmarRatio(), 0, 4));
 		this.maxDrawdown.setText(String.format(Locale.getDefault(), "%s%%", StringFormatUtil.formatAmount(statistic.getMaxDrawdown(), 0, 4)));
+		this.tradingVolume.setText(StringFormatUtil.getValueString(statistic.getTradingVolume(), baseCurrency.getValue()));
 	}
 
 	@Override

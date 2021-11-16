@@ -114,12 +114,83 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="12dp"
                     android:layout_marginTop="12dp"
+                    android:fontFamily="@font/montserrat_semibold"
                     android:text="@string/statistics"
                     android:textColor="?attr/colorTextPrimary"
                     android:textSize="20sp"/>
 
+                <TextView
+                    android:id="@+id/label_current"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginBottom="12dp"
+                    android:fontFamily="@font/montserrat_semibold"
+                    android:text="@string/current"
+                    android:textColor="?attr/colorTextPrimary"
+                    android:textSize="16sp"/>
+
+                <RelativeLayout style="@style/statistics_group">
+
+                    <TextView
+                        style="@style/statistics_label"
+                        android:text="@string/equity"/>
+
+                    <TextView
+                        android:id="@+id/equity"
+                        style="@style/statistics_value"
+                        tools:text="25 GVT"/>
+
+                </RelativeLayout>
+
                 <RelativeLayout
-                    style="@style/statistics_group">
+                    android:id="@+id/group_investors"
+                    style="@style/statistics_group"
+                    android:visibility="gone"
+                    tools:visibility="visible">
+
+                    <TextView
+                        android:id="@+id/label_investors"
+                        style="@style/statistics_label"
+                        android:text="@string/investors"/>
+
+                    <TextView
+                        android:id="@+id/investors"
+                        style="@style/statistics_value"
+                        tools:text="421"/>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/group_subscribers"
+                    style="@style/statistics_group"
+                    android:visibility="gone"
+                    tools:visibility="visible">
+
+                    <TextView
+                        android:id="@+id/label_subscribers"
+                        style="@style/statistics_label"
+                        android:text="@string/subscribers"/>
+
+                    <TextView
+                        android:id="@+id/subscribers"
+                        style="@style/statistics_value"
+                        tools:text="421"/>
+
+                </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/label_statistics_period"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="12dp"
+                    android:fontFamily="@font/montserrat_semibold"
+                    android:text="@string/for_selected_date_range"
+                    android:textColor="?attr/colorTextPrimary"
+                    android:textSize="16sp"/>
+
+                <RelativeLayout style="@style/statistics_group">
 
                     <TextView
                         style="@style/statistics_label"
@@ -129,51 +200,6 @@
                         android:id="@+id/trades"
                         style="@style/statistics_value"
                         tools:text="421"/>
-
-                </RelativeLayout>
-
-                <RelativeLayout
-                    style="@style/statistics_group"
-                    android:visibility="gone">
-
-                    <TextView
-                        style="@style/statistics_label"
-                        android:text="@string/start_day"/>
-
-                    <TextView
-                        android:id="@+id/start_day"
-                        style="@style/statistics_value"
-                        tools:text="30 Oct 2018"/>
-
-                </RelativeLayout>
-
-                <RelativeLayout
-                    style="@style/statistics_group"
-                    android:visibility="gone">
-
-                    <TextView
-                        style="@style/statistics_label"
-                        android:text="@string/start_balance"/>
-
-                    <TextView
-                        android:id="@+id/start_balance"
-                        style="@style/statistics_value"
-                        tools:text="25 GVT"/>
-
-                </RelativeLayout>
-
-                <RelativeLayout
-                    style="@style/statistics_group"
-                    android:visibility="gone">
-
-                    <TextView
-                        style="@style/statistics_label"
-                        android:text="@string/invested"/>
-
-                    <TextView
-                        android:id="@+id/invested"
-                        style="@style/statistics_value"
-                        tools:text="312.723 GVT"/>
 
                 </RelativeLayout>
 
@@ -248,21 +274,6 @@
                 </RelativeLayout>
 
                 <RelativeLayout
-                    style="@style/statistics_group"
-                    android:visibility="gone">
-
-                    <TextView
-                        style="@style/statistics_label"
-                        android:text="@string/investors"/>
-
-                    <TextView
-                        android:id="@+id/investors"
-                        style="@style/statistics_value"
-                        tools:text="234"/>
-
-                </RelativeLayout>
-
-                <RelativeLayout
                     style="@style/statistics_group">
 
                     <TextView
@@ -273,6 +284,19 @@
                         android:id="@+id/max_drawdown"
                         style="@style/statistics_value"
                         tools:text="7.05%"/>
+
+                </RelativeLayout>
+
+                <RelativeLayout style="@style/statistics_group">
+
+                    <TextView
+                        style="@style/statistics_label"
+                        android:text="@string/trading_volume"/>
+
+                    <TextView
+                        android:id="@+id/trading_volume"
+                        style="@style/statistics_value"
+                        tools:text="0.12456344 BTC"/>
 
                 </RelativeLayout>
 

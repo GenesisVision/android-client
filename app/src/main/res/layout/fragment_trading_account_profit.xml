@@ -269,6 +269,19 @@
 
                 </RelativeLayout>
 
+                <RelativeLayout style="@style/statistics_group">
+
+                    <TextView
+                        style="@style/statistics_label"
+                        android:text="@string/trading_volume"/>
+
+                    <TextView
+                        android:id="@+id/trading_volume"
+                        style="@style/statistics_value"
+                        tools:text="0.12456344 BTC"/>
+
+                </RelativeLayout>
+
             </LinearLayout>
 
         </LinearLayout>

@@ -176,7 +176,7 @@ public class FundProfitPresenter extends MvpPresenter<FundProfitView> implements
 
 		getViewState().setPercentChart(percentChart.getCharts());
 		EventBus.getDefault().post(new OnFundStatisticsUpdatedEvent(fundId, percentChart.getStatistic(), baseCurrency.getValue()));
-		getViewState().updateStatistics(percentChart.getStatistic());
+		getViewState().updateStatistics(percentChart.getStatistic(), baseCurrency);
 //		resetValuesSelection();
 	}
 

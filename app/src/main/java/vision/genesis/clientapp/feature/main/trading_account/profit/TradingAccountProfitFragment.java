@@ -21,6 +21,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 import io.swagger.client.model.AccountChartStatistic;
+import io.swagger.client.model.Currency;
 import io.swagger.client.model.PrivateTradingAccountFull;
 import io.swagger.client.model.SimpleChart;
 import io.swagger.client.model.SimpleChartPoint;
@@ -119,6 +120,9 @@ public class TradingAccountProfitFragment extends BaseFragment implements Tradin
 	@BindView(R.id.max_drawdown)
 	public TextView maxDrawdown;
 
+	@BindView(R.id.trading_volume)
+	public TextView tradingVolume;
+
 	@BindDimen(R.dimen.date_range_margin_bottom)
 	public int dateRangeMarginBottom;
 
@@ -209,7 +213,7 @@ public class TradingAccountProfitFragment extends BaseFragment implements Tradin
 	}
 
 	@Override
-	public void updateStatistics(AccountChartStatistic statistic) {
+	public void updateStatistics(AccountChartStatistic statistic, Currency baseCurrency) {
 		this.trades.setText(String.valueOf(statistic.getTrades()));
 		this.successTrades.setText(String.format(Locale.getDefault(), "%s%%", StringFormatUtil.formatAmount(statistic.getSuccessTradesPercent(), 0, 4)));
 		this.profitFactor.setText(statistic.getProfitFactor() == null ? "-" : StringFormatUtil.formatAmount(statistic.getProfitFactor(), 0, 4));
@@ -217,6 +221,7 @@ public class TradingAccountProfitFragment extends BaseFragment implements Tradin
 		this.sortinoRatio.setText(StringFormatUtil.formatAmount(statistic.getSortinoRatio(), 0, 4));
 		this.calmarRatio.setText(StringFormatUtil.formatAmount(statistic.getCalmarRatio(), 0, 4));
 		this.maxDrawdown.setText(String.format(Locale.getDefault(), "%s%%", StringFormatUtil.formatAmount(statistic.getMaxDrawdown(), 0, 4)));
+		this.tradingVolume.setText(StringFormatUtil.getValueString(statistic.getTradingVolume(), baseCurrency.getValue()));
 	}
 
 	@Override

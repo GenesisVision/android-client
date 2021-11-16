@@ -81,6 +81,70 @@
                     android:textColor="?attr/colorTextPrimary"
                     android:textSize="20sp"/>
 
+                <TextView
+                    android:id="@+id/label_current"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginBottom="12dp"
+                    android:fontFamily="@font/montserrat_semibold"
+                    android:text="@string/current"
+                    android:textColor="?attr/colorTextPrimary"
+                    android:textSize="16sp"/>
+
+
+                <RelativeLayout style="@style/statistics_group">
+
+                    <TextView
+                        style="@style/statistics_label"
+                        android:text="@string/start_day"/>
+
+                    <TextView
+                        android:id="@+id/start_day"
+                        style="@style/statistics_value"
+                        tools:text="30 Oct 2018"/>
+
+                </RelativeLayout>
+
+                <RelativeLayout style="@style/statistics_group">
+
+                    <TextView
+                        style="@style/statistics_label"
+                        android:text="@string/balance"/>
+
+                    <TextView
+                        android:id="@+id/balance"
+                        style="@style/statistics_value"
+                        tools:text="25 GVT"/>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/group_investors"
+                    style="@style/statistics_group">
+
+                    <TextView
+                        style="@style/statistics_label"
+                        android:text="@string/investors"/>
+
+                    <TextView
+                        android:id="@+id/investors"
+                        style="@style/statistics_value"
+                        tools:text="421"/>
+
+                </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/label_statistics_period"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="12dp"
+                    android:fontFamily="@font/montserrat_semibold"
+                    android:text="@string/for_selected_date_range"
+                    android:textColor="?attr/colorTextPrimary"
+                    android:textSize="16sp"/>
+
                 <RelativeLayout style="@style/statistics_group">
 
                     <TextView
