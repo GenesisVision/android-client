@@ -22,6 +22,8 @@ interface ProgramBalanceView extends MvpView
 
 	void setChange(Boolean isChangeNegative, String changePercent, String changeValue, String baseChangeValue);
 
+	void setFunds(String managerFunds, String investorsFunds);
+
 	@StateStrategyType(AddToEndSingleStrategy.class)
 	void showProgress(boolean show);
 

@@ -174,7 +174,7 @@ public class TradingAccountBalancePresenter extends MvpPresenter<TradingAccountB
 	}
 
 	@Override
-	public void onTouch(float value) {
+	public void onTouch(float x, float value) {
 		selected = (double) value;
 		updateValues();
 	}

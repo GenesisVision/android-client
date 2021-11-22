@@ -44,7 +44,9 @@ public class FundBalancePresenter extends MvpPresenter<FundBalanceView> implemen
 
 	private Double first;
 
-	private Double selected;
+	private Float selectedX;
+
+	private Double selectedY;
 
 	private FundBalanceChart chartData;
 
@@ -130,30 +132,43 @@ public class FundBalancePresenter extends MvpPresenter<FundBalanceView> implemen
 
 	private void resetValuesSelection() {
 		first = 0.0;
-		selected = 0.0;
+		selectedY = 0.0;
 		if (chartData != null && chartData.getChart() != null && !chartData.getChart().isEmpty()) {
 			BalanceChartPoint firstElement = chartData.getChart().get(0);
 			BalanceChartPoint lastElement = chartData.getChart().get(chartData.getChart().size() - 1);
 			first = firstElement.getInvestorsFunds() + firstElement.getManagerFunds();
-			selected = lastElement.getInvestorsFunds() + lastElement.getManagerFunds();
+			selectedY = lastElement.getInvestorsFunds() + lastElement.getManagerFunds();
+			selectedX = (float) (lastElement.getDate() / 1000 / 60);
 		}
 		updateValues();
 	}
 
 	private void updateValues() {
-		if (first == null || selected == null) {
+		if (first == null || selectedX == null || selectedY == null) {
 			return;
 		}
 
-		//TODO: getValueString(selected * rate
-//		getViewState().setAmount(StringFormatUtil.getGvtValueString(selected), StringFormatUtil.getValueString(selected, CurrencyEnum.USD.getValue()));
+		Double changeValue = selectedY - first;
 
-		Double changeValue = selected - first;
-		//TODO: getValueString(changeValue * rate
 		getViewState().setChange(changeValue < 0,
-				StringFormatUtil.getChangePercentString(first, selected),
+				StringFormatUtil.getChangePercentString(first, selectedY),
 				StringFormatUtil.getChangeValueString(changeValue),
 				StringFormatUtil.getValueString(changeValue, CurrencyEnum.USD.getValue()));
+
+		Long selectedDate = selectedX.longValue() * 1000 * 60;
+		BalanceChartPoint selectedPoint = null;
+		for (BalanceChartPoint point : chartData.getChart()) {
+			if (point.getDate().equals(selectedDate)) {
+				selectedPoint = point;
+				break;
+			}
+		}
+		if (selectedPoint == null) {
+			selectedPoint = chartData.getChart().get(chartData.getChart().size() - 1);
+		}
+		getViewState().setFunds(StringFormatUtil.getValueString(selectedPoint.getManagerFunds(), baseCurrency.getValue()),
+				StringFormatUtil.getValueString(selectedPoint.getInvestorsFunds(), baseCurrency.getValue()));
+
 	}
 
 	@Override
@@ -165,8 +180,9 @@ public class FundBalancePresenter extends MvpPresenter<FundBalanceView> implemen
 	}
 
 	@Override
-	public void onTouch(float value) {
-		selected = (double) value;
+	public void onTouch(float x, float y) {
+		selectedX = x;
+		selectedY = (double) y;
 		updateValues();
 	}
 

@@ -3,7 +3,6 @@ package vision.genesis.clientapp.ui.chart;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.drawable.ColorDrawable;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.util.AttributeSet;
@@ -55,7 +54,7 @@ public class BalanceChartView extends RelativeLayout
 {
 	public interface TouchListener
 	{
-		void onTouch(float index);
+		void onTouch(float x, float y);
 
 		void onStop();
 	}
@@ -180,7 +179,7 @@ public class BalanceChartView extends RelativeLayout
 				if (highlight != null) {
 					showHighlight(highlight);
 					if (touchListener != null) {
-						touchListener.onTouch(highlight.getY());
+						touchListener.onTouch(highlight.getX(), highlight.getY());
 					}
 				}
 			}
@@ -365,9 +364,9 @@ public class BalanceChartView extends RelativeLayout
 		LineData lineData = new LineData();
 
 		if (investorsEntries != null) {
-			lineData.addDataSet(createLineDataSet(investorsEntries, investorsColor, false));
+			lineData.addDataSet(createLineDataSet(investorsEntries, investorsColor, true));
 		}
-		lineData.addDataSet(createLineDataSet(managerEntries, managerColor, false));
+		lineData.addDataSet(createLineDataSet(managerEntries, managerColor, true));
 
 		return lineData;
 	}
@@ -387,10 +386,8 @@ public class BalanceChartView extends RelativeLayout
 		dataSet.setHighLightColor(ThemeUtil.getColorByAttrId(getContext(), highlightColor));
 		dataSet.setHighlightLineWidth(1.5f);
 
-		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
-			dataSet.setFillDrawable(new ColorDrawable(ContextCompat.getColor(getContext(), color)));
-			dataSet.setDrawFilled(true);
-		}
+		dataSet.setFillDrawable(new ColorDrawable(ContextCompat.getColor(getContext(), color)));
+		dataSet.setDrawFilled(true);
 
 		return dataSet;
 	}
@@ -413,8 +410,8 @@ public class BalanceChartView extends RelativeLayout
 	}
 
 	private void moveHighlightCircle(Highlight highlight) {
-		float x = highlight.getXPx() - highlightCircle.getWidth() / 2;
-		float y = highlight.getYPx() - highlightCircle.getHeight() / 2 + chart.getY();
+		float x = highlight.getXPx() - ((float) highlightCircle.getWidth()) / 2;
+		float y = highlight.getYPx() - ((float) highlightCircle.getHeight()) / 2 + chart.getY();
 
 		highlightCircle.setX(x);
 		highlightCircle.setY(y);

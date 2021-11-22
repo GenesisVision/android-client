@@ -1129,6 +1129,8 @@
     <string name="sharpe_ratio_program_definition">A measure of the effectiveness of a program, which is calculated as the mathematical ratio of the average yield to the average deviation of this yield. The higher the ratio, the lower the risk of investments, and higher the hypothetical profit.</string>
     <string name="sortino_ratio_program_definition">Is a variation of the Sharpe ratio that only factors in the downside risk. The larger this indicator, the better and more effective the program in terms of combining risk and profitability.</string>
     <string name="max_drawdown_program_definition">The biggest drawdown of a program during the selected date range.</string>
+    <string name="managers_funds">Manager Funds</string>
+    <string name="investors_funds">Investors Funds</string>
 
     <plurals name="assets">
         <item quantity="one">asset</item>

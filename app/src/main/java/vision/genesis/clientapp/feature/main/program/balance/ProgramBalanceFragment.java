@@ -72,6 +72,12 @@ public class ProgramBalanceFragment extends BaseFragment implements ProgramBalan
 	@BindView(R.id.change_value)
 	public TextView changeValue;
 
+	@BindView(R.id.manager_funds)
+	public TextView managerFunds;
+
+	@BindView(R.id.investors_funds)
+	public TextView investorsFunds;
+
 	@BindView(R.id.change_percent)
 	public TextView changePercent;
 
@@ -157,6 +163,12 @@ public class ProgramBalanceFragment extends BaseFragment implements ProgramBalan
 		this.changePercent.setText(changePercent);
 		this.changeValue.setText(changeValue);
 		this.changeValueSecondary.setText(baseChangeValue);
+	}
+
+	@Override
+	public void setFunds(String managerFunds, String investorsFunds) {
+		this.managerFunds.setText(managerFunds);
+		this.investorsFunds.setText(investorsFunds);
 	}
 
 	@Override

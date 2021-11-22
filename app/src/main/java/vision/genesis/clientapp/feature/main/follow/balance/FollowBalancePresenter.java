@@ -174,7 +174,7 @@ public class FollowBalancePresenter extends MvpPresenter<FollowBalanceView> impl
 	}
 
 	@Override
-	public void onTouch(float value) {
+	public void onTouch(float x, float value) {
 		selected = (double) value;
 		updateValues();
 	}
