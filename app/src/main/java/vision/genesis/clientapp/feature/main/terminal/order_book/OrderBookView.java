@@ -493,6 +493,8 @@ public class OrderBookView extends RelativeLayout
 			setAsk(asksList, asksFillsList, i, priceDigits);
 			setBid(bidsList, bidsFillsList, i, priceDigits);
 		}
+
+		updateBooksWithOrders();
 	}
 
 	private void createViews() {

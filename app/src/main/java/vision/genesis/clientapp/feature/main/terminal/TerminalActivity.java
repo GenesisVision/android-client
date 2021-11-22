@@ -301,6 +301,7 @@ public class TerminalActivity extends BaseSwipeBackActivity implements TerminalV
 			this.accountName.setText(account.getTitle());
 		}
 		this.accountName.setTextColor(ThemeUtil.getColorByAttrId(this, R.attr.colorTextPrimary));
+		this.orderBookView.setData(selectedSymbol, account.getId());
 	}
 
 	@Override
