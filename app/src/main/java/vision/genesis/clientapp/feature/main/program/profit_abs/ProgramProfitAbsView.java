@@ -1,14 +1,13 @@
-package vision.genesis.clientapp.feature.main.program.profit;
+package vision.genesis.clientapp.feature.main.program.profit_abs;
 
 import com.arellomobile.mvp.MvpView;
 import com.arellomobile.mvp.viewstate.strategy.AddToEndSingleStrategy;
 import com.arellomobile.mvp.viewstate.strategy.StateStrategyType;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import io.swagger.client.model.Currency;
-import io.swagger.client.model.ProgramChartStatistic;
-import io.swagger.client.model.SimpleChart;
+import io.swagger.client.model.PlatformCurrencyInfo;
 import io.swagger.client.model.SimpleChartPoint;
 import vision.genesis.clientapp.model.DateRange;
 
@@ -17,19 +16,15 @@ import vision.genesis.clientapp.model.DateRange;
  * Created by Vitaly on 27/09/2018.
  */
 
-interface ProgramProfitView extends MvpView
+interface ProgramProfitAbsView extends MvpView
 {
 	void setAbsChart(List<SimpleChartPoint> chart);
 
-	void setPercentChart(List<SimpleChart> chart);
-
-	void updateStatistics(ProgramChartStatistic statistic, Currency baseCurrency);
-
 	void setValue(Boolean isNegative, String value);
 
-	void setChange(Boolean isChangeNegative, String changePercent);
+	void setCurrency(PlatformCurrencyInfo selectedCurrency);
 
-	void setChangeVisibility(boolean visible);
+	void showChangeBaseCurrencyList(ArrayList<String> optionsList);
 
 	@StateStrategyType(AddToEndSingleStrategy.class)
 	void showProgress(boolean show);

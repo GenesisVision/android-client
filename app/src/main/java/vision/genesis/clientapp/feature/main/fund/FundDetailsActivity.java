@@ -134,7 +134,9 @@ public class FundDetailsActivity extends BaseSwipeBackActivity implements FundDe
 
 	private TabLayout.Tab reallocateHistoryTab;
 
-	private TabLayout.Tab profitTab;
+	private TabLayout.Tab profitPercentTab;
+
+	private TabLayout.Tab profitAbsTab;
 
 	private TabLayout.Tab balanceTab;
 
@@ -312,7 +314,8 @@ public class FundDetailsActivity extends BaseSwipeBackActivity implements FundDe
 		ownerInfoTab = tabLayout.newTab().setCustomView(getTabView(R.string.info)).setTag("owner_info");
 		structureTab = tabLayout.newTab().setCustomView(getTabView(R.string.structure)).setTag("structure");
 		reallocateHistoryTab = tabLayout.newTab().setCustomView(getTabView(R.string.history)).setTag("reallocate_history");
-		profitTab = tabLayout.newTab().setCustomView(getTabView(R.string.profit)).setTag("profit");
+		profitPercentTab = tabLayout.newTab().setCustomView(getTabView(R.string.profit_percent)).setTag("profit_percent");
+		profitAbsTab = tabLayout.newTab().setCustomView(getTabView(R.string.profit_abs)).setTag("profit_abs");
 		balanceTab = tabLayout.newTab().setCustomView(getTabView(R.string.balance)).setTag("balance");
 		eventsTab = tabLayout.newTab().setCustomView(getTabView(R.string.my_history)).setTag("events");
 
@@ -404,7 +407,8 @@ public class FundDetailsActivity extends BaseSwipeBackActivity implements FundDe
 	public void finishInit(boolean showEvents) {
 		addPage(structureTab, false);
 		addPage(reallocateHistoryTab, false);
-		addPage(profitTab, false);
+		addPage(profitPercentTab, false);
+		addPage(profitAbsTab, false);
 		addPage(balanceTab, false);
 
 		if (showEvents) {

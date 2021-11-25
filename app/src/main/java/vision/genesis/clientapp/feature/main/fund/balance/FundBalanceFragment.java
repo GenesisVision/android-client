@@ -12,6 +12,7 @@ import androidx.core.widget.NestedScrollView;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -21,11 +22,14 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 import io.swagger.client.model.BalanceChartPoint;
+import io.swagger.client.model.PlatformCurrencyInfo;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
 import vision.genesis.clientapp.feature.common.date_range.DateRangeBottomSheetFragment;
+import vision.genesis.clientapp.feature.common.option.SelectOptionBottomSheetFragment;
 import vision.genesis.clientapp.feature.main.fund.FundDetailsPagerAdapter;
 import vision.genesis.clientapp.model.DateRange;
+import vision.genesis.clientapp.ui.ChartAssetView;
 import vision.genesis.clientapp.ui.DateRangeView;
 import vision.genesis.clientapp.ui.chart.BalanceChartView;
 import vision.genesis.clientapp.utils.ThemeUtil;
@@ -60,14 +64,14 @@ public class FundBalanceFragment extends BaseFragment implements FundBalanceView
 	@BindView(R.id.date_range)
 	public DateRangeView dateRangeView;
 
+	@BindView(R.id.view_chart_asset)
+	public ChartAssetView chartAssetView;
+
 	@BindView(R.id.balance_chart)
 	public BalanceChartView balanceChart;
 
 	@BindView(R.id.amount_value)
 	public TextView amountValue;
-
-	@BindView(R.id.amount_value_secondary)
-	public TextView amountValueSecondary;
 
 	@BindView(R.id.change_value)
 	public TextView changeValue;
@@ -81,14 +85,11 @@ public class FundBalanceFragment extends BaseFragment implements FundBalanceView
 	@BindView(R.id.change_percent)
 	public TextView changePercent;
 
-	@BindView(R.id.change_value_secondary)
-	public TextView changeValueSecondary;
-
 	@BindDimen(R.dimen.date_range_margin_bottom)
 	public int dateRangeMarginBottom;
 
 	@InjectPresenter
-	public FundBalancePresenter fundBalancePresenter;
+	public FundBalancePresenter presenter;
 
 	private UUID fundId;
 
@@ -102,14 +103,14 @@ public class FundBalanceFragment extends BaseFragment implements FundBalanceView
 			DateRangeBottomSheetFragment bottomSheetDialog = new DateRangeBottomSheetFragment();
 			bottomSheetDialog.show(getActivity().getSupportFragmentManager(), bottomSheetDialog.getTag());
 			bottomSheetDialog.setDateRange(dateRange);
-			bottomSheetDialog.setListener(fundBalancePresenter);
+			bottomSheetDialog.setListener(presenter);
 		}
 	}
 
 	@Nullable
 	@Override
 	public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-		return inflater.inflate(R.layout.fragment_program_balance, container, false);
+		return inflater.inflate(R.layout.fragment_fund_balance, container, false);
 	}
 
 	@Override
@@ -119,11 +120,24 @@ public class FundBalanceFragment extends BaseFragment implements FundBalanceView
 		unbinder = ButterKnife.bind(this, view);
 
 		fundId = (UUID) getArguments().getSerializable(EXTRA_FUND_ID);
-		fundBalancePresenter.setFundId(fundId);
+		presenter.setFundId(fundId);
 
 		setFonts();
 
-		balanceChart.setTouchListener(fundBalancePresenter);
+		balanceChart.setTouchListener(presenter);
+
+		chartAssetView.setRemoveEnabled(false);
+		chartAssetView.setListener(new ChartAssetView.Listener()
+		{
+			@Override
+			public void onAssetClicked(PlatformCurrencyInfo asset) {
+				presenter.onAssetClicked(asset);
+			}
+
+			@Override
+			public void onRemoveAssetClicked(PlatformCurrencyInfo asset) {
+			}
+		});
 	}
 
 	@Override
@@ -140,8 +154,6 @@ public class FundBalanceFragment extends BaseFragment implements FundBalanceView
 		amountValue.setTypeface(TypefaceUtil.semibold());
 		changeValue.setTypeface(TypefaceUtil.semibold());
 		changePercent.setTypeface(TypefaceUtil.semibold());
-		amountValueSecondary.setTypeface(TypefaceUtil.medium());
-		changeValueSecondary.setTypeface(TypefaceUtil.medium());
 	}
 
 	@Override
@@ -155,20 +167,34 @@ public class FundBalanceFragment extends BaseFragment implements FundBalanceView
 	}
 
 	@Override
-	public void setChange(Boolean isChangeNegative, String changePercent, String changeValue, String baseChangeValue) {
+	public void setChange(Boolean isChangeNegative, String changePercent, String changeValue) {
 		this.changePercent.setTextColor(isChangeNegative
 				? ThemeUtil.getColorByAttrId(getContext(), R.attr.colorRed)
 				: ThemeUtil.getColorByAttrId(getContext(), R.attr.colorGreen));
 
 		this.changePercent.setText(changePercent);
 		this.changeValue.setText(changeValue);
-		this.changeValueSecondary.setText(baseChangeValue);
 	}
 
 	@Override
 	public void setFunds(String managerFunds, String investorsFunds) {
 		this.managerFunds.setText(managerFunds);
 		this.investorsFunds.setText(investorsFunds);
+	}
+
+	@Override
+	public void setCurrency(PlatformCurrencyInfo selectedCurrency) {
+		this.chartAssetView.setAsset(selectedCurrency);
+	}
+
+	@Override
+	public void showChangeBaseCurrencyList(ArrayList<String> optionsList) {
+		if (getActivity() != null) {
+			SelectOptionBottomSheetFragment fragment = SelectOptionBottomSheetFragment.with(
+					getString(R.string.currency), optionsList, -1);
+			fragment.setListener((position, text) -> presenter.onChangeBaseCurrencySelected(text));
+			fragment.show(getActivity().getSupportFragmentManager(), fragment.getTag());
+		}
 	}
 
 	@Override
@@ -188,8 +214,8 @@ public class FundBalanceFragment extends BaseFragment implements FundBalanceView
 
 	@Override
 	public void pagerShow() {
-		if (fundBalancePresenter != null) {
-			fundBalancePresenter.onShow();
+		if (presenter != null) {
+			presenter.onShow();
 		}
 	}
 

@@ -22,7 +22,8 @@ import vision.genesis.clientapp.feature.main.program.info.owner.OwnerInfoFragmen
 import vision.genesis.clientapp.feature.main.program.info.program.ProgramInfoFragment;
 import vision.genesis.clientapp.feature.main.program.open_positions.OpenPositionsFragment;
 import vision.genesis.clientapp.feature.main.program.period_history.PeriodHistoryFragment;
-import vision.genesis.clientapp.feature.main.program.profit.ProgramProfitFragment;
+import vision.genesis.clientapp.feature.main.program.profit_abs.ProgramProfitAbsFragment;
+import vision.genesis.clientapp.feature.main.program.profit_percent.ProgramProfitPercentFragment;
 import vision.genesis.clientapp.feature.main.program.reports.ProgramReportsFragment;
 import vision.genesis.clientapp.feature.main.program.trades.ProgramTradesFragment;
 
@@ -48,7 +49,9 @@ public class ProgramDetailsPagerAdapter extends FragmentStatePagerAdapter
 
 	private OpenPositionsFragment openPositionsFragment;
 
-	private ProgramProfitFragment programProfitFragment;
+	private ProgramProfitPercentFragment programProfitPercentFragment;
+
+	private ProgramProfitAbsFragment programProfitAbsFragment;
 
 	private ProgramBalanceFragment programEquityFragment;
 
@@ -79,7 +82,8 @@ public class ProgramDetailsPagerAdapter extends FragmentStatePagerAdapter
 		if (details.getPublicInfo().isIsOwnAsset()) {
 			ownerInfoFragment = OwnerInfoFragment.with(details);
 			openPositionsFragment = OpenPositionsFragment.with(assetId);
-			programProfitFragment = ProgramProfitFragment.with(details);
+			programProfitPercentFragment = ProgramProfitPercentFragment.with(details);
+			programProfitAbsFragment = ProgramProfitAbsFragment.with(details);
 			programTradesFragment = ProgramTradesFragment.with(assetId, details.getPublicInfo().getTitle());
 			if (programDetails != null) {
 				programEquityFragment = ProgramBalanceFragment.with(details);
@@ -99,7 +103,8 @@ public class ProgramDetailsPagerAdapter extends FragmentStatePagerAdapter
 		else if (programDetails != null) {
 			programInfoFragment = ProgramInfoFragment.with(details);
 			openPositionsFragment = OpenPositionsFragment.with(assetId);
-			programProfitFragment = ProgramProfitFragment.with(details);
+			programProfitPercentFragment = ProgramProfitPercentFragment.with(details);
+			programProfitAbsFragment = ProgramProfitAbsFragment.with(details);
 			programEquityFragment = ProgramBalanceFragment.with(details);
 			programTradesFragment = ProgramTradesFragment.with(assetId, details.getPublicInfo().getTitle());
 			if (programDetails.getType().equals(ProgramType.DAILYPERIOD)) {
@@ -117,7 +122,8 @@ public class ProgramDetailsPagerAdapter extends FragmentStatePagerAdapter
 		else if (followDetails != null) {
 			followInfoFragment = FollowInfoFragment.with(details);
 			openPositionsFragment = OpenPositionsFragment.with(assetId);
-			programProfitFragment = ProgramProfitFragment.with(details);
+			programProfitPercentFragment = ProgramProfitPercentFragment.with(details);
+			programProfitAbsFragment = ProgramProfitAbsFragment.with(details);
 			followEquityFragment = FollowBalanceFragment.with(details);
 			programTradesFragment = ProgramTradesFragment.with(assetId, details.getPublicInfo().getTitle());
 			programEventsFragment = ProgramEventsFragment.with(ProgramEventsFragment.LOCATION_PROGRAM, assetId);
@@ -135,8 +141,10 @@ public class ProgramDetailsPagerAdapter extends FragmentStatePagerAdapter
 				return ownerInfoFragment;
 			case "open_positions":
 				return openPositionsFragment;
-			case "profit":
-				return programProfitFragment;
+			case "profit_percent":
+				return programProfitPercentFragment;
+			case "profit_abs":
+				return programProfitAbsFragment;
 			case "equity":
 				return programEquityFragment != null ? programEquityFragment : followEquityFragment;
 			case "trades":
@@ -177,8 +185,11 @@ public class ProgramDetailsPagerAdapter extends FragmentStatePagerAdapter
 		if (openPositionsFragment != null) {
 			openPositionsFragment.pagerShow();
 		}
-		if (programProfitFragment != null) {
-			programProfitFragment.pagerShow();
+		if (programProfitPercentFragment != null) {
+			programProfitPercentFragment.pagerShow();
+		}
+		if (programProfitAbsFragment != null) {
+			programProfitAbsFragment.pagerShow();
 		}
 		if (programEquityFragment != null) {
 			programEquityFragment.pagerShow();
@@ -231,8 +242,11 @@ public class ProgramDetailsPagerAdapter extends FragmentStatePagerAdapter
 	}
 
 	public void onOffsetChanged(int verticalOffset) {
-		if (programProfitFragment != null) {
-			programProfitFragment.onOffsetChanged(verticalOffset);
+		if (programProfitPercentFragment != null) {
+			programProfitPercentFragment.onOffsetChanged(verticalOffset);
+		}
+		if (programProfitAbsFragment != null) {
+			programProfitAbsFragment.onOffsetChanged(verticalOffset);
 		}
 		if (programEquityFragment != null) {
 			programEquityFragment.onOffsetChanged(verticalOffset);

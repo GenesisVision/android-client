@@ -1,17 +1,21 @@
-package vision.genesis.clientapp.feature.main.program.profit;
+package vision.genesis.clientapp.feature.main.program.profit_percent;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.core.widget.NestedScrollView;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
+import com.google.android.flexbox.FlexboxLayout;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -20,39 +24,41 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
-import io.swagger.client.model.Currency;
+import io.swagger.client.model.PlatformCurrencyInfo;
 import io.swagger.client.model.ProgramChartStatistic;
 import io.swagger.client.model.ProgramFollowDetailsFull;
 import io.swagger.client.model.SimpleChart;
-import io.swagger.client.model.SimpleChartPoint;
 import timber.log.Timber;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
 import vision.genesis.clientapp.feature.common.date_range.DateRangeBottomSheetFragment;
+import vision.genesis.clientapp.feature.common.option.SelectOptionBottomSheetFragment;
 import vision.genesis.clientapp.feature.main.program.ProgramDetailsPagerAdapter;
-import vision.genesis.clientapp.feature.main.program.profit.glossary.ProgramStatisticsGlossaryBottomSheetDialog;
+import vision.genesis.clientapp.feature.main.program.profit_percent.glossary.ProgramStatisticsGlossaryBottomSheetDialog;
 import vision.genesis.clientapp.model.DateRange;
+import vision.genesis.clientapp.ui.ChartAssetView;
 import vision.genesis.clientapp.ui.DateRangeView;
 import vision.genesis.clientapp.ui.chart.ProfitChartView;
 import vision.genesis.clientapp.utils.StringFormatUtil;
 import vision.genesis.clientapp.utils.ThemeUtil;
+import vision.genesis.clientapp.utils.TypedValueFormatter;
 import vision.genesis.clientapp.utils.TypefaceUtil;
 
 /**
  * GenesisVisionAndroid
- * Created by Vitaly on 27/09/2018.
+ * Created by Vitaly on 22/11/2021.
  */
 
-public class ProgramProfitFragment extends BaseFragment implements ProgramProfitView, ProgramDetailsPagerAdapter.OnPageVisibilityChanged
+public class ProgramProfitPercentFragment extends BaseFragment implements ProgramProfitPercentView, ProgramDetailsPagerAdapter.OnPageVisibilityChanged
 {
 	private static String EXTRA_PROGRAM_DETAILS = "extra_program_details";
 
-	public static ProgramProfitFragment with(ProgramFollowDetailsFull details) {
-		ProgramProfitFragment programProfitFragment = new ProgramProfitFragment();
+	public static ProgramProfitPercentFragment with(ProgramFollowDetailsFull details) {
+		ProgramProfitPercentFragment fragment = new ProgramProfitPercentFragment();
 		Bundle arguments = new Bundle(1);
 		arguments.putParcelable(EXTRA_PROGRAM_DETAILS, details);
-		programProfitFragment.setArguments(arguments);
-		return programProfitFragment;
+		fragment.setArguments(arguments);
+		return fragment;
 	}
 
 	@BindView(R.id.root)
@@ -67,23 +73,17 @@ public class ProgramProfitFragment extends BaseFragment implements ProgramProfit
 	@BindView(R.id.date_range)
 	public DateRangeView dateRangeView;
 
+	@BindView(R.id.assets_flex_box)
+	public FlexboxLayout assetsFlexBox;
+
 	@BindView(R.id.profit_chart)
-	public ProfitChartView absChart;
+	public ProfitChartView profitChart;
 
 	@BindView(R.id.amount_title)
 	public TextView amountTitle;
 
 	@BindView(R.id.amount_value)
 	public TextView amountValue;
-
-	@BindView(R.id.amount_value_secondary)
-	public TextView amountValueSecondary;
-
-	@BindView(R.id.group_change)
-	public ViewGroup changeGroup;
-
-	@BindView(R.id.change_value)
-	public TextView changeValue;
 
 	@BindView(R.id.label_statistics)
 	public TextView statisticsLabel;
@@ -131,7 +131,7 @@ public class ProgramProfitFragment extends BaseFragment implements ProgramProfit
 	public int dateRangeMarginBottom;
 
 	@InjectPresenter
-	public ProgramProfitPresenter presenter;
+	public ProgramProfitPercentPresenter presenter;
 
 	private Unbinder unbinder;
 
@@ -163,7 +163,7 @@ public class ProgramProfitFragment extends BaseFragment implements ProgramProfit
 	@Nullable
 	@Override
 	public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-		return inflater.inflate(R.layout.fragment_program_profit, container, false);
+		return inflater.inflate(R.layout.fragment_program_profit_percent, container, false);
 	}
 
 	@Override
@@ -179,7 +179,7 @@ public class ProgramProfitFragment extends BaseFragment implements ProgramProfit
 			if (details != null) {
 				presenter.setData(details);
 
-				absChart.setTouchListener(presenter);
+				profitChart.setTouchListener(presenter);
 				return;
 			}
 		}
@@ -200,22 +200,89 @@ public class ProgramProfitFragment extends BaseFragment implements ProgramProfit
 	private void setFonts() {
 		amountTitle.setText(StringFormatUtil.capitalize(getString(R.string.value)));
 		amountValue.setTypeface(TypefaceUtil.semibold());
-		changeValue.setTypeface(TypefaceUtil.semibold());
-		amountValueSecondary.setTypeface(TypefaceUtil.medium());
-	}
-
-	@Override
-	public void setAbsChart(List<SimpleChartPoint> chart) {
-		absChart.setChartData(chart, dateRange);
 	}
 
 	@Override
 	public void setPercentChart(List<SimpleChart> chart) {
-
+		profitChart.setMultipleChartData(chart, dateRange);
 	}
 
 	@Override
-	public void updateStatistics(ProgramChartStatistic statistic, Currency baseCurrency) {
+	public void setCurrencies(List<PlatformCurrencyInfo> selectedCurrencies, boolean showAddButton) {
+		assetsFlexBox.removeAllViews();
+		for (int i = 0; i < selectedCurrencies.size(); i++) {
+			ChartAssetView view = new ChartAssetView(getContext());
+			view.setAsset(selectedCurrencies.get(i));
+			view.setRemoveEnabled(i > 0);
+			int position = i;
+			view.setListener(new ChartAssetView.Listener()
+			{
+				@Override
+				public void onAssetClicked(PlatformCurrencyInfo asset) {
+					presenter.onAssetClicked(asset, position);
+				}
+
+				@Override
+				public void onRemoveAssetClicked(PlatformCurrencyInfo asset) {
+					presenter.onRemoveAssetClicked(asset);
+				}
+			});
+			assetsFlexBox.addView(view);
+			FlexboxLayout.LayoutParams lp = (FlexboxLayout.LayoutParams) view.getLayoutParams();
+			lp.setMargins(0, 0, TypedValueFormatter.toDp(10), TypedValueFormatter.toDp(4));
+			view.setLayoutParams(lp);
+		}
+
+		if (showAddButton) {
+			showAddButton();
+		}
+	}
+
+	@Override
+	public void showAddCurrenciesList(ArrayList<String> optionsList) {
+		if (getActivity() != null) {
+			SelectOptionBottomSheetFragment fragment = SelectOptionBottomSheetFragment.with(
+					getString(R.string.currency), optionsList, -1);
+			fragment.setListener((position, text) -> presenter.onAddCurrencySelected(text));
+			fragment.show(getActivity().getSupportFragmentManager(), fragment.getTag());
+		}
+	}
+
+	@Override
+	public void showReplaceCurrenciesList(ArrayList<String> optionsList, PlatformCurrencyInfo assetToReplace) {
+		if (getActivity() != null) {
+			SelectOptionBottomSheetFragment fragment = SelectOptionBottomSheetFragment.with(
+					getString(R.string.currency), optionsList, -1);
+			fragment.setListener((position, text) -> presenter.onReplaceCurrencySelected(text, assetToReplace));
+			fragment.show(getActivity().getSupportFragmentManager(), fragment.getTag());
+		}
+	}
+
+	@Override
+	public void showChangeBaseCurrenciesList(ArrayList<String> optionsList) {
+		if (getActivity() != null) {
+			SelectOptionBottomSheetFragment fragment = SelectOptionBottomSheetFragment.with(
+					getString(R.string.currency), optionsList, -1);
+			fragment.setListener((position, text) -> presenter.onChangeBaseCurrencySelected(text));
+			fragment.show(getActivity().getSupportFragmentManager(), fragment.getTag());
+		}
+	}
+
+	private void showAddButton() {
+		ImageView view = new ImageView(getContext());
+		view.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.ic_add_circle_black_24dp));
+		view.setOnClickListener((view1) -> presenter.onAddAssetClicked());
+
+		assetsFlexBox.addView(view);
+		FlexboxLayout.LayoutParams lp = (FlexboxLayout.LayoutParams) view.getLayoutParams();
+		lp.setWidth(TypedValueFormatter.toDp(28));
+		lp.setHeight(TypedValueFormatter.toDp(28));
+		lp.setMargins(0, TypedValueFormatter.toDp(10), 0, 0);
+		view.setLayoutParams(lp);
+	}
+
+	@Override
+	public void updateStatistics(ProgramChartStatistic statistic, String baseCurrency) {
 		this.statistic = statistic;
 		if (statistic.getSubscribers() != null) {
 			this.subscribersGroup.setVisibility(View.VISIBLE);
@@ -225,7 +292,7 @@ public class ProgramProfitFragment extends BaseFragment implements ProgramProfit
 			this.investorsGroup.setVisibility(View.VISIBLE);
 			this.investors.setText(String.valueOf(statistic.getInvestors()));
 		}
-		this.equity.setText(StringFormatUtil.getValueString(statistic.getBalance(), baseCurrency.getValue()));
+		this.equity.setText(StringFormatUtil.getValueString(statistic.getBalance(), baseCurrency));
 
 		this.trades.setText(String.valueOf(statistic.getTrades()));
 		this.successTrades.setText(String.format(Locale.getDefault(), "%s%%", StringFormatUtil.formatAmount(statistic.getSuccessTradesPercent(), 0, 4)));
@@ -234,7 +301,7 @@ public class ProgramProfitFragment extends BaseFragment implements ProgramProfit
 		this.sortinoRatio.setText(StringFormatUtil.formatAmount(statistic.getSortinoRatio(), 0, 4));
 		this.calmarRatio.setText(StringFormatUtil.formatAmount(statistic.getCalmarRatio(), 0, 4));
 		this.maxDrawdown.setText(String.format(Locale.getDefault(), "%s%%", StringFormatUtil.formatAmount(statistic.getMaxDrawdown(), 0, 4)));
-		this.tradingVolume.setText(StringFormatUtil.getValueString(statistic.getTradingVolume(), baseCurrency.getValue()));
+		this.tradingVolume.setText(StringFormatUtil.getValueString(statistic.getTradingVolume(), baseCurrency));
 	}
 
 	@Override
@@ -244,20 +311,6 @@ public class ProgramProfitFragment extends BaseFragment implements ProgramProfit
 				: ThemeUtil.getColorByAttrId(getContext(), R.attr.colorGreen));
 
 		this.amountValue.setText(value);
-	}
-
-	@Override
-	public void setChange(Boolean isChangeNegative, String changePercent) {
-		this.changeValue.setTextColor(isChangeNegative
-				? ThemeUtil.getColorByAttrId(getContext(), R.attr.colorRed)
-				: ThemeUtil.getColorByAttrId(getContext(), R.attr.colorGreen));
-
-		this.changeValue.setText(changePercent);
-	}
-
-	@Override
-	public void setChangeVisibility(boolean visible) {
-		this.changeGroup.setVisibility(visible ? View.VISIBLE : View.INVISIBLE);
 	}
 
 	@Override

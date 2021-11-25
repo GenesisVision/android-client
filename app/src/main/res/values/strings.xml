@@ -1131,6 +1131,8 @@
     <string name="max_drawdown_program_definition">The biggest drawdown of a program during the selected date range.</string>
     <string name="managers_funds">Manager Funds</string>
     <string name="investors_funds">Investors Funds</string>
+    <string name="profit_abs">Profit (Abs)</string>
+    <string name="profit_percent">Profit (%)</string>
 
     <plurals name="assets">
         <item quantity="one">asset</item>

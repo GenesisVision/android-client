@@ -3,9 +3,15 @@ package vision.genesis.clientapp.feature.main.follow.balance;
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.inject.Inject;
 
 import io.swagger.client.model.AccountBalanceChart;
+import io.swagger.client.model.Currency;
+import io.swagger.client.model.PlatformCurrencyInfo;
+import io.swagger.client.model.PlatformInfo;
 import io.swagger.client.model.ProgramFollowDetailsFull;
 import io.swagger.client.model.SimpleChartPoint;
 import rx.Subscription;
@@ -15,7 +21,6 @@ import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.feature.common.date_range.DateRangeBottomSheetFragment;
 import vision.genesis.clientapp.managers.FollowsManager;
 import vision.genesis.clientapp.managers.SettingsManager;
-import vision.genesis.clientapp.model.CurrencyEnum;
 import vision.genesis.clientapp.model.DateRange;
 import vision.genesis.clientapp.ui.chart.BalanceChartView;
 import vision.genesis.clientapp.utils.StringFormatUtil;
@@ -34,7 +39,7 @@ public class FollowBalancePresenter extends MvpPresenter<FollowBalanceView> impl
 	@Inject
 	public SettingsManager settingsManager;
 
-	private Subscription baseCurrencySubscription;
+	private Subscription platformInfoSubscription;
 
 	private Subscription chartDataSubscription;
 
@@ -46,9 +51,11 @@ public class FollowBalancePresenter extends MvpPresenter<FollowBalanceView> impl
 
 	private DateRange chartDateRange = DateRange.createFromEnum(DateRange.DateRangeEnum.MONTH);
 
-//	private Currency baseCurrency;
-
 	private ProgramFollowDetailsFull details;
+
+	private List<PlatformCurrencyInfo> platformCurrencies = new ArrayList<>();
+
+	private PlatformCurrencyInfo selectedCurrency;
 
 	@Override
 	protected void onFirstViewAttach() {
@@ -58,14 +65,13 @@ public class FollowBalancePresenter extends MvpPresenter<FollowBalanceView> impl
 
 		getViewState().setDateRange(chartDateRange);
 		getViewState().showProgress(true);
-//		subscribeToBaseCurrency();
-		getChartData();
+		getPlatformInfo();
 	}
 
 	@Override
 	public void onDestroy() {
-		if (baseCurrencySubscription != null) {
-			baseCurrencySubscription.unsubscribe();
+		if (platformInfoSubscription != null) {
+			platformInfoSubscription.unsubscribe();
 		}
 		if (chartDataSubscription != null) {
 			chartDataSubscription.unsubscribe();
@@ -76,34 +82,55 @@ public class FollowBalancePresenter extends MvpPresenter<FollowBalanceView> impl
 
 	void setData(ProgramFollowDetailsFull details) {
 		this.details = details;
-		getChartData();
+		getPlatformInfo();
 	}
 
 	void onShow() {
 		getChartData();
 	}
 
-	private void subscribeToBaseCurrency() {
+	private void getPlatformInfo() {
 		if (settingsManager != null) {
-			baseCurrencySubscription = settingsManager.getBaseCurrency()
-					.subscribeOn(Schedulers.newThread())
+			platformInfoSubscription = settingsManager.getPlatformInfo()
 					.observeOn(AndroidSchedulers.mainThread())
-					.subscribe(this::baseCurrencyChangedHandler);
+					.subscribeOn(Schedulers.newThread())
+					.subscribe(this::handleGetPlatformInfoSuccess,
+							this::handleGetPlatformInfoError);
 		}
 	}
 
-	private void baseCurrencyChangedHandler(CurrencyEnum baseCurrency) {
-//		this.baseCurrency = Currency.fromValue(baseCurrency.getValue());
+	private void handleGetPlatformInfoSuccess(PlatformInfo platformInfo) {
+		platformInfoSubscription.unsubscribe();
+
+		platformCurrencies = platformInfo.getCommonInfo().getPlatformCurrencies();
+
+		for (PlatformCurrencyInfo platformCurrency : platformCurrencies) {
+			if (platformCurrency.getName().equals(details.getTradingAccountInfo().getCurrency().getValue())) {
+				selectedCurrency = platformCurrency;
+				break;
+			}
+		}
+		onSelectedCurrencyChanged();
+	}
+
+	private void onSelectedCurrencyChanged() {
+		getViewState().setCurrency(selectedCurrency);
 		getChartData();
 	}
 
+	private void handleGetPlatformInfoError(Throwable throwable) {
+		platformInfoSubscription.unsubscribe();
+	}
+
 	private void getChartData() {
-		if (details != null && followsManager != null) {
+		if (selectedCurrency != null && followsManager != null) {
 			if (chartDataSubscription != null) {
 				chartDataSubscription.unsubscribe();
 			}
 
-			chartDataSubscription = followsManager.getBalanceChart(details.getId(), chartDateRange, 30, details.getTradingAccountInfo().getCurrency())
+			chartDataSubscription = followsManager.getBalanceChart(
+					details.getId(), chartDateRange, 30,
+					Currency.fromValue(selectedCurrency.getName()))
 					.observeOn(AndroidSchedulers.mainThread())
 					.subscribeOn(Schedulers.io())
 					.subscribe(this::handleGetFollowChartDataSuccess,
@@ -117,7 +144,7 @@ public class FollowBalancePresenter extends MvpPresenter<FollowBalanceView> impl
 
 		this.chartData = response;
 
-		getViewState().setAmount(StringFormatUtil.getValueString(chartData.getBalance(), details.getTradingAccountInfo().getCurrency().getValue()));
+		getViewState().setAmount(StringFormatUtil.getValueString(chartData.getBalance(), selectedCurrency.getName()));
 		getViewState().setChartData(chartData.getChart());
 
 		resetValuesSelection();
@@ -133,9 +160,7 @@ public class FollowBalancePresenter extends MvpPresenter<FollowBalanceView> impl
 		selected = 0.0;
 		if (chartData != null && chartData.getChart() != null && !chartData.getChart().isEmpty()) {
 			SimpleChartPoint firstElement = chartData.getChart().get(0);
-			SimpleChartPoint lastElement = chartData.getChart().get(chartData.getChart().size() - 1);
 			first = firstElement.getValue();
-//			selected = lastElement.getInvestorsFunds() + lastElement.getManagerFunds() + lastElement.getProfit();
 			selected = chartData.getBalance();
 		}
 		updateValues();
@@ -146,23 +171,11 @@ public class FollowBalancePresenter extends MvpPresenter<FollowBalanceView> impl
 			return;
 		}
 
-//		getViewState().setAmount(StringFormatUtil.getGvtValueString(chartData.getGvtBalance()), StringFormatUtil.getValueString(chartData.getProgramCurrencyBalance(), chartData.getProgramCurrency().getValue()));
-		//TODO: getValueString(selected * rate
-//		getViewState().setAmount(StringFormatUtil.getGvtValueString(selected), StringFormatUtil.getValueString(selected, chartData.getProgramCurrency().getValue()));
-//		getViewState().setAmount(StringFormatUtil.getGvtValueString(selected), StringFormatUtil.getValueString(selected * 7, baseCurrency.getValue()));
-
 		Double changeValue = selected - first;
-//		getViewState().setChange(changeValue < 0, StringFormatUtil.getChangePercentString(first, selected),
-//				StringFormatUtil.getChangeValueString(changeValue), StringFormatUtil.getValueString(changeValue * chartData.get(), baseCurrency.getValue()));
-//		getViewState().setChange(chartData.getProfitChangePercent() != null && chartData.getProfitChangePercent() < 0,
-//				chartData.getProfitChangePercent() == null ? "∞" : String.format(Locale.getDefault(), "%s%%", StringFormatUtil.formatAmount(chartData.getProfitChangePercent(), 0, 2)),
-//				StringFormatUtil.getChangeValueString(chartData.getTimeframeGvtProfit()),
-//				StringFormatUtil.getValueString(chartData.getTimeframeProgramCurrencyProfit(), chartData.getProgramCurrency().getValue()));
-		//TODO: getValueString(changeValue * rate
+
 		getViewState().setChange(changeValue < 0,
 				StringFormatUtil.getChangePercentString(first, selected),
-				StringFormatUtil.getChangeValueString(changeValue),
-				StringFormatUtil.getValueString(changeValue, details.getTradingAccountInfo().getCurrency().getValue()));
+				StringFormatUtil.getValueString(changeValue, selectedCurrency.getName()));
 	}
 
 	@Override
@@ -182,5 +195,25 @@ public class FollowBalancePresenter extends MvpPresenter<FollowBalanceView> impl
 	@Override
 	public void onStop() {
 		resetValuesSelection();
+	}
+
+	public void onAssetClicked(PlatformCurrencyInfo asset) {
+		ArrayList<String> optionsList = new ArrayList<>();
+		for (PlatformCurrencyInfo platformCurrency : platformCurrencies) {
+			if (!platformCurrency.equals(asset)) {
+				optionsList.add(platformCurrency.getName());
+			}
+		}
+		getViewState().showChangeBaseCurrencyList(optionsList);
+	}
+
+	public void onChangeBaseCurrencySelected(String currency) {
+		for (PlatformCurrencyInfo platformCurrency : platformCurrencies) {
+			if (platformCurrency.getName().equals(currency)) {
+				selectedCurrency = platformCurrency;
+				onSelectedCurrencyChanged();
+				break;
+			}
+		}
 	}
 }

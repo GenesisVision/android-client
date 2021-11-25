@@ -47,6 +47,7 @@
                     <TextView
                         android:id="@+id/amount_value"
                         style="@style/dashboard_header_value"
+                        android:fontFamily="@font/montserrat_semibold"
                         tools:text="600.142345 GVT"/>
 
                 </LinearLayout>
@@ -57,7 +58,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:orientation="vertical"
-                    android:visibility="invisible">
+                    android:visibility="visible">
 
                     <LinearLayout
                         android:layout_width="wrap_content"
@@ -80,7 +81,61 @@
                     <TextView
                         android:id="@+id/change_value"
                         style="@style/dashboard_header_value"
+                        android:fontFamily="@font/montserrat_semibold"
                         tools:text="+120.2301 GVT"/>
+
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/group_funds"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:paddingLeft="@dimen/program_details_padding"
+                android:paddingRight="@dimen/program_details_padding">
+
+                <LinearLayout
+                    android:id="@+id/group_manager_funds"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/dashboard_header_title"
+                        android:layout_height="24dp"
+                        android:gravity="bottom"
+                        android:text="@string/managers_funds"/>
+
+                    <TextView
+                        android:id="@+id/manager_funds"
+                        style="@style/dashboard_header_value"
+                        android:fontFamily="@font/montserrat_semibold"
+                        tools:text="600.142345 GVT"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/group_investors_funds"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/dashboard_header_title"
+                        android:layout_height="24dp"
+                        android:gravity="bottom"
+                        android:text="@string/investors_funds"/>
+
+                    <TextView
+                        android:id="@+id/investors_funds"
+                        style="@style/dashboard_header_value"
+                        android:fontFamily="@font/montserrat_semibold"
+                        tools:text="600.142345 GVT"/>
 
                 </LinearLayout>
 

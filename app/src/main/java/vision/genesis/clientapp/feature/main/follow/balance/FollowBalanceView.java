@@ -4,8 +4,10 @@ import com.arellomobile.mvp.MvpView;
 import com.arellomobile.mvp.viewstate.strategy.AddToEndSingleStrategy;
 import com.arellomobile.mvp.viewstate.strategy.StateStrategyType;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import io.swagger.client.model.PlatformCurrencyInfo;
 import io.swagger.client.model.SimpleChartPoint;
 import vision.genesis.clientapp.model.DateRange;
 
@@ -20,7 +22,11 @@ interface FollowBalanceView extends MvpView
 
 	void setAmount(String amount);
 
-	void setChange(Boolean isChangeNegative, String changePercent, String changeValue, String baseChangeValue);
+	void setChange(Boolean isChangeNegative, String changePercent, String changeValue);
+
+	void setCurrency(PlatformCurrencyInfo selectedCurrency);
+
+	void showChangeBaseCurrencyList(ArrayList<String> optionsList);
 
 	@StateStrategyType(AddToEndSingleStrategy.class)
 	void showProgress(boolean show);

@@ -12,6 +12,7 @@ import androidx.core.widget.NestedScrollView;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindDimen;
@@ -19,13 +20,16 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+import io.swagger.client.model.PlatformCurrencyInfo;
 import io.swagger.client.model.ProgramFollowDetailsFull;
 import io.swagger.client.model.SimpleChartPoint;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
 import vision.genesis.clientapp.feature.common.date_range.DateRangeBottomSheetFragment;
+import vision.genesis.clientapp.feature.common.option.SelectOptionBottomSheetFragment;
 import vision.genesis.clientapp.feature.main.program.ProgramDetailsPagerAdapter;
 import vision.genesis.clientapp.model.DateRange;
+import vision.genesis.clientapp.ui.ChartAssetView;
 import vision.genesis.clientapp.ui.DateRangeView;
 import vision.genesis.clientapp.ui.chart.BalanceChartView;
 import vision.genesis.clientapp.utils.ThemeUtil;
@@ -41,11 +45,11 @@ public class FollowBalanceFragment extends BaseFragment implements FollowBalance
 	private static String EXTRA_DETAILS = "extra_details";
 
 	public static FollowBalanceFragment with(ProgramFollowDetailsFull details) {
-		FollowBalanceFragment programProfitFragment = new FollowBalanceFragment();
+		FollowBalanceFragment fragment = new FollowBalanceFragment();
 		Bundle arguments = new Bundle(1);
 		arguments.putParcelable(EXTRA_DETAILS, details);
-		programProfitFragment.setArguments(arguments);
-		return programProfitFragment;
+		fragment.setArguments(arguments);
+		return fragment;
 	}
 
 	@BindView(R.id.root)
@@ -60,14 +64,14 @@ public class FollowBalanceFragment extends BaseFragment implements FollowBalance
 	@BindView(R.id.date_range)
 	public DateRangeView dateRangeView;
 
+	@BindView(R.id.view_chart_asset)
+	public ChartAssetView chartAssetView;
+
 	@BindView(R.id.balance_chart)
 	public BalanceChartView balanceChart;
 
 	@BindView(R.id.amount_value)
 	public TextView amountValue;
-
-	@BindView(R.id.amount_value_secondary)
-	public TextView amountValueSecondary;
 
 	@BindView(R.id.change_value)
 	public TextView changeValue;
@@ -75,14 +79,11 @@ public class FollowBalanceFragment extends BaseFragment implements FollowBalance
 	@BindView(R.id.change_percent)
 	public TextView changePercent;
 
-	@BindView(R.id.change_value_secondary)
-	public TextView changeValueSecondary;
-
 	@BindDimen(R.dimen.date_range_margin_bottom)
 	public int dateRangeMarginBottom;
 
 	@InjectPresenter
-	public FollowBalancePresenter followBalancePresenter;
+	public FollowBalancePresenter presenter;
 
 	private ProgramFollowDetailsFull details;
 
@@ -96,7 +97,7 @@ public class FollowBalanceFragment extends BaseFragment implements FollowBalance
 			DateRangeBottomSheetFragment bottomSheetDialog = new DateRangeBottomSheetFragment();
 			bottomSheetDialog.show(getActivity().getSupportFragmentManager(), bottomSheetDialog.getTag());
 			bottomSheetDialog.setDateRange(dateRange);
-			bottomSheetDialog.setListener(followBalancePresenter);
+			bottomSheetDialog.setListener(presenter);
 		}
 	}
 
@@ -113,11 +114,24 @@ public class FollowBalanceFragment extends BaseFragment implements FollowBalance
 		unbinder = ButterKnife.bind(this, view);
 
 		details = getArguments().getParcelable(EXTRA_DETAILS);
-		followBalancePresenter.setData(details);
+		presenter.setData(details);
 
 		setFonts();
 
-		balanceChart.setTouchListener(followBalancePresenter);
+		balanceChart.setTouchListener(presenter);
+
+		chartAssetView.setRemoveEnabled(false);
+		chartAssetView.setListener(new ChartAssetView.Listener()
+		{
+			@Override
+			public void onAssetClicked(PlatformCurrencyInfo asset) {
+				presenter.onAssetClicked(asset);
+			}
+
+			@Override
+			public void onRemoveAssetClicked(PlatformCurrencyInfo asset) {
+			}
+		});
 	}
 
 	@Override
@@ -134,8 +148,6 @@ public class FollowBalanceFragment extends BaseFragment implements FollowBalance
 		amountValue.setTypeface(TypefaceUtil.semibold());
 		changeValue.setTypeface(TypefaceUtil.semibold());
 		changePercent.setTypeface(TypefaceUtil.semibold());
-		amountValueSecondary.setTypeface(TypefaceUtil.medium());
-		changeValueSecondary.setTypeface(TypefaceUtil.medium());
 	}
 
 	@Override
@@ -149,14 +161,28 @@ public class FollowBalanceFragment extends BaseFragment implements FollowBalance
 	}
 
 	@Override
-	public void setChange(Boolean isChangeNegative, String changePercent, String changeValue, String baseChangeValue) {
+	public void setChange(Boolean isChangeNegative, String changePercent, String changeValue) {
 		this.changePercent.setTextColor(isChangeNegative
 				? ThemeUtil.getColorByAttrId(getContext(), R.attr.colorRed)
 				: ThemeUtil.getColorByAttrId(getContext(), R.attr.colorGreen));
 
 		this.changePercent.setText(changePercent);
 		this.changeValue.setText(changeValue);
-		this.changeValueSecondary.setText(baseChangeValue);
+	}
+
+	@Override
+	public void setCurrency(PlatformCurrencyInfo selectedCurrency) {
+		this.chartAssetView.setAsset(selectedCurrency);
+	}
+
+	@Override
+	public void showChangeBaseCurrencyList(ArrayList<String> optionsList) {
+		if (getActivity() != null) {
+			SelectOptionBottomSheetFragment fragment = SelectOptionBottomSheetFragment.with(
+					getString(R.string.currency), optionsList, -1);
+			fragment.setListener((position, text) -> presenter.onChangeBaseCurrencySelected(text));
+			fragment.show(getActivity().getSupportFragmentManager(), fragment.getTag());
+		}
 	}
 
 	@Override
@@ -176,8 +202,8 @@ public class FollowBalanceFragment extends BaseFragment implements FollowBalance
 
 	@Override
 	public void pagerShow() {
-		if (followBalancePresenter != null) {
-			followBalancePresenter.onShow();
+		if (presenter != null) {
+			presenter.onShow();
 		}
 	}
 

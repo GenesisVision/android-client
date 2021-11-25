@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
                 xmlns:tools="http://schemas.android.com/tools"
                 android:id="@+id/root"
                 android:layout_width="match_parent"
@@ -53,11 +54,24 @@
 
                 </LinearLayout>
 
+                <com.google.android.flexbox.FlexboxLayout
+                    android:id="@+id/assets_flex_box"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/padding"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="@dimen/padding"
+                    android:layout_marginBottom="10dp"
+                    app:alignContent="flex_start"
+                    app:alignItems="flex_start"
+                    app:flexDirection="row"
+                    app:flexWrap="wrap"/>
+
                 <vision.genesis.clientapp.ui.chart.ProfitChartView
                     android:id="@+id/profit_chart"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/details_profit_chart_height"
-                    android:layout_marginTop="32dp"/>
+                    android:layout_marginTop="10dp"/>
 
             </LinearLayout>
 

@@ -3,6 +3,8 @@ package vision.genesis.clientapp.feature.main.fund.balance;
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 import javax.inject.Inject;
@@ -10,6 +12,8 @@ import javax.inject.Inject;
 import io.swagger.client.model.BalanceChartPoint;
 import io.swagger.client.model.Currency;
 import io.swagger.client.model.FundBalanceChart;
+import io.swagger.client.model.PlatformCurrencyInfo;
+import io.swagger.client.model.PlatformInfo;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -38,6 +42,8 @@ public class FundBalancePresenter extends MvpPresenter<FundBalanceView> implemen
 
 	private Subscription baseCurrencySubscription;
 
+	private Subscription platformInfoSubscription;
+
 	private Subscription chartDataSubscription;
 
 	private UUID fundId;
@@ -54,6 +60,10 @@ public class FundBalancePresenter extends MvpPresenter<FundBalanceView> implemen
 
 	private Currency baseCurrency;
 
+	private List<PlatformCurrencyInfo> platformCurrencies = new ArrayList<>();
+
+	private PlatformCurrencyInfo selectedCurrency;
+
 	@Override
 	protected void onFirstViewAttach() {
 		super.onFirstViewAttach();
@@ -69,6 +79,9 @@ public class FundBalancePresenter extends MvpPresenter<FundBalanceView> implemen
 	public void onDestroy() {
 		if (baseCurrencySubscription != null) {
 			baseCurrencySubscription.unsubscribe();
+		}
+		if (platformInfoSubscription != null) {
+			platformInfoSubscription.unsubscribe();
 		}
 		if (chartDataSubscription != null) {
 			chartDataSubscription.unsubscribe();
@@ -97,16 +110,51 @@ public class FundBalancePresenter extends MvpPresenter<FundBalanceView> implemen
 
 	private void baseCurrencyChangedHandler(CurrencyEnum baseCurrency) {
 		this.baseCurrency = Currency.fromValue(baseCurrency.getValue());
+		getPlatformInfo();
+	}
+
+	private void getPlatformInfo() {
+		if (settingsManager != null) {
+			platformInfoSubscription = settingsManager.getPlatformInfo()
+					.observeOn(AndroidSchedulers.mainThread())
+					.subscribeOn(Schedulers.newThread())
+					.subscribe(this::handleGetPlatformInfoSuccess,
+							this::handleGetPlatformInfoError);
+		}
+	}
+
+	private void handleGetPlatformInfoSuccess(PlatformInfo platformInfo) {
+		platformInfoSubscription.unsubscribe();
+
+		platformCurrencies = platformInfo.getCommonInfo().getPlatformCurrencies();
+
+		for (PlatformCurrencyInfo platformCurrency : platformCurrencies) {
+			if (platformCurrency.getName().equals(baseCurrency.getValue())) {
+				selectedCurrency = platformCurrency;
+				break;
+			}
+		}
+		onSelectedCurrencyChanged();
+	}
+
+	private void onSelectedCurrencyChanged() {
+		getViewState().setCurrency(selectedCurrency);
 		getChartData();
 	}
 
+	private void handleGetPlatformInfoError(Throwable throwable) {
+		platformInfoSubscription.unsubscribe();
+	}
+
 	private void getChartData() {
-		if (fundsManager != null && fundId != null && baseCurrency != null) {
+		if (fundsManager != null && fundId != null && selectedCurrency != null) {
 			if (chartDataSubscription != null) {
 				chartDataSubscription.unsubscribe();
 			}
 
-			chartDataSubscription = fundsManager.getBalanceChart(fundId, chartDateRange, 30, baseCurrency)
+			chartDataSubscription = fundsManager.getBalanceChart(
+					fundId, chartDateRange, 30,
+					Currency.fromValue(selectedCurrency.getName()))
 					.observeOn(AndroidSchedulers.mainThread())
 					.subscribeOn(Schedulers.io())
 					.subscribe(this::handleGetChartDataSuccess,
@@ -119,7 +167,7 @@ public class FundBalancePresenter extends MvpPresenter<FundBalanceView> implemen
 		getViewState().showProgress(false);
 
 		this.chartData = response;
-		getViewState().setAmount(StringFormatUtil.getValueString(chartData.getBalance(), baseCurrency.getValue()));
+		getViewState().setAmount(StringFormatUtil.getValueString(chartData.getBalance(), selectedCurrency.getName()));
 		getViewState().setChartData(chartData.getChart());
 
 		resetValuesSelection();
@@ -152,8 +200,7 @@ public class FundBalancePresenter extends MvpPresenter<FundBalanceView> implemen
 
 		getViewState().setChange(changeValue < 0,
 				StringFormatUtil.getChangePercentString(first, selectedY),
-				StringFormatUtil.getChangeValueString(changeValue),
-				StringFormatUtil.getValueString(changeValue, CurrencyEnum.USD.getValue()));
+				StringFormatUtil.getValueString(changeValue, selectedCurrency.getName()));
 
 		Long selectedDate = selectedX.longValue() * 1000 * 60;
 		BalanceChartPoint selectedPoint = null;
@@ -166,8 +213,8 @@ public class FundBalancePresenter extends MvpPresenter<FundBalanceView> implemen
 		if (selectedPoint == null) {
 			selectedPoint = chartData.getChart().get(chartData.getChart().size() - 1);
 		}
-		getViewState().setFunds(StringFormatUtil.getValueString(selectedPoint.getManagerFunds(), baseCurrency.getValue()),
-				StringFormatUtil.getValueString(selectedPoint.getInvestorsFunds(), baseCurrency.getValue()));
+		getViewState().setFunds(StringFormatUtil.getValueString(selectedPoint.getManagerFunds(), selectedCurrency.getName()),
+				StringFormatUtil.getValueString(selectedPoint.getInvestorsFunds(), selectedCurrency.getName()));
 
 	}
 
@@ -189,5 +236,25 @@ public class FundBalancePresenter extends MvpPresenter<FundBalanceView> implemen
 	@Override
 	public void onStop() {
 		resetValuesSelection();
+	}
+
+	public void onAssetClicked(PlatformCurrencyInfo asset) {
+		ArrayList<String> optionsList = new ArrayList<>();
+		for (PlatformCurrencyInfo platformCurrency : platformCurrencies) {
+			if (!platformCurrency.equals(asset)) {
+				optionsList.add(platformCurrency.getName());
+			}
+		}
+		getViewState().showChangeBaseCurrencyList(optionsList);
+	}
+
+	public void onChangeBaseCurrencySelected(String currency) {
+		for (PlatformCurrencyInfo platformCurrency : platformCurrencies) {
+			if (platformCurrency.getName().equals(currency)) {
+				selectedCurrency = platformCurrency;
+				onSelectedCurrencyChanged();
+				break;
+			}
+		}
 	}
 }

@@ -1,59 +1,62 @@
-package vision.genesis.clientapp.feature.main.program.balance;
+package vision.genesis.clientapp.feature.main.trading_account.profit_abs;
 
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import javax.inject.Inject;
 
-import io.swagger.client.model.BalanceChartPoint;
+import io.swagger.client.model.AbsoluteProfitChart;
+import io.swagger.client.model.AccountProfitPercentCharts;
 import io.swagger.client.model.Currency;
 import io.swagger.client.model.PlatformCurrencyInfo;
 import io.swagger.client.model.PlatformInfo;
-import io.swagger.client.model.ProgramBalanceChart;
-import io.swagger.client.model.ProgramFollowDetailsFull;
+import io.swagger.client.model.PrivateTradingAccountFull;
+import io.swagger.client.model.SimpleChartPoint;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.feature.common.date_range.DateRangeBottomSheetFragment;
-import vision.genesis.clientapp.managers.ProgramsManager;
 import vision.genesis.clientapp.managers.SettingsManager;
+import vision.genesis.clientapp.managers.TradingAccountManager;
 import vision.genesis.clientapp.model.DateRange;
-import vision.genesis.clientapp.ui.chart.BalanceChartView;
+import vision.genesis.clientapp.ui.chart.ProfitChartView;
 import vision.genesis.clientapp.utils.StringFormatUtil;
 
 /**
  * GenesisVisionAndroid
- * Created by Vitaly on 19/10/2018.
+ * Created by Vitaly on 28/11/2019.
  */
 
 @InjectViewState
-public class ProgramBalancePresenter extends MvpPresenter<ProgramBalanceView> implements DateRangeBottomSheetFragment.OnDateRangeChangedListener, BalanceChartView.TouchListener
+public class TradingAccountProfitAbsPresenter extends MvpPresenter<TradingAccountProfitAbsView> implements DateRangeBottomSheetFragment.OnDateRangeChangedListener, ProfitChartView.TouchListener
 {
 	@Inject
-	public ProgramsManager programsManager;
+	public TradingAccountManager tradingAccountManager;
 
 	@Inject
 	public SettingsManager settingsManager;
 
 	private Subscription platformInfoSubscription;
 
-	private Subscription chartDataSubscription;
+	private Subscription absSubscription;
+
 
 	private Double first;
 
-	private Float selectedX;
+	private Double selected;
 
-	private Double selectedY;
+	private AbsoluteProfitChart absChart;
 
-	private ProgramBalanceChart chartData;
+	private AccountProfitPercentCharts percentChart;
 
 	private DateRange chartDateRange = DateRange.createFromEnum(DateRange.DateRangeEnum.MONTH);
 
-	private ProgramFollowDetailsFull details;
+	private PrivateTradingAccountFull details;
 
 	private List<PlatformCurrencyInfo> platformCurrencies = new ArrayList<>();
 
@@ -75,21 +78,22 @@ public class ProgramBalancePresenter extends MvpPresenter<ProgramBalanceView> im
 		if (platformInfoSubscription != null) {
 			platformInfoSubscription.unsubscribe();
 		}
-		if (chartDataSubscription != null) {
-			chartDataSubscription.unsubscribe();
+		if (absSubscription != null) {
+			absSubscription.unsubscribe();
 		}
 
 		super.onDestroy();
 	}
 
-	void setData(ProgramFollowDetailsFull details) {
+	void setData(PrivateTradingAccountFull details) {
 		this.details = details;
 		getPlatformInfo();
 	}
 
 	void onShow() {
-		getChartData();
+		getProfitAbs();
 	}
+
 
 	private void getPlatformInfo() {
 		if (settingsManager != null) {
@@ -117,84 +121,66 @@ public class ProgramBalancePresenter extends MvpPresenter<ProgramBalanceView> im
 
 	private void onSelectedCurrencyChanged() {
 		getViewState().setCurrency(selectedCurrency);
-		getChartData();
+		getProfitAbs();
 	}
 
 	private void handleGetPlatformInfoError(Throwable throwable) {
 		platformInfoSubscription.unsubscribe();
 	}
 
-	private void getChartData() {
-		if (selectedCurrency != null && details != null && programsManager != null) {
-			if (chartDataSubscription != null) {
-				chartDataSubscription.unsubscribe();
+	private void getProfitAbs() {
+		if (selectedCurrency != null && details != null && tradingAccountManager != null) {
+			if (absSubscription != null) {
+				absSubscription.unsubscribe();
 			}
 
-			chartDataSubscription = programsManager.getBalanceChart(
-					details.getId(), chartDateRange, 30,
+			absSubscription = tradingAccountManager.getProfitAbsoluteChart(
+					details.getId(), chartDateRange, 100,
 					Currency.fromValue(selectedCurrency.getName()))
 					.observeOn(AndroidSchedulers.mainThread())
 					.subscribeOn(Schedulers.io())
-					.subscribe(this::handleGetChartDataSuccess,
-							this::handleGetChartDataError);
+					.subscribe(this::handleGetAbsSuccess,
+							this::handleGetAbsDataError);
 		}
 	}
 
-	private void handleGetChartDataSuccess(ProgramBalanceChart response) {
-		chartDataSubscription.unsubscribe();
+	private void handleGetAbsSuccess(AbsoluteProfitChart response) {
+		absSubscription.unsubscribe();
 		getViewState().showProgress(false);
 
-		this.chartData = response;
+		this.absChart = response;
 
-		getViewState().setAmount(StringFormatUtil.getValueString(chartData.getBalance(), selectedCurrency.getName()));
-		getViewState().setChartData(chartData.getChart());
-
+		getViewState().setAbsChart(absChart.getChart());
 		resetValuesSelection();
 	}
 
-	private void handleGetChartDataError(Throwable throwable) {
-		chartDataSubscription.unsubscribe();
+	private void handleGetAbsDataError(Throwable throwable) {
+		absSubscription.unsubscribe();
 		getViewState().showProgress(false);
 	}
 
 	private void resetValuesSelection() {
 		first = 0.0;
-		selectedY = 0.0;
-		if (chartData != null && chartData.getChart() != null && !chartData.getChart().isEmpty()) {
-			BalanceChartPoint firstElement = chartData.getChart().get(0);
-			BalanceChartPoint lastElement = chartData.getChart().get(chartData.getChart().size() - 1);
-			first = firstElement.getInvestorsFunds() + firstElement.getManagerFunds();
-			selectedY = chartData.getBalance();
-			selectedX = (float) (lastElement.getDate() / 1000 / 60);
+		selected = 0.0;
+		if (absChart != null && absChart.getChart() != null) {
+			List<SimpleChartPoint> chart = absChart.getChart();
+			if (chart != null && !chart.isEmpty()) {
+				if (chart.get(0) != null) {
+					first = chart.get(0).getValue();
+					selected = chart.get(absChart.getChart().size() - 1).getValue();
+				}
+			}
 		}
 		updateValues();
 	}
 
 	private void updateValues() {
-		if (first == null || selectedX == null || selectedY == null || selectedCurrency == null) {
+		if (first == null || selected == null || selectedCurrency == null) {
 			return;
 		}
 
-		Double changeValue = selectedY - first;
-
-		getViewState().setChange(changeValue < 0,
-				StringFormatUtil.getChangePercentString(first, selectedY),
-				StringFormatUtil.getValueString(changeValue, selectedCurrency.getName()));
-
-		Long selectedDate = selectedX.longValue() * 1000 * 60;
-		BalanceChartPoint selectedPoint = null;
-		for (BalanceChartPoint point : chartData.getChart()) {
-			if (point.getDate().equals(selectedDate)) {
-				selectedPoint = point;
-				break;
-			}
-		}
-		if (selectedPoint == null) {
-			selectedPoint = chartData.getChart().get(chartData.getChart().size() - 1);
-		}
-		getViewState().setFunds(StringFormatUtil.getValueString(selectedPoint.getManagerFunds(), selectedCurrency.getName()),
-				StringFormatUtil.getValueString(selectedPoint.getInvestorsFunds(), selectedCurrency.getName()));
-
+		getViewState().setValue(selected < 0, String.format(Locale.getDefault(), "%s",
+				StringFormatUtil.getValueString(selected, selectedCurrency.getName())));
 	}
 
 	@Override
@@ -202,13 +188,12 @@ public class ProgramBalancePresenter extends MvpPresenter<ProgramBalanceView> im
 		this.chartDateRange = dateRange;
 		getViewState().setDateRange(dateRange);
 		getViewState().showProgress(true);
-		getChartData();
+		getProfitAbs();
 	}
 
 	@Override
-	public void onTouch(float x, float y) {
-		selectedX = x;
-		selectedY = (double) y;
+	public void onTouch(float value) {
+		selected = (double) value;
 		updateValues();
 	}
 

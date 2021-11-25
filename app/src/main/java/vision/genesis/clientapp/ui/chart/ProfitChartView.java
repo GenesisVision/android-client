@@ -2,9 +2,11 @@ package vision.genesis.clientapp.ui.chart;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.util.AttributeSet;
+import android.util.Pair;
 import android.util.TypedValue;
 import android.view.MotionEvent;
 import android.view.View;
@@ -38,6 +40,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import io.swagger.client.model.SimpleChart;
 import io.swagger.client.model.SimpleChartPoint;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
@@ -87,7 +90,7 @@ public class ProfitChartView extends RelativeLayout
 
 	private Unbinder unbinder;
 
-	private int lineColor = R.attr.colorGreen;
+	private String lineColor = "#64c896";
 
 	private int highlightColor = R.attr.colorAccent;
 
@@ -96,6 +99,8 @@ public class ProfitChartView extends RelativeLayout
 	private IAxisValueFormatter xAxisDateValueFormatter = new DateValueFormatter();
 
 	private IAxisValueFormatter xAxisTimeValueFormatter = new TimeValueFormatter();
+
+	private LineData lineData = new LineData();
 
 	public ProfitChartView(Context context) {
 		super(context);
@@ -205,8 +210,41 @@ public class ProfitChartView extends RelativeLayout
 		});
 	}
 
+	public void setMultipleChartData(List<SimpleChart> chart, DateRange dateRange) {
+		showProgress(false);
+		lineData = new LineData();
+
+		if (chart.isEmpty()) {
+			this.chart.clear();
+			return;
+		}
+
+		updateXAxis(dateRange);
+
+		Float min = null;
+		Float max = null;
+
+		for (SimpleChart simpleChart : chart) {
+			Pair<Float, Float> minMax = addChart(simpleChart.getChart(), simpleChart.getColor());
+
+			if (min == null || min > minMax.first) {
+				min = minMax.first;
+			}
+			if (max == null || max > minMax.second) {
+				max = minMax.second;
+			}
+		}
+		if (min != null && max != null) {
+			minValue.setText(StringFormatUtil.formatAmount(min, 2, 4));
+			maxValue.setText(StringFormatUtil.formatAmount(max, 2, 4));
+
+			setLimitLines(min, max);
+		}
+	}
+
 	public void setChartData(List<SimpleChartPoint> chart, DateRange dateRange) {
 		showProgress(false);
+		lineData = new LineData();
 
 		if (chart.size() <= 1) {
 			this.chart.clear();
@@ -215,6 +253,14 @@ public class ProfitChartView extends RelativeLayout
 
 		updateXAxis(dateRange);
 
+		Pair<Float, Float> minMax = addChart(chart, lineColor);
+		minValue.setText(StringFormatUtil.formatAmount(minMax.first, 2, 4));
+		maxValue.setText(StringFormatUtil.formatAmount(minMax.second, 2, 4));
+
+		setLimitLines(minMax.first, minMax.second);
+	}
+
+	private Pair<Float, Float> addChart(List<SimpleChartPoint> chart, String lineColor) {
 		float min = chart.get(0).getValue().floatValue();
 		float max = chart.get(0).getValue().floatValue();
 
@@ -230,19 +276,16 @@ public class ProfitChartView extends RelativeLayout
 			}
 		}
 
-		minValue.setText(StringFormatUtil.formatAmount(min, 2, 4));
-		maxValue.setText(StringFormatUtil.formatAmount(max, 2, 4));
-
-		setLimitLines(min, max);
-
 //		chart.getAxisLeft().setAxisMaximum(max);
 //		chart.getAxisLeft().setAxisMinimum(min);
 
 		CombinedData combinedData = new CombinedData();
-		combinedData.setData(getLineData(lineEntries));
+		combinedData.setData(getLineData(lineEntries, lineColor));
 //		combinedData.setData(getBarData(barEntries));
 		this.chart.setData(combinedData);
 		this.chart.invalidate();
+
+		return new Pair<>(min, max);
 	}
 
 	private void updateXAxis(DateRange dateRange) {
@@ -322,22 +365,21 @@ public class ProfitChartView extends RelativeLayout
 		return ll;
 	}
 
-	private LineData getLineData(List<Entry> data) {
+	private LineData getLineData(List<Entry> data, String lineColor) {
 		Collections.sort(data, new EntryXComparator());
-		LineData lineData = new LineData();
 
-		lineData.addDataSet(createLineDataSet(data));
+		lineData.addDataSet(createLineDataSet(data, lineColor));
 
 		return lineData;
 	}
 
-	private LineDataSet createLineDataSet(List<Entry> data) {
+	private LineDataSet createLineDataSet(List<Entry> data, String lineColor) {
 		LineDataSet dataSet = new LineDataSet(data, "");
 
 		dataSet.setLabel("");
 		dataSet.setDrawValues(false);
 		dataSet.setDrawCircles(false);
-		dataSet.setColor(ThemeUtil.getColorByAttrId(getContext(), lineColor));
+		dataSet.setColor(Color.parseColor(lineColor));
 //		dataSet.setMode(LineDataSet.Mode.CUBIC_BEZIER);
 		dataSet.setLineWidth(1.2f);
 		dataSet.setDrawHorizontalHighlightIndicator(false);

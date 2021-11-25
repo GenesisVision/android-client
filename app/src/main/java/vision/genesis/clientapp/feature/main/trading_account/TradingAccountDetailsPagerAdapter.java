@@ -12,7 +12,8 @@ import io.swagger.client.model.PrivateTradingAccountFull;
 import vision.genesis.clientapp.feature.main.trading_account.balance.TradingAccountBalanceFragment;
 import vision.genesis.clientapp.feature.main.trading_account.info.TradingAccountInfoFragment;
 import vision.genesis.clientapp.feature.main.trading_account.open_positions.TradingAccountOpenPositionsFragment;
-import vision.genesis.clientapp.feature.main.trading_account.profit.TradingAccountProfitFragment;
+import vision.genesis.clientapp.feature.main.trading_account.profit_abs.TradingAccountProfitAbsFragment;
+import vision.genesis.clientapp.feature.main.trading_account.profit_percent.TradingAccountProfitPercentFragment;
 import vision.genesis.clientapp.feature.main.trading_account.trades.TradingAccountTradesFragment;
 
 /**
@@ -33,7 +34,9 @@ public class TradingAccountDetailsPagerAdapter extends FragmentStatePagerAdapter
 
 	private TradingAccountOpenPositionsFragment openPositionsFragment;
 
-	private TradingAccountProfitFragment profitFragment;
+	private TradingAccountProfitPercentFragment profitPercentFragment;
+
+	private TradingAccountProfitAbsFragment profitAbsFragment;
 
 	private TradingAccountBalanceFragment equityFragment;
 
@@ -49,7 +52,8 @@ public class TradingAccountDetailsPagerAdapter extends FragmentStatePagerAdapter
 
 		infoFragment = TradingAccountInfoFragment.with(accountDetails);
 		openPositionsFragment = TradingAccountOpenPositionsFragment.with(assetId);
-		profitFragment = TradingAccountProfitFragment.with(accountDetails);
+		profitPercentFragment = TradingAccountProfitPercentFragment.with(accountDetails);
+		profitAbsFragment = TradingAccountProfitAbsFragment.with(accountDetails);
 		equityFragment = TradingAccountBalanceFragment.with(accountDetails);
 		tradesFragment = TradingAccountTradesFragment.with(assetId);
 	}
@@ -61,8 +65,10 @@ public class TradingAccountDetailsPagerAdapter extends FragmentStatePagerAdapter
 				return infoFragment;
 			case "open_positions":
 				return openPositionsFragment;
-			case "profit":
-				return profitFragment;
+			case "profit_percent":
+				return profitPercentFragment;
+			case "profit_abs":
+				return profitAbsFragment;
 			case "equity":
 				return equityFragment;
 			case "trades":
@@ -87,8 +93,11 @@ public class TradingAccountDetailsPagerAdapter extends FragmentStatePagerAdapter
 		if (openPositionsFragment != null) {
 			openPositionsFragment.pagerShow();
 		}
-		if (profitFragment != null) {
-			profitFragment.pagerShow();
+		if (profitPercentFragment != null) {
+			profitPercentFragment.pagerShow();
+		}
+		if (profitAbsFragment != null) {
+			profitAbsFragment.pagerShow();
 		}
 		if (equityFragment != null) {
 			equityFragment.pagerShow();

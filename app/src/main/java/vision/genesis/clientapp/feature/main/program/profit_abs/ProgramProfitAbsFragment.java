@@ -1,4 +1,4 @@
-package vision.genesis.clientapp.feature.main.program.balance;
+package vision.genesis.clientapp.feature.main.program.profit_abs;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -20,9 +20,10 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
-import io.swagger.client.model.BalanceChartPoint;
 import io.swagger.client.model.PlatformCurrencyInfo;
 import io.swagger.client.model.ProgramFollowDetailsFull;
+import io.swagger.client.model.SimpleChartPoint;
+import timber.log.Timber;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
 import vision.genesis.clientapp.feature.common.date_range.DateRangeBottomSheetFragment;
@@ -31,23 +32,24 @@ import vision.genesis.clientapp.feature.main.program.ProgramDetailsPagerAdapter;
 import vision.genesis.clientapp.model.DateRange;
 import vision.genesis.clientapp.ui.ChartAssetView;
 import vision.genesis.clientapp.ui.DateRangeView;
-import vision.genesis.clientapp.ui.chart.BalanceChartView;
+import vision.genesis.clientapp.ui.chart.ProfitChartView;
+import vision.genesis.clientapp.utils.StringFormatUtil;
 import vision.genesis.clientapp.utils.ThemeUtil;
 import vision.genesis.clientapp.utils.TypefaceUtil;
 
 /**
  * GenesisVisionAndroid
- * Created by Vitaly on 19/10/2018.
+ * Created by Vitaly on 27/09/2018.
  */
 
-public class ProgramBalanceFragment extends BaseFragment implements ProgramBalanceView, ProgramDetailsPagerAdapter.OnPageVisibilityChanged
+public class ProgramProfitAbsFragment extends BaseFragment implements ProgramProfitAbsView, ProgramDetailsPagerAdapter.OnPageVisibilityChanged
 {
-	private static String EXTRA_DETAILS = "extra_details";
+	private static final String EXTRA_PROGRAM_DETAILS = "extra_program_details";
 
-	public static ProgramBalanceFragment with(ProgramFollowDetailsFull details) {
-		ProgramBalanceFragment fragment = new ProgramBalanceFragment();
+	public static ProgramProfitAbsFragment with(ProgramFollowDetailsFull details) {
+		ProgramProfitAbsFragment fragment = new ProgramProfitAbsFragment();
 		Bundle arguments = new Bundle(1);
-		arguments.putParcelable(EXTRA_DETAILS, details);
+		arguments.putParcelable(EXTRA_PROGRAM_DETAILS, details);
 		fragment.setArguments(arguments);
 		return fragment;
 	}
@@ -67,35 +69,26 @@ public class ProgramBalanceFragment extends BaseFragment implements ProgramBalan
 	@BindView(R.id.view_chart_asset)
 	public ChartAssetView chartAssetView;
 
-	@BindView(R.id.balance_chart)
-	public BalanceChartView balanceChart;
+	@BindView(R.id.profit_chart)
+	public ProfitChartView absChart;
+
+	@BindView(R.id.amount_title)
+	public TextView amountTitle;
 
 	@BindView(R.id.amount_value)
 	public TextView amountValue;
-
-	@BindView(R.id.change_value)
-	public TextView changeValue;
-
-	@BindView(R.id.manager_funds)
-	public TextView managerFunds;
-
-	@BindView(R.id.investors_funds)
-	public TextView investorsFunds;
-
-	@BindView(R.id.change_percent)
-	public TextView changePercent;
 
 	@BindDimen(R.dimen.date_range_margin_bottom)
 	public int dateRangeMarginBottom;
 
 	@InjectPresenter
-	public ProgramBalancePresenter presenter;
-
-	private ProgramFollowDetailsFull details;
+	public ProgramProfitAbsPresenter presenter;
 
 	private Unbinder unbinder;
 
 	private DateRange dateRange = DateRange.createFromEnum(DateRange.DateRangeEnum.WEEK);
+
+	private ProgramFollowDetailsFull details;
 
 	@OnClick(R.id.date_range)
 	public void onDateRangeClicked() {
@@ -110,7 +103,7 @@ public class ProgramBalanceFragment extends BaseFragment implements ProgramBalan
 	@Nullable
 	@Override
 	public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-		return inflater.inflate(R.layout.fragment_program_balance, container, false);
+		return inflater.inflate(R.layout.fragment_program_profit_abs, container, false);
 	}
 
 	@Override
@@ -119,25 +112,33 @@ public class ProgramBalanceFragment extends BaseFragment implements ProgramBalan
 
 		unbinder = ButterKnife.bind(this, view);
 
-		details = getArguments().getParcelable(EXTRA_DETAILS);
-		presenter.setData(details);
-
 		setFonts();
 
-		balanceChart.setTouchListener(presenter);
+		if (getArguments() != null) {
+			details = getArguments().getParcelable(EXTRA_PROGRAM_DETAILS);
+			if (details != null) {
+				presenter.setData(details);
 
-		chartAssetView.setRemoveEnabled(false);
-		chartAssetView.setListener(new ChartAssetView.Listener()
-		{
-			@Override
-			public void onAssetClicked(PlatformCurrencyInfo asset) {
-				presenter.onAssetClicked(asset);
-			}
+				absChart.setTouchListener(presenter);
 
-			@Override
-			public void onRemoveAssetClicked(PlatformCurrencyInfo asset) {
+				chartAssetView.setRemoveEnabled(false);
+				chartAssetView.setListener(new ChartAssetView.Listener()
+				{
+					@Override
+					public void onAssetClicked(PlatformCurrencyInfo asset) {
+						presenter.onAssetClicked(asset);
+					}
+
+					@Override
+					public void onRemoveAssetClicked(PlatformCurrencyInfo asset) {
+					}
+				});
+
+				return;
 			}
-		});
+		}
+		Timber.e("Passed empty data to %s", getClass().getSimpleName());
+		onBackPressed();
 	}
 
 	@Override
@@ -151,35 +152,22 @@ public class ProgramBalanceFragment extends BaseFragment implements ProgramBalan
 	}
 
 	private void setFonts() {
+		amountTitle.setText(StringFormatUtil.capitalize(getString(R.string.value)));
 		amountValue.setTypeface(TypefaceUtil.semibold());
-		changeValue.setTypeface(TypefaceUtil.semibold());
-		changePercent.setTypeface(TypefaceUtil.semibold());
 	}
 
 	@Override
-	public void setChartData(List<BalanceChartPoint> balanceChart) {
-		this.balanceChart.setChart(balanceChart, dateRange);
+	public void setAbsChart(List<SimpleChartPoint> chart) {
+		absChart.setChartData(chart, dateRange);
 	}
 
 	@Override
-	public void setAmount(String amount) {
-		amountValue.setText(amount);
-	}
-
-	@Override
-	public void setChange(Boolean isChangeNegative, String changePercent, String changeValue) {
-		this.changePercent.setTextColor(isChangeNegative
+	public void setValue(Boolean isNegative, String value) {
+		this.amountValue.setTextColor(isNegative
 				? ThemeUtil.getColorByAttrId(getContext(), R.attr.colorRed)
 				: ThemeUtil.getColorByAttrId(getContext(), R.attr.colorGreen));
 
-		this.changePercent.setText(changePercent);
-		this.changeValue.setText(changeValue);
-	}
-
-	@Override
-	public void setFunds(String managerFunds, String investorsFunds) {
-		this.managerFunds.setText(managerFunds);
-		this.investorsFunds.setText(investorsFunds);
+		this.amountValue.setText(value);
 	}
 
 	@Override

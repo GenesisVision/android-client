@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:id="@+id/root"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="?attr/colorBackgroundDark">
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/scrollview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        tools:visibility="visible">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingBottom="100dp">
+
+            <LinearLayout
+                android:id="@+id/group_top"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?attr/colorBackground"
+                android:orientation="vertical"
+                android:paddingTop="24dp"
+                android:paddingBottom="16dp">
+
+                <LinearLayout
+                    android:id="@+id/group_values"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:baselineAligned="false"
+                    android:orientation="vertical"
+                    android:paddingLeft="@dimen/program_details_padding"
+                    android:paddingRight="@dimen/program_details_padding">
+
+                    <TextView
+                        android:id="@+id/value_title"
+                        style="@style/dashboard_header_title"
+                        android:layout_height="24dp"
+                        android:gravity="bottom"
+                        android:text="@string/value"/>
+
+                    <TextView
+                        android:id="@+id/value"
+                        style="@style/dashboard_header_value"
+                        android:fontFamily="@font/montserrat_semibold"
+                        tools:text="48.27%"/>
+
+                </LinearLayout>
+
+                <vision.genesis.clientapp.ui.ChartAssetView
+                    android:id="@+id/view_chart_asset"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/padding"
+                    android:layout_marginTop="@dimen/padding"
+                    android:layout_marginEnd="@dimen/padding"
+                    android:layout_marginBottom="10dp"/>
+
+                <vision.genesis.clientapp.ui.chart.ProfitChartView
+                    android:id="@+id/profit_chart"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/details_profit_chart_height"
+                    android:layout_marginTop="10dp"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+    <vision.genesis.clientapp.ui.DateRangeView
+        android:id="@+id/date_range"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="10dp"
+        android:visibility="gone"
+        tools:visibility="visible"/>
+
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:indeterminate="true"
+        android:scaleY="4"
+        android:visibility="visible"/>
+
+</RelativeLayout>

@@ -14,7 +14,8 @@ import io.swagger.client.model.FundDetailsFull;
 import vision.genesis.clientapp.feature.main.fund.balance.FundBalanceFragment;
 import vision.genesis.clientapp.feature.main.fund.info.FundInfoFragment;
 import vision.genesis.clientapp.feature.main.fund.info.owner.FundOwnerInfoFragment;
-import vision.genesis.clientapp.feature.main.fund.profit.FundProfitFragment;
+import vision.genesis.clientapp.feature.main.fund.profit_abs.FundProfitAbsFragment;
+import vision.genesis.clientapp.feature.main.fund.profit_percent.FundProfitPercentFragment;
 import vision.genesis.clientapp.feature.main.fund.reallocate_history.FundHistoryFragment;
 import vision.genesis.clientapp.feature.main.fund.structure.FundStructureFragment;
 import vision.genesis.clientapp.feature.main.program.events.ProgramEventsFragment;
@@ -41,7 +42,9 @@ public class FundDetailsPagerAdapter extends FragmentStatePagerAdapter
 
 	private FundHistoryFragment fundHistoryFragment;
 
-	private FundProfitFragment fundProfitFragment;
+	private FundProfitPercentFragment fundProfitPercentFragment;
+
+	private FundProfitAbsFragment fundProfitAbsFragment;
 
 	private FundBalanceFragment fundBalanceFragment;
 
@@ -63,7 +66,8 @@ public class FundDetailsPagerAdapter extends FragmentStatePagerAdapter
 		}
 		fundStructureFragment = FundStructureFragment.with();
 		fundHistoryFragment = FundHistoryFragment.with(fundId);
-		fundProfitFragment = FundProfitFragment.with(fundId);
+		fundProfitPercentFragment = FundProfitPercentFragment.with(fundId);
+		fundProfitAbsFragment = FundProfitAbsFragment.with(fundId);
 		fundBalanceFragment = FundBalanceFragment.with(fundId);
 		fundEventsFragment = ProgramEventsFragment.with(ProgramEventsFragment.LOCATION_FUND, fundId);
 	}
@@ -79,8 +83,10 @@ public class FundDetailsPagerAdapter extends FragmentStatePagerAdapter
 				return fundStructureFragment;
 			case "reallocate_history":
 				return fundHistoryFragment;
-			case "profit":
-				return fundProfitFragment;
+			case "profit_percent":
+				return fundProfitPercentFragment;
+			case "profit_abs":
+				return fundProfitAbsFragment;
 			case "balance":
 				return fundBalanceFragment;
 			case "events":
@@ -111,8 +117,11 @@ public class FundDetailsPagerAdapter extends FragmentStatePagerAdapter
 		if (fundHistoryFragment != null) {
 			fundHistoryFragment.pagerShow();
 		}
-		if (fundProfitFragment != null) {
-			fundProfitFragment.pagerShow();
+		if (fundProfitPercentFragment != null) {
+			fundProfitPercentFragment.pagerShow();
+		}
+		if (fundProfitAbsFragment != null) {
+			fundProfitAbsFragment.pagerShow();
 		}
 		if (fundBalanceFragment != null) {
 			fundBalanceFragment.pagerShow();
@@ -135,8 +144,11 @@ public class FundDetailsPagerAdapter extends FragmentStatePagerAdapter
 		if (fundHistoryFragment != null) {
 			fundHistoryFragment.onOffsetChanged(verticalOffset);
 		}
-		if (fundProfitFragment != null) {
-			fundProfitFragment.onOffsetChanged(verticalOffset);
+		if (fundProfitPercentFragment != null) {
+			fundProfitPercentFragment.onOffsetChanged(verticalOffset);
+		}
+		if (fundProfitAbsFragment != null) {
+			fundProfitAbsFragment.onOffsetChanged(verticalOffset);
 		}
 		if (fundBalanceFragment != null) {
 			fundBalanceFragment.onOffsetChanged(verticalOffset);

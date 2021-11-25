@@ -1,9 +1,7 @@
-package vision.genesis.clientapp.feature.main.fund.profit;
+package vision.genesis.clientapp.feature.main.fund.profit_abs;
 
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
-
-import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +12,8 @@ import javax.inject.Inject;
 
 import io.swagger.client.model.AbsoluteProfitChart;
 import io.swagger.client.model.Currency;
-import io.swagger.client.model.FundProfitPercentCharts;
+import io.swagger.client.model.PlatformCurrencyInfo;
+import io.swagger.client.model.PlatformInfo;
 import io.swagger.client.model.SimpleChartPoint;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
@@ -25,7 +24,6 @@ import vision.genesis.clientapp.managers.FundsManager;
 import vision.genesis.clientapp.managers.SettingsManager;
 import vision.genesis.clientapp.model.CurrencyEnum;
 import vision.genesis.clientapp.model.DateRange;
-import vision.genesis.clientapp.model.events.OnFundStatisticsUpdatedEvent;
 import vision.genesis.clientapp.ui.chart.ProfitChartView;
 import vision.genesis.clientapp.utils.StringFormatUtil;
 
@@ -35,7 +33,7 @@ import vision.genesis.clientapp.utils.StringFormatUtil;
  */
 
 @InjectViewState
-public class FundProfitPresenter extends MvpPresenter<FundProfitView> implements DateRangeBottomSheetFragment.OnDateRangeChangedListener, ProfitChartView.TouchListener
+public class FundProfitAbsPresenter extends MvpPresenter<FundProfitAbsView> implements DateRangeBottomSheetFragment.OnDateRangeChangedListener, ProfitChartView.TouchListener
 {
 	@Inject
 	public FundsManager fundsManager;
@@ -45,9 +43,9 @@ public class FundProfitPresenter extends MvpPresenter<FundProfitView> implements
 
 	private Subscription baseCurrencySubscription;
 
-	private Subscription absSubscription;
+	private Subscription platformInfoSubscription;
 
-	private Subscription percentSubscription;
+	private Subscription absSubscription;
 
 	private UUID fundId;
 
@@ -59,11 +57,11 @@ public class FundProfitPresenter extends MvpPresenter<FundProfitView> implements
 
 	private Currency baseCurrency;
 
-	private ArrayList<Currency> currencies = new ArrayList<>();
+	private List<PlatformCurrencyInfo> platformCurrencies = new ArrayList<>();
+
+	private PlatformCurrencyInfo selectedCurrency;
 
 	private AbsoluteProfitChart absChart;
-
-	private FundProfitPercentCharts percentChart;
 
 	@Override
 	protected void onFirstViewAttach() {
@@ -82,11 +80,11 @@ public class FundProfitPresenter extends MvpPresenter<FundProfitView> implements
 		if (baseCurrencySubscription != null) {
 			baseCurrencySubscription.unsubscribe();
 		}
+		if (platformInfoSubscription != null) {
+			platformInfoSubscription.unsubscribe();
+		}
 		if (absSubscription != null) {
 			absSubscription.unsubscribe();
-		}
-		if (percentSubscription != null) {
-			percentSubscription.unsubscribe();
 		}
 
 		super.onDestroy();
@@ -94,11 +92,11 @@ public class FundProfitPresenter extends MvpPresenter<FundProfitView> implements
 
 	void setFundId(UUID programId) {
 		this.fundId = programId;
-		updateAll();
+		getProfitAbs();
 	}
 
 	void onShow() {
-		updateAll();
+		getProfitAbs();
 	}
 
 	private void subscribeToBaseCurrency() {
@@ -112,22 +110,50 @@ public class FundProfitPresenter extends MvpPresenter<FundProfitView> implements
 
 	private void baseCurrencyChangedHandler(CurrencyEnum baseCurrency) {
 		this.baseCurrency = Currency.fromValue(baseCurrency.getValue());
-		updateAll();
+		getPlatformInfo();
 	}
 
-	private void updateAll() {
-		getProfitAbsolute();
-		getProfitPercent();
+	private void getPlatformInfo() {
+		if (settingsManager != null) {
+			platformInfoSubscription = settingsManager.getPlatformInfo()
+					.observeOn(AndroidSchedulers.mainThread())
+					.subscribeOn(Schedulers.newThread())
+					.subscribe(this::handleGetPlatformInfoSuccess,
+							this::handleGetPlatformInfoError);
+		}
 	}
 
-	private void getProfitAbsolute() {
-		if (fundsManager != null && baseCurrency != null && fundId != null) {
+	private void handleGetPlatformInfoSuccess(PlatformInfo platformInfo) {
+		platformInfoSubscription.unsubscribe();
+
+		platformCurrencies = platformInfo.getCommonInfo().getPlatformCurrencies();
+
+		for (PlatformCurrencyInfo platformCurrency : platformCurrencies) {
+			if (platformCurrency.getName().equals(baseCurrency.getValue())) {
+				selectedCurrency = platformCurrency;
+				break;
+			}
+		}
+		onSelectedCurrencyChanged();
+	}
+
+	private void onSelectedCurrencyChanged() {
+		getViewState().setCurrency(selectedCurrency);
+		getProfitAbs();
+	}
+
+	private void handleGetPlatformInfoError(Throwable throwable) {
+		platformInfoSubscription.unsubscribe();
+	}
+
+	private void getProfitAbs() {
+		if (fundsManager != null && selectedCurrency != null && fundId != null) {
 			if (absSubscription != null) {
 				absSubscription.unsubscribe();
 			}
 
 			absSubscription = fundsManager.getProfitAbsoluteChart(fundId, chartDateRange,
-					100, baseCurrency)
+					100, Currency.fromValue(selectedCurrency.getName()))
 					.observeOn(AndroidSchedulers.mainThread())
 					.subscribeOn(Schedulers.io())
 					.subscribe(this::handleGetAbsSuccess,
@@ -150,41 +176,6 @@ public class FundProfitPresenter extends MvpPresenter<FundProfitView> implements
 		getViewState().showProgress(false);
 	}
 
-	private void getProfitPercent() {
-		if (fundsManager != null && fundId != null && baseCurrency != null) {
-			if (percentSubscription != null) {
-				percentSubscription.unsubscribe();
-			}
-
-			currencies = new ArrayList<>();
-			currencies.add(baseCurrency);
-
-			percentSubscription = fundsManager.getProfitPercentChart(fundId, chartDateRange,
-					100, baseCurrency, currencies, 1)
-					.observeOn(AndroidSchedulers.mainThread())
-					.subscribeOn(Schedulers.io())
-					.subscribe(this::handleGetPercentSuccess,
-							this::handleGetPercentError);
-		}
-	}
-
-	private void handleGetPercentSuccess(FundProfitPercentCharts response) {
-		percentSubscription.unsubscribe();
-		getViewState().showProgress(false);
-
-		this.percentChart = response;
-
-		getViewState().setPercentChart(percentChart.getCharts());
-		EventBus.getDefault().post(new OnFundStatisticsUpdatedEvent(fundId, percentChart.getStatistic(), baseCurrency.getValue()));
-		getViewState().updateStatistics(percentChart.getStatistic(), baseCurrency);
-//		resetValuesSelection();
-	}
-
-	private void handleGetPercentError(Throwable throwable) {
-		percentSubscription.unsubscribe();
-		getViewState().showProgress(false);
-	}
-
 	private void resetValuesSelection() {
 		first = 0.0;
 		selected = 0.0;
@@ -201,13 +192,12 @@ public class FundProfitPresenter extends MvpPresenter<FundProfitView> implements
 	}
 
 	private void updateValues() {
-		if (first == null || selected == null || baseCurrency == null) {
+		if (first == null || selected == null || selectedCurrency == null) {
 			return;
 		}
 
 		getViewState().setValue(selected < 0, String.format(Locale.getDefault(), "%s",
-				StringFormatUtil.getValueString(selected, baseCurrency.getValue())));
-
+				StringFormatUtil.getValueString(selected, selectedCurrency.getName())));
 	}
 
 	@Override
@@ -215,7 +205,7 @@ public class FundProfitPresenter extends MvpPresenter<FundProfitView> implements
 		this.chartDateRange = dateRange;
 		getViewState().setDateRange(dateRange);
 		getViewState().showProgress(true);
-		updateAll();
+		getProfitAbs();
 	}
 
 	@Override
@@ -227,5 +217,25 @@ public class FundProfitPresenter extends MvpPresenter<FundProfitView> implements
 	@Override
 	public void onStop() {
 		resetValuesSelection();
+	}
+
+	public void onAssetClicked(PlatformCurrencyInfo asset) {
+		ArrayList<String> optionsList = new ArrayList<>();
+		for (PlatformCurrencyInfo platformCurrency : platformCurrencies) {
+			if (!platformCurrency.equals(asset)) {
+				optionsList.add(platformCurrency.getName());
+			}
+		}
+		getViewState().showChangeBaseCurrencyList(optionsList);
+	}
+
+	public void onChangeBaseCurrencySelected(String currency) {
+		for (PlatformCurrencyInfo platformCurrency : platformCurrencies) {
+			if (platformCurrency.getName().equals(currency)) {
+				selectedCurrency = platformCurrency;
+				onSelectedCurrencyChanged();
+				break;
+			}
+		}
 	}
 }

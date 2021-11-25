@@ -12,6 +12,7 @@ import androidx.core.widget.NestedScrollView;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindDimen;
@@ -19,14 +20,17 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+import io.swagger.client.model.PlatformCurrencyInfo;
 import io.swagger.client.model.PrivateTradingAccountFull;
 import io.swagger.client.model.SimpleChartPoint;
 import timber.log.Timber;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
 import vision.genesis.clientapp.feature.common.date_range.DateRangeBottomSheetFragment;
+import vision.genesis.clientapp.feature.common.option.SelectOptionBottomSheetFragment;
 import vision.genesis.clientapp.feature.main.trading_account.TradingAccountDetailsPagerAdapter;
 import vision.genesis.clientapp.model.DateRange;
+import vision.genesis.clientapp.ui.ChartAssetView;
 import vision.genesis.clientapp.ui.DateRangeView;
 import vision.genesis.clientapp.ui.chart.BalanceChartView;
 import vision.genesis.clientapp.utils.ThemeUtil;
@@ -39,14 +43,14 @@ import vision.genesis.clientapp.utils.TypefaceUtil;
 
 public class TradingAccountBalanceFragment extends BaseFragment implements TradingAccountBalanceView, TradingAccountDetailsPagerAdapter.OnPageVisibilityChanged
 {
-	private static String EXTRA_ACCOUNT_DETAILS = "extra_account_details";
+	private static final String EXTRA_ACCOUNT_DETAILS = "extra_account_details";
 
 	public static TradingAccountBalanceFragment with(PrivateTradingAccountFull details) {
-		TradingAccountBalanceFragment programProfitFragment = new TradingAccountBalanceFragment();
+		TradingAccountBalanceFragment fragment = new TradingAccountBalanceFragment();
 		Bundle arguments = new Bundle(1);
 		arguments.putParcelable(EXTRA_ACCOUNT_DETAILS, details);
-		programProfitFragment.setArguments(arguments);
-		return programProfitFragment;
+		fragment.setArguments(arguments);
+		return fragment;
 	}
 
 	@BindView(R.id.root)
@@ -61,23 +65,20 @@ public class TradingAccountBalanceFragment extends BaseFragment implements Tradi
 	@BindView(R.id.date_range)
 	public DateRangeView dateRangeView;
 
+	@BindView(R.id.view_chart_asset)
+	public ChartAssetView chartAssetView;
+
 	@BindView(R.id.balance_chart)
 	public BalanceChartView balanceChart;
 
 	@BindView(R.id.amount_value)
 	public TextView amountValue;
 
-	@BindView(R.id.amount_value_secondary)
-	public TextView amountValueSecondary;
-
 	@BindView(R.id.change_value)
 	public TextView changeValue;
 
 	@BindView(R.id.change_percent)
 	public TextView changePercent;
-
-	@BindView(R.id.change_value_secondary)
-	public TextView changeValueSecondary;
 
 	@BindDimen(R.dimen.date_range_margin_bottom)
 	public int dateRangeMarginBottom;
@@ -121,6 +122,19 @@ public class TradingAccountBalanceFragment extends BaseFragment implements Tradi
 				presenter.setData(details);
 
 				balanceChart.setTouchListener(presenter);
+
+				chartAssetView.setRemoveEnabled(false);
+				chartAssetView.setListener(new ChartAssetView.Listener()
+				{
+					@Override
+					public void onAssetClicked(PlatformCurrencyInfo asset) {
+						presenter.onAssetClicked(asset);
+					}
+
+					@Override
+					public void onRemoveAssetClicked(PlatformCurrencyInfo asset) {
+					}
+				});
 				return;
 			}
 		}
@@ -142,8 +156,6 @@ public class TradingAccountBalanceFragment extends BaseFragment implements Tradi
 		amountValue.setTypeface(TypefaceUtil.semibold());
 		changeValue.setTypeface(TypefaceUtil.semibold());
 		changePercent.setTypeface(TypefaceUtil.semibold());
-		amountValueSecondary.setTypeface(TypefaceUtil.medium());
-		changeValueSecondary.setTypeface(TypefaceUtil.medium());
 	}
 
 	@Override
@@ -157,14 +169,28 @@ public class TradingAccountBalanceFragment extends BaseFragment implements Tradi
 	}
 
 	@Override
-	public void setChange(Boolean isChangeNegative, String changePercent, String changeValue, String baseChangeValue) {
+	public void setChange(Boolean isChangeNegative, String changePercent, String changeValue) {
 		this.changePercent.setTextColor(isChangeNegative
 				? ThemeUtil.getColorByAttrId(getContext(), R.attr.colorRed)
 				: ThemeUtil.getColorByAttrId(getContext(), R.attr.colorGreen));
 
 		this.changePercent.setText(changePercent);
 		this.changeValue.setText(changeValue);
-		this.changeValueSecondary.setText(baseChangeValue);
+	}
+
+	@Override
+	public void setCurrency(PlatformCurrencyInfo selectedCurrency) {
+		this.chartAssetView.setAsset(selectedCurrency);
+	}
+
+	@Override
+	public void showChangeBaseCurrencyList(ArrayList<String> optionsList) {
+		if (getActivity() != null) {
+			SelectOptionBottomSheetFragment fragment = SelectOptionBottomSheetFragment.with(
+					getString(R.string.currency), optionsList, -1);
+			fragment.setListener((position, text) -> presenter.onChangeBaseCurrencySelected(text));
+			fragment.show(getActivity().getSupportFragmentManager(), fragment.getTag());
+		}
 	}
 
 	@Override

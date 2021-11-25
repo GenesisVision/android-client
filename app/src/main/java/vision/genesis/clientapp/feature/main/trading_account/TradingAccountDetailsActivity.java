@@ -99,7 +99,9 @@ public class TradingAccountDetailsActivity extends BaseSwipeBackActivity impleme
 
 	private TabLayout.Tab openPositionsTab;
 
-	private TabLayout.Tab profitTab;
+	private TabLayout.Tab profitPercentTab;
+
+	private TabLayout.Tab profitAbsTab;
 
 	private TabLayout.Tab equityTab;
 
@@ -217,7 +219,8 @@ public class TradingAccountDetailsActivity extends BaseSwipeBackActivity impleme
 
 	private void initTabs() {
 		infoTab = tabLayout.newTab().setCustomView(getTabView(R.string.info)).setTag("info");
-		profitTab = tabLayout.newTab().setCustomView(getTabView(R.string.profit)).setTag("profit");
+		profitPercentTab = tabLayout.newTab().setCustomView(getTabView(R.string.profit_percent)).setTag("profit_percent");
+		profitAbsTab = tabLayout.newTab().setCustomView(getTabView(R.string.profit_abs)).setTag("profit_abs");
 		equityTab = tabLayout.newTab().setCustomView(getTabView(R.string.equity)).setTag("equity");
 		openPositionsTab = tabLayout.newTab().setCustomView(getTabView(R.string.open_positions)).setTag("open_positions");
 		tradesTab = tabLayout.newTab().setCustomView(getTabView(R.string.trades)).setTag("trades");
@@ -294,7 +297,8 @@ public class TradingAccountDetailsActivity extends BaseSwipeBackActivity impleme
 
 		if (pagerAdapter == null) {
 			addPage(infoTab, true);
-			addPage(profitTab, false);
+			addPage(profitPercentTab, false);
+			addPage(profitAbsTab, false);
 			addPage(equityTab, false);
 			addPage(openPositionsTab, false);
 			addPage(tradesTab, false);

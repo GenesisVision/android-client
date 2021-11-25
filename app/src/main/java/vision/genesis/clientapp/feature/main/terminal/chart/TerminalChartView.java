@@ -49,7 +49,6 @@ import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.managers.TerminalManager;
 import vision.genesis.clientapp.model.terminal.binance_socket.KlineModel;
 import vision.genesis.clientapp.net.ApiErrorResolver;
-import vision.genesis.clientapp.ui.chart.ProfitChartView;
 import vision.genesis.clientapp.utils.DateValueFormatter;
 import vision.genesis.clientapp.utils.StringFormatUtil;
 import vision.genesis.clientapp.utils.ThemeUtil;
@@ -102,7 +101,7 @@ public class TerminalChartView extends RelativeLayout
 
 	private int highlightColor = R.attr.colorAccent;
 
-	private ProfitChartView.TouchListener touchListener;
+	private TerminalChartView.TouchListener touchListener;
 
 	private IAxisValueFormatter xAxisDateValueFormatter = new DateValueFormatter();
 
@@ -198,7 +197,7 @@ public class TerminalChartView extends RelativeLayout
 		super.onRestoreInstanceState(state);
 	}
 
-	public void setTouchListener(ProfitChartView.TouchListener touchListener) {
+	public void setTouchListener(TerminalChartView.TouchListener touchListener) {
 		this.touchListener = touchListener;
 	}
 

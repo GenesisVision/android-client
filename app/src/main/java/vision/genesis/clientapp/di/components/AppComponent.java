@@ -81,7 +81,8 @@ import vision.genesis.clientapp.feature.main.fund.info.owner.FundOwnerInfoPresen
 import vision.genesis.clientapp.feature.main.fund.invest.InvestFundPresenter;
 import vision.genesis.clientapp.feature.main.fund.invest.confirm.ConfirmFundInvestBottomSheetFragment;
 import vision.genesis.clientapp.feature.main.fund.manage.ManageFundPresenter;
-import vision.genesis.clientapp.feature.main.fund.profit.FundProfitPresenter;
+import vision.genesis.clientapp.feature.main.fund.profit_abs.FundProfitAbsPresenter;
+import vision.genesis.clientapp.feature.main.fund.profit_percent.FundProfitPercentPresenter;
 import vision.genesis.clientapp.feature.main.fund.reallocate.ReallocateFundPresenter;
 import vision.genesis.clientapp.feature.main.fund.reallocate_history.FundHistoryPresenter;
 import vision.genesis.clientapp.feature.main.fund.self_managed.create.CreateSelfManagedFundPresenter;
@@ -114,7 +115,8 @@ import vision.genesis.clientapp.feature.main.program.level.ProgramLevelBottomShe
 import vision.genesis.clientapp.feature.main.program.manage.ManageProgramPresenter;
 import vision.genesis.clientapp.feature.main.program.open_positions.OpenPositionsPresenter;
 import vision.genesis.clientapp.feature.main.program.period_history.PeriodHistoryPresenter;
-import vision.genesis.clientapp.feature.main.program.profit.ProgramProfitPresenter;
+import vision.genesis.clientapp.feature.main.program.profit_abs.ProgramProfitAbsPresenter;
+import vision.genesis.clientapp.feature.main.program.profit_percent.ProgramProfitPercentPresenter;
 import vision.genesis.clientapp.feature.main.program.reports.ProgramReportsPresenter;
 import vision.genesis.clientapp.feature.main.program.trades.ProgramTradesPresenter;
 import vision.genesis.clientapp.feature.main.program.withdraw.WithdrawProgramPresenter;
@@ -168,7 +170,8 @@ import vision.genesis.clientapp.feature.main.trading_account.create.settings.Bro
 import vision.genesis.clientapp.feature.main.trading_account.info.TradingAccountInfoPresenter;
 import vision.genesis.clientapp.feature.main.trading_account.manage.ManageTradingAccountPresenter;
 import vision.genesis.clientapp.feature.main.trading_account.open_positions.TradingAccountOpenPositionsPresenter;
-import vision.genesis.clientapp.feature.main.trading_account.profit.TradingAccountProfitPresenter;
+import vision.genesis.clientapp.feature.main.trading_account.profit_abs.TradingAccountProfitAbsPresenter;
+import vision.genesis.clientapp.feature.main.trading_account.profit_percent.TradingAccountProfitPercentPresenter;
 import vision.genesis.clientapp.feature.main.trading_account.trades.TradingAccountTradesPresenter;
 import vision.genesis.clientapp.feature.main.trading_account.two_factor.SetupAccountTfaPresenter;
 import vision.genesis.clientapp.feature.main.unregistered.dashboard.UnregisteredDashboardPresenter;
@@ -282,7 +285,9 @@ public interface AppComponent
 
 	void inject(RequestsBottomSheetFragment requestsBottomSheetFragment);
 
-	void inject(ProgramProfitPresenter programProfitPresenter);
+	void inject(ProgramProfitPercentPresenter programProfitPercentPresenter);
+
+	void inject(ProgramProfitAbsPresenter programProfitAbsPresenter);
 
 	void inject(ProgramEventsPresenter programEventsPresenter);
 
@@ -316,7 +321,9 @@ public interface AppComponent
 
 	void inject(FundInfoPresenter fundInfoPresenter);
 
-	void inject(FundProfitPresenter fundProfitPresenter);
+	void inject(FundProfitPercentPresenter fundProfitPercentPresenter);
+
+	void inject(FundProfitAbsPresenter fundProfitAbsPresenter);
 
 	void inject(FundBalancePresenter fundBalancePresenter);
 
@@ -422,7 +429,9 @@ public interface AppComponent
 
 	void inject(TradingAccountOpenPositionsPresenter tradingAccountOpenPositionsPresenter);
 
-	void inject(TradingAccountProfitPresenter tradingAccountProfitPresenter);
+	void inject(TradingAccountProfitPercentPresenter tradingAccountProfitPercentPresenter);
+
+	void inject(TradingAccountProfitAbsPresenter tradingAccountProfitAbsPresenter);
 
 	void inject(TradingAccountBalancePresenter tradingAccountBalancePresenter);
 
