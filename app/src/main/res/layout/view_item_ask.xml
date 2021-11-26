@@ -41,7 +41,7 @@
         android:id="@+id/price"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:layout_marginStart="4dp"
+        android:layout_marginStart="12dp"
         android:fontFamily="@font/montserrat_semibold"
         android:gravity="center_vertical"
         android:textColor="?attr/colorRed"
@@ -59,6 +59,7 @@
         android:text="⬤"
         android:textColor="@color/gold"
         android:textSize="10sp"
+        tools:visibility="visible"
         android:visibility="gone"/>
 
 </RelativeLayout>

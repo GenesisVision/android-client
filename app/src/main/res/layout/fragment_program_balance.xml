@@ -47,6 +47,7 @@
                     <TextView
                         android:id="@+id/amount_value"
                         style="@style/dashboard_header_value"
+                        android:lines="2"
                         android:fontFamily="@font/montserrat_semibold"
                         tools:text="600.142345 GVT"/>
 
@@ -81,6 +82,7 @@
                     <TextView
                         android:id="@+id/change_value"
                         style="@style/dashboard_header_value"
+                        android:lines="2"
                         android:fontFamily="@font/montserrat_semibold"
                         tools:text="+120.2301 GVT"/>
 
