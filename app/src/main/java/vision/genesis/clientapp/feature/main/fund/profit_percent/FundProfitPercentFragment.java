@@ -1,10 +1,12 @@
 package vision.genesis.clientapp.feature.main.fund.profit_percent;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -25,6 +27,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+import io.swagger.client.model.FundAssetPartWithIcon;
 import io.swagger.client.model.FundChartStatistic;
 import io.swagger.client.model.PlatformCurrencyInfo;
 import io.swagger.client.model.SimpleChart;
@@ -37,6 +40,7 @@ import vision.genesis.clientapp.feature.main.fund.profit_percent.glossary.FundSt
 import vision.genesis.clientapp.model.DateRange;
 import vision.genesis.clientapp.ui.ChartAssetView;
 import vision.genesis.clientapp.ui.DateRangeView;
+import vision.genesis.clientapp.ui.FundAssetProfitView;
 import vision.genesis.clientapp.ui.chart.ProfitChartView;
 import vision.genesis.clientapp.utils.DateTimeUtil;
 import vision.genesis.clientapp.utils.StringFormatUtil;
@@ -71,6 +75,12 @@ public class FundProfitPercentFragment extends BaseFragment implements FundProfi
 
 	@BindView(R.id.date_range)
 	public DateRangeView dateRangeView;
+
+	@BindView(R.id.currencies_flex_box)
+	public FlexboxLayout currenciesFlexBox;
+
+	@BindView(R.id.group_line)
+	public LinearLayout lineGroup;
 
 	@BindView(R.id.assets_flex_box)
 	public FlexboxLayout assetsFlexBox;
@@ -180,10 +190,50 @@ public class FundProfitPercentFragment extends BaseFragment implements FundProfi
 		profitChart.setMultipleChartData(chart, dateRange);
 	}
 
+	@Override
+	public void setAssets(List<FundAssetPartWithIcon> assets) {
+		lineGroup.removeAllViews();
+		assetsFlexBox.removeAllViews();
+		for (FundAssetPartWithIcon asset : assets) {
+			if (asset.getPercent() > 0) {
+				addAsset(asset);
+			}
+		}
+	}
+
+	private void addAsset(FundAssetPartWithIcon asset) {
+		addAssetLine(asset);
+		addAssetView(asset);
+	}
+
+	private void addAssetLine(FundAssetPartWithIcon asset) {
+		View view = new View(getContext());
+		try {
+			view.setBackgroundColor(Color.parseColor(asset.getColor()));
+		} catch (IllegalArgumentException e) {
+			e.printStackTrace();
+			view.setBackgroundColor(Color.parseColor("#00bdaf"));
+		}
+		lineGroup.addView(view);
+		LinearLayout.LayoutParams lp = (LinearLayout.LayoutParams) view.getLayoutParams();
+		lp.weight = asset.getPercent().floatValue();
+		lp.height = ViewGroup.LayoutParams.MATCH_PARENT;
+		lp.width = 0;
+		view.setLayoutParams(lp);
+	}
+
+	private void addAssetView(FundAssetPartWithIcon asset) {
+		FundAssetProfitView view = new FundAssetProfitView(getContext());
+		view.setAsset(asset);
+		assetsFlexBox.addView(view);
+		FlexboxLayout.LayoutParams lp = (FlexboxLayout.LayoutParams) view.getLayoutParams();
+		lp.setMargins(0, 0, TypedValueFormatter.toDp(10), TypedValueFormatter.toDp(4));
+		view.setLayoutParams(lp);
+	}
 
 	@Override
 	public void setCurrencies(List<PlatformCurrencyInfo> selectedCurrencies, boolean showAddButton) {
-		assetsFlexBox.removeAllViews();
+		currenciesFlexBox.removeAllViews();
 		for (int i = 0; i < selectedCurrencies.size(); i++) {
 			ChartAssetView view = new ChartAssetView(getContext());
 			view.setAsset(selectedCurrencies.get(i));
@@ -201,7 +251,7 @@ public class FundProfitPercentFragment extends BaseFragment implements FundProfi
 					presenter.onRemoveAssetClicked(asset);
 				}
 			});
-			assetsFlexBox.addView(view);
+			currenciesFlexBox.addView(view);
 			FlexboxLayout.LayoutParams lp = (FlexboxLayout.LayoutParams) view.getLayoutParams();
 			lp.setMargins(0, 0, TypedValueFormatter.toDp(10), TypedValueFormatter.toDp(4));
 			view.setLayoutParams(lp);
@@ -247,7 +297,7 @@ public class FundProfitPercentFragment extends BaseFragment implements FundProfi
 		view.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.ic_add_circle_black_24dp));
 		view.setOnClickListener((view1) -> presenter.onAddAssetClicked());
 
-		assetsFlexBox.addView(view);
+		currenciesFlexBox.addView(view);
 		FlexboxLayout.LayoutParams lp = (FlexboxLayout.LayoutParams) view.getLayoutParams();
 		lp.setWidth(TypedValueFormatter.toDp(28));
 		lp.setHeight(TypedValueFormatter.toDp(28));

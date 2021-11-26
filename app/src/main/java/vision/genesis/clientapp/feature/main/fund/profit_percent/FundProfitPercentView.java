@@ -7,6 +7,7 @@ import com.arellomobile.mvp.viewstate.strategy.StateStrategyType;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.swagger.client.model.FundAssetPartWithIcon;
 import io.swagger.client.model.FundChartStatistic;
 import io.swagger.client.model.PlatformCurrencyInfo;
 import io.swagger.client.model.SimpleChart;
@@ -29,6 +30,8 @@ interface FundProfitPercentView extends MvpView
 
 	void setPercentChart(List<SimpleChart> chart);
 
+	void setAssets(List<FundAssetPartWithIcon> assets);
+
 	void updateStatistics(FundChartStatistic statistic, String baseCurrency);
 
 	void setValue(boolean isNegative, String value);
@@ -37,5 +40,4 @@ interface FundProfitPercentView extends MvpView
 	void showProgress(boolean show);
 
 	void setDateRange(DateRange dateRange);
-
 }

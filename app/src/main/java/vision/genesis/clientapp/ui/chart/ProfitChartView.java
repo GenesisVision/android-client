@@ -60,7 +60,7 @@ public class ProfitChartView extends RelativeLayout
 {
 	public interface TouchListener
 	{
-		void onTouch(float index);
+		void onTouch(float value, float x);
 
 		void onStop();
 	}
@@ -195,7 +195,7 @@ public class ProfitChartView extends RelativeLayout
 				if (highlight != null) {
 					showHighlight(highlight);
 					if (touchListener != null) {
-						touchListener.onTouch(highlight.getY());
+						touchListener.onTouch(highlight.getY(), highlight.getX());
 					}
 				}
 			}

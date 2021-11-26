@@ -55,7 +55,7 @@
                 </LinearLayout>
 
                 <com.google.android.flexbox.FlexboxLayout
-                    android:id="@+id/assets_flex_box"
+                    android:id="@+id/currencies_flex_box"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/padding"
@@ -72,6 +72,29 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/details_profit_chart_height"
                     android:layout_marginTop="10dp"/>
+
+                <LinearLayout
+                    android:id="@+id/group_line"
+                    android:layout_width="match_parent"
+                    android:layout_height="3dp"
+                    android:layout_marginStart="@dimen/padding"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="@dimen/padding"
+                    android:background="?attr/colorCard"
+                    android:orientation="horizontal"/>
+
+                <com.google.android.flexbox.FlexboxLayout
+                    android:id="@+id/assets_flex_box"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/padding"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="@dimen/padding"
+                    android:layout_marginBottom="10dp"
+                    app:alignContent="flex_start"
+                    app:alignItems="flex_start"
+                    app:flexDirection="row"
+                    app:flexWrap="wrap"/>
 
             </LinearLayout>
 

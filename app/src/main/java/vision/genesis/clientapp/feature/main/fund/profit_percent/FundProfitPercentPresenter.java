@@ -10,6 +10,7 @@ import java.util.UUID;
 import javax.inject.Inject;
 
 import io.swagger.client.model.Currency;
+import io.swagger.client.model.FundAssetsState;
 import io.swagger.client.model.FundProfitPercentCharts;
 import io.swagger.client.model.PlatformCurrencyInfo;
 import io.swagger.client.model.PlatformInfo;
@@ -52,6 +53,8 @@ public class FundProfitPercentPresenter extends MvpPresenter<FundProfitPercentVi
 	private Double first;
 
 	private Double selected;
+
+	private Long selectedDate;
 
 	private FundProfitPercentCharts percentChart;
 
@@ -185,6 +188,7 @@ public class FundProfitPercentPresenter extends MvpPresenter<FundProfitPercentVi
 	private void resetValuesSelection() {
 		first = 0.0;
 		selected = 0.0;
+		selectedDate = null;
 		SimpleChart simpleChart = percentChart.getCharts().get(0);
 		if (percentChart != null && simpleChart != null) {
 			List<SimpleChartPoint> chart = simpleChart.getChart();
@@ -192,6 +196,7 @@ public class FundProfitPercentPresenter extends MvpPresenter<FundProfitPercentVi
 				if (chart.get(0) != null) {
 					first = chart.get(0).getValue();
 					selected = chart.get(chart.size() - 1).getValue();
+					selectedDate = chart.get(chart.size() - 1).getDate();
 				}
 			}
 		}
@@ -200,6 +205,14 @@ public class FundProfitPercentPresenter extends MvpPresenter<FundProfitPercentVi
 
 	private void updateValues() {
 		getViewState().setValue(selected < 0, StringFormatUtil.getPercentString(selected));
+		if (selectedDate != null) {
+			for (FundAssetsState assetState : percentChart.getAssets()) {
+				if (assetState.getDate().equals(selectedDate)) {
+					getViewState().setAssets(assetState.getAssets());
+					break;
+				}
+			}
+		}
 	}
 
 	@Override
@@ -211,8 +224,9 @@ public class FundProfitPercentPresenter extends MvpPresenter<FundProfitPercentVi
 	}
 
 	@Override
-	public void onTouch(float value) {
+	public void onTouch(float value, float x) {
 		selected = (double) value;
+		selectedDate = (Double.valueOf(x)).longValue() * 1000 * 60;
 		updateValues();
 	}
 

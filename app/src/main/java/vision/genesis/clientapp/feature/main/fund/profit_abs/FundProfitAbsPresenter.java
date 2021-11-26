@@ -209,7 +209,7 @@ public class FundProfitAbsPresenter extends MvpPresenter<FundProfitAbsView> impl
 	}
 
 	@Override
-	public void onTouch(float value) {
+	public void onTouch(float value, float x) {
 		selected = (double) value;
 		updateValues();
 	}
