@@ -27,7 +27,6 @@ import vision.genesis.clientapp.feature.BaseSwipeBackActivity;
 import vision.genesis.clientapp.feature.common.option.SelectOptionBottomSheetFragment;
 import vision.genesis.clientapp.ui.PrimaryButton;
 import vision.genesis.clientapp.utils.ThemeUtil;
-import vision.genesis.clientapp.utils.TypefaceUtil;
 
 /**
  * GenesisVisionAndroid
@@ -56,6 +55,12 @@ public class CreateCustomNotificationSettingActivity extends BaseSwipeBackActivi
 
 	@BindView(R.id.type)
 	public TextView type;
+
+	@BindView(R.id.group_profit)
+	public ViewGroup profitGroup;
+
+	@BindView(R.id.edittext_profit)
+	public EditText profit;
 
 	@BindView(R.id.group_amount)
 	public ViewGroup amountGroup;
@@ -94,7 +99,7 @@ public class CreateCustomNotificationSettingActivity extends BaseSwipeBackActivi
 	public ProgressBar progressBar;
 
 	@InjectPresenter
-	CreateCustomNotificationSettingPresenter createCustomNotificationSettingPresenter;
+	CreateCustomNotificationSettingPresenter presenter;
 
 	private ArrayList<String> typeOptions;
 
@@ -109,13 +114,18 @@ public class CreateCustomNotificationSettingActivity extends BaseSwipeBackActivi
 	public void onTypeClicked() {
 		SelectOptionBottomSheetFragment fragment = SelectOptionBottomSheetFragment.with(
 				getString(R.string.select_notification_type), typeOptions, selectedTypePosition);
-		fragment.setListener(createCustomNotificationSettingPresenter);
+		fragment.setListener(presenter);
 		fragment.show(getSupportFragmentManager(), fragment.getTag());
+	}
+
+	@OnClick(R.id.group_edittext_profit)
+	public void onProfitEditTextClicked() {
+		showSoftKeyboard(profit);
 	}
 
 	@OnClick(R.id.group_edittext_amount)
 	public void onAmountEditTextClicked() {
-		showSoftKeyboard();
+		showSoftKeyboard(amount);
 	}
 
 	@OnClick(R.id.level_1)
@@ -155,7 +165,7 @@ public class CreateCustomNotificationSettingActivity extends BaseSwipeBackActivi
 
 	@OnClick(R.id.button_create)
 	public void onCreateClicked() {
-		createCustomNotificationSettingPresenter.onCreateClicked();
+		presenter.onCreateClicked();
 	}
 
 	@Override
@@ -168,10 +178,8 @@ public class CreateCustomNotificationSettingActivity extends BaseSwipeBackActivi
 		ButterKnife.bind(this);
 
 		if (getIntent().getExtras() != null && !getIntent().getExtras().isEmpty()) {
-			createCustomNotificationSettingPresenter.setProgramId((UUID) getIntent().getExtras().getSerializable(EXTRA_PROGRAM_ID));
+			presenter.setProgramId((UUID) getIntent().getExtras().getSerializable(EXTRA_PROGRAM_ID));
 			this.programName.setText(getIntent().getExtras().getString(EXTRA_PROGRAM_NAME));
-
-			setFonts();
 
 			setTextListener();
 
@@ -193,19 +201,17 @@ public class CreateCustomNotificationSettingActivity extends BaseSwipeBackActivi
 		level7.getBackground().setColorFilter(ThemeUtil.getColorByAttrId(this, R.attr.colorCard), PorterDuff.Mode.SRC_IN);
 	}
 
-	private void setFonts() {
-		title.setTypeface(TypefaceUtil.semibold());
-	}
-
 	private void setTextListener() {
 		RxTextView.textChanges(amount)
-				.subscribe(charSequence -> createCustomNotificationSettingPresenter.onAmountChanged(charSequence.toString()));
+				.subscribe(charSequence -> presenter.onInvestAmountChanged(charSequence.toString()));
+		RxTextView.textChanges(profit)
+				.subscribe(charSequence -> presenter.onProfitChanged(charSequence.toString()));
 	}
 
 	private void onLevelClicked(TextView levelView, int level) {
 		clearLevels();
 		levelView.getBackground().setColorFilter(ThemeUtil.getColorByAttrId(this, R.attr.colorAccent), PorterDuff.Mode.SRC_IN);
-		createCustomNotificationSettingPresenter.onLevelSelected(level);
+		presenter.onLevelSelected(level);
 	}
 
 	@Override
@@ -221,7 +227,16 @@ public class CreateCustomNotificationSettingActivity extends BaseSwipeBackActivi
 
 	@Override
 	public void showProfitInput() {
+		profit.setText("");
+		profitGroup.setVisibility(View.VISIBLE);
+		amountGroup.setVisibility(View.GONE);
+		selectLevelGroup.setVisibility(View.GONE);
+	}
+
+	@Override
+	public void showInvestInput() {
 		amount.setText("");
+		profitGroup.setVisibility(View.GONE);
 		amountGroup.setVisibility(View.VISIBLE);
 		selectLevelGroup.setVisibility(View.GONE);
 	}
@@ -229,6 +244,7 @@ public class CreateCustomNotificationSettingActivity extends BaseSwipeBackActivi
 	@Override
 	public void showLevelInput() {
 		clearLevels();
+		profitGroup.setVisibility(View.GONE);
 		amountGroup.setVisibility(View.GONE);
 		selectLevelGroup.setVisibility(View.VISIBLE);
 	}
@@ -260,11 +276,11 @@ public class CreateCustomNotificationSettingActivity extends BaseSwipeBackActivi
 		overridePendingTransition(R.anim.hold, R.anim.activity_slide_to_right);
 	}
 
-	private void showSoftKeyboard() {
+	private void showSoftKeyboard(EditText editText) {
 		InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-		amount.requestFocus();
+		editText.requestFocus();
 		if (imm != null) {
-			imm.showSoftInput(amount, 0);
+			imm.showSoftInput(editText, 0);
 		}
 	}
 }

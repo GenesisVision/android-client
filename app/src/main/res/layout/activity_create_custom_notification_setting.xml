@@ -19,7 +19,7 @@
             android:layout_centerVertical="true"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:padding="20dp"
-            android:tint="?attr/colorTextPrimary"
+            app:tint="?attr/colorTextPrimary"
             app:srcCompat="@drawable/icon_back"/>
 
         <TextView
@@ -28,6 +28,7 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:text="@string/create_notification"
+            android:fontFamily="@font/montserrat_semibold"
             android:textColor="?attr/colorTextPrimary"
             android:textSize="18sp"/>
 
@@ -75,7 +76,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:layout_toLeftOf="@+id/arrow"
                     android:layout_toStartOf="@+id/arrow"
                     android:textColor="?attr/colorTextPrimary"
                     android:textColorHint="?attr/colorTextPrimary"
@@ -87,13 +87,11 @@
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:layout_alignParentEnd="true"
-                    android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:layout_marginLeft="8dp"
                     android:layout_marginStart="8dp"
                     android:gravity="center_vertical|end"
                     android:textSize="18sp"
-                    android:tint="?attr/colorTextPrimary"
+                    app:tint="?attr/colorTextPrimary"
                     app:srcCompat="@drawable/ic_keyboard_arrow_down_black_24dp"/>
 
                 <View
@@ -104,6 +102,59 @@
                     android:background="?attr/colorTextPrimary"/>
 
             </RelativeLayout>
+
+            <LinearLayout
+                android:id="@+id/group_profit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:alpha="0.4"
+                    android:text="@string/enter_amount"
+                    android:textColor="?attr/colorTextPrimary"
+                    android:textSize="12sp"/>
+
+                <RelativeLayout
+                    android:id="@+id/group_edittext_profit"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/text_input_height">
+
+                    <EditText
+                        android:id="@+id/edittext_profit"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:background="@android:color/transparent"
+                        android:hint="0"
+                        android:inputType="numberDecimal"
+                        android:textColor="?attr/colorTextPrimary"
+                        android:textColorHint="?attr/colorTextPrimary"
+                        android:textSize="18sp"
+                        tools:text="10.235"/>
+
+                    <TextView
+                        android:layout_width="50dp"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentEnd="true"
+                        android:gravity="center_vertical|end"
+                        android:text="%"
+                        android:textColor="?attr/colorTextSecondary"
+                        android:textSize="18sp"/>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_alignParentBottom="true"
+                        android:alpha="0.2"
+                        android:background="?attr/colorTextPrimary"/>
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
 
             <LinearLayout
                 android:id="@+id/group_amount"
@@ -136,16 +187,6 @@
                         android:textColorHint="?attr/colorTextPrimary"
                         android:textSize="18sp"
                         tools:text="10.235"/>
-
-                    <TextView
-                        android:layout_width="50dp"
-                        android:layout_height="match_parent"
-                        android:layout_alignParentEnd="true"
-                        android:layout_alignParentRight="true"
-                        android:gravity="center_vertical|end"
-                        android:text="%"
-                        android:textColor="?attr/colorTextSecondary"
-                        android:textSize="18sp"/>
 
                     <View
                         android:layout_width="match_parent"

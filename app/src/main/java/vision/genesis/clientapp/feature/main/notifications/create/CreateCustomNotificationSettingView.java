@@ -21,6 +21,8 @@ interface CreateCustomNotificationSettingView extends MvpView
 
 	void showLevelInput();
 
+	void showInvestInput();
+
 	void setCreateButtonEnabled(Boolean enabled);
 
 	@StateStrategyType(AddToEndSingleStrategy.class)

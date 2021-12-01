@@ -56,6 +56,7 @@ public class CreateCustomNotificationSettingPresenter extends MvpPresenter<Creat
 		ArrayList<String> typeOptions = new ArrayList<>();
 		typeOptions.add(context.getString(R.string.profit));
 		typeOptions.add(context.getString(R.string.level));
+		typeOptions.add(context.getString(R.string.investment_availability));
 		getViewState().setTypeOptions(typeOptions);
 		onOptionSelected(0, typeOptions.get(0));
 	}
@@ -73,7 +74,17 @@ public class CreateCustomNotificationSettingPresenter extends MvpPresenter<Creat
 		this.programId = programId;
 	}
 
-	void onAmountChanged(String newAmount) {
+	void onInvestAmountChanged(String newAmount) {
+		try {
+			amount = Double.parseDouble(newAmount);
+		} catch (NumberFormatException e) {
+			amount = 0.0;
+		}
+
+		updateCreateButtonEnabled();
+	}
+
+	void onProfitChanged(String newAmount) {
 		try {
 			amount = Double.parseDouble(newAmount);
 		} catch (NumberFormatException e) {
@@ -134,6 +145,10 @@ public class CreateCustomNotificationSettingPresenter extends MvpPresenter<Creat
 		else if (text.equals(context.getString(R.string.level))) {
 			this.type = NotificationSettingConditionType.LEVEL;
 			getViewState().showLevelInput();
+		}
+		else if (text.equals(context.getString(R.string.investment_availability))) {
+			this.type = NotificationSettingConditionType.AVAILABLETOINVEST;
+			getViewState().showInvestInput();
 		}
 		getViewState().setType(text, position);
 		this.amount = 0.0;

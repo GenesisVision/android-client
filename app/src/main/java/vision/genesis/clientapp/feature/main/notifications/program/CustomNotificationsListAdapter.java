@@ -139,6 +139,10 @@ public class CustomNotificationsListAdapter extends RecyclerView.Adapter<CustomN
 						this.type.setText(itemView.getContext().getString(R.string.level));
 						this.value.setText(StringFormatUtil.formatAmount(setting.getConditionAmount(), 0, 0));
 						break;
+					case AVAILABLETOINVEST:
+						this.type.setText(itemView.getContext().getString(R.string.investment_availability));
+						this.value.setText(StringFormatUtil.formatAmount(setting.getConditionAmount(), 0, 8));
+						break;
 				}
 				this.checkBox.setChecked(setting.isIsEnabled());
 			}
