@@ -29,6 +29,7 @@ import vision.genesis.clientapp.managers.SettingsManager;
 import vision.genesis.clientapp.model.CurrencyEnum;
 import vision.genesis.clientapp.model.DateRange;
 import vision.genesis.clientapp.model.events.OnChartBaseCurrencyChangedEvent;
+import vision.genesis.clientapp.model.events.OnFundStatisticsUpdatedEvent;
 import vision.genesis.clientapp.ui.chart.ProfitChartView;
 import vision.genesis.clientapp.utils.StringFormatUtil;
 
@@ -182,6 +183,8 @@ public class FundProfitPercentPresenter extends MvpPresenter<FundProfitPercentVi
 		getViewState().showProgress(false);
 
 		this.percentChart = response;
+
+		EventBus.getDefault().post(new OnFundStatisticsUpdatedEvent(fundId, response.getStatistic(), baseCurrency.getValue()));
 
 		getViewState().setPercentChart(percentChart.getCharts());
 		getViewState().updateStatistics(percentChart.getStatistic(), selectedCurrencies.get(0).getName());
