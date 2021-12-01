@@ -230,8 +230,14 @@ public class ProgramInfoFragment extends BaseFragment implements ProgramInfoView
 	@BindView(R.id.button_invest)
 	public PrimaryButton investButton;
 
+	@BindView(R.id.button_notify)
+	public PrimaryButton notifyButton;
+
 	@BindView(R.id.invest_info)
 	public TextView investInfo;
+
+	@BindView(R.id.notify_info)
+	public TextView notifyInfo;
 
 	@BindView(R.id.withdraw_info)
 	public TextView withdrawInfo;
@@ -359,6 +365,12 @@ public class ProgramInfoFragment extends BaseFragment implements ProgramInfoView
 	@OnClick(R.id.button_invest)
 	public void onInvestClicked() {
 		presenter.onInvestClicked();
+	}
+
+	@OnClick(R.id.button_notify)
+	public void onNotifyClicked() {
+		presenter.onNotifyClicked();
+		this.notifyButton.setEnabled(false);
 	}
 
 	@OnClick(R.id.button_withdraw)
@@ -510,7 +522,19 @@ public class ProgramInfoFragment extends BaseFragment implements ProgramInfoView
 
 		managementFee.setText(String.format(Locale.getDefault(), "%s (%s)", managementFee.getText().toString(), getString(R.string.annual)));
 
-		investButton.setEnabled(programDetails.getAvailableInvestmentBase() > 0);
+		if (programDetails.getAvailableInvestmentBase() > 0) {
+			investButton.setVisibility(View.VISIBLE);
+			investInfo.setVisibility(View.VISIBLE);
+			notifyButton.setVisibility(View.GONE);
+			notifyInfo.setVisibility(View.GONE);
+		}
+		else {
+			investButton.setVisibility(View.GONE);
+			investInfo.setVisibility(View.GONE);
+			notifyButton.setVisibility(View.VISIBLE);
+			notifyInfo.setVisibility(View.VISIBLE);
+//			notifyButton.setEnabled();
+		}
 
 		if (personalDetails != null) {
 			investButton.setEnabled(programDetails.getAvailableInvestmentBase() > 0 && personalDetails.isCanInvest());

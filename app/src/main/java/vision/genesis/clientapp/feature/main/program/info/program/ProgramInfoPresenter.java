@@ -14,6 +14,8 @@ import java.util.UUID;
 import javax.inject.Inject;
 
 import io.swagger.client.model.AssetInvestmentStatus;
+import io.swagger.client.model.NotificationSettingConditionType;
+import io.swagger.client.model.NotificationType;
 import io.swagger.client.model.ProgramFollowDetailsFull;
 import io.swagger.client.model.ProgramType;
 import io.swagger.client.model.ProgramWithdrawInfo;
@@ -24,6 +26,7 @@ import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.managers.AuthManager;
 import vision.genesis.clientapp.managers.FollowsManager;
+import vision.genesis.clientapp.managers.NotificationsManager;
 import vision.genesis.clientapp.managers.ProgramsManager;
 import vision.genesis.clientapp.model.ProgramRequest;
 import vision.genesis.clientapp.model.User;
@@ -47,6 +50,9 @@ public class ProgramInfoPresenter extends MvpPresenter<ProgramInfoView>
 	public AuthManager authManager;
 
 	@Inject
+	public NotificationsManager notificationsManager;
+
+	@Inject
 	public ProgramsManager programsManager;
 
 	@Inject
@@ -61,6 +67,8 @@ public class ProgramInfoPresenter extends MvpPresenter<ProgramInfoView>
 	private Subscription reinvestSubscription;
 
 	private Subscription ignoreSoSubscription;
+
+	private Subscription createNotificationSubscription;
 
 	private UUID programId;
 
@@ -98,6 +106,9 @@ public class ProgramInfoPresenter extends MvpPresenter<ProgramInfoView>
 		if (ignoreSoSubscription != null) {
 			ignoreSoSubscription.unsubscribe();
 		}
+		if (createNotificationSubscription != null) {
+			createNotificationSubscription.unsubscribe();
+		}
 
 		EventBus.getDefault().unregister(this);
 
@@ -128,6 +139,31 @@ public class ProgramInfoPresenter extends MvpPresenter<ProgramInfoView>
 
 	void onIgnoreSoClicked() {
 		setIgnoreSo(!details.getProgramDetails().getPersonalDetails().isIsAutoJoin());
+	}
+
+	void onNotifyClicked() {
+		if (programId != null && notificationsManager != null) {
+			if (createNotificationSubscription != null) {
+				createNotificationSubscription.unsubscribe();
+			}
+			createNotificationSubscription = notificationsManager.addNotificationSetting(programId, null,
+					NotificationType.PROGRAMCONDITION.getValue(), NotificationSettingConditionType.AVAILABLETOINVEST.getValue(), 0.1)
+					.observeOn(AndroidSchedulers.mainThread())
+					.subscribeOn(Schedulers.newThread())
+					.subscribe(this::handleCreateNotificationSuccess,
+							this::handleCreateCustomNotificationError);
+		}
+	}
+
+	private void handleCreateNotificationSuccess(UUID response) {
+		createNotificationSubscription.unsubscribe();
+	}
+
+	private void handleCreateCustomNotificationError(Throwable throwable) {
+		createNotificationSubscription.unsubscribe();
+
+		ApiErrorResolver.resolveErrors(throwable,
+				message -> getViewState().showSnackbarMessage(message));
 	}
 
 	void onInvestClicked() {

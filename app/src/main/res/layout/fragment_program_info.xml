@@ -758,6 +758,15 @@
                     android:layout_marginTop="32dp"
                     android:text="@string/invest"/>
 
+                <vision.genesis.clientapp.ui.PrimaryButton
+                    android:id="@+id/button_notify"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/button_height"
+                    android:layout_marginTop="32dp"
+                    android:text="@string/notify"
+                    android:visibility="gone"
+                    tools:visibility="visible"/>
+
                 <TextView
                     android:id="@+id/invest_info"
                     android:layout_width="wrap_content"
@@ -769,6 +778,22 @@
                     android:textColor="?attr/colorTextPrimary"
                     android:textSize="12sp"
                     tools:text="Your request will be processed at the end of the reporting period 12.07.2019, 16:20"/>
+
+
+                <TextView
+                    android:id="@+id/notify_info"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="16dp"
+                    android:alpha="0.3"
+                    android:gravity="center"
+                    android:lineSpacingMultiplier="1.2"
+                    android:text="@string/notify_program_info"
+                    android:textColor="?attr/colorTextPrimary"
+                    android:textSize="12sp"
+                    android:visibility="gone"
+                    tools:visibility="visible"/>
 
             </LinearLayout>
 

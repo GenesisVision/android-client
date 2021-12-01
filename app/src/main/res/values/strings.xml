@@ -826,7 +826,7 @@
     <string name="find_fund">Find GV Fund</string>
     <string name="platform_currency">Platform currency</string>
     <string name="public_investors_profile">Public investor\'s profile</string>
-    <string name="tooltip_public_investors_profile">Other Genesis Vision users will be able to follow you and see your current and past investments as well as your portfolio performance. You will also be displayed in the Investors Rating.</string>
+    <string name="tooltip_public_investors_profile">Other Genesis Vision users will be able to see your current and past investments as well as your portfolio performance.</string>
     <string name="social_links">Social links</string>
     <string name="save_changes">Save changes</string>
     <string name="warning_info_switch_gm_to_huobi">Warning: all signal program subscriptions will be cancelled when switching from GM to Huobi (we do not currently offer copy trading on Huobi).</string>
@@ -1133,6 +1133,9 @@
     <string name="investors_funds">Investors Funds</string>
     <string name="profit_abs">Profit (Abs)</string>
     <string name="profit_percent">Profit (%)</string>
+    <string name="investment_availability">Investment availability</string>
+    <string name="notify">Notify</string>
+    <string name="notify_program_info">Notify me when the program is available for investment</string>
 
     <plurals name="assets">
         <item quantity="one">asset</item>

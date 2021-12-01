@@ -108,10 +108,6 @@ public class ProgramsManager
 				skip, take);
 	}
 
-//	public Observable<ProgramInvestInfo> getInvestInfo(UUID programId, String baseCurrency) {
-//		return investorApi.v10InvestorProgramsByIdInvestInfoByCurrencyGet(programId, baseCurrency);
-//	}
-
 	public Observable<ProgramWithdrawInfo> getWithdrawInfo(UUID programId) {
 		return investmentsApi.getProgramWithdrawInfo(programId);
 	}
@@ -138,10 +134,6 @@ public class ProgramsManager
 				? investmentsApi.switchAutoJoinOn(programId)
 				: investmentsApi.switchAutoJoinOff(programId);
 	}
-
-//	public Observable<LevelUpSummary> getRatingInfo() {
-//		return programsApi.v10ProgramsLevelupSummaryGet(AuthManager.token.getValue());
-//	}
 
 	public Observable<ProgramPeriodsViewModel> getPeriodHistory(UUID programId, DateRange dateRange, Timeframe timeframe, Boolean showInvestorReport, int skip, int take) {
 		return programsApi.getProgramPeriods(programId.toString(),
