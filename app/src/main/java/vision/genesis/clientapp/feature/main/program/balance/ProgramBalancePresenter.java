@@ -3,6 +3,9 @@ package vision.genesis.clientapp.feature.main.program.balance;
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,6 +25,7 @@ import vision.genesis.clientapp.feature.common.date_range.DateRangeBottomSheetFr
 import vision.genesis.clientapp.managers.ProgramsManager;
 import vision.genesis.clientapp.managers.SettingsManager;
 import vision.genesis.clientapp.model.DateRange;
+import vision.genesis.clientapp.model.events.OnChartBaseCurrencyChangedEvent;
 import vision.genesis.clientapp.ui.chart.BalanceChartView;
 import vision.genesis.clientapp.utils.StringFormatUtil;
 
@@ -65,6 +69,8 @@ public class ProgramBalancePresenter extends MvpPresenter<ProgramBalanceView> im
 
 		GenesisVisionApplication.getComponent().inject(this);
 
+		EventBus.getDefault().register(this);
+
 		getViewState().setDateRange(chartDateRange);
 		getViewState().showProgress(true);
 		getPlatformInfo();
@@ -78,6 +84,8 @@ public class ProgramBalancePresenter extends MvpPresenter<ProgramBalanceView> im
 		if (chartDataSubscription != null) {
 			chartDataSubscription.unsubscribe();
 		}
+
+		EventBus.getDefault().unregister(this);
 
 		super.onDestroy();
 	}
@@ -228,8 +236,16 @@ public class ProgramBalancePresenter extends MvpPresenter<ProgramBalanceView> im
 	}
 
 	public void onChangeBaseCurrencySelected(String currency) {
+		EventBus.getDefault().post(new OnChartBaseCurrencyChangedEvent(details.getId(), currency));
+	}
+
+	@Subscribe
+	public void onEventMainThread(OnChartBaseCurrencyChangedEvent event) {
+		if (details == null || details.getId() != event.getAssetId()) {
+			return;
+		}
 		for (PlatformCurrencyInfo platformCurrency : platformCurrencies) {
-			if (platformCurrency.getName().equals(currency)) {
+			if (platformCurrency.getName().equals(event.getCurrency())) {
 				selectedCurrency = platformCurrency;
 				onSelectedCurrencyChanged();
 				break;

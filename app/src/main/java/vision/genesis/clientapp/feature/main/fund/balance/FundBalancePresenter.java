@@ -3,6 +3,9 @@ package vision.genesis.clientapp.feature.main.fund.balance;
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -23,6 +26,7 @@ import vision.genesis.clientapp.managers.FundsManager;
 import vision.genesis.clientapp.managers.SettingsManager;
 import vision.genesis.clientapp.model.CurrencyEnum;
 import vision.genesis.clientapp.model.DateRange;
+import vision.genesis.clientapp.model.events.OnChartBaseCurrencyChangedEvent;
 import vision.genesis.clientapp.ui.chart.BalanceChartView;
 import vision.genesis.clientapp.utils.StringFormatUtil;
 
@@ -70,6 +74,8 @@ public class FundBalancePresenter extends MvpPresenter<FundBalanceView> implemen
 
 		GenesisVisionApplication.getComponent().inject(this);
 
+		EventBus.getDefault().register(this);
+
 		getViewState().setDateRange(chartDateRange);
 		getViewState().showProgress(true);
 		subscribeToBaseCurrency();
@@ -86,6 +92,8 @@ public class FundBalancePresenter extends MvpPresenter<FundBalanceView> implemen
 		if (chartDataSubscription != null) {
 			chartDataSubscription.unsubscribe();
 		}
+
+		EventBus.getDefault().unregister(this);
 
 		super.onDestroy();
 	}
@@ -249,8 +257,16 @@ public class FundBalancePresenter extends MvpPresenter<FundBalanceView> implemen
 	}
 
 	public void onChangeBaseCurrencySelected(String currency) {
+		EventBus.getDefault().post(new OnChartBaseCurrencyChangedEvent(fundId, currency));
+	}
+
+	@Subscribe
+	public void onEventMainThread(OnChartBaseCurrencyChangedEvent event) {
+		if (fundId != event.getAssetId()) {
+			return;
+		}
 		for (PlatformCurrencyInfo platformCurrency : platformCurrencies) {
-			if (platformCurrency.getName().equals(currency)) {
+			if (platformCurrency.getName().equals(event.getCurrency())) {
 				selectedCurrency = platformCurrency;
 				onSelectedCurrencyChanged();
 				break;

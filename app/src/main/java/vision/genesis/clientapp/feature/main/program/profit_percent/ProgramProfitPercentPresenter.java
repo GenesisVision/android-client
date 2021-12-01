@@ -3,6 +3,9 @@ package vision.genesis.clientapp.feature.main.program.profit_percent;
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,6 +27,7 @@ import vision.genesis.clientapp.managers.FollowsManager;
 import vision.genesis.clientapp.managers.ProgramsManager;
 import vision.genesis.clientapp.managers.SettingsManager;
 import vision.genesis.clientapp.model.DateRange;
+import vision.genesis.clientapp.model.events.OnChartBaseCurrencyChangedEvent;
 import vision.genesis.clientapp.ui.chart.ProfitChartView;
 import vision.genesis.clientapp.utils.StringFormatUtil;
 
@@ -68,6 +72,8 @@ public class ProgramProfitPercentPresenter extends MvpPresenter<ProgramProfitPer
 
 		GenesisVisionApplication.getComponent().inject(this);
 
+		EventBus.getDefault().register(this);
+
 		getViewState().setDateRange(chartDateRange);
 		getViewState().showProgress(true);
 		getPlatformInfo();
@@ -81,6 +87,8 @@ public class ProgramProfitPercentPresenter extends MvpPresenter<ProgramProfitPer
 		if (percentSubscription != null) {
 			percentSubscription.unsubscribe();
 		}
+
+		EventBus.getDefault().unregister(this);
 
 		super.onDestroy();
 	}
@@ -266,8 +274,16 @@ public class ProgramProfitPercentPresenter extends MvpPresenter<ProgramProfitPer
 	}
 
 	public void onChangeBaseCurrencySelected(String currency) {
+		EventBus.getDefault().post(new OnChartBaseCurrencyChangedEvent(details.getId(), currency));
+	}
+
+	@Subscribe
+	public void onEventMainThread(OnChartBaseCurrencyChangedEvent event) {
+		if (details == null || details.getId() != event.getAssetId()) {
+			return;
+		}
 		for (PlatformCurrencyInfo platformCurrency : platformCurrencies) {
-			if (platformCurrency.getName().equals(currency)) {
+			if (platformCurrency.getName().equals(event.getCurrency())) {
 				selectedCurrencies.remove(platformCurrency);
 				selectedCurrencies.remove(0);
 				selectedCurrencies.add(0, platformCurrency);

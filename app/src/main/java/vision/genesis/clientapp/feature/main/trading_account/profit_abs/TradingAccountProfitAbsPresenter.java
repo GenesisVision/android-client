@@ -3,6 +3,9 @@ package vision.genesis.clientapp.feature.main.trading_account.profit_abs;
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -24,6 +27,7 @@ import vision.genesis.clientapp.feature.common.date_range.DateRangeBottomSheetFr
 import vision.genesis.clientapp.managers.SettingsManager;
 import vision.genesis.clientapp.managers.TradingAccountManager;
 import vision.genesis.clientapp.model.DateRange;
+import vision.genesis.clientapp.model.events.OnChartBaseCurrencyChangedEvent;
 import vision.genesis.clientapp.ui.chart.ProfitChartView;
 import vision.genesis.clientapp.utils.StringFormatUtil;
 
@@ -68,6 +72,8 @@ public class TradingAccountProfitAbsPresenter extends MvpPresenter<TradingAccoun
 
 		GenesisVisionApplication.getComponent().inject(this);
 
+		EventBus.getDefault().register(this);
+
 		getViewState().setDateRange(chartDateRange);
 		getViewState().showProgress(true);
 		getPlatformInfo();
@@ -81,6 +87,8 @@ public class TradingAccountProfitAbsPresenter extends MvpPresenter<TradingAccoun
 		if (absSubscription != null) {
 			absSubscription.unsubscribe();
 		}
+
+		EventBus.getDefault().unregister(this);
 
 		super.onDestroy();
 	}
@@ -213,8 +221,16 @@ public class TradingAccountProfitAbsPresenter extends MvpPresenter<TradingAccoun
 	}
 
 	public void onChangeBaseCurrencySelected(String currency) {
+		EventBus.getDefault().post(new OnChartBaseCurrencyChangedEvent(details.getId(), currency));
+	}
+
+	@Subscribe
+	public void onEventMainThread(OnChartBaseCurrencyChangedEvent event) {
+		if (details == null || details.getId() != event.getAssetId()) {
+			return;
+		}
 		for (PlatformCurrencyInfo platformCurrency : platformCurrencies) {
-			if (platformCurrency.getName().equals(currency)) {
+			if (platformCurrency.getName().equals(event.getCurrency())) {
 				selectedCurrency = platformCurrency;
 				onSelectedCurrencyChanged();
 				break;
