@@ -112,18 +112,18 @@ public class WalletManager
 		getWalletsSubscription.unsubscribe();
 	}
 
-	public Observable<TransactionViewModelItemsViewModel> getTransactionsInternal(TransactionsFilter filter) {
+	public Observable<TransactionViewModelItemsViewModel> getTransactionsInternal(TransactionsFilter filter, TransactionInternalType type) {
 		return walletApi.getTransactionsInternal(
-				filter.getType() == null ? null : TransactionInternalType.fromValue(filter.getType().getValue()),
+				type,
 				filter.getDateRange() == null ? null : filter.getDateRange().getFrom(),
 				filter.getDateRange() == null ? null : filter.getDateRange().getTo(),
 				Currency.fromValue(filter.getWalletCurrency()),
 				filter.getSkip(), filter.getTake());
 	}
 
-	public Observable<TransactionViewModelItemsViewModel> getTransactionsExternal(TransactionsFilter filter) {
+	public Observable<TransactionViewModelItemsViewModel> getTransactionsExternal(TransactionsFilter filter, TransactionExternalType type) {
 		return walletApi.getTransactionsExternal(
-				filter.getType() == null ? null : TransactionExternalType.fromValue(filter.getType().getValue()),
+				type,
 				filter.getDateRange() == null ? null : filter.getDateRange().getFrom(),
 				filter.getDateRange() == null ? null : filter.getDateRange().getTo(),
 				Currency.fromValue(filter.getWalletCurrency()),

@@ -7,9 +7,53 @@
                 android:layout_height="match_parent"
                 android:background="?attr/colorBackground">
 
+    <RelativeLayout
+        android:id="@+id/group_top"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="?attr/colorCard">
+
+        <LinearLayout
+            android:id="@+id/group_type"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginStart="@dimen/padding"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat_regular"
+                android:text="@string/type"
+                android:textColor="?attr/colorTextSecondary"
+                android:textSize="14sp"/>
+
+            <TextView
+                android:id="@+id/type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:fontFamily="@font/montserrat_semibold"
+                android:textColor="?attr/colorTextPrimary"
+                android:textSize="14sp"
+                tools:text="All"/>
+
+            <ImageView
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                app:srcCompat="@drawable/ic_keyboard_arrow_down_black_24dp"
+                app:tint="?attr/colorAccent"/>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"
+        android:layout_below="@+id/group_top"
         android:layout_height="match_parent"
         android:clipToPadding="false"
         android:paddingBottom="50dp"
@@ -20,6 +64,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
+        android:layout_below="@+id/group_top"
         android:orientation="vertical"
         android:padding="32dp"
         android:visibility="gone"
@@ -38,71 +83,15 @@
 
     </LinearLayout>
 
-    <RelativeLayout
-        android:id="@+id/filters"
+    <vision.genesis.clientapp.ui.DateRangeView
+        android:id="@+id/date_range"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="@dimen/date_range_margin_bottom"
+        android:layout_marginBottom="10dp"
         android:visibility="gone"
-        tools:visibility="visible">
-
-        <ImageView
-            android:id="@+id/background"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/group_filters"
-            android:layout_alignEnd="@+id/group_filters"
-            android:layout_alignStart="@+id/group_filters"
-            android:layout_alignTop="@+id/group_filters"
-            android:src="@drawable/button_filters"/>
-
-
-        <LinearLayout
-            android:id="@+id/group_filters"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:paddingBottom="12dp"
-            android:paddingLeft="20dp"
-            android:paddingRight="20dp"
-            android:paddingTop="12dp">
-
-            <ImageView
-                android:id="@+id/icon"
-                android:layout_width="12dp"
-                android:layout_height="12dp"
-                android:layout_gravity="center_vertical"
-                android:tint="?attr/colorBackground"
-                app:srcCompat="@drawable/icon_filters"/>
-
-            <TextView
-                android:id="@+id/text_filters"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="8dp"
-                android:layout_marginStart="8dp"
-                android:gravity="center"
-                android:text="@string/filters"
-                android:textColor="?attr/colorBackground"
-                android:textSize="14sp"/>
-
-        </LinearLayout>
-
-        <View
-            android:id="@+id/filters_dot"
-            android:layout_width="8dp"
-            android:layout_height="8dp"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="8dp"
-            android:layout_marginStart="8dp"
-            android:background="@drawable/circle_white"
-            android:tint="?attr/colorRed"
-            android:visibility="gone"/>
-
-    </RelativeLayout>
+        tools:visibility="visible"/>
 
     <ProgressBar
         android:id="@+id/progress_bar"

@@ -13,6 +13,9 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import io.swagger.client.model.FilterItemInfo;
+import io.swagger.client.model.PlatformInfo;
+import io.swagger.client.model.TransactionExternalType;
 import io.swagger.client.model.TransactionFilter;
 import io.swagger.client.model.TransactionViewModel;
 import io.swagger.client.model.TransactionViewModelItemsViewModel;
@@ -21,7 +24,10 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
+import vision.genesis.clientapp.feature.common.date_range.DateRangeBottomSheetFragment;
+import vision.genesis.clientapp.managers.SettingsManager;
 import vision.genesis.clientapp.managers.WalletManager;
+import vision.genesis.clientapp.model.DateRange;
 import vision.genesis.clientapp.model.TransactionsFilter;
 import vision.genesis.clientapp.model.events.OnTransactionCanceledEvent;
 import vision.genesis.clientapp.model.events.SetSpecificWalletDepositsWithdrawalsCountEvent;
@@ -36,7 +42,7 @@ import vision.genesis.clientapp.utils.DateTimeUtil;
  */
 
 @InjectViewState
-public class ExternalTransactionsPresenter extends MvpPresenter<ExternalTransactionsView>
+public class ExternalTransactionsPresenter extends MvpPresenter<ExternalTransactionsView> implements DateRangeBottomSheetFragment.OnDateRangeChangedListener
 {
 	private static final int TAKE = 20;
 
@@ -45,6 +51,11 @@ public class ExternalTransactionsPresenter extends MvpPresenter<ExternalTransact
 
 	@Inject
 	public WalletManager walletManager;
+
+	@Inject
+	public SettingsManager settingsManager;
+
+	private Subscription platformInfoSubscription;
 
 	private Subscription transactionsSubscription;
 
@@ -58,6 +69,14 @@ public class ExternalTransactionsPresenter extends MvpPresenter<ExternalTransact
 
 	private String location;
 
+	private DateRange dateRange = DateRange.createFromEnum(DateRange.DateRangeEnum.ALL_TIME);
+
+	private List<FilterItemInfo> types = new ArrayList<>();
+
+	private TransactionExternalType type = TransactionExternalType.ALL;
+
+	private Integer selectedTypePosition = 0;
+
 	@Override
 	protected void onFirstViewAttach() {
 		super.onFirstViewAttach();
@@ -67,11 +86,17 @@ public class ExternalTransactionsPresenter extends MvpPresenter<ExternalTransact
 		EventBus.getDefault().register(this);
 
 		getViewState().showProgress(true);
+		getViewState().setDateRange(dateRange);
+
+		getPlatformInfo();
 		getTransactions(true);
 	}
 
 	@Override
 	public void onDestroy() {
+		if (platformInfoSubscription != null) {
+			platformInfoSubscription.unsubscribe();
+		}
 		if (transactionsSubscription != null) {
 			transactionsSubscription.unsubscribe();
 		}
@@ -106,6 +131,34 @@ public class ExternalTransactionsPresenter extends MvpPresenter<ExternalTransact
 		getTransactions(false);
 	}
 
+	private void getPlatformInfo() {
+		if (settingsManager != null) {
+			platformInfoSubscription = settingsManager.getPlatformInfo()
+					.observeOn(AndroidSchedulers.mainThread())
+					.subscribeOn(Schedulers.newThread())
+					.subscribe(this::handleGetPlatformInfoSuccess,
+							this::handleGetPlatformInfoError);
+		}
+	}
+
+	private void handleGetPlatformInfoSuccess(PlatformInfo platformInfo) {
+		platformInfoSubscription.unsubscribe();
+
+		types = platformInfo.getFilters().getWalletExternalTransactions();
+		ArrayList<String> typeOptions = new ArrayList<>();
+		for (FilterItemInfo filterItemInfo : types) {
+			typeOptions.add(filterItemInfo.getTitle());
+		}
+		getViewState().setTypeOptions(typeOptions);
+		getViewState().setType(types.get(selectedTypePosition).getTitle(), selectedTypePosition);
+	}
+
+	private void handleGetPlatformInfoError(Throwable throwable) {
+		platformInfoSubscription.unsubscribe();
+
+		ApiErrorResolver.resolveErrors(throwable, message -> getViewState().showSnackbarMessage(message));
+	}
+
 	private void getTransactions(boolean forceUpdate) {
 		if (filter != null && walletManager != null) {
 			if (forceUpdate) {
@@ -113,10 +166,12 @@ public class ExternalTransactionsPresenter extends MvpPresenter<ExternalTransact
 				filter.setSkip(skip);
 			}
 
+			filter.setDateRange(dateRange);
+
 			if (transactionsSubscription != null) {
 				transactionsSubscription.unsubscribe();
 			}
-			transactionsSubscription = walletManager.getTransactionsExternal(filter)
+			transactionsSubscription = walletManager.getTransactionsExternal(filter, type)
 					.observeOn(AndroidSchedulers.mainThread())
 					.subscribeOn(Schedulers.io())
 					.subscribe(this::handleGetTransactionsResponse,
@@ -179,5 +234,22 @@ public class ExternalTransactionsPresenter extends MvpPresenter<ExternalTransact
 	@Subscribe
 	public void onEventMainThread(OnTransactionCanceledEvent event) {
 		getViewState().setStatusCanceled(event.getTransactionId());
+	}
+
+	public void onTypeOptionSelected(Integer position, String text) {
+		this.selectedTypePosition = position;
+		this.type = TransactionExternalType.fromValue(types.get(position).getKey());
+		getViewState().setType(text, position);
+
+		getViewState().showProgress(true);
+		getTransactions(true);
+	}
+
+	@Override
+	public void onDateRangeChanged(DateRange dateRange) {
+		this.dateRange = dateRange;
+		getViewState().setDateRange(dateRange);
+		getViewState().showProgress(true);
+		getTransactions(true);
 	}
 }

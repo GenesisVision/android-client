@@ -12,6 +12,9 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import io.swagger.client.model.FilterItemInfo;
+import io.swagger.client.model.PlatformInfo;
+import io.swagger.client.model.TransactionInternalType;
 import io.swagger.client.model.TransactionViewModel;
 import io.swagger.client.model.TransactionViewModelItemsViewModel;
 import rx.Subscription;
@@ -19,7 +22,10 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
+import vision.genesis.clientapp.feature.common.date_range.DateRangeBottomSheetFragment;
+import vision.genesis.clientapp.managers.SettingsManager;
 import vision.genesis.clientapp.managers.WalletManager;
+import vision.genesis.clientapp.model.DateRange;
 import vision.genesis.clientapp.model.TransactionsFilter;
 import vision.genesis.clientapp.model.events.SetSpecificWalletTransactionsCountEvent;
 import vision.genesis.clientapp.model.events.SetWalletTransactionsCountEvent;
@@ -33,7 +39,7 @@ import vision.genesis.clientapp.utils.DateTimeUtil;
  */
 
 @InjectViewState
-public class TransactionsPresenter extends MvpPresenter<TransactionsView>
+public class TransactionsPresenter extends MvpPresenter<TransactionsView> implements DateRangeBottomSheetFragment.OnDateRangeChangedListener
 {
 	private static final int TAKE = 20;
 
@@ -42,6 +48,11 @@ public class TransactionsPresenter extends MvpPresenter<TransactionsView>
 
 	@Inject
 	public WalletManager walletManager;
+
+	@Inject
+	public SettingsManager settingsManager;
+
+	private Subscription platformInfoSubscription;
 
 	private Subscription transactionsSubscription;
 
@@ -55,6 +66,14 @@ public class TransactionsPresenter extends MvpPresenter<TransactionsView>
 
 	private String location;
 
+	private DateRange dateRange = DateRange.createFromEnum(DateRange.DateRangeEnum.ALL_TIME);
+
+	private List<FilterItemInfo> types = new ArrayList<>();
+
+	private TransactionInternalType type = TransactionInternalType.ALL;
+
+	private Integer selectedTypePosition = 0;
+
 	@Override
 	protected void onFirstViewAttach() {
 		super.onFirstViewAttach();
@@ -62,11 +81,17 @@ public class TransactionsPresenter extends MvpPresenter<TransactionsView>
 		GenesisVisionApplication.getComponent().inject(this);
 
 		getViewState().showProgress(true);
+		getViewState().setDateRange(dateRange);
+
+		getPlatformInfo();
 		getTransactions(true);
 	}
 
 	@Override
 	public void onDestroy() {
+		if (platformInfoSubscription != null) {
+			platformInfoSubscription.unsubscribe();
+		}
 		if (transactionsSubscription != null) {
 			transactionsSubscription.unsubscribe();
 		}
@@ -98,6 +123,34 @@ public class TransactionsPresenter extends MvpPresenter<TransactionsView>
 		getTransactions(false);
 	}
 
+	private void getPlatformInfo() {
+		if (settingsManager != null) {
+			platformInfoSubscription = settingsManager.getPlatformInfo()
+					.observeOn(AndroidSchedulers.mainThread())
+					.subscribeOn(Schedulers.newThread())
+					.subscribe(this::handleGetPlatformInfoSuccess,
+							this::handleGetPlatformInfoError);
+		}
+	}
+
+	private void handleGetPlatformInfoSuccess(PlatformInfo platformInfo) {
+		platformInfoSubscription.unsubscribe();
+
+		types = platformInfo.getFilters().getWalletTransactions();
+		ArrayList<String> typeOptions = new ArrayList<>();
+		for (FilterItemInfo filterItemInfo : types) {
+			typeOptions.add(filterItemInfo.getTitle());
+		}
+		getViewState().setTypeOptions(typeOptions);
+		getViewState().setType(types.get(selectedTypePosition).getTitle(), selectedTypePosition);
+	}
+
+	private void handleGetPlatformInfoError(Throwable throwable) {
+		platformInfoSubscription.unsubscribe();
+
+		ApiErrorResolver.resolveErrors(throwable, message -> getViewState().showSnackbarMessage(message));
+	}
+
 	private void getTransactions(boolean forceUpdate) {
 		if (filter != null && walletManager != null) {
 			if (forceUpdate) {
@@ -105,10 +158,12 @@ public class TransactionsPresenter extends MvpPresenter<TransactionsView>
 				filter.setSkip(skip);
 			}
 
+			filter.setDateRange(dateRange);
+
 			if (transactionsSubscription != null) {
 				transactionsSubscription.unsubscribe();
 			}
-			transactionsSubscription = walletManager.getTransactionsInternal(filter)
+			transactionsSubscription = walletManager.getTransactionsInternal(filter, type)
 					.observeOn(AndroidSchedulers.mainThread())
 					.subscribeOn(Schedulers.io())
 					.subscribe(this::handleGetTransactionsResponse,
@@ -166,5 +221,22 @@ public class TransactionsPresenter extends MvpPresenter<TransactionsView>
 		if (ApiErrorResolver.isNetworkError(error)) {
 			getViewState().showSnackbarMessage(context.getResources().getString(R.string.network_error));
 		}
+	}
+
+	public void onTypeOptionSelected(Integer position, String text) {
+		this.selectedTypePosition = position;
+		this.type = TransactionInternalType.fromValue(types.get(position).getKey());
+		getViewState().setType(text, position);
+
+		getViewState().showProgress(true);
+		getTransactions(true);
+	}
+
+	@Override
+	public void onDateRangeChanged(DateRange dateRange) {
+		this.dateRange = dateRange;
+		getViewState().setDateRange(dateRange);
+		getViewState().showProgress(true);
+		getTransactions(true);
 	}
 }
