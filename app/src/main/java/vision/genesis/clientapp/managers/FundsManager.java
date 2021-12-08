@@ -13,6 +13,7 @@ import io.swagger.client.model.FundBalanceChart;
 import io.swagger.client.model.FundDetailsFull;
 import io.swagger.client.model.FundDetailsListItem;
 import io.swagger.client.model.FundDetailsListItemItemsViewModel;
+import io.swagger.client.model.FundHistoryEventFilterType;
 import io.swagger.client.model.FundHistoryEventViewModelItemsViewModel;
 import io.swagger.client.model.FundProfitPercentCharts;
 import io.swagger.client.model.FundWithdrawInfo;
@@ -129,7 +130,7 @@ public class FundsManager
 		return fundsApi.getLastChallengeWinner(null);
 	}
 
-	public Observable<FundHistoryEventViewModelItemsViewModel> getHistory(UUID fundId, DateRange dateRange, int skip, int take) {
-		return fundsApi.getFundsHistoryEvents(fundId, dateRange.getFrom(), dateRange.getTo(), null, skip, take);
+	public Observable<FundHistoryEventViewModelItemsViewModel> getHistory(UUID fundId, DateRange dateRange, FundHistoryEventFilterType type, int skip, int take) {
+		return fundsApi.getFundsHistoryEvents(fundId, dateRange.getFrom(), dateRange.getTo(), type, skip, take);
 	}
 }

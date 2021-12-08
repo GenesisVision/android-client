@@ -4,6 +4,7 @@ import com.arellomobile.mvp.MvpView;
 import com.arellomobile.mvp.viewstate.strategy.AddToEndSingleStrategy;
 import com.arellomobile.mvp.viewstate.strategy.StateStrategyType;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import io.swagger.client.model.FundHistoryEventViewModel;
@@ -16,6 +17,10 @@ import vision.genesis.clientapp.model.DateRange;
 
 interface FundHistoryView extends MvpView
 {
+	void setTypeOptions(ArrayList<String> typeOptions);
+
+	void setType(String type, Integer position);
+
 	void setHistory(List<FundHistoryEventViewModel> history);
 
 	void addHistory(List<FundHistoryEventViewModel> history);

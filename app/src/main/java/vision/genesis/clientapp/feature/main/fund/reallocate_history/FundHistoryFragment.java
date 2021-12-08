@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -12,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -25,6 +27,7 @@ import timber.log.Timber;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
 import vision.genesis.clientapp.feature.common.date_range.DateRangeBottomSheetFragment;
+import vision.genesis.clientapp.feature.common.option.SelectOptionBottomSheetFragment;
 import vision.genesis.clientapp.feature.main.fund.reallocate_history.details.FundHistoryDetailsBottomSheetFragment;
 import vision.genesis.clientapp.feature.main.program.ProgramDetailsPagerAdapter;
 import vision.genesis.clientapp.model.DateRange;
@@ -53,6 +56,9 @@ public class FundHistoryFragment extends BaseFragment implements FundHistoryView
 	@BindView(R.id.progress_bar)
 	public ProgressBar progressBar;
 
+	@BindView(R.id.type)
+	public TextView type;
+
 	@BindView(R.id.date_range)
 	public DateRangeView dateRangeView;
 
@@ -73,6 +79,20 @@ public class FundHistoryFragment extends BaseFragment implements FundHistoryView
 	private Unbinder unbinder;
 
 	private DateRange dateRange = DateRange.createFromEnum(DateRange.DateRangeEnum.ALL_TIME);
+
+	private ArrayList<String> typeOptions;
+
+	private Integer selectedTypePosition = -1;
+
+	@OnClick(R.id.group_type)
+	public void onTypeClicked() {
+		if (getActivity() != null && typeOptions != null && typeOptions.size() > 0) {
+			SelectOptionBottomSheetFragment fragment = SelectOptionBottomSheetFragment.with(
+					getString(R.string.select_type), typeOptions, selectedTypePosition);
+			fragment.setListener((position, text) -> presenter.onTypeOptionSelected(position, text));
+			fragment.show(getActivity().getSupportFragmentManager(), fragment.getTag());
+		}
+	}
 
 	@OnClick(R.id.date_range)
 	public void onDateRangeClicked() {
@@ -143,6 +163,17 @@ public class FundHistoryFragment extends BaseFragment implements FundHistoryView
 				}
 			}
 		});
+	}
+
+	@Override
+	public void setTypeOptions(ArrayList<String> typeOptions) {
+		this.typeOptions = typeOptions;
+	}
+
+	@Override
+	public void setType(String type, Integer position) {
+		this.type.setText(type);
+		this.selectedTypePosition = position;
 	}
 
 	@Override
