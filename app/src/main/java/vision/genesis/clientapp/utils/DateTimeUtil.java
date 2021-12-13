@@ -49,6 +49,8 @@ public class DateTimeUtil
 
 	private static DateTimeFormatter dateTimeFileFormatter = DateTimeFormat.forPattern("dd-MM-YY_HH-mm");
 
+	private static DateTimeFormatter timerFormatter = DateTimeFormat.forPattern("mm:ss");
+
 	public static String formatDate(DateTime dateTime) {
 		return dateFormatter.withLocale(Locale.US).print(dateTime);
 	}
@@ -79,6 +81,10 @@ public class DateTimeUtil
 
 	public static String formatDateTimeFile(DateTime dateTime) {
 		return dateTimeFileFormatter.withLocale(Locale.US).print(dateTime);
+	}
+
+	public static String formatTimer(int seconds) {
+		return timerFormatter.withLocale(Locale.US).print(seconds * 1000L);
 	}
 
 	public static String formatEventDateTime(DateTime dateTime) {

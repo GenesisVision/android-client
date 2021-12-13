@@ -264,4 +264,13 @@ public class SettingsManager
 	public Observable<AssetInfo> getAssetInfo(String asset) {
 		return platformApi.getPlatformAssetInfo(asset);
 	}
+
+	public long getPinErrorTimestamp() {
+		return sharedPreferencesUtil.getPinErrorTimestamp();
+	}
+
+	public void setPinErrorTimestamp(long currentTimeMillis) {
+		sharedPreferencesUtil.setPinErrorTimestamp(currentTimeMillis);
+	}
+
 }

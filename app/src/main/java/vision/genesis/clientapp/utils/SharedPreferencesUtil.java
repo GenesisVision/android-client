@@ -57,6 +57,8 @@ public class SharedPreferencesUtil
 
 	private static final String KEY_INVESTMENTS_FUNDS_STATUS = "keyInvestmentsFundsStatus";
 
+	private static final String KEY_PIN_ERROR_TIMESTAMP = "keyPinErrorTimestamp";
+
 	private Context context;
 
 	public SharedPreferencesUtil(Context context) {
@@ -289,5 +291,17 @@ public class SharedPreferencesUtil
 	public String getTempToken() {
 		SharedPreferences sharedPreferences = context.getSharedPreferences(USER_PREFS, Context.MODE_PRIVATE);
 		return sharedPreferences.getString(KEY_TEMP_TOKEN, null);
+	}
+
+	public long getPinErrorTimestamp() {
+		SharedPreferences sharedPreferences = context.getSharedPreferences(USER_PREFS, Context.MODE_PRIVATE);
+		return sharedPreferences.getLong(KEY_PIN_ERROR_TIMESTAMP, 0L);
+	}
+
+	public void setPinErrorTimestamp(long currentTimeMillis) {
+		SharedPreferences sharedPreferences = context.getSharedPreferences(USER_PREFS, Context.MODE_PRIVATE);
+		sharedPreferences.edit()
+				.putLong(KEY_PIN_ERROR_TIMESTAMP, currentTimeMillis)
+				.apply();
 	}
 }

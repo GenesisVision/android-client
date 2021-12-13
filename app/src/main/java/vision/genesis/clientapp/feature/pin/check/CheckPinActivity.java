@@ -46,6 +46,9 @@ public class CheckPinActivity extends MvpAppCompatActivity implements CheckPinVi
 	@BindView(R.id.text)
 	public TextView text;
 
+	@BindView(R.id.timer)
+	public TextView timer;
+
 	@BindView(R.id.keyboard)
 	public PinKeyboardView keyboard;
 
@@ -60,6 +63,8 @@ public class CheckPinActivity extends MvpAppCompatActivity implements CheckPinVi
 
 	private boolean firstStart = true;
 
+	private boolean fingerprintEnabled = false;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		setTheme(ThemeUtil.getCurrentThemeResource());
@@ -70,16 +75,11 @@ public class CheckPinActivity extends MvpAppCompatActivity implements CheckPinVi
 		ButterKnife.bind(this);
 
 		if (getIntent().getExtras() != null) {
-			boolean fingerprintEnabled = getIntent().getExtras().getBoolean(EXTRA_FINGERPRINT_ENABLED);
-			text.setText(getString(fingerprintEnabled
-					? R.string.enter_pin_code_or_use_fingerprint
-					: R.string.enter_pin_code));
-			keyboard.showFingerprint(fingerprintEnabled);
-			checkPinPresenter.setFingerprintEnabled(fingerprintEnabled);
+			fingerprintEnabled = getIntent().getExtras().getBoolean(EXTRA_FINGERPRINT_ENABLED);
+			initStartText();
 		}
 
 		initKeyboardListener();
-		setFonts();
 	}
 
 	@Override
@@ -134,7 +134,14 @@ public class CheckPinActivity extends MvpAppCompatActivity implements CheckPinVi
 		});
 	}
 
-	private void setFonts() {
+	@Override
+	public void initStartText() {
+		text.setText(getString(fingerprintEnabled
+				? R.string.enter_pin_code_or_use_fingerprint
+				: R.string.enter_pin_code));
+		text.setTextColor(ThemeUtil.getColorByAttrId(this, R.attr.colorTextPrimary));
+		keyboard.showFingerprint(fingerprintEnabled);
+		checkPinPresenter.setFingerprintEnabled(fingerprintEnabled);
 	}
 
 	@Override
@@ -163,6 +170,16 @@ public class CheckPinActivity extends MvpAppCompatActivity implements CheckPinVi
 	public void setErrorMessage(String message) {
 		text.setText(message);
 		text.setTextColor(ThemeUtil.getColorByAttrId(this, R.attr.colorRed));
+	}
+
+	@Override
+	public void showTimer(boolean show) {
+		this.timer.setVisibility(show ? View.VISIBLE : View.GONE);
+	}
+
+	@Override
+	public void setTimer(String timerString) {
+		this.timer.setText(timerString);
 	}
 
 	@Override

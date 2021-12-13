@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                xmlns:tools="http://schemas.android.com/tools"
                 android:background="@android:color/transparent">
 
     <View
@@ -28,6 +29,19 @@
             android:text="@string/enter_pin_code_or_use_fingerprint"
             android:textColor="?attr/colorTextPrimary"
             android:textSize="16sp"/>
+
+        <TextView
+            android:id="@+id/timer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:fontFamily="@font/montserrat_semibold"
+            android:gravity="center"
+            android:textColor="?attr/colorRed"
+            android:textSize="16sp"
+            android:visibility="gone"
+            tools:text="01:00"
+            tools:visibility="visible"/>
 
         <vision.genesis.clientapp.ui.PinCodeView
             android:id="@+id/view_pin_code"

@@ -9,6 +9,8 @@ import com.arellomobile.mvp.MvpView;
 
 interface CheckPinView extends MvpView
 {
+	void initStartText();
+
 	void setPin(int symbolsEntered);
 
 	void setPinError(boolean error);
@@ -16,6 +18,10 @@ interface CheckPinView extends MvpView
 	void setKeyboardKeysEnabled(boolean enabled);
 
 	void setErrorMessage(String message);
+
+	void showTimer(boolean show);
+
+	void setTimer(String timerString);
 
 	void showToastMessage(String message);
 
