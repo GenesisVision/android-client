@@ -4,6 +4,7 @@ import com.arellomobile.mvp.MvpView;
 import com.arellomobile.mvp.viewstate.strategy.OneExecutionStateStrategy;
 import com.arellomobile.mvp.viewstate.strategy.StateStrategyType;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import io.swagger.client.model.ProgramInvestingDetailsList;
@@ -16,6 +17,10 @@ import vision.genesis.clientapp.model.CurrencyEnum;
 
 interface ProgramsPortfolioView extends MvpView
 {
+	void setOrderByOptions(ArrayList<String> orderByOptions);
+
+	void setOrderBy(String orderBy, Integer position);
+
 	void setBaseCurrency(CurrencyEnum baseCurrency);
 
 	void setPrograms(List<ProgramInvestingDetailsList> items, Integer total);

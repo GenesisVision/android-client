@@ -5,6 +5,9 @@ import android.content.Context;
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.inject.Inject;
 
 import io.swagger.client.model.ProgramInvestingDetailsListItemsViewModel;
@@ -12,12 +15,15 @@ import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
+import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.managers.DashboardManager;
 import vision.genesis.clientapp.managers.SettingsManager;
 import vision.genesis.clientapp.model.CurrencyEnum;
 import vision.genesis.clientapp.model.DateRange;
+import vision.genesis.clientapp.model.SortingEnum;
 import vision.genesis.clientapp.model.filter.ProgramsFilter;
 import vision.genesis.clientapp.net.ApiErrorResolver;
+import vision.genesis.clientapp.utils.StringFormatUtil;
 
 /**
  * GenesisVisionAndroid
@@ -46,11 +52,19 @@ public class ProgramsPortfolioPresenter extends MvpPresenter<ProgramsPortfolioVi
 
 	private DateRange dateRange = DateRange.createFromEnum(DateRange.DateRangeEnum.DAY);
 
+	private List<SortingEnum> orderByOptions = new ArrayList<>();
+
+	private SortingEnum orderBy = SortingEnum.BYTITLEDESC;
+
+	private Integer selectedOrderByPosition = 0;
+
 	@Override
 	protected void onFirstViewAttach() {
 		super.onFirstViewAttach();
 
 		GenesisVisionApplication.getComponent().inject(this);
+
+		initOrderBy();
 
 		getViewState().showProgress(true);
 		subscribeToBaseCurrency();
@@ -71,6 +85,24 @@ public class ProgramsPortfolioPresenter extends MvpPresenter<ProgramsPortfolioVi
 	void onSwipeRefresh() {
 		getViewState().setRefreshing(true);
 		getPrograms();
+	}
+
+	private void initOrderBy() {
+		ArrayList<String> orderByStrings = new ArrayList<>();
+
+		orderByStrings.add(StringFormatUtil.capitalize(context.getString(R.string.name)));
+		orderByStrings.add(StringFormatUtil.capitalize(context.getString(R.string.value)));
+		orderByStrings.add(StringFormatUtil.capitalize(context.getString(R.string.profit)));
+		orderByStrings.add(StringFormatUtil.capitalize(context.getString(R.string.period)));
+
+		getViewState().setOrderByOptions(orderByStrings);
+		getViewState().setOrderBy(orderByStrings.get(selectedOrderByPosition), selectedOrderByPosition);
+
+		orderByOptions = new ArrayList<>();
+		orderByOptions.add(SortingEnum.BYTITLEDESC);
+		orderByOptions.add(SortingEnum.BYVALUEDESC);
+		orderByOptions.add(SortingEnum.BYPROFITDESC);
+		orderByOptions.add(SortingEnum.BYPERIODDESC);
 	}
 
 	private void subscribeToBaseCurrency() {
@@ -100,6 +132,7 @@ public class ProgramsPortfolioPresenter extends MvpPresenter<ProgramsPortfolioVi
 			filter.setDateRange(dateRange);
 			filter.setChartPointsCount(10);
 			filter.setShowIn(CurrencyEnum.fromValue(baseCurrency.getValue()));
+			filter.setSorting(orderBy);
 			programsSubscription = dashboardManager.getPrograms(filter)
 					.observeOn(AndroidSchedulers.mainThread())
 					.subscribeOn(Schedulers.newThread())
@@ -123,4 +156,12 @@ public class ProgramsPortfolioPresenter extends MvpPresenter<ProgramsPortfolioVi
 				message -> getViewState().showSnackbarMessage(message));
 	}
 
+	public void onOrderByOptionSelected(Integer position, String text) {
+		this.selectedOrderByPosition = position;
+		this.orderBy = orderByOptions.get(position);
+		getViewState().setOrderBy(text, position);
+
+		getViewState().showProgress(true);
+		getPrograms();
+	}
 }

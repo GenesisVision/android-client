@@ -1137,6 +1137,7 @@
     <string name="notify">Notify</string>
     <string name="notify_program_info">Notify me when the program is available for investment</string>
     <string name="select_type">Select type</string>
+    <string name="order_by">Order by</string>
 
     <plurals name="assets">
         <item quantity="one">asset</item>

@@ -13,6 +13,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -22,6 +23,7 @@ import io.swagger.client.model.ProgramInvestingDetailsList;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseSwipeBackActivity;
+import vision.genesis.clientapp.feature.common.option.SelectOptionBottomSheetFragment;
 import vision.genesis.clientapp.model.CurrencyEnum;
 import vision.genesis.clientapp.ui.ProgramDashboardShortView;
 import vision.genesis.clientapp.utils.ThemeUtil;
@@ -49,6 +51,9 @@ public class ProgramsPortfolioActivity extends BaseSwipeBackActivity implements 
 	@BindView(R.id.title)
 	public TextView title;
 
+	@BindView(R.id.order_by)
+	public TextView orderBy;
+
 	@BindView(R.id.group_programs)
 	public ViewGroup programs;
 
@@ -63,9 +68,23 @@ public class ProgramsPortfolioActivity extends BaseSwipeBackActivity implements 
 
 	private CurrencyEnum baseCurrency;
 
+	private ArrayList<String> orderByOptions;
+
+	private Integer selectedOrderByPosition = -1;
+
 	@OnClick(R.id.button_back)
 	public void onBackClicked() {
 		onBackPressed();
+	}
+
+	@OnClick(R.id.group_order_by)
+	public void onTypeClicked() {
+		if (orderByOptions != null && orderByOptions.size() > 0) {
+			SelectOptionBottomSheetFragment fragment = SelectOptionBottomSheetFragment.with(
+					getString(R.string.select_type), orderByOptions, selectedOrderByPosition);
+			fragment.setListener((position, text) -> presenter.onOrderByOptionSelected(position, text));
+			fragment.show(getSupportFragmentManager(), fragment.getTag());
+		}
 	}
 
 	@Override
@@ -97,6 +116,17 @@ public class ProgramsPortfolioActivity extends BaseSwipeBackActivity implements 
 	public void onBackPressed() {
 		finishActivity();
 		overridePendingTransition(R.anim.hold, R.anim.activity_slide_to_right);
+	}
+
+	@Override
+	public void setOrderByOptions(ArrayList<String> orderByOptions) {
+		this.orderByOptions = orderByOptions;
+	}
+
+	@Override
+	public void setOrderBy(String orderBy, Integer position) {
+		this.orderBy.setText(orderBy);
+		this.selectedOrderByPosition = position;
 	}
 
 	@Override

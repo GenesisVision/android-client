@@ -58,6 +58,14 @@ public enum SortingEnum
 
 	BYSIZEDESC("BySizeDesc"),
 
+	BYVALUEASC("ByValueAsc"),
+
+	BYVALUEDESC("ByValueDesc"),
+
+	BYPERIODASC("ByPeriodAsc"),
+
+	BYPERIODDESC("ByPeriodDesc"),
+
 	BYSUBSCRIBERSASC("BySubscribersAsc"),
 
 	BYSUBSCRIBERSDESC("BySubscribersDesc"),

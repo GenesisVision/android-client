@@ -45,11 +45,55 @@
 
     </RelativeLayout>
 
+    <RelativeLayout
+        android:id="@+id/group_top"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_below="@+id/toolbar"
+        android:background="?attr/colorCard">
+
+        <LinearLayout
+            android:id="@+id/group_order_by"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginStart="@dimen/padding"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat_regular"
+                android:text="@string/order_by"
+                android:textColor="?attr/colorTextSecondary"
+                android:textSize="14sp"/>
+
+            <TextView
+                android:id="@+id/order_by"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:fontFamily="@font/montserrat_semibold"
+                android:textColor="?attr/colorTextPrimary"
+                android:textSize="14sp"
+                tools:text="Name"/>
+
+            <ImageView
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                app:srcCompat="@drawable/ic_keyboard_arrow_down_black_24dp"
+                app:tint="?attr/colorAccent"/>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/swipe_refresh"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/toolbar">
+        android:layout_below="@+id/group_top">
 
         <RelativeLayout
             android:layout_width="match_parent"
