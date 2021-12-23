@@ -94,7 +94,12 @@ public class FundTradesAdapter extends RecyclerView.Adapter<FundTradesAdapter.Tr
 			this.boughtIcon.setImageURI(ImageUtils.getImageUri(trade.getBoughtAsset().getLogoUrl()));
 //			this.boughtAsset.setText(trade.getBoughtAsset().getAsset());
 
-			this.commission.setText(StringFormatUtil.getValueString(trade.getCommission(), trade.getCommissionCurrency()));
+			if (trade.getCommission() != null && trade.getCommissionCurrency() != null) {
+				this.commission.setText(StringFormatUtil.getValueString(trade.getCommission(), trade.getCommissionCurrency()));
+			}
+			else {
+				this.commission.setText("-");
+			}
 		}
 	}
 }
