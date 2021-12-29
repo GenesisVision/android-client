@@ -331,6 +331,7 @@ public class TradingAccountInfoFragment extends BaseFragment implements TradingA
 							&& accountDetails.getOwnerActions().isIsEnoughMoneyToCreateProgram());
 					createFollowButton.setEnabled(accountDetails.getOwnerActions().isCanMakeSignalProviderFromPrivateExternalTradingAccount());
 					groupFollow.setVisibility(accountDetails.getOwnerActions().isCanMakeSignalProviderFromPrivateExternalTradingAccount() ? View.VISIBLE : View.GONE);
+					groupProgram.setVisibility(accountDetails.getOwnerActions().isCanMakeExchangeProgramFromPrivateTradingAccount() ? View.VISIBLE : View.GONE);
 				}
 				else {
 					createProgramButton.setEnabled(accountDetails.getOwnerActions().isCanMakeProgramFromPrivateTradingAccount()
