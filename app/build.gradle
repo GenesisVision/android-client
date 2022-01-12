@@ -127,7 +127,7 @@ android {
 
 ext {
     retrofit_version = "2.5.0"
-    kyc_version = "1.13.2"
+    kyc_version = "1.18.4"
 }
 
 dependencies {
@@ -186,7 +186,7 @@ dependencies {
 
     implementation "me.dm7.barcodescanner:zxing:1.9.8"
 
-    implementation 'org.permissionsdispatcher:permissionsdispatcher:4.8.0'
+    implementation 'com.github.permissions-dispatcher:permissionsdispatcher:4.8.0'
 
     implementation "com.theartofdev.edmodo:android-image-cropper:2.6.0"
 
@@ -213,8 +213,7 @@ dependencies {
     implementation 'com.tradingview:lightweightcharts:3.5.0'
 
     implementation "com.sumsub.sns:idensic-mobile-sdk:$kyc_version"
-    implementation "com.sumsub.sns:idensic-mobile-sdk-liveness3d:$kyc_version"
-    implementation "com.sumsub.sns:idensic-mobile-sdk-actions:$kyc_version"
+    implementation "com.sumsub.sns:idensic-mobile-sdk-prooface:$kyc_version"
 
     implementation 'com.github.bumptech.glide:glide:4.11.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'

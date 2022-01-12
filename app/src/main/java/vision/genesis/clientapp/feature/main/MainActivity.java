@@ -19,7 +19,8 @@ import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
 import com.google.android.material.snackbar.Snackbar;
 import com.sumsub.sns.core.SNSMobileSDK;
-import com.sumsub.sns.liveness3d.SNSLiveness3d;
+import com.sumsub.sns.core.data.model.SNSInvalidParametersException;
+import com.sumsub.sns.prooface.SNSProoface;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -549,12 +550,16 @@ public class MainActivity extends MvpAppCompatActivity implements MainView, Bloc
 
 	@Override
 	public void startKycProcess(KycVerificationManager manager, ExternalKycAccessToken model) {
-		SNSMobileSDK.SDK snsSdk = new SNSMobileSDK.Builder(this, model.getBaseAddress(), model.getFlowName())
-				.withAccessToken(model.getAccessToken(), manager.getTokenExpirationHandler())
-				.withModules(Collections.singletonList(new SNSLiveness3d()))
-				.build();
+		try {
+			SNSMobileSDK.SDK snsSdk = new SNSMobileSDK.Builder(this, model.getBaseAddress(), model.getFlowName())
+					.withAccessToken(model.getAccessToken(), manager.getTokenExpirationHandler())
+					.withModules(Collections.singletonList((new SNSProoface())))
+					.build();
+			snsSdk.launch();
+		} catch (SNSInvalidParametersException e) {
+			e.printStackTrace();
+		}
 
-		snsSdk.launch();
 	}
 
 	@Override
