@@ -18,6 +18,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.swagger.client.model.Broker;
 import io.swagger.client.model.Currency;
+import io.swagger.client.model.ExchangeInfo;
 import timber.log.Timber;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseSwipeBackActivity;
@@ -125,10 +126,18 @@ public class CreateProgramActivity extends BaseSwipeBackActivity implements Crea
 	}
 
 	@Override
-	public void showAccountSettings(Broker selectedBroker) {
+	public void showBrokerSettings(Broker selectedBroker) {
 		if (adapter != null) {
 			adapter.setSelectedBroker(selectedBroker);
-			viewPager.setCurrentItem(adapter.getAccountSettingsPosition());
+			viewPager.setCurrentItem(adapter.getBrokerSettingsPosition());
+		}
+	}
+
+	@Override
+	public void showExchangeSettings(ExchangeInfo selectedExchange) {
+		if (adapter != null) {
+			adapter.setSelectedExchange(selectedExchange);
+			viewPager.setCurrentItem(adapter.getExchangeSettingsPosition());
 		}
 	}
 

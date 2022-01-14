@@ -8,10 +8,12 @@ import java.util.ArrayList;
 import java.util.Map;
 
 import io.swagger.client.model.Broker;
+import io.swagger.client.model.ExchangeInfo;
 import io.swagger.client.model.NewTradingAccountRequest;
 import vision.genesis.clientapp.feature.main.trading_account.create.broker.SelectBrokerFragment;
+import vision.genesis.clientapp.feature.main.trading_account.create.broker_settings.BrokerSettingsFragment;
 import vision.genesis.clientapp.feature.main.trading_account.create.deposit.CreateAccountDepositFragment;
-import vision.genesis.clientapp.feature.main.trading_account.create.settings.BrokerSettingsFragment;
+import vision.genesis.clientapp.feature.main.trading_account.create.exchange_settings.ExchangeSettingsFragment;
 import vision.genesis.clientapp.model.CreateAccountModel;
 
 /**
@@ -30,7 +32,9 @@ public class CreateAccountPagerAdapter extends FragmentStatePagerAdapter
 
 	private SelectBrokerFragment brokerFragment;
 
-	private BrokerSettingsFragment settingsFragment;
+	private BrokerSettingsFragment brokerSettingsFragment;
+
+	private ExchangeSettingsFragment exchangeSettingsFragment;
 
 	private CreateAccountDepositFragment depositFragment;
 
@@ -47,9 +51,11 @@ public class CreateAccountPagerAdapter extends FragmentStatePagerAdapter
 
 		if (model == null) {
 			brokerFragment = SelectBrokerFragment.with(null, null, false);
-			settingsFragment = BrokerSettingsFragment.with(null, false);
+			brokerSettingsFragment = BrokerSettingsFragment.with(null, false);
+			exchangeSettingsFragment = ExchangeSettingsFragment.with(null, false);
 			fragments.add(brokerFragment);
-			fragments.add(settingsFragment);
+			fragments.add(brokerSettingsFragment);
+			fragments.add(exchangeSettingsFragment);
 		}
 		depositFragment = CreateAccountDepositFragment.with(model);
 		fragments.add(depositFragment);
@@ -72,8 +78,14 @@ public class CreateAccountPagerAdapter extends FragmentStatePagerAdapter
 	}
 
 	public void setSelectedBroker(Broker selectedBroker) {
-		if (settingsFragment != null) {
-			settingsFragment.setSelectedBroker(selectedBroker);
+		if (brokerSettingsFragment != null) {
+			brokerSettingsFragment.setSelectedBroker(selectedBroker);
+		}
+	}
+
+	public void setSelectedExchange(ExchangeInfo selectedExchange) {
+		if (exchangeSettingsFragment != null) {
+			exchangeSettingsFragment.setSelectedExchange(selectedExchange);
 		}
 	}
 

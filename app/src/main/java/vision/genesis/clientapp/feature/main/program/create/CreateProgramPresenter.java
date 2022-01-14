@@ -19,6 +19,7 @@ import io.swagger.client.model.AssetType;
 import io.swagger.client.model.Broker;
 import io.swagger.client.model.BrokerTradeServerType;
 import io.swagger.client.model.Currency;
+import io.swagger.client.model.ExchangeAccountType;
 import io.swagger.client.model.ExchangeInfo;
 import io.swagger.client.model.MakeExchangeAccountProgram;
 import io.swagger.client.model.MakeExchangeProgram;
@@ -339,25 +340,33 @@ public class CreateProgramPresenter extends MvpPresenter<CreateProgramView>
 	public void onEventMainThread(OnBrokerSelectedEvent event) {
 		this.selectedBroker = event.getSelectedBroker();
 		getViewState().setIsExchangeProgram(false);
-		getViewState().showAccountSettings(event.getSelectedBroker());
+		getViewState().showBrokerSettings(event.getSelectedBroker());
 	}
 
 	@Subscribe
 	public void onEventMainThread(OnSelectBrokerNextClickedEvent event) {
-		getViewState().showAccountSettings(selectedBroker);
+		getViewState().showBrokerSettings(selectedBroker);
 	}
 
 	@Subscribe
 	public void onEventMainThread(OnExchangeSelectedEvent event) {
 		this.selectedExchange = event.getSelectedExchange();
-		this.brokerAccountTypeId = event.getSelectedAccountType().getId();
-		this.brokerServerType = event.getSelectedAccountType().getType();
-		this.accountCurrency = Currency.USDT;
+		ExchangeAccountType exchangeAccountType = selectedExchange != null
+				&& selectedExchange.getAccountTypes() != null
+				&& !selectedExchange.getAccountTypes().isEmpty()
+				? selectedExchange.getAccountTypes().get(0)
+				: null;
+		if (exchangeAccountType != null) {
+			this.brokerAccountTypeId = exchangeAccountType.getId();
+			this.brokerServerType = exchangeAccountType.getType();
+			this.accountCurrency = Currency.USDT;
 
-		setMinDeposit(accountCurrency);
+			setMinDeposit(accountCurrency);
 
-		getViewState().setIsExchangeProgram(true);
-		getViewState().showPublicInfo();
+			getViewState().setIsExchangeProgram(true);
+			getViewState().showPublicInfo();
+//		getViewState().showExchangeSettings(selectedExchange);
+		}
 	}
 
 	@Subscribe

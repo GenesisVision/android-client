@@ -16,6 +16,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.swagger.client.model.Broker;
+import io.swagger.client.model.ExchangeInfo;
 import io.swagger.client.model.NewTradingAccountRequest;
 import timber.log.Timber;
 import vision.genesis.clientapp.R;
@@ -55,7 +56,7 @@ public class CreateAccountActivity extends BaseSwipeBackActivity implements Crea
 
 	private CreateAccountPagerAdapter adapter;
 
-	private boolean isPassSettings = false;
+	private boolean isExchange = false;
 
 	@OnClick(R.id.button_back)
 	public void onBackClicked() {
@@ -101,10 +102,14 @@ public class CreateAccountActivity extends BaseSwipeBackActivity implements Crea
 				break;
 			case 1:
 				viewPager.setCurrentItem(viewPager.getCurrentItem() - 1);
+				break;
 			case 2:
-				viewPager.setCurrentItem(isPassSettings
-						? viewPager.getCurrentItem() - 2
-						: viewPager.getCurrentItem() - 1);
+				viewPager.setCurrentItem(viewPager.getCurrentItem() - 2);
+				break;
+			case 3:
+				viewPager.setCurrentItem(isExchange
+						? viewPager.getCurrentItem() - 1
+						: viewPager.getCurrentItem() - 2);
 				break;
 		}
 	}
@@ -112,11 +117,6 @@ public class CreateAccountActivity extends BaseSwipeBackActivity implements Crea
 	@Override
 	public void showProgress(boolean show) {
 		progressBarGroup.setVisibility(show ? View.VISIBLE : View.GONE);
-	}
-
-	@Override
-	public void showNextStep() {
-		viewPager.setCurrentItem(viewPager.getCurrentItem() + 1);
 	}
 
 	@Override
@@ -134,10 +134,9 @@ public class CreateAccountActivity extends BaseSwipeBackActivity implements Crea
 	@Override
 	public void showExchangeAccountDeposit(Map<String, Double> minDepositAmount, String currency) {
 		if (adapter != null) {
-			this.isPassSettings = true;
-			adapter.setDepositStepNumber("02");
+			adapter.setDepositStepNumber("03");
 			adapter.setMinDepositAmount(minDepositAmount, currency);
-			viewPager.setCurrentItem(2);
+			viewPager.setCurrentItem(3);
 		}
 	}
 
@@ -145,17 +144,27 @@ public class CreateAccountActivity extends BaseSwipeBackActivity implements Crea
 	public void showBrokerAccountDeposit(Map<String, Double> minDepositAmountInfo, String currency) {
 		if (adapter != null) {
 			adapter.setMinDepositAmount(minDepositAmountInfo, currency);
-			viewPager.setCurrentItem(2);
+			viewPager.setCurrentItem(3);
 		}
 	}
 
 	@Override
-	public void showAccountSettings(Broker selectedBroker) {
+	public void showBrokerSettings(Broker selectedBroker) {
 		if (adapter != null) {
-			this.isPassSettings = false;
+			this.isExchange = false;
 			adapter.setDepositStepNumber("03");
 			adapter.setSelectedBroker(selectedBroker);
 			viewPager.setCurrentItem(1);
+		}
+	}
+
+	@Override
+	public void showExchangeSettings(ExchangeInfo selectedExchange) {
+		if (adapter != null) {
+			this.isExchange = true;
+			adapter.setDepositStepNumber("03");
+			adapter.setSelectedExchange(selectedExchange);
+			viewPager.setCurrentItem(2);
 		}
 	}
 

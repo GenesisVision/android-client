@@ -90,11 +90,11 @@ public class SelectBrokerPresenter extends MvpPresenter<SelectBrokerView>
 
 	void onExchangeSelected(ExchangeInfo selectedExchange) {
 		this.selectedExchange = selectedExchange;
-		this.selectedAccountType = selectedExchange != null
-				&& selectedExchange.getAccountTypes() != null
-				&& !selectedExchange.getAccountTypes().isEmpty()
-				? selectedExchange.getAccountTypes().get(0)
-				: null;
+//		this.selectedAccountType = selectedExchange != null
+//				&& selectedExchange.getAccountTypes() != null
+//				&& !selectedExchange.getAccountTypes().isEmpty()
+//				? selectedExchange.getAccountTypes().get(0)
+//				: null;
 		this.selectedBroker = null;
 		int position = 0;
 		for (ExchangeInfo exchange : exchanges) {
@@ -127,7 +127,7 @@ public class SelectBrokerPresenter extends MvpPresenter<SelectBrokerView>
 
 	void onNextClicked() {
 		if (selectedExchange != null) {
-			EventBus.getDefault().post(new OnExchangeSelectedEvent(selectedExchange, selectedAccountType));
+			EventBus.getDefault().post(new OnExchangeSelectedEvent(selectedExchange));
 		}
 		else if (selectedBroker != null) {
 			EventBus.getDefault().post(new OnBrokerSelectedEvent(selectedBroker));

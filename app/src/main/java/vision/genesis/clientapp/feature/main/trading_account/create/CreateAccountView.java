@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.UUID;
 
 import io.swagger.client.model.Broker;
+import io.swagger.client.model.ExchangeInfo;
 import io.swagger.client.model.NewTradingAccountRequest;
 
 /**
@@ -21,15 +22,15 @@ public interface CreateAccountView extends MvpView
 
 	void showBrokerAccountDeposit(Map<String, Double> minDepositAmountInfo, String currency);
 
-	void showAccountSettings(Broker selectedBroker);
+	void showBrokerSettings(Broker selectedBroker);
+
+	void showExchangeSettings(ExchangeInfo selectedExchange);
 
 	void showSnackbarMessage(String message);
 
 	void finishActivity();
 
 	void showProgress(boolean show);
-
-	void showNextStep();
 
 	void showSetup2Fa(UUID id);
 }

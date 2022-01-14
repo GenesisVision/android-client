@@ -10,13 +10,15 @@ import java.util.Map;
 
 import io.swagger.client.model.Broker;
 import io.swagger.client.model.Currency;
+import io.swagger.client.model.ExchangeInfo;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.common.public_info.PublicInfoFragment;
 import vision.genesis.clientapp.feature.main.program.create.deposit.CreateProgramDepositFragment;
 import vision.genesis.clientapp.feature.main.program.create.settings.ProgramSettingsFragment;
 import vision.genesis.clientapp.feature.main.trading_account.create.broker.SelectBrokerFragment;
-import vision.genesis.clientapp.feature.main.trading_account.create.settings.BrokerSettingsFragment;
+import vision.genesis.clientapp.feature.main.trading_account.create.broker_settings.BrokerSettingsFragment;
+import vision.genesis.clientapp.feature.main.trading_account.create.exchange_settings.ExchangeSettingsFragment;
 import vision.genesis.clientapp.model.CreateProgramModel;
 import vision.genesis.clientapp.model.ProgramSettingsModel;
 import vision.genesis.clientapp.model.PublicInfoModel;
@@ -37,7 +39,9 @@ public class CreateProgramPagerAdapter extends FragmentStatePagerAdapter
 
 	private SelectBrokerFragment brokerSelectFragment;
 
-	private BrokerSettingsFragment accountSettingsFragment;
+	private BrokerSettingsFragment brokerSettingsFragment;
+
+	private ExchangeSettingsFragment exchangeSettingsFragment;
 
 	private PublicInfoFragment publicInfoFragment;
 
@@ -75,9 +79,13 @@ public class CreateProgramPagerAdapter extends FragmentStatePagerAdapter
 			fragments.add(brokerSelectFragment);
 			stepNumber++;
 
-			accountSettingsFragment = BrokerSettingsFragment.with(null, true);
-			fragments.add(accountSettingsFragment);
+			brokerSettingsFragment = BrokerSettingsFragment.with(null, true);
+			fragments.add(brokerSettingsFragment);
 			stepNumber++;
+
+//			exchangeSettingsFragment = ExchangeSettingsFragment.with(null, true);
+//			fragments.add(exchangeSettingsFragment);
+//			stepNumber++;
 		}
 		if (needPublicInfo) {
 			publicInfoFragment = PublicInfoFragment.with(new PublicInfoModel(true,
@@ -136,8 +144,8 @@ public class CreateProgramPagerAdapter extends FragmentStatePagerAdapter
 			currentStep--;
 		}
 
-		if (accountSettingsFragment != null) {
-			accountSettingsFragment.setSteps(getStepNumberText(2), getButtonText(2, 5));
+		if (brokerSettingsFragment != null) {
+			brokerSettingsFragment.setSteps(getStepNumberText(2), getButtonText(2, 5));
 		}
 
 		if (publicInfoFragment != null) {
@@ -155,8 +163,14 @@ public class CreateProgramPagerAdapter extends FragmentStatePagerAdapter
 	}
 
 	public void setSelectedBroker(Broker selectedBroker) {
-		if (accountSettingsFragment != null) {
-			accountSettingsFragment.setSelectedBroker(selectedBroker);
+		if (brokerSettingsFragment != null) {
+			brokerSettingsFragment.setSelectedBroker(selectedBroker);
+		}
+	}
+
+	public void setSelectedExchange(ExchangeInfo selectedExchange) {
+		if (exchangeSettingsFragment != null) {
+			exchangeSettingsFragment.setSelectedExchange(selectedExchange);
 		}
 	}
 
@@ -169,8 +183,12 @@ public class CreateProgramPagerAdapter extends FragmentStatePagerAdapter
 		}
 	}
 
-	int getAccountSettingsPosition() {
-		return getFragmentPosition(accountSettingsFragment);
+	int getBrokerSettingsPosition() {
+		return getFragmentPosition(brokerSettingsFragment);
+	}
+
+	int getExchangeSettingsPosition() {
+		return getFragmentPosition(exchangeSettingsFragment);
 	}
 
 	int getPublicInfoPosition() {

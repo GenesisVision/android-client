@@ -6,6 +6,7 @@ import java.util.Map;
 
 import io.swagger.client.model.Broker;
 import io.swagger.client.model.Currency;
+import io.swagger.client.model.ExchangeInfo;
 import vision.genesis.clientapp.model.CreateProgramModel;
 
 /**
@@ -21,7 +22,9 @@ public interface CreateProgramView extends MvpView
 
 	void setMinDeposit(Map<String, Double> minDepositInfo, Currency accountCurrency);
 
-	void showAccountSettings(Broker selectedBroker);
+	void showBrokerSettings(Broker selectedBroker);
+
+	void showExchangeSettings(ExchangeInfo selectedExchange);
 
 	void showPublicInfo();
 

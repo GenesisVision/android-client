@@ -1,4 +1,4 @@
-package vision.genesis.clientapp.feature.main.trading_account.create.settings;
+package vision.genesis.clientapp.feature.main.trading_account.create.exchange_settings;
 
 import android.content.Context;
 
@@ -13,33 +13,31 @@ import java.util.UUID;
 
 import javax.inject.Inject;
 
-import io.swagger.client.model.Broker;
-import io.swagger.client.model.BrokerAccountType;
 import io.swagger.client.model.Currency;
+import io.swagger.client.model.ExchangeAccountType;
+import io.swagger.client.model.ExchangeInfo;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
-import vision.genesis.clientapp.model.events.OnAccountBrokerSettingsSelectedEvent;
+import vision.genesis.clientapp.model.events.OnAccountExchangeSettingsSelectedEvent;
 
 /**
  * GenesisVisionAndroid
- * Created by Vitaly on 20/11/2019.
+ * Created by Vitaly on 12/01/2022.
  */
 
 @InjectViewState
-public class BrokerSettingsPresenter extends MvpPresenter<BrokerSettingsView>
+public class ExchangeSettingsPresenter extends MvpPresenter<ExchangeSettingsView>
 {
 	@Inject
 	public Context context;
 
-	private Broker broker;
+	private ExchangeInfo exchange;
 
-	private BrokerAccountType selectedAccountType;
+	private ExchangeAccountType selectedAccountType;
 
 	private UUID assetId;
 
 	private Currency currency;
-
-	private Integer leverage;
 
 	private Boolean isCreatingNewProgram = false;
 
@@ -58,15 +56,14 @@ public class BrokerSettingsPresenter extends MvpPresenter<BrokerSettingsView>
 		this.isCreatingNewProgram = isCreatingNewProgram;
 	}
 
-	void setBroker(Broker broker) {
-		this.broker = broker;
+	void setExchange(ExchangeInfo exchange) {
+		this.exchange = exchange;
 
 		this.selectedAccountType = null;
 		this.currency = null;
-		this.leverage = null;
 
 		ArrayList<String> accountTypeOptions = new ArrayList<>();
-		for (BrokerAccountType accountType : broker.getAccountTypes()) {
+		for (ExchangeAccountType accountType : this.exchange.getAccountTypes()) {
 			accountTypeOptions.add(accountType.getName());
 		}
 		getViewState().setAccountTypeOptions(accountTypeOptions);
@@ -75,13 +72,12 @@ public class BrokerSettingsPresenter extends MvpPresenter<BrokerSettingsView>
 
 	private void updateNextButtonAvailability() {
 		boolean currencyOk = assetId == null || currency != null;
-		getViewState().setNextButtonEnabled(selectedAccountType != null && currencyOk && leverage != null);
+		getViewState().setNextButtonEnabled(selectedAccountType != null && currencyOk);
 	}
 
 	void onAccountTypeOptionSelected(Integer position, String text) {
-		selectedAccountType = broker.getAccountTypes().get(position);
+		selectedAccountType = exchange.getAccountTypes().get(position);
 		currency = null;
-		leverage = null;
 
 		if (assetId == null && !isCreatingNewProgram) {
 			getViewState().setButtonText(selectedAccountType.isIsDepositRequired()
@@ -90,17 +86,10 @@ public class BrokerSettingsPresenter extends MvpPresenter<BrokerSettingsView>
 		}
 		getViewState().setAccountType(text, position);
 		getViewState().setAccountTypeDescription(String.format(Locale.getDefault(), "%s: %s",
-				context.getString(R.string.trading_platform), selectedAccountType.getType().getValue()));
+				context.getString(R.string.trading_platform), selectedAccountType.getTypeTitle()));
 
 		getViewState().setCurrencyOptions(new ArrayList<>(selectedAccountType.getCurrencies()));
 		onCurrencyOptionSelected(0, selectedAccountType.getCurrencies().get(0));
-
-		ArrayList<String> leverageOptions = new ArrayList<>();
-		for (Integer leverage : selectedAccountType.getLeverages()) {
-			leverageOptions.add(String.format(Locale.getDefault(), "1:%d", leverage));
-		}
-		getViewState().setLeverageOptions(leverageOptions);
-		onLeverageOptionSelected(0, leverageOptions.get(0));
 
 		updateNextButtonAvailability();
 	}
@@ -111,13 +100,7 @@ public class BrokerSettingsPresenter extends MvpPresenter<BrokerSettingsView>
 		updateNextButtonAvailability();
 	}
 
-	void onLeverageOptionSelected(Integer position, String text) {
-		leverage = selectedAccountType.getLeverages().get(position);
-		getViewState().setLeverage(text, position);
-		updateNextButtonAvailability();
-	}
-
 	void onConfirmClicked() {
-		EventBus.getDefault().post(new OnAccountBrokerSettingsSelectedEvent(selectedAccountType, currency, leverage));
+		EventBus.getDefault().post(new OnAccountExchangeSettingsSelectedEvent(selectedAccountType, currency));
 	}
 }

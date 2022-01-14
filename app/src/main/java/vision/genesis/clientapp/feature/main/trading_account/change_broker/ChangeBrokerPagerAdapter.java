@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 import io.swagger.client.model.Broker;
 import vision.genesis.clientapp.feature.main.trading_account.create.broker.SelectBrokerFragment;
-import vision.genesis.clientapp.feature.main.trading_account.create.settings.BrokerSettingsFragment;
+import vision.genesis.clientapp.feature.main.trading_account.create.broker_settings.BrokerSettingsFragment;
 import vision.genesis.clientapp.model.TradingAccountDetailsModel;
 
 /**

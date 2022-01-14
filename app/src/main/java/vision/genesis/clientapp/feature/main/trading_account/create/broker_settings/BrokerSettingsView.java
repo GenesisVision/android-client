@@ -1,4 +1,4 @@
-package vision.genesis.clientapp.feature.main.trading_account.create.settings;
+package vision.genesis.clientapp.feature.main.trading_account.create.broker_settings;
 
 import com.arellomobile.mvp.MvpView;
 

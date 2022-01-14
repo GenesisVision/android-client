@@ -165,8 +165,9 @@ import vision.genesis.clientapp.feature.main.trading_account.change_broker.Chang
 import vision.genesis.clientapp.feature.main.trading_account.change_password.ChangeTradingAccountPasswordPresenter;
 import vision.genesis.clientapp.feature.main.trading_account.create.CreateAccountPresenter;
 import vision.genesis.clientapp.feature.main.trading_account.create.broker.SelectBrokerPresenter;
+import vision.genesis.clientapp.feature.main.trading_account.create.broker_settings.BrokerSettingsPresenter;
 import vision.genesis.clientapp.feature.main.trading_account.create.deposit.CreateAccountDepositPresenter;
-import vision.genesis.clientapp.feature.main.trading_account.create.settings.BrokerSettingsPresenter;
+import vision.genesis.clientapp.feature.main.trading_account.create.exchange_settings.ExchangeSettingsPresenter;
 import vision.genesis.clientapp.feature.main.trading_account.info.TradingAccountInfoPresenter;
 import vision.genesis.clientapp.feature.main.trading_account.manage.ManageTradingAccountPresenter;
 import vision.genesis.clientapp.feature.main.trading_account.open_positions.TradingAccountOpenPositionsPresenter;
@@ -604,4 +605,6 @@ public interface AppComponent
 	void inject(SetupAccountTfaPresenter setupAccountTfaPresenter);
 
 	void inject(ProgramFinancialStatisticsPresenter programFinancialStatisticsPresenter);
+
+	void inject(ExchangeSettingsPresenter exchangeSettingsPresenter);
 }

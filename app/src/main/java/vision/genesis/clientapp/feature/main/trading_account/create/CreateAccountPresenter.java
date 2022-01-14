@@ -30,6 +30,7 @@ import vision.genesis.clientapp.managers.BrokersManager;
 import vision.genesis.clientapp.managers.SettingsManager;
 import vision.genesis.clientapp.model.CreateAccountModel;
 import vision.genesis.clientapp.model.events.OnAccountBrokerSettingsSelectedEvent;
+import vision.genesis.clientapp.model.events.OnAccountExchangeSettingsSelectedEvent;
 import vision.genesis.clientapp.model.events.OnBrokerSelectedEvent;
 import vision.genesis.clientapp.model.events.OnCreateAccountCreateButtonClickedEvent;
 import vision.genesis.clientapp.model.events.OnCreateAccountSuccessEvent;
@@ -246,10 +247,11 @@ public class CreateAccountPresenter extends MvpPresenter<CreateAccountView>
 	@Subscribe
 	public void onEventMainThread(OnExchangeSelectedEvent event) {
 		this.selectedExchange = event.getSelectedExchange();
-		request.setBrokerAccountTypeId(event.getSelectedAccountType().getId());
+//		request.setBrokerAccountTypeId(event.getSelectedAccountType().getId());
 		request.setCurrency(Currency.USDT);
 
-		showExchangeAccountDepositOrCreateAccount(event.getSelectedAccountType());
+//		showExchangeAccountDepositOrCreateAccount(event.getSelectedAccountType());
+		getViewState().showExchangeSettings(event.getSelectedExchange());
 	}
 
 	private void showExchangeAccountDepositOrCreateAccount(ExchangeAccountType exchangeAccountType) {
@@ -266,12 +268,12 @@ public class CreateAccountPresenter extends MvpPresenter<CreateAccountView>
 	@Subscribe
 	public void onEventMainThread(OnBrokerSelectedEvent event) {
 		this.selectedBroker = event.getSelectedBroker();
-		getViewState().showAccountSettings(event.getSelectedBroker());
+		getViewState().showBrokerSettings(event.getSelectedBroker());
 	}
 
 	@Subscribe
 	public void onEventMainThread(OnSelectBrokerNextClickedEvent event) {
-		getViewState().showAccountSettings(selectedBroker);
+		getViewState().showBrokerSettings(selectedBroker);
 	}
 
 	@Subscribe
@@ -281,6 +283,14 @@ public class CreateAccountPresenter extends MvpPresenter<CreateAccountView>
 		request.setLeverage(event.getLeverage());
 
 		showBrokerAccountDepositOrCreateAccount(event.getBrokerAccountType());
+	}
+
+	@Subscribe
+	public void onEventMainThread(OnAccountExchangeSettingsSelectedEvent event) {
+		request.setBrokerAccountTypeId(event.getSelectedAccountType().getId());
+		request.setCurrency(event.getCurrency());
+
+		showExchangeAccountDepositOrCreateAccount(event.getSelectedAccountType());
 	}
 
 	private void showBrokerAccountDepositOrCreateAccount(BrokerAccountType brokerAccountType) {

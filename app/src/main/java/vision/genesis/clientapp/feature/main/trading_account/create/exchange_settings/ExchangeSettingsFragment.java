@@ -1,4 +1,4 @@
-package vision.genesis.clientapp.feature.main.trading_account.create.settings;
+package vision.genesis.clientapp.feature.main.trading_account.create.exchange_settings;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -18,7 +18,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
-import io.swagger.client.model.Broker;
+import io.swagger.client.model.ExchangeInfo;
 import timber.log.Timber;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
@@ -29,17 +29,17 @@ import vision.genesis.clientapp.utils.TypefaceUtil;
 
 /**
  * GenesisVisionAndroid
- * Created by Vitaly on 20/11/2019.
+ * Created by Vitaly on 12/01/2022.
  */
 
-public class BrokerSettingsFragment extends BaseFragment implements BrokerSettingsView
+public class ExchangeSettingsFragment extends BaseFragment implements ExchangeSettingsView
 {
 	private static String EXTRA_ASSET_ID = "extra_asset_id";
 
 	private static String EXTRA_IS_CREATING_NEW_PROGRAM = "extra_is_creating_new_program";
 
-	public static BrokerSettingsFragment with(UUID assetId, boolean isCreatingNewProgram) {
-		BrokerSettingsFragment fragment = new BrokerSettingsFragment();
+	public static ExchangeSettingsFragment with(UUID assetId, boolean isCreatingNewProgram) {
+		ExchangeSettingsFragment fragment = new ExchangeSettingsFragment();
 		Bundle arguments = new Bundle(2);
 		arguments.putSerializable(EXTRA_ASSET_ID, assetId);
 		arguments.putBoolean(EXTRA_IS_CREATING_NEW_PROGRAM, isCreatingNewProgram);
@@ -68,17 +68,11 @@ public class BrokerSettingsFragment extends BaseFragment implements BrokerSettin
 	@BindView(R.id.currency_arrow)
 	public ImageView currencyArrow;
 
-	@BindView(R.id.leverage)
-	public TextView leverage;
-
-	@BindView(R.id.leverage_arrow)
-	public ImageView leverageArrow;
-
 	@BindView(R.id.button_next)
 	public PrimaryButton nextButton;
 
 	@InjectPresenter
-	public BrokerSettingsPresenter presenter;
+	public ExchangeSettingsPresenter presenter;
 
 	private Unbinder unbinder;
 
@@ -89,10 +83,6 @@ public class BrokerSettingsFragment extends BaseFragment implements BrokerSettin
 	private ArrayList<String> currencyOptions;
 
 	private Integer selectedCurrencyPosition = -1;
-
-	private ArrayList<String> leverageOptions;
-
-	private Integer selectedLeveragePosition = -1;
 
 	@OnClick(R.id.group_account_type)
 	public void onAccountTypeClicked() {
@@ -114,16 +104,6 @@ public class BrokerSettingsFragment extends BaseFragment implements BrokerSettin
 		}
 	}
 
-	@OnClick(R.id.group_leverage)
-	public void onLeverageClicked() {
-		if (getActivity() != null && leverageOptions != null && leverageOptions.size() > 1) {
-			SelectOptionBottomSheetFragment fragment = SelectOptionBottomSheetFragment.with(
-					getString(R.string.leverage), leverageOptions, selectedLeveragePosition);
-			fragment.setListener((position, text) -> presenter.onLeverageOptionSelected(position, text));
-			fragment.show(getActivity().getSupportFragmentManager(), fragment.getTag());
-		}
-	}
-
 	@OnClick(R.id.button_next)
 	public void onNextClicked() {
 		presenter.onConfirmClicked();
@@ -132,7 +112,7 @@ public class BrokerSettingsFragment extends BaseFragment implements BrokerSettin
 	@Nullable
 	@Override
 	public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-		return inflater.inflate(R.layout.fragment_broker_settings, container, false);
+		return inflater.inflate(R.layout.fragment_exchange_settings, container, false);
 	}
 
 	@Override
@@ -206,19 +186,6 @@ public class BrokerSettingsFragment extends BaseFragment implements BrokerSettin
 	}
 
 	@Override
-	public void setLeverageOptions(ArrayList<String> leverageOptions) {
-		this.leverageOptions = leverageOptions;
-		if (leverageOptions.size() <= 1) {
-			this.leverage.setTextColor(ThemeUtil.getColorByAttrId(getContext(), R.attr.colorTextSecondary));
-			this.leverageArrow.setVisibility(View.INVISIBLE);
-		}
-		else {
-			this.leverage.setTextColor(ThemeUtil.getColorByAttrId(getContext(), R.attr.colorTextPrimary));
-			this.leverageArrow.setVisibility(View.VISIBLE);
-		}
-	}
-
-	@Override
 	public void setAccountType(String accountType, Integer position) {
 		this.accountType.setText(accountType);
 		this.selectedAccountTypePosition = position;
@@ -228,12 +195,6 @@ public class BrokerSettingsFragment extends BaseFragment implements BrokerSettin
 	public void setCurrency(String currency, Integer position) {
 		this.currency.setText(currency);
 		this.selectedCurrencyPosition = position;
-	}
-
-	@Override
-	public void setLeverage(String leverage, Integer position) {
-		this.leverage.setText(leverage);
-		this.selectedLeveragePosition = position;
 	}
 
 	@Override
@@ -256,8 +217,8 @@ public class BrokerSettingsFragment extends BaseFragment implements BrokerSettin
 		nextButton.setEnabled(enabled);
 	}
 
-	public void setSelectedBroker(Broker selectedBroker) {
-		presenter.setBroker(selectedBroker);
+	public void setSelectedExchange(ExchangeInfo selectedExchange) {
+		presenter.setExchange(selectedExchange);
 	}
 
 	public void setSteps(String stepNumberText, String buttonText) {
