@@ -22,10 +22,12 @@ import java.util.Locale;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.swagger.client.model.InternalTransferRequestType;
 import io.swagger.client.model.WalletData;
 import timber.log.Timber;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseSwipeBackActivity;
+import vision.genesis.clientapp.feature.common.option.SelectOptionBottomSheetFragment;
 import vision.genesis.clientapp.feature.common.select_wallet.SelectWalletBottomSheetFragment;
 import vision.genesis.clientapp.model.TransferFundsModel;
 import vision.genesis.clientapp.ui.PrimaryButton;
@@ -67,6 +69,9 @@ public class TransferFundsActivity extends BaseSwipeBackActivity implements Tran
 
 	@BindView(R.id.first_balance)
 	public TextView firstBalance;
+
+	@BindView(R.id.first_arrow)
+	public View firstArrow;
 
 	@BindView(R.id.label_second)
 	public TextView labelSecond;
@@ -126,9 +131,23 @@ public class TransferFundsActivity extends BaseSwipeBackActivity implements Tran
 
 	private TransferFundsModel model;
 
+	private ArrayList<String> currencyOptions;
+
+	private Integer selectedCurrencyPosition = -1;
+
 	@OnClick(R.id.button_close)
 	public void onCloseClicked() {
 		finishActivity();
+	}
+
+	@OnClick(R.id.group_first)
+	public void onFirstAssetClicked() {
+		if (model.getAssetType().equals(InternalTransferRequestType.EXCHANGEACCOUNT) && currencyOptions != null && currencyOptions.size() > 1) {
+			SelectOptionBottomSheetFragment fragment = SelectOptionBottomSheetFragment.with(
+					getString(R.string.currency), currencyOptions, selectedCurrencyPosition);
+			fragment.setListener((position, text) -> presenter.onCurrencyOptionSelected(position, text));
+			fragment.show(getSupportFragmentManager(), fragment.getTag());
+		}
 	}
 
 	@OnClick(R.id.group_second_asset)
@@ -208,6 +227,20 @@ public class TransferFundsActivity extends BaseSwipeBackActivity implements Tran
 		if (model.getTransferDirection().equals(TransferFundsModel.TransferDirection.WITHDRAW)) {
 			this.amountCurrency.setText(model.getCurrency());
 		}
+
+		if (model.getAssetType().equals(InternalTransferRequestType.EXCHANGEACCOUNT)) {
+			this.firstArrow.setVisibility(View.VISIBLE);
+		}
+	}
+
+	@Override
+	public void setCurrencyOptions(ArrayList<String> currencies) {
+		this.currencyOptions = currencies;
+	}
+
+	@Override
+	public void setCurrency(Integer position) {
+		this.selectedCurrencyPosition = position;
 	}
 
 	@Override

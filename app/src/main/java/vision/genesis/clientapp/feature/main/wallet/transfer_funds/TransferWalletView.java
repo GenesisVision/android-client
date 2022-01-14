@@ -2,6 +2,7 @@ package vision.genesis.clientapp.feature.main.wallet.transfer_funds;
 
 import com.arellomobile.mvp.MvpView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import io.swagger.client.model.WalletData;
@@ -15,6 +16,10 @@ import vision.genesis.clientapp.model.TransferFundsModel;
 interface TransferWalletView extends MvpView
 {
 	void updateView(TransferFundsModel model);
+
+	void setCurrencyOptions(ArrayList<String> currencies);
+
+	void setCurrency(Integer position);
 
 	void setWallets(List<WalletData> wallets);
 

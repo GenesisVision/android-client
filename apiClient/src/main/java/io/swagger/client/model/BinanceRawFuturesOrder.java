@@ -12,60 +12,57 @@
 
 package io.swagger.client.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import com.google.gson.TypeAdapter;
-import com.google.gson.annotations.JsonAdapter;
-import com.google.gson.annotations.SerializedName;
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonWriter;
-import io.swagger.client.model.BinanceOrderSide;
-import io.swagger.client.model.BinanceOrderStatus;
-import io.swagger.client.model.BinanceOrderType;
-import io.swagger.client.model.BinancePositionSide;
-import io.swagger.client.model.BinanceTimeInForce;
-import io.swagger.client.model.BinanceWorkingType;
-import io.swagger.v3.oas.annotations.media.Schema;
-import java.io.IOException;
-import java.util.UUID;
-import org.joda.time.DateTime;
-import android.os.Parcelable;
 import android.os.Parcel;
+import android.os.Parcelable;
+
+import com.google.gson.annotations.SerializedName;
+
+import org.joda.time.DateTime;
+
+import java.util.Objects;
+import java.util.UUID;
+
+import io.swagger.v3.oas.annotations.media.Schema;
+
 /**
  * BinanceRawFuturesOrder
  */
 
 
-public class BinanceRawFuturesOrder implements Parcelable {
-  @SerializedName("accountId")
-  private UUID accountId = null;
+public class BinanceRawFuturesOrder implements Parcelable
+{
+	@SerializedName("accountId")
+	private UUID accountId = null;
 
-  @SerializedName("symbol")
-  private String symbol = null;
+	@SerializedName("symbol")
+	private String symbol = null;
 
-  @SerializedName("orderId")
-  private Long orderId = null;
+	@SerializedName("orderId")
+	private Long orderId = null;
 
-  @SerializedName("clientOrderId")
-  private String clientOrderId = null;
+	@SerializedName("tradeId")
+	private Long tradeId = null;
 
-  @SerializedName("price")
-  private Double price = null;
+	@SerializedName("clientOrderId")
+	private String clientOrderId = null;
 
-  @SerializedName("avgPrice")
-  private Double avgPrice = null;
+	@SerializedName("price")
+	private Double price = null;
 
-  @SerializedName("reduceOnly")
-  private Boolean reduceOnly = null;
+	@SerializedName("avgPrice")
+	private Double avgPrice = null;
 
-  @SerializedName("closePosition")
-  private Boolean closePosition = null;
+	@SerializedName("reduceOnly")
+	private Boolean reduceOnly = null;
 
-  @SerializedName("side")
-  private BinanceOrderSide side = null;
+	@SerializedName("closePosition")
+	private Boolean closePosition = null;
 
-  @SerializedName("status")
-  private BinanceOrderStatus status = null;
+	@SerializedName("side")
+	private BinanceOrderSide side = null;
+
+	@SerializedName("status")
+	private BinanceOrderStatus status = null;
 
   @SerializedName("stopPrice")
   private Double stopPrice = null;
@@ -91,48 +88,88 @@ public class BinanceRawFuturesOrder implements Parcelable {
   @SerializedName("workingType")
   private BinanceWorkingType workingType = null;
 
-  @SerializedName("positionSide")
-  private BinancePositionSide positionSide = null;
+	@SerializedName("positionSide")
+	private BinancePositionSide positionSide = null;
 
-  @SerializedName("quantity")
-  private Double quantity = null;
+	@SerializedName("quantity")
+	private Double quantity = null;
 
-  @SerializedName("quantityFilled")
-  private Double quantityFilled = null;
+	@SerializedName("quantityFilled")
+	private Double quantityFilled = null;
 
-  @SerializedName("quoteQuantityFilled")
-  private Double quoteQuantityFilled = null;
+	@SerializedName("quoteQuantityFilled")
+	private Double quoteQuantityFilled = null;
 
-  @SerializedName("callbackRate")
-  private Double callbackRate = null;
+	@SerializedName("callbackRate")
+	private Double callbackRate = null;
 
-  @SerializedName("lastFilledQuantity")
-  private Double lastFilledQuantity = null;
+	@SerializedName("lastFilledQuantity")
+	private Double lastFilledQuantity = null;
 
-  public BinanceRawFuturesOrder() {
-  }
-  public BinanceRawFuturesOrder accountId(UUID accountId) {
-    this.accountId = accountId;
-    return this;
-  }
+	@SerializedName("commission")
+	private Double commission = null;
 
-   /**
-   * Get accountId
-   * @return accountId
-  **/
-  @Schema(description = "")
-  public UUID getAccountId() {
-    return accountId;
-  }
+	@SerializedName("commissionAsset")
+	private String commissionAsset = null;
 
-  public void setAccountId(UUID accountId) {
-    this.accountId = accountId;
-  }
+	@SerializedName("realizedProfit")
+	private Double realizedProfit = null;
 
-  public BinanceRawFuturesOrder symbol(String symbol) {
-    this.symbol = symbol;
-    return this;
-  }
+	@SerializedName("executionType")
+	private BinanceExecutionType executionType = null;
+
+	@SerializedName("priceLastFilledTrade")
+	private Double priceLastFilledTrade = null;
+
+	public BinanceRawFuturesOrder() {
+	}
+
+	BinanceRawFuturesOrder(Parcel in) {
+		accountId = (UUID) in.readValue(UUID.class.getClassLoader());
+		symbol = (String) in.readValue(null);
+		orderId = (Long) in.readValue(null);
+		tradeId = (Long) in.readValue(null);
+		clientOrderId = (String) in.readValue(null);
+		price = (Double) in.readValue(null);
+		avgPrice = (Double) in.readValue(null);
+		reduceOnly = (Boolean) in.readValue(null);
+		closePosition = (Boolean) in.readValue(null);
+		side = (BinanceOrderSide) in.readValue(BinanceOrderSide.class.getClassLoader());
+		status = (BinanceOrderStatus) in.readValue(BinanceOrderStatus.class.getClassLoader());
+		stopPrice = (Double) in.readValue(null);
+		timeInForce = (BinanceTimeInForce) in.readValue(BinanceTimeInForce.class.getClassLoader());
+		originalType = (BinanceOrderType) in.readValue(BinanceOrderType.class.getClassLoader());
+		type = (BinanceOrderType) in.readValue(BinanceOrderType.class.getClassLoader());
+		activatePrice = (Double) in.readValue(null);
+		updateTime = (DateTime) in.readValue(DateTime.class.getClassLoader());
+		createdTime = (DateTime) in.readValue(DateTime.class.getClassLoader());
+		workingType = (BinanceWorkingType) in.readValue(BinanceWorkingType.class.getClassLoader());
+		positionSide = (BinancePositionSide) in.readValue(BinancePositionSide.class.getClassLoader());
+		quantity = (Double) in.readValue(null);
+		quantityFilled = (Double) in.readValue(null);
+		quoteQuantityFilled = (Double) in.readValue(null);
+		callbackRate = (Double) in.readValue(null);
+		lastFilledQuantity = (Double) in.readValue(null);
+		commission = (Double) in.readValue(null);
+		commissionAsset = (String) in.readValue(null);
+		realizedProfit = (Double) in.readValue(null);
+		executionType = (BinanceExecutionType) in.readValue(BinanceExecutionType.class.getClassLoader());
+		priceLastFilledTrade = (Double) in.readValue(null);
+	}
+
+	public BinanceRawFuturesOrder accountId(UUID accountId) {
+		this.accountId = accountId;
+		return this;
+	}
+
+	public void setAccountId(UUID accountId) {
+		this.accountId = accountId;
+	}
+
+	public BinanceRawFuturesOrder symbol(String symbol) {
+		this.symbol = symbol;
+		return this;
+	}
 
    /**
    * Get symbol
@@ -143,50 +180,71 @@ public class BinanceRawFuturesOrder implements Parcelable {
     return symbol;
   }
 
-  public void setSymbol(String symbol) {
-    this.symbol = symbol;
-  }
+	public void setSymbol(String symbol) {
+		this.symbol = symbol;
+	}
 
-  public BinanceRawFuturesOrder orderId(Long orderId) {
-    this.orderId = orderId;
-    return this;
-  }
+	public BinanceRawFuturesOrder orderId(Long orderId) {
+		this.orderId = orderId;
+		return this;
+	}
 
-   /**
-   * Get orderId
-   * @return orderId
-  **/
-  @Schema(description = "")
-  public Long getOrderId() {
-    return orderId;
-  }
+	/**
+	 * Get accountId
+	 *
+	 * @return accountId
+	 **/
+	@Schema(description = "")
+	public UUID getAccountId() {
+		return accountId;
+	}
 
-  public void setOrderId(Long orderId) {
-    this.orderId = orderId;
-  }
+	/**
+	 * Get orderId
+	 *
+	 * @return orderId
+	 **/
+	@Schema(description = "")
+	public Long getOrderId() {
+		return orderId;
+	}
 
-  public BinanceRawFuturesOrder clientOrderId(String clientOrderId) {
-    this.clientOrderId = clientOrderId;
-    return this;
-  }
+	public void setOrderId(Long orderId) {
+		this.orderId = orderId;
+	}
 
-   /**
-   * Get clientOrderId
-   * @return clientOrderId
-  **/
-  @Schema(description = "")
-  public String getClientOrderId() {
-    return clientOrderId;
-  }
+	public BinanceRawFuturesOrder tradeId(Long tradeId) {
+		this.tradeId = tradeId;
+		return this;
+	}
 
-  public void setClientOrderId(String clientOrderId) {
-    this.clientOrderId = clientOrderId;
-  }
+	/**
+	 * Get tradeId
+	 *
+	 * @return tradeId
+	 **/
+	@Schema(description = "")
+	public Long getTradeId() {
+		return tradeId;
+	}
 
-  public BinanceRawFuturesOrder price(Double price) {
-    this.price = price;
-    return this;
-  }
+	public void setTradeId(Long tradeId) {
+		this.tradeId = tradeId;
+	}
+
+	public BinanceRawFuturesOrder clientOrderId(String clientOrderId) {
+		this.clientOrderId = clientOrderId;
+		return this;
+	}
+
+	public void setClientOrderId(String clientOrderId) {
+		this.clientOrderId = clientOrderId;
+	}
+
+	public BinanceRawFuturesOrder price(Double price) {
+		this.price = price;
+		return this;
+	}
 
    /**
    * Get price
@@ -518,170 +576,264 @@ public class BinanceRawFuturesOrder implements Parcelable {
   **/
   @Schema(description = "")
   public Double getCallbackRate() {
-    return callbackRate;
+	  return callbackRate;
   }
 
-  public void setCallbackRate(Double callbackRate) {
-    this.callbackRate = callbackRate;
-  }
+	public void setCallbackRate(Double callbackRate) {
+		this.callbackRate = callbackRate;
+	}
 
-  public BinanceRawFuturesOrder lastFilledQuantity(Double lastFilledQuantity) {
-    this.lastFilledQuantity = lastFilledQuantity;
-    return this;
-  }
+	public BinanceRawFuturesOrder lastFilledQuantity(Double lastFilledQuantity) {
+		this.lastFilledQuantity = lastFilledQuantity;
+		return this;
+	}
 
-   /**
-   * Get lastFilledQuantity
-   * @return lastFilledQuantity
-  **/
-  @Schema(description = "")
-  public Double getLastFilledQuantity() {
-    return lastFilledQuantity;
-  }
+	/**
+	 * Get clientOrderId
+	 *
+	 * @return clientOrderId
+	 **/
+	@Schema(description = "")
+	public String getClientOrderId() {
+		return clientOrderId;
+	}
 
-  public void setLastFilledQuantity(Double lastFilledQuantity) {
-    this.lastFilledQuantity = lastFilledQuantity;
-  }
+	/**
+	 * Get lastFilledQuantity
+	 *
+	 * @return lastFilledQuantity
+	 **/
+	@Schema(description = "")
+	public Double getLastFilledQuantity() {
+		return lastFilledQuantity;
+	}
 
+	public void setLastFilledQuantity(Double lastFilledQuantity) {
+		this.lastFilledQuantity = lastFilledQuantity;
+	}
 
-  @Override
-  public boolean equals(java.lang.Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-    BinanceRawFuturesOrder binanceRawFuturesOrder = (BinanceRawFuturesOrder) o;
-    return Objects.equals(this.accountId, binanceRawFuturesOrder.accountId) &&
-        Objects.equals(this.symbol, binanceRawFuturesOrder.symbol) &&
-        Objects.equals(this.orderId, binanceRawFuturesOrder.orderId) &&
-        Objects.equals(this.clientOrderId, binanceRawFuturesOrder.clientOrderId) &&
-        Objects.equals(this.price, binanceRawFuturesOrder.price) &&
-        Objects.equals(this.avgPrice, binanceRawFuturesOrder.avgPrice) &&
-        Objects.equals(this.reduceOnly, binanceRawFuturesOrder.reduceOnly) &&
-        Objects.equals(this.closePosition, binanceRawFuturesOrder.closePosition) &&
-        Objects.equals(this.side, binanceRawFuturesOrder.side) &&
-        Objects.equals(this.status, binanceRawFuturesOrder.status) &&
-        Objects.equals(this.stopPrice, binanceRawFuturesOrder.stopPrice) &&
-        Objects.equals(this.timeInForce, binanceRawFuturesOrder.timeInForce) &&
-        Objects.equals(this.originalType, binanceRawFuturesOrder.originalType) &&
-        Objects.equals(this.type, binanceRawFuturesOrder.type) &&
-        Objects.equals(this.activatePrice, binanceRawFuturesOrder.activatePrice) &&
-        Objects.equals(this.updateTime, binanceRawFuturesOrder.updateTime) &&
-        Objects.equals(this.createdTime, binanceRawFuturesOrder.createdTime) &&
-        Objects.equals(this.workingType, binanceRawFuturesOrder.workingType) &&
-        Objects.equals(this.positionSide, binanceRawFuturesOrder.positionSide) &&
-        Objects.equals(this.quantity, binanceRawFuturesOrder.quantity) &&
-        Objects.equals(this.quantityFilled, binanceRawFuturesOrder.quantityFilled) &&
-        Objects.equals(this.quoteQuantityFilled, binanceRawFuturesOrder.quoteQuantityFilled) &&
-        Objects.equals(this.callbackRate, binanceRawFuturesOrder.callbackRate) &&
-        Objects.equals(this.lastFilledQuantity, binanceRawFuturesOrder.lastFilledQuantity);
-  }
+	public BinanceRawFuturesOrder commission(Double commission) {
+		this.commission = commission;
+		return this;
+	}
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(accountId, symbol, orderId, clientOrderId, price, avgPrice, reduceOnly, closePosition, side, status, stopPrice, timeInForce, originalType, type, activatePrice, updateTime, createdTime, workingType, positionSide, quantity, quantityFilled, quoteQuantityFilled, callbackRate, lastFilledQuantity);
-  }
+	/**
+	 * Get commission
+	 *
+	 * @return commission
+	 **/
+	@Schema(description = "")
+	public Double getCommission() {
+		return commission;
+	}
 
+	public void setCommission(Double commission) {
+		this.commission = commission;
+	}
 
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class BinanceRawFuturesOrder {\n");
-    
-    sb.append("    accountId: ").append(toIndentedString(accountId)).append("\n");
-    sb.append("    symbol: ").append(toIndentedString(symbol)).append("\n");
-    sb.append("    orderId: ").append(toIndentedString(orderId)).append("\n");
-    sb.append("    clientOrderId: ").append(toIndentedString(clientOrderId)).append("\n");
-    sb.append("    price: ").append(toIndentedString(price)).append("\n");
-    sb.append("    avgPrice: ").append(toIndentedString(avgPrice)).append("\n");
-    sb.append("    reduceOnly: ").append(toIndentedString(reduceOnly)).append("\n");
-    sb.append("    closePosition: ").append(toIndentedString(closePosition)).append("\n");
-    sb.append("    side: ").append(toIndentedString(side)).append("\n");
-    sb.append("    status: ").append(toIndentedString(status)).append("\n");
-    sb.append("    stopPrice: ").append(toIndentedString(stopPrice)).append("\n");
-    sb.append("    timeInForce: ").append(toIndentedString(timeInForce)).append("\n");
-    sb.append("    originalType: ").append(toIndentedString(originalType)).append("\n");
-    sb.append("    type: ").append(toIndentedString(type)).append("\n");
-    sb.append("    activatePrice: ").append(toIndentedString(activatePrice)).append("\n");
-    sb.append("    updateTime: ").append(toIndentedString(updateTime)).append("\n");
-    sb.append("    createdTime: ").append(toIndentedString(createdTime)).append("\n");
-    sb.append("    workingType: ").append(toIndentedString(workingType)).append("\n");
-    sb.append("    positionSide: ").append(toIndentedString(positionSide)).append("\n");
-    sb.append("    quantity: ").append(toIndentedString(quantity)).append("\n");
-    sb.append("    quantityFilled: ").append(toIndentedString(quantityFilled)).append("\n");
-    sb.append("    quoteQuantityFilled: ").append(toIndentedString(quoteQuantityFilled)).append("\n");
-    sb.append("    callbackRate: ").append(toIndentedString(callbackRate)).append("\n");
-    sb.append("    lastFilledQuantity: ").append(toIndentedString(lastFilledQuantity)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
+	public BinanceRawFuturesOrder commissionAsset(String commissionAsset) {
+		this.commissionAsset = commissionAsset;
+		return this;
+	}
 
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(java.lang.Object o) {
-    if (o == null) {
-      return "null";
-    }
-    return o.toString().replace("\n", "\n    ");
-  }
+	/**
+	 * Get commissionAsset
+	 *
+	 * @return commissionAsset
+	 **/
+	@Schema(description = "")
+	public String getCommissionAsset() {
+		return commissionAsset;
+	}
 
+	public void setCommissionAsset(String commissionAsset) {
+		this.commissionAsset = commissionAsset;
+	}
 
-  public void writeToParcel(Parcel out, int flags) {
-    out.writeValue(accountId);
-    out.writeValue(symbol);
-    out.writeValue(orderId);
-    out.writeValue(clientOrderId);
-    out.writeValue(price);
-    out.writeValue(avgPrice);
-    out.writeValue(reduceOnly);
-    out.writeValue(closePosition);
-    out.writeValue(side);
-    out.writeValue(status);
-    out.writeValue(stopPrice);
-    out.writeValue(timeInForce);
-    out.writeValue(originalType);
-    out.writeValue(type);
-    out.writeValue(activatePrice);
-    out.writeValue(updateTime);
-    out.writeValue(createdTime);
-    out.writeValue(workingType);
-    out.writeValue(positionSide);
-    out.writeValue(quantity);
-    out.writeValue(quantityFilled);
-    out.writeValue(quoteQuantityFilled);
-    out.writeValue(callbackRate);
-    out.writeValue(lastFilledQuantity);
-  }
+	public BinanceRawFuturesOrder realizedProfit(Double realizedProfit) {
+		this.realizedProfit = realizedProfit;
+		return this;
+	}
 
-  BinanceRawFuturesOrder(Parcel in) {
-    accountId = (UUID)in.readValue(UUID.class.getClassLoader());
-    symbol = (String)in.readValue(null);
-    orderId = (Long)in.readValue(null);
-    clientOrderId = (String)in.readValue(null);
-    price = (Double)in.readValue(null);
-    avgPrice = (Double)in.readValue(null);
-    reduceOnly = (Boolean)in.readValue(null);
-    closePosition = (Boolean)in.readValue(null);
-    side = (BinanceOrderSide)in.readValue(BinanceOrderSide.class.getClassLoader());
-    status = (BinanceOrderStatus)in.readValue(BinanceOrderStatus.class.getClassLoader());
-    stopPrice = (Double)in.readValue(null);
-    timeInForce = (BinanceTimeInForce)in.readValue(BinanceTimeInForce.class.getClassLoader());
-    originalType = (BinanceOrderType)in.readValue(BinanceOrderType.class.getClassLoader());
-    type = (BinanceOrderType)in.readValue(BinanceOrderType.class.getClassLoader());
-    activatePrice = (Double)in.readValue(null);
-    updateTime = (DateTime)in.readValue(DateTime.class.getClassLoader());
-    createdTime = (DateTime)in.readValue(DateTime.class.getClassLoader());
-    workingType = (BinanceWorkingType)in.readValue(BinanceWorkingType.class.getClassLoader());
-    positionSide = (BinancePositionSide)in.readValue(BinancePositionSide.class.getClassLoader());
-    quantity = (Double)in.readValue(null);
-    quantityFilled = (Double)in.readValue(null);
-    quoteQuantityFilled = (Double)in.readValue(null);
-    callbackRate = (Double)in.readValue(null);
-    lastFilledQuantity = (Double)in.readValue(null);
+	/**
+	 * Get realizedProfit
+	 *
+	 * @return realizedProfit
+	 **/
+	@Schema(description = "")
+	public Double getRealizedProfit() {
+		return realizedProfit;
+	}
+
+	public void setRealizedProfit(Double realizedProfit) {
+		this.realizedProfit = realizedProfit;
+	}
+
+	public BinanceRawFuturesOrder executionType(BinanceExecutionType executionType) {
+		this.executionType = executionType;
+		return this;
+	}
+
+	/**
+	 * Get executionType
+	 *
+	 * @return executionType
+	 **/
+	@Schema(description = "")
+	public BinanceExecutionType getExecutionType() {
+		return executionType;
+	}
+
+	public void setExecutionType(BinanceExecutionType executionType) {
+		this.executionType = executionType;
+	}
+
+	public BinanceRawFuturesOrder priceLastFilledTrade(Double priceLastFilledTrade) {
+		this.priceLastFilledTrade = priceLastFilledTrade;
+		return this;
+	}
+
+	/**
+	 * Get priceLastFilledTrade
+	 *
+	 * @return priceLastFilledTrade
+	 **/
+	@Schema(description = "")
+	public Double getPriceLastFilledTrade() {
+		return priceLastFilledTrade;
+	}
+
+	public void setPriceLastFilledTrade(Double priceLastFilledTrade) {
+		this.priceLastFilledTrade = priceLastFilledTrade;
+	}
+
+	@Override
+	public boolean equals(java.lang.Object o) {
+		if (this == o) {
+			return true;
+		}
+		if (o == null || getClass() != o.getClass()) {
+			return false;
+		}
+		BinanceRawFuturesOrder binanceRawFuturesOrder = (BinanceRawFuturesOrder) o;
+		return Objects.equals(this.accountId, binanceRawFuturesOrder.accountId) &&
+				Objects.equals(this.symbol, binanceRawFuturesOrder.symbol) &&
+				Objects.equals(this.orderId, binanceRawFuturesOrder.orderId) &&
+				Objects.equals(this.tradeId, binanceRawFuturesOrder.tradeId) &&
+				Objects.equals(this.clientOrderId, binanceRawFuturesOrder.clientOrderId) &&
+				Objects.equals(this.price, binanceRawFuturesOrder.price) &&
+				Objects.equals(this.avgPrice, binanceRawFuturesOrder.avgPrice) &&
+				Objects.equals(this.reduceOnly, binanceRawFuturesOrder.reduceOnly) &&
+				Objects.equals(this.closePosition, binanceRawFuturesOrder.closePosition) &&
+				Objects.equals(this.side, binanceRawFuturesOrder.side) &&
+				Objects.equals(this.status, binanceRawFuturesOrder.status) &&
+				Objects.equals(this.stopPrice, binanceRawFuturesOrder.stopPrice) &&
+				Objects.equals(this.timeInForce, binanceRawFuturesOrder.timeInForce) &&
+				Objects.equals(this.originalType, binanceRawFuturesOrder.originalType) &&
+				Objects.equals(this.type, binanceRawFuturesOrder.type) &&
+				Objects.equals(this.activatePrice, binanceRawFuturesOrder.activatePrice) &&
+				Objects.equals(this.updateTime, binanceRawFuturesOrder.updateTime) &&
+				Objects.equals(this.createdTime, binanceRawFuturesOrder.createdTime) &&
+				Objects.equals(this.workingType, binanceRawFuturesOrder.workingType) &&
+				Objects.equals(this.positionSide, binanceRawFuturesOrder.positionSide) &&
+				Objects.equals(this.quantity, binanceRawFuturesOrder.quantity) &&
+				Objects.equals(this.quantityFilled, binanceRawFuturesOrder.quantityFilled) &&
+				Objects.equals(this.quoteQuantityFilled, binanceRawFuturesOrder.quoteQuantityFilled) &&
+				Objects.equals(this.callbackRate, binanceRawFuturesOrder.callbackRate) &&
+				Objects.equals(this.lastFilledQuantity, binanceRawFuturesOrder.lastFilledQuantity) &&
+				Objects.equals(this.commission, binanceRawFuturesOrder.commission) &&
+				Objects.equals(this.commissionAsset, binanceRawFuturesOrder.commissionAsset) &&
+				Objects.equals(this.realizedProfit, binanceRawFuturesOrder.realizedProfit) &&
+				Objects.equals(this.executionType, binanceRawFuturesOrder.executionType) &&
+				Objects.equals(this.priceLastFilledTrade, binanceRawFuturesOrder.priceLastFilledTrade);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(accountId, symbol, orderId, tradeId, clientOrderId, price, avgPrice, reduceOnly, closePosition, side, status, stopPrice, timeInForce, originalType, type, activatePrice, updateTime, createdTime, workingType, positionSide, quantity, quantityFilled, quoteQuantityFilled, callbackRate, lastFilledQuantity, commission, commissionAsset, realizedProfit, executionType, priceLastFilledTrade);
+	}
+
+	/**
+	 * Convert the given object to string with each line indented by 4 spaces
+	 * (except the first line).
+	 */
+	private String toIndentedString(java.lang.Object o) {
+		if (o == null) {
+			return "null";
+		}
+		return o.toString().replace("\n", "\n    ");
+	}
+
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("class BinanceRawFuturesOrder {\n");
+
+		sb.append("    accountId: ").append(toIndentedString(accountId)).append("\n");
+		sb.append("    symbol: ").append(toIndentedString(symbol)).append("\n");
+		sb.append("    orderId: ").append(toIndentedString(orderId)).append("\n");
+		sb.append("    tradeId: ").append(toIndentedString(tradeId)).append("\n");
+		sb.append("    clientOrderId: ").append(toIndentedString(clientOrderId)).append("\n");
+		sb.append("    price: ").append(toIndentedString(price)).append("\n");
+		sb.append("    avgPrice: ").append(toIndentedString(avgPrice)).append("\n");
+		sb.append("    reduceOnly: ").append(toIndentedString(reduceOnly)).append("\n");
+		sb.append("    closePosition: ").append(toIndentedString(closePosition)).append("\n");
+		sb.append("    side: ").append(toIndentedString(side)).append("\n");
+		sb.append("    status: ").append(toIndentedString(status)).append("\n");
+		sb.append("    stopPrice: ").append(toIndentedString(stopPrice)).append("\n");
+		sb.append("    timeInForce: ").append(toIndentedString(timeInForce)).append("\n");
+		sb.append("    originalType: ").append(toIndentedString(originalType)).append("\n");
+		sb.append("    type: ").append(toIndentedString(type)).append("\n");
+		sb.append("    activatePrice: ").append(toIndentedString(activatePrice)).append("\n");
+		sb.append("    updateTime: ").append(toIndentedString(updateTime)).append("\n");
+		sb.append("    createdTime: ").append(toIndentedString(createdTime)).append("\n");
+		sb.append("    workingType: ").append(toIndentedString(workingType)).append("\n");
+		sb.append("    positionSide: ").append(toIndentedString(positionSide)).append("\n");
+		sb.append("    quantity: ").append(toIndentedString(quantity)).append("\n");
+		sb.append("    quantityFilled: ").append(toIndentedString(quantityFilled)).append("\n");
+		sb.append("    quoteQuantityFilled: ").append(toIndentedString(quoteQuantityFilled)).append("\n");
+		sb.append("    callbackRate: ").append(toIndentedString(callbackRate)).append("\n");
+		sb.append("    lastFilledQuantity: ").append(toIndentedString(lastFilledQuantity)).append("\n");
+		sb.append("    commission: ").append(toIndentedString(commission)).append("\n");
+		sb.append("    commissionAsset: ").append(toIndentedString(commissionAsset)).append("\n");
+		sb.append("    realizedProfit: ").append(toIndentedString(realizedProfit)).append("\n");
+		sb.append("    executionType: ").append(toIndentedString(executionType)).append("\n");
+		sb.append("    priceLastFilledTrade: ").append(toIndentedString(priceLastFilledTrade)).append("\n");
+		sb.append("}");
+		return sb.toString();
+	}
+
+	public void writeToParcel(Parcel out, int flags) {
+		out.writeValue(accountId);
+		out.writeValue(symbol);
+		out.writeValue(orderId);
+		out.writeValue(tradeId);
+		out.writeValue(clientOrderId);
+		out.writeValue(price);
+		out.writeValue(avgPrice);
+		out.writeValue(reduceOnly);
+		out.writeValue(closePosition);
+		out.writeValue(side);
+		out.writeValue(status);
+		out.writeValue(stopPrice);
+		out.writeValue(timeInForce);
+		out.writeValue(originalType);
+		out.writeValue(type);
+		out.writeValue(activatePrice);
+		out.writeValue(updateTime);
+		out.writeValue(createdTime);
+		out.writeValue(workingType);
+		out.writeValue(positionSide);
+		out.writeValue(quantity);
+		out.writeValue(quantityFilled);
+		out.writeValue(quoteQuantityFilled);
+		out.writeValue(callbackRate);
+		out.writeValue(lastFilledQuantity);
+		out.writeValue(commission);
+		out.writeValue(commissionAsset);
+	  out.writeValue(realizedProfit);
+    out.writeValue(executionType);
+    out.writeValue(priceLastFilledTrade);
   }
 
   public int describeContents() {

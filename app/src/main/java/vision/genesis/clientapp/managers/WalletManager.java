@@ -8,6 +8,7 @@ import java.util.UUID;
 import io.swagger.client.api.WalletApi;
 import io.swagger.client.model.CreateWithdrawalRequestModel;
 import io.swagger.client.model.Currency;
+import io.swagger.client.model.InternalMultiTransferRequest;
 import io.swagger.client.model.InternalTransferRequest;
 import io.swagger.client.model.TransactionExternalType;
 import io.swagger.client.model.TransactionInternalType;
@@ -144,6 +145,10 @@ public class WalletManager
 
 	public Observable<Void> transfer(InternalTransferRequest request) {
 		return walletApi.transfer(request);
+	}
+
+	public Observable<Void> transferMulti(InternalMultiTransferRequest request) {
+		return walletApi.transferMultiCurrency(request);
 	}
 
 //	public Observable<TransactionDetails> getTransaction(UUID transactionId) {

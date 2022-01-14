@@ -15,17 +15,18 @@ import retrofit2.http.Headers;
 import retrofit2.http.POST;
 import rx.Observable;
 
-public interface CoinsApi {
-  /**
-   * Add to favorites
-   *
-   * @param id  (required)
-   * @return Call&lt;Void&gt;
-   */
-  @POST("v2.0/coins/coins/{id}/favorite/add")
-  Observable<Void> addToFavorites(
-		  @retrofit2.http.Path("id") UUID id
-  );
+public interface CoinsApi
+{
+	/**
+	 * Add to favorites
+	 *
+	 * @param id (required)
+	 * @return Call&lt;Void&gt;
+	 */
+	@POST("v2.0/coins/coins/{id}/favorite/add")
+	Observable<Void> addToFavorites(
+			@retrofit2.http.Path("id") UUID id
+	);
 
 	/**
 	 * All coins list
@@ -54,17 +55,17 @@ public interface CoinsApi {
 	/**
 	 * Get coins history
 	 *
-	 * @param dateFrom  (optional)
-   * @param dateTo  (optional)
-   * @param assets  (optional)
-   * @param skip  (optional)
-   * @param take  (optional)
-   * @return Call&lt;CoinsHistoryEventItemsViewModel&gt;
-   */
-  @GET("v2.0/coins/history")
-  Observable<CoinsHistoryEventItemsViewModel> getCoinsConvertingHistory(
-        @retrofit2.http.Query("DateFrom") DateTime dateFrom                ,     @retrofit2.http.Query("DateTo") DateTime dateTo                ,     @retrofit2.http.Query("Assets") List<String> assets                ,     @retrofit2.http.Query("Skip") Integer skip                ,     @retrofit2.http.Query("Take") Integer take                
-  );
+	 * @param dateFrom (optional)
+	 * @param dateTo   (optional)
+	 * @param assets   (optional)
+	 * @param skip     (optional)
+	 * @param take     (optional)
+	 * @return Call&lt;CoinsHistoryEventItemsViewModel&gt;
+	 */
+	@GET("v2.0/coins/history")
+	Observable<CoinsHistoryEventItemsViewModel> getCoinsConvertingHistory(
+			@retrofit2.http.Query("DateFrom") DateTime dateFrom, @retrofit2.http.Query("DateTo") DateTime dateTo, @retrofit2.http.Query("Assets") List<String> assets, @retrofit2.http.Query("Skip") Integer skip, @retrofit2.http.Query("Take") Integer take
+	);
 
   /**
    * Get user coins

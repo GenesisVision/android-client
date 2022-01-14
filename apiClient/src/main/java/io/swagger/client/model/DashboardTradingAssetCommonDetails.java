@@ -12,24 +12,18 @@
 
 package io.swagger.client.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import com.google.gson.TypeAdapter;
-import com.google.gson.annotations.JsonAdapter;
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.SerializedName;
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonWriter;
-import io.swagger.client.model.AmountWithLogoCurrency;
-import io.swagger.client.model.Currency;
-import io.swagger.client.model.DashboardTradingAssetStatus;
-import io.swagger.client.model.PrivateTradingAccountType;
-import io.swagger.v3.oas.annotations.media.Schema;
-import java.io.IOException;
+
+import org.joda.time.DateTime;
+
 import java.util.ArrayList;
 import java.util.List;
-import org.joda.time.DateTime;
-import android.os.Parcelable;
-import android.os.Parcel;
+import java.util.Objects;
+
+import io.swagger.v3.oas.annotations.media.Schema;
 /**
  * DashboardTradingAssetCommonDetails
  */
@@ -51,48 +45,58 @@ public class DashboardTradingAssetCommonDetails implements Parcelable {
   @SerializedName("login")
   private String login = null;
 
-  @SerializedName("currency")
-  private Currency currency = null;
+	@SerializedName("currency")
+	private Currency currency = null;
 
-  @SerializedName("originalCurrency")
-  private Currency originalCurrency = null;
+	@SerializedName("originalCurrency")
+	private Currency originalCurrency = null;
 
-  @SerializedName("leverage")
-  private Integer leverage = null;
+	@SerializedName("leverage")
+	private Integer leverage = null;
 
-  @SerializedName("type")
-  private PrivateTradingAccountType type = null;
+	@SerializedName("type")
+	private PrivateTradingAccountType type = null;
 
-  @SerializedName("balances")
-  private List<AmountWithLogoCurrency> balances = null;
+	@SerializedName("balances")
+	private List<AmountWithLogoCurrency> balances = null;
 
-  @SerializedName("supportedCurrencies")
-  private List<Currency> supportedCurrencies = null;
+	@SerializedName("supportedCurrencies")
+	private List<Currency> supportedCurrencies = null;
 
-  public DashboardTradingAssetCommonDetails() {
-  }
-  public DashboardTradingAssetCommonDetails title(String title) {
-    this.title = title;
-    return this;
-  }
+	@SerializedName("permissions")
+	private List<TradingAccountPermission> permissions = null;
 
-   /**
-   * Get title
-   * @return title
-  **/
-  @Schema(description = "")
-  public String getTitle() {
-    return title;
-  }
+	public DashboardTradingAssetCommonDetails() {
+	}
 
-  public void setTitle(String title) {
-    this.title = title;
-  }
+	DashboardTradingAssetCommonDetails(Parcel in) {
+		title = (String) in.readValue(null);
+		status = (DashboardTradingAssetStatus) in.readValue(DashboardTradingAssetStatus.class.getClassLoader());
+		creationDate = (DateTime) in.readValue(DateTime.class.getClassLoader());
+		balance = (Double) in.readValue(null);
+		login = (String) in.readValue(null);
+		currency = (Currency) in.readValue(Currency.class.getClassLoader());
+		originalCurrency = (Currency) in.readValue(Currency.class.getClassLoader());
+		leverage = (Integer) in.readValue(null);
+		type = (PrivateTradingAccountType) in.readValue(PrivateTradingAccountType.class.getClassLoader());
+		balances = (List<AmountWithLogoCurrency>) in.readValue(AmountWithLogoCurrency.class.getClassLoader());
+		supportedCurrencies = (List<Currency>) in.readValue(Currency.class.getClassLoader());
+		permissions = (List<TradingAccountPermission>) in.readValue(TradingAccountPermission.class.getClassLoader());
+	}
 
-  public DashboardTradingAssetCommonDetails status(DashboardTradingAssetStatus status) {
-    this.status = status;
-    return this;
-  }
+	public DashboardTradingAssetCommonDetails title(String title) {
+		this.title = title;
+		return this;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public DashboardTradingAssetCommonDetails status(DashboardTradingAssetStatus status) {
+		this.status = status;
+		return this;
+	}
 
    /**
    * Get status
@@ -264,114 +268,138 @@ public class DashboardTradingAssetCommonDetails implements Parcelable {
     return this;
   }
 
-  public DashboardTradingAssetCommonDetails addSupportedCurrenciesItem(Currency supportedCurrenciesItem) {
-    if (this.supportedCurrencies == null) {
-      this.supportedCurrencies = new ArrayList<Currency>();
-    }
-    this.supportedCurrencies.add(supportedCurrenciesItem);
-    return this;
-  }
+	public DashboardTradingAssetCommonDetails addSupportedCurrenciesItem(Currency supportedCurrenciesItem) {
+		if (this.supportedCurrencies == null) {
+			this.supportedCurrencies = new ArrayList<Currency>();
+		}
+		this.supportedCurrencies.add(supportedCurrenciesItem);
+		return this;
+	}
 
-   /**
-   * Get supportedCurrencies
-   * @return supportedCurrencies
-  **/
-  @Schema(description = "")
-  public List<Currency> getSupportedCurrencies() {
-    return supportedCurrencies;
-  }
+	/**
+	 * Get title
+	 *
+	 * @return title
+	 **/
+	@Schema(description = "")
+	public String getTitle() {
+		return title;
+	}
 
-  public void setSupportedCurrencies(List<Currency> supportedCurrencies) {
-    this.supportedCurrencies = supportedCurrencies;
-  }
+	/**
+	 * Get supportedCurrencies
+	 *
+	 * @return supportedCurrencies
+	 **/
+	@Schema(description = "")
+	public List<Currency> getSupportedCurrencies() {
+		return supportedCurrencies;
+	}
 
+	public void setSupportedCurrencies(List<Currency> supportedCurrencies) {
+		this.supportedCurrencies = supportedCurrencies;
+	}
 
-  @Override
-  public boolean equals(java.lang.Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-    DashboardTradingAssetCommonDetails dashboardTradingAssetCommonDetails = (DashboardTradingAssetCommonDetails) o;
-    return Objects.equals(this.title, dashboardTradingAssetCommonDetails.title) &&
-        Objects.equals(this.status, dashboardTradingAssetCommonDetails.status) &&
-        Objects.equals(this.creationDate, dashboardTradingAssetCommonDetails.creationDate) &&
-        Objects.equals(this.balance, dashboardTradingAssetCommonDetails.balance) &&
-        Objects.equals(this.login, dashboardTradingAssetCommonDetails.login) &&
-        Objects.equals(this.currency, dashboardTradingAssetCommonDetails.currency) &&
-        Objects.equals(this.originalCurrency, dashboardTradingAssetCommonDetails.originalCurrency) &&
-        Objects.equals(this.leverage, dashboardTradingAssetCommonDetails.leverage) &&
-        Objects.equals(this.type, dashboardTradingAssetCommonDetails.type) &&
-        Objects.equals(this.balances, dashboardTradingAssetCommonDetails.balances) &&
-        Objects.equals(this.supportedCurrencies, dashboardTradingAssetCommonDetails.supportedCurrencies);
-  }
+	public DashboardTradingAssetCommonDetails permissions(List<TradingAccountPermission> permissions) {
+		this.permissions = permissions;
+		return this;
+	}
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(title, status, creationDate, balance, login, currency, originalCurrency, leverage, type, balances, supportedCurrencies);
-  }
+	public DashboardTradingAssetCommonDetails addPermissionsItem(TradingAccountPermission permissionsItem) {
+		if (this.permissions == null) {
+			this.permissions = new ArrayList<TradingAccountPermission>();
+		}
+		this.permissions.add(permissionsItem);
+		return this;
+	}
 
+	/**
+	 * Get permissions
+	 *
+	 * @return permissions
+	 **/
+	@Schema(description = "")
+	public List<TradingAccountPermission> getPermissions() {
+		return permissions;
+	}
 
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class DashboardTradingAssetCommonDetails {\n");
-    
-    sb.append("    title: ").append(toIndentedString(title)).append("\n");
-    sb.append("    status: ").append(toIndentedString(status)).append("\n");
-    sb.append("    creationDate: ").append(toIndentedString(creationDate)).append("\n");
-    sb.append("    balance: ").append(toIndentedString(balance)).append("\n");
-    sb.append("    login: ").append(toIndentedString(login)).append("\n");
-    sb.append("    currency: ").append(toIndentedString(currency)).append("\n");
-    sb.append("    originalCurrency: ").append(toIndentedString(originalCurrency)).append("\n");
-    sb.append("    leverage: ").append(toIndentedString(leverage)).append("\n");
-    sb.append("    type: ").append(toIndentedString(type)).append("\n");
-    sb.append("    balances: ").append(toIndentedString(balances)).append("\n");
-    sb.append("    supportedCurrencies: ").append(toIndentedString(supportedCurrencies)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
+	public void setPermissions(List<TradingAccountPermission> permissions) {
+		this.permissions = permissions;
+	}
 
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(java.lang.Object o) {
-    if (o == null) {
-      return "null";
-    }
-    return o.toString().replace("\n", "\n    ");
-  }
+	@Override
+	public boolean equals(java.lang.Object o) {
+		if (this == o) {
+			return true;
+		}
+		if (o == null || getClass() != o.getClass()) {
+			return false;
+		}
+		DashboardTradingAssetCommonDetails dashboardTradingAssetCommonDetails = (DashboardTradingAssetCommonDetails) o;
+		return Objects.equals(this.title, dashboardTradingAssetCommonDetails.title) &&
+				Objects.equals(this.status, dashboardTradingAssetCommonDetails.status) &&
+				Objects.equals(this.creationDate, dashboardTradingAssetCommonDetails.creationDate) &&
+				Objects.equals(this.balance, dashboardTradingAssetCommonDetails.balance) &&
+				Objects.equals(this.login, dashboardTradingAssetCommonDetails.login) &&
+				Objects.equals(this.currency, dashboardTradingAssetCommonDetails.currency) &&
+				Objects.equals(this.originalCurrency, dashboardTradingAssetCommonDetails.originalCurrency) &&
+				Objects.equals(this.leverage, dashboardTradingAssetCommonDetails.leverage) &&
+				Objects.equals(this.type, dashboardTradingAssetCommonDetails.type) &&
+				Objects.equals(this.balances, dashboardTradingAssetCommonDetails.balances) &&
+				Objects.equals(this.supportedCurrencies, dashboardTradingAssetCommonDetails.supportedCurrencies) &&
+				Objects.equals(this.permissions, dashboardTradingAssetCommonDetails.permissions);
+	}
 
+	@Override
+	public int hashCode() {
+		return Objects.hash(title, status, creationDate, balance, login, currency, originalCurrency, leverage, type, balances, supportedCurrencies, permissions);
+	}
+
+	/**
+	 * Convert the given object to string with each line indented by 4 spaces
+	 * (except the first line).
+	 */
+	private String toIndentedString(java.lang.Object o) {
+		if (o == null) {
+			return "null";
+		}
+		return o.toString().replace("\n", "\n    ");
+	}
+
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("class DashboardTradingAssetCommonDetails {\n");
+
+		sb.append("    title: ").append(toIndentedString(title)).append("\n");
+		sb.append("    status: ").append(toIndentedString(status)).append("\n");
+		sb.append("    creationDate: ").append(toIndentedString(creationDate)).append("\n");
+		sb.append("    balance: ").append(toIndentedString(balance)).append("\n");
+		sb.append("    login: ").append(toIndentedString(login)).append("\n");
+		sb.append("    currency: ").append(toIndentedString(currency)).append("\n");
+		sb.append("    originalCurrency: ").append(toIndentedString(originalCurrency)).append("\n");
+		sb.append("    leverage: ").append(toIndentedString(leverage)).append("\n");
+		sb.append("    type: ").append(toIndentedString(type)).append("\n");
+		sb.append("    balances: ").append(toIndentedString(balances)).append("\n");
+		sb.append("    supportedCurrencies: ").append(toIndentedString(supportedCurrencies)).append("\n");
+		sb.append("    permissions: ").append(toIndentedString(permissions)).append("\n");
+		sb.append("}");
+		return sb.toString();
+	}
 
   public void writeToParcel(Parcel out, int flags) {
-    out.writeValue(title);
-    out.writeValue(status);
-    out.writeValue(creationDate);
-    out.writeValue(balance);
-    out.writeValue(login);
-    out.writeValue(currency);
-    out.writeValue(originalCurrency);
-    out.writeValue(leverage);
-    out.writeValue(type);
-    out.writeValue(balances);
-    out.writeValue(supportedCurrencies);
-  }
-
-  DashboardTradingAssetCommonDetails(Parcel in) {
-    title = (String)in.readValue(null);
-    status = (DashboardTradingAssetStatus)in.readValue(DashboardTradingAssetStatus.class.getClassLoader());
-    creationDate = (DateTime)in.readValue(DateTime.class.getClassLoader());
-    balance = (Double)in.readValue(null);
-    login = (String)in.readValue(null);
-    currency = (Currency)in.readValue(Currency.class.getClassLoader());
-    originalCurrency = (Currency)in.readValue(Currency.class.getClassLoader());
-    leverage = (Integer)in.readValue(null);
-    type = (PrivateTradingAccountType)in.readValue(PrivateTradingAccountType.class.getClassLoader());
-    balances = (List<AmountWithLogoCurrency>)in.readValue(AmountWithLogoCurrency.class.getClassLoader());
-    supportedCurrencies = (List<Currency>)in.readValue(Currency.class.getClassLoader());
+	  out.writeValue(title);
+	  out.writeValue(status);
+	  out.writeValue(creationDate);
+	  out.writeValue(balance);
+	  out.writeValue(login);
+	  out.writeValue(currency);
+	  out.writeValue(originalCurrency);
+	  out.writeValue(leverage);
+	  out.writeValue(type);
+	  out.writeValue(balances);
+	  out.writeValue(supportedCurrencies);
+	  out.writeValue(permissions);
   }
 
   public int describeContents() {

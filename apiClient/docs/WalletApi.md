@@ -16,6 +16,7 @@ Method | HTTP request | Description
 [**getWalletSummary**](WalletApi.md#getWalletSummary) | **GET** v2.0/wallet/{currency} | Wallet summary
 [**resendWithdrawalRequestEmail**](WalletApi.md#resendWithdrawalRequestEmail) | **POST** v2.0/wallet/withdraw/request/resend/{txId} | 
 [**transfer**](WalletApi.md#transfer) | **POST** v2.0/wallet/transfer | Transfer money
+[**transferMultiCurrency**](WalletApi.md#transferMultiCurrency) | **POST** v2.0/wallet/transfer/multi | Transfer money
 
 <a name="cancelWithdrawalRequest"></a>
 # **cancelWithdrawalRequest**
@@ -655,6 +656,59 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **body** | [**InternalTransferRequest**](InternalTransferRequest.md)|  | [optional]
+
+### Return type
+
+[**Void**](.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json, text/json, application/_*+json
+ - **Accept**: text/plain, application/json, text/json
+
+<a name="transferMultiCurrency"></a>
+# **transferMultiCurrency**
+> Void transferMultiCurrency(body)
+
+Transfer money
+
+### Example
+```java
+// Import classes:
+//import io.swagger.client.ApiClient;
+//import io.swagger.client.ApiException;
+//import io.swagger.client.Configuration;
+//import io.swagger.client.auth.*;
+//import io.swagger.client.api.WalletApi;
+
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
+
+WalletApi apiInstance = new WalletApi();
+InternalMultiTransferRequest body = new InternalMultiTransferRequest(); // InternalMultiTransferRequest | 
+try {
+    Void result = apiInstance.transferMultiCurrency(body);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling WalletApi#transferMultiCurrency");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **body** | [**InternalMultiTransferRequest**](InternalMultiTransferRequest.md)|  | [optional]
 
 ### Return type
 

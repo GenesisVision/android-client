@@ -14,3 +14,4 @@ Name | Type | Description | Notes
 **type** | [**PrivateTradingAccountType**](PrivateTradingAccountType.md) |  |  [optional]
 **balances** | [**List&lt;AmountWithLogoCurrency&gt;**](AmountWithLogoCurrency.md) |  |  [optional]
 **supportedCurrencies** | [**List&lt;Currency&gt;**](Currency.md) |  |  [optional]
+**permissions** | [**List&lt;TradingAccountPermission&gt;**](TradingAccountPermission.md) |  |  [optional]

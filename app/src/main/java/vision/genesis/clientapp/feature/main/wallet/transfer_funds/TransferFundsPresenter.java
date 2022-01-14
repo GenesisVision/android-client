@@ -12,6 +12,8 @@ import java.util.Locale;
 import javax.inject.Inject;
 
 import io.swagger.client.model.AmountWithLogoCurrency;
+import io.swagger.client.model.Currency;
+import io.swagger.client.model.InternalMultiTransferRequest;
 import io.swagger.client.model.InternalTransferRequest;
 import io.swagger.client.model.InternalTransferRequestType;
 import io.swagger.client.model.WalletData;
@@ -92,6 +94,15 @@ public class TransferFundsPresenter extends MvpPresenter<TransferWalletView> imp
 			available = model.getAvailable();
 		}
 		subscribeToWallets();
+
+		if (model.getAssetType().equals(InternalTransferRequestType.EXCHANGEACCOUNT)) {
+			ArrayList<String> currencies = new ArrayList<>();
+			for (AmountWithLogoCurrency balance : model.getBalances()) {
+				currencies.add(balance.getCurrency().getValue());
+			}
+			getViewState().setCurrencyOptions(currencies);
+			onCurrencyOptionSelected(0, currencies.get(0));
+		}
 	}
 
 	void onMaxClicked() {
@@ -101,7 +112,12 @@ public class TransferFundsPresenter extends MvpPresenter<TransferWalletView> imp
 	}
 
 	void onConfirmClicked() {
-		sendTransferRequest();
+		if (model.getAssetType().equals(InternalTransferRequestType.EXCHANGEACCOUNT)) {
+			sendTransferMultiRequest();
+		}
+		else {
+			sendTransferRequest();
+		}
 	}
 
 	void onAmountChanged(String newAmount) {
@@ -262,6 +278,35 @@ public class TransferFundsPresenter extends MvpPresenter<TransferWalletView> imp
 						this::handleTransferError);
 	}
 
+	private void sendTransferMultiRequest() {
+		InternalMultiTransferRequest request = new InternalMultiTransferRequest();
+		request.setAmount(amount);
+		request.setTransferAll(false);
+
+		if (model.getTransferDirection().equals(TransferFundsModel.TransferDirection.WITHDRAW)) {
+			request.setSourceId(model.getId());
+			request.sourceCurrency(Currency.fromValue(model.getCurrency()));
+			request.setDestinationId(selectedWallet.getId());
+			request.setSourceType(model.getAssetType());
+			request.setDestinationType(InternalTransferRequestType.WALLET);
+		}
+		else {
+			request.setSourceId(selectedWallet.getId());
+			request.setDestinationId(model.getId());
+			request.setDestinationCurrency(Currency.fromValue(model.getCurrency()));
+			request.setSourceType(InternalTransferRequestType.WALLET);
+			request.setDestinationType(model.getAssetType());
+		}
+
+		getViewState().showButtonProgress(true);
+
+		transferSubscription = walletManager.transferMulti(request)
+				.observeOn(AndroidSchedulers.mainThread())
+				.subscribeOn(Schedulers.io())
+				.subscribe(this::handleTransferSuccess,
+						this::handleTransferError);
+	}
+
 	private void handleTransferSuccess(Void response) {
 		transferSubscription.unsubscribe();
 
@@ -276,6 +321,20 @@ public class TransferFundsPresenter extends MvpPresenter<TransferWalletView> imp
 				message -> getViewState().showSnackbarMessage(message));
 	}
 
+	void onCurrencyOptionSelected(Integer position, String text) {
+		if (model.getAssetType().equals(InternalTransferRequestType.EXCHANGEACCOUNT)) {
+			AmountWithLogoCurrency balance = model.getBalances().get(position);
+			if (model.getTransferDirection().equals(TransferFundsModel.TransferDirection.WITHDRAW)) {
+				available = balance.getAmount();
+			}
+			model.setAvailable(balance.getAmount());
+			model.setCurrency(balance.getCurrency().getValue());
+			getViewState().updateView(model);
+			getViewState().setCurrency(position);
+			updateRate();
+		}
+	}
+
 	@Override
 	public void onWalletSelected(WalletData wallet) {
 		this.selectedWallet = wallet;
@@ -283,19 +342,19 @@ public class TransferFundsPresenter extends MvpPresenter<TransferWalletView> imp
 			available = selectedWallet.getAvailable();
 			getViewState().setAmount("");
 		}
-		if (model.getAssetType().equals(InternalTransferRequestType.EXCHANGEACCOUNT)) {
-			for (AmountWithLogoCurrency balance : model.getBalances()) {
-				if (balance.getCurrency().equals(selectedWallet.getCurrency())) {
-					if (model.getTransferDirection().equals(TransferFundsModel.TransferDirection.WITHDRAW)) {
-						available = balance.getAmount();
-					}
-					model.setAvailable(balance.getAmount());
-					model.setCurrency(balance.getCurrency().getValue());
-					getViewState().updateView(model);
-					break;
-				}
-			}
-		}
+//		if (model.getAssetType().equals(InternalTransferRequestType.EXCHANGEACCOUNT)) {
+//			for (AmountWithLogoCurrency balance : model.getBalances()) {
+//				if (balance.getCurrency().equals(selectedWallet.getCurrency())) {
+//					if (model.getTransferDirection().equals(TransferFundsModel.TransferDirection.WITHDRAW)) {
+//						available = balance.getAmount();
+//					}
+//					model.setAvailable(balance.getAmount());
+//					model.setCurrency(balance.getCurrency().getValue());
+//					getViewState().updateView(model);
+//					break;
+//				}
+//			}
+//		}
 		getViewState().setWallet(selectedWallet);
 		updateRate();
 	}

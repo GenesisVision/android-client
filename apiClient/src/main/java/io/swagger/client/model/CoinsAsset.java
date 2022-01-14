@@ -92,7 +92,6 @@ public class CoinsAsset implements Parcelable {
 
   public CoinsAsset() {
   }
-
   public CoinsAsset id(UUID id) {
     this.id = id;
     return this;
@@ -341,94 +340,107 @@ public class CoinsAsset implements Parcelable {
     return chart;
   }
 
-  public void setChart(TickerChart chart) {
-    this.chart = chart;
-  }
+	public void setChart(TickerChart chart) {
+		this.chart = chart;
+	}
 
-  public CoinsAsset isFavorite(Boolean isFavorite) {
-    this.isFavorite = isFavorite;
-    return this;
-  }
+	public CoinsAsset isFavorite(Boolean isFavorite) {
+		this.isFavorite = isFavorite;
+		return this;
+	}
 
-  CoinsAsset(Parcel in) {
-    id = (UUID) in.readValue(UUID.class.getClassLoader());
-    name = (String) in.readValue(null);
-    asset = (String) in.readValue(null);
-    description = (String) in.readValue(null);
-    logoUrl = (String) in.readValue(null);
-    color = (String) in.readValue(null);
-    url = (String) in.readValue(null);
-    provider = (AssetProvider) in.readValue(AssetProvider.class.getClassLoader());
-    price = (Double) in.readValue(null);
-    change24Percent = (Double) in.readValue(null);
-    totalVolume = (Double) in.readValue(null);
-    marketCap = (Double) in.readValue(null);
-    details = (AssetInfo) in.readValue(AssetInfo.class.getClassLoader());
-    chart = (TickerChart) in.readValue(TickerChart.class.getClassLoader());
-    isFavorite = (Boolean) in.readValue(null);
-    isTransferred = (Boolean) in.readValue(null);
-    oefAssetId = (UUID) in.readValue(UUID.class.getClassLoader());
-    amount = (Double) in.readValue(null);
-    averagePrice = (Double) in.readValue(null);
-    profitCurrent = (Double) in.readValue(null);
-    total = (Double) in.readValue(null);
-  }
+	public static final Parcelable.Creator<CoinsAsset> CREATOR = new Parcelable.Creator<CoinsAsset>()
+	{
+		public CoinsAsset createFromParcel(Parcel in) {
+			return new CoinsAsset(in);
+		}
 
-  /**
-   * Get isFavorite
-   *
-   * @return isFavorite
-   **/
-  @Schema(description = "")
-  public Boolean isIsFavorite() {
-    return isFavorite;
-  }
+		public CoinsAsset[] newArray(int size) {
+			return new CoinsAsset[size];
+		}
+	};
 
-  public void setIsFavorite(Boolean isFavorite) {
-    this.isFavorite = isFavorite;
-  }
+	CoinsAsset(Parcel in) {
+		id = (UUID) in.readValue(UUID.class.getClassLoader());
+		name = (String) in.readValue(null);
+		asset = (String) in.readValue(null);
+		description = (String) in.readValue(null);
+		logoUrl = (String) in.readValue(null);
+		color = (String) in.readValue(null);
+		url = (String) in.readValue(null);
+		provider = (AssetProvider) in.readValue(AssetProvider.class.getClassLoader());
+		price = (Double) in.readValue(null);
+		change24Percent = (Double) in.readValue(null);
+		totalVolume = (Double) in.readValue(null);
+		marketCap = (Double) in.readValue(null);
+		details = (AssetInfo) in.readValue(AssetInfo.class.getClassLoader());
+		chart = (TickerChart) in.readValue(TickerChart.class.getClassLoader());
+		isFavorite = (Boolean) in.readValue(null);
+		isTransferred = (Boolean) in.readValue(null);
+		oefAssetId = (UUID) in.readValue(UUID.class.getClassLoader());
+		amount = (Double) in.readValue(null);
+		averagePrice = (Double) in.readValue(null);
+		profitCurrent = (Double) in.readValue(null);
+		total = (Double) in.readValue(null);
+	}
 
-  public CoinsAsset isTransferred(Boolean isTransferred) {
-    this.isTransferred = isTransferred;
-    return this;
-  }
+	public void setIsFavorite(Boolean isFavorite) {
+		this.isFavorite = isFavorite;
+	}
 
-  /**
-   * Get isTransferred
-   *
-   * @return isTransferred
-   **/
-  @Schema(description = "")
-  public Boolean isIsTransferred() {
-    return isTransferred;
-  }
+	public CoinsAsset isTransferred(Boolean isTransferred) {
+		this.isTransferred = isTransferred;
+		return this;
+	}
 
-  public void setIsTransferred(Boolean isTransferred) {
-    this.isTransferred = isTransferred;
-  }
+	/**
+	 * Get isFavorite
+	 *
+	 * @return isFavorite
+	 **/
+	@Schema(description = "")
+	public Boolean isIsFavorite() {
+		return isFavorite;
+	}
 
-  public CoinsAsset oefAssetId(UUID oefAssetId) {
-    this.oefAssetId = oefAssetId;
-    return this;
-  }
+	/**
+	 * Get isTransferred
+	 *
+	 * @return isTransferred
+	 **/
+	@Schema(description = "")
+	public Boolean isIsTransferred() {
+		return isTransferred;
+	}
 
-  public void setOefAssetId(UUID oefAssetId) {
-    this.oefAssetId = oefAssetId;
-  }
+	public void setIsTransferred(Boolean isTransferred) {
+		this.isTransferred = isTransferred;
+	}
 
-  public CoinsAsset amount(Double amount) {
-    this.amount = amount;
-    return this;
-  }
+	public CoinsAsset oefAssetId(UUID oefAssetId) {
+		this.oefAssetId = oefAssetId;
+		return this;
+	}
 
-   /**
-   * Get amount
-   * @return amount
-  **/
-  @Schema(description = "")
-  public Double getAmount() {
-    return amount;
-  }
+	/**
+	 * Get oefAssetId
+	 *
+	 * @return oefAssetId
+	 **/
+	@Schema(description = "")
+	public UUID getOefAssetId() {
+		return oefAssetId;
+	}
+
+	/**
+	 * Get amount
+	 *
+	 * @return amount
+	 **/
+	@Schema(description = "")
+	public Double getAmount() {
+		return amount;
+	}
 
   public void setAmount(Double amount) {
     this.amount = amount;
@@ -457,159 +469,151 @@ public class CoinsAsset implements Parcelable {
     return this;
   }
 
-   /**
-   * Get profitCurrent
-   * @return profitCurrent
-  **/
-  @Schema(description = "")
-  public Double getProfitCurrent() {
-    return profitCurrent;
-  }
+	/**
+	 * Get profitCurrent
+	 *
+	 * @return profitCurrent
+	 **/
+	@Schema(description = "")
+	public Double getProfitCurrent() {
+		return profitCurrent;
+	}
 
-  public void setProfitCurrent(Double profitCurrent) {
-    this.profitCurrent = profitCurrent;
-  }
+	public void setProfitCurrent(Double profitCurrent) {
+		this.profitCurrent = profitCurrent;
+	}
 
-  public CoinsAsset total(Double total) {
-    this.total = total;
-    return this;
-  }
+	public void setOefAssetId(UUID oefAssetId) {
+		this.oefAssetId = oefAssetId;
+	}
 
-   /**
-   * Get total
-    * @return total
-    **/
-   @Schema(description = "")
-   public Double getTotal() {
-     return total;
-   }
+	public CoinsAsset amount(Double amount) {
+		this.amount = amount;
+		return this;
+	}
 
-  public void setTotal(Double total) {
-    this.total = total;
-  }
+	public CoinsAsset total(Double total) {
+		this.total = total;
+		return this;
+	}
 
-  /**
-   * Get oefAssetId
-   *
-   * @return oefAssetId
-   **/
-  @Schema(description = "")
-  public UUID getOefAssetId() {
-    return oefAssetId;
-  }
+	@Override
+	public int hashCode() {
+		return Objects.hash(id, name, asset, description, logoUrl, color, url, provider, price, change24Percent, totalVolume, marketCap, details, chart, isFavorite, isTransferred, oefAssetId, amount, averagePrice, profitCurrent, total);
+	}
 
-  @Override
-  public boolean equals(java.lang.Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-    CoinsAsset coinsAsset = (CoinsAsset) o;
-    return Objects.equals(this.id, coinsAsset.id) &&
-            Objects.equals(this.name, coinsAsset.name) &&
-            Objects.equals(this.asset, coinsAsset.asset) &&
-            Objects.equals(this.description, coinsAsset.description) &&
-            Objects.equals(this.logoUrl, coinsAsset.logoUrl) &&
-            Objects.equals(this.color, coinsAsset.color) &&
-            Objects.equals(this.url, coinsAsset.url) &&
-            Objects.equals(this.provider, coinsAsset.provider) &&
-            Objects.equals(this.price, coinsAsset.price) &&
-            Objects.equals(this.change24Percent, coinsAsset.change24Percent) &&
-            Objects.equals(this.totalVolume, coinsAsset.totalVolume) &&
-            Objects.equals(this.marketCap, coinsAsset.marketCap) &&
-            Objects.equals(this.details, coinsAsset.details) &&
-            Objects.equals(this.chart, coinsAsset.chart) &&
-            Objects.equals(this.isFavorite, coinsAsset.isFavorite) &&
-            Objects.equals(this.isTransferred, coinsAsset.isTransferred) &&
-            Objects.equals(this.oefAssetId, coinsAsset.oefAssetId) &&
-            Objects.equals(this.amount, coinsAsset.amount) &&
-            Objects.equals(this.averagePrice, coinsAsset.averagePrice) &&
-            Objects.equals(this.profitCurrent, coinsAsset.profitCurrent) &&
-            Objects.equals(this.total, coinsAsset.total);
-  }
+	/**
+	 * Get total
+	 *
+	 * @return total
+	 **/
+	@Schema(description = "")
+	public Double getTotal() {
+		return total;
+	}
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(id, name, asset, description, logoUrl, color, url, provider, price, change24Percent, totalVolume, marketCap, details, chart, isFavorite, isTransferred, oefAssetId, amount, averagePrice, profitCurrent, total);
-  }
+	public void setTotal(Double total) {
+		this.total = total;
+	}
 
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(java.lang.Object o) {
-    if (o == null) {
-      return "null";
-    }
-    return o.toString().replace("\n", "\n    ");
-  }
+	@Override
+	public boolean equals(java.lang.Object o) {
+		if (this == o) {
+			return true;
+		}
+		if (o == null || getClass() != o.getClass()) {
+			return false;
+		}
+		CoinsAsset coinsAsset = (CoinsAsset) o;
+		return Objects.equals(this.id, coinsAsset.id) &&
+				Objects.equals(this.name, coinsAsset.name) &&
+				Objects.equals(this.asset, coinsAsset.asset) &&
+				Objects.equals(this.description, coinsAsset.description) &&
+				Objects.equals(this.logoUrl, coinsAsset.logoUrl) &&
+				Objects.equals(this.color, coinsAsset.color) &&
+				Objects.equals(this.url, coinsAsset.url) &&
+				Objects.equals(this.provider, coinsAsset.provider) &&
+				Objects.equals(this.price, coinsAsset.price) &&
+				Objects.equals(this.change24Percent, coinsAsset.change24Percent) &&
+				Objects.equals(this.totalVolume, coinsAsset.totalVolume) &&
+				Objects.equals(this.marketCap, coinsAsset.marketCap) &&
+				Objects.equals(this.details, coinsAsset.details) &&
+				Objects.equals(this.chart, coinsAsset.chart) &&
+				Objects.equals(this.isFavorite, coinsAsset.isFavorite) &&
+				Objects.equals(this.isTransferred, coinsAsset.isTransferred) &&
+				Objects.equals(this.oefAssetId, coinsAsset.oefAssetId) &&
+				Objects.equals(this.amount, coinsAsset.amount) &&
+				Objects.equals(this.averagePrice, coinsAsset.averagePrice) &&
+				Objects.equals(this.profitCurrent, coinsAsset.profitCurrent) &&
+				Objects.equals(this.total, coinsAsset.total);
+	}
 
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class CoinsAsset {\n");
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("class CoinsAsset {\n");
 
-    sb.append("    id: ").append(toIndentedString(id)).append("\n");
-    sb.append("    name: ").append(toIndentedString(name)).append("\n");
-    sb.append("    asset: ").append(toIndentedString(asset)).append("\n");
-    sb.append("    description: ").append(toIndentedString(description)).append("\n");
-    sb.append("    logoUrl: ").append(toIndentedString(logoUrl)).append("\n");
-    sb.append("    color: ").append(toIndentedString(color)).append("\n");
-    sb.append("    url: ").append(toIndentedString(url)).append("\n");
-    sb.append("    provider: ").append(toIndentedString(provider)).append("\n");
-    sb.append("    price: ").append(toIndentedString(price)).append("\n");
-    sb.append("    change24Percent: ").append(toIndentedString(change24Percent)).append("\n");
-    sb.append("    totalVolume: ").append(toIndentedString(totalVolume)).append("\n");
-    sb.append("    marketCap: ").append(toIndentedString(marketCap)).append("\n");
-    sb.append("    details: ").append(toIndentedString(details)).append("\n");
-    sb.append("    chart: ").append(toIndentedString(chart)).append("\n");
-    sb.append("    isFavorite: ").append(toIndentedString(isFavorite)).append("\n");
-    sb.append("    isTransferred: ").append(toIndentedString(isTransferred)).append("\n");
-    sb.append("    oefAssetId: ").append(toIndentedString(oefAssetId)).append("\n");
-    sb.append("    amount: ").append(toIndentedString(amount)).append("\n");
-    sb.append("    averagePrice: ").append(toIndentedString(averagePrice)).append("\n");
-    sb.append("    profitCurrent: ").append(toIndentedString(profitCurrent)).append("\n");
-    sb.append("    total: ").append(toIndentedString(total)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
+		sb.append("    id: ").append(toIndentedString(id)).append("\n");
+		sb.append("    name: ").append(toIndentedString(name)).append("\n");
+		sb.append("    asset: ").append(toIndentedString(asset)).append("\n");
+		sb.append("    description: ").append(toIndentedString(description)).append("\n");
+		sb.append("    logoUrl: ").append(toIndentedString(logoUrl)).append("\n");
+		sb.append("    color: ").append(toIndentedString(color)).append("\n");
+		sb.append("    url: ").append(toIndentedString(url)).append("\n");
+		sb.append("    provider: ").append(toIndentedString(provider)).append("\n");
+		sb.append("    price: ").append(toIndentedString(price)).append("\n");
+		sb.append("    change24Percent: ").append(toIndentedString(change24Percent)).append("\n");
+		sb.append("    totalVolume: ").append(toIndentedString(totalVolume)).append("\n");
+		sb.append("    marketCap: ").append(toIndentedString(marketCap)).append("\n");
+		sb.append("    details: ").append(toIndentedString(details)).append("\n");
+		sb.append("    chart: ").append(toIndentedString(chart)).append("\n");
+		sb.append("    isFavorite: ").append(toIndentedString(isFavorite)).append("\n");
+		sb.append("    isTransferred: ").append(toIndentedString(isTransferred)).append("\n");
+		sb.append("    oefAssetId: ").append(toIndentedString(oefAssetId)).append("\n");
+		sb.append("    amount: ").append(toIndentedString(amount)).append("\n");
+		sb.append("    averagePrice: ").append(toIndentedString(averagePrice)).append("\n");
+		sb.append("    profitCurrent: ").append(toIndentedString(profitCurrent)).append("\n");
+		sb.append("    total: ").append(toIndentedString(total)).append("\n");
+		sb.append("}");
+		return sb.toString();
+	}
 
-  public void writeToParcel(Parcel out, int flags) {
-    out.writeValue(id);
-    out.writeValue(name);
-    out.writeValue(asset);
-    out.writeValue(description);
-    out.writeValue(logoUrl);
-    out.writeValue(color);
-    out.writeValue(url);
-    out.writeValue(provider);
-    out.writeValue(price);
-    out.writeValue(change24Percent);
-    out.writeValue(totalVolume);
-    out.writeValue(marketCap);
-    out.writeValue(details);
-    out.writeValue(chart);
-    out.writeValue(isFavorite);
-    out.writeValue(isTransferred);
-    out.writeValue(oefAssetId);
-    out.writeValue(amount);
-    out.writeValue(averagePrice);
-    out.writeValue(profitCurrent);
-    out.writeValue(total);
-  }
+	/**
+	 * Convert the given object to string with each line indented by 4 spaces
+	 * (except the first line).
+	 */
+	private String toIndentedString(java.lang.Object o) {
+		if (o == null) {
+			return "null";
+		}
+		return o.toString().replace("\n", "\n    ");
+	}
 
-  public int describeContents() {
-    return 0;
-  }
+	public void writeToParcel(Parcel out, int flags) {
+		out.writeValue(id);
+		out.writeValue(name);
+		out.writeValue(asset);
+		out.writeValue(description);
+		out.writeValue(logoUrl);
+		out.writeValue(color);
+		out.writeValue(url);
+		out.writeValue(provider);
+		out.writeValue(price);
+		out.writeValue(change24Percent);
+		out.writeValue(totalVolume);
+		out.writeValue(marketCap);
+		out.writeValue(details);
+		out.writeValue(chart);
+		out.writeValue(isFavorite);
+		out.writeValue(isTransferred);
+		out.writeValue(oefAssetId);
+		out.writeValue(amount);
+		out.writeValue(averagePrice);
+		out.writeValue(profitCurrent);
+		out.writeValue(total);
+	}
 
-  public static final Parcelable.Creator<CoinsAsset> CREATOR = new Parcelable.Creator<CoinsAsset>() {
-    public CoinsAsset createFromParcel(Parcel in) {
-      return new CoinsAsset(in);
-    }
-    public CoinsAsset[] newArray(int size) {
-      return new CoinsAsset[size];
-    }
-  };
+	public int describeContents() {
+		return 0;
+	}
 }

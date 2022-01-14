@@ -30,17 +30,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class BasePlatformAssetItemsViewModel implements Parcelable
 {
-	public static final Parcelable.Creator<BasePlatformAssetItemsViewModel> CREATOR = new Parcelable.Creator<BasePlatformAssetItemsViewModel>()
-	{
-		public BasePlatformAssetItemsViewModel createFromParcel(Parcel in) {
-			return new BasePlatformAssetItemsViewModel(in);
-		}
-
-		public BasePlatformAssetItemsViewModel[] newArray(int size) {
-			return new BasePlatformAssetItemsViewModel[size];
-		}
-	};
-
 	@SerializedName("items")
 	private List<BasePlatformAsset> items = null;
 
@@ -48,11 +37,6 @@ public class BasePlatformAssetItemsViewModel implements Parcelable
 	private Integer total = null;
 
 	public BasePlatformAssetItemsViewModel() {
-	}
-
-	BasePlatformAssetItemsViewModel(Parcel in) {
-		items = (List<BasePlatformAsset>) in.readValue(BasePlatformAsset.class.getClassLoader());
-		total = (Integer) in.readValue(null);
 	}
 
 	public BasePlatformAssetItemsViewModel items(List<BasePlatformAsset> items) {
@@ -101,6 +85,7 @@ public class BasePlatformAssetItemsViewModel implements Parcelable
 		this.total = total;
 	}
 
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -118,6 +103,7 @@ public class BasePlatformAssetItemsViewModel implements Parcelable
 	public int hashCode() {
 		return Objects.hash(items, total);
 	}
+
 
 	@Override
 	public String toString() {
@@ -141,12 +127,29 @@ public class BasePlatformAssetItemsViewModel implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
+
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(items);
 		out.writeValue(total);
 	}
 
+	public static final Parcelable.Creator<BasePlatformAssetItemsViewModel> CREATOR = new Parcelable.Creator<BasePlatformAssetItemsViewModel>()
+	{
+		public BasePlatformAssetItemsViewModel createFromParcel(Parcel in) {
+			return new BasePlatformAssetItemsViewModel(in);
+		}
+
+		public BasePlatformAssetItemsViewModel[] newArray(int size) {
+			return new BasePlatformAssetItemsViewModel[size];
+		}
+	};
+
 	public int describeContents() {
 		return 0;
+	}
+
+	BasePlatformAssetItemsViewModel(Parcel in) {
+		items = (List<BasePlatformAsset>) in.readValue(BasePlatformAsset.class.getClassLoader());
+		total = (Integer) in.readValue(null);
 	}
 }

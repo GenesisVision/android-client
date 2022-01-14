@@ -23,31 +23,33 @@ import java.io.IOException;
  * Gets or Sets BinanceAccountType
  */
 @JsonAdapter(BinanceAccountType.Adapter.class)
-public enum BinanceAccountType {
-  SPOT("Spot"),
-  MARGIN("Margin"),
-  FUTURES("Futures"),
-  LEVERAGED("Leveraged");
+public enum BinanceAccountType
+{
+	SPOT("Spot"),
+	MARGIN("Margin"),
+	FUTURES("Futures"),
+	LEVERAGED("Leveraged"),
+	TRD_GRP_002("TRD_GRP_002");
 
-  private String value;
+	private String value;
 
-  BinanceAccountType(String value) {
-    this.value = value;
-  }
+	BinanceAccountType(String value) {
+		this.value = value;
+	}
 
-  public String getValue() {
-    return value;
-  }
+	public String getValue() {
+		return value;
+	}
 
-  @Override
-  public String toString() {
-    return String.valueOf(value);
-  }
+	@Override
+	public String toString() {
+		return String.valueOf(value);
+	}
 
-  public static BinanceAccountType fromValue(String text) {
-    for (BinanceAccountType b : BinanceAccountType.values()) {
-      if (String.valueOf(b.value).equals(text)) {
-        return b;
+	public static BinanceAccountType fromValue(String text) {
+		for (BinanceAccountType b : BinanceAccountType.values()) {
+			if (String.valueOf(b.value).equals(text)) {
+				return b;
       }
     }
     return null;
