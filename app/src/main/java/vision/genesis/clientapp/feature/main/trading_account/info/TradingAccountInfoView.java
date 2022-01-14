@@ -4,7 +4,9 @@ import com.arellomobile.mvp.MvpView;
 import com.arellomobile.mvp.viewstate.strategy.AddToEndSingleStrategy;
 import com.arellomobile.mvp.viewstate.strategy.StateStrategyType;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import io.swagger.client.model.PrivateTradingAccountFull;
 import io.swagger.client.model.SignalSubscription;
@@ -47,4 +49,6 @@ interface TradingAccountInfoView extends MvpView
 	void showProfilePublicInfoActivity();
 
 	void showAddDemoFundsActivity(ProgramRequest request);
+
+	void showTerminal(UUID assetId, ArrayList<String> permissions);
 }

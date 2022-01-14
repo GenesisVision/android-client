@@ -22,6 +22,7 @@ import io.swagger.client.model.ProfileFullViewModel;
 import io.swagger.client.model.ProgramMinInvestAmount;
 import io.swagger.client.model.SignalSubscription;
 import io.swagger.client.model.SignalSubscriptionItemsViewModel;
+import io.swagger.client.model.TradingAccountPermission;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -210,6 +211,14 @@ public class TradingAccountInfoPresenter extends MvpPresenter<TradingAccountInfo
 				accountDetails.getBrokerDetails().getLogoUrl());
 		getViewState().showCopytradingDetailsActivity(model);
 
+	}
+
+	void onStartTradingClicked() {
+		ArrayList<String> permissions = new ArrayList<>();
+		for (TradingAccountPermission permission : accountDetails.getTradingAccountInfo().getPermissions()) {
+			permissions.add(permission.toString());
+		}
+		getViewState().showTerminal(accountDetails.getId(), permissions);
 	}
 
 	private void showCreateProgram() {

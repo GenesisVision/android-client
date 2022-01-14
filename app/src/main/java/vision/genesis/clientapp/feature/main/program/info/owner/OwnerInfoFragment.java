@@ -17,6 +17,7 @@ import androidx.core.widget.NestedScrollView;
 import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.facebook.drawee.view.SimpleDraweeView;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.UUID;
@@ -53,6 +54,7 @@ import vision.genesis.clientapp.feature.main.program.create.CreateProgramActivit
 import vision.genesis.clientapp.feature.main.program.invest.InvestProgramActivity;
 import vision.genesis.clientapp.feature.main.program.manage.ManageProgramActivity;
 import vision.genesis.clientapp.feature.main.program.withdraw.WithdrawProgramActivity;
+import vision.genesis.clientapp.feature.main.terminal.market_watch.activity.MarketWatchActivity;
 import vision.genesis.clientapp.feature.main.trading_account.manage.ManageTradingAccountActivity;
 import vision.genesis.clientapp.feature.main.trading_account.two_factor.SetupAccountTfaActivity;
 import vision.genesis.clientapp.feature.main.wallet.transfer_funds.TransferFundsActivity;
@@ -310,6 +312,9 @@ public class OwnerInfoFragment extends BaseFragment implements OwnerInfoView, Pr
 	@BindView(R.id.button_confirm_2fa)
 	public PrimaryButton confirm2FaButton;
 
+	@BindView(R.id.button_terminal)
+	public PrimaryButton terminalButton;
+
 
 	@InjectPresenter
 	public OwnerInfoPresenter presenter;
@@ -320,6 +325,11 @@ public class OwnerInfoFragment extends BaseFragment implements OwnerInfoView, Pr
 	private ProgramFollowDetailsFull details;
 
 	private Unbinder unbinder;
+
+	@OnClick(R.id.button_terminal)
+	public void onStartTradingClicked() {
+		presenter.onStartTradingClicked();
+	}
 
 	@OnClick(R.id.button_confirm_2fa)
 	public void onConfirm2FaClicked() {
@@ -472,6 +482,7 @@ public class OwnerInfoFragment extends BaseFragment implements OwnerInfoView, Pr
 		unbinder = ButterKnife.bind(this, view);
 
 		withdrawButton.setEmpty();
+		terminalButton.setGreen();
 
 		if (getArguments() != null) {
 			details = getArguments().getParcelable(EXTRA_DETAILS);
@@ -957,6 +968,11 @@ public class OwnerInfoFragment extends BaseFragment implements OwnerInfoView, Pr
 		if (getActivity() != null) {
 			TransferFundsActivity.startWith(getActivity(), model);
 		}
+	}
+
+	@Override
+	public void showTerminal(UUID assetId, ArrayList<String> permissions) {
+		MarketWatchActivity.startFrom(requireActivity(), assetId, permissions);
 	}
 
 	public void updateInfo(ProgramFollowDetailsFull details) {

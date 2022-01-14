@@ -5,6 +5,7 @@ import com.arellomobile.mvp.viewstate.strategy.AddToEndSingleStrategy;
 import com.arellomobile.mvp.viewstate.strategy.OneExecutionStateStrategy;
 import com.arellomobile.mvp.viewstate.strategy.StateStrategyType;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -87,4 +88,6 @@ interface OwnerInfoView extends MvpView
 
 	@StateStrategyType(OneExecutionStateStrategy.class)
 	void showEditSubscriptionActivity(SubscriptionSettingsModel model, UUID followId, UUID tradingAccountId, Boolean external);
+
+	void showTerminal(UUID assetId, ArrayList<String> permissions);
 }

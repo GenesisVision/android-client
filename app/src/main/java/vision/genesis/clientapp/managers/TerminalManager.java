@@ -131,7 +131,7 @@ public class TerminalManager
 
 	private List<ExchangeInfo> exchanges = new ArrayList<>();
 
-	private BehaviorSubject<List<ExchangeAsset>> accountsBehaviorSubject;
+	private BehaviorSubject<List<ExchangeAsset>> accountsBehaviorSubject = BehaviorSubject.create();
 
 	private HashMap<UUID, String> listenKeysMap = new HashMap<>();
 
@@ -171,7 +171,6 @@ public class TerminalManager
 	}
 
 	public BehaviorSubject<List<ExchangeAsset>> getAccountsFor(BrokerTradeServerType exchangeName, TradingAccountPermission permission) {
-		accountsBehaviorSubject = BehaviorSubject.create();
 		if (exchanges == null || exchanges.isEmpty()) {
 			getExchangesInfoSubscription = exchangesApi.getExchanges()
 					.observeOn(AndroidSchedulers.mainThread())

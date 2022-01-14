@@ -31,6 +31,7 @@ import com.google.android.material.tabs.TabLayout;
 import com.jakewharton.rxbinding.widget.RxTextView;
 
 import java.util.ArrayList;
+import java.util.UUID;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -58,8 +59,21 @@ import vision.genesis.clientapp.utils.TypefaceUtil;
 
 public class MarketWatchFragment extends BaseFragment implements MarketWatchView, MarketWatchPagerAdapter.OnPageVisibilityChanged
 {
+	private static final String EXTRA_ASSET_ID = "extra_asset_id";
+
+	public static MarketWatchFragment with(UUID assetId) {
+		MarketWatchFragment fragment = new MarketWatchFragment();
+		Bundle arguments = new Bundle(1);
+		arguments.putSerializable(EXTRA_ASSET_ID, assetId);
+		fragment.setArguments(arguments);
+		return fragment;
+	}
+
 	@BindView(R.id.appBarLayout)
 	public AppBarLayout appBarLayout;
+
+	@BindView(R.id.button_back)
+	public View backButton;
 
 	@BindView(R.id.edittext_search)
 	public EditText searchEditText;
@@ -131,6 +145,11 @@ public class MarketWatchFragment extends BaseFragment implements MarketWatchView
 		hideSoftKeyboard();
 	}
 
+	@OnClick(R.id.button_back)
+	public void onBackClicked() {
+		requireActivity().onBackPressed();
+	}
+
 	@OnClick(R.id.group_symbol)
 	public void onSortSymbolClicked() {
 		presenter.onSortSymbolClicked();
@@ -162,6 +181,13 @@ public class MarketWatchFragment extends BaseFragment implements MarketWatchView
 		super.onViewCreated(view, savedInstanceState);
 
 		unbinder = ButterKnife.bind(this, view);
+
+		if (getArguments() != null) {
+			UUID assetId = (UUID) getArguments().getSerializable(EXTRA_ASSET_ID);
+			if (assetId != null) {
+				this.backButton.setVisibility(View.VISIBLE);
+			}
+		}
 
 		initViewPager();
 		initTabs();

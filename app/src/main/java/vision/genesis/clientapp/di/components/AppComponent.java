@@ -607,4 +607,6 @@ public interface AppComponent
 	void inject(ProgramFinancialStatisticsPresenter programFinancialStatisticsPresenter);
 
 	void inject(ExchangeSettingsPresenter exchangeSettingsPresenter);
+
+	void inject(vision.genesis.clientapp.feature.main.terminal.market_watch.activity.MarketWatchPresenter marketWatchPresenter);
 }

@@ -14,8 +14,10 @@ import androidx.core.widget.NestedScrollView;
 import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.facebook.drawee.view.SimpleDraweeView;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.UUID;
 
 import butterknife.BindDimen;
 import butterknife.BindView;
@@ -26,6 +28,7 @@ import io.swagger.client.model.DashboardTradingAssetStatus;
 import io.swagger.client.model.PrivateTradingAccountFull;
 import io.swagger.client.model.PrivateTradingAccountType;
 import io.swagger.client.model.SignalSubscription;
+import io.swagger.client.model.TradingAccountPermission;
 import timber.log.Timber;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
@@ -34,6 +37,7 @@ import vision.genesis.clientapp.feature.main.copytrading.details.CopytradingDeta
 import vision.genesis.clientapp.feature.main.follow.create.CreateFollowActivity;
 import vision.genesis.clientapp.feature.main.program.create.CreateProgramActivity;
 import vision.genesis.clientapp.feature.main.settings.public_info.ProfilePublicInfoActivity;
+import vision.genesis.clientapp.feature.main.terminal.market_watch.activity.MarketWatchActivity;
 import vision.genesis.clientapp.feature.main.trading_account.TradingAccountDetailsPagerAdapter;
 import vision.genesis.clientapp.feature.main.trading_account.add_demo_funds.AddDemoFundsActivity;
 import vision.genesis.clientapp.feature.main.trading_account.manage.ManageTradingAccountActivity;
@@ -176,6 +180,10 @@ public class TradingAccountInfoFragment extends BaseFragment implements TradingA
 	public LinearLayout mySubscriptionsGroup;
 
 
+	@BindView(R.id.button_terminal)
+	public PrimaryButton terminalButton;
+
+
 	@InjectPresenter
 	public TradingAccountInfoPresenter presenter;
 
@@ -221,6 +229,11 @@ public class TradingAccountInfoFragment extends BaseFragment implements TradingA
 		presenter.onSubscriptionsDetailsClicked();
 	}
 
+	@OnClick(R.id.button_terminal)
+	public void onStartTradingClicked() {
+		presenter.onStartTradingClicked();
+	}
+
 	@OnClick(R.id.button_confirm_2fa)
 	public void onConfirm2FaClicked() {
 		if (getActivity() != null) {
@@ -241,6 +254,7 @@ public class TradingAccountInfoFragment extends BaseFragment implements TradingA
 		unbinder = ButterKnife.bind(this, view);
 
 		withdrawButton.setEmpty();
+		terminalButton.setGreen();
 
 		if (getArguments() != null) {
 			accountDetails = getArguments().getParcelable(EXTRA_ACCOUNT_DETAILS);
@@ -339,6 +353,12 @@ public class TradingAccountInfoFragment extends BaseFragment implements TradingA
 					createFollowButton.setEnabled(accountDetails.getOwnerActions().isCanMakeSignalProviderFromPrivateTradingAccount());
 				}
 				createProgramMinDepositText.setVisibility(accountDetails.getOwnerActions().isIsEnoughMoneyToCreateProgram() ? View.GONE : View.VISIBLE);
+			}
+
+			for (TradingAccountPermission permission : accountDetails.getTradingAccountInfo().getPermissions()) {
+				if (permission.equals(TradingAccountPermission.FUTURES)) {
+					terminalButton.setVisibility(View.GONE);
+				}
 			}
 		}
 	}
@@ -478,5 +498,10 @@ public class TradingAccountInfoFragment extends BaseFragment implements TradingA
 		if (getActivity() != null) {
 			AddDemoFundsActivity.startWith(getActivity(), request);
 		}
+	}
+
+	@Override
+	public void showTerminal(UUID assetId, ArrayList<String> permissions) {
+		MarketWatchActivity.startFrom(requireActivity(), assetId, permissions);
 	}
 }

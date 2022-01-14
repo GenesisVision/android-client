@@ -32,6 +32,7 @@ import io.swagger.client.model.ProgramWithdrawInfo;
 import io.swagger.client.model.SignalSubscription;
 import io.swagger.client.model.SignalSubscriptionItemsViewModel;
 import io.swagger.client.model.TradesDelay;
+import io.swagger.client.model.TradingAccountPermission;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -314,6 +315,12 @@ public class OwnerInfoPresenter extends MvpPresenter<OwnerInfoView>
 				details.getBrokerDetails().getLogoUrl());
 		getViewState().showCopytradingDetailsActivity(model);
 
+	}
+
+	void onStartTradingClicked() {
+		ArrayList<String> permissions = new ArrayList<>();
+		permissions.add(TradingAccountPermission.SPOT.getValue());
+		getViewState().showTerminal(details.getTradingAccountInfo().getId(), permissions);
 	}
 
 	private void getPlatformInfo() {
