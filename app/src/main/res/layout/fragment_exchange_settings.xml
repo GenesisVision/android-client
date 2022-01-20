@@ -95,6 +95,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
             android:alpha="0.4"
+            android:visibility="gone"
             android:text="@string/currency"
             android:textColor="?attr/colorTextPrimary"
             android:textSize="12sp"/>
@@ -102,6 +103,7 @@
         <RelativeLayout
             android:id="@+id/group_currency"
             android:layout_width="match_parent"
+            android:visibility="gone"
             android:layout_height="@dimen/text_input_height">
 
             <TextView
@@ -124,7 +126,7 @@
                 android:alpha="0.3"
                 android:gravity="center_vertical|end"
                 android:src="@drawable/ic_keyboard_arrow_down_black_24dp"
-                android:tint="?attr/colorTextPrimary"/>
+                app:tint="?attr/colorTextPrimary"/>
 
             <View
                 android:layout_width="match_parent"

@@ -1,5 +1,7 @@
 package vision.genesis.clientapp.managers;
 
+import static android.content.Context.KEYGUARD_SERVICE;
+
 import android.Manifest;
 import android.app.KeyguardManager;
 import android.content.Context;
@@ -46,8 +48,6 @@ import vision.genesis.clientapp.utils.SharedPreferencesUtil;
 import vision.genesis.clientapp.utils.fingerprint.FingerprintHandler;
 import vision.genesis.clientapp.utils.fingerprint.GenerateKeyCipher;
 
-import static android.content.Context.KEYGUARD_SERVICE;
-
 /**
  * GenesisVision
  * Created by Vitaly on 1/22/18.
@@ -83,14 +83,17 @@ public class AuthManager
 
 	private SettingsManager settingsManager;
 
+	private TerminalManager terminalManager;
+
 	private String fcmToken = "";
 
-	public AuthManager(AuthApi authApi, ProfileApi profileApi, PlatformApi platformApi, SharedPreferencesUtil sharedPreferencesUtil, SettingsManager settingsManager) {
+	public AuthManager(AuthApi authApi, ProfileApi profileApi, PlatformApi platformApi, SharedPreferencesUtil sharedPreferencesUtil, SettingsManager settingsManager, TerminalManager terminalManager) {
 		this.authApi = authApi;
 		this.profileApi = profileApi;
 		this.platformApi = platformApi;
 		this.sharedPreferencesUtil = sharedPreferencesUtil;
 		this.settingsManager = settingsManager;
+		this.terminalManager = terminalManager;
 
 		keyguardManager = (KeyguardManager) GenesisVisionApplication.INSTANCE.getSystemService(KEYGUARD_SERVICE);
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -326,6 +329,7 @@ public class AuthManager
 		disableFcmToken();
 		sharedPreferencesUtil.saveToken(null);
 		settingsManager.logout();
+		terminalManager.logout();
 		userSubject.onNext(null);
 	}
 

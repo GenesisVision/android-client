@@ -36,6 +36,7 @@ import io.swagger.client.model.Post;
 import io.swagger.client.model.TransactionViewModel;
 import io.swagger.client.model.UserVerificationStatus;
 import timber.log.Timber;
+import vision.genesis.clientapp.BuildConfig;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
 import vision.genesis.clientapp.feature.auth.login.LoginActivity;
@@ -551,15 +552,17 @@ public class MainActivity extends MvpAppCompatActivity implements MainView, Bloc
 	@Override
 	public void startKycProcess(KycVerificationManager manager, ExternalKycAccessToken model) {
 		try {
-			SNSMobileSDK.SDK snsSdk = new SNSMobileSDK.Builder(this, model.getBaseAddress(), model.getFlowName())
+			SNSMobileSDK.Builder snsBuilder = new SNSMobileSDK.Builder(this)
 					.withAccessToken(model.getAccessToken(), manager.getTokenExpirationHandler())
-					.withModules(Collections.singletonList((new SNSProoface())))
-					.build();
-			snsSdk.launch();
+					.withModules(Collections.singletonList((new SNSProoface())));
+			if (!BuildConfig.PROD) {
+				snsBuilder.onTestEnv();
+			}
+
+			snsBuilder.build().launch();
 		} catch (SNSInvalidParametersException e) {
 			e.printStackTrace();
 		}
-
 	}
 
 	@Override

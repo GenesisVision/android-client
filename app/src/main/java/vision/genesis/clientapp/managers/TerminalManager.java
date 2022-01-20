@@ -766,4 +766,11 @@ public class TerminalManager
 		}
 		return null;
 	}
+
+	public void logout() {
+		accountsBehaviorSubject = BehaviorSubject.create();
+		selectedAccountSubject = BehaviorSubject.create();
+		favoriteTickersSubject = BehaviorSubject.create();
+		accountSubjectsMap = new HashMap<>();
+	}
 }

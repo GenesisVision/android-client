@@ -288,7 +288,7 @@ public class CreateAccountPresenter extends MvpPresenter<CreateAccountView>
 	@Subscribe
 	public void onEventMainThread(OnAccountExchangeSettingsSelectedEvent event) {
 		request.setBrokerAccountTypeId(event.getSelectedAccountType().getId());
-		request.setCurrency(event.getCurrency());
+//		request.setCurrency(event.getCurrency());
 
 		showExchangeAccountDepositOrCreateAccount(event.getSelectedAccountType());
 	}

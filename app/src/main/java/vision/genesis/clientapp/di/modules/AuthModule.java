@@ -11,6 +11,7 @@ import vision.genesis.clientapp.managers.AuthManager;
 import vision.genesis.clientapp.managers.KycVerificationManager;
 import vision.genesis.clientapp.managers.ProfileManager;
 import vision.genesis.clientapp.managers.SettingsManager;
+import vision.genesis.clientapp.managers.TerminalManager;
 import vision.genesis.clientapp.net.api.KycApi;
 import vision.genesis.clientapp.utils.SharedPreferencesUtil;
 
@@ -24,8 +25,11 @@ public class AuthModule
 {
 	@Provides
 	@Singleton
-	public AuthManager provideAuthManager(AuthApi authApi, ProfileApi profileApi, PlatformApi platformApi, SharedPreferencesUtil sharedPreferencesUtil, SettingsManager settingsManager) {
-		return new AuthManager(authApi, profileApi, platformApi, sharedPreferencesUtil, settingsManager);
+	public AuthManager provideAuthManager(AuthApi authApi, ProfileApi profileApi, PlatformApi platformApi,
+	                                      SharedPreferencesUtil sharedPreferencesUtil,
+	                                      SettingsManager settingsManager,
+	                                      TerminalManager terminalManager) {
+		return new AuthManager(authApi, profileApi, platformApi, sharedPreferencesUtil, settingsManager, terminalManager);
 	}
 
 	@Provides
