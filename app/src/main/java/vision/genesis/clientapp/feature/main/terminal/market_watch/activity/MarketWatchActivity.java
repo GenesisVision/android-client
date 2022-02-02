@@ -63,7 +63,7 @@ public class MarketWatchActivity extends BaseSwipeBackActivity implements Market
 			if (savedInstanceState == null) {
 				getSupportFragmentManager()
 						.beginTransaction()
-						.add(R.id.content, MarketWatchFragment.with(assetId))
+						.add(R.id.content, MarketWatchFragment.with(assetId, permissions))
 						.disallowAddToBackStack()
 						.commit();
 			}

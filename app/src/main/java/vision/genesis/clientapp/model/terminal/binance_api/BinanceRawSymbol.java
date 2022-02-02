@@ -11,6 +11,7 @@ import java.util.Objects;
 
 import io.swagger.client.model.BinanceAccountType;
 import io.swagger.client.model.BinanceOrderType;
+import io.swagger.client.model.BinanceRawFuturesUsdtSymbol;
 import io.swagger.client.model.BinanceRawSymbolIcebergPartsFilter;
 import io.swagger.client.model.BinanceRawSymbolLotSizeFilter;
 import io.swagger.client.model.BinanceRawSymbolMarketLotSizeFilter;
@@ -38,6 +39,28 @@ public class BinanceRawSymbol implements Parcelable
 			return new BinanceRawSymbol[size];
 		}
 	};
+
+	public static BinanceRawSymbol from(io.swagger.client.model.BinanceRawSymbol model) {
+		BinanceRawSymbol symbol = new BinanceRawSymbol();
+		symbol.name = model.getName();
+		symbol.baseAsset = model.getBaseAsset();
+		symbol.quoteAsset = model.getQuoteAsset();
+		symbol.priceFilter = model.getPriceFilter();
+		symbol.lotSizeFilter = model.getLotSizeFilter();
+		return symbol;
+	}
+
+	public static BinanceRawSymbol from(BinanceRawFuturesUsdtSymbol model) {
+		BinanceRawSymbol symbol = new BinanceRawSymbol();
+		symbol.name = model.getName();
+		symbol.baseAsset = model.getBaseAsset();
+		symbol.quoteAsset = model.getQuoteAsset();
+		symbol.priceFilter = new BinanceRawSymbolPriceFilter();
+		symbol.priceFilter.setTickSize(model.getPriceFilter().getTickSize());
+		symbol.lotSizeFilter = new BinanceRawSymbolLotSizeFilter();
+		symbol.lotSizeFilter.setMinQuantity(model.getLotSizeFilter().getMinQuantity());
+		return symbol;
+	}
 
 	@SerializedName("symbol")
 	private String name = null;
@@ -475,8 +498,9 @@ public class BinanceRawSymbol implements Parcelable
 	 * @return lotSizeFilter
 	 **/
 
-	public BinanceSymbolFilter getLotSizeFilter() {
-		return getFilter(BinanceSymbolFilterType.LOTSIZE);
+	public BinanceRawSymbolLotSizeFilter getLotSizeFilter() {
+//		return getFilter(BinanceSymbolFilterType.LOTSIZE);
+		return lotSizeFilter;
 	}
 
 	public void setLotSizeFilter(BinanceRawSymbolLotSizeFilter lotSizeFilter) {
@@ -581,8 +605,9 @@ public class BinanceRawSymbol implements Parcelable
 	 * @return priceFilter
 	 **/
 
-	public BinanceSymbolFilter getPriceFilter() {
-		return getFilter(BinanceSymbolFilterType.PRICE);
+	public BinanceRawSymbolPriceFilter getPriceFilter() {
+//		return getFilter(BinanceSymbolFilterType.PRICE);
+		return priceFilter;
 	}
 
 	public void setPriceFilter(BinanceRawSymbolPriceFilter priceFilter) {

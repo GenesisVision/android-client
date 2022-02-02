@@ -5,6 +5,7 @@ import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
 
+import io.swagger.client.model.BinanceRawFuturesUsdtSymbol;
 import vision.genesis.clientapp.model.terminal.binance_api.BinanceRawSymbol;
 
 /**
@@ -28,6 +29,22 @@ public class MarketWatchTickerModel implements Parcelable
 	};
 
 	public static MarketWatchTickerModel from(BinanceRawSymbol symbol) {
+		MarketWatchTickerModel model = new MarketWatchTickerModel();
+		model.setSymbol(symbol.getName());
+		model.setBaseAsset(symbol.getBaseAsset());
+		model.setQuoteAsset(symbol.getQuoteAsset());
+		return model;
+	}
+
+	public static MarketWatchTickerModel from(io.swagger.client.model.BinanceRawSymbol symbol) {
+		MarketWatchTickerModel model = new MarketWatchTickerModel();
+		model.setSymbol(symbol.getName());
+		model.setBaseAsset(symbol.getBaseAsset());
+		model.setQuoteAsset(symbol.getQuoteAsset());
+		return model;
+	}
+
+	public static MarketWatchTickerModel from(BinanceRawFuturesUsdtSymbol symbol) {
 		MarketWatchTickerModel model = new MarketWatchTickerModel();
 		model.setSymbol(symbol.getName());
 		model.setBaseAsset(symbol.getBaseAsset());

@@ -9,6 +9,8 @@ import androidx.annotation.Nullable;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.util.ArrayList;
+
 import butterknife.BindView;
 import butterknife.OnClick;
 import vision.genesis.clientapp.R;
@@ -44,5 +46,10 @@ public class FavoriteTickersListFragment extends TickersListFragment
 
 	public void setButtonCreateAccount() {
 		selectAccountButton.setText(getString(R.string.create_account));
+	}
+
+	public void clearFavorites() {
+		setTickers(new ArrayList<>());
+		selectAccountButton.setVisibility(View.VISIBLE);
 	}
 }

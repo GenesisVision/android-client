@@ -22,21 +22,22 @@ import io.swagger.client.model.BinanceRawAccountInfo;
 import io.swagger.client.model.BinanceRawBinanceBalance;
 import io.swagger.client.model.BinanceRawPlaceOrder;
 import io.swagger.client.model.BinanceRawPlacedOrder;
+import io.swagger.client.model.BinanceRawSymbolLotSizeFilter;
+import io.swagger.client.model.BinanceRawSymbolPriceFilter;
 import io.swagger.client.model.BinanceTimeInForce;
 import io.swagger.client.model.ExchangeAsset;
+import io.swagger.client.model.TradingAccountPermission;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.managers.TerminalManager;
+import vision.genesis.clientapp.model.BinanceExchangeInfo;
 import vision.genesis.clientapp.model.events.SetOpenOrdersCountEvent;
 import vision.genesis.clientapp.model.events.SetOrderHistoryCountEvent;
 import vision.genesis.clientapp.model.events.SetTradeHistoryCountEvent;
-import vision.genesis.clientapp.model.terminal.binance_api.BinanceRawExchangeInfo;
 import vision.genesis.clientapp.model.terminal.binance_api.BinanceRawSymbol;
-import vision.genesis.clientapp.model.terminal.binance_api.BinanceSymbolFilter;
-import vision.genesis.clientapp.model.terminal.binance_api.BinanceSymbolFilterType;
 import vision.genesis.clientapp.model.terminal.binance_socket.AccountModel;
 import vision.genesis.clientapp.model.terminal.binance_socket.BinanceAccountBalance;
 import vision.genesis.clientapp.model.terminal.binance_socket.TickerModel;
@@ -115,6 +116,8 @@ public class PlaceOrderPresenter extends MvpPresenter<PlaceOrderView> implements
 	private int amountStepSize = 8;
 
 	private int priceStepSize = 2;
+
+	private TradingAccountPermission currentMarket = TradingAccountPermission.SPOT;
 
 	@Override
 	protected void onFirstViewAttach() {
@@ -223,27 +226,31 @@ public class PlaceOrderPresenter extends MvpPresenter<PlaceOrderView> implements
 		}
 	}
 
-	private void handleGetSymbolInfoSuccess(BinanceRawExchangeInfo response) {
+	private void handleGetSymbolInfoSuccess(BinanceExchangeInfo response) {
 		getSymbolInfoSubscription.unsubscribe();
 
-		for (BinanceRawSymbol symbolInfo : response.getSymbols()) {
-			if (symbolInfo.getName().equals(symbol)) {
-				this.symbolInfo = symbolInfo;
-				setPriceFilter(symbolInfo.getFilter(BinanceSymbolFilterType.PRICE));
-				setLotFilter(symbolInfo.getFilter(BinanceSymbolFilterType.LOTSIZE));
-				break;
+		currentMarket = terminalManager.getCurrentMarket();
+
+		if (currentMarket.equals(TradingAccountPermission.SPOT)) {
+			for (BinanceRawSymbol symbolInfo : terminalManager.getCurrentSymbolsShortened()) {
+				if (symbolInfo.getName().equals(symbol)) {
+					this.symbolInfo = symbolInfo;
+					setPriceFilter(symbolInfo.getPriceFilter());
+					setLotFilter(symbolInfo.getLotSizeFilter());
+					break;
+				}
 			}
 		}
 	}
 
-	private void setPriceFilter(BinanceSymbolFilter filter) {
+	private void setPriceFilter(BinanceRawSymbolPriceFilter filter) {
 		this.priceStepSize = filter.getTickSize() != null ? getDigitsCount(filter.getTickSize()) : 8;
 		getViewState().setPriceFilter(filter.getMaxPrice(), priceStepSize);
 	}
 
-	private void setLotFilter(BinanceSymbolFilter filter) {
+	private void setLotFilter(BinanceRawSymbolLotSizeFilter filter) {
 		this.amountStepSize = filter.getStepSize() != null ? getDigitsCount(filter.getStepSize()) : 8;
-		getViewState().setLotFilter(filter.getMaxQty(), amountStepSize);
+		getViewState().setLotFilter(filter.getMaxQuantity(), amountStepSize);
 	}
 
 	private int getDigitsCount(double size) {

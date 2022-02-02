@@ -16,7 +16,7 @@ import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.managers.AuthManager;
 import vision.genesis.clientapp.managers.SettingsManager;
 import vision.genesis.clientapp.managers.TerminalManager;
-import vision.genesis.clientapp.model.terminal.binance_api.BinanceRawExchangeInfo;
+import vision.genesis.clientapp.model.BinanceExchangeInfo;
 import vision.genesis.clientapp.net.ApiErrorResolver;
 import vision.genesis.clientapp.net.NetworkManager;
 
@@ -125,7 +125,7 @@ public class SplashScreenPresenter extends MvpPresenter<SplashScreenView>
 		}
 	}
 
-	private void onGetBinanceServerInfoSuccess(BinanceRawExchangeInfo response) {
+	private void onGetBinanceServerInfoSuccess(BinanceExchangeInfo response) {
 		if (serverInfoSubscription != null) {
 			serverInfoSubscription.unsubscribe();
 		}

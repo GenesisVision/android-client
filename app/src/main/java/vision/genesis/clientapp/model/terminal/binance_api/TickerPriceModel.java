@@ -30,6 +30,11 @@ public class TickerPriceModel implements Parcelable
 	@SerializedName("price")
 	private Double price;
 
+	public TickerPriceModel(String symbol, Double price) {
+		this.symbol = symbol;
+		this.price = price;
+	}
+
 	protected TickerPriceModel(Parcel in) {
 		symbol = in.readString();
 		if (in.readByte() == 0) {

@@ -27,71 +27,99 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:orientation="vertical">
 
-                    <ImageView
-                        android:id="@+id/button_back"
-                        android:layout_width="50dp"
-                        android:layout_height="@dimen/toolbar_height"
-                        android:background="?attr/selectableItemBackgroundBorderless"
-                        android:padding="20dp"
-                        android:visibility="gone"
-                        app:srcCompat="@drawable/icon_back"
-                        app:tint="?attr/colorTextPrimary"/>
-
-                    <RelativeLayout
-                        android:id="@+id/searchbar"
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/searchbar_height"
-                        android:layout_marginStart="@dimen/assets_padding"
-                        android:layout_marginEnd="@dimen/assets_padding"
-                        android:visibility="visible">
-
-                        <EditText
-                            android:id="@+id/edittext_search"
-                            style="@style/edittext"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_centerVertical="true"
-                            android:layout_marginEnd="32dp"
-                            android:background="@android:color/transparent"
-                            android:fontFamily="@font/montserrat_regular"
-                            android:hint="@string/search"
-                            android:imeOptions="actionSearch"
-                            android:inputType="textNoSuggestions"
-                            android:lines="1"
-                            android:textColor="?attr/colorTextPrimary"
-                            android:textColorHint="?attr/colorTextSecondary"
-                            android:textSize="18sp"/>
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
 
                         <ImageView
-                            android:id="@+id/button_clear"
-                            android:layout_width="32dp"
-                            android:layout_height="32dp"
-                            android:layout_alignParentEnd="true"
-                            android:layout_centerVertical="true"
-                            android:padding="8dp"
+                            android:id="@+id/button_back"
+                            android:layout_width="50dp"
+                            android:layout_height="@dimen/toolbar_height"
+                            android:background="?attr/selectableItemBackgroundBorderless"
+                            android:padding="20dp"
                             android:visibility="gone"
-                            app:srcCompat="@drawable/icon_close"
-                            tools:visibility="visible"/>
-
-                        <ImageView
-                            android:id="@+id/icon_search"
-                            android:layout_width="32dp"
-                            android:layout_height="32dp"
-                            android:layout_alignParentEnd="true"
-                            android:layout_centerVertical="true"
-                            android:padding="8dp"
+                            app:srcCompat="@drawable/icon_back"
                             app:tint="?attr/colorTextPrimary"
-                            app:srcCompat="@drawable/icon_search"/>
+                            tools:visibility="gone"/>
 
-                        <View
+                        <com.google.android.material.tabs.TabLayout
+                            android:id="@+id/tab_layout_top"
                             android:layout_width="match_parent"
-                            android:layout_height="1dp"
-                            android:layout_alignParentBottom="true"
-                            android:background="?attr/colorDelimiterLight"/>
+                            android:layout_height="@dimen/tabs_height"
+                            android:layout_gravity="center"
+                            android:minHeight="?attr/actionBarSize"
+                            app:tabGravity="fill"
+                            app:tabIndicatorColor="?attr/colorAccent"
+                            app:tabMaxWidth="0dp"
+                            app:tabMode="scrollable"
+                            app:tabSelectedTextColor="?attr/colorTextPrimary"
+                            app:tabTextColor="?attr/colorTextSecondary"/>
 
-                    </RelativeLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <RelativeLayout
+                            android:id="@+id/searchbar"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/searchbar_height"
+                            android:layout_marginStart="@dimen/assets_padding"
+                            android:layout_marginEnd="@dimen/assets_padding"
+                            android:visibility="visible">
+
+                            <EditText
+                                android:id="@+id/edittext_search"
+                                style="@style/edittext"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:layout_marginEnd="32dp"
+                                android:background="@android:color/transparent"
+                                android:fontFamily="@font/montserrat_regular"
+                                android:hint="@string/search"
+                                android:imeOptions="actionSearch"
+                                android:inputType="textNoSuggestions"
+                                android:lines="1"
+                                android:textColor="?attr/colorTextPrimary"
+                                android:textColorHint="?attr/colorTextSecondary"
+                                android:textSize="18sp"/>
+
+                            <ImageView
+                                android:id="@+id/button_clear"
+                                android:layout_width="32dp"
+                                android:layout_height="32dp"
+                                android:layout_alignParentEnd="true"
+                                android:layout_centerVertical="true"
+                                android:padding="8dp"
+                                android:visibility="gone"
+                                app:srcCompat="@drawable/icon_close"
+                                tools:visibility="visible"/>
+
+                            <ImageView
+                                android:id="@+id/icon_search"
+                                android:layout_width="32dp"
+                                android:layout_height="32dp"
+                                android:layout_alignParentEnd="true"
+                                android:layout_centerVertical="true"
+                                android:padding="8dp"
+                                app:srcCompat="@drawable/icon_search"
+                                app:tint="?attr/colorTextPrimary"/>
+
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="1dp"
+                                android:layout_alignParentBottom="true"
+                                android:background="?attr/colorDelimiterLight"/>
+
+                        </RelativeLayout>
+
+                    </LinearLayout>
 
                 </LinearLayout>
 

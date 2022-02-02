@@ -36,7 +36,7 @@ import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.common.option.SelectOptionBottomSheetFragment;
 import vision.genesis.clientapp.managers.TerminalManager;
-import vision.genesis.clientapp.model.terminal.binance_api.BinanceRawExchangeInfo;
+import vision.genesis.clientapp.model.BinanceExchangeInfo;
 import vision.genesis.clientapp.model.terminal.binance_api.BinanceRawSymbol;
 import vision.genesis.clientapp.model.terminal.binance_api.DepthListModel;
 import vision.genesis.clientapp.model.terminal.binance_socket.AccountModel;
@@ -224,13 +224,13 @@ public class OrderBookView extends RelativeLayout
 		}
 	}
 
-	private void handleGetSymbolInfoSuccess(BinanceRawExchangeInfo response) {
+	private void handleGetSymbolInfoSuccess(BinanceExchangeInfo response) {
 		getSymbolInfoSubscription.unsubscribe();
 
-		for (BinanceRawSymbol symbolInfo : response.getSymbols()) {
+		for (BinanceRawSymbol symbolInfo : terminalManager.getCurrentSymbolsShortened()) {
 			if (symbolInfo.getName().equals(symbol)) {
 				this.symbolInfo = symbolInfo;
-				this.qtyDigits = getDigitsCount(symbolInfo.getLotSizeFilter().getMinQty());
+				this.qtyDigits = getDigitsCount(symbolInfo.getLotSizeFilter().getMinQuantity());
 				break;
 			}
 		}

@@ -16,6 +16,7 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import io.swagger.client.api.DashboardApi;
@@ -26,8 +27,13 @@ import io.swagger.client.model.BinanceKlineInterval;
 import io.swagger.client.model.BinanceOrderSide;
 import io.swagger.client.model.BinanceOrderStatus;
 import io.swagger.client.model.BinanceOrderType;
+import io.swagger.client.model.BinanceRaw24HPrice;
 import io.swagger.client.model.BinanceRawAccountInfo;
 import io.swagger.client.model.BinanceRawCancelOrder;
+import io.swagger.client.model.BinanceRawExchangeInfo;
+import io.swagger.client.model.BinanceRawFutures24HPrice;
+import io.swagger.client.model.BinanceRawFuturesUsdtExchangeInfo;
+import io.swagger.client.model.BinanceRawFuturesUsdtSymbol;
 import io.swagger.client.model.BinanceRawKlineItemsViewModel;
 import io.swagger.client.model.BinanceRawOrder;
 import io.swagger.client.model.BinanceRawOrderItemsViewModel;
@@ -55,11 +61,10 @@ import rx.schedulers.Schedulers;
 import rx.subjects.BehaviorSubject;
 import timber.log.Timber;
 import vision.genesis.clientapp.BuildConfig;
+import vision.genesis.clientapp.model.BinanceExchangeInfo;
 import vision.genesis.clientapp.model.DateRange;
-import vision.genesis.clientapp.model.terminal.binance_api.BinanceRawExchangeInfo;
 import vision.genesis.clientapp.model.terminal.binance_api.BinanceRawSymbol;
 import vision.genesis.clientapp.model.terminal.binance_api.DepthListModel;
-import vision.genesis.clientapp.model.terminal.binance_api.TickerPriceModel;
 import vision.genesis.clientapp.model.terminal.binance_api.TradeModel;
 import vision.genesis.clientapp.model.terminal.binance_socket.AccountModel;
 import vision.genesis.clientapp.model.terminal.binance_socket.DepthUpdateModel;
@@ -109,7 +114,7 @@ public class TerminalManager
 
 	private Subscription getAccountStreamSubscription;
 
-	private BehaviorSubject<BinanceRawExchangeInfo> binanceServerInfoBehaviorSubject;
+	private BehaviorSubject<BinanceExchangeInfo> binanceServerInfoBehaviorSubject;
 
 	private BehaviorSubject<List<TickerModel>> tickersSubject = BehaviorSubject.create();
 
@@ -137,6 +142,8 @@ public class TerminalManager
 
 	private HashMap<String, UUID> streamNameAccountIdMap = new HashMap<>();
 
+	private TradingAccountPermission currentMarket = TradingAccountPermission.SPOT;
+
 
 	public TerminalManager(TradingplatformApi tradingplatformApi, BinanceApi binanceApi, ExchangesApi exchangesApi, DashboardApi dashboardApi) {
 		this.tradingplatformApi = tradingplatformApi;
@@ -145,21 +152,77 @@ public class TerminalManager
 		this.dashboardApi = dashboardApi;
 	}
 
-	public Observable<BinanceRawExchangeInfo> getBinanceServerInfo() {
-		if (binanceServerInfoBehaviorSubject == null) {
-			binanceServerInfoBehaviorSubject = BehaviorSubject.create();
-			getServerInfoSubscription = binanceApi.getExchangeInfo()
-					.observeOn(AndroidSchedulers.mainThread())
-					.subscribeOn(Schedulers.io())
-					.subscribe(this::handleGetServerInfoSuccess,
-							this::handleGetServerInfoError);
+	public TradingAccountPermission getCurrentMarket() {
+		return currentMarket;
+	}
+
+	public void setCurrentMarket(TradingAccountPermission newMarket) {
+		this.currentMarket = newMarket;
+		this.accountsBehaviorSubject = BehaviorSubject.create();
+		this.selectedAccountSubject = BehaviorSubject.create();
+		this.favoriteTickersSubject = BehaviorSubject.create();
+		for (Map.Entry<String, WebSocket> stringWebSocketEntry : sockets.entrySet()) {
+			closeSocket(stringWebSocketEntry.getKey());
+		}
+		this.sockets = new HashMap<>();
+	}
+
+	public Observable<BinanceExchangeInfo> getBinanceServerInfo() {
+		if (currentMarket.equals(TradingAccountPermission.SPOT)) {
+			getSpotServerInfo();
+		}
+		else if (currentMarket.equals(TradingAccountPermission.FUTURES)) {
+			getFuturesServerInfo();
 		}
 		return binanceServerInfoBehaviorSubject;
 	}
 
-	private void handleGetServerInfoSuccess(BinanceRawExchangeInfo response) {
+	private void getSpotServerInfo() {
+		if (binanceServerInfoBehaviorSubject == null) {
+			binanceServerInfoBehaviorSubject = BehaviorSubject.create();
+		}
+		if (binanceServerInfoBehaviorSubject.getValue() == null
+				|| binanceServerInfoBehaviorSubject.getValue().getSpotInfo() == null) {
+			getServerInfoSubscription = tradingplatformApi.getExchangeInfo()
+					.observeOn(AndroidSchedulers.mainThread())
+					.subscribeOn(Schedulers.io())
+					.subscribe(this::handleGetSpotServerInfoSuccess,
+							this::handleGetServerInfoError);
+		}
+	}
+
+	private void handleGetSpotServerInfoSuccess(BinanceRawExchangeInfo response) {
 		getServerInfoSubscription.unsubscribe();
-		binanceServerInfoBehaviorSubject.onNext(response);
+		BinanceExchangeInfo exchangeInfo = binanceServerInfoBehaviorSubject.getValue();
+		if (exchangeInfo == null) {
+			exchangeInfo = new BinanceExchangeInfo();
+		}
+		exchangeInfo.setSpotInfo(response);
+		binanceServerInfoBehaviorSubject.onNext(exchangeInfo);
+	}
+
+	private void getFuturesServerInfo() {
+		if (binanceServerInfoBehaviorSubject == null) {
+			binanceServerInfoBehaviorSubject = BehaviorSubject.create();
+		}
+		if (binanceServerInfoBehaviorSubject.getValue() == null
+				|| binanceServerInfoBehaviorSubject.getValue().getFuturesInfo() == null) {
+			getServerInfoSubscription = tradingplatformApi.getFuturesExchangeInfo()
+					.observeOn(AndroidSchedulers.mainThread())
+					.subscribeOn(Schedulers.io())
+					.subscribe(this::handleGetFuturesServerInfoSuccess,
+							this::handleGetServerInfoError);
+		}
+	}
+
+	private void handleGetFuturesServerInfoSuccess(BinanceRawFuturesUsdtExchangeInfo response) {
+		getServerInfoSubscription.unsubscribe();
+		BinanceExchangeInfo exchangeInfo = binanceServerInfoBehaviorSubject.getValue();
+		if (exchangeInfo == null) {
+			exchangeInfo = new BinanceExchangeInfo();
+		}
+		exchangeInfo.setFuturesInfo(response);
+		binanceServerInfoBehaviorSubject.onNext(exchangeInfo);
 	}
 
 	private void handleGetServerInfoError(Throwable error) {
@@ -247,7 +310,9 @@ public class TerminalManager
 	}
 
 	public Observable<BinanceRawKlineItemsViewModel> getKlineData(String symbol, BinanceKlineInterval interval, DateTime startTime, DateTime endTime, Integer limit) {
-		return tradingplatformApi.getKlines(symbol, interval, startTime, endTime, limit);
+		return currentMarket.equals(TradingAccountPermission.SPOT)
+				? tradingplatformApi.getKlines(symbol, interval, startTime, endTime, limit)
+				: tradingplatformApi.getFuturesKlines(symbol, interval, startTime, endTime, limit);
 	}
 
 	public BehaviorSubject<List<String>> getFavoriteTickers() {
@@ -299,8 +364,12 @@ public class TerminalManager
 		getFavoriteTickers();
 	}
 
-	public Observable<List<TickerPriceModel>> getTickersPrices() {
-		return binanceApi.getTickersPrices();
+	public Observable<List<BinanceRaw24HPrice>> getSpotTickersPrices() {
+		return tradingplatformApi.get24HPrices();
+	}
+
+	public Observable<List<BinanceRawFutures24HPrice>> getFuturesTickersPrices() {
+		return tradingplatformApi.getFutures24HPrices("");
 	}
 
 	public Observable<List<TradeModel>> getTrades(String symbol, Integer limit) {
@@ -443,7 +512,10 @@ public class TerminalManager
 	}
 
 	private WebSocket openSocket(String streamName) {
-		Request request = new Request.Builder().url(BuildConfig.BINANCE_SOCKET_ADDRESS.concat(streamName)).build();
+		String socketAddress = currentMarket == TradingAccountPermission.SPOT
+				? BuildConfig.BINANCE_SPOT_SOCKET_ADDRESS
+				: BuildConfig.BINANCE_FUTURES_SOCKET_ADDRESS;
+		Request request = new Request.Builder().url(socketAddress.concat(streamName)).build();
 		return socketClient.newWebSocket(request, new WebSocketListener()
 		{
 			private int messagesCount = 0;
@@ -735,25 +807,39 @@ public class TerminalManager
 	}
 
 	public Pair<String, String> getBaseQuoteAssets(String symbol) {
-		if (binanceServerInfoBehaviorSubject != null && binanceServerInfoBehaviorSubject.getValue() != null) {
-			for (BinanceRawSymbol ticker : binanceServerInfoBehaviorSubject.getValue().getSymbols()) {
-				if (ticker.getName().equals(symbol)) {
-					return new Pair<>(ticker.getBaseAsset(), ticker.getQuoteAsset());
-				}
+		for (BinanceRawSymbol ticker : getCurrentSymbolsShortened()) {
+			if (ticker.getName().equals(symbol)) {
+				return new Pair<>(ticker.getBaseAsset(), ticker.getQuoteAsset());
 			}
 		}
 		return null;
 	}
 
 	public Integer getSymbolPrecision(String symbol) {
-		if (binanceServerInfoBehaviorSubject != null && binanceServerInfoBehaviorSubject.getValue() != null) {
-			for (BinanceRawSymbol ticker : binanceServerInfoBehaviorSubject.getValue().getSymbols()) {
-				if (ticker.getName().equals(symbol)) {
-					return (int) (Math.abs(Math.log10(ticker.getPriceFilter().getTickSize())));
-				}
+		for (BinanceRawSymbol ticker : getCurrentSymbolsShortened()) {
+			if (ticker.getName().equals(symbol)) {
+				return (int) (Math.abs(Math.log10(ticker.getPriceFilter().getTickSize())));
 			}
 		}
 		return null;
+	}
+
+	public List<BinanceRawSymbol> getCurrentSymbolsShortened() {
+		List<BinanceRawSymbol> result = new ArrayList<>();
+		if (binanceServerInfoBehaviorSubject != null && binanceServerInfoBehaviorSubject.getValue() != null) {
+			if (currentMarket.equals(TradingAccountPermission.SPOT)) {
+				for (io.swagger.client.model.BinanceRawSymbol symbol : binanceServerInfoBehaviorSubject.getValue().getSpotInfo().getSymbols()) {
+					result.add(BinanceRawSymbol.from(symbol));
+				}
+			}
+			else if (currentMarket.equals(TradingAccountPermission.FUTURES)) {
+				for (BinanceRawFuturesUsdtSymbol symbol : binanceServerInfoBehaviorSubject.getValue().getFuturesInfo().getSymbols()) {
+					result.add(BinanceRawSymbol.from(symbol));
+				}
+			}
+
+		}
+		return result;
 	}
 
 	public TickerModel getTickerData(String symbol) {

@@ -16,6 +16,12 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import io.swagger.client.model.BinanceContractType;
+import io.swagger.client.model.BinanceRaw24HPrice;
+import io.swagger.client.model.BinanceRawFutures24HPrice;
+import io.swagger.client.model.BinanceRawFuturesUsdtSymbol;
+import io.swagger.client.model.BinanceRawSymbol;
+import io.swagger.client.model.BinanceSymbolStatus;
 import io.swagger.client.model.BrokerTradeServerType;
 import io.swagger.client.model.Currency;
 import io.swagger.client.model.ExchangeAccountType;
@@ -31,14 +37,12 @@ import vision.genesis.clientapp.feature.main.terminal.select_account.SelectAccou
 import vision.genesis.clientapp.managers.AuthManager;
 import vision.genesis.clientapp.managers.BrokersManager;
 import vision.genesis.clientapp.managers.TerminalManager;
+import vision.genesis.clientapp.model.BinanceExchangeInfo;
 import vision.genesis.clientapp.model.CreateAccountModel;
 import vision.genesis.clientapp.model.User;
 import vision.genesis.clientapp.model.events.OnCreateAccountSuccessEvent;
 import vision.genesis.clientapp.model.events.OnFavoriteTickersSelectAccountClickedEvent;
 import vision.genesis.clientapp.model.terminal.MarketWatchTickerModel;
-import vision.genesis.clientapp.model.terminal.binance_api.BinanceRawExchangeInfo;
-import vision.genesis.clientapp.model.terminal.binance_api.BinanceRawSymbol;
-import vision.genesis.clientapp.model.terminal.binance_api.BinanceSymbolStatus;
 import vision.genesis.clientapp.model.terminal.binance_api.TickerPriceModel;
 import vision.genesis.clientapp.model.terminal.binance_socket.TickerModel;
 import vision.genesis.clientapp.net.ApiErrorResolver;
@@ -126,6 +130,8 @@ public class MarketWatchPresenter extends MvpPresenter<MarketWatchView> implemen
 
 	private boolean isWaitingForNewAccount = false;
 
+	private TradingAccountPermission currentMarket = TradingAccountPermission.SPOT;
+
 	@Override
 	protected void onFirstViewAttach() {
 		super.onFirstViewAttach();
@@ -140,6 +146,14 @@ public class MarketWatchPresenter extends MvpPresenter<MarketWatchView> implemen
 
 	@Override
 	public void onDestroy() {
+		unsubscribeAll();
+
+		EventBus.getDefault().unregister(this);
+
+		super.onDestroy();
+	}
+
+	private void unsubscribeAll() {
 		if (userSubscription != null) {
 			userSubscription.unsubscribe();
 		}
@@ -164,10 +178,6 @@ public class MarketWatchPresenter extends MvpPresenter<MarketWatchView> implemen
 		if (getBrokersSubscription != null) {
 			getBrokersSubscription.unsubscribe();
 		}
-
-		EventBus.getDefault().unregister(this);
-
-		super.onDestroy();
 	}
 
 	void onResume() {
@@ -186,6 +196,24 @@ public class MarketWatchPresenter extends MvpPresenter<MarketWatchView> implemen
 		if (tickersUpdateSubscription != null) {
 			tickersUpdateSubscription.unsubscribe();
 		}
+	}
+
+	void setCurrentMarket(String market) {
+		currentMarket = market.equals("spot") ? TradingAccountPermission.SPOT : TradingAccountPermission.FUTURES;
+		if (terminalManager != null) {
+			terminalManager.setCurrentMarket(currentMarket);
+			changeLists();
+			unsubscribeAll();
+			subscribeToUser();
+			subscribeToTickersUpdate();
+			getServerInfo();
+		}
+	}
+
+	private void changeLists() {
+		favoriteTickers = new ArrayList<>();
+		tickers = new HashMap<>();
+		getViewState().setCurrentMarket(currentMarket);
 	}
 
 	void onTickersMaskChanged(String mask) {
@@ -225,7 +253,7 @@ public class MarketWatchPresenter extends MvpPresenter<MarketWatchView> implemen
 
 	private void getAccounts() {
 		if (terminalManager != null) {
-			getAccountsSubscription = terminalManager.getAccountsFor(BrokerTradeServerType.BINANCE, TradingAccountPermission.SPOT)
+			getAccountsSubscription = terminalManager.getAccountsFor(BrokerTradeServerType.BINANCE, currentMarket)
 					.observeOn(AndroidSchedulers.mainThread())
 					.subscribeOn(Schedulers.io())
 					.subscribe(this::handleGetAccountsSuccess,
@@ -315,14 +343,30 @@ public class MarketWatchPresenter extends MvpPresenter<MarketWatchView> implemen
 		}
 	}
 
-	private void handleGetServerInfoSuccess(BinanceRawExchangeInfo info) {
-		serverInfoSubscription.unsubscribe();
-
-		tickers = new HashMap<>();
-
-		for (BinanceRawSymbol symbol : info.getSymbols()) {
-			if (symbol.getStatus() != null && symbol.getStatus().equals(BinanceSymbolStatus.TRADING)) {
-				tickers.put(symbol.getName(), MarketWatchTickerModel.from(symbol));
+	private void handleGetServerInfoSuccess(BinanceExchangeInfo info) {
+		if (currentMarket.equals(TradingAccountPermission.SPOT)) {
+			if (info.getSpotInfo() == null) {
+				return;
+			}
+			serverInfoSubscription.unsubscribe();
+			tickers = new HashMap<>();
+			for (BinanceRawSymbol symbol : info.getSpotInfo().getSymbols()) {
+				if (symbol.getStatus() != null && symbol.getStatus().equals(BinanceSymbolStatus.TRADING)) {
+					tickers.put(symbol.getName(), MarketWatchTickerModel.from(symbol));
+				}
+			}
+		}
+		else if (currentMarket.equals(TradingAccountPermission.FUTURES)) {
+			if (info.getFuturesInfo() == null) {
+				return;
+			}
+			serverInfoSubscription.unsubscribe();
+			tickers = new HashMap<>();
+			for (BinanceRawFuturesUsdtSymbol symbol : info.getFuturesInfo().getSymbols()) {
+				if (symbol.getStatus() != null && symbol.getStatus().equals(BinanceSymbolStatus.TRADING)
+						&& symbol.getQuoteAsset().equals("USDT") && symbol.getContractType().equals(BinanceContractType.PERPETUAL)) {
+					tickers.put(symbol.getName(), MarketWatchTickerModel.from(symbol));
+				}
 			}
 		}
 
@@ -355,19 +399,49 @@ public class MarketWatchPresenter extends MvpPresenter<MarketWatchView> implemen
 			if (tickersPricesSubscription != null) {
 				tickersPricesSubscription.unsubscribe();
 			}
-			tickersPricesSubscription = terminalManager.getTickersPrices()
-					.subscribeOn(Schedulers.io())
-					.observeOn(AndroidSchedulers.mainThread())
-					.subscribe(this::handleGetTickersPricesSuccess,
-							this::handleGetTickersPricesError);
+			if (currentMarket.equals(TradingAccountPermission.SPOT)) {
+				tickersPricesSubscription = terminalManager.getSpotTickersPrices()
+						.subscribeOn(Schedulers.io())
+						.observeOn(AndroidSchedulers.mainThread())
+						.subscribe(this::handleGetSpotTickersPricesSuccess,
+								this::handleGetTickersPricesError);
+			}
+			else if (currentMarket.equals(TradingAccountPermission.FUTURES)) {
+				tickersPricesSubscription = terminalManager.getFuturesTickersPrices()
+						.subscribeOn(Schedulers.io())
+						.observeOn(AndroidSchedulers.mainThread())
+						.subscribe(this::handleGetFuturesTickersPricesSuccess,
+								this::handleGetTickersPricesError);
+			}
 		}
 	}
 
-	private void handleGetTickersPricesSuccess(List<TickerPriceModel> response) {
+	private void handleGetSpotTickersPricesSuccess(List<BinanceRaw24HPrice> response) {
 		tickersPricesSubscription.unsubscribe();
 		getViewState().showProgress(false);
 
-		for (TickerPriceModel tickerPriceModel : response) {
+		List<TickerPriceModel> tickerPrices = new ArrayList<>();
+		for (BinanceRaw24HPrice model : response) {
+			tickerPrices.add(new TickerPriceModel(model.getSymbol(), model.getLastPrice()));
+		}
+
+		updatePrices(tickerPrices);
+	}
+
+	private void handleGetFuturesTickersPricesSuccess(List<BinanceRawFutures24HPrice> response) {
+		tickersPricesSubscription.unsubscribe();
+		getViewState().showProgress(false);
+
+		List<TickerPriceModel> tickerPrices = new ArrayList<>();
+		for (BinanceRawFutures24HPrice model : response) {
+			tickerPrices.add(new TickerPriceModel(model.getSymbol(), model.getLastPrice()));
+		}
+
+		updatePrices(tickerPrices);
+	}
+
+	private void updatePrices(List<TickerPriceModel> tickerPrices) {
+		for (TickerPriceModel tickerPriceModel : tickerPrices) {
 			updateLastPrice(tickers, tickerPriceModel);
 		}
 	}

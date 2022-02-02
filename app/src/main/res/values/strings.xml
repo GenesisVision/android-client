@@ -1139,6 +1139,8 @@
     <string name="select_type">Select type</string>
     <string name="order_by">Order by</string>
     <string name="start_trading_now">Start trading now</string>
+    <string name="spot">Spot</string>
+    <string name="futures">Futures</string>
 
     <plurals name="assets">
         <item quantity="one">asset</item>

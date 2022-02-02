@@ -5,6 +5,7 @@ import com.arellomobile.mvp.MvpView;
 import java.util.ArrayList;
 
 import io.swagger.client.model.ExchangeAsset;
+import io.swagger.client.model.TradingAccountPermission;
 import vision.genesis.clientapp.model.CreateAccountModel;
 import vision.genesis.clientapp.model.terminal.MarketWatchTickerModel;
 
@@ -23,6 +24,8 @@ interface MarketWatchView extends MvpView
 
 	void updateSorting(String currentSorting, int sortingDirection);
 
+	void setCurrentMarket(TradingAccountPermission currentMarket);
+
 	void showSelectAccount(ArrayList<ExchangeAsset> accounts);
 
 	void showCreateAccount(CreateAccountModel model);
@@ -40,4 +43,5 @@ interface MarketWatchView extends MvpView
 	void showProgress(boolean show);
 
 	void showSnackbarMessage(String message);
+
 }

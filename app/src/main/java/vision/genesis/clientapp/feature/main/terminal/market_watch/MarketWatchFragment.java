@@ -31,6 +31,7 @@ import com.google.android.material.tabs.TabLayout;
 import com.jakewharton.rxbinding.widget.RxTextView;
 
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.UUID;
 
 import butterknife.BindView;
@@ -39,6 +40,7 @@ import butterknife.OnClick;
 import butterknife.OnEditorAction;
 import butterknife.Unbinder;
 import io.swagger.client.model.ExchangeAsset;
+import io.swagger.client.model.TradingAccountPermission;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
 import vision.genesis.clientapp.feature.auth.login.LoginActivity;
@@ -61,10 +63,13 @@ public class MarketWatchFragment extends BaseFragment implements MarketWatchView
 {
 	private static final String EXTRA_ASSET_ID = "extra_asset_id";
 
-	public static MarketWatchFragment with(UUID assetId) {
+	private static final String EXTRA_ASSET_PERMISSIONS = "extra_asset_permissions";
+
+	public static MarketWatchFragment with(UUID assetId, ArrayList<String> permissions) {
 		MarketWatchFragment fragment = new MarketWatchFragment();
 		Bundle arguments = new Bundle(1);
 		arguments.putSerializable(EXTRA_ASSET_ID, assetId);
+		arguments.putStringArrayList(EXTRA_ASSET_PERMISSIONS, permissions);
 		fragment.setArguments(arguments);
 		return fragment;
 	}
@@ -74,6 +79,31 @@ public class MarketWatchFragment extends BaseFragment implements MarketWatchView
 
 	@BindView(R.id.button_back)
 	public View backButton;
+
+	private final TabLayout.OnTabSelectedListener tabSelectedListener = new TabLayout.OnTabSelectedListener()
+	{
+		@Override
+		public void onTabSelected(TabLayout.Tab tab) {
+			viewPager.setCurrentItem(tab.getPosition());
+			if (tab.getCustomView() != null && tab.getCustomView().getClass().equals(CustomTabView.class)) {
+				((CustomTabView) tab.getCustomView()).setSelectedState(true);
+			}
+		}
+
+		@Override
+		public void onTabUnselected(TabLayout.Tab tab) {
+			if (tab.getCustomView() != null && tab.getCustomView().getClass().equals(CustomTabView.class)) {
+				((CustomTabView) tab.getCustomView()).setSelectedState(false);
+			}
+		}
+
+		@Override
+		public void onTabReselected(TabLayout.Tab tab) {
+			if (tab.getCustomView() != null && tab.getCustomView().getClass().equals(CustomTabView.class)) {
+				((CustomTabView) tab.getCustomView()).setSelectedState(true);
+			}
+		}
+	};
 
 	@BindView(R.id.edittext_search)
 	public EditText searchEditText;
@@ -122,7 +152,10 @@ public class MarketWatchFragment extends BaseFragment implements MarketWatchView
 	@InjectPresenter
 	MarketWatchPresenter presenter;
 
-	private TabLayout.OnTabSelectedListener tabSelectedListener;
+	@BindView(R.id.tab_layout_top)
+	public TabLayout tabLayoutTop;
+
+	private TabLayout.OnTabSelectedListener topTabSelectedListener;
 
 	private TabLayout.TabLayoutOnPageChangeListener tabLayoutOnPageChangeListener;
 
@@ -184,15 +217,19 @@ public class MarketWatchFragment extends BaseFragment implements MarketWatchView
 
 		if (getArguments() != null) {
 			UUID assetId = (UUID) getArguments().getSerializable(EXTRA_ASSET_ID);
+			ArrayList<String> permissions = getArguments().getStringArrayList(EXTRA_ASSET_PERMISSIONS);
 			if (assetId != null) {
 				this.backButton.setVisibility(View.VISIBLE);
 			}
 		}
 
-		initViewPager();
-		initTabs();
+		tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+
+		initTabsTop();
 		setTextListener();
 		initSearchFragment();
+		initViewPager();
+		initSpotTabs();
 	}
 
 	private void initSearchFragment() {
@@ -222,7 +259,17 @@ public class MarketWatchFragment extends BaseFragment implements MarketWatchView
 			unbinder.unbind();
 			unbinder = null;
 		}
-		if (tabSelectedListener != null && tabLayout != null) {
+		if (topTabSelectedListener != null && tabLayoutTop != null) {
+			tabLayoutTop.removeOnTabSelectedListener(topTabSelectedListener);
+		}
+
+		clearTabs();
+
+		super.onDestroyView();
+	}
+
+	private void clearTabs() {
+		if (tabLayout != null) {
 			tabLayout.removeOnTabSelectedListener(tabSelectedListener);
 		}
 
@@ -235,8 +282,6 @@ public class MarketWatchFragment extends BaseFragment implements MarketWatchView
 		if (viewPager != null) {
 			viewPager.clearOnPageChangeListeners();
 		}
-
-		super.onDestroyView();
 	}
 
 	@Override
@@ -249,20 +294,17 @@ public class MarketWatchFragment extends BaseFragment implements MarketWatchView
 		presenter.onPause();
 	}
 
-	private void initTabs() {
-		TabLayout.Tab favoritesTab = tabLayout.newTab().setCustomView(getTabView(R.drawable.icon_favorite, 0)).setTag("favorites");
-		TabLayout.Tab btcTab = tabLayout.newTab().setCustomView(getTabView(0, R.string.btc)).setTag("btc");
-		TabLayout.Tab bnbTab = tabLayout.newTab().setCustomView(getTabView(0, R.string.bnb)).setTag("bnb");
-		TabLayout.Tab altsTab = tabLayout.newTab().setCustomView(getTabView(0, R.string.alts)).setTag("alts");
-		TabLayout.Tab fiatsTab = tabLayout.newTab().setCustomView(getTabView(0, R.string.fiats)).setTag("fiats");
+	private void initTabsTop() {
+		TabLayout.Tab spotTab = tabLayoutTop.newTab().setCustomView(getTabView(0, R.string.spot)).setTag("spot");
+		TabLayout.Tab futuresTab = tabLayoutTop.newTab().setCustomView(getTabView(0, R.string.futures)).setTag("futures");
 
-		tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+		tabLayoutTop.setTabGravity(TabLayout.GRAVITY_FILL);
 
-		tabSelectedListener = new TabLayout.OnTabSelectedListener()
+		topTabSelectedListener = new TabLayout.OnTabSelectedListener()
 		{
 			@Override
 			public void onTabSelected(TabLayout.Tab tab) {
-				viewPager.setCurrentItem(tab.getPosition());
+				presenter.setCurrentMarket(Objects.requireNonNull(tab.getTag()).toString());
 				if (tab.getCustomView() != null && tab.getCustomView().getClass().equals(CustomTabView.class)) {
 					((CustomTabView) tab.getCustomView()).setSelectedState(true);
 				}
@@ -283,6 +325,28 @@ public class MarketWatchFragment extends BaseFragment implements MarketWatchView
 			}
 		};
 
+		tabLayoutTop.addOnTabSelectedListener(topTabSelectedListener);
+
+		addTopTab(spotTab, true);
+		addTopTab(futuresTab, false);
+	}
+
+	private void addTopTab(TabLayout.Tab tab, boolean selected) {
+		if (tab.getPosition() != TabLayout.Tab.INVALID_POSITION) {
+			return;
+		}
+
+		tabLayoutTop.addTab(tab, selected);
+		TabLayoutUtil.wrapTabIndicatorToTitle(tabLayoutTop, 20, 10);
+	}
+
+	private void initSpotTabs() {
+		TabLayout.Tab favoritesTab = tabLayout.newTab().setCustomView(getTabView(R.drawable.icon_favorite, 0)).setTag("favorites");
+		TabLayout.Tab btcTab = tabLayout.newTab().setCustomView(getTabView(0, R.string.btc)).setTag("btc");
+		TabLayout.Tab bnbTab = tabLayout.newTab().setCustomView(getTabView(0, R.string.bnb)).setTag("bnb");
+		TabLayout.Tab altsTab = tabLayout.newTab().setCustomView(getTabView(0, R.string.alts)).setTag("alts");
+		TabLayout.Tab fiatsTab = tabLayout.newTab().setCustomView(getTabView(0, R.string.fiats)).setTag("fiats");
+
 		tabLayout.addOnTabSelectedListener(tabSelectedListener);
 
 		addPage(favoritesTab, false);
@@ -292,6 +356,15 @@ public class MarketWatchFragment extends BaseFragment implements MarketWatchView
 		addPage(fiatsTab, false);
 	}
 
+	private void initFuturesTabs() {
+		TabLayout.Tab favoritesTab = tabLayout.newTab().setCustomView(getTabView(R.drawable.icon_favorite, 0)).setTag("favorites");
+		TabLayout.Tab fiatsTab = tabLayout.newTab().setCustomView(getTabView(0, R.string.fiats)).setTag("fiats");
+
+		tabLayout.addOnTabSelectedListener(tabSelectedListener);
+
+		addPage(favoritesTab, false);
+		addPage(fiatsTab, true);
+	}
 
 	private View getTabView(int iconResId, int textResId) {
 		CustomTabView view = new CustomTabView(getContext());
@@ -373,6 +446,24 @@ public class MarketWatchFragment extends BaseFragment implements MarketWatchView
 			case SORTING_CHANGE:
 				selectSorting(textChange, sortChange, sortingDirection);
 				break;
+		}
+	}
+
+	@Override
+	public void setCurrentMarket(TradingAccountPermission currentMarket) {
+		pagerAdapter.clearFavorites();
+
+		if (tabLayout != null) {
+			clearTabs();
+			tabLayout.removeAllTabs();
+			initViewPager();
+		}
+
+		if (currentMarket.equals(TradingAccountPermission.SPOT)) {
+			initSpotTabs();
+		}
+		else if (currentMarket.equals(TradingAccountPermission.FUTURES)) {
+			initFuturesTabs();
 		}
 	}
 
