@@ -13,13 +13,20 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.inject.Inject;
 
+import io.swagger.client.model.BinanceFuturesMarginType;
 import io.swagger.client.model.BinanceOrderSide;
 import io.swagger.client.model.BinanceOrderType;
+import io.swagger.client.model.BinancePositionMode;
 import io.swagger.client.model.BinanceRawAccountInfo;
 import io.swagger.client.model.BinanceRawBinanceBalance;
+import io.swagger.client.model.BinanceRawFuturesBracket;
+import io.swagger.client.model.BinanceRawFuturesPosition;
+import io.swagger.client.model.BinanceRawFuturesPositionMode;
+import io.swagger.client.model.BinanceRawFuturesSymbolBracket;
 import io.swagger.client.model.BinanceRawPlaceOrder;
 import io.swagger.client.model.BinanceRawPlacedOrder;
 import io.swagger.client.model.BinanceRawSymbolLotSizeFilter;
@@ -32,6 +39,9 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import vision.genesis.clientapp.GenesisVisionApplication;
 import vision.genesis.clientapp.R;
+import vision.genesis.clientapp.feature.main.terminal.order_settings.SelectLeverageBottomSheetFragment;
+import vision.genesis.clientapp.feature.main.terminal.order_settings.SelectMarginTypeBottomSheetFragment;
+import vision.genesis.clientapp.feature.main.terminal.order_settings.SelectPositionModeBottomSheetFragment;
 import vision.genesis.clientapp.managers.TerminalManager;
 import vision.genesis.clientapp.model.BinanceExchangeInfo;
 import vision.genesis.clientapp.model.events.SetOpenOrdersCountEvent;
@@ -51,7 +61,7 @@ import vision.genesis.clientapp.utils.StringFormatUtil;
  */
 
 @InjectViewState
-public class PlaceOrderPresenter extends MvpPresenter<PlaceOrderView> implements MiniOrderBookView.OnPriceSelectedListener, SelectPercentView.OnPercentChangeListener
+public class PlaceOrderPresenter extends MvpPresenter<PlaceOrderView> implements MiniOrderBookView.OnPriceSelectedListener, SelectPercentView.OnPercentChangeListener, SelectMarginTypeBottomSheetFragment.OnMarginTypeSelectedListener, SelectPositionModeBottomSheetFragment.OnPositionModeSelectedListener, SelectLeverageBottomSheetFragment.OnLeverageSelectedListener
 {
 	private static final int ORDER_TYPE_MARKET = 0;
 
@@ -68,6 +78,10 @@ public class PlaceOrderPresenter extends MvpPresenter<PlaceOrderView> implements
 	private Subscription getSymbolInfoSubscription;
 
 	private Subscription getAccountInfoSubscription;
+
+	private Subscription getFuturesPositionInfoSubscription;
+
+	private Subscription getFuturesPositionModeSubscription;
 
 	private Subscription tickerUpdateSubscription;
 
@@ -119,6 +133,16 @@ public class PlaceOrderPresenter extends MvpPresenter<PlaceOrderView> implements
 
 	private TradingAccountPermission currentMarket = TradingAccountPermission.SPOT;
 
+	private BinanceRawFuturesPosition futuresPositionInfo;
+
+	private BinanceFuturesMarginType currentMarginType = BinanceFuturesMarginType.CROSS;
+
+	private Integer currentLeverage = 1;
+
+	private BinancePositionMode currentPositonMode = BinancePositionMode.ONEWAY;
+
+	private ArrayList<BinanceRawFuturesBracket> futuresBrackets = new ArrayList<>();
+
 	@Override
 	protected void onFirstViewAttach() {
 		super.onFirstViewAttach();
@@ -126,6 +150,8 @@ public class PlaceOrderPresenter extends MvpPresenter<PlaceOrderView> implements
 		GenesisVisionApplication.getComponent().inject(this);
 
 		EventBus.getDefault().register(this);
+
+		currentMarket = terminalManager.getCurrentMarket();
 
 		initOrderTypeOptions();
 		getAccountInfo();
@@ -142,6 +168,12 @@ public class PlaceOrderPresenter extends MvpPresenter<PlaceOrderView> implements
 		}
 		if (getAccountInfoSubscription != null) {
 			getAccountInfoSubscription.unsubscribe();
+		}
+		if (getFuturesPositionInfoSubscription != null) {
+			getFuturesPositionInfoSubscription.unsubscribe();
+		}
+		if (getFuturesPositionModeSubscription != null) {
+			getFuturesPositionModeSubscription.unsubscribe();
 		}
 		if (tickerUpdateSubscription != null) {
 			tickerUpdateSubscription.unsubscribe();
@@ -229,16 +261,12 @@ public class PlaceOrderPresenter extends MvpPresenter<PlaceOrderView> implements
 	private void handleGetSymbolInfoSuccess(BinanceExchangeInfo response) {
 		getSymbolInfoSubscription.unsubscribe();
 
-		currentMarket = terminalManager.getCurrentMarket();
-
-		if (currentMarket.equals(TradingAccountPermission.SPOT)) {
-			for (BinanceRawSymbol symbolInfo : terminalManager.getCurrentSymbolsShortened()) {
-				if (symbolInfo.getName().equals(symbol)) {
-					this.symbolInfo = symbolInfo;
-					setPriceFilter(symbolInfo.getPriceFilter());
-					setLotFilter(symbolInfo.getLotSizeFilter());
-					break;
-				}
+		for (BinanceRawSymbol symbolInfo : terminalManager.getCurrentSymbolsShortened()) {
+			if (symbolInfo.getName().equals(symbol)) {
+				this.symbolInfo = symbolInfo;
+				setPriceFilter(symbolInfo.getPriceFilter());
+				setLotFilter(symbolInfo.getLotSizeFilter());
+				break;
 			}
 		}
 	}
@@ -364,11 +392,97 @@ public class PlaceOrderPresenter extends MvpPresenter<PlaceOrderView> implements
 		getAccountInfoSubscription.unsubscribe();
 
 		this.accountInfo = response;
+		if (currentMarket.equals(TradingAccountPermission.FUTURES)) {
+			getFuturesPositionInfo();
+			getFuturesPositionMode();
+		}
 		updateAvailable();
 	}
 
 	private void handleGetAccountInfoError(Throwable throwable) {
 		getAccountInfoSubscription.unsubscribe();
+
+		ApiErrorResolver.resolveErrors(throwable, message -> getViewState().showSnackbarMessage(message));
+	}
+
+	private void getFuturesPositionInfo() {
+		if (terminalManager != null && selectedAccount != null) {
+			if (getFuturesPositionInfoSubscription != null) {
+				getFuturesPositionInfoSubscription.unsubscribe();
+			}
+			getFuturesPositionInfoSubscription = terminalManager.getFuturesPositionInfo(selectedAccount.getId(), symbol)
+					.observeOn(AndroidSchedulers.mainThread())
+					.subscribeOn(Schedulers.io())
+					.subscribe(this::handleGetFuturesPositionInfoSuccess,
+							this::handleGetFuturesPositionInfoError);
+		}
+	}
+
+	private void handleGetFuturesPositionInfoSuccess(List<BinanceRawFuturesPosition> response) {
+		getFuturesPositionInfoSubscription.unsubscribe();
+
+		if (response != null && !response.isEmpty()) {
+			futuresPositionInfo = response.get(0);
+			getFuturesBrackets();
+			onMarginTypeSelected(futuresPositionInfo.getMarginType());
+			onLeverageSelected(futuresPositionInfo.getLeverage());
+		}
+	}
+
+	private void handleGetFuturesPositionInfoError(Throwable throwable) {
+		getFuturesPositionInfoSubscription.unsubscribe();
+
+		ApiErrorResolver.resolveErrors(throwable, message -> getViewState().showSnackbarMessage(message));
+	}
+
+	private void getFuturesBrackets() {
+		if (terminalManager != null && selectedAccount != null) {
+			if (getFuturesPositionInfoSubscription != null) {
+				getFuturesPositionInfoSubscription.unsubscribe();
+			}
+			getFuturesPositionInfoSubscription = terminalManager.getFuturesBrackets(selectedAccount.getId(), symbol)
+					.observeOn(AndroidSchedulers.mainThread())
+					.subscribeOn(Schedulers.io())
+					.subscribe(this::handleGetFuturesBracketsSuccess,
+							this::handleGetFuturesBracketsError);
+		}
+	}
+
+	private void handleGetFuturesBracketsSuccess(List<BinanceRawFuturesSymbolBracket> response) {
+		getFuturesPositionInfoSubscription.unsubscribe();
+
+		if (response != null && !response.isEmpty()) {
+			futuresBrackets = new ArrayList<>(response.get(0).getBrackets());
+		}
+	}
+
+	private void handleGetFuturesBracketsError(Throwable throwable) {
+		getFuturesPositionInfoSubscription.unsubscribe();
+
+		ApiErrorResolver.resolveErrors(throwable, message -> getViewState().showSnackbarMessage(message));
+	}
+
+	private void getFuturesPositionMode() {
+		if (terminalManager != null && selectedAccount != null) {
+			if (getFuturesPositionModeSubscription != null) {
+				getFuturesPositionModeSubscription.unsubscribe();
+			}
+			getFuturesPositionModeSubscription = terminalManager.getFuturesPositionMode(selectedAccount.getId())
+					.observeOn(AndroidSchedulers.mainThread())
+					.subscribeOn(Schedulers.io())
+					.subscribe(this::handleGetFuturesPositionModeSuccess,
+							this::handleGetFuturesPositionModeError);
+		}
+	}
+
+	private void handleGetFuturesPositionModeSuccess(BinanceRawFuturesPositionMode response) {
+		getFuturesPositionModeSubscription.unsubscribe();
+
+		onPositionModeSelected(response.getPositionMode());
+	}
+
+	private void handleGetFuturesPositionModeError(Throwable throwable) {
+		getFuturesPositionModeSubscription.unsubscribe();
 
 		ApiErrorResolver.resolveErrors(throwable, message -> getViewState().showSnackbarMessage(message));
 	}
@@ -679,5 +793,35 @@ public class PlaceOrderPresenter extends MvpPresenter<PlaceOrderView> implements
 	@Subscribe
 	public void onEventMainThread(SetTradeHistoryCountEvent event) {
 		getViewState().setTradeHistoryCount(event.getCount());
+	}
+
+	void onMarginTypeClicked() {
+		getViewState().showSelectMarginTypeActivity(selectedAccount.getId(), symbol, currentMarginType);
+	}
+
+	void onLeverageClicked() {
+		getViewState().showSelectLeverageActivity(selectedAccount.getId(), symbol, currentLeverage, futuresBrackets);
+	}
+
+	void onPositionModeClicked() {
+		getViewState().showSelectPositionModeActivity(selectedAccount.getId(), currentPositonMode);
+	}
+
+	@Override
+	public void onMarginTypeSelected(BinanceFuturesMarginType marginType) {
+		this.currentMarginType = marginType;
+		getViewState().setMarginType(currentMarginType.getValue());
+	}
+
+	@Override
+	public void onLeverageSelected(Integer leverage) {
+		this.currentLeverage = leverage;
+		getViewState().setLeverage(currentLeverage);
+	}
+
+	@Override
+	public void onPositionModeSelected(BinancePositionMode positionMode) {
+		this.currentPositonMode = positionMode;
+		getViewState().setPositionMode(positionMode.getValue());
 	}
 }

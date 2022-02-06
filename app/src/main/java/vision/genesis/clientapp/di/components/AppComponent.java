@@ -155,6 +155,9 @@ import vision.genesis.clientapp.feature.main.terminal.market_watch.MarketWatchPr
 import vision.genesis.clientapp.feature.main.terminal.open_orders.OpenOrdersPresenter;
 import vision.genesis.clientapp.feature.main.terminal.order_book.OrderBookView;
 import vision.genesis.clientapp.feature.main.terminal.order_history.OrderHistoryPresenter;
+import vision.genesis.clientapp.feature.main.terminal.order_settings.SelectLeverageBottomSheetFragment;
+import vision.genesis.clientapp.feature.main.terminal.order_settings.SelectMarginTypeBottomSheetFragment;
+import vision.genesis.clientapp.feature.main.terminal.order_settings.SelectPositionModeBottomSheetFragment;
 import vision.genesis.clientapp.feature.main.terminal.place_order.PlaceOrderPresenter;
 import vision.genesis.clientapp.feature.main.terminal.symbol_watch.SymbolWatchView;
 import vision.genesis.clientapp.feature.main.terminal.tradingview_chart.ChartView;
@@ -609,4 +612,10 @@ public interface AppComponent
 	void inject(ExchangeSettingsPresenter exchangeSettingsPresenter);
 
 	void inject(vision.genesis.clientapp.feature.main.terminal.market_watch.activity.MarketWatchPresenter marketWatchPresenter);
+
+	void inject(SelectMarginTypeBottomSheetFragment selectMarginTypeBottomSheetFragment);
+
+	void inject(SelectPositionModeBottomSheetFragment selectPositionModeBottomSheetFragment);
+
+	void inject(SelectLeverageBottomSheetFragment selectLeverageBottomSheetFragment);
 }

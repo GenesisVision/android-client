@@ -1141,6 +1141,21 @@
     <string name="start_trading_now">Start trading now</string>
     <string name="spot">Spot</string>
     <string name="futures">Futures</string>
+    <string name="template_margin_mode">%s margin mode</string>
+    <string name="cross">Cross</string>
+    <string name="isolated">Isolated</string>
+    <string name="margin_mode_warning">· Switching the margin mode will only apply it to the selected contract.</string>
+    <string name="margin_mode_bottom_title">What are Cross and Isolated modes?</string>
+    <string name="margin_mode_bottom_text">Share your margin balance across all open positions to avoid liquidation. In the event of liquidation you risk losing your full margin balance along with any remaining open positions. Isolated Margin Mode. Manage your risk on individual positions by restricting the amount of margin allocated to each. If the margin ratio of a position reached 100%, the position will be liquidated. Margin can be added or removed to positions using this mode.</string>
+    <string name="position_mode">Position mode</string>
+    <string name="position_mode_warning">If there are open positions or open orders in the contract, you are not allowed to adjust the position mode. Position mode adjustments are effective for all contracts.</string>
+    <string name="position_mode_warning_2">This setting only applies to USDⓈ-M Futures.</string>
+    <string name="one_way_mode_description">In the One-way Mode, one contract can only hold positions in one direction.</string>
+    <string name="one_way_mode">One-way mode</string>
+    <string name="hedge_mode">Hedge mode</string>
+    <string name="hedge_mode_description">In the Hedge Mode, one contract can hold positions in both long and short directions at the same time, and hedge positions in different directions under the same contract.</string>
+    <string name="adjust_leverage">Adjust leverage</string>
+    <string name="template_adjust_leverage_warning">Maximum position at current leverage: %s</string>
 
     <plurals name="assets">
         <item quantity="one">asset</item>

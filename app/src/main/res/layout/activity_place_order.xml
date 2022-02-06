@@ -103,6 +103,63 @@
                             android:layout_weight="3"
                             android:orientation="vertical">
 
+                            <com.google.android.flexbox.FlexboxLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                app:flexWrap="wrap">
+
+                                <TextView
+                                    android:id="@+id/margin_type"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginEnd="8dp"
+                                    android:layout_marginBottom="8dp"
+                                    android:background="@drawable/background_futures_settings"
+                                    android:fontFamily="@font/montserrat"
+                                    android:paddingStart="8dp"
+                                    android:paddingTop="4dp"
+                                    android:paddingEnd="8dp"
+                                    android:paddingBottom="4dp"
+                                    android:textColor="?attr/colorTextPrimary"
+                                    android:textSize="12sp"
+                                    tools:text="Isolated"/>
+
+                                <TextView
+                                    android:id="@+id/leverage"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginEnd="8dp"
+                                    android:layout_marginBottom="8dp"
+                                    android:background="@drawable/background_futures_settings"
+                                    android:fontFamily="@font/montserrat"
+                                    android:paddingStart="8dp"
+                                    android:paddingTop="4dp"
+                                    android:paddingEnd="8dp"
+                                    android:paddingBottom="4dp"
+                                    android:textColor="?attr/colorTextPrimary"
+                                    android:textSize="12sp"
+                                    tools:text="125x"/>
+
+                                <TextView
+                                    android:id="@+id/position_mode"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginEnd="8dp"
+                                    android:layout_marginBottom="8dp"
+                                    android:background="@drawable/background_futures_settings"
+                                    android:fontFamily="@font/montserrat"
+                                    android:paddingStart="8dp"
+                                    android:paddingTop="4dp"
+                                    android:paddingEnd="8dp"
+                                    android:paddingBottom="4dp"
+                                    android:textColor="?attr/colorTextPrimary"
+                                    android:textSize="12sp"
+                                    tools:text="Hedge mode"/>
+
+
+                            </com.google.android.flexbox.FlexboxLayout>
+
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"

@@ -21,17 +21,24 @@ import com.google.android.material.tabs.TabLayout;
 import com.jakewharton.rxbinding.widget.RxTextView;
 
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.UUID;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.OnFocusChange;
+import io.swagger.client.model.BinanceFuturesMarginType;
+import io.swagger.client.model.BinancePositionMode;
+import io.swagger.client.model.BinanceRawFuturesBracket;
 import io.swagger.client.model.ExchangeAsset;
 import timber.log.Timber;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseSwipeBackActivity;
 import vision.genesis.clientapp.feature.common.option.SelectOptionBottomSheetFragment;
+import vision.genesis.clientapp.feature.main.terminal.order_settings.SelectLeverageBottomSheetFragment;
+import vision.genesis.clientapp.feature.main.terminal.order_settings.SelectMarginTypeBottomSheetFragment;
+import vision.genesis.clientapp.feature.main.terminal.order_settings.SelectPositionModeBottomSheetFragment;
 import vision.genesis.clientapp.ui.CustomTabView;
 import vision.genesis.clientapp.ui.PrimaryButton;
 import vision.genesis.clientapp.ui.SelectPercentView;
@@ -74,6 +81,16 @@ public class PlaceOrderActivity extends BaseSwipeBackActivity implements PlaceOr
 
 	@BindView(R.id.quote_asset)
 	public TextView quoteAsset;
+
+
+	@BindView(R.id.margin_type)
+	public TextView marginType;
+
+	@BindView(R.id.leverage)
+	public TextView leverage;
+
+	@BindView(R.id.position_mode)
+	public TextView positionMode;
 
 
 	@BindView(R.id.button_select_buy)
@@ -199,6 +216,21 @@ public class PlaceOrderActivity extends BaseSwipeBackActivity implements PlaceOr
 	@OnClick(R.id.button_back)
 	public void onBackClicked() {
 		finishActivity();
+	}
+
+	@OnClick(R.id.margin_type)
+	public void onMarginTypeClicked() {
+		presenter.onMarginTypeClicked();
+	}
+
+	@OnClick(R.id.leverage)
+	public void onLeverageClicked() {
+		presenter.onLeverageClicked();
+	}
+
+	@OnClick(R.id.position_mode)
+	public void onPositionModeClicked() {
+		presenter.onPositionModeClicked();
 	}
 
 	@OnClick(R.id.button_select_buy)
@@ -586,6 +618,42 @@ public class PlaceOrderActivity extends BaseSwipeBackActivity implements PlaceOr
 	@Override
 	public void setTradeHistoryCount(Integer count) {
 		((CustomTabView) tradesHistoryTab.getCustomView()).setCount(count);
+	}
+
+	@Override
+	public void showSelectMarginTypeActivity(UUID accountId, String symbol, BinanceFuturesMarginType currentMarginType) {
+		SelectMarginTypeBottomSheetFragment fragment = SelectMarginTypeBottomSheetFragment.with(accountId, symbol, currentMarginType);
+		fragment.setListener(presenter);
+		fragment.show(getSupportFragmentManager(), fragment.getTag());
+	}
+
+	@Override
+	public void showSelectLeverageActivity(UUID accountId, String symbol, Integer currentLeverage, ArrayList<BinanceRawFuturesBracket> brackets) {
+		SelectLeverageBottomSheetFragment fragment = SelectLeverageBottomSheetFragment.with(accountId, symbol, currentLeverage, brackets);
+		fragment.setListener(presenter);
+		fragment.show(getSupportFragmentManager(), fragment.getTag());
+	}
+
+	@Override
+	public void showSelectPositionModeActivity(UUID accountId, BinancePositionMode currentPositionMode) {
+		SelectPositionModeBottomSheetFragment fragment = SelectPositionModeBottomSheetFragment.with(accountId, currentPositionMode);
+		fragment.setListener(presenter);
+		fragment.show(getSupportFragmentManager(), fragment.getTag());
+	}
+
+	@Override
+	public void setMarginType(String marginType) {
+		this.marginType.setText(marginType);
+	}
+
+	@Override
+	public void setLeverage(Integer leverage) {
+		this.leverage.setText(String.format(Locale.getDefault(), "%dx", leverage));
+	}
+
+	@Override
+	public void setPositionMode(String positionMode) {
+		this.positionMode.setText(positionMode);
 	}
 
 	public void showSnackbarMessage(String message) {

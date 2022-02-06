@@ -23,15 +23,22 @@ import io.swagger.client.api.DashboardApi;
 import io.swagger.client.api.ExchangesApi;
 import io.swagger.client.api.TradingplatformApi;
 import io.swagger.client.model.BinanceExecutionType;
+import io.swagger.client.model.BinanceFuturesMarginType;
 import io.swagger.client.model.BinanceKlineInterval;
 import io.swagger.client.model.BinanceOrderSide;
 import io.swagger.client.model.BinanceOrderStatus;
 import io.swagger.client.model.BinanceOrderType;
+import io.swagger.client.model.BinancePositionMode;
 import io.swagger.client.model.BinanceRaw24HPrice;
 import io.swagger.client.model.BinanceRawAccountInfo;
 import io.swagger.client.model.BinanceRawCancelOrder;
 import io.swagger.client.model.BinanceRawExchangeInfo;
 import io.swagger.client.model.BinanceRawFutures24HPrice;
+import io.swagger.client.model.BinanceRawFuturesChangeMarginTypeResult;
+import io.swagger.client.model.BinanceRawFuturesInitialLeverageChangeResult;
+import io.swagger.client.model.BinanceRawFuturesPosition;
+import io.swagger.client.model.BinanceRawFuturesPositionMode;
+import io.swagger.client.model.BinanceRawFuturesSymbolBracket;
 import io.swagger.client.model.BinanceRawFuturesUsdtExchangeInfo;
 import io.swagger.client.model.BinanceRawFuturesUsdtSymbol;
 import io.swagger.client.model.BinanceRawKlineItemsViewModel;
@@ -386,6 +393,30 @@ public class TerminalManager
 
 	public Observable<BinanceRawCancelOrder> cancelOrder(BinanceRawOrder order) {
 		return tradingplatformApi.cancelOrder(order.getAccountId(), order.getSymbol(), String.valueOf(order.getOrderId()));
+	}
+
+	public Observable<List<BinanceRawFuturesPosition>> getFuturesPositionInfo(UUID accountId, String symbol) {
+		return tradingplatformApi.getFuturesPositionInformation(accountId, symbol);
+	}
+
+	public Observable<List<BinanceRawFuturesSymbolBracket>> getFuturesBrackets(UUID accountId, String symbol) {
+		return tradingplatformApi.getFuturesBrackets(accountId, symbol);
+	}
+
+	public Observable<BinanceRawFuturesPositionMode> getFuturesPositionMode(UUID accountId) {
+		return tradingplatformApi.getFuturesPositionMode(accountId);
+	}
+
+	public Observable<BinanceRawFuturesChangeMarginTypeResult> changeFuturesMarginType(UUID accountId, String symbol, BinanceFuturesMarginType marginType) {
+		return tradingplatformApi.changeFuturesMarginType(accountId, symbol, marginType);
+	}
+
+	public Observable<BinanceRawFuturesInitialLeverageChangeResult> changeFuturesLeverage(UUID accountId, String symbol, Integer leverage) {
+		return tradingplatformApi.changeFuturesInitialLeverageAsync(accountId, symbol, leverage);
+	}
+
+	public Observable<Void> changeFuturesPositionMode(UUID accountId, BinancePositionMode positionMode) {
+		return tradingplatformApi.setFuturesPositionMode(accountId, positionMode);
 	}
 
 

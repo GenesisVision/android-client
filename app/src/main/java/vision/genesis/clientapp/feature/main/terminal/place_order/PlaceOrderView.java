@@ -3,6 +3,11 @@ package vision.genesis.clientapp.feature.main.terminal.place_order;
 import com.arellomobile.mvp.MvpView;
 
 import java.util.ArrayList;
+import java.util.UUID;
+
+import io.swagger.client.model.BinanceFuturesMarginType;
+import io.swagger.client.model.BinancePositionMode;
+import io.swagger.client.model.BinanceRawFuturesBracket;
 
 /**
  * GenesisVisionAndroid
@@ -69,4 +74,17 @@ interface PlaceOrderView extends MvpView
 	void setOrderHistoryCount(Integer count);
 
 	void setTradeHistoryCount(Integer count);
+
+
+	void showSelectMarginTypeActivity(UUID accountId, String symbol, BinanceFuturesMarginType currentMarginType);
+
+	void showSelectLeverageActivity(UUID accountId, String symbol, Integer currentLeverage, ArrayList<BinanceRawFuturesBracket> brackets);
+
+	void showSelectPositionModeActivity(UUID accountId, BinancePositionMode currentPositionMode);
+
+	void setMarginType(String marginType);
+
+	void setLeverage(Integer leverage);
+
+	void setPositionMode(String positionMode);
 }
