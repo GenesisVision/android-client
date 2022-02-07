@@ -105,6 +105,9 @@
 
                             <com.google.android.flexbox.FlexboxLayout
                                 android:layout_width="match_parent"
+                                android:id="@+id/group_order_settings"
+                                android:visibility="gone"
+                                tools:visibility="visible"
                                 android:layout_height="wrap_content"
                                 android:orientation="horizontal"
                                 app:flexWrap="wrap">
@@ -255,6 +258,7 @@
 
                             </RelativeLayout>
 
+
                             <RelativeLayout
                                 android:id="@+id/group_price"
                                 android:layout_width="match_parent"
@@ -298,46 +302,84 @@
 
                             </RelativeLayout>
 
+
                             <RelativeLayout
-                                android:id="@+id/group_stop"
                                 android:layout_width="match_parent"
                                 android:layout_height="30dp"
-                                android:layout_marginTop="8dp"
-                                android:background="?attr/colorCard">
+                                android:layout_marginTop="8dp">
 
-                                <EditText
-                                    android:id="@+id/edittext_stop"
-                                    android:layout_width="wrap_content"
+                                <RelativeLayout
+                                    android:id="@+id/group_stop"
+                                    android:layout_width="match_parent"
                                     android:layout_height="match_parent"
-                                    android:layout_centerInParent="true"
-                                    android:background="@android:color/transparent"
-                                    android:fontFamily="@font/montserrat_medium"
-                                    android:gravity="center"
-                                    android:hint="@string/stop"
-                                    android:inputType="numberDecimal"
-                                    android:maxLines="1"
-                                    android:textColor="?attr/colorTextPrimary"
-                                    android:textColorHint="?attr/colorTextSecondary"
-                                    android:textSize="12sp"
-                                    tools:text=""/>
+                                    android:layout_toStartOf="@+id/group_working_type"
+                                    android:background="?attr/colorCard">
 
-                                <TextView
-                                    android:id="@+id/stop_currency"
-                                    android:layout_width="wrap_content"
+                                    <EditText
+                                        android:id="@+id/edittext_stop"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="match_parent"
+                                        android:layout_centerInParent="true"
+                                        android:background="@android:color/transparent"
+                                        android:fontFamily="@font/montserrat_medium"
+                                        android:gravity="center"
+                                        android:hint="@string/stop"
+                                        android:inputType="numberDecimal"
+                                        android:maxLines="1"
+                                        android:textColor="?attr/colorTextPrimary"
+                                        android:textColorHint="?attr/colorTextSecondary"
+                                        android:textSize="12sp"
+                                        tools:text=""/>
+
+                                    <TextView
+                                        android:id="@+id/stop_currency"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="match_parent"
+                                        android:layout_alignParentEnd="true"
+                                        android:layout_centerVertical="true"
+                                        android:layout_marginStart="4dp"
+                                        android:background="?attr/colorCard"
+                                        android:ellipsize="end"
+                                        android:fontFamily="@font/montserrat_semibold"
+                                        android:gravity="center"
+                                        android:maxLines="1"
+                                        android:paddingEnd="10dp"
+                                        android:textAllCaps="true"
+                                        android:textColor="?attr/colorTextSecondary"
+                                        android:textSize="10sp"
+                                        tools:text="USDT"/>
+
+                                </RelativeLayout>
+
+                                <LinearLayout
+                                    android:id="@+id/group_working_type"
+                                    android:layout_width="60dp"
                                     android:layout_height="match_parent"
                                     android:layout_alignParentEnd="true"
-                                    android:layout_centerVertical="true"
                                     android:layout_marginStart="4dp"
                                     android:background="?attr/colorCard"
-                                    android:ellipsize="end"
-                                    android:fontFamily="@font/montserrat_semibold"
                                     android:gravity="center"
-                                    android:maxLines="1"
-                                    android:paddingEnd="10dp"
-                                    android:textAllCaps="true"
-                                    android:textColor="?attr/colorTextSecondary"
-                                    android:textSize="10sp"
-                                    tools:text="USDT"/>
+                                    android:orientation="horizontal"
+                                    android:visibility="gone"
+                                    tools:visibility="visible">
+
+                                    <TextView
+                                        android:id="@+id/working_type"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:fontFamily="@font/montserrat_medium"
+                                        android:textColor="?attr/colorTextPrimary"
+                                        android:textSize="12sp"
+                                        tools:text="Last"/>
+
+                                    <ImageView
+                                        android:layout_width="12dp"
+                                        android:layout_height="12dp"
+                                        android:layout_gravity="center_vertical"
+                                        android:layout_marginStart="6dp"
+                                        android:src="@drawable/dropdown_icon"/>
+
+                                </LinearLayout>
 
                             </RelativeLayout>
 
@@ -504,6 +546,19 @@
                                     tools:text="USDT"/>
 
                             </RelativeLayout>
+
+                            <androidx.appcompat.widget.AppCompatCheckBox
+                                android:id="@+id/reduce_only"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="4dp"
+                                android:fontFamily="@font/montserrat"
+                                android:text="@string/reduce_only"
+                                android:textColor="?attr/colorTextPrimary"
+                                android:textSize="12sp"
+
+                                android:visibility="gone"
+                                tools:visibility="visible"/>
 
                             <RelativeLayout
                                 android:layout_width="match_parent"

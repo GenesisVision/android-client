@@ -1,6 +1,6 @@
 package vision.genesis.clientapp.model.events;
 
-import io.swagger.client.model.BinanceRawOrder;
+import vision.genesis.clientapp.model.terminal.binance_api.BinanceOrder;
 
 /**
  * GenesisVisionAndroid
@@ -8,13 +8,13 @@ import io.swagger.client.model.BinanceRawOrder;
  */
 public class OnOrderCloseClickedEvent
 {
-	private BinanceRawOrder order;
+	private BinanceOrder order;
 
-	public OnOrderCloseClickedEvent(BinanceRawOrder order) {
+	public OnOrderCloseClickedEvent(BinanceOrder order) {
 		this.order = order;
 	}
 
-	public BinanceRawOrder getOrder() {
+	public BinanceOrder getOrder() {
 		return order;
 	}
 }

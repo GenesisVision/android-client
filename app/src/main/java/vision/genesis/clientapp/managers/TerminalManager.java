@@ -29,20 +29,25 @@ import io.swagger.client.model.BinanceOrderSide;
 import io.swagger.client.model.BinanceOrderStatus;
 import io.swagger.client.model.BinanceOrderType;
 import io.swagger.client.model.BinancePositionMode;
+import io.swagger.client.model.BinancePositionSide;
 import io.swagger.client.model.BinanceRaw24HPrice;
 import io.swagger.client.model.BinanceRawAccountInfo;
 import io.swagger.client.model.BinanceRawCancelOrder;
 import io.swagger.client.model.BinanceRawExchangeInfo;
 import io.swagger.client.model.BinanceRawFutures24HPrice;
+import io.swagger.client.model.BinanceRawFuturesAccountInfo;
+import io.swagger.client.model.BinanceRawFuturesCancelOrder;
 import io.swagger.client.model.BinanceRawFuturesChangeMarginTypeResult;
 import io.swagger.client.model.BinanceRawFuturesInitialLeverageChangeResult;
+import io.swagger.client.model.BinanceRawFuturesOrderItemsViewModel;
+import io.swagger.client.model.BinanceRawFuturesPlaceOrder;
+import io.swagger.client.model.BinanceRawFuturesPlacedOrder;
 import io.swagger.client.model.BinanceRawFuturesPosition;
 import io.swagger.client.model.BinanceRawFuturesPositionMode;
 import io.swagger.client.model.BinanceRawFuturesSymbolBracket;
 import io.swagger.client.model.BinanceRawFuturesUsdtExchangeInfo;
 import io.swagger.client.model.BinanceRawFuturesUsdtSymbol;
 import io.swagger.client.model.BinanceRawKlineItemsViewModel;
-import io.swagger.client.model.BinanceRawOrder;
 import io.swagger.client.model.BinanceRawOrderItemsViewModel;
 import io.swagger.client.model.BinanceRawPlaceOrder;
 import io.swagger.client.model.BinanceRawPlacedOrder;
@@ -70,14 +75,16 @@ import timber.log.Timber;
 import vision.genesis.clientapp.BuildConfig;
 import vision.genesis.clientapp.model.BinanceExchangeInfo;
 import vision.genesis.clientapp.model.DateRange;
+import vision.genesis.clientapp.model.terminal.binance_api.BinanceOrder;
 import vision.genesis.clientapp.model.terminal.binance_api.BinanceRawSymbol;
 import vision.genesis.clientapp.model.terminal.binance_api.DepthListModel;
 import vision.genesis.clientapp.model.terminal.binance_api.TradeModel;
-import vision.genesis.clientapp.model.terminal.binance_socket.AccountModel;
 import vision.genesis.clientapp.model.terminal.binance_socket.DepthUpdateModel;
+import vision.genesis.clientapp.model.terminal.binance_socket.FuturesAccountModel;
 import vision.genesis.clientapp.model.terminal.binance_socket.KlineModel;
 import vision.genesis.clientapp.model.terminal.binance_socket.KlinePayloadModel;
 import vision.genesis.clientapp.model.terminal.binance_socket.NewTradeModel;
+import vision.genesis.clientapp.model.terminal.binance_socket.SpotAccountModel;
 import vision.genesis.clientapp.model.terminal.binance_socket.TickerModel;
 import vision.genesis.clientapp.net.api.BinanceApi;
 import vision.genesis.clientapp.utils.BinanceKlineIntervalUtil;
@@ -137,7 +144,9 @@ public class TerminalManager
 
 	private HashMap<String, BehaviorSubject<NewTradeModel>> tradeSubjectsMap = new HashMap<>();
 
-	private HashMap<UUID, BehaviorSubject<AccountModel>> accountSubjectsMap = new HashMap<>();
+	private HashMap<UUID, BehaviorSubject<SpotAccountModel>> spotAccountSubjectsMap = new HashMap<>();
+
+	private HashMap<UUID, BehaviorSubject<FuturesAccountModel>> futuresAccountSubjectsMap = new HashMap<>();
 
 	private HashMap<String, WebSocket> sockets = new HashMap<>();
 
@@ -308,12 +317,24 @@ public class TerminalManager
 		return tradingplatformApi.getAccountInfo(accountId, Currency.fromValue(currency));
 	}
 
-	public Observable<BinanceRawOrderItemsViewModel> getOpenOrders(UUID accountId) {
+	public Observable<BinanceRawFuturesAccountInfo> getFuturesAccountInfo(UUID accountId) {
+		return tradingplatformApi.getFuturesAccountInfo(accountId);
+	}
+
+	public Observable<BinanceRawOrderItemsViewModel> getSpotOpenOrders(UUID accountId) {
 		return tradingplatformApi.getOpenOrders(accountId);
 	}
 
-	public Observable<BinanceRawOrderItemsViewModel> getOrderHistory(@NonNull UUID accountId, TradingPlatformBinanceOrdersMode mode, @NonNull DateRange dateRange, String symbol, int skip, int take) {
+	public Observable<BinanceRawFuturesOrderItemsViewModel> getFuturesOpenOrders(UUID accountId) {
+		return tradingplatformApi.getFuturesOpenOrders(accountId);
+	}
+
+	public Observable<BinanceRawOrderItemsViewModel> getSpotOrderHistory(@NonNull UUID accountId, TradingPlatformBinanceOrdersMode mode, @NonNull DateRange dateRange, String symbol, int skip, int take) {
 		return tradingplatformApi.getTradesHistory(accountId, mode, dateRange.getFrom(), dateRange.getSelectedRange().equals(DateRange.DateRangeEnum.CUSTOM) ? dateRange.getTo() : null, symbol, skip, take);
+	}
+
+	public Observable<BinanceRawFuturesOrderItemsViewModel> getFuturesOrderHistory(@NonNull UUID accountId, TradingPlatformBinanceOrdersMode mode, @NonNull DateRange dateRange, String symbol, int skip, int take) {
+		return tradingplatformApi.getFuturesTradesHistory(accountId, mode, dateRange.getFrom(), dateRange.getSelectedRange().equals(DateRange.DateRangeEnum.CUSTOM) ? dateRange.getTo() : null, symbol, skip, take);
 	}
 
 	public Observable<BinanceRawKlineItemsViewModel> getKlineData(String symbol, BinanceKlineInterval interval, DateTime startTime, DateTime endTime, Integer limit) {
@@ -387,12 +408,20 @@ public class TerminalManager
 		return binanceApi.getDepth(symbol, limit);
 	}
 
-	public Observable<BinanceRawPlacedOrder> placeOrder(BinanceRawPlaceOrder body, UUID accountId) {
+	public Observable<BinanceRawPlacedOrder> placeSpotOrder(BinanceRawPlaceOrder body, UUID accountId) {
 		return tradingplatformApi.placeOrder(body, accountId);
 	}
 
-	public Observable<BinanceRawCancelOrder> cancelOrder(BinanceRawOrder order) {
+	public Observable<BinanceRawFuturesPlacedOrder> placeFuturesOrder(BinanceRawFuturesPlaceOrder body, UUID accountId) {
+		return tradingplatformApi.futuresPlaceOrder(body, accountId);
+	}
+
+	public Observable<BinanceRawCancelOrder> cancelSpotOrder(BinanceOrder order) {
 		return tradingplatformApi.cancelOrder(order.getAccountId(), order.getSymbol(), String.valueOf(order.getOrderId()));
+	}
+
+	public Observable<BinanceRawFuturesCancelOrder> cancelFuturesOrder(BinanceOrder order) {
+		return tradingplatformApi.futuresCancelOrder(order.getAccountId(), order.getSymbol(), order.getOrderId(), order.getClientOrderId());
 	}
 
 	public Observable<List<BinanceRawFuturesPosition>> getFuturesPositionInfo(UUID accountId, String symbol) {
@@ -449,21 +478,33 @@ public class TerminalManager
 		return getTradeSubjectFromMap(streamName);
 	}
 
-	public BehaviorSubject<AccountModel> getAccountSubject(UUID accountId) {
+	public BehaviorSubject<SpotAccountModel> getSpotAccountSubject(UUID accountId) {
 		if (listenKeysMap.get(accountId) == null) {
 			getListenKeyAndOpenAccountSocket(accountId);
 		}
 		else {
 			openAccountSocket(accountId);
 		}
-		return getAccountSubjectFromMap(accountId);
+		return getSpotAccountSubjectFromMap(accountId);
+	}
+
+	public BehaviorSubject<FuturesAccountModel> getFuturesAccountSubject(UUID accountId) {
+		if (listenKeysMap.get(accountId) == null) {
+			getListenKeyAndOpenAccountSocket(accountId);
+		}
+		else {
+			openAccountSocket(accountId);
+		}
+		return getFuturesAccountSubjectFromMap(accountId);
 	}
 
 	private void getListenKeyAndOpenAccountSocket(UUID accountId) {
 		if (getAccountStreamSubscription != null) {
 			getAccountStreamSubscription.unsubscribe();
 		}
-		getAccountStreamSubscription = tradingplatformApi.startAccountStream(accountId)
+		getAccountStreamSubscription = (currentMarket.equals(TradingAccountPermission.SPOT)
+				? tradingplatformApi.startAccountStream(accountId)
+				: tradingplatformApi.futuresStartAccountStream(accountId))
 				.observeOn(AndroidSchedulers.mainThread())
 				.subscribeOn(Schedulers.io())
 				.subscribe(response -> handleGetAccountStreamSuccess(accountId, response),
@@ -526,11 +567,20 @@ public class TerminalManager
 		return subject;
 	}
 
-	private BehaviorSubject<AccountModel> getAccountSubjectFromMap(UUID accountId) {
-		BehaviorSubject<AccountModel> subject = accountSubjectsMap.get(accountId);
+	private BehaviorSubject<SpotAccountModel> getSpotAccountSubjectFromMap(UUID accountId) {
+		BehaviorSubject<SpotAccountModel> subject = spotAccountSubjectsMap.get(accountId);
 		if (subject == null) {
 			subject = BehaviorSubject.create();
-			accountSubjectsMap.put(accountId, subject);
+			spotAccountSubjectsMap.put(accountId, subject);
+		}
+		return subject;
+	}
+
+	private BehaviorSubject<FuturesAccountModel> getFuturesAccountSubjectFromMap(UUID accountId) {
+		BehaviorSubject<FuturesAccountModel> subject = futuresAccountSubjectsMap.get(accountId);
+		if (subject == null) {
+			subject = BehaviorSubject.create();
+			futuresAccountSubjectsMap.put(accountId, subject);
 		}
 		return subject;
 	}
@@ -749,6 +799,15 @@ public class TerminalManager
 	}
 
 	private void parseAccountData(String streamName, String data) {
+		if (currentMarket.equals(TradingAccountPermission.SPOT)) {
+			parseSpotAccountData(streamName, data);
+		}
+		else if (currentMarket.equals(TradingAccountPermission.FUTURES)) {
+			parseFuturesAccountData(streamName, data);
+		}
+	}
+
+	private void parseSpotAccountData(String streamName, String data) {
 		Gson gson = new GsonBuilder()
 				.registerTypeAdapter(
 						DateTime.class,
@@ -780,11 +839,11 @@ public class TerminalManager
 				)
 				.create();
 
-		Type typeToken = new TypeToken<AccountModel>()
+		Type typeToken = new TypeToken<SpotAccountModel>()
 		{
 		}.getType();
 
-		AccountModel model = new AccountModel();
+		SpotAccountModel model = new SpotAccountModel();
 		try {
 			model = gson.fromJson(data, typeToken);
 		} catch (Exception e) {
@@ -792,7 +851,60 @@ public class TerminalManager
 		}
 		UUID accountId = streamNameAccountIdMap.get(streamName);
 		if (model != null && accountId != null) {
-			BehaviorSubject<AccountModel> subject = getAccountSubjectFromMap(accountId);
+			BehaviorSubject<SpotAccountModel> subject = getSpotAccountSubjectFromMap(accountId);
+			subject.onNext(model);
+		}
+	}
+
+	private void parseFuturesAccountData(String streamName, String data) {
+		Gson gson = new GsonBuilder()
+				.registerTypeAdapter(
+						DateTime.class,
+						(JsonDeserializer<DateTime>) (json, typeOfT, context) -> new DateTime(json.getAsLong())
+				)
+				.registerTypeAdapter(
+						BinanceOrderType.class,
+						(JsonDeserializer<BinanceOrderType>) (json, typeOfT, context) -> {
+							if (json.getAsString().equals("TAKE_PROFIT_LIMIT")) {
+								return BinanceOrderType.TAKEPROFITLIMIT;
+							}
+							else {
+								return
+										BinanceOrderType.valueOf(json.getAsString());
+							}
+						}
+				)
+				.registerTypeAdapter(
+						BinanceOrderSide.class,
+						(JsonDeserializer<BinanceOrderSide>) (json, typeOfT, context) -> BinanceOrderSide.valueOf(json.getAsString())
+				)
+				.registerTypeAdapter(
+						BinanceExecutionType.class,
+						(JsonDeserializer<BinanceExecutionType>) (json, typeOfT, context) -> BinanceExecutionType.valueOf(json.getAsString())
+				)
+				.registerTypeAdapter(
+						BinanceOrderStatus.class,
+						(JsonDeserializer<BinanceOrderStatus>) (json, typeOfT, context) -> BinanceOrderStatus.valueOf(json.getAsString())
+				)
+				.registerTypeAdapter(
+						BinancePositionSide.class,
+						(JsonDeserializer<BinancePositionSide>) (json, typeOfT, context) -> BinancePositionSide.valueOf(json.getAsString())
+				)
+				.create();
+
+		Type typeToken = new TypeToken<FuturesAccountModel>()
+		{
+		}.getType();
+
+		FuturesAccountModel model = new FuturesAccountModel();
+		try {
+			model = gson.fromJson(data, typeToken);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		UUID accountId = streamNameAccountIdMap.get(streamName);
+		if (model != null && accountId != null) {
+			BehaviorSubject<FuturesAccountModel> subject = getFuturesAccountSubjectFromMap(accountId);
 			subject.onNext(model);
 		}
 	}
@@ -888,6 +1000,6 @@ public class TerminalManager
 		accountsBehaviorSubject = BehaviorSubject.create();
 		selectedAccountSubject = BehaviorSubject.create();
 		favoriteTickersSubject = BehaviorSubject.create();
-		accountSubjectsMap = new HashMap<>();
+		spotAccountSubjectsMap = new HashMap<>();
 	}
 }

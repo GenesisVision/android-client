@@ -8,6 +8,7 @@ import java.util.UUID;
 import io.swagger.client.model.BinanceFuturesMarginType;
 import io.swagger.client.model.BinancePositionMode;
 import io.swagger.client.model.BinanceRawFuturesBracket;
+import io.swagger.client.model.TradingAccountPermission;
 
 /**
  * GenesisVisionAndroid
@@ -16,6 +17,9 @@ import io.swagger.client.model.BinanceRawFuturesBracket;
 
 interface PlaceOrderView extends MvpView
 {
+	void setCurrentMarket(TradingAccountPermission currentMarket);
+
+
 	void setSelectedSymbol(String symbol);
 
 	void setAvailable(String availableText);

@@ -6,7 +6,7 @@ import com.arellomobile.mvp.viewstate.strategy.StateStrategyType;
 
 import java.util.List;
 
-import io.swagger.client.model.BinanceRawOrder;
+import vision.genesis.clientapp.model.terminal.binance_api.BinanceOrder;
 
 /**
  * GenesisVisionAndroid
@@ -15,7 +15,7 @@ import io.swagger.client.model.BinanceRawOrder;
 
 interface OpenOrdersView extends MvpView
 {
-	void setOrders(List<BinanceRawOrder> orders);
+	void setOrders(List<BinanceOrder> orders);
 
 	void showSnackbarMessage(String message);
 

@@ -32,6 +32,7 @@ import io.swagger.client.model.BinanceFuturesMarginType;
 import io.swagger.client.model.BinancePositionMode;
 import io.swagger.client.model.BinanceRawFuturesBracket;
 import io.swagger.client.model.ExchangeAsset;
+import io.swagger.client.model.TradingAccountPermission;
 import timber.log.Timber;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseSwipeBackActivity;
@@ -82,6 +83,9 @@ public class PlaceOrderActivity extends BaseSwipeBackActivity implements PlaceOr
 	@BindView(R.id.quote_asset)
 	public TextView quoteAsset;
 
+
+	@BindView(R.id.group_order_settings)
+	public ViewGroup orderSettingsGroup;
 
 	@BindView(R.id.margin_type)
 	public TextView marginType;
@@ -453,6 +457,13 @@ public class PlaceOrderActivity extends BaseSwipeBackActivity implements PlaceOr
 				.subscribe(charSequence -> presenter.onAmountChanged(charSequence.toString(), amount.hasFocus()));
 		RxTextView.textChanges(total)
 				.subscribe(charSequence -> presenter.onTotalChanged(charSequence.toString(), total.hasFocus()));
+	}
+
+	@Override
+	public void setCurrentMarket(TradingAccountPermission currentMarket) {
+		if (currentMarket.equals(TradingAccountPermission.FUTURES)) {
+			orderSettingsGroup.setVisibility(View.VISIBLE);
+		}
 	}
 
 	@Override

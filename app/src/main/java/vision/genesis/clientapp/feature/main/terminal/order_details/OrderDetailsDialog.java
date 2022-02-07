@@ -16,8 +16,8 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.swagger.client.model.BinanceOrderSide;
-import io.swagger.client.model.BinanceRawOrder;
 import vision.genesis.clientapp.R;
+import vision.genesis.clientapp.model.terminal.binance_api.BinanceOrder;
 import vision.genesis.clientapp.utils.DateTimeUtil;
 import vision.genesis.clientapp.utils.StringFormatUtil;
 import vision.genesis.clientapp.utils.ThemeUtil;
@@ -73,7 +73,7 @@ public class OrderDetailsDialog extends BottomSheetDialogFragment
 	@BindView(R.id.filled_percent)
 	public TextView filledPercent;
 
-	private BinanceRawOrder order;
+	private BinanceOrder order;
 
 	@SuppressLint("RestrictedApi")
 	@Override
@@ -97,7 +97,7 @@ public class OrderDetailsDialog extends BottomSheetDialogFragment
 		}
 	}
 
-	public void setData(BinanceRawOrder order) {
+	public void setData(BinanceOrder order) {
 		this.order = order;
 		updateView();
 	}

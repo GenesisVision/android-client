@@ -18,12 +18,12 @@ import java.util.UUID;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
-import io.swagger.client.model.BinanceRawOrder;
 import timber.log.Timber;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
 import vision.genesis.clientapp.feature.main.program.ProgramDetailsPagerAdapter;
 import vision.genesis.clientapp.feature.main.terminal.order_details.OrderDetailsDialog;
+import vision.genesis.clientapp.model.terminal.binance_api.BinanceOrder;
 
 /**
  * GenesisVisionAndroid
@@ -113,7 +113,7 @@ public class OpenOrdersFragment extends BaseFragment implements OpenOrdersView, 
 	}
 
 	@Override
-	public void setOrders(List<BinanceRawOrder> orders) {
+	public void setOrders(List<BinanceOrder> orders) {
 		adapter.setOrders(orders);
 		if (orders.isEmpty()) {
 			groupNoOrders.setVisibility(View.VISIBLE);
@@ -130,7 +130,7 @@ public class OpenOrdersFragment extends BaseFragment implements OpenOrdersView, 
 		showSnackbar(message, recyclerView);
 	}
 
-	public void showOrderDetails(BinanceRawOrder order) {
+	public void showOrderDetails(BinanceOrder order) {
 		if (getActivity() != null) {
 			OrderDetailsDialog dialog = new OrderDetailsDialog();
 			dialog.show(getActivity().getSupportFragmentManager(), dialog.getTag());

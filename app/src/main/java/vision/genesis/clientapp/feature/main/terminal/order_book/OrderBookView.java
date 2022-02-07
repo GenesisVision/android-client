@@ -26,8 +26,11 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 import io.swagger.client.model.BinanceOrderSide;
+import io.swagger.client.model.BinanceRawFuturesOrder;
+import io.swagger.client.model.BinanceRawFuturesOrderItemsViewModel;
 import io.swagger.client.model.BinanceRawOrder;
 import io.swagger.client.model.BinanceRawOrderItemsViewModel;
+import io.swagger.client.model.TradingAccountPermission;
 import rx.BackpressureOverflow;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
@@ -37,10 +40,13 @@ import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.common.option.SelectOptionBottomSheetFragment;
 import vision.genesis.clientapp.managers.TerminalManager;
 import vision.genesis.clientapp.model.BinanceExchangeInfo;
+import vision.genesis.clientapp.model.terminal.binance_api.BinanceOrder;
 import vision.genesis.clientapp.model.terminal.binance_api.BinanceRawSymbol;
 import vision.genesis.clientapp.model.terminal.binance_api.DepthListModel;
-import vision.genesis.clientapp.model.terminal.binance_socket.AccountModel;
 import vision.genesis.clientapp.model.terminal.binance_socket.DepthUpdateModel;
+import vision.genesis.clientapp.model.terminal.binance_socket.FuturesAccountModel;
+import vision.genesis.clientapp.model.terminal.binance_socket.FuturesOrderModel;
+import vision.genesis.clientapp.model.terminal.binance_socket.SpotAccountModel;
 import vision.genesis.clientapp.net.ApiErrorResolver;
 import vision.genesis.clientapp.utils.DepthPairsPriceComparator;
 import vision.genesis.clientapp.utils.NumberFormatUtil;
@@ -113,7 +119,9 @@ public class OrderBookView extends RelativeLayout
 
 	private UUID accountId;
 
-	private List<BinanceRawOrder> orders = new ArrayList<>();
+	private List<BinanceOrder> orders = new ArrayList<>();
+
+	private TradingAccountPermission currentMarket = TradingAccountPermission.SPOT;
 
 	public OrderBookView(Context context) {
 		super(context);
@@ -273,20 +281,49 @@ public class OrderBookView extends RelativeLayout
 			if (getOrdersSubscription != null) {
 				getOrdersSubscription.unsubscribe();
 			}
-			getOrdersSubscription = terminalManager.getOpenOrders(accountId)
-					.observeOn(AndroidSchedulers.mainThread())
-					.subscribeOn(Schedulers.io())
-					.subscribe(this::handleGetOrdersResponse,
-							error -> {
-							});
+			currentMarket = terminalManager.getCurrentMarket();
+			if (currentMarket.equals(TradingAccountPermission.SPOT)) {
+				getOrdersSubscription = terminalManager.getSpotOpenOrders(accountId)
+						.observeOn(AndroidSchedulers.mainThread())
+						.subscribeOn(Schedulers.io())
+						.subscribe(this::handleGetSpotOrdersResponse,
+								error -> {
+								});
+			}
+			else if (currentMarket.equals(TradingAccountPermission.FUTURES)) {
+				getOrdersSubscription = terminalManager.getFuturesOpenOrders(accountId)
+						.observeOn(AndroidSchedulers.mainThread())
+						.subscribeOn(Schedulers.io())
+						.subscribe(this::handleGetFuturesOrdersResponse,
+								error -> {
+								});
+			}
 		}
 	}
 
-	private void handleGetOrdersResponse(BinanceRawOrderItemsViewModel model) {
+	private void handleGetSpotOrdersResponse(BinanceRawOrderItemsViewModel model) {
 		getOrdersSubscription.unsubscribe();
 
 		orders.clear();
-		List<BinanceRawOrder> newOrders = model.getItems();
+		List<BinanceOrder> newOrders = new ArrayList<>();
+		for (BinanceRawOrder item : model.getItems()) {
+			newOrders.add(BinanceOrder.from(item));
+		}
+		orders.addAll(newOrders);
+
+		updateBooksWithOrders();
+
+		subscribeToOpenOrdersUpdates();
+	}
+
+	private void handleGetFuturesOrdersResponse(BinanceRawFuturesOrderItemsViewModel model) {
+		getOrdersSubscription.unsubscribe();
+
+		orders.clear();
+		List<BinanceOrder> newOrders = new ArrayList<>();
+		for (BinanceRawFuturesOrder item : model.getItems()) {
+			newOrders.add(BinanceOrder.from(item));
+		}
 		orders.addAll(newOrders);
 
 		updateBooksWithOrders();
@@ -295,30 +332,39 @@ public class OrderBookView extends RelativeLayout
 	}
 
 	private void subscribeToOpenOrdersUpdates() {
-		if (terminalManager != null && accountId != null) {
+		if (currentMarket.equals(TradingAccountPermission.SPOT)) {
+			subscribeToSpotOrdersUpdate();
+		}
+		else if (currentMarket.equals(TradingAccountPermission.FUTURES)) {
+			subscribeToFuturesOrdersUpdate();
+		}
+	}
+
+	private void subscribeToSpotOrdersUpdate() {
+		if (terminalManager != null) {
 			if (ordersUpdateSubscription != null) {
 				ordersUpdateSubscription.unsubscribe();
 			}
-			ordersUpdateSubscription = terminalManager.getAccountSubject(accountId)
+			ordersUpdateSubscription = terminalManager.getSpotAccountSubject(accountId)
 					.subscribeOn(Schedulers.newThread())
 					.observeOn(AndroidSchedulers.mainThread())
-					.subscribe(this::handleOpenOrdersUpdate, error -> {
+					.subscribe(this::handleSpotOrdersUpdate, error -> {
 					});
 		}
 	}
 
-	private void handleOpenOrdersUpdate(AccountModel model) {
+	private void handleSpotOrdersUpdate(SpotAccountModel model) {
 		if ("executionReport".equals(model.getEventType())) {
 			switch (model.getExecutionType()) {
 				case NEW:
-					orders.add(0, model.toBinanceRawOrder());
+					orders.add(0, model.toBinanceOrder());
 					break;
 				case TRADE:
 					for (int i = 0; i < orders.size(); i++) {
 						if (orders.get(i).getOrderId().equals(model.getOrderId())) {
 							orders.remove(i);
 							if (!Objects.equals(model.getQuantity(), model.getQuantityFilled())) {
-								orders.add(i, model.toBinanceRawOrder());
+								orders.add(i, model.toBinanceOrder());
 							}
 							break;
 						}
@@ -326,9 +372,55 @@ public class OrderBookView extends RelativeLayout
 					break;
 				case CANCELED:
 				case EXPIRED:
-					for (BinanceRawOrder order : orders) {
+					for (BinanceOrder order : orders) {
 						if (order.getOrderId().equals(model.getOrderId())) {
 							orders.remove(order);
+							break;
+						}
+					}
+					break;
+			}
+
+			updateBooksWithOrders();
+		}
+	}
+
+	private void subscribeToFuturesOrdersUpdate() {
+		if (terminalManager != null) {
+			if (ordersUpdateSubscription != null) {
+				ordersUpdateSubscription.unsubscribe();
+			}
+			ordersUpdateSubscription = terminalManager.getFuturesAccountSubject(accountId)
+					.subscribeOn(Schedulers.newThread())
+					.observeOn(AndroidSchedulers.mainThread())
+					.subscribe(this::handleFuturesOrdersUpdate, error -> {
+					});
+		}
+	}
+
+	private void handleFuturesOrdersUpdate(FuturesAccountModel model) {
+		if ("ORDER_TRADE_UPDATE".equals(model.getEventType())) {
+			FuturesOrderModel order = model.getOrder();
+			switch (order.getExecutionType()) {
+				case NEW:
+					orders.add(0, model.getOrder().toBinanceOrder());
+					break;
+				case TRADE:
+					for (int i = 0; i < orders.size(); i++) {
+						if (orders.get(i).getOrderId().equals(order.getOrderId())) {
+							orders.remove(i);
+							if (!Objects.equals(order.getQuantity(), order.getQuantityFilled())) {
+								orders.add(i, order.toBinanceOrder());
+							}
+							break;
+						}
+					}
+					break;
+				case CANCELED:
+				case EXPIRED:
+					for (BinanceOrder binanceOrder : orders) {
+						if (binanceOrder.getOrderId().equals(order.getOrderId())) {
+							orders.remove(binanceOrder);
 							break;
 						}
 					}
@@ -347,7 +439,7 @@ public class OrderBookView extends RelativeLayout
 			view.clearOrders();
 		}
 
-		for (BinanceRawOrder order : orders) {
+		for (BinanceOrder order : orders) {
 			if (order.getSide().equals(BinanceOrderSide.SELL)) {
 				updateBookWithOrders(asksViews, order);
 			}
@@ -357,7 +449,7 @@ public class OrderBookView extends RelativeLayout
 		}
 	}
 
-	private void updateBookWithOrders(ArrayList<DepthItemView> views, BinanceRawOrder order) {
+	private void updateBookWithOrders(ArrayList<DepthItemView> views, BinanceOrder order) {
 		if (!views.isEmpty()) {
 			for (int i = 0; i < views.size(); i++) {
 				if (views.get(i).getPrice() == null) {

@@ -6,8 +6,8 @@ import com.arellomobile.mvp.viewstate.strategy.StateStrategyType;
 
 import java.util.List;
 
-import io.swagger.client.model.BinanceRawOrder;
 import vision.genesis.clientapp.model.DateRange;
+import vision.genesis.clientapp.model.terminal.binance_api.BinanceOrder;
 
 /**
  * GenesisVisionAndroid
@@ -18,9 +18,9 @@ interface OrderHistoryView extends MvpView
 {
 	void setDateRange(DateRange dateRange);
 
-	void setOrders(List<BinanceRawOrder> orders);
+	void setOrders(List<BinanceOrder> orders);
 
-	void addOrders(List<BinanceRawOrder> orders);
+	void addOrders(List<BinanceOrder> orders);
 
 	void showSnackbarMessage(String message);
 

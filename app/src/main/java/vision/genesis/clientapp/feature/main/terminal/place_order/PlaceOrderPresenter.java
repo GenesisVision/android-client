@@ -23,12 +23,14 @@ import io.swagger.client.model.BinanceOrderType;
 import io.swagger.client.model.BinancePositionMode;
 import io.swagger.client.model.BinanceRawAccountInfo;
 import io.swagger.client.model.BinanceRawBinanceBalance;
+import io.swagger.client.model.BinanceRawFuturesAccountAsset;
+import io.swagger.client.model.BinanceRawFuturesAccountInfo;
 import io.swagger.client.model.BinanceRawFuturesBracket;
+import io.swagger.client.model.BinanceRawFuturesPlaceOrder;
 import io.swagger.client.model.BinanceRawFuturesPosition;
 import io.swagger.client.model.BinanceRawFuturesPositionMode;
 import io.swagger.client.model.BinanceRawFuturesSymbolBracket;
 import io.swagger.client.model.BinanceRawPlaceOrder;
-import io.swagger.client.model.BinanceRawPlacedOrder;
 import io.swagger.client.model.BinanceRawSymbolLotSizeFilter;
 import io.swagger.client.model.BinanceRawSymbolPriceFilter;
 import io.swagger.client.model.BinanceTimeInForce;
@@ -48,8 +50,9 @@ import vision.genesis.clientapp.model.events.SetOpenOrdersCountEvent;
 import vision.genesis.clientapp.model.events.SetOrderHistoryCountEvent;
 import vision.genesis.clientapp.model.events.SetTradeHistoryCountEvent;
 import vision.genesis.clientapp.model.terminal.binance_api.BinanceRawSymbol;
-import vision.genesis.clientapp.model.terminal.binance_socket.AccountModel;
-import vision.genesis.clientapp.model.terminal.binance_socket.BinanceAccountBalance;
+import vision.genesis.clientapp.model.terminal.binance_socket.BinanceSpotAccountBalance;
+import vision.genesis.clientapp.model.terminal.binance_socket.FuturesAccountModel;
+import vision.genesis.clientapp.model.terminal.binance_socket.SpotAccountModel;
 import vision.genesis.clientapp.model.terminal.binance_socket.TickerModel;
 import vision.genesis.clientapp.net.ApiErrorResolver;
 import vision.genesis.clientapp.ui.SelectPercentView;
@@ -109,7 +112,9 @@ public class PlaceOrderPresenter extends MvpPresenter<PlaceOrderView> implements
 
 	private int percent;
 
-	private BinanceRawAccountInfo accountInfo;
+	private BinanceRawAccountInfo spotAccountInfo;
+
+	private BinanceRawFuturesAccountInfo futuresAccountInfo;
 
 	private String operationType = OPERATION_TYPE_BUY;
 
@@ -152,6 +157,7 @@ public class PlaceOrderPresenter extends MvpPresenter<PlaceOrderView> implements
 		EventBus.getDefault().register(this);
 
 		currentMarket = terminalManager.getCurrentMarket();
+		getViewState().setCurrentMarket(currentMarket);
 
 		initOrderTypeOptions();
 		getAccountInfo();
@@ -218,22 +224,31 @@ public class PlaceOrderPresenter extends MvpPresenter<PlaceOrderView> implements
 	}
 
 	private void subscribeToAccountUpdate() {
+		if (currentMarket.equals(TradingAccountPermission.SPOT)) {
+			subscribeToSpotAccountUpdate();
+		}
+		else if (currentMarket.equals(TradingAccountPermission.FUTURES)) {
+			subscribeToFuturesAccountUpdate();
+		}
+	}
+
+	private void subscribeToSpotAccountUpdate() {
 		if (terminalManager != null && selectedAccount != null) {
 			if (accountUpdateSubscription != null) {
 				accountUpdateSubscription.unsubscribe();
 			}
-			accountUpdateSubscription = terminalManager.getAccountSubject(selectedAccount.getId())
+			accountUpdateSubscription = terminalManager.getSpotAccountSubject(selectedAccount.getId())
 					.subscribeOn(Schedulers.newThread())
 					.observeOn(AndroidSchedulers.mainThread())
-					.subscribe(this::handleAccountUpdate, error -> {
+					.subscribe(this::handleSpotAccountUpdate, error -> {
 					});
 		}
 	}
 
-	private void handleAccountUpdate(AccountModel model) {
+	private void handleSpotAccountUpdate(SpotAccountModel model) {
 		if ("outboundAccountPosition".equals(model.getEventType())) {
-			for (BinanceRawBinanceBalance balance : accountInfo.getBalances()) {
-				for (BinanceAccountBalance modelBalance : model.getBalances()) {
+			for (BinanceRawBinanceBalance balance : spotAccountInfo.getBalances()) {
+				for (BinanceSpotAccountBalance modelBalance : model.getBalances()) {
 					if (modelBalance.getAsset().equals(balance.getAsset())) {
 						balance.setFree(modelBalance.getFree());
 						balance.setLocked(modelBalance.getLocked());
@@ -242,6 +257,37 @@ public class PlaceOrderPresenter extends MvpPresenter<PlaceOrderView> implements
 				}
 			}
 			updateAvailable();
+		}
+	}
+
+	private void subscribeToFuturesAccountUpdate() {
+		if (terminalManager != null && selectedAccount != null) {
+			if (accountUpdateSubscription != null) {
+				accountUpdateSubscription.unsubscribe();
+			}
+			accountUpdateSubscription = terminalManager.getFuturesAccountSubject(selectedAccount.getId())
+					.subscribeOn(Schedulers.newThread())
+					.observeOn(AndroidSchedulers.mainThread())
+					.subscribe(this::handleFuturesAccountUpdate, error -> {
+					});
+		}
+	}
+
+	private void handleFuturesAccountUpdate(FuturesAccountModel model) {
+		if ("ORDER_TRADE_UPDATE".equals(model.getEventType())) {
+//			if (model.getUpdateData() != null) {
+//				for (BinanceRawFuturesAccountAsset asset : futuresAccountInfo.getAssets()) {
+//					for (BinanceFuturesAccountBalance modelBalance : model.getUpdateData().getBalances()) {
+//						if (modelBalance.getAsset().equals(asset.getAsset())) {
+//							asset.setWalletBalance(modelBalance.getWalletBalance());
+//							asset.setCrossWalletBalance(modelBalance.getCrossWalletBalance());
+//							break;
+//						}
+//					}
+//				}
+//				updateAvailable();
+//			}
+			getFuturesAccountInfo();
 		}
 	}
 
@@ -340,12 +386,36 @@ public class PlaceOrderPresenter extends MvpPresenter<PlaceOrderView> implements
 	}
 
 	private void updateAvailable() {
-		if (accountInfo != null) {
+		if (currentMarket.equals(TradingAccountPermission.SPOT)) {
+			updateSpotAvailable();
+		}
+		else if (currentMarket.equals(TradingAccountPermission.FUTURES)) {
+			updateFuturesAvailable();
+		}
+	}
+
+	private void updateSpotAvailable() {
+		if (spotAccountInfo != null) {
 			available = 0.0;
 			availableCurrency = operationType.equals(OPERATION_TYPE_BUY) ? quoteAsset : baseAsset;
-			for (BinanceRawBinanceBalance balance : accountInfo.getBalances()) {
+			for (BinanceRawBinanceBalance balance : spotAccountInfo.getBalances()) {
 				if (balance.getAsset().equals(availableCurrency)) {
 					available = balance.getFree();
+					break;
+				}
+			}
+			getViewState().setPercentSelectEnabled(available > 0);
+			getViewState().setAvailable(StringFormatUtil.getValueString(available, availableCurrency));
+		}
+	}
+
+	private void updateFuturesAvailable() {
+		if (futuresAccountInfo != null) {
+			available = 0.0;
+			availableCurrency = operationType.equals(OPERATION_TYPE_BUY) ? quoteAsset : baseAsset;
+			for (BinanceRawFuturesAccountAsset asset : futuresAccountInfo.getAssets()) {
+				if (asset.getAsset().equals(availableCurrency)) {
+					available = asset.getAvailableBalance();
 					break;
 				}
 			}
@@ -376,6 +446,15 @@ public class PlaceOrderPresenter extends MvpPresenter<PlaceOrderView> implements
 	}
 
 	private void getAccountInfo() {
+		if (currentMarket.equals(TradingAccountPermission.SPOT)) {
+			getSpotAccountInfo();
+		}
+		else if (currentMarket.equals(TradingAccountPermission.FUTURES)) {
+			getFuturesAccountInfo();
+		}
+	}
+
+	private void getSpotAccountInfo() {
 		if (terminalManager != null && selectedAccount != null) {
 			if (getAccountInfoSubscription != null) {
 				getAccountInfoSubscription.unsubscribe();
@@ -383,16 +462,36 @@ public class PlaceOrderPresenter extends MvpPresenter<PlaceOrderView> implements
 			getAccountInfoSubscription = terminalManager.getAccountDetails(selectedAccount.getId(), "USD")
 					.observeOn(AndroidSchedulers.mainThread())
 					.subscribeOn(Schedulers.io())
-					.subscribe(this::handleGetAccountInfoSuccess,
+					.subscribe(this::handleGetSpotAccountInfoSuccess,
 							this::handleGetAccountInfoError);
 		}
 	}
 
-	private void handleGetAccountInfoSuccess(BinanceRawAccountInfo response) {
+	private void handleGetSpotAccountInfoSuccess(BinanceRawAccountInfo response) {
 		getAccountInfoSubscription.unsubscribe();
 
-		this.accountInfo = response;
-		if (currentMarket.equals(TradingAccountPermission.FUTURES)) {
+		this.spotAccountInfo = response;
+		updateAvailable();
+	}
+
+	private void getFuturesAccountInfo() {
+		if (terminalManager != null && selectedAccount != null) {
+			if (getAccountInfoSubscription != null) {
+				getAccountInfoSubscription.unsubscribe();
+			}
+			getAccountInfoSubscription = terminalManager.getFuturesAccountInfo(selectedAccount.getId())
+					.observeOn(AndroidSchedulers.mainThread())
+					.subscribeOn(Schedulers.io())
+					.subscribe(this::handleGetFuturesAccountInfoSuccess,
+							this::handleGetAccountInfoError);
+		}
+	}
+
+	private void handleGetFuturesAccountInfoSuccess(BinanceRawFuturesAccountInfo response) {
+		getAccountInfoSubscription.unsubscribe();
+
+		this.futuresAccountInfo = response;
+		if (futuresPositionInfo == null) {
 			getFuturesPositionInfo();
 			getFuturesPositionMode();
 		}
@@ -704,6 +803,15 @@ public class PlaceOrderPresenter extends MvpPresenter<PlaceOrderView> implements
 	}
 
 	private void placeOrder(BinanceOrderSide side) {
+		if (currentMarket.equals(TradingAccountPermission.SPOT)) {
+			placeSpotOrder(side);
+		}
+		else if (currentMarket.equals(TradingAccountPermission.FUTURES)) {
+			placeFuturesOrder(side);
+		}
+	}
+
+	private void placeSpotOrder(BinanceOrderSide side) {
 		if (terminalManager != null && selectedAccount != null) {
 			BinanceRawPlaceOrder order = new BinanceRawPlaceOrder();
 			order.setSide(side);
@@ -724,7 +832,7 @@ public class PlaceOrderPresenter extends MvpPresenter<PlaceOrderView> implements
 				placeOrderSubscription.unsubscribe();
 			}
 			getViewState().showProgressBarButton(true);
-			placeOrderSubscription = terminalManager.placeOrder(order, selectedAccount.getId())
+			placeOrderSubscription = terminalManager.placeSpotOrder(order, selectedAccount.getId())
 					.subscribeOn(Schedulers.newThread())
 					.observeOn(AndroidSchedulers.mainThread())
 					.subscribe(this::handlePlaceOrderSuccess,
@@ -732,7 +840,36 @@ public class PlaceOrderPresenter extends MvpPresenter<PlaceOrderView> implements
 		}
 	}
 
-	private void handlePlaceOrderSuccess(BinanceRawPlacedOrder response) {
+	private void placeFuturesOrder(BinanceOrderSide side) {
+		if (terminalManager != null && selectedAccount != null) {
+			BinanceRawFuturesPlaceOrder order = new BinanceRawFuturesPlaceOrder();
+			order.setSide(side);
+			order.setSymbol(symbol);
+			order.setType(getBinanceOrderType(side));
+			if (orderTypePosition.equals(ORDER_TYPE_STOP_LIMIT)) {
+				order.setStopPrice(stop);
+				order.setPrice(limit);
+				order.setTimeInForce(BinanceTimeInForce.GOODTILLCANCEL);
+			}
+			else if (orderTypePosition.equals(ORDER_TYPE_LIMIT)) {
+				order.setTimeInForce(BinanceTimeInForce.GOODTILLCANCEL);
+				order.setPrice(price);
+			}
+			order.setQuantity(amount);
+
+			if (placeOrderSubscription != null) {
+				placeOrderSubscription.unsubscribe();
+			}
+			getViewState().showProgressBarButton(true);
+			placeOrderSubscription = terminalManager.placeFuturesOrder(order, selectedAccount.getId())
+					.subscribeOn(Schedulers.newThread())
+					.observeOn(AndroidSchedulers.mainThread())
+					.subscribe(this::handlePlaceOrderSuccess,
+							this::handlePlaceOrderError);
+		}
+	}
+
+	private void handlePlaceOrderSuccess(Object response) {
 		placeOrderSubscription.unsubscribe();
 		getViewState().showProgressBarButton(false);
 	}

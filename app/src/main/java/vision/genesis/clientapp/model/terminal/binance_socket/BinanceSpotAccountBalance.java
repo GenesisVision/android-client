@@ -9,18 +9,18 @@ import com.google.gson.annotations.SerializedName;
  * GenesisVisionAndroid
  * Created by Vitaly on 17/09/2021.
  */
-public class BinanceAccountBalance implements Parcelable
+public class BinanceSpotAccountBalance implements Parcelable
 {
-	public static final Creator<BinanceAccountBalance> CREATOR = new Creator<BinanceAccountBalance>()
+	public static final Creator<BinanceSpotAccountBalance> CREATOR = new Creator<BinanceSpotAccountBalance>()
 	{
 		@Override
-		public BinanceAccountBalance createFromParcel(Parcel in) {
-			return new BinanceAccountBalance(in);
+		public BinanceSpotAccountBalance createFromParcel(Parcel in) {
+			return new BinanceSpotAccountBalance(in);
 		}
 
 		@Override
-		public BinanceAccountBalance[] newArray(int size) {
-			return new BinanceAccountBalance[size];
+		public BinanceSpotAccountBalance[] newArray(int size) {
+			return new BinanceSpotAccountBalance[size];
 		}
 	};
 
@@ -33,7 +33,7 @@ public class BinanceAccountBalance implements Parcelable
 	@SerializedName("l")
 	private Double locked;
 
-	protected BinanceAccountBalance(Parcel in) {
+	protected BinanceSpotAccountBalance(Parcel in) {
 		asset = in.readString();
 		if (in.readByte() == 0) {
 			free = null;

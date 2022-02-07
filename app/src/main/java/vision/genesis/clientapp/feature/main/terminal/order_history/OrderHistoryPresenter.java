@@ -14,8 +14,11 @@ import java.util.UUID;
 import javax.inject.Inject;
 
 import io.swagger.client.model.BinanceExecutionType;
+import io.swagger.client.model.BinanceRawFuturesOrder;
+import io.swagger.client.model.BinanceRawFuturesOrderItemsViewModel;
 import io.swagger.client.model.BinanceRawOrder;
 import io.swagger.client.model.BinanceRawOrderItemsViewModel;
+import io.swagger.client.model.TradingAccountPermission;
 import io.swagger.client.model.TradingPlatformBinanceOrdersMode;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
@@ -27,7 +30,10 @@ import vision.genesis.clientapp.managers.TerminalManager;
 import vision.genesis.clientapp.model.DateRange;
 import vision.genesis.clientapp.model.events.SetOrderHistoryCountEvent;
 import vision.genesis.clientapp.model.events.SetTradeHistoryCountEvent;
-import vision.genesis.clientapp.model.terminal.binance_socket.AccountModel;
+import vision.genesis.clientapp.model.terminal.binance_api.BinanceOrder;
+import vision.genesis.clientapp.model.terminal.binance_socket.FuturesAccountModel;
+import vision.genesis.clientapp.model.terminal.binance_socket.FuturesOrderModel;
+import vision.genesis.clientapp.model.terminal.binance_socket.SpotAccountModel;
 import vision.genesis.clientapp.net.ApiErrorResolver;
 
 /**
@@ -56,13 +62,15 @@ public class OrderHistoryPresenter extends MvpPresenter<OrderHistoryView> implem
 
 	private DateRange dateRange = DateRange.createFromEnum(DateRange.DateRangeEnum.ALL_TIME);
 
-	private List<BinanceRawOrder> orders = new ArrayList<>();
+	private List<BinanceOrder> orders = new ArrayList<>();
 
 	private String symbol = "";
 
 	private TradingPlatformBinanceOrdersMode mode = TradingPlatformBinanceOrdersMode.ORDERHISTORY;
 
 	private Integer ordersTotal = 0;
+
+	private TradingAccountPermission currentMarket = TradingAccountPermission.SPOT;
 
 	@Override
 	protected void onFirstViewAttach() {
@@ -121,32 +129,57 @@ public class OrderHistoryPresenter extends MvpPresenter<OrderHistoryView> implem
 			if (getOrdersSubscription != null) {
 				getOrdersSubscription.unsubscribe();
 			}
-			getOrdersSubscription = terminalManager.getOrderHistory(accountId, mode, dateRange, null, skip, TAKE)
-					.observeOn(AndroidSchedulers.mainThread())
-					.subscribeOn(Schedulers.io())
-					.subscribe(this::handleGetOrdersResponse,
-							this::handleGetOrdersError);
+
+			currentMarket = terminalManager.getCurrentMarket();
+			if (currentMarket.equals(TradingAccountPermission.SPOT)) {
+				getOrdersSubscription = terminalManager.getSpotOrderHistory(accountId, mode, dateRange, null, skip, TAKE)
+						.observeOn(AndroidSchedulers.mainThread())
+						.subscribeOn(Schedulers.io())
+						.subscribe(this::handleGetSpotOrdersResponse,
+								this::handleGetOrdersError);
+			}
+			else if (currentMarket.equals(TradingAccountPermission.FUTURES)) {
+				getOrdersSubscription = terminalManager.getFuturesOrderHistory(accountId, mode, dateRange, null, skip, TAKE)
+						.observeOn(AndroidSchedulers.mainThread())
+						.subscribeOn(Schedulers.io())
+						.subscribe(this::handleGetFuturesOrdersResponse,
+								this::handleGetOrdersError);
+			}
 		}
 	}
 
-	private void handleGetOrdersResponse(BinanceRawOrderItemsViewModel model) {
+	private void handleGetSpotOrdersResponse(BinanceRawOrderItemsViewModel model) {
+		List<BinanceOrder> newOrders = new ArrayList<>();
+		for (BinanceRawOrder item : model.getItems()) {
+			newOrders.add(BinanceOrder.from(item));
+		}
+		finishHandleGetSpotOrdersResponse(model.getTotal(), newOrders);
+	}
+
+	private void handleGetFuturesOrdersResponse(BinanceRawFuturesOrderItemsViewModel model) {
+		List<BinanceOrder> newOrders = new ArrayList<>();
+		for (BinanceRawFuturesOrder item : model.getItems()) {
+			newOrders.add(BinanceOrder.from(item));
+		}
+		finishHandleGetSpotOrdersResponse(model.getTotal(), newOrders);
+	}
+
+	private void finishHandleGetSpotOrdersResponse(Integer total, List<BinanceOrder> newOrders) {
 		getOrdersSubscription.unsubscribe();
 		getViewState().showProgress(false);
 
-		ordersTotal = model.getTotal();
+		ordersTotal = total;
 
 		if (skip == 0) {
 			orders.clear();
 		}
 
 		if (mode.equals(TradingPlatformBinanceOrdersMode.ORDERHISTORY)) {
-			EventBus.getDefault().post(new SetOrderHistoryCountEvent(model.getTotal()));
+			EventBus.getDefault().post(new SetOrderHistoryCountEvent(total));
 		}
 		else if (mode.equals(TradingPlatformBinanceOrdersMode.TRADEHISTORY)) {
-			EventBus.getDefault().post(new SetTradeHistoryCountEvent(model.getTotal()));
+			EventBus.getDefault().post(new SetTradeHistoryCountEvent(total));
 		}
-
-		List<BinanceRawOrder> newOrders = model.getItems();
 
 		orders.addAll(newOrders);
 
@@ -170,31 +203,45 @@ public class OrderHistoryPresenter extends MvpPresenter<OrderHistoryView> implem
 	}
 
 	private void subscribeToOrdersUpdates() {
+		if (currentMarket.equals(TradingAccountPermission.SPOT)) {
+			subscribeToSpotOrdersUpdate();
+		}
+		else if (currentMarket.equals(TradingAccountPermission.FUTURES)) {
+			subscribeToFuturesOrdersUpdate();
+		}
+	}
+
+	private void subscribeToSpotOrdersUpdate() {
 		if (terminalManager != null && accountId != null) {
 			if (ordersUpdateSubscription != null) {
 				ordersUpdateSubscription.unsubscribe();
 			}
-			ordersUpdateSubscription = terminalManager.getAccountSubject(accountId)
+			ordersUpdateSubscription = terminalManager.getSpotAccountSubject(accountId)
 					.subscribeOn(Schedulers.newThread())
 					.observeOn(AndroidSchedulers.mainThread())
-					.subscribe(this::handleOrdersUpdate, error -> {
+					.subscribe(this::handleSpotOrdersUpdate, error -> {
 					});
 		}
 	}
 
-	private void handleOrdersUpdate(AccountModel model) {
+	private void handleSpotOrdersUpdate(SpotAccountModel model) {
 		model.setAccountId(accountId);
 		if ("executionReport".equals(model.getEventType())) {
 			if (mode.equals(TradingPlatformBinanceOrdersMode.ORDERHISTORY)) {
 				if (model.getExecutionType() == BinanceExecutionType.NEW) {
-					orders.add(0, model.toBinanceRawOrder());
+					for (BinanceOrder binanceOrder : orders) {
+						if (binanceOrder.getOrderId().equals(model.getOrderId())) {
+							return;
+						}
+					}
+					orders.add(0, model.toBinanceOrder());
 					ordersTotal++;
 				}
 				else {
 					for (int i = 0; i < orders.size(); i++) {
 						if (orders.get(i).getOrderId().equals(model.getOrderId())) {
 							orders.remove(i);
-							orders.add(i, model.toBinanceRawOrder());
+							orders.add(i, model.toBinanceOrder());
 							break;
 						}
 					}
@@ -206,6 +253,55 @@ public class OrderHistoryPresenter extends MvpPresenter<OrderHistoryView> implem
 			else {
 				if (model.getExecutionType().equals(BinanceExecutionType.TRADE)
 						&& ((int) (model.getQuantityFilled() / model.getQuantity() * 100)) == 100) {
+					getOrders(true);
+				}
+			}
+		}
+	}
+
+	private void subscribeToFuturesOrdersUpdate() {
+		if (terminalManager != null) {
+			if (ordersUpdateSubscription != null) {
+				ordersUpdateSubscription.unsubscribe();
+			}
+			ordersUpdateSubscription = terminalManager.getFuturesAccountSubject(accountId)
+					.subscribeOn(Schedulers.newThread())
+					.observeOn(AndroidSchedulers.mainThread())
+					.subscribe(this::handleFuturesOrdersUpdate, error -> {
+					});
+		}
+	}
+
+	private void handleFuturesOrdersUpdate(FuturesAccountModel model) {
+		model.setAccountId(accountId);
+		if ("ORDER_TRADE_UPDATE".equals(model.getEventType())) {
+			FuturesOrderModel order = model.getOrder();
+			if (mode.equals(TradingPlatformBinanceOrdersMode.ORDERHISTORY)) {
+				if (order.getExecutionType() == BinanceExecutionType.NEW) {
+					for (BinanceOrder binanceOrder : orders) {
+						if (binanceOrder.getOrderId().equals(order.getOrderId())) {
+							return;
+						}
+					}
+					orders.add(0, order.toBinanceOrder());
+					ordersTotal++;
+				}
+				else {
+					for (int i = 0; i < orders.size(); i++) {
+						if (orders.get(i).getOrderId().equals(order.getOrderId())) {
+							orders.remove(i);
+							orders.add(i, order.toBinanceOrder());
+							break;
+						}
+					}
+				}
+				getViewState().setOrders(orders);
+				EventBus.getDefault().post(new SetOrderHistoryCountEvent(ordersTotal));
+
+			}
+			else {
+				if (order.getExecutionType().equals(BinanceExecutionType.TRADE)
+						&& ((int) (order.getQuantityFilled() / order.getQuantity() * 100)) == 100) {
 					getOrders(true);
 				}
 			}

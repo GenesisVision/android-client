@@ -15,25 +15,25 @@ import io.swagger.client.model.BinanceOrderRejectReason;
 import io.swagger.client.model.BinanceOrderSide;
 import io.swagger.client.model.BinanceOrderStatus;
 import io.swagger.client.model.BinanceOrderType;
-import io.swagger.client.model.BinanceRawOrder;
 import io.swagger.client.model.BinanceTimeInForce;
+import vision.genesis.clientapp.model.terminal.binance_api.BinanceOrder;
 
 /**
  * GenesisVisionAndroid
  * Created by Vitaly on 15/09/2021.
  */
-public class AccountModel implements Parcelable
+public class SpotAccountModel implements Parcelable
 {
-	public static final Creator<AccountModel> CREATOR = new Creator<AccountModel>()
+	public static final Creator<SpotAccountModel> CREATOR = new Creator<SpotAccountModel>()
 	{
 		@Override
-		public AccountModel createFromParcel(Parcel in) {
-			return new AccountModel(in);
+		public SpotAccountModel createFromParcel(Parcel in) {
+			return new SpotAccountModel(in);
 		}
 
 		@Override
-		public AccountModel[] newArray(int size) {
-			return new AccountModel[size];
+		public SpotAccountModel[] newArray(int size) {
+			return new SpotAccountModel[size];
 		}
 	};
 
@@ -122,12 +122,12 @@ public class AccountModel implements Parcelable
 	private UUID accountId = null;
 
 	@SerializedName("B")
-	private List<BinanceAccountBalance> balances = null;
+	private List<BinanceSpotAccountBalance> balances = null;
 
-	public AccountModel() {
+	public SpotAccountModel() {
 	}
 
-	protected AccountModel(Parcel in) {
+	protected SpotAccountModel(Parcel in) {
 		eventType = in.readString();
 		symbol = in.readString();
 		clientOrderId = in.readString();
@@ -214,7 +214,7 @@ public class AccountModel implements Parcelable
 
 		eventTime = (DateTime) in.readValue(DateTime.class.getClassLoader());
 		accountId = (UUID) in.readValue(DateTime.class.getClassLoader());
-		in.readList(balances, BinanceAccountBalance.class.getClassLoader());
+		in.readList(balances, BinanceSpotAccountBalance.class.getClassLoader());
 	}
 
 	@Override
@@ -350,12 +350,12 @@ public class AccountModel implements Parcelable
 		return quantityFilled;
 	}
 
-	public List<BinanceAccountBalance> getBalances() {
+	public List<BinanceSpotAccountBalance> getBalances() {
 		return balances;
 	}
 
-	public BinanceRawOrder toBinanceRawOrder() {
-		BinanceRawOrder order = new BinanceRawOrder();
+	public BinanceOrder toBinanceOrder() {
+		BinanceOrder order = new BinanceOrder();
 		order.setAccountId(accountId);
 		order.setOrderId(orderId);
 		order.setSymbol(symbol);

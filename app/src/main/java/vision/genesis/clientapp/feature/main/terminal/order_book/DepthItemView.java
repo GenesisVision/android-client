@@ -16,8 +16,8 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
-import io.swagger.client.model.BinanceRawOrder;
 import vision.genesis.clientapp.R;
+import vision.genesis.clientapp.model.terminal.binance_api.BinanceOrder;
 import vision.genesis.clientapp.utils.StringFormatUtil;
 
 /**
@@ -56,7 +56,7 @@ public class DepthItemView extends RelativeLayout
 
 	private Pair<Double, Double> data;
 
-	private List<BinanceRawOrder> orders = new ArrayList<>();
+	private List<BinanceOrder> orders = new ArrayList<>();
 
 	public DepthItemView(Context context) {
 		super(context);
@@ -132,7 +132,7 @@ public class DepthItemView extends RelativeLayout
 		this.orderDot.setVisibility(orders.isEmpty() ? View.GONE : View.VISIBLE);
 	}
 
-	public void addOrder(BinanceRawOrder order) {
+	public void addOrder(BinanceOrder order) {
 		this.orders.add(order);
 		updateOrderDot();
 	}

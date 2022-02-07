@@ -15,9 +15,11 @@ import java.util.UUID;
 
 import javax.inject.Inject;
 
-import io.swagger.client.model.BinanceRawCancelOrder;
+import io.swagger.client.model.BinanceRawFuturesOrder;
+import io.swagger.client.model.BinanceRawFuturesOrderItemsViewModel;
 import io.swagger.client.model.BinanceRawOrder;
 import io.swagger.client.model.BinanceRawOrderItemsViewModel;
+import io.swagger.client.model.TradingAccountPermission;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -26,7 +28,10 @@ import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.managers.TerminalManager;
 import vision.genesis.clientapp.model.events.OnOrderCloseClickedEvent;
 import vision.genesis.clientapp.model.events.SetOpenOrdersCountEvent;
-import vision.genesis.clientapp.model.terminal.binance_socket.AccountModel;
+import vision.genesis.clientapp.model.terminal.binance_api.BinanceOrder;
+import vision.genesis.clientapp.model.terminal.binance_socket.FuturesAccountModel;
+import vision.genesis.clientapp.model.terminal.binance_socket.FuturesOrderModel;
+import vision.genesis.clientapp.model.terminal.binance_socket.SpotAccountModel;
 import vision.genesis.clientapp.net.ApiErrorResolver;
 
 /**
@@ -51,7 +56,9 @@ public class OpenOrdersPresenter extends MvpPresenter<OpenOrdersView>
 
 	private UUID accountId;
 
-	private List<BinanceRawOrder> orders = new ArrayList<>();
+	private List<BinanceOrder> orders = new ArrayList<>();
+
+	private TradingAccountPermission currentMarket = TradingAccountPermission.SPOT;
 
 	@Override
 	protected void onFirstViewAttach() {
@@ -103,22 +110,53 @@ public class OpenOrdersPresenter extends MvpPresenter<OpenOrdersView>
 			if (getOrdersSubscription != null) {
 				getOrdersSubscription.unsubscribe();
 			}
-			getOrdersSubscription = terminalManager.getOpenOrders(accountId)
-					.observeOn(AndroidSchedulers.mainThread())
-					.subscribeOn(Schedulers.io())
-					.subscribe(this::handleGetOrdersResponse,
-							this::handleGetOrdersError);
+			currentMarket = terminalManager.getCurrentMarket();
+			if (currentMarket.equals(TradingAccountPermission.SPOT)) {
+				getOrdersSubscription = terminalManager.getSpotOpenOrders(accountId)
+						.observeOn(AndroidSchedulers.mainThread())
+						.subscribeOn(Schedulers.io())
+						.subscribe(this::handleGetSpotOrdersResponse,
+								this::handleGetOrdersError);
+			}
+			else if (currentMarket.equals(TradingAccountPermission.FUTURES)) {
+				getOrdersSubscription = terminalManager.getFuturesOpenOrders(accountId)
+						.observeOn(AndroidSchedulers.mainThread())
+						.subscribeOn(Schedulers.io())
+						.subscribe(this::handleGetFuturesOrdersResponse,
+								this::handleGetOrdersError);
+			}
 		}
 	}
 
-	private void handleGetOrdersResponse(BinanceRawOrderItemsViewModel model) {
+	private void handleGetSpotOrdersResponse(BinanceRawOrderItemsViewModel model) {
 		getOrdersSubscription.unsubscribe();
 		getViewState().showProgress(false);
 
 		EventBus.getDefault().post(new SetOpenOrdersCountEvent(model.getTotal()));
 
 		orders.clear();
-		List<BinanceRawOrder> newOrders = model.getItems();
+		List<BinanceOrder> newOrders = new ArrayList<>();
+		for (BinanceRawOrder item : model.getItems()) {
+			newOrders.add(BinanceOrder.from(item));
+		}
+		orders.addAll(newOrders);
+
+		getViewState().setOrders(newOrders);
+
+		subscribeToOrdersUpdates();
+	}
+
+	private void handleGetFuturesOrdersResponse(BinanceRawFuturesOrderItemsViewModel model) {
+		getOrdersSubscription.unsubscribe();
+		getViewState().showProgress(false);
+
+		EventBus.getDefault().post(new SetOpenOrdersCountEvent(model.getTotal()));
+
+		orders.clear();
+		List<BinanceOrder> newOrders = new ArrayList<>();
+		for (BinanceRawFuturesOrder item : model.getItems()) {
+			newOrders.add(BinanceOrder.from(item));
+		}
 		orders.addAll(newOrders);
 
 		getViewState().setOrders(newOrders);
@@ -136,29 +174,44 @@ public class OpenOrdersPresenter extends MvpPresenter<OpenOrdersView>
 	}
 
 	private void subscribeToOrdersUpdates() {
+		if (currentMarket.equals(TradingAccountPermission.SPOT)) {
+			subscribeToSpotOrdersUpdate();
+		}
+		else if (currentMarket.equals(TradingAccountPermission.FUTURES)) {
+			subscribeToFuturesOrdersUpdate();
+		}
+	}
+
+	private void subscribeToSpotOrdersUpdate() {
 		if (terminalManager != null) {
 			if (ordersUpdateSubscription != null) {
 				ordersUpdateSubscription.unsubscribe();
 			}
-			ordersUpdateSubscription = terminalManager.getAccountSubject(accountId)
+			ordersUpdateSubscription = terminalManager.getSpotAccountSubject(accountId)
 					.subscribeOn(Schedulers.newThread())
 					.observeOn(AndroidSchedulers.mainThread())
-					.subscribe(this::handleOpenOrdersUpdate, this::onOpenOrdersUpdateError);
+					.subscribe(this::handleSpotOrdersUpdate, error -> {
+					});
 		}
 	}
 
-	private void handleOpenOrdersUpdate(AccountModel model) {
+	private void handleSpotOrdersUpdate(SpotAccountModel model) {
 		if ("executionReport".equals(model.getEventType())) {
 			switch (model.getExecutionType()) {
 				case NEW:
-					orders.add(0, model.toBinanceRawOrder());
+					for (BinanceOrder order : orders) {
+						if (order.getOrderId().equals(model.getOrderId())) {
+							break;
+						}
+					}
+					orders.add(0, model.toBinanceOrder());
 					break;
 				case TRADE:
 					for (int i = 0; i < orders.size(); i++) {
 						if (orders.get(i).getOrderId().equals(model.getOrderId())) {
 							orders.remove(i);
 							if (!Objects.equals(model.getQuantity(), model.getQuantityFilled())) {
-								orders.add(i, model.toBinanceRawOrder());
+								orders.add(i, model.toBinanceOrder());
 							}
 							break;
 						}
@@ -166,7 +219,7 @@ public class OpenOrdersPresenter extends MvpPresenter<OpenOrdersView>
 					break;
 				case CANCELED:
 				case EXPIRED:
-					for (BinanceRawOrder order : orders) {
+					for (BinanceOrder order : orders) {
 						if (order.getOrderId().equals(model.getOrderId())) {
 							orders.remove(order);
 							break;
@@ -180,14 +233,65 @@ public class OpenOrdersPresenter extends MvpPresenter<OpenOrdersView>
 		}
 	}
 
-	private void onOpenOrdersUpdateError(Throwable throwable) {
-
+	private void subscribeToFuturesOrdersUpdate() {
+		if (terminalManager != null) {
+			if (ordersUpdateSubscription != null) {
+				ordersUpdateSubscription.unsubscribe();
+			}
+			ordersUpdateSubscription = terminalManager.getFuturesAccountSubject(accountId)
+					.subscribeOn(Schedulers.newThread())
+					.observeOn(AndroidSchedulers.mainThread())
+					.subscribe(this::handleFuturesOrdersUpdate, error -> {
+					});
+		}
 	}
 
-	private void closeOrder(BinanceRawOrder order) {
+	private void handleFuturesOrdersUpdate(FuturesAccountModel model) {
+		if ("ORDER_TRADE_UPDATE".equals(model.getEventType())) {
+			FuturesOrderModel order = model.getOrder();
+			switch (order.getExecutionType()) {
+				case NEW:
+					for (BinanceOrder binanceOrder : orders) {
+						if (binanceOrder.getOrderId().equals(order.getOrderId())) {
+							break;
+						}
+					}
+					orders.add(0, model.getOrder().toBinanceOrder());
+					break;
+				case TRADE:
+					for (int i = 0; i < orders.size(); i++) {
+						if (orders.get(i).getOrderId().equals(order.getOrderId())) {
+							orders.remove(i);
+							if (!Objects.equals(order.getQuantity(), order.getQuantityFilled())) {
+								orders.add(i, order.toBinanceOrder());
+							}
+							break;
+						}
+					}
+					break;
+				case CANCELED:
+				case EXPIRED:
+					for (BinanceOrder binanceOrder : orders) {
+						if (binanceOrder.getOrderId().equals(order.getOrderId())) {
+							orders.remove(binanceOrder);
+							break;
+						}
+					}
+					break;
+			}
+
+			getViewState().setOrders(orders);
+			EventBus.getDefault().post(new SetOpenOrdersCountEvent(orders.size()));
+		}
+	}
+
+	private void closeOrder(BinanceOrder order) {
 		if (terminalManager != null && order != null) {
 			getViewState().showProgress(true);
-			closeOrderSubscription = terminalManager.cancelOrder(order)
+			order.setAccountId(accountId);
+			closeOrderSubscription = (currentMarket.equals(TradingAccountPermission.SPOT)
+					? terminalManager.cancelSpotOrder(order)
+					: terminalManager.cancelFuturesOrder(order))
 					.observeOn(AndroidSchedulers.mainThread())
 					.subscribeOn(Schedulers.io())
 					.subscribe(this::handleCloseOrderResponse,
@@ -195,7 +299,7 @@ public class OpenOrdersPresenter extends MvpPresenter<OpenOrdersView>
 		}
 	}
 
-	private void handleCloseOrderResponse(BinanceRawCancelOrder response) {
+	private void handleCloseOrderResponse(Object response) {
 		closeOrderSubscription.unsubscribe();
 		getViewState().showProgress(false);
 	}

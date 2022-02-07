@@ -20,9 +20,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.swagger.client.model.BinanceOrderSide;
-import io.swagger.client.model.BinanceRawOrder;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.model.events.OnOrderCloseClickedEvent;
+import vision.genesis.clientapp.model.terminal.binance_api.BinanceOrder;
 import vision.genesis.clientapp.utils.DateTimeUtil;
 import vision.genesis.clientapp.utils.StringFormatUtil;
 import vision.genesis.clientapp.utils.ThemeUtil;
@@ -36,10 +36,10 @@ public class OpenOrdersListAdapter extends RecyclerView.Adapter<OpenOrdersListAd
 {
 	public interface OnItemClickListener
 	{
-		void onClicked(BinanceRawOrder order);
+		void onClicked(BinanceOrder order);
 	}
 
-	public List<BinanceRawOrder> orders = new ArrayList<>();
+	public List<BinanceOrder> orders = new ArrayList<>();
 
 	private OnItemClickListener listener;
 
@@ -64,13 +64,13 @@ public class OpenOrdersListAdapter extends RecyclerView.Adapter<OpenOrdersListAd
 		return orders.size();
 	}
 
-	public void setOrders(List<BinanceRawOrder> orders) {
+	public void setOrders(List<BinanceOrder> orders) {
 		this.orders.clear();
 		this.orders.addAll(orders);
 		notifyDataSetChanged();
 	}
 
-	public void addOrders(List<BinanceRawOrder> orders) {
+	public void addOrders(List<BinanceOrder> orders) {
 		this.orders.addAll(orders);
 		notifyDataSetChanged();
 	}
@@ -107,7 +107,7 @@ public class OpenOrdersListAdapter extends RecyclerView.Adapter<OpenOrdersListAd
 		@BindView(R.id.filled_percent)
 		public TextView filledPercent;
 
-		private BinanceRawOrder order;
+		private BinanceOrder order;
 
 		OrderViewHolder(View itemView, OnItemClickListener listener) {
 			super(itemView);
@@ -128,7 +128,7 @@ public class OpenOrdersListAdapter extends RecyclerView.Adapter<OpenOrdersListAd
 			}
 		}
 
-		void setOrder(BinanceRawOrder order) {
+		void setOrder(BinanceOrder order) {
 			this.order = order;
 
 			this.symbol.setText(order.getSymbol());

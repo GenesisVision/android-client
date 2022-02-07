@@ -21,7 +21,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
-import io.swagger.client.model.BinanceRawOrder;
 import io.swagger.client.model.TradingPlatformBinanceOrdersMode;
 import timber.log.Timber;
 import vision.genesis.clientapp.R;
@@ -30,6 +29,7 @@ import vision.genesis.clientapp.feature.common.date_range.DateRangeBottomSheetFr
 import vision.genesis.clientapp.feature.main.program.ProgramDetailsPagerAdapter;
 import vision.genesis.clientapp.feature.main.terminal.order_details.OrderDetailsDialog;
 import vision.genesis.clientapp.model.DateRange;
+import vision.genesis.clientapp.model.terminal.binance_api.BinanceOrder;
 import vision.genesis.clientapp.ui.DateRangeView;
 
 /**
@@ -178,7 +178,7 @@ public class OrderHistoryFragment extends BaseFragment implements OrderHistoryVi
 	}
 
 	@Override
-	public void setOrders(List<BinanceRawOrder> orders) {
+	public void setOrders(List<BinanceOrder> orders) {
 		if (orders.isEmpty()) {
 			groupNoOrders.setVisibility(View.VISIBLE);
 			recyclerView.setVisibility(View.GONE);
@@ -191,7 +191,7 @@ public class OrderHistoryFragment extends BaseFragment implements OrderHistoryVi
 	}
 
 	@Override
-	public void addOrders(List<BinanceRawOrder> orders) {
+	public void addOrders(List<BinanceOrder> orders) {
 		adapter.addOrders(orders);
 	}
 
@@ -200,7 +200,7 @@ public class OrderHistoryFragment extends BaseFragment implements OrderHistoryVi
 		showSnackbar(message, recyclerView);
 	}
 
-	public void showOrderDetails(BinanceRawOrder order) {
+	public void showOrderDetails(BinanceOrder order) {
 		if (getActivity() != null) {
 			OrderDetailsDialog dialog = new OrderDetailsDialog();
 			dialog.show(getActivity().getSupportFragmentManager(), dialog.getTag());
