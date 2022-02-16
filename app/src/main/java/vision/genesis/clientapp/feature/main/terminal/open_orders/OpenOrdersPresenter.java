@@ -253,7 +253,7 @@ public class OpenOrdersPresenter extends MvpPresenter<OpenOrdersView>
 				case NEW:
 					for (BinanceOrder binanceOrder : orders) {
 						if (binanceOrder.getOrderId().equals(order.getOrderId())) {
-							break;
+							return;
 						}
 					}
 					orders.add(0, model.getOrder().toBinanceOrder());

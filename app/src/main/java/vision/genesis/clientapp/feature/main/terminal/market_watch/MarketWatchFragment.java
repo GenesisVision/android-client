@@ -215,21 +215,30 @@ public class MarketWatchFragment extends BaseFragment implements MarketWatchView
 
 		unbinder = ButterKnife.bind(this, view);
 
+		boolean showSpot = true;
+
 		if (getArguments() != null) {
 			UUID assetId = (UUID) getArguments().getSerializable(EXTRA_ASSET_ID);
 			ArrayList<String> permissions = getArguments().getStringArrayList(EXTRA_ASSET_PERMISSIONS);
 			if (assetId != null) {
 				this.backButton.setVisibility(View.VISIBLE);
 			}
+
+			tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+
+			if (permissions != null) {
+				if (permissions.contains(TradingAccountPermission.FUTURES.getValue())) {
+					showSpot = false;
+				}
+				tabLayoutTop.setVisibility(View.GONE);
+			}
 		}
-
-		tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
-
-		initTabsTop();
+		initTabsTop(showSpot);
 		setTextListener();
 		initSearchFragment();
 		initViewPager();
 		initSpotTabs();
+
 	}
 
 	private void initSearchFragment() {
@@ -294,7 +303,7 @@ public class MarketWatchFragment extends BaseFragment implements MarketWatchView
 		presenter.onPause();
 	}
 
-	private void initTabsTop() {
+	private void initTabsTop(boolean showSpot) {
 		TabLayout.Tab spotTab = tabLayoutTop.newTab().setCustomView(getTabView(0, R.string.spot)).setTag("spot");
 		TabLayout.Tab futuresTab = tabLayoutTop.newTab().setCustomView(getTabView(0, R.string.futures)).setTag("futures");
 
@@ -327,8 +336,8 @@ public class MarketWatchFragment extends BaseFragment implements MarketWatchView
 
 		tabLayoutTop.addOnTabSelectedListener(topTabSelectedListener);
 
-		addTopTab(spotTab, true);
-		addTopTab(futuresTab, false);
+		addTopTab(spotTab, showSpot);
+		addTopTab(futuresTab, !showSpot);
 	}
 
 	private void addTopTab(TabLayout.Tab tab, boolean selected) {

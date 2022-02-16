@@ -28,7 +28,6 @@ import io.swagger.client.model.DashboardTradingAssetStatus;
 import io.swagger.client.model.PrivateTradingAccountFull;
 import io.swagger.client.model.PrivateTradingAccountType;
 import io.swagger.client.model.SignalSubscription;
-import io.swagger.client.model.TradingAccountPermission;
 import timber.log.Timber;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.feature.BaseFragment;
@@ -353,12 +352,6 @@ public class TradingAccountInfoFragment extends BaseFragment implements TradingA
 					createFollowButton.setEnabled(accountDetails.getOwnerActions().isCanMakeSignalProviderFromPrivateTradingAccount());
 				}
 				createProgramMinDepositText.setVisibility(accountDetails.getOwnerActions().isIsEnoughMoneyToCreateProgram() ? View.GONE : View.VISIBLE);
-			}
-
-			for (TradingAccountPermission permission : accountDetails.getTradingAccountInfo().getPermissions()) {
-				if (permission.equals(TradingAccountPermission.FUTURES)) {
-					terminalButton.setVisibility(View.GONE);
-				}
 			}
 		}
 	}

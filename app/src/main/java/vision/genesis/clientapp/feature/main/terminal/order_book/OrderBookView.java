@@ -259,6 +259,8 @@ public class OrderBookView extends RelativeLayout
 
 	private void initTickSizes() {
 		double startTickSize = symbolInfo.getPriceFilter().getTickSize();
+		tickSizes = new ArrayList<>();
+		tickSizeOptions = new ArrayList<>();
 		for (int i = 0; i < TICK_SIZE_COUNT; i++) {
 //			tickSizes.add((new BigDecimal(startTickSize)).multiply(BigDecimal.valueOf(Math.pow(10, i))).floatValue());
 //			tickSizes.add((startTickSize * Math.pow(10, i)));

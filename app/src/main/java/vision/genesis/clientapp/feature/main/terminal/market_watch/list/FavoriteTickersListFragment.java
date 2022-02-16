@@ -50,6 +50,8 @@ public class FavoriteTickersListFragment extends TickersListFragment
 
 	public void clearFavorites() {
 		setTickers(new ArrayList<>());
-		selectAccountButton.setVisibility(View.VISIBLE);
+		if (selectAccountButton != null) {
+			selectAccountButton.setVisibility(View.VISIBLE);
+		}
 	}
 }

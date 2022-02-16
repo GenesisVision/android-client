@@ -142,6 +142,7 @@ public class MarketWatchPresenter extends MvpPresenter<MarketWatchView> implemen
 
 		subscribeToUser();
 		getServerInfo();
+		updateCurrentMarket();
 	}
 
 	@Override
@@ -200,6 +201,10 @@ public class MarketWatchPresenter extends MvpPresenter<MarketWatchView> implemen
 
 	void setCurrentMarket(String market) {
 		currentMarket = market.equals("spot") ? TradingAccountPermission.SPOT : TradingAccountPermission.FUTURES;
+		updateCurrentMarket();
+	}
+
+	private void updateCurrentMarket() {
 		if (terminalManager != null) {
 			terminalManager.setCurrentMarket(currentMarket);
 			changeLists();
@@ -611,15 +616,17 @@ public class MarketWatchPresenter extends MvpPresenter<MarketWatchView> implemen
 
 	private void handleGetBrokersSuccess(ExchangeInfoItemsViewModel response) {
 		getBrokersSubscription.unsubscribe();
+		String requiredAccountTypeName = currentMarket.getValue();
 		if (!response.getItems().isEmpty()) {
 			brokersLoop:
 			for (ExchangeInfo exchange : response.getItems()) {
 				for (ExchangeAccountType accountType : exchange.getAccountTypes()) {
-					if (accountType.getType().equals(BrokerTradeServerType.BINANCE)) {
+					if ((accountType.getType().equals(BrokerTradeServerType.BINANCE))
+							&& (accountType.getName().equals(requiredAccountTypeName))) {
 						CreateAccountModel model = new CreateAccountModel(
-								exchange.getAccountTypes().get(0).getId(),
+								accountType.getId(),
 								exchange.getLogoUrl(),
-								Currency.fromValue(exchange.getAccountTypes().get(0).getCurrencies().get(0)),
+								Currency.fromValue(accountType.getCurrencies().get(0)),
 								1
 						);
 						getViewState().showCreateAccount(model);

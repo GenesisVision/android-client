@@ -29,10 +29,24 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
+                    <com.google.android.material.tabs.TabLayout
+                        android:id="@+id/tab_layout_top"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/tabs_height"
+                        android:layout_gravity="center"
+                        android:minHeight="?attr/actionBarSize"
+                        app:tabGravity="fill"
+                        app:tabIndicatorColor="?attr/colorAccent"
+                        app:tabMaxWidth="0dp"
+                        app:tabMode="scrollable"
+                        app:tabSelectedTextColor="?attr/colorTextPrimary"
+                        app:tabTextColor="?attr/colorTextSecondary"/>
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
+
 
                         <ImageView
                             android:id="@+id/button_back"
@@ -43,27 +57,7 @@
                             android:visibility="gone"
                             app:srcCompat="@drawable/icon_back"
                             app:tint="?attr/colorTextPrimary"
-                            tools:visibility="gone"/>
-
-                        <com.google.android.material.tabs.TabLayout
-                            android:id="@+id/tab_layout_top"
-                            android:layout_width="match_parent"
-                            android:layout_height="@dimen/tabs_height"
-                            android:layout_gravity="center"
-                            android:minHeight="?attr/actionBarSize"
-                            app:tabGravity="fill"
-                            app:tabIndicatorColor="?attr/colorAccent"
-                            app:tabMaxWidth="0dp"
-                            app:tabMode="scrollable"
-                            app:tabSelectedTextColor="?attr/colorTextPrimary"
-                            app:tabTextColor="?attr/colorTextSecondary"/>
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
+                            tools:visibility="visible"/>
 
                         <RelativeLayout
                             android:id="@+id/searchbar"

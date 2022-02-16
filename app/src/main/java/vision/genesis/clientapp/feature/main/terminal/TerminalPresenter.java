@@ -17,7 +17,6 @@ import io.swagger.client.model.ExchangeAccountType;
 import io.swagger.client.model.ExchangeAsset;
 import io.swagger.client.model.ExchangeInfo;
 import io.swagger.client.model.ExchangeInfoItemsViewModel;
-import io.swagger.client.model.TradingAccountPermission;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -128,7 +127,7 @@ public class TerminalPresenter extends MvpPresenter<TerminalView> implements Sel
 
 	private void getAccounts() {
 		if (terminalManager != null && selectedSymbol != null) {
-			getAccountsSubscription = terminalManager.getAccountsFor(BrokerTradeServerType.BINANCE, TradingAccountPermission.SPOT)
+			getAccountsSubscription = terminalManager.getAccountsFor(BrokerTradeServerType.BINANCE, terminalManager.getCurrentMarket())
 					.observeOn(AndroidSchedulers.mainThread())
 					.subscribeOn(Schedulers.io())
 					.subscribe(this::handleGetAccountsSuccess,
@@ -246,15 +245,17 @@ public class TerminalPresenter extends MvpPresenter<TerminalView> implements Sel
 
 	private void handleGetBrokersSuccess(ExchangeInfoItemsViewModel response) {
 		getBrokersSubscription.unsubscribe();
+		String requiredAccountTypeName = terminalManager.getCurrentMarket().getValue();
 		if (!response.getItems().isEmpty()) {
 			brokersLoop:
 			for (ExchangeInfo exchange : response.getItems()) {
 				for (ExchangeAccountType accountType : exchange.getAccountTypes()) {
-					if (accountType.getType().equals(BrokerTradeServerType.BINANCE)) {
+					if ((accountType.getType().equals(BrokerTradeServerType.BINANCE))
+							&& (accountType.getName().equals(requiredAccountTypeName))) {
 						CreateAccountModel model = new CreateAccountModel(
-								exchange.getAccountTypes().get(0).getId(),
+								accountType.getId(),
 								exchange.getLogoUrl(),
-								Currency.fromValue(exchange.getAccountTypes().get(0).getCurrencies().get(0)),
+								Currency.fromValue(accountType.getCurrencies().get(0)),
 								1
 						);
 						getViewState().showCreateAccount(model);
