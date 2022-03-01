@@ -97,6 +97,7 @@ public class SplashScreenPresenter extends MvpPresenter<SplashScreenView>
 		if (platformStatusSubscription != null) {
 			platformStatusSubscription.unsubscribe();
 		}
+
 		getBinanceServerInfo();
 	}
 

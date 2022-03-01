@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:background="?attr/selectableItemBackground"
+              android:orientation="vertical"
+              android:paddingStart="@dimen/padding"
+              android:paddingEnd="@dimen/padding">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/padding">
+
+        <LinearLayout
+            android:id="@+id/group_left"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/symbol"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/montserrat_semibold"
+                    android:gravity="center_vertical"
+                    android:textColor="?attr/colorTextPrimary"
+                    android:textSize="18sp"
+                    tools:text="BTCUSDT"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/size"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/montserrat_medium"
+                    android:textColor="?attr/colorTextPrimary"
+                    android:textSize="14sp"
+                    tools:text="1.0000001 BTC"
+                    tools:textColor="@color/green"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/group_right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_toEndOf="@+id/group_left"
+            android:gravity="end"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical|end"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/montserrat_regular"
+                    android:text="PNL (ROE %)"
+                    android:textColor="?attr/colorTextSecondary"
+                    android:textSize="12sp"/>
+
+                <TextView
+                    android:id="@+id/pnl"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/montserrat_medium"
+                    android:gravity="end"
+                    android:textColor="?attr/colorTextPrimary"
+                    android:textSize="14sp"
+                    tools:text="+0.04 USDT\n(+0.12%)"
+                    tools:textColor="?attr/colorGreen"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/program_info_invest_label"
+                android:text="@string/entry_price"/>
+
+            <TextView
+                android:id="@+id/entry_price"
+                style="@style/program_info_invest_value"
+                android:textSize="14sp"
+                tools:text="0.12345678"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/program_info_invest_label"
+                android:text="@string/mark_price"/>
+
+            <TextView
+                android:id="@+id/mark_price"
+                style="@style/program_info_invest_value"
+                android:textSize="14sp"
+                tools:text="0.12345678"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/program_info_invest_label"
+                android:text="@string/liq_price"/>
+
+            <TextView
+                android:id="@+id/liq_price"
+                style="@style/program_info_invest_value"
+                android:textColor="?attr/colorPending"
+                android:textSize="14sp"
+                tools:text="0.12345678"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/program_info_invest_label"
+                android:text="@string/margin_ratio"/>
+
+            <TextView
+                android:id="@+id/margin_ratio"
+                style="@style/program_info_invest_value"
+                android:textSize="14sp"
+                tools:text="19.95%"
+                tools:textColor="@color/green"/>
+
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2">
+
+            <LinearLayout
+                android:id="@+id/group_margin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/program_info_invest_label"
+                    android:text="@string/margin"/>
+
+                <TextView
+                    android:id="@+id/margin"
+                    style="@style/program_info_invest_value"
+                    android:textSize="14sp"
+                    tools:text="10.71 USDT (Cross)"/>
+
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/button_add_margin"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="8dp"
+                android:layout_toEndOf="@+id/group_margin"
+                android:padding="2dp"
+                android:src="@drawable/ic_add_circle_black_24dp"/>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/program_info_invest_label"
+                android:text="@string/notional_size"/>
+
+            <TextView
+                android:id="@+id/notional_size"
+                style="@style/program_info_invest_value"
+                android:textSize="14sp"
+                tools:text="51058.1234 USDT"
+                tools:textColor="?attr/colorTextPrimary"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+    <com.google.android.flexbox.FlexboxLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        app:alignContent="flex_start"
+        app:alignItems="center"
+        app:flexDirection="row"
+        app:flexWrap="wrap"
+        app:justifyContent="space_between">
+
+        <vision.genesis.clientapp.ui.PrimaryButton
+            android:id="@+id/button_tp_sl"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/button_height"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
+            android:text="@string/tp_sl"/>
+
+        <vision.genesis.clientapp.ui.PrimaryButton
+            android:id="@+id/button_close_position"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/button_height"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
+            android:text="@string/close_position"/>
+
+    </com.google.android.flexbox.FlexboxLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="8dp"
+        android:alpha="0.5"
+        android:background="?attr/colorDelimiterLight"/>
+
+</LinearLayout>

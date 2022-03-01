@@ -5,6 +5,9 @@ import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
 
+import io.swagger.client.model.BinanceFuturesMarginType;
+import io.swagger.client.model.BinancePositionSide;
+
 /**
  * GenesisVisionAndroid
  * Created by Vitaly on 07/02/2022.
@@ -40,13 +43,13 @@ public class FuturesPositionModel implements Parcelable
 	private Double unrealizedPnl;
 
 	@SerializedName("mt")
-	private String marginType;
+	private BinanceFuturesMarginType marginType;
 
 	@SerializedName("iw")
 	private Double isolatedWallet;
 
 	@SerializedName("ps")
-	private String positionSide;
+	private BinancePositionSide positionSide;
 
 	protected FuturesPositionModel(Parcel in) {
 		symbol = in.readString();
@@ -74,14 +77,14 @@ public class FuturesPositionModel implements Parcelable
 		else {
 			unrealizedPnl = in.readDouble();
 		}
-		marginType = in.readString();
+		marginType = (BinanceFuturesMarginType) in.readSerializable();
 		if (in.readByte() == 0) {
 			isolatedWallet = null;
 		}
 		else {
 			isolatedWallet = in.readDouble();
 		}
-		positionSide = in.readString();
+		positionSide = (BinancePositionSide) in.readSerializable();
 	}
 
 	@Override
@@ -120,7 +123,7 @@ public class FuturesPositionModel implements Parcelable
 			parcel.writeByte((byte) 1);
 			parcel.writeDouble(unrealizedPnl);
 		}
-		parcel.writeString(marginType);
+		parcel.writeSerializable(marginType);
 		if (isolatedWallet == null) {
 			parcel.writeByte((byte) 0);
 		}
@@ -128,7 +131,7 @@ public class FuturesPositionModel implements Parcelable
 			parcel.writeByte((byte) 1);
 			parcel.writeDouble(isolatedWallet);
 		}
-		parcel.writeString(positionSide);
+		parcel.writeSerializable(positionSide);
 	}
 
 	public String getSymbol() {
@@ -151,7 +154,7 @@ public class FuturesPositionModel implements Parcelable
 		return unrealizedPnl;
 	}
 
-	public String getMarginType() {
+	public BinanceFuturesMarginType getMarginType() {
 		return marginType;
 	}
 
@@ -159,7 +162,7 @@ public class FuturesPositionModel implements Parcelable
 		return isolatedWallet;
 	}
 
-	public String getPositionSide() {
+	public BinancePositionSide getPositionSide() {
 		return positionSide;
 	}
 }

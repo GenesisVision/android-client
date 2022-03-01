@@ -120,7 +120,12 @@ public class OrderDetailsDialog extends BottomSheetDialogFragment
 			this.side.setTextColor(ThemeUtil.getColorByAttrId(getContext(), R.attr.colorRed));
 		}
 
-		this.quantity.setText(StringFormatUtil.formatAmount(order.getQuantity()));
+		if (order.isClosePosition()) {
+			this.quantity.setText(getString(R.string.close_position));
+		}
+		else {
+			this.quantity.setText(StringFormatUtil.formatAmount(order.getQuantity()));
+		}
 		this.amount.setText(StringFormatUtil.formatAmount(order.getQuantity()));
 		this.executed.setText(StringFormatUtil.formatAmount(order.getQuantityFilled()));
 		this.date.setText(DateTimeUtil.formatShortDateTime(order.getCreateTime()));

@@ -59,13 +59,16 @@ public class SelectLeverageBottomSheetFragment extends BottomSheetDialogFragment
 
 	public static final String EXTRA_BRACKETS = "extra_brackets";
 
-	public static SelectLeverageBottomSheetFragment with(UUID accountId, String symbol, Integer currentLeverage, ArrayList<BinanceRawFuturesBracket> brackets) {
+	public static final String EXTRA_CAN_CHANGE = "extra_can_change";
+
+	public static SelectLeverageBottomSheetFragment with(UUID accountId, String symbol, Integer currentLeverage, ArrayList<BinanceRawFuturesBracket> brackets, boolean canChange) {
 		SelectLeverageBottomSheetFragment fragment = new SelectLeverageBottomSheetFragment();
-		Bundle arguments = new Bundle(4);
+		Bundle arguments = new Bundle(5);
 		arguments.putSerializable(EXTRA_ACCOUNT_ID, accountId);
 		arguments.putString(EXTRA_SYMBOL, symbol);
 		arguments.putInt(EXTRA_LEVERAGE, currentLeverage);
 		arguments.putParcelableArrayList(EXTRA_BRACKETS, brackets);
+		arguments.putBoolean(EXTRA_CAN_CHANGE, canChange);
 		fragment.setArguments(arguments);
 		return fragment;
 	}
@@ -97,6 +100,9 @@ public class SelectLeverageBottomSheetFragment extends BottomSheetDialogFragment
 	@BindView(R.id.max)
 	public TextView max;
 
+	@BindView(R.id.cannot_change_warning)
+	public TextView cannotChangeWarning;
+
 	@BindView(R.id.button_confirm)
 	public PrimaryButton confirmButton;
 
@@ -122,6 +128,8 @@ public class SelectLeverageBottomSheetFragment extends BottomSheetDialogFragment
 	private Integer minLeverage = 1;
 
 	private Integer maxLeverage = 125;
+
+	private Boolean canChange = true;
 
 	@OnClick(R.id.button_minus)
 	public void onMinusClicked() {
@@ -153,7 +161,8 @@ public class SelectLeverageBottomSheetFragment extends BottomSheetDialogFragment
 			setData(Objects.requireNonNull((UUID) requireArguments().getSerializable(EXTRA_ACCOUNT_ID)),
 					Objects.requireNonNull(requireArguments().getString(EXTRA_SYMBOL)),
 					requireArguments().getInt(EXTRA_LEVERAGE, 1),
-					Objects.requireNonNull(requireArguments().getParcelableArrayList(EXTRA_BRACKETS)));
+					Objects.requireNonNull(requireArguments().getParcelableArrayList(EXTRA_BRACKETS)),
+					requireArguments().getBoolean(EXTRA_CAN_CHANGE));
 			seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener()
 			{
 				@Override
@@ -204,11 +213,12 @@ public class SelectLeverageBottomSheetFragment extends BottomSheetDialogFragment
 		this.listener = listener;
 	}
 
-	private void setData(@NonNull UUID accountId, @NonNull String symbol, @NonNull Integer currentLeverage, @NonNull ArrayList<BinanceRawFuturesBracket> brackets) {
+	private void setData(@NonNull UUID accountId, @NonNull String symbol, @NonNull Integer currentLeverage, @NonNull ArrayList<BinanceRawFuturesBracket> brackets, @NonNull Boolean canChange) {
 		this.accountId = accountId;
 		this.symbol = symbol;
 		this.currentLeverage = currentLeverage;
 		this.brackets = brackets;
+		this.canChange = canChange;
 
 		setMinMax(brackets);
 		setLeverage(currentLeverage, false);
@@ -241,7 +251,15 @@ public class SelectLeverageBottomSheetFragment extends BottomSheetDialogFragment
 
 		this.minusButton.setEnabled(newLeverage > minLeverage);
 		this.plusButton.setEnabled(newLeverage < maxLeverage);
-		this.confirmButton.setEnabled(!newLeverage.equals(currentLeverage));
+
+		if (!canChange && newLeverage < currentLeverage) {
+			this.cannotChangeWarning.setVisibility(View.VISIBLE);
+			this.confirmButton.setEnabled(false);
+		}
+		else {
+			this.cannotChangeWarning.setVisibility(View.GONE);
+			this.confirmButton.setEnabled(!newLeverage.equals(currentLeverage));
+		}
 	}
 
 	private void setWarning(Integer leverage) {

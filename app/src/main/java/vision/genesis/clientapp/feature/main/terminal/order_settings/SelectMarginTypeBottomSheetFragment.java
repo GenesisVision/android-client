@@ -52,12 +52,15 @@ public class SelectMarginTypeBottomSheetFragment extends BottomSheetDialogFragme
 
 	public static final String EXTRA_MARGIN_TYPE = "extra_margin_type";
 
-	public static SelectMarginTypeBottomSheetFragment with(UUID accountId, String symbol, BinanceFuturesMarginType marginType) {
+	public static final String EXTRA_CAN_CHANGE = "extra_can_change";
+
+	public static SelectMarginTypeBottomSheetFragment with(UUID accountId, String symbol, BinanceFuturesMarginType marginType, boolean canChange) {
 		SelectMarginTypeBottomSheetFragment fragment = new SelectMarginTypeBottomSheetFragment();
-		Bundle arguments = new Bundle(3);
+		Bundle arguments = new Bundle(4);
 		arguments.putSerializable(EXTRA_ACCOUNT_ID, accountId);
 		arguments.putString(EXTRA_SYMBOL, symbol);
 		arguments.putString(EXTRA_MARGIN_TYPE, marginType.toString());
+		arguments.putBoolean(EXTRA_CAN_CHANGE, canChange);
 		fragment.setArguments(arguments);
 		return fragment;
 	}
@@ -80,6 +83,9 @@ public class SelectMarginTypeBottomSheetFragment extends BottomSheetDialogFragme
 	@BindView(R.id.isolated_check)
 	public ImageView isolatedCheck;
 
+	@BindView(R.id.cannot_change_warning)
+	public TextView cannotChangeWarning;
+
 	@BindView(R.id.button_confirm)
 	public PrimaryButton confirmButton;
 
@@ -99,6 +105,8 @@ public class SelectMarginTypeBottomSheetFragment extends BottomSheetDialogFragme
 	private Subscription changeMarginTypeSubscription;
 
 	private Unbinder unbinder;
+
+	private Boolean canChange = true;
 
 	@OnClick(R.id.cross)
 	public void onCrossClicked() {
@@ -129,7 +137,8 @@ public class SelectMarginTypeBottomSheetFragment extends BottomSheetDialogFragme
 		try {
 			setData(Objects.requireNonNull((UUID) requireArguments().getSerializable(EXTRA_ACCOUNT_ID)),
 					Objects.requireNonNull(requireArguments().getString(EXTRA_SYMBOL)),
-					Objects.requireNonNull(requireArguments().getString(EXTRA_MARGIN_TYPE)));
+					Objects.requireNonNull(requireArguments().getString(EXTRA_MARGIN_TYPE)),
+					requireArguments().getBoolean(EXTRA_CAN_CHANGE));
 		} catch (NullPointerException e) {
 			Timber.e("Passed empty arguments to %s", getClass().getSimpleName());
 			this.dismiss();
@@ -164,10 +173,15 @@ public class SelectMarginTypeBottomSheetFragment extends BottomSheetDialogFragme
 		this.listener = listener;
 	}
 
-	private void setData(@NonNull UUID accountId, @NonNull String symbol, @NonNull String marginTypeString) {
+	private void setData(@NonNull UUID accountId, @NonNull String symbol, @NonNull String marginTypeString, @NonNull Boolean canChange) {
 		this.accountId = accountId;
 		this.symbol = symbol;
 		this.currentMarginType = BinanceFuturesMarginType.fromValue(marginTypeString);
+		this.canChange = canChange;
+
+		if (!canChange) {
+			this.cannotChangeWarning.setVisibility(View.VISIBLE);
+		}
 
 		this.title.setText(getString(R.string.template_margin_mode, symbol));
 		selectMarginType(currentMarginType);
@@ -189,7 +203,7 @@ public class SelectMarginTypeBottomSheetFragment extends BottomSheetDialogFragme
 			}
 		}
 
-		this.confirmButton.setEnabled(!newMarginType.equals(currentMarginType));
+		this.confirmButton.setEnabled(canChange && !newMarginType.equals(currentMarginType));
 	}
 
 	private void clearSelection() {

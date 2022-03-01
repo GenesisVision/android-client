@@ -144,7 +144,12 @@ public class OpenOrdersListAdapter extends RecyclerView.Adapter<OpenOrdersListAd
 				this.side.setTextColor(ThemeUtil.getColorByAttrId(itemView.getContext(), R.attr.colorRed));
 			}
 
-			this.quantity.setText(StringFormatUtil.formatAmount(order.getQuantity()));
+			if (order.isClosePosition()) {
+				this.quantity.setText(itemView.getResources().getString(R.string.close_position));
+			}
+			else {
+				this.quantity.setText(StringFormatUtil.formatAmount(order.getQuantity()));
+			}
 			this.date.setText(DateTimeUtil.formatShortDateTime(order.getCreateTime()));
 
 			this.type.setText(order.getType().toString());

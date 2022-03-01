@@ -34,6 +34,7 @@ import io.swagger.client.model.BinanceRawPlaceOrder;
 import io.swagger.client.model.BinanceRawSymbolLotSizeFilter;
 import io.swagger.client.model.BinanceRawSymbolPriceFilter;
 import io.swagger.client.model.BinanceTimeInForce;
+import io.swagger.client.model.BinanceWorkingType;
 import io.swagger.client.model.ExchangeAsset;
 import io.swagger.client.model.TradingAccountPermission;
 import rx.Subscription;
@@ -48,6 +49,7 @@ import vision.genesis.clientapp.managers.TerminalManager;
 import vision.genesis.clientapp.model.BinanceExchangeInfo;
 import vision.genesis.clientapp.model.events.SetOpenOrdersCountEvent;
 import vision.genesis.clientapp.model.events.SetOrderHistoryCountEvent;
+import vision.genesis.clientapp.model.events.SetPositionsCountEvent;
 import vision.genesis.clientapp.model.events.SetTradeHistoryCountEvent;
 import vision.genesis.clientapp.model.terminal.binance_api.BinanceRawSymbol;
 import vision.genesis.clientapp.model.terminal.binance_socket.BinanceSpotAccountBalance;
@@ -144,9 +146,17 @@ public class PlaceOrderPresenter extends MvpPresenter<PlaceOrderView> implements
 
 	private Integer currentLeverage = 1;
 
-	private BinancePositionMode currentPositonMode = BinancePositionMode.ONEWAY;
+	private BinancePositionMode currentPositionMode = BinancePositionMode.ONEWAY;
 
 	private ArrayList<BinanceRawFuturesBracket> futuresBrackets = new ArrayList<>();
+
+	private int positionsCount = 0;
+
+	private boolean hasIsolatedPosition = false;
+
+	private int openOrdersCount = 0;
+
+	private BinanceWorkingType workingType = BinanceWorkingType.CONTRACT;
 
 	@Override
 	protected void onFirstViewAttach() {
@@ -160,6 +170,7 @@ public class PlaceOrderPresenter extends MvpPresenter<PlaceOrderView> implements
 		getViewState().setCurrentMarket(currentMarket);
 
 		initOrderTypeOptions();
+		initWorkingTypeOptions();
 		getAccountInfo();
 		getSymbolInfo();
 		getBaseQuoteAssets();
@@ -347,6 +358,14 @@ public class PlaceOrderPresenter extends MvpPresenter<PlaceOrderView> implements
 		onOrderTypeSelected(0, orderTypeOptions.get(0));
 	}
 
+	private void initWorkingTypeOptions() {
+		ArrayList<String> workingTypeOptions = new ArrayList<>();
+		workingTypeOptions.add(context.getString(R.string.last));
+		workingTypeOptions.add(context.getString(R.string.mark));
+		getViewState().setWorkingTypeOptions(workingTypeOptions);
+		onWorkingTypeSelected(0, workingTypeOptions.get(0));
+	}
+
 	void setData(String selectedSymbol, ExchangeAsset selectedAccount, String operationType) {
 		this.symbol = selectedSymbol;
 		this.selectedAccount = selectedAccount;
@@ -432,6 +451,11 @@ public class PlaceOrderPresenter extends MvpPresenter<PlaceOrderView> implements
 			getViewState().setPrice(StringFormatUtil.formatAmountWithoutGrouping(currentTickerPrice, priceStepSize));
 		}
 //		updateButtonAvailability();
+	}
+
+	void onWorkingTypeSelected(Integer position, String text) {
+		workingType = position == 0 ? BinanceWorkingType.CONTRACT : BinanceWorkingType.MARK;
+		getViewState().setWorkingType(text, position);
 	}
 
 	private void getBaseQuoteAssets() {
@@ -850,6 +874,7 @@ public class PlaceOrderPresenter extends MvpPresenter<PlaceOrderView> implements
 				order.setStopPrice(stop);
 				order.setPrice(limit);
 				order.setTimeInForce(BinanceTimeInForce.GOODTILLCANCEL);
+				order.setWorkingType(workingType);
 			}
 			else if (orderTypePosition.equals(ORDER_TYPE_LIMIT)) {
 				order.setTimeInForce(BinanceTimeInForce.GOODTILLCANCEL);
@@ -897,28 +922,44 @@ public class PlaceOrderPresenter extends MvpPresenter<PlaceOrderView> implements
 		if (side.equals(BinanceOrderSide.BUY)) {
 			if ((limit < currentTickerPrice && stop < currentTickerPrice)
 					|| (limit > currentTickerPrice && stop < currentTickerPrice)) {
-				return BinanceOrderType.TAKEPROFITLIMIT;
+				return currentMarket.equals(TradingAccountPermission.SPOT)
+						? BinanceOrderType.TAKEPROFITLIMIT
+						: BinanceOrderType.TAKEPROFIT;
 			}
 			if ((limit > currentTickerPrice && stop > currentTickerPrice)
 					|| (limit < currentTickerPrice && stop > currentTickerPrice)) {
-				return BinanceOrderType.STOPLOSSLIMIT;
+				return currentMarket.equals(TradingAccountPermission.SPOT)
+						? BinanceOrderType.STOPLOSSLIMIT
+						: BinanceOrderType.STOPLOSS;
 			}
 		}
 		if (side.equals(BinanceOrderSide.SELL)) {
 			if ((limit > currentTickerPrice && stop > currentTickerPrice)
 					|| (limit < currentTickerPrice && stop > currentTickerPrice)) {
-				return BinanceOrderType.TAKEPROFITLIMIT;
+				return currentMarket.equals(TradingAccountPermission.SPOT)
+						? BinanceOrderType.TAKEPROFITLIMIT
+						: BinanceOrderType.TAKEPROFIT;
 			}
 			if ((limit < currentTickerPrice && stop < currentTickerPrice)
 					|| (limit > currentTickerPrice && stop < currentTickerPrice)) {
-				return BinanceOrderType.STOPLOSSLIMIT;
+				return currentMarket.equals(TradingAccountPermission.SPOT)
+						? BinanceOrderType.STOPLOSSLIMIT
+						: BinanceOrderType.STOPLOSS;
 			}
 		}
 		return null;
 	}
 
 	@Subscribe
+	public void onEventMainThread(SetPositionsCountEvent event) {
+		this.positionsCount = event.getCount();
+		this.hasIsolatedPosition = event.isHasIsolated();
+		getViewState().setPositionsCount(event.getCount());
+	}
+
+	@Subscribe
 	public void onEventMainThread(SetOpenOrdersCountEvent event) {
+		this.openOrdersCount = event.getCount();
 		getViewState().setOpenOrdersCount(event.getCount());
 	}
 
@@ -933,15 +974,18 @@ public class PlaceOrderPresenter extends MvpPresenter<PlaceOrderView> implements
 	}
 
 	void onMarginTypeClicked() {
-		getViewState().showSelectMarginTypeActivity(selectedAccount.getId(), symbol, currentMarginType);
+		getViewState().showSelectMarginTypeActivity(selectedAccount.getId(), symbol, currentMarginType,
+				positionsCount == 0 && openOrdersCount == 0);
 	}
 
 	void onLeverageClicked() {
-		getViewState().showSelectLeverageActivity(selectedAccount.getId(), symbol, currentLeverage, futuresBrackets);
+		getViewState().showSelectLeverageActivity(selectedAccount.getId(), symbol, currentLeverage, futuresBrackets,
+				!hasIsolatedPosition);
 	}
 
 	void onPositionModeClicked() {
-		getViewState().showSelectPositionModeActivity(selectedAccount.getId(), currentPositonMode);
+		getViewState().showSelectPositionModeActivity(selectedAccount.getId(), currentPositionMode,
+				positionsCount == 0 && openOrdersCount == 0);
 	}
 
 	@Override
@@ -958,7 +1002,7 @@ public class PlaceOrderPresenter extends MvpPresenter<PlaceOrderView> implements
 
 	@Override
 	public void onPositionModeSelected(BinancePositionMode positionMode) {
-		this.currentPositonMode = positionMode;
+		this.currentPositionMode = positionMode;
 		getViewState().setPositionMode(positionMode.getValue());
 	}
 }

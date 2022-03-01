@@ -1,0 +1,415 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/background_bottomsheet"
+        android:orientation="vertical"
+        android:paddingStart="@dimen/padding"
+        android:paddingEnd="@dimen/padding">
+
+        <View
+            android:layout_width="45dp"
+            android:layout_height="3dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/line_bottomsheet"/>
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="4dp"
+            android:fontFamily="@font/montserrat_semibold"
+            android:text="@string/tpsl_entire_position"
+            android:textColor="?attr/colorTextPrimary"
+            android:textSize="18sp"/>
+
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clipToPadding="false"
+            android:nestedScrollingEnabled="true"
+            android:paddingBottom="20dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="8dp"
+                        android:layout_toStartOf="@+id/symbol"
+                        android:fontFamily="@font/montserrat"
+                        android:text="@string/symbol"
+                        android:textColor="?attr/colorTextSecondary"
+                        android:textSize="14sp"/>
+
+                    <TextView
+                        android:id="@+id/symbol"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:fontFamily="@font/montserrat_semibold"
+                        android:textColor="?attr/colorTextPrimary"
+                        android:textSize="14sp"
+                        tools:text="ADAUSDT"/>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="8dp"
+                        android:layout_toStartOf="@+id/entry_price"
+                        android:fontFamily="@font/montserrat"
+                        android:text="@string/entry_price"
+                        android:textColor="?attr/colorTextSecondary"
+                        android:textSize="14sp"/>
+
+                    <TextView
+                        android:id="@+id/entry_price"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:fontFamily="@font/montserrat_semibold"
+                        android:textColor="?attr/colorTextPrimary"
+                        android:textSize="14sp"
+                        tools:text="123.012345678 USDT"/>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="8dp"
+                        android:layout_toStartOf="@+id/mark_price"
+                        android:fontFamily="@font/montserrat"
+                        android:text="@string/mark_price"
+                        android:textColor="?attr/colorTextSecondary"
+                        android:textSize="14sp"/>
+
+                    <TextView
+                        android:id="@+id/mark_price"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:fontFamily="@font/montserrat_semibold"
+                        android:textColor="?attr/colorTextPrimary"
+                        android:textSize="14sp"
+                        tools:text="123.012345678 USDT"/>
+
+                </RelativeLayout>
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginEnd="8dp"
+                    android:fontFamily="@font/montserrat"
+                    android:text="@string/take_profit"
+                    android:textColor="?attr/colorTextSecondary"
+                    android:textSize="12sp"/>
+
+                <RelativeLayout
+                    android:id="@+id/group_tp_order"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:id="@+id/tp_order_info"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:fontFamily="@font/montserrat_medium"
+                        android:textColor="?attr/colorTextPrimary"
+                        android:textSize="14sp"
+                        tools:text="Last price >= 123.0000"/>
+
+                    <TextView
+                        android:id="@+id/tp_order_cancel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginTop="4dp"
+                        android:fontFamily="@font/montserrat_semibold"
+                        android:text="@string/cancel"
+                        android:textColor="?attr/colorRed"
+                        android:textSize="14sp"/>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/group_amount_tp"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/text_input_height">
+
+                    <RelativeLayout
+                        android:id="@+id/group_amount_tp_et"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_toStartOf="@+id/group_working_type_tp">
+
+                        <EditText
+                            android:id="@+id/edittext_tp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:background="@android:color/transparent"
+                            android:hint="0"
+                            android:inputType="numberDecimal"
+                            android:textColor="?attr/colorTextPrimary"
+                            android:textColorHint="?attr/colorTextPrimary"
+                            android:textSize="16sp"
+                            tools:text="10.235"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="8dp"
+                            android:layout_toEndOf="@+id/edittext_tp"
+                            android:alpha="0.4"
+                            android:gravity="center"
+                            android:text="USDT"
+                            android:textColor="?attr/colorTextPrimary"
+                            android:textSize="16sp"/>
+
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_alignParentBottom="true"
+                            android:alpha="0.2"
+                            android:background="?attr/colorTextPrimary"/>
+
+                    </RelativeLayout>
+
+                    <LinearLayout
+                        android:id="@+id/group_working_type_tp"
+                        android:layout_width="60dp"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginStart="4dp"
+                        android:background="?attr/colorCard"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/working_type_tp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/montserrat_medium"
+                            android:textColor="?attr/colorTextPrimary"
+                            android:textSize="12sp"
+                            tools:text="Last"/>
+
+                        <ImageView
+                            android:layout_width="12dp"
+                            android:layout_height="12dp"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginStart="6dp"
+                            android:src="@drawable/dropdown_icon"/>
+
+                    </LinearLayout>
+
+                </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/tp_info"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/montserrat"
+                    android:text="@string/template_tp_info"
+                    android:textColor="?attr/colorTextSecondary"
+                    android:textSize="12sp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginEnd="8dp"
+                    android:fontFamily="@font/montserrat"
+                    android:text="@string/stop_loss"
+                    android:textColor="?attr/colorTextSecondary"
+                    android:textSize="12sp"/>
+
+                <RelativeLayout
+                    android:id="@+id/group_sl_order"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    tools:visibility="visible">
+
+                    <TextView
+                        android:id="@+id/sl_order_info"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:fontFamily="@font/montserrat_medium"
+                        android:textColor="?attr/colorTextPrimary"
+                        android:textSize="14sp"
+                        tools:text="Last price >= 123.0000"/>
+
+                    <TextView
+                        android:id="@+id/sl_order_cancel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginTop="4dp"
+                        android:fontFamily="@font/montserrat_semibold"
+                        android:text="@string/cancel"
+                        android:textColor="?attr/colorRed"
+                        android:textSize="14sp"/>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/group_amount_sl"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/text_input_height"
+                    tools:visibility="gone">
+
+                    <RelativeLayout
+                        android:id="@+id/group_amount_sl_et"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_toStartOf="@+id/group_working_type_sl">
+
+                        <EditText
+                            android:id="@+id/edittext_sl"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:background="@android:color/transparent"
+                            android:hint="0"
+                            android:inputType="numberDecimal"
+                            android:textColor="?attr/colorTextPrimary"
+                            android:textColorHint="?attr/colorTextPrimary"
+                            android:textSize="16sp"
+                            tools:text="10.235"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="8dp"
+                            android:layout_toEndOf="@+id/edittext_sl"
+                            android:alpha="0.4"
+                            android:gravity="center"
+                            android:text="USDT"
+                            android:textColor="?attr/colorTextPrimary"
+                            android:textSize="16sp"/>
+
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_alignParentBottom="true"
+                            android:alpha="0.2"
+                            android:background="?attr/colorTextPrimary"/>
+
+                    </RelativeLayout>
+
+                    <LinearLayout
+                        android:id="@+id/group_working_type_sl"
+                        android:layout_width="60dp"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginStart="4dp"
+                        android:background="?attr/colorCard"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/working_type_sl"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/montserrat_medium"
+                            android:textColor="?attr/colorTextPrimary"
+                            android:textSize="12sp"
+                            tools:text="Last"/>
+
+                        <ImageView
+                            android:layout_width="12dp"
+                            android:layout_height="12dp"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginStart="6dp"
+                            android:src="@drawable/dropdown_icon"/>
+
+                    </LinearLayout>
+
+                </RelativeLayout>
+
+
+                <TextView
+                    android:id="@+id/sl_info"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/montserrat"
+                    android:text="@string/template_sl_info"
+                    android:textColor="?attr/colorTextSecondary"
+                    android:textSize="12sp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="30dp"
+                    android:fontFamily="@font/montserrat"
+                    android:text="@string/tpsl_warning"
+                    android:textColor="?attr/colorTextPrimary"
+                    android:textSize="14sp"/>
+
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/button_height"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="40dp">
+
+                    <vision.genesis.clientapp.ui.PrimaryButton
+                        android:id="@+id/button_confirm"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="@string/confirm"/>
+
+                    <ProgressBar
+                        android:id="@+id/progress_bar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:visibility="gone"/>
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+        </ScrollView>
+
+    </LinearLayout>
+
+</RelativeLayout>

@@ -130,6 +130,13 @@ public class PlaceOrderActivity extends BaseSwipeBackActivity implements PlaceOr
 	public TextView stopCurrency;
 
 
+	@BindView(R.id.group_working_type)
+	public ViewGroup workingTypeGroup;
+
+	@BindView(R.id.working_type)
+	public TextView workingType;
+
+
 	@BindView(R.id.group_limit)
 	public RelativeLayout limitGroup;
 
@@ -203,6 +210,10 @@ public class PlaceOrderActivity extends BaseSwipeBackActivity implements PlaceOr
 
 	private ArrayList<String> orderTypeOptions;
 
+	private int selectedWorkingTypePosition = -1;
+
+	private ArrayList<String> workingTypeOptions;
+
 	private ExchangeAsset selectedAccount;
 
 	private PlaceOrderPagerAdapter pagerAdapter;
@@ -211,11 +222,15 @@ public class PlaceOrderActivity extends BaseSwipeBackActivity implements PlaceOr
 
 	private TabLayout.TabLayoutOnPageChangeListener tabLayoutOnPageChangeListener;
 
+	private TabLayout.Tab positionsTab;
+
 	private TabLayout.Tab openOrdersTab;
 
 	private TabLayout.Tab orderHistoryTab;
 
 	private TabLayout.Tab tradesHistoryTab;
+
+	private TradingAccountPermission currentMarket;
 
 	@OnClick(R.id.button_back)
 	public void onBackClicked() {
@@ -253,6 +268,16 @@ public class PlaceOrderActivity extends BaseSwipeBackActivity implements PlaceOr
 			SelectOptionBottomSheetFragment fragment = SelectOptionBottomSheetFragment.with(
 					getString(R.string.order_type), orderTypeOptions, selectedOrderTypePosition);
 			fragment.setListener((position, text) -> presenter.onOrderTypeSelected(position, text));
+			fragment.show(getSupportFragmentManager(), fragment.getTag());
+		}
+	}
+
+	@OnClick(R.id.group_working_type)
+	public void onWorkingTypeClicked() {
+		if (workingTypeOptions != null && workingTypeOptions.size() > 1) {
+			SelectOptionBottomSheetFragment fragment = SelectOptionBottomSheetFragment.with(
+					getString(R.string.working_type), workingTypeOptions, selectedWorkingTypePosition);
+			fragment.setListener((position, text) -> presenter.onWorkingTypeSelected(position, text));
 			fragment.show(getSupportFragmentManager(), fragment.getTag());
 		}
 	}
@@ -326,9 +351,6 @@ public class PlaceOrderActivity extends BaseSwipeBackActivity implements PlaceOr
 			selectedAccount = getIntent().getExtras().getParcelable(EXTRA_SELECTED_ACCOUNT);
 			String operationType = getIntent().getExtras().getString(EXTRA_OPERATION_TYPE, OPERATION_TYPE_BUY);
 
-			initViewPager(selectedAccount.getId(), selectedSymbol);
-			initTabs();
-
 			presenter.setData(selectedSymbol, selectedAccount, operationType);
 
 			return;
@@ -376,7 +398,8 @@ public class PlaceOrderActivity extends BaseSwipeBackActivity implements PlaceOr
 		super.onResume();
 	}
 
-	private void initTabs() {
+	private void initTabs(TradingAccountPermission currentMarket) {
+		positionsTab = tabLayout.newTab().setCustomView(getTabView(R.string.positions)).setTag("positions");
 		openOrdersTab = tabLayout.newTab().setCustomView(getTabView(R.string.open_orders)).setTag("open_orders");
 		orderHistoryTab = tabLayout.newTab().setCustomView(getTabView(R.string.order_history)).setTag("order_history");
 		tradesHistoryTab = tabLayout.newTab().setCustomView(getTabView(R.string.trades_history)).setTag("trades_history");
@@ -410,7 +433,10 @@ public class PlaceOrderActivity extends BaseSwipeBackActivity implements PlaceOr
 
 		tabLayout.addOnTabSelectedListener(tabSelectedListener);
 
-		addPage(openOrdersTab, true);
+		if (currentMarket.equals(TradingAccountPermission.FUTURES)) {
+			addPage(positionsTab, true);
+		}
+		addPage(openOrdersTab, currentMarket.equals(TradingAccountPermission.SPOT));
 		addPage(orderHistoryTab, false);
 		addPage(tradesHistoryTab, false);
 	}
@@ -434,8 +460,8 @@ public class PlaceOrderActivity extends BaseSwipeBackActivity implements PlaceOr
 		}
 	}
 
-	public void initViewPager(UUID accountId, String symbol) {
-		pagerAdapter = new PlaceOrderPagerAdapter(getSupportFragmentManager(), tabLayout, accountId, symbol);
+	public void initViewPager(UUID accountId, String symbol, TradingAccountPermission currentMarket) {
+		pagerAdapter = new PlaceOrderPagerAdapter(getSupportFragmentManager(), tabLayout, accountId, symbol, currentMarket);
 		viewPager.setAdapter(pagerAdapter);
 		viewPager.setOffscreenPageLimit(5);
 
@@ -461,6 +487,9 @@ public class PlaceOrderActivity extends BaseSwipeBackActivity implements PlaceOr
 
 	@Override
 	public void setCurrentMarket(TradingAccountPermission currentMarket) {
+		this.currentMarket = currentMarket;
+		initViewPager(selectedAccount.getId(), selectedSymbol, currentMarket);
+		initTabs(currentMarket);
 		if (currentMarket.equals(TradingAccountPermission.FUTURES)) {
 			orderSettingsGroup.setVisibility(View.VISIBLE);
 		}
@@ -492,6 +521,17 @@ public class PlaceOrderActivity extends BaseSwipeBackActivity implements PlaceOr
 	public void setOrderType(String orderType, Integer position) {
 		this.orderType.setText(orderType);
 		this.selectedOrderTypePosition = position;
+	}
+
+	@Override
+	public void setWorkingTypeOptions(ArrayList<String> workingTypeOptions) {
+		this.workingTypeOptions = workingTypeOptions;
+	}
+
+	@Override
+	public void setWorkingType(String workingType, Integer position) {
+		this.workingType.setText(workingType);
+		this.selectedWorkingTypePosition = position;
 	}
 
 	@Override
@@ -563,6 +603,9 @@ public class PlaceOrderActivity extends BaseSwipeBackActivity implements PlaceOr
 	@Override
 	public void showStop(boolean show) {
 		this.stopGroup.setVisibility(show ? View.VISIBLE : View.GONE);
+		if (currentMarket.equals(TradingAccountPermission.FUTURES)) {
+			this.workingTypeGroup.setVisibility(show ? View.VISIBLE : View.GONE);
+		}
 	}
 
 	@Override
@@ -617,6 +660,11 @@ public class PlaceOrderActivity extends BaseSwipeBackActivity implements PlaceOr
 	}
 
 	@Override
+	public void setPositionsCount(Integer count) {
+		((CustomTabView) positionsTab.getCustomView()).setCount(count);
+	}
+
+	@Override
 	public void setOpenOrdersCount(Integer count) {
 		((CustomTabView) openOrdersTab.getCustomView()).setCount(count);
 	}
@@ -632,22 +680,22 @@ public class PlaceOrderActivity extends BaseSwipeBackActivity implements PlaceOr
 	}
 
 	@Override
-	public void showSelectMarginTypeActivity(UUID accountId, String symbol, BinanceFuturesMarginType currentMarginType) {
-		SelectMarginTypeBottomSheetFragment fragment = SelectMarginTypeBottomSheetFragment.with(accountId, symbol, currentMarginType);
+	public void showSelectMarginTypeActivity(UUID accountId, String symbol, BinanceFuturesMarginType currentMarginType, boolean canChange) {
+		SelectMarginTypeBottomSheetFragment fragment = SelectMarginTypeBottomSheetFragment.with(accountId, symbol, currentMarginType, canChange);
 		fragment.setListener(presenter);
 		fragment.show(getSupportFragmentManager(), fragment.getTag());
 	}
 
 	@Override
-	public void showSelectLeverageActivity(UUID accountId, String symbol, Integer currentLeverage, ArrayList<BinanceRawFuturesBracket> brackets) {
-		SelectLeverageBottomSheetFragment fragment = SelectLeverageBottomSheetFragment.with(accountId, symbol, currentLeverage, brackets);
+	public void showSelectLeverageActivity(UUID accountId, String symbol, Integer currentLeverage, ArrayList<BinanceRawFuturesBracket> brackets, boolean canChange) {
+		SelectLeverageBottomSheetFragment fragment = SelectLeverageBottomSheetFragment.with(accountId, symbol, currentLeverage, brackets, canChange);
 		fragment.setListener(presenter);
 		fragment.show(getSupportFragmentManager(), fragment.getTag());
 	}
 
 	@Override
-	public void showSelectPositionModeActivity(UUID accountId, BinancePositionMode currentPositionMode) {
-		SelectPositionModeBottomSheetFragment fragment = SelectPositionModeBottomSheetFragment.with(accountId, currentPositionMode);
+	public void showSelectPositionModeActivity(UUID accountId, BinancePositionMode currentPositionMode, boolean canChange) {
+		SelectPositionModeBottomSheetFragment fragment = SelectPositionModeBottomSheetFragment.with(accountId, currentPositionMode, canChange);
 		fragment.setListener(presenter);
 		fragment.show(getSupportFragmentManager(), fragment.getTag());
 	}

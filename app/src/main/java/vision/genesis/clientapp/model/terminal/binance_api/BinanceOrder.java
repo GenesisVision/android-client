@@ -14,6 +14,7 @@ import io.swagger.client.model.BinanceOrderStatus;
 import io.swagger.client.model.BinanceOrderType;
 import io.swagger.client.model.BinanceRawFuturesOrder;
 import io.swagger.client.model.BinanceRawOrder;
+import io.swagger.client.model.BinanceWorkingType;
 import io.swagger.client.model.TradingAccountPermission;
 
 /**
@@ -72,6 +73,8 @@ public class BinanceOrder implements Parcelable
 		order.setCommissionAsset(model.getCommissionAsset());
 		order.setReduceOnly(model.isReduceOnly());
 		order.setMarket(TradingAccountPermission.FUTURES);
+		order.setClosePosition(model.isClosePosition());
+		order.setWorkingType(model.getWorkingType());
 		return order;
 	}
 
@@ -117,9 +120,16 @@ public class BinanceOrder implements Parcelable
 	@SerializedName("createTime")
 	private DateTime createTime = null;
 
+	@SerializedName("reduceOnly")
 	private Boolean reduceOnly = false;
 
+	@SerializedName("market")
 	private TradingAccountPermission market;
+
+	@SerializedName("closePosition")
+	private Boolean closePosition = false;
+
+	private BinanceWorkingType workingType;
 
 
 	public BinanceOrder() {
@@ -168,6 +178,8 @@ public class BinanceOrder implements Parcelable
 		createTime = (DateTime) in.readValue(DateTime.class.getClassLoader());
 		reduceOnly = in.readByte() == 1;
 		market = (TradingAccountPermission) in.readSerializable();
+		closePosition = in.readByte() == 1;
+		workingType = (BinanceWorkingType) in.readSerializable();
 	}
 
 	public UUID getAccountId() {
@@ -329,6 +341,8 @@ public class BinanceOrder implements Parcelable
 		parcel.writeValue(createTime);
 		parcel.writeByte(reduceOnly ? (byte) 1 : (byte) 0);
 		parcel.writeSerializable(market);
+		parcel.writeByte(closePosition ? (byte) 1 : (byte) 0);
+		parcel.writeSerializable(workingType);
 	}
 
 	public Boolean getReduceOnly() {
@@ -353,5 +367,21 @@ public class BinanceOrder implements Parcelable
 
 	public void setClientOrderId(String clientOrderId) {
 		this.clientOrderId = clientOrderId;
+	}
+
+	public Boolean isClosePosition() {
+		return closePosition;
+	}
+
+	public void setClosePosition(Boolean closePosition) {
+		this.closePosition = closePosition;
+	}
+
+	public BinanceWorkingType getWorkingType() {
+		return workingType;
+	}
+
+	public void setWorkingType(BinanceWorkingType workingType) {
+		this.workingType = workingType;
 	}
 }

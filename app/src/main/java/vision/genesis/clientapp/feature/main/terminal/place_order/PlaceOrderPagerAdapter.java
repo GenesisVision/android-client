@@ -8,9 +8,11 @@ import com.google.android.material.tabs.TabLayout;
 
 import java.util.UUID;
 
+import io.swagger.client.model.TradingAccountPermission;
 import io.swagger.client.model.TradingPlatformBinanceOrdersMode;
 import vision.genesis.clientapp.feature.main.terminal.open_orders.OpenOrdersFragment;
 import vision.genesis.clientapp.feature.main.terminal.order_history.OrderHistoryFragment;
+import vision.genesis.clientapp.feature.main.terminal.positions.PositionsFragment;
 
 /**
  * GenesisVisionAndroid
@@ -26,6 +28,8 @@ public class PlaceOrderPagerAdapter extends FragmentStatePagerAdapter
 		void pagerHide();
 	}
 
+	private PositionsFragment positionsFragment;
+
 	private OpenOrdersFragment openOrdersFragment;
 
 	private OrderHistoryFragment orderHistoryFragment;
@@ -34,10 +38,13 @@ public class PlaceOrderPagerAdapter extends FragmentStatePagerAdapter
 
 	private TabLayout tabLayout;
 
-	PlaceOrderPagerAdapter(FragmentManager fm, TabLayout tabLayout, UUID accountId, String symbol) {
+	PlaceOrderPagerAdapter(FragmentManager fm, TabLayout tabLayout, UUID accountId, String symbol, TradingAccountPermission currentMarket) {
 		super(fm);
 		this.tabLayout = tabLayout;
 
+		if (currentMarket.equals(TradingAccountPermission.FUTURES)) {
+			positionsFragment = PositionsFragment.with(accountId, symbol);
+		}
 		openOrdersFragment = OpenOrdersFragment.with(accountId);
 		orderHistoryFragment = OrderHistoryFragment.with(accountId, symbol, TradingPlatformBinanceOrdersMode.ORDERHISTORY);
 		tradesHistoryFragment = OrderHistoryFragment.with(accountId, symbol, TradingPlatformBinanceOrdersMode.TRADEHISTORY);
@@ -46,6 +53,8 @@ public class PlaceOrderPagerAdapter extends FragmentStatePagerAdapter
 	@Override
 	public Fragment getItem(int position) {
 		switch (tabLayout.getTabAt(position).getTag().toString()) {
+			case "positions":
+				return positionsFragment;
 			case "open_orders":
 				return openOrdersFragment;
 			case "order_history":

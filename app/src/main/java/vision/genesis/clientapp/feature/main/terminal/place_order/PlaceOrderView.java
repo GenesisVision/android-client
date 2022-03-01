@@ -32,6 +32,10 @@ interface PlaceOrderView extends MvpView
 
 	void setOrderType(String text, Integer position);
 
+	void setWorkingTypeOptions(ArrayList<String> workingTypeOptions);
+
+	void setWorkingType(String text, Integer position);
+
 
 	void showMarketPrice(boolean show);
 
@@ -73,6 +77,9 @@ interface PlaceOrderView extends MvpView
 
 	void showProgressBar(boolean show);
 
+
+	void setPositionsCount(Integer count);
+
 	void setOpenOrdersCount(Integer count);
 
 	void setOrderHistoryCount(Integer count);
@@ -80,11 +87,11 @@ interface PlaceOrderView extends MvpView
 	void setTradeHistoryCount(Integer count);
 
 
-	void showSelectMarginTypeActivity(UUID accountId, String symbol, BinanceFuturesMarginType currentMarginType);
+	void showSelectMarginTypeActivity(UUID accountId, String symbol, BinanceFuturesMarginType currentMarginType, boolean canChange);
 
-	void showSelectLeverageActivity(UUID accountId, String symbol, Integer currentLeverage, ArrayList<BinanceRawFuturesBracket> brackets);
+	void showSelectLeverageActivity(UUID accountId, String symbol, Integer currentLeverage, ArrayList<BinanceRawFuturesBracket> brackets, boolean canChange);
 
-	void showSelectPositionModeActivity(UUID accountId, BinancePositionMode currentPositionMode);
+	void showSelectPositionModeActivity(UUID accountId, BinancePositionMode currentPositionMode, boolean canChange);
 
 	void setMarginType(String marginType);
 

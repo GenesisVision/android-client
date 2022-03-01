@@ -23,6 +23,7 @@ import io.swagger.client.api.DashboardApi;
 import io.swagger.client.api.ExchangesApi;
 import io.swagger.client.api.TradingplatformApi;
 import io.swagger.client.model.BinanceExecutionType;
+import io.swagger.client.model.BinanceFuturesMarginChangeDirectionType;
 import io.swagger.client.model.BinanceFuturesMarginType;
 import io.swagger.client.model.BinanceKlineInterval;
 import io.swagger.client.model.BinanceOrderSide;
@@ -43,6 +44,7 @@ import io.swagger.client.model.BinanceRawFuturesOrderItemsViewModel;
 import io.swagger.client.model.BinanceRawFuturesPlaceOrder;
 import io.swagger.client.model.BinanceRawFuturesPlacedOrder;
 import io.swagger.client.model.BinanceRawFuturesPosition;
+import io.swagger.client.model.BinanceRawFuturesPositionMarginResult;
 import io.swagger.client.model.BinanceRawFuturesPositionMode;
 import io.swagger.client.model.BinanceRawFuturesSymbolBracket;
 import io.swagger.client.model.BinanceRawFuturesUsdtExchangeInfo;
@@ -446,6 +448,10 @@ public class TerminalManager
 
 	public Observable<Void> changeFuturesPositionMode(UUID accountId, BinancePositionMode positionMode) {
 		return tradingplatformApi.setFuturesPositionMode(accountId, positionMode);
+	}
+
+	public Observable<BinanceRawFuturesPositionMarginResult> changeFuturesPositionMargin(UUID accountId, String symbol, Double amount, BinanceFuturesMarginChangeDirectionType type, BinancePositionSide side) {
+		return tradingplatformApi.changeFuturesPositionMargin(accountId, symbol, amount, type, side);
 	}
 
 
@@ -890,6 +896,10 @@ public class TerminalManager
 						BinancePositionSide.class,
 						(JsonDeserializer<BinancePositionSide>) (json, typeOfT, context) -> BinancePositionSide.valueOf(json.getAsString())
 				)
+				.registerTypeAdapter(
+						BinanceFuturesMarginType.class,
+						(JsonDeserializer<BinanceFuturesMarginType>) (json, typeOfT, context) -> BinanceFuturesMarginType.valueOf(json.getAsString())
+				)
 				.create();
 
 		Type typeToken = new TypeToken<FuturesAccountModel>()
@@ -964,7 +974,7 @@ public class TerminalManager
 				return (int) (Math.abs(Math.log10(ticker.getPriceFilter().getTickSize())));
 			}
 		}
-		return null;
+		return 0;
 	}
 
 	public List<BinanceRawSymbol> getCurrentSymbolsShortened() {

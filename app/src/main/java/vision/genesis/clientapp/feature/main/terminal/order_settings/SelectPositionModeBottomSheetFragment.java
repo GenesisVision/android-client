@@ -49,11 +49,14 @@ public class SelectPositionModeBottomSheetFragment extends BottomSheetDialogFrag
 
 	public static final String EXTRA_POSITION_MODE = "extra_position_mode";
 
-	public static SelectPositionModeBottomSheetFragment with(UUID accountId, BinancePositionMode positionMode) {
+	public static final String EXTRA_CAN_CHANGE = "extra_can_change";
+
+	public static SelectPositionModeBottomSheetFragment with(UUID accountId, BinancePositionMode positionMode, boolean canChange) {
 		SelectPositionModeBottomSheetFragment fragment = new SelectPositionModeBottomSheetFragment();
-		Bundle arguments = new Bundle(2);
+		Bundle arguments = new Bundle(3);
 		arguments.putSerializable(EXTRA_ACCOUNT_ID, accountId);
 		arguments.putString(EXTRA_POSITION_MODE, positionMode.toString());
+		arguments.putBoolean(EXTRA_CAN_CHANGE, canChange);
 		fragment.setArguments(arguments);
 		return fragment;
 	}
@@ -69,6 +72,9 @@ public class SelectPositionModeBottomSheetFragment extends BottomSheetDialogFrag
 
 	@BindView(R.id.hedge)
 	public AppCompatRadioButton hedge;
+
+	@BindView(R.id.cannot_change_warning)
+	public TextView cannotChangeWarning;
 
 	@BindView(R.id.button_confirm)
 	public PrimaryButton confirmButton;
@@ -87,6 +93,8 @@ public class SelectPositionModeBottomSheetFragment extends BottomSheetDialogFrag
 	private BinancePositionMode newPositionMode = null;
 
 	private Subscription changePositionModeSubscription;
+
+	private Boolean canChange = true;
 
 	@OnClick(R.id.one_way)
 	public void onOneWayClicked() {
@@ -116,7 +124,8 @@ public class SelectPositionModeBottomSheetFragment extends BottomSheetDialogFrag
 
 		try {
 			setData(Objects.requireNonNull((UUID) requireArguments().getSerializable(EXTRA_ACCOUNT_ID)),
-					Objects.requireNonNull(requireArguments().getString(EXTRA_POSITION_MODE)));
+					Objects.requireNonNull(requireArguments().getString(EXTRA_POSITION_MODE)),
+					requireArguments().getBoolean(EXTRA_CAN_CHANGE));
 		} catch (NullPointerException e) {
 			Timber.e("Passed empty arguments to %s", getClass().getSimpleName());
 			this.dismiss();
@@ -151,9 +160,14 @@ public class SelectPositionModeBottomSheetFragment extends BottomSheetDialogFrag
 		this.listener = listener;
 	}
 
-	private void setData(@NonNull UUID accountId, @NonNull String positionModeString) {
+	private void setData(@NonNull UUID accountId, @NonNull String positionModeString, @NonNull Boolean canChange) {
 		this.accountId = accountId;
 		this.currentPositionMode = BinancePositionMode.fromValue(positionModeString);
+		this.canChange = canChange;
+
+		if (!canChange) {
+			this.cannotChangeWarning.setVisibility(View.VISIBLE);
+		}
 
 		selectPositionMode(currentPositionMode);
 	}
@@ -174,7 +188,7 @@ public class SelectPositionModeBottomSheetFragment extends BottomSheetDialogFrag
 				break;
 		}
 
-		this.confirmButton.setEnabled(!newPositionMode.equals(currentPositionMode));
+		this.confirmButton.setEnabled(canChange && !newPositionMode.equals(currentPositionMode));
 	}
 
 	private void clearSelection() {

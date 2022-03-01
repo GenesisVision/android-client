@@ -159,6 +159,10 @@ import vision.genesis.clientapp.feature.main.terminal.order_settings.SelectLever
 import vision.genesis.clientapp.feature.main.terminal.order_settings.SelectMarginTypeBottomSheetFragment;
 import vision.genesis.clientapp.feature.main.terminal.order_settings.SelectPositionModeBottomSheetFragment;
 import vision.genesis.clientapp.feature.main.terminal.place_order.PlaceOrderPresenter;
+import vision.genesis.clientapp.feature.main.terminal.positions.PositionsPresenter;
+import vision.genesis.clientapp.feature.main.terminal.positions.change_margin.ChangeMarginBottomSheetFragment;
+import vision.genesis.clientapp.feature.main.terminal.positions.close.ClosePositionBottomSheetFragment;
+import vision.genesis.clientapp.feature.main.terminal.positions.tpsl.TpSlBottomSheetFragment;
 import vision.genesis.clientapp.feature.main.terminal.symbol_watch.SymbolWatchView;
 import vision.genesis.clientapp.feature.main.terminal.tradingview_chart.ChartView;
 import vision.genesis.clientapp.feature.main.trading_account.TradingAccountDetailsPresenter;
@@ -618,4 +622,12 @@ public interface AppComponent
 	void inject(SelectPositionModeBottomSheetFragment selectPositionModeBottomSheetFragment);
 
 	void inject(SelectLeverageBottomSheetFragment selectLeverageBottomSheetFragment);
+
+	void inject(PositionsPresenter positionsPresenter);
+
+	void inject(ChangeMarginBottomSheetFragment changeMarginBottomSheetFragment);
+
+	void inject(TpSlBottomSheetFragment tpSlBottomSheetFragment);
+
+	void inject(ClosePositionBottomSheetFragment closePositionBottomSheetFragment);
 }

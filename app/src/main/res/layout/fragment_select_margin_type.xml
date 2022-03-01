@@ -117,6 +117,18 @@
             android:textColor="?attr/colorTextSecondary"
             android:textSize="14sp"/>
 
+        <TextView
+            android:id="@+id/cannot_change_warning"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/padding"
+            android:fontFamily="@font/montserrat_semibold"
+            android:text="@string/cannot_change_margin_mode_warning"
+            android:textColor="?attr/colorRed"
+            android:textSize="14sp"
+            android:visibility="gone"
+            tools:visibility="visible"/>
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/button_height"
