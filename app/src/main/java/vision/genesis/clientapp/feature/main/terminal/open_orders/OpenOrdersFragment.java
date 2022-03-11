@@ -117,7 +117,7 @@ public class OpenOrdersFragment extends BaseFragment implements OpenOrdersView, 
 		adapter.setOrders(orders);
 		if (orders.isEmpty()) {
 			groupNoOrders.setVisibility(View.VISIBLE);
-			recyclerView.setVisibility(View.GONE);
+//			recyclerView.setVisibility(View.GONE);
 			return;
 		}
 

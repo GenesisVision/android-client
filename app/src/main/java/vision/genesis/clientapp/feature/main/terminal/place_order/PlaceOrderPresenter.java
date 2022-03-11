@@ -930,7 +930,7 @@ public class PlaceOrderPresenter extends MvpPresenter<PlaceOrderView> implements
 					|| (limit < currentTickerPrice && stop > currentTickerPrice)) {
 				return currentMarket.equals(TradingAccountPermission.SPOT)
 						? BinanceOrderType.STOPLOSSLIMIT
-						: BinanceOrderType.STOPLOSS;
+						: BinanceOrderType.STOP;
 			}
 		}
 		if (side.equals(BinanceOrderSide.SELL)) {
@@ -944,7 +944,7 @@ public class PlaceOrderPresenter extends MvpPresenter<PlaceOrderView> implements
 					|| (limit > currentTickerPrice && stop < currentTickerPrice)) {
 				return currentMarket.equals(TradingAccountPermission.SPOT)
 						? BinanceOrderType.STOPLOSSLIMIT
-						: BinanceOrderType.STOPLOSS;
+						: BinanceOrderType.STOP;
 			}
 		}
 		return null;

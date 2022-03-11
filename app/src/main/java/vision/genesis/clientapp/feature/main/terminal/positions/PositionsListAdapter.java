@@ -144,6 +144,11 @@ public class PositionsListAdapter extends RecyclerView.Adapter<PositionsListAdap
 		void setPosition(BinanceRawFuturesPosition position) {
 			this.position = position;
 
+			this.addMarginButton.setVisibility(
+					position.getMarginType().equals(BinanceFuturesMarginType.ISOLATED)
+							? View.VISIBLE
+							: View.GONE);
+
 			Double notionalSize = position.getMarkPrice() * position.getQuantity();
 
 			this.symbol.setText(position.getSymbol());

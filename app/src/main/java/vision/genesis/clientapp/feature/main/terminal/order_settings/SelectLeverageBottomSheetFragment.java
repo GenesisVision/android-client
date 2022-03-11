@@ -8,11 +8,11 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
-import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 import java.util.Locale;
@@ -300,7 +300,7 @@ public class SelectLeverageBottomSheetFragment extends BottomSheetDialogFragment
 		changeLeverageSubscription.unsubscribe();
 		showProgress(false);
 
-		ApiErrorResolver.resolveErrors(throwable, this::showSnackbarMessage);
+		ApiErrorResolver.resolveErrors(throwable, this::showToastMessage);
 	}
 
 	private void showProgress(boolean show) {
@@ -308,7 +308,7 @@ public class SelectLeverageBottomSheetFragment extends BottomSheetDialogFragment
 		this.confirmButton.setVisibility(!show ? View.VISIBLE : View.GONE);
 	}
 
-	private void showSnackbarMessage(String message) {
-		Snackbar.make(title, message, Snackbar.LENGTH_LONG).show();
+	private void showToastMessage(String message) {
+		Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
 	}
 }

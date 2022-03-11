@@ -151,7 +151,7 @@ public class PositionsFragment extends BaseFragment implements PositionsView, Pr
 		adapter.setPositions(positions);
 		if (positions.isEmpty()) {
 			groupNoPositions.setVisibility(View.VISIBLE);
-			recyclerView.setVisibility(View.GONE);
+//			recyclerView.setVisibility(View.GONE);
 			return;
 		}
 

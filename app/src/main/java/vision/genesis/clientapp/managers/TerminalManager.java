@@ -874,6 +874,12 @@ public class TerminalManager
 							if (json.getAsString().equals("TAKE_PROFIT_LIMIT")) {
 								return BinanceOrderType.TAKEPROFITLIMIT;
 							}
+							else if (json.getAsString().equals("TAKE_PROFIT")) {
+								return BinanceOrderType.TAKEPROFIT;
+							}
+							else if (json.getAsString().equals("STOP_LOSS_LIMIT")) {
+								return BinanceOrderType.STOPLOSSLIMIT;
+							}
 							else {
 								return
 										BinanceOrderType.valueOf(json.getAsString());
