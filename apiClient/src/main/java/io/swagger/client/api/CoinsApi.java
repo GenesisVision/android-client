@@ -67,44 +67,44 @@ public interface CoinsApi
 			@retrofit2.http.Query("DateFrom") DateTime dateFrom, @retrofit2.http.Query("DateTo") DateTime dateTo, @retrofit2.http.Query("Assets") List<String> assets, @retrofit2.http.Query("Skip") Integer skip, @retrofit2.http.Query("Take") Integer take
 	);
 
-  /**
-   * Get user coins
-   * 
-   * @param sorting  (optional)
-   * @param assets  (optional)
-   * @param isFavorite  (optional)
-   * @param skip  (optional)
-   * @param take  (optional)
-   * @return Call&lt;CoinsAssetItemsViewModel&gt;
-   */
-  @GET("v2.0/coins/portfolio")
-  Observable<CoinsAssetItemsViewModel> getUserCoins(
-        @retrofit2.http.Query("Sorting") CoinsFilterSorting sorting                ,     @retrofit2.http.Query("Assets") List<String> assets                ,     @retrofit2.http.Query("IsFavorite") Boolean isFavorite                ,     @retrofit2.http.Query("Skip") Integer skip                ,     @retrofit2.http.Query("Take") Integer take                
-  );
+	/**
+	 * Get user coins
+	 *
+	 * @param sorting    (optional)
+	 * @param assets     (optional)
+	 * @param isFavorite (optional)
+	 * @param skip       (optional)
+	 * @param take       (optional)
+	 * @return Call&lt;CoinsAssetItemsViewModel&gt;
+	 */
+	@GET("v2.0/coins/portfolio")
+	Observable<CoinsAssetItemsViewModel> getUserCoins(
+			@retrofit2.http.Query("Sorting") CoinsFilterSorting sorting, @retrofit2.http.Query("Assets") List<String> assets, @retrofit2.http.Query("IsFavorite") Boolean isFavorite, @retrofit2.http.Query("Skip") Integer skip, @retrofit2.http.Query("Take") Integer take
+	);
 
-  /**
-   * Remove from favorites
-   * 
-   * @param id  (required)
-   * @return Call&lt;Void&gt;
-   */
-  @POST("v2.0/coins/coins/{id}/favorite/remove")
-  Observable<Void> removeFromFavorites(
-            @retrofit2.http.Path("id") UUID id            
-  );
+	/**
+	 * Remove from favorites
+	 *
+	 * @param id (required)
+	 * @return Call&lt;Void&gt;
+	 */
+	@POST("v2.0/coins/coins/{id}/favorite/remove")
+	Observable<Void> removeFromFavorites(
+			@retrofit2.http.Path("id") UUID id
+	);
 
-  /**
-   * Transfer money
-   * 
-   * @param body  (optional)
-   * @return Call&lt;Void&gt;
-   */
-  @Headers({
-    "Content-Type:application/json"
-  })
-  @POST("v2.0/coins/transfer")
-  Observable<Void> transfer(
-                    @retrofit2.http.Body InternalTransferRequest body    
-  );
+	/**
+	 * Transfer money
+	 *
+	 * @param body (optional)
+	 * @return Call&lt;Void&gt;
+	 */
+	@Headers({
+			"Content-Type:application/json"
+	})
+	@POST("v2.0/coins/transfer")
+	Observable<Void> transfer(
+			@retrofit2.http.Body InternalTransferRequest body
+	);
 
 }

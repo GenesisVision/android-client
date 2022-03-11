@@ -64,29 +64,37 @@ public class BinanceRawFuturesOrder implements Parcelable
 	@SerializedName("status")
 	private BinanceOrderStatus status = null;
 
-  @SerializedName("stopPrice")
-  private Double stopPrice = null;
+	public static final Parcelable.Creator<BinanceRawFuturesOrder> CREATOR = new Parcelable.Creator<BinanceRawFuturesOrder>()
+	{
+		public BinanceRawFuturesOrder createFromParcel(Parcel in) {
+			return new BinanceRawFuturesOrder(in);
+		}
 
-  @SerializedName("timeInForce")
-  private BinanceTimeInForce timeInForce = null;
+		public BinanceRawFuturesOrder[] newArray(int size) {
+			return new BinanceRawFuturesOrder[size];
+		}
+	};
 
-  @SerializedName("originalType")
-  private BinanceOrderType originalType = null;
+	@SerializedName("stopPrice")
+	private Double stopPrice = null;
 
-  @SerializedName("type")
-  private BinanceOrderType type = null;
+	@SerializedName("timeInForce")
+	private BinanceTimeInForce timeInForce = null;
 
-  @SerializedName("activatePrice")
-  private Double activatePrice = null;
+	@SerializedName("originalType")
+	private BinanceOrderType originalType = null;
 
-  @SerializedName("updateTime")
-  private DateTime updateTime = null;
+	@SerializedName("activatePrice")
+	private Double activatePrice = null;
 
-  @SerializedName("createdTime")
-  private DateTime createdTime = null;
+	@SerializedName("type")
+	private BinanceOrderType type = null;
 
-  @SerializedName("workingType")
-  private BinanceWorkingType workingType = null;
+	@SerializedName("updateTime")
+	private DateTime updateTime = null;
+
+	@SerializedName("createdTime")
+	private DateTime createdTime = null;
 
 	@SerializedName("positionSide")
 	private BinancePositionSide positionSide = null;
@@ -124,6 +132,29 @@ public class BinanceRawFuturesOrder implements Parcelable
 	public BinanceRawFuturesOrder() {
 	}
 
+	@SerializedName("workingType")
+	private BinanceWorkingType workingType = null;
+
+	public BinanceRawFuturesOrder accountId(UUID accountId) {
+		this.accountId = accountId;
+		return this;
+	}
+
+	public BinanceRawFuturesOrder symbol(String symbol) {
+		this.symbol = symbol;
+		return this;
+	}
+
+	/**
+	 * Get accountId
+	 *
+	 * @return accountId
+	 **/
+	@Schema(description = "")
+	public UUID getAccountId() {
+		return accountId;
+	}
+
 	BinanceRawFuturesOrder(Parcel in) {
 		accountId = (UUID) in.readValue(UUID.class.getClassLoader());
 		symbol = (String) in.readValue(null);
@@ -157,29 +188,6 @@ public class BinanceRawFuturesOrder implements Parcelable
 		priceLastFilledTrade = (Double) in.readValue(null);
 	}
 
-	public BinanceRawFuturesOrder accountId(UUID accountId) {
-		this.accountId = accountId;
-		return this;
-	}
-
-	public void setAccountId(UUID accountId) {
-		this.accountId = accountId;
-	}
-
-	public BinanceRawFuturesOrder symbol(String symbol) {
-		this.symbol = symbol;
-		return this;
-	}
-
-   /**
-   * Get symbol
-   * @return symbol
-  **/
-  @Schema(description = "")
-  public String getSymbol() {
-    return symbol;
-  }
-
 	public void setSymbol(String symbol) {
 		this.symbol = symbol;
 	}
@@ -187,16 +195,6 @@ public class BinanceRawFuturesOrder implements Parcelable
 	public BinanceRawFuturesOrder orderId(Long orderId) {
 		this.orderId = orderId;
 		return this;
-	}
-
-	/**
-	 * Get accountId
-	 *
-	 * @return accountId
-	 **/
-	@Schema(description = "")
-	public UUID getAccountId() {
-		return accountId;
 	}
 
 	/**
@@ -237,6 +235,10 @@ public class BinanceRawFuturesOrder implements Parcelable
 		return this;
 	}
 
+	public void setAccountId(UUID accountId) {
+		this.accountId = accountId;
+	}
+
 	public void setClientOrderId(String clientOrderId) {
 		this.clientOrderId = clientOrderId;
 	}
@@ -246,38 +248,46 @@ public class BinanceRawFuturesOrder implements Parcelable
 		return this;
 	}
 
-   /**
-   * Get price
-   * @return price
-  **/
-  @Schema(description = "")
-  public Double getPrice() {
-    return price;
-  }
+	/**
+	 * Get symbol
+	 *
+	 * @return symbol
+	 **/
+	@Schema(description = "")
+	public String getSymbol() {
+		return symbol;
+	}
 
-  public void setPrice(Double price) {
-    this.price = price;
-  }
+	/**
+	 * Get clientOrderId
+	 *
+	 * @return clientOrderId
+	 **/
+	@Schema(description = "")
+	public String getClientOrderId() {
+		return clientOrderId;
+	}
 
-  public BinanceRawFuturesOrder avgPrice(Double avgPrice) {
-    this.avgPrice = avgPrice;
-    return this;
-  }
+	public BinanceRawFuturesOrder avgPrice(Double avgPrice) {
+		this.avgPrice = avgPrice;
+		return this;
+	}
 
-   /**
-   * Get avgPrice
-   * @return avgPrice
-  **/
-  @Schema(description = "")
-  public Double getAvgPrice() {
-    return avgPrice;
-  }
+	/**
+	 * Get avgPrice
+	 *
+	 * @return avgPrice
+	 **/
+	@Schema(description = "")
+	public Double getAvgPrice() {
+		return avgPrice;
+	}
 
-  public void setAvgPrice(Double avgPrice) {
-    this.avgPrice = avgPrice;
-  }
+	public void setAvgPrice(Double avgPrice) {
+		this.avgPrice = avgPrice;
+	}
 
-  public BinanceRawFuturesOrder reduceOnly(Boolean reduceOnly) {
+	public BinanceRawFuturesOrder reduceOnly(Boolean reduceOnly) {
     this.reduceOnly = reduceOnly;
     return this;
   }
@@ -549,35 +559,36 @@ public class BinanceRawFuturesOrder implements Parcelable
 
   public BinanceRawFuturesOrder quoteQuantityFilled(Double quoteQuantityFilled) {
     this.quoteQuantityFilled = quoteQuantityFilled;
-    return this;
+	  return this;
   }
 
-   /**
-   * Get quoteQuantityFilled
-   * @return quoteQuantityFilled
-  **/
-  @Schema(description = "")
-  public Double getQuoteQuantityFilled() {
-    return quoteQuantityFilled;
-  }
+	/**
+	 * Get quoteQuantityFilled
+	 *
+	 * @return quoteQuantityFilled
+	 **/
+	@Schema(description = "")
+	public Double getQuoteQuantityFilled() {
+		return quoteQuantityFilled;
+	}
 
-  public void setQuoteQuantityFilled(Double quoteQuantityFilled) {
-    this.quoteQuantityFilled = quoteQuantityFilled;
-  }
+	public void setQuoteQuantityFilled(Double quoteQuantityFilled) {
+		this.quoteQuantityFilled = quoteQuantityFilled;
+	}
 
-  public BinanceRawFuturesOrder callbackRate(Double callbackRate) {
-    this.callbackRate = callbackRate;
-    return this;
-  }
+	/**
+	 * Get price
+	 *
+	 * @return price
+	 **/
+	@Schema(description = "")
+	public Double getPrice() {
+		return price;
+	}
 
-   /**
-   * Get callbackRate
-   * @return callbackRate
-  **/
-  @Schema(description = "")
-  public Double getCallbackRate() {
-	  return callbackRate;
-  }
+	public void setPrice(Double price) {
+		this.price = price;
+	}
 
 	public void setCallbackRate(Double callbackRate) {
 		this.callbackRate = callbackRate;
@@ -586,16 +597,6 @@ public class BinanceRawFuturesOrder implements Parcelable
 	public BinanceRawFuturesOrder lastFilledQuantity(Double lastFilledQuantity) {
 		this.lastFilledQuantity = lastFilledQuantity;
 		return this;
-	}
-
-	/**
-	 * Get clientOrderId
-	 *
-	 * @return clientOrderId
-	 **/
-	@Schema(description = "")
-	public String getClientOrderId() {
-		return clientOrderId;
 	}
 
 	/**
@@ -707,6 +708,7 @@ public class BinanceRawFuturesOrder implements Parcelable
 		this.priceLastFilledTrade = priceLastFilledTrade;
 	}
 
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -753,16 +755,6 @@ public class BinanceRawFuturesOrder implements Parcelable
 		return Objects.hash(accountId, symbol, orderId, tradeId, clientOrderId, price, avgPrice, reduceOnly, closePosition, side, status, stopPrice, timeInForce, originalType, type, activatePrice, updateTime, createdTime, workingType, positionSide, quantity, quantityFilled, quoteQuantityFilled, callbackRate, lastFilledQuantity, commission, commissionAsset, realizedProfit, executionType, priceLastFilledTrade);
 	}
 
-	/**
-	 * Convert the given object to string with each line indented by 4 spaces
-	 * (except the first line).
-	 */
-	private String toIndentedString(java.lang.Object o) {
-		if (o == null) {
-			return "null";
-		}
-		return o.toString().replace("\n", "\n    ");
-	}
 
 	@Override
 	public String toString() {
@@ -803,6 +795,32 @@ public class BinanceRawFuturesOrder implements Parcelable
 		return sb.toString();
 	}
 
+	public BinanceRawFuturesOrder callbackRate(Double callbackRate) {
+		this.callbackRate = callbackRate;
+		return this;
+	}
+
+	/**
+	 * Get callbackRate
+	 *
+	 * @return callbackRate
+	 **/
+	@Schema(description = "")
+	public Double getCallbackRate() {
+		return callbackRate;
+	}
+
+	/**
+	 * Convert the given object to string with each line indented by 4 spaces
+	 * (except the first line).
+	 */
+	private String toIndentedString(java.lang.Object o) {
+		if (o == null) {
+			return "null";
+		}
+		return o.toString().replace("\n", "\n    ");
+	}
+
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(accountId);
 		out.writeValue(symbol);
@@ -831,21 +849,12 @@ public class BinanceRawFuturesOrder implements Parcelable
 		out.writeValue(lastFilledQuantity);
 		out.writeValue(commission);
 		out.writeValue(commissionAsset);
-	  out.writeValue(realizedProfit);
-    out.writeValue(executionType);
-    out.writeValue(priceLastFilledTrade);
-  }
+		out.writeValue(realizedProfit);
+		out.writeValue(executionType);
+		out.writeValue(priceLastFilledTrade);
+	}
 
-  public int describeContents() {
-    return 0;
-  }
-
-  public static final Parcelable.Creator<BinanceRawFuturesOrder> CREATOR = new Parcelable.Creator<BinanceRawFuturesOrder>() {
-    public BinanceRawFuturesOrder createFromParcel(Parcel in) {
-      return new BinanceRawFuturesOrder(in);
-    }
-    public BinanceRawFuturesOrder[] newArray(int size) {
-      return new BinanceRawFuturesOrder[size];
-    }
-  };
+	public int describeContents() {
+		return 0;
+	}
 }

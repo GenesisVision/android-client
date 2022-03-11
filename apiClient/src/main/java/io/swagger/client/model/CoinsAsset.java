@@ -322,30 +322,12 @@ public class CoinsAsset implements Parcelable {
     return details;
   }
 
-  public void setDetails(AssetInfo details) {
-    this.details = details;
-  }
-
-  public CoinsAsset chart(TickerChart chart) {
-    this.chart = chart;
-    return this;
-  }
-
-   /**
-   * Get chart
-   * @return chart
-  **/
-  @Schema(description = "")
-  public TickerChart getChart() {
-    return chart;
-  }
-
-	public void setChart(TickerChart chart) {
-		this.chart = chart;
+	public void setDetails(AssetInfo details) {
+		this.details = details;
 	}
 
-	public CoinsAsset isFavorite(Boolean isFavorite) {
-		this.isFavorite = isFavorite;
+	public CoinsAsset chart(TickerChart chart) {
+		this.chart = chart;
 		return this;
 	}
 
@@ -359,6 +341,31 @@ public class CoinsAsset implements Parcelable {
 			return new CoinsAsset[size];
 		}
 	};
+
+	public CoinsAsset isFavorite(Boolean isFavorite) {
+		this.isFavorite = isFavorite;
+		return this;
+	}
+
+	/**
+	 * Get isFavorite
+	 *
+	 * @return isFavorite
+	 **/
+	@Schema(description = "")
+	public Boolean isIsFavorite() {
+		return isFavorite;
+	}
+
+	/**
+	 * Get chart
+	 *
+	 * @return chart
+	 **/
+	@Schema(description = "")
+	public TickerChart getChart() {
+		return chart;
+	}
 
 	CoinsAsset(Parcel in) {
 		id = (UUID) in.readValue(UUID.class.getClassLoader());
@@ -384,23 +391,8 @@ public class CoinsAsset implements Parcelable {
 		total = (Double) in.readValue(null);
 	}
 
-	public void setIsFavorite(Boolean isFavorite) {
-		this.isFavorite = isFavorite;
-	}
-
-	public CoinsAsset isTransferred(Boolean isTransferred) {
-		this.isTransferred = isTransferred;
-		return this;
-	}
-
-	/**
-	 * Get isFavorite
-	 *
-	 * @return isFavorite
-	 **/
-	@Schema(description = "")
-	public Boolean isIsFavorite() {
-		return isFavorite;
+	public void setChart(TickerChart chart) {
+		this.chart = chart;
 	}
 
 	/**
@@ -432,6 +424,15 @@ public class CoinsAsset implements Parcelable {
 		return oefAssetId;
 	}
 
+	public void setIsFavorite(Boolean isFavorite) {
+		this.isFavorite = isFavorite;
+	}
+
+	public CoinsAsset isTransferred(Boolean isTransferred) {
+		this.isTransferred = isTransferred;
+		return this;
+	}
+
 	/**
 	 * Get amount
 	 *
@@ -442,32 +443,33 @@ public class CoinsAsset implements Parcelable {
 		return amount;
 	}
 
-  public void setAmount(Double amount) {
-    this.amount = amount;
-  }
+	public void setOefAssetId(UUID oefAssetId) {
+		this.oefAssetId = oefAssetId;
+	}
 
-  public CoinsAsset averagePrice(Double averagePrice) {
-    this.averagePrice = averagePrice;
-    return this;
-  }
+	public CoinsAsset amount(Double amount) {
+		this.amount = amount;
+		return this;
+	}
 
-   /**
-   * Get averagePrice
-   * @return averagePrice
-  **/
-  @Schema(description = "")
-  public Double getAveragePrice() {
-    return averagePrice;
-  }
+	public void setAmount(Double amount) {
+		this.amount = amount;
+	}
 
-  public void setAveragePrice(Double averagePrice) {
-    this.averagePrice = averagePrice;
-  }
+	public CoinsAsset averagePrice(Double averagePrice) {
+		this.averagePrice = averagePrice;
+		return this;
+	}
 
-  public CoinsAsset profitCurrent(Double profitCurrent) {
-    this.profitCurrent = profitCurrent;
-    return this;
-  }
+	/**
+	 * Get averagePrice
+	 *
+	 * @return averagePrice
+	 **/
+	@Schema(description = "")
+	public Double getAveragePrice() {
+		return averagePrice;
+	}
 
 	/**
 	 * Get profitCurrent
@@ -483,23 +485,9 @@ public class CoinsAsset implements Parcelable {
 		this.profitCurrent = profitCurrent;
 	}
 
-	public void setOefAssetId(UUID oefAssetId) {
-		this.oefAssetId = oefAssetId;
-	}
-
-	public CoinsAsset amount(Double amount) {
-		this.amount = amount;
-		return this;
-	}
-
 	public CoinsAsset total(Double total) {
 		this.total = total;
 		return this;
-	}
-
-	@Override
-	public int hashCode() {
-		return Objects.hash(id, name, asset, description, logoUrl, color, url, provider, price, change24Percent, totalVolume, marketCap, details, chart, isFavorite, isTransferred, oefAssetId, amount, averagePrice, profitCurrent, total);
 	}
 
 	/**
@@ -515,6 +503,7 @@ public class CoinsAsset implements Parcelable {
 	public void setTotal(Double total) {
 		this.total = total;
 	}
+
 
 	@Override
 	public boolean equals(java.lang.Object o) {
@@ -547,6 +536,11 @@ public class CoinsAsset implements Parcelable {
 				Objects.equals(this.profitCurrent, coinsAsset.profitCurrent) &&
 				Objects.equals(this.total, coinsAsset.total);
 	}
+
+	public void setAveragePrice(Double averagePrice) {
+		this.averagePrice = averagePrice;
+	}
+
 
 	@Override
 	public String toString() {
@@ -589,6 +583,7 @@ public class CoinsAsset implements Parcelable {
 		return o.toString().replace("\n", "\n    ");
 	}
 
+
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(id);
 		out.writeValue(name);
@@ -613,7 +608,17 @@ public class CoinsAsset implements Parcelable {
 		out.writeValue(total);
 	}
 
+	public CoinsAsset profitCurrent(Double profitCurrent) {
+		this.profitCurrent = profitCurrent;
+		return this;
+	}
+
 	public int describeContents() {
 		return 0;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(id, name, asset, description, logoUrl, color, url, provider, price, change24Percent, totalVolume, marketCap, details, chart, isFavorite, isTransferred, oefAssetId, amount, averagePrice, profitCurrent, total);
 	}
 }

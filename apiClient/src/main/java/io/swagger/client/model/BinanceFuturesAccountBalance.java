@@ -28,17 +28,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class BinanceFuturesAccountBalance implements Parcelable
 {
-	public static final Parcelable.Creator<BinanceFuturesAccountBalance> CREATOR = new Parcelable.Creator<BinanceFuturesAccountBalance>()
-	{
-		public BinanceFuturesAccountBalance createFromParcel(Parcel in) {
-			return new BinanceFuturesAccountBalance(in);
-		}
-
-		public BinanceFuturesAccountBalance[] newArray(int size) {
-			return new BinanceFuturesAccountBalance[size];
-		}
-	};
-
 	@SerializedName("accountAlias")
 	private String accountAlias = null;
 
@@ -67,18 +56,6 @@ public class BinanceFuturesAccountBalance implements Parcelable
 	private String logoUrl = null;
 
 	public BinanceFuturesAccountBalance() {
-	}
-
-	BinanceFuturesAccountBalance(Parcel in) {
-		accountAlias = (String) in.readValue(null);
-		asset = (String) in.readValue(null);
-		walletBalance = (Double) in.readValue(null);
-		crossWalletBalance = (Double) in.readValue(null);
-		crossUnrealizedPnl = (Double) in.readValue(null);
-		availableBalance = (Double) in.readValue(null);
-		maxWithdrawAmount = (Double) in.readValue(null);
-		marginAvailable = (Boolean) in.readValue(null);
-		logoUrl = (String) in.readValue(null);
 	}
 
 	public BinanceFuturesAccountBalance accountAlias(String accountAlias) {
@@ -252,6 +229,7 @@ public class BinanceFuturesAccountBalance implements Parcelable
 		this.logoUrl = logoUrl;
 	}
 
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -276,6 +254,7 @@ public class BinanceFuturesAccountBalance implements Parcelable
 	public int hashCode() {
 		return Objects.hash(accountAlias, asset, walletBalance, crossWalletBalance, crossUnrealizedPnl, availableBalance, maxWithdrawAmount, marginAvailable, logoUrl);
 	}
+
 
 	@Override
 	public String toString() {
@@ -306,6 +285,7 @@ public class BinanceFuturesAccountBalance implements Parcelable
 		return o.toString().replace("\n", "\n    ");
 	}
 
+
 	public void writeToParcel(Parcel out, int flags) {
 		out.writeValue(accountAlias);
 		out.writeValue(asset);
@@ -318,7 +298,30 @@ public class BinanceFuturesAccountBalance implements Parcelable
 		out.writeValue(logoUrl);
 	}
 
+	public static final Parcelable.Creator<BinanceFuturesAccountBalance> CREATOR = new Parcelable.Creator<BinanceFuturesAccountBalance>()
+	{
+		public BinanceFuturesAccountBalance createFromParcel(Parcel in) {
+			return new BinanceFuturesAccountBalance(in);
+		}
+
+		public BinanceFuturesAccountBalance[] newArray(int size) {
+			return new BinanceFuturesAccountBalance[size];
+		}
+	};
+
 	public int describeContents() {
 		return 0;
+	}
+
+	BinanceFuturesAccountBalance(Parcel in) {
+		accountAlias = (String) in.readValue(null);
+		asset = (String) in.readValue(null);
+		walletBalance = (Double) in.readValue(null);
+		crossWalletBalance = (Double) in.readValue(null);
+		crossUnrealizedPnl = (Double) in.readValue(null);
+		availableBalance = (Double) in.readValue(null);
+		maxWithdrawAmount = (Double) in.readValue(null);
+		marginAvailable = (Boolean) in.readValue(null);
+		logoUrl = (String) in.readValue(null);
 	}
 }

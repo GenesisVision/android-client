@@ -12,61 +12,60 @@
 
 package io.swagger.client.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import com.google.gson.annotations.SerializedName;
-import android.os.Parcelable;
-import android.os.Parcel;
-import java.io.IOException;
 import com.google.gson.TypeAdapter;
 import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 
+import java.io.IOException;
+
 /**
  * Gets or Sets Blockchain
  */
 @JsonAdapter(Blockchain.Adapter.class)
-public enum Blockchain {
-  NONE("None"),
-  BITCOIN("Bitcoin"),
-  ETHEREUM("Ethereum"),
-  BINANCESMARTCHAIN("BinanceSmartChain"),
-  XDAICHAIN("xDaiChain");
+public enum Blockchain
+{
+	NONE("None"),
+	BITCOIN("Bitcoin"),
+	ETHEREUM("Ethereum"),
+	BINANCESMARTCHAIN("BinanceSmartChain"),
+	XDAICHAIN("xDaiChain"),
+	TRON("Tron");
 
-  private String value;
+	public static Blockchain fromValue(String text) {
+		for (Blockchain b : Blockchain.values()) {
+			if (String.valueOf(b.value).equals(text)) {
+				return b;
+			}
+		}
+		return null;
+	}
 
-  Blockchain(String value) {
-    this.value = value;
-  }
+	private String value;
 
-  public String getValue() {
-    return value;
-  }
+	Blockchain(String value) {
+		this.value = value;
+	}
 
-  @Override
-  public String toString() {
-    return String.valueOf(value);
-  }
+	public String getValue() {
+		return value;
+	}
 
-  public static Blockchain fromValue(String text) {
-    for (Blockchain b : Blockchain.values()) {
-      if (String.valueOf(b.value).equals(text)) {
-        return b;
-      }
-    }
-    return null;
-  }
+	@Override
+	public String toString() {
+		return String.valueOf(value);
+	}
 
-  public static class Adapter extends TypeAdapter<Blockchain> {
-    @Override
-    public void write(final JsonWriter jsonWriter, final Blockchain enumeration) throws IOException {
-      jsonWriter.value(enumeration.getValue());
-    }
+	public static class Adapter extends TypeAdapter<Blockchain>
+	{
+		@Override
+		public void write(final JsonWriter jsonWriter, final Blockchain enumeration) throws IOException {
+			jsonWriter.value(enumeration.getValue());
+		}
 
-    @Override
-    public Blockchain read(final JsonReader jsonReader) throws IOException {
-      Object value = jsonReader.nextString();
+		@Override
+		public Blockchain read(final JsonReader jsonReader) throws IOException {
+			Object value = jsonReader.nextString();
       return Blockchain.fromValue(String.valueOf(value));
     }
   }

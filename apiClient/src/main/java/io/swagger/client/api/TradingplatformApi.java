@@ -283,25 +283,25 @@ public interface TradingplatformApi {
 
   /**
    * Get account favorite symbols
-   * 
+   *
    * @param id  (required)
    * @return Call&lt;StringItemsViewModel&gt;
    */
   @GET("v2.0/tradingplatform/accounts/{id}/symbols/favorite")
   Observable<StringItemsViewModel> getFavoriteSymbols(
-            @retrofit2.http.Path("id") UUID id            
+		  @retrofit2.http.Path("id") UUID id
   );
 
-  /**
-   * Get futures 24H prices
-   *
-   * @param symbol  (optional)
-   * @return Call&lt;List&lt;BinanceRawFutures24HPrice&gt;&gt;
-   */
-  @GET("v2.0/tradingplatform/binance/futures/market/ticker/24hr")
-  Observable<List<BinanceRawFutures24HPrice>> getFutures24HPrices(
-		  @retrofit2.http.Query("symbol") String symbol
-  );
+	/**
+	 * Get futures 24H prices
+	 *
+	 * @param symbol (optional)
+	 * @return Call&lt;List&lt;BinanceRawFutures24HPrice&gt;&gt;
+	 */
+	@GET("v2.0/tradingplatform/binance/futures/market/ticker/24hr")
+	Observable<List<BinanceRawFutures24HPrice>> getFutures24HPrices(
+			@retrofit2.http.Query("symbol") String symbol
+	);
 
 	/**
 	 * @param accountId (optional)
@@ -330,53 +330,51 @@ public interface TradingplatformApi {
 	@GET("v2.0/tradingplatform/binance/futures/market/ticker/book")
 	Observable<List<BinanceRawBookPrice>> getFuturesBookPrices(
 			@retrofit2.http.Query("symbol") String symbol
-  );
+	);
 
-  /**
-   * Get notional and leverage brackets
-   * 
-   * @param accountId  (optional)
-   * @param symbol  (optional)
-   * @return Call&lt;List&lt;BinanceRawFuturesSymbolBracket&gt;&gt;
-   */
-  @GET("v2.0/tradingplatform/binance/account/futures/symbols/brackets")
-  Observable<List<BinanceRawFuturesSymbolBracket>> getFuturesBrackets(
-        @retrofit2.http.Query("accountId") UUID accountId                ,     @retrofit2.http.Query("symbol") String symbol                
-  );
+	/**
+	 * Get notional and leverage brackets
+	 *
+	 * @param accountId (optional)
+	 * @param symbol    (optional)
+	 * @return Call&lt;List&lt;BinanceRawFuturesSymbolBracket&gt;&gt;
+	 */
+	@GET("v2.0/tradingplatform/binance/account/futures/symbols/brackets")
+	Observable<List<BinanceRawFuturesSymbolBracket>> getFuturesBrackets(
+			@retrofit2.http.Query("accountId") UUID accountId, @retrofit2.http.Query("symbol") String symbol
+	);
 
-  /**
-   * Gets composite index info
-   * 
-   * @param symbol  (optional)
-   * @return Call&lt;List&lt;BinanceRawFuturesCompositeIndexInfo&gt;&gt;
-   */
-  @GET("v2.0/tradingplatform/binance/futures/market/index/composite/info")
-  Observable<List<BinanceRawFuturesCompositeIndexInfo>> getFuturesCompositeIndexInfo(
-        @retrofit2.http.Query("symbol") String symbol                
-  );
+	/**
+	 * Gets composite index info
+	 *
+	 * @param symbol (optional)
+	 * @return Call&lt;List&lt;BinanceRawFuturesCompositeIndexInfo&gt;&gt;
+	 */
+	@GET("v2.0/tradingplatform/binance/futures/market/index/composite/info")
+	Observable<List<BinanceRawFuturesCompositeIndexInfo>> getFuturesCompositeIndexInfo(
+			@retrofit2.http.Query("symbol") String symbol
+	);
 
-  /**
-   * Exchange futures info
-   * 
-   * @return Call&lt;BinanceRawFuturesUsdtExchangeInfo&gt;
-   */
-  @GET("v2.0/tradingplatform/binance/futures/server/info")
-  Observable<BinanceRawFuturesUsdtExchangeInfo> getFuturesExchangeInfo();
-    
+	/**
+	 * Exchange futures info
+	 *
+	 * @return Call&lt;BinanceRawFuturesUsdtExchangeInfo&gt;
+	 */
+	@GET("v2.0/tradingplatform/binance/futures/server/info")
+	Observable<BinanceRawFuturesUsdtExchangeInfo> getFuturesExchangeInfo();
 
-  /**
-   * 
-   * 
-   * @param accountId  (optional)
-   * @param symbol  (optional)
-   * @param closeType  (optional)
-   * @param startTime  (optional)
-   * @param endTime  (optional)
-   * @return Call&lt;List&lt;BinanceRawFuturesOrder&gt;&gt;
-   */
-  @GET("v2.0/tradingplatform/binance/account/futures/orders/force")
-  Observable<List<BinanceRawFuturesOrder>> getFuturesForcedOrders(
-        @retrofit2.http.Query("accountId") UUID accountId                ,     @retrofit2.http.Query("symbol") String symbol                ,     @retrofit2.http.Query("closeType") BinanceAutoCloseType closeType                ,     @retrofit2.http.Query("startTime") DateTime startTime                ,     @retrofit2.http.Query("endTime") DateTime endTime                
+
+	/**
+	 * @param accountId (optional)
+	 * @param symbol    (optional)
+	 * @param closeType (optional)
+	 * @param startTime (optional)
+	 * @param endTime   (optional)
+	 * @return Call&lt;List&lt;BinanceRawFuturesOrder&gt;&gt;
+	 */
+	@GET("v2.0/tradingplatform/binance/account/futures/orders/force")
+	Observable<List<BinanceRawFuturesOrder>> getFuturesForcedOrders(
+			@retrofit2.http.Query("accountId") UUID accountId, @retrofit2.http.Query("symbol") String symbol, @retrofit2.http.Query("closeType") BinanceAutoCloseType closeType, @retrofit2.http.Query("startTime") DateTime startTime, @retrofit2.http.Query("endTime") DateTime endTime
   );
 
   /**
@@ -473,31 +471,31 @@ public interface TradingplatformApi {
    */
   @GET("v2.0/tradingplatform/binance/futures/market/rates/interest/history")
   Observable<List<BinanceRawFuturesOpenInterestHistory>> getFuturesOpenInterestHistory(
-        @retrofit2.http.Query("symbol") String symbol                ,     @retrofit2.http.Query("period") BinancePeriodInterval period                ,     @retrofit2.http.Query("limit") Integer limit                ,     @retrofit2.http.Query("startTime") DateTime startTime                ,     @retrofit2.http.Query("endTime") DateTime endTime
+		  @retrofit2.http.Query("symbol") String symbol, @retrofit2.http.Query("period") BinancePeriodInterval period, @retrofit2.http.Query("limit") Integer limit, @retrofit2.http.Query("startTime") DateTime startTime, @retrofit2.http.Query("endTime") DateTime endTime
   );
 
 	/**
 	 * Futures open orders
 	 *
-	 * @param accountId  (optional)
+	 * @param accountId (optional)
 	 * @return Call&lt;BinanceRawFuturesOrderItemsViewModel&gt;
 	 */
 	@GET("v2.0/tradingplatform/binance/futures/usdt/orders/open")
-  Observable<BinanceRawFuturesOrderItemsViewModel> getFuturesOpenOrders(
-        @retrofit2.http.Query("accountId") UUID accountId                
-  );
+	Observable<BinanceRawFuturesOrderItemsViewModel> getFuturesOpenOrders(
+			@retrofit2.http.Query("accountId") UUID accountId
+	);
 
-  /**
-   * Get futures order book
-   *
-   * @param symbol  (optional)
-   * @param limit  (optional)
-   * @return Call&lt;BinanceRawOrderBook&gt;
-   */
-  @GET("v2.0/tradingplatform/binance/futures/market/depth")
-  Observable<BinanceRawOrderBook> getFuturesOrderBook(
-		  @retrofit2.http.Query("symbol") String symbol, @retrofit2.http.Query("limit") Integer limit
-  );
+	/**
+	 * Get futures order book
+	 *
+	 * @param symbol (optional)
+	 * @param limit  (optional)
+	 * @return Call&lt;BinanceRawOrderBook&gt;
+	 */
+	@GET("v2.0/tradingplatform/binance/futures/market/depth")
+	Observable<BinanceRawOrderBook> getFuturesOrderBook(
+			@retrofit2.http.Query("symbol") String symbol, @retrofit2.http.Query("limit") Integer limit
+	);
 
 	/**
 	 * Futures orders
@@ -533,42 +531,42 @@ public interface TradingplatformApi {
 	@GET("v2.0/tradingplatform/binance/account/futures/position/mode")
 	Observable<BinanceRawFuturesPositionMode> getFuturesPositionMode(
 			@retrofit2.http.Query("accountId") UUID accountId
-  );
+	);
 
-  /**
-   * Get futures symbol aggregated trades
-   * 
-   * @param symbol  (optional)
-   * @param fromId  (optional)
-   * @param startTime  (optional)
-   * @param endTime  (optional)
-   * @param limit  (optional)
-   * @return Call&lt;List&lt;BinanceRawAggregatedTrade&gt;&gt;
-   */
-  @GET("v2.0/tradingplatform/binance/futures/market/trades/aggregated")
-  Observable<List<BinanceRawAggregatedTrade>> getFuturesSymbolAggregatedTrades(
-        @retrofit2.http.Query("symbol") String symbol                ,     @retrofit2.http.Query("fromId") Long fromId                ,     @retrofit2.http.Query("startTime") DateTime startTime                ,     @retrofit2.http.Query("endTime") DateTime endTime                ,     @retrofit2.http.Query("limit") Integer limit                
-  );
+	/**
+	 * Get futures symbol aggregated trades
+	 *
+	 * @param symbol    (optional)
+	 * @param fromId    (optional)
+	 * @param startTime (optional)
+	 * @param endTime   (optional)
+	 * @param limit     (optional)
+	 * @return Call&lt;List&lt;BinanceRawAggregatedTrade&gt;&gt;
+	 */
+	@GET("v2.0/tradingplatform/binance/futures/market/trades/aggregated")
+	Observable<List<BinanceRawAggregatedTrade>> getFuturesSymbolAggregatedTrades(
+			@retrofit2.http.Query("symbol") String symbol, @retrofit2.http.Query("fromId") Long fromId, @retrofit2.http.Query("startTime") DateTime startTime, @retrofit2.http.Query("endTime") DateTime endTime, @retrofit2.http.Query("limit") Integer limit
+	);
 
-  /**
-   * Get futures symbol historical trades
-   * 
-   * @param symbol  (optional)
-   * @param limit  (optional)
-   * @param fromId  (optional)
-   * @return Call&lt;List&lt;BinanceRawRecentTrade&gt;&gt;
-   */
-  @GET("v2.0/tradingplatform/binance/futures/market/trades/historical")
-  Observable<List<BinanceRawRecentTrade>> getFuturesSymbolHistoricalTrades(
-        @retrofit2.http.Query("symbol") String symbol                ,     @retrofit2.http.Query("limit") Integer limit                ,     @retrofit2.http.Query("fromId") Long fromId                
-  );
+	/**
+	 * Get futures symbol historical trades
+	 *
+	 * @param symbol (optional)
+	 * @param limit  (optional)
+	 * @param fromId (optional)
+	 * @return Call&lt;List&lt;BinanceRawRecentTrade&gt;&gt;
+	 */
+	@GET("v2.0/tradingplatform/binance/futures/market/trades/historical")
+	Observable<List<BinanceRawRecentTrade>> getFuturesSymbolHistoricalTrades(
+			@retrofit2.http.Query("symbol") String symbol, @retrofit2.http.Query("limit") Integer limit, @retrofit2.http.Query("fromId") Long fromId
+	);
 
-  /**
-   * Get futures symbol recent trades
-   * 
-   * @param symbol  (optional)
-   * @param limit  (optional)
-   * @return Call&lt;List&lt;BinanceRawRecentTrade&gt;&gt;
+	/**
+	 * Get futures symbol recent trades
+	 *
+	 * @param symbol  (optional)
+	 * @param limit  (optional)
+	 * @return Call&lt;List&lt;BinanceRawRecentTrade&gt;&gt;
    */
   @GET("v2.0/tradingplatform/binance/futures/market/trades/recent")
   Observable<List<BinanceRawRecentTrade>> getFuturesSymbolRecentTrades(
@@ -628,66 +626,64 @@ public interface TradingplatformApi {
    */
   @GET("v2.0/tradingplatform/binance/futures/market/ratio/longshort/top/position")
   Observable<List<BinanceRawFuturesLongShortRatio>> getFuturesTopLongShortPositionRatio(
-        @retrofit2.http.Query("symbol") String symbol                ,     @retrofit2.http.Query("period") BinancePeriodInterval period                ,     @retrofit2.http.Query("limit") Integer limit                ,     @retrofit2.http.Query("startTime") DateTime startTime                ,     @retrofit2.http.Query("endTime") DateTime endTime                
+		  @retrofit2.http.Query("symbol") String symbol                , @retrofit2.http.Query("period") BinancePeriodInterval period                , @retrofit2.http.Query("limit") Integer limit                , @retrofit2.http.Query("startTime") DateTime startTime, @retrofit2.http.Query("endTime") DateTime endTime
   );
 
-  /**
-   * 
-   * 
-   * @param accountId  (optional)
-   * @param symbol  (optional)
-   * @param startTime  (optional)
-   * @param endTime  (optional)
-   * @param limit  (optional)
-   * @return Call&lt;List&lt;BinanceRawFuturesUsdtTrade&gt;&gt;
-   */
-  @GET("v2.0/tradingplatform/binance/account/futures/trades")
-  Observable<List<BinanceRawFuturesUsdtTrade>> getFuturesTrades(
-        @retrofit2.http.Query("accountId") UUID accountId                ,     @retrofit2.http.Query("symbol") String symbol                ,     @retrofit2.http.Query("startTime") DateTime startTime                ,     @retrofit2.http.Query("endTime") DateTime endTime                ,     @retrofit2.http.Query("limit") Integer limit                
-  );
+	/**
+	 * @param accountId (optional)
+	 * @param symbol    (optional)
+	 * @param startTime (optional)
+	 * @param endTime   (optional)
+	 * @param limit     (optional)
+	 * @return Call&lt;List&lt;BinanceRawFuturesUsdtTrade&gt;&gt;
+	 */
+	@GET("v2.0/tradingplatform/binance/account/futures/trades")
+	Observable<List<BinanceRawFuturesUsdtTrade>> getFuturesTrades(
+			@retrofit2.http.Query("accountId") UUID accountId, @retrofit2.http.Query("symbol") String symbol, @retrofit2.http.Query("startTime") DateTime startTime, @retrofit2.http.Query("endTime") DateTime endTime, @retrofit2.http.Query("limit") Integer limit
+	);
 
-  /**
-   * Account futures history
-   * 
-   * @param accountId  (optional)
-   * @param mode  (optional)
-   * @param dateFrom  (optional)
-   * @param dateTo  (optional)
-   * @param symbol  (optional)
-   * @param skip  (optional)
-   * @param take  (optional)
-   * @return Call&lt;BinanceRawFuturesOrderItemsViewModel&gt;
-   */
-  @GET("v2.0/tradingplatform/binance/futures/trades")
-  Observable<BinanceRawFuturesOrderItemsViewModel> getFuturesTradesHistory(
-        @retrofit2.http.Query("AccountId") UUID accountId                ,     @retrofit2.http.Query("Mode") TradingPlatformBinanceOrdersMode mode                ,     @retrofit2.http.Query("DateFrom") DateTime dateFrom                ,     @retrofit2.http.Query("DateTo") DateTime dateTo                ,     @retrofit2.http.Query("Symbol") String symbol                ,     @retrofit2.http.Query("Skip") Integer skip                ,     @retrofit2.http.Query("Take") Integer take                
-  );
+	/**
+	 * Account futures history
+	 *
+	 * @param accountId (optional)
+	 * @param mode      (optional)
+	 * @param dateFrom  (optional)
+	 * @param dateTo    (optional)
+	 * @param symbol    (optional)
+	 * @param skip      (optional)
+	 * @param take      (optional)
+	 * @return Call&lt;BinanceRawFuturesOrderItemsViewModel&gt;
+	 */
+	@GET("v2.0/tradingplatform/binance/futures/trades")
+	Observable<BinanceRawFuturesOrderItemsViewModel> getFuturesTradesHistory(
+			@retrofit2.http.Query("AccountId") UUID accountId, @retrofit2.http.Query("Mode") TradingPlatformBinanceOrdersMode mode, @retrofit2.http.Query("DateFrom") DateTime dateFrom, @retrofit2.http.Query("DateTo") DateTime dateTo, @retrofit2.http.Query("Symbol") String symbol, @retrofit2.http.Query("Skip") Integer skip, @retrofit2.http.Query("Take") Integer take
+	);
 
-  /**
-   * Get klines
-   * 
-   * @param symbol  (required)
-   * @param interval  (optional)
-   * @param startTime  (optional)
-   * @param endTime  (optional)
-   * @param limit  (optional)
-   * @return Call&lt;BinanceRawKlineItemsViewModel&gt;
-   */
-  @GET("v2.0/tradingplatform/binance/market/{symbol}/klines")
-  Observable<BinanceRawKlineItemsViewModel> getKlines(
-            @retrofit2.http.Path("symbol") String symbol            ,     @retrofit2.http.Query("interval") BinanceKlineInterval interval                ,     @retrofit2.http.Query("startTime") DateTime startTime                ,     @retrofit2.http.Query("endTime") DateTime endTime                ,     @retrofit2.http.Query("limit") Integer limit                
-  );
+	/**
+	 * Get klines
+	 *
+	 * @param symbol    (required)
+	 * @param interval  (optional)
+	 * @param startTime (optional)
+	 * @param endTime   (optional)
+	 * @param limit     (optional)
+	 * @return Call&lt;BinanceRawKlineItemsViewModel&gt;
+	 */
+	@GET("v2.0/tradingplatform/binance/market/{symbol}/klines")
+	Observable<BinanceRawKlineItemsViewModel> getKlines(
+			@retrofit2.http.Path("symbol") String symbol, @retrofit2.http.Query("interval") BinanceKlineInterval interval, @retrofit2.http.Query("startTime") DateTime startTime, @retrofit2.http.Query("endTime") DateTime endTime, @retrofit2.http.Query("limit") Integer limit
+	);
 
-  /**
-   * Open positions
-   * 
-   * @param accountId  (optional)
-   * @return Call&lt;BinanceRawOrderItemsViewModel&gt;
-   */
-  @GET("v2.0/tradingplatform/binance/spot/orders")
-  Observable<BinanceRawOrderItemsViewModel> getOpenOrders(
-        @retrofit2.http.Query("accountId") UUID accountId
-  );
+	/**
+	 * Open positions
+	 *
+	 * @param accountId (optional)
+	 * @return Call&lt;BinanceRawOrderItemsViewModel&gt;
+	 */
+	@GET("v2.0/tradingplatform/binance/spot/orders")
+	Observable<BinanceRawOrderItemsViewModel> getOpenOrders(
+			@retrofit2.http.Query("accountId") UUID accountId
+	);
 
 	/**
 	 * Get order book
@@ -730,18 +726,18 @@ public interface TradingplatformApi {
 	/**
 	 * Account history
 	 *
-	 * @param accountId  (optional)
-	 * @param mode  (optional)
+	 * @param accountId (optional)
+	 * @param mode      (optional)
 	 * @param dateFrom  (optional)
-	 * @param dateTo  (optional)
-   * @param symbol  (optional)
-   * @param skip  (optional)
-   * @param take  (optional)
-   * @return Call&lt;BinanceRawOrderItemsViewModel&gt;
-   */
-  @GET("v2.0/tradingplatform/binance/spot/trades")
-  Observable<BinanceRawOrderItemsViewModel> getTradesHistory(
-        @retrofit2.http.Query("AccountId") UUID accountId                ,     @retrofit2.http.Query("Mode") TradingPlatformBinanceOrdersMode mode                ,     @retrofit2.http.Query("DateFrom") DateTime dateFrom                ,     @retrofit2.http.Query("DateTo") DateTime dateTo                ,     @retrofit2.http.Query("Symbol") String symbol                ,     @retrofit2.http.Query("Skip") Integer skip                ,     @retrofit2.http.Query("Take") Integer take                
+	 * @param dateTo    (optional)
+	 * @param symbol    (optional)
+	 * @param skip      (optional)
+	 * @param take      (optional)
+	 * @return Call&lt;BinanceRawOrderItemsViewModel&gt;
+	 */
+	@GET("v2.0/tradingplatform/binance/spot/trades")
+	Observable<BinanceRawOrderItemsViewModel> getTradesHistory(
+			@retrofit2.http.Query("AccountId") UUID accountId, @retrofit2.http.Query("Mode") TradingPlatformBinanceOrdersMode mode, @retrofit2.http.Query("DateFrom") DateTime dateFrom, @retrofit2.http.Query("DateTo") DateTime dateTo, @retrofit2.http.Query("Symbol") String symbol, @retrofit2.http.Query("Skip") Integer skip, @retrofit2.http.Query("Take") Integer take
   );
 
   /**

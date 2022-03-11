@@ -7,3 +7,4 @@
 * `ETHEREUM` (value: `"Ethereum"`)
 * `BINANCESMARTCHAIN` (value: `"BinanceSmartChain"`)
 * `XDAICHAIN` (value: `"xDaiChain"`)
+* `TRON` (value: `"Tron"`)

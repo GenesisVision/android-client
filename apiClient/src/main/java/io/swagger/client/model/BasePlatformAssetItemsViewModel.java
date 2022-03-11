@@ -133,6 +133,15 @@ public class BasePlatformAssetItemsViewModel implements Parcelable
 		out.writeValue(total);
 	}
 
+	BasePlatformAssetItemsViewModel(Parcel in) {
+		items = (List<BasePlatformAsset>) in.readValue(BasePlatformAsset.class.getClassLoader());
+		total = (Integer) in.readValue(null);
+	}
+
+	public int describeContents() {
+		return 0;
+	}
+
 	public static final Parcelable.Creator<BasePlatformAssetItemsViewModel> CREATOR = new Parcelable.Creator<BasePlatformAssetItemsViewModel>()
 	{
 		public BasePlatformAssetItemsViewModel createFromParcel(Parcel in) {
@@ -143,13 +152,4 @@ public class BasePlatformAssetItemsViewModel implements Parcelable
 			return new BasePlatformAssetItemsViewModel[size];
 		}
 	};
-
-	public int describeContents() {
-		return 0;
-	}
-
-	BasePlatformAssetItemsViewModel(Parcel in) {
-		items = (List<BasePlatformAsset>) in.readValue(BasePlatformAsset.class.getClassLoader());
-		total = (Integer) in.readValue(null);
-	}
 }

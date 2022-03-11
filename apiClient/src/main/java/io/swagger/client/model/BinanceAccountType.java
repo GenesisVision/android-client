@@ -29,7 +29,8 @@ public enum BinanceAccountType
 	MARGIN("Margin"),
 	FUTURES("Futures"),
 	LEVERAGED("Leveraged"),
-	TRD_GRP_002("TRD_GRP_002");
+	TRD_GRP_002("TRD_GRP_002"),
+	TRD_GRP_003("TRD_GRP_003");
 
 	private String value;
 
@@ -50,21 +51,22 @@ public enum BinanceAccountType
 		for (BinanceAccountType b : BinanceAccountType.values()) {
 			if (String.valueOf(b.value).equals(text)) {
 				return b;
-      }
-    }
-    return null;
-  }
+			}
+		}
+		return null;
+	}
 
-  public static class Adapter extends TypeAdapter<BinanceAccountType> {
-    @Override
-    public void write(final JsonWriter jsonWriter, final BinanceAccountType enumeration) throws IOException {
-      jsonWriter.value(enumeration.getValue());
-    }
+	public static class Adapter extends TypeAdapter<BinanceAccountType>
+	{
+		@Override
+		public void write(final JsonWriter jsonWriter, final BinanceAccountType enumeration) throws IOException {
+			jsonWriter.value(enumeration.getValue());
+		}
 
-    @Override
-    public BinanceAccountType read(final JsonReader jsonReader) throws IOException {
-      Object value = jsonReader.nextString();
-      return BinanceAccountType.fromValue(String.valueOf(value));
-    }
-  }
+		@Override
+		public BinanceAccountType read(final JsonReader jsonReader) throws IOException {
+			Object value = jsonReader.nextString();
+			return BinanceAccountType.fromValue(String.valueOf(value));
+		}
+	}
 }

@@ -29,21 +29,30 @@ import io.swagger.v3.oas.annotations.media.Schema;
  */
 
 
-public class DashboardTradingAssetCommonDetails implements Parcelable {
-  @SerializedName("title")
-  private String title = null;
+public class DashboardTradingAssetCommonDetails implements Parcelable
+{
+	public static final Parcelable.Creator<DashboardTradingAssetCommonDetails> CREATOR = new Parcelable.Creator<DashboardTradingAssetCommonDetails>()
+	{
+		public DashboardTradingAssetCommonDetails createFromParcel(Parcel in) {
+			return new DashboardTradingAssetCommonDetails(in);
+		}
 
-  @SerializedName("status")
-  private DashboardTradingAssetStatus status = null;
+		public DashboardTradingAssetCommonDetails[] newArray(int size) {
+			return new DashboardTradingAssetCommonDetails[size];
+		}
+	};
 
-  @SerializedName("creationDate")
-  private DateTime creationDate = null;
+	@SerializedName("title")
+	private String title = null;
 
-  @SerializedName("balance")
-  private Double balance = null;
+	@SerializedName("status")
+	private DashboardTradingAssetStatus status = null;
 
-  @SerializedName("login")
-  private String login = null;
+	@SerializedName("creationDate")
+	private DateTime creationDate = null;
+
+	@SerializedName("balance")
+	private Double balance = null;
 
 	@SerializedName("currency")
 	private Currency currency = null;
@@ -69,6 +78,29 @@ public class DashboardTradingAssetCommonDetails implements Parcelable {
 	public DashboardTradingAssetCommonDetails() {
 	}
 
+	@SerializedName("login")
+	private String login = null;
+
+	public DashboardTradingAssetCommonDetails title(String title) {
+		this.title = title;
+		return this;
+	}
+
+	public DashboardTradingAssetCommonDetails status(DashboardTradingAssetStatus status) {
+		this.status = status;
+		return this;
+	}
+
+	/**
+	 * Get title
+	 *
+	 * @return title
+	 **/
+	@Schema(description = "")
+	public String getTitle() {
+		return title;
+	}
+
 	DashboardTradingAssetCommonDetails(Parcel in) {
 		title = (String) in.readValue(null);
 		status = (DashboardTradingAssetStatus) in.readValue(DashboardTradingAssetStatus.class.getClassLoader());
@@ -84,52 +116,30 @@ public class DashboardTradingAssetCommonDetails implements Parcelable {
 		permissions = (List<TradingAccountPermission>) in.readValue(TradingAccountPermission.class.getClassLoader());
 	}
 
-	public DashboardTradingAssetCommonDetails title(String title) {
-		this.title = title;
-		return this;
-	}
-
 	public void setTitle(String title) {
 		this.title = title;
 	}
 
-	public DashboardTradingAssetCommonDetails status(DashboardTradingAssetStatus status) {
-		this.status = status;
+	public DashboardTradingAssetCommonDetails creationDate(DateTime creationDate) {
+		this.creationDate = creationDate;
 		return this;
 	}
 
-   /**
-   * Get status
-   * @return status
-  **/
-  @Schema(description = "")
-  public DashboardTradingAssetStatus getStatus() {
-    return status;
-  }
+	/**
+	 * Get creationDate
+	 *
+	 * @return creationDate
+	 **/
+	@Schema(description = "")
+	public DateTime getCreationDate() {
+		return creationDate;
+	}
 
-  public void setStatus(DashboardTradingAssetStatus status) {
-    this.status = status;
-  }
+	public void setCreationDate(DateTime creationDate) {
+		this.creationDate = creationDate;
+	}
 
-  public DashboardTradingAssetCommonDetails creationDate(DateTime creationDate) {
-    this.creationDate = creationDate;
-    return this;
-  }
-
-   /**
-   * Get creationDate
-   * @return creationDate
-  **/
-  @Schema(description = "")
-  public DateTime getCreationDate() {
-    return creationDate;
-  }
-
-  public void setCreationDate(DateTime creationDate) {
-    this.creationDate = creationDate;
-  }
-
-  public DashboardTradingAssetCommonDetails balance(Double balance) {
+	public DashboardTradingAssetCommonDetails balance(Double balance) {
     this.balance = balance;
     return this;
   }
@@ -230,43 +240,49 @@ public class DashboardTradingAssetCommonDetails implements Parcelable {
   **/
   @Schema(description = "")
   public PrivateTradingAccountType getType() {
-    return type;
+	  return type;
   }
 
-  public void setType(PrivateTradingAccountType type) {
-    this.type = type;
-  }
+	public void setType(PrivateTradingAccountType type) {
+		this.type = type;
+	}
 
-  public DashboardTradingAssetCommonDetails balances(List<AmountWithLogoCurrency> balances) {
-    this.balances = balances;
-    return this;
-  }
+	public DashboardTradingAssetCommonDetails balances(List<AmountWithLogoCurrency> balances) {
+		this.balances = balances;
+		return this;
+	}
 
-  public DashboardTradingAssetCommonDetails addBalancesItem(AmountWithLogoCurrency balancesItem) {
-    if (this.balances == null) {
-      this.balances = new ArrayList<AmountWithLogoCurrency>();
-    }
-    this.balances.add(balancesItem);
-    return this;
-  }
+	public DashboardTradingAssetCommonDetails addBalancesItem(AmountWithLogoCurrency balancesItem) {
+		if (this.balances == null) {
+			this.balances = new ArrayList<AmountWithLogoCurrency>();
+		}
+		this.balances.add(balancesItem);
+		return this;
+	}
 
-   /**
-   * Get balances
-   * @return balances
-  **/
-  @Schema(description = "")
-  public List<AmountWithLogoCurrency> getBalances() {
-    return balances;
-  }
+	/**
+	 * Get status
+	 *
+	 * @return status
+	 **/
+	@Schema(description = "")
+	public DashboardTradingAssetStatus getStatus() {
+		return status;
+	}
 
-  public void setBalances(List<AmountWithLogoCurrency> balances) {
-    this.balances = balances;
-  }
+	public void setStatus(DashboardTradingAssetStatus status) {
+		this.status = status;
+	}
 
-  public DashboardTradingAssetCommonDetails supportedCurrencies(List<Currency> supportedCurrencies) {
-    this.supportedCurrencies = supportedCurrencies;
-    return this;
-  }
+	/**
+	 * Get balances
+	 *
+	 * @return balances
+	 **/
+	@Schema(description = "")
+	public List<AmountWithLogoCurrency> getBalances() {
+		return balances;
+	}
 
 	public DashboardTradingAssetCommonDetails addSupportedCurrenciesItem(Currency supportedCurrenciesItem) {
 		if (this.supportedCurrencies == null) {
@@ -274,16 +290,6 @@ public class DashboardTradingAssetCommonDetails implements Parcelable {
 		}
 		this.supportedCurrencies.add(supportedCurrenciesItem);
 		return this;
-	}
-
-	/**
-	 * Get title
-	 *
-	 * @return title
-	 **/
-	@Schema(description = "")
-	public String getTitle() {
-		return title;
 	}
 
 	/**
@@ -327,6 +333,7 @@ public class DashboardTradingAssetCommonDetails implements Parcelable {
 		this.permissions = permissions;
 	}
 
+
 	@Override
 	public boolean equals(java.lang.Object o) {
 		if (this == o) {
@@ -355,16 +362,6 @@ public class DashboardTradingAssetCommonDetails implements Parcelable {
 		return Objects.hash(title, status, creationDate, balance, login, currency, originalCurrency, leverage, type, balances, supportedCurrencies, permissions);
 	}
 
-	/**
-	 * Convert the given object to string with each line indented by 4 spaces
-	 * (except the first line).
-	 */
-	private String toIndentedString(java.lang.Object o) {
-		if (o == null) {
-			return "null";
-		}
-		return o.toString().replace("\n", "\n    ");
-	}
 
 	@Override
 	public String toString() {
@@ -387,31 +384,42 @@ public class DashboardTradingAssetCommonDetails implements Parcelable {
 		return sb.toString();
 	}
 
-  public void writeToParcel(Parcel out, int flags) {
-	  out.writeValue(title);
-	  out.writeValue(status);
-	  out.writeValue(creationDate);
-	  out.writeValue(balance);
-	  out.writeValue(login);
-	  out.writeValue(currency);
-	  out.writeValue(originalCurrency);
-	  out.writeValue(leverage);
-	  out.writeValue(type);
-	  out.writeValue(balances);
-	  out.writeValue(supportedCurrencies);
-	  out.writeValue(permissions);
-  }
+	public void setBalances(List<AmountWithLogoCurrency> balances) {
+		this.balances = balances;
+	}
 
-  public int describeContents() {
-    return 0;
-  }
+	public DashboardTradingAssetCommonDetails supportedCurrencies(List<Currency> supportedCurrencies) {
+		this.supportedCurrencies = supportedCurrencies;
+		return this;
+	}
 
-  public static final Parcelable.Creator<DashboardTradingAssetCommonDetails> CREATOR = new Parcelable.Creator<DashboardTradingAssetCommonDetails>() {
-    public DashboardTradingAssetCommonDetails createFromParcel(Parcel in) {
-      return new DashboardTradingAssetCommonDetails(in);
-    }
-    public DashboardTradingAssetCommonDetails[] newArray(int size) {
-      return new DashboardTradingAssetCommonDetails[size];
-    }
-  };
+	/**
+	 * Convert the given object to string with each line indented by 4 spaces
+	 * (except the first line).
+	 */
+	private String toIndentedString(java.lang.Object o) {
+		if (o == null) {
+			return "null";
+		}
+		return o.toString().replace("\n", "\n    ");
+	}
+
+	public void writeToParcel(Parcel out, int flags) {
+		out.writeValue(title);
+		out.writeValue(status);
+		out.writeValue(creationDate);
+		out.writeValue(balance);
+		out.writeValue(login);
+		out.writeValue(currency);
+		out.writeValue(originalCurrency);
+		out.writeValue(leverage);
+		out.writeValue(type);
+		out.writeValue(balances);
+		out.writeValue(supportedCurrencies);
+		out.writeValue(permissions);
+	}
+
+	public int describeContents() {
+		return 0;
+	}
 }

@@ -29,271 +29,271 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class InternalMultiTransferRequest implements Parcelable
 {
-  public static final Parcelable.Creator<InternalMultiTransferRequest> CREATOR = new Parcelable.Creator<InternalMultiTransferRequest>()
-  {
-    public InternalMultiTransferRequest createFromParcel(Parcel in) {
-      return new InternalMultiTransferRequest(in);
-    }
+	public static final Parcelable.Creator<InternalMultiTransferRequest> CREATOR = new Parcelable.Creator<InternalMultiTransferRequest>()
+	{
+		public InternalMultiTransferRequest createFromParcel(Parcel in) {
+			return new InternalMultiTransferRequest(in);
+		}
 
-    public InternalMultiTransferRequest[] newArray(int size) {
-      return new InternalMultiTransferRequest[size];
-    }
-  };
+		public InternalMultiTransferRequest[] newArray(int size) {
+			return new InternalMultiTransferRequest[size];
+		}
+	};
 
-  @SerializedName("sourceId")
-  private UUID sourceId = null;
+	@SerializedName("sourceId")
+	private UUID sourceId = null;
 
-  @SerializedName("sourceType")
-  private InternalTransferRequestType sourceType = null;
+	@SerializedName("sourceType")
+	private InternalTransferRequestType sourceType = null;
 
-  @SerializedName("destinationId")
-  private UUID destinationId = null;
+	@SerializedName("destinationId")
+	private UUID destinationId = null;
 
-  @SerializedName("destinationType")
-  private InternalTransferRequestType destinationType = null;
+	@SerializedName("amount")
+	private Double amount = null;
 
-  @SerializedName("amount")
-  private Double amount = null;
+	@SerializedName("transferAll")
+	private Boolean transferAll = null;
 
-  @SerializedName("transferAll")
-  private Boolean transferAll = null;
+	@SerializedName("sourceCurrency")
+	private Currency sourceCurrency = null;
 
-  @SerializedName("sourceCurrency")
-  private Currency sourceCurrency = null;
+	@SerializedName("destinationCurrency")
+	private Currency destinationCurrency = null;
 
-  @SerializedName("destinationCurrency")
-  private Currency destinationCurrency = null;
+	@SerializedName("destinationType")
+	private InternalTransferRequestType destinationType = null;
 
-  public InternalMultiTransferRequest() {
-  }
+	public InternalMultiTransferRequest() {
+	}
 
-  InternalMultiTransferRequest(Parcel in) {
-    sourceId = (UUID) in.readValue(UUID.class.getClassLoader());
-    sourceType = (InternalTransferRequestType) in.readValue(InternalTransferRequestType.class.getClassLoader());
-    destinationId = (UUID) in.readValue(UUID.class.getClassLoader());
-    destinationType = (InternalTransferRequestType) in.readValue(InternalTransferRequestType.class.getClassLoader());
-    amount = (Double) in.readValue(null);
-    transferAll = (Boolean) in.readValue(null);
-    sourceCurrency = (Currency) in.readValue(Currency.class.getClassLoader());
-    destinationCurrency = (Currency) in.readValue(Currency.class.getClassLoader());
-  }
+	InternalMultiTransferRequest(Parcel in) {
+		sourceId = (UUID) in.readValue(UUID.class.getClassLoader());
+		sourceType = (InternalTransferRequestType) in.readValue(InternalTransferRequestType.class.getClassLoader());
+		destinationId = (UUID) in.readValue(UUID.class.getClassLoader());
+		destinationType = (InternalTransferRequestType) in.readValue(InternalTransferRequestType.class.getClassLoader());
+		amount = (Double) in.readValue(null);
+		transferAll = (Boolean) in.readValue(null);
+		sourceCurrency = (Currency) in.readValue(Currency.class.getClassLoader());
+		destinationCurrency = (Currency) in.readValue(Currency.class.getClassLoader());
+	}
 
-  public InternalMultiTransferRequest sourceId(UUID sourceId) {
-    this.sourceId = sourceId;
-    return this;
-  }
+	public InternalMultiTransferRequest sourceId(UUID sourceId) {
+		this.sourceId = sourceId;
+		return this;
+	}
 
-  /**
-   * Get sourceId
-   *
-   * @return sourceId
-   **/
-  @Schema(description = "")
-  public UUID getSourceId() {
-    return sourceId;
-  }
+	public InternalMultiTransferRequest sourceType(InternalTransferRequestType sourceType) {
+		this.sourceType = sourceType;
+		return this;
+	}
 
-  public void setSourceId(UUID sourceId) {
-    this.sourceId = sourceId;
-  }
+	public InternalMultiTransferRequest destinationId(UUID destinationId) {
+		this.destinationId = destinationId;
+		return this;
+	}
 
-  public InternalMultiTransferRequest sourceType(InternalTransferRequestType sourceType) {
-    this.sourceType = sourceType;
-    return this;
-  }
+	/**
+	 * Get sourceId
+	 *
+	 * @return sourceId
+	 **/
+	@Schema(description = "")
+	public UUID getSourceId() {
+		return sourceId;
+	}
 
-  /**
-   * Get sourceType
-   *
-   * @return sourceType
-   **/
-  @Schema(description = "")
-  public InternalTransferRequestType getSourceType() {
-    return sourceType;
-  }
+	public void setSourceId(UUID sourceId) {
+		this.sourceId = sourceId;
+	}
 
-  public void setSourceType(InternalTransferRequestType sourceType) {
-    this.sourceType = sourceType;
-  }
+	public InternalMultiTransferRequest destinationType(InternalTransferRequestType destinationType) {
+		this.destinationType = destinationType;
+		return this;
+	}
 
-  public InternalMultiTransferRequest destinationId(UUID destinationId) {
-    this.destinationId = destinationId;
-    return this;
-  }
+	/**
+	 * Get sourceType
+	 *
+	 * @return sourceType
+	 **/
+	@Schema(description = "")
+	public InternalTransferRequestType getSourceType() {
+		return sourceType;
+	}
 
-  /**
-   * Get destinationId
-   *
-   * @return destinationId
-   **/
-  @Schema(description = "")
-  public UUID getDestinationId() {
-    return destinationId;
-  }
+	public void setSourceType(InternalTransferRequestType sourceType) {
+		this.sourceType = sourceType;
+	}
 
-  public void setDestinationId(UUID destinationId) {
-    this.destinationId = destinationId;
-  }
+	public InternalMultiTransferRequest amount(Double amount) {
+		this.amount = amount;
+		return this;
+	}
 
-  public InternalMultiTransferRequest destinationType(InternalTransferRequestType destinationType) {
-    this.destinationType = destinationType;
-    return this;
-  }
+	/**
+	 * Get destinationId
+	 *
+	 * @return destinationId
+	 **/
+	@Schema(description = "")
+	public UUID getDestinationId() {
+		return destinationId;
+	}
 
-  /**
-   * Get destinationType
-   *
-   * @return destinationType
-   **/
-  @Schema(description = "")
-  public InternalTransferRequestType getDestinationType() {
-    return destinationType;
-  }
+	public void setDestinationId(UUID destinationId) {
+		this.destinationId = destinationId;
+	}
 
-  public void setDestinationType(InternalTransferRequestType destinationType) {
-    this.destinationType = destinationType;
-  }
+	public InternalMultiTransferRequest transferAll(Boolean transferAll) {
+		this.transferAll = transferAll;
+		return this;
+	}
 
-  public InternalMultiTransferRequest amount(Double amount) {
-    this.amount = amount;
-    return this;
-  }
+	/**
+	 * Get destinationType
+	 *
+	 * @return destinationType
+	 **/
+	@Schema(description = "")
+	public InternalTransferRequestType getDestinationType() {
+		return destinationType;
+	}
 
-  /**
-   * Get amount
-   *
-   * @return amount
-   **/
-  @Schema(description = "")
-  public Double getAmount() {
-    return amount;
-  }
+	public void setDestinationType(InternalTransferRequestType destinationType) {
+		this.destinationType = destinationType;
+	}
 
-  public void setAmount(Double amount) {
-    this.amount = amount;
-  }
+	public void setTransferAll(Boolean transferAll) {
+		this.transferAll = transferAll;
+	}
 
-  public InternalMultiTransferRequest transferAll(Boolean transferAll) {
-    this.transferAll = transferAll;
-    return this;
-  }
+	public InternalMultiTransferRequest sourceCurrency(Currency sourceCurrency) {
+		this.sourceCurrency = sourceCurrency;
+		return this;
+	}
 
-  /**
-   * Get transferAll
-   *
-   * @return transferAll
-   **/
-  @Schema(description = "")
-  public Boolean isTransferAll() {
-    return transferAll;
-  }
+	/**
+	 * Get amount
+	 *
+	 * @return amount
+	 **/
+	@Schema(description = "")
+	public Double getAmount() {
+		return amount;
+	}
 
-  public void setTransferAll(Boolean transferAll) {
-    this.transferAll = transferAll;
-  }
+	public void setAmount(Double amount) {
+		this.amount = amount;
+	}
 
-  public InternalMultiTransferRequest sourceCurrency(Currency sourceCurrency) {
-    this.sourceCurrency = sourceCurrency;
-    return this;
-  }
+	public InternalMultiTransferRequest destinationCurrency(Currency destinationCurrency) {
+		this.destinationCurrency = destinationCurrency;
+		return this;
+	}
 
-  /**
-   * Get sourceCurrency
-   *
-   * @return sourceCurrency
-   **/
-  @Schema(description = "")
-  public Currency getSourceCurrency() {
-    return sourceCurrency;
-  }
+	/**
+	 * Get transferAll
+	 *
+	 * @return transferAll
+	 **/
+	@Schema(description = "")
+	public Boolean isTransferAll() {
+		return transferAll;
+	}
 
-  public void setSourceCurrency(Currency sourceCurrency) {
-    this.sourceCurrency = sourceCurrency;
-  }
+	/**
+	 * Get sourceCurrency
+	 *
+	 * @return sourceCurrency
+	 **/
+	@Schema(description = "")
+	public Currency getSourceCurrency() {
+		return sourceCurrency;
+	}
 
-  public InternalMultiTransferRequest destinationCurrency(Currency destinationCurrency) {
-    this.destinationCurrency = destinationCurrency;
-    return this;
-  }
+	public void setSourceCurrency(Currency sourceCurrency) {
+		this.sourceCurrency = sourceCurrency;
+	}
 
-  /**
-   * Get destinationCurrency
-   *
-   * @return destinationCurrency
-   **/
-  @Schema(description = "")
-  public Currency getDestinationCurrency() {
-    return destinationCurrency;
-  }
+	@Override
+	public int hashCode() {
+		return Objects.hash(sourceId, sourceType, destinationId, destinationType, amount, transferAll, sourceCurrency, destinationCurrency);
+	}
 
-  public void setDestinationCurrency(Currency destinationCurrency) {
-    this.destinationCurrency = destinationCurrency;
-  }
+	/**
+	 * Get destinationCurrency
+	 *
+	 * @return destinationCurrency
+	 **/
+	@Schema(description = "")
+	public Currency getDestinationCurrency() {
+		return destinationCurrency;
+	}
 
-  @Override
-  public boolean equals(java.lang.Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-    InternalMultiTransferRequest internalMultiTransferRequest = (InternalMultiTransferRequest) o;
-    return Objects.equals(this.sourceId, internalMultiTransferRequest.sourceId) &&
-            Objects.equals(this.sourceType, internalMultiTransferRequest.sourceType) &&
-            Objects.equals(this.destinationId, internalMultiTransferRequest.destinationId) &&
-            Objects.equals(this.destinationType, internalMultiTransferRequest.destinationType) &&
-            Objects.equals(this.amount, internalMultiTransferRequest.amount) &&
-            Objects.equals(this.transferAll, internalMultiTransferRequest.transferAll) &&
-            Objects.equals(this.sourceCurrency, internalMultiTransferRequest.sourceCurrency) &&
-            Objects.equals(this.destinationCurrency, internalMultiTransferRequest.destinationCurrency);
-  }
+	public void setDestinationCurrency(Currency destinationCurrency) {
+		this.destinationCurrency = destinationCurrency;
+	}
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(sourceId, sourceType, destinationId, destinationType, amount, transferAll, sourceCurrency, destinationCurrency);
-  }
+	/**
+	 * Convert the given object to string with each line indented by 4 spaces
+	 * (except the first line).
+	 */
+	private String toIndentedString(java.lang.Object o) {
+		if (o == null) {
+			return "null";
+		}
+		return o.toString().replace("\n", "\n    ");
+	}
 
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class InternalMultiTransferRequest {\n");
+	@Override
+	public boolean equals(java.lang.Object o) {
+		if (this == o) {
+			return true;
+		}
+		if (o == null || getClass() != o.getClass()) {
+			return false;
+		}
+		InternalMultiTransferRequest internalMultiTransferRequest = (InternalMultiTransferRequest) o;
+		return Objects.equals(this.sourceId, internalMultiTransferRequest.sourceId) &&
+				Objects.equals(this.sourceType, internalMultiTransferRequest.sourceType) &&
+				Objects.equals(this.destinationId, internalMultiTransferRequest.destinationId) &&
+				Objects.equals(this.destinationType, internalMultiTransferRequest.destinationType) &&
+				Objects.equals(this.amount, internalMultiTransferRequest.amount) &&
+				Objects.equals(this.transferAll, internalMultiTransferRequest.transferAll) &&
+				Objects.equals(this.sourceCurrency, internalMultiTransferRequest.sourceCurrency) &&
+				Objects.equals(this.destinationCurrency, internalMultiTransferRequest.destinationCurrency);
+	}
 
-    sb.append("    sourceId: ").append(toIndentedString(sourceId)).append("\n");
-    sb.append("    sourceType: ").append(toIndentedString(sourceType)).append("\n");
-    sb.append("    destinationId: ").append(toIndentedString(destinationId)).append("\n");
-    sb.append("    destinationType: ").append(toIndentedString(destinationType)).append("\n");
-    sb.append("    amount: ").append(toIndentedString(amount)).append("\n");
-    sb.append("    transferAll: ").append(toIndentedString(transferAll)).append("\n");
-    sb.append("    sourceCurrency: ").append(toIndentedString(sourceCurrency)).append("\n");
-    sb.append("    destinationCurrency: ").append(toIndentedString(destinationCurrency)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("class InternalMultiTransferRequest {\n");
 
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(java.lang.Object o) {
-    if (o == null) {
-      return "null";
-    }
-    return o.toString().replace("\n", "\n    ");
-  }
+		sb.append("    sourceId: ").append(toIndentedString(sourceId)).append("\n");
+		sb.append("    sourceType: ").append(toIndentedString(sourceType)).append("\n");
+		sb.append("    destinationId: ").append(toIndentedString(destinationId)).append("\n");
+		sb.append("    destinationType: ").append(toIndentedString(destinationType)).append("\n");
+		sb.append("    amount: ").append(toIndentedString(amount)).append("\n");
+		sb.append("    transferAll: ").append(toIndentedString(transferAll)).append("\n");
+		sb.append("    sourceCurrency: ").append(toIndentedString(sourceCurrency)).append("\n");
+		sb.append("    destinationCurrency: ").append(toIndentedString(destinationCurrency)).append("\n");
+		sb.append("}");
+		return sb.toString();
+	}
 
-  public void writeToParcel(Parcel out, int flags) {
-    out.writeValue(sourceId);
-    out.writeValue(sourceType);
-    out.writeValue(destinationId);
-    out.writeValue(destinationType);
-    out.writeValue(amount);
-    out.writeValue(transferAll);
-    out.writeValue(sourceCurrency);
-    out.writeValue(destinationCurrency);
-  }
+	public void writeToParcel(Parcel out, int flags) {
+		out.writeValue(sourceId);
+		out.writeValue(sourceType);
+		out.writeValue(destinationId);
+		out.writeValue(destinationType);
+		out.writeValue(amount);
+		out.writeValue(transferAll);
+		out.writeValue(sourceCurrency);
+		out.writeValue(destinationCurrency);
+	}
 
-  public int describeContents() {
-    return 0;
-  }
+	public int describeContents() {
+		return 0;
+	}
 }
