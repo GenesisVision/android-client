@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -147,8 +148,8 @@ public class PositionsFragment extends BaseFragment implements PositionsView, Pr
 	}
 
 	@Override
-	public void setPositions(List<BinanceRawFuturesPosition> positions) {
-		adapter.setPositions(positions);
+	public void setPositions(List<BinanceRawFuturesPosition> positions, ArrayList<Double> marginRatios) {
+		adapter.setPositions(positions, marginRatios);
 		if (positions.isEmpty()) {
 			groupNoPositions.setVisibility(View.VISIBLE);
 //			recyclerView.setVisibility(View.GONE);

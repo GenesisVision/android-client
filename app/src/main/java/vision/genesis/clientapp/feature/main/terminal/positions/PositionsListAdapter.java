@@ -42,6 +42,8 @@ public class PositionsListAdapter extends RecyclerView.Adapter<PositionsListAdap
 
 	private OnItemClickListener listener;
 
+	private ArrayList<Double> marginRatios = new ArrayList<>();
+
 	public PositionsListAdapter(OnItemClickListener listener) {
 		this.listener = listener;
 	}
@@ -55,7 +57,10 @@ public class PositionsListAdapter extends RecyclerView.Adapter<PositionsListAdap
 
 	@Override
 	public void onBindViewHolder(@NonNull PositionViewHolder holder, int position) {
-		holder.setPosition(positions.get(position));
+		holder.setPosition(positions.get(position),
+				positions.get(position).getMarginType().equals(BinanceFuturesMarginType.ISOLATED)
+						? marginRatios.get(position)
+						: marginRatios.get(0));
 	}
 
 	@Override
@@ -63,9 +68,11 @@ public class PositionsListAdapter extends RecyclerView.Adapter<PositionsListAdap
 		return positions.size();
 	}
 
-	public void setPositions(List<BinanceRawFuturesPosition> positions) {
+	public void setPositions(List<BinanceRawFuturesPosition> positions, ArrayList<Double> marginRatios) {
 		this.positions.clear();
 		this.positions.addAll(positions);
+		this.marginRatios.clear();
+		this.marginRatios.addAll(marginRatios);
 		notifyDataSetChanged();
 	}
 
@@ -141,7 +148,7 @@ public class PositionsListAdapter extends RecyclerView.Adapter<PositionsListAdap
 			}
 		}
 
-		void setPosition(BinanceRawFuturesPosition position) {
+		void setPosition(BinanceRawFuturesPosition position, Double marginRatio) {
 			this.position = position;
 
 			this.addMarginButton.setVisibility(
@@ -166,7 +173,6 @@ public class PositionsListAdapter extends RecyclerView.Adapter<PositionsListAdap
 			this.markPrice.setText(StringFormatUtil.formatAmount(position.getMarkPrice()));
 			this.liqPrice.setText(StringFormatUtil.formatAmount(position.getLiquidationPrice()));
 
-			double marginRatio = 0.0;
 			this.marginRatio.setText(StringFormatUtil.getPercentString(marginRatio));
 			this.marginRatio.setTextColor(ThemeUtil.getColorByAttrId(itemView.getContext(),
 					marginRatio > 0 ? R.attr.colorGreen :

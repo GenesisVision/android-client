@@ -4,6 +4,7 @@ import com.arellomobile.mvp.MvpView;
 import com.arellomobile.mvp.viewstate.strategy.AddToEndSingleStrategy;
 import com.arellomobile.mvp.viewstate.strategy.StateStrategyType;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import io.swagger.client.model.BinanceRawFuturesPosition;
@@ -15,7 +16,7 @@ import io.swagger.client.model.BinanceRawFuturesPosition;
 
 interface PositionsView extends MvpView
 {
-	void setPositions(List<BinanceRawFuturesPosition> positions);
+	void setPositions(List<BinanceRawFuturesPosition> positions, ArrayList<Double> marginRatios);
 
 	void showSnackbarMessage(String message);
 

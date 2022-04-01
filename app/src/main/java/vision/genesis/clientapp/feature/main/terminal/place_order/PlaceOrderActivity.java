@@ -232,6 +232,8 @@ public class PlaceOrderActivity extends BaseSwipeBackActivity implements PlaceOr
 
 	private TradingAccountPermission currentMarket;
 
+	private EditText focusedEditText = null;
+
 	@OnClick(R.id.button_back)
 	public void onBackClicked() {
 		finishActivity();
@@ -724,6 +726,19 @@ public class PlaceOrderActivity extends BaseSwipeBackActivity implements PlaceOr
 		edittext.requestFocus();
 		if (imm != null) {
 			imm.showSoftInput(edittext, 0);
+		}
+		focusedEditText = edittext;
+	}
+
+	@Override
+	public void hideKeyboard() {
+		if (this.focusedEditText == null) {
+			return;
+		}
+		InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+		this.focusedEditText.clearFocus();
+		if (imm != null) {
+			imm.hideSoftInputFromWindow(focusedEditText.getWindowToken(), 0);
 		}
 	}
 

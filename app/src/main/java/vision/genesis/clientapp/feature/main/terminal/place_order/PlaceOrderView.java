@@ -98,4 +98,6 @@ interface PlaceOrderView extends MvpView
 	void setLeverage(Integer leverage);
 
 	void setPositionMode(String positionMode);
+
+	void hideKeyboard();
 }

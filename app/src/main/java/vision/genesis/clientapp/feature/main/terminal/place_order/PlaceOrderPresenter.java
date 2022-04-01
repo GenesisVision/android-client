@@ -897,6 +897,8 @@ public class PlaceOrderPresenter extends MvpPresenter<PlaceOrderView> implements
 	private void handlePlaceOrderSuccess(Object response) {
 		placeOrderSubscription.unsubscribe();
 		getViewState().showProgressBarButton(false);
+		getViewState().setAmount("");
+		getViewState().hideKeyboard();
 	}
 
 	private void handlePlaceOrderError(Throwable throwable) {
