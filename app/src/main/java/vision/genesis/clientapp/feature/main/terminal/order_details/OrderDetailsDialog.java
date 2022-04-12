@@ -13,9 +13,13 @@ import androidx.appcompat.content.res.AppCompatResources;
 
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
+import java.util.Locale;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.swagger.client.model.BinanceOrderSide;
+import io.swagger.client.model.TradingAccountPermission;
+import io.swagger.client.model.TradingPlatformBinanceOrdersMode;
 import vision.genesis.clientapp.R;
 import vision.genesis.clientapp.model.terminal.binance_api.BinanceOrder;
 import vision.genesis.clientapp.utils.DateTimeUtil;
@@ -49,6 +53,9 @@ public class OrderDetailsDialog extends BottomSheetDialogFragment
 	@BindView(R.id.type)
 	public TextView type;
 
+	@BindView(R.id.label_price)
+	public TextView priceLabel;
+
 	@BindView(R.id.price)
 	public TextView price;
 
@@ -64,8 +71,29 @@ public class OrderDetailsDialog extends BottomSheetDialogFragment
 	@BindView(R.id.executed)
 	public TextView executed;
 
+	@BindView(R.id.group_fee)
+	public ViewGroup feeGroup;
+
 	@BindView(R.id.fee)
 	public TextView fee;
+
+	@BindView(R.id.group_reduce_only)
+	public ViewGroup reduceOnlyGroup;
+
+	@BindView(R.id.reduce_only)
+	public TextView reduceOnly;
+
+	@BindView(R.id.group_trigger_conditions)
+	public ViewGroup triggerConditionsGroup;
+
+	@BindView(R.id.trigger_conditions)
+	public TextView triggerConditions;
+
+	@BindView(R.id.group_realized_profit)
+	public ViewGroup realizedProfitGroup;
+
+	@BindView(R.id.realized_profit)
+	public TextView realizedProfit;
 
 	@BindView(R.id.filled_progress)
 	public ProgressBar filledProgress;
@@ -74,6 +102,8 @@ public class OrderDetailsDialog extends BottomSheetDialogFragment
 	public TextView filledPercent;
 
 	private BinanceOrder order;
+
+	private TradingPlatformBinanceOrdersMode mode;
 
 	@SuppressLint("RestrictedApi")
 	@Override
@@ -97,8 +127,9 @@ public class OrderDetailsDialog extends BottomSheetDialogFragment
 		}
 	}
 
-	public void setData(BinanceOrder order) {
+	public void setData(BinanceOrder order, TradingPlatformBinanceOrdersMode mode) {
 		this.order = order;
+		this.mode = mode;
 		updateView();
 	}
 
@@ -120,18 +151,53 @@ public class OrderDetailsDialog extends BottomSheetDialogFragment
 			this.side.setTextColor(ThemeUtil.getColorByAttrId(getContext(), R.attr.colorRed));
 		}
 
+		int progress = (int) (order.getQuantityFilled() / order.getQuantity() * 100);
+		this.filledPercent.setText(StringFormatUtil.getPercentString((double) progress));
+		this.filledProgress.setProgress(progress);
+
+
 		if (order.isClosePosition()) {
 			this.quantity.setText(getString(R.string.close_position));
+			this.amount.setText(getString(R.string.close_position));
 		}
 		else {
 			this.quantity.setText(StringFormatUtil.formatAmount(order.getQuantity()));
+			this.amount.setText(StringFormatUtil.formatAmount(order.getQuantity()));
 		}
-		this.amount.setText(StringFormatUtil.formatAmount(order.getQuantity()));
 		this.executed.setText(StringFormatUtil.formatAmount(order.getQuantityFilled()));
 		this.date.setText(DateTimeUtil.formatShortDateTime(order.getCreateTime()));
 
 		this.type.setText(order.getType().toString());
-		this.price.setText(StringFormatUtil.formatAmountWithoutGrouping(order.getPrice()));
+		if (order.getMarket().equals(TradingAccountPermission.FUTURES)) {
+			if (mode == TradingPlatformBinanceOrdersMode.ORDERHISTORY) {
+				this.priceLabel.setText(getString(R.string.average));
+				this.price.setText(StringFormatUtil.formatAmountWithoutGrouping(order.getAvgPrice()));
+			}
+			else {
+				this.priceLabel.setText(getString(R.string.price));
+				this.price.setText(StringFormatUtil.formatAmountWithoutGrouping(order.getPrice()));
+			}
+
+			if (mode != TradingPlatformBinanceOrdersMode.TRADEHISTORY) {
+				this.reduceOnlyGroup.setVisibility(View.VISIBLE);
+				this.reduceOnly.setText(getString(order.getReduceOnly() ? R.string.yes : R.string.no));
+			}
+			else {
+				if (order.getRealizedProfit() != null) {
+					this.realizedProfitGroup.setVisibility(View.VISIBLE);
+					this.realizedProfit.setText(StringFormatUtil.formatAmountWithoutGrouping(order.getRealizedProfit()));
+				}
+
+				this.priceLabel.setText(getString(R.string.price));
+				this.price.setText(StringFormatUtil.formatAmountWithoutGrouping(order.getAvgPrice()));
+			}
+		}
+		else {
+			this.priceLabel.setText(getString(R.string.price));
+			this.price.setText(StringFormatUtil.formatAmountWithoutGrouping(order.getPrice()));
+
+			this.reduceOnlyGroup.setVisibility(View.GONE);
+		}
 		if (order.getStopPrice() != null && order.getStopPrice() != 0) {
 			this.stopGroup.setVisibility(View.VISIBLE);
 			this.stop.setText(StringFormatUtil.formatAmountWithoutGrouping(order.getStopPrice()));
@@ -140,15 +206,21 @@ public class OrderDetailsDialog extends BottomSheetDialogFragment
 			this.stopGroup.setVisibility(View.GONE);
 		}
 
-		int progress = (int) (order.getQuantityFilled() / order.getQuantity() * 100);
-		this.filledPercent.setText(StringFormatUtil.getPercentString((double) progress));
-		this.filledProgress.setProgress(progress);
-
-		if (order.getCommission() != null && order.getCommissionAsset() != null) {
-			this.fee.setText(StringFormatUtil.getValueString(order.getCommission(), order.getCommissionAsset()));
+		if (mode == TradingPlatformBinanceOrdersMode.TRADEHISTORY) {
+			this.feeGroup.setVisibility(View.VISIBLE);
+			if (order.getCommission() != null && order.getCommissionAsset() != null) {
+				this.fee.setText(StringFormatUtil.getValueString(order.getCommission(), order.getCommissionAsset()));
+			}
+			else {
+				this.fee.setText("-");
+			}
 		}
 		else {
-			this.fee.setText("-");
+			this.triggerConditionsGroup.setVisibility(View.VISIBLE);
+			this.triggerConditions.setText(order.getWorkingType() != null
+					? String.format(Locale.getDefault(), "%s >= %s",
+					StringFormatUtil.getWorkingTypeLabel(order.getWorkingType()), StringFormatUtil.formatAmount(order.getStopPrice()))
+					: "-");
 		}
 
 		setStatus();

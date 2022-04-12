@@ -1186,6 +1186,11 @@
     <string name="template_tp_info">When %s reaches %s, it will trigger Take Profit Market order to close this position.</string>
     <string name="template_sl_info">When %s reaches %s, it will trigger Stop Market order to close this position.</string>
     <string name="notional_size">Notional size</string>
+    <string name="average">Average</string>
+    <string name="trigger_conditions">Trigger conditions</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="realized_profit">Realized profit</string>
 
     <plurals name="assets">
         <item quantity="one">asset</item>

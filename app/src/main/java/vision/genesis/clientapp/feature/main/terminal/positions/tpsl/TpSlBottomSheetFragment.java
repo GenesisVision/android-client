@@ -339,7 +339,7 @@ public class TpSlBottomSheetFragment extends BottomSheetDialogFragment
 
 	private void updateTpInfo() {
 		this.tpInfo.setText(getString(R.string.template_tp_info,
-				getWorkingTypeLabel(tpOrder != null ? tpOrder.getWorkingType() : tpWorkingTypeValue),
+				StringFormatUtil.getWorkingTypeLabel(tpOrder != null ? tpOrder.getWorkingType() : tpWorkingTypeValue),
 				StringFormatUtil.getValueString(tpOrder != null ? tpOrder.getStopPrice() : newTp,
 						Currency.USDT.getValue())));
 	}
@@ -357,7 +357,7 @@ public class TpSlBottomSheetFragment extends BottomSheetDialogFragment
 
 	private void updateSlInfo() {
 		this.slInfo.setText(getString(R.string.template_sl_info,
-				getWorkingTypeLabel(slOrder != null ? slOrder.getWorkingType() : slWorkingTypeValue),
+				StringFormatUtil.getWorkingTypeLabel(slOrder != null ? slOrder.getWorkingType() : slWorkingTypeValue),
 				StringFormatUtil.getValueString(slOrder != null ? slOrder.getStopPrice() : newSl, Currency.USDT.getValue())));
 	}
 
@@ -409,7 +409,7 @@ public class TpSlBottomSheetFragment extends BottomSheetDialogFragment
 		tpAmountGroup.setVisibility(order != null ? View.GONE : View.VISIBLE);
 		tpOrderInfo.setText(order != null
 				? String.format(Locale.getDefault(), "%s >= %s",
-				getWorkingTypeLabel(order.getWorkingType()), StringFormatUtil.formatAmount(order.getStopPrice()))
+				StringFormatUtil.getWorkingTypeLabel(order.getWorkingType()), StringFormatUtil.formatAmount(order.getStopPrice()))
 				: "");
 		updateTpInfo();
 	}
@@ -420,23 +420,9 @@ public class TpSlBottomSheetFragment extends BottomSheetDialogFragment
 		slAmountGroup.setVisibility(order != null ? View.GONE : View.VISIBLE);
 		slOrderInfo.setText(order != null
 				? String.format(Locale.getDefault(), "%s <= %s",
-				getWorkingTypeLabel(order.getWorkingType()), StringFormatUtil.formatAmount(order.getStopPrice()))
+				StringFormatUtil.getWorkingTypeLabel(order.getWorkingType()), StringFormatUtil.formatAmount(order.getStopPrice()))
 				: "");
 		updateSlInfo();
-	}
-
-	private String getWorkingTypeLabel(BinanceWorkingType workingType) {
-		String result = "";
-		switch (workingType) {
-			case MARK:
-				result = getString(R.string.mark);
-				break;
-			case CONTRACT:
-				result = getString(R.string.last);
-				break;
-		}
-		result = result.concat(String.format(Locale.getDefault(), " %s", getString(R.string.price).toLowerCase()));
-		return result;
 	}
 
 	private void handleGetOrdersError(Throwable error) {

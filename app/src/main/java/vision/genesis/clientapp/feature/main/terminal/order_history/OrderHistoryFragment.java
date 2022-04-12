@@ -85,6 +85,8 @@ public class OrderHistoryFragment extends BaseFragment implements OrderHistoryVi
 
 	private DateRange dateRange = DateRange.createFromEnum(DateRange.DateRangeEnum.ALL_TIME);
 
+	private TradingPlatformBinanceOrdersMode mode;
+
 	@OnClick(R.id.date_range)
 	public void onDateRangeClicked() {
 		if (getActivity() != null) {
@@ -110,7 +112,7 @@ public class OrderHistoryFragment extends BaseFragment implements OrderHistoryVi
 		if (getArguments() != null) {
 			UUID accountId = (UUID) getArguments().getSerializable(EXTRA_ACCOUNT_ID);
 			String symbol = getArguments().getString(EXTRA_SYMBOL);
-			TradingPlatformBinanceOrdersMode mode = (TradingPlatformBinanceOrdersMode) getArguments().getSerializable(EXTRA_MODE);
+			mode = (TradingPlatformBinanceOrdersMode) getArguments().getSerializable(EXTRA_MODE);
 			if (accountId != null && symbol != null) {
 				presenter.setData(accountId, symbol, mode);
 				updateView(mode);
@@ -143,7 +145,7 @@ public class OrderHistoryFragment extends BaseFragment implements OrderHistoryVi
 		LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
 		recyclerView.setLayoutManager(layoutManager);
 
-		adapter = new OrderHistoryListAdapter(mode, this::showOrderDetails);
+		adapter = new OrderHistoryListAdapter(mode, order -> showOrderDetails(order, mode));
 		recyclerView.setAdapter(adapter);
 
 		recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener()
@@ -200,11 +202,11 @@ public class OrderHistoryFragment extends BaseFragment implements OrderHistoryVi
 		showSnackbar(message, recyclerView);
 	}
 
-	public void showOrderDetails(BinanceOrder order) {
+	public void showOrderDetails(BinanceOrder order, TradingPlatformBinanceOrdersMode mode) {
 		if (getActivity() != null) {
 			OrderDetailsDialog dialog = new OrderDetailsDialog();
 			dialog.show(getActivity().getSupportFragmentManager(), dialog.getTag());
-			dialog.setData(order);
+			dialog.setData(order, mode);
 		}
 	}
 

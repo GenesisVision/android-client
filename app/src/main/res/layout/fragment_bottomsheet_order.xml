@@ -222,6 +222,7 @@
                     android:orientation="vertical">
 
                     <TextView
+                        android:id="@+id/label_price"
                         style="@style/open_position_details_label"
                         android:text="@string/price"/>
 
@@ -301,20 +302,82 @@
                 android:orientation="horizontal">
 
                 <LinearLayout
-                    android:id="@+id/group_swap"
+                    android:id="@+id/group_fee"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:visibility="gone"
+                    tools:visibility="visible"
                     android:orientation="vertical">
 
                     <TextView
                         style="@style/open_position_details_label"
-                        android:text="@string/commission"/>
+                        android:text="@string/fee"/>
 
                     <TextView
                         android:id="@+id/fee"
                         style="@style/open_position_details_value"
-                        tools:text="-0.69"/>
+                        tools:text="Yes"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/group_reduce_only"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:visibility="gone"
+                    tools:visibility="visible">
+
+                    <TextView
+                        style="@style/open_position_details_label"
+                        android:text="@string/reduce_only"/>
+
+                    <TextView
+                        android:id="@+id/reduce_only"
+                        style="@style/open_position_details_value"
+                        tools:text="Yes"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/group_trigger_conditions"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:visibility="gone"
+                    tools:visibility="visible">
+
+                    <TextView
+                        style="@style/open_position_details_label"
+                        android:text="@string/trigger_conditions"/>
+
+                    <TextView
+                        android:id="@+id/trigger_conditions"
+                        style="@style/open_position_details_value"
+                        tools:text="Mark price >= 1.5000"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/group_realized_profit"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:visibility="gone"
+                    tools:visibility="visible">
+
+                    <TextView
+                        style="@style/open_position_details_label"
+                        android:text="@string/realized_profit"/>
+
+                    <TextView
+                        android:id="@+id/realized_profit"
+                        style="@style/open_position_details_value"
+                        tools:text="1.5000"/>
 
                 </LinearLayout>
 

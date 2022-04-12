@@ -134,7 +134,7 @@ public class OpenOrdersFragment extends BaseFragment implements OpenOrdersView, 
 		if (getActivity() != null) {
 			OrderDetailsDialog dialog = new OrderDetailsDialog();
 			dialog.show(getActivity().getSupportFragmentManager(), dialog.getTag());
-			dialog.setData(order);
+			dialog.setData(order, null);
 		}
 	}
 

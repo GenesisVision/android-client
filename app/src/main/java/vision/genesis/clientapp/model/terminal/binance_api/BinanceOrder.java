@@ -75,6 +75,8 @@ public class BinanceOrder implements Parcelable
 		order.setMarket(TradingAccountPermission.FUTURES);
 		order.setClosePosition(model.isClosePosition());
 		order.setWorkingType(model.getWorkingType());
+		order.setAvgPrice(model.getAvgPrice());
+		order.setRealizedProfit(model.getRealizedProfit());
 		return order;
 	}
 
@@ -131,6 +133,10 @@ public class BinanceOrder implements Parcelable
 
 	private BinanceWorkingType workingType;
 
+	private Double avgPrice;
+
+	private Double realizedProfit;
+
 
 	public BinanceOrder() {
 	}
@@ -180,6 +186,18 @@ public class BinanceOrder implements Parcelable
 		market = (TradingAccountPermission) in.readSerializable();
 		closePosition = in.readByte() == 1;
 		workingType = (BinanceWorkingType) in.readSerializable();
+		if (in.readByte() == 0) {
+			avgPrice = null;
+		}
+		else {
+			avgPrice = in.readDouble();
+		}
+		if (in.readByte() == 0) {
+			realizedProfit = null;
+		}
+		else {
+			realizedProfit = in.readDouble();
+		}
 	}
 
 	public UUID getAccountId() {
@@ -343,6 +361,20 @@ public class BinanceOrder implements Parcelable
 		parcel.writeSerializable(market);
 		parcel.writeByte(closePosition ? (byte) 1 : (byte) 0);
 		parcel.writeSerializable(workingType);
+		if (avgPrice == null) {
+			parcel.writeByte((byte) 0);
+		}
+		else {
+			parcel.writeByte((byte) 1);
+			parcel.writeDouble(avgPrice);
+		}
+		if (realizedProfit == null) {
+			parcel.writeByte((byte) 0);
+		}
+		else {
+			parcel.writeByte((byte) 1);
+			parcel.writeDouble(realizedProfit);
+		}
 	}
 
 	public Boolean getReduceOnly() {
@@ -383,5 +415,21 @@ public class BinanceOrder implements Parcelable
 
 	public void setWorkingType(BinanceWorkingType workingType) {
 		this.workingType = workingType;
+	}
+
+	public Double getAvgPrice() {
+		return avgPrice;
+	}
+
+	public void setAvgPrice(Double avgPrice) {
+		this.avgPrice = avgPrice;
+	}
+
+	public Double getRealizedProfit() {
+		return realizedProfit;
+	}
+
+	public void setRealizedProfit(Double realizedProfit) {
+		this.realizedProfit = realizedProfit;
 	}
 }

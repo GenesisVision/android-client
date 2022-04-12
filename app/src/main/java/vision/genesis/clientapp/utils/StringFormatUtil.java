@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import java.util.Locale;
 import java.util.regex.Pattern;
 
+import io.swagger.client.model.BinanceWorkingType;
 import io.swagger.client.model.Currency;
 import io.swagger.client.model.SocialViewMode;
 import io.swagger.client.model.TradesDelay;
@@ -331,6 +332,20 @@ public class StringFormatUtil
 
 	public static String maskEmail(String email) {
 		return email.replaceAll("(^[^@]{3}|(?!^)\\G)[^@]", "$1*");
+	}
+
+	public static String getWorkingTypeLabel(BinanceWorkingType workingType) {
+		String result = "";
+		switch (workingType) {
+			case MARK:
+				result = GenesisVisionApplication.INSTANCE.getResources().getString(R.string.mark);
+				break;
+			case CONTRACT:
+				result = GenesisVisionApplication.INSTANCE.getResources().getString(R.string.last);
+				break;
+		}
+		result = result.concat(String.format(Locale.getDefault(), " %s", GenesisVisionApplication.INSTANCE.getResources().getString(R.string.price).toLowerCase()));
+		return result;
 	}
 
 	static {
