@@ -82,6 +82,9 @@ public class ClosePositionBottomSheetFragment extends BottomSheetDialogFragment
 	@BindView(R.id.mark_price)
 	public TextView markPrice;
 
+	@BindView(R.id.position_amount)
+	public TextView positionAmount;
+
 
 	@BindView(R.id.type)
 	public TextView type;
@@ -140,6 +143,11 @@ public class ClosePositionBottomSheetFragment extends BottomSheetDialogFragment
 	@OnClick(R.id.group_price)
 	public void onPriceClicked() {
 		showSoftKeyboard(price);
+	}
+
+	@OnClick(R.id.max)
+	public void onMaxClicked() {
+		this.amount.setText(position.getQuantity().toString());
 	}
 
 	@OnClick(R.id.group_type)
@@ -220,11 +228,6 @@ public class ClosePositionBottomSheetFragment extends BottomSheetDialogFragment
 		this.selectedTypePosition = position;
 		this.selectedType = selectedTypePosition == 0 ? BinanceOrderType.LIMIT : BinanceOrderType.MARKET;
 
-		Pair<String, String> baseQuoteAssets = terminalManager.getBaseQuoteAssets(symbol);
-		if (baseQuoteAssets != null) {
-			this.asset.setText(baseQuoteAssets.first);
-		}
-
 		this.priceGroup.setVisibility(selectedTypePosition == 0 ? View.VISIBLE : View.GONE);
 		this.marketGroup.setVisibility(selectedTypePosition == 1 ? View.VISIBLE : View.GONE);
 	}
@@ -241,9 +244,20 @@ public class ClosePositionBottomSheetFragment extends BottomSheetDialogFragment
 		this.symbol = symbol;
 		this.position = position;
 
+		Pair<String, String> baseQuoteAssets = terminalManager.getBaseQuoteAssets(symbol);
+
 		this.symbolValue.setText(symbol);
 		this.entryPrice.setText(StringFormatUtil.getValueString(position.getEntryPrice(), Currency.USDT.getValue()));
 		this.markPrice.setText(StringFormatUtil.getValueString(position.getMarkPrice(), Currency.USDT.getValue()));
+
+
+		if (baseQuoteAssets != null) {
+			this.asset.setText(baseQuoteAssets.first);
+			this.positionAmount.setText(StringFormatUtil.getValueString(position.getQuantity(), baseQuoteAssets.first));
+		}
+		else {
+			this.positionAmount.setText(StringFormatUtil.formatAmountWithoutGrouping(position.getQuantity()));
+		}
 	}
 
 	private void onPriceChanged(String newAmount) {

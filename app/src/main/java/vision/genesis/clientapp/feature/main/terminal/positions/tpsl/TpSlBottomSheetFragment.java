@@ -53,6 +53,7 @@ import vision.genesis.clientapp.model.events.SetOpenOrdersCountEvent;
 import vision.genesis.clientapp.model.terminal.binance_api.BinanceOrder;
 import vision.genesis.clientapp.net.ApiErrorResolver;
 import vision.genesis.clientapp.ui.PrimaryButton;
+import vision.genesis.clientapp.utils.PositionsHelper;
 import vision.genesis.clientapp.utils.StringFormatUtil;
 
 /**
@@ -341,7 +342,10 @@ public class TpSlBottomSheetFragment extends BottomSheetDialogFragment
 		this.tpInfo.setText(getString(R.string.template_tp_info,
 				StringFormatUtil.getWorkingTypeLabel(tpOrder != null ? tpOrder.getWorkingType() : tpWorkingTypeValue),
 				StringFormatUtil.getValueString(tpOrder != null ? tpOrder.getStopPrice() : newTp,
-						Currency.USDT.getValue())));
+						Currency.USDT.getValue()),
+				StringFormatUtil.getValueString(PositionsHelper.calculateRealisedPnl(position.getEntryPrice(),
+						tpOrder != null ? tpOrder.getStopPrice() : newTp,
+						position.getQuantity()), Currency.USDT.getValue())));
 	}
 
 	private void onStopLossChanged(String newAmount) {
@@ -358,7 +362,10 @@ public class TpSlBottomSheetFragment extends BottomSheetDialogFragment
 	private void updateSlInfo() {
 		this.slInfo.setText(getString(R.string.template_sl_info,
 				StringFormatUtil.getWorkingTypeLabel(slOrder != null ? slOrder.getWorkingType() : slWorkingTypeValue),
-				StringFormatUtil.getValueString(slOrder != null ? slOrder.getStopPrice() : newSl, Currency.USDT.getValue())));
+				StringFormatUtil.getValueString(slOrder != null ? slOrder.getStopPrice() : newSl, Currency.USDT.getValue()),
+				StringFormatUtil.getValueString(PositionsHelper.calculateRealisedPnl(position.getEntryPrice(),
+						slOrder != null ? slOrder.getStopPrice() : newSl,
+						position.getQuantity()), Currency.USDT.getValue())));
 	}
 
 	private void updateConfirmButtonEnabled() {

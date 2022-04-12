@@ -44,6 +44,7 @@ import vision.genesis.clientapp.ui.CustomTabView;
 import vision.genesis.clientapp.ui.PrimaryButton;
 import vision.genesis.clientapp.ui.SelectPercentView;
 import vision.genesis.clientapp.utils.DigitsInputFilter;
+import vision.genesis.clientapp.utils.StringFormatUtil;
 import vision.genesis.clientapp.utils.TabLayoutUtil;
 import vision.genesis.clientapp.utils.ThemeUtil;
 
@@ -102,6 +103,13 @@ public class PlaceOrderActivity extends BaseSwipeBackActivity implements PlaceOr
 
 	@BindView(R.id.button_select_sell)
 	public RelativeLayout selectSellButton;
+
+	@BindView(R.id.tab_buy)
+	public TextView tabBuy;
+
+	@BindView(R.id.tab_sell)
+	public TextView tabSell;
+
 
 	@BindView(R.id.order_type)
 	public TextView orderType;
@@ -184,8 +192,20 @@ public class PlaceOrderActivity extends BaseSwipeBackActivity implements PlaceOr
 	@BindView(R.id.button_sell)
 	public PrimaryButton sellButton;
 
+	@BindView(R.id.button_long)
+	public PrimaryButton longButton;
+
+	@BindView(R.id.button_short)
+	public PrimaryButton shortButton;
+
 	@BindView(R.id.group_buttons)
 	public ViewGroup buttonsGroup;
+
+	@BindView(R.id.group_buy_sell_buttons)
+	public ViewGroup buySellButtonsGroup;
+
+	@BindView(R.id.group_long_short_buttons)
+	public ViewGroup longShortButtonsGroup;
 
 	@BindView(R.id.progress_bar_buttons)
 	public ProgressBar progressBarButtons;
@@ -319,6 +339,16 @@ public class PlaceOrderActivity extends BaseSwipeBackActivity implements PlaceOr
 		presenter.onSellClicked();
 	}
 
+	@OnClick(R.id.button_long)
+	public void onLongClicked() {
+		presenter.onLongClicked();
+	}
+
+	@OnClick(R.id.button_short)
+	public void onShortClicked() {
+		presenter.onShortClicked();
+	}
+
 	@OnFocusChange(R.id.edittext_stop)
 	public void onStopFocusChange(View view, boolean hasFocus) {
 		presenter.onStopFocusChange(hasFocus);
@@ -340,6 +370,8 @@ public class PlaceOrderActivity extends BaseSwipeBackActivity implements PlaceOr
 
 		this.buyButton.setGreen();
 		this.sellButton.setRed();
+		this.longButton.setGreen();
+		this.shortButton.setRed();
 
 		orderBookView.setActivity(this);
 		orderBookView.setOnPriceSelectedListener(presenter);
@@ -505,12 +537,17 @@ public class PlaceOrderActivity extends BaseSwipeBackActivity implements PlaceOr
 			this.buyButton.setVisibility(View.VISIBLE);
 			this.sellButton.setVisibility(View.GONE);
 
+			this.longButton.setText(StringFormatUtil.capitalize(getString(R.string.open)).concat(" ").concat(getString(R.string.long_text)));
+			this.shortButton.setText(StringFormatUtil.capitalize(getString(R.string.open)).concat(" ").concat(getString(R.string.short_text)));
 		}
 		else if (operationType.equals(OPERATION_TYPE_SELL)) {
 			this.selectBuyButton.setBackgroundColor(ThemeUtil.getColorByAttrId(this, R.attr.colorCard));
 			this.selectSellButton.setBackgroundColor(ThemeUtil.getColorByAttrId(this, R.attr.colorRed));
 			this.buyButton.setVisibility(View.GONE);
 			this.sellButton.setVisibility(View.VISIBLE);
+
+			this.longButton.setText(StringFormatUtil.capitalize(getString(R.string.close)).concat(" ").concat(getString(R.string.short_text)));
+			this.shortButton.setText(StringFormatUtil.capitalize(getString(R.string.close)).concat(" ").concat(getString(R.string.long_text)));
 		}
 	}
 
@@ -715,6 +752,13 @@ public class PlaceOrderActivity extends BaseSwipeBackActivity implements PlaceOr
 	@Override
 	public void setPositionMode(String positionMode) {
 		this.positionMode.setText(positionMode);
+		boolean isHedge = positionMode.equals(BinancePositionMode.HEDGE.getValue());
+
+		this.tabBuy.setText(getString(isHedge ? R.string.open : R.string.buy));
+		this.tabSell.setText(getString(isHedge ? R.string.close : R.string.sell));
+
+		this.buySellButtonsGroup.setVisibility(isHedge ? View.GONE : View.VISIBLE);
+		this.longShortButtonsGroup.setVisibility(isHedge ? View.VISIBLE : View.GONE);
 	}
 
 	public void showSnackbarMessage(String message) {

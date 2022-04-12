@@ -176,6 +176,7 @@
                                     android:background="?attr/colorGreen">
 
                                     <TextView
+                                        android:id="@+id/tab_buy"
                                         android:layout_width="match_parent"
                                         android:layout_height="match_parent"
                                         android:layout_centerInParent="true"
@@ -196,6 +197,7 @@
                                     android:background="?attr/colorCard">
 
                                     <TextView
+                                        android:id="@+id/tab_sell"
                                         android:layout_width="match_parent"
                                         android:layout_height="match_parent"
                                         android:layout_centerInParent="true"
@@ -562,7 +564,7 @@
 
                             <RelativeLayout
                                 android:layout_width="match_parent"
-                                android:layout_height="@dimen/button_height"
+                                android:layout_height="wrap_content"
                                 android:layout_marginTop="20dp">
 
                                 <RelativeLayout
@@ -570,17 +572,46 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent">
 
-                                    <vision.genesis.clientapp.ui.PrimaryButton
-                                        android:id="@+id/button_buy"
+                                    <RelativeLayout
+                                        android:id="@+id/group_buy_sell_buttons"
                                         android:layout_width="match_parent"
-                                        android:layout_height="match_parent"
-                                        android:text="@string/buy"/>
+                                        android:layout_height="@dimen/button_height">
 
-                                    <vision.genesis.clientapp.ui.PrimaryButton
-                                        android:id="@+id/button_sell"
+                                        <vision.genesis.clientapp.ui.PrimaryButton
+                                            android:id="@+id/button_buy"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="match_parent"
+                                            android:text="@string/buy"/>
+
+                                        <vision.genesis.clientapp.ui.PrimaryButton
+                                            android:id="@+id/button_sell"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="match_parent"
+                                            android:text="@string/sell"/>
+
+                                    </RelativeLayout>
+
+                                    <LinearLayout
+                                        android:id="@+id/group_long_short_buttons"
                                         android:layout_width="match_parent"
-                                        android:layout_height="match_parent"
-                                        android:text="@string/sell"/>
+                                        android:layout_height="wrap_content"
+                                        android:orientation="vertical"
+                                        android:visibility="gone">
+
+                                        <vision.genesis.clientapp.ui.PrimaryButton
+                                            android:id="@+id/button_long"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="@dimen/button_height"
+                                            android:text="@string/long_text"/>
+
+                                        <vision.genesis.clientapp.ui.PrimaryButton
+                                            android:id="@+id/button_short"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="@dimen/button_height"
+                                            android:layout_marginTop="8dp"
+                                            android:text="@string/short_text"/>
+
+                                    </LinearLayout>
 
                                 </RelativeLayout>
 

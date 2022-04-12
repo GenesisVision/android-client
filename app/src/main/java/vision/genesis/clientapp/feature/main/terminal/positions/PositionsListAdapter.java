@@ -19,6 +19,7 @@ import io.swagger.client.model.BinanceFuturesMarginType;
 import io.swagger.client.model.BinanceRawFuturesPosition;
 import io.swagger.client.model.Currency;
 import vision.genesis.clientapp.R;
+import vision.genesis.clientapp.utils.PositionsHelper;
 import vision.genesis.clientapp.utils.StringFormatUtil;
 import vision.genesis.clientapp.utils.ThemeUtil;
 
@@ -78,7 +79,6 @@ public class PositionsListAdapter extends RecyclerView.Adapter<PositionsListAdap
 
 	static class PositionViewHolder extends RecyclerView.ViewHolder
 	{
-
 		@BindView(R.id.symbol)
 		public TextView symbol;
 
@@ -162,11 +162,16 @@ public class PositionsListAdapter extends RecyclerView.Adapter<PositionsListAdap
 			this.size.setText(String.format(Locale.getDefault(), "%s %s",
 					StringFormatUtil.formatAmount(position.getQuantity()),
 					""));
-			this.pnl.setText(StringFormatUtil.formatAmount(position.getUnrealizedPnL()));
+
+			double unrealizedPnl = PositionsHelper.calculateUnrealisedPnl(position);
+			double roe = PositionsHelper.calculateRoe(position.getQuantity(), unrealizedPnl, position.getLeverage(), position.getMarkPrice());
+			this.pnl.setText(String.format(Locale.getDefault(), "%s\n(%s)",
+					StringFormatUtil.formatAmount(unrealizedPnl),
+					StringFormatUtil.getPercentString(roe * 100)));
 
 			this.pnl.setTextColor(ThemeUtil.getColorByAttrId(itemView.getContext(),
-					position.getUnrealizedPnL() > 0 ? R.attr.colorGreen :
-							position.getUnrealizedPnL() == 0 ? R.attr.colorTextPrimary
+					unrealizedPnl > 0 ? R.attr.colorGreen :
+							unrealizedPnl == 0 ? R.attr.colorTextPrimary
 									: R.attr.colorRed));
 
 			this.entryPrice.setText(StringFormatUtil.formatAmount(position.getEntryPrice()));

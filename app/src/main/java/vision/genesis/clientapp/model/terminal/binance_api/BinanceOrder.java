@@ -12,6 +12,7 @@ import java.util.UUID;
 import io.swagger.client.model.BinanceOrderSide;
 import io.swagger.client.model.BinanceOrderStatus;
 import io.swagger.client.model.BinanceOrderType;
+import io.swagger.client.model.BinancePositionSide;
 import io.swagger.client.model.BinanceRawFuturesOrder;
 import io.swagger.client.model.BinanceRawOrder;
 import io.swagger.client.model.BinanceWorkingType;
@@ -62,6 +63,7 @@ public class BinanceOrder implements Parcelable
 		order.setClientOrderId(model.getClientOrderId());
 		order.setSymbol(model.getSymbol());
 		order.setSide(model.getSide());
+		order.setPositionSide(model.getPositionSide());
 		order.setStatus(model.getStatus());
 		order.setQuantity(model.getQuantity());
 		order.setCreateTime(model.getCreatedTime());
@@ -137,6 +139,8 @@ public class BinanceOrder implements Parcelable
 
 	private Double realizedProfit;
 
+	private BinancePositionSide positionSide;
+
 
 	public BinanceOrder() {
 	}
@@ -198,6 +202,8 @@ public class BinanceOrder implements Parcelable
 		else {
 			realizedProfit = in.readDouble();
 		}
+		side = (BinanceOrderSide) in.readSerializable();
+		positionSide = (BinancePositionSide) in.readSerializable();
 	}
 
 	public UUID getAccountId() {
@@ -375,6 +381,8 @@ public class BinanceOrder implements Parcelable
 			parcel.writeByte((byte) 1);
 			parcel.writeDouble(realizedProfit);
 		}
+		parcel.writeSerializable(side);
+		parcel.writeSerializable(positionSide);
 	}
 
 	public Boolean getReduceOnly() {
@@ -431,5 +439,13 @@ public class BinanceOrder implements Parcelable
 
 	public void setRealizedProfit(Double realizedProfit) {
 		this.realizedProfit = realizedProfit;
+	}
+
+	public BinancePositionSide getPositionSide() {
+		return positionSide;
+	}
+
+	public void setPositionSide(BinancePositionSide positionSide) {
+		this.positionSide = positionSide;
 	}
 }

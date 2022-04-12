@@ -1183,14 +1183,16 @@
     <string name="take_profit">Take profit</string>
     <string name="stop_loss">Stop loss</string>
     <string name="tpsl_warning">* This setting applies to the entire position. Take-profit and stop-loss automatically cancel after closing the position. A market order is triggered when the stop price is reached. The order will be rejected if the position size exceeds the Max Market Order Qty limit.</string>
-    <string name="template_tp_info">When %s reaches %s, it will trigger Take Profit Market order to close this position.</string>
-    <string name="template_sl_info">When %s reaches %s, it will trigger Stop Market order to close this position.</string>
+    <string name="template_tp_info">When %s reaches %s, it will trigger Take Profit Market order to close this position. Estimated PNL will be %s</string>
+    <string name="template_sl_info">When %s reaches %s, it will trigger Stop Market order to close this position. Estimated PNL will be %s</string>
     <string name="notional_size">Notional size</string>
     <string name="average">Average</string>
     <string name="trigger_conditions">Trigger conditions</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
     <string name="realized_profit">Realized profit</string>
+    <string name="long_text">long</string>
+    <string name="short_text">short</string>
 
     <plurals name="assets">
         <item quantity="one">asset</item>

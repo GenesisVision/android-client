@@ -21,6 +21,7 @@ import io.swagger.client.model.BinanceFuturesMarginType;
 import io.swagger.client.model.BinanceOrderSide;
 import io.swagger.client.model.BinanceOrderType;
 import io.swagger.client.model.BinancePositionMode;
+import io.swagger.client.model.BinancePositionSide;
 import io.swagger.client.model.BinanceRawAccountInfo;
 import io.swagger.client.model.BinanceRawBinanceBalance;
 import io.swagger.client.model.BinanceRawFuturesAccountAsset;
@@ -819,19 +820,33 @@ public class PlaceOrderPresenter extends MvpPresenter<PlaceOrderView> implements
 
 
 	void onBuyClicked() {
-		placeOrder(BinanceOrderSide.BUY);
+		placeOrder(BinanceOrderSide.BUY, null);
 	}
 
 	void onSellClicked() {
-		placeOrder(BinanceOrderSide.SELL);
+		placeOrder(BinanceOrderSide.SELL, null);
 	}
 
-	private void placeOrder(BinanceOrderSide side) {
+	void onLongClicked() {
+		BinancePositionSide positionSide = operationType.equals(OPERATION_TYPE_BUY)
+				? BinancePositionSide.LONG
+				: BinancePositionSide.SHORT;
+		placeOrder(BinanceOrderSide.BUY, positionSide);
+	}
+
+	void onShortClicked() {
+		BinancePositionSide positionSide = operationType.equals(OPERATION_TYPE_BUY)
+				? BinancePositionSide.SHORT
+				: BinancePositionSide.LONG;
+		placeOrder(BinanceOrderSide.SELL, positionSide);
+	}
+
+	private void placeOrder(BinanceOrderSide side, BinancePositionSide positionSide) {
 		if (currentMarket.equals(TradingAccountPermission.SPOT)) {
 			placeSpotOrder(side);
 		}
 		else if (currentMarket.equals(TradingAccountPermission.FUTURES)) {
-			placeFuturesOrder(side);
+			placeFuturesOrder(side, positionSide);
 		}
 	}
 
@@ -864,10 +879,11 @@ public class PlaceOrderPresenter extends MvpPresenter<PlaceOrderView> implements
 		}
 	}
 
-	private void placeFuturesOrder(BinanceOrderSide side) {
+	private void placeFuturesOrder(BinanceOrderSide side, BinancePositionSide positionSide) {
 		if (terminalManager != null && selectedAccount != null) {
 			BinanceRawFuturesPlaceOrder order = new BinanceRawFuturesPlaceOrder();
 			order.setSide(side);
+			order.setPositionSide(positionSide);
 			order.setSymbol(symbol);
 			order.setType(getBinanceOrderType(side));
 			if (orderTypePosition.equals(ORDER_TYPE_STOP_LIMIT)) {

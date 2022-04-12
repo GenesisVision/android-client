@@ -16,6 +16,19 @@ public class PositionsHelper
 		return Math.abs(position.getQuantity()) * direction * (position.getMarkPrice() - position.getEntryPrice());
 	}
 
+	public static double calculateRealisedPnl(Double entryPrice, Double exitPrice, Double quantity) {
+		float direction = quantity < 0 ? -1 : 1;
+		if (direction > 0) {
+			return (exitPrice - entryPrice) * Math.abs(quantity);
+		}
+		return (entryPrice - exitPrice) * Math.abs(quantity);
+	}
+
+	public static double calculateRoe(Double quantity, Double pnl, Integer leverage, Double markPrice) {
+		double imr = 1 / (float) leverage;
+		return pnl / (Math.abs(quantity) * markPrice * imr);
+	}
+
 	public static double calculateCrossPositionMaintMargin(BinanceRawFuturesPosition position, List<BinanceRawFuturesBracket> futuresBrackets) {
 		double notionalSize = Math.abs(position.getQuantity() * position.getMarkPrice());
 		BinanceRawFuturesBracket currentBracket = futuresBrackets.get(0);
