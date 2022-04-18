@@ -339,13 +339,19 @@ public class TpSlBottomSheetFragment extends BottomSheetDialogFragment
 	}
 
 	private void updateTpInfo() {
-		this.tpInfo.setText(getString(R.string.template_tp_info,
+		double pnl = PositionsHelper.calculateRealisedPnl(position.getEntryPrice(),
+				tpOrder != null ? tpOrder.getStopPrice() : newTp,
+				position.getQuantity());
+		String pnlText = StringFormatUtil.formatAmount(pnl, 2, 2)
+				.concat(" ")
+				.concat(Currency.USDT.getValue());
+		String text = getString(R.string.template_tp_info,
 				StringFormatUtil.getWorkingTypeLabel(tpOrder != null ? tpOrder.getWorkingType() : tpWorkingTypeValue),
 				StringFormatUtil.getValueString(tpOrder != null ? tpOrder.getStopPrice() : newTp,
 						Currency.USDT.getValue()),
-				StringFormatUtil.getValueString(PositionsHelper.calculateRealisedPnl(position.getEntryPrice(),
-						tpOrder != null ? tpOrder.getStopPrice() : newTp,
-						position.getQuantity()), Currency.USDT.getValue())));
+				pnlText);
+		int pnlColorResId = pnl >= 0 ? R.attr.colorGreen : R.attr.colorRed;
+		StringFormatUtil.setColorSpan(getContext(), this.tpInfo, text, pnlText, pnlColorResId);
 	}
 
 	private void onStopLossChanged(String newAmount) {
@@ -360,12 +366,18 @@ public class TpSlBottomSheetFragment extends BottomSheetDialogFragment
 	}
 
 	private void updateSlInfo() {
-		this.slInfo.setText(getString(R.string.template_sl_info,
+		double pnl = PositionsHelper.calculateRealisedPnl(position.getEntryPrice(),
+				slOrder != null ? slOrder.getStopPrice() : newSl,
+				position.getQuantity());
+		String pnlText = StringFormatUtil.formatAmount(pnl, 2, 2)
+				.concat(" ")
+				.concat(Currency.USDT.getValue());
+		String text = getString(R.string.template_sl_info,
 				StringFormatUtil.getWorkingTypeLabel(slOrder != null ? slOrder.getWorkingType() : slWorkingTypeValue),
 				StringFormatUtil.getValueString(slOrder != null ? slOrder.getStopPrice() : newSl, Currency.USDT.getValue()),
-				StringFormatUtil.getValueString(PositionsHelper.calculateRealisedPnl(position.getEntryPrice(),
-						slOrder != null ? slOrder.getStopPrice() : newSl,
-						position.getQuantity()), Currency.USDT.getValue())));
+				pnlText);
+		int pnlColorResId = pnl >= 0 ? R.attr.colorGreen : R.attr.colorRed;
+		StringFormatUtil.setColorSpan(getContext(), this.slInfo, text, pnlText, pnlColorResId);
 	}
 
 	private void updateConfirmButtonEnabled() {

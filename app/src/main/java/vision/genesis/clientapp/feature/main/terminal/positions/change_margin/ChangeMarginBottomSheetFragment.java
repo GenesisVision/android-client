@@ -17,6 +17,9 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
 import com.jakewharton.rxbinding.widget.RxTextView;
 
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.util.ArrayList;
 import java.util.Locale;
 import java.util.Objects;
 import java.util.UUID;
@@ -28,7 +31,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 import io.swagger.client.model.BinanceFuturesMarginChangeDirectionType;
-import io.swagger.client.model.BinanceFuturesMarginType;
+import io.swagger.client.model.BinanceRawFuturesBracket;
 import io.swagger.client.model.BinanceRawFuturesPosition;
 import io.swagger.client.model.BinanceRawFuturesPositionMarginResult;
 import io.swagger.client.model.Currency;
@@ -42,6 +45,7 @@ import vision.genesis.clientapp.managers.TerminalManager;
 import vision.genesis.clientapp.net.ApiErrorResolver;
 import vision.genesis.clientapp.ui.CustomTabView;
 import vision.genesis.clientapp.ui.PrimaryButton;
+import vision.genesis.clientapp.utils.PositionsHelper;
 import vision.genesis.clientapp.utils.StringFormatUtil;
 import vision.genesis.clientapp.utils.TabLayoutUtil;
 
@@ -58,12 +62,22 @@ public class ChangeMarginBottomSheetFragment extends BottomSheetDialogFragment
 
 	public static final String EXTRA_POSITION = "extra_position";
 
-	public static ChangeMarginBottomSheetFragment with(UUID accountId, String symbol, BinanceRawFuturesPosition position) {
+	public static final String EXTRA_FUTURES_BRACKETS = "extra_futures_brackets";
+
+	public static final String EXTRA_AVAILABLE = "extra_available";
+
+	public static ChangeMarginBottomSheetFragment with(UUID accountId,
+	                                                   String symbol,
+	                                                   BinanceRawFuturesPosition position,
+	                                                   ArrayList<BinanceRawFuturesBracket> futuresBrackets,
+	                                                   Double available) {
 		ChangeMarginBottomSheetFragment fragment = new ChangeMarginBottomSheetFragment();
-		Bundle arguments = new Bundle(3);
+		Bundle arguments = new Bundle(4);
 		arguments.putSerializable(EXTRA_ACCOUNT_ID, accountId);
 		arguments.putString(EXTRA_SYMBOL, symbol);
 		arguments.putParcelable(EXTRA_POSITION, position);
+		arguments.putParcelableArrayList(EXTRA_FUTURES_BRACKETS, futuresBrackets);
+		arguments.putDouble(EXTRA_AVAILABLE, available);
 		fragment.setArguments(arguments);
 		return fragment;
 	}
@@ -81,7 +95,7 @@ public class ChangeMarginBottomSheetFragment extends BottomSheetDialogFragment
 	public TextView amountCurrency;
 
 	@BindView(R.id.max)
-	public TextView max;
+	public TextView maxText;
 
 	@BindView(R.id.label_current_margin)
 	public TextView labelCurrentMargin;
@@ -99,7 +113,7 @@ public class ChangeMarginBottomSheetFragment extends BottomSheetDialogFragment
 	public TextView labelLiqPrice;
 
 	@BindView(R.id.liq_price)
-	public TextView liqPrice;
+	public TextView liqPriceText;
 
 	@BindView(R.id.button_confirm)
 	public PrimaryButton confirmButton;
@@ -127,7 +141,13 @@ public class ChangeMarginBottomSheetFragment extends BottomSheetDialogFragment
 
 	private BinanceFuturesMarginChangeDirectionType type = BinanceFuturesMarginChangeDirectionType.ADD;
 
-	private double currentMarginValue = 0.0;
+	private Double currentMarginValue = 0.0;
+
+	private Double max = 0.0;
+
+	private ArrayList<BinanceRawFuturesBracket> futuresBrackets = new ArrayList<>();
+
+	private Double available = 0.0;
 
 	@OnClick(R.id.group_amount)
 	public void onAmountClicked() {
@@ -136,7 +156,7 @@ public class ChangeMarginBottomSheetFragment extends BottomSheetDialogFragment
 
 	@OnClick(R.id.max)
 	public void onMaxClicked() {
-
+		this.amount.setText(StringFormatUtil.formatAmountWithoutGrouping(max));
 	}
 
 	@OnClick(R.id.button_confirm)
@@ -160,7 +180,9 @@ public class ChangeMarginBottomSheetFragment extends BottomSheetDialogFragment
 		try {
 			setData(Objects.requireNonNull((UUID) requireArguments().getSerializable(EXTRA_ACCOUNT_ID)),
 					Objects.requireNonNull(requireArguments().getString(EXTRA_SYMBOL)),
-					Objects.requireNonNull(requireArguments().getParcelable(EXTRA_POSITION)));
+					Objects.requireNonNull(requireArguments().getParcelable(EXTRA_POSITION)),
+					Objects.requireNonNull(requireArguments().getParcelableArrayList(EXTRA_FUTURES_BRACKETS)),
+					Objects.requireNonNull(requireArguments().getDouble(EXTRA_AVAILABLE)));
 
 			setTextListener();
 
@@ -245,6 +267,9 @@ public class ChangeMarginBottomSheetFragment extends BottomSheetDialogFragment
 			this.labelMaxAddable.setText(getString(R.string.max_removable));
 			this.labelLiqPrice.setText(getString(R.string.liq_price_after_reduction));
 		}
+
+		updateMax();
+		updateLiquidationPrice();
 	}
 
 	private View getTabView(int textResId) {
@@ -268,22 +293,25 @@ public class ChangeMarginBottomSheetFragment extends BottomSheetDialogFragment
 				.subscribe(charSequence -> onAmountChanged(charSequence.toString()));
 	}
 
-	private void setData(@NonNull UUID accountId, @NonNull String symbol, @NonNull BinanceRawFuturesPosition position) {
+	private void setData(@NonNull UUID accountId,
+	                     @NonNull String symbol,
+	                     @NonNull BinanceRawFuturesPosition position,
+	                     @NonNull ArrayList<BinanceRawFuturesBracket> futuresBrackets,
+	                     @NonNull Double available) {
 		this.accountId = accountId;
 		this.symbol = symbol;
 		this.position = position;
+		this.futuresBrackets = futuresBrackets;
+		this.available = available;
+
+		updateMax();
+		updateLiquidationPrice();
 
 		this.labelCurrentMargin.setText(String.format(Locale.getDefault(),
 				getString(R.string.template_current_margin),
 				symbol));
 
-		if (position.getMarginType().equals(BinanceFuturesMarginType.CROSS)) {
-			Double notionalSize = position.getMarkPrice() * position.getQuantity();
-			this.currentMarginValue = notionalSize / position.getLeverage();
-		}
-		else if (position.getMarginType().equals(BinanceFuturesMarginType.ISOLATED)) {
-			this.currentMarginValue = position.getIsolatedMargin() - position.getUnrealizedPnL();
-		}
+		this.currentMarginValue = PositionsHelper.calculateMargin(position);
 		this.currentMargin.setText(StringFormatUtil.getValueString(currentMarginValue, Currency.USDT.getValue()));
 	}
 
@@ -294,7 +322,62 @@ public class ChangeMarginBottomSheetFragment extends BottomSheetDialogFragment
 			newMargin = 0.0;
 		}
 
+		updateMax();
+		updateLiquidationPrice();
+
 		setConfirmButtonEnabled(newMargin > 0);
+	}
+
+	private void updateMax() {
+		if (position == null) {
+			return;
+		}
+		DecimalFormatSymbols dfs = new DecimalFormatSymbols(Locale.getDefault());
+		dfs.setDecimalSeparator('.');
+		DecimalFormat df = new DecimalFormat("#.##", dfs);
+		Double maintMargin = PositionsHelper.calculateMaintMargin(position, futuresBrackets);
+		Double truncatedCurrentMargin = Double.valueOf(StringFormatUtil.formatAmount(currentMarginValue, 0, 2));
+
+		max = this.type == BinanceFuturesMarginChangeDirectionType.ADD
+				? Double.valueOf(StringFormatUtil.formatAmount(available, 2, 2))
+				: PositionsHelper.calculateMaxRemovable(
+				position.getEntryPrice(),
+				position.getMarkPrice(),
+				position.getQuantity(),
+				position.getLeverage(),
+				truncatedCurrentMargin,
+				maintMargin);
+		max = Double.valueOf(df.format(max));
+		this.maxAddable.setText(String.format(Locale.getDefault(), "%s %s",
+				StringFormatUtil.formatAmount(max, 2, 2),
+				Currency.USDT.getValue()));
+	}
+
+	private void updateLiquidationPrice() {
+		if (position == null) {
+			return;
+		}
+		DecimalFormatSymbols dfs = new DecimalFormatSymbols(Locale.getDefault());
+		dfs.setDecimalSeparator('.');
+		DecimalFormat df = new DecimalFormat("#.##", dfs);
+		Double truncatedCurrentMargin = Double.valueOf(df.format(currentMarginValue));
+		double isolatedWallet = truncatedCurrentMargin +
+				(this.type == BinanceFuturesMarginChangeDirectionType.ADD
+						? newMargin
+						: -newMargin);
+		double maintAmount = PositionsHelper.getMaintAmount(position, futuresBrackets);
+		double maintMarginRatio = PositionsHelper.getMaintMarginRatio(position, futuresBrackets);
+
+		double liqPrice = PositionsHelper.calculateIsolatedLiquidationPrice(
+				position.getEntryPrice(),
+				position.getQuantity(),
+				isolatedWallet,
+				maintAmount,
+				maintMarginRatio,
+				position.getPositionSide());
+		this.liqPriceText.setText(liqPrice >= 0
+				? StringFormatUtil.formatAmount(liqPrice, 2, 4).concat(" ").concat(Currency.USDT.getValue())
+				: "-");
 	}
 
 	private void setConfirmButtonEnabled(boolean enabled) {

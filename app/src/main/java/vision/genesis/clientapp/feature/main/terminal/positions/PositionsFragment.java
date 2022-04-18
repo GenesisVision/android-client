@@ -19,6 +19,7 @@ import java.util.UUID;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import io.swagger.client.model.BinanceRawFuturesBracket;
 import io.swagger.client.model.BinanceRawFuturesPosition;
 import timber.log.Timber;
 import vision.genesis.clientapp.R;
@@ -124,9 +125,9 @@ public class PositionsFragment extends BaseFragment implements PositionsView, Pr
 	}
 
 	@Override
-	public void showChangePositionMargin(BinanceRawFuturesPosition position) {
+	public void showChangePositionMargin(BinanceRawFuturesPosition position, ArrayList<BinanceRawFuturesBracket> futuresBrackets, Double available) {
 		if (getActivity() != null) {
-			ChangeMarginBottomSheetFragment fragment = ChangeMarginBottomSheetFragment.with(accountId, symbol, position);
+			ChangeMarginBottomSheetFragment fragment = ChangeMarginBottomSheetFragment.with(accountId, symbol, position, futuresBrackets, available);
 			fragment.show(getActivity().getSupportFragmentManager(), fragment.getTag());
 		}
 	}
@@ -180,6 +181,12 @@ public class PositionsFragment extends BaseFragment implements PositionsView, Pr
 	public void onSwipeRefresh() {
 		if (presenter != null) {
 			presenter.onSwipeRefresh();
+		}
+	}
+
+	public void setAvailable(Double available, String availableCurrency) {
+		if (presenter != null) {
+			presenter.setAvailable(available, availableCurrency);
 		}
 	}
 }

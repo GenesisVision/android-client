@@ -671,8 +671,11 @@ public class PlaceOrderActivity extends BaseSwipeBackActivity implements PlaceOr
 	}
 
 	@Override
-	public void setAvailable(String availableText) {
-		this.balance.setText(availableText);
+	public void setAvailable(Double available, String availableCurrency) {
+		this.balance.setText(StringFormatUtil.getValueString(available, availableCurrency));
+		if (pagerAdapter != null) {
+			pagerAdapter.setAvailable(available, availableCurrency);
+		}
 	}
 
 	@Override

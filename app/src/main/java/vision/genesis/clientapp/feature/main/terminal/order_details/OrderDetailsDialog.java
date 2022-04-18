@@ -217,7 +217,7 @@ public class OrderDetailsDialog extends BottomSheetDialogFragment
 		}
 		else {
 			this.triggerConditionsGroup.setVisibility(View.VISIBLE);
-			this.triggerConditions.setText(order.getWorkingType() != null
+			this.triggerConditions.setText(order.getWorkingType() != null && order.getStopPrice() > 0
 					? String.format(Locale.getDefault(), "%s >= %s",
 					StringFormatUtil.getWorkingTypeLabel(order.getWorkingType()), StringFormatUtil.formatAmount(order.getStopPrice()))
 					: "-");

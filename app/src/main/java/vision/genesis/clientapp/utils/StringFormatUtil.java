@@ -241,6 +241,19 @@ public class StringFormatUtil
 		textView.setMovementMethod(LinkMovementMethod.getInstance());
 	}
 
+	public static void setColorSpan(Context context, TextView textView, String completeString, String colorPart, int colorResId) {
+		int startPosition = completeString.indexOf(colorPart);
+		int endPosition = completeString.lastIndexOf(colorPart) + colorPart.length();
+
+		final SpannableString spannable = new SpannableString(completeString);
+		spannable.setSpan(new ForegroundColorSpan(ThemeUtil.getColorByAttrId(context, colorResId)),
+				startPosition,
+				endPosition,
+				Spannable.SPAN_INCLUSIVE_EXCLUSIVE);
+		textView.setText(spannable);
+		textView.setMovementMethod(LinkMovementMethod.getInstance());
+	}
+
 	public static String getTradesDelayString(TradesDelay tradesDelay) {
 		switch (tradesDelay) {
 			case FIVEMINUTES:

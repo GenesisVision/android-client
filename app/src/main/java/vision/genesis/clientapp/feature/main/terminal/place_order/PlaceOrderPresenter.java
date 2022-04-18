@@ -425,7 +425,7 @@ public class PlaceOrderPresenter extends MvpPresenter<PlaceOrderView> implements
 				}
 			}
 			getViewState().setPercentSelectEnabled(available > 0);
-			getViewState().setAvailable(StringFormatUtil.getValueString(available, availableCurrency));
+			getViewState().setAvailable(available, availableCurrency);
 		}
 	}
 
@@ -440,7 +440,7 @@ public class PlaceOrderPresenter extends MvpPresenter<PlaceOrderView> implements
 				}
 			}
 			getViewState().setPercentSelectEnabled(available > 0);
-			getViewState().setAvailable(StringFormatUtil.getValueString(available, availableCurrency));
+			getViewState().setAvailable(available, availableCurrency);
 		}
 	}
 

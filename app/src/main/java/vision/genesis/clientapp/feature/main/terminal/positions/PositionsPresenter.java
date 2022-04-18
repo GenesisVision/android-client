@@ -70,6 +70,8 @@ public class PositionsPresenter extends MvpPresenter<PositionsView> implements P
 
 	private Double currentTickerPrice = null;
 
+	private Double available = 0.0;
+
 	@Override
 	protected void onFirstViewAttach() {
 		super.onFirstViewAttach();
@@ -364,7 +366,7 @@ public class PositionsPresenter extends MvpPresenter<PositionsView> implements P
 
 	@Override
 	public void onAddMarginClicked(BinanceRawFuturesPosition position) {
-		getViewState().showChangePositionMargin(position);
+		getViewState().showChangePositionMargin(position, futuresBrackets, available);
 	}
 
 	@Override
@@ -375,5 +377,9 @@ public class PositionsPresenter extends MvpPresenter<PositionsView> implements P
 	@Override
 	public void onClosePositionClicked(BinanceRawFuturesPosition position) {
 		getViewState().showClosePosition(position);
+	}
+
+	public void setAvailable(Double available, String availableCurrency) {
+		this.available = available;
 	}
 }

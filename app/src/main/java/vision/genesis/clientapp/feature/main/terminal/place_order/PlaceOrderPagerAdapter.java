@@ -82,4 +82,10 @@ public class PlaceOrderPagerAdapter extends FragmentStatePagerAdapter
 
 	public void destroy() {
 	}
+
+	public void setAvailable(Double available, String availableCurrency) {
+		if (positionsFragment != null) {
+			positionsFragment.setAvailable(available, availableCurrency);
+		}
+	}
 }

@@ -22,7 +22,7 @@ interface PlaceOrderView extends MvpView
 
 	void setSelectedSymbol(String symbol);
 
-	void setAvailable(String availableText);
+	void setAvailable(Double available, String availableCurrency);
 
 	void setBaseQuoteAssets(String baseAsset, String quoteAsset);
 
